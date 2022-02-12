@@ -128,7 +128,7 @@ describe('reading messages', () => {
 - [Jest 的模拟函数](https://jestjs.io/zh-Hans/docs/mock-function-api)
 
 ::: warning 警告
-正在翻译中。。。
+正在翻译中......
 :::
 <!--
 ## Modules
