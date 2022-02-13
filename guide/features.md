@@ -21,7 +21,7 @@ Vitest 智能地搜索模块并仅仅只是重新运行相关测试（就像 HMR
 
 ## 与 UI 框架的平滑集成
 
-平滑集成了 Vue、React、Lit 等框架的组件测试
+平滑集成了 Vue、React、Lit 等框架的测试套件测试
 
 ## 开箱即用的常见 Web 支持
 
@@ -39,7 +39,7 @@ Vitest 还隔离了每个文件的环境，因此一个文件中的 env 改变�
 
 ## 过滤
 
-组件和测试的过滤、超时、并发
+测试套件和测试的过滤、超时、并发
 
 ### CLI
 
@@ -74,16 +74,16 @@ import { beforeAll } from 'vitest'
 beforeAll(async () => { ... }, 1000)
 ```
 
-### 省略组件和测试
+### 省略测试套件和测试
 
-使用 `.skip` 别名 `it` 来避免运行某些组件或测试。
+使用 `.skip` 别名 `it` 来避免运行某些测试套件或测试。
 
 ```ts
 import { describe, assert, it } from 'vitest';
 
 describe.skip("skipped suite", () => {
   it("test", () => {
-    // 组件已跳过，没有错误
+    // 测试套件已跳过，没有错误
     assert.equal(Math.sqrt(4), 3);
   });
 });
@@ -96,14 +96,14 @@ describe("suite", () => {
 });
 ```
 
-### 选择要运行的组件和测试
+### 选择要运行的测试套件和测试
 
-使用 `.only` 仅运行某些组件或测试。
+使用 `.only` 仅运行某些测试套件或测试。
 
 ```ts
 import { describe, assert, it } from 'vitest'
 
-// 仅运行此组件（以及仅标有的其他组件）
+// 仅运行此测试套件（以及仅标有的其他测试套件）
 describe.only("suite", () => {
   it("test", () => {
     assert.equal(Math.sqrt(4), 3);
@@ -123,14 +123,14 @@ describe("another suite", () => {
 });
 ```
 
-### 未实现的组件和测试
+### 未实现的测试套件和测试
 
-使用 `.todo` 记录应该实现的组件和测试
+使用 `.todo` 记录应该实现的测试套件和测试
 
 ```ts
 import { describe, it } from 'vitest'
 
-// 该组件的报告中将显示一个条目
+// 该测试套件的报告中将显示一个条目
 describe.todo("unimplemented suite");
 
 // 此测试的报告中将显示一个条目
@@ -154,12 +154,12 @@ describe("suite", () => {
 });
 ```
 
-如果在组件中使用 `.concurrent`，则其中的每个测试都将并发运行。
+如果在测试套件中使用 `.concurrent`，则其中的每个测试都将并发运行。
 
 ```ts
 import { describe, it } from 'vitest'
 
-// 该组件中的所有测试都将并行运行
+// 该测试套件中的所有测试都将并行运行
 describe.concurrent("suite", () => {
   it("concurrent test 1", async () => { /* ... */ });
   it("concurrent test 2", async () => { /* ... */ });
@@ -167,7 +167,7 @@ describe.concurrent("suite", () => {
 });
 ```
 
-您还可以将 `.skip`、`.only` 和 `.todo` 用于并发组件和测试。 在 [API 参考](../api/#concurrent) 中阅读更多信息。
+您还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试。 在 [API 参考](../api/#concurrent) 中阅读更多信息。
 
 ## 快照
 
