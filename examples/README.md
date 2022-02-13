@@ -1,4 +1,4 @@
-| 例子 | 开源地址 | 在线试用 |
+| 实例 | 开源地址 | 在线试用 |
 |---|---|---|
 | `basic` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__) |
 | `cjs` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/cjs) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/cjs?initialPath=__vitest__) |
