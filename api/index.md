@@ -320,16 +320,11 @@ TODO
   })
   ```
 
-::: warning 警告
-正在翻译中......
-:::
-
-<!--
 ### toBeUndefined
 
 - **类型:** `() => Awaitable<void>`
 
-  Opposite of `toBeDefined`, `toBeUndefined` asserts that the value _is_ equal to `undefined`. Useful use case would be to check if function hasn't _returned_ anything.
+  与 `toBeDefined` 相反，`toBeUndefined` 断言值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -347,9 +342,9 @@ TODO
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeTruthy` asserts that the value is true, when converted to boolean. Useful if you don't care for the value, but just want to know it can be converted to `true`.
+  `toBeTruthy` 转换为布尔值，断言该值是否为真。如果不关心该值，但只想知道它是否可以转换为 `true`，则很有用。
 
-  For example having this code you don't care for the return value of `stocks.getInfo` - it maybe complex object, a string or anything else. The code will still work.
+  例如下面这段代码，我们就不需要关心 `stocks.getInfo` 的返回值，可能是复杂的对象、字符串或者其他的东西。但是代码仍然可以运行。
 
   ```ts
   import { Stocks } from './stocks'
@@ -360,7 +355,7 @@ TODO
   }
   ```
 
-  So if you want to test that `stocks.getInfo` will be truthy, you could write:
+  所以如果我们想测试 `stocks.getInfo` 是否为 true，我们可以这样写：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -373,15 +368,15 @@ TODO
   })
   ```
 
-  Everything in JavaScript is truthy, except `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
+  JavaScript 中一切都是真实的，例如`false`，`0`，`''`，`null`，`undefined` 和 `NaN`。
 
 ### toBeFalsy
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeFalsy` asserts that the value is false, when converted to boolean. Useful if you don't care for the value, but just want to know it can be converted to `false`.
+  `toBeFalsy` 转换为布尔值，断言该值是否为真。如果不关心该值，但只想知道它是否可以转换为 `false`，则很有用。
 
-  For example having this code you don't care for the return value of `stocks.stockFailed` - it may return any falsy value, but the code will still work.
+  例如下面这段代码，我们就不需要关心 `stocks.stockFailed` 的返回值，可能是复杂的对象、字符串或者其他的东西。但是代码仍然可以运行。
 
   ```ts
   import { Stocks } from './stocks'
@@ -392,7 +387,7 @@ TODO
   }
   ```
 
-  So if you want to test that `stocks.stockFailed` will be falsy, you could write:
+  所以如果我们想测试 `stocks.stockFailed` 是否为 false，我们可以这样写：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -405,8 +400,9 @@ TODO
   })
   ```
 
-  Everything in JavaScript is truthy, except `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
+  JavaScript 中一切都是真实的，例如`false`，`0`，`''`，`null`，`undefined` 和 `NaN`。
 
+<!--
 ### toBeNull
 
 - **类型:** `() => Awaitable<void>`
@@ -1487,4 +1483,4 @@ If function returned `'result1`, then threw and error, then `mock.results` will 
 ### mock.instances
 
 Currently, this property is not implemented.
- -->
+-->
