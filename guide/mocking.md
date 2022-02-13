@@ -127,27 +127,24 @@ describe('reading messages', () => {
 
 - [Jest 的模拟函数](https://jestjs.io/zh-Hans/docs/mock-function-api)
 
-::: warning 警告
-正在翻译中......
-:::
-<!--
-## Modules
+## 模块
 
-Mock modules observe third-party-libraries, that are invoked in some other code, allowing you to test arguments, output or even redeclare its implementation.
+模拟模块中要使用第三方库，这些库也在其他代码中被调用，也可以帮助您测试参数、输出甚至声明他的实现。
 
-See the [`vi.mock()` api section](/api/#vi-fn) for a more in depth detailed API description.
+有关这部分更详细的 API 描述，请参阅 [`vi.mock()` 的 API 部分](/api/#vi-fn)。
 
-### Automocking algorithm
+### 自动模拟算法
 
-If your code is importing mocked module, without any associated `__mocks__` file or `factory` for this module, Vitest will mock the module itself by invoking it and mocking every export.
+如果你的代码导入了模拟模块，但是没有使用 `__mocks__` 文件或 `factory` 模块，Vitest 将通过调用他并模拟导每一个导出的模块本身。
 
-The following principles apply
-* All arrays will be emptied
-* All primitives and collections will stay the same
-* All objects will be deeply cloned
-* All instances of classes and their prototypes will be deeply cloned
+适用于以下这些原则：
 
-### Example
+* 所有的数组将被清空
+* 所有的基础类型和集合将保持不变
+* 所有的对象都将被深度克隆
+* 类的所有实例及其原型都将被深度克隆
+
+### 实例
 
 ```js
 import { vi, beforeEach, afterEach, describe, it } from 'vitest';
@@ -241,16 +238,16 @@ describe('get a list of todo items', () => {
 })
 ```
 
-## Requests
+## 请求
 
-Because Vitest runs in Node, mocking network requests is tricky; web APIs are not available, so we need something that will mimic network behavior for us. We recommend [Mock Service Worker](https://mswjs.io/) to accomplish this. It will let you mock both `REST` and `GraphQL` network requests, and is framework agnostic.
+因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情; 由于没有办法使用 WEB API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以同时模拟 `REST` 和 `GraphQL` 网络请求，并且跟所使用的框架没有任何联系。
 
-Mock Service Worker (MSW) works by intercepting the requests your tests make, allowing you to use it without changing any of your application code. In-browser, this uses the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API). In Node.js, and for Vitest, it uses [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation). To learn more about MSW, read their [introduction](https://mswjs.io/docs/)
+Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许我们在不更改任何应用程序代码的情况下使用它。在浏览器中，会使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node 和 Vitest 中，会使用 [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation)。要了解有关 MSW 的更多信息，可以去阅读他们的[介绍](https://mswjs.io/docs/)。
 
 
-### Configuration
+### 配置
 
-Add the following to your test [setup file](/config/#setupfiles)
+将以下内容添加到[测试配置文件](/config/#setupfiles)
 ```js
 import { beforeAll, afterAll, afterEach } from 'vitest'
 import { setupServer } from 'msw/node'
@@ -280,32 +277,33 @@ const graphqlHandlers = [
 
 const server = setupServer(...restHandlers, ...graphqlHandlers)
 
-// Start server before all tests
+// 在所有测试之前启动服务器
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 
-//  Close server after all tests
+// 所有测试后关闭服务器
 afterAll(() => server.close())
 
-// Reset handlers after each test `important for test isolation`
+// 每次测试后重置处理程序“对测试隔离很重要”
 afterEach(() => server.resetHandlers())
 ```
 
-> Configuring the server with `onUnhandleRequest: 'error'` ensures that an error is thrown whenever there is a request that does not have a corresponding request handler.
+> 配置服务 `onUnhandleRequest: 'error'` 只要产生了没有相应类型的请求处理，就会发生错误。
 
-### Example
+### 实例
 
-We have a full working example which uses MSW: [React Testing with MSW](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw).
+我们有一个使用 MSW 的完整工作示例： [React Testing with MSW](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw).
 
-### More
-There is much more to MSW. You can access cookies and query parameters, define mock error responses, and much more! To see all you can do with MSW, read [their documentation](https://mswjs.io/docs/recipes).
+### 了解更多
 
-## Timers
+MSW还有很多。您可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读[他们的文档](https://mswjs.io/docs/recipes)。
 
-Whenever we test code that involves `timeOut`s or intervals, instead of having our tests it wait out or time-out. We can speed up our tests by using "fake" timers by mocking calls to `setTimeout` and `setInterval`, too.
+## 时间
 
-See the [`vi.mock()` api section](/api/#vi-usefaketimer) for a more in depth detailed API description.
+每当我们测试涉及到`超时`或者`间隔`的代码时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用“假”计时器来加速我们的测试。
 
-### Example
+有关更深入的详细 API 描述，请参[`vi.mock()` API 部分](/api/#vi-usefaketimer)。
+
+### 实例
 
 ```js
 import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest'
@@ -348,4 +346,3 @@ describe('delayed execution', () => {
   })
 })
 ```
- -->
