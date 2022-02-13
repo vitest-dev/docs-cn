@@ -124,6 +124,10 @@ export default defineConfig({
             {
               text: '比较',
               link: '/guide/comparisons'
+            },
+            {
+              text: '迁移指南',
+              link: '/guide/migration'
             }
           ]
         },
