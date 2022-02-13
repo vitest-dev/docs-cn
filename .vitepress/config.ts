@@ -17,13 +17,12 @@ export default defineConfig({
     ['link', { href: 'https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;400;600&display=swap', rel: 'stylesheet' }],
   ],
   themeConfig: {
-    repo: 'xiaoxunyao/cn.vitest.dev',
+    repo: 'vitest-dev/vitest',
     logo: '/logo.svg',
-    docsDir:'zh-vitest-docs',
-    docsBranch: 'main',
+    docsRepo:'xiaoxunyao/cn.vitest.dev',
+    docsBranch: 'master',
     editLinks: true,
     editLinkText: '建议更改此页面',
-
     /* TODO
 
     algolia: {
