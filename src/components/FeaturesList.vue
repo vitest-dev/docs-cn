@@ -11,7 +11,7 @@
     <ListItem>开箱即用的 TypeScript / JSX 支持</ListItem>
     <ListItem>优先 ESM ， 顶级的 await</ListItem>
     <ListItem>通过 <a href="https://github.com/Aslemammad/tinypool" target="_blank">tinypool</a> 使用 Worker 线程尽可能多地并发运行</ListItem>
-    <ListItem>组件和测试的过滤、超时、并发</ListItem>
+    <ListItem>测试套件和测试的过滤、超时、并发</ListItem>
     <ListItem><a target="_blank" href="https://jestjs.io/zh-Hans/docs/snapshot-testing" rel="nofollow">Jest 快照测试</a></ListItem>
     <ListItem><a target="_blank" href="https://www.chaijs.com/" rel="nofollow">Chai </a> 内置断言 + <a href="https://jestjs.io/zh-Hans/docs/expect" rel="nofollow">Jest 预期</a>兼容的 API</ListItem>
     <ListItem>内置用于模拟的 <a target="_blank" href="https://github.com/Aslemammad/tinyspy" rel="nofollow">Tinyspy</a></ListItem>
