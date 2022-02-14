@@ -402,12 +402,11 @@ TODO
 
   JavaScript 中一切都是真实的，例如`false`，`0`，`''`，`null`，`undefined` 和 `NaN`。
 
-<!--
 ### toBeNull
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeNull` simply asserts if something is `null`. Alias for `.toBe(null)`.
+  `toBeNull` 将简单的断言是否为 `null`. 是 `.toBe(null)` 的别名.
 
   ```ts
   import { test, expect } from 'vitest'
@@ -425,7 +424,7 @@ TODO
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeNaN` simply asserts if something is `NaN`. Alias for `.toBe(NaN)`.
+  `toBeNaN` 将简单的断言是否为 `NaN`. 是 `.toBe(NaN)` 的别名.
 
   ```ts
   import { test, expect } from 'vitest'
@@ -447,7 +446,7 @@ TODO
 
 - **类型:** `(c: any) => Awaitable<void>`
 
-  `toBeInstanceOf` asserts if an actual value is instance of received class.
+  `toBeInstanceOf` 判断值的类型是否与需要对比的值的类型一样。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -463,7 +462,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThan` asserts if actual value is greater than received one. Equal values will fail the test.
+  `toBeGreaterThan` 断言接收值是否比实际值大，如果相同将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -478,7 +477,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThanOrEqual` asserts if actual value is greater than received one or equal to it.
+  `toBeGreaterThanOrEqual` 断言实际值是否大于等于接收到值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -493,7 +492,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThan` asserts if actual value is less than received one. Equal values will fail the test.
+  `toBeLessThan` 断言接收值是否比实际值小，如果相同将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -508,7 +507,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThanOrEqual` asserts if actual value is less than received one or equal to it.
+  `toBeLessThanOrEqual` 断言实际值是否小于等于接收到值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -518,7 +517,7 @@ TODO
     expect(getApples()).toBeLessThanOrEqual(11)
   })
   ```
-
+<!--
 ### toEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
