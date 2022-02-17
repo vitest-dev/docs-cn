@@ -517,12 +517,13 @@ TODO
     expect(getApples()).toBeLessThanOrEqual(11)
   })
   ```
-<!--
+
 ### toEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
+  `toEqual` 将断言实际值是否等于接收值或者同样的结构，如果是断言对象(将会使用递归的方法进行断言)。
 
-  `toEqual` asserts if actual value is equal to received one or has the same structure, if it is an object (compares them recursively). You can see the difference between `toEqual` and [`toBe`](#tobe) in this example:
+  我们在下面的示例中看出 `toEqual` 和 `toBe` 之间的区别：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -546,21 +547,20 @@ TODO
   })
   ```
 
-  :::warning
-  A _deep equality_ will not be performed for `Error` objects. To test if something was thrown, use [`toThrow`](#tothrow) assertion.
+  :::warning 警告
+  不会对对象执行深度判断，如果需要 `Error` 要测试是否抛出了某些东西，建议使用 [`toThrow`](#tothrow) 断言。
   :::
 
 ### toStrictEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
+  `toStrictEqual` 将断言实际值是否等于接收值或者同样的结构，如果它是一个对象（递归比较它们），并且会比较是否是相同的类型。
 
-  `toStrictEqual` asserts if actual value is equal to received one or has the same structure, if it is an object (compares them recursively), and of the same type.
+  与 [`.toEqual`](#toequal) 之间的区别：
 
-  Differences from [`.toEqual`](#toequal):
-
-  -  Keys with `undefined` properties are checked. e.g. `{a: undefined, b: 2}` does not match `{b: 2}` when using `.toStrictEqual`.
-  -  Array sparseness is checked. e.g. `[, 1]` does not match `[undefined, 1]` when using `.toStrictEqual`.
-  -  Object types are checked to be equal. e.g. A class instance with fields `a` and` b` will not equal a literal object with fields `a` and `b`.
+  -  `undefined` 检查具有属性的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
+  -  检查数组的稀疏性。 例如 使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
+  -  检查对象类型是否相等。例如 具有字段 `a` 和 `b` 的 instance 对象将不等于具有字段 `a` 和`b` 的 literal 对象。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -581,7 +581,7 @@ TODO
 
 - **类型:** `(received: string) => Awaitable<void>`
 
-  `toContain` asserts if actual value is in an array. `toContain` can also check whether a string is a substring of another string.
+  `toContain` 断言值是否在数组中。还可以检查一个字符串是否是另一个字符串的子字符串。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -596,8 +596,8 @@ TODO
 
 - **类型:** `(received: any) => Awaitable<void>`
 
-  `toContainEqual` asserts if an item with a specific structure and values is contained in an array.
-  It works like [`toEqual`](#toequal) inside for each element.
+  `toContainEqual` 断言在数组中是否包含具有特定结构和值的项目。
+  它就像 [`toEqual`](#toequal) 每个元素的内部一样。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -612,7 +612,7 @@ TODO
 
 - **类型:** `(received: number) => Awaitable<void>`
 
-  `toHaveLength` asserts if an object has a `.length` property and it is set to a certain numeric value.
+  `toHaveLength` 断言一个对象是否具有 `.length` 属性并且它被设置为某个数值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -621,7 +621,7 @@ TODO
     expect('abc').toHaveLength(3);
     expect([1, 2, 3]).toHaveLength(3);
 
-    expect('').not.toHaveLength(3); // doesn't have .length of 3
+    expect('').not.toHaveLength(3); // .length 的值并不是3
     expect({ length: 3 }).toHaveLength(3)
   })
   ```
@@ -630,9 +630,9 @@ TODO
 
 - **类型:** `(key: any, received?: any) => Awaitable<void>`
 
-  `toHaveProperty` asserts if a property at provided reference `key` exists for an object.
+  `toHaveProperty` 断言引用 `key` 处的属性是否存在于对象。
 
-  You can provide an optional value argument also known as deep equality, like the `toEqual` matcher to compare the received property value.
+  我们可以提供一个可选的值参数，也称为深度相等，例如 `toEqual` 匹配器来比较接收到的属性值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -658,19 +658,19 @@ TODO
   }
 
   test('John Doe Invoice', () => {
-    expect(invoice).toHaveProperty('isActive') // assert that the key exists
-    expect(invoice).toHaveProperty('total_amount', 5000) //assert that the key exists and the value is equal
+    expect(invoice).toHaveProperty('isActive') // 断言密钥存在
+    expect(invoice).toHaveProperty('total_amount', 5000) //断言 key 存在且值相等
 
-    expect(invoice).not.toHaveProperty('account') //assert that this key does not exist
+    expect(invoice).not.toHaveProperty('account') //断言这个 key 不存在
 
-    // Deep referencing using dot notation
+    // 使用 . 进行深度引用
     expect(invoice).toHaveProperty('customer.first_name')
     expect(invoice).toHaveProperty('customer.last_name', 'Doe')
     expect(invoice).not.toHaveProperty('customer.location', 'India')
 
-    // Deep referencing using an array containing the key
+    // 使用包含 key 的数组进行深度引用
     expect(invoice).toHaveProperty('items[0].type', 'apples')
-    expect(invoice).toHaveProperty('items.0.type', 'apples') // dot notation also works
+    expect(invoice).toHaveProperty('items.0.type', 'apples') // .也有效
 
   })
   ```
@@ -679,14 +679,14 @@ TODO
 
 - **类型:** `(received: string | regexp) => Awaitable<void>`
 
-  `toMatch` asserts if a string matches a regular expression or a string.
+  `toMatch` 断言字符串是否匹配正则表达式或字符串。
 
   ```ts
   import { expect, test } from 'vitest'
 
   test('top fruits', () => {
     expect('top fruits include apple, orange and grape').toMatch(/apple/)
-    expect('applefruits').toMatch('fruit') // toMatch also accepts a string
+    expect('applefruits').toMatch('fruit') // toMatch 也可以是一个字符串
   })
   ```
 
@@ -1482,4 +1482,3 @@ If function returned `'result1`, then threw and error, then `mock.results` will 
 ### mock.instances
 
 Currently, this property is not implemented.
--->
