@@ -689,7 +689,7 @@ TODO
     expect('applefruits').toMatch('fruit') // toMatch 也可以是一个字符串
   })
   ```
-
+<!--
 ### toMatchObject
 
 - **类型:** `(received: object | array) => Awaitable<void>`
@@ -1482,3 +1482,4 @@ If function returned `'result1`, then threw and error, then `mock.results` will 
 ### mock.instances
 
 Currently, this property is not implemented.
+-->
