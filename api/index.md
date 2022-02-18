@@ -799,6 +799,7 @@ TODO
 ### toHaveLastReturnedWith
 ### toHaveNthReturnedWith
 
+<!--
 ### resolves
 
 - **类型:** `Promisify<Assertions>`
