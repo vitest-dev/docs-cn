@@ -689,14 +689,14 @@ TODO
     expect('applefruits').toMatch('fruit') // toMatch 也可以是一个字符串
   })
   ```
-<!--
+
 ### toMatchObject
 
 - **类型:** `(received: object | array) => Awaitable<void>`
 
-  `toMatchObject` asserts if an object matches a subset of the properties of an object.
+  `toMatchObject` 断言对象是否匹配对象属性的子集。
 
-  You can also pass an array of objects. This is useful if you want to check that two arrays match in their number of elements, as opposed to `arrayContaining`, which allows for extra elements in the received array.
+  我们还可以传递对象数组。 如果我们想检查两个数组的元素数量是否匹配，这就会很有用，而不是去使用 `arrayContaining`，因为它允许接收数组中的额外元素。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -734,7 +734,7 @@ TODO
   })
 
   test('the number of elements must match exactly', () => {
-    // Assert that an array of object matches
+    // 断言对象数组是否匹配
     expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
       { foo: 'bar' },
       { baz: 1 },
@@ -746,17 +746,17 @@ TODO
 
 - **类型:** `(received: any) => Awaitable<void>`
 
-  `toThrowError` asserts if a function throws an error when it is called.
+  `toThrowError` 断言函数在调用时是否抛出错误。
 
-  For example, if we want to test that `getFruitStock('pineapples')` throws, because pineapples is not good for people with diabetes, we could write:
+   例如，如果我们想测试 `getFruitStock('pineapples')` 是否会抛出异常，因为菠萝对糖尿病患者不利，我们可以这样写：
 
-  You can provide an optional argument to test that a specific error is thrown:
+  我们可以提供一个可选参数来测试是否引发了特定错误：
 
-  - regular expression: error message matches the pattern
-  - string: error message includes the substring
+  - 正则表达式：错误消息与模式匹配
+  - 字符串：错误消息包含子字符串
 
-  :::tip
-    You must wrap the code in a function, otherwise the error will not be caught and the assertion will fail.
+  :::tip 提示
+    我们必须将代码包装在一个函数中，否则将无法捕获错误并且断言将失败。
   :::
 
   ```ts
@@ -766,15 +766,15 @@ TODO
     if (type === 'pineapples') {
       throw new DiabetesError('Pineapples is not good for people with diabetes')
     }
-    // Do some other stuff
+    // 可以做一些其他的事情
   }
 
   test('throws on pineapples', () => {
-    // Test that the error message says "diabetes" somewhere: these are equivalent
+    // 测试错误消息是否在某处显示“ diabetes ”：这些是等效的
     expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
     expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
 
-    // Test the exact error message
+    // 测试确切的错误信息
     expect(() => getFruitStock('pineapples')).toThrowError(
       /^Pineapples is not good for people with diabetes$/,
     )
