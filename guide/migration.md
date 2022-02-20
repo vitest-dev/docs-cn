@@ -19,3 +19,7 @@ Jest 默认使用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 **Jasmine API**
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局变量（例如`jasmine.any()`）。任何此类实例都需要迁移到 [Vitest 对应对象](/api/)。
+
+**测试环境**
+
+就像 Jest 一样，Vitest 设置 `NODE_ENV` 进行测试，如果之前没有设置的话。 Vitest 也有一个 `JEST_WORKER_ID` 的对应项，称为 `VITEST_WORKER_ID`，所以如果你依赖它，不要忘记重命名它。
