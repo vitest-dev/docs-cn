@@ -799,16 +799,15 @@ TODO
 ### toHaveLastReturnedWith
 ### toHaveNthReturnedWith
 
-<!--
 ### resolves
 
 - **类型:** `Promisify<Assertions>`
 
-  `resolves` is intended to remove boilerplate when asserting asynchronous code. Use it to unwrap value from pending promise and assert its value with usual assertions. If promise rejects, the assertion will fail.
+  `resolves` 可以在断言异步代码时删除样板。 使用它从待处理的 Promise 中拆解包值，并使用普通的断言来断言它的值。 如果 Promise 拒绝，则断言将失败。
 
-  It returns the same `Assertions` object, but all matchers are now return `Promise`, so you would need to `await` it. Also works with `chai` assertions.
+  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此我们需要 `await` 它。同样也适用于 `chai` 断言。
 
-  For example, if you have a function, that makes an API call and returns some data, you may use this code to assert its return value:
+  例如，如果我们有一个函数，它调用 API 并返回一些数据，我们可以使用这个代码来断言它的返回值：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -818,24 +817,24 @@ TODO
   }
 
   test('buyApples returns new stock id', async () => {
-    // toEqual returns a promise now, so you HAVE to await it
+    // toEqual 现在返回一个 Promise ，所以我们必须等待它
     await expect(buyApples()).resolves.toEqual({ id: 1 })
   })
   ```
 
-  :::warning
-  If the assertion is not awaited, then you will have a false-positive test that will pass every time. To make sure that assertions are actually happened, you may use [`expect.assertions(number)`](#expect-assertions).
+  :::warning 警告
+  如果没有等待断言，那么我们将有一个每次都会通过的误报测试。为了确保断言确实发生，我们可以使用 [`expect.assertions(number)`](#expect-assertions) .
   :::
 
 ### rejects
 
 - **类型:** `Promisify<Assertions>`
 
-  `rejects` is intended to remove boilerplate when asserting asynchronous code. Use it to unwrap reason why promise was rejected, and assert its value with usual assertions. If promise successfully resolves, the assertion will fail.
+  `rejects` 可以在断言异步代码时删除样板。 用它来解开 Promise 被拒绝的原因，并用普通的断言来断言它的值。 如果 Promise 成功解决，则断言将失败。
 
-  It returns the same `Assertions` object, but all matchers are now return `Promise`, so you would need to `await` it. Also works with `chai` assertions.
+  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此您需要 `await` 它。 也适用于 `chai` 断言。
 
-  For example, if you have a function that fails when you call it, you may use this code to assert the reason:
+  例如，如果我们有一个调用失败的函数，我们可以使用此代码来断言原因：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -847,22 +846,22 @@ TODO
   }
 
   test('buyApples throws an error when no id provided', async () => {
-    // toThrow returns a promise now, so you HAVE to await it
+    // toThrow 现在返回一个 Promise ，所以你必须等待它
     await expect(buyApples()).rejects.toThrow('no id')
   })
   ```
 
-  :::warning
-  If the assertion is not awaited, then you will have a false-positive test that will pass every time. To make sure that assertions are actually happened, you may use [`expect.assertions(number)`](#expect-assertions).
+  :::warning 警告
+  如果不等待断言，那么我们将有一个每次都会通过的误报测试。 为确保断言确实发生，我们可以使用 [`expect.assertions(number)`](#expect-assertions)。
   :::
 
 ### expect.assertions
 
 - **类型:** `(count: number) => void`
 
-  After the test has passed or failed verifies that curtain number of assertions was called during a test. Useful case would be to check if an asynchronous code was called.
+  在测试通过或失败后，验证在测试期间调用了测试帘数量的断言。有用的情况是检查是否调用了异步代码。
 
-  For examples, if we have a function than asynchronously calls two matchers, we can assert that they were actually called.
+  例如，如果我们有一个异步调用两个匹配器的函数，我们可以断言它们实际上是被调用的。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -890,9 +889,9 @@ TODO
 
 - **类型:** `(count: number) => void`
 
-  After the test has passed or failed verifies that at least one assertion was called during a test. Useful case would be to check if an asynchronous code was called.
+  在测试通过或失败后，验证在测试期间是否至少调用了一个断言。 有用的情况是检查是否调用了异步代码。
 
-  For example, if you have a code that calls a callback, we can make an assertion inside a callback, but the test will always pass, if we don't check if an assertion was called.
+  例如，如果我们有一个调用回调的代码，我们可以在回调中进行断言，但如果我们不检查是否调用了断言，测试将始终通过。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -904,7 +903,7 @@ TODO
     cbs.push(cb)
   }
 
-  // after selecting from db, we call all callbacks
+  // 从 db 中选择后，我们调用所有的回调
   function select(id) {
     return db.select({ id }).then(data => {
       return Promise.all(
@@ -916,11 +915,11 @@ TODO
   test('callback was called', async () => {
     expect.hasAssertions()
     onSelect((data) => {
-      // should be called on select
+      // 在选择时调用
       expect(data).toBeTruthy();
     })
-    // if not awaited, test will fail
-    // if you dont have expect.hasAssertions(), test will pass
+    // 如果不等待，测试将失败
+    // 如果你没有 expect.hasAssertions()，测试将通过
     await select(3)
   })
   ```
@@ -943,93 +942,94 @@ TODO
 
 ## Setup and Teardown
 
-These functions allows you to hook into the life cycle of tests to avoid repeating setup and teardown code. They apply to the current context: the file if they are used at the top-level or the current suite if they are inside a `describe` block.
+这些功能允许我们连接到测试的生命周期，以避免重复设置和拆卸代码。 它们适用于当前上下文：如果它们在顶层使用，则适用于文件；如果它们在 `describe` 块内，则适用于当前测试套件。
 
 ### beforeEach
 
 - **类型:** `beforeEach(fn: () => Awaitable<void>, timeout?: number)`
 
-  Register a callback to be called before each of the tests in the current context runs.
-  If the function returns a promise, Vitest waits until the promise resolve before running the test.
+  在当前上下文中的每个测试运行之前需要注册要调用的回调。
+  如果函数返回一个 Promise，Vitest 会等到 Promise 解决后再运行测试。
 
-  Optionally, you can pass a timeout (in milliseconds) defining how long to wait before terminating. The default is 5 seconds.
+  或者，我们可以传递一个超时（以毫秒为单位），定义在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { beforeEach } from 'vitest'
 
   beforeEach(async () => {
-    // Clear mocks and add some testing data after before each test run
+    // 在每次测试运行之前清除模拟并添加一些测试数据
     await stopMocking()
     await addUser({ name: 'John'})
   })
   ```
 
-  Here, the `beforeEach` ensures that user is added for each test.
+  `beforeEach` 确保为每个测试都添加用户。
 
 ### afterEach
 
 - **类型:** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
 
-  Register a callback to be called after each one of the tests in the current context completes.
-  If the function returns a promise, Vitest waits until the promise resolve before continuing.
+  在当前上下文中的每个测试运行之后注册要调用的回调。
+  如果函数返回一个 Promise ，Vitest 会等到 Promise 解决后再继续。
 
-  Optionally, you can a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+  或者，您可以设置超时（以毫秒为单位）以指定在终止前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { afterEach } from 'vitest'
 
   afterEach(async () => {
-    await clearTestingData() // clear testing data after each test run
+    await clearTestingData() // 每次测试运行后清除测试数据
   })
   ```
-  Here, the `afterEach` ensures that testing data is cleared after each test runs.
+  `afterEach` 确保在每次测试运行后清除测试数据。
 
 ### beforeAll
 
 - **类型:** `beforeAll(fn: () => Awaitable<void>, timeout?: number)`
 
-  Register a callback to be called once before starting to run all tests in the current context.
-  If the function returns a promise, Vitest waits until the promise resolve before running tests.
+  在开始在当前上下文中运行所有测试之前需要注册一个要调用的回调。
+  如果函数返回一个 Promise，Vitest 会等到 Promise 解决后再运行测试。
 
-  Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+  或者，您可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { beforeAll } from 'vitest'
 
   beforeAll(async () => {
-    await startMocking() // called once before all tests run
+    await startMocking() // 在所有测试运行之前调用一次
   })
   ```
 
-  Here the `beforeAll` ensures that the mock data is set up before tests run
+  `beforeAll` 确保在测试运行之前设置模拟数据
 
 ### afterAll
 
 - **类型:** `afterAll(fn: () => Awaitable<void>, timeout?: number)`
 
-  Register a callback to be called once after all tests have run in the current context.
-  If the function returns a promise, Vitest waits until the promise resolve before continuing.
+  在当前上下文中运行所有测试后，注册一个回调后调用一次。
+  如果函数返回一个 Promise，Vitest 会等到 Promise 解决后再继续。
 
-  Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+  或者，您可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { afterAll } from 'vitest'
 
   afterAll(async () => {
-    await stopMocking() // this method is called after all tests run
+    await stopMocking() // 在所有测试运行后调用此方法
   })
   ```
 
-  Here the `afterAll` ensures that `stopMocking` method is called after all tests run.
+  `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
 
 ## Vi
-Vitest provides utility functions to help you out through it's **vi** helper. You can `import { vi } from 'vitest'` or access it **globally** (when [global configuration](/config/#global) is **enabled**).
+
+Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `import { vi } from 'vitest'` 或 **globally** 访问它（当 [global configuration](/config/#global) **enabled** 时）。
 
 ### vi.advanceTimersByTime
 
 - **类型:** `(ms: number) => Vitest`
 
-  Works just like `runAllTimers`, but will end after passed milliseconds. For example this will log `1, 2, 3` and will not throw:
+  就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。 例如，这将记录 `1, 2, 3` 并且不会抛出：
 
   ```ts
   let i = 0
@@ -1042,7 +1042,7 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型:** `() => Vitest`
 
-  Will call next available timer. Useful to make assertions between each timer call. You can chain call it to manage timers by yourself.
+  将调用下一个计时器。 在每个计时器调用之间进行断言将很有用。我们可以链接调用它来自己管理计时器。
 
   ```ts
   let i = 0
@@ -1055,14 +1055,14 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 ### vi.clearAllTimers
 
-  Removes all timers that are scheduled to run. These timers will never run in the future.
+  删除所有计划运行的计时器。这些计时器将永远不会运行。
 
 ### vi.fn
 
 - **类型:** `(fn: Function) => CallableMockInstance`
 
-  Creates a spy on a function, though can be initiated without one. Every time a function is invoked, it stores its call arguments, returns and instances. Also, you can manipulate its behavior with [methods](#mockmethods).
-  If no function is given, mock will return `undefined`, when invoked.
+  在函数上创建一个测试间谍，但可以在没有测试间谍的情况下启动。 每次调用函数时，它都会存储其调用参数、返回值和实例。 此外，我们可以使用 [methods](#mockmethods) 操纵它的行为。
+  如果没有给出函数，mock 将在调用时返回 `undefined`。
 
   ```ts
   const getApples = vi.fn(() => 0)
@@ -1083,33 +1083,35 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型**: `() => Date | null`
 
-  Returns mocked current date that was set using `setSystemTime`. If date is not mocked, will return `null`.
+  返回 `setSystemTime` 设置的模拟当前日期。如果没有模拟日期，将返回 `null`。
 
 ### vi.getRealSystemTime
 
 - **类型**: `() => number`
 
-  When using `vi.useFakeTimers`, `Date.now` calls are mocked. If you need to get real time in milliseconds, you can call this function.
+  使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要获取毫秒级的使用时间，可以调用这个函数。
 
 ### vi.mock
 
   **类型**: `(path: string, factory?: () => unknown) => void`
 
-  Makes all `imports` to passed module to be mocked. Inside a path you _can_ use configured Vite aliases.
+  将所有 `imports` 传递给要模拟的模块。 在路径中 you_can_use 配置的 Vite 别名。
 
-  - If `factory` is defined, will return its result. Factory function can be asynchronous. You may call [`vi.importActual`](#vi-importactual) inside to get the original module. The call to `vi.mock` is hoisted to the top of the file, so you don't have access to variables declared in the global file scope!
-  - If `__mocks__` folder with file of the same name exist, all imports will return its exports. For example, `vi.mock('axios')` with `<root>/__mocks__/axios.ts` folder will return everything exported from `axios.ts`.
-  - If there is no `__mocks__` folder or a file with the same name inside, will call original module and mock it. (For the rules applied, see [algorithm](/guide/mocking#automocking-algorithm).)
+  - 如果定义了 `factory` ，将返回其结果。 工厂函数可以是异步的。 我们可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。 对 `vi.mock` 的调用被提升到文件的顶部，因此我们无法访问在全局文件范围内声明的变量！
 
-  Additionally, unlike Jest, mocked modules in `<root>/__mocks__` are not loaded unless `vi.mock()` is called. If you need them to be mocked in every test, like in Jest, you can mock them inside [`setupFiles`](/config/#setupfiles).
+  - 如果存在同名文件的 `__mocks__` 文件夹，则所有导入都将返回其导出。 例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
+
+  - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。（有关应用的规则，可以参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。）
+
+  与 Jest 不同的是，除非调用了 `vi.mock()`，否则不会加载 `<root>/__mocks__` 中的模拟模块。 如果您需要在每个测试中模拟它们，例如在 Jest 中，您可以在 [`setupFiles`](/config/#setupfiles) 中模拟它们。
 
 ### vi.setSystemTime
 
 - **类型**: `(date: string | number | Date) => void`
 
-  Sets current date to the one that was passed. All `Date` calls will return this date.
+  将当前日期设置为已通过的日期。 所有 `Date` 调用都将返回此日期。
 
-  Useful if you need to test anything that depends on the current date - for example [luxon](https://github.com/moment/luxon/) calls inside your code.
+  如果我们需要测试依赖于当前日期的任何内容 - 例如 [luxon](https://github.com/moment/luxon/) 在我们的代码中调用，这将很有用。
 
   ```ts
   const date = new Date(1998, 11, 19)
@@ -1126,7 +1128,7 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型**: `<T>(obj: T, deep?: boolean) => MaybeMockedDeep<T>`
 
-  Type helper for TypeScript. In reality just returns the object that was passed.
+  TypeScript 的类型助手。实际上只是返回传递的对象。
 
   ```ts
   import example from './example'
@@ -1145,7 +1147,7 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型**: `<T>(path: string) => Promise<T>`
 
-  Imports module, bypassing all checks if it should be mocked. Can be useful if you want to mock module partially.
+  导入模块，绕过所有检查是否应该被模拟。如果我们想使用部分模拟模块，这可能会很有用。
 
   ```ts
   vi.mock('./example', async () => {
@@ -1159,26 +1161,25 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-  Imports a module with all of its properties (including nested properties) mocked. Follows the same rules that [`vi.mock`](#mock) follows. For the rules applied, see [algorithm](#automockingalgorithm).
+  导入一个模块，其所有属性（包括嵌套属性）都已模拟。 遵循与 [`vi.mock`](#mock) 相同的规则。 有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
 
 ### vi.restoreCurrentDate
 
 - **类型**: `() => void`
 
-  Restores `Date` back to its native implementation.
+  将 `Date` 恢复为使用本机实现。
 
 ### vi.runAllTicks
 
 - **类型:** `() => Vitest`
 
-  Calls every microtask. These are usually queued by `proccess.nextTick`. This will also run all microtasks scheduled by themselves.
+  调用每个小任务。 这些通常由 `proccess.nextTick` 排队。 这也将运行他们自己安排的所有小任务。
 
 ### vi.runAllTimers
 
 - **类型:** `() => Vitest`
 
-  This method will invoke every initiated timer until the timers queue is empty. It means that every timer called during `runAllTimers` will be fired. If you have an infinite interval,
-  it will throw after 10 000 tries. For example this will log `1, 2, 3`:
+  此方法将调用每个启动的计时器，直到计时器队列为空。 这意味着在 `runAllTimers` 期间调用的每个计时器都会被触发。 如果我们有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将记录 `1, 2, 3`：
 
   ```ts
   let i = 0
@@ -1197,7 +1198,7 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型:** `() => Vitest`
 
-  This method will call every timer that was initiated after `vi.useFakeTimers()` call. It will not fire any timer that was initiated during its call. For example this will only log `1`:
+  此方法将调用在 `vi.useFakeTimers()` 调用之后启动的每个计时器。 它不会触发在其调用期间启动的任何计时器。 例如，这只会记录 `1`：
 
   ```ts
   let i = 0
@@ -1210,7 +1211,7 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
 
 - **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
-  Creates a spy on a method or getter/setter of an object.
+  在对象的方法或 getter/setter 上创建 测试间谍。
 
   ```ts
   let apples = 0
@@ -1226,6 +1227,7 @@ Vitest provides utility functions to help you out through it's **vi** helper. Yo
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
+<!--
 ### vi.unmock
 
 **类型**: `(path: string) => void`
