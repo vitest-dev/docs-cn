@@ -1227,26 +1227,26 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
-<!--
+
 ### vi.unmock
 
 **类型**: `(path: string) => void`
 
-  Removes module from mocked registry. All subsequent calls to import will return original module even if it was mocked.
+  从模拟注册表中删除模块。 所有后续的 import 调用都将返回原始模块，即使它是模拟的。
 
 ### vi.useFakeTimers
 
 - **类型:** `() => Vitest`
 
-  To enable mocking timers, you need to call this method. It will wrap all further calls to timers (such as `setTimeout`, `setInterval`, `clearTimeout`, `clearInterval`, `nextTick`, `setImmediate`, `clearImmediate`, and `Date`), until [`vi.useRealTimers()`](#userealtimers) is called.
+  要启用模拟计时器，您需要调用此方法。 它将包装对计时器的所有进一步调用（例如`setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`），直到调用 [`vi.useRealTimers()`](#vi-useRealTimers)。
 
-  The implementation is based internally on [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+  该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ### vi.useRealTimers
 
 - **类型:** `() => Vitest`
 
-  When timers are run out, you may call this method to return mocked timers to its original implementations. All timers that were run before will not be restored.
+  当计时器用完时，您可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都将不会恢复。
 
 ## MockInstance Methods
 
@@ -1254,30 +1254,30 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => string`
 
-  Use it to return the name given to mock with method `.mockName(name)`.
+  使用返回模拟名称的方法 `.mockName(name)`。
 
 ### mockClear
 
 - **类型:** `() => MockInstance`
 
-  Clears all information about every call. After calling it, [`spy.mock.calls`](#mockcalls), [`spy.mock.returns`](#mockreturns) will return empty arrays. It is useful if you need to clean up spy between different assertions.
+  清除有关每个模拟的所有信息。 调用后，[`spy.mock.calls`](#mockcalls)、[`spy.mock.returns`](#mockreturns) 将返回空数组。 如果我们需要清理不同断言之间的测试间谍，这会很有用。
 
-  If you want this method to be called before each test automatically, you can enable [`clearMocks`](/config/#clearMocks) setting in config.
+  如果我们希望在每次测试之前自动调用此方法，我们可以在 `config.xml` 中启用 [`clearMocks`](/config/#clearMocks) 设置。
 
 
 ### mockName
 
 - **类型:** `(name: string) => MockInstance`
 
-  Sets internal mock name. Useful to see what mock has failed the assertion.
+  设置内部模拟名称。有助于查看哪些模拟导致断言失败。
 
 ### mockImplementation
 
 - **类型:** `(fn: Function) => MockInstance`
 
-  Accepts a function that will be used as an implementation of the mock.
+  接受将用作模拟实现的函数。
 
-  For example:
+  例如:
 
   ```ts
   const mockFn = vi.fn().mockImplementation(apples => apples + 1);
@@ -1297,7 +1297,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `(fn: Function) => MockInstance`
 
-  Accepts a function that will be used as an implementation of the mock for one call to the mocked function. Can be chained so that multiple function calls produce different results.
+  接受一个函数，该函数将用作对模拟函数的一次调用的模拟实现。可以链接起来，以便多个函数调用产生不同的结果。
 
   ```ts
   const myMockFn = vi
@@ -1309,7 +1309,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
   myMockFn(); // false
   ```
 
-  When the mocked function runs out of implementations, it will invoke the default implementation that was set with `vi.fn(() => defaultValue)` or `.mockImplementation(() => defaultValue)` if they were called:
+   当模拟函数用完实现时，它将调用使用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 如果它们被调用将会被设置的默认实现：
 
   ```ts
   const myMockFn = vi
@@ -1325,7 +1325,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `(value: any) => MockInstance`
 
-  Accepts an error that will be rejected, when async function will be called.
+  当异步函数将被调用时，接受将被拒绝的错误。
 
   ```ts
   test('async test', async () => {
@@ -1339,7 +1339,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `(value: any) => MockInstance`
 
-  Accepts a value that will be rejected for one call to the mock function. If chained, every consecutive call will reject passed value.
+  接受一个值，该值将在一次调用模拟函数时被拒绝。如果链接，每个连续调用都将拒绝传递的值。
 
   ```ts
   test('async test', async () => {
@@ -1357,25 +1357,25 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => MockInstance`
 
-  Does what `mockClear` does and makes inner implementation as an empty function (returning `undefined`, when invoked). This is useful when you want to completely reset a mock back to its initial state.
+  执行 `mockClear` 所做的会将内部实现作为空函数（调用时返回 `undefined`）。当我们想要将模拟完全重置回其初始状态时，这会很有用。
 
-  If you want this method to be called before each test automatically, you can enable [`mockReset`](/config/#mockReset) setting in config.
+  如果我们希望在每次测试之前自动调用此方法，我们可以在 `config.xml` 中启用 [`mockReset`](/config/#mockReset) 设置。
 
 ### mockRestore
 
 - **类型:** `() => MockInstance`
 
-  Does what `mockRestore` does and restores inner implementation to the original function.
+  执行 `mockRestore` 所做的并将内部实现恢复为原始功能。
 
-  Note that restoring mock from `vi.fn()` will set implementation to an empty function that returns `undefined`. Restoring a `vi.fn(impl)` will restore implementation to `impl`.
+  注意，从 `vi.fn()` 恢复模拟的话会将实现设置为返回 `undefined` 的空函数。 使用 `vi.fn(impl)` 恢复的话会将实现恢复为 `impl`。
 
-  If you want this method to be called before each test automatically, you can enable [`restoreMocks`](/config/#restoreMocks) setting in config.
+  如果我们希望在每次测试之前自动调用此方法，我们可以在 `config.xml` 中启用 [`restoreMocks`](/config/#restoreMocks) 设置。
 
 ### mockResolvedValue
 
 - **类型:** `(value: any) => MockInstance`
 
-  Accepts a value that will be resolved, when async function will be called.
+  接受将在调用异步函数时解析的值。
 
   ```ts
   test('async test', async () => {
@@ -1389,7 +1389,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `(value: any) => MockInstance`
 
-  Accepts a value that will be resolved for one call to the mock function. If chained, every consecutive call will resolve passed value.
+  接受一次调用模拟函数时解析的值。如果链接，每个连续调用都将解析传递的值。
 
   ```ts
   test('async test', async () => {
@@ -1410,13 +1410,13 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => MockInstance`
 
-  Sets inner implementation to return `this` context.
+  设置内部实现，将会返回 `this` 上下文。
 
 ### mockReturnValue
 
 - **类型:** `(value: any) => MockInstance`
 
-  Accepts a value that will be returned whenever the mock function is called.
+  接受调用模拟函数时将返回的值。
 
   ```ts
   const mock = vi.fn();
@@ -1430,7 +1430,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `(value: any) => MockInstance`
 
-  Accepts a value that will be returned whenever mock function is invoked. If chained, every consecutive call will return passed value. When there are no more `mockReturnValueOnce` values to use, calls a function specified by `mockImplementation` or other `mockReturn*` methods.
+  接受调用模拟函数时返回的值。如果链接，每个连续调用都会返回传递的值。 当没有更多的 `mockReturnValueOnce` 值要使用时，调用由 `mockImplementation` 或其他 `mockReturn*` 方法去指定的函数。
 
   ```ts
   const myMockFn = vi
@@ -1447,9 +1447,9 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 ### mock.calls
 
-This is an array containing all arguments for each call. One item of the array is arguments of that call.
+  这是一个包含每个调用的所有参数的数组。数组的每一项都是该调用的参数。
 
-If a function was invoked twice with the following arguments `fn(arg1, arg2)`, `fn(arg3, arg4)` in that order, then `mock.calls` will be:
+  如果一个函数被调用两次，并依次使用以下参数 `fn(arg1, arg2)`、`fn(arg3, arg4)`，那么 `mock.calls` 将是：
 
 ```js
 [
@@ -1460,14 +1460,14 @@ If a function was invoked twice with the following arguments `fn(arg1, arg2)`, `
 
 ### mock.results
 
-This is an array containing all values, that were `returned` from function. One item of the array is an object with properties `type` and `value`. Available types are:
+  这是一个包含所有值的数组，这些值是从函数 `returned` 的。 该数组的一项是具有 `type` 和 `value` 属性的对象。 可用类型有：
 
-- `'return'` - function returned without throwing.
-- `'throw'` - function threw a value.
+- `'return'` - 函数返回而不抛出。
+- `'throw'` - 函数抛出了一个值。
 
-The `value` property contains returned value or thrown error.
+  `value` 属性包含返回值或抛出的错误。
 
-If function returned `'result1`, then threw and error, then `mock.results` will be:
+  如果函数返回 `result1` ，然后抛出错误，那么 `mock.results` 将是：
 
 ```js
 [
@@ -1484,5 +1484,4 @@ If function returned `'result1`, then threw and error, then `mock.results` will 
 
 ### mock.instances
 
-Currently, this property is not implemented.
--->
+  还未实现。
