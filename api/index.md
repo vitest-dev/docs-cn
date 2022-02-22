@@ -102,6 +102,21 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   test.todo("unimplemented test");
   ```
 
+### test.fails
+
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.fails`
+
+  使用 `test.fails` 表示断言将显式失败。
+
+  ```ts
+  import { test } from 'vitest'
+  const myAsyncFunc = () => new Promise((resolve) => resolve(1))
+  test.fails("fail test", () => {
+    expect(myAsyncFunc()).rejects.toBe(1)
+  })
+  ```
+
 ## describe
 
 当我们让 `test` 在文件的顶层使用时，它们将作为隐式测试套件的一部分收集。使用 `describe` 我们可以在当前上下文中定义一个新测试套件，作为一组相关测试和其他嵌套测试套件。测试套件可让您组织测试，使报告更清晰。

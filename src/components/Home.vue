@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { antfuSponsors, coreTeamMembers, patakSponsors } from '../contributors'
+import { lazyLoad } from '../images'
+</script>
 <template>
   <div flex flex-col items-center>
     <div flex flex-col items-center p="t-10 md:t-20 b-10">
@@ -46,81 +50,52 @@
       <br>如果您愿意帮助我们，可以在新项目中进行使用
     </p>
 
-    <h3 op50 font-normal pt-10>
+    <h2 op50 font-normal pt-10>
       特性
-    </h3>
+    </h2>
     <FeaturesList class="max-w-140 text-lg" />
 
-    <h3 id="meet-the-team" op50 font-normal pt-5 pb-2>
+    <h2 id="meet-the-team" op50 font-normal pt-5 pb-2>
       认识一下团队
-    </h3>
+    </h2>
     <div grid="~ sm:cols-2 gap-x-8 gap-y-20 items-center" p-10>
       <Avatar
-        name="Anthony Fu"
-        avatar="https://antfu.me/avatar.png"
-        github="antfu"
-        twitter="antfu7"
-        :sponsors="true"
-      >
-        狂热的开源者<br>Vite 和 Vue 的核心团队成员<br>在 NuxtLabs 工作
-      </Avatar>
-      <Avatar
-        name="Patak"
-        avatar="https://patak.dev/images/patak.jpg"
-        github="patak-dev"
-        twitter="patak_dev"
-        :sponsors="true"
-      >
-        二把手<br>Vite 的核心团队成员<br>Vue 的团队成员
-      </Avatar>
-      <Avatar
-        name="Aslemammad"
-        avatar="https://avatars.githubusercontent.com/u/37929992?v=4"
-        github="Aslemammad"
-        twitter="asleMammadam"
-      >
-        开源开发者<br>Poimandres 和 Vike 的团队成员
-      </Avatar>
-      <Avatar
-        name="Vladimir"
-        avatar="https://avatars.githubusercontent.com/u/16173870?v=4"
-        github="sheremet-va"
-        twitter="sheremet_va"
-      >
-        全栈开源开发者
-      </Avatar>
-      <Avatar
-        name="Ivan Demchuk"
-        avatar="https://avatars.githubusercontent.com/u/2339406?v=4"
-        github="Demivan"
-        twitter="IvanDemchuk"
-      >
-        技术负责人，全栈开发人员<br>fluent-vue 的作者
-      </Avatar>
+        v-for="c of coreTeamMembers"
+        :key="c.github"
+        v-bind="c"
+      />
     </div>
-    <h3 id="the-team" op50 font-normal pt-5 pb-2>
+    <h2 id="the-team" op50 font-normal pt-5 pb-2>
       贡献者
-    </h3>
+    </h2>
     <p op80 text-lg max-w-150 text-center leading-7>
       <Contributors />
       <br>
       <a href="https://chat.vitest.dev">加入我们</a>将乐在其中！
     </p>
 
-    <h3 id="sponsored-by" op50 font-normal pt-5 pb-2>
+    <h2 id="sponsored-by" op50 font-normal pt-5 pb-2>
       赞助商
-    </h3>
+    </h2>
     <div grid="~ cols-1 lg:cols-2" w-screen text-center mt-10>
       <div class="flex flex-col">
-        <a text-lg href="https://github.com/sponsors/antfu">Anthony 的赞助商</a>
-        <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg" target="_blank">
-          <img src="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
+        <a text-lg h="32px" href="https://github.com/sponsors/antfu" rel="noopener noreferrer">Anthony's Sponsors</a>
+        <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg" target="_blank" rel="noopener noreferrer">
+          <img
+            :loading="lazyLoad"
+            :src="antfuSponsors"
+            alt="Anthony Fu's sponsors"
+          >
         </a>
       </div>
       <div class="flex flex-col">
-        <a text-lg href="https://github.com/sponsors/patak-dev">Patak 的赞助商</a>
-        <a href="https://patak.dev/sponsors.svg" target="_blank">
-          <img src="https://patak.dev/sponsors.svg">
+        <a text-lg h="32px" href="https://github.com/sponsors/patak-dev" rel="noopener noreferrer">Patak's Sponsors</a>
+        <a href="https://patak.dev/sponsors.svg" target="_blank" rel="noopener noreferrer">
+          <img
+            :loading="lazyLoad"
+            :src="patakSponsors"
+            alt="Patak's sponsors"
+          >
         </a>
       </div>
     </div>
