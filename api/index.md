@@ -457,6 +457,20 @@ TODO
   })
   ```
 
+### toBeTypeOf
+
+- **类型:** `(c: 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined') => Awaitable<void>`
+
+  `toBeTypeOf` 将断言实际值是否属于接收类型。
+
+  ```ts
+  import { test, expect } from 'vitest'
+  const actual = 'stock'
+  test('stock is type of string', () => {
+    expect(actual).toBeTypeOf('string')
+  })
+  ```
+
 ### toBeInstanceOf
 
 - **类型:** `(c: any) => Awaitable<void>`
