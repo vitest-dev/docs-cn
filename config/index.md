@@ -1,18 +1,14 @@
-::: warning 警告
-正在翻译中......
-:::
-<!--
-# Configuring Vitest
+# 配置 Vitest
 
-## Configuration
+## 配置
 
-`vitest` will read your root `vite.config.ts` when it is present to match with the plugins and setup as your Vite app. If you want to have a different configuration for testing, you could either:
+`vitest` 将读取我们项目根目录的 `vite.config.ts` 当它与插件匹配并设置为我们的 Vite 应用程序时。 如果我们想使用不同的配置进行测试，我们可以：
 
-- Create `vitest.config.ts`, which will have the higher priority
-- Pass `--config` option to CLI, e.g. `vitest --config ./path/to/vitest.config.ts`
-- Use `process.env.VITEST` to conditionally apply different configuration in `vite.config.ts`
+- 创建 `vitest.config.ts`，优先级是最高的。
+- 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts` 。
+- 使用 `process.env.VITEST` 有条件地在 `vite.config.ts` 中应用不同的配置。
 
-To configure `vitest` itself, add `test` property in your Vite config. You'll also need to add a reference to Vitest types using a [triple slash command](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) at the top of your config file.
+要配置 `vitest` 本身，请在我们的 Vite 配置中添加 `test` 属性。 我们还需要使用 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 在 配置文件的顶部。
 
 ```ts
 /// <reference types="vitest" />
@@ -25,7 +21,7 @@ export default defineConfig({
 })
 ```
 
-You can retrieve Vitest's default options to expand them if needed:
+如果有需要，我们可以检索 Vitest 的默认选项以展开它们：
 
 ```ts
 import { defineConfig, configDefaults } from 'vitest'
@@ -37,48 +33,48 @@ export default defineConfig({
 })
 ```
 
-## Options
+## 选项
 
 ### include
 
-- **Type:** `string[]`
-- **Default:** `['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
+- **类型:** `string[]`
+- **默认值:** `['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
 
-Include globs for test files
+包含用于测试文件的 glob
 
 ### exclude
 
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
+- **类型:** `string[]`
+- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
 
-Exclude globs for test files
+排除测试文件的 glob
 
 ### deps
 
-- **Type:** `{ external?, inline? }`
+- **类型:** `{ external?, inline? }`
 
-Handling for dependencies inlining or externalizing
+处理依赖内联或外化
 
 #### deps.external
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** `['**\/node_modules\/**']`
+- **类型:** `(string | RegExp)[]`
+- **默认值:** `['**\/node_modules\/**']`
 
-Externalize means that Vite will bypass the package to native Node. Externalized dependencies will not be applied Vite's transformers and resolvers, so they do not support HMR on reload. Typically, packages under `node_modules` are externalized.
+Externalize 意味着 Vite 会绕过包到原生 Node.js 中。 Vite 的转换器和解析器不会应用外部依赖项，因此它们是不会支持重新加载时的 HMR。 通常，`node_modules` 下的包是外部化的。
 
 #### deps.inline
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** `[]`
+- **类型:** `(string | RegExp)[]`
+- **默认值:** `[]`
 
-Vite will process inlined modules. This could be helpful to handle packages that ship `.js` in ESM format (that Node can't handle).
+Vite 将处理内联模块。这会有助于处理以 ESM 格式（Node 无法处理）发布 `.js` 的包。
 
 ### globals
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-By default, `vitest` does not provide global APIs for explicitness. If you prefer to use the APIs globally like Jest, you can pass the `--globals` option to CLI or add `globals: true` in the config.
+一般情况下，`vitest` 不为显式提供全局 API。 如果我们喜欢像 Jest 一样全局使用 API，可以用 `--globals` 选项传递给 CLI 或在配置中添加 `globals: true`。
 
 ```ts
 // vite.config.ts
@@ -91,7 +87,7 @@ export default defineConfig({
 })
 ```
 
-To get TypeScript working with the global APIs, add `vitest/globals` to the `types` filed in your `tsconfig.json`
+要让 TypeScript 使用全局 API，请将 `vitest/globals` 添加到 `tsconfig.json` 中的 `types` 文件中
 
 ```json
 // tsconfig.json
@@ -102,7 +98,7 @@ To get TypeScript working with the global APIs, add `vitest/globals` to the `typ
 }
 ```
 
-If you are already using [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components) in your project, you can also use it directly for auto importing those APIs.
+如果我们已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components)，我们也可以直接使用它来自动导入这些 API。
 
 ```ts
 // vite.config.ts
@@ -113,7 +109,7 @@ export default defineConfig({
   plugins: [
     AutoImport({
       imports: ['vitest'],
-      dts: true, // generate TypeScript declaration
+      dts: true, // 生成 TypeScript 声明
     }),
   ],
 })
@@ -121,18 +117,18 @@ export default defineConfig({
 
 ### environment
 
-- **Type:** `'node' | 'jsdom' | 'happy-dom'`
-- **Default:** `'node'`
+- **类型:** `'node' | 'jsdom' | 'happy-dom'`
+- **默认值:** `'node'`
 
-The environment that will be used for testing. The default environment in Vitest
-is a Node.js environment. If you are building a web application, you can use
-browser-like environment through either [`jsdom`](https://github.com/jsdom/jsdom)
-or [`happy-dom`](https://github.com/capricorn86/happy-dom) instead.
+这将用于测试的环境。 Vitest 中的默认环境
+是一个 Node.js 环境。 如果我们正在构建 Web 应用程序，则可以使用
+通过 [`jsdom`](https://github.com/jsdom/jsdom) 的类似浏览器的环境
+或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 进行代替。
 
-By adding a `@vitest-environment` docblock or comment at the top of the file,
-you can specify another environment to be used for all tests in that file:
+通过在文件顶部添加 `@vitest-environment` 文档块或注释，
+我们可以为该文件中的所有测试指定另一个环境：
 
-Docblock style:
+Docblock 样式:
 
 ```js
 /**
@@ -145,7 +141,7 @@ test('use jsdom in this test file', () => {
 })
 ```
 
-Comment style:
+Comment 样式:
 
 ```js
 // @vitest-environment happy-dom
@@ -156,7 +152,7 @@ test('use happy-dom in this test file', () => {
 })
 ```
 
-For compatibility with Jest, there is also a `@jest-environment`:
+为了与 Jest 兼容，还有一个 `@jest-environment`：
 
 ```js
 /**
@@ -171,186 +167,186 @@ test('use jsdom in this test file', () => {
 
 ### update
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Update snapshot files
+更新快照文件
 
 ### watch
 
 - **Type:** `boolean`
 - **Default:** `true`
 
-Enable watch mode
+启用浏览模式
 
 ### root
 
 - **Type:** `string`
 
-Project root
+项目的根目录
 
 ### reporters
 
 - **Type:** `Reporter | Reporter[]`
 - **Default:** `'default'`
 
-Custom reporters for output. Reporters can be [a Reporter instance](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) or a string to select built in reporters:
-  - `'default'` - collapse suites when they pass
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter
-  - `'json'` -  give a simple JSON summary
+用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或用于选择内置的 reporters 字符串：
+  - `'default'` - 当他们经过测试套件
+  - `'verbose'` - 保持完整的任务树可见
+  - `'dot'` -  将每个任务显示为一个点
+  - `'junit'` - JUnit XML 报告器
+  - `'json'` -  给出一个简单的 JSON 总结
 
 ### outputFile
 
-- **Type:** `string`
+- **类型:** `string`
 
-Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified.
+当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件。
 
 ### threads
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Enable multi-threading using [tinypool](https://github.com/Aslemammad/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina))
+使用 [tinypool](https://github.com/Aslemammad/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）进行启用多线程。
 
 ### maxThreads
 
-- **Type:** `number`
-- **Default:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _available CPUs_
 
-Maximum number of threads
+最大的线程数。
 
 ### minThreads
 
-- **Type:** `number`
-- **Default:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _available CPUs_
 
-Minimum number of threads
+最小的线程数。
 
 ### interopDefault
 
-- **Type:** `boolean`
+- **类型:** `boolean`
 
 ### testTimeout
 
-- **Type:** `number`
-- **Default:** `5000`
+- **类型:** `number`
+- **默认值:** `5000`
 
-Default timeout of a test in milliseconds
+测试的默认超时时间（以毫秒为单位）。
 
 ### hookTimeout
 
-- **Type:** `number`
-- **Default:** `5000`
+- **类型:** `number`
+- **默认值:** `5000`
 
-Default timeout of a hook in milliseconds
+挂钩的默认超时时间（以毫秒为单位）。
 
 ### silent
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Silent mode
+Silent模式。
 
 ### setupFiles
 
-- **Type:** `string | string[]`
+- **类型:** `string | string[]`
 
-Path to setup files
+setup files 的路径。
 
 ### globalSetup
 
-- **Type:** `string | string[]`
+- **类型:** `string | string[]`
 
-Path to global setup files, relative to project root
+全局设置文件的路径，相对于项目根目录。
 
-A global setup file can either export named functions `setup` and `teardown` or a `default` function that returns a teardown function ([example](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts)).
+全局设置文件可以导出命名函数 `setup` 和 `teardown` 或返回拆卸函数的 `default` 函数（[示例](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts))。
 
-::: info
-Multiple globalSetup files are possible. setup and teardown are executed sequentially with teardown in reverse order.
+::: info 提示
+多个 globalSetup 文件是可能的。 setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
 :::
 
 
 ### watchIgnore
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** `['**\/node_modules\/**', '**\/dist/**']`
+- **类型:** `(string | RegExp)[]`
+- **默认值:** `['**\/node_modules\/**', '**\/dist/**']`
 
-Pattern of file paths to be ignore from triggering watch rerun
+触发监视重新运行时要忽略的文件路径模式。
 
 ### isolate
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Isolate environment for each test file
+为每个测试文件隔离环境
 
 ### coverage
 
-- **Type:** `C8Options`
-- **Default:** `undefined`
+- **类型:** `C8Options`
+- **默认值:** `undefined`
 
-Coverage options
+覆盖选项
 
 ### open
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Open Vitest UI (WIP)
+打开 Vitest UI (WIP)
 
 ### api
 
-- **Type:** `boolean | number`
-- **Default:** `false`
+- **类型:** `boolean | number`
+- **默认值:** `false`
 
-Listen to port and serve API. When set to true, the default port is 55555
+监听端口并提供 API。设置为 true 时，默认端口为 55555。
 
 ### clearMocks
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Will call `.mockClear()` on all spies before each test
+每次测试前都会对所有测试间谍调用 `.mockClear()`。
 
 ### mockReset
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Will call `.mockReset()` on all spies before each test
+每次测试前都会对所有测试间谍调用 `.mockReset()`。
 
 ### restoreMocks
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Will call `.mockRestore()` on all spies before each test
+每次测试前都会对所有测试间谍调用 `.mockRestore()`。
 
 ### transformMode
 
-- **Type:** `{ web?, ssr? }`
+- **类型:** `{ web?, ssr? }`
 
-Determine the transform method of modules
+确定模块的变换方法。
 
 #### transformMode.ssr
 
-- **Type:** `RegExp[]`
-- **Default:** `[/\.([cm]?[jt]sx?|json)$/]`
+- **类型:** `RegExp[]`
+- **默认值:** `[/\.([cm]?[jt]sx?|json)$/]`
 
-Use SSR transform pipeline for the specified files.<br>
-Vite plugins will receive `ssr: true` flag when processing those files.
+对指定文件使用 SSR 转换管道。<br>
+Vite 插件在处理这些文件时会收到 `ssr: true` 标志。
 
 #### transformMode&#46;web
 
-- **Type:** `RegExp[]`
-- **Default:** *modules other than those specified in `transformMode.ssr`*
+- **类型:** `RegExp[]`
+- **默认值:** *选中指定的模块以外的模块`transformMode.ssr`*
 
-First do a normal transform pipeline (targeting browser), then then do a SSR rewrite to run the code in Node.<br>
-Vite plugins will receive `ssr: false` flag when processing those files.
+首先进行正常的转换管道（针对浏览器），然后进行 SSR 重写以在 Node 中运行代码。<br>
+Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
 
-When you use JSX as component models other than React (e.g. Vue JSX or SolidJS), you might want to config as following to make `.tsx` / `.jsx` transformed as client-side components:
+当我们使用 JSX 作为 React 以外的组件模型（例如 Vue JSX 或 SolidJS）时，我们可能需要进行如下配置以使 `.tsx` / `.jsx` 转换为客户端组件：
 
 ```ts
 import { defineConfig } from 'vite'
@@ -368,5 +364,4 @@ export default defineConfig({
 
 - **Type:** `PrettyFormatOptions`
 
-Format options for snapshot testing.
--->
+快照测试的格式选项。
