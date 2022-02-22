@@ -12,13 +12,14 @@ Vitest
   <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/vitest?color=a1b858&label="></a>
 <p>
 
-> 欢迎大家一起前来翻译
+> 现在 Vitest 还处于开发阶段，其实原则上官网团队是不建议现在进行翻译的。
+> 但是由于一些个人问题，我还是得现在进行翻译，保证我可以在我的社团内部进行推广，但是由于翻译对于我而言难度还是较为巨大，所以还是十分希望会有更多志同道合的同学可以一起帮助我进行翻译。谢谢大家
 
 ## 文档
 
 浏览[中文文档](https://inet-vitest.netlify.app/) ｜ [英文文档](https://vitest.dev/)
 
-[实例](https://inet-vitest.netlify.app/guide/#%E5%AE%9E%E4%BE%8B) | [Projects using Vitest](https://inet-vitest.netlify.app/guide/#%E4%BD%BF%E7%94%A8-vitest-%E7%9A%84%E9%A1%B9%E7%9B%AE)
+[实例](https://inet-vitest.netlify.app/guide/#%E5%AE%9E%E4%BE%8B) | [使用 Vitest 的项目](https://inet-vitest.netlify.app/guide/#%E4%BD%BF%E7%94%A8-vitest-%E7%9A%84%E9%A1%B9%E7%9B%AE)
 
 ## 特点
 
