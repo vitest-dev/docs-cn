@@ -67,7 +67,7 @@ export default defineConfig({
 ```
 
 要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
-可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 
+可以指定其他 CLI 选项，例如 `--port` 或 `--https`。
 有关 CLI 选项的完整列表，在项目中运行 `npx vitest --help`。
 
 ### 命令
@@ -137,10 +137,14 @@ export default defineConfig({
 - [gridjs-svelte](https://github.com/iamyuu/gridjs-svelte)
 - [spring-easing](https://github.com/okikio/spring-easing)
 - [bytemd](https://github.com/bytedance/bytemd)
+- [faker](https://github.com/faker-js/faker)
+- [million](https://github.com/aidenybai/million)
+- [Vitamin](https://github.com/wtchnm/Vitamin)
+- [neodrag](https://github.com/PuruVJ/neodrag)
 
 ## 使用未发布的版本
 
-如果您等不及想要使用最新功能的 Vitest, 则需要将 [vitest](https://github.com/vitest-dev/vitest) 官方仓库下载到本地计算机上，然后自行构建和链接（需要使用 [pnpm](https://www.pnpm.cn/) ）： 
+如果您等不及想要使用最新功能的 Vitest, 则需要将 [vitest](https://github.com/vitest-dev/vitest) 官方仓库下载到本地计算机上，然后自行构建和链接（需要使用 [pnpm](https://www.pnpm.cn/) ）：
 
 ```bash
 git clone https://github.com/vitest-dev/vitest.git
