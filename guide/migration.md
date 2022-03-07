@@ -1,7 +1,5 @@
 # 迁移指南
 
-<DevelopmentWarning/>
-
 ## 从 Jest 迁移
 
 Vitest 设计了与 Jest 兼容的 API，以使从 Jest 的迁移尽可能简单。尽管做出了这些努力，我们仍然可能会遇到以下差异：
