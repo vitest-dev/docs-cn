@@ -1,7 +1,5 @@
 # 跟其他的测试框架进行比较
 
-<DevelopmentWarning/>
-
 ## Jest
 
 [Jest](https://jestjs.io/zh-Hans/) 为大多数的JavaScript项目提供了开箱即用的测试支持，有着舒适的 API (例如 `it` 和 `expect`) 以及完整的大多数设置所需要的测试功能（例如 快照，模拟，覆盖）。我们十分感谢 Jest 团队和社区创建了完美的 API ，并且推动了许多 Web 生态系统中标准的测试模式，现在也可以在 Vite 中使用 Jest。[@蒋豪群](https://twitter.com/haoqunjiang)正在编写 [vite-jest](https://github.com/sodatea/vite-jest#readme)，准备提供一套完美跟 Vite 集成的 Jest，[Jest](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest) 中最后一个阻止测试也已经完成，所以这将会是一个比较不错的单元测试框架。然而，在我们将 [Vite](https://cn.vitejs.dev/) 作为常见的 Web 工具（TypeScript，JSX，常见的 UI 框架）所支持的工具里面，Jest 有着重复的复杂性。但是如果项目由 Vite 提供支持，那么配置和维护两个不同的容器是一件极其不合理的操作。使用 Vitest ,就可以将开发，构建和测试环境的配置定义为单个容器，使用同一个插件和 `vite.config.js` 。即使项目并不是由 Vite 提供支持（例如，使用了 esbuild 或者 rollup 进行构建的），那么 Vitest 也将会是一个有趣的选择，因为他可以让我们更快的运行单元测试并且在 DX 中跳跃，这都归功于默认的浏览模式中使用了 Vite 的热重载模块（HMR）。Vitest 与大多数 Jest API 和生态系统库都有较好的兼容性，因此在大多数项目中，我们应该可以无缝的将 Jest 替换成 Vitest 。

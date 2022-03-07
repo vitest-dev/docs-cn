@@ -1,7 +1,5 @@
 # 快速开始
 
-<DevelopmentWarning/>
-
 ## 概述
 
 Vitest 是一个由 Vite 提供支持的极速单元测试框架。
@@ -113,7 +111,7 @@ export default defineConfig({
 | `--outputFile <filename>` | 设置 `--reporter=json` 选项时将结果输出到文件 |
 | `--coverage` | 使用 c8 进行覆盖 |
 | `--run` | 不要浏览 |
-| `--global` | 全局注入 API |
+| `--global` | 全局注入 API `deprecated` 使用 `--globals` |
 | `--dom` | 用 happy-dom 模拟浏览器 api |
 | `--environment <env>` | Runner环境（默认：node） |
 | `--passWithNoTests` | 未找到测试时通过 |
@@ -141,6 +139,7 @@ export default defineConfig({
 - [million](https://github.com/aidenybai/million)
 - [Vitamin](https://github.com/wtchnm/Vitamin)
 - [neodrag](https://github.com/PuruVJ/neodrag)
+- [svelte-multiselect](https://github.com/janosh/svelte-multiselect)
 
 ## 使用未发布的版本
 

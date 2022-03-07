@@ -1,7 +1,7 @@
 # 为什么是 Vitest ？
 
 :::tip 提示
-该文档假设您熟悉 Vite 。 开始阅读之前建议您先浏览 [为什么选 Vite](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS ](https://www.bilibili.com/video/BV1kh411Q7WN)， [尤雨溪](https://www.zhihu.com/people/evanyou)做了一个演示来解释的主要概念。
+该文档假设您熟悉 Vite 。 开始阅读之前建议您先浏览 [为什么选 Vite](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS ](https://www.bilibili.com/video/BV1kh411Q7WN)， [尤雨溪](https://github.com/yyx990803)做了一个演示来解释的主要概念。
 :::
 
 ## 对 Vite 原生测试运行器的需求

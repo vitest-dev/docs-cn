@@ -36,20 +36,6 @@ import { lazyLoad } from '../images'
       </div>
     </div>
 
-    <p text="1.4em center yellow-500" leading-7 font-normal tracking-wide>
-      <span i-carbon-warning-alt inline-block align-mid /> Vitest 仍在开发中
-    </p>
-    <p
-      text="1em center"
-      leading-7
-      op60
-      font-normal
-      tracking-wide
-    >
-      当前还不建议您替换现有的测试框架
-      <br>如果您愿意帮助我们，可以在新项目中进行使用
-    </p>
-
     <h2 op50 font-normal pt-10>
       特性
     </h2>
