@@ -34,6 +34,52 @@ Vitest
 - 用于 DOM 模拟的 [jsdom](https://github.com/jsdom/jsdom) 或 [happy-dom](https://github.com/capricorn86/happy-dom)
 - 通过 [c8](https://github.com/bcoe/c8) 覆盖所有的代码
 
+```ts
+import { assert, describe, expect, it } from 'vitest'
+describe('suite name', () => {
+  it('foo', () => {
+    expect(1 + 1).toEqual(2)
+    expect(true).to.be.true
+  })
+  it('bar', () => {
+    assert.equal(Math.sqrt(4), 2)
+  })
+  it('snapshot', () => {
+    expect({ foo: 'bar' }).toMatchSnapshot()
+  })
+})
+```
+
+```bash
+$ npx vitest
+```
+
+## 赞助商
+
+### Anthony Fu 的赞助商
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg'/>
+  </a>
+</p>
+
+### Patak 的赞助商
+
+<p align="center">
+  <a href="https://patak.dev/sponsors.svg">
+    <img src='https://patak.dev/sponsors.svg'/>
+  </a>
+</p>
+
+## 感谢
+
+- [Jest 团队和社区](https://jestjs.io/zh-Hans/) 用于创建愉快的测试 API
+- [@lukeed](https://github.com/lukeed) 为我们在 [uvu](https://github.com/lukeed/uvu) 上的工作获得了很多启发。
+- 使用 [@pi0](https://github.com/pi0) 用于 Vite 转换和捆绑服务器代码的想法和实现。
+- [Vite 团队](https://github.com/vitejs/vite) 集思广益的想法。
+- [@patak-dev](https://github.com/patak-dev) 创造了很棒的名字！
+
 ## License
 
 [MIT](https://github.com/xiaoxunyao/cn.vitest.dev/blob/master/LICENSE) License © 2021-Present [Anthony Fu](https://github.com/antfu), [Matias Capeletto](https://github.com/patak-dev)
