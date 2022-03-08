@@ -11,6 +11,15 @@ Vitest
 <p align="center">
   <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/vitest?color=a1b858&label="></a>
 </p>
+<h3 align="center">
+<a href="https://chat.vitest.dev"><i>参与其中！</i></a>
+</h3>
+<br>
+<br>
+
+> Vitest 需要 Vite >=v2.7.10 和 Node >=v14
+
+浏览[入门指南](https://cn-vitest.netlify.app/guide/)或了解[我们为什么要构建新的测试框架](https://cn-vitest.netlify.app/guide/why.html)。
 
 ## 文档
 
