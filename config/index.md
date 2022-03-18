@@ -69,6 +69,22 @@ Externalize 意味着 Vite 会绕过包到原生 Node.js 中。 Vite 的转换�
 
 Vite 将处理内联模块。这会有助于处理以 ESM 格式（Node 无法处理）发布 `.js` 的包。
 
+#### deps.fallbackCJS
+
+- **类型** `boolean`
+- **默认值:** `false`
+
+当依赖项是有效的 ESM 包时，将会尝试根据路径猜测 cjs 版本。
+
+如果包在 ESM 和 CJS 模式下具有不同的逻辑，这将会导致一些错误的产生。
+
+#### deps.interopDefault
+
+- **类型:** `boolean`
+- **默认值:** `true`
+
+将 CJS 模块的默认值视为命名导出。
+
 ### globals
 
 - **类型:** `boolean`

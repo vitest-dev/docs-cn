@@ -140,6 +140,7 @@ export default defineConfig({
 - [Vitamin](https://github.com/wtchnm/Vitamin)
 - [neodrag](https://github.com/PuruVJ/neodrag)
 - [svelte-multiselect](https://github.com/janosh/svelte-multiselect)
+- [iconify](https://github.com/iconify/iconify)
 
 ## 使用未发布的版本
 
