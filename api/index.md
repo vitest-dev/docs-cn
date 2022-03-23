@@ -117,6 +117,28 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   })
   ```
 
+### test.each
+- **类型:** `(cases: ReadonlyArray<T>) => void`
+- **别名:** `it.each`
+
+当我们需要使用不同的变量运行相同的测试时，可以使用 `test.each`。
+
+我们可以按照测试函数参数的顺序在测试名称中使用 `%i` 或 `%s`。
+
+```ts
+test.each([
+  [1, 1, 2],
+  [1, 2, 3],
+  [2, 1, 3],
+])('add(%i, %i) -> %i', (a, b, expected) => {
+  expect(a + b).toBe(expected)
+})
+// this will return
+// √ add(1, 1) -> 2
+// √ add(1, 2) -> 3
+// √ add(2, 1) -> 3
+```
+
 ## describe
 
 当我们让 `test` 在文件的顶层使用时，它们将作为隐式测试套件的一部分收集。使用 `describe` 我们可以在当前上下文中定义一个新测试套件，作为一组相关测试和其他嵌套测试套件。测试套件可让您组织测试，使报告更清晰。
@@ -241,6 +263,30 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   ```ts
   // 测试套件的报告中将显示一个条目
   describe.todo("unimplemented suite");
+  ```
+
+### describe.each
+
+- **类型:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void) => void`
+
+  如果我们有多个依赖需要相同数据的测试，请使用 `describe.each`。
+
+  ```ts
+  describe.each([
+    { a: 1, b: 1, expected: 2 },
+    { a: 1, b: 2, expected: 3 },
+    { a: 2, b: 1, expected: 3 },
+  ])('describe object add(%i, %i)', ({ a, b, expected }) => {
+    test(`returns ${expected}`, () => {
+      expect(a + b).toBe(expected)
+    })
+    test(`returned value not be greater than ${expected}`, () => {
+      expect(a + b).not.toBeGreaterThan(expected)
+    })
+    test(`returned value not be less than ${expected}`, () => {
+      expect(a + b).not.toBeLessThan(expected)
+    })
+  })
   ```
 
 ## expect
