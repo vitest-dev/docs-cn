@@ -144,6 +144,10 @@ export default defineConfig({
             },
             */
             {
+              text: '源码内测试',
+              link: '/guide/in-source'
+            },
+            {
               text: '比较',
               link: '/guide/comparisons'
             },
