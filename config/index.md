@@ -265,7 +265,9 @@ Silent模式。
 
 - **类型:** `string | string[]`
 
-setup files 的路径。
+setup files 的路径。它们将在每个测试文件之前运行。
+
+你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串)来区分线程(如果`threads: false`，那么这个值将永远会是`1`)
 
 ### globalSetup
 
