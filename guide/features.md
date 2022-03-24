@@ -212,7 +212,7 @@ $ npm i -D jsdom
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -239,7 +239,7 @@ Vitest 通过 [c8](https://github.com/bcoe/c8) 支持 Native 代码覆盖
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {

@@ -38,8 +38,7 @@ Vitest 的主要优势之一是它与 Vite 拥有的统一配置。 如果有配
 要配置 `Vitest`，需要在 Vite 配置中添加 `test` 属性。 还需要在配置文件顶部使用 [三斜杠指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 添加对 Vitest 类型的引用。
 
 ```ts
-/// <reference types="vitest" />
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
