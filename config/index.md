@@ -8,7 +8,9 @@
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts` 。
 - 使用 `process.env.VITEST` 有条件地在 `vite.config.ts` 中应用不同的配置。
 
-要配置 `vitest` 本身，请在我们的 Vite 配置中添加 `test` 属性。 我们还需要使用 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 在 配置文件的顶部。
+要配置 `vitest` 本身，请在我们的 Vite 配置中添加 `test` 属性。如果你 `vite` 的 `defineConfig` 你还需要使用 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 在配置文件的顶部。
+
+使用 `vite` 的 `defineConfig` 可以参考下面的格式：
 
 ```ts
 /// <reference types="vitest" />
@@ -21,10 +23,22 @@ export default defineConfig({
 })
 ```
 
-如果有需要，我们可以检索 Vitest 的默认选项以展开它们：
+使用 `vitest` 的 `defineConfig` 可以参考下面的格式：
 
 ```ts
-import { defineConfig, configDefaults } from 'vitest'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    // ...
+  },
+})
+```
+
+如果有需要，我们可以获取到 Vitest 的默认选项以扩展它们：
+
+```ts
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -94,7 +108,7 @@ Vite 将处理内联模块。这会有助于处理以 ESM 格式（Node 无法�
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -118,7 +132,7 @@ export default defineConfig({
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
@@ -363,7 +377,7 @@ Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
 当我们使用 JSX 作为 React 以外的组件模型（例如 Vue JSX 或 SolidJS）时，我们可能需要进行如下配置以使 `.tsx` / `.jsx` 转换为客户端组件：
 
 ```ts
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
