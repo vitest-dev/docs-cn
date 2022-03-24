@@ -240,10 +240,6 @@ test('use jsdom in this test file', () => {
 
 最小的线程数。
 
-### interopDefault
-
-- **类型:** `boolean`
-
 ### testTimeout
 
 - **类型:** `number`
