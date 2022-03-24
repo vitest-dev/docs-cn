@@ -378,6 +378,13 @@ export default defineConfig({
 
 ### snapshotFormat
 
-- **Type:** `PrettyFormatOptions`
+- **类型:** `PrettyFormatOptions`
 
 快照测试的格式选项。
+
+### mode
+
+- **类型:** `string`
+- **默认值** `test`
+
+覆盖 Vite 的模式
