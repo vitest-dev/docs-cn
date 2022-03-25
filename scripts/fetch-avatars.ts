@@ -2,9 +2,9 @@ import fs from 'fs-extra'
 import { $fetch } from 'ohmyfetch'
 import { coreTeamMembers } from '../src/contributors'
 
-const pathContributors = '../docs/contributors.json'
-const dirAvatars = '../docs/public/user-avatars/'
-const dirSponsors = '../docs/public/sponsors/'
+const pathContributors = './contributors.json'
+const dirAvatars = '../public/user-avatars/'
+const dirSponsors = '../public/sponsors/'
 
 let contributors: string[] = []
 const team = coreTeamMembers.map(i => i.github)
