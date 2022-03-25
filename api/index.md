@@ -537,7 +537,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThan` 断言接收值是否比实际值大，如果相同将无法通过测试。
+  `toBeGreaterThan` 断言接收值是否大于实际值，如果相同将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -552,7 +552,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThanOrEqual` 断言实际值是否大于等于接收到值。
+  `toBeGreaterThanOrEqual` 断言接收值是否大于等于实际值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -567,7 +567,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThan` 断言接收值是否比实际值小，如果相同将无法通过测试。
+  `toBeLessThan` 断言接收值是否小于实际值，如果相同将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -582,7 +582,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThanOrEqual` 断言实际值是否小于等于接收到值。
+  `toBeLessThanOrEqual` 断言接收值是否小于等于实际值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -596,9 +596,10 @@ TODO
 ### toEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
-  `toEqual` 将断言实际值是否等于接收值或者同样的结构，如果是断言对象(将会使用递归的方法进行断言)。
 
-  我们在下面的示例中看出 `toEqual` 和 `toBe` 之间的区别：
+  `toEqual` 断言实际值是否等于接收值或者同样的结构，如果是断言对象(将会使用递归的方法进行断言)。
+
+  在本例中，你可以看到 `toEqual` 和 `toBe` 之间的区别：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -623,19 +624,20 @@ TODO
   ```
 
   :::warning 警告
-  不会对对象执行深度判断，如果需要 `Error` 要测试是否抛出了某些东西，建议使用 [`toThrow`](#tothrow) 断言。
+  不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个内容，建议使用 [`toThrow`](#tothrow) 断言。
   :::
 
 ### toStrictEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
-  `toStrictEqual` 将断言实际值是否等于接收值或者同样的结构，如果它是一个对象（递归比较它们），并且会比较是否是相同的类型。
+
+  `toStrictEqual` 断言实际值是否等于接收值或者同样的结构，如果它是一个对象（递归比较它们），并且会比较是否是相同的类型。
 
   与 [`.toEqual`](#toequal) 之间的区别：
 
-  -  `undefined` 检查具有属性的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
-  -  检查数组的稀疏性。 例如 使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
-  -  检查对象类型是否相等。例如 具有字段 `a` 和 `b` 的 instance 对象将不等于具有字段 `a` 和`b` 的 literal 对象。
+  -  检查属性值为 `undefined` 的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
+  -  检查数组的稀疏性。 例如使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
+  -  检查对象类型是否相等。例如具有字段 `a` 和 `b` 的 instance 对象将不等于具有字段 `a` 和`b` 的 literal 对象。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -705,7 +707,7 @@ TODO
 
 - **类型:** `(key: any, received?: any) => Awaitable<void>`
 
-  `toHaveProperty` 断言引用 `key` 处的属性是否存在于对象。
+  `toHaveProperty` 断言对象上是否存在 `key` 的属性。
 
   我们可以提供一个可选的值参数，也称为深度相等，例如 `toEqual` 匹配器来比较接收到的属性值。
 
