@@ -3,8 +3,8 @@ import { $fetch } from 'ohmyfetch'
 import { coreTeamMembers } from '../src/contributors'
 
 const pathContributors = './contributors.json'
-const dirAvatars = '../public/user-avatars/'
-const dirSponsors = '../public/sponsors/'
+const dirAvatars = './public/user-avatars/'
+const dirSponsors = './public/sponsors/'
 
 let contributors: string[] = []
 const team = coreTeamMembers.map(i => i.github)
