@@ -1,12 +1,12 @@
 # 为什么是 Vitest ？
 
 :::tip 提示
-该文档假设您熟悉 Vite 。 开始阅读之前建议您先浏览 [为什么选 Vite](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS ](https://www.bilibili.com/video/BV1kh411Q7WN)， [尤雨溪](https://github.com/yyx990803)做了一个演示来解释的主要概念。
+该文档假设你熟悉 Vite 。开始阅读之前建议先浏览 [为什么选 Vite ](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS ](https://www.bilibili.com/video/BV1kh411Q7WN) ， [尤雨溪](https://github.com/yyx990803)做了一个示范来解释的主要概念。
 :::
 
 ## 对 Vite 原生测试运行器的需求
 
-Vite 对常见 Web 模式拥有开箱即用支，glob 导入和 SSR 等功能，以及它的许多插件和越来越多集成的框架正在培育一个充满活力的生态社区。它的开发和构建模式是其成功的关键。 对于文档而言，有几个由 Vite 提供支持的基于 SSG 的替代方案。Vite的单元测试框架还没确定。像 [Jest](https://jestjs.io/zh-Hans/) 这样的现有选项是在不同的环境中创建的。 Jest 和 Vite 之间有很多相同的部分，被迫的让用户不得不创建两个不同的配置文件。
+Vite 对常见 Web 模式开箱即用，支持 glob 导入和 SSR 等功能，而且它的许多插件和集成框架正在培育一个充满活力的生态社区。它的开发和构建模式是其成功的关键。对于文档而言，有一些基于 SSG 的替代方案，它们由 Vite 提供支持。但是 Vite 的单元测试形式还不是十分清晰，像 [Jest](https://jestjs.io/zh-Hans/) 这样的现有选项是在不同的上下文环境中创建的。 Jest 和 Vite 之间有很多重复的部分，让用户不得不创建两个不同的配置文件。
 
 使用 Vite 开发服务器在测试期间转换您的文件，可以创建一个简单的运行程序，无需处理转换源文件的复杂性，并且可以只专注于在测试期间提供最佳 DX。使用相同配置的测试容器 (通过 `vite.config.js`)，在开发、构建和测试期间共享一个通用的转换容器。 这可以通过相同的插件 API 进行扩展，让您和您的工具与 Vite 形成完美的集成。 一开始就考虑到使用 Vite 构建的工具，利用了它在 DX 中的改进，比如它的即时热模块重载 (HMR)。 这就是 Vitest，一个由 Vite 提供支持的极速单元测试框架。
 
