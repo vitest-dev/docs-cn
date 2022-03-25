@@ -1,0 +1,37 @@
+{
+  "extends": "@antfu",
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": ["path"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": "packages/**/*.*",
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": ["vitest", "path"]
+          }
+        ]
+      }
+    },
+    {
+      "files": "packages/vitest/**/*.*",
+      "rules": {
+        "no-restricted-globals": [
+          "error",
+          "setTimeout",
+          "clearTimeout",
+          "setInterval",
+          "clearInterval",
+          "performance"
+        ]
+      }
+    }
+  ]
+}
