@@ -16,7 +16,7 @@ export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0);
 }
 
-// 源码内的测试程序
+// 源码内的测试套件
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest;
   it('add', () => {

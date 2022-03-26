@@ -17,3 +17,4 @@ cypress/downloads
 cypress/screenshots
 public/user-avatars
 public/sponsors
+.vscode
