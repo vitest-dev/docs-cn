@@ -121,23 +121,32 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(cases: ReadonlyArray<T>) => void`
 - **别名:** `it.each`
 
-当我们需要使用不同的变量运行相同的测试时，可以使用 `test.each`。
+  当你需要使用不同的变量运行相同的测试时，可以使用 `test.each`。
 
-我们可以按照测试函数参数的顺序在测试名称中使用 `%i` 或 `%s`。
+  你可以按照测试参数的顺序，在测试名称插入符合[printf格式](https://nodejs.org/api/util.html#util_util_format_format_args)的参数。
 
-```ts
-test.each([
-  [1, 1, 2],
-  [1, 2, 3],
-  [2, 1, 3],
-])('add(%i, %i) -> %i', (a, b, expected) => {
-  expect(a + b).toBe(expected)
-})
-// this will return
-// √ add(1, 1) -> 2
-// √ add(1, 2) -> 3
-// √ add(2, 1) -> 3
-```
+  - `%s`：字符串
+  - `%d`：数值
+  - `%i`：整数
+  - `%f`：小数
+  - `%j`：json格式
+  - `$o`：对象
+  - `%#`：对应的测试参数下标
+  - `%%`：单个百分比符号 ('%')
+
+  ```ts
+  test.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+  ])('add(%i, %i) -> %i', (a, b, expected) => {
+    expect(a + b).toBe(expected)
+  })
+  // this will return
+  // √ add(1, 1) -> 2
+  // √ add(1, 2) -> 3
+  // √ add(2, 1) -> 3
+  ```
 
 ## describe
 
