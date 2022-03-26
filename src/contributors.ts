@@ -10,21 +10,16 @@ export interface CoreTeam {
   name: string
   github: string
   twitter?: string
-  sponsors: boolean
+  sponsors?: boolean
   description: string
 }
 
-// for antfu sponsors
-const jsdelivr = 'cdn.jsdelivr.net'
-// for patak sponsors
-const patak = 'patak.dev'
-const antfuSponsors = `https://${jsdelivr}/gh/antfu/static/sponsors.svg`
-const patakSponsors = `https://${patak}/sponsors.svg`
-
 const contributorsAvatars: Record<string, string> = {}
 
+const getAvatarUrl = (name: string) => import.meta.hot ? `https://github.com/${name}.png` : `/user-avatars/${name}.png`
+
 const contributorList = (contributors as string[]).reduce((acc, name) => {
-  contributorsAvatars[name] = `https://github.com/${name}.png`
+  contributorsAvatars[name] = getAvatarUrl(name)
   acc.push({ name, avatar: contributorsAvatars[name] })
   return acc
 }, [] as Contributor[])
@@ -44,7 +39,7 @@ const coreTeamMembers: CoreTeam[] = [
     github: 'patak-dev',
     twitter: 'patak-dev',
     sponsors: true,
-    description: '二把手<br>Vite 的核心团队成员<br>Vue 的团队成员',
+    description: '二当家<br>Vite 的核心团队成员<br>Vue 的团队成员',
   },
   {
     avatar: contributorsAvatars.Aslemammad,
@@ -80,4 +75,4 @@ const coreTeamMembers: CoreTeam[] = [
   },
 ]
 
-export { coreTeamMembers, contributorList as contributors, jsdelivr, patak, antfuSponsors, patakSponsors }
+export { coreTeamMembers, contributorList as contributors }

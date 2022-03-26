@@ -1,12 +1,10 @@
 | 实例 | 开源地址 | 在线试用 |
 |---|---|---|
 | `basic` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__) |
-| `cjs` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/cjs) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/cjs?initialPath=__vitest__) |
-| `coverage-test` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/coverage-test) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/coverage-test?initialPath=__vitest__) |
-| `fails` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/fails) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/fails?initialPath=__vitest__) |
+| `graphql` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/graphql) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/graphql?initialPath=__vitest__) |
 | `lit` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/lit) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/lit?initialPath=__vitest__) |
 | `mocks` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/mocks) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/mocks?initialPath=__vitest__) |
-| `puppeteer` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/puppeteer) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/puppeteer?initialPath=__vitest__) |
+| `puppeteer` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/puppeteer) | |
 | `react` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react?initialPath=__vitest__) |
 | `react-enzyme` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-enzyme) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-enzyme?initialPath=__vitest__) |
 | `react-mui` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-mui) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-mui?initialPath=__vitest__) |
@@ -23,3 +21,4 @@
 | `vue` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue?initialPath=__vitest__) |
 | `vue-jsx` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue-jsx) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue-jsx?initialPath=__vitest__) |
 | `vue2` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue2) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue2?initialPath=__vitest__) |
+

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { antfuSponsors, coreTeamMembers, patakSponsors } from '../contributors'
-import { lazyLoad } from '../images'
+import { coreTeamMembers } from '../contributors'
 </script>
 <template>
   <div flex flex-col items-center>
     <div flex flex-col items-center p="t-10 md:t-20 b-10">
-      <img src="/logo.svg" h="40 md:60">
+      <img src="/logo.svg" h="40 md:60" alt="Vitest logo" width="240" height="240">
       <h1 text-3em md:text-4em font-light>
         Vitest
       </h1>
@@ -25,11 +24,11 @@ import { lazyLoad } from '../images'
         mt-5
         children:my0
       >
-        <a class="btn bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700 saturate-80" href="/guide/">
+        <a class="btn bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700 saturate-80" href="/guide/" rel="noopener noreferrer">
           <span class="i-carbon:page-last inline-block text-lg" />
           <span ma>快速开始</span>
         </a>
-        <a class="btn bg-lime-500 hover:bg-lime-600 dark:bg-lime-600 dark:hover:bg-lime-700 saturate-80" href="/guide/why">
+        <a class="btn bg-lime-500 hover:bg-lime-600 dark:bg-lime-600 dark:hover:bg-lime-700 saturate-80" href="/guide/why" rel="noopener noreferrer">
           <span class="i-carbon:list-checked inline-block text-lg" />
           <span ma>了解更多</span>
         </a>
@@ -57,7 +56,7 @@ import { lazyLoad } from '../images'
     <p op80 text-lg max-w-150 text-center leading-7>
       <Contributors />
       <br>
-      <a href="https://chat.vitest.dev">加入我们</a>将乐在其中！
+      <a href="https://chat.vitest.dev" rel="noopener noreferrer">加入我们</a>将乐在其中！
     </p>
 
     <h2 id="sponsored-by" op50 font-normal pt-5 pb-2>
@@ -68,8 +67,11 @@ import { lazyLoad } from '../images'
         <a text-lg h="32px" href="https://github.com/sponsors/antfu" rel="noopener noreferrer">Anthony's Sponsors</a>
         <a href="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg" target="_blank" rel="noopener noreferrer">
           <img
-            :loading="lazyLoad"
-            :src="antfuSponsors"
+            crossorigin="anonymous"
+            width="768" height="1464"
+            class="resizable-img"
+            loading="lazy"
+            src="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg"
             alt="Anthony Fu's sponsors"
           >
         </a>
@@ -78,8 +80,11 @@ import { lazyLoad } from '../images'
         <a text-lg h="32px" href="https://github.com/sponsors/patak-dev" rel="noopener noreferrer">Patak's Sponsors</a>
         <a href="https://patak.dev/sponsors.svg" target="_blank" rel="noopener noreferrer">
           <img
-            :loading="lazyLoad"
-            :src="patakSponsors"
+            crossorigin="anonymous"
+            width="768" height="722"
+            class="resizable-img"
+            loading="lazy"
+            src="https://patak.dev/sponsors.svg"
             alt="Patak's sponsors"
           >
         </a>
@@ -87,8 +92,8 @@ import { lazyLoad } from '../images'
     </div>
 
     <p class="text-center opacity-75">
-      <a href="https://www.netlify.com">
-        <img src="/netlify.svg" alt="Deploys by Netlify">
+      <a href="https://www.netlify.com" rel="noopener noreferrer">
+        <img src="/netlify.svg" alt="Deploys by Netlify" width="114" height="151">
       </a>
     </p>
     <div mb-30 />

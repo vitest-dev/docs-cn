@@ -8,18 +8,18 @@ type Awaitable<T> = T | PromiseLike<T>
 type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 ```
 
-当一个测试函数返回一个 Promise 时，Vitest 将等待直到它被解决以收集期待的异步。 如果 promise 被拒绝，测试将失败。
+当一个测试函数返回一个 promise 时，vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
 
-为了与 Jest 兼容, `TestFunction` 也可以是 `(done: DoneCallback) => void`. 如果使用这种形式, 则在调用之前不会结束测试 `done` (0参数或假值表示成功测试，而真值或错误值作为参数触发失败). 我们不建议使用这种形式，因为您可以使用 `async` 函数实现相同的目的。
+为了兼容 Jest 的用法, `TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。 如果使用这种形式, 则 `done` 在调用之前不会结束测试（无参数或参数为假值表示测试通过，而真值或错误值作为参数则测试不通过）。 我们不建议使用这种形式，因为你可以使用 `async` 函数实现相同的目的。
 
 ## test
 
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it`
 
-  `test` 定义了一组相关的方法。它接收测试名称和保存一个希望测试的函数。
+  `test` 定义了一组关于测试期望的方法。它接收测试名称和一个含有测试期望的函数。
 
-  或者，您可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间，默认为 5 秒。也可以通过 [testTimeout](/config/#testtimeout) 进行全局配置。
+  同时，你也可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -34,7 +34,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.skip`
 
-  如果您想跳过运行某些测试，但由于任何原因不想删除代码，您可以使用 `test.skip` 来避免运行它们。
+  如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
   ```ts
   import { test, assert } from 'vitest'
@@ -50,9 +50,9 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
 
-  使用 `test.only` 仅在给定测试套件中运行某些测试。这在调试时会非常有用。
+  使用 `test.only` 可以仅在给定测试套件中运行某些测试。这在调试时会非常有用。
 
-  或者，您可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间，默认为 5 秒。也可以通过 [testTimeout](/config/#testtimeout) 进行全局配置。
+  同时，你也可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
   import { test, assert } from 'vitest'
@@ -68,7 +68,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.concurrent`
 
-  `test.concurrent` 将连续测试标记为并发运行。它将接收测试名称、带有要收集测试的异步函数以及可选的超时参数（以毫秒为单位）。
+  `test.concurrent` 会将连续的多个测试并发运行。它将接收测试名称、带有要收集测试的异步函数以及可选的超时参数（以毫秒为单位）。
 
   ```ts
   import { describe, test } from 'vitest'
@@ -81,7 +81,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   });
   ```
 
-  `test.skip`，`test.only` 和 `test.todo` 适用于并发测试。以下所有组合均有效：
+  `test.skip`，`test.only` 和 `test.todo` 都适用于并发测试。以下所有组合均有效：
 
   ```ts
   test.concurrent(...)
@@ -95,10 +95,10 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(name: string) => void`
 - **别名:** `it.todo`
 
-  使用 `test.todo` 存根测试以供稍后实施。测试报告中将显示一个条目，以便您知道还需要实施多少测试。
+  使用 `test.todo` 将稍后实现的测试进行存档。测试报告中将显示一个记录，以便你知道还多少条未实现的测试。
 
   ```ts
-  // 测试的报告中将显示一个条目
+  // 测试的报告中将显示一个记录
   test.todo("unimplemented test");
   ```
 
@@ -110,7 +110,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   使用 `test.fails` 表示断言将显式失败。
 
   ```ts
-  import { test } from 'vitest'
+  import { expect, test } from 'vitest'
   const myAsyncFunc = () => new Promise((resolve) => resolve(1))
   test.fails("fail test", () => {
     expect(myAsyncFunc()).rejects.toBe(1)
@@ -141,10 +141,10 @@ test.each([
 
 ## describe
 
-当我们让 `test` 在文件的顶层使用时，它们将作为隐式测试套件的一部分收集。使用 `describe` 我们可以在当前上下文中定义一个新测试套件，作为一组相关测试和其他嵌套测试套件。测试套件可让您组织测试，使报告更清晰。
+当你在文件的顶层使用 `test` 时，它们将作为隐式测试套件的一部分被收集。你可以使用 `describe` 在当前上下文中定义一个新的测试套件，将其看作一组相关测试或者有别于其它的嵌套测试套件。测试套件可让你组织你的测试用例，使报告更清晰。
 
   ```ts
-  import { describe, test } from 'vitest'
+  import { describe, expect, test } from 'vitest'
 
   const person = {
     isActive: true,
@@ -166,7 +166,7 @@ test.each([
   });
   ```
 
-  如果您有测试层次结构，您还可以嵌套描述块：
+  如果你需要有测试层次结构，你还可以嵌套描述块：
 
   ```ts
   import { describe, test, expect } from 'vitest'
@@ -198,10 +198,10 @@ test.each([
 
 - **类型:** `(name: string, fn: TestFunction) => void`
 
-  使用 `describe.skip` 在测试套件中避免运行特定的描述块。
+  在测试套件中使用 `describe.skip` 避免运行特定的描述块。
 
   ```ts
-  import { describe, test } from 'vitest'
+  import { assert, describe, test } from 'vitest'
 
   describe.skip("skipped suite", () => {
     test("sqrt", () => {
@@ -215,7 +215,7 @@ test.each([
 
 - **类型:** `(name: string, fn: TestFunction) => void`
 
-  使用 `describe.only` 仅运行某些测试套件。
+  使用 `describe.only` 仅运行指定的测试套件。
 
   ```ts
   // 仅运行此测试套件（以及仅标有的其他测试套件）
@@ -245,7 +245,7 @@ test.each([
   });
   ```
 
-  `.skip`，`.only` 和 `.todo` 与并发测试套件一起使用。 以下所有组合均有效：
+  `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。 以下所有组合均有效：
 
   ```ts
   describe.concurrent(...)
@@ -258,10 +258,10 @@ test.each([
 
 - **类型:** `(name: string) => void`
 
-  使用 `describe.todo` 储存测试套件以供后续使用。测试报告中将显示一个条目，以便您知道还需要实施多少测试。
+  使用 `describe.todo` 将稍后实现的测试套件进行存档。测试报告中将显示一个记录，以便你知道还多少条未实现的测试。
 
   ```ts
-  // 测试套件的报告中将显示一个条目
+  // 测试套件的报告中将显示一个记录
   describe.todo("unimplemented suite");
   ```
 
@@ -269,7 +269,7 @@ test.each([
 
 - **类型:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void) => void`
 
-  如果我们有多个依赖需要相同数据的测试，请使用 `describe.each`。
+  如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
   ```ts
   describe.each([
@@ -318,7 +318,7 @@ TODO
 
 - **类型:** `(value: any) => Awaitable<void>`
 
-  `toBe` 可用于断言基础对象是否相等或对象是否共享相同的引用。它相当于调用了 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但您想检查它们的结构是否相同，则可以使用 [`toEqual`](#toequal)。
+  `toBe` 可用于断言基础对象是否相等或对象是否共享相同的引用。它相当于调用了 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但你想检查它们的结构是否相同，则可以使用 [`toEqual`](#toequal)。
 
   例如，下面的测试将会检查 stock 是否有13个苹果
 
@@ -537,7 +537,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThan` 断言接收值是否比实际值大，如果相同将无法通过测试。
+  `toBeGreaterThan` 断言接收值是否大于实际值，如果相同将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -552,7 +552,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThanOrEqual` 断言实际值是否大于等于接收到值。
+  `toBeGreaterThanOrEqual` 断言接收值是否大于等于实际值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -567,7 +567,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThan` 断言接收值是否比实际值小，如果相同将无法通过测试。
+  `toBeLessThan` 断言接收值是否小于实际值，如果相同将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -582,7 +582,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThanOrEqual` 断言实际值是否小于等于接收到值。
+  `toBeLessThanOrEqual` 断言接收值是否小于等于实际值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -596,9 +596,10 @@ TODO
 ### toEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
-  `toEqual` 将断言实际值是否等于接收值或者同样的结构，如果是断言对象(将会使用递归的方法进行断言)。
 
-  我们在下面的示例中看出 `toEqual` 和 `toBe` 之间的区别：
+  `toEqual` 断言实际值是否等于接收值或者同样的结构，如果是断言对象(将会使用递归的方法进行断言)。
+
+  在本例中，你可以看到 `toEqual` 和 `toBe` 之间的区别：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -623,19 +624,20 @@ TODO
   ```
 
   :::warning 警告
-  不会对对象执行深度判断，如果需要 `Error` 要测试是否抛出了某些东西，建议使用 [`toThrow`](#tothrow) 断言。
+  不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个内容，建议使用 [`toThrow`](#tothrow) 断言。
   :::
 
 ### toStrictEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
-  `toStrictEqual` 将断言实际值是否等于接收值或者同样的结构，如果它是一个对象（递归比较它们），并且会比较是否是相同的类型。
+
+  `toStrictEqual` 断言实际值是否等于接收值或者同样的结构，如果它是一个对象（递归比较它们），并且会比较是否是相同的类型。
 
   与 [`.toEqual`](#toequal) 之间的区别：
 
-  -  `undefined` 检查具有属性的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
-  -  检查数组的稀疏性。 例如 使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
-  -  检查对象类型是否相等。例如 具有字段 `a` 和 `b` 的 instance 对象将不等于具有字段 `a` 和`b` 的 literal 对象。
+  -  检查属性值为 `undefined` 的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
+  -  检查数组的稀疏性。 例如使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
+  -  检查对象类型是否相等。例如具有字段 `a` 和 `b` 的 instance 对象将不等于具有字段 `a` 和`b` 的 literal 对象。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -705,7 +707,7 @@ TODO
 
 - **类型:** `(key: any, received?: any) => Awaitable<void>`
 
-  `toHaveProperty` 断言引用 `key` 处的属性是否存在于对象。
+  `toHaveProperty` 断言对象上是否存在 `key` 的属性。
 
   我们可以提供一个可选的值参数，也称为深度相等，例如 `toEqual` 匹配器来比较接收到的属性值。
 
@@ -878,7 +880,7 @@ TODO
 
 - **类型:** `Promisify<Assertions>`
 
-  `resolves` 可以在断言异步代码时删除样板。 使用它从待处理的 Promise 中拆解包值，并使用普通的断言来断言它的值。 如果 Promise 拒绝，则断言将失败。
+  `resolves` 可以在断言异步代码时删除样板。 使用它从待处理的 `Promise` 中拆解包值，并使用普通的断言来断言它的值。 如果 `Promise` 拒绝，则断言将失败。
 
   它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此我们需要 `await` 它。同样也适用于 `chai` 断言。
 
@@ -905,9 +907,9 @@ TODO
 
 - **类型:** `Promisify<Assertions>`
 
-  `rejects` 可以在断言异步代码时删除样板。 用它来解开 Promise 被拒绝的原因，并用普通的断言来断言它的值。 如果 Promise 成功解决，则断言将失败。
+  `rejects` 可以在断言异步代码时删除样板。 用它来解开 `Promise` 被拒绝的原因，并用普通的断言来断言它的值。 如果 `Promise` 成功解决，则断言将失败。
 
-  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此您需要 `await` 它。 也适用于 `chai` 断言。
+  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此你需要 `await` 它。 也适用于 `chai` 断言。
 
   例如，如果我们有一个调用失败的函数，我们可以使用此代码来断言原因：
 
@@ -934,7 +936,7 @@ TODO
 
 - **类型:** `(count: number) => void`
 
-  在测试通过或失败后，验证在测试期间调用了测试帘数量的断言。有用的情况是检查是否调用了异步代码。
+  在测试通过或失败后，验证在测试期间调用了多少次断言。有用的情况是检查异步代码是否被调用了。
 
   例如，如果我们有一个异步调用两个匹配器的函数，我们可以断言它们实际上是被调用的。
 
@@ -1023,8 +1025,8 @@ TODO
 
 - **类型:** `beforeEach(fn: () => Awaitable<void>, timeout?: number)`
 
-  在当前上下文中的每个测试运行之前需要注册要调用的回调。
-  如果函数返回一个 Promise，Vitest 会等到 Promise 解决后再运行测试。
+  注册一个回调,在当前上下文中的每个测试运行之前被调用。
+  如果函数返回一个 `Promise`，`Vitest` 会等到 `Promise` 解决后再运行测试。
 
   或者，我们可以传递一个超时（以毫秒为单位），定义在终止之前等待多长时间。 默认值为 5 秒。
 
@@ -1044,10 +1046,10 @@ TODO
 
 - **类型:** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
 
-  在当前上下文中的每个测试运行之后注册要调用的回调。
+  注册一个回调,在当前上下文中的每个测试运行之后被调用。
   如果函数返回一个 Promise ，Vitest 会等到 Promise 解决后再继续。
 
-  或者，您可以设置超时（以毫秒为单位）以指定在终止前等待多长时间。 默认值为 5 秒。
+  或者，你可以设置超时（以毫秒为单位）以指定在终止前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { afterEach } from 'vitest'
@@ -1062,10 +1064,10 @@ TODO
 
 - **类型:** `beforeAll(fn: () => Awaitable<void>, timeout?: number)`
 
-  在开始在当前上下文中运行所有测试之前需要注册一个要调用的回调。
-  如果函数返回一个 Promise，Vitest 会等到 Promise 解决后再运行测试。
+  注册一个回调，在开始运行当前上下文中的所有测试之前被调用一次。
+  如果函数返回一个 `Promise`，`Vitest` 会等到 `Promise` 解决后再运行测试。
 
-  或者，您可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
+  或者，你可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { beforeAll } from 'vitest'
@@ -1081,10 +1083,10 @@ TODO
 
 - **类型:** `afterAll(fn: () => Awaitable<void>, timeout?: number)`
 
-  在当前上下文中运行所有测试后，注册一个回调后调用一次。
+  注册一个回调，在当前上下文中运行所有测试后被调用一次。
   如果函数返回一个 Promise，Vitest 会等到 Promise 解决后再继续。
 
-  或者，您可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
+  或者，你可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
   import { afterAll } from 'vitest'
@@ -1098,13 +1100,13 @@ TODO
 
 ## Vi
 
-Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `import { vi } from 'vitest'` 或 **globally** 访问它（当 [global configuration](/config/#global) **enabled** 时）。
+Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } from 'vitest'` 或 **全局地** 访问它 (当 [globals configuration](/config/#globals) **启用** 时)。
 
 ### vi.advanceTimersByTime
 
 - **类型:** `(ms: number) => Vitest`
 
-  就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。 例如，这将记录 `1, 2, 3` 并且不会抛出：
+  就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。例如，这将输出 `1, 2, 3` 并且不会抛出：
 
   ```ts
   let i = 0
@@ -1117,26 +1119,26 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => Vitest`
 
-  将调用下一个计时器。 在每个计时器调用之间进行断言将很有用。我们可以链接调用它来自己管理计时器。
+  调用下一个可调用的计时器。这在每个计时器调用间隔内进行断言很有用。你可以链式调用它来自己管理计时器。
 
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
 
-  vi.advanceTimersToNextTimer() // log 1
-    .advanceTimersToNextTimer() // log 2
-    .advanceTimersToNextTimer() // log 3
+  vi.advanceTimersToNextTimer() // 输出 1
+    .advanceTimersToNextTimer() // 输出 2
+    .advanceTimersToNextTimer() // 输出 3
   ```
 
 ### vi.clearAllTimers
 
-  删除所有计划运行的计时器。这些计时器将永远不会运行。
+  删除所有计划运行的计时器。这些计时器后续将不会运行。
 
 ### vi.fn
 
 - **类型:** `(fn: Function) => CallableMockInstance`
 
-  在函数上创建一个测试间谍，但可以在没有测试间谍的情况下启动。 每次调用函数时，它都会存储其调用参数、返回值和实例。 此外，我们可以使用 [methods](#mockmethods) 操纵它的行为。
+  为函数创建一个监听，但也可以在没有监听的情况下启动。每次调用函数时，存储其调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵它的行为。
   如果没有给出函数，mock 将在调用时返回 `undefined`。
 
   ```ts
@@ -1147,46 +1149,53 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
 
-  getApples.mockReturnOnce(5)
+  getApples.mockReturnValueOnce(5)
 
   const res = getApples()
   expect(res).toBe(5)
-  expect(getApples).toHaveReturnedNthTimeWith(1, 5)
+  expect(getApples).toHaveNthReturnedWith(2, 5)
   ```
 
 ### vi.getMockedSystemTime
 
 - **类型**: `() => Date | null`
 
-  返回 `setSystemTime` 设置的模拟当前日期。如果没有模拟日期，将返回 `null`。
+  返回使用 `setSystemTime` 设置的模拟的当前日期。如果日期没有被模拟，将返回 `null`。
 
 ### vi.getRealSystemTime
 
 - **类型**: `() => number`
 
-  使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要获取毫秒级的使用时间，可以调用这个函数。
+  使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要获取毫秒级的实时时间，你可以调用这个函数。
 
 ### vi.mock
 
   **类型**: `(path: string, factory?: () => unknown) => void`
 
-  将所有 `imports` 传递给要模拟的模块。 在路径中 you_can_use 配置的 Vite 别名。
+  使传递的模块的所有 `imports`都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。
 
-  - 如果定义了 `factory` ，将返回其结果。 工厂函数可以是异步的。 我们可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。 对 `vi.mock` 的调用被提升到文件的顶部，因此我们无法访问在全局文件范围内声明的变量！
+  - 如果定义了 `factory`，将返回其结果。工厂函数可以是异步的。你可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。对 `vi.mock` 的调用将被提升到文件的顶部，因此你无法访问在全局文件范围内声明的变量！
 
-  - 如果存在同名文件的 `__mocks__` 文件夹，则所有导入都将返回其导出。 例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
+  ```ts
+  vi.mock('path', () => {
+    return {
+      default: { myDefaultKey: vi.fn() },
+      namedExport: vi.fn(),
+      // etc...
+    }
+  })
+  ```
 
-  - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。（有关应用的规则，可以参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。）
-
-  与 Jest 不同的是，除非调用了 `vi.mock()`，否则不会加载 `<root>/__mocks__` 中的模拟模块。 如果您需要在每个测试中模拟它们，例如在 Jest 中，您可以在 [`setupFiles`](/config/#setupfiles) 中模拟它们。
+  - 如果 `__mocks__` 文件夹下存在同名文件，则所有导入都将返回其导出。例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
+  - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。(有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。)
 
 ### vi.setSystemTime
 
 - **类型**: `(date: string | number | Date) => void`
 
-  将当前日期设置为已通过的日期。 所有 `Date` 调用都将返回此日期。
+  将当前日期设置为一个过去的日期。所有 `Date` 调用都将返回此日期。
 
-  如果我们需要测试依赖于当前日期的任何内容 - 例如 [luxon](https://github.com/moment/luxon/) 在我们的代码中调用，这将很有用。
+  有助于你测试依赖当前日期的任何内容 —— 例如，你代码中的 [luxon](https://github.com/moment/luxon/) 调用。
 
   ```ts
   const date = new Date(1998, 11, 19)
@@ -1209,12 +1218,12 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
   import example from './example'
   vi.mock('./example')
 
-  test('1+1 equals 2' async () => {
-   vi.mocked(example.calc).mockRestore()
+  test('1+1 equals 2', async() => {
+    vi.mocked(example.calc).mockRestore()
 
-   const res = example.calc(1, '+', 1)
+    const res = example.calc(1, '+', 1)
 
-   expect(res).toBe(2)
+    expect(res).toBe(2)
   })
   ```
 
@@ -1222,10 +1231,10 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型**: `<T>(path: string) => Promise<T>`
 
-  导入模块，绕过所有检查是否应该被模拟。如果我们想使用部分模拟模块，这可能会很有用。
+  导入模块，如果它应该被模拟，则绕过所有检查。如果你想部分模拟模块，这可能会很有用。
 
   ```ts
-  vi.mock('./example', async () => {
+  vi.mock('./example', async() => {
     const axios = await vi.importActual('./example')
 
     return { ...axios, get: vi.fn() }
@@ -1236,34 +1245,34 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-  导入一个模块，其所有属性（包括嵌套属性）都已模拟。 遵循与 [`vi.mock`](#mock) 相同的规则。 有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
+  导入一个被模拟的包含其所有属性 (包括嵌套属性) 的模块。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
 
 ### vi.restoreCurrentDate
 
 - **类型**: `() => void`
 
-  将 `Date` 恢复为使用本机实现。
+  将 `Date` 恢复为系统时间。
 
 ### vi.runAllTicks
 
 - **类型:** `() => Vitest`
 
-  调用每个小任务。 这些通常由 `proccess.nextTick` 排队。 这也将运行他们自己安排的所有小任务。
+  调用每个微任务。它们通常排列在 `proccess.nextTick` 中。它也将运行它们自己安排的所有微任务。
 
 ### vi.runAllTimers
 
 - **类型:** `() => Vitest`
 
-  此方法将调用每个启动的计时器，直到计时器队列为空。 这意味着在 `runAllTimers` 期间调用的每个计时器都会被触发。 如果我们有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将记录 `1, 2, 3`：
+  此方法将调用每个被创建的计时器，直到计时器队列为空。这意味着在 `runAllTimers` 期间调用的每个计时器都将被触发。如果你有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将输出 `1, 2, 3`：
 
   ```ts
   let i = 0
   setTimeout(() => console.log(++i))
-  let interval = setInterval(() => {
-      console.log(++i)
-      if (i === 2) {
-          clearInterval(interval)
-      }
+  const interval = setInterval(() => {
+    console.log(++i)
+    if (i === 2)
+      clearInterval(interval)
+
   }, 50)
 
   vi.runAllTimers()
@@ -1273,7 +1282,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => Vitest`
 
-  此方法将调用在 `vi.useFakeTimers()` 调用之后启动的每个计时器。 它不会触发在其调用期间启动的任何计时器。 例如，这只会记录 `1`：
+  此方法将调用在 `vi.useFakeTimers()` 调用之后创建的每个计时器。它不会触发在其调用期间创建的任何计时器。例如，这只会输出 `1`：
 
   ```ts
   let i = 0
@@ -1286,7 +1295,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
-  在对象的方法或 getter/setter 上创建 测试间谍。
+  在对象的方法或 getter/setter 上创建一个监听。
 
   ```ts
   let apples = 0
@@ -1307,21 +1316,21 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 **类型**: `(path: string) => void`
 
-  从模拟注册表中删除模块。 所有后续的 import 调用都将返回原始模块，即使它是模拟的。
+  从模拟注册表中删除模块 所有后续的 import 调用都将返回原始模块，即使它被模拟了。
 
 ### vi.useFakeTimers
 
 - **类型:** `() => Vitest`
 
-  要启用模拟计时器，您需要调用此方法。 它将包装对计时器的所有进一步调用（例如`setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`），直到调用 [`vi.useRealTimers()`](#vi-useRealTimers)。
+  要启用模拟计时器，你需要调用此方法。它将包装对计时器的所有进一步调用 (例如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`)，直到 [`vi.useRealTimers()`](#vi-useRealTimers) 被调用。
 
-  该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
+  它的内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ### vi.useRealTimers
 
 - **类型:** `() => Vitest`
 
-  当计时器用完时，您可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都将不会恢复。
+  当计时器结束时，你可以调用此方法，将模拟计时器恢复其原始实现。之前运行的所有计时器将不会恢复。
 
 ## MockInstance Methods
 

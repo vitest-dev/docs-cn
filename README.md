@@ -18,7 +18,6 @@ Vitest
 <br>
 
 > Vitest 需要 Vite >=v2.7.10 和 Node >=v14
-
 浏览[入门指南](https://cn-vitest.netlify.app/guide/)或了解[我们为什么要构建新的测试框架](https://cn-vitest.netlify.app/guide/why.html)。
 
 ## 文档

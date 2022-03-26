@@ -12,4 +12,8 @@ dist
 .idea
 .DS_Store
 bench/test/*/*/
-.vscode
+cypress/videos
+cypress/downloads
+cypress/screenshots
+public/user-avatars
+public/sponsors
