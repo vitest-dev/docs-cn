@@ -259,7 +259,7 @@ test.each([
 - **类型:** `(name: string) => void`
 
   使用 `describe.todo` 将稍后实现的测试套件进行存档。测试报告中将显示一个记录，以便你知道还多少条未实现的测试。
-  
+
   ```ts
   // 测试套件的报告中将显示一个记录
   describe.todo("unimplemented suite");
@@ -1100,13 +1100,13 @@ TODO
 
 ## Vi
 
-Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `import { vi } from 'vitest'` 或 **globally** 访问它（当 [global configuration](/config/#global) **enabled** 时）。
+Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } from 'vitest'` 或 **全局地** 访问它 (当 [globals configuration](/config/#globals) **启用** 时)。
 
 ### vi.advanceTimersByTime
 
 - **类型:** `(ms: number) => Vitest`
 
-  就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。 例如，这将记录 `1, 2, 3` 并且不会抛出：
+  就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。例如，这将输出 `1, 2, 3` 并且不会抛出：
 
   ```ts
   let i = 0
@@ -1119,26 +1119,26 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => Vitest`
 
-  将调用下一个计时器。 在每个计时器调用之间进行断言将很有用。我们可以链接调用它来自己管理计时器。
+  调用下一个可调用的计时器。这在每个计时器调用间隔内进行断言很有用。你可以链式调用它来自己管理计时器。
 
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
 
-  vi.advanceTimersToNextTimer() // log 1
-    .advanceTimersToNextTimer() // log 2
-    .advanceTimersToNextTimer() // log 3
+  vi.advanceTimersToNextTimer() // 输出 1
+    .advanceTimersToNextTimer() // 输出 2
+    .advanceTimersToNextTimer() // 输出 3
   ```
 
 ### vi.clearAllTimers
 
-  删除所有计划运行的计时器。这些计时器将永远不会运行。
+  删除所有计划运行的计时器。这些计时器后续将不会运行。
 
 ### vi.fn
 
 - **类型:** `(fn: Function) => CallableMockInstance`
 
-  在函数上创建一个测试间谍，但可以在没有测试间谍的情况下启动。 每次调用函数时，它都会存储其调用参数、返回值和实例。 此外，我们可以使用 [methods](#mockmethods) 操纵它的行为。
+  为函数创建一个监听，但也可以在没有监听的情况下启动。每次调用函数时，存储其调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵它的行为。
   如果没有给出函数，mock 将在调用时返回 `undefined`。
 
   ```ts
@@ -1149,46 +1149,53 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
 
-  getApples.mockReturnOnce(5)
+  getApples.mockReturnValueOnce(5)
 
   const res = getApples()
   expect(res).toBe(5)
-  expect(getApples).toHaveReturnedNthTimeWith(1, 5)
+  expect(getApples).toHaveNthReturnedWith(2, 5)
   ```
 
 ### vi.getMockedSystemTime
 
 - **类型**: `() => Date | null`
 
-  返回 `setSystemTime` 设置的模拟当前日期。如果没有模拟日期，将返回 `null`。
+  返回使用 `setSystemTime` 设置的模拟的当前日期。如果日期没有被模拟，将返回 `null`。
 
 ### vi.getRealSystemTime
 
 - **类型**: `() => number`
 
-  使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要获取毫秒级的使用时间，可以调用这个函数。
+  使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要获取毫秒级的实时时间，你可以调用这个函数。
 
 ### vi.mock
 
   **类型**: `(path: string, factory?: () => unknown) => void`
 
-  将所有 `imports` 传递给要模拟的模块。 在路径中 you_can_use 配置的 Vite 别名。
+  使传递的模块的所有 `imports`都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。
 
-  - 如果定义了 `factory` ，将返回其结果。 工厂函数可以是异步的。 我们可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。 对 `vi.mock` 的调用被提升到文件的顶部，因此我们无法访问在全局文件范围内声明的变量！
+  - 如果定义了 `factory`，将返回其结果。工厂函数可以是异步的。你可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。对 `vi.mock` 的调用将被提升到文件的顶部，因此你无法访问在全局文件范围内声明的变量！
 
-  - 如果存在同名文件的 `__mocks__` 文件夹，则所有导入都将返回其导出。 例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
+  ```ts
+  vi.mock('path', () => {
+    return {
+      default: { myDefaultKey: vi.fn() },
+      namedExport: vi.fn(),
+      // etc...
+    }
+  })
+  ```
 
-  - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。（有关应用的规则，可以参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。）
-
-  与 Jest 不同的是，除非调用了 `vi.mock()`，否则不会加载 `<root>/__mocks__` 中的模拟模块。 如果你需要在每个测试中模拟它们，例如在 Jest 中，你可以在 [`setupFiles`](/config/#setupfiles) 中模拟它们。
+  - 如果 `__mocks__` 文件夹下存在同名文件，则所有导入都将返回其导出。例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
+  - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。(有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。)
 
 ### vi.setSystemTime
 
 - **类型**: `(date: string | number | Date) => void`
 
-  将当前日期设置为已通过的日期。 所有 `Date` 调用都将返回此日期。
+  将当前日期设置为一个过去的日期。所有 `Date` 调用都将返回此日期。
 
-  如果我们需要测试依赖于当前日期的任何内容 - 例如 [luxon](https://github.com/moment/luxon/) 在我们的代码中调用，这将很有用。
+  有助于你测试依赖当前日期的任何内容 —— 例如，你代码中的 [luxon](https://github.com/moment/luxon/) 调用。
 
   ```ts
   const date = new Date(1998, 11, 19)
@@ -1211,12 +1218,12 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
   import example from './example'
   vi.mock('./example')
 
-  test('1+1 equals 2' async () => {
-   vi.mocked(example.calc).mockRestore()
+  test('1+1 equals 2', async() => {
+    vi.mocked(example.calc).mockRestore()
 
-   const res = example.calc(1, '+', 1)
+    const res = example.calc(1, '+', 1)
 
-   expect(res).toBe(2)
+    expect(res).toBe(2)
   })
   ```
 
@@ -1224,10 +1231,10 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型**: `<T>(path: string) => Promise<T>`
 
-  导入模块，绕过所有检查是否应该被模拟。如果我们想使用部分模拟模块，这可能会很有用。
+  导入模块，如果它应该被模拟，则绕过所有检查。如果你想部分模拟模块，这可能会很有用。
 
   ```ts
-  vi.mock('./example', async () => {
+  vi.mock('./example', async() => {
     const axios = await vi.importActual('./example')
 
     return { ...axios, get: vi.fn() }
@@ -1238,34 +1245,34 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-  导入一个模块，其所有属性（包括嵌套属性）都已模拟。 遵循与 [`vi.mock`](#mock) 相同的规则。 有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
+  导入一个被模拟的包含其所有属性 (包括嵌套属性) 的模块。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
 
 ### vi.restoreCurrentDate
 
 - **类型**: `() => void`
 
-  将 `Date` 恢复为使用本机实现。
+  将 `Date` 恢复为系统时间。
 
 ### vi.runAllTicks
 
 - **类型:** `() => Vitest`
 
-  调用每个小任务。 这些通常由 `proccess.nextTick` 排队。 这也将运行他们自己安排的所有小任务。
+  调用每个微任务。它们通常排列在 `proccess.nextTick` 中。它也将运行它们自己安排的所有微任务。
 
 ### vi.runAllTimers
 
 - **类型:** `() => Vitest`
 
-  此方法将调用每个启动的计时器，直到计时器队列为空。 这意味着在 `runAllTimers` 期间调用的每个计时器都会被触发。 如果我们有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将记录 `1, 2, 3`：
+  此方法将调用每个被创建的计时器，直到计时器队列为空。这意味着在 `runAllTimers` 期间调用的每个计时器都将被触发。如果你有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将输出 `1, 2, 3`：
 
   ```ts
   let i = 0
   setTimeout(() => console.log(++i))
-  let interval = setInterval(() => {
-      console.log(++i)
-      if (i === 2) {
-          clearInterval(interval)
-      }
+  const interval = setInterval(() => {
+    console.log(++i)
+    if (i === 2)
+      clearInterval(interval)
+
   }, 50)
 
   vi.runAllTimers()
@@ -1275,7 +1282,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `() => Vitest`
 
-  此方法将调用在 `vi.useFakeTimers()` 调用之后启动的每个计时器。 它不会触发在其调用期间启动的任何计时器。 例如，这只会记录 `1`：
+  此方法将调用在 `vi.useFakeTimers()` 调用之后创建的每个计时器。它不会触发在其调用期间创建的任何计时器。例如，这只会输出 `1`：
 
   ```ts
   let i = 0
@@ -1288,7 +1295,7 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 - **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
-  在对象的方法或 getter/setter 上创建 测试间谍。
+  在对象的方法或 getter/setter 上创建一个监听。
 
   ```ts
   let apples = 0
@@ -1309,21 +1316,21 @@ Vitest 通过 **vi** 助手提供实用功能来帮助我们。 我们可以 `im
 
 **类型**: `(path: string) => void`
 
-  从模拟注册表中删除模块。 所有后续的 import 调用都将返回原始模块，即使它是模拟的。
+  从模拟注册表中删除模块 所有后续的 import 调用都将返回原始模块，即使它被模拟了。
 
 ### vi.useFakeTimers
 
 - **类型:** `() => Vitest`
 
-  要启用模拟计时器，你需要调用此方法。 它将包装对计时器的所有进一步调用（例如`setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`），直到调用 [`vi.useRealTimers()`](#vi-useRealTimers)。
+  要启用模拟计时器，你需要调用此方法。它将包装对计时器的所有进一步调用 (例如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`)，直到 [`vi.useRealTimers()`](#vi-useRealTimers) 被调用。
 
-  该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
+  它的内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ### vi.useRealTimers
 
 - **类型:** `() => Vitest`
 
-  当计时器用完时，你可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都将不会恢复。
+  当计时器结束时，你可以调用此方法，将模拟计时器恢复其原始实现。之前运行的所有计时器将不会恢复。
 
 ## MockInstance Methods
 
