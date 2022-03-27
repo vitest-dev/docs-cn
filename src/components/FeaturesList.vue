@@ -6,7 +6,7 @@
   >
     <ListItem>与<a target="_blank" href="https://cn.vitejs.dev/"> Vite </a>通用的配置、转换器、解析器和插件。</ListItem>
     <ListItem>使用你的应用程序中的相同设置来进行测试！</ListItem>
-    <ListItem><a href="https://twitter.com/antfu7/status/1468233216939245579" target="_blank">智能检测和即时观察模式，就像是测试中的 HMR 一样！</a></ListItem>
+    <ListItem><a href="https://twitter.com/antfu7/status/1468233216939245579" target="_blank">智能文件监听模式，就像是测试的 HMR！</a></ListItem>
     <ListItem>支持测试 Vue、React、Lit 等框架中的组件。</ListItem>
     <ListItem>开箱即用的 TypeScript / JSX 支持</ListItem>
     <ListItem>ESM 优先 ， 顶级 await</ListItem>
