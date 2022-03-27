@@ -15,7 +15,7 @@
     <ListItem><a target="_blank" href="https://jestjs.io/zh-Hans/docs/snapshot-testing" rel="nofollow">Jest 的快照功能</a></ListItem>
     <ListItem>内置 <a target="_blank" href="https://www.chaijs.com/" rel="nofollow">Chai</a> 进行断言 + 与 <a href="https://jestjs.io/zh-Hans/docs/expect" rel="nofollow">Jest expect 语法</a>兼容的 API</ListItem>
     <ListItem>内置用于 对象模拟(Mock) 的 <a target="_blank" href="https://github.com/Aslemammad/tinyspy" rel="nofollow">Tinyspy</a></ListItem>
-    <ListItem>使用 <a target="_blank" href="https://github.com/jsdom/jsdom">jsdom</a> 或 <a target="_blank" href="https://github.com/capricorn86/happy-dom">happy-dom</a> 用于 DOM 模拟(DOM mocking)</ListItem>
+    <ListItem>使用 <a target="_blank" href="https://github.com/jsdom/jsdom">jsdom</a> 或 <a target="_blank" href="https://github.com/capricorn86/happy-dom">happy-dom</a> 用于 DOM 模拟</ListItem>
     <ListItem>通过 <a target="_blank" href="https://github.com/bcoe/c8">c8</a> 来输出代码测试覆盖率</ListItem>
     <ListItem>类似于 Rust 语言的 <a target="_blank" href="https://cn.vitest.dev/guide/in-source.html">源码内测试(in-source testing)</a></ListItem>
   </ul>
