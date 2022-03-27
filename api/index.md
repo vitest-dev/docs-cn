@@ -8,7 +8,7 @@ type Awaitable<T> = T | PromiseLike<T>
 type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 ```
 
-当一个测试函数返回一个 promise 时，vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
+当一个测试函数返回一个 promise 时，Vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
 
 为了兼容 Jest 的用法, `TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。 如果使用这种形式, 则 `done` 在调用之前不会结束测试（无参数或参数为假值表示测试通过，而真值或错误值作为参数则测试不通过）。 我们不建议使用这种形式，因为你可以使用 `async` 函数实现相同的目的。
 
@@ -302,9 +302,9 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 - **类型:** `ExpectStatic & (actual: any) => Assertions`
 
-  `expect` 用来创建断言. 可以使用 `assertions` 调用方法来进行断言语句. Vitest 默认使用 `chai` 提供断言。并且在兼容 `Jest` 的断言也是由 `chai` 进行提供。
+  `expect` 用来创建断言。 在当前上下文，可以使用 `assertions` 方法来断言一个语句。 Vitest 默认使用 `chai` 断言语句，同时基于 `chat` 实现兼容 `Jest` 的断言语句。
 
-  例如，这里会断言 `input` 的值是否等于2，如果不是，断言则将错误抛出，并且测试将失败。
+  例如，这里会断言 `input` 的值是否等于 `2` ，如果不是，断言则会抛出错误，并且测试失败。
 
   ```ts
   import { expect } from 'vitest'
@@ -315,7 +315,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   expect(input).toBe(2) // jest API
   ```
 
-  从技术上来说，这里并没有使用 [`test`](#test) 方法，所以我们在控制台会看到 Nodejs 报错，而不是 Vitest 输出。想要了解更多关于 `test` 的信息，请参阅 [test 章节](#test)
+  从技术上来说，这里并没有使用 [`test`](#test) 方法，所以我们在控制台会看到 Nodejs 的报错，而不是 Vitest 的报错。想要了解更多关于 `test` 的信息，请参阅 [test 章节](#test)。
 
   此外，`expect` 可用于静态访问匹配器功能，这个后面会介绍。
 
@@ -327,9 +327,9 @@ TODO
 
 - **类型:** `(value: any) => Awaitable<void>`
 
-  `toBe` 可用于断言基础对象是否相等或对象是否共享相同的引用。它相当于调用了 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但你想检查它们的结构是否相同，则可以使用 [`toEqual`](#toequal)。
+  `toBe` 可用于断言基础对象是否相等，或者对象是否共享相同的引用。它相当于调用了 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但你想检查它们的结构是否相同，则可以使用 [`toEqual`](#toequal)。
 
-  例如，下面的测试将会检查 stock 是否有13个苹果
+  例如，下面的测试将会检查 stock 是否有13个苹果。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -351,13 +351,13 @@ TODO
   })
   ```
 
-  尽量不要 `toBe` 与浮点数一起使用。由于 JavaScript 对它们进行四舍五入，例如 `0.1 + 0.2` 的结果严格来说不是 `0.3` 。如果需要可靠地断言浮点数，请使用 `toBeCloseTo` 进行断言。
+  尽量不要将 `toBe` 与浮点数一起使用。由于 JavaScript 会对它们进行四舍五入，例如 `0.1 + 0.2` 的结果严格来说并不是 `0.3` 。如果需要可靠地断言浮点数，请使用 `toBeCloseTo` 进行断言。
 
 ### toBeCloseTo
 
 - **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
 
-  使用 `toBeCloseTo` 进行浮点数的比较. 可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
+  使用 `toBeCloseTo` 进行浮点数的比较。可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -378,7 +378,7 @@ TODO
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeDefined` 断言检查值是否等于 `undefined` 。在检查函数是否返回任何内容时非常有用。
+  `toBeDefined` 断言检查值是否不等于 `undefined` 。在检查函数是否有返回值时非常有用。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -394,7 +394,7 @@ TODO
 
 - **类型:** `() => Awaitable<void>`
 
-  与 `toBeDefined` 相反，`toBeUndefined` 断言值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
+  与 `toBeDefined` 相反，`toBeUndefined` 断言检查值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -412,9 +412,9 @@ TODO
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeTruthy` 转换为布尔值，断言该值是否为真。如果不关心该值，但只想知道它是否可以转换为 `true`，则很有用。
+  `toBeTruthy` 会将检查值转换为布尔值，断言该值是否为 `true` 。该方法在当你不关心检查值的内容，而只想知道它是否可以转换为 `true` 时很有用。
 
-  例如下面这段代码，我们就不需要关心 `stocks.getInfo` 的返回值，可能是复杂的对象、字符串或者其他的东西。但是代码仍然可以运行。
+  例如下面这段代码，我们就不需要关心 `stocks.getInfo` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
   import { Stocks } from './stocks'
@@ -438,15 +438,15 @@ TODO
   })
   ```
 
-  JavaScript 中一切都是真实的，例如`false`，`0`，`''`，`null`，`undefined` 和 `NaN`。
+  JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
 
 ### toBeFalsy
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeFalsy` 转换为布尔值，断言该值是否为真。如果不关心该值，但只想知道它是否可以转换为 `false`，则很有用。
+  `toBeFalsy` 会将检测值转换为布尔值，断言该值是否为 `false`。该方法在当你不关心该检查值的内容，但只想知道它是否可以转换为 `false` 时很有用。
 
-  例如下面这段代码，我们就不需要关心 `stocks.stockFailed` 的返回值，可能是复杂的对象、字符串或者其他的东西。但是代码仍然可以运行。
+  例如下面这段代码，我们就不需要关心 `stocks.stockFailed` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
   import { Stocks } from './stocks'
@@ -470,13 +470,13 @@ TODO
   })
   ```
 
-  JavaScript 中一切都是真实的，例如`false`，`0`，`''`，`null`，`undefined` 和 `NaN`。
+  JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
 
 ### toBeNull
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeNull` 将简单的断言是否为 `null`. 是 `.toBe(null)` 的别名.
+  `toBeNull` 将简单地断言检查值是否为 `null`。 是 `.toBe(null)` 的别名。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -494,7 +494,7 @@ TODO
 
 - **类型:** `() => Awaitable<void>`
 
-  `toBeNaN` 将简单的断言是否为 `NaN`. 是 `.toBe(NaN)` 的别名.
+  `toBeNaN` 将简单地断言是否为 `NaN`。 是 `.toBe(NaN)` 的别名，
 
   ```ts
   import { test, expect } from 'vitest'
@@ -516,7 +516,7 @@ TODO
 
 - **类型:** `(c: 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined') => Awaitable<void>`
 
-  `toBeTypeOf` 将断言实际值是否属于接收类型。
+  `toBeTypeOf` 用于断言检查值是否属于接收的类型。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -530,7 +530,7 @@ TODO
 
 - **类型:** `(c: any) => Awaitable<void>`
 
-  `toBeInstanceOf` 判断值的类型是否与需要对比的值的类型一样。
+  `toBeInstanceOf` 用于断言检查值是否为接收的类的实例。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -546,7 +546,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThan` 断言接收值是否大于实际值，如果相同将无法通过测试。
+  `toBeGreaterThan` 用于断言检查值是否大于接收值，如果相等将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -561,7 +561,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeGreaterThanOrEqual` 断言接收值是否大于等于实际值。
+  `toBeGreaterThanOrEqual` 用于断言检查值是否大于等于接收值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -576,7 +576,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThan` 断言接收值是否小于实际值，如果相同将无法通过测试。
+  `toBeLessThan` 用于断言检查值是否小于接收值，如果相等将无法通过测试。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -591,7 +591,7 @@ TODO
 
 - **类型:** `(n: number) => Awaitable<void>`
 
-  `toBeLessThanOrEqual` 断言接收值是否小于等于实际值。
+  `toBeLessThanOrEqual` 用于断言检查值是否小于等于接收值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -606,7 +606,7 @@ TODO
 
 - **类型:** `(received: any) => Awaitable<void>`
 
-  `toEqual` 断言实际值是否等于接收值或者同样的结构，如果是断言对象(将会使用递归的方法进行断言)。
+  `toEqual` 断言检查值是否等于接收值，或者是同样的结构，如果是对象类型（将会使用递归的方法进行比较）。
 
   在本例中，你可以看到 `toEqual` 和 `toBe` 之间的区别：
 
@@ -633,20 +633,20 @@ TODO
   ```
 
   :::warning 警告
-  不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个内容，建议使用 [`toThrow`](#tothrow) 断言。
+  该方法不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个内容，建议使用 [`toThrow`](#tothrow) 断言。
   :::
 
 ### toStrictEqual
 
 - **类型:** `(received: any) => Awaitable<void>`
 
-  `toStrictEqual` 断言实际值是否等于接收值或者同样的结构，如果它是一个对象（递归比较它们），并且会比较是否是相同的类型。
+  `toStrictEqual` 断言检查值是否等于接收值或者同样的结构，如果是对象类型（将会使用递归的方法进行比较），并且会比较它们是否是相同的类型。
 
   与 [`.toEqual`](#toequal) 之间的区别：
 
   -  检查属性值为 `undefined` 的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
   -  检查数组的稀疏性。 例如使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
-  -  检查对象类型是否相等。例如具有字段 `a` 和 `b` 的 instance 对象将不等于具有字段 `a` 和`b` 的 literal 对象。
+  -  检查对象类型是否相等。例如具有字段 `a` 和 `b` 的实例对象不等于具有字段 `a` 和`b` 的字面量对象。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -667,7 +667,7 @@ TODO
 
 - **类型:** `(received: string) => Awaitable<void>`
 
-  `toContain` 断言值是否在数组中。还可以检查一个字符串是否是另一个字符串的子字符串。
+  `toContain` 用于断言检查值是否在数组中。还可以检查一个字符串是否为另一个字符串的子串。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -682,8 +682,7 @@ TODO
 
 - **类型:** `(received: any) => Awaitable<void>`
 
-  `toContainEqual` 断言在数组中是否包含具有特定结构和值的项目。
-  它就像 [`toEqual`](#toequal) 每个元素的内部一样。
+  `toContainEqual` 用于断言在数组中是否包含具有特定结构和值的元素。它就像对每个元素进行 [`toEqual`](#toequal) 操作。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -698,7 +697,7 @@ TODO
 
 - **类型:** `(received: number) => Awaitable<void>`
 
-  `toHaveLength` 断言一个对象是否具有 `.length` 属性并且它被设置为某个数值。
+  `toHaveLength` 用于断言一个对象是否具有 `.length` 属性，并且它被设置为某个数值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -716,9 +715,9 @@ TODO
 
 - **类型:** `(key: any, received?: any) => Awaitable<void>`
 
-  `toHaveProperty` 断言对象上是否存在 `key` 的属性。
+  `toHaveProperty` 用于断言对象上是否存在指定 `key` 的属性。
 
-  我们可以提供一个可选的值参数，也称为深度相等，例如 `toEqual` 匹配器来比较接收到的属性值。
+  同时该方法还提供了一个可选参数，用于进行深度对比，就像使用 `toEqual` 匹配器来比较接收到的属性值。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -765,7 +764,7 @@ TODO
 
 - **类型:** `(received: string | regexp) => Awaitable<void>`
 
-  `toMatch` 断言字符串是否匹配正则表达式或字符串。
+  `toMatch` 用于断言字符串是否匹配指定的正则表达式或字符串。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -780,9 +779,9 @@ TODO
 
 - **类型:** `(received: object | array) => Awaitable<void>`
 
-  `toMatchObject` 断言对象是否匹配对象属性的子集。
+  `toMatchObject` 用于断言对象是否匹配指定的对象属性的子集。
 
-  我们还可以传递对象数组。 如果我们想检查两个数组的元素数量是否匹配，这就会很有用，而不是去使用 `arrayContaining`，因为它允许接收数组中的额外元素。
+  我们还可以传递对象数组。如果我们只想检查两个数组的元素数量是否匹配，该方法就会很有用，它不同于 `arrayContaining` ，它允许接收数组中的额外元素。
 
   ```ts
   import { test, expect } from 'vitest'
@@ -832,17 +831,17 @@ TODO
 
 - **类型:** `(received: any) => Awaitable<void>`
 
-  `toThrowError` 断言函数在调用时是否抛出错误。
+  `toThrowError` 用于断言函数在调用时是否抛出错误。
 
-   例如，如果我们想测试 `getFruitStock('pineapples')` 是否会抛出异常，因为菠萝对糖尿病患者不利，我们可以这样写：
+   例如，如果我们想测试 `getFruitStock('pineapples')` 是否会抛出异常，我们可以这样写：
 
-  我们可以提供一个可选参数来测试是否引发了特定错误：
+  你可以提供一个可选参数来测试是否引发了指定的错误：
 
-  - 正则表达式：错误消息与模式匹配
-  - 字符串：错误消息包含子字符串
+  - 正则表达式：错误信息通过正则表达式匹配
+  - 字符串：错误消息包含指定子串
 
   :::tip 提示
-    我们必须将代码包装在一个函数中，否则将无法捕获错误并且断言将失败。
+    我们必须将代码包装在一个函数中，否则将无法捕获错误并且断言将会失败。
   :::
 
   ```ts
@@ -889,11 +888,11 @@ TODO
 
 - **类型:** `Promisify<Assertions>`
 
-  `resolves` 可以在断言异步代码时删除样板。 使用它从待处理的 `Promise` 中拆解包值，并使用普通的断言来断言它的值。 如果 `Promise` 拒绝，则断言将失败。
+  `resolves` 可以在断言异步代码时有意地删除样板语法。使用它可以从待处理的 `Promise` 中去展开它的值，并使用通常的断言语句来断言它的值。如果 `Promise` 被拒绝，则断言将会失败。
 
-  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此我们需要 `await` 它。同样也适用于 `chai` 断言。
+  它返回相同的 `Assertions` 对象，但所有匹配器现在都是返回 `Promise`，因此你需要使用 `await` 去阻塞它。同样也适用于 `chai` 断言。
 
-  例如，如果我们有一个函数，它调用 API 并返回一些数据，我们可以使用这个代码来断言它的返回值：
+  例如，如果我们有一个函数，它调用 API 并返回一些数据，你可以使用下列代码来断言它的返回值：
 
   ```ts
   import { test, expect } from 'vitest'
@@ -916,9 +915,9 @@ TODO
 
 - **类型:** `Promisify<Assertions>`
 
-  `rejects` 可以在断言异步代码时删除样板。 用它来解开 `Promise` 被拒绝的原因，并用普通的断言来断言它的值。 如果 `Promise` 成功解决，则断言将失败。
+  `rejects` 可以在断言异步代码时有意地删除样板语法。使用它可以来展开 `Promise` 被拒绝的原因，并使用通常的断言语句来断言它的值。如果 `Promise` 成功解决，则断言将失败。
 
-  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此你需要 `await` 它。 也适用于 `chai` 断言。
+  它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此你需要使用 `await` 去阻塞它。同样也适用于 `chai` 断言。
 
   例如，如果我们有一个调用失败的函数，我们可以使用此代码来断言原因：
 
@@ -945,7 +944,7 @@ TODO
 
 - **类型:** `(count: number) => void`
 
-  在测试通过或失败后，验证在测试期间调用了多少次断言。有用的情况是检查异步代码是否被调用了。
+  在测试通过或失败后，它将会验证在测试期间调用了多少次断言。它常用于检查异步代码是否被调用了。
 
   例如，如果我们有一个异步调用两个匹配器的函数，我们可以断言它们实际上是被调用的。
 
@@ -975,7 +974,7 @@ TODO
 
 - **类型:** `(count: number) => void`
 
-  在测试通过或失败后，验证在测试期间是否至少调用了一个断言。 有用的情况是检查是否调用了异步代码。
+  在测试通过或失败后，它将会验证在测试期间是否至少调用了一个断言。它常用于检查是否调用了异步代码。
 
   例如，如果我们有一个调用回调的代码，我们可以在回调中进行断言，但如果我们不检查是否调用了断言，测试将始终通过。
 
