@@ -9,7 +9,7 @@
     <ListItem><a href="https://twitter.com/antfu7/status/1468233216939245579" target="_blank">智能文件监听模式，就像是测试的 HMR！</a></ListItem>
     <ListItem>支持测试 Vue、React、Lit 等框架中的组件。</ListItem>
     <ListItem>开箱即用的 TypeScript / JSX 支持</ListItem>
-    <ListItem>ESM 优先 ， 顶级 await</ListItem>
+    <ListItem>ESM 优先，支持模块顶级 await</ListItem>
     <ListItem>通过 <a href="https://github.com/Aslemammad/tinypool" target="_blank">tinypool</a> 使用 Worker 线程尽可能多地并发运行</ListItem>
     <ListItem>测试套件和测试的过滤、超时、并发</ListItem>
     <ListItem><a target="_blank" href="https://jestjs.io/zh-Hans/docs/snapshot-testing" rel="nofollow">Jest 的快照功能</a></ListItem>
