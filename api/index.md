@@ -875,13 +875,6 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   })
   ```
 
-// snapshots
-
-### toMatchSnapshot
-### toMatchInlineSnapshot
-### toThrowErrorMatchingSnapshot
-### toThrowErrorMatchingInlineSnapshot
-
 ### toHaveBeenCalled
 
 - **类型:** `() => Awaitable<void>`
