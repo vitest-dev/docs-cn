@@ -125,11 +125,7 @@ describe("another suite", () => {
 
 ### 未实现的测试套件和测试用例
 
-<<<<<<< HEAD
 使用 `.todo` 记录应该实现的测试套件和测试用例
-=======
-使用 `.todo` 记录应该实现但还未实现的测试套件和测试
->>>>>>> f945d477090bee6af94c8fb990ffbb4a3693deb4
 
 ```ts
 import { describe, it } from 'vitest'
@@ -183,15 +179,9 @@ describe.concurrent("suite", () => {
 
 注意，如果你正在使用添加匹配器的第三方库，将 `test.globals` 设置为 `true` 将提供更好的兼容性。
 
-<<<<<<< HEAD
-## 模拟对象
-
-内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
-=======
 ## 对象模拟
 
-内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用与 `jest` 兼容的 API 进行模拟对象。
->>>>>>> f945d477090bee6af94c8fb990ffbb4a3693deb4
+内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
 ```ts
 import { vi, expect } from 'vitest'
