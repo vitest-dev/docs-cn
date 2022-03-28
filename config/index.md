@@ -364,7 +364,7 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 对指定的文件使用 SSR 转换管道。<br>
 Vite 插件在处理这些文件时会收到 `ssr: true` 标志。
 
-#### transformMode.web
+#### transformMode&#46;web
 
 - **类型:** `RegExp[]`
 - **默认值:** 除了 `transformMode.ssr` 以外的所有文件

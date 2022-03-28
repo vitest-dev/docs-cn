@@ -875,12 +875,13 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   })
   ```
 
+<!--
 // snapshots
-
 ### toMatchSnapshot
 ### toMatchInlineSnapshot
 ### toThrowErrorMatchingSnapshot
 ### toThrowErrorMatchingInlineSnapshot
+-->
 
 ### toHaveBeenCalled
 
@@ -990,7 +991,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(time: number, ...args: any[]) => Awaitable<void>`
 
   此断言将会检查一个函数在第某次调用时是否使用了某些参数，从第 1 次开始。所以如果要检查第 2 次调用，你可以这样写 `.toHaveBeenNthCalledWith(2, ...)`。
-  
+
   需要给 `expect` 传递一个监听函数。
 
   ```ts
@@ -1236,8 +1237,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   })
   ```
 
-// asymmetric matchers
-
+<!--
 ### expect.anything
 ### expect.any
 ### expect.arrayContaining
@@ -1251,6 +1251,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 ### expect.addSnapshotSerializer
 ### expect.extend
+-->
 
 ## Setup and Teardown
 
