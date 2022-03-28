@@ -1,18 +1,18 @@
-# 模拟
+# 对象模拟(Mock)
 
-在编写测试时，需要创建内部或外部服务的“假”版本只是时间问题,这通常被称为**模拟**操作。Vitest 提供了这个功能，可以使用 `vi` 来帮助我们使用这个功能。使用 `import { vi } from 'vitest'` 或者**全局配置**进行访问 (当**启用**[全局配置](/config/#global)时 )。
+在编写测试时，你可能会因为时间问题，需要创建内部或外部服务的“假”版本，这通常被称为**对象模拟**操作。Vitest 通过 `vi` 提供了一些实用的函数用于解决这个问题。你使用 `import { vi } from 'vitest'` 或者**全局配置**进行访问它 (当**启用**[全局配置](/config/#global)时 )。
 
 ::: warning 警告
-永远记得在每次测试运行之前或之后清除或恢复模拟，以撤消运行之间的模拟状态更改！有关更多信息，请参阅 [`mockReset`](/api/#mockreset) 文档。
+永远记得在每次测试运行之前或之后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/#mockreset) 文档。
 :::
 
-如果你想先深入了解, 可以先阅读 [API](/api/#vi) 的 vi 部分，或者可以跟着文档继续深入了解一下这个模拟的世界。
+如果你想先深入了解, 可以先阅读 [API](/api/#vi) 的 vi 部分，或者可以跟着文档继续深入了解一下这个对象模拟的世界。
 
 ## 日期
 
-有些时候，我们可能需要控制日期来确保测试时的一致性。 Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 来操作计时器以及系统日期。可以在[这里](/api/#vi-setsystemtime)找到有关特定 API 的更多详细信息。
+有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 来操作定时器以及系统日期。可以在[这里](/api/#vi-setsystemtime)找到有关特定 API 的更多详细信息。
 
-### 实例
+### 示例
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -63,15 +63,15 @@ describe('purchasing flow', () => {
 
 ## 函数
 
-模拟功能可以分为两个不同的类别：*间谍 和 模拟*.
+对于函数的模拟可以分为两种类别：监听(Spy) 和 模拟.
 
-大部分时间我们只需要验证是否调用了特定函数（以及可能传递了哪些参数）。在这种情况下，我们就需要使用一个间谍，可以直接使用 `vi.spyOn()` 来完成间谍的操作 ([在这里可以阅读更多的内容](/api/#vi-spyon)).
+有时你可能只需要验证是否调用了特定函数（以及可能传递了哪些参数），在这种情况下，我们就需要使用一个监听，可以直接使用 `vi.spyOn()` 来对一个函数进行监听 ([在这里可以阅读更多的内容](/api/#vi-spyon))。
 
-但是间谍只能帮助我们完成**监视功能**，他们没有办法去更改这些功能的实现。在我们确实需要创建一个我们可以使用的函数的假（或模拟）版本的情况下可以使用`vi.fin()` （[在这里可以阅读更多的内容](/api/#vi-fn)）
+然而监听操作没有办法去更改这些函数的实现。在我们确实需要创建一个我们可以使用的假（或模拟）的函数版本的情况下可以使用`vi.fn()`（[在这里可以阅读更多的内容](/api/#vi-fn)）。
 
-我们可以使用 [Tinyspy](https://github.com/Aslemammad/tinyspy) 作为模拟函数的基础，但我们也有一套自己的包装器来使其与 `Jest` 兼容。两者 `vi.fn()` 和 `vi.spyOn()` 共享相同的方法，但是只有 的返回结果 `vi.fn()` 是可调用的。
+我们使用 [Tinyspy](https://github.com/Aslemammad/tinyspy) 作为模拟函数的基础，但我们也有一套自己的包装器来使其与 `Jest` 兼容。`vi.fn()` 和 `vi.spyOn()` 共享相同的方法，但是只有 `vi.fn()` 的返回结果是可调用的。
 
-### 实例
+### 示例
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -129,13 +129,13 @@ describe('reading messages', () => {
 
 ## 模块
 
-模拟模块中要使用第三方库，这些库也在其他代码中被调用，也可以帮助您测试参数、输出甚至声明他的实现。
+模拟模块观察第三方库，在一些其他代码中被调用，允许你测试参数、输出甚至重新声明其实现。
 
-有关这部分更详细的 API 描述，请参阅 [`vi.mock()` 的 API 部分](/api/#vi-fn)。
+参见 [`vi.mock()` API 部分](/api/#vi-fn)，以获得更深入详细 API 描述。
 
 ### 自动模拟算法
 
-如果你的代码导入了模拟模块，但是没有使用 `__mocks__` 文件或 `factory` 模块，Vitest 将通过调用他并模拟导每一个导出的模块本身。
+如果你的代码导入了模拟模块，但是没有使用 `__mocks__` 文件或 `factory` 模块，Vitest 将会通过调用和模拟模块的每个导出来模拟模块本身。
 
 适用于以下这些原则：
 
@@ -144,7 +144,7 @@ describe('reading messages', () => {
 * 所有的对象都将被深度克隆
 * 类的所有实例及其原型都将被深度克隆
 
-### 实例
+### 示例
 
 ```js
 import { vi, beforeEach, afterEach, describe, it } from 'vitest';
@@ -238,16 +238,16 @@ describe('get a list of todo items', () => {
 })
 ```
 
-## 请求
+## 网络请求
 
-因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情; 由于没有办法使用 WEB API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以同时模拟 `REST` 和 `GraphQL` 网络请求，并且跟所使用的框架没有任何联系。
+因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情; 由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以同时模拟 `REST` 和 `GraphQL` 网络请求，并且跟所使用的框架没有任何联系。
 
 Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许我们在不更改任何应用程序代码的情况下使用它。在浏览器中，会使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node 和 Vitest 中，会使用 [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation)。要了解有关 MSW 的更多信息，可以去阅读他们的[介绍](https://mswjs.io/docs/)。
 
 
 ### 配置
 
-将以下内容添加到[测试配置文件](/config/#setupfiles)
+将以下内容添加到测试[配置文件](/config/#setupfiles)
 ```js
 import { beforeAll, afterAll, afterEach } from 'vitest'
 import { setupServer } from 'msw/node'
@@ -289,7 +289,7 @@ afterEach(() => server.resetHandlers())
 
 > 配置服务 `onUnhandleRequest: 'error'` 只要产生了没有相应类型的请求处理，就会发生错误。
 
-### 实例
+### 示例
 
 我们有一个使用 MSW 的完整工作示例： [React Testing with MSW](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw).
 
@@ -297,13 +297,13 @@ afterEach(() => server.resetHandlers())
 
 MSW还有很多。您可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读[他们的文档](https://mswjs.io/docs/recipes)。
 
-## 时间
+## 定时器
 
-每当我们测试涉及到`超时`或者`间隔`的代码时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用“假”计时器来加速我们的测试。
+每当我们测试涉及到`超时`或者`间隔`的代码时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用“假”定时器来加速我们的测试。
 
 有关更深入的详细 API 描述，请参[`vi.mock()` API 部分](/api/#vi-usefaketimer)。
 
-### 实例
+### 示例
 
 ```js
 import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest'
