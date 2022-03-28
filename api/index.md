@@ -987,7 +987,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 ### toHaveBeenNthCalledWith
 
-- **类型:** `(...args: any[]) => Awaitable<void>`
+- **类型:** `(time: number, ...args: any[]) => Awaitable<void>`
 
   此断言将会检查一个函数在第某次调用时是否使用了某些参数，从第 1 次开始。所以如果要检查第 2 次调用，你可以这样写 `.toHaveBeenNthCalledWith(2, ...)`。
   
