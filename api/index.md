@@ -1229,22 +1229,6 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   })
   ```
 
-// asymmetric matchers
-
-### expect.anything
-### expect.any
-### expect.arrayContaining
-### expect.not.arrayContaining
-### expect.objectContaining
-### expect.not.objectContaining
-### expect.stringContaining
-### expect.not.stringContaining
-### expect.stringMatching
-### expect.not.stringMatching
-
-### expect.addSnapshotSerializer
-### expect.extend
-
 ## Setup and Teardown
 
 这些功能允许我们连接到测试的生命周期，以避免重复设置和拆卸代码。 它们适用于当前上下文：如果它们在顶层使用，则适用于文件；如果它们在 `describe` 块内，则适用于当前测试套件。
