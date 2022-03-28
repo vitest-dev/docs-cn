@@ -35,7 +35,7 @@ ESM 优先，支持模块顶级 await
 
 通过 [tinypool](https://github.com/Aslemammad/tinypool) 使用 Worker 线程尽可能多地并发运行（ [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支），允许多个测试同时运行。Vitest 默认启动多线程，可以通过 CLI 中的 `--no-threads` 禁用。
 
-Vitest 还隔离了每个文件的环境，因此一个文件中的 env 改变不会影响其他文件。 可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
+Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
 ## 过滤
 

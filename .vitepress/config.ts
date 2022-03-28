@@ -89,11 +89,11 @@ export default defineConfig({
         text: `v${version}`,
         items: [
           {
-            text: "版本发布 ",
+            text: "版本发布",
             link: releases,
           },
           {
-            text: "社区指南 ",
+            text: "社区指南",
             link: contributing,
           },
         ],
@@ -143,7 +143,7 @@ export default defineConfig({
               link: "/guide/features",
             },
             {
-              text: "模拟",
+              text: "模拟对象",
               link: "/guide/mocking",
             },
             {
@@ -157,11 +157,11 @@ export default defineConfig({
             },
             */
             {
-              text: "源码内测试",
+              text: "源码内联测试",
               link: "/guide/in-source",
             },
             {
-              text: "比较",
+              text: "与其他测试框架对比",
               link: "/guide/comparisons",
             },
             {
