@@ -117,7 +117,7 @@ export default defineConfig({
 | `--allowOnly` | 允许标记的测试和组件 `only`（默认值：CI 中为 false，否则为 true） |
 | `-h, --help` | 显示可用的 CLI 选项 |
 
-## 实例
+## 示例
 
 [@@include](../../examples/README.md)
 

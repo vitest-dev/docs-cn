@@ -1,4 +1,4 @@
-| 实例 | 开源地址 | 在线试用 |
+| 示例 | 开源地址 | 在线试用 |
 |---|---|---|
 | `basic` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__) |
 | `graphql` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/graphql) | [在线试用](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/graphql?initialPath=__vitest__) |
