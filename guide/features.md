@@ -123,9 +123,9 @@ describe("another suite", () => {
 });
 ```
 
-### 未实现的测试套件和测试
+### 未实现的测试套件和测试用例
 
-使用 `.todo` 记录应该实现的测试套件和测试
+使用 `.todo` 记录应该实现的测试套件和测试用例
 
 ```ts
 import { describe, it } from 'vitest'
@@ -179,9 +179,9 @@ describe.concurrent("suite", () => {
 
 注意，如果要使用添加匹配器的第三方库，将 `test.globals` 设置为 `true` 将提供更好的兼容性。
 
-## 模拟
+## 模拟对象
 
-内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行模拟。
+内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
 ```ts
 import { vi, expect } from 'vitest'
@@ -248,6 +248,31 @@ export default defineConfig({
     }
   }
 })
+```
+
+## In-source testing
+
+Vitest also provides a way to run tests with in your source code along with the implementation, simliar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
+
+This makes the tests share the same closure as the implementations and able to test against private states without exporting. Meanwhile, it also brings the closer feedback loop for development.
+
+```ts
+// src/index.ts
+
+// the implementation
+export function add(...args: number[]) {
+  return args.reduce((a, b) => a + b, 0)
+}
+
+// in-source test suites
+if (import.meta.vitest) {
+  const { it, expect } = import.meta.vitest
+  it('add', () => {
+    expect(add()).toBe(0)
+    expect(add(1)).toBe(1)
+    expect(add(1, 2, 3)).toBe(6)
+  })
+}
 ```
 
 Learn more at [In-source testing](/guide/in-source)
