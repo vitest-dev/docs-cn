@@ -7,7 +7,7 @@
 
 ## Cypress
 
-[Cypress](https://www.cypress.io/) 是基于浏览器的测试工具，是 Vitest 的补充工具之一。如果你想使用 Cypress，建议将 Vitest 用于测试项目中不涉及到浏览器的逻辑，将 Cypress 用于测试依赖浏览器的逻辑。
+[Cypress](https://www.cypress.io/) 是基于浏览器的测试工具，是 Vitest 的补充工具之一。如果你想使用 Cypress，建议将 Vitest 用于测试项目中非浏览器逻辑，将 Cypress 用于测试依赖浏览器的逻辑。
 
 Cypress是著名的端到端测试工具，他们新的[组件测试器](https://on.cypress.io/component)对测试 Vite 组件有很好的支持，是测试任何在浏览器中渲染的东西的理想选择。
 
@@ -15,13 +15,13 @@ Cypress是著名的端到端测试工具，他们新的[组件测试器](https:/
 
 Cypress 的测试更加专注于确定元素是否可见，是否可以访问和交互。Cypress 专门为 UI 开发和测试而构建，它的开发体验趋向于测试你的视觉组件，你会看到程序的组件和测试报告一起出现。测试完成后，组件将保持交互状态，您可以使用浏览器开发工具调试发生的任何故障。
 
-相比之下，Vitest 专注于为业务逻辑提供最佳的开发体验。像 Vitest 这样的基于节点的测试框架支持各种实现部分浏览器环境，例如 `jsdom` ，他们实现的足够多，就可以让我们快速的对于任何引用浏览器 API 的代码进行单元测试。其代价是，这些浏览器环境在实现上有局限性。例如，[`jsdom` 缺少了一些功能](https://github.com/jsdom/jsdom/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc) ，诸如 `window.navigation` 或者布局引擎 (`offsetTop` 等)。
+相比之下，Vitest 专注于为非浏览器逻辑提供最佳的开发体验。像 Vitest 这样的基于节点的测试框架支持各种实现部分浏览器环境的第三方包，例如 `jsdom`，他们实现的足够多，就可以让我们快速的对于任何引用浏览器 API 的代码进行单元测试。其代价是，这些浏览器环境在实现上有局限性。例如，[`jsdom` 缺少了一些功能](https://github.com/jsdom/jsdom/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc) ，诸如 `window.navigation` 或者布局引擎 (`offsetTop` 等)。
 
 最后，与 Web Test Runner 相比，Cypress 更像是一个 IDE 而不是测试框架，因为您还可以在浏览器中看到真实呈现的组件，以及它的测试结果和日志。
 
 Cypress 还一直在将 [Vite 集成到他们的产品](https://www.youtube.com/watch?v=7S5cbY8iYLk)中：使用 [Vitesse](https://github.com/antfu/vitesse) 重新构建他们的应用程序的 UI，并使用 Vite 来测试驱动他们项目的开发。
 
-我们认为 Cypress 不是对业务代码进行单元测试好选择，但使用 Cypress（用于端对端和组件测试）配合 Vitest（用于单元测试）将满足你应用程序的测试需求。
+我们认为 Cypress 不是对业务代码进行单元测试好选择，但使用 Cypress（用于端对端和组件测试）配合 Vitest（用于非浏览器逻辑的单元测试）将满足你应用程序的测试需求。
 
 ## Web Test Runner
 
