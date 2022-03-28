@@ -14,7 +14,7 @@
 $ vitest -w
 ```
 
-Vitest 智能搜索模块图并只重新运行相关测试（就像 HMR 在 Vite 中的工作方式一样！）。
+Vitest 智能搜索模块依赖树并只重新运行相关测试（就像 HMR 在 Vite 中的工作方式一样！）。
 
 `vitest`、`vitest dev` 和 `vitest watch` 是别名，默认情况下它们都以监听模式启动 vitest。它们还依赖于 `CI` 环境变量，如果它已定义，Vitest 将只运行一次测试，就像是 `vitest run` 一样。
 
