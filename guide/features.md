@@ -221,7 +221,7 @@ export default defineConfig({
 })
 ```
 
-了解更多关于[对象模拟](/mocking)的信息
+了解更多关于[对象模拟](/guide/mocking)的信息
 
 ## 代码测试覆盖率
 
