@@ -302,9 +302,9 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 - **类型:** `ExpectStatic & (actual: any) => Assertions`
 
-  `expect` 用来创建断言。 在当前上下文，可以使用 `assertions` 方法来断言一个语句。 Vitest 默认使用 `chai` 断言语句，同时基于 `chat` 实现兼容 `Jest` 的断言语句。
+  `expect` 用来创建断言。在当前上下文中，可以使用 `assertions` 方法来断言一个语句。 Vitest 默认提供 `chai` 进行断言，同时基于 `chai` 实现兼容 `Jest` 的断言语句。
 
-  例如，这里会断言 `input` 的值是否等于 `2` ，如果不是，断言则会抛出错误，并且测试失败。
+  例如，这里会断言 `input` 的值是否等于 `2` ，如果它们不相等，断言则会抛出错误，并且测试失败。
 
   ```ts
   import { expect } from 'vitest'
@@ -321,7 +321,16 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 ### not
 
-TODO
+  使用 `not` 将会否定断言。举例，此代码断言 `input` 的值不等于 `2`。如果它们相等，断言则会抛出错误，并且测试失败。
+
+  ```ts
+  import { expect, test } from 'vitest'
+
+  const input = Math.sqrt(16)
+
+  expect(input).not.to.equal(2) // chai API
+  expect(input).not.toBe(2) // jest API
+  ```
 
 ### toBe
 
@@ -345,7 +354,7 @@ TODO
   })
 
   test('stocks are the same', () => {
-    const refStock = stock // 相同的参考
+    const refStock = stock // 相同的引用
 
     expect(stock).toBe(refStock)
   })
@@ -841,7 +850,7 @@ TODO
   - 字符串：错误消息包含指定子串
 
   :::tip 提示
-    我们必须将代码包装在一个函数中，否则将无法捕获错误并且断言将会失败。
+    你必须将代码包装在一个函数中，否则将无法捕获错误并且断言将会失败。
   :::
 
   ```ts
@@ -855,7 +864,7 @@ TODO
   }
 
   test('throws on pineapples', () => {
-    // 测试错误消息是否在某处显示“ diabetes ”：这些是等效的
+    // 测试错误消息是否在某处显示 "diabetes" ：这些是等效的
     expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
     expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
 
@@ -874,7 +883,56 @@ TODO
 ### toThrowErrorMatchingInlineSnapshot
 
 ### toHaveBeenCalled
+
+- **类型:** `() => Awaitable<void>`
+
+  这个断言可以测试一个函数是否被调用过。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  const market = {
+    buy(subject: string, amount: number) {
+      // ...
+    },
+  }
+
+  test('spy function', () => {
+    const buySpy = vi.spyOn(market, 'buy')
+
+    expect(buySpy).not.toHaveBeenCalled()
+
+    market.buy('apples', 10)
+
+    expect(buySpy).toHaveBeenCalled()
+  })
+  ```
+
 ### toHaveBeenCalledTimes
+
+- **类型:** `(amount: number) => Awaitable<void>`
+
+  这个断言将会检查一个函数是否被调用了一定的次数。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  const market = {
+    buy(subject: string, amount: number) {
+      // ...
+    },
+  }
+
+  test('spy function called two times', () => {
+    const buySpy = vi.spyOn(market, 'buy')
+
+    market.buy('apples', 10)
+    market.buy('apples', 20)
+
+    expect(buySpy).toHaveBeenCalledTimes(2)
+  })
+  ```
+
 ### toHaveBeenCalledWith
 ### toHaveBeenLastCalledWith
 ### toHaveBeenNthCalledWith
