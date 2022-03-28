@@ -886,7 +886,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 - **类型:** `() => Awaitable<void>`
 
-  这个断言可以测试一个函数是否被调用过。需要给 `expect` 传递一个监听函数。
+  此断言可以测试一个函数是否被调用过。需要给 `expect` 传递一个监听函数。
 
   ```ts
   import { expect, test, vi } from 'vitest'
@@ -912,7 +912,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
 - **类型:** `(amount: number) => Awaitable<void>`
 
-  这个断言将会检查一个函数是否被调用了一定的次数。需要给 `expect` 传递一个监听函数。
+  此断言将会检查一个函数是否被调用了一定的次数。需要给 `expect` 传递一个监听函数。
 
   ```ts
   import { expect, test, vi } from 'vitest'
@@ -934,13 +934,182 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   ```
 
 ### toHaveBeenCalledWith
+
+  - **类型:** `(...args: any[]) => Awaitable<void>`
+
+  此断言将会检查一个函数是否被调用过，并且传入了指定的参数。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  const market = {
+    buy(subject: string, amount: number) {
+      // ...
+    },
+  }
+
+  test('spy function', () => {
+    const buySpy = vi.spyOn(market, 'buy')
+
+    market.buy('apples', 10)
+    market.buy('apples', 20)
+
+    expect(buySpy).toHaveBeenCalledWith('apples', 10)
+    expect(buySpy).toHaveBeenCalledWith('apples', 20)
+  })
+  ```
+
 ### toHaveBeenLastCalledWith
+
+- **类型:** `(...args: any[]) => Awaitable<void>`
+
+  此断言将会检查一个函数在最后一次被调用时，是否使用了某些参数。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  const market = {
+    buy(subject: string, amount: number) {
+      // ...
+    },
+  }
+
+  test('spy function', () => {
+    const buySpy = vi.spyOn(market, 'buy')
+
+    market.buy('apples', 10)
+    market.buy('apples', 20)
+
+    expect(buySpy).not.toHaveBeenLastCalledWith('apples', 10)
+    expect(buySpy).toHaveBeenLastCalledWith('apples', 20)
+  })
+  ```
+
 ### toHaveBeenNthCalledWith
+
+- **类型:** `(...args: any[]) => Awaitable<void>`
+
+  此断言将会检查一个函数在第某次调用时是否使用了某些参数，从第 1 次开始。所以如果要检查第 2 次调用，你可以这样写 `.toHaveBeenNthCalledWith(2, ...)`。
+  
+  需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  const market = {
+    buy(subject: string, amount: number) {
+      // ...
+    },
+  }
+
+  test('first call of spy function called with right params', () => {
+    const buySpy = vi.spyOn(market, 'buy')
+
+    market.buy('apples', 10)
+    market.buy('apples', 20)
+
+    expect(buySpy).toHaveBeenNthCalledWith(1, 'apples', 10)
+  })
+  ```
+
 ### toHaveReturned
+
+- **类型:** `() => Awaitable<void>`
+
+  此断言检查一个函数是否至少成功返回了一次值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  const getApplesPrice = (amount: number) => {
+    const PRICE = 10
+    return amount * PRICE
+  }
+
+  test('spy function returned a value', () => {
+    const getPriceSpy = vi.fn(getApplesPrice)
+
+    const price = getPriceSpy(10)
+
+    expect(price).toBe(100)
+    expect(getPriceSpy).toHaveReturned()
+  })
+  ```
+
 ### toHaveReturnedTimes
+
+- **类型:** `(amount: number) => Awaitable<void>`
+
+  此断言将会检查一个函数是否成功返回了确切的次数（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  test('spy function returns a value two times', () => {
+    const sell = vi.fn((product: string) => ({ product }))
+
+    sell('apples')
+    sell('bananas')
+
+    expect(sell).toHaveReturnedTimes(2)
+  })
+  ```
+
 ### toHaveReturnedWith
+
+- **类型:** `(returnValue: any) => Awaitable<void>`
+
+  此断言将会检查一个函数是否至少一次成功返回了指定的值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  test('spy function returns a product', () => {
+    const sell = vi.fn((product: string) => ({ product }))
+
+    sell('apples')
+
+    expect(sell).toHaveReturnedWith({ procuct: 'apples' })
+  })
+  ```
+
 ### toHaveLastReturnedWith
+
+- **类型:** `(returnValue: any) => Awaitable<void>`
+
+  此断言将会检查一个函数是否在最后一次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  test('spy function returns bananas on a last call', () => {
+    const sell = vi.fn((product: string) => ({ product }))
+
+    sell('apples')
+    sell('bananas')
+
+    expect(sell).toHaveLastReturnedWith({ procuct: 'bananas' })
+  })
+  ```
+
 ### toHaveNthReturnedWith
+
+- **类型:** `(time: number, returnValue: any) => Awaitable<void>`
+
+  此断言将会检查一个函数是否第某次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
+
+  ```ts
+  import { expect, test, vi } from 'vitest'
+
+  test('spy function returns bananas on second call', () => {
+    const sell = vi.fn((product: string) => ({ product }))
+
+    sell('apples')
+    sell('bananas')
+
+    expect(sell).toHaveNthReturnedWith(2, { product: 'bananas' })
+  })
+  ```
 
 ### resolves
 
