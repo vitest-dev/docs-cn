@@ -157,7 +157,7 @@ export default defineConfig({
             },
             */
             {
-              text: "源码内测试",
+              text: "源码内联测试",
               link: "/guide/in-source",
             },
             {
