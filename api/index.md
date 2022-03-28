@@ -990,7 +990,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 - **类型:** `(time: number, ...args: any[]) => Awaitable<void>`
 
   此断言将会检查一个函数在第某次调用时是否使用了某些参数，从第 1 次开始。所以如果要检查第 2 次调用，你可以这样写 `.toHaveBeenNthCalledWith(2, ...)`。
-  
+
   需要给 `expect` 传递一个监听函数。
 
   ```ts
@@ -1573,193 +1573,193 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 - **类型:** `() => string`
 
-  使用返回模拟名称的方法 `.mockName(name)`。
+  它返回使用 `.mockName(name)` 方法设置给模拟对象的 name 。
 
 ### mockClear
 
 - **类型:** `() => MockInstance`
 
-  清除有关每个模拟的所有信息。 调用后，[`spy.mock.calls`](#mockcalls)、[`spy.mock.returns`](#mockreturns) 将返回空数组。 如果我们需要清理不同断言之间的测试间谍，这会很有用。
+  清除每一个对象模拟调用的所有信息。调用后，[`spy.mock.calls`](#mock-calls)、[`spy.mock.results`](#mock-results) 将返回空数组。 如果你需要清理不同断言之间的对象监听，这会很有用。
 
-  如果我们希望在每次测试之前自动调用此方法，我们可以在 `config.xml` 中启用 [`clearMocks`](/config/#clearMocks) 设置。
+  如果你希望在每次测试之前自动调用此方法，你可以在配置中启用 [`clearMocks`](/config/#clearmocks) 设置。
 
 
 ### mockName
 
 - **类型:** `(name: string) => MockInstance`
 
-  设置内部模拟名称。有助于查看哪些模拟导致断言失败。
+  设置内部模拟对象名称。有助于查看哪些模拟对象导致断言失败。
 
 ### mockImplementation
 
 - **类型:** `(fn: Function) => MockInstance`
 
-  接受将用作模拟实现的函数。
+  接收一个用于模拟对象实现的函数。
 
   例如:
 
   ```ts
-  const mockFn = vi.fn().mockImplementation(apples => apples + 1);
+  const mockFn = vi.fn().mockImplementation(apples => apples + 1)
   // or: vi.fn(apples => apples + 1);
 
-  const NelliesBucket = mockFn(0);
-  const BobsBucket = mockFn(1);
+  const NelliesBucket = mockFn(0)
+  const BobsBucket = mockFn(1)
 
-  NelliesBucket === 1; // true
-  BobsBucket === 2; // true
+  NelliesBucket === 1 // true
+  BobsBucket === 2 // true
 
-  mockFn.mock.calls[0][0] === 0; // true
-  mockFn.mock.calls[1][0] === 1; // true
+  mockFn.mock.calls[0][0] === 0 // true
+  mockFn.mock.calls[1][0] === 1 // true
   ```
 
 ### mockImplementationOnce
 
 - **类型:** `(fn: Function) => MockInstance`
 
-  接受一个函数，该函数将用作对模拟函数的一次调用的模拟实现。可以链接起来，以便多个函数调用产生不同的结果。
+  接收一个只会被对象模拟函数调用一次，用于模拟对象实现的函数。可以链式调用，以便多个函数调用产生不同的结果。
 
   ```ts
   const myMockFn = vi
     .fn()
     .mockImplementationOnce(() => true)
-    .mockImplementationOnce(() => false);
+    .mockImplementationOnce(() => false)
 
-  myMockFn(); // true
-  myMockFn(); // false
+  myMockFn() // true
+  myMockFn() // false
   ```
 
-   当模拟函数用完实现时，它将调用使用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 如果它们被调用将会被设置的默认实现：
+   当对象模拟函数执行完毕，它将调用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 设置的默认实现。如果它们被调用：
 
   ```ts
   const myMockFn = vi
     .fn(() => 'default')
     .mockImplementationOnce(() => 'first call')
-    .mockImplementationOnce(() => 'second call');
+    .mockImplementationOnce(() => 'second call')
 
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
   ```
 
 ### mockRejectedValue
 
 - **类型:** `(value: any) => MockInstance`
 
-  当异步函数将被调用时，接受将被拒绝的错误。
+  当异步函数被调用时，接收一个将被拒绝 ( reject ) 的错误。
 
   ```ts
-  test('async test', async () => {
-    const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'));
+  test('async test', async() => {
+    const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
 
-    await asyncMock(); // throws "Async error"
-  });
+    await asyncMock() // throws "Async error"
+  })
   ```
 
 ### mockRejectedValueOnce
 
 - **类型:** `(value: any) => MockInstance`
 
-  接受一个值，该值将在一次调用模拟函数时被拒绝。如果链接，每个连续调用都将拒绝传递的值。
+  接收一个只会被对象模拟函数拒绝一次的值。如果链式调用，每个连续调用都将拒绝传入的值。
 
   ```ts
-  test('async test', async () => {
+  test('async test', async() => {
     const asyncMock = vi
       .fn()
       .mockResolvedValueOnce('first call')
-      .mockRejectedValueOnce(new Error('Async error'));
+      .mockRejectedValueOnce(new Error('Async error'))
 
-    await asyncMock(); // first call
-    await asyncMock(); // throws "Async error"
-  });
+    await asyncMock() // first call
+    await asyncMock() // throws "Async error"
+  })
   ```
 
 ### mockReset
 
 - **类型:** `() => MockInstance`
 
-  执行 `mockClear` 所做的会将内部实现作为空函数（调用时返回 `undefined`）。当我们想要将模拟完全重置回其初始状态时，这会很有用。
+  执行 `mockClear` 同样的操作，并将内部实现设置为空函数 (调用时返回 `undefined` )。当你想要完全重置一个模拟对象为其初始状态时，这会很有用。
 
-  如果我们希望在每次测试之前自动调用此方法，我们可以在 `config.xml` 中启用 [`mockReset`](/config/#mockReset) 设置。
+  如果你希望在每次测试之前自动调用此方法，你可以在配置中启用 [`mockReset`](/config/#mockreset) 设置。
 
 ### mockRestore
 
 - **类型:** `() => MockInstance`
 
-  执行 `mockRestore` 所做的并将内部实现恢复为原始功能。
+  执行 `mockRestore` 同样的操作，并将内部实现恢复为初始的函数。
 
-  注意，从 `vi.fn()` 恢复模拟的话会将实现设置为返回 `undefined` 的空函数。 使用 `vi.fn(impl)` 恢复的话会将实现恢复为 `impl`。
+  请注意，从 `vi.fn()` 恢复模拟对象会将实现设置为返回 `undefined` 的空函数。恢复 `vi.fn(impl)` 会将实现恢复为 `impl`。
 
-  如果我们希望在每次测试之前自动调用此方法，我们可以在 `config.xml` 中启用 [`restoreMocks`](/config/#restoreMocks) 设置。
+  如果你希望在每次测试之前自动调用此方法，我们可以在配置中启用 [`restoreMocks`](/config/#restoremocks) 设置。
 
 ### mockResolvedValue
 
 - **类型:** `(value: any) => MockInstance`
 
-  接受将在调用异步函数时解析的值。
+  当异步函数被调用时，接收一个将被决议 ( resolve ) 的值。
 
   ```ts
-  test('async test', async () => {
-    const asyncMock = vi.fn().mockResolvedValue(43);
+  test('async test', async() => {
+    const asyncMock = vi.fn().mockResolvedValue(43)
 
-    await asyncMock(); // 43
-  });
+    await asyncMock() // 43
+  })
   ```
 
 ### mockResolvedValueOnce
 
 - **类型:** `(value: any) => MockInstance`
 
-  接受一次调用模拟函数时解析的值。如果链接，每个连续调用都将解析传递的值。
+  接收一个只会被对象模拟函数决议一次的值。如果链式调用，每个连续调用都将决议传入的值。
 
   ```ts
-  test('async test', async () => {
+  test('async test', async() => {
     const asyncMock = vi
       .fn()
       .mockResolvedValue('default')
       .mockResolvedValueOnce('first call')
-      .mockResolvedValueOnce('second call');
+      .mockResolvedValueOnce('second call')
 
-    await asyncMock(); // first call
-    await asyncMock(); // second call
-    await asyncMock(); // default
-    await asyncMock(); // default
-  });
+    await asyncMock() // first call
+    await asyncMock() // second call
+    await asyncMock() // default
+    await asyncMock() // default
+  })
   ```
 
 ### mockReturnThis
 
 - **类型:** `() => MockInstance`
 
-  设置内部实现，将会返回 `this` 上下文。
+  设置内部实现返回 `this` 上下文。
 
 ### mockReturnValue
 
 - **类型:** `(value: any) => MockInstance`
 
-  接受调用模拟函数时将返回的值。
+  接收一个调用对象模拟函数时将返回的值。
 
   ```ts
-  const mock = vi.fn();
-  mock.mockReturnValue(42);
-  mock(); // 42
-  mock.mockReturnValue(43);
-  mock(); // 43
+  const mock = vi.fn()
+  mock.mockReturnValue(42)
+  mock() // 42
+  mock.mockReturnValue(43)
+  mock() // 43
   ```
 
 ### mockReturnValueOnce
 
 - **类型:** `(value: any) => MockInstance`
 
-  接受调用模拟函数时返回的值。如果链接，每个连续调用都会返回传递的值。 当没有更多的 `mockReturnValueOnce` 值要使用时，调用由 `mockImplementation` 或其他 `mockReturn*` 方法去指定的函数。
+  接收一个只会被对象模拟函数返回一次的值。如果链式调用，每个连续调用都会返回传入的值。当没有更多的 `mockReturnValueOnce` 值要使用时，调用由 `mockImplementation` 或其他 `mockReturn*` 方法指定的函数。
 
   ```ts
   const myMockFn = vi
     .fn()
     .mockReturnValue('default')
     .mockReturnValueOnce('first call')
-    .mockReturnValueOnce('second call');
+    .mockReturnValueOnce('second call')
 
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
   ```
 
 ## MockInstance Properties
@@ -1774,19 +1774,19 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 [
   ['arg1', 'arg2'],
   ['arg3', 'arg4'],
-];
+]
 ```
 
 ### mock.results
 
-  这是一个包含所有值的数组，这些值是从函数 `returned` 的。 该数组的一项是具有 `type` 和 `value` 属性的对象。 可用类型有：
+  这是一个包含所有函数 `return` 的值的数组。该数组的一项是具有 `type` 和 `value` 属性的对象。可用类型有：
 
 - `'return'` - 函数返回而不抛出。
 - `'throw'` - 函数抛出了一个值。
 
-  `value` 属性包含返回值或抛出的错误。
+`value` 属性包含返回值或抛出的错误。
 
-  如果函数返回 `result1` ，然后抛出错误，那么 `mock.results` 将是：
+如果函数返回 `result` ，然后抛出错误，那么 `mock.results` 将是：
 
 ```js
 [
@@ -1798,7 +1798,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
     type: 'throw',
     value: Error,
   },
-];
+]
 ```
 
 ### mock.instances
