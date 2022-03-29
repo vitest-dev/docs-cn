@@ -1,16 +1,16 @@
-# 对象模拟(Mock)
+# 对象模拟(Mocking)
 
-在编写测试时，你可能会因为时间问题，需要创建内部或外部服务的“假”版本，这通常被称为**对象模拟**操作。Vitest 通过 `vi` 提供了一些实用的函数用于解决这个问题。你使用 `import { vi } from 'vitest'` 或者**全局配置**进行访问它 (当**启用**[全局配置](/config/#global)时 )。
+在编写测试时，你可能会因为时间问题，需要创建内部或外部服务的“假”版本，这通常被称为**对象模拟**操作。Vitest 通过 `vi` 提供了一些实用的函数用于解决这个问题。你可以使用 `import { vi } from 'vitest'` 或者**全局配置**进行访问它 (当**启用**[全局配置](/config/#global)时)。
 
 ::: warning 警告
-永远记得在每次测试运行之前或之后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/#mockreset) 文档。
+不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/#mockreset) 文档。
 :::
 
-如果你想先深入了解, 可以先阅读 [API](/api/#vi) 的 vi 部分，或者可以跟着文档继续深入了解一下这个对象模拟的世界。
+如果你想先深入了解, 可以先阅读 [API](/api/#vi) 的 vi 部分，或者继续跟着文档深入了解一下这个对象模拟的世界。
 
 ## 日期
 
-有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 来操作定时器以及系统日期。可以在[这里](/api/#vi-setsystemtime)找到有关特定 API 的更多详细信息。
+有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 库来操作定时器以及系统日期。可以在[这里](/api/#vi-setsystemtime)找到有关特定 API 的更多详细信息。
 
 ### 示例
 
