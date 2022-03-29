@@ -128,7 +128,7 @@ export default defineConfig({
 | `--run` | 不使用监听模式 |
 | `--mode <name>` | 覆写 Vite 的模式（默认值是 `test`） |
 | `--global` | 全局注入 API，已 `废弃` 请使用 `--globals` |
-| `--global` | 全局注入 API |
+| `--globals` | 全局注入 API |
 | `--dom` | 用 happy-dom 模拟浏览器 api |
 | `--environment <env>` | 运行测试的环境（默认值是 `node`） |
 | `--passWithNoTests` | 未找到测试时通过 |
