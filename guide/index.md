@@ -126,8 +126,8 @@ export default defineConfig({
 | `--outputFile <filename>` | 在设置了 `--reporter=json` 或 `--reporter=junit` 选项时将结果输出到文件 |
 | `--coverage` | 使用 c8 输出代码测试覆盖率 |
 | `--run` | 不使用监听模式 |
+| `--mode` | 覆盖 Vite 的模式，默认值为 `test` |
 | `--mode <name>` | 覆写 Vite 的模式（默认值是 `test`） |
-| `--global` | 全局注入 API，已 `废弃` 请使用 `--globals` |
 | `--globals` | 全局注入 API |
 | `--dom` | 用 happy-dom 模拟浏览器 api |
 | `--environment <env>` | 运行测试的环境（默认值是 `node`） |
