@@ -130,7 +130,7 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   - `%i`：整数
   - `%f`：小数
   - `%j`：json格式
-  - `$o`：对象
+  - `%o`：对象
   - `%#`：对应的测试参数下标
   - `%%`：单个百分比符号 ('%')
 

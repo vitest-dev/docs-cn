@@ -398,3 +398,27 @@ export default defineConfig({
 - **默认值** `test`
 
 重写 Vite 的模式
+
+### changed
+
+- **类型**: `boolean | string`
+- **默认值**: false
+
+这里仅针对更改的文件运行测试。如果未提供任何值，将针对未提交的更改（包括暂存和未暂存）运行测试。
+
+要针对上次提交中所做的更改运行测试，可以使用 `--changed HEAD~1`。 你还可以传递提交哈希或分支名称。
+
+### resolveSnapshotPath
+
+- **类型**: `(testPath: string, snapExtension: string) => string`
+- **默认值**: stores snapshot files in `__snapshots__` directory
+
+覆盖快照的默认路径。 例如，要在测试文件旁边存储一下快照：
+
+```ts
+export default {
+  test: {
+    resolveSnapshotPath: (testPath, snapExtension) => testPath + snapExtension,
+  },
+}
+```
