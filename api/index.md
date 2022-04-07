@@ -1483,6 +1483,28 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
   导入一个被模拟的包含其所有属性 (包括嵌套属性) 的模块。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
 
+### vi.resetModules
+
+- **类型**: `() => Vitest`
+
+  通过清除所有模块的缓存来重置模块的注册表。在我们对隔离测试本地状态冲突的模块时很有用。
+
+  ```ts
+  import { vi } from 'vitest'
+  beforeAll(() => {
+    vi.resetModules()
+  })
+  test('change state', async() => {
+    const mod = await import('./some/path')
+    mod.changeLocalState('new value')
+    expect(mod.getlocalState()).toBe('new value')
+  })
+  test('module has old state', async() => {
+    const mod = await import('./some/path')
+    expect(mod.getlocalState()).toBe('old value')
+  })
+  ```
+
 ### vi.restoreCurrentDate
 
 - **类型**: `() => void`
