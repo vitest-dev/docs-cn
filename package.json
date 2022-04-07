@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vitepress --port 3333 --open",
-    "build": "vitepress build && esno scripts/build-pwa.ts",
+    "build": "pnpm run prefetch && vitepress build && esno scripts/build-pwa.ts",
     "serve": "vitepress serve",
     "preview-https": "pnpm run build && serve .vitepress/dist",
     "prefetch": "esno scripts/fetch-avatars.ts"
