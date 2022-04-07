@@ -71,7 +71,7 @@ import { coreTeamMembers } from '../contributors'
             width="768" height="1464"
             class="resizable-img"
             loading="lazy"
-            src="https://cdn.jsdelivr.net/gh/antfu/static/sponsors.svg"
+            src="/sponsors/antfu.svg"
             alt="Anthony Fu's sponsors"
           >
         </a>
@@ -84,7 +84,7 @@ import { coreTeamMembers } from '../contributors'
             width="768" height="722"
             class="resizable-img"
             loading="lazy"
-            src="https://patak.dev/sponsors.svg"
+            src="/sponsors/patak-dev.svg"
             alt="Patak's sponsors"
           >
         </a>
