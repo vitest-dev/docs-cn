@@ -123,7 +123,7 @@ export default defineConfig({
 | `--silent` | 运行测试时控制台静默输出 |
 | `--isolate` | 隔离每个测试文件的运行环境（默认值是 `true`） |
 | `--reporter <name>` | 选择输出格式：`default`、`verbose`、`dot`、`junit` 或 `json` |
-| `--outputFile <filename>` | 在设置了 `--reporter=json` 或 `--reporter=junit` 选项时将结果输出到文件 |
+| `--outputFile <filename/-s>` | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 你还可以为多个报告器指定单独的输出 |
 | `--coverage` | 使用 c8 输出代码测试覆盖率 |
 | `--run` | 不使用监听模式 |
 | `--mode` | 覆盖 Vite 的模式，默认值为 `test` |
@@ -177,3 +177,5 @@ pnpm link --global # 可以在此步骤中使用自己喜欢的包管理器
 ## 社区
 
 如果你有问题或需要帮助，可以通过 [Discord](https://chat.vitest.dev) 和 [GitHub Discussions](https://github.com/vitest-dev/vitest/discussions) 与社区联系。
+
+[cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options

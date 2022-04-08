@@ -228,9 +228,11 @@ test('use jsdom in this test file', () => {
 
 ### outputFile
 
-- **类型:** `string`
+- **类型:** `string | Record<string, string>`
 
 当指定 `--reporter=json` 或 `--reporter=junit` 时，将测试结果写入一个文件。
+
+如果通过的是对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
 ### threads
 
