@@ -225,6 +225,7 @@ test('use jsdom in this test file', () => {
 - `'dot'` - 将每个任务显示为一个点
 - `'junit'` - JUnit XML 报告器
 - `'json'` - 给出一个简单的 JSON 总结
+- 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
 ### outputFile
 

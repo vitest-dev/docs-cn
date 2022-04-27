@@ -143,6 +143,10 @@ export default defineConfig({
               link: "/guide/features",
             },
             {
+              text: "CLI",
+              link: "/guide/cli"
+            },
+            {
               text: "模拟对象",
               link: "/guide/mocking",
             },

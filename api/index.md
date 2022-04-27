@@ -3,14 +3,15 @@
 下面的变量中使用了以下类型
 
 ```ts
-type DoneCallback = (error?: any) => void
 type Awaitable<T> = T | PromiseLike<T>
-type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
+type TestFunction = () => Awaitable<void>
 ```
 
 当一个测试函数返回一个 promise 时，Vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
 
-为了兼容 Jest 的用法, `TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。 如果使用这种形式, 则 `done` 在调用之前不会结束测试（无参数或参数为假值表示测试通过，而真值或错误值作为参数则测试不通过）。 我们不建议使用这种形式，因为你可以使用 `async` 函数实现相同的目的。
+::: tip
+In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](../guide/migration#done-callback).
+:::
 
 ## test
 
@@ -87,7 +88,18 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   test.concurrent(...)
   test.skip.concurrent(...), test.concurrent.skip(...)
   test.only.concurrent(...), test.concurrent.only(...)
-  test.todo.concurrent(...), test.concurrent.todo(...)
+  test.todo.concurrent(/* ... */), test.concurrent.todo(/* ... */)
+  ```
+
+   When using Snapshots with async concurrent tests, due to the limitation of JavaScript, you need to use the `expect` from the [Test Context](/guide/test-context.md) to ensure the right test is being detected.
+
+  ```ts
+  test.concurrent('test 1', async ({ expect }) => {
+    expect(foo).toMatchSnapshot()
+  })
+  test.concurrent('test 2', async ({ expect }) => {
+    expect(foo).toMatchSnapshot()
+  })
   ```
 
 ### test.todo
@@ -1278,6 +1290,21 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
 
   `beforeEach` 确保为每个测试都添加用户。
 
+  Since Vitest v0.10.0, `beforeEach` also accepts an optional cleanup function (equivalent to `afterEach`).
+
+  ```ts
+  import { beforeEach } from 'vitest'
+  beforeEach(async () => {
+    // called once before all tests run
+    await prepareSomething()
+
+    // clean up function, called once after all tests run
+    return async () => {
+      await resetSomething()
+    }
+  })
+  ```
+
 ### afterEach
 
 - **类型:** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
@@ -1313,7 +1340,22 @@ type TestFunction = () => Awaitable<void> | (done: DoneCallback) => void
   })
   ```
 
-  `beforeAll` 确保在测试运行之前设置模拟数据
+  Here the `beforeAll` ensures that the mock data is set up before tests run.
+
+  Since Vitest v0.10.0, `beforeAll` also accepts an optional cleanup function (equivalent to `afterAll`).
+
+  ```ts
+  import { beforeAll } from 'vitest'
+  beforeAll(async () => {
+    // called once before all tests run
+    await startMocking()
+
+    // clean up function, called once after all tests run
+    return async () => {
+      await stopMocking()
+    }
+  })
+  ```
 
 ### afterAll
 
