@@ -135,6 +135,14 @@ export default defineConfig({
 | `--allowOnly` | 只允许标记 `only` 的测试套件和测试样例 （默认值：在 CI 中为 false，其他地方为 true） |
 | `-h, --help` | 显示可用的 CLI 选项 |
 
+## IDE 插件
+
+我们现在为 Vscode 提供官方扩展，以增强大家使用 Vitest 的测试体验。
+
+[从 VScode 插件市场安装](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
+
+具体参阅[IDE 插件](./ide.md)
+
 ## 示例
 
 [@@include](../../examples/README.md)

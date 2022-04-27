@@ -146,10 +146,6 @@ export default defineConfig({
               text: "模拟对象",
               link: "/guide/mocking",
             },
-            {
-              text: "调试",
-              link: "/guide/debugging",
-            },
             /* TODO
             {
               text: 'Using Plugins',
@@ -159,6 +155,18 @@ export default defineConfig({
             {
               text: "源码内联测试",
               link: "/guide/in-source",
+            },
+            {
+              text: '测试环境',
+              link: '/guide/test-context',
+            },
+            {
+              text: 'IDE 插件',
+              link: '/guide/ide',
+            },
+            {
+              text: '调试',
+              link: '/guide/debugging',
             },
             {
               text: "与其他测试框架对比",
