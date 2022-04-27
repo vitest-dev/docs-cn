@@ -84,6 +84,7 @@ const messages = {
     // ...
   ],
   getLatest, // 也可以是“getter 或 setter（如果支持）”
+}
 
 describe('reading messages', () => {
   afterEach(() => {
