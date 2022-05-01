@@ -65,9 +65,9 @@ export default defineConfig({
     ],
   ],
   themeConfig: {
-    repo: "vitest-dev/docs-cn",
+    repo: "vitest-dev/vitest",
     logo: "/logo.svg",
-    docsDir: "",
+    docsRepo: "vitest-dev/docs-cn",
     docsBranch: "main",
     editLinks: true,
     editLinkText: "建议更改此页面",

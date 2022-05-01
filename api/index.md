@@ -10,7 +10,7 @@ type TestFunction = () => Awaitable<void>
 当一个测试函数返回一个 promise 时，Vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
 
 ::: tip
-In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](../guide/migration#done-callback).
+在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。 如果使用此表格，则在调用 `done` 之前测试不会结束。 你可以使用 `async` 函数实现相同的目的，请参阅迁移指南中的[回调](../guide/migration#done-callback)部分。
 :::
 
 ## test
@@ -91,7 +91,7 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   test.todo.concurrent(/* ... */), test.concurrent.todo(/* ... */)
   ```
 
-   When using Snapshots with async concurrent tests, due to the limitation of JavaScript, you need to use the `expect` from the [Test Context](/guide/test-context.md) to ensure the right test is being detected.
+  在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试内容](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
 
   ```ts
   test.concurrent('test 1', async ({ expect }) => {
@@ -1290,15 +1290,15 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
 
   `beforeEach` 确保为每个测试都添加用户。
 
-  Since Vitest v0.10.0, `beforeEach` also accepts an optional cleanup function (equivalent to `afterEach`).
+  从 Vitest v0.10.0 开始，`beforeEach` 还接受一个可选的清理功能（相当于 `afterEach`）。
 
   ```ts
   import { beforeEach } from 'vitest'
   beforeEach(async () => {
-    // called once before all tests run
+    // 在所有测试运行之前调用一次
     await prepareSomething()
 
-    // clean up function, called once after all tests run
+    // 清理方法，在所有测试运行后调用一次
     return async () => {
       await resetSomething()
     }
@@ -1340,17 +1340,17 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   })
   ```
 
-  Here the `beforeAll` ensures that the mock data is set up before tests run.
+  这里的 `beforeAll` 确保在测试运行之前设置模拟数据。
 
-  Since Vitest v0.10.0, `beforeAll` also accepts an optional cleanup function (equivalent to `afterAll`).
+  从 Vitest v0.10.0 开始，`beforeAll` 还可以接受一个可选的清理功能（相当于 `afterAll`）。
 
   ```ts
   import { beforeAll } from 'vitest'
   beforeAll(async () => {
-    // called once before all tests run
+    // 在所有测试运行之前调用一次
     await startMocking()
 
-    // clean up function, called once after all tests run
+    // 在所有测试运行后调用一次
     return async () => {
       await stopMocking()
     }
