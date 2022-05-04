@@ -425,3 +425,10 @@ export default {
   },
 }
 ```
+
+### logHeapUsage
+
+- **类型**: `boolean`
+- **默认值**: `false`
+
+每次测试后显示堆的使用情况。用于调试内存是否泄漏。
