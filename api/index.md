@@ -895,11 +895,11 @@ type TestFunction = () => Awaitable<void>
 
 ### toThrowErrorMatchingSnapshot
 
-- **Type:** `(snapshot?: string) => void`
+- **类型:** `(snapshot?: string) => void`
 
-  The same as `[toMatchSnapshot](#toMatchSnapshot)`, but expects the same value as `[toThrowError](#toThrowError)`.
+  与 `[toMatchSnapshot](#toMatchSnapshot)` 相同，但需要与 `[toThrowError](#toThrowError)` 相同的值。
 
-  If the function throws an `Error`, the snapshot will be the error message. Otherwise, snapshot will be the value thrown by the function.
+  如果函数抛出`Error`，则快照将是错误消息。 否则，快照将是函数抛出的值。
 
 ### toThrowErrorMatchingInlineSnapshot
 
