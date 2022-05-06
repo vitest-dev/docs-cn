@@ -897,7 +897,7 @@ type TestFunction = () => Awaitable<void>
 
 - **类型:** `(snapshot?: string) => void`
 
-  与 `[toMatchSnapshot](#toMatchSnapshot)` 相同，但需要与 `[toThrowError](#toThrowError)` 相同的值。
+  与 `[toMatchSnapshot](#toMatchSnapshot)` 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
 
   如果函数抛出`Error`，则快照将是错误消息。 否则，快照将是函数抛出的值。
 
