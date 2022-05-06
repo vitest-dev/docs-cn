@@ -165,6 +165,14 @@ export default defineConfig({
               link: '/guide/test-context',
             },
             {
+              text: '扩展匹配器',
+              link: '/guide/extending-matchers',
+            },
+            {
+              text: '快照序列化',
+              link: '/guide/snapshot-serializer',
+            },
+            {
               text: 'IDE 插件',
               link: '/guide/ide',
             },
