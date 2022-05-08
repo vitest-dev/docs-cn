@@ -1350,9 +1350,9 @@ type TestFunction = () => Awaitable<void>
 
 - **Type:** `(matchers: MatchersObject) => void`
 
-  You can extend default matchers with your own. This function is used to extend the matchers object with custom matchers.
+  你可以使用自己的扩展默认匹配器。此函数用于使用自定义匹配器扩展匹配器对象。
 
-  When you define matchers that way, you also create asymmetric matchers that can be used like `expect.stringContaining`.
+  当您以这种方式定义匹配器时，你还可以创建类似于 `expect.stringContaining` 的非对称匹配器。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -1372,10 +1372,10 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
-  > If you want your matchers to appear in every test, you should call this method inside [`setupFiles`](/config/#setupFiles).
-  This function is compatible with Jest's `expect.extend`, so any library that uses it to create custom matchers will work with Vitest.
+  > 如果你希望匹配器出现在所有测试中，你应该在 [`setupFiles`](/config/#setupfiles) 调用此方法。
+  该函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
 
-  If you are using TypeScript, you can extend default Matchers interface with the code bellow:
+  如果你使用的是 TypeScript，您可以使用以下代码扩展默认匹配器接口：
 
   ```ts
   interface CustomMatchers<R = unknown> {
@@ -1389,9 +1389,9 @@ type TestFunction = () => Awaitable<void>
   }
   ```
 
-  > Note: augmenting jest.Matchers interface will also work.
+  > 注意：增加 jest.Matchers 接口也可以。
   :::tip
-  If you want to know more, checkout [guide on extending matchers](/guide/extending-matchers).
+  如果你想了解更多，请查看 [guide on extending matchers](/guide/extending-matchers)。
   :::
 
 ## Setup and Teardown
