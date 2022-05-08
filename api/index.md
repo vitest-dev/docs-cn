@@ -1140,9 +1140,9 @@ type TestFunction = () => Awaitable<void>
 
 ### toSatisfy
 
-  - **Type:** `(predicate: (value: any) => boolean) => Awaitable<void>`
+  - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
 
-  This assertion checks if a value satisfies a certain predicate.
+  这个断言检查一个值是否满足某个条件。
 
   ```ts
   describe('toSatisfy()', () => {
