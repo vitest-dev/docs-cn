@@ -34,3 +34,16 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 - })
 + }))
 ```
+
+**Vue Snapshots**
+
+This is not a Jest specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and use it inside [setupFiles](/config/#setupfiles):
+
+```ts
+import vueSnapshotSerializer from 'jest-serializer-vue'
+// Add Snapshot Serializer
+expect.addSnapshotSerializer(vueSnapshotSerializer)
+```
+
+Otherwise your snapshots will have a lot of escaped `"` characters.
+

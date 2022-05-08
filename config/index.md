@@ -426,6 +426,20 @@ export default {
 }
 ```
 
+### allowOnly
+
+- **Type**: `boolean`
+- **Default**: `false`
+
+Allow tests and suites that are marked as only.
+
+### passWithNoTests
+
+- **Type**: `boolean`
+- **Default**: `false`
+
+Vitest will end the process with `0` exit code, if no tests will be found.
+
 ### logHeapUsage
 
 - **类型**: `boolean`

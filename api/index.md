@@ -887,17 +887,55 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
-<!--
-// snapshots
 ### toMatchSnapshot
+
+- **Type:** `(hint?: string) => void`
+
+  This ensures that a value matches the most recent snapshot.
+
+  You can provide an optional `hint` string argument that is appended to the test name. Although Vitest always appends a number at the end of a snapshot name, short descriptive hints might be more useful than numbers to differentiate multiple snapshots in a single it or test block. Vitest sorts snapshots by name in the corresponding `.snap` file.
+
+  :::tip
+    When snapshot mismatch and causing the test failing, if the mismatch is expected, you can press `u` key to update the snapshot for once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
+  :::
+
+  ```ts
+  import { expect, test } from 'vitest'
+  test('matches snapshot', () => {
+    const data = { foo: new Set(['bar', 'snapshot']) }
+    expect(data).toMatchSnapshot()
+  })
+  ```
+
 ### toMatchInlineSnapshot
--->
+
+- **Type:** `(snapshot?: string) => void`
+
+  This ensures that a value matches the most recent snapshot.
+
+  Vitest adds and updates the inlineSnapshot string argument to the matcher in the test file (instead of an external `.snap` file).
+
+  ```ts
+  import { expect, test } from 'vitest'
+  test('matches inline snapshot', () => {
+    const data = { foo: new Set(['bar', 'snapshot']) }
+    // Vitest will update following content when updating the snapshot
+    expect(data).toMatchInlineSnapshot(`
+      {
+        "foo": Set {
+          "bar",
+          "snapshot",
+        },
+      }
+    `)
+  })
+  ```
 
 ### toThrowErrorMatchingSnapshot
 
 - **类型:** `(snapshot?: string) => void`
 
-  与 `[toMatchSnapshot](#toMatchSnapshot)` 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
+  与 [`toMatchSnapshot`](#toMatchSnapshot) 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
 
   如果函数抛出`Error`，则快照将是错误消息。 否则，快照将是函数抛出的值。
 
