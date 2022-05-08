@@ -1336,14 +1336,14 @@ type TestFunction = () => Awaitable<void>
 
 ### expect.addSnapshotSerializer
 
-- **Type:** `(plugin: PrettyFormatPlugin) => void`
+- **类型:** `(plugin: PrettyFormatPlugin) => void`
 
-  This method adds custom serializers that are called when creating a snapshot. This is advanced feature - if you want to know more, please read a [guide on custom serializers](/guide/snapshot-serializer).
+  此方法添加在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果你想要了解更多，请阅读 [自定义序列化程序指南](/guide/snapshot-serializer).
 
-  If you are adding custom serializers, you should call this method inside [`setupFiles`](/config/#setupFiles). This will affect every snapshot.
+  如果你添加了自定义序列化程序，你应该在 [`setupFiles`](/config/#setupfiles) 中调用该方法。它将影响所有快照。
 
   :::tip
-  If you previously used Vue CLI with Jest, you might want to install [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue). Otherwise, your snapshots will be wrapped in a string, which cases `"` to be escaped.
+  如果你之前使用过 Vue CLI 和 Jest，你可能需要安装 [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue)。否则，你的快照将被包裹在一个字符串中，`"` 会被转义。
   :::
 
 ### expect.extend
