@@ -1352,7 +1352,7 @@ type TestFunction = () => Awaitable<void>
 
   你可以使用自己的扩展默认匹配器。此函数用于使用自定义匹配器扩展匹配器对象。
 
-  当您以这种方式定义匹配器时，你还可以创建类似于 `expect.stringContaining` 的非对称匹配器。
+  当你以这种方式定义匹配器时，你还可以创建类似于 `expect.stringContaining` 的非对称匹配器。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -1375,7 +1375,7 @@ type TestFunction = () => Awaitable<void>
   > 如果你希望匹配器出现在所有测试中，你应该在 [`setupFiles`](/config/#setupfiles) 调用此方法。
   该函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
 
-  如果你使用的是 TypeScript，您可以使用以下代码扩展默认匹配器接口：
+  如果你使用的是 TypeScript，你可以使用以下代码扩展默认匹配器接口：
 
   ```ts
   interface CustomMatchers<R = unknown> {
