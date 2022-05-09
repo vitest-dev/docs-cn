@@ -909,11 +909,11 @@ type TestFunction = () => Awaitable<void>
 
 ### toMatchInlineSnapshot
 
-- **Type:** `(snapshot?: string) => void`
+- **类型:** `(snapshot?: string) => void`
 
-  This ensures that a value matches the most recent snapshot.
+  此方法确保某个值与最近的快照匹配。
 
-  Vitest adds and updates the inlineSnapshot string argument to the matcher in the test file (instead of an external `.snap` file).
+  Vitest 将内嵌快照字符串参数添加并更新到测试文件中的匹配器（而不是外部的 `.snap` 文件）。
 
   ```ts
   import { expect, test } from 'vitest'
