@@ -889,14 +889,14 @@ type TestFunction = () => Awaitable<void>
 
 ### toMatchSnapshot
 
-- **Type:** `(hint?: string) => void`
+- **类型:** `(hint?: string) => void`
 
-  This ensures that a value matches the most recent snapshot.
+  此方法确保某个值与最近的快照匹配。
 
-  You can provide an optional `hint` string argument that is appended to the test name. Although Vitest always appends a number at the end of a snapshot name, short descriptive hints might be more useful than numbers to differentiate multiple snapshots in a single it or test block. Vitest sorts snapshots by name in the corresponding `.snap` file.
+  你可以提供一个可选的字符串参数 `hint` 附加到测试名。虽然 Vitest 经常在快照名称结尾附加一个数字，但是简短的描述性提示可能比数字更有助于区分单个 it 或测试块中的多个快照。在相应的 `.snap` 文件中，Vitest 会按名称对快照进行排序。
 
   :::tip
-    When snapshot mismatch and causing the test failing, if the mismatch is expected, you can press `u` key to update the snapshot for once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
+    当快照不匹配导致测试失败时，假如不匹配是预期的，你可以按 `u` 键更新这一次快照，或者你可以通过 CLI 中的 `-u` 或 `--update` 选项使 Vitest 实时更新测试。
   :::
 
   ```ts
