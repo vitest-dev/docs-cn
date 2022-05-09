@@ -1348,7 +1348,7 @@ type TestFunction = () => Awaitable<void>
 
 ### expect.extend
 
-- **Type:** `(matchers: MatchersObject) => void`
+- **类型:** `(matchers: MatchersObject) => void`
 
   你可以使用自己的扩展默认匹配器。此函数用于使用自定义匹配器扩展匹配器对象。
 
