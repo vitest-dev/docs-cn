@@ -428,10 +428,10 @@ export default {
 
 ### allowOnly
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Allow tests and suites that are marked as only.
+仅允许标记为测试用例和测试套件。
 
 ### passWithNoTests
 
