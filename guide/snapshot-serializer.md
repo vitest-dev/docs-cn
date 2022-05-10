@@ -1,13 +1,13 @@
 # Snapshot Serializer
 
-You can add your own logic to alter how your snapshots are serialized. Like Jest, Vitest has default serializers for built-in JavaScript types, HTML elements, ImmutableJS and for React elements.
+你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 为内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 
-Example serializer module:
+序列化模块示例：
 
 ```ts
 expect.addSnapshotSerializer({
   serialize(val, config, indentation, depth, refs, printer) {
-    // `printer` is a function that serializes a value using existing plugins.
+    // `printer` 是一个使用现有插件序列化一个值的函数。
     return `Pretty foo: ${printer(val.foo)}`
   },
   test(val) {
@@ -16,7 +16,7 @@ expect.addSnapshotSerializer({
 })
 ```
 
-After adding a test like this:
+添加如下所示的测试后：
 
 ```ts
 test('foo snapshot test', () => {
@@ -30,7 +30,7 @@ test('foo snapshot test', () => {
 })
 ```
 
-You will get the following snapshot:
+你将获得以下快照：
 
 ```
 Pretty foo: Object {
@@ -39,4 +39,5 @@ Pretty foo: Object {
 }
 ```
 
-We are using Jest's `pretty-format` for serializing snapshots. You can read more about it here: [pretty-format](https://github.com/facebook/jest/blob/main/packages/pretty-format/README.md#serialize).
+我们使用的是 Jest 的 `pretty-format` 来序列化快照。你可以点击此处阅读更多相关内容：
+[pretty-format](https://github.com/facebook/jest/blob/main/packages/pretty-format/README.md#serialize).
