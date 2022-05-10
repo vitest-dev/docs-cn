@@ -435,10 +435,10 @@ export default {
 
 ### passWithNoTests
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Vitest will end the process with `0` exit code, if no tests will be found.
+如果没有找到测试，Vitest 将以 `0` 为退出码结束进程。
 
 ### logHeapUsage
 
