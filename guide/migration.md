@@ -35,15 +35,15 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 + }))
 ```
 
-**Vue Snapshots**
+**Vue 快照**
 
-This is not a Jest specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and use it inside [setupFiles](/config/#setupfiles):
+如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
 ```ts
 import vueSnapshotSerializer from 'jest-serializer-vue'
-// Add Snapshot Serializer
+// 添加快照序列化
 expect.addSnapshotSerializer(vueSnapshotSerializer)
 ```
 
-Otherwise your snapshots will have a lot of escaped `"` characters.
+否则你的快照将出现大量的 `"` 字符。
 
