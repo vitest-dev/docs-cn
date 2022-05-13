@@ -1,17 +1,17 @@
-# Extending Matchers
+# 扩展断言(Matchers)
 
-Since Vitest is compatible with both Chai and Jest, you can use either `chai.use` API or `expect.extend`, whichever you prefer.
+因为 Vitest 与 Chai 和 Jest 兼容，你可以使用 `chai.use` API 或 `expect.extend`，随你喜爱。
 
-This guide will explore extending matchers with `expect.extend`. If you are interested in Chai API, check [their guide](https://www.chaijs.com/guide/plugins/).
+本指南将探讨 `expect.extend` 扩展断言。如果你对 Chai API 感兴趣，查看 [their guide](https://www.chaijs.com/guide/plugins/)。
 
-To extend default matchers, call `expect.extend` with an object containing your matchers.
+要扩展默认断言，调用 `expect.extend` 并传入包含你的断言的对象。
 
 ```ts
 expect.extend({
   toBeFoo(received, expected) {
     const { isNot } = this
     return {
-      // do not alter your "pass" based on isNot. Vitest does it for you
+      // 不要根据 isNot 更改你的 "pass"，Vitest 会帮你处理
       pass: received === 'foo',
       message: () => `${received} is${isNot ? ' not' : ''} foo`
     }
@@ -19,50 +19,50 @@ expect.extend({
 })
 ```
 
-The return value of a matcher should be compatible with the following interface:
+匹配器的返回值应与以下接口兼容：
 
 ```ts
 interface MatcherResult {
   pass: boolean
   message: () => string
-  // If you pass these, they will automatically appear inside a diff,
-  // if the matcher will not pass, so you don't need to print diff yourself
+  // 如果你通过这些，它们将自动出现在一个 diff 中，
+  // 如果断言无法通过，那么你不需要自己打印 diff
   actual?: unknown
   expected?: unknown
 }
 ```
 
 ::: warning
-If you create an asynchronous matcher, don't forget to `await` the result (`await expect('foo').toBeFoo()`) in the test itself.
+如果你创建了一个异步断言，在测试中不要忘记 `await` 结果（`await expect('foo').toBeFoo()`）。
 :::
 
-The first argument inside a matchers function is received value (the one inside `expect(received)`). The rest are arguments passed directly to the matcher.
+断言函数的第一个参数是公认的值（`expect(received)` 括号内的），其余的是直接传递给断言的参数。
 
-Matcher function have access to `this` context with the following properties:
+断言函数可以访问 `this` 上下文的以下属性：
 
 - `isNot`
 
-  Returns true, if matcher was called on `not` (`expect(received).not.toBeFoo()`).
+  如果断言调用后为 `not`，则返回 true (`expect(received).not.toBeFoo()`).
 
 - `promise`
 
-  If matcher was called on `resolved/rejected`, this value will contain the name of modifier. Otherwise, it will be an empty string.
+  如果断言调用 `resolved/rejected`，参数要包含修改器名称(name of modifier)。否则，它将是一个空字符串。
 
 - `equals`
 
-  This is utility function that allows you to compare two values. It will return `true` if values are equal, `false` otherwise. This function is used internally for almost every matcher.
-  It supports objects with asymmetric matchers by default.
+  这是一个实用的功能，允许你比较两个值。如果值相等，返回 `true`，否则返回 `false`。几乎每个断言都在内部使用此函数。
+  默认情况下，它支持非对称的断言。
 
 - `utils`
 
-  This contains a set of utility functions that you can use to display messages.
+  它包含一组实用程序函数，你可以用其显示消息。
 
-`this` context also contains information about the current test. You can also get it by calling `expect.getState()`. The most useful properties are:
+`this` 上下文还包含有关当前测试的信息。你可以通过调用 `expect.getState()` 获取。信息中比较有用的有:
 
 - `currentTestName`
 
-  Full name of the current test (including describe block).
+  当前测试的全称（包括描述块(describe block)）。
 
 - `testPath`
 
-  Path to the current test.
+  当前测试的路径。
