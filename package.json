@@ -1,6 +1,6 @@
 {
   "name": "cn.vitest.docs",
-  "version": "0.12.4",
+  "version": "0.12.6",
   "private": true,
   "scripts": {
     "dev": "vitepress --port 3333 --open",
