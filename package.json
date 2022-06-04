@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "vitepress --port 3333 --open",
-    "test-build":"vitepress build",
     "build": "pnpm run prefetch && vitepress build",
     "serve": "vitepress serve",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview-https": "pnpm run build && serve .vitepress/dist",
     "prefetch": "esno .vitepress/scripts/fetch-avatars.ts"
   },
