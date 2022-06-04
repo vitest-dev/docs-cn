@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # 配置 Vitest
 
 ## 配置
@@ -425,20 +429,6 @@ export default {
   },
 }
 ```
-
-### allowOnly
-
-- **类型**: `boolean`
-- **默认值**: `false`
-
-仅允许标记为测试用例和测试套件。
-
-### passWithNoTests
-
-- **类型**: `boolean`
-- **默认值**: `false`
-
-如果没有找到测试，Vitest 将以 `0` 为退出码结束进程。
 
 ### logHeapUsage
 

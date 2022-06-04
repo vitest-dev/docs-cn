@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # API 参考
 
 下面的变量中使用了以下类型
@@ -887,65 +891,27 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
+<!--
+// snapshots
 ### toMatchSnapshot
-
-- **类型:** `(hint?: string) => void`
-
-  此方法确保某个值与最近的快照匹配。
-
-  你可以提供一个可选的字符串参数 `hint` 附加到测试名。虽然 Vitest 经常在快照名称结尾附加一个数字，但是简短的描述性提示可能比数字更有助于区分单个 it 或测试块中的多个快照。在相应的 `.snap` 文件中，Vitest 会按名称对快照进行排序。
-
-  :::tip
-    当快照不匹配导致测试失败时，假如不匹配是预期的，你可以按 `u` 键更新这一次快照，或者你可以通过 CLI 中的 `-u` 或 `--update` 选项使 Vitest 实时更新测试。
-  :::
-
-  ```ts
-  import { expect, test } from 'vitest'
-  test('matches snapshot', () => {
-    const data = { foo: new Set(['bar', 'snapshot']) }
-    expect(data).toMatchSnapshot()
-  })
-  ```
-
 ### toMatchInlineSnapshot
-
-- **类型:** `(snapshot?: string) => void`
-
-  此方法确保某个值与最近的快照匹配。
-
-  Vitest 将内嵌快照字符串参数添加并更新到测试文件中的匹配器（而不是外部的 `.snap` 文件）。
-
-  ```ts
-  import { expect, test } from 'vitest'
-  test('matches inline snapshot', () => {
-    const data = { foo: new Set(['bar', 'snapshot']) }
-    // Vitest will update following content when updating the snapshot
-    expect(data).toMatchInlineSnapshot(`
-      {
-        "foo": Set {
-          "bar",
-          "snapshot",
-        },
-      }
-    `)
-  })
-  ```
+-->
 
 ### toThrowErrorMatchingSnapshot
 
 - **类型:** `(snapshot?: string) => void`
 
-  与 [`toMatchSnapshot`](#toMatchSnapshot) 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
+  与 `[toMatchSnapshot](#toMatchSnapshot)` 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
 
   如果函数抛出`Error`，则快照将是错误消息。 否则，快照将是函数抛出的值。
 
 ### toThrowErrorMatchingInlineSnapshot
 
-- **类型:** `(snapshot?: string) => void`
+- **Type:** `(snapshot?: string) => void`
 
-  与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
+  The same as `[toMatchInlineSnapshot](#toMatchInlineSnapshot)`, but expects the same value as `[toThrowError](#toThrowError)`.
 
-  如果函数抛出 `Error`，则快照将是错误消息。 否则，快照将是函数抛出的值。
+  If the function throws an `Error`, the snapshot will be the error message. Otherwise, snapshot will be the value thrown by the function.
 
 ### toHaveBeenCalled
 
@@ -1178,9 +1144,9 @@ type TestFunction = () => Awaitable<void>
 
 ### toSatisfy
 
-  - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
+  - **Type:** `(predicate: (value: any) => boolean) => Awaitable<void>`
 
-  这个断言检查一个值是否满足某个条件。
+  This assertion checks if a value satisfies a certain predicate.
 
   ```ts
   describe('toSatisfy()', () => {
@@ -1336,23 +1302,23 @@ type TestFunction = () => Awaitable<void>
 
 ### expect.addSnapshotSerializer
 
-- **类型:** `(plugin: PrettyFormatPlugin) => void`
+- **Type:** `(plugin: PrettyFormatPlugin) => void`
 
-  此方法添加在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果你想要了解更多，请阅读 [自定义序列化程序指南](/guide/snapshot-serializer).
+  This method adds custom serializers that are called when creating a snapshot. This is advanced feature - if you want to know more, please read a [guide on custom serializers](/guide/snapshot).
 
-  如果你添加了自定义序列化程序，你应该在 [`setupFiles`](/config/#setupfiles) 中调用该方法。它将影响所有快照。
+  If you are adding custom serializers, you should call this method inside [`setupFiles`](/config/#setupFiles). This will affect every snapshot.
 
   :::tip
-  如果你之前使用过 Vue CLI 和 Jest，你可能需要安装 [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue)。否则，你的快照将被包裹在一个字符串中，`"` 会被转义。
+  If you previously used Vue CLI with Jest, you might want to install [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue). Otherwise, your snapshots will be wrapped in a string, which cases `"` to be escaped.
   :::
 
 ### expect.extend
 
-- **类型:** `(matchers: MatchersObject) => void`
+- **Type:** `(matchers: MatchersObject) => void`
 
-  你可以使用自己的扩展默认匹配器。此函数用于使用自定义匹配器扩展匹配器对象。
+  You can extend default matchers with your own. This function is used to extend the matchers object with custom matchers.
 
-  当你以这种方式定义匹配器时，你还可以创建类似于 `expect.stringContaining` 的非对称匹配器。
+  When you define matchers that way, you also create asymmetric matchers that can be used like `expect.stringContaining`.
 
   ```ts
   import { expect, test } from 'vitest'
@@ -1372,10 +1338,10 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
-  > 如果你希望匹配器出现在所有测试中，你应该在 [`setupFiles`](/config/#setupfiles) 调用此方法。
-  该函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
+  > If you want your matchers to appear in every test, you should call this method inside [`setupFiles`](/config/#setupFiles).
+  This function is compatible with Jest's `expect.extend`, so any library that uses it to create custom matchers will work with Vitest.
 
-  如果你使用的是 TypeScript，你可以使用以下代码扩展默认匹配器接口：
+  If you are using TypeScript, you can extend default Matchers interface with the code bellow:
 
   ```ts
   interface CustomMatchers<R = unknown> {
@@ -1389,9 +1355,9 @@ type TestFunction = () => Awaitable<void>
   }
   ```
 
-  > 注意：增加 jest.Matchers 接口也可以。
+  > Note: augmenting jest.Matchers interface will also work.
   :::tip
-  如果你想了解更多，请查看 [guide on extending matchers](/guide/extending-matchers)。
+  If you want to know more, checkout [guide on extending matchers](/guide/extending-matchers).
   :::
 
 ## Setup and Teardown
