@@ -79,21 +79,21 @@ beforeAll(async () => { ... }, 1000)
 使用 `.skip` 来跳过运行某些测试套件或测试用例。
 
 ```ts
-import { describe, assert, it } from 'vitest';
+import { assert, describe, it } from 'vitest'
 
-describe.skip("skipped suite", () => {
-  it("test", () => {
+describe.skip('skipped suite', () => {
+  it('test', () => {
     // 测试套件已跳过，没有错误
-    assert.equal(Math.sqrt(4), 3);
-  });
-});
+    assert.equal(Math.sqrt(4), 3)
+  })
+})
 
-describe("suite", () => {
-  it.skip("skipped test", () => {
+describe('suite', () => {
+  it.skip('skipped test', () => {
     // 测试用例跳过，没有错误
-    assert.equal(Math.sqrt(4), 3);
-  });
-});
+    assert.equal(Math.sqrt(4), 3)
+  })
+})
 ```
 
 ### 指定运行测试套件和测试用例
@@ -101,26 +101,26 @@ describe("suite", () => {
 使用 `.only` 仅运行某些测试套件或测试。
 
 ```ts
-import { describe, assert, it } from 'vitest'
+import { assert, describe, it } from 'vitest'
 
 // 仅运行此测试套件（以及其他标有 `only` 的测试套件）
-describe.only("suite", () => {
-  it("test", () => {
-    assert.equal(Math.sqrt(4), 3);
-  });
-});
+describe.only('suite', () => {
+  it('test', () => {
+    assert.equal(Math.sqrt(4), 3)
+  })
+})
 
-describe("another suite", () => {
-  it("skipped test", () => {
+describe('another suite', () => {
+  it('skipped test', () => {
     // 测试已跳过，因为测试在 Only 模式下运行
-    assert.equal(Math.sqrt(4), 3);
-  });
+    assert.equal(Math.sqrt(4), 3)
+  })
 
-  it.only("test", () => {
+  it.only('test', () => {
     // 仅运行此测试用例（以及其他标记 `only` 的测试用例）
-    assert.equal(Math.sqrt(4), 2);
-  });
-});
+    assert.equal(Math.sqrt(4), 2)
+  })
+})
 ```
 
 ### 未实现的测试套件和测试用例
@@ -131,12 +131,12 @@ describe("another suite", () => {
 import { describe, it } from 'vitest'
 
 // 该测试套件的报告中将显示一个条目
-describe.todo("unimplemented suite");
+describe.todo('unimplemented suite')
 
 // 此测试的报告中将显示一个条目
-describe("suite", () => {
-  it.todo("unimplemented test");
-});
+describe('suite', () => {
+  it.todo('unimplemented test')
+})
 ```
 
 ## 同时运行多个测试
@@ -147,11 +147,11 @@ describe("suite", () => {
 import { describe, it } from 'vitest'
 
 // 标有 `concurrent` 的两个测试用例将并发运行
-describe("suite", () => {
-  it("serial test", async () => { /* ... */ });
-  it.concurrent("concurrent test 1", async () => { /* ... */ });
-  it.concurrent("concurrent test 2", async () => { /* ... */ });
-});
+describe('suite', () => {
+  it('serial test', async() => { /* ... */ })
+  it.concurrent('concurrent test 1', async() => { /* ... */ })
+  it.concurrent('concurrent test 2', async() => { /* ... */ })
+})
 ```
 
 如果在测试套件中使用 `.concurrent`，则其中的每个测试用例都将并发运行。
@@ -160,11 +160,11 @@ describe("suite", () => {
 import { describe, it } from 'vitest'
 
 // 该测试套件中的所有测试都将并行运行
-describe.concurrent("suite", () => {
-  it("concurrent test 1", async () => { /* ... */ });
-  it("concurrent test 2", async () => { /* ... */ });
-  it.concurrent("concurrent test 3", async () => { /* ... */ });
-});
+describe.concurrent('suite', () => {
+  it('concurrent test 1', async() => { /* ... */ })
+  it('concurrent test 2', async() => { /* ... */ })
+  it.concurrent('concurrent test 3', async() => { /* ... */ })
+})
 ```
 
 您还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。 在 [API 参考](../api/#concurrent) 中阅读更多信息。
@@ -184,7 +184,7 @@ describe.concurrent("suite", () => {
 内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
 ```ts
-import { vi, expect } from 'vitest'
+import { expect, vi } from 'vitest'
 
 const fn = vi.fn()
 
@@ -193,7 +193,7 @@ fn('hello', 1)
 expect(vi.isMockFunction(fn)).toBe(true)
 expect(fn.mock.calls[0]).toEqual(['hello', 1])
 
-fn.mockImplementation((arg) => arg)
+fn.mockImplementation(arg => arg)
 
 fn('world', 2)
 
@@ -216,8 +216,8 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    environment: 'happy-dom' // 或 'jsdom', 'node'
-  }
+    environment: 'happy-dom', // 或 'jsdom', 'node'
+  },
 })
 ```
 
@@ -246,9 +246,9 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-      reporter: ['text', 'json', 'html']
-    }
-  }
+      reporter: ['text', 'json', 'html'],
+    },
+  },
 })
 ```
 

@@ -27,10 +27,10 @@ type TestFunction = () => Awaitable<void>
   同时，你也可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   test('should work as expected', () => {
-    expect(Math.sqrt(4)).toBe(2);
+    expect(Math.sqrt(4)).toBe(2)
   })
   ```
 
@@ -42,12 +42,12 @@ type TestFunction = () => Awaitable<void>
   如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
   ```ts
-  import { test, assert } from 'vitest'
+  import { assert, test } from 'vitest'
 
-  test.skip("skipped test", () => {
+  test.skip('skipped test', () => {
     // 跳过测试，没有错误
-    assert.equal(Math.sqrt(4), 3);
-  });
+    assert.equal(Math.sqrt(4), 3)
+  })
   ```
 
 ### test.only
@@ -60,12 +60,12 @@ type TestFunction = () => Awaitable<void>
   同时，你也可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
-  import { test, assert } from 'vitest'
+  import { assert, test } from 'vitest'
 
-  test.only("test", () => {
+  test.only('test', () => {
     // 仅运行此测试（以及仅标记有的其他测试）
-    assert.equal(Math.sqrt(4), 2);
-  });
+    assert.equal(Math.sqrt(4), 2)
+  })
   ```
 
 ### test.concurrent
@@ -79,11 +79,11 @@ type TestFunction = () => Awaitable<void>
   import { describe, test } from 'vitest'
 
   // 标有并发的两个测试将并发运行
-  describe("suite", () => {
-    test("serial test", async() => { /* ... */ });
-    test.concurrent("concurrent test 1", async() => { /* ... */ });
-    test.concurrent("concurrent test 2", async() => { /* ... */ });
-  });
+  describe('suite', () => {
+    test('serial test', async() => { /* ... */ })
+    test.concurrent('concurrent test 1', async() => { /* ... */ })
+    test.concurrent('concurrent test 2', async() => { /* ... */ })
+  })
   ```
 
   `test.skip`，`test.only` 和 `test.todo` 都适用于并发测试。以下所有组合均有效：
@@ -98,10 +98,10 @@ type TestFunction = () => Awaitable<void>
   在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试内容](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
 
   ```ts
-  test.concurrent('test 1', async ({ expect }) => {
+  test.concurrent('test 1', async({ expect }) => {
     expect(foo).toMatchSnapshot()
   })
-  test.concurrent('test 2', async ({ expect }) => {
+  test.concurrent('test 2', async({ expect }) => {
     expect(foo).toMatchSnapshot()
   })
   ```
@@ -115,7 +115,7 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   // 测试的报告中将显示一个记录
-  test.todo("unimplemented test");
+  test.todo('unimplemented test')
   ```
 
 ### test.fails
@@ -127,8 +127,8 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   import { expect, test } from 'vitest'
-  const myAsyncFunc = () => new Promise((resolve) => resolve(1))
-  test.fails("fail test", () => {
+  const myAsyncFunc = () => new Promise(resolve => resolve(1))
+  test.fails('fail test', () => {
     expect(myAsyncFunc()).rejects.toBe(1)
   })
   ```
@@ -174,49 +174,48 @@ type TestFunction = () => Awaitable<void>
   const person = {
     isActive: true,
     age: 32,
-  };
-
+  }
+  
   describe('person', () => {
     test('person is defined', () => {
       expect(person).toBeDefined()
-    });
-
+    })
+  
     test('is active', () => {
-      expect(person.isActive).toBeTruthy();
-    });
-
+      expect(person.isActive).toBeTruthy()
+    })
+  
     test('age limit', () => {
-      expect(person.age).toBeLessThanOrEqual(32);
-    });
-  });
+      expect(person.age).toBeLessThanOrEqual(32)
+    })
+  })
   ```
 
   如果你需要有测试层次结构，你还可以嵌套描述块：
 
   ```ts
-  import { describe, test, expect } from 'vitest'
+  import { describe, expect, test } from 'vitest'
 
   const numberToCurrency = (value) => {
-    if (typeof value !== 'number') {
-        throw new Error(`Value must be a number`);
-    }
-
-    return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if (typeof value !== 'number')
+      throw new Error('Value must be a number')
+  
+    return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
   describe('numberToCurrency', () => {
     describe('given an invalid number', () => {
       test('composed of non-numbers to throw error', () => {
-        expect(() => numberToCurrency('abc')).toThrow();
-      });
-    });
-
+        expect(() => numberToCurrency('abc')).toThrow()
+      })
+    })
+  
     describe('given a valid number', () => {
       test('returns the correct currency format', () => {
-        expect(numberToCurrency(10000)).toBe('10,000.00');
-      });
-    });
-  });
+        expect(numberToCurrency(10000)).toBe('10,000.00')
+      })
+    })
+  })
   ```
 
 ### describe.skip
@@ -228,12 +227,12 @@ type TestFunction = () => Awaitable<void>
   ```ts
   import { assert, describe, test } from 'vitest'
 
-  describe.skip("skipped suite", () => {
-    test("sqrt", () => {
+  describe.skip('skipped suite', () => {
+    test('sqrt', () => {
       // 跳过测试套件，不会有错误
-      assert.equal(Math.sqrt(4), 3);
-    });
-  });
+      assert.equal(Math.sqrt(4), 3)
+    })
+  })
   ```
 
 ### describe.only
@@ -244,15 +243,15 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   // 仅运行此测试套件（以及仅标有的其他测试套件）
-  describe.only("suite", () => {
-    test("sqrt", () => {
-      assert.equal(Math.sqrt(4), 3);
-    });
-  });
-
+  describe.only('suite', () => {
+    test('sqrt', () => {
+      assert.equal(Math.sqrt(4), 3)
+    })
+  })
+  
   describe('other suite', () => {
     // ... 这里的测试套件将会被跳过
-  });
+  })
   ```
 
 ### describe.concurrent
@@ -263,11 +262,11 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   // 该测试套件中的所有测试都将并行运行
-  describe.concurrent("suite", () => {
-    test("concurrent test 1", async() => { /* ... */ });
-    test("concurrent test 2", async() => { /* ... */ });
-    test.concurrent("concurrent test 3", async() => { /* ... */ });
-  });
+  describe.concurrent('suite', () => {
+    test('concurrent test 1', async() => { /* ... */ })
+    test('concurrent test 2', async() => { /* ... */ })
+    test.concurrent('concurrent test 3', async() => { /* ... */ })
+  })
   ```
 
   `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。 以下所有组合均有效：
@@ -287,7 +286,7 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   // 测试套件的报告中将显示一个记录
-  describe.todo("unimplemented suite");
+  describe.todo('unimplemented suite')
   ```
 
 ### describe.each
@@ -357,11 +356,11 @@ type TestFunction = () => Awaitable<void>
   例如，下面的测试将会检查 stock 是否有13个苹果。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   const stock = {
     type: 'apples',
-    count: 13
+    count: 13,
   }
 
   test('stock has 13 apples', () => {
@@ -385,18 +384,18 @@ type TestFunction = () => Awaitable<void>
   使用 `toBeCloseTo` 进行浮点数的比较。可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   test.fails('decimals are not equal in javascript', () => {
-    expect(0.2 + 0.1).toBe(0.3); // 0.2 + 0.1 = 0.30000000000000004
-  });
-
+    expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 = 0.30000000000000004
+  })
+  
   test('decimals are rounded to 5 after the point', () => {
     // 0.2 + 0.1 = 0.30000 | 移除了 "000000000004"
-    expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
-     // 0.30000000000000004 中的任何内容都不会被删除
-    expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50);
-  });
+    expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
+    // 0.30000000000000004 中的任何内容都不会被删除
+    expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50)
+  })
   ```
 
 ### toBeDefined
@@ -406,7 +405,7 @@ type TestFunction = () => Awaitable<void>
   `toBeDefined` 断言检查值是否不等于 `undefined` 。在检查函数是否有返回值时非常有用。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   const getApples = () => 3
 
@@ -422,10 +421,10 @@ type TestFunction = () => Awaitable<void>
   与 `toBeDefined` 相反，`toBeUndefined` 断言检查值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   function getApplesFromStock(stock) {
-    if(stock === 'Bill') return 13
+    if (stock === 'Bill') return 13
   }
 
   test('mary doesn\'t have a stock', () => {
@@ -445,15 +444,14 @@ type TestFunction = () => Awaitable<void>
   import { Stocks } from './stocks'
   const stocks = new Stocks()
   stocks.sync('Bill')
-  if(stocks.getInfo('Bill')) {
+  if (stocks.getInfo('Bill'))
     stocks.sell('apples', 'Bill')
-  }
   ```
 
   所以如果我们想测试 `stocks.getInfo` 是否为 true，我们可以这样写：
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { Stocks } from './stocks'
   const stocks = new Stocks()
 
@@ -477,15 +475,14 @@ type TestFunction = () => Awaitable<void>
   import { Stocks } from './stocks'
   const stocks = new Stocks()
   stocks.sync('Bill')
-  if(!stocks.stockFailed('Bill')) {
+  if (!stocks.stockFailed('Bill'))
     stocks.sell('apples', 'Bill')
-  }
   ```
 
   所以如果我们想测试 `stocks.stockFailed` 是否为 false，我们可以这样写：
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { Stocks } from './stocks'
   const stocks = new Stocks()
 
@@ -504,7 +501,7 @@ type TestFunction = () => Awaitable<void>
   `toBeNull` 将简单地断言检查值是否为 `null`。 是 `.toBe(null)` 的别名。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   function apples() {
     return null
@@ -522,7 +519,7 @@ type TestFunction = () => Awaitable<void>
   `toBeNaN` 将简单地断言是否为 `NaN`。 是 `.toBe(NaN)` 的别名，
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   let i = 0
 
@@ -544,7 +541,7 @@ type TestFunction = () => Awaitable<void>
   `toBeTypeOf` 用于断言检查值是否属于接收的类型。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   const actual = 'stock'
   test('stock is type of string', () => {
     expect(actual).toBeTypeOf('string')
@@ -558,7 +555,7 @@ type TestFunction = () => Awaitable<void>
   `toBeInstanceOf` 用于断言检查值是否为接收的类的实例。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { Stocks } from './stocks'
   const stocks = new Stocks()
 
@@ -574,7 +571,7 @@ type TestFunction = () => Awaitable<void>
   `toBeGreaterThan` 用于断言检查值是否大于接收值，如果相等将无法通过测试。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { getApples } from './stock'
 
   test('have more then 10 apples', () => {
@@ -589,7 +586,7 @@ type TestFunction = () => Awaitable<void>
   `toBeGreaterThanOrEqual` 用于断言检查值是否大于等于接收值。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { getApples } from './stock'
 
   test('have 11 apples or more', () => {
@@ -604,7 +601,7 @@ type TestFunction = () => Awaitable<void>
   `toBeLessThan` 用于断言检查值是否小于接收值，如果相等将无法通过测试。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { getApples } from './stock'
 
   test('have less then 20 apples', () => {
@@ -619,7 +616,7 @@ type TestFunction = () => Awaitable<void>
   `toBeLessThanOrEqual` 用于断言检查值是否小于等于接收值。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { getApples } from './stock'
 
   test('have 11 apples or less', () => {
@@ -636,16 +633,16 @@ type TestFunction = () => Awaitable<void>
   在本例中，你可以看到 `toEqual` 和 `toBe` 之间的区别：
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   const stockBill = {
     type: 'apples',
-    count: 13
+    count: 13,
   }
 
   const stockMary = {
     type: 'apples',
-    count: 13
+    count: 13,
   }
 
   test('stocks have the same properties', () => {
@@ -674,7 +671,7 @@ type TestFunction = () => Awaitable<void>
   -  检查对象类型是否相等。例如具有字段 `a` 和 `b` 的实例对象不等于具有字段 `a` 和`b` 的字面量对象。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   class Stock {
     constructor(type) {
@@ -699,7 +696,7 @@ type TestFunction = () => Awaitable<void>
   import { getAllFruits } from './stock'
 
   test('the fruit list contains orange', () => {
-    expect(getAllFruits()).toContain('orange');
+    expect(getAllFruits()).toContain('orange')
   })
   ```
 
@@ -710,10 +707,10 @@ type TestFunction = () => Awaitable<void>
   `toContainEqual` 用于断言在数组中是否包含具有特定结构和值的元素。它就像对每个元素进行 [`toEqual`](#toequal) 操作。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { getFruitStock } from './stock'
 
-  test("apple available", () => {
+  test('apple available', () => {
     expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
   })
   ```
@@ -725,13 +722,13 @@ type TestFunction = () => Awaitable<void>
   `toHaveLength` 用于断言一个对象是否具有 `.length` 属性，并且它被设置为某个数值。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   test('toHaveLength', () => {
-    expect('abc').toHaveLength(3);
-    expect([1, 2, 3]).toHaveLength(3);
-
-    expect('').not.toHaveLength(3); // .length 的值并不是3
+    expect('abc').toHaveLength(3)
+    expect([1, 2, 3]).toHaveLength(3)
+  
+    expect('').not.toHaveLength(3) // .length 的值并不是3
     expect({ length: 3 }).toHaveLength(3)
   })
   ```
@@ -745,7 +742,7 @@ type TestFunction = () => Awaitable<void>
   同时该方法还提供了一个可选参数，用于进行深度对比，就像使用 `toEqual` 匹配器来比较接收到的属性值。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   const invoice = {
     isActive: true,
@@ -764,14 +761,14 @@ type TestFunction = () => Awaitable<void>
         type: 'oranges',
         quantity: 5,
       },
-    ]
+    ],
   }
 
   test('John Doe Invoice', () => {
     expect(invoice).toHaveProperty('isActive') // 断言密钥存在
-    expect(invoice).toHaveProperty('total_amount', 5000) //断言 key 存在且值相等
+    expect(invoice).toHaveProperty('total_amount', 5000) // 断言 key 存在且值相等
 
-    expect(invoice).not.toHaveProperty('account') //断言这个 key 不存在
+    expect(invoice).not.toHaveProperty('account') // 断言这个 key 不存在
 
     // 使用 . 进行深度引用
     expect(invoice).toHaveProperty('customer.first_name')
@@ -809,7 +806,7 @@ type TestFunction = () => Awaitable<void>
   我们还可以传递对象数组。如果我们只想检查两个数组的元素数量是否匹配，该方法就会很有用，它不同于 `arrayContaining` ，它允许接收数组中的额外元素。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   const johnInvoice = {
     isActive: true,
@@ -827,8 +824,8 @@ type TestFunction = () => Awaitable<void>
       {
         type: 'oranges',
         quantity: 5,
-      }
-    ]
+      },
+    ],
   }
 
   const johnDetails = {
@@ -836,7 +833,7 @@ type TestFunction = () => Awaitable<void>
       first_name: 'John',
       last_name: 'Doe',
       location: 'China',
-    }
+    },
   }
 
   test('invoice has john personal details', () => {
@@ -870,12 +867,12 @@ type TestFunction = () => Awaitable<void>
   :::
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   function getFruitStock(type) {
-    if (type === 'pineapples') {
+    if (type === 'pineapples')
       throw new DiabetesError('Pineapples is not good for people with diabetes')
-    }
+  
     // 可以做一些其他的事情
   }
 
@@ -1172,13 +1169,13 @@ type TestFunction = () => Awaitable<void>
   例如，如果我们有一个函数，它调用 API 并返回一些数据，你可以使用下列代码来断言它的返回值：
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   function buyApples() {
     return fetch('/buy/apples').then(r => r.json())
   }
 
-  test('buyApples returns new stock id', async () => {
+  test('buyApples returns new stock id', async() => {
     // toEqual 现在返回一个 Promise ，所以我们必须等待它
     await expect(buyApples()).resolves.toEqual({ id: 1 })
   })
@@ -1199,15 +1196,15 @@ type TestFunction = () => Awaitable<void>
   例如，如果我们有一个调用失败的函数，我们可以使用此代码来断言原因：
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   function buyApples(id) {
-    if(!id) {
+    if (!id)
       throw new Error('no id')
-    }
+  
   }
 
-  test('buyApples throws an error when no id provided', async () => {
+  test('buyApples throws an error when no id provided', async() => {
     // toThrow 现在返回一个 Promise ，所以你必须等待它
     await expect(buyApples()).rejects.toThrow('no id')
   })
@@ -1226,24 +1223,24 @@ type TestFunction = () => Awaitable<void>
   例如，如果我们有一个异步调用两个匹配器的函数，我们可以断言它们实际上是被调用的。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
 
   async function doAsync(...cbs) {
     await Promise.all(
-      cbs.map((cb, index) => cb({ index }))
+      cbs.map((cb, index) => cb({ index })),
     )
   }
 
-  test('all assertions are called', async () => {
-    expect.assertions(2);
+  test('all assertions are called', async() => {
+    expect.assertions(2)
     function callback1(data) {
-      expect(data).toBeTruthy();
+      expect(data).toBeTruthy()
     }
     function callback2(data) {
-      expect(data).toBeTruthy();
+      expect(data).toBeTruthy()
     }
 
-    await doAsync(callback1, callback2);
+    await doAsync(callback1, callback2)
   })
   ```
 
@@ -1256,7 +1253,7 @@ type TestFunction = () => Awaitable<void>
   例如，如果我们有一个调用回调的代码，我们可以在回调中进行断言，但如果我们不检查是否调用了断言，测试将始终通过。
 
   ```ts
-  import { test, expect } from 'vitest'
+  import { expect, test } from 'vitest'
   import { db } from './db'
 
   const cbs = []
@@ -1267,18 +1264,18 @@ type TestFunction = () => Awaitable<void>
 
   // 从 db 中选择后，我们调用所有的回调
   function select(id) {
-    return db.select({ id }).then(data => {
+    return db.select({ id }).then((data) => {
       return Promise.all(
-        cbs.map(cb => cb(data))
+        cbs.map(cb => cb(data)),
       )
     })
   }
 
-  test('callback was called', async () => {
+  test('callback was called', async() => {
     expect.hasAssertions()
     onSelect((data) => {
       // 在选择时调用
-      expect(data).toBeTruthy();
+      expect(data).toBeTruthy()
     })
     // 如果不等待，测试将失败
     // 如果你没有 expect.hasAssertions()，测试将通过
@@ -1376,10 +1373,10 @@ type TestFunction = () => Awaitable<void>
   ```ts
   import { beforeEach } from 'vitest'
 
-  beforeEach(async () => {
+  beforeEach(async() => {
     // 在每次测试运行之前清除模拟并添加一些测试数据
     await stopMocking()
-    await addUser({ name: 'John'})
+    await addUser({ name: 'John' })
   })
   ```
 
@@ -1389,12 +1386,12 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   import { beforeEach } from 'vitest'
-  beforeEach(async () => {
+  beforeEach(async() => {
     // 在所有测试运行之前调用一次
     await prepareSomething()
 
     // 清理方法，在所有测试运行后调用一次
-    return async () => {
+    return async() => {
       await resetSomething()
     }
   })
@@ -1412,7 +1409,7 @@ type TestFunction = () => Awaitable<void>
   ```ts
   import { afterEach } from 'vitest'
 
-  afterEach(async () => {
+  afterEach(async() => {
     await clearTestingData() // 每次测试运行后清除测试数据
   })
   ```
@@ -1430,7 +1427,7 @@ type TestFunction = () => Awaitable<void>
   ```ts
   import { beforeAll } from 'vitest'
 
-  beforeAll(async () => {
+  beforeAll(async() => {
     await startMocking() // 在所有测试运行之前调用一次
   })
   ```
@@ -1441,12 +1438,12 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   import { beforeAll } from 'vitest'
-  beforeAll(async () => {
+  beforeAll(async() => {
     // 在所有测试运行之前调用一次
     await startMocking()
 
     // 在所有测试运行后调用一次
-    return async () => {
+    return async() => {
       await stopMocking()
     }
   })
@@ -1464,7 +1461,7 @@ type TestFunction = () => Awaitable<void>
   ```ts
   import { afterAll } from 'vitest'
 
-  afterAll(async () => {
+  afterAll(async() => {
     await stopMocking() // 在所有测试运行后调用此方法
   })
   ```

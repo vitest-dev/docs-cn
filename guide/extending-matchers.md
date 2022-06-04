@@ -13,9 +13,9 @@ expect.extend({
     return {
       // do not alter your "pass" based on isNot. Vitest does it for you
       pass: received === 'foo',
-      message: () => `${received} is${isNot ? ' not' : ''} foo`
+      message: () => `${received} is${isNot ? ' not' : ''} foo`,
     }
-  }
+  },
 })
 ```
 

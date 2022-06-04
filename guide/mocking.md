@@ -23,23 +23,22 @@ const purchase = () => {
   const currentHour = new Date().getHours()
   const [open, close] = businessHours
 
-  if (currentHour > open && currentHour < close) {
+  if (currentHour > open && currentHour < close)
     return { message: 'Success' }
-  }
 
   return { message: 'Error' }
-};
+}
 
 describe('purchasing flow', () => {
   beforeEach(() => {
     // 告诉 vitest 我们使用模拟时间
     vi.useFakeTimers()
-  });
+  })
 
   afterEach(() => {
     // 每次测试运行后恢复日期
     vi.useRealTimers()
-  });
+  })
 
   it('allows purchases within business hours', () => {
     // 在营业时间内设定时间
@@ -96,8 +95,8 @@ describe('reading messages', () => {
     expect(spy.getMockName()).toEqual('getLatest')
 
     expect(messages.getLatest()).toEqual(
-      messages.items[messages.items.length - 1]
-    );
+      messages.items[messages.items.length - 1],
+    )
 
     expect(spy).toHaveBeenCalledTimes(1)
 
@@ -105,7 +104,7 @@ describe('reading messages', () => {
     expect(messages.getLatest()).toEqual('access-restricted')
 
     expect(spy).toHaveBeenCalledTimes(2)
-  });
+  })
 
   it('should get with a mock', () => {
     const mock = vi.fn().mockImplementation(getLatest)
@@ -148,22 +147,22 @@ describe('reading messages', () => {
 ### 示例
 
 ```js
-import { vi, beforeEach, afterEach, describe, it } from 'vitest';
-import { Client } from 'pg';
+import { afterEach, beforeEach, describe, it, vi } from 'vitest'
+import { Client } from 'pg'
 
 // handlers
 export function success(data) {}
 export function failure(data) {}
 // get todos
-export const getTodos = async (event, context) => {
+export const getTodos = async(event, context) => {
   const client = new Client({
     // ...clientOptions
-  });
+  })
 
   await client.connect()
 
   try {
-    const result = await client.query(`SELECT * FROM todos;`)
+    const result = await client.query('SELECT * FROM todos;')
 
     client.end()
 
@@ -172,14 +171,15 @@ export const getTodos = async (event, context) => {
       data: result.rows,
       status: true,
     })
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e.stack)
 
     client.end()
 
     return failure({ message: e, status: false })
   }
-};
+}
 
 vi.mock('pg', () => {
   return {
@@ -188,28 +188,28 @@ vi.mock('pg', () => {
       query: vi.fn(),
       end: vi.fn(),
     })),
-  };
-});
+  }
+})
 
 vi.mock('./handler.js', () => {
   return {
     success: vi.fn(),
     failure: vi.fn(),
-  };
-});
+  }
+})
 
 describe('get a list of todo items', () => {
-  let client;
+  let client
 
   beforeEach(() => {
     client = new Client()
-  });
+  })
 
   afterEach(() => {
     vi.clearAllMocks()
-  });
+  })
 
-  it('should return items successfully', async () => {
+  it('should return items successfully', async() => {
     client.query.mockResolvedValueOnce({ rows: [], rowCount: 0 })
 
     await getTodos()
@@ -225,7 +225,7 @@ describe('get a list of todo items', () => {
     })
   })
 
-  it('should throw an error', async () => {
+  it('should throw an error', async() => {
     const mError = new Error('Unable to retrieve rows')
     client.query.mockRejectedValueOnce(mError)
 
@@ -307,43 +307,43 @@ MSW还有很多。您可以访问 cookie 和查询参数、定义模拟错误响
 ### 示例
 
 ```js
-import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const executeAfterTwoHours = (func) => {
   setTimeout(func, 1000 * 60 * 60 * 2) // 2 hours
 }
 
 const executeEveryMinute = (func) => {
-  setInterval(func, 1000 * 60); // 1 minute
+  setInterval(func, 1000 * 60) // 1 minute
 }
 
-const mock = vi.fn(() => console.log('executed'));
+const mock = vi.fn(() => console.log('executed'))
 
 describe('delayed execution', () => {
   beforeEach(() => {
     vi.useFakeTimers()
   })
-  afterEach(()=> {
+  afterEach(() => {
     vi.restoreAllMocks()
   })
   it('should execute the function', () => {
-    executeAfterTwoHours(mock);
-    vi.runAllTimers();
-    expect(mock).toHaveBeenCalledTimes(1);
+    executeAfterTwoHours(mock)
+    vi.runAllTimers()
+    expect(mock).toHaveBeenCalledTimes(1)
   })
   it('should not execute the function', () => {
-    executeAfterTwoHours(mock);
+    executeAfterTwoHours(mock)
     // advancing by 2ms won't trigger the func
-    vi.advanceTimersByTime(2);
-    expect(mock).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(2)
+    expect(mock).not.toHaveBeenCalled()
   })
   it('should execute every minute', () => {
-    executeEveryMinute(mock);
-    vi.advanceTimersToNextTimer();
-    vi.advanceTimersToNextTimer();
-    expect(mock).toHaveBeenCalledTimes(1);
-    vi.advanceTimersToNextTimer();
-    expect(mock).toHaveBeenCalledTimes(2);
+    executeEveryMinute(mock)
+    vi.advanceTimersToNextTimer()
+    vi.advanceTimersToNextTimer()
+    expect(mock).toHaveBeenCalledTimes(1)
+    vi.advanceTimersToNextTimer()
+    expect(mock).toHaveBeenCalledTimes(2)
   })
 })
 ```

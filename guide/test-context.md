@@ -30,7 +30,7 @@ it('should work', (ctx) => {
 
 ```ts
 import { beforeEach, it } from 'vitest'
-beforeEach(async (context) => {
+beforeEach(async(context) => {
   // 扩展上下文
   context.foo = 'bar'
 })

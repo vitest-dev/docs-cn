@@ -23,14 +23,14 @@ You can optionally pass a timeout in milliseconds as third argument to tests. Th
 
 ```ts
 import { test } from 'vitest'
-test('name', async () => { /* ... */ }, 1000)
+test('name', async() => { /* ... */ }, 1000)
 ```
 
 Hooks also can receive a timeout, with the same 5 seconds default.
 
 ```ts
 import { beforeAll } from 'vitest'
-beforeAll(async () => { /* ... */ }, 1000)
+beforeAll(async() => { /* ... */ }, 1000)
 ```
 
 ## Skipping suites and tests
