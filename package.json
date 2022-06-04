@@ -6,6 +6,7 @@
     "dev": "vitepress --port 3333 --open",
     "build": "pnpm run prefetch && vitepress build",
     "serve": "vitepress serve",
+    "test-build":"vitepress build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview-https": "pnpm run build && serve .vitepress/dist",
