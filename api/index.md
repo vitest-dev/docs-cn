@@ -1841,7 +1841,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 - **类型:** `() => MockInstance`
 
-  执行 `mockRestore` 同样的操作，并将内部实现恢复为初始的函数。
+  执行 `mockReset` 同样的操作，并将内部实现恢复为初始的函数。
 
   请注意，从 `vi.fn()` 恢复模拟对象会将实现设置为返回 `undefined` 的空函数。恢复 `vi.fn(impl)` 会将实现恢复为 `impl`。
 
