@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { CoreTeam } from '../contributors'
+import type { CoreTeam } from "../contributors";
 defineProps<{
-  avatar: CoreTeam['avatar']
-  name: CoreTeam['name']
-  github: CoreTeam['github']
-  twitter: CoreTeam['twitter']
-  sponsors: CoreTeam['sponsors']
-  description: CoreTeam['description']
-}>()
+  avatar: CoreTeam["avatar"];
+  name: CoreTeam["name"];
+  github: CoreTeam["github"];
+  twitter: CoreTeam["twitter"];
+  sponsors: CoreTeam["sponsors"];
+  description: CoreTeam["description"];
+}>();
 </script>
 
 <template>
@@ -24,9 +24,9 @@ defineProps<{
       inline-block
       :src="avatar"
       :alt="`${name}'s avatar`"
-    >
+    />
     <div flex="~ col gap2">
-      <div text-2x min-w-60>
+      <div text-2xl min-w-60>
         {{ name }}
       </div>
       <div op60 v-html="description" />
