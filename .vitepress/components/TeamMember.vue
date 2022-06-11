@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { CoreTeam } from "../contributors";
+import type { CoreTeam } from '../contributors';
 defineProps<{
-  avatar: CoreTeam["avatar"];
-  name: CoreTeam["name"];
-  github: CoreTeam["github"];
-  twitter: CoreTeam["twitter"];
-  sponsors: CoreTeam["sponsors"];
-  description: CoreTeam["description"];
+  avatar: CoreTeam['avatar'];
+  name: CoreTeam['name'];
+  github: CoreTeam['github'];
+  twitter: CoreTeam['twitter'];
+  sponsors: CoreTeam['sponsors'];
+  description: CoreTeam['description'];
 }>();
 </script>
 
