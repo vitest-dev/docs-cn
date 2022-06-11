@@ -26,7 +26,7 @@ defineProps<{
       :alt="`${name}'s avatar`"
     />
     <div flex="~ col gap2">
-      <div text-2xl>
+      <div text-2xl min-w-60>
         {{ name }}
       </div>
       <div op60 v-html="description" />
