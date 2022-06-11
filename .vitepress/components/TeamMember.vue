@@ -7,21 +7,26 @@ defineProps<{
   twitter: CoreTeam['twitter']
   sponsors: CoreTeam['sponsors']
   description: CoreTeam['description']
-}>()
+}>();
 </script>
 
 <template>
   <div text-left flex="~ row gap6" relative>
     <img
       loading="lazy"
-      width="100" height="100"
-      rounded-full min-w-25 min-h-25 h-25 w-25
+      width="100"
+      height="100"
+      rounded-full
+      min-w-25
+      min-h-25
+      h-25
+      w-25
       inline-block
       :src="avatar"
       :alt="`${name}'s avatar`"
-    >
+    />
     <div flex="~ col gap2">
-      <div text-2xl>
+      <div text-2xl min-w-60>
         {{ name }}
       </div>
       <div op60 v-html="description" />
