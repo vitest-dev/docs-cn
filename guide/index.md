@@ -1,39 +1,39 @@
-# Getting Started
+# 开始
 
-## Overview
+## 总览
 
-Vitest is a blazing fast unit test framework powered by Vite.
+Vitest 是一个由 Vite 提供支持的极速单元测试框架。
 
-You can learn more about the rationale behind the project in the [Why Vitest](./why) section.
+你可以在 [什么是 Vitest](./why) 中了解有关该项目背后的基本原理的更多信息。
 
-## Trying Vitest Online
+## 在线试用 Vitest
 
-You can try Vitest online on [StackBlitz](https://vitest.new). It runs Vitest directly in the browser, and it is almost identical to the local setup but doesn't require installing anything on your machine.
+你可以在 [StackBlitz](https://vitest.new) 上在线尝试 Vitest 。 它直接在浏览器中运行 Vitest，它几乎与本地设置相同，但不需要在你的计算机上安装任何东西。
 
-## Adding Vitest to your Project
+## 将 Vitest 安装到项目
 
 ```bash
-# with npm
+# 使用 npm
 npm install -D vitest
-# or with yarn
+# 使用 yarn
 yarn add -D vitest
-# or with pnpm
+# 使用 pnpm
 pnpm add -D vitest
 ```
 
-:::tip
-Vitest requires Vite >=v2.7.10 and Node >=v14
+:::tip 提示
+Vitest 需要 Vite >=v2.7.10 和 Node >=v14
 :::
 
-## Configuring Vitest
+## 配置 Vitest
 
-One of the main advantages of Vitest is its unified configuration with Vite. If present, `vitest` will read your root `vite.config.ts` to match with the plugins and setup as your Vite app. For example, your Vite [resolve.alias](https://vitejs.dev/config/#resolve-alias) and [plugins](https://vitejs.dev/guide/using-plugins.html) configuration will work out-of-the-box. If you want a different configuration during testing, you can:
+Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取您的根目录 `vite.config.ts` 以匹配插件并设置为您的 Vite 应用程序。例如，你的 Vite 有 [resolve.alias](https://vitejs.dev/config/#resolve-alias) 和 [plugins](https://vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中起作用。如果你想在测试期间想要不同的配置，你可以:
 
-- Create `vitest.config.ts`, which will have the higher priority
-- Pass `--config` option to CLI, e.g. `vitest --config ./path/to/vitest.config.ts`
-- Use `process.env.VITEST` or `mode` property on `defineConfig` (will be set to `test` if not overridden) to conditionally apply different configuration in `vite.config.ts`
+- 创建 `vitest.config.ts`，优先级将会最高。
+- 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`。
+- 在 `defineConfig` 上使用 `process.env.VITEST` 或 `mode` 属性（如果没有被覆盖，将设置为 `test`）有条件地在 `vite.config.ts` 中应用不同的配置。
 
-To configure `vitest` itself, add `test` property in your Vite config. You'll also need to add a reference to Vitest types using a [triple slash command](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) at the top of your config file, if you are importing `defineConfig` from `vite` itself.
+如果要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。 你还需要使用 [三斜线命令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html) ，同时如果是从 `vite` 本身导入 `defineConfig`，请在配置文件的顶部加上三斜线命令。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -44,11 +44,11 @@ export default defineConfig({
 })
 ```
 
-See the list of config options in the [Config Reference](../config/)
+可以参阅 [配置参考](../config/) 中的配置选项列表
 
-## Command Line Interface
+## 命令行界面
 
-In a project where Vitest is installed, you can use the `vitest` binary in your npm scripts, or run it directly with `npx vitest`. Here are the default npm scripts in a scaffolded Vitest project:
+在安装了 Vitest 的项目中，你可以在 npm 脚本中使用 `vitest` 脚本，或者直接使用 `npx vitest` 运行它。 以下是脚手架 Vitest 项目中的默认 npm 脚本：
 
 <!-- prettier-ignore -->
 ```json
@@ -60,20 +60,20 @@ In a project where Vitest is installed, you can use the `vitest` binary in your 
 }
 ```
 
-To run tests once without watching for file changes, use `vitest run`.
-You can specify additional CLI options like `--port` or `--https`. For a full list of CLI options, run `npx vitest --help` in your project.
+要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
+你还可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 有关 CLI 选项的完整列表，可以在你的项目中运行 `npx vitest --help`。
 
-Learn more about the [Command Line Interface](./cli.md)
+了解更多有关 [命令行界面](./cli.md) 的更多信息
 
-## IDE Integrations
+## IDE 集成
 
-We also provided a official extension for Visual Studio Code to enhance your testing experience with Vitest.
+我们还提供了 Visual Studio Code 的官方扩展，以增强你使用 Vitest 的测试体验。
 
-[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
+[从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
 
-Learn more about [IDE Integrations](./ide.md)
+了解更多有关 [IDE 集成](./ide.md) 的更多信息
 
-## Examples
+## 示例
 
 | Example | Source | Playground |
 |---|---|---|
@@ -97,7 +97,7 @@ Learn more about [IDE Integrations](./ide.md)
 | `vue` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue?initialPath=__vitest__) |
 | `vue2` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue2) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue2?initialPath=__vitest__) |
 
-## Projects using Vitest
+## 使用 Vitest 的项目
 
 - [unocss](https://github.com/antfu/unocss)
 - [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import)
@@ -125,9 +125,9 @@ We no longer accept new entries to this list a this moment.
 Thanks for choosing Vitest!
 -->
 
-## Using Unreleased Commits
+## 使用未发布的功能
 
-If you can't wait for a new release to test the latest features, you will need to clone the [vitest repo](https://github.com/vitest-dev/vitest) to your local machine and then build and link it yourself ([pnpm](https://pnpm.io/) is required):
+如果你迫不及待想要体验最新的功能，可以自行克隆 [vitest 仓库](https://github.com/vitest-dev/vitest) 到本地机器上然后自行将其链接（将需要 [pnpm](https://pnpm.io/zh/)）：
 
 ```bash
 git clone https://github.com/vitest-dev/vitest.git
@@ -138,10 +138,10 @@ pnpm run build
 pnpm link --global # you can use your preferred package manager for this step
 ```
 
-Then go to the project where you are using Vitest and run `pnpm link --global vitest` (or the package manager that you used to link `vitest` globally).
+然后，回到你的 Vitest 项目并运行 `pnpm link --global vitest`（或者使用你的其他包管理工具来全局链接 `Vitest`）。
 
-## Community
+## 社区
 
-If you have questions or need help, reach out to the community at [Discord](https://chat.vitest.dev) and [GitHub Discussions](https://github.com/vitest-dev/vitest/discussions).
+如果你有疑问或者需要帮助，可以到 [Discord](https://chat.vitest.dev) 和 [GitHub Discussions](https://github.com/vitest-dev/vitest/discussions) 社区来寻求帮助。
 
 [cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options
