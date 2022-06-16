@@ -1,65 +1,65 @@
-# Tests Filtering
+# 筛选测试
 
-Filtering, timeouts, concurrent for suite and tests
+用于测试用例的筛选(filtering)、超时(timeouts)、并发(concurrent)。
 
 ## CLI
 
-You can use CLI to filter test files by name:
+可以使用 CLI 按名称筛选测试文件：
 
 ```bash
 $ vitest basic
 ```
 
-Will only execute test files that contain `basic`, e.g.
+将只执行包含 `basic` 的测试文件，例如：
 
 ```
 basic.test.ts
 basic-foo.test.ts
 ```
 
-## Specifying a Timeout
+## 指定延时
 
-You can optionally pass a timeout in milliseconds as third argument to tests. The default is 5 seconds.
+您可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试用例。默认值为 5 秒。
 
 ```ts
 import { test } from 'vitest'
 test('name', async() => { /* ... */ }, 1000)
 ```
 
-Hooks also can receive a timeout, with the same 5 seconds default.
+Hooks 也可以接收超时阈值，默认值为 5 秒。
 
 ```ts
 import { beforeAll } from 'vitest'
 beforeAll(async() => { /* ... */ }, 1000)
 ```
 
-## Skipping suites and tests
+## 跳过测试用例
 
-Use `.skip` to avoid running certain suites or tests
+使用 `.skip` 以避免运行某些套件或测试
 
 ```ts
 import { assert, describe, it } from 'vitest'
 describe.skip('skipped suite', () => {
   it('test', () => {
-    // Suite skipped, no error
+    // 已跳过此用例，无错误
     assert.equal(Math.sqrt(4), 3)
   })
 })
 describe('suite', () => {
   it.skip('skipped test', () => {
-    // Test skipped, no error
+    // 已跳过此用例，无错误
     assert.equal(Math.sqrt(4), 3)
   })
 })
 ```
 
-## Selecting suites and tests to run
+## 选择要运行的测试用例
 
-Use `.only` to only run certain suites or tests
+使用 `.only` 仅运行某些测试用例
 
 ```ts
 import { assert, describe, it } from 'vitest'
-// Only this suite (and others marked with only) are run
+// 仅运行此用例（以及标记为 Only 的其他用例）
 describe.only('suite', () => {
   it('test', () => {
     assert.equal(Math.sqrt(4), 3)
@@ -67,25 +67,25 @@ describe.only('suite', () => {
 })
 describe('another suite', () => {
   it('skipped test', () => {
-    // Test skipped, as tests are running in Only mode
+    // 已跳过测试，因为测试在 Only 模式下运行
     assert.equal(Math.sqrt(4), 3)
   })
   it.only('test', () => {
-    // Only this test (and others marked with only) are run
+    // 仅运行此用例（以及标记为 Only 的其他用例）
     assert.equal(Math.sqrt(4), 2)
   })
 })
 ```
 
-## Unimplemented suites and tests
+## 未实现的测试用例
 
-Use `.todo` to stub suites and tests that should be implemented
+使用 `.todo` 留存将要实施的测试用例的待办事项
 
 ```ts
 import { describe, it } from 'vitest'
-// An entry will be shown in the report for this suite
+// 此用例的报告中将显示一个条目
 describe.todo('unimplemented suite')
-// An entry will be shown in the report for this test
+// 此测试的报告中将显示一个条目
 describe('suite', () => {
   it.todo('unimplemented test')
 })
