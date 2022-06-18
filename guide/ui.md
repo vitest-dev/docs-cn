@@ -6,13 +6,13 @@ Vitest 由 Vite 提供能力，在运行测试时有一个开发服务器。这�
 npm i -D @vitest/ui
 ```
 
-然后，你可以通过传入 `--ui` 参数来启动测试的 UI 界面：
+接下来，你可以通过传入 `--ui` 参数来启动测试的 UI 界面：
 
 ```bash
 vitest --ui
 ```
 
-<!-- 然后您可以访问 Vitest UI 界面，通过 [`http://localhost:51204/__vitest__/`](http://localhost:51204/__vitest__/). -->
+<!-- 最后，你可以访问 Vitest UI 界面，通过 [`http://localhost:51204/__vitest__/`](http://localhost:51204/__vitest__/)。 -->
 
 
 <img alt="Vitest UI" img-light src="https://user-images.githubusercontent.com/11247099/171992267-5cae2fa0-b927-400a-8eb1-da776974cb61.png">
