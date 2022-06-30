@@ -1,6 +1,7 @@
 {
   "name": "docs",
   "private": true,
+  "version": "0.16.0",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
     "build": "nr prefetch && vitepress build && esno .vitepress/scripts/build-pwa.ts",

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { version } from '../../package.json'
+import { version } from '../package.json'
 import {
   contributing,
   discord,
@@ -48,7 +48,7 @@ export default defineConfig({
 
     editLink: {
       pattern: 'https://github.com/vitest-dev/vitest/tree/main/docs/:path',
-      text: 'Suggest changes to this page',
+      text: '为此页提供修改建议',
     },
 
     algolia: {
@@ -61,9 +61,9 @@ export default defineConfig({
     },
 
     localeLinks: {
-      text: 'English',
+      text: '简体中文',
       items: [
-        { text: '简体中文', link: 'https://cn.vitest.dev' },
+        { text: 'English', link: 'https://vitest.dev' },
       ],
     },
 
@@ -79,18 +79,18 @@ export default defineConfig({
     },
 
     nav: [
-      { text: 'Guide', link: '/guide/' },
+      { text: '指引', link: '/guide/' },
       { text: 'API', link: '/api/' },
-      { text: 'Config', link: '/config/' },
+      { text: '配置', link: '/config/' },
       {
         text: `v${version}`,
         items: [
           {
-            text: 'Release Notes ',
+            text: '版本发布',
             link: releases,
           },
           {
-            text: 'Contributing ',
+            text: '社区指南',
             link: contributing,
           },
         ],
@@ -101,18 +101,18 @@ export default defineConfig({
       // TODO: bring sidebar of apis and config back
       '/': [
         {
-          text: 'Guide',
+          text: '指引',
           items: [
             {
-              text: 'Why Vitest',
+              text: '简介',
               link: '/guide/why',
             },
             {
-              text: 'Getting Started',
+              text: '快速开始',
               link: '/guide/',
             },
             {
-              text: 'Features',
+              text: '特点',
               link: '/guide/features',
             },
             {
@@ -124,15 +124,15 @@ export default defineConfig({
               link: '/guide/filtering',
             },
             {
-              text: 'Coverage',
+              text: '覆盖范围',
               link: '/guide/coverage',
             },
             {
-              text: 'Snapshot',
+              text: '快照序列化',
               link: '/guide/snapshot',
             },
             {
-              text: 'Mocking',
+              text: '模拟对象',
               link: '/guide/mocking',
             },
             {
@@ -140,31 +140,31 @@ export default defineConfig({
               link: '/guide/ui',
             },
             {
-              text: 'In-source Testing',
+              text: '源码内联测试',
               link: '/guide/in-source',
             },
             {
-              text: 'Test Context',
+              text: '测试环境',
               link: '/guide/test-context',
             },
             {
-              text: 'Extending Matchers',
+              text: '扩展匹配器',
               link: '/guide/extending-matchers',
             },
             {
-              text: 'IDE Integration',
+              text: 'IDE 插件',
               link: '/guide/ide',
             },
             {
-              text: 'Debugging',
+              text: '调试',
               link: '/guide/debugging',
             },
             {
-              text: 'Comparisons',
+              text: '与其他测试框架对比',
               link: '/guide/comparisons',
             },
             {
-              text: 'Migration Guide',
+              text: '迁移指南',
               link: '/guide/migration',
             },
           ],
@@ -173,7 +173,7 @@ export default defineConfig({
           text: 'API',
           items: [
             {
-              text: 'API Reference',
+              text: 'API 参考',
               link: '/api/',
             },
           ],
@@ -182,7 +182,7 @@ export default defineConfig({
           text: 'Config',
           items: [
             {
-              text: 'Config Reference',
+              text: '配置 Vitest',
               link: '/config/',
             },
           ],
