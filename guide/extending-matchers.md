@@ -3,7 +3,7 @@
 
 由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 `chai.use` API 或者 `expect.extend`。
 
-本文将以 `expect.extend` 为例探讨扩展断言。如果你对 Chai 的 API 更感兴趣，可以查看[它的指南](https://www.chaijs.com/guide/plugins/)
+本文将以 `expect.extend` 为例探讨扩展断言。如果你对 Chai 的 API 更感兴趣，可以查看[它的指南](https://www.chaijs.com/guide/plugins/)。
 
 为了扩展默认的断言，可以使用对象包裹断言的形式调用 `expect.extend` 方法。
 
@@ -26,7 +26,7 @@ interface MatcherResult {
   pass: boolean
   message: () => string
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
-  // 所以如果断言不通过，你也不必自己输出 diff
+  // 所以即便断言不通过，你也不必自己输出 diff
   actual?: unknown
   expected?: unknown
 }
@@ -58,7 +58,7 @@ interface MatcherResult {
 
   它包含了一系列工具函数，你可以使用它们来显示信息。
 
-`this` 上下文也好汉了当前测试的信息，你可以通过调用 `expect.getState()` 来获取它，其中最有用的属性是：
+`this` 上下文也包含了当前测试的信息，你可以通过调用 `expect.getState()` 来获取它，其中最有用的属性是：
 - `currentTestName`
 
   当前测试的全称(包括 describe 块)。
