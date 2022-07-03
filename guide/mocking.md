@@ -1,17 +1,18 @@
-# Mocking
-When writing tests it's only a matter of time before you need to create "fake" version of an internal—or external—service. This is commonly referred to as **mocking**. Vitest provides utility functions to help you out through its **vi** helper. You can `import { vi } from 'vitest'` or access it **globally** (when [global configuration](/config/#globals) is **enabled**).
+# 对象模拟(Mocking)
+
+在编写测试时，你可能会因为时间问题，需要创建内部或外部服务的 “假” 版本，这通常被称为 **对象模拟** 操作。Vitest 通过 **vi** 提供了一些实用的函数用于解决这个问题。你可以使用 `import { vi } from 'vitest'` 或者 **全局配置** 进行访问它 (当 **启用** [全局配置](/config/#globals) 时)。
 
 ::: warning
-Always remember to clear or restore mocks before or after each test run to undo mock state changes between runs! See [`mockReset`](/api/#mockreset) docs for more info.
+不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/#mockreset) 文档。
 :::
 
-If you wanna dive in head first, check out the [API section](/api/#vi) otherwise keep reading to take a deeper dive into the world of mocking.
+如果你想从头开始，请查看 [API 部分](/api/#vi) 的 vi 部分，或者继续跟着文档深入了解一下这个对象模拟的世界。
 
-## Dates
+## 日期
 
-Sometimes you need to be in control of the date to ensure consistency when testing. Vitest uses [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) package for manipulating timers, as well as system date. You can find more about the specific API in detail [here](/api/#vi-setsystemtime).
+有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 库来操作计时器以及系统日期。可以在 [此处](/api/#vi-setsystemtime) 找到有关特定 API 的更多详细信息。
 
-### Example
+### 示例
 
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -30,46 +31,46 @@ const purchase = () => {
 
 describe('purchasing flow', () => {
   beforeEach(() => {
-    // tell vitest we use mocked time
+    // 告诉 vitest 我们使用模拟时间
     vi.useFakeTimers()
   })
 
   afterEach(() => {
-    // restoring date after each test run
+    // 每次测试运行后恢复日期
     vi.useRealTimers()
   })
 
   it('allows purchases within business hours', () => {
-    // set hour within business hours
+    // 在工作时间内设置时间
     const date = new Date(2000, 1, 1, 13)
     vi.setSystemTime(date)
 
-    // access Date.now() will result in the date set above
+    // 访问 Date.now() 将生成上面设置的日期
     expect(purchase()).toEqual({ message: 'Success' })
   })
 
   it('disallows purchases outside of business hours', () => {
-    // set hour outside business hours
+    // 在工作时间之外设置时间
     const date = new Date(2000, 1, 1, 19)
     vi.setSystemTime(date)
 
-    // access Date.now() will result in the date set above
+    // 访问 Date.now() 将生成上面设置的日期
     expect(purchase()).toEqual({ message: 'Error' })
   })
 })
 ```
 
-## Functions
+## 函数
 
-Mocking functions can be split up into two different categories; *spying & mocking*.
+函数的模拟可以分为两个不同的类别：*对象监听(spying) & 对象模拟*。
 
-Sometimes all you need is to validate whether or not a specific function has been called (and possibly which arguments were passed). In these cases a spy would be all we need which you can use directly with `vi.spyOn()` ([read more here](/api/#vi-spyon)).
+有时你可能只需要验证是否调用了特定函数（以及可能传递了哪些参数）。在这种情况下，我们就需要使用一个对象监听，可以直接使用 `vi.spyOn()` ([在此处阅读更多信息](/api/#vi-spyon))。
 
-However spies can only help you **spy** on functions, they are not able to alter the implementation of those functions. In the case where we do need to create a fake (or mocked) version of a function we can  use `vi.fn()` ([read more here](/api/#vi-fn)).
+然而，对象监听只能帮助你 **监听** 函数，他们无法改变这些函数的实现。如果我们需要创建一个函数的假（或模拟）版本，可以使用它 `vi.fn()` ([在此处阅读更多信息](/api/#vi-fn))。
 
-We use [Tinyspy](https://github.com/Aslemammad/tinyspy) as a base for mocking functions, but we have our own wrapper to make it `jest` compatible. Both `vi.fn()` and `vi.spyOn()` share the same methods, however only the return result of `vi.fn()` is callable.
+我们使用 [Tinyspy](https://github.com/Aslemammad/tinyspy) 作为模拟函数的基础，同时也有一套自己的封装来使其与 `Jest` 兼容。`vi.fn()` 和 `vi.spyOn()` 共享相同的方法，但是只有 `vi.fn()` 的返回结果是可调用的。
 
-### Example
+### 示例
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -81,7 +82,7 @@ const messages = {
     { message: 'Simple test message', from: 'Testman' },
     // ...
   ],
-  getLatest, // can also be a `getter or setter if supported`
+  getLatest, // 也可以是一个 `getter 或 setter 如果支持`
 }
 
 describe('reading messages', () => {
@@ -122,13 +123,13 @@ describe('reading messages', () => {
 })
 ```
 
-### More
+### 了解更多
 
 - [Jest's Mock Functions](https://jestjs.io/docs/mock-function-api)
 
-## Globals
+## 全局(Globals)
 
-You can mock global variables that are not present with `jsdom` or `node` by using [`vi.stubGlobal`](/api/#vi-stubglobal) helper. It will put the value of the global variable into a `globalThis` object.
+你可以通过使用 [`vi.stubGlobal`](/api/#vi-stubglobal) 来模拟 `jsdom` 或 `node` 中不存在的全局变量。它将把全局变量的值放入 `globalThis` 对象。
 
 ```ts
 import { vi } from 'vitest'
@@ -142,26 +143,26 @@ const IntersectionObserverMock = vi.fn(() => ({
 
 vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
-// now you can access it as `IntersectionObserver` or `window.IntersectionObserver`
+// 现在你可以通过 `IntersectionObserver` 或 `window.IntersectionObserver` 访问
 ```
 
-## Modules
+## 模块
 
-Mock modules observe third-party-libraries, that are invoked in some other code, allowing you to test arguments, output or even redeclare its implementation.
+模拟模块监听在其他代码中调用的第三方库，允许你测试参数、输出甚至重新声明其实现。
 
-See the [`vi.mock()` api section](/api/#vi-mock) for a more in depth detailed API description.
+参见 [`vi.mock()` API 部分](/api/#vi-mock) 以获得更深入详细 API 描述。
 
-### Automocking algorithm
+### 自动模拟算法(Automocking algorithm)
 
-If your code is importing mocked module, without any associated `__mocks__` file or `factory` for this module, Vitest will mock the module itself by invoking it and mocking every export.
+如果你的代码导入了模拟模块，并且没有任何与此模块相关联的 `__mocks__` 文件或 `factory`，Vitest 将通过调用模块并模拟每个导出来的模拟模块本身。
 
-The following principles apply
-* All arrays will be emptied
-* All primitives and collections will stay the same
-* All objects will be deeply cloned
-* All instances of classes and their prototypes will be deeply cloned
+以下原则适用
+* 所有的数组将被清空
+* 所有的基础类型和集合将保持不变
+* 所有的对象都将被深度克隆
+* 类的所有实例及其原型都将被深度克隆
 
-### Example
+### 示例
 
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -257,16 +258,16 @@ describe('get a list of todo items', () => {
 })
 ```
 
-## Requests
+## 请求
 
-Because Vitest runs in Node, mocking network requests is tricky; web APIs are not available, so we need something that will mimic network behavior for us. We recommend [Mock Service Worker](https://mswjs.io/) to accomplish this. It will let you mock both `REST` and `GraphQL` network requests, and is framework agnostic.
+因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `REST` 和 `GraphQL` 网络请求，并且与框架无关。
 
-Mock Service Worker (MSW) works by intercepting the requests your tests make, allowing you to use it without changing any of your application code. In-browser, this uses the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API). In Node.js, and for Vitest, it uses [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation). To learn more about MSW, read their [introduction](https://mswjs.io/docs/)
+Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许你在不更改任何应用程序代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node 中，对于 Vitest，它使用 [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation)。了解有关 MSW 的更多信息，可以去阅读他们的 [introduction](https://mswjs.io/docs/)。
 
 
-### Configuration
+### 配置
 
-Add the following to your test [setup file](/config/#setupfiles)
+将以下内容添加到测试中 [配置文件](/config/#setupfiles)。
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
@@ -296,32 +297,33 @@ const graphqlHandlers = [
 
 const server = setupServer(...restHandlers, ...graphqlHandlers)
 
-// Start server before all tests
+// 在所有测试之前启动服务器
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 
-//  Close server after all tests
+// 所有测试后关闭服务器
 afterAll(() => server.close())
 
-// Reset handlers after each test `important for test isolation`
+// 每次测试后重置处理程序 `对测试隔离很重要`
 afterEach(() => server.resetHandlers())
 ```
 
-> Configuring the server with `onUnhandleRequest: 'error'` ensures that an error is thrown whenever there is a request that does not have a corresponding request handler.
+> 使用 `onUnhandleRequest: 'error'` 配置服务器可以确保每当有没有相应请求处理程序的请求时都会引发错误。
 
-### Example
+### 示例
 
-We have a full working example which uses MSW: [React Testing with MSW](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw).
+我们有一个使用 MSW 的完整工作示例：[React Testing with MSW](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw)。
 
-### More
-There is much more to MSW. You can access cookies and query parameters, define mock error responses, and much more! To see all you can do with MSW, read [their documentation](https://mswjs.io/docs/recipes).
+### 了解更多
 
-## Timers
+MSW 能做的还有很多。您可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs/recipes).
 
-Whenever we test code that involves `timeOut`s or intervals, instead of having our tests it wait out or time-out. We can speed up our tests by using "fake" timers by mocking calls to `setTimeout` and `setInterval`, too.
+## 计时器
 
-See the [`vi.mock()` api section](/api/#vi-usefaketimer) for a more in depth detailed API description.
+每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 “假” 计时器来加速测试。
 
-### Example
+有关更深入的详细 API 描述，参阅 [`vi.mock()` api 部分](/api/#vi-usefaketimer)。
+
+### 示例
 
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -364,37 +366,37 @@ describe('delayed execution', () => {
 })
 ```
 
-## Cheat Sheet
+## 备忘单
 
 :::info
-`vi` in the examples below is imported directly from `vitest`. You can also use it globally, if you set `globals` to `true` in your [config](/config/).
+下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [config](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。
 :::
 
-I want to…
+我想…
 
-- Spy on a `method`
+- 监听一个 `method`
 
 ```ts
 const instance = new SomeClass()
 vi.spyOn(instance, 'method')
 ```
 
-- Spy on module export function
+- 监听模块导出 function
 ```ts
 import * as exports from 'some-path'
 vi.spyOn(exports, 'function')
 ```
 
-- Spy on module export setter/getter
+- 监听模块导出 setter/getter
 ```ts
 import * as exports from 'some-path'
 vi.spyOn(exports, 'getter', 'get')
 vi.spyOn(exports, 'setter', 'set')
 ```
 
-- Mock a module export function
+- 模拟模块导出 function
 
-Example with `vi.mock`:
+`vi.mock` 的示例：
 ```ts
 import { method } from 'some-path'
 vi.mock('some-path', () => ({
@@ -402,15 +404,15 @@ vi.mock('some-path', () => ({
 }))
 ```
 
-Example with `vi.spyOn`:
+`vi.spyOn` 的示例：
 ```ts
 import * as exports from 'some-path'
 vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
-- Mock a module export class implementation
+- 模拟模块导出 class implementation
 
-Example with `vi.mock` and prototype:
+`vi.mock` and prototype 的示例:
 ```ts
 import { SomeClass } from 'some-path'
 vi.mock('some-path', () => {
@@ -421,7 +423,7 @@ vi.mock('some-path', () => {
 // SomeClass.mock.instances will have SomeClass
 ```
 
-Example with `vi.mock` and return value:
+`vi.mock` and return value 的示例:
 ```ts
 import { SomeClass } from 'some-path'
 vi.mock('some-path', () => {
@@ -433,7 +435,7 @@ vi.mock('some-path', () => {
 // SomeClass.mock.returns will have returned object
 ```
 
-Example with `vi.spyOn`:
+`vi.spyOn` 的示例:
 
 ```ts
 import * as exports from 'some-path'
@@ -442,9 +444,9 @@ vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
 })
 ```
 
-- Spy on an object returned from a function
+- 监听一个函数是否返回了一个对象
 
-Example using cache:
+使用 cache 的示例:
 
 ```ts
 // useObject.js
@@ -473,7 +475,7 @@ const obj = useObject()
 expect(obj.method).toHaveBeenCalled()
 ```
 
-- Mock part of a module
+- 模拟部分 module
 
 ```ts
 import { mocked, original } from 'some-path'
@@ -488,7 +490,7 @@ original() // has original behaviour
 mocked() // is a spy function
 ```
 
-- Mock current date
+- 模拟当前日期
 
 ```ts
 const mockDate = new Date(2022, 0, 1)
@@ -497,7 +499,7 @@ const now = new Date()
 expect(now.valueOf()).toBe(mockDate.valueOf())
 ```
 
-- Mock global variable
+- 模拟全局变量
 
 ```ts
 vi.stubGlobal('__VERSION__', '1.0.0')
