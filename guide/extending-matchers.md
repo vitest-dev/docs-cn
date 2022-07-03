@@ -36,7 +36,7 @@ interface MatcherResult {
 如果你创建了一个异步断言，记得在测试代码的结果前使用 `await` 关键字(`await expect('foo').toBeFoo()`)
 :::
 
-断言的第一个参数是接收值(即 expect(received) 中的 received )，其余参数将直接传给断言。
+断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 
