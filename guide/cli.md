@@ -36,7 +36,15 @@ vitest foobar
 vitest related /src/index.ts /src/hello-world.js
 ```
 
+<<<<<<< HEAD
 ## 命令选项
+=======
+### `vitest clean cache`
+
+Clears cache folder.
+
+## Options
+>>>>>>> ed1b227dcbf1862148d56451258f3cbb6eba7380
 
 | 选项       |               |
 | ------------- | ------------- |
