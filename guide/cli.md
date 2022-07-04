@@ -36,17 +36,13 @@ vitest foobar
 vitest related /src/index.ts /src/hello-world.js
 ```
 
-<<<<<<< HEAD
-## 命令选项
-=======
 ### `vitest clean cache`
 
-Clears cache folder.
+清空缓存目录。
 
-## Options
->>>>>>> ed1b227dcbf1862148d56451258f3cbb6eba7380
+## 命令选项
 
-| 选项       |               |
+| 选项       |        描述       |
 | ------------- | ------------- |
 | `-v, --version` | 显示版本号 |
 | `-r, --root <path>` | 定义项目根目录 |
@@ -106,5 +102,5 @@ Clears cache folder.
   ```
 
 :::warning
-你不能使用 `--watch` 选项 (在开启环境下默认启用)。
+你不能使用 `--watch` 选项 (在开发环境下默认启用)。
 :::
