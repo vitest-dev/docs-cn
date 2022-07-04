@@ -1,12 +1,12 @@
-# Coverage
+# 覆盖率
 
-Vitest supports Native code coverage via [`c8`](https://github.com/bcoe/c8). `c8` is an optional peer dependency, to use the coverage feature you will need to install it first by:
+Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。`c8` 是一个 peer 依赖，要使用覆盖率功能，你首先需要安装它：
 
 ```bash
 npm i -D c8
 ```
 
-Then you could get the coverage by passing the `--coverage` flag in CLI.
+然后你就可以通过在 CLI 中传递 `--coverage` 标志来获得覆盖率。
 
 ```json
 {
@@ -17,7 +17,7 @@ Then you could get the coverage by passing the `--coverage` flag in CLI.
 }
 ```
 
-To configure it, set `test.coverage` options in your config file:
+要对其进行配置，需要在配置文件中设置 `test.coverage` 选项：
 
 ```ts
 // vite.config.ts
