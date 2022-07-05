@@ -83,7 +83,13 @@ vitest related /src/index.ts /src/hello-world.js
 
   在上次提交的变更模式下，再次运行测试，你可以使用 `--changed HEAD~1`。也可以使用提交哈希或者分支名称。
 
+<<<<<<< HEAD
 ### 碎片
+=======
+  If paired with the `forceRerunTriggers` config option it will run the whole test suite if a match is found.
+
+### shard
+>>>>>>> 4c4e23ea3c7699a71d8014ea1c14f9362d3affa0
 
 - **类型**: `string`
 - **默认值**: disabled
