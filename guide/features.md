@@ -2,45 +2,45 @@
 outline: deep
 ---
 
-# Features
+# 特性
 
 <FeaturesList class="!gap-1 text-lg" />
 
-## Shared config between test, dev and build
+## 一套配置可以运用在多种环境
 
-Vite's config, transformers, resolvers, and plugins. Use the same setup from your app to run the tests.
+与 Vite 的配置、转换器、解析器和插件通用，将会使用应用程序中的相同配置来运行测试。
 
-Learn more at [Configuring Vitest](/guide/#configuring-vitest)
+了解更多信息 [Configuring Vitest](/guide/#configuring-vitest)
 
-## Watch Mode
+## 监听模式(watch mode)
 
 ```bash
 $ vitest
 ```
 
-When you modify your source code or the test files, Vitest smartly searches the module graph and only rerun the related tests, [just like how HMR works in Vite!](https://twitter.com/antfu7/status/1468233216939245579)
+当你修改源代码或测试文件时，Vitest 智能搜索模块依赖树并只重新运行相关测试，[just like how HMR works in Vite!](https://twitter.com/antfu7/status/1468233216939245579)
 
-`vitest` starts in `watch mode` **by default in development environment** and `run mode` in CI environment (when `process.env.CI` presents) smartly. You can use `vitest watch` or `vitest run` to explicitly specify the desired mode.
+`vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 
-## Common web idioms out-of-the-box
+## 开箱即用的常见 Web 支持
 
-Out-of-box ES Module / TypeScript / JSX support / PostCSS
+开箱即用的 ES Module / TypeScript / JSX support / PostCSS
 
-## Threads
+## 多线程
 
-Workers multi-threading via [tinypool](https://github.com/Aslemammad/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)), allowing tests to run simultaneously. Threads are enabled by default in Vitest, and can be disabled passing `--no-threads` in the CLI.
+通过 [tinypool](https://github.com/Aslemammad/tinypool) 使用 Worker 线程尽可能多地并发运行（ [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支），允许多个测试同时运行。Vitest 默认启动多线程，可以通过 CLI 中的 `--no-threads` 禁用。
 
-Vitest also isolates each file's environment so env mutations in one file don't affect others. Isolation can be disabled by passing `--no-isolate` to the CLI (trading of correctness for run performance).
+Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
-## Test Filtering
+## 测试可过滤
 
-Vitest provided many ways to narrow down the tests to run to speed up and focus during the development.
+Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-Learn more about [Test Filtering](./filtering.md)
+了解更多信息 [Test Filtering](./filtering.md)
 
-## Running tests concurrently
+## 同时运行多个测试
 
-Use `.concurrent` in consecutive tests to run them in parallel
+在连续测试中使用 `.concurrent` 将会并发运行它们。
 
 ```ts
 import { describe, it } from 'vitest'
@@ -52,7 +52,7 @@ describe('suite', () => {
 })
 ```
 
-If you use `.concurrent` in a suite, every tests in it will be run in parallel
+如果在测试套件中使用 `.concurrent`，则其中的每个测试用例都将并发运行。
 
 ```ts
 import { describe, it } from 'vitest'
@@ -64,11 +64,11 @@ describe.concurrent('suite', () => {
 })
 ```
 
-You can also use `.skip`, `.only`, and `.todo` with concurrent suites and tests. Read more in the [API Reference](../api/#concurrent)
+您还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。了解更多信息 [API 参考](../api/#concurrent)
 
-## Snapshot
+## 快照
 
-[Jest-compatible](https://jestjs.io/docs/snapshot-testing) snapshot support.
+兼容 [Jest 快照测试](https://jestjs.io/zh-Hans/docs/snapshot-testing) 功能。
 
 ```ts
 import { expect, it } from 'vitest'
@@ -78,17 +78,17 @@ it('renders correctly', () => {
 })
 ```
 
-Learn more at [Snapshot](/guide/snapshot)
+了解更多信息 [快照](/guide/snapshot)
 
-## Chai and Jest expect compatibility
+## Chai 和 Jest 的 expect 语法兼容
 
-[Chai](https://www.chaijs.com/) built-in for assertions plus [Jest expect](https://jestjs.io/docs/expect) compatible APIs
+内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 APIs
 
-Notice that if you are using third-party libraries that add matchers, setting `test.globals` to `true` will provide better compatibility
+注意，如果你正在使用添加匹配器的第三方库，将 `test.globals` 设置为 `true` 将提供更好的兼容性。
 
-## Mocking
+## 对象模拟(Mocking)
 
-[Tinyspy](https://github.com/Aslemammad/tinyspy) built-in for mocking with `jest` compatible APIs on `vi` object.
+内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -101,7 +101,7 @@ fn('world', 2)
 expect(fn.mock.results[1].value).toBe('world')
 ```
 
-Vitest supports both [happy-dom](https://github.com/capricorn86/happy-dom) or [jsdom](https://github.com/jsdom/jsdom) for mocking DOM and browser APIs. They don't come with Vitest, you might need to install them:
+Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以您可能需要安装：
 
 ```bash
 $ npm i -D happy-dom
@@ -109,7 +109,7 @@ $ npm i -D happy-dom
 $ npm i -D jsdom
 ```
 
-After that, change the `environment` option in your config file:
+然后，更改 `environment` 配置文件中的选项：
 
 ```ts
 // vite.config.ts
@@ -121,11 +121,11 @@ export default defineConfig({
 })
 ```
 
-Learn more at [Mocking](/guide/mocking)
+了解更多信息 [对象模拟](/guide/mocking)
 
-## Coverage
+## 覆盖率
 
-Vitest supports Native code coverage via [c8](https://github.com/bcoe/c8)
+Vitest 通过 [c8](https://github.com/bcoe/c8) 来输出代码测试覆盖率。
 
 ```json
 {
@@ -136,7 +136,7 @@ Vitest supports Native code coverage via [c8](https://github.com/bcoe/c8)
 }
 ```
 
-To configure it, set `test.coverage` options in your config file:
+可以在配置文件中设置 `test.coverage` 选项来配置它：
 
 ```ts
 // vite.config.ts
@@ -150,11 +150,11 @@ export default defineConfig({
 })
 ```
 
-## In-source testing
+## 源码内联测试
 
-Vitest also provides a way to run tests with in your source code along with the implementation, similar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
+Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，类似 [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
 
-This makes the tests share the same closure as the implementations and able to test against private states without exporting. Meanwhile, it also brings the closer feedback loop for development.
+这使得测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
 
 ```ts
 // src/index.ts
@@ -173,4 +173,4 @@ if (import.meta.vitest) {
 }
 ```
 
-Learn more at [In-source testing](/guide/in-source)
+了解更多信息 [In-source testing](/guide/in-source)
