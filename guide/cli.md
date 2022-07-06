@@ -83,21 +83,17 @@ vitest related /src/index.ts /src/hello-world.js
 
   在上次提交的变更模式下，再次运行测试，你可以使用 `--changed HEAD~1`。也可以使用提交哈希或者分支名称。
 
-<<<<<<< HEAD
-### 碎片
-=======
-  If paired with the `forceRerunTriggers` config option it will run the whole test suite if a match is found.
+### 分片
 
-### shard
->>>>>>> 4c4e23ea3c7699a71d8014ea1c14f9362d3affa0
+  假如找到匹配项，如果配置了 `forceRerunTriggers` 选项，那么它将运行整个测试套件。
 
 - **类型**: `string`
 - **默认值**: disabled
 
-  要以 `<index>`/`<count>` 格式来执行的测试套件碎片，其中
+  要以 `<index>`/`<count>` 格式来执行的测试套件分片，其中
 
-  - `count` 是一个正整数，它表示拆分测试碎片的计数
-  - `index` 是一个正整数, 它表示拆分碎片的当前索引
+  - `count` 是一个正整数，它表示拆分测试分片的计数
+  - `index` 是一个正整数, 它表示拆分测试分片的当前索引
 
   该命令将所有测试通过 `count` 来拆分，并仅运行恰好位于 `index` 部分的测试。比如，将你的测试套件拆分为三份，可以这样使用：
 
@@ -107,6 +103,6 @@ vitest related /src/index.ts /src/hello-world.js
   vitest run --shard=3/3
   ```
 
-:::warning
+:::warning 警告
 你不能使用 `--watch` 选项 (在开发环境下默认启用)。
 :::
