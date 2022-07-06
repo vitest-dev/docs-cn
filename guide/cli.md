@@ -36,14 +36,19 @@ vitest foobar
 vitest related /src/index.ts /src/hello-world.js
 ```
 
+<<<<<<< HEAD
 ### `vitest clean cache`
 
 清空缓存目录。
 
 ## 命令选项
+=======
+## Options
+>>>>>>> b2ade6964bb9af5a0bc99f25cbe98c931c3ba8cc
 
 | 选项       |        描述       |
 | ------------- | ------------- |
+<<<<<<< HEAD
 | `-v, --version` | 显示版本号 |
 | `-r, --root <path>` | 定义项目根目录 |
 | `-c, --config <path>` | 配置文件的路径 |
@@ -73,6 +78,38 @@ vitest related /src/index.ts /src/hello-world.js
 | `--changed [since]` | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed) |
 | `--shard <shard>` | 配置测试碎片 |
 | `-h, --help` | 显示可用的 CLI 选项 |
+=======
+| `-v, --version` | Display version number |
+| `-r, --root <path>` | Define the project root |
+| `-c, --config <path>` | Path to config file |
+| `-u, --update` | Update snapshots |
+| `-w, --watch` | Smart & instant watch mode |
+| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
+| `--dir <path>`| Base directory to scan for the test files |
+| `--ui` | Enable UI |
+| `--open` | Open the UI automatically if enabled (default: `true`) |
+| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
+| `--threads` | Enable Threads (default: `true`) |
+| `--silent` | Silent console output from tests |
+| `--isolate` | Isolate environment for each test file (default: `true`) |
+| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
+| `--outputTruncateLength <length>` | Truncate output diff lines up to `<length>` number of characters. |
+| `--outputDiffLines <lines>` | Limit number of output diff lines up to `<lines>`. |
+| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
+| `--coverage` | Use c8 for coverage |
+| `--run` | Do not watch |
+| `--mode` | Override Vite mode (default: `test`) |
+| `--mode <name>` | Override Vite mode (default: `test`) |
+| `--globals` | Inject APIs globally |
+| `--dom` | Mock browser api with happy-dom |
+| `--environment <env>` | Runner environment (default: `node`) |
+| `--passWithNoTests` | Pass when no tests found |
+| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
+| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
+| `--shard <shard>` | Execute tests in a specified shard |
+| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.suffle` to run tests in random order) |
+| `-h, --help` | Display available CLI options |
+>>>>>>> b2ade6964bb9af5a0bc99f25cbe98c931c3ba8cc
 
 ### 变更
 
@@ -83,7 +120,13 @@ vitest related /src/index.ts /src/hello-world.js
 
   在上次提交的变更模式下，再次运行测试，你可以使用 `--changed HEAD~1`。也可以使用提交哈希或者分支名称。
 
+<<<<<<< HEAD
 ### 分片
+=======
+  If paired with the `forceRerunTriggers` config option it will run the whole test suite if a match is found.
+
+### shard
+>>>>>>> b2ade6964bb9af5a0bc99f25cbe98c931c3ba8cc
 
   假如找到匹配项，如果配置了 `forceRerunTriggers` 选项，那么它将运行整个测试套件。
 
