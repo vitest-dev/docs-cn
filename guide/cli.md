@@ -40,13 +40,13 @@ vitest related /src/index.ts /src/hello-world.js
 
 清空缓存目录。
 
-## 命令选项
+## 选项
 
 | 选项       |        描述       |
 | ------------- | ------------- |
 | `-v, --version` | 显示版本号 |
 | `-r, --root <path>` | 定义项目根目录 |
-| `-c, --config <path>` | 配置文件的路径 |
+| `-c, --config <path>` | 定义配置文件路径 |
 | `-u, --update` | 更新快照 |
 | `-w, --watch` | 智能即时浏览模式 |
 | `-t, --testNamePattern <pattern>` | 使用与模式匹配的全名运行测试 |
@@ -60,18 +60,19 @@ vitest related /src/index.ts /src/hello-world.js
 | `--reporter <name>` | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径 |
 | `--outputTruncateLength <length>` | 使用 `<length>` 指定截断输出差异的字符行数 |
 | `--outputDiffLines <lines>` | 使用 `<lines>` 指定输出差线的数量 |
-| `--outputFile <filename/-s>` | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation]你可以为多个报告器指定单独的输出 |
+| `--outputFile <filename/-s>` | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
 | `--coverage` | 使用 c8 进行覆盖 |
 | `--run` | 不使用浏览模式 |
 | `--mode` | 覆盖 Vite 模式 (default: `test`) |
 | `--mode <name>` | 覆盖 Vite 模式 (default: `test`) |
 | `--globals` | 注入全局 API |
-| `--dom` | 使用 happy-dom 模拟浏览器 api |
+| `--dom` | 使用 happy-dom 模拟浏览器 API |
 | `--environment <env>` | 设置运行的环境 (default: `node`) |
 | `--passWithNoTests` | 未找到测试时通过 |
 | `--allowOnly` | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise) |
 | `--changed [since]` | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed) |
-| `--shard <shard>` | 配置测试碎片 |
+| `--shard <shard>` | 配置测试分片 |
+| `--sequence` | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）|
 | `-h, --help` | 显示可用的 CLI 选项 |
 
 ### 变更
