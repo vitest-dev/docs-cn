@@ -8,7 +8,7 @@ Vitest 设计了与 Jest 兼容的 API ，方便你从 Jest 的迁移尽可能�
 
 Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vitest 没有。你既可以通过 [`globals` 配置选项](/config/#globals)启用全局 API，也可以通过更新你的代码以便使用来自 `vitest` 模块的导入。
 
-如果你决定禁用全局 API，请注意像 [`testing-library`](https://testing-library.com/) 这样的通用库不会自动运行 DOM [清空](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
+如果你决定禁用全局 API，请注意像 [`testing-library`](https://testing-library.com/) 这样的通用库不会自动运行 DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
 **自动模拟**
 
