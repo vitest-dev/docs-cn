@@ -36,22 +36,17 @@ vitest foobar
 vitest related /src/index.ts /src/hello-world.js
 ```
 
-<<<<<<< HEAD
 ### `vitest clean cache`
 
 清空缓存目录。
 
-## 命令选项
-=======
-## Options
->>>>>>> b2ade6964bb9af5a0bc99f25cbe98c931c3ba8cc
+## 选项
 
 | 选项       |        描述       |
 | ------------- | ------------- |
-<<<<<<< HEAD
 | `-v, --version` | 显示版本号 |
 | `-r, --root <path>` | 定义项目根目录 |
-| `-c, --config <path>` | 配置文件的路径 |
+| `-c, --config <path>` | 定义配置文件路径 |
 | `-u, --update` | 更新快照 |
 | `-w, --watch` | 智能即时浏览模式 |
 | `-t, --testNamePattern <pattern>` | 使用与模式匹配的全名运行测试 |
@@ -65,51 +60,20 @@ vitest related /src/index.ts /src/hello-world.js
 | `--reporter <name>` | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径 |
 | `--outputTruncateLength <length>` | 使用 `<length>` 指定截断输出差异的字符行数 |
 | `--outputDiffLines <lines>` | 使用 `<lines>` 指定输出差线的数量 |
-| `--outputFile <filename/-s>` | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation]你可以为多个报告器指定单独的输出 |
+| `--outputFile <filename/-s>` | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
 | `--coverage` | 使用 c8 进行覆盖 |
 | `--run` | 不使用浏览模式 |
 | `--mode` | 覆盖 Vite 模式 (default: `test`) |
 | `--mode <name>` | 覆盖 Vite 模式 (default: `test`) |
 | `--globals` | 注入全局 API |
-| `--dom` | 使用 happy-dom 模拟浏览器 api |
+| `--dom` | 使用 happy-dom 模拟浏览器 API |
 | `--environment <env>` | 设置运行的环境 (default: `node`) |
 | `--passWithNoTests` | 未找到测试时通过 |
 | `--allowOnly` | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise) |
 | `--changed [since]` | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed) |
-| `--shard <shard>` | 配置测试碎片 |
+| `--shard <shard>` | 配置测试分片 |
+| `--sequence` | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）|
 | `-h, --help` | 显示可用的 CLI 选项 |
-=======
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--threads` | Enable Threads (default: `true`) |
-| `--silent` | Silent console output from tests |
-| `--isolate` | Isolate environment for each test file (default: `true`) |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputTruncateLength <length>` | Truncate output diff lines up to `<length>` number of characters. |
-| `--outputDiffLines <lines>` | Limit number of output diff lines up to `<lines>`. |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Use c8 for coverage |
-| `--run` | Do not watch |
-| `--mode` | Override Vite mode (default: `test`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser api with happy-dom |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.suffle` to run tests in random order) |
-| `-h, --help` | Display available CLI options |
->>>>>>> b2ade6964bb9af5a0bc99f25cbe98c931c3ba8cc
 
 ### 变更
 
@@ -120,13 +84,7 @@ vitest related /src/index.ts /src/hello-world.js
 
   在上次提交的变更模式下，再次运行测试，你可以使用 `--changed HEAD~1`。也可以使用提交哈希或者分支名称。
 
-<<<<<<< HEAD
 ### 分片
-=======
-  If paired with the `forceRerunTriggers` config option it will run the whole test suite if a match is found.
-
-### shard
->>>>>>> b2ade6964bb9af5a0bc99f25cbe98c931c3ba8cc
 
   假如找到匹配项，如果配置了 `forceRerunTriggers` 选项，那么它将运行整个测试套件。
 
