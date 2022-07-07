@@ -1,12 +1,12 @@
-# Snapshot
+# 快照(snapshot)
 
-Snapshot tests are a very useful tool whenever you want to make sure the output of your functions not change unexpectedly.
+当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
 
-When using snapshot, Vitest will take a snapshot of the given value, then compares it to a reference snapshot file stored alongside the test. The test will fail if the two snapshots do not match: either the change is unexpected, or the reference snapshot needs to be updated to the new version of the result.
+使用快照时，Vitest 将获取给定值的快照，将其比较时将参考存储在测试旁边的快照文件。如果两个快照不匹配，则测试将失败：要么更改是意外的，要么参考快照需要更新到测试结果的新版本。
 
-## Use Snapshots
+## 使用快照
 
-To snapshoting a value, you can use the [`toMatchSnapshot()`](/api/#tomatchsnapshot) from `expect()` API:
+要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
 
 ```ts
 import { expect, it } from 'vitest'
@@ -17,7 +17,7 @@ it('toUpperCase', () => {
 })
 ```
 
-The first time this test is run, Vitest creates a snapshot file that looks like this:
+此测试在第一次运行时，Vitest 会创建一个快照文件，如下所示：
 
 ```js
 // Vitest Snapshot v1
@@ -25,11 +25,11 @@ The first time this test is run, Vitest creates a snapshot file that looks like 
 exports['toUpperCase 1'] = '"FOOBAR"'
 ```
 
-The snapshot artifact should be committed alongside code changes, and reviewed as part of your code review process. On subsequent test runs, Vitest will compare the rendered output with the previous snapshot. If they match, the test will pass. If they don't match, either the test runner found a bug in your code that should be fixed, or the implementation has changed and the snapshot needs to be updated.
+快照文件应该与代码更改一起提交，并作为代码审查过程的一部分进行审查。在随后的测试运行中，Vitest 会将执行的输出与之前的快照进行比较。如果他们匹配，测试就会通过。如果它们不匹配，要么测试运行时在你的代码中发现了应该修复的错误，要么实现已经更改，需要更新快照。
 
-## Inline Snapshots
+## 内联快照
 
-Similarly, you can use the [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) to store the snapshot inline within the test file.
+如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
 ```ts
 import { expect, it } from 'vitest'
@@ -40,7 +40,7 @@ it('toUpperCase', () => {
 })
 ```
 
-Instead of creating a snapshot file, Vitest will modify the test file directory to update the snapshot as a string:
+Vitest 将修改测试文件目录，以将快照更新为字符串，而不是创建快照文件：
 
 ```ts
 import { expect, it } from 'vitest'
@@ -51,23 +51,23 @@ it('toUpperCase', () => {
 })
 ```
 
-This allows you to see the expect output directly without jumpping across different files.
+这允许您直接查看期望输出，而无需跨不同的文件跳转。
 
-## Updating Snapshots
+## 更新快照
 
-When the received value doesn't match with the snapshot, the test would fail and show you the difference between them. When the snapshot change is expected, you maybe want to update the snapshot from the current state.
+当接收到的值与快照不匹配时，测试将失败，并显示它们之间的差异。当需要更改快照时，你可能希望从当前状态更新快照。
 
-In watch mode, you can press `u` key in the terminal to update the failed snapshot directly.
+在监听(watch)模式下, 你可以在终端中键入 `u` 键直接更新失败的快照。
 
-Or you can use the `--updateSnapshot` or `-u` flag in the CLI to make Vitest into snapshot updating mode.
+或者，您可以在 CLI 中使用 `--updateSnapshot` 或 `-u` 参数使 Vitest 进入快照更新模式。
 
 ```bash
 vitest -u
 ```
 
-## Image Snapshots
+## 图像快照
 
-It's also possible to snapshoting images using [`jest-image-snapshot`](https://github.com/americanexpress/jest-image-snapshot).
+快照图像也可以使用 [`jest-image-snapshot`](https://github.com/americanexpress/jest-image-snapshot)。
 
 ```ts
 test('image snapshot', () => {
@@ -76,13 +76,13 @@ test('image snapshot', () => {
 })
 ```
 
-You can learn more in the [`examples/image-snapshot`](https://github.com/vitest-dev/vitest/blob/main/examples/image-snapshot) example.
+你可以在 [`examples/image-snapshot`](https://github.com/vitest-dev/vitest/blob/main/examples/image-snapshot) 中学习更多案例。
 
-## Custom Serializer
+## 自定义序列化程序
 
-You can add your own logic to alter how your snapshots are serialized. Like Jest, Vitest has default serializers for built-in JavaScript types, HTML elements, ImmutableJS and for React elements.
+你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 为内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 
-Example serializer module:
+序列化模块示例：
 
 ```ts
 expect.addSnapshotSerializer({
@@ -96,7 +96,7 @@ expect.addSnapshotSerializer({
 })
 ```
 
-After adding a test like this:
+如下所示的测试添加后：
 
 ```ts
 test('foo snapshot test', () => {
@@ -111,7 +111,7 @@ test('foo snapshot test', () => {
 })
 ```
 
-You will get the following snapshot:
+你将获得以下快照：
 
 ```
 Pretty foo: Object {
@@ -120,24 +120,24 @@ Pretty foo: Object {
 }
 ```
 
-We are using Jest's `pretty-format` for serializing snapshots. You can read more about it here: [pretty-format](https://github.com/facebook/jest/blob/main/packages/pretty-format/README.md#serialize).
+我们使用的是 Jest 的 `pretty-format` 来序列化快照。你可以在这里阅读更多相关内容：[pretty-format](https://github.com/facebook/jest/blob/main/packages/pretty-format/README.md#serialize).
 
-## Difference from Jest
+## 与 Jest 的区别
 
-Vitest provides an almost compatible Snapshot feature with [Jest's](https://jestjs.io/docs/snapshot-testing) with a few exceptions:
+Vitest提供了与 [Jest's](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
-#### 1. Comment header in the snapshot file is different
+#### 1. 快照文件中的注释标头不同
 
 ```diff
 - // Jest Snapshot v1
 + // Vitest Snapshot v1
 ```
 
-This does not really affects the functionality but might affect your commit diff when migrating from Jest.
+这实际上不会影响功能，但在从 Jest 迁移时可能会影响提交差异。
 
-#### 2. `printBasicPrototype` is default to `false`
+#### 2. `printBasicPrototype` 默认为 `false`
 
-Both Jest and Vitest's snapshots are powered by [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format). In Vitest we set `printBasicPrototype` default to `false` to provide a cleaner snapshot output, while in Jest it's `true` by default.
+Jest 和 Vitest 的快照都是由 [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format) 支持的。在 Vitest 中，我们将 `printBasicPrototype` 的默认值设置为 `false` 以提供更清晰的快照输出，Jest 实际上将其默认设置为 `true` 。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -169,7 +169,7 @@ test('snapshot', () => {
 })
 ```
 
-We believe this is a more reasonable default for readability and overall DX. If you still prefer Jest's behavior, you can change your config by:
+我们相信这种预设有更好的可读性和开发体验。如果您仍然喜欢 Jest 的行为，可以通过以下方式更改配置：
 
 ```ts
 // vitest.config.js
