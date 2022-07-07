@@ -1,22 +1,22 @@
-# In-source testing
+# 源码内联测试
 
-Vitest also provides a way to run tests with in your source code along with the implementation, similar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
+Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，就像是 [Rust 语言的模块测试一样](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
 
-This makes the tests share the same closure as the implementations and able to test against private states without exporting. Meanwhile, it also brings the closer feedback loop for development.
+这允许测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
 
-## Setup
+## 指引
 
-To get started, put a `if (import.meta.vitest)` block at the end of your source file and write some tests inside it. For example:
+首先，在 `if (import.meta.vitest)` 代码块内写一些测试代码并放在文件的末尾，例如:
 
 ```ts
 // src/index.ts
 
-// the implementation
+// 函数实现
 export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0)
 }
 
-// in-source test suites
+// 源码内的测试套件
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest
   it('add', () => {
@@ -27,7 +27,7 @@ if (import.meta.vitest) {
 }
 ```
 
-Update the `includeSource` config for Vitest to grab the files under `src/`:
+更新 Vitest 配置文件内的 `includeSource` 以获取到 `src/` 下的文件：
 
 ```ts
 // vite.config.ts
@@ -40,15 +40,15 @@ export default defineConfig({
 })
 ```
 
-Then you can start to test!
+然后你就可以开始执行测试了!
 
 ```bash
 $ npx vitest
 ```
 
-## Production build
+## 生产环境构建
 
-For production build, you will need to set the `define` options in your config file, letting the bundler to do the dead code elimination. For example, in Vite
+对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
 
 ```diff
 // vite.config.ts
@@ -64,7 +64,7 @@ export default defineConfig({
 })
 ```
 
-### Other Bundlers
+### 其它的打包器
 
 <details mt4>
 <summary text-xl>unbuild</summary>
@@ -81,7 +81,7 @@ export default defineConfig({
 })
 ```
 
-Learn more: <a href="https://github.com/unjs/unbuild" target="_blank">unbuild</a>
+了解更多：<a href="https://github.com/unjs/unbuild" target="_blank">unbuild</a>
 
 </details>
 
@@ -102,13 +102,13 @@ export default {
 }
 ```
 
-Learn more: <a href="https://rollupjs.org/" target="_blank">rollup</a>
+了解更多：<a href="https://rollupjs.org/" target="_blank">rollup</a>
 
 </details>
 
 ## TypeScript
 
-To get TypeScript support for `import.meta.vitest`, add `vitest/importMeta` to your `tsconfig.json`:
+要获得对 `import.meta.vitest` 的 TypeScript 支持，添加 `vitest/importMeta` 到 `tsconfig.json`:
 
 ```diff
 // tsconfig.json
@@ -121,14 +121,14 @@ To get TypeScript support for `import.meta.vitest`, add `vitest/importMeta` to y
 }
 ```
 
-Reference to [`test/import-meta`](https://github.com/vitest-dev/vitest/tree/main/test/import-meta) for the full example.
+完整的示例请参考 [`test/import-meta`](https://github.com/vitest-dev/vitest/tree/main/test/import-meta)。
 
-## Notes
+## 说明
 
-This feature could be useful for:
+此功能可用于:
 
-- Unit testing for small-scoped functions or utilities
-- Prototyping
-- Inline Assertion
+- 小范围的功能或utils工具的单元测试
+- 原型设计
+- 内联断言
 
-It's recommended to **use separate test files instead** for more complex tests like components or E2E testing.
+对于更复杂的测试，比如组件测试或 E2E 测试，建议**使用单独的测试文件取而代之**。
