@@ -1,30 +1,30 @@
-# Migration Guide
+# 迁移指南
 
-## Migrating from Jest
+## 从 Jest 迁移
 
-Vitest has been designed with a Jest compatible API, in order to make the migration from Jest as simple as possible. Despite those efforts, you may still run into the following differences:
+Vitest 设计了与 Jest 兼容的 API ，方便你从 Jest 的迁移尽可能简单。尽管做出了这些努力，你仍然可能会遇到以下差异：
 
-**Globals as a Default**
+**全局变量作为默认值**
 
-Jest has their [globals API](https://jestjs.io/docs/api) enabled by default. Vitest does not. You can either enable globals via [the `globals` configuration setting](/config/#globals) or update your code to use imports from the `vitest` module instead.
+Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vitest 没有。你既可以通过 [`globals` 配置选项](/config/#globals)启用全局 API，也可以通过更新你的代码以便使用来自 `vitest` 模块的导入。
 
-If you decide to keep globals disabled, be aware that common libraries like [`testing-library`](https://testing-library.com/) will not run auto DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup).
+如果你决定禁用全局 API，请注意像 [`testing-library`](https://testing-library.com/) 这样的通用库不会自动运行 DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
-**Auto-Mocking Behaviour**
+**自动模拟**
 
-Unlike Jest, mocked modules in `<root>/__mocks__` are not loaded unless `vi.mock()` is called. If you need them to be mocked in every test, like in Jest, you can mock them inside [`setupFiles`](/config/#setupfiles).
+区别于 Jest，在 `<root>/__mocks__` 中的模拟模块只有在 `vi.mock()` 被调用时才会加载。如果你需要它们像在 Jest 中一样，在每个测试中都被模拟，你可以在 [`setupFiles`](/config/#setupfiles) 中模拟它们。
 
 **Jasmine API**
 
-Jest exports various [`jasmine`](https://jasmine.github.io/) globals (such as `jasmine.any()`). Any such instances will need to be migrated to [their Vitest counterparts](/api/).
+Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
 
-**Envs**
+**测试环境**
 
-Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxThreads`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxThreads`, and will increase with each created worker.
+如果之前没有设置，Vitest 会像 Jest 一样，把 `NODE_ENV` 设置为 `test`。 Vitest 也有一个 `JEST_WORKER_ID` 的对应项，是 `VITEST_WORKER_ID`，所以如果你依赖它，不要忘记重命名它。
 
-**Done Callback**
+**回调**
 
-From Vitest v0.10.0, the callback style of declaring tests is deprecated. You can rewrite them to use `async`/`await` functions, or use Promise to mimic the callback style.
+从 Vitest v0.10.0 开始，声明测试的回调样式被弃用。 你可以重写它们以使用 `async`/`await` 函数，或者使用 Promise 来模仿回调样式。
 
 ```diff
 - it('should work', (done) => {
@@ -35,18 +35,18 @@ From Vitest v0.10.0, the callback style of declaring tests is deprecated. You ca
 + }))
 ```
 
-**Hooks**
+**钩子**
 
-`beforeAll`/`beforeEach` hooks may return [teardown function](/api/#setup-and-teardown) in Vitest. Because of that you may need to rewrite your hooks declarations, if they return something other than `undefined` or `null`:
+`beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown)中返回。  may return  in Vitest. 因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
 
 ```diff
 - beforeEach(() => setActivePinia(createTestingPinia()))
 + beforeEach(() => { setActivePinia(createTestingPinia()) })
 ```
 
-**Types**
+**类型**
 
-Vitest doesn't expose a lot of types on `Vi` namespace, it exists mainly for compatibility with matchers, so you might need to import types directly from `vitest` instead of relying on `Vi` namespace:
+Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是为了与匹配器兼容，因此你可能需要直接从 `vitest` 导入类型，而不是依赖 `Vi` 命名空间：
 
 ```diff
 - let fn: jest.Mock<string, [string]>
@@ -54,17 +54,17 @@ Vitest doesn't expose a lot of types on `Vi` namespace, it exists mainly for com
 + let fn: Mock<[string], string>
 ```
 
-Also, Vitest has `Args` type as a first argument instead of `Returns`, as you can see in diff.
+此外，Vitest 将 `Args` 类型作为第一个参数，而不是 `Returns`，正如你在 diff 中看到的那样。
 
-**Timers**
+**定时器**
 
-Vitest doesn't support jest's legacy timers.
+Vitest 不支持 jest 的传统计时器。
 
 **it.each**
 
-Vitest intentionally doesn't support template literals for `it.each`. You will need to rewrite it to either an array of arguments, or array of objects:
+Vitest 特意不支持 `it.each` 的模板字面量。你需要将其重写为参数数组或对象数组：
 
-Before:
+之前:
 ```ts
 it.each`
 a    | b    | expected
@@ -75,7 +75,7 @@ ${2} | ${2} | ${4}
 })
 ```
 
-After:
+之后:
 ```ts
 it.each([
   [1, 3, 4],
@@ -85,15 +85,15 @@ it.each([
 })
 ```
 
-**Vue Snapshots**
+**Vue 快照**
 
-This is not a Jest specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and use it inside [setupFiles](/config/#setupfiles):
+如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
 ```ts
 import vueSnapshotSerializer from 'jest-serializer-vue'
 
-// Add Snapshot Serializer
+// 添加快照系列化
 expect.addSnapshotSerializer(vueSnapshotSerializer)
 ```
 
-Otherwise your snapshots will have a lot of escaped `"` characters.
+否则你的快照将出现大量的 `"` 字符。
