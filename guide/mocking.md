@@ -394,6 +394,7 @@ vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
 - 监听模块导出 setter/getter
+
 ```ts
 import * as exports from 'some-path'
 vi.spyOn(exports, 'getter', 'get')
