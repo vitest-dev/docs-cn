@@ -382,12 +382,19 @@ vi.spyOn(instance, 'method')
 ```
 
 - 监听模块导出 function
+
 ```ts
+// some-path.ts
+export const getter = 'variable'
+```
+```ts
+// some-path.test.ts
 import * as exports from 'some-path'
-vi.spyOn(exports, 'function')
+vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
 - 监听模块导出 setter/getter
+
 ```ts
 import * as exports from 'some-path'
 vi.spyOn(exports, 'getter', 'get')
@@ -397,6 +404,10 @@ vi.spyOn(exports, 'setter', 'set')
 - 模拟模块导出 function
 
 `vi.mock` 的示例：
+```ts
+// some-path.ts
+export function method() {}
+```
 ```ts
 import { method } from 'some-path'
 vi.mock('some-path', () => ({
@@ -413,6 +424,10 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 - 模拟模块导出 class implementation
 
 `vi.mock` and prototype 的示例:
+```ts
+// some-path.ts
+export class SomeClass {}
+```
 ```ts
 import { SomeClass } from 'some-path'
 vi.mock('some-path', () => {
@@ -449,6 +464,13 @@ vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
 使用 cache 的示例:
 
 ```ts
+// some-path.ts
+export function useObject() {
+  return { method: () => true }
+}
+```
+
+```ts
 // useObject.js
 import { useObject } from 'some-path'
 const obj = useObject()
@@ -466,12 +488,15 @@ vi.mock('some-path', () => {
         method: vi.fn(),
       }
     }
+    // now everytime useObject() is called it will
+    // return the same object reference
     return _cache
   }
   return { useObject }
 })
 
 const obj = useObject()
+// obj.method was called inside some-path
 expect(obj.method).toHaveBeenCalled()
 ```
 
