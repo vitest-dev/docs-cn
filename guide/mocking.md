@@ -381,11 +381,8 @@ const instance = new SomeClass()
 vi.spyOn(instance, 'method')
 ```
 
-<<<<<<< HEAD
 - 监听模块导出 function
-=======
-- Mock exported variables
->>>>>>> ed6b5793d26879eb0db0d7d6771684b5abfd0b56
+
 ```ts
 // some-path.ts
 export const getter = 'variable'
@@ -396,7 +393,6 @@ import * as exports from 'some-path'
 vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
-<<<<<<< HEAD
 - 监听模块导出 setter/getter
 ```ts
 import * as exports from 'some-path'
@@ -405,9 +401,6 @@ vi.spyOn(exports, 'setter', 'set')
 ```
 
 - 模拟模块导出 function
-=======
-- Mock exported function
->>>>>>> ed6b5793d26879eb0db0d7d6771684b5abfd0b56
 
 `vi.mock` 的示例：
 ```ts
@@ -427,11 +420,7 @@ import * as exports from 'some-path'
 vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
-<<<<<<< HEAD
 - 模拟模块导出 class implementation
-=======
-- Mock exported class implementation
->>>>>>> ed6b5793d26879eb0db0d7d6771684b5abfd0b56
 
 `vi.mock` and prototype 的示例:
 ```ts
