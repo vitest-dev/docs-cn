@@ -2,29 +2,29 @@
 outline: deep
 ---
 
-# API Reference
+# API 参考
 
-The following types are used in the type signatures below
+下面的变量中使用了以下类型签名
 
 ```ts
 type Awaitable<T> = T | PromiseLike<T>
 type TestFunction = () => Awaitable<void>
 ```
 
-When a test function returns a promise, the runner will wait until it is resolved to collect async expectations. If the promise is rejected, the test will fail.
+当一个测试函数返回一个 promise 时，Vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
 
 ::: tip
-In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](../guide/migration#done-callback).
+在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。 如果使用此选项，则在调用 `done` 之前测试不会结束。 你可以使用 `async` 函数实现相同的目的，请参阅迁移指南中的[回调](../guide/migration#done-callback)部分。
 :::
 
 ## test
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it`
 
-  `test` defines a set of related expectations. It receives the test name and a function that holds the expectations to test.
+  `test` 定义了一组关于测试期望的方法。它接收测试名称和一个含有测试期望的函数。
 
-  Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds, and can be configured globally with [testTimeout](/config/#testtimeout)
+  同时，可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。你也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -36,26 +36,26 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
 
 ### test.skip
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.skip`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.skip`
 
-  If you want to skip running certain tests, but you don't want to delete the code due to any reason, you can use `test.skip` to avoid running them.
+  如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
   ```ts
   import { assert, test } from 'vitest'
 
   test.skip('skipped test', () => {
-    // Test skipped, no error
+    // 跳过测试，没有错误
     assert.equal(Math.sqrt(4), 3)
   })
   ```
 
 ### test.skipIf
 
-- **Type:** `(condition: any) => Test`
-- **Alias:** `it.skipIf`
+- **类型:** `(condition: any) => Test`
+- **别名:** `it.skipIf`
 
-  In some cases you might run tests multiple times with different environments, and some of the tests might be environment-specific. Instead of wrapping the test code with `if`, you can use `test.skipIf` to skip the test whenever the condition is truthy.
+  在某些情况下，你可能会在不同的环境中多次运行测试，并且某些测试可能基于特定环境下运行。只要条件成立，你就可以使用 `test.skipIf` 跳过测试，而不是用 `if` 包裹测试代码。
 
   ```ts
   import { assert, test } from 'vitest'
@@ -63,16 +63,16 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   const isDev = process.env.NODE_ENV === 'development'
 
   test.skipIf(isDev)('prod only test', () => {
-    // this test only runs in production
+    // 只在生产环境下进行测试
   })
   ```
 
 ### test.runIf
 
-- **Type:** `(condition: any) => Test`
-- **Alias:** `it.runIf`
+- **类型:** `(condition: any) => Test`
+- **别名:** `it.runIf`
 
-  Opposite of [test.skipIf](#testskipif).
+  [test.skipIf](#testskipif) 的相反面。
 
   ```ts
   import { assert, test } from 'vitest'
@@ -80,39 +80,39 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   const isDev = process.env.NODE_ENV === 'development'
 
   test.runIf(isDev)('dev only test', () => {
-    // this test only runs in development
+    // 只在开发环境下进行测试
   })
   ```
 
 ### test.only
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.only`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.only`
 
-  Use `test.only` to only run certain tests in a given suite. This is useful when debugging.
+  使用 `test.only` 只允许特定条件的测试套件。这在调试模式下是很有用的。
 
-  Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds, and can be configured globally with [testTimeout](/config/#testtimeout).
+  同时，可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。你也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
   import { assert, test } from 'vitest'
 
   test.only('test', () => {
-    // Only this test (and others marked with only) are run
+    // 仅运行此测试（以及仅标记有的其他测试）
     assert.equal(Math.sqrt(4), 2)
   })
   ```
 
 ### test.concurrent
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.concurrent`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.concurrent`
 
-  `test.concurrent` marks consecutive tests to be run them in parallel. It receives the test name, an async function with the tests to collect, and an optional timeout (in milliseconds).
+  `test.concurrent` 将连续测试标记为并行运行。 它接收测试名称、带有要收集的测试的异步函数以及可选的超时时间（以毫秒为单位）。
 
   ```ts
   import { describe, test } from 'vitest'
 
-  // The two tests marked with concurrent will be run in parallel
+  // 标有并发的两个测试将并发运行
   describe('suite', () => {
     test('serial test', async () => { /* ... */ })
     test.concurrent('concurrent test 1', async () => { /* ... */ })
@@ -120,7 +120,7 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   })
   ```
 
-  `test.skip`, `test.only`, and `test.todo` works with concurrent tests. All the following combinations are valid:
+  `test.skip`、`test.only` 和 `test.todo` 适用于并发测试。 以下所有组合均有效：
 
   ```ts
   test.concurrent(/* ... */)
@@ -129,7 +129,7 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
   ```
 
-  When using Snapshots with async concurrent tests, due to the limitation of JavaScript, you need to use the `expect` from the [Test Context](/guide/test-context.md) to ensure the right test is being detected.
+  在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
 
   ```ts
   test.concurrent('test 1', async ({ expect }) => {
@@ -142,22 +142,22 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
 
 ### test.todo
 
-- **Type:** `(name: string) => void`
-- **Alias:** `it.todo`
+- **类型:** `(name: string) => void`
+- **别名:** `it.todo`
 
-  Use `test.todo` to stub tests to be implemented later. An entry will be shown in the report for the tests so you know how many tests you still need to implement.
+  使用 `test.todo` 来存根测试，以便稍后实现。 测试报告中将显示一个条目，以便告知你还有多少测试未实现。
 
   ```ts
-  // An entry will be shown in the report for this test
+  // 测试的报告中将显示一个记录
   test.todo('unimplemented test')
   ```
 
 ### test.fails
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.fails`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.fails`
 
-  Use `test.fails` to indicate that an assertion will fail explicitly.
+  使用 `test.fails` 来指示测试断言将显式失败。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -168,20 +168,20 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
   ```
 
 ### test.each
-- **Type:** `(cases: ReadonlyArray<T>) => void`
-- **Alias:** `it.each`
+- **类型:** `(cases: ReadonlyArray<T>) => void`
+- **别名:** `it.each`
 
-  Use `test.each` when you need to run the same test with different variables.
-  You can inject parameters with [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) in the test name in the order of the test function parameters.
+  当你需要使用不同的变量运行相同的测试时，请使用 `test.each`。
+  你可以按照测试参数的顺序，在测试名称插入符合[printf格式](https://nodejs.org/api/util.html#util_util_format_format_args)的参数。
 
-  - `%s`: string
-  - `%d`: number
-  - `%i`: integer
-  - `%f`: floating point value
-  - `%j`: json
-  - `%o`: object
-  - `%#`: index of the test case
-  - `%%`: single percent sign ('%')
+  - `%s`: 字符串
+  - `%d`: 数值
+  - `%i`: 整数
+  - `%f`: 小数
+  - `%j`: json 格式
+  - `%o`: 对象
+  - `%#`: 对应的测试参数下标
+  - `%%`: 单个百分比符号 ('%')
 
   ```ts
   test.each([
@@ -192,7 +192,7 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
     expect(a + b).toBe(expected)
   })
 
-  // this will return
+  // 它将返回如下内容
   // ✓ add(1, 1) -> 2
   // ✓ add(1, 2) -> 3
   // ✓ add(2, 1) -> 3
@@ -200,7 +200,7 @@ In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If t
 
 ## describe
 
-When you use `test` in the top level of file, they are collected as part of the implicit suite for it. Using `describe` you can define a new suite in the current context, as a set of related tests and other nested suites. A suite lets you organize your tests so reports are more clear.
+当你在文件的顶层使用 `test` 时，它们将作为隐式测试套件的一部分被收集。你可以使用 `describe` 在当前上下文中定义一个新的测试套件，将其看作一组相关测试或者有别于其它的嵌套测试套件。测试套件可让你组织你的测试用例，使报告更清晰。
 
   ```ts
   import { describe, expect, test } from 'vitest'
@@ -225,7 +225,7 @@ When you use `test` in the top level of file, they are collected as part of the 
   })
   ```
 
-  You can also nest describe blocks if you have a hierarchy of tests:
+  如果你需要有测试层次结构，你还可以嵌套描述块：
 
   ```ts
   import { describe, expect, test } from 'vitest'
@@ -254,16 +254,16 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### describe.skip
 
-- **Type:** `(name: string, fn: TestFunction) => void`
+- **类型:** `(name: string, fn: TestFunction) => void`
 
-  Use `describe.skip` in a suite to avoid running a particular describe block.
+  在测试套件中使用 `describe.skip` 避免运行特定的描述块。
 
   ```ts
   import { assert, describe, test } from 'vitest'
 
   describe.skip('skipped suite', () => {
     test('sqrt', () => {
-      // Suite skipped, no error
+      // 跳过测试套件，不会有错误
       assert.equal(Math.sqrt(4), 3)
     })
   })
@@ -271,12 +271,12 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### describe.only
 
-- **Type:** `(name: string, fn: TestFunction) => void`
+- **类型:** `(name: string, fn: TestFunction) => void`
 
-  Use `describe.only` to only run certain suites
+  使用 `describe.only` 仅运行指定的测试套件。
 
   ```ts
-  // Only this suite (and others marked with only) are run
+  // 仅运行此测试套件（以及仅标有的其他测试套件）
   describe.only('suite', () => {
     test('sqrt', () => {
       assert.equal(Math.sqrt(4), 3)
@@ -284,18 +284,18 @@ When you use `test` in the top level of file, they are collected as part of the 
   })
 
   describe('other suite', () => {
-    // ... will be skipped
+    // ... 测试套件将会被跳过
   })
   ```
 
 ### describe.concurrent
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 
-  `describe.concurrent` in a suite marks every tests as concurrent
+  使用 `describe.concurrent` 在测试套件中将每个测试标记为并发。
 
   ```ts
-  // All tests within this suite will be run in parallel
+  // 该测试套件中的所有测试都将并行运行
   describe.concurrent('suite', () => {
     test('concurrent test 1', async () => { /* ... */ })
     test('concurrent test 2', async () => { /* ... */ })
@@ -303,7 +303,7 @@ When you use `test` in the top level of file, they are collected as part of the 
   })
   ```
 
-  `.skip`, `.only`, and `.todo` works with concurrent suites. All the following combinations are valid:
+  `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。以下所有组合均有效：
 
   ```ts
   describe.concurrent(/* ... */)
@@ -314,9 +314,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### describe.shuffle
 
-- **Type:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 
-  Vitest provides a way to run all tests in random order via CLI flag [`--sequence.shuffle`](/guide/cli) or config option [`sequence.shuffle`](/config/#sequence-shuffle), but if you want to have only part of your test suite to run tests in random order, you can mark it with this flag.
+  Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
   ```ts
   describe.shuffle('suite', () => {
@@ -324,26 +324,26 @@ When you use `test` in the top level of file, they are collected as part of the 
     test('random test 2', async () => { /* ... */ })
     test('random test 3', async () => { /* ... */ })
   })
-  // order depends on sequence.seed option in config (Date.now() by default)
+  // 执行顺序依赖于 sequence.seed 的配置选项(默认为 Date.now())
   ```
 
-`.skip`, `.only`, and `.todo` works with random suites.
+`.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。以下所有组合均有效：
 
 ### describe.todo
 
-- **Type:** `(name: string) => void`
+- **类型:** `(name: string) => void`
 
-  Use `describe.todo` to stub suites to be implemented later. An entry will be shown in the report for the tests so you know how many tests you still need to implement.
+  使用 `describe.todo` 将稍后实现的测试套件进行存档。测试报告中将显示一个记录，以便你知道还多少条未实现的测试。
 
   ```ts
-  // An entry will be shown in the report for this suite
+  // 测试套件的报告中将显示一个记录
   describe.todo('unimplemented suite')
   ```
 ### describe.each
 
 - **Type:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void) => void`
 
-  Use `describe.each` if you have more than one test that depends on the same data.
+  如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
   ```ts
   describe.each([
@@ -367,11 +367,11 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ## expect
 
-- **Type:** `ExpectStatic & (actual: any) => Assertions`
+- **类型:** `ExpectStatic & (actual: any) => Assertions`
 
-  `expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions build on top of `chai`.
+  `expect` 用来创建断言。在当前上下文中，可以使用 `assertions` 方法来断言一个语句。 Vitest 默认提供 `chai` 进行断言，同时基于 `chai` 实现兼容 `Jest` 的断言语句。
 
-  For example, this code asserts that an `input` value is equal to `2`. If it's not, assertion will throw an error, and the test will fail.
+  例如，这里会断言 `input` 的值是否等于 `2` ，如果它们不相等，断言则会抛出错误，并且测试失败。
 
   ```ts
   import { expect } from 'vitest'
@@ -382,13 +382,13 @@ When you use `test` in the top level of file, they are collected as part of the 
   expect(input).toBe(2) // jest API
   ```
 
-  Technically this example doesn't use [`test`](#test) function, so in the console you will see Nodejs error instead of Vitest output. To learn more about `test`, please read [next chapter](#test).
+  从技术上来说，这里并没有使用 [`test`](#test) 方法，所以我们在控制台会看到 Nodejs 的报错，而不是 Vitest 的报错。想要了解更多关于 `test` 的信息，请参阅 [test 章节](#test)。
 
-  Also, `expect` can be used statically to access matchers functions, described later, and more.
+  此外，`expect` 可用于静态访问匹配器功能，这个后面会介绍。
 
 ### not
 
-  Using `not` will negate the assertion. For example, this code asserts that an `input` value is not equal to `2`. If it's equal, assertion will throw an error, and the test will fail.
+  使用 `not` 将会否定断言。举例，此代码断言 `input` 的值不等于 `2`。如果它们相等，断言则会抛出错误，并且测试失败。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -401,11 +401,11 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBe
 
-- **Type:** `(value: any) => Awaitable<void>`
+- **类型:** `(value: any) => Awaitable<void>`
 
-  `toBe` can be used to assert if primitives are equal or that objects share the same reference. It is equivalent of calling `expect(Object.is(3, 3)).toBe(true)`. If the objects are not the same, but you want check if their structures are identical, you can use [`toEqual`](#toequal).
+  `toBe` 可用于断言基础对象是否相等，或者对象是否共享相同的引用。它相当于调用了 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但你想检查它们的结构是否相同，则可以使用 [`toEqual`](#toequal)。
 
-  For example, the code below checks if the trader has 13 apples.
+  例如，下面的测试将会检查 stock 是否有13个苹果。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -421,19 +421,19 @@ When you use `test` in the top level of file, they are collected as part of the 
   })
 
   test('stocks are the same', () => {
-    const refStock = stock // same reference
+    const refStock = stock // 相同的引用
 
     expect(stock).toBe(refStock)
   })
   ```
 
-  Try not to use `toBe` with floating-point numbers. Since JavaScript rounds them, `0.1 + 0.2` is not strictly `0.3`. To reliably assert floating-point numbers, use [`toBeCloseTo`](#tobecloseto) assertion.
+  尽量不要将 `toBe` 与浮点数一起使用。由于 JavaScript 会对它们进行四舍五入，例如 `0.1 + 0.2` 的结果严格来说并不是 `0.3` 。如果需要可靠地断言浮点数，请使用 `toBeCloseTo` 进行断言。
 
 ### toBeCloseTo
 
-- **Type:** `(value: number, numDigits?: number) => Awaitable<void>`
-
-  Use `toBeCloseTo` to compare floating-point numbers. The optional `numDigits` argument limits the number of digits to check _after_ the decimal point. For example:
+- **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
+  
+  使用 `toBeCloseTo` 进行浮点数的比较。可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
 
   ```ts
   import { expect, test } from 'vitest'
@@ -452,9 +452,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeDefined
 
-- **Type:** `() => Awaitable<void>`
-
-  `toBeDefined` asserts that the value is not equal to `undefined`. Useful use case would be to check if function _returned_ anything.
+- **类型:** `() => Awaitable<void>`
+  
+  `toBeDefined` 断言检查值是否不等于 `undefined` 。在检查函数是否有返回值时非常有用。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -468,9 +468,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeUndefined
 
-- **Type:** `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
-  Opposite of `toBeDefined`, `toBeUndefined` asserts that the value _is_ equal to `undefined`. Useful use case would be to check if function hasn't _returned_ anything.
+  与 `toBeDefined` 相反，`toBeUndefined` 断言检查值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -487,11 +487,11 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeTruthy
 
-- **Type:** `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
-  `toBeTruthy` asserts that the value is true, when converted to boolean. Useful if you don't care for the value, but just want to know it can be converted to `true`.
+  `toBeTruthy` 会将检查值转换为布尔值，断言该值是否为 `true` 。该方法在当你不关心检查值的内容，而只想知道它是否可以转换为 `true` 时很有用。
 
-  For example having this code you don't care for the return value of `stocks.getInfo` - it maybe complex object, a string or anything else. The code will still work.
+  例如下面这段代码，我们就不需要关心 `stocks.getInfo` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
   import { Stocks } from './stocks'
@@ -501,7 +501,7 @@ When you use `test` in the top level of file, they are collected as part of the 
     stocks.sell('apples', 'Bill')
   ```
 
-  So if you want to test that `stocks.getInfo` will be truthy, you could write:
+  所以如果我们想测试 `stocks.getInfo` 是否为 true，我们可以这样写：
 
   ```ts
   import { expect, test } from 'vitest'
@@ -513,16 +513,16 @@ When you use `test` in the top level of file, they are collected as part of the 
     expect(stocks.getInfo('Bill')).toBeTruthy()
   })
   ```
-
-  Everything in JavaScript is truthy, except `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
+  
+  JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
 
 ### toBeFalsy
 
-- **Type:** `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
-  `toBeFalsy` asserts that the value is false, when converted to boolean. Useful if you don't care for the value, but just want to know it can be converted to `false`.
+  `toBeFalsy` 会将检测值转换为布尔值，断言该值是否为 `false`。该方法在当你不关心该检查值的内容，但只想知道它是否可以转换为 `false` 时很有用。
 
-  For example having this code you don't care for the return value of `stocks.stockFailed` - it may return any falsy value, but the code will still work.
+  例如下面这段代码，我们就不需要关心 `stocks.stockFailed` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
   import { Stocks } from './stocks'
@@ -532,7 +532,7 @@ When you use `test` in the top level of file, they are collected as part of the 
     stocks.sell('apples', 'Bill')
   ```
 
-  So if you want to test that `stocks.stockFailed` will be falsy, you could write:
+  所以如果我们想测试 `stocks.stockFailed` 是否为 false，我们可以这样写：
 
   ```ts
   import { expect, test } from 'vitest'
@@ -545,13 +545,13 @@ When you use `test` in the top level of file, they are collected as part of the 
   })
   ```
 
-  Everything in JavaScript is truthy, except `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
+  JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
 
 ### toBeNull
 
-- **Type:** `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
-  `toBeNull` simply asserts if something is `null`. Alias for `.toBe(null)`.
+  `toBeNull` 将简单地断言检查值是否为 `null`。 是 `.toBe(null)` 的别名。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -567,9 +567,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeNaN
 
-- **Type:** `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
-  `toBeNaN` simply asserts if something is `NaN`. Alias for `.toBe(NaN)`.
+  `toBeNaN` 将简单地断言是否为 `NaN`，是 `.toBe(NaN)` 的别名。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -589,9 +589,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeTypeOf
 
-- **Type:** `(c: 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined') => Awaitable<void>`
+- **类型:** `(c: 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string' | 'symbol' | 'undefined') => Awaitable<void>`
 
-  `toBeTypeOf` asserts if an actual value is of type of received type.
+  `toBeTypeOf` 用于断言检查值是否属于接收的类型。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -604,9 +604,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeInstanceOf
 
-- **Type:** `(c: any) => Awaitable<void>`
+- **类型:** `(c: any) => Awaitable<void>`
 
-  `toBeInstanceOf` asserts if an actual value is instance of received class.
+  `toBeInstanceOf` 用于断言检查值是否为接收的类的实例。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -620,9 +620,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeGreaterThan
 
-- **Type:** `(n: number | bigint) => Awaitable<void>`
+- **类型:** `(n: number | bigint) => Awaitable<void>`
 
-  `toBeGreaterThan` asserts if actual value is greater than received one. Equal values will fail the test.
+  `toBeGreaterThan` 用于断言检查值是否大于接收值，如果相等将无法通过测试。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -635,9 +635,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeGreaterThanOrEqual
 
-- **Type:** `(n: number | bigint) => Awaitable<void>`
+- **类型:** `(n: number | bigint) => Awaitable<void>`
 
-  `toBeGreaterThanOrEqual` asserts if actual value is greater than received one or equal to it.
+  `toBeGreaterThanOrEqual` 用于断言检查值是否大于等于接收值。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -650,9 +650,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeLessThan
 
-- **Type:** `(n: number | bigint) => Awaitable<void>`
+- **类型:** `(n: number | bigint) => Awaitable<void>`
 
-  `toBeLessThan` asserts if actual value is less than received one. Equal values will fail the test.
+  `toBeLessThan` 用于断言检查值是否小于接收值，如果相等将无法通过测试。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -665,9 +665,9 @@ When you use `test` in the top level of file, they are collected as part of the 
 
 ### toBeLessThanOrEqual
 
-- **Type:** `(n: number | bigint) => Awaitable<void>`
+- **类型:** `(n: number | bigint) => Awaitable<void>`
 
-  `toBeLessThanOrEqual` asserts if actual value is less than received one or equal to it.
+  `toBeLessThanOrEqual` 用于断言检查值是否小于等于接收值。
 
   ```ts
   import { expect, test } from 'vitest'
