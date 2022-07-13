@@ -71,7 +71,7 @@ export default defineConfig({
 
 [从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
 
-了解更多有关 [IDE 集成](./ide.md) 的更多信息
+了解更多有关 [IDE 插件](./ide.md) 的更多信息
 
 ## 示例
 
