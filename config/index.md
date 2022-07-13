@@ -2,19 +2,19 @@
 outline: deep
 ---
 
-# Configuring Vitest
+# 配置 Vitest
 
-## Configuration
+## 配置
 
-`vitest` will read your root `vite.config.ts` when it is present to match with the plugins and setup as your Vite app. If you want to have a different configuration for testing or your main app doesn't rely on Vite specifically, you could either:
+`vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用程序。如果你想使用不同的配置进行测试，你可以：
 
-- Create `vitest.config.ts`, which will have the higher priority and will override the configuration from `vite.config.ts`
-- Pass `--config` option to CLI, e.g. `vitest --config ./path/to/vitest.config.ts`
-- Use `process.env.VITEST` or `mode` property on `defineConfig` (will be set to `test` if not overridden) to conditionally apply different configuration in `vite.config.ts`
+- 创建 `vitest.config.ts`，优先级更高。
+- 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts` 。
+- 在 `defineConfig` 中使用 `process.env.VITEST` 或 `mode` 属性（默认值是 `test`）在 `vite.config.ts` 中有条件的应用不同的配置。
 
-To configure `vitest` itself, add `test` property in your Vite config. You'll also need to add a reference to Vitest types using a [triple slash command](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) at the top of your config file, if you are importing `defineConfig` from `vite` itself.
+要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。如果你使用 `vite` 的 `defineConfig` 你还需要将 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 写在配置文件的顶部。
 
-using `defineConfig` from `vite` you should follow this:
+使用 `vite` 的 `defineConfig` 可以参考下面的格式：
 
 ```ts
 /// <reference types="vitest" />
@@ -27,7 +27,7 @@ export default defineConfig({
 })
 ```
 
-using `defineConfig` from `vitest/config` you should follow this:
+使用 `vitest` 的 `defineConfig` 可以参考下面的格式：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -39,7 +39,7 @@ export default defineConfig({
 })
 ```
 
-You can retrieve Vitest's default options to expand them if needed:
+如果有需要，你可以获取到 Vitest 的默认选项以扩展它们：
 
 ```ts
 import { configDefaults, defineConfig } from 'vitest/config'
@@ -51,70 +51,70 @@ export default defineConfig({
 })
 ```
 
-## Options
+## 选项
 
-:::tip
-In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
+:::tip 提醒
+除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
 :::
 
 ### include
 
-- **Type:** `string[]`
-- **Default:** `['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
+- **类型:** `string[]`
+- **默认值:** `['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
 
-Files to include in the test run, using glob pattern.
+匹配包含测试文件的 glob 规则。
 
 ### exclude
 
 - **Type:** `string[]`
 - **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
 
-Files to exclude from the test run, using glob pattern.
+匹配排除测试文件的 glob 规则。
 
 ### deps
 
-- **Type:** `{ external?, inline? }`
+- **类型:** `{ external?, inline? }`
 
-Handling for dependencies inlining or externalizing
+对依赖关系进行内联或外联的处理
 
 #### deps.external
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** `['**/node_modules/**', '**/dist/**']`
+- **类型:** `(string | RegExp)[]`
+- **默认值:** `['**/node_modules/**', '**/dist/**']`
 
-Externalize means that Vite will bypass the package to native Node. Externalized dependencies will not be applied Vite's transformers and resolvers, so they do not support HMR on reload. Typically, packages under `node_modules` are externalized.
+Externalize 意味着 Vite 会绕过包到原生 Node.js 中。Vite 的转换器和解析器不会应用外部依赖项，因此不会支持重新加载时的热更新。通常，`node_modules` 下的包是外部依赖。
 
 #### deps.inline
 
-- **Type:** `(string | RegExp)[] | true`
-- **Default:** `[]`
+- **类型:** `(string | RegExp)[] | true`
+- **默认值:** `[]`
 
-Vite will process inlined modules. This could be helpful to handle packages that ship `.js` in ESM format (that Node can't handle).
+Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无法处理）发布 `.js` 的包。
 
-If `true`, every dependency will be inlined. All dependencies, specified in [`ssr.noExternal`](https://vitejs.dev/guide/ssr.html#ssr-externals) will be inlined by default.
+如果为 `true`，则每个依赖项都将被内联。 在 [`ssr.noExternal`](https://vitejs.dev/guide/ssr.html#ssr-externals) 中指定的所有依赖项将默认内联。
 
 #### deps.fallbackCJS
 
-- **Type** `boolean`
-- **Default:** `false`
+- **类型** `boolean`
+- **默认值:** `false`
 
-When a dependency is a valid ESM package, try to guess the cjs version based on the path. This might be helpful, if a dependency has the wrong ESM file.
+当一个依赖项是有效的 ESM 包时，将会尝试根据路径猜测 cjs 版本。
 
-This might potentially cause some misalignment if a package has different logic in ESM and CJS mode.
+如果包在 ESM 和 CJS 模式下具有不同的逻辑，可能会导致一些错误的产生。
 
 #### deps.interopDefault
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Interpret CJS module's default as named exports.
+将 CJS 模块的默认值视为命名导出。
 
 ### globals
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-By default, `vitest` does not provide global APIs for explicitness. If you prefer to use the APIs globally like Jest, you can pass the `--globals` option to CLI or add `globals: true` in the config.
+默认情况下，`vitest` 不显式提供全局 API。如果你更倾向于使用类似 jest 中的全局 API，可以将 `--globals` 选项传递给 CLI 或在配置中添加 `globals: true`。
 
 ```ts
 // vite.config.ts
@@ -127,7 +127,7 @@ export default defineConfig({
 })
 ```
 
-To get TypeScript working with the global APIs, add `vitest/globals` to the `types` field in your `tsconfig.json`
+为了可以让全局 API 支持 Typescript，请将 `vitest/globals` 添加到 `tsconfig.json` 中的 `types` 选项中
 
 ```json
 // tsconfig.json
@@ -138,7 +138,7 @@ To get TypeScript working with the global APIs, add `vitest/globals` to the `typ
 }
 ```
 
-If you are already using [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components) in your project, you can also use it directly for auto importing those APIs.
+如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components)，你也可以直接用它来自动导入这些 API。
 
 ```ts
 // vite.config.ts
@@ -157,19 +157,15 @@ export default defineConfig({
 
 ### environment
 
-- **Type:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime'`
-- **Default:** `'node'`
+- **类型:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime'`
+- **默认值:** `'node'`
 
-The environment that will be used for testing. The default environment in Vitest
-is a Node.js environment. If you are building a web application, you can use
-browser-like environment through either [`jsdom`](https://github.com/jsdom/jsdom)
-or [`happy-dom`](https://github.com/capricorn86/happy-dom) instead.
-If you are building edge functions, you can use [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) environment
+Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用程序，你可以使用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
+如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
 
-By adding a `@vitest-environment` docblock or comment at the top of the file,
-you can specify another environment to be used for all tests in that file:
+你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
 
-Docblock style:
+文档块格式:
 
 ```js
 /**
@@ -182,7 +178,7 @@ test('use jsdom in this test file', () => {
 })
 ```
 
-Comment style:
+注释格式:
 
 ```js
 // @vitest-environment happy-dom
@@ -193,7 +189,7 @@ test('use happy-dom in this test file', () => {
 })
 ```
 
-For compatibility with Jest, there is also a `@jest-environment`:
+为了与 Jest 兼容，还存在一个配置 `@jest-environment`：
 
 ```js
 /**
@@ -206,113 +202,111 @@ test('use jsdom in this test file', () => {
 })
 ```
 
-If you are running Vitest with [`--no-threads`](#threads) flag, your tests will be run in this order: `node`, `jsdom`, `happy-dom`. Meaning, that every test with the same environment is grouped together, but is still run sequentially.
+如果你使用 [`--no-threads`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`、`jsdom`、`happy-dom`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
 
 ### update
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Update snapshot files. This will update all changed snapshots and delete obsolete ones.
+更新快照文件。这将更新所有更改的快照并删除过时的快照。
 
 ### watch
 
 - **Type:** `boolean`
 - **Default:** `true`
 
-Enable watch mode
+启动监听模式
 
 ### root
 
-- **Type:** `string`
+- **类型:** `string`
 
-Project root
+项目的根目录
 
 ### reporters
 
-- **Type:** `Reporter | Reporter[]`
-- **Default:** `'default'`
+- **类型:** `Reporter | Reporter[]`
+- **默认值:** `'default'`
 
-Custom reporters for output. Reporters can be [a Reporter instance](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) or a string to select built in reporters:
+用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-  - `'default'` - collapse suites when they pass
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter
-  - `'json'` -  give a simple JSON summary
-  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+  - `'default'` - 当他们经过测试套件
+  - `'verbose'` - 保持完整的任务树可见
+  - `'dot'` - 将每个任务显示为一个点
+  - `'junit'` - JUnit XML 报告器
+  - `'json'` - 给出一个简单的 JSON 总结
+  - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
 ### outputTruncateLength
 
-- **Type:** `number`
-- **Default:** `80`
+- **类型:** `number`
+- **默认值:** `80`
 
-Truncate output diff lines up to `80` number of characters. You may wish to tune this,
-depending on you terminal window width.
+指定截断输出差异的字符行数，最多 80 个字符。 你可能希望对此进行调整，取决于你的终端窗口宽度。
 
 ### outputDiffLines
 
-- **Type:** `number`
-- **Default:** `15`
+- **类型:** `number`
+- **默认值:** `15`
 
-Limit number of output diff lines up to `15`.
+指定输出差线的数量，最多 `15` 个。
 
 ### outputFile
 
-- **Type:** `string | Record<string, string>`
+- **类型:** `string | Record<string, string>`
 
-Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified.
-By providing an object instead of a string you can define individual outputs when using multiple reporters.
+当指定 `--reporter=json` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
-To provide object via CLI command, use the following syntax: `--outputFile.json=./path --outputFile.junit=./other-path`.
+要通过 CLI 命令提供对象，请使用以下语法：`--outputFile.json=./path --outputFile.junit=./other-path`。
 
 ### threads
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Enable multi-threading using [tinypool](https://github.com/Aslemammad/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina))
+通过使用 [tinypool](https://github.com/Aslemammad/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
 
-:::warning
-This option is different from Jest's `--runInBand`. Vitest uses workers not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
+:::warning 警告
+此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
-This might cause all sorts of issues, if you are relying on global state (frontend frameworks usually do) or your code relies on environment to be defined separately for each test. But can be a speed boost for your tests (up to 3 times faster), that don't necessarily rely on global state or can easily bypass that.
+如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但是可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态或可以轻松绕过它。
 :::
 
 ### maxThreads
 
-- **Type:** `number`
-- **Default:** _available CPUs_
+- **类型:** `number`
+- **默认值:** 可用的 CPU 数量
 
-Maximum number of threads. You can also use `VITEST_MAX_THREADS` environment variable.
+允许的最大线程数。你也可以使用 `VITEST_MAX_THREADS` 环境变量。
 
 ### minThreads
 
-- **Type:** `number`
-- **Default:** _available CPUs_
+- **类型:** `number`
+- **默认值:** 可用的 CPU 数量
 
-Minimum number of threads. You can also use `VITEST_MIN_THREADS` environment variable.
+允许的最小线程数。你也可以使用 `VITEST_MIN_THREADS` 环境变量。
 
 ### testTimeout
 
-- **Type:** `number`
-- **Default:** `5000`
+- **类型:** `number`
+- **默认值:** `5000`
 
-Default timeout of a test in milliseconds
+测试的默认超时时间（以毫秒为单位）。
 
 ### hookTimeout
 
-- **Type:** `number`
-- **Default:** `10000`
+- **类型:** `number`
+- **默认值:** `10000`
 
-Default timeout of a hook in milliseconds
+钩子(hook)的默认超时时间（以毫秒为单位）。
 
 ### silent
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Silent console output from tests
+静默模式下运行测试。
 
 ### setupFiles
 
