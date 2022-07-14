@@ -306,21 +306,21 @@ test('use jsdom in this test file', () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 
-静默模式下运行测试。
+静默模式下启动测试。
 
 ### setupFiles
 
-- **Type:** `string | string[]`
+- **类型:** `string | string[]`
 
-Path to setup files. They will be run before each test file.
+setup 文件的路径。它们将运行在每个测试文件之前。
 
-You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between threads (will always be `'1'`, if run with `threads: false`).
+你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
 
-:::tip
-Note, that if you are running [`--no-threads`](#threads), this setup file will be run in the same global scope multiple times. Meaning, that you are accessing the same global object before each test, so make sure you are not doing the same thing more than you need.
+:::tip 提醒
+请注意，如果你正在运行 [`--no-threads`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出您的需要。
 :::
 
-For example, you may rely on a global variable:
+比如，你可能依赖于一个全局变量：
 
 ```ts
 import { config } from '@some-testing-lib'
@@ -341,36 +341,35 @@ globalThis.resetBeforeEachTest = true
 
 ### globalSetup
 
-- **Type:** `string | string[]`
+- **类型:** `string | string[]`
 
-Path to global setup files, relative to project root
+全局的 setup 文件的路径，相对于项目的根目录。
 
-A global setup file can either export named functions `setup` and `teardown` or a `default` function that returns a teardown function ([example](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts)).
+全局的 setup 文件可以导出命名函数 `setup` 和 `teardown` 或返回拆卸函数的 `default` 函数（[示例](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts))。
 
-::: info
-Multiple globalSetup files are possible. setup and teardown are executed sequentially with teardown in reverse order.
+::: info 提示
+可以存在多个 globalSetup。setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
 :::
 
-::: warning
-Beware that the global setup is run in a different global scope, so your tests don't have access to variables defined here.
+::: warning 警告
+请注意，全局设置在不同的全局范围内运行，因此你的测试无权访问此处定义的变量。
 :::
-
 
 ### watchExclude
 
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**']`
+- **类型:** `string[]`
+- **默认值:** `['**/node_modules/**', '**/dist/**']`
 
-Glob pattern of file paths to be ignored from triggering watch rerun.
+触发监视重新运行时要忽略的文件路径的全局 glob 模式。
 
 ### forceRerunTriggers
 
-- **Type**: `string[]`
-- **Default:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
+- **类型**: `string[]`
+- **默认值:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
 
-Glob pattern of file paths that will trigger the whole suite rerun. When paired with the `--changed` argument will run the whole test suite if the trigger is found in the git diff.
+将触发整个套件重新运行的文件路径的全局 glob 模式。 如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
 
-Useful if you are testing calling CLI commands, because Vite cannot construct a module graph:
+如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖图:
 
 ```ts
 test('execute a script', async () => {
@@ -379,30 +378,30 @@ test('execute a script', async () => {
 })
 ```
 
-::: tip
-Make sure that your files are not excluded by `watchExclude`.
+:::tip 提醒
+确保你的的文件未被 `watchExclude` 排除。
 :::
 
 ### isolate
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Isolate environment for each test file. Does not work if you disable [`--threads`](#threads).
+是否为每个测试文件构建隔离环境。 如果你禁用 [`--threads`](#threads)，它将不会工作。
 
 ### coverage
 
-- **Type:** `C8Options`
-- **Default:** `undefined`
+- **类型:** `C8Options`
+- **默认值:** `undefined`
 
-Coverage options passed to [C8](https://github.com/bcoe/c8).
+使用 [C8](https://github.com/bcoe/c8) 设置测试覆盖率的配置选项
 
 ### testNamePattern
 
-- **Type** `string | RegExp`
+- **类型** `string | RegExp`
 
-Run tests with full names matching the pattern.
-If you add `OnlyRunThis` to this property, tests not containing the word `OnlyRunThis` in the test name will be skipped.
+使用与模式匹配的全名运行测试。
+如果你将 `OnlyRunThis` 添加到此属性，将跳过测试名称中不包含单词 `OnlyRunThis` 的测试。
 
 ```js
 import { expect, test } from 'vitest'
@@ -420,62 +419,62 @@ test('doNotRun', () => {
 
 ### open
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值为:** `false`
 
-Open Vitest UI (WIP)
+打开 Vitest UI (WIP: 赞助者计划可用)
 
 ### api
 
-- **Type:** `boolean | number`
-- **Default:** `false`
+- **类型:** `boolean | number`
+- **默认值:** `false`
 
-Listen to port and serve API. When set to true, the default port is 51204
+提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
 ### clearMocks
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Will call [`.mockClear()`](/api/#mockclear) on all spies before each test. This will clear mock history, but not reset its implementation to the default one.
+是否在每次测试前对所有监听(Spy)调用 `.mockClear()`。这将清除模拟历史记录，但不会将其实现重置为默认值。
 
 ### mockReset
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Will call [`.mockReset()`](/api/#mockreset) on all spies before each test. This will clear mock history and reset its implementation to an empty function (will return `undefined`).
+是否在每次测试之前对所有监听(Spy)调用 [`.mockReset()`](/api/#mockreset)。 这将清除模拟历史并将其实现重置为空函数（将返回`undefined`）。
 
 ### restoreMocks
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Will call [`.mockRestore()`](/api/#mockrestore) on all spies before each test. This will clear mock history and reset its implementation to the original one.
+是否在每次测试之前对所有监听(Spy)调用 [`.mockRestore()`](/api/#mockrestore)。 这将清除模拟历史并将其实现重置为原始历史。
 
 ### transformMode
 
-- **Type:** `{ web?, ssr? }`
+- **类型:** `{ web?, ssr? }`
 
-Determine the transform method of modules
+决定模块的转换方式。
 
 #### transformMode.ssr
 
-- **Type:** `RegExp[]`
-- **Default:** `[/\.([cm]?[jt]sx?|json)$/]`
+- **类型:** `RegExp[]`
+- **默认值:** `[/\.([cm]?[jt]sx?|json)$/]`
 
-Use SSR transform pipeline for the specified files.<br>
-Vite plugins will receive `ssr: true` flag when processing those files.
+对指定的文件使用 SSR 转换管道。<br>
+Vite 插件在处理这些文件时会收到 `ssr: true` 标志。
 
 #### transformMode&#46;web
 
-- **Type:** `RegExp[]`
-- **Default:** *modules other than those specified in `transformMode.ssr`*
+- **类型:** `RegExp[]`
+- **默认值:** *除了 `transformMode.ssr` 以外的所有文件*
 
-First do a normal transform pipeline (targeting browser), then do a SSR rewrite to run the code in Node.<br>
-Vite plugins will receive `ssr: false` flag when processing those files.
+首先会进行正常的转换管道（针对浏览器），然后进行 SSR 重写以在 Node 中运行代码。<br>
+Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
 
-When you use JSX as component models other than React (e.g. Vue JSX or SolidJS), you might want to config as following to make `.tsx` / `.jsx` transformed as client-side components:
+当你使用 JSX 作为 React 以外的组件模型（例如 Vue JSX 或 SolidJS）时，你可能需要进行如下配置以使 `.tsx` / `.jsx` 转换为客户端组件：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -491,16 +490,16 @@ export default defineConfig({
 
 ### snapshotFormat
 
-- **Type:** `PrettyFormatOptions`
+- **类型:** `PrettyFormatOptions`
 
-Format options for snapshot testing. These options are passed down to [`pretty-format`](https://www.npmjs.com/package/pretty-format).
+测试快照的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
 
 ### resolveSnapshotPath
 
-- **Type**: `(testPath: string, snapExtension: string) => string`
-- **Default**: stores snapshot files in `__snapshots__` directory
+- **类型**: `(testPath: string, snapExtension: string) => string`
+- **默认值**: 存储快照文件在 `__snapshots__` 目录
 
-Overrides default snapshot path. For example, to store snapshots next to test files:
+覆盖快照的默认路径。例如，要在测试文件旁边存储一下快照：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -514,96 +513,96 @@ export default defineConfig({
 
 ### allowOnly
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Allow tests and suites that are marked as only.
+允许标记为 only 的测试和套件。
 
 ### passWithNoTests
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Vitest will not fail, if no tests will be found.
+如果没有找到测试，Vitest 不会失败。
 
 ### logHeapUsage
 
 - **Type**: `boolean`
 - **Default**: `false`
 
-Show heap usage after each test. Useful for debugging memory leaks.
+每次测试后显示堆的使用情况。用于调试内存是否泄漏。
 
 ### css
 
-- **Type**: `boolean | { include?, exclude? }`
+- **类型**: `boolean | { include?, exclude? }`
 
-Configure if CSS should be processed. When excluded, CSS files will be replaced with empty strings to bypass the subsequent processing.
+配置是否处理 CSS。 排除后，CSS 文件将被替换为空字符串以绕过后续处理。
 
-By default, processes only CSS Modules, because it affects runtime. JSDOM and Happy DOM don't fully support injecting CSS, so disabling this setting might help with performance.
+默认情况下，只处理 CSS 模块，因为它会影响运行时。 JSDOM 和 Happy DOM 不完全支持注入 CSS，因此禁用此设置可能有助于提高性能。
 
 #### css.include
 
-- **Type**: `RegExp | RegExp[]`
-- **Default**: `[/\.module\./]`
+- **类型**: `RegExp | RegExp[]`
+- **默认值**: `[/\.module\./]`
 
-RegExp pattern for files that should return actual CSS and will be processed by Vite pipeline.
+将返回匹配正则表达式并将由 Vite 管道处理的实际 CSS 文件。
 
 #### css.exclude
 
-- **Type**: `RegExp | RegExp[]`
-- **Default**: `[]`
+- **类型**: `RegExp | RegExp[]`
+- **默认值**: `[]`
 
-RegExp pattern for files that will return an empty CSS file.
+将返回匹配正则表达式的空 CSS 文件。
 
 ### maxConcurrency
 
-- **Type**: `number`
-- **Default**: `5`
+- **类型**: `number`
+- **默认值**: `5`
 
-A number of tests that are allowed to run at the same time marked with `test.concurrent`.
+使用 `test.concurrent` 标记允许同时运行的最大测试数量。
 
-Test above this limit will be queued to run when available slot appears.
+当出现可用插槽时，超过此限制的测试将排队运行。
 
 ### cache
 
-- **Type**: `false | { dir? }`
+- **类型**: `false | { dir? }`
 
-Options to configure Vitest cache policy. At the moment Vitest stores cache for test results to run the longer and failed tests first.
+配置 Vitest 缓存策略的选项。目前 Vitest 为测试结果存储缓存，以便先运行更长且失败的测试。
 
 #### cache.dir
 
-- **Type**: `string`
-- **Default**: `node_modules/.vitest`
+- **类型**: `string`
+- **默认值**: `node_modules/.vitest`
 
-Path to cache directory.
+缓存目录的路径。
 
 ### sequence
 
-- **Type**: `{ sequencer?, shuffle?, seed? }`
+- **类型**: `{ sequencer?, shuffle?, seed? }`
 
-Options for how tests should be sorted.
+配置测试运行顺序的选项。
 
 #### sequence.sequencer
 
-- **Type**: `TestSequencerConstructor`
-- **Default**: `BaseSequencer`
+- **类型**: `TestSequencerConstructor`
+- **默认值**: `BaseSequencer`
 
-A custom class that defines methods for sharding and sorting. You can extend `BaseSequencer` from `vitest/node`, if you only need to redefine one of the `sort` and `shard` methods, but both should exist.
+定义分片和排序的自定义类。你可以从 `vitest/node` 扩展 `BaseSequencer`，如果你只需要重新定义 `sort` 和 `shard` 方法之一，但两者都应该存在。
 
-Sharding is happening before sorting, and only if `--shard` option is provided.
+分片是在排序之前进行的，并且只有提供了 `--shard` 选项的情况下才会生效。
 
 #### sequence.shuffle
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-If you want tests to run randomly, you can enable it with this option, or CLI argument [`--sequence.shuffle`](/guide/cli).
+如果你希望测试随机运行，可以使用此选项或 CLI 参数 [`--sequence.shuffle`](/guide/cli) 启用它。
 
-Vitest usually uses cache to sort tests, so long running tests start earlier - this makes tests run faster. If your tests will run in random order you will lose this performance improvement, but it may be useful to track tests that accidentally depend on another run previously.
+Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始 - 这会使测试运行得更快。 如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
 
 #### sequence.seed
 
-- **Type**: `number`
-- **Default**: `Date.now()`
+- **类型**: `number`
+- **默认值**: `Date.now()`
 
-Sets the randomization seed, if tests are running in random order.
+如果测试以随机顺序运行，则设置随机化种子。
