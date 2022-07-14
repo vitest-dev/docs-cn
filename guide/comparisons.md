@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 # 跟其他的测试框架进行对比
+=======
+---
+title: Comparisons with Other Test Runners | Guide
+---
+
+# Comparisons with Other Test Runners
+>>>>>>> 6f0d951e4885bf0063e85a8ddb350e3c2d74e9b5
 
 ## Jest
 

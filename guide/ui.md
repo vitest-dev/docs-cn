@@ -1,3 +1,7 @@
+---
+title: Vitest UI | Guide
+---
+
 # Vitest UI
 
 Vitest 由 Vite 提供能力，在运行测试时有一个开发服务器。这允许 Vitest 提供一个漂亮的 UI 界面来查看并与测试交互。Vitest 的 UI 界面是可选的，你可以通过以下安装：
