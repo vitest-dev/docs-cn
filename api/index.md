@@ -59,7 +59,7 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   import { assert, test } from 'vitest'
-  
+
   const isDev = process.env.NODE_ENV === 'development'
 
   test.skipIf(isDev)('prod only test', () => {
@@ -76,7 +76,7 @@ type TestFunction = () => Awaitable<void>
 
   ```ts
   import { assert, test } from 'vitest'
-  
+
   const isDev = process.env.NODE_ENV === 'development'
 
   test.runIf(isDev)('dev only test', () => {
@@ -432,7 +432,7 @@ type TestFunction = () => Awaitable<void>
 ### toBeCloseTo
 
 - **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
-  
+
   使用 `toBeCloseTo` 进行浮点数的比较。可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
 
   ```ts
@@ -453,7 +453,7 @@ type TestFunction = () => Awaitable<void>
 ### toBeDefined
 
 - **类型:** `() => Awaitable<void>`
-  
+
   `toBeDefined` 断言检查值是否不等于 `undefined` 。在检查函数是否有返回值时非常有用。
 
   ```ts
@@ -513,7 +513,7 @@ type TestFunction = () => Awaitable<void>
     expect(stocks.getInfo('Bill')).toBeTruthy()
   })
   ```
-  
+
   JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
 
 ### toBeFalsy
@@ -948,7 +948,7 @@ type TestFunction = () => Awaitable<void>
 - **类型:** `<T>(shape?: Partial<T> | string, message?: string) => void`
 
   这可确保某个值匹配最近的快照。
- 
+
   你可以提供附加到测试名称的可选 `hint` 字符串参数。 尽管 Vitest 总是在快照名称的末尾附加一个数字，但在区分单个 it 或测试块中的多个快照时，简短的描述性提示可能比数字更有用。 Vitest 在相应的 `.snap` 文件中按名称对快照进行排序。
 
   :::tip 提示
@@ -1030,7 +1030,7 @@ type TestFunction = () => Awaitable<void>
 ### toThrowErrorMatchingInlineSnapshot
 
 - **类型:** `(snapshot?: string, message?: string) => void`
-  
+
   与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 相同，但需要与 [`toThrowError`](#tothrowerror) 相同的值。
 
   如果函数抛出`Error`，则快照将是错误消息。 否则，快照将是函数抛出的值。
@@ -1443,7 +1443,7 @@ type TestFunction = () => Awaitable<void>
 ### expect.arrayContaining
 
 - **类型:** `<T>(expected: T[]) => any`
-  
+
   当与相等检查一起使用时，如果 value 是一个数组并包含指定的选项，则此非对称匹配器将返回 `true`。
 
   ```ts
@@ -1472,7 +1472,7 @@ type TestFunction = () => Awaitable<void>
 ### expect.objectContaining
 
 - **类型:** `(expected: any) => any`
-  
+
   当与相等检查一起使用时，如果 value 具有相似的结构，则此非对称匹配器将返回 `true`。
 
   ```ts
@@ -1502,7 +1502,7 @@ type TestFunction = () => Awaitable<void>
 ### expect.stringContaining
 
 - **类型:** `(expected: any) => any`
-  
+
   当与相等检查一起使用时，如果 value 是字符串并且包含指定的子字符串，则此非对称匹配器将返回 `true`。
 
   ```ts
@@ -1554,7 +1554,7 @@ type TestFunction = () => Awaitable<void>
 - **类型:** `(plugin: PrettyFormatPlugin) => void`
 
   此方法在创建快照时添加调用的自定义序列化程序。 这是高级功能 - 如果你想了解更多信息，请阅读 [自定义序列化程序指南](/guide/snapshot#custom-serializer)。
-  
+
   如果你要添加自定义序列化程序，则应在 [`setupFiles`](/config/#setupfiles) 中调用此方法。 它将影响每个快照。
 
   :::tip 提示
@@ -1700,7 +1700,7 @@ type TestFunction = () => Awaitable<void>
   beforeAll(async () => {
     // 在所有测试运行之前调用一次
     await startMocking()
-  
+
     // 在所有测试运行后调用一次
     return async () => {
       await stopMocking()
@@ -1982,7 +1982,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 ### vi.unmock
 
 - **类型**: `(path: string) => void`
-  
+
   从模拟注册表中删除模块。所有后续的导入调用都将返回原始模块，即使它被模拟了。
 
 ### vi.useFakeTimers
