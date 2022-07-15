@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-# 扩展断言(Matchers)
-=======
 ---
 title: Extending Matchers | Guide
 ---
 
-# Extending Matchers
->>>>>>> 6f0d951e4885bf0063e85a8ddb350e3c2d74e9b5
-
+# 扩展断言(Matchers)
 
 由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 `chai.use` API 或者 `expect.extend`。
 

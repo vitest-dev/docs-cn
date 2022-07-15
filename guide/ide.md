@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-# IDE 插件
-=======
 ---
 title: IDE Integrations | Guide
 ---
 
-# IDE Integrations
->>>>>>> 6f0d951e4885bf0063e85a8ddb350e3c2d74e9b5
+# IDE 集成
 
 ## VS Code <sup><code>官方</code></sup>
 

@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-# 快照(snapshot)
-=======
 ---
 title: Snapshot | Guide
 ---
 
-# Snapshot
->>>>>>> 6f0d951e4885bf0063e85a8ddb350e3c2d74e9b5
+# 快照(Snapshot)
 
 当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
 

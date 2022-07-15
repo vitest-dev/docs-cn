@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-# 筛选测试
-=======
 ---
 title: Tests Filtering | Guide
 ---
 
-# Tests Filtering
->>>>>>> 6f0d951e4885bf0063e85a8ddb350e3c2d74e9b5
+# 筛选测试
 
 用于测试套件(suite)和测试的筛选(filtering)、超时(timeouts)、并发(concurrent)。
 
