@@ -51,14 +51,14 @@ export default defineConfig({
       text: '为此页提供修改建议',
     },
 
-    algolia: {
-      appId: 'ZTF29HGJ69',
-      apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
-      indexName: 'vitest',
-      // searchParameters: {
-      //   facetFilters: ['tags:en'],
-      // },
-    },
+    // algolia: {
+    //   appId: 'ZTF29HGJ69',
+    //   apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
+    //   indexName: 'vitest',
+    //   // searchParameters: {
+    //   //   facetFilters: ['tags:en'],
+    //   // },
+    // },
 
     localeLinks: {
       text: '简体中文',
@@ -79,7 +79,7 @@ export default defineConfig({
     },
 
     nav: [
-      { text: '指引', link: '/guide/' },
+      { text: '指南', link: '/guide/' },
       { text: 'API', link: '/api/' },
       { text: '配置', link: '/config/' },
       {
@@ -101,34 +101,34 @@ export default defineConfig({
       // TODO: bring sidebar of apis and config back
       '/': [
         {
-          text: '指引',
+          text: '指南',
           items: [
             {
               text: '简介',
               link: '/guide/why',
             },
             {
-              text: '快速开始',
+              text: '快速起步',
               link: '/guide/',
             },
             {
-              text: '特点',
+              text: '主要功能',
               link: '/guide/features',
             },
             {
-              text: 'CLI',
+              text: '命令行界面',
               link: '/guide/cli',
             },
             {
-              text: 'Test Filtering',
+              text: '测试筛选',
               link: '/guide/filtering',
             },
             {
-              text: '覆盖范围',
+              text: '测试覆盖率',
               link: '/guide/coverage',
             },
             {
-              text: '快照序列化',
+              text: '测试快照',
               link: '/guide/snapshot',
             },
             {
@@ -144,7 +144,7 @@ export default defineConfig({
               link: '/guide/in-source',
             },
             {
-              text: '测试环境',
+              text: '测试上下文',
               link: '/guide/test-context',
             },
             {
@@ -173,16 +173,16 @@ export default defineConfig({
           text: 'API',
           items: [
             {
-              text: 'API 参考',
+              text: 'API 索引',
               link: '/api/',
             },
           ],
         },
         {
-          text: 'Config',
+          text: '配置',
           items: [
             {
-              text: '配置 Vitest',
+              text: '配置索引',
               link: '/config/',
             },
           ],

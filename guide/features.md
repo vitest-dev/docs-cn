@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 特性
+# 主要功能
 
 <FeaturesList class="!gap-1 text-lg" />
 
@@ -46,9 +46,9 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 import { describe, it } from 'vitest'
 // The two tests marked with concurrent will be run in parallel
 describe('suite', () => {
-  it('serial test', async () => { /* ... */ })
-  it.concurrent('concurrent test 1', async () => { /* ... */ })
-  it.concurrent('concurrent test 2', async () => { /* ... */ })
+  it('serial test', async() => { /* ... */ })
+  it.concurrent('concurrent test 1', async() => { /* ... */ })
+  it.concurrent('concurrent test 2', async() => { /* ... */ })
 })
 ```
 
@@ -58,9 +58,9 @@ describe('suite', () => {
 import { describe, it } from 'vitest'
 // All tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
-  it('concurrent test 1', async () => { /* ... */ })
-  it('concurrent test 2', async () => { /* ... */ })
-  it.concurrent('concurrent test 3', async () => { /* ... */ })
+  it('concurrent test 1', async() => { /* ... */ })
+  it('concurrent test 2', async() => { /* ... */ })
+  it.concurrent('concurrent test 3', async() => { /* ... */ })
 })
 ```
 
