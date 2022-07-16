@@ -2,7 +2,7 @@
 title: Coverage | Guide
 ---
 
-# 覆盖率
+# 测试覆盖率
 
 Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。`c8` 是一个 peer 依赖，要使用覆盖率功能，你首先需要安装它：
 

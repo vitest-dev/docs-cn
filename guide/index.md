@@ -2,7 +2,7 @@
 title: Getting Started | Guide
 ---
 
-# 开始
+# 快速起步
 
 ## 总览
 
@@ -31,7 +31,7 @@ Vitest 需要 Vite >=v2.7.10 和 Node >=v14
 
 ## 配置 Vitest
 
-Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用程序。例如，你的 Vite 有 [resolve.alias](https://vitejs.dev/config/#resolve-alias) 和 [plugins](https://vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中起作用。如果你想在测试期间想要不同的配置，你可以:
+Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用程序。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中起作用。如果你想在测试期间想要不同的配置，你可以:
 
 - 创建 `vitest.config.ts`，优先级将会最高。
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`。
@@ -48,7 +48,7 @@ export default defineConfig({
 })
 ```
 
-可以参阅 [配置参考](../config/) 中的配置选项列表
+可以参阅 [配置索引](../config/) 中的配置选项列表
 
 ## 命令行
 
@@ -67,7 +67,7 @@ export default defineConfig({
 要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
 你还可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 有关 CLI 选项的完整列表，可以在你的项目中运行 `npx vitest --help`。
 
-了解更多有关 [命令行](./cli.md) 的更多信息
+了解更多有关 [命令行界面](./cli.md) 的更多信息
 
 ## IDE 集成
 

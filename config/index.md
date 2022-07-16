@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 配置 Vitest
+# 配置索引
 
 ## 配置
 

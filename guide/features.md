@@ -3,7 +3,7 @@ title: Features | Guide
 outline: deep
 ---
 
-# 特性
+# 主要功能
 
 <FeaturesList class="!gap-1 text-lg" />
 
@@ -11,7 +11,7 @@ outline: deep
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用程序中的相同配置来运行测试。
 
-了解更多信息 [Configuring Vitest](/guide/#configuring-vitest)
+了解更多信息 [配置 Vitest](/guide/#配置-vitest)
 
 ## 监听模式(watch mode)
 
@@ -37,7 +37,7 @@ Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的�
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-了解更多信息 [筛选测试](./filtering.md)
+了解更多信息 [测试筛选](./filtering.md)
 
 ## 同时运行多个测试
 
@@ -47,9 +47,9 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 import { describe, it } from 'vitest'
 // The two tests marked with concurrent will be run in parallel
 describe('suite', () => {
-  it('serial test', async () => { /* ... */ })
-  it.concurrent('concurrent test 1', async () => { /* ... */ })
-  it.concurrent('concurrent test 2', async () => { /* ... */ })
+  it('serial test', async() => { /* ... */ })
+  it.concurrent('concurrent test 1', async() => { /* ... */ })
+  it.concurrent('concurrent test 2', async() => { /* ... */ })
 })
 ```
 
@@ -59,9 +59,9 @@ describe('suite', () => {
 import { describe, it } from 'vitest'
 // All tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
-  it('concurrent test 1', async () => { /* ... */ })
-  it('concurrent test 2', async () => { /* ... */ })
-  it.concurrent('concurrent test 3', async () => { /* ... */ })
+  it('concurrent test 1', async() => { /* ... */ })
+  it('concurrent test 2', async() => { /* ... */ })
+  it.concurrent('concurrent test 3', async() => { /* ... */ })
 })
 ```
 
@@ -122,7 +122,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [对象模拟](/guide/mocking)
+了解更多信息 [模拟对象](/guide/mocking)
 
 ## 覆盖率
 
