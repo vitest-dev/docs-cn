@@ -1,4 +1,8 @@
-# IDE 插件
+---
+title: IDE Integrations | Guide
+---
+
+# IDE 集成
 
 ## VS Code <sup><code>官方</code></sup>
 

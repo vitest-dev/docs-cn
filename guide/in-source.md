@@ -1,3 +1,7 @@
+---
+title: In-source testing | Guide
+---
+
 # 源码内联测试
 
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，就像是 [Rust 语言的模块测试一样](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。

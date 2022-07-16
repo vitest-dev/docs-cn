@@ -1,3 +1,7 @@
+---
+title: Test Context | Guide
+---
+
 # 测试上下文
 
 受 [Playwright Fixtures](https://playwright.dev/docs/test-fixtures) 的启发，Vitest 的测试上下文允许你定义可在测试中使用的工具(utils)、状态(states)和固定装置(fixtures)。

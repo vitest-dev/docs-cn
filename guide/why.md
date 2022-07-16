@@ -1,4 +1,8 @@
-# 为什么是 Vitest ？
+---
+title: Why Vitest | Guide
+---
+
+# 为什么是 Vitest
 
 :::tip 提示
 该文档假设你是熟悉 Vite 的。开始阅读之前建议先浏览 [为什么选 Vite](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS](https://www.bilibili.com/video/BV1kh411Q7WN) ，在视频中[尤雨溪](https://github.com/yyx990803)做了一个示范来解释 Vite 的主要概念。

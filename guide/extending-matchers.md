@@ -1,5 +1,8 @@
-# 扩展断言(Matchers)
+---
+title: Extending Matchers | Guide
+---
 
+# 扩展断言(Matchers)
 
 由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 `chai.use` API 或者 `expect.extend`。
 
