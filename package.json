@@ -17,30 +17,19 @@
     "vue": "^3.2.37"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@antfu/ni": "^0.17.2",
-    "@iconify-json/carbon": "^1.1.5",
-=======
     "@iconify-json/carbon": "^1.1.6",
->>>>>>> a7e8ab2fa3e79f0db04af13bd8755729948b84f3
     "@types/node": "^17.0.35",
     "@unocss/reset": "^0.44.3",
     "@vitejs/plugin-vue": "^2.3.3",
     "esno": "^0.14.1",
     "fast-glob": "^3.2.11",
     "https-localhost": "^4.7.1",
-<<<<<<< HEAD
     "pnpm": "^7.5.1",
-    "unocss": "^0.39.3",
-    "unplugin-vue-components": "^0.19.6",
-    "vite": "^2.9.10",
-    "vite-plugin-pwa": "^0.12.0",
-=======
     "unocss": "^0.44.3",
     "unplugin-vue-components": "^0.21.1",
     "vite": "^2.9.14",
     "vite-plugin-pwa": "^0.12.3",
->>>>>>> a7e8ab2fa3e79f0db04af13bd8755729948b84f3
     "vitepress": "^1.0.0-alpha.4",
     "workbox-window": "^6.5.3"
   }
