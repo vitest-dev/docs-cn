@@ -1701,7 +1701,11 @@ type TestFunction = () => Awaitable<void>
     // 在所有测试运行之前调用一次
     await startMocking()
 
+<<<<<<< HEAD
     // 在所有测试运行后调用一次
+=======
+    // clean up function, called once after all tests run
+>>>>>>> 5049b30179fabb5cbb3ab42d639a784b10a663f3
     return async () => {
       await stopMocking()
     }
@@ -1758,6 +1762,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
     .advanceTimersToNextTimer() // log 2
     .advanceTimersToNextTimer() // log 3
   ```
+
+### vi.clearAllMocks
+
+  Will call [`.mockClear()`](/api/#mockclear) on all spies. This will clear mock history, but not reset its implementation to the default one.
 
 ### vi.clearAllTimers
 
@@ -1823,6 +1831,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   - 如果 `__mocks__` 文件夹下存在同名文件，则所有导入都将返回其导出。例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
   - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。(有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。)
 
+<<<<<<< HEAD
 ### vi.setSystemTime
 
 - **类型**: `(date: string | number | Date) => void`
@@ -1842,6 +1851,8 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   vi.useRealTimers()
   ```
 
+=======
+>>>>>>> 5049b30179fabb5cbb3ab42d639a784b10a663f3
 ### vi.mocked
 
 - **类型**: `<T>(obj: T, deep?: boolean) => MaybeMockedDeep<T>`
@@ -1881,6 +1892,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
   导入一个被模拟的包含其所有属性 (包括嵌套属性) 的模块。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
 
+### vi.resetAllMocks
+
+  Will call [`.mockReset()`](/api/#mockreset) on all spies. This will clear mock history and reset its implementation to an empty function (will return `undefined`).
+
 ### vi.resetModules
 
 - **类型**: `() => Vitest`
@@ -1905,6 +1920,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
     expect(mod.getlocalState()).toBe('old value')
   })
   ```
+
+### vi.restoreAllMocks
+
+  Will call [`.mockRestore()`](/api/#mockrestore) on all spies. This will clear mock history and reset its implementation to the original one.
 
 ### vi.restoreCurrentDate
 
@@ -1948,6 +1967,25 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   setInterval(() => console.log(++i), 50)
 
   vi.runOnlyPendingTimers()
+  ```
+
+### vi.setSystemTime
+
+- **Type**: `(date: string | number | Date) => void`
+
+  Sets current date to the one that was passed. All `Date` calls will return this date.
+
+  Useful if you need to test anything that depends on the current date - for example [luxon](https://github.com/moment/luxon/) calls inside your code.
+
+  ```ts
+  const date = new Date(1998, 11, 19)
+
+  vi.useFakeTimers()
+  vi.setSystemTime(date)
+
+  expect(Date.now()).toBe(date.valueOf())
+
+  vi.useRealTimers()
   ```
 
 ### vi.spyOn
