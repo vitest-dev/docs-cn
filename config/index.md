@@ -109,6 +109,12 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 将 CJS 模块的默认值视为命名导出。
 
+### alias
+
+- **Type:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
+
+Define custom aliases when running inside tests. They will be merged with aliases from `resolve.alias`.
+
 ### globals
 
 - **类型:** `boolean`
