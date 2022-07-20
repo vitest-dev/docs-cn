@@ -1701,11 +1701,7 @@ type TestFunction = () => Awaitable<void>
     // 在所有测试运行之前调用一次
     await startMocking()
 
-<<<<<<< HEAD
-    // 在所有测试运行后调用一次
-=======
-    // clean up function, called once after all tests run
->>>>>>> 5049b30179fabb5cbb3ab42d639a784b10a663f3
+    // 清理函数，在所有测试运行后调用一次
     return async () => {
       await stopMocking()
     }
@@ -1831,28 +1827,6 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   - 如果 `__mocks__` 文件夹下存在同名文件，则所有导入都将返回其导出。例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
   - 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。(有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。)
 
-<<<<<<< HEAD
-### vi.setSystemTime
-
-- **类型**: `(date: string | number | Date) => void`
-
-  将当前日期设置为一个过去的日期。所有 `Date` 调用都将返回此日期。
-
-  有助于你测试依赖当前日期的任何内容 —— 例如，你代码中的 [luxon](https://github.com/moment/luxon/) 调用。
-
-  ```ts
-  const date = new Date(1998, 11, 19)
-
-  vi.useFakeTimers()
-  vi.setSystemTime(date)
-
-  expect(Date.now()).toBe(date.valueOf())
-
-  vi.useRealTimers()
-  ```
-
-=======
->>>>>>> 5049b30179fabb5cbb3ab42d639a784b10a663f3
 ### vi.mocked
 
 - **类型**: `<T>(obj: T, deep?: boolean) => MaybeMockedDeep<T>`
@@ -1971,11 +1945,11 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.setSystemTime
 
-- **Type**: `(date: string | number | Date) => void`
+- **类型**: `(date: string | number | Date) => void`
 
-  Sets current date to the one that was passed. All `Date` calls will return this date.
+  将当前日期设置为一个过去的日期。所有 `Date` 调用都将返回此日期。
 
-  Useful if you need to test anything that depends on the current date - for example [luxon](https://github.com/moment/luxon/) calls inside your code.
+  有助于你测试依赖当前日期的任何内容 —— 例如，你代码中的 [luxon](https://github.com/moment/luxon/) 调用。
 
   ```ts
   const date = new Date(1998, 11, 19)

@@ -48,7 +48,6 @@ vitest related /src/index.ts /src/hello-world.js
 
 | 选项       |        描述       |
 | ------------- | ------------- |
-<<<<<<< HEAD
 | `-v, --version` | 显示版本号 |
 | `-r, --root <path>` | 定义项目根目录 |
 | `-c, --config <path>` | 定义配置文件路径 |
@@ -66,52 +65,20 @@ vitest related /src/index.ts /src/hello-world.js
 | `--outputTruncateLength <length>` | 使用 `<length>` 指定截断输出差异的字符行数 |
 | `--outputDiffLines <lines>` | 使用 `<lines>` 指定输出差线的数量 |
 | `--outputFile <filename/-s>` | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
-| `--coverage` | 使用 c8 进行覆盖 |
+| `--coverage` | 使用 c8 进行覆盖率输出 |
 | `--run` | 不使用浏览模式 |
 | `--mode` | 覆盖 Vite 模式 (default: `test`) |
 | `--mode <name>` | 覆盖 Vite 模式 (default: `test`) |
 | `--globals` | 注入全局 API |
 | `--dom` | 使用 happy-dom 模拟浏览器 API |
+| `--browser` | 在浏览器中运行测试 |
 | `--environment <env>` | 设置运行的环境 (default: `node`) |
 | `--passWithNoTests` | 未找到测试时通过 |
 | `--allowOnly` | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise) |
 | `--changed [since]` | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed) |
 | `--shard <shard>` | 配置测试分片 |
-| `--sequence` | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）|
+| `--sequence` | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试） |
 | `-h, --help` | 显示可用的 CLI 选项 |
-=======
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--threads` | Enable Threads (default: `true`) |
-| `--silent` | Silent console output from tests |
-| `--isolate` | Isolate environment for each test file (default: `true`) |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputTruncateLength <length>` | Truncate output diff lines up to `<length>` number of characters. |
-| `--outputDiffLines <lines>` | Limit number of output diff lines up to `<lines>`. |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Use c8 for coverage |
-| `--run` | Do not watch |
-| `--mode` | Override Vite mode (default: `test`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser api with happy-dom |
-| `--browser` | Run tests in browser |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.suffle` to run tests in random order) |
-| `-h, --help` | Display available CLI options |
->>>>>>> 5049b30179fabb5cbb3ab42d639a784b10a663f3
 
 ### 变更
 
