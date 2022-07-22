@@ -4,13 +4,21 @@ title: Snapshot | Guide
 
 # 测试快照
 
+<<<<<<< HEAD
 当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
+=======
+Snapshot tests are a very useful tool whenever you want to make sure the output of your functions does not change unexpectedly.
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 使用快照时，Vitest 将获取给定值的快照，将其比较时将参考存储在测试旁边的快照文件。如果两个快照不匹配，则测试将失败：要么更改是意外的，要么参考快照需要更新到测试结果的新版本。
 
 ## 使用快照
 
+<<<<<<< HEAD
 要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
+=======
+To snapshot a value, you can use the [`toMatchSnapshot()`](/api/#tomatchsnapshot) from `expect()` API:
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 import { expect, it } from 'vitest'
@@ -55,11 +63,19 @@ it('toUpperCase', () => {
 })
 ```
 
+<<<<<<< HEAD
 这允许您直接查看期望输出，而无需跨不同的文件跳转。
+=======
+This allows you to see the expect output directly without jumping across different files.
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 更新快照
 
+<<<<<<< HEAD
 当接收到的值与快照不匹配时，测试将失败，并显示它们之间的差异。当需要更改快照时，你可能希望从当前状态更新快照。
+=======
+When the received value doesn't match with the snapshot, the test would fail and show you the difference between them. When the snapshot change is expected, you may want to update the snapshot from the current state.
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 在监听(watch)模式下, 你可以在终端中键入 `u` 键直接更新失败的快照。
 
@@ -71,7 +87,15 @@ vitest -u
 
 ## 图像快照
 
+<<<<<<< HEAD
 快照图像也可以使用 [`jest-image-snapshot`](https://github.com/americanexpress/jest-image-snapshot)。
+=======
+It's also possible to snapshot images using [`jest-image-snapshot`](https://github.com/americanexpress/jest-image-snapshot).
+
+```bash
+npm i -D jest-image-snapshot
+```
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 test('image snapshot', () => {
@@ -137,7 +161,11 @@ Vitest提供了与 [Jest's](https://jestjs.io/docs/snapshot-testing) 几乎兼�
 + // Vitest Snapshot v1
 ```
 
+<<<<<<< HEAD
 这实际上不会影响功能，但在从 Jest 迁移时可能会影响提交差异。
+=======
+This does not really affect the functionality but might affect your commit diff when migrating from Jest.
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 #### 2. `printBasicPrototype` 默认为 `false`
 
@@ -173,7 +201,11 @@ test('snapshot', () => {
 })
 ```
 
+<<<<<<< HEAD
 我们相信这种预设有更好的可读性和开发体验。如果您仍然喜欢 Jest 的行为，可以通过以下方式更改配置：
+=======
+We believe this is a more reasonable default for readability and overall DX. If you still prefer Jest's behavior, you can change your config:
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 // vitest.config.js

@@ -1,8 +1,12 @@
 ---
-title: Tests Filtering | Guide
+title: Test Filtering | Guide
 ---
 
+<<<<<<< HEAD
 # 测试筛选
+=======
+# Test Filtering
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 用于测试套件(suite)和测试的筛选(filtering)、超时(timeouts)、并发(concurrent)。
 
@@ -39,7 +43,11 @@ import { beforeAll } from 'vitest'
 beforeAll(async () => { /* ... */ }, 1000)
 ```
 
+<<<<<<< HEAD
 ## 跳过测试套件和测试
+=======
+## Skipping Suites and Tests
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 使用 `.skip` 以避免运行某些测试套件或测试
 
@@ -61,7 +69,11 @@ describe('suite', () => {
 })
 ```
 
+<<<<<<< HEAD
 ## 选择要运行的测试套件和测试
+=======
+## Selecting Suites and Tests to Run
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 使用 `.only` 仅运行某些测试套件或测试
 
@@ -88,7 +100,11 @@ describe('another suite', () => {
 })
 ```
 
+<<<<<<< HEAD
 ## 未实现的测试套件和测试
+=======
+## Unimplemented Suites and Tests
+>>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 使用 `.todo` 留存将要实施的测试套件和测试的待办事项
 

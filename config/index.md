@@ -307,6 +307,13 @@ test('use jsdom in this test file', () => {
 
 钩子(hook)的默认超时时间（以毫秒为单位）。
 
+### teardownTimeout
+
+- **Type:** `number`
+- **Default:** `1000`
+
+Default timeout to wait for close when Vitest shuts down, in milliseconds
+
 ### silent
 
 - **类型:** `boolean`
