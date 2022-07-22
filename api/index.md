@@ -1761,7 +1761,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.clearAllMocks
 
-  将在所有对象监听(spies)上调用 [`.mockClear()`](/api/#mockclear)。这将清除对象模拟(mock)历史，但不会将其实现重置为默认实现。
+  将在所有对象监听(spies)上调用 [`.mockClear()`](/api/#mockclear)。这将清除模拟对象(mock)历史，但不会将其实现重置为默认实现。
 
 ### vi.clearAllTimers
 
@@ -1868,7 +1868,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.resetAllMocks
 
-  将在所有对象监听(spies)上调用 [`.mockReset()`](/api/#mockreset)。这将清除对象模拟(mock)历史并将其实现重置为空函数（将返回 `undefined`）。
+  将在所有对象监听(spies)上调用 [`.mockReset()`](/api/#mockreset)。这将清除模拟对象历史并将其实现重置为空函数（将返回 `undefined`）。
 
 ### vi.resetModules
 
@@ -1897,7 +1897,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.restoreAllMocks
 
-  将在所有对象监听(spies)上调用 [`.mockRestore()`](/api/#mockrestore)。这将清除对象模拟(mock)历史并将其实现重置为原始实现。
+  将在所有对象监听(spies)上调用 [`.mockRestore()`](/api/#mockrestore)。这将清除模拟对象历史并将其实现重置为原始实现。
 
 ### vi.restoreCurrentDate
 
