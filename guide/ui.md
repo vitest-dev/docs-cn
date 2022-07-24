@@ -4,7 +4,11 @@ title: Vitest UI | Guide
 
 # Vitest UI
 
+<<<<<<< HEAD
 Vitest 由 Vite 提供能力，在运行测试时有一个开发服务器。这允许 Vitest 提供一个漂亮的 UI 界面来查看并与测试交互。Vitest 的 UI 界面是可选的，你可以通过以下安装：
+=======
+Powered by Vite, Vitest also has a dev server under the hood when running the tests. This allows Vitest to provide a beautiful UI to view and interact with your tests. The Vitest UI is optional, so you'll need to install it with:
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ```bash
 npm i -D @vitest/ui

@@ -4,9 +4,15 @@ title: In-source testing | Guide
 
 # 源码内联测试
 
+<<<<<<< HEAD
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，就像是 [Rust 语言的模块测试一样](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
 
 这允许测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
+=======
+Vitest also provides a way to run tests within your source code along side the implementation, similar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
+
+This makes the tests share the same closure as the implementations and able to test against private states without exporting. Meanwhile, it also brings a closer feedback loop for development.
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ## 指引
 
@@ -52,7 +58,11 @@ $ npx vitest
 
 ## 生产环境构建
 
+<<<<<<< HEAD
 对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
+=======
+For the production build, you will need to set the `define` options in your config file, letting the bundler do the dead code elimination. For example, in Vite
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ```diff
 // vite.config.ts
@@ -75,9 +85,9 @@ export default defineConfig({
 
 ```diff
 // build.config.ts
-import { defineConfig } from 'unbuild'
+import { defineBuildConfig } from 'unbuild'
 
-export default defineConfig({
+export default defineBuildConfig({
 + replace: {
 +   'import.meta.vitest': 'undefined',
 + },

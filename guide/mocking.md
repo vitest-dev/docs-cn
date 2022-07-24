@@ -154,11 +154,19 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 模拟模块监听在其他代码中调用的第三方库，允许你测试参数、输出甚至重新声明其实现。
 
+<<<<<<< HEAD
 参见 [`vi.mock()` API 部分](/api/#vi-mock) 以获得更深入详细 API 描述。
+=======
+See the [`vi.mock()` api section](/api/#vi-mock) for a more in-depth detailed API description.
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ### 自动模拟算法(Automocking algorithm)
 
+<<<<<<< HEAD
 如果你的代码导入了模拟模块，并且没有任何与此模块相关联的 `__mocks__` 文件或 `factory`，Vitest 将通过调用模块并模拟每个导出来的模拟模块本身。
+=======
+If your code is importing a mocked module, without any associated `__mocks__` file or `factory` for this module, Vitest will mock the module itself by invoking it and mocking every export.
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 以下原则适用
 * 所有的数组将被清空
@@ -271,7 +279,11 @@ Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许
 
 ### 配置
 
+<<<<<<< HEAD
 将以下内容添加到测试中 [配置文件](/config/#setupfiles)。
+=======
+You can use it like below in your [setup file](/config/#setupfiles)
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
@@ -321,9 +333,15 @@ afterEach(() => server.resetHandlers())
 
 MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs/recipes).
 
+<<<<<<< HEAD
 ## 计时器
 
 每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 “假” 计时器来加速测试。
+=======
+Whenever we test code that involves `timeOut`s or intervals, instead of having our tests wait it out or timeout. We can speed up our tests by using "fake" timers by mocking calls to `setTimeout` and `setInterval`, too.
+
+See the [`vi.usefaketimers` api section](/api/#vi-usefaketimers) for a more in depth detailed API description.
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 有关更深入的详细 API 描述，参阅 [`vi.mock()` api 部分](/api/#vi-usefaketimer)。
 

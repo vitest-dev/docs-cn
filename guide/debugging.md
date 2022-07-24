@@ -28,7 +28,11 @@ title: Debugging | Guide
 }
 ```
 
+<<<<<<< HEAD
 然后在调试选项卡中确保选择 'Debug Current Test File'，然后你可以打开要调试的测试文件并按 F5 开始调试。
+=======
+Then in the debug tab, ensure 'Debug Current Test File' is selected. You can then open the test file you want to debug and press F5 to start debugging.
+>>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ## IntelliJ IDEA
 
