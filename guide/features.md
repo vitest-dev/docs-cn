@@ -11,11 +11,7 @@ outline: deep
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用程序中的相同配置来运行测试。
 
-<<<<<<< HEAD
 了解更多信息 [配置 Vitest](/guide/#配置-vitest)
-=======
-Learn more at [Configuring Vitest](/guide/#configuring-vitest).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 监听模式(watch mode)
 
@@ -23,53 +19,29 @@ Learn more at [Configuring Vitest](/guide/#configuring-vitest).
 $ vitest
 ```
 
-<<<<<<< HEAD
 当你修改源代码或测试文件时，Vitest 智能搜索模块依赖树并只重新运行相关测试，[just like how HMR works in Vite!](https://twitter.com/antfu7/status/1468233216939245579)
-=======
-When you modify your source code or the test files, Vitest smartly searches the module graph and only reruns the related tests, [just like how HMR works in Vite!](https://twitter.com/antfu7/status/1468233216939245579)
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 `vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 
 ## 开箱即用的常见 Web 支持
 
-<<<<<<< HEAD
 开箱即用的 ES Module / TypeScript / JSX support / PostCSS
-=======
-Out-of-the-box ES Module / TypeScript / JSX support / PostCSS
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 多线程
 
-<<<<<<< HEAD
 通过 [tinypool](https://github.com/Aslemammad/tinypool) 使用 Worker 线程尽可能多地并发运行（ [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支），允许多个测试同时运行。Vitest 默认启动多线程，可以通过 CLI 中的 `--no-threads` 禁用。
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
-=======
-Workers multi-threading via [tinypool](https://github.com/Aslemammad/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)), allowing tests to run simultaneously. Threads are enabled by default in Vitest, and can be disabled by passing `--no-threads` in the CLI.
-
-Vitest also isolates each file's environment so env mutations in one file don't affect others. Isolation can be disabled by passing `--no-isolate` to the CLI (trading correctness for run performance).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 测试可过滤
 
-<<<<<<< HEAD
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
 了解更多信息 [测试筛选](./filtering.md)
-=======
-Vitest provided many ways to narrow down the tests to run in order to speed up testing so you can focus on development.
-
-Learn more about [Test Filtering](./filtering.md).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 同时运行多个测试
 
-<<<<<<< HEAD
 在连续测试中使用 `.concurrent` 将会并发运行它们。
-=======
-Use `.concurrent` in consecutive tests to run them in parallel.
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 import { describe, it } from 'vitest'
@@ -81,11 +53,7 @@ describe('suite', () => {
 })
 ```
 
-<<<<<<< HEAD
 如果在测试套件中使用 `.concurrent`，则其中的每个测试用例都将并发运行。
-=======
-If you use `.concurrent` on a suite, every test in it will be run in parallel.
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 import { describe, it } from 'vitest'
@@ -97,11 +65,9 @@ describe.concurrent('suite', () => {
 })
 ```
 
-<<<<<<< HEAD
-您还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。了解更多信息 [API 参考](../api/#concurrent)
-=======
-You can also use `.skip`, `.only`, and `.todo` with concurrent suites and tests. Read more in the [API Reference](../api/#concurrent).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
+你还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。
+
+了解更多信息 [API 索引](../api/#concurrent)
 
 ## 快照
 
@@ -115,7 +81,6 @@ it('renders correctly', () => {
 })
 ```
 
-<<<<<<< HEAD
 了解更多信息 [快照](/guide/snapshot)
 
 ## Chai 和 Jest 的 expect 语法兼容
@@ -123,23 +88,10 @@ it('renders correctly', () => {
 内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 APIs
 
 注意，如果你正在使用添加匹配器的第三方库，将 `test.globals` 设置为 `true` 将提供更好的兼容性。
-=======
-Learn more at [Snapshot](/guide/snapshot).
-
-## Chai and Jest `expect` compatibility
-
-[Chai](https://www.chaijs.com/) is built-in for assertions plus [Jest `expect`](https://jestjs.io/docs/expect)-compatible APIs.
-
-Notice that if you are using third-party libraries that add matchers, setting `test.globals` to `true` will provide better compatibility.
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 对象模拟(Mocking)
 
-<<<<<<< HEAD
 内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
-=======
-[Tinyspy](https://github.com/Aslemammad/tinyspy) is built-in for mocking with `jest`-compatible APIs on `vi` object.
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -152,7 +104,7 @@ fn('world', 2)
 expect(fn.mock.results[1].value).toBe('world')
 ```
 
-Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以您可能需要安装：
+Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以你可能需要安装：
 
 ```bash
 $ npm i -D happy-dom
@@ -172,19 +124,11 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 了解更多信息 [模拟对象](/guide/mocking)
-=======
-Learn more at [Mocking](/guide/mocking).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ## 覆盖率
 
-<<<<<<< HEAD
 Vitest 通过 [c8](https://github.com/bcoe/c8) 来输出代码测试覆盖率。
-=======
-Vitest supports Native code coverage via [c8](https://github.com/bcoe/c8).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```json
 {
@@ -211,15 +155,9 @@ export default defineConfig({
 
 ## 源码内联测试
 
-<<<<<<< HEAD
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，类似 [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
 
 这使得测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
-=======
-Vitest also provides a way to run tests within your source code along with the implementation, similar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
-
-This makes the tests share the same closure as the implementations and able to test against private states without exporting. Meanwhile, it also brings the feedback loop closer for development.
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
 
 ```ts
 // src/index.ts
@@ -238,8 +176,4 @@ if (import.meta.vitest) {
 }
 ```
 
-<<<<<<< HEAD
 了解更多信息 [源码内联测试](/guide/in-source)
-=======
-Learn more at [In-source testing](/guide/in-source).
->>>>>>> 41ccb76cd6255de9f5eb555ee11e6743842eaba0
