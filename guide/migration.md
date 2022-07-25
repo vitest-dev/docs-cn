@@ -62,11 +62,7 @@ Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是�
 
 **定时器**
 
-<<<<<<< HEAD
 Vitest 不支持 jest 的传统计时器。
-=======
-Vitest doesn't support Jest's legacy timers.
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 **it.each**
 
@@ -95,11 +91,7 @@ it.each([
 
 **Vue 快照**
 
-<<<<<<< HEAD
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
-=======
-This is not a Jest-specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and use it inside [setupFiles](/config/#setupfiles):
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ```ts
 import vueSnapshotSerializer from 'jest-serializer-vue'

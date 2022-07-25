@@ -55,27 +55,15 @@ it('toUpperCase', () => {
 })
 ```
 
-<<<<<<< HEAD
 这允许你直接查看期望输出，而无需跨不同的文件跳转。
-=======
-This allows you to see the expected output directly without jumping across different files.
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ## 更新快照
 
-<<<<<<< HEAD
 当接收到的值与快照不匹配时，测试将失败，并显示它们之间的差异。当需要更改快照时，你可能希望从当前状态更新快照。
 
 在监听(watch)模式下, 你可以在终端中键入 `u` 键直接更新失败的快照。
 
 或者，你可以在 CLI 中使用 `--updateSnapshot` 或 `-u` 参数使 Vitest 进入快照更新模式。
-=======
-When the received value doesn't match the snapshot, the test fails and shows you the difference between them. When the snapshot change is expected, you may want to update the snapshot from the current state.
-
-In watch mode, you can press the `u` key in the terminal to update the failed snapshot directly.
-
-Or you can use the `--updateSnapshot` or `-u` flag in the CLI to make Vitest update snapshots.
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 ```bash
 vitest -u

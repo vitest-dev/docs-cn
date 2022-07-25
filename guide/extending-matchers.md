@@ -4,15 +4,9 @@ title: Extending Matchers | Guide
 
 # 扩展断言(Matchers)
 
-<<<<<<< HEAD
 由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 `chai.use` API 或者 `expect.extend`。
 
 本文将以 `expect.extend` 为例探讨扩展断言。如果你对 Chai 的 API 更感兴趣，可以查看[它的指南](https://www.chaijs.com/guide/plugins/)。
-=======
-Since Vitest is compatible with both Chai and Jest, you can use either the `chai.use` API or `expect.extend`, whichever you prefer.
-
-This guide will explore extending matchers with `expect.extend`. If you are interested in Chai's API, check [their guide](https://www.chaijs.com/guide/plugins/).
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 为了扩展默认的断言，可以使用对象包裹断言的形式调用 `expect.extend` 方法。
 
@@ -34,13 +28,8 @@ expect.extend({
 interface MatcherResult {
   pass: boolean
   message: () => string
-<<<<<<< HEAD
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
   // 所以即便断言不通过，你也不必自己输出 diff
-=======
-  // If you pass these, they will automatically appear inside a diff when
-  // the matcher does not pass, so you don't need to print the diff yourself
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
   actual?: unknown
   expected?: unknown
 }
@@ -50,11 +39,7 @@ interface MatcherResult {
 如果你创建了一个异步断言，记得在测试代码的结果前使用 `await` 关键字(`await expect('foo').toBeFoo()`)
 :::
 
-<<<<<<< HEAD
 断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。
-=======
-The first argument inside a matcher's function is the received value (the one inside `expect(received)`). The rest are arguments passed directly to the matcher.
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 
@@ -68,13 +53,7 @@ The first argument inside a matcher's function is the received value (the one in
 
 - `equals`
 
-<<<<<<< HEAD
-  这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。
-  <!--  TODO: It supports objects with asymmetric matchers by default. -->
-  默认情况下，它支持非对称的断言。
-=======
-  This is a utility function that allows you to compare two values. It will return `true` if values are equal, `false` otherwise. This function is used internally for almost every matcher. It supports objects with asymmetric matchers by default.
->>>>>>> 975ec8dca5830d886aa6968a0854a831805baa06
+  这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。默认情况下，它支持非对称的断言。
 
 - `utils`
 
