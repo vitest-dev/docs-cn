@@ -271,7 +271,8 @@ Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许
 
 ### 配置
 
-将以下内容添加到测试中 [配置文件](/config/#setupfiles)。
+如下，你可以在你的 [配置文件](/config/#setupfiles) 中使用。
+
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
@@ -325,7 +326,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 “假” 计时器来加速测试。
 
-有关更深入的详细 API 描述，参阅 [`vi.mock()` api 部分](/api/#vi-usefaketimer)。
+有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/#vi-usefaketimer)。
 
 ### 示例
 

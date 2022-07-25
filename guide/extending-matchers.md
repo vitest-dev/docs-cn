@@ -53,9 +53,7 @@ interface MatcherResult {
 
 - `equals`
 
-  这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。
-  <!--  TODO: It supports objects with asymmetric matchers by default. -->
-  默认情况下，它支持非对称的断言。
+  这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。默认情况下，它支持非对称的断言。
 
 - `utils`
 
