@@ -531,6 +531,13 @@ export default defineConfig({
 
 允许标记为 only 的测试和套件。
 
+### dangerouslyIgnoreUnhandledErrors
+
+- **Type**: `boolean`
+- **Default**: `false`
+
+Ignore any unhandled errors that occur.
+
 ### passWithNoTests
 
 - **类型**: `boolean`
