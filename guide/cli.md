@@ -75,6 +75,7 @@ vitest related /src/index.ts /src/hello-world.js
 | `--environment <env>` | 设置运行的环境 (default: `node`) |
 | `--passWithNoTests` | 未找到测试时通过 |
 | `--allowOnly` | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise) |
+| `--dangerouslyIgnoreUnhandledErrors` | 忽略发生的任何未处理的错误 |
 | `--changed [since]` | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed) |
 | `--shard <shard>` | 配置测试分片 |
 | `--sequence` | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试） |
