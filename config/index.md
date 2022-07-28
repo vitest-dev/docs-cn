@@ -536,7 +536,7 @@ export default defineConfig({
 - **Type**: `boolean`
 - **Default**: `false`
 
-Ignore any unhandled errors that occur.
+忽略发生的任何未处理的错误。
 
 ### passWithNoTests
 
