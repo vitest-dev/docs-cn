@@ -102,6 +102,15 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 如果包在 ESM 和 CJS 模式下具有不同的逻辑，可能会导致一些错误的产生。
 
+#### deps.registerNodeLoader
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Use [experimental Node loader](https://nodejs.org/api/esm.html#loaders) to resolve imports inside `node_modules`, using Vite resolve algorithm.
+
+If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside `node_modules` or `deps.external`.
+
 #### deps.interopDefault
 
 - **类型:** `boolean`
