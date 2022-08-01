@@ -111,15 +111,6 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 如果禁用，你的 `alias` 和 `<plugin>.resolveId` 不会影响 `node_modules` 或 `deps.external` 中的导入。
 
-#### deps.registerNodeLoader
-
-- **Type:** `boolean`
-- **Default:** `true`
-
-Use [experimental Node loader](https://nodejs.org/api/esm.html#loaders) to resolve imports inside `node_modules`, using Vite resolve algorithm.
-
-If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside `node_modules` or `deps.external`.
-
 #### deps.interopDefault
 
 - **类型:** `boolean`
