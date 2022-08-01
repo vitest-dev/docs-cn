@@ -104,12 +104,12 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 #### deps.registerNodeLoader
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Use [experimental Node loader](https://nodejs.org/api/esm.html#loaders) to resolve imports inside `node_modules`, using Vite resolve algorithm.
+使用 [实验性 Node 加载器](https://nodejs.org/api/esm.html#loaders) 解析 `node_modules` 中的导入，使用 Vite 解析算法。
 
-If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside `node_modules` or `deps.external`.
+如果禁用，你的 `alias` 和 `<plugin>.resolveId` 不会影响 `node_modules` 或 `deps.external` 中的导入。
 
 #### deps.interopDefault
 
@@ -120,9 +120,9 @@ If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside `
 
 ### alias
 
-- **Type:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
+- **类型:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
 
-Define custom aliases when running inside tests. They will be merged with aliases from `resolve.alias`.
+在测试内部运行时定义自定义别名。它们将与来自 `resolve.alias` 的别名合并。
 
 ### globals
 
