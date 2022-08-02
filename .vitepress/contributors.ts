@@ -56,8 +56,14 @@ const plainTeamMembers: CoreTeam[] = [
     name: 'Vladimir',
     github: 'sheremet-va',
     twitter: 'sheremet_va',
+<<<<<<< HEAD
     title: '全栈开源开发者',
     desc: 'Vitest 的核心团队成员',
+=======
+    sponsor: 'https://github.com/sponsors/sheremet-va',
+    title: 'An open source fullstack developer',
+    desc: 'Core team member of Vitest',
+>>>>>>> a3a8e9575c479541c1cb8644c66b939f284df38b
   },
   {
     avatar: contributorsAvatars['patak-dev'],
