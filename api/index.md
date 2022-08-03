@@ -1835,7 +1835,8 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
   TypeScript 的类型助手。实际上只是返回传递的对象。
 
-  When `partial` is `true` it will expect a `Partial<T>` as a return value.
+  当 `partial` 为 `true` 时，它会期望 `Partial<T>` 作为返回值。
+  
   ```ts
   import example from './example'
   vi.mock('./example')
