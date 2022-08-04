@@ -1829,8 +1829,8 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.mocked
 
+- **类型**: `<T>(obj: T, deep?: boolean) => MaybeMockedDeep<T>`
 - **类型**: `<T>(obj: T, options?: { partial?: boolean; deep?: boolean }) => MaybePartiallyMockedDeep<T>`
-
 
   TypeScript 的类型助手。实际上只是返回传递的对象。
 
