@@ -56,6 +56,7 @@ const plainTeamMembers: CoreTeam[] = [
     name: 'Vladimir',
     github: 'sheremet-va',
     twitter: 'sheremet_va',
+    sponsor: 'https://github.com/sponsors/sheremet-va',
     title: '全栈开源开发者',
     desc: 'Vitest 的核心团队成员',
   },
