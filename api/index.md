@@ -198,6 +198,8 @@ type TestFunction = () => Awaitable<void>
   // ✓ add(2, 1) -> 3
   ```
 
+  If you want to have access to `TestContext`, use `describe.each` with a single test.
+
 ## describe
 
 当你在文件的顶层使用 `test` 时，它们将作为隐式测试套件的一部分被收集。你可以使用 `describe` 在当前上下文中定义一个新的测试套件，将其看作一组相关测试或者有别于其它的嵌套测试套件。测试套件可让你组织你的测试用例，使报告更清晰。
