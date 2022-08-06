@@ -104,13 +104,8 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 #### deps.registerNodeLoader
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `true`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
->>>>>>> 07a270df370e161985ecbbecf5af0418c5864b1a
+- **默认值:** `false`
 
 使用 [实验性 Node 加载器](https://nodejs.org/api/esm.html#loaders) 解析 `node_modules` 中的导入，使用 Vite 解析算法。
 

@@ -198,7 +198,7 @@ type TestFunction = () => Awaitable<void>
   // ✓ add(2, 1) -> 3
   ```
 
-  If you want to have access to `TestContext`, use `describe.each` with a single test.
+  如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
 
 ## describe
 
