@@ -9,10 +9,11 @@ specifiers:
   esno: ^0.14.1
   fast-glob: ^3.2.11
   https-localhost: ^4.7.1
+  pnpm: ^7.5.0
   unocss: ^0.45.1
   unplugin-vue-components: ^0.21.2
   vite: 2.9.14
-  vite-plugin-pwa: 0.12.0
+  vite-plugin-pwa: 0.12.3
   vitepress: ^1.0.0-alpha.4
   vue: ^3.2.37
   workbox-window: ^6.5.4
@@ -29,10 +30,11 @@ devDependencies:
   esno: 0.14.1
   fast-glob: 3.2.11
   https-localhost: 4.7.1
+  pnpm: 7.9.0
   unocss: 0.45.5_vite@2.9.14
   unplugin-vue-components: 0.21.2_vite@2.9.14+vue@3.2.37
   vite: 2.9.14
-  vite-plugin-pwa: 0.12.0_vite@2.9.14
+  vite-plugin-pwa: 0.12.3_vite@2.9.14
   vitepress: 1.0.0-alpha.4
   workbox-window: 6.5.4
 
@@ -3451,6 +3453,12 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
+  /pnpm/7.9.0:
+    resolution: {integrity: sha512-xkIVw73yJm/h5M4VvFIS5Q+gQCRDrp3r92g58PtcCK86aZCa7EQ6q6ivdfTAz0KsAVgloA6Anub28n6wju5v3w==}
+    engines: {node: '>=14.6'}
+    hasBin: true
+    dev: true
+
   /postcss/8.4.14:
     resolution: {integrity: sha512-E398TUmfAYFPBSdzgeieK2Y1+1cpdxJx8yXbK/m57nRhKSmk1GB2tO4lbLBtlkfPQTDKfe4Xqv1ASWPpayPEig==}
     engines: {node: ^10 || ^12 || >=14}
@@ -4158,10 +4166,10 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-plugin-pwa/0.12.0_vite@2.9.14:
-    resolution: {integrity: sha512-KYD+cnS5ExLF3T28NkfzBLZ53ehHlp+qMhHGFNh0zlVGpFHrJkL2v9wd4AMi7ZkBTffgeNatIFiv8rhCsMSxBQ==}
+  /vite-plugin-pwa/0.12.3_vite@2.9.14:
+    resolution: {integrity: sha512-gmYdIVXpmBuNjzbJFPZFzxWYrX4lHqwMAlOtjmXBbxApiHjx9QPXKQPJjSpeTeosLKvVbNcKSAAhfxMda0QVNQ==}
     peerDependencies:
-      vite: ^2.0.0
+      vite: ^2.0.0 || ^3.0.0-0
     dependencies:
       debug: 4.3.4
       fast-glob: 3.2.11
