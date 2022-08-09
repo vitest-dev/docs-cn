@@ -2,7 +2,7 @@
   "name": "docs",
   "packageManager": "pnpm@7.5.0",
   "private": true,
-  "version": "0.19.1",
+  "version": "0.21.0",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
     "build": "pnpm run prefetch && vitepress build && esno .vitepress/scripts/build-pwa.ts",
