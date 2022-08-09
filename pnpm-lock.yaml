@@ -2,12 +2,14 @@ lockfileVersion: 5.4
 
 specifiers:
   '@iconify-json/carbon': ^1.1.7
+  '@types/fs-extra': ^9.0.13
   '@types/node': ^18.6.5
   '@unocss/reset': ^0.45.5
   '@vitejs/plugin-vue': ^3.0.1
   '@vueuse/core': ^9.1.0
   esno: ^0.16.3
   fast-glob: ^3.2.11
+  fs-extra: ^10.1.0
   https-localhost: ^4.7.1
   pnpm: ^7.9.0
   unocss: ^0.45.5
@@ -24,15 +26,17 @@ dependencies:
 
 devDependencies:
   '@iconify-json/carbon': 1.1.7
+  '@types/fs-extra': 9.0.13
   '@types/node': 18.6.5
   '@unocss/reset': 0.45.5
   '@vitejs/plugin-vue': 3.0.1_vite@3.0.4+vue@3.2.37
   esno: 0.16.3
   fast-glob: 3.2.11
+  fs-extra: 10.1.0
   https-localhost: 4.7.1
   pnpm: 7.9.0
   unocss: 0.45.5_vite@3.0.4
-  unplugin-vue-components: 0.22.2_t6vv62h5jee3sc5tmhqnozb26u
+  unplugin-vue-components: 0.22.3_t6vv62h5jee3sc5tmhqnozb26u
   vite: 3.0.4
   vite-plugin-pwa: 0.12.3_vite@3.0.4
   vitepress: 1.0.0-alpha.4_bnoix7udcyfzum3bz5llzjedt4
@@ -1549,6 +1553,12 @@ packages:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
     dev: true
 
+  /@types/fs-extra/9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+    dependencies:
+      '@types/node': 18.6.5
+    dev: true
+
   /@types/node/18.6.5:
     resolution: {integrity: sha512-Xjt5ZGUa5WusGZJ4WJPbOT8QOqp6nDynVFRKcUt32bOgvXEoc6o085WNkYTMO7ifAj2isEfQQ2cseE+wT6jsRw==}
     dev: true
@@ -2773,6 +2783,15 @@ packages:
   /fresh/0.5.2:
     resolution: {integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=}
     engines: {node: '>= 0.6'}
+    dev: true
+
+  /fs-extra/10.1.0:
+    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      graceful-fs: 4.2.10
+      jsonfile: 6.1.0
+      universalify: 2.0.0
     dev: true
 
   /fs-extra/9.1.0:
@@ -4149,8 +4168,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /unplugin-vue-components/0.22.2_t6vv62h5jee3sc5tmhqnozb26u:
-    resolution: {integrity: sha512-BTkXgiyIg45zL6rjCGcI0sbfNxgp/MGhLKd8CapuWpQecuX4AlMtHGWsANVXmrDgopHxAucS9Mh2l38IYv7InQ==}
+  /unplugin-vue-components/0.22.3_t6vv62h5jee3sc5tmhqnozb26u:
+    resolution: {integrity: sha512-f31VCJF0K9oXCzKizJqNpmQz2XYTA0gjq+E5zM3hB8JxZ6cy5sXxO91fK2pI1TFGeM3JCe6yC9BJDymkMbXnNg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@babel/parser': ^7.15.8
