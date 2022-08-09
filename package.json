@@ -24,14 +24,9 @@
     "esno": "^0.14.1",
     "fast-glob": "^3.2.11",
     "https-localhost": "^4.7.1",
-<<<<<<< HEAD
     "pnpm": "^7.5.0",
-    "unocss": "^0.45.1",
-    "unplugin-vue-components": "^0.21.2",
-=======
     "unocss": "^0.45.5",
     "unplugin-vue-components": "^0.22.0",
->>>>>>> b87ab56a20d1941621bf6a4bae025188686128ce
     "vite": "2.9.14",
     "vite-plugin-pwa": "0.12.3",
     "vitepress": "^1.0.0-alpha.4",
