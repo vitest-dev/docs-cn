@@ -102,6 +102,13 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
+  Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
+
+  In order to do that run `vitest` with specific file containing the tests in question.
+  ```
+  # vitest interesting.test.ts
+  ```
+
 ### test.concurrent
 
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
@@ -288,6 +295,13 @@ type TestFunction = () => Awaitable<void>
   describe('other suite', () => {
     // ... 测试套件将会被跳过
   })
+  ```
+
+  Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
+
+  In order to do that run `vitest` with specific file containing the tests in question.
+  ```
+  # vitest interesting.test.ts
   ```
 
 ### describe.concurrent

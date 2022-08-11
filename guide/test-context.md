@@ -48,7 +48,11 @@ it('should work', ({ foo }) => {
 
 ### TypeScript
 
+<<<<<<< HEAD
 你可以通过添加聚合(aggregate)类型 `TestContext`, 为你的自定义上下文属性提供类型。
+=======
+To provide property types for all your custom contexts, you can aggregate the `TestContext` type by adding
+>>>>>>> c5cdeb418e42730b46a28188650c52b79bcccbb7
 
 ```ts
 declare module 'vitest' {
@@ -58,3 +62,20 @@ declare module 'vitest' {
 }
 ```
 
+If you want to provide property types only for specific `beforeEach`, `afterEach`, `it` and `test` hooks, you can pass the type as a generic.
+
+```ts
+interface LocalTestContext {
+  foo: string
+}
+
+beforeEach<LocalTestContext>(async (context) => {
+  // typeof context is 'TestContext & LocalTestContext'
+  context.foo = 'bar'
+})
+
+it<LocalTestContext>('should work', ({ foo }) => {
+  // typeof foo is 'string'
+  console.log(foo) // 'bar'
+})
+```

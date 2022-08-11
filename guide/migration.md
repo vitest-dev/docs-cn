@@ -14,7 +14,24 @@ Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 
 如果你决定禁用全局 API，请注意像 [`testing-library`](https://testing-library.com/) 这样的通用库不会自动运行 DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
+<<<<<<< HEAD
 **自动模拟**
+=======
+**Module mocks**
+
+When mocking a module in Jest, the factory argument's return value is the default export. In Vitest, the factory argument has to return an object with each export explicitly defined. For example, the following `jest.mock` would have to be updated as follows:
+
+```diff
+- jest.mock('./some-path', () => 'hello')
++ vi.mock('./some-path', () => ({
++   default: 'hello',
++ })
+```
+
+For more details please refer to the [vi.mock api](/api/#vi-mock)
+
+**Auto-Mocking Behaviour**
+>>>>>>> c5cdeb418e42730b46a28188650c52b79bcccbb7
 
 区别于 Jest，在 `<root>/__mocks__` 中的模拟模块只有在 `vi.mock()` 被调用时才会加载。如果你需要它们像在 Jest 中一样，在每个测试中都被模拟，你可以在 [`setupFiles`](/config/#setupfiles) 中模拟它们。
 
