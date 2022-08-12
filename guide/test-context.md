@@ -48,7 +48,7 @@ it('should work', ({ foo }) => {
 
 ### TypeScript
 
-你可以通过添加聚合(aggregate)类型 `TestContext`, 为你的自定义上下文属性提供类型。
+你可以通过添加聚合(aggregate)类型 `TestContext`, 为所有你自定义的上下文提供属性类型。
 
 ```ts
 declare module 'vitest' {
@@ -58,3 +58,20 @@ declare module 'vitest' {
 }
 ```
 
+如果你只想为特定的 `beforeEach`、`afterEach`、`it` 或 `test` hooks 提供属性类型，则可以将类型作为泛型(generic)传递。
+
+```ts
+interface LocalTestContext {
+  foo: string
+}
+
+beforeEach<LocalTestContext>(async (context) => {
+  // typeof context is 'TestContext & LocalTestContext'
+  context.foo = 'bar'
+})
+
+it<LocalTestContext>('should work', ({ foo }) => {
+  // typeof foo is 'string'
+  console.log(foo) // 'bar'
+})
+```
