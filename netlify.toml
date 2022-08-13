@@ -4,7 +4,7 @@
 
 [build]
   publish = ".vitepress/dist"
-  command = "npx pnpm i --store=node_modules/.pnpm-store && npm run build"
+  command = "npx pnpm i --no-frozen-lockfile --ignore-scripts --store=node_modules/.pnpm-store && npm run build"
 
 [[redirects]]
   from = "https://cn-vitest.netlify.app/*"
