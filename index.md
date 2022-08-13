@@ -27,12 +27,21 @@ hero:
       link: https://github.com/vitest-dev/vitest
 
 features:
+<<<<<<< HEAD
   - title: Vite 支持
     details: 重复使用 Vite 的配置、转换器、解析器和插件 - 在您的应用程序和测试中保持一致。
   - title: 兼容 Jest
     details: 拥有预期、快照、覆盖等 - 从 Jest 迁移很简单。
   - title: 智能即时浏览模式
     details: 智能文件监听模式，就像是测试的 HMR！
+=======
+  - title: Vite Powered
+    details: Reuse Vite's config, transformers, resolvers, and plugins - consistent across your app and tests.
+  - title: Jest Compatible
+    details: Expect, snapshot, coverage, and more - migrating from Jest is straightforward.
+  - title: Smart & instant watch mode
+    details: Only rerun the related changes, just like HMR for tests!
+>>>>>>> 1b4cc9dce53e0918b357a18f7700e75f4f8023ad
   - title: ESM, TypeScript, JSX
     details: 由 esbuild 提供的开箱即用 ESM、TypeScript 和 JSX 支持。
 ---
