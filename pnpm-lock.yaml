@@ -14,11 +14,11 @@ specifiers:
   https-localhost: ^4.7.1
   ohmyfetch: ^0.4.18
   pathe: ^0.3.4
-  pnpm: ^7.9.0
+  pnpm: ^7.9.1
   unocss: ^0.45.6
   unplugin-vue-components: ^0.22.4
   vite: 2.9.14
-  vite-plugin-pwa: 0.12.2
+  vite-plugin-pwa: 0.12.3
   vitepress: 1.0.0-alpha.4
   vue: ^3.2.37
   workbox-window: ^6.5.4
@@ -40,11 +40,11 @@ devDependencies:
   https-localhost: 4.7.1
   ohmyfetch: 0.4.18
   pathe: 0.3.4
-  pnpm: 7.9.0
+  pnpm: 7.9.1
   unocss: 0.45.6_vite@2.9.14
   unplugin-vue-components: 0.22.4_omuiqvgedoqwj6axdviiyvlyfu
   vite: 2.9.14
-  vite-plugin-pwa: 0.12.2_vite@2.9.14
+  vite-plugin-pwa: 0.12.3_vite@2.9.14
   vitepress: 1.0.0-alpha.4_bnoix7udcyfzum3bz5llzjedt4
   workbox-window: 6.5.4
 
@@ -4715,8 +4715,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pnpm/7.9.0:
-    resolution: {integrity: sha512-xkIVw73yJm/h5M4VvFIS5Q+gQCRDrp3r92g58PtcCK86aZCa7EQ6q6ivdfTAz0KsAVgloA6Anub28n6wju5v3w==}
+  /pnpm/7.9.1:
+    resolution: {integrity: sha512-5vyV+FwZj5y31UDDsiq9xcVzF+mvS+IPdgAgkZ9rVxYPNKCCVwVn5LsHh9jcfuApiKYVgpyisAMcuSDbe1/C0Q==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: true
@@ -5672,8 +5672,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-plugin-pwa/0.12.2_vite@2.9.14:
-    resolution: {integrity: sha512-XK2oi1YZkoc1J8fyerNYxyh/yfb+INdrdOW/mOOD5DBLq7jVPxHQuncIhqiREbGOMlY/xMe9CSE7QZ9xIAEf7A==}
+  /vite-plugin-pwa/0.12.3_vite@2.9.14:
+    resolution: {integrity: sha512-gmYdIVXpmBuNjzbJFPZFzxWYrX4lHqwMAlOtjmXBbxApiHjx9QPXKQPJjSpeTeosLKvVbNcKSAAhfxMda0QVNQ==}
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0-0
     dependencies:
