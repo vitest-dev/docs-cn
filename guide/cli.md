@@ -79,6 +79,7 @@ vitest related /src/index.ts /src/hello-world.js
 | `--changed [since]` | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed) |
 | `--shard <shard>` | 配置测试分片 |
 | `--sequence` | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试） |
+| `--no-color` | 从控制台输出中禁用颜色 |
 | `-h, --help` | 显示可用的 CLI 选项 |
 
 ### 变更
