@@ -413,10 +413,110 @@ test('execute a script', async () => {
 
 ### coverage
 
+<<<<<<< HEAD
 - **类型:** `C8Options`
 - **默认值:** `undefined`
 
 使用 [C8](https://github.com/bcoe/c8) 设置测试覆盖率的配置选项
+=======
+- **Type:** `CoverageC8Options | CoverageIstanbulOptions`
+- **Default:** `undefined`
+
+You can use [`c8`](https://github.com/bcoe/c8) or [`istanbul`](https://istanbul.js.org/) for coverage collection.
+
+#### provider
+
+- **Type:** `'c8' | 'istanbul'`
+- **Default:** `'c8'`
+
+Use `provider` to select the tool for coverage collection.
+
+#### CoverageC8Options
+
+Used when `provider: 'c8'` is set. Coverage options are passed to [`c8`](https://github.com/bcoe/c8).
+
+#### CoverageIstanbulOptions
+
+Used when `provider: 'istanbul'` is set.
+
+##### exclude
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+List of files excluded from coverage as glob patterns.
+
+##### skipFull
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Do not show files with 100% statement, branch, and function coverage.
+
+##### perFile
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Check thresholds per file.
+
+##### lines
+
+- **Type:** `number`
+
+Threshold for lines.
+
+##### functions
+
+- **Type:** `number`
+
+Threshold for functions.
+
+##### branches
+
+- **Type:** `number`
+
+Threshold for branches.
+
+##### statements
+
+- **Type:** `number`
+
+Threshold for statements.
+
+##### ignoreClassMethods
+
+- **Type:** `string[]`
+- **Default:** []
+
+Set to array of class method names to ignore for coverage.
+
+##### watermarks
+
+- **Type:**
+<!-- eslint-skip -->
+```ts
+{
+  statements?: [number, number],
+  functions?: [number, number],
+  branches?: [number, number],
+  lines?: [number, number]
+}
+```
+
+- **Default:**
+<!-- eslint-skip -->
+```ts
+{
+  statements: [50, 80],
+  functions: [50, 80],
+  branches: [50, 80],
+  lines: [50, 80]
+}
+```
+
+Watermarks for statements, lines, branches and functions.
+>>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
 
 ### testNamePattern
 

@@ -556,7 +556,7 @@ type TestFunction = () => Awaitable<void>
   import { Stocks } from './stocks'
   const stocks = new Stocks()
 
-  test('if Bill stock hasnt failed, sell apples to him', () => {
+  test('if Bill stock hasn\'t failed, sell apples to him', () => {
     stocks.syncStocks('Bill')
     expect(stocks.stockFailed('Bill')).toBeFalsy()
   })
@@ -577,7 +577,7 @@ type TestFunction = () => Awaitable<void>
     return null
   }
 
-  test('we dont have apples', () => {
+  test('we don\'t have apples', () => {
     expect(apples()).toBeNull()
   })
   ```
@@ -1420,8 +1420,13 @@ type TestFunction = () => Awaitable<void>
       // 在选择时调用
       expect(data).toBeTruthy()
     })
+<<<<<<< HEAD
     // 如果不等待，测试将失败
     // 如果你没有 expect.hasAssertions()，测试将通过
+=======
+    // if not awaited, test will fail
+    // if you don't have expect.hasAssertions(), test will pass
+>>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
     await select(3)
   })
   ```
