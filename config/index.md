@@ -321,7 +321,7 @@ test('use jsdom in this test file', () => {
 - **Type:** `number`
 - **Default:** `1000`
 
-Default timeout to wait for close when Vitest shuts down, in milliseconds
+Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 ### silent
 
@@ -413,87 +413,81 @@ test('execute a script', async () => {
 
 ### coverage
 
-<<<<<<< HEAD
-- **类型:** `C8Options`
+- **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
 
-使用 [C8](https://github.com/bcoe/c8) 设置测试覆盖率的配置选项
-=======
-- **Type:** `CoverageC8Options | CoverageIstanbulOptions`
-- **Default:** `undefined`
-
-You can use [`c8`](https://github.com/bcoe/c8) or [`istanbul`](https://istanbul.js.org/) for coverage collection.
+你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
 
 #### provider
 
-- **Type:** `'c8' | 'istanbul'`
-- **Default:** `'c8'`
+- **类型:** `'c8' | 'istanbul'`
+- **默认值:** `'c8'`
 
-Use `provider` to select the tool for coverage collection.
+使用 `provider` 选择收集测试覆盖率的工具。
 
 #### CoverageC8Options
 
-Used when `provider: 'c8'` is set. Coverage options are passed to [`c8`](https://github.com/bcoe/c8).
+设置了 `provider: 'c8'` 时启用。 测试覆盖率选项被传递给 [`c8`](https://github.com/bcoe/c8)。
 
 #### CoverageIstanbulOptions
 
-Used when `provider: 'istanbul'` is set.
+设置了 `provider: 'istanbul'` 时启用。
 
 ##### exclude
 
-- **Type:** `string[]`
-- **Default:** `[]`
+- **类型:** `string[]`
+- **默认值:** `[]`
 
-List of files excluded from coverage as glob patterns.
+使用全局模式排除在覆盖范围之外的文件列表。
 
 ##### skipFull
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Do not show files with 100% statement, branch, and function coverage.
+是否显示具有 100% 语句、分支和函数的测试覆盖率的文件。
 
 ##### perFile
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Check thresholds per file.
+检查每个文件的阈值。
 
 ##### lines
 
-- **Type:** `number`
+- **类型:** `number`
 
-Threshold for lines.
+行的阈值。
 
 ##### functions
 
-- **Type:** `number`
+- **类型:** `number`
 
-Threshold for functions.
+函数的阈值。
 
 ##### branches
 
-- **Type:** `number`
+- **类型:** `number`
 
-Threshold for branches.
+分支的阈值。
 
 ##### statements
 
-- **Type:** `number`
+- **类型:** `number`
 
-Threshold for statements.
+语句的阈值。
 
 ##### ignoreClassMethods
 
-- **Type:** `string[]`
-- **Default:** []
+- **类型:** `string[]`
+- **默认值:** []
 
-Set to array of class method names to ignore for coverage.
+设置忽略测试覆盖率的类方法名称的数组。
 
 ##### watermarks
 
-- **Type:**
+- **类型:**
 <!-- eslint-skip -->
 ```ts
 {
@@ -504,7 +498,7 @@ Set to array of class method names to ignore for coverage.
 }
 ```
 
-- **Default:**
+- **默认值:**
 <!-- eslint-skip -->
 ```ts
 {
@@ -515,8 +509,7 @@ Set to array of class method names to ignore for coverage.
 }
 ```
 
-Watermarks for statements, lines, branches and functions.
->>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
+指定语句、行、分支和函数的水印位置。
 
 ### testNamePattern
 
@@ -542,7 +535,7 @@ test('doNotRun', () => {
 ### open
 
 - **类型:** `boolean`
-- **默认值为:** `false`
+- **默认值:** `false`
 
 打开 Vitest UI (WIP: 赞助者计划可用)
 

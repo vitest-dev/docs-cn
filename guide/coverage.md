@@ -4,21 +4,17 @@ title: Coverage | Guide
 
 # 测试覆盖率
 
-<<<<<<< HEAD
-Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。`c8` 是一个 peer 依赖，要使用覆盖率功能，你首先需要安装它：
-=======
-Vitest supports Native code coverage via [`c8`](https://github.com/bcoe/c8) and instrumented code coverage via [`istanbul`](https://istanbul.js.org/).
->>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
+Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
 
-## Coverage Providers
+## 覆盖率提供者
 
-:::tip
-Since Vitest v0.22.0
+:::tip 提醒
+从 Vitest v0.22.0 开始支持
 :::
 
-Both `c8` and `istanbul` support are optional. By default, `c8` will be used.
+`c8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `c8`。
 
-You can select the coverage tool by setting `test.coverage.provider` to either `c8` or `istanbul`:
+你可以通过将 `test.coverage.provider` 设置为 `c8` 或 `istanbul` 来选择覆盖工具：
 
 ```ts
 // vite.config.ts
@@ -33,12 +29,9 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-然后你就可以通过在 CLI 中传递 `--coverage` 标志来获得覆盖率。
-=======
-When you start the Vitest process, it will prompt you to install the corresponding support package automatically.
+当你启动 Vitest 进程时，它会提示你自动安装相应的支持包。
 
-Or if you prefer to install them manually:
+或者，如果你更喜欢手动安装它们：
 
 ```bash
 # For c8
@@ -48,10 +41,9 @@ npm i -D @vitest/coverage-c8
 npm i -D @vitest/coverage-istanbul
 ```
 
-## Coverage Setup
+## 覆盖率配置
 
-To test with coverage enabled, you can pass the `--coverage` flag in CLI.
->>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
+要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
 
 ```json
 {
@@ -77,9 +69,9 @@ export default defineConfig({
 })
 ```
 
-## Custom Coverage Provider
+## 自定义覆盖率提供者
 
-It's also possible to provide your custom coverage provider by passing an object to the `test.coverage.provider`:
+也可以通过将对象传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
 ```ts
 // vite.config.ts
@@ -95,4 +87,4 @@ export default defineConfig({
 })
 ```
 
-Please refer to the type definition for more details.
+请参阅类型定义查看有关详细信息。

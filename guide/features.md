@@ -126,13 +126,9 @@ export default defineConfig({
 
 了解更多信息 [模拟对象](/guide/mocking)
 
-## 覆盖率
+## 测试覆盖率
 
-<<<<<<< HEAD
-Vitest 通过 [c8](https://github.com/bcoe/c8) 来输出代码测试覆盖率。
-=======
-Vitest supports Native code coverage via [`c8`](https://github.com/bcoe/c8) and instrumented code coverage via [`istanbul`](https://istanbul.js.org/).
->>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
+Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
 
 ```json
 {
@@ -143,7 +139,6 @@ Vitest supports Native code coverage via [`c8`](https://github.com/bcoe/c8) and 
 }
 ```
 
-<<<<<<< HEAD
 可以在配置文件中设置 `test.coverage` 选项来配置它：
 
 ```ts
@@ -157,9 +152,8 @@ export default defineConfig({
   },
 })
 ```
-=======
-Learn more at [Coverage](/guide/coverage).
->>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
+
+了解更多信息 [测试覆盖率](/guide/coverage)
 
 ## 源码内联测试
 

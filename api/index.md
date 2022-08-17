@@ -1420,13 +1420,8 @@ type TestFunction = () => Awaitable<void>
       // 在选择时调用
       expect(data).toBeTruthy()
     })
-<<<<<<< HEAD
     // 如果不等待，测试将失败
     // 如果你没有 expect.hasAssertions()，测试将通过
-=======
-    // if not awaited, test will fail
-    // if you don't have expect.hasAssertions(), test will pass
->>>>>>> ac5537f406e90bbd3769bc9602ea19db2b98b7f6
     await select(3)
   })
   ```
