@@ -102,9 +102,9 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
-  Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
+  有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
 
-  In order to do that run `vitest` with specific file containing the tests in question.
+  为了做到这一点，运行 `vitest` 命令并带上包含有问题的测试的特定文件。
   ```
   # vitest interesting.test.ts
   ```
@@ -297,9 +297,9 @@ type TestFunction = () => Awaitable<void>
   })
   ```
 
-  Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
+  有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
 
-  In order to do that run `vitest` with specific file containing the tests in question.
+  为了做到这一点，运行 `vitest` 命令并带上包含有问题的测试的特定文件。
   ```
   # vitest interesting.test.ts
   ```
