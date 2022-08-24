@@ -51,10 +51,9 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 ## 选项
-=======
-When using a separate `vitest.config.js`, you can also extend Vite's options from another config file if needed:
+
+当使用单独的 `vitest.config.js` 时，如果需要，你还可以从另一个配置文件扩展 Vite 的选项：
 
 ```ts
 import { mergeConfig } from 'vite'
@@ -67,9 +66,6 @@ export default mergeConfig(viteConfig, defineConfig({
   },
 }))
 ```
-
-## Options
->>>>>>> 46659a962ee59afc3748ddffdad94340770b18d0
 
 :::tip 提醒
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
