@@ -132,7 +132,7 @@ Pretty foo: Object {
 
 ## 与 Jest 的区别
 
-Vitest提供了与 [Jest's](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
+Vitest提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
 #### 1. 快照文件中的注释标头不同
 
