@@ -12,7 +12,7 @@ title: Comparisons with Other Test Runners | Guide
 
 [Cypress](https://www.cypress.io/) 是基于浏览器的测试工具，是 Vitest 的补充工具之一。如果你想使用 Cypress，建议将 Vitest 用于测试项目中非浏览器逻辑，将 Cypress 用于测试依赖浏览器的逻辑。
 
-Cypress 是著名的端到端测试工具，他们 [最新的组件测试运行器](https://on.cypress.io/component) 对测试 Vite 组件有很好的支持，是测试任何在浏览器中渲染的东西的理想选择。
+Cypress 是著名的端到端测试工具，他们[最新的组件测试运行器](https://on.cypress.io/component) 对测试 Vite 组件有很好的支持，是测试任何在浏览器中渲染的东西的理想选择。
 
 基于浏览器运行测试的框架，例如 Cypress 和 Web Test，会捕获到 Vitest 无法捕获的问题，因为他们都是使用真实的浏览器和 APIs。
 
