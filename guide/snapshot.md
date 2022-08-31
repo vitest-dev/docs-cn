@@ -63,11 +63,7 @@ it('toUpperCase', () => {
 
 在监听(watch)模式下, 你可以在终端中键入 `u` 键直接更新失败的快照。
 
-<<<<<<< HEAD
-或者，你可以在 CLI 中使用 `--updateSnapshot` 或 `-u` 参数使 Vitest 进入快照更新模式。
-=======
-Or you can use the `--update` or `-u` flag in the CLI to make Vitest update snapshots.
->>>>>>> 021c5760d3d21ce995d06eb4763817c1aa664428
+或者，你可以在 CLI 中使用 `--update` 或 `-u` 标记使 Vitest 进入快照更新模式。
 
 ```bash
 vitest -u
