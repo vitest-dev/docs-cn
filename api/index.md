@@ -1679,7 +1679,11 @@ type TestFunction = () => Awaitable<void>
   注册一个回调,在当前上下文中的每个测试运行之后被调用。
   如果函数返回一个 Promise ，Vitest 会等到 Promise 解决后再继续。
 
+<<<<<<< HEAD
   或者，你可以设置超时（以毫秒为单位）以指定在终止前等待多长时间。 默认值为 5 秒。
+=======
+  Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+>>>>>>> 19687a2010c0ecdc6c7cbccbc5e6211e18755af4
 
   ```ts
   import { afterEach } from 'vitest'
