@@ -23,6 +23,7 @@ specifiers:
   vite-plugin-pwa: ^0.12.4
   vitepress: ^1.0.0-alpha.12
   vue: latest
+  workbox-build: ^6.5.4
   workbox-window: ^6.5.4
 
 dependencies:
@@ -50,6 +51,7 @@ devDependencies:
   vite: 3.0.9
   vite-plugin-pwa: 0.12.4_yny4xarjh5jmdjqikwv2mudeou
   vitepress: 1.0.0-alpha.12_tbpndr44ulefs3hehwpi2mkf2y
+  workbox-build: 6.5.4
   workbox-window: 6.5.4
 
 packages:
