@@ -8,9 +8,15 @@ outline: deep
 
 `vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用程序。如果你想使用不同的配置进行测试，你可以：
 
+<<<<<<< HEAD
 - 创建 `vitest.config.ts`，优先级更高。
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts` 。
 - 在 `defineConfig` 中使用 `process.env.VITEST` 或 `mode` 属性（默认值是 `test`）在 `vite.config.ts` 中有条件的应用不同的配置。
+=======
+- Create `vitest.config.ts`, which will have the higher priority and will override the configuration from `vite.config.ts`
+- Pass `--config` option to CLI, e.g. `vitest --config ./path/to/vitest.config.ts`
+- Use `process.env.VITEST` or `mode` property on `defineConfig` (will be set to `test`/`benchmark` if not overridden) to conditionally apply different configuration in `vite.config.ts`
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
 要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。如果你使用 `vite` 的 `defineConfig` 你还需要将 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 写在配置文件的顶部。
 
@@ -186,8 +192,13 @@ export default defineConfig({
 
 ### environment
 
+<<<<<<< HEAD
 - **类型:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime'`
 - **默认值:** `'node'`
+=======
+- **Type:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime' | string`
+- **Default:** `'node'`
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
 Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用程序，你可以使用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
 如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
@@ -231,7 +242,38 @@ test('use jsdom in this test file', () => {
 })
 ```
 
+<<<<<<< HEAD
 如果你使用 [`--no-threads`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`、`jsdom`、`happy-dom`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
+=======
+If you are running Vitest with [`--no-threads`](#threads) flag, your tests will be run in this order: `node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`. Meaning, that every test with the same environment is grouped together, but is still running sequentially.
+
+Starting from 0.23.0, you can also define custom environment. When non-builtin environment is used, Vitest will try to load package `vitest-environment-${name}`. That package should export an object with the shape of `Environment`:
+
+```ts
+import type { Environment } from 'vitest'
+
+export default <Environment>{
+  name: 'custom',
+  setup() {
+    // custom setup
+    return {
+      teardown() {
+        // called after all tests with this env have been run
+      }
+    }
+  }
+}
+```
+
+Vitest also exposes `builtinEnvironments` through `vitest/environments` entry, in case you just want to extend it. You can read more about extending environments in [our guide](/guide/environment).
+
+### environmentOptions
+
+- **Type:** `Record<'jsdom' | string, unknown>`
+- **Default:** `{}`
+
+These options are passed down to `setup` method of current [`environment`](/#environment). By default, you can configure only JSDOM options, if you are using it as your test environment.
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
 ### update
 
@@ -525,6 +567,13 @@ test('execute a script', async () => {
 
 指定语句、行、分支和函数的水印位置。
 
+##### all
+
+- **Type:** `boolean`
+- **Default:** false
+
+Whether to include all files, including the untested ones into report.
+
 ### testNamePattern
 
 - **类型** `string | RegExp`
@@ -672,6 +721,7 @@ export default defineConfig({
 
 - **类型**: `boolean | { include?, exclude? }`
 
+<<<<<<< HEAD
 配置是否处理 CSS。 排除后，CSS 文件将被替换为空字符串以绕过后续处理。
 
 默认情况下，只处理 CSS 模块，因为它会影响运行时。 JSDOM 和 Happy DOM 不完全支持注入 CSS，因此禁用此设置可能有助于提高性能。
@@ -680,6 +730,14 @@ export default defineConfig({
 
 - **类型**: `RegExp | RegExp[]`
 - **默认值**: `[/\.module\./]`
+=======
+Configure if CSS should be processed. When excluded, CSS files will be replaced with empty strings to bypass the subsequent processing. CSS Modules will return a proxy to not affect runtime.
+
+#### css.include
+
+- **Type**: `RegExp | RegExp[]`
+- **Default**: `[]`
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
 将返回匹配正则表达式并将由 Vite 管道处理的实际 CSS 文件。
 
@@ -689,6 +747,22 @@ export default defineConfig({
 - **默认值**: `[]`
 
 将返回匹配正则表达式的空 CSS 文件。
+
+#### css.modules
+
+- **Type**: `{ classNameStrategy? }`
+- **Default**: `{}`
+
+#### css.modules.classNameStrategy
+
+- **Type**: `'stable' | 'scoped' | 'non-scoped'`
+- **Default**: `'stable'`
+
+If you decide to process CSS files, you can configure if class names inside CSS modules should be scoped. By default, Vitest exports a proxy, bypassing CSS Modules processing. You can choose one of the options:
+
+- `stable`: class names will be generated as `_${name}_${hashedFilename}`, which means that generated class will stay the same, if CSS content is changed, but will change, if the name of the file is modified, or file is moved to another folder. This setting is useful, if you use snapshot feature.
+- `scoped`: class names will be generated as usual, respecting `css.modules.generateScopeName` method, if you have one. By default, filename will be generated as `_${name}_${hash}`, where hash includes filename and content of the file.
+- `non-scoped`: class names will stay as they are defined in CSS.
 
 ### maxConcurrency
 

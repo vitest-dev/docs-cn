@@ -9,6 +9,11 @@ outline: deep
 ```ts
 type Awaitable<T> = T | PromiseLike<T>
 type TestFunction = () => Awaitable<void>
+
+interface TestOptions {
+  timeout?: number
+  retry?: number
+}
 ```
 
 当一个测试函数返回一个 promise 时，Vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
@@ -19,8 +24,13 @@ type TestFunction = () => Awaitable<void>
 
 ## test
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it`
+=======
+- **Type:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
+- **Alias:** `it`
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
   `test` 定义了一组关于测试期望的方法。它接收测试名称和一个含有测试期望的函数。
 
@@ -36,8 +46,13 @@ type TestFunction = () => Awaitable<void>
 
 ### test.skip
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.skip`
+=======
+- **Type:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
+- **Alias:** `it.skip`
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
   如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
@@ -330,7 +345,11 @@ type TestFunction = () => Awaitable<void>
 
 ### describe.shuffle
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+=======
+- **Type:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
+>>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
   Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
