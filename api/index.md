@@ -24,13 +24,8 @@ interface TestOptions {
 
 ## test
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it`
-=======
-- **Type:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
-- **Alias:** `it`
->>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
   `test` 定义了一组关于测试期望的方法。它接收测试名称和一个含有测试期望的函数。
 
@@ -46,13 +41,8 @@ interface TestOptions {
 
 ### test.skip
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it.skip`
-=======
-- **Type:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
-- **Alias:** `it.skip`
->>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
 
   如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
@@ -345,11 +335,7 @@ interface TestOptions {
 
 ### describe.shuffle
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
-=======
-- **Type:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
->>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
+- **类型:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
 
   Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
@@ -377,7 +363,7 @@ interface TestOptions {
 
 ### describe.each
 
-- **Type:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void) => void`
+- **类型:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void) => void`
 
   如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
@@ -1871,7 +1857,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   TypeScript 的类型助手。实际上只是返回传递的对象。
 
   当 `partial` 为 `true` 时，它会期望 `Partial<T>` 作为返回值。
-  
+
   ```ts
   import example from './example'
   vi.mock('./example')

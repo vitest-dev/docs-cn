@@ -148,15 +148,11 @@ export default defineConfig({
               link: '/guide/test-context',
             },
             {
-<<<<<<< HEAD
-              text: '扩展匹配器',
-=======
-              text: 'Environment',
+              text: '测试环境',
               link: '/guide/environment',
             },
             {
-              text: 'Extending Matchers',
->>>>>>> b16f39d7e80036617f3b326adf959a37203672c2
+              text: '扩展匹配器',
               link: '/guide/extending-matchers',
             },
             {

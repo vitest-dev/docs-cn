@@ -16,7 +16,7 @@ specifiers:
   jiti: ^1.14.0
   ohmyfetch: ^0.4.18
   pathe: ^0.3.4
-  pnpm: ^7.9.5
+  pnpm: 7.9.5
   unocss: ^0.45.13
   unplugin-vue-components: ^0.22.4
   vite: ^3.0.9

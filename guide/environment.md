@@ -1,15 +1,15 @@
-# Test Environment
+# 测试环境
 
-Vitest provides [`environment`](/config/#environment) option to run code inside a specific environment. You can modify how environment behaves with [`environmentOptions`](/config/#environmentoptions) option.
+Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/#environmentoptions) 选项修改环境的行为方式。
 
-By default, you can use these environments:
+默认情况下，你可以使用这些环境：
 
-- `node` is default environment
-- `jsdon` emulates browser environment by providing Browser API, uses [`jsdom`](https://github.com/jsdom/jsdom) package
-- `happy-dom` emulates browser environment by providing Browser API, and considered to be faster than jsdom, but lacks some API, uses [`happy-dom`](https://github.com/capricorn86/happy-dom) package
-- `edge-runtime` emulates Vercel's [edge-runtime](https://edge-runtime.vercel.app/), uses [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) package
+- `node` 为默认环境
+- `jsdon` 通过提供 Browser API 模拟浏览器环境，使用 [`jsdom`](https://github.com/jsdom/jsdom) 包
+- `happy-dom` 通过提供 Browser API 模拟浏览器环境，被认为比 jsdom 更快，但缺少一些 API，使用 [`happy-dom`](https://github.com/capricorn86/happy-dom) 包
+- `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
 
-Starting from 0.23.0, you can create your own package to extend Vitest environment. To do so, create package with the name `vitest-environment-${name}`. That package should export an object with the shape of `Environment`:
+从 0.23.0 开始，你可以创建自己的包来扩展 Vitest 环境。 为此，请创建名为 `vitest-environment-${name}` 的包。 该包应导出一个具有 `Environment` 属性的对象：
 
 ```ts
 import type { Environment } from 'vitest'
@@ -27,7 +27,7 @@ export default <Environment>{
 }
 ```
 
-You also have access to default Vitest environments through `vitest/environments` entry:
+你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
 
 ```ts
 import { builtinEnvironments, populateGlobal } from 'vitest/environments'
@@ -35,7 +35,7 @@ import { builtinEnvironments, populateGlobal } from 'vitest/environments'
 console.log(builtinEnvironments) // { jsdom, happy-dom, node, edge-runtime }
 ```
 
-Vitest also provides `populateGlobal` utility function, which can be used to move properties from object into the global namespace:
+Vitest 还提供了 `populateGlobal` 实用函数，可用于将属性从对象移动到全局命名空间：
 
 ```ts
 interface PopulateOptions {
