@@ -28,9 +28,9 @@ title: IDE Integrations | Guide
 
 ## Wallaby.js <sup><code>Paid (free for OSS)</code></sup>
 
-Created by [The Wallaby Team](https://wallabyjs.com)
+由 [The Wallaby Team](https://wallabyjs.com) 团队创建。
 
-[Wallaby.js](https://wallabyjs.com) runs your Vitest tests immediately as you type, highlighting results in your IDE right next to your code.
+[Wallaby.js](https://wallabyjs.com) 在你键入时立即运行 Vitest 测试，在代码旁边高亮显示 IDE 中的结果。
 
 <p text-left>
 <img src="https://wallabyjs.com/assets/img/vitest_cover.png" w-142 />

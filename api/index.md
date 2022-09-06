@@ -119,11 +119,7 @@ interface TestOptions {
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.concurrent`
 
-<<<<<<< HEAD
   `test.concurrent` 将连续测试标记为并行运行。 它接收测试名称、带有要收集的测试的异步函数以及可选的超时时间（以毫秒为单位）。
-=======
-  `test.concurrent` marks consecutive tests to be run in parallel. It receives the test name, an async function with the tests to collect, and an optional timeout (in milliseconds).
->>>>>>> 3eed1bddfeff58ea81dccc25586588eb5a28de8f
 
   ```ts
   import { describe, test } from 'vitest'
