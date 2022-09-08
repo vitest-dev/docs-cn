@@ -16,12 +16,24 @@ Vitest 是一个由 Vite 提供支持的极速单元测试框架。
 
 ## 将 Vitest 安装到项目
 
+With npm
 ```bash
+<<<<<<< HEAD
 # 使用 npm
 npm install -D vitest
 # 使用 yarn
 yarn add -D vitest
 # 使用 pnpm
+=======
+npm install -D vitest
+```
+or with yarn
+```bash
+yarn add -D vitest
+```
+or with pnpm
+```bash
+>>>>>>> f0187fa46044942e5f722d0094c43ced234a20d7
 pnpm add -D vitest
 ```
 
