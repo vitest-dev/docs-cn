@@ -4,10 +4,17 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 
 默认情况下，你可以使用这些环境：
 
+<<<<<<< HEAD
 - `node` 为默认环境
 - `jsdom` 通过提供 Browser API 模拟浏览器环境，使用 [`jsdom`](https://github.com/jsdom/jsdom) 包
 - `happy-dom` 通过提供 Browser API 模拟浏览器环境，被认为比 jsdom 更快，但缺少一些 API，使用 [`happy-dom`](https://github.com/capricorn86/happy-dom) 包
 - `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
+=======
+- `node` is default environment
+- `jsdom` emulates browser environment by providing Browser API, uses [`jsdom`](https://github.com/jsdom/jsdom) package
+- `happy-dom` emulates browser environment by providing Browser API, and considered to be faster than jsdom, but lacks some API, uses [`happy-dom`](https://github.com/capricorn86/happy-dom) package
+- `edge-runtime` emulates Vercel's [edge-runtime](https://edge-runtime.vercel.app/), uses [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) package
+>>>>>>> 9bd7d87aaa54a79e9b44f45cb01fe7effde19874
 
 从 0.23.0 开始，你可以创建自己的包来扩展 Vitest 环境。 为此，请创建名为 `vitest-environment-${name}` 的包。 该包应导出一个具有 `Environment` 属性的对象：
 
