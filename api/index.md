@@ -1795,11 +1795,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.fn
 
-<<<<<<< HEAD
-- **类型:** `(fn: Function) => CallableMockInstance`
-=======
-- **Type:** `(fn?: Function) => CallableMockInstance`
->>>>>>> 9bd7d87aaa54a79e9b44f45cb01fe7effde19874
+- **类型:** `(fn?: Function) => CallableMockInstance`
 
   为函数创建一个监听，但也可以在没有监听的情况下启动。每次调用函数时，存储其调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵它的行为。
   如果没有给出函数，mock 将在调用时返回 `undefined`。
