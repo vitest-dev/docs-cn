@@ -132,6 +132,42 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 将 CJS 模块的默认值视为命名导出。
 
+### benchmark
+
+- **Type:** `{ include?, exclude?, ... }`
+
+Options used when running `vitest bench`.
+
+### benchmark.include
+
+- **Type:** `string[]`
+- **Default:** `['**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
+
+Include globs for benchmark test files
+
+### benchmark.exclude
+
+- **Type:** `string[]`
+- **Default:** `['node_modules', 'dist', '.idea', '.git', '.cache']`
+
+Exclude globs for benchmark test files
+
+### benchmark.includeSource
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+Include globs for in-source benchmark test files. This option is similar to [`includeSource`](#includesource).
+
+When defined, Vitest will run all matched files with `import.meta.vitest` inside.
+
+### benchmark.reporters
+
+- **Type:** `Arrayable<BenchmarkBuiltinReporters | Reporter>`
+- **Default:** `'default'`
+
+Custom reporter for output. Can contain one or more built-in report names, reporter instances, and/or paths to custom reporters.
+
 ### alias
 
 - **类型:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
