@@ -214,15 +214,11 @@ interface TestOptions {
 
 ## bench
 
-<<<<<<< HEAD
-当你在文件的顶层使用 `test` 时，它们将作为隐式测试套件的一部分被收集。你可以使用 `describe` 在当前上下文中定义一个新的测试套件，将其看作一组相关测试或者有别于其它的嵌套测试套件。测试套件可让你组织你的测试用例，使报告更清晰。
-=======
-- **Type:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+- **类型:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
 
-`bench` defines a benchmark. In Vitest terms benchmark is a function that defines a series of operations. Vitest runs this function multiple times to display different performance results.
+`bench` 定义了一个基准。 在 Vitest 术语中，基准是定义一系列操作的函数。 Vitest 多次运行此函数以显示不同的性能结果。
 
-Vitest uses [`tinybench`](https://github.com/tinylibs/tinybench) library under the hood, inheriting all its options that can be used as a third argument.
->>>>>>> 8cf6c632342d57e75405198761e538a3e79173cc
+Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库，继承其所有可用选项作为第三个参数。
 
   ```ts
   import { bench } from 'vitest'
@@ -285,9 +281,9 @@ Vitest uses [`tinybench`](https://github.com/tinylibs/tinybench) library under t
 
 ### bench.skip
 
-- **Type:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+- **类型:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
 
-You can use `bench.skip` syntax to skip running certain benchmarks.
+你可以使用 `bench.skip` 语法跳过运行某些基准测试。
 
   ```ts
   import { bench } from 'vitest'
@@ -302,7 +298,7 @@ You can use `bench.skip` syntax to skip running certain benchmarks.
 
 ## describe
 
-When you use `test` or `bench` in the top level of file, they are collected as part of the implicit suite for it. Using `describe` you can define a new suite in the current context, as a set of related tests or benchmarks and other nested suites. A suite lets you organize your tests and benchmarks so reports are more clear.
+当你在文件的顶层使用 `test` 或 `bench` 时，它们会被收集为它的隐式套件的一部分。 使用 `describe` 你可以在当前上下文中定义一个新套件，作为一组相关的测试或基准以及其他嵌套套件。 测试套件可让你组织测试和基准测试，从而使报告更加清晰。
 
   ```ts
   // basic.spec.ts
@@ -330,9 +326,8 @@ When you use `test` or `bench` in the top level of file, they are collected as p
   })
   ```
 
-<<<<<<< HEAD
   如果你需要有测试层次结构，你还可以嵌套描述块：
-=======
+
   ```ts
   // basic.bench.ts
   // organizing benchmarks
@@ -356,8 +351,7 @@ When you use `test` or `bench` in the top level of file, they are collected as p
   })
   ```
 
-  You can also nest describe blocks if you have a hierarchy of tests or benchmarks:
->>>>>>> 8cf6c632342d57e75405198761e538a3e79173cc
+  如果你有测试或基准的层次结构，你还可以嵌套描述块：
 
   ```ts
   import { describe, expect, test } from 'vitest'

@@ -134,39 +134,39 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 ### benchmark
 
-- **Type:** `{ include?, exclude?, ... }`
+- **类型:** `{ include?, exclude?, ... }`
 
-Options used when running `vitest bench`.
+运行 `vitest bench` 时使用的选项。
 
 ### benchmark.include
 
-- **Type:** `string[]`
-- **Default:** `['**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
+- **类型:** `string[]`
+- **默认值:** `['**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
 
-Include globs for benchmark test files
+匹配包含基准测试文件的 glob 规则。
 
 ### benchmark.exclude
 
-- **Type:** `string[]`
-- **Default:** `['node_modules', 'dist', '.idea', '.git', '.cache']`
+- **类型:** `string[]`
+- **默认值:** `['node_modules', 'dist', '.idea', '.git', '.cache']`
 
-Exclude globs for benchmark test files
+匹配排除基准测试文件的 glob 规则。
 
 ### benchmark.includeSource
 
-- **Type:** `string[]`
-- **Default:** `[]`
+- **类型:** `string[]`
+- **默认值:** `[]`
 
-Include globs for in-source benchmark test files. This option is similar to [`includeSource`](#includesource).
+匹配包含内联基准测试文件的 glob 规则。此选项类似于 [`includeSource`](#includesource)。
 
-When defined, Vitest will run all matched files with `import.meta.vitest` inside.
+定义后，Vitest 将运行所有匹配的文件，其中包含 `import.meta.vitest`。
 
 ### benchmark.reporters
 
-- **Type:** `Arrayable<BenchmarkBuiltinReporters | Reporter>`
-- **Default:** `'default'`
+- **类型:** `Arrayable<BenchmarkBuiltinReporters | Reporter>`
+- **默认值:** `'default'`
 
-Custom reporter for output. Can contain one or more built-in report names, reporter instances, and/or paths to custom reporters.
+用于定义输出的自定义报告器。它可以包含一个或多个内置报告名称、报告实例和(或)自定义报告的路径。
 
 ### alias
 

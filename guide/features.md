@@ -178,14 +178,11 @@ if (import.meta.vitest) {
 }
 ```
 
-<<<<<<< HEAD
 了解更多信息 [源码内联测试](/guide/in-source)
-=======
-Learn more at [In-source testing](/guide/in-source).
 
-## Benchmarking <sup><code>experimental</code></sup>
+## 基准测试 <sup><code>experimental</code></sup>
 
-Since Vitest 0.23.0, you can run benchmark tests with [`bench`](/api/#bench) function to compare performance results.
+从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 函数运行基准测试来比较性能结果。
 
 ```ts
 import { bench, describe } from 'vitest'
@@ -206,4 +203,3 @@ describe('sort', () => {
   })
 })
 ```
->>>>>>> 8cf6c632342d57e75405198761e538a3e79173cc
