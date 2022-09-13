@@ -380,7 +380,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### describe.skip
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction) => void`
+=======
+- **Type:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
+>>>>>>> a8ba841ac91825110591654c78e3b405471916f0
 
   在测试套件中使用 `describe.skip` 避免运行特定的描述块。
 
@@ -397,7 +401,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### describe.only
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction) => void`
+=======
+- **Type:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
+>>>>>>> a8ba841ac91825110591654c78e3b405471916f0
 
   使用 `describe.only` 仅运行指定的测试套件。
 
@@ -423,7 +431,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### describe.concurrent
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+=======
+- **Type:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
+>>>>>>> a8ba841ac91825110591654c78e3b405471916f0
 
   使用 `describe.concurrent` 在测试套件中将每个测试标记为并发。
 
@@ -447,7 +459,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### describe.shuffle
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
+=======
+- **Type:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
+>>>>>>> a8ba841ac91825110591654c78e3b405471916f0
 
   Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
@@ -475,7 +491,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### describe.each
 
+<<<<<<< HEAD
 - **类型:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void) => void`
+=======
+- **Type:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
+>>>>>>> a8ba841ac91825110591654c78e3b405471916f0
 
   如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
