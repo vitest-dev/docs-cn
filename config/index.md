@@ -168,6 +168,15 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 用于定义输出的自定义报告器。它可以包含一个或多个内置报告名称、报告实例和(或)自定义报告的路径。
 
+### benchmark.outputFile
+
+- **Type:** `string | Record<string, string>`
+
+Write benchmark results to a file when the `--reporter=json` option is also specified.
+By providing an object instead of a string you can define individual outputs when using multiple reporters.
+
+To provide object via CLI command, use the following syntax: `--outputFile.json=./path --outputFile.junit=./other-path`.
+
 ### alias
 
 - **类型:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
