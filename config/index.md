@@ -170,12 +170,12 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 ### benchmark.outputFile
 
-- **Type:** `string | Record<string, string>`
+- **类型:** `string | Record<string, string>`
 
-Write benchmark results to a file when the `--reporter=json` option is also specified.
-By providing an object instead of a string you can define individual outputs when using multiple reporters.
+当指定了 `--reporter=json` 选项时，可以将基准测试结果写入文件。
+通过提供对象而不是字符串，您可以在使用多个报告器时定义单独的输出。
 
-To provide object via CLI command, use the following syntax: `--outputFile.json=./path --outputFile.junit=./other-path`.
+通过 CLI 命令提供对象，请使用以下语法: `--outputFile.json=./path --outputFile.junit=./other-path`.
 
 ### alias
 
