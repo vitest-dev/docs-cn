@@ -296,6 +296,23 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   })
   ```
 
+### bench.only
+
+- **Type:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+
+Use `bench.only` to only run certain benchmarks in a given suite. This is useful when debugging.
+
+  ```ts
+  import { bench } from 'vitest'
+
+  bench.only('normal sorting', () => {
+    const x = [1, 5, 4, 2, 3]
+    x.sort((a, b) => {
+      return a - b
+    })
+  })
+  ```
+
 ## describe
 
 当你在文件的顶层使用 `test` 或 `bench` 时，它们会被收集为它的隐式套件的一部分。 使用 `describe` 你可以在当前上下文中定义一个新套件，作为一组相关的测试或基准以及其他嵌套套件。 测试套件可让你组织测试和基准测试，从而使报告更加清晰。
