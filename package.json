@@ -33,10 +33,16 @@
     "@vitejs/plugin-vue": "latest",
     "unocss": "^0.45.21",
     "unplugin-vue-components": "^0.22.7",
+<<<<<<< HEAD
     "vite": "^3.1.0",
     "vite-plugin-pwa": "0.12.7",
     "vitepress": "^1.0.0-alpha.13",
     "workbox-build": "^6.5.4",
+=======
+    "vite": "^3.1.2",
+    "vite-plugin-pwa": "0.12.8",
+    "vitepress": "^1.0.0-alpha.15",
+>>>>>>> 9f8f6f2e18ac62200d88d76a85e282ee91641171
     "workbox-window": "^6.5.4"
   }
 }
