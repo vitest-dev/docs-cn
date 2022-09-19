@@ -298,9 +298,9 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### bench.only
 
-- **Type:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+- **类型:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
 
-Use `bench.only` to only run certain benchmarks in a given suite. This is useful when debugging.
+使用 `bench.only` 仅在指定测试套件中运行某些基准测试。这在调试时很有用。
 
   ```ts
   import { bench } from 'vitest'
