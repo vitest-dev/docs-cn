@@ -313,6 +313,18 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   })
   ```
 
+### bench.todo
+
+- **Type:** `(name: string) => void`
+
+Use `bench.todo` to stub benchmarks to be implemented later.
+
+  ```ts
+  import { bench } from 'vitest'
+
+  bench.todo('unimplemented test')
+  ```
+
 ## describe
 
 当你在文件的顶层使用 `test` 或 `bench` 时，它们会被收集为它的隐式套件的一部分。 使用 `describe` 你可以在当前上下文中定义一个新套件，作为一组相关的测试或基准以及其他嵌套套件。 测试套件可让你组织测试和基准测试，从而使报告更加清晰。

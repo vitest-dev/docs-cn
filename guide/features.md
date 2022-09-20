@@ -29,7 +29,11 @@ $ vitest
 
 ## 多线程
 
+<<<<<<< HEAD
 通过 [tinypool](https://github.com/Aslemammad/tinypool) 使用 Worker 线程尽可能多地并发运行（ [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支），允许多个测试同时运行。Vitest 默认启动多线程，可以通过 CLI 中的 `--no-threads` 禁用。
+=======
+Workers multi-threading via [Tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)), allowing tests to run simultaneously. Threads are enabled by default in Vitest, and can be disabled by passing `--no-threads` in the CLI.
+>>>>>>> ade3e8a531d1f3a2249dc191e499b33cc890463b
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
@@ -91,7 +95,11 @@ it('renders correctly', () => {
 
 ## 对象模拟(Mocking)
 
+<<<<<<< HEAD
 内置 [Tinyspy](https://github.com/Aslemammad/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
+=======
+[Tinyspy](https://github.com/tinylibs/tinyspy) is built-in for mocking with `jest`-compatible APIs on `vi` object.
+>>>>>>> ade3e8a531d1f3a2249dc191e499b33cc890463b
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -182,7 +190,12 @@ if (import.meta.vitest) {
 
 ## 基准测试 <sup><code>experimental</code></sup>
 
+<<<<<<< HEAD
 从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 函数运行基准测试来比较性能结果。
+=======
+Since Vitest 0.23.0, you can run benchmark tests with [`bench`](/api/#bench)
+function via [Tinybench](https://github.com/tinylibs/tinybench) to compare performance results.
+>>>>>>> ade3e8a531d1f3a2249dc191e499b33cc890463b
 
 ```ts
 import { bench, describe } from 'vitest'

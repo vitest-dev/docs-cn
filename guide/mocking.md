@@ -72,7 +72,11 @@ describe('purchasing flow', () => {
 
 然而，对象监听只能帮助你 **监听** 函数，他们无法改变这些函数的实现。如果我们需要创建一个函数的假（或模拟）版本，可以使用它 `vi.fn()` ([在此处阅读更多信息](/api/#vi-fn))。
 
+<<<<<<< HEAD
 我们使用 [Tinyspy](https://github.com/Aslemammad/tinyspy) 作为模拟函数的基础，同时也有一套自己的封装来使其与 `Jest` 兼容。`vi.fn()` 和 `vi.spyOn()` 共享相同的方法，但是只有 `vi.fn()` 的返回结果是可调用的。
+=======
+We use [Tinyspy](https://github.com/tinylibs/tinyspy) as a base for mocking functions, but we have our own wrapper to make it `jest` compatible. Both `vi.fn()` and `vi.spyOn()` share the same methods, however only the return result of `vi.fn()` is callable.
+>>>>>>> ade3e8a531d1f3a2249dc191e499b33cc890463b
 
 ### 示例
 
