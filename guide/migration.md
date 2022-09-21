@@ -54,7 +54,7 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 **钩子**
 
-`beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown)中返回。  may return  in Vitest. 因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
+`beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown)中返回。因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
 
 ```diff
 - beforeEach(() => setActivePinia(createTestingPinia()))
