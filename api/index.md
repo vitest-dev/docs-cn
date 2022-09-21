@@ -315,9 +315,9 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### bench.todo
 
-- **Type:** `(name: string) => void`
+- **类型:** `(name: string) => void`
 
-Use `bench.todo` to stub benchmarks to be implemented later.
+使用 `bench.todo` 来存根基准测试，以便稍后实现。
 
   ```ts
   import { bench } from 'vitest'

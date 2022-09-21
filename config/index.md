@@ -366,11 +366,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - **类型:** `boolean`
 - **默认值:** `true`
 
-<<<<<<< HEAD
-通过使用 [tinypool](https://github.com/Aslemammad/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
-=======
-Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina))
->>>>>>> ade3e8a531d1f3a2249dc191e499b33cc890463b
+通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
 
 :::warning 警告
 此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
