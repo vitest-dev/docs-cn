@@ -326,7 +326,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 “假” 计时器来加速测试。
 
-有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/#vi-usefaketimer)。
+有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/#vi-usefaketimers)。
 
 ### 示例
 
@@ -392,6 +392,7 @@ vi.spyOn(instance, 'method')
 // some-path.ts
 export const getter = 'variable'
 ```
+
 ```ts
 // some-path.test.ts
 import * as exports from 'some-path'
@@ -409,10 +410,12 @@ vi.spyOn(exports, 'setter', 'set')
 - 模拟模块导出 function
 
 `vi.mock` 的示例：
+
 ```ts
 // some-path.ts
 export function method() {}
 ```
+
 ```ts
 import { method } from 'some-path'
 vi.mock('some-path', () => ({
@@ -421,6 +424,7 @@ vi.mock('some-path', () => ({
 ```
 
 `vi.spyOn` 的示例：
+
 ```ts
 import * as exports from 'some-path'
 vi.spyOn(exports, 'method').mockImplementation(() => {})
@@ -429,10 +433,12 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 - 模拟模块导出 class implementation
 
 `vi.mock` and prototype 的示例:
+
 ```ts
 // some-path.ts
 export class SomeClass {}
 ```
+
 ```ts
 import { SomeClass } from 'some-path'
 vi.mock('some-path', () => {
@@ -444,6 +450,7 @@ vi.mock('some-path', () => {
 ```
 
 `vi.mock` and return value 的示例:
+
 ```ts
 import { SomeClass } from 'some-path'
 vi.mock('some-path', () => {
