@@ -2088,7 +2088,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   setTimeout(() => console.log(++i))
   const interval = setInterval(() => {
     console.log(++i)
-    if (i === 2)
+    if (i === 3)
       clearInterval(interval)
 
   }, 50)
