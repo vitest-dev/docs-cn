@@ -519,6 +519,13 @@ test('execute a script', async () => {
 
 设置了 `provider: 'istanbul'` 时启用。
 
+##### include
+
+- **Type:** `string[]`
+- **Default:** `['**']`
+
+List of files included in coverage as glob patterns
+
 ##### exclude
 
 - **类型:** `string[]`
