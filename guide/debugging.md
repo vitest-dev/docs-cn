@@ -14,7 +14,7 @@ title: Debugging | Guide
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "name": "Debug Current Test File",
       "autoAttachChildProcesses": true,
