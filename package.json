@@ -12,11 +12,12 @@
     "prefetch": "esno .vitepress/scripts/fetch-avatars.ts"
   },
   "dependencies": {
-    "@vueuse/core": "^9.2.0",
-    "jiti": "^1.15.0",
+    "@vueuse/core": "^9.3.0",
+    "jiti": "^1.16.0",
     "vue": "latest"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@antfu/eslint-config": "^0.26.3",
     "@antfu/ni": "^0.18.0",
     "@iconify-json/carbon": "^1.1.7",
@@ -38,5 +39,19 @@
     "vitepress": "^1.0.0-alpha.15",
     "workbox-window": "^6.5.4",
     "workbox-build": "^6.5.4"
+=======
+    "@iconify-json/carbon": "^1.1.8",
+    "@unocss/reset": "^0.45.25",
+    "@vitejs/plugin-vue": "latest",
+    "esno": "^0.16.3",
+    "fast-glob": "^3.2.12",
+    "https-localhost": "^4.7.1",
+    "unocss": "^0.45.25",
+    "unplugin-vue-components": "^0.22.7",
+    "vite": "^3.1.4",
+    "vite-plugin-pwa": "0.13.1",
+    "vitepress": "^1.0.0-alpha.17",
+    "workbox-window": "^6.5.4"
+>>>>>>> 407181836b6c92150e9ec01bec2f444f57a46351
   }
 }
