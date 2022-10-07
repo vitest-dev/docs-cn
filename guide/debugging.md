@@ -4,6 +4,21 @@ title: Debugging | Guide
 
 # 调试
 
+## Terminal
+
+To debug a test file without an IDE, you can use [`ndb`](https://github.com/GoogleChromeLabs/ndb). Just add a `debugger` statement anywhere in your code, and then run `ndb`:
+
+```sh
+# install ndb globally
+npm install -g ndb
+
+# alternatively, with yarn
+yarn global add ndb
+
+# run tests with debugger enabled
+ndb npm run test
+```
+
 ## VSCode
 
 要在 VSCode 中调试测试文件，请创建以下启动配置。
