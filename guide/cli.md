@@ -10,7 +10,11 @@ title: Command Line Interface | Guide
 
 在当前目录中启动 Vitest 将进入浏览模式，它运行在开发环境并且在 CI 中自动运行。
 
+<<<<<<< HEAD
 你可以通过添加参数来运行测试文件，比如：
+=======
+You can pass an additional argument as the filter of the test files to run. For example:
+>>>>>>> 086732215d571ae27c2f6808538ce5040b87d046
 
 ```bash
 vitest foobar
@@ -24,7 +28,11 @@ vitest foobar
 
 ### `vitest watch`
 
+<<<<<<< HEAD
 运行所有测试套件，但要注意更改并在更改时重新运行测试。 与在没有命令的情况下调用 `vitest` 相同。 在 CI 环境中，此命令将回退到 `vitest run`。
+=======
+Run all test suites but watch for changes and rerun tests when they change. Same as calling `vitest` without an argument. Will fallback to `vitest run` in CI.
+>>>>>>> 086732215d571ae27c2f6808538ce5040b87d046
 
 ### `vitest dev`
 
