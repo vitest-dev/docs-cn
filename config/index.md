@@ -344,12 +344,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - **类型:** `number`
 - **默认值:** `80`
 
-<<<<<<< HEAD
 指定截断输出差异的字符行数，最多 80 个字符。 你可能希望对此进行调整，取决于你的终端窗口宽度。
-=======
-Truncate output diff lines up to `80` number of characters. You may wish to tune this,
-depending on your terminal window width.
->>>>>>> 346a01450757e198738c6967a8f8b92295c03111
 
 ### outputDiffLines
 
