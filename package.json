@@ -17,15 +17,11 @@
     "vue": "latest"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@antfu/eslint-config": "^0.27.0",
     "@antfu/ni": "^0.18.2",
-    "@iconify-json/carbon": "^1.1.8",
+    "@iconify-json/carbon": "^1.1.9",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.23",
-=======
-    "@iconify-json/carbon": "^1.1.9",
->>>>>>> 346a01450757e198738c6967a8f8b92295c03111
     "@unocss/reset": "^0.45.29",
     "@vitejs/plugin-vue": "latest",
     "esno": "^0.16.3",
