@@ -42,7 +42,47 @@ vitest related /src/index.ts /src/hello-world.js
 
 ### `vitest clean cache`
 
+<<<<<<< HEAD
 清空缓存目录。
+=======
+| Options       |               |
+| ------------- | ------------- |
+| `-v, --version` | Display version number |
+| `-r, --root <path>` | Define the project root |
+| `-c, --config <path>` | Path to config file |
+| `-u, --update` | Update snapshots |
+| `-w, --watch` | Smart & instant watch mode |
+| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
+| `--dir <path>`| Base directory to scan for the test files |
+| `--ui` | Enable UI |
+| `--open` | Open the UI automatically if enabled (default: `true`) |
+| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
+| `--threads` | Enable Threads (default: `true`) |
+| `--silent` | Silent console output from tests |
+| `--isolate` | Isolate environment for each test file (default: `true`) |
+| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
+| `--outputTruncateLength <length>` | Truncate output diff lines up to `<length>` number of characters. |
+| `--outputDiffLines <lines>` | Limit number of output diff lines up to `<lines>`. |
+| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
+| `--coverage` | Enable coverage report |
+| `--run` | Do not watch |
+| `--mode` | Override Vite mode (default: `test`) |
+| `--mode <name>` | Override Vite mode (default: `test`) |
+| `--globals` | Inject APIs globally |
+| `--dom` | Mock browser api with happy-dom |
+| `--browser` | Run tests in browser |
+| `--environment <env>` | Runner environment (default: `node`) |
+| `--passWithNoTests` | Pass when no tests found |
+| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
+| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
+| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
+| `--shard <shard>` | Execute tests in a specified shard |
+| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order) |
+| `--no-color` | Removes colors from the console output |
+| `--inspect` | Enables Node.js inspector |
+| `--inspect-brk` | Enables Node.js inspector with break |
+| `-h, --help` | Display available CLI options |
+>>>>>>> 3ecf085e88b65d9237aa472c470ee51b8a334989
 
 ## 选项
 

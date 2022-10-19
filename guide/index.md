@@ -29,8 +29,13 @@ yarn add -D vitest
 pnpm add -D vitest
 ```
 
+<<<<<<< HEAD
 :::tip 提示
 Vitest 需要 Vite >=v2.7.10 和 Node >=v14
+=======
+:::tip
+Vitest requires Vite >=v3.0.0 and Node >=v14
+>>>>>>> 3ecf085e88b65d9237aa472c470ee51b8a334989
 :::
 
 ## 配置 Vitest
