@@ -17,30 +17,29 @@ Vitest 是一个由 Vite 提供支持的极速单元测试框架。
 ## 将 Vitest 安装到项目
 
 使用 npm
+
 ```bash
 npm install -D vitest
 ```
+
 使用 yarn
+
 ```bash
 yarn add -D vitest
 ```
+
 使用 pnpm
+
 ```bash
 pnpm add -D vitest
 ```
 
-<<<<<<< HEAD
 :::tip 提示
-Vitest 需要 Vite >=v2.7.10 和 Node >=v14
-=======
-:::tip
-Vitest requires Vite >=v3.0.0 and Node >=v14
->>>>>>> 3ecf085e88b65d9237aa472c470ee51b8a334989
+Vitest 需要 Vite >=v3.0.0 和 Node >=v14
 :::
 
 ## 配置 Vitest
 
-<<<<<<< HEAD
 Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用程序。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
 
 - 创建 `vitest.config.ts`，优先级将会最高。
@@ -50,12 +49,12 @@ Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vit
 如果要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。 你还需要使用 [三斜线命令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html) ，同时如果是从 `vite` 本身导入 `defineConfig`，请在配置文件的顶部加上三斜线命令。
 
 ```ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     // ...
   },
-})
+});
 ```
 
 可以参阅 [配置索引](../config/) 中的配置选项列表
@@ -89,27 +88,27 @@ export default defineConfig({
 
 ## 示例
 
-| 示例 | 源代码 | 演练场 |
-|---|---|---|
-| `basic` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__) |
-| `graphql` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/graphql) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/graphql?initialPath=__vitest__) |
-| `lit` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/lit) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/lit?initialPath=__vitest__) |
-| `mocks` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/mocks) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/mocks?initialPath=__vitest__) |
-| `nextjs` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/nextjs) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/nextjs?initialPath=__vitest__) |
-| `puppeteer` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/puppeteer) | |
-| `react-enzyme` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-enzyme) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-enzyme?initialPath=__vitest__) |
-| `react-mui` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-mui) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-mui?initialPath=__vitest__) |
-| `react-storybook` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-storybook) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-storybook?initialPath=__vitest__) |
+| 示例                    | 源代码                                                                                  | 演练场                                                                                                                              |
+| ----------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `basic`                 | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic)                 | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__)                 |
+| `graphql`               | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/graphql)               | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/graphql?initialPath=__vitest__)               |
+| `lit`                   | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/lit)                   | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/lit?initialPath=__vitest__)                   |
+| `mocks`                 | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/mocks)                 | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/mocks?initialPath=__vitest__)                 |
+| `nextjs`                | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/nextjs)                | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/nextjs?initialPath=__vitest__)                |
+| `puppeteer`             | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/puppeteer)             |                                                                                                                                     |
+| `react-enzyme`          | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-enzyme)          | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-enzyme?initialPath=__vitest__)          |
+| `react-mui`             | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-mui)             | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-mui?initialPath=__vitest__)             |
+| `react-storybook`       | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-storybook)       | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-storybook?initialPath=__vitest__)       |
 | `react-testing-lib-msw` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw?initialPath=__vitest__) |
-| `react-testing-lib` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-testing-lib?initialPath=__vitest__) |
-| `react` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react?initialPath=__vitest__) |
-| `ruby` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/ruby) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/ruby?initialPath=__vitest__) |
-| `solid` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/solid) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/solid?initialPath=__vitest__) |
-| `svelte` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/svelte) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/svelte?initialPath=__vitest__) |
-| `vitesse` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vitesse) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vitesse?initialPath=__vitest__) |
-| `vue-jsx` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue-jsx) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue-jsx?initialPath=__vitest__) |
-| `vue` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue?initialPath=__vitest__) |
-| `vue2` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue2) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue2?initialPath=__vitest__) |
+| `react-testing-lib`     | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)     | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react-testing-lib?initialPath=__vitest__)     |
+| `react`                 | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/react)                 | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/react?initialPath=__vitest__)                 |
+| `ruby`                  | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/ruby)                  | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/ruby?initialPath=__vitest__)                  |
+| `solid`                 | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/solid)                 | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/solid?initialPath=__vitest__)                 |
+| `svelte`                | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/svelte)                | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/svelte?initialPath=__vitest__)                |
+| `vitesse`               | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vitesse)               | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vitesse?initialPath=__vitest__)               |
+| `vue-jsx`               | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue-jsx)               | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue-jsx?initialPath=__vitest__)               |
+| `vue`                   | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue)                   | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue?initialPath=__vitest__)                   |
+| `vue2`                  | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue2)                  | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue2?initialPath=__vitest__)                  |
 
 ## 使用 Vitest 的项目
 
