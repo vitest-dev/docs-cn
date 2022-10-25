@@ -20,22 +20,31 @@
     "@antfu/eslint-config": "^0.27.0",
     "@antfu/ni": "^0.18.2",
     "@iconify-json/carbon": "^1.1.9",
+<<<<<<< HEAD
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.23",
     "@unocss/reset": "^0.45.29",
+=======
+    "@unocss/reset": "^0.46.0",
+>>>>>>> 3a3e01045390568e9c325bbc5a82824e51f4da79
     "@vitejs/plugin-vue": "latest",
     "esno": "^0.16.3",
     "fast-glob": "^3.2.12",
     "fs-extra": "^10.1.0",
     "https-localhost": "^4.7.1",
+<<<<<<< HEAD
     "ohmyfetch": "^0.4.19",
     "pathe": "^0.3.8",
     "pnpm": "7.13.4",
     "unocss": "^0.45.29",
     "unplugin-vue-components": "^0.22.8",
+=======
+    "unocss": "^0.46.0",
+    "unplugin-vue-components": "^0.22.9",
+>>>>>>> 3a3e01045390568e9c325bbc5a82824e51f4da79
     "vite": "^3.1.8",
     "vite-plugin-pwa": "0.13.1",
-    "vitepress": "^1.0.0-alpha.21",
+    "vitepress": "^1.0.0-alpha.22",
     "workbox-window": "^6.5.4"
   }
 }
