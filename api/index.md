@@ -395,7 +395,7 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   describe('numberToCurrency', () => {
     describe('given an invalid number', () => {
       test('composed of non-numbers to throw error', () => {
-        expect(() => numberToCurrency('abc')).toThrow()
+        expect(() => numberToCurrency('abc')).toThrowError()
       })
     })
 
@@ -869,8 +869,13 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   })
   ```
 
+<<<<<<< HEAD
   :::warning 警告
   该方法不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个内容，建议使用 [`toThrow`](#tothrow) 断言。
+=======
+  :::warning
+  A _deep equality_ will not be performed for `Error` objects. To test if something was thrown, use [`toThrowError`](#tothrowerror) assertion.
+>>>>>>> 87ece3075330434e1ae184c9532255a576a3f367
   :::
 
 ### toStrictEqual

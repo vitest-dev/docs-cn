@@ -81,7 +81,7 @@ export default mergeConfig(viteConfig, defineConfig({
 ### exclude
 
 - **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
+- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
 
 匹配排除测试文件的 glob 规则。
 
@@ -528,8 +528,13 @@ List of files included in coverage as glob patterns
 
 ##### exclude
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `[]`
+=======
+- **Type:** `string[]`
+- **Default:** `['coverage/**', 'dist/**', 'packages/*/test{,s}/**', '**/*.d.ts', 'cypress/**', 'test{,s}/**', 'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}', '**/__tests__/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.{js,cjs,mjs,ts}', '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}']`
+>>>>>>> 87ece3075330434e1ae184c9532255a576a3f367
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
