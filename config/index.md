@@ -18,37 +18,37 @@ outline: deep
 
 ```ts
 /// <reference types="vitest" />
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
   test: {
     // ...
   },
-})
+});
 ```
 
 使用 `vitest` 的 `defineConfig` 可以参考下面的格式：
 
 ```ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     // ...
   },
-})
+});
 ```
 
 如果有需要，你可以获取到 Vitest 的默认选项以扩展它们：
 
 ```ts
-import { configDefaults, defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    exclude: [...configDefaults.exclude, 'packages/template/*'],
+    exclude: [...configDefaults.exclude, "packages/template/*"],
   },
-})
+});
 ```
 
 ## 选项
@@ -56,15 +56,18 @@ export default defineConfig({
 当使用单独的 `vitest.config.js` 时，如果需要，你还可以从另一个配置文件扩展 Vite 的选项：
 
 ```ts
-import { mergeConfig } from 'vite'
-import { defineConfig } from 'vitest/config'
-import viteConfig from './vite.config'
+import { mergeConfig } from "vite";
+import { defineConfig } from "vitest/config";
+import viteConfig from "./vite.config";
 
-export default mergeConfig(viteConfig, defineConfig({
-  test: {
-    exclude: ['packages/template/*'],
-  },
-}))
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      exclude: ["packages/template/*"],
+    },
+  })
+);
 ```
 
 :::tip 提醒
@@ -192,13 +195,13 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     globals: true,
   },
-})
+});
 ```
 
 为了可以让全局 API 支持 Typescript，请将 `vitest/globals` 添加到 `tsconfig.json` 中的 `types` 选项中
@@ -216,17 +219,17 @@ export default defineConfig({
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
-import AutoImport from 'unplugin-auto-import/vite'
+import { defineConfig } from "vitest/config";
+import AutoImport from "unplugin-auto-import/vite";
 
 export default defineConfig({
   plugins: [
     AutoImport({
-      imports: ['vitest'],
+      imports: ["vitest"],
       dts: true, // generate TypeScript declaration
     }),
   ],
-})
+});
 ```
 
 ### environment
@@ -246,10 +249,10 @@ Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 
  * @vitest-environment jsdom
  */
 
-test('use jsdom in this test file', () => {
-  const element = document.createElement('div')
-  expect(element).not.toBeNull()
-})
+test("use jsdom in this test file", () => {
+  const element = document.createElement("div");
+  expect(element).not.toBeNull();
+});
 ```
 
 注释格式:
@@ -257,10 +260,10 @@ test('use jsdom in this test file', () => {
 ```js
 // @vitest-environment happy-dom
 
-test('use happy-dom in this test file', () => {
-  const element = document.createElement('div')
-  expect(element).not.toBeNull()
-})
+test("use happy-dom in this test file", () => {
+  const element = document.createElement("div");
+  expect(element).not.toBeNull();
+});
 ```
 
 为了与 Jest 兼容，还存在一个配置 `@jest-environment`：
@@ -270,10 +273,10 @@ test('use happy-dom in this test file', () => {
  * @jest-environment jsdom
  */
 
-test('use jsdom in this test file', () => {
-  const element = document.createElement('div')
-  expect(element).not.toBeNull()
-})
+test("use jsdom in this test file", () => {
+  const element = document.createElement("div");
+  expect(element).not.toBeNull();
+});
 ```
 
 如果你使用 [`--no-threads`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
@@ -281,19 +284,19 @@ test('use jsdom in this test file', () => {
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
 ```ts
-import type { Environment } from 'vitest'
+import type { Environment } from "vitest";
 
 export default <Environment>{
-  name: 'custom',
+  name: "custom",
   setup() {
     // custom setup
     return {
       teardown() {
         // called after all tests with this env have been run
-      }
-    }
-  }
-}
+      },
+    };
+  },
+};
 ```
 
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
@@ -332,12 +335,12 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-  - `'default'` - 当他们经过测试套件
-  - `'verbose'` - 保持完整的任务树可见
-  - `'dot'` - 将每个任务显示为一个点
-  - `'junit'` - JUnit XML 报告器
-  - `'json'` - 给出一个简单的 JSON 总结
-  - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+- `'default'` - 当他们经过测试套件
+- `'verbose'` - 保持完整的任务树可见
+- `'dot'` - 将每个任务显示为一个点
+- `'junit'` - JUnit XML 报告器
+- `'json'` - 给出一个简单的 JSON 总结
+- 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
 ### outputTruncateLength
 
@@ -431,20 +434,20 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 比如，你可能依赖于一个全局变量：
 
 ```ts
-import { config } from '@some-testing-lib'
+import { config } from "@some-testing-lib";
 
 if (!globalThis.defined) {
-  config.plugins = [myCoolPlugin]
-  computeHeavyThing()
-  globalThis.defined = true
+  config.plugins = [myCoolPlugin];
+  computeHeavyThing();
+  globalThis.defined = true;
 }
 
 // hooks are reset before each suite
 afterEach(() => {
-  cleanup()
-})
+  cleanup();
+});
 
-globalThis.resetBeforeEachTest = true
+globalThis.resetBeforeEachTest = true;
 ```
 
 ### globalSetup
@@ -480,10 +483,10 @@ globalThis.resetBeforeEachTest = true
 如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖图:
 
 ```ts
-test('execute a script', async () => {
+test("execute a script", async () => {
   // Vitest cannot rerun this test, if content of `dist/index.js` changes
-  await execa('node', ['dist/index.js'])
-})
+  await execa("node", ["dist/index.js"]);
+});
 ```
 
 :::tip 提醒
@@ -528,13 +531,8 @@ List of files included in coverage as glob patterns
 
 ##### exclude
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `[]`
-=======
-- **Type:** `string[]`
-- **Default:** `['coverage/**', 'dist/**', 'packages/*/test{,s}/**', '**/*.d.ts', 'cypress/**', 'test{,s}/**', 'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}', '**/__tests__/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.{js,cjs,mjs,ts}', '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}']`
->>>>>>> 87ece3075330434e1ae184c9532255a576a3f367
+- **默认值:** `['coverage/**', 'dist/**', 'packages/*/test{,s}/**', '**/*.d.ts', 'cypress/**', 'test{,s}/**', 'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}', '**/__tests__/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.{js,cjs,mjs,ts}', '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}']`
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
@@ -587,6 +585,7 @@ List of files included in coverage as glob patterns
 
 - **类型:**
 <!-- eslint-skip -->
+
 ```ts
 {
   statements?: [number, number],
@@ -598,6 +597,7 @@ List of files included in coverage as glob patterns
 
 - **默认值:**
 <!-- eslint-skip -->
+
 ```ts
 {
   statements: [50, 80],
@@ -624,17 +624,17 @@ List of files included in coverage as glob patterns
 如果你将 `OnlyRunThis` 添加到此属性，将跳过测试名称中不包含单词 `OnlyRunThis` 的测试。
 
 ```js
-import { expect, test } from 'vitest'
+import { expect, test } from "vitest";
 
 // run
-test('OnlyRunThis', () => {
-  expect(true).toBe(true)
-})
+test("OnlyRunThis", () => {
+  expect(true).toBe(true);
+});
 
 // skipped
-test('doNotRun', () => {
-  expect(true).toBe(true)
-})
+test("doNotRun", () => {
+  expect(true).toBe(true);
+});
 ```
 
 ### open
@@ -689,7 +689,7 @@ Vite 插件在处理这些文件时会收到 `ssr: true` 标志。
 #### transformMode&#46;web
 
 - **类型:** `RegExp[]`
-- **默认值:** *除了 `transformMode.ssr` 以外的所有文件*
+- **默认值:** _除了 `transformMode.ssr` 以外的所有文件_
 
 首先会进行正常的转换管道（针对浏览器），然后进行 SSR 重写以在 Node 中运行代码。<br>
 Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
@@ -697,7 +697,7 @@ Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
 当你使用 JSX 作为 React 以外的组件模型（例如 Vue JSX 或 SolidJS）时，你可能需要进行如下配置以使 `.tsx` / `.jsx` 转换为客户端组件：
 
 ```ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
@@ -705,7 +705,7 @@ export default defineConfig({
       web: [/\.[jt]sx$/],
     },
   },
-})
+});
 ```
 
 ### snapshotFormat
@@ -722,13 +722,13 @@ export default defineConfig({
 覆盖快照的默认路径。例如，要在测试文件旁边存储一下快照：
 
 ```ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     resolveSnapshotPath: (testPath, snapExtension) => testPath + snapExtension,
   },
-})
+});
 ```
 
 ### allowOnly
@@ -763,7 +763,7 @@ export default defineConfig({
 
 - **类型**: `boolean | { include?, exclude? }`
 
-配置是否应处理 CSS。 排除后，CSS文件将被替换为空字符串以绕过后续处理。 CSS 模块将返回一个代理以不影响运行时。
+配置是否应处理 CSS。 排除后，CSS 文件将被替换为空字符串以绕过后续处理。 CSS 模块将返回一个代理以不影响运行时。
 
 #### css.include
 
@@ -791,8 +791,8 @@ export default defineConfig({
 
 如果你决定处理 CSS 文件，你可以配置 CSS 模块中的类名是否在限定范围内。 默认情况下，Vitest 会导出一个代理，绕过 CSS 模块处理。 你可以选择以下选项之一：
 
-- `stable`: 类名将生成为`_${name}_${hashedFilename}`，这意味着如果CSS内容发生变化，生成的类将保持不变，但如果文件名被修改，或者文件名将发生变化 被移动到另一个文件夹。 如果你使用快照功能，此设置很有用。
-- `scoped`: 类名将照常生成，遵照 `css.modules.generateScopeName` 方法，如果你有的话。 默认情况下，文件名将生成为`_${name}_${hash}`，其中hash包括文件名和文件内容。
+- `stable`: 类名将生成为`_${name}_${hashedFilename}`，这意味着如果 CSS 内容发生变化，生成的类将保持不变，但如果文件名被修改，或者文件名将发生变化 被移动到另一个文件夹。 如果你使用快照功能，此设置很有用。
+- `scoped`: 类名将照常生成，遵照 `css.modules.generateScopeName` 方法，如果你有的话。 默认情况下，文件名将生成为`_${name}_${hash}`，其中 hash 包括文件名和文件内容。
 - `non-scoped`: 类名将保留 CSS 中定义的名称。
 
 ### maxConcurrency

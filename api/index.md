@@ -7,12 +7,12 @@ outline: deep
 下面的变量中使用了以下类型签名
 
 ```ts
-type Awaitable<T> = T | PromiseLike<T>
-type TestFunction = () => Awaitable<void>
+type Awaitable<T> = T | PromiseLike<T>;
+type TestFunction = () => Awaitable<void>;
 
 interface TestOptions {
-  timeout?: number
-  retry?: number
+  timeout?: number;
+  retry?: number;
 }
 ```
 
@@ -32,11 +32,11 @@ interface TestOptions {
   同时，可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。你也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('should work as expected', () => {
-    expect(Math.sqrt(4)).toBe(2)
-  })
+  test("should work as expected", () => {
+    expect(Math.sqrt(4)).toBe(2);
+  });
   ```
 
 ### test.skip
@@ -47,12 +47,12 @@ interface TestOptions {
   如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
   ```ts
-  import { assert, test } from 'vitest'
+  import { assert, test } from "vitest";
 
-  test.skip('skipped test', () => {
+  test.skip("skipped test", () => {
     // 跳过测试，没有错误
-    assert.equal(Math.sqrt(4), 3)
-  })
+    assert.equal(Math.sqrt(4), 3);
+  });
   ```
 
 ### test.skipIf
@@ -63,13 +63,13 @@ interface TestOptions {
   在某些情况下，你可能会在不同的环境中多次运行测试，并且某些测试可能基于特定环境下运行。只要条件成立，你就可以使用 `test.skipIf` 跳过测试，而不是用 `if` 包裹测试代码。
 
   ```ts
-  import { assert, test } from 'vitest'
+  import { assert, test } from "vitest";
 
-  const isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === "development";
 
-  test.skipIf(isDev)('prod only test', () => {
+  test.skipIf(isDev)("prod only test", () => {
     // 只在生产环境下进行测试
-  })
+  });
   ```
 
 ### test.runIf
@@ -80,13 +80,13 @@ interface TestOptions {
   [test.skipIf](#testskipif) 的相反面。
 
   ```ts
-  import { assert, test } from 'vitest'
+  import { assert, test } from "vitest";
 
-  const isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === "development";
 
-  test.runIf(isDev)('dev only test', () => {
+  test.runIf(isDev)("dev only test", () => {
     // 只在开发环境下进行测试
-  })
+  });
   ```
 
 ### test.only
@@ -99,17 +99,18 @@ interface TestOptions {
   同时，可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。你也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
-  import { assert, test } from 'vitest'
+  import { assert, test } from "vitest";
 
-  test.only('test', () => {
+  test.only("test", () => {
     // 仅运行此测试（以及仅标记有的其他测试）
-    assert.equal(Math.sqrt(4), 2)
-  })
+    assert.equal(Math.sqrt(4), 2);
+  });
   ```
 
   有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
 
   为了做到这一点，运行 `vitest` 命令并带上包含有问题的测试的特定文件。
+
   ```
   # vitest interesting.test.ts
   ```
@@ -122,34 +123,40 @@ interface TestOptions {
   `test.concurrent` 将连续测试标记为并行运行。 它接收测试名称、带有要收集的测试的异步函数以及可选的超时时间（以毫秒为单位）。
 
   ```ts
-  import { describe, test } from 'vitest'
+  import { describe, test } from "vitest";
 
   // 标有并发的两个测试将并发运行
-  describe('suite', () => {
-    test('serial test', async () => { /* ... */ })
-    test.concurrent('concurrent test 1', async () => { /* ... */ })
-    test.concurrent('concurrent test 2', async () => { /* ... */ })
-  })
+  describe("suite", () => {
+    test("serial test", async () => {
+      /* ... */
+    });
+    test.concurrent("concurrent test 1", async () => {
+      /* ... */
+    });
+    test.concurrent("concurrent test 2", async () => {
+      /* ... */
+    });
+  });
   ```
 
   `test.skip`、`test.only` 和 `test.todo` 适用于并发测试。 以下所有组合均有效：
 
   ```ts
-  test.concurrent(/* ... */)
-  test.skip.concurrent(/* ... */) // or test.concurrent.skip(/* ... */)
-  test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
-  test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
+  test.concurrent(/* ... */);
+  test.skip.concurrent(/* ... */); // or test.concurrent.skip(/* ... */)
+  test.only.concurrent(/* ... */); // or test.concurrent.only(/* ... */)
+  test.todo.concurrent(/* ... */); // or test.concurrent.todo(/* ... */)
   ```
 
   在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
 
   ```ts
-  test.concurrent('test 1', async ({ expect }) => {
-    expect(foo).toMatchSnapshot()
-  })
-  test.concurrent('test 2', async ({ expect }) => {
-    expect(foo).toMatchSnapshot()
-  })
+  test.concurrent("test 1", async ({ expect }) => {
+    expect(foo).toMatchSnapshot();
+  });
+  test.concurrent("test 2", async ({ expect }) => {
+    expect(foo).toMatchSnapshot();
+  });
   ```
 
 ### test.todo
@@ -161,7 +168,7 @@ interface TestOptions {
 
   ```ts
   // 测试的报告中将显示一个记录
-  test.todo('unimplemented test')
+  test.todo("unimplemented test");
   ```
 
 ### test.fails
@@ -172,19 +179,20 @@ interface TestOptions {
   使用 `test.fails` 来指示测试断言将显式失败。
 
   ```ts
-  import { expect, test } from 'vitest'
-  const myAsyncFunc = () => new Promise(resolve => resolve(1))
-  test.fails('fail test', async () => {
-    await expect(myAsyncFunc()).rejects.toBe(1)
-  })
+  import { expect, test } from "vitest";
+  const myAsyncFunc = () => new Promise((resolve) => resolve(1));
+  test.fails("fail test", async () => {
+    await expect(myAsyncFunc()).rejects.toBe(1);
+  });
   ```
 
 ### test.each
+
 - **类型:** `(cases: ReadonlyArray<T>) => void`
 - **别名:** `it.each`
 
   当你需要使用不同的变量运行相同的测试时，请使用 `test.each`。
-  你可以按照测试参数的顺序，在测试名称插入符合[printf格式](https://nodejs.org/api/util.html#util_util_format_format_args)的参数。
+  你可以按照测试参数的顺序，在测试名称插入符合[printf 格式](https://nodejs.org/api/util.html#util_util_format_format_args)的参数。
 
   - `%s`: 字符串
   - `%d`: 数值
@@ -200,9 +208,9 @@ interface TestOptions {
     [1, 1, 2],
     [1, 2, 3],
     [2, 1, 3],
-  ])('add(%i, %i) -> %i', (a, b, expected) => {
-    expect(a + b).toBe(expected)
-  })
+  ])("add(%i, %i) -> %i", (a, b, expected) => {
+    expect(a + b).toBe(expected);
+  });
 
   // 它将返回如下内容
   // ✓ add(1, 1) -> 2
@@ -220,64 +228,68 @@ interface TestOptions {
 
 Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库，继承其所有可用选项作为第三个参数。
 
-  ```ts
-  import { bench } from 'vitest'
+```ts
+import { bench } from "vitest";
 
-  bench('normal sorting', () => {
-    const x = [1, 5, 4, 2, 3]
+bench(
+  "normal sorting",
+  () => {
+    const x = [1, 5, 4, 2, 3];
     x.sort((a, b) => {
-      return a - b
-    })
-  }, { time: 1000 })
-  ```
+      return a - b;
+    });
+  },
+  { time: 1000 }
+);
+```
 
-  ```ts
-  export interface Options {
-    /**
-     * time needed for running a benchmark task (milliseconds)
-     * @default 500
-     */
-    time?: number
+```ts
+export interface Options {
+  /**
+   * time needed for running a benchmark task (milliseconds)
+   * @default 500
+   */
+  time?: number;
 
-    /**
-     * number of times that a task should run if even the time option is finished
-     * @default 10
-     */
-    iterations?: number
+  /**
+   * number of times that a task should run if even the time option is finished
+   * @default 10
+   */
+  iterations?: number;
 
-    /**
-     * function to get the current timestamp in milliseconds
-     */
-    now?: () => number
+  /**
+   * function to get the current timestamp in milliseconds
+   */
+  now?: () => number;
 
-    /**
-     * An AbortSignal for aborting the benchmark
-     */
-    signal?: AbortSignal
+  /**
+   * An AbortSignal for aborting the benchmark
+   */
+  signal?: AbortSignal;
 
-    /**
-     * warmup time (milliseconds)
-     * @default 100ms
-     */
-    warmupTime?: number
+  /**
+   * warmup time (milliseconds)
+   * @default 100ms
+   */
+  warmupTime?: number;
 
-    /**
-     * warmup iterations
-     * @default 5
-     */
-    warmupIterations?: number
+  /**
+   * warmup iterations
+   * @default 5
+   */
+  warmupIterations?: number;
 
-    /**
-     * setup function to run before each benchmark task (cycle)
-     */
-    setup?: Hook
+  /**
+   * setup function to run before each benchmark task (cycle)
+   */
+  setup?: Hook;
 
-    /**
-     * teardown function to run after each benchmark task (cycle)
-     */
-    teardown?: Hook
-  }
-  ```
+  /**
+   * teardown function to run after each benchmark task (cycle)
+   */
+  teardown?: Hook;
+}
+```
 
 ### bench.skip
 
@@ -285,16 +297,16 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 你可以使用 `bench.skip` 语法跳过运行某些基准测试。
 
-  ```ts
-  import { bench } from 'vitest'
+```ts
+import { bench } from "vitest";
 
-  bench.skip('normal sorting', () => {
-    const x = [1, 5, 4, 2, 3]
-    x.sort((a, b) => {
-      return a - b
-    })
-  })
-  ```
+bench.skip("normal sorting", () => {
+  const x = [1, 5, 4, 2, 3];
+  x.sort((a, b) => {
+    return a - b;
+  });
+});
+```
 
 ### bench.only
 
@@ -302,16 +314,16 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 使用 `bench.only` 仅在指定测试套件中运行某些基准测试。这在调试时很有用。
 
-  ```ts
-  import { bench } from 'vitest'
+```ts
+import { bench } from "vitest";
 
-  bench.only('normal sorting', () => {
-    const x = [1, 5, 4, 2, 3]
-    x.sort((a, b) => {
-      return a - b
-    })
-  })
-  ```
+bench.only("normal sorting", () => {
+  const x = [1, 5, 4, 2, 3];
+  x.sort((a, b) => {
+    return a - b;
+  });
+});
+```
 
 ### bench.todo
 
@@ -319,93 +331,95 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 使用 `bench.todo` 来存根基准测试，以便稍后实现。
 
-  ```ts
-  import { bench } from 'vitest'
+```ts
+import { bench } from "vitest";
 
-  bench.todo('unimplemented test')
-  ```
+bench.todo("unimplemented test");
+```
 
 ## describe
 
 当你在文件的顶层使用 `test` 或 `bench` 时，它们会被收集为它的隐式套件的一部分。 使用 `describe` 你可以在当前上下文中定义一个新套件，作为一组相关的测试或基准以及其他嵌套套件。 测试套件可让你组织测试和基准测试，从而使报告更加清晰。
 
-  ```ts
-  // basic.spec.ts
-  // organizing tests
+```ts
+// basic.spec.ts
+// organizing tests
 
-  import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from "vitest";
 
-  const person = {
-    isActive: true,
-    age: 32,
-  }
+const person = {
+  isActive: true,
+  age: 32,
+};
 
-  describe('person', () => {
-    test('person is defined', () => {
-      expect(person).toBeDefined()
-    })
+describe("person", () => {
+  test("person is defined", () => {
+    expect(person).toBeDefined();
+  });
 
-    test('is active', () => {
-      expect(person.isActive).toBeTruthy()
-    })
+  test("is active", () => {
+    expect(person.isActive).toBeTruthy();
+  });
 
-    test('age limit', () => {
-      expect(person.age).toBeLessThanOrEqual(32)
-    })
-  })
-  ```
+  test("age limit", () => {
+    expect(person.age).toBeLessThanOrEqual(32);
+  });
+});
+```
 
-  如果你需要有测试层次结构，你还可以嵌套描述块：
+如果你需要有测试层次结构，你还可以嵌套描述块：
 
-  ```ts
-  // basic.bench.ts
-  // organizing benchmarks
+```ts
+// basic.bench.ts
+// organizing benchmarks
 
-  import { bench, describe } from 'vitest'
+import { bench, describe } from "vitest";
 
-  describe('sort', () => {
-    bench('normal', () => {
-      const x = [1, 5, 4, 2, 3]
-      x.sort((a, b) => {
-        return a - b
-      })
-    })
+describe("sort", () => {
+  bench("normal", () => {
+    const x = [1, 5, 4, 2, 3];
+    x.sort((a, b) => {
+      return a - b;
+    });
+  });
 
-    bench('reverse', () => {
-      const x = [1, 5, 4, 2, 3]
-      x.reverse().sort((a, b) => {
-        return a - b
-      })
-    })
-  })
-  ```
+  bench("reverse", () => {
+    const x = [1, 5, 4, 2, 3];
+    x.reverse().sort((a, b) => {
+      return a - b;
+    });
+  });
+});
+```
 
-  如果你有测试或基准的层次结构，你还可以嵌套描述块：
+如果你有测试或基准的层次结构，你还可以嵌套描述块：
 
-  ```ts
-  import { describe, expect, test } from 'vitest'
+```ts
+import { describe, expect, test } from "vitest";
 
-  const numberToCurrency = (value) => {
-    if (typeof value !== 'number')
-      throw new Error('Value must be a number')
+const numberToCurrency = (value) => {
+  if (typeof value !== "number") throw new Error("Value must be a number");
 
-    return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
+  return value
+    .toFixed(2)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
-  describe('numberToCurrency', () => {
-    describe('given an invalid number', () => {
-      test('composed of non-numbers to throw error', () => {
-        expect(() => numberToCurrency('abc')).toThrowError()
-      })
-    })
+describe("numberToCurrency", () => {
+  describe("given an invalid number", () => {
+    test("composed of non-numbers to throw error", () => {
+      expect(() => numberToCurrency("abc")).toThrowError();
+    });
+  });
 
-    describe('given a valid number', () => {
-      test('returns the correct currency format', () => {
-        expect(numberToCurrency(10000)).toBe('10,000.00')
-      })
-    })
-  })
-  ```
+  describe("given a valid number", () => {
+    test("returns the correct currency format", () => {
+      expect(numberToCurrency(10000)).toBe("10,000.00");
+    });
+  });
+});
+```
 
 ### describe.skip
 
@@ -414,14 +428,14 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   在测试套件中使用 `describe.skip` 避免运行特定的描述块。
 
   ```ts
-  import { assert, describe, test } from 'vitest'
+  import { assert, describe, test } from "vitest";
 
-  describe.skip('skipped suite', () => {
-    test('sqrt', () => {
+  describe.skip("skipped suite", () => {
+    test("sqrt", () => {
       // 跳过测试套件，不会有错误
-      assert.equal(Math.sqrt(4), 3)
-    })
-  })
+      assert.equal(Math.sqrt(4), 3);
+    });
+  });
   ```
 
 ### describe.only
@@ -432,20 +446,21 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
   ```ts
   // 仅运行此测试套件（以及仅标有的其他测试套件）
-  describe.only('suite', () => {
-    test('sqrt', () => {
-      assert.equal(Math.sqrt(4), 3)
-    })
-  })
+  describe.only("suite", () => {
+    test("sqrt", () => {
+      assert.equal(Math.sqrt(4), 3);
+    });
+  });
 
-  describe('other suite', () => {
+  describe("other suite", () => {
     // ... 测试套件将会被跳过
-  })
+  });
   ```
 
   有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
 
   为了做到这一点，运行 `vitest` 命令并带上包含有问题的测试的特定文件。
+
   ```
   # vitest interesting.test.ts
   ```
@@ -458,20 +473,26 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
   ```ts
   // 该测试套件中的所有测试都将并行运行
-  describe.concurrent('suite', () => {
-    test('concurrent test 1', async () => { /* ... */ })
-    test('concurrent test 2', async () => { /* ... */ })
-    test.concurrent('concurrent test 3', async () => { /* ... */ })
-  })
+  describe.concurrent("suite", () => {
+    test("concurrent test 1", async () => {
+      /* ... */
+    });
+    test("concurrent test 2", async () => {
+      /* ... */
+    });
+    test.concurrent("concurrent test 3", async () => {
+      /* ... */
+    });
+  });
   ```
 
   `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。以下所有组合均有效：
 
   ```ts
-  describe.concurrent(/* ... */)
-  describe.skip.concurrent(/* ... */) // or describe.concurrent.skip(/* ... */)
-  describe.only.concurrent(/* ... */) // or describe.concurrent.only(/* ... */)
-  describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
+  describe.concurrent(/* ... */);
+  describe.skip.concurrent(/* ... */); // or describe.concurrent.skip(/* ... */)
+  describe.only.concurrent(/* ... */); // or describe.concurrent.only(/* ... */)
+  describe.todo.concurrent(/* ... */); // or describe.concurrent.todo(/* ... */)
   ```
 
 ### describe.shuffle
@@ -481,11 +502,17 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
   ```ts
-  describe.shuffle('suite', () => {
-    test('random test 1', async () => { /* ... */ })
-    test('random test 2', async () => { /* ... */ })
-    test('random test 3', async () => { /* ... */ })
-  })
+  describe.shuffle("suite", () => {
+    test("random test 1", async () => {
+      /* ... */
+    });
+    test("random test 2", async () => {
+      /* ... */
+    });
+    test("random test 3", async () => {
+      /* ... */
+    });
+  });
   // 执行顺序依赖于 sequence.seed 的配置选项(默认为 Date.now())
   ```
 
@@ -499,7 +526,7 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
   ```ts
   // 测试套件的报告中将显示一个记录
-  describe.todo('unimplemented suite')
+  describe.todo("unimplemented suite");
   ```
 
 ### describe.each
@@ -513,19 +540,19 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
     { a: 1, b: 1, expected: 2 },
     { a: 1, b: 2, expected: 3 },
     { a: 2, b: 1, expected: 3 },
-  ])('describe object add($a, $b)', ({ a, b, expected }) => {
+  ])("describe object add($a, $b)", ({ a, b, expected }) => {
     test(`returns ${expected}`, () => {
-      expect(a + b).toBe(expected)
-    })
+      expect(a + b).toBe(expected);
+    });
 
     test(`returned value not be greater than ${expected}`, () => {
-      expect(a + b).not.toBeGreaterThan(expected)
-    })
+      expect(a + b).not.toBeGreaterThan(expected);
+    });
 
     test(`returned value not be less than ${expected}`, () => {
-      expect(a + b).not.toBeLessThan(expected)
-    })
-  })
+      expect(a + b).not.toBeLessThan(expected);
+    });
+  });
   ```
 
 ## expect
@@ -537,12 +564,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如，这里会断言 `input` 的值是否等于 `2` ，如果它们不相等，断言则会抛出错误，并且测试失败。
 
   ```ts
-  import { expect } from 'vitest'
+  import { expect } from "vitest";
 
-  const input = Math.sqrt(4)
+  const input = Math.sqrt(4);
 
-  expect(input).to.equal(2) // chai API
-  expect(input).toBe(2) // jest API
+  expect(input).to.equal(2); // chai API
+  expect(input).toBe(2); // jest API
   ```
 
   从技术上来说，这里并没有使用 [`test`](#test) 方法，所以我们在控制台会看到 Nodejs 的报错，而不是 Vitest 的报错。想要了解更多关于 `test` 的信息，请参阅 [test 章节](#test)。
@@ -551,16 +578,16 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
 ### not
 
-  使用 `not` 将会否定断言。举例，此代码断言 `input` 的值不等于 `2`。如果它们相等，断言则会抛出错误，并且测试失败。
+使用 `not` 将会否定断言。举例，此代码断言 `input` 的值不等于 `2`。如果它们相等，断言则会抛出错误，并且测试失败。
 
-  ```ts
-  import { expect, test } from 'vitest'
+```ts
+import { expect, test } from "vitest";
 
-  const input = Math.sqrt(16)
+const input = Math.sqrt(16);
 
-  expect(input).not.to.equal(2) // chai API
-  expect(input).not.toBe(2) // jest API
-  ```
+expect(input).not.to.equal(2); // chai API
+expect(input).not.toBe(2); // jest API
+```
 
 ### toBe
 
@@ -568,26 +595,26 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
   `toBe` 可用于断言基础对象是否相等，或者对象是否共享相同的引用。它相当于调用了 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但你想检查它们的结构是否相同，则可以使用 [`toEqual`](#toequal)。
 
-  例如，下面的测试将会检查 stock 是否有13个苹果。
+  例如，下面的测试将会检查 stock 是否有 13 个苹果。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   const stock = {
-    type: 'apples',
+    type: "apples",
     count: 13,
-  }
+  };
 
-  test('stock has 13 apples', () => {
-    expect(stock.type).toBe('apples')
-    expect(stock.count).toBe(13)
-  })
+  test("stock has 13 apples", () => {
+    expect(stock.type).toBe("apples");
+    expect(stock.count).toBe(13);
+  });
 
-  test('stocks are the same', () => {
-    const refStock = stock // 相同的引用
+  test("stocks are the same", () => {
+    const refStock = stock; // 相同的引用
 
-    expect(stock).toBe(refStock)
-  })
+    expect(stock).toBe(refStock);
+  });
   ```
 
   尽量不要将 `toBe` 与浮点数一起使用。由于 JavaScript 会对它们进行四舍五入，例如 `0.1 + 0.2` 的结果严格来说并不是 `0.3` 。如果需要可靠地断言浮点数，请使用 `toBeCloseTo` 进行断言。
@@ -599,18 +626,18 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   使用 `toBeCloseTo` 进行浮点数的比较。可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test.fails('decimals are not equal in javascript', () => {
-    expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 is 0.30000000000000004
-  })
+  test.fails("decimals are not equal in javascript", () => {
+    expect(0.2 + 0.1).toBe(0.3); // 0.2 + 0.1 is 0.30000000000000004
+  });
 
-  test('decimals are rounded to 5 after the point', () => {
+  test("decimals are rounded to 5 after the point", () => {
     // 0.2 + 0.1 is 0.30000 | "000000000004" removed
-    expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
+    expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
     // nothing from 0.30000000000000004 is removed
-    expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50)
-  })
+    expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50);
+  });
   ```
 
 ### toBeDefined
@@ -620,13 +647,13 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeDefined` 断言检查值是否不等于 `undefined` 。在检查函数是否有返回值时非常有用。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  const getApples = () => 3
+  const getApples = () => 3;
 
-  test('function returned something', () => {
-    expect(getApples()).toBeDefined()
-  })
+  test("function returned something", () => {
+    expect(getApples()).toBeDefined();
+  });
   ```
 
 ### toBeUndefined
@@ -636,16 +663,15 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   与 `toBeDefined` 相反，`toBeUndefined` 断言检查值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   function getApplesFromStock(stock) {
-    if (stock === 'Bill')
-      return 13
+    if (stock === "Bill") return 13;
   }
 
-  test('mary doesn\'t have a stock', () => {
-    expect(getApplesFromStock('Mary')).toBeUndefined()
-  })
+  test("mary doesn't have a stock", () => {
+    expect(getApplesFromStock("Mary")).toBeUndefined();
+  });
   ```
 
 ### toBeTruthy
@@ -657,24 +683,23 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如下面这段代码，我们就不需要关心 `stocks.getInfo` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
-  import { Stocks } from './stocks'
-  const stocks = new Stocks()
-  stocks.sync('Bill')
-  if (stocks.getInfo('Bill'))
-    stocks.sell('apples', 'Bill')
+  import { Stocks } from "./stocks";
+  const stocks = new Stocks();
+  stocks.sync("Bill");
+  if (stocks.getInfo("Bill")) stocks.sell("apples", "Bill");
   ```
 
   所以如果我们想测试 `stocks.getInfo` 是否为 true，我们可以这样写：
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { Stocks } from './stocks'
-  const stocks = new Stocks()
+  import { expect, test } from "vitest";
+  import { Stocks } from "./stocks";
+  const stocks = new Stocks();
 
-  test('if we know Bill stock, sell apples to him', () => {
-    stocks.sync('Bill')
-    expect(stocks.getInfo('Bill')).toBeTruthy()
-  })
+  test("if we know Bill stock, sell apples to him", () => {
+    stocks.sync("Bill");
+    expect(stocks.getInfo("Bill")).toBeTruthy();
+  });
   ```
 
   JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
@@ -688,24 +713,23 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如下面这段代码，我们就不需要关心 `stocks.stockFailed` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
-  import { Stocks } from './stocks'
-  const stocks = new Stocks()
-  stocks.sync('Bill')
-  if (!stocks.stockFailed('Bill'))
-    stocks.sell('apples', 'Bill')
+  import { Stocks } from "./stocks";
+  const stocks = new Stocks();
+  stocks.sync("Bill");
+  if (!stocks.stockFailed("Bill")) stocks.sell("apples", "Bill");
   ```
 
   所以如果我们想测试 `stocks.stockFailed` 是否为 false，我们可以这样写：
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { Stocks } from './stocks'
-  const stocks = new Stocks()
+  import { expect, test } from "vitest";
+  import { Stocks } from "./stocks";
+  const stocks = new Stocks();
 
-  test('if Bill stock hasn\'t failed, sell apples to him', () => {
-    stocks.syncStocks('Bill')
-    expect(stocks.stockFailed('Bill')).toBeFalsy()
-  })
+  test("if Bill stock hasn't failed, sell apples to him", () => {
+    stocks.syncStocks("Bill");
+    expect(stocks.stockFailed("Bill")).toBeFalsy();
+  });
   ```
 
   JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
@@ -717,15 +741,15 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeNull` 将简单地断言检查值是否为 `null`。 是 `.toBe(null)` 的别名。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   function apples() {
-    return null
+    return null;
   }
 
-  test('we don\'t have apples', () => {
-    expect(apples()).toBeNull()
-  })
+  test("we don't have apples", () => {
+    expect(apples()).toBeNull();
+  });
   ```
 
 ### toBeNaN
@@ -735,19 +759,19 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeNaN` 将简单地断言是否为 `NaN`，是 `.toBe(NaN)` 的别名。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  let i = 0
+  let i = 0;
 
   function getApplesCount() {
-    i++
-    return i > 1 ? NaN : i
+    i++;
+    return i > 1 ? NaN : i;
   }
 
-  test('getApplesCount has some unusual side effects...', () => {
-    expect(getApplesCount()).not.toBeNaN()
-    expect(getApplesCount()).toBeNaN()
-  })
+  test("getApplesCount has some unusual side effects...", () => {
+    expect(getApplesCount()).not.toBeNaN();
+    expect(getApplesCount()).toBeNaN();
+  });
   ```
 
 ### toBeTypeOf
@@ -757,12 +781,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeTypeOf` 用于断言检查值是否属于接收的类型。
 
   ```ts
-  import { expect, test } from 'vitest'
-  const actual = 'stock'
+  import { expect, test } from "vitest";
+  const actual = "stock";
 
-  test('stock is type of string', () => {
-    expect(actual).toBeTypeOf('string')
-  })
+  test("stock is type of string", () => {
+    expect(actual).toBeTypeOf("string");
+  });
   ```
 
 ### toBeInstanceOf
@@ -772,13 +796,13 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeInstanceOf` 用于断言检查值是否为接收的类的实例。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { Stocks } from './stocks'
-  const stocks = new Stocks()
+  import { expect, test } from "vitest";
+  import { Stocks } from "./stocks";
+  const stocks = new Stocks();
 
-  test('stocks are instance of Stocks', () => {
-    expect(stocks).toBeInstanceOf(Stocks)
-  })
+  test("stocks are instance of Stocks", () => {
+    expect(stocks).toBeInstanceOf(Stocks);
+  });
   ```
 
 ### toBeGreaterThan
@@ -788,12 +812,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeGreaterThan` 用于断言检查值是否大于接收值，如果相等将无法通过测试。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { expect, test } from "vitest";
+  import { getApples } from "./stock";
 
-  test('have more then 10 apples', () => {
-    expect(getApples()).toBeGreaterThan(10)
-  })
+  test("have more then 10 apples", () => {
+    expect(getApples()).toBeGreaterThan(10);
+  });
   ```
 
 ### toBeGreaterThanOrEqual
@@ -803,12 +827,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeGreaterThanOrEqual` 用于断言检查值是否大于等于接收值。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { expect, test } from "vitest";
+  import { getApples } from "./stock";
 
-  test('have 11 apples or more', () => {
-    expect(getApples()).toBeGreaterThanOrEqual(11)
-  })
+  test("have 11 apples or more", () => {
+    expect(getApples()).toBeGreaterThanOrEqual(11);
+  });
   ```
 
 ### toBeLessThan
@@ -818,12 +842,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeLessThan` 用于断言检查值是否小于接收值，如果相等将无法通过测试。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { expect, test } from "vitest";
+  import { getApples } from "./stock";
 
-  test('have less then 20 apples', () => {
-    expect(getApples()).toBeLessThan(20)
-  })
+  test("have less then 20 apples", () => {
+    expect(getApples()).toBeLessThan(20);
+  });
   ```
 
 ### toBeLessThanOrEqual
@@ -833,12 +857,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toBeLessThanOrEqual` 用于断言检查值是否小于等于接收值。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { expect, test } from "vitest";
+  import { getApples } from "./stock";
 
-  test('have 11 apples or less', () => {
-    expect(getApples()).toBeLessThanOrEqual(11)
-  })
+  test("have 11 apples or less", () => {
+    expect(getApples()).toBeLessThanOrEqual(11);
+  });
   ```
 
 ### toEqual
@@ -848,34 +872,29 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toEqual` 断言检查值是否等于接收值，或者是同样的结构，如果是对象类型（将会使用递归的方法进行比较）。在本例中，你可以看到 `toEqual` 和 `toBe` 之间的区别：
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   const stockBill = {
-    type: 'apples',
+    type: "apples",
     count: 13,
-  }
+  };
 
   const stockMary = {
-    type: 'apples',
+    type: "apples",
     count: 13,
-  }
+  };
 
-  test('stocks have the same properties', () => {
-    expect(stockBill).toEqual(stockMary)
-  })
+  test("stocks have the same properties", () => {
+    expect(stockBill).toEqual(stockMary);
+  });
 
-  test('stocks are not the same', () => {
-    expect(stockBill).not.toBe(stockMary)
-  })
+  test("stocks are not the same", () => {
+    expect(stockBill).not.toBe(stockMary);
+  });
   ```
 
-<<<<<<< HEAD
   :::warning 警告
-  该方法不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个内容，建议使用 [`toThrow`](#tothrow) 断言。
-=======
-  :::warning
-  A _deep equality_ will not be performed for `Error` objects. To test if something was thrown, use [`toThrowError`](#tothrowerror) assertion.
->>>>>>> 87ece3075330434e1ae184c9532255a576a3f367
+  该方法不会对 `Error` 对象执行深度相同比较。如果要测试是否抛出了某个错误，建议使用 [`toThrowError`](#tothrowerror) 断言。
   :::
 
 ### toStrictEqual
@@ -886,23 +905,23 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
   与 [`.toEqual`](#toequal) 之间的区别：
 
-  -  检查属性值为 `undefined` 的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
-  -  检查数组的稀疏性。 例如使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
-  -  检查对象类型是否相等。例如具有字段 `a` 和 `b` 的实例对象不等于具有字段 `a` 和 `b` 的字面量对象。
+  - 检查属性值为 `undefined` 的键。例如使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不会匹配。
+  - 检查数组的稀疏性。 例如使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不会匹配。
+  - 检查对象类型是否相等。例如具有字段 `a` 和 `b` 的实例对象不等于具有字段 `a` 和 `b` 的字面量对象。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   class Stock {
     constructor(type) {
-      this.type = type
+      this.type = type;
     }
   }
 
-  test('structurally the same, but semantically different', () => {
-    expect(new Stock('apples')).toEqual({ type: 'apples' })
-    expect(new Stock('apples')).not.toStrictEqual({ type: 'apples' })
-  })
+  test("structurally the same, but semantically different", () => {
+    expect(new Stock("apples")).toEqual({ type: "apples" });
+    expect(new Stock("apples")).not.toStrictEqual({ type: "apples" });
+  });
   ```
 
 ### toContain
@@ -912,12 +931,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toContain` 用于断言检查值是否在数组中。还可以检查一个字符串是否为另一个字符串的子串。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { getAllFruits } from './stock'
+  import { expect, test } from "vitest";
+  import { getAllFruits } from "./stock";
 
-  test('the fruit list contains orange', () => {
-    expect(getAllFruits()).toContain('orange')
-  })
+  test("the fruit list contains orange", () => {
+    expect(getAllFruits()).toContain("orange");
+  });
   ```
 
 ### toContainEqual
@@ -927,12 +946,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toContainEqual` 用于断言在数组中是否包含具有特定结构和值的元素。它就像对每个元素进行 [`toEqual`](#toequal) 操作。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { getFruitStock } from './stock'
+  import { expect, test } from "vitest";
+  import { getFruitStock } from "./stock";
 
-  test('apple available', () => {
-    expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
-  })
+  test("apple available", () => {
+    expect(getFruitStock()).toContainEqual({ fruit: "apple", count: 5 });
+  });
   ```
 
 ### toHaveLength
@@ -942,15 +961,15 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toHaveLength` 用于断言一个对象是否具有 `.length` 属性，并且它被设置为某个数值。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('toHaveLength', () => {
-    expect('abc').toHaveLength(3)
-    expect([1, 2, 3]).toHaveLength(3)
+  test("toHaveLength", () => {
+    expect("abc").toHaveLength(3);
+    expect([1, 2, 3]).toHaveLength(3);
 
-    expect('').not.toHaveLength(3) // .length 的值并不是3
-    expect({ length: 3 }).toHaveLength(3)
-  })
+    expect("").not.toHaveLength(3); // .length 的值并不是3
+    expect({ length: 3 }).toHaveLength(3);
+  });
   ```
 
 ### toHaveProperty
@@ -962,47 +981,47 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   同时该方法还提供了一个可选参数，用于进行深度对比，就像使用 `toEqual` 匹配器来比较接收到的属性值。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   const invoice = {
-    'isActive': true,
-    'P.O': '12345',
-    'customer': {
-      first_name: 'John',
-      last_name: 'Doe',
-      location: 'China',
+    isActive: true,
+    "P.O": "12345",
+    customer: {
+      first_name: "John",
+      last_name: "Doe",
+      location: "China",
     },
-    'total_amount': 5000,
-    'items': [
+    total_amount: 5000,
+    items: [
       {
-        type: 'apples',
+        type: "apples",
         quantity: 10,
       },
       {
-        type: 'oranges',
+        type: "oranges",
         quantity: 5,
       },
     ],
-  }
+  };
 
-  test('John Doe Invoice', () => {
-    expect(invoice).toHaveProperty('isActive') // 断言 key 存在
-    expect(invoice).toHaveProperty('total_amount', 5000) // 断言 key 存在且值相等
+  test("John Doe Invoice", () => {
+    expect(invoice).toHaveProperty("isActive"); // 断言 key 存在
+    expect(invoice).toHaveProperty("total_amount", 5000); // 断言 key 存在且值相等
 
-    expect(invoice).not.toHaveProperty('account') // 断言 key 不存在
+    expect(invoice).not.toHaveProperty("account"); // 断言 key 不存在
 
     // 使用 dot 进行深度引用
-    expect(invoice).toHaveProperty('customer.first_name')
-    expect(invoice).toHaveProperty('customer.last_name', 'Doe')
-    expect(invoice).not.toHaveProperty('customer.location', 'India')
+    expect(invoice).toHaveProperty("customer.first_name");
+    expect(invoice).toHaveProperty("customer.last_name", "Doe");
+    expect(invoice).not.toHaveProperty("customer.location", "India");
 
     // 使用包含 key 的数组进行深度引用
-    expect(invoice).toHaveProperty('items[0].type', 'apples')
-    expect(invoice).toHaveProperty('items.0.type', 'apples') // 使用 dot 也可以工作
+    expect(invoice).toHaveProperty("items[0].type", "apples");
+    expect(invoice).toHaveProperty("items.0.type", "apples"); // 使用 dot 也可以工作
 
     // 在数组中包装你的 key 来避免它作为深度引用
-    expect(invoice).toHaveProperty(['P.O'], '12345')
-  })
+    expect(invoice).toHaveProperty(["P.O"], "12345");
+  });
   ```
 
 ### toMatch
@@ -1012,12 +1031,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   `toMatch` 用于断言字符串是否匹配指定的正则表达式或字符串。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('top fruits', () => {
-    expect('top fruits include apple, orange and grape').toMatch(/apple/)
-    expect('applefruits').toMatch('fruit') // toMatch 也可以是一个字符串
-  })
+  test("top fruits", () => {
+    expect("top fruits include apple, orange and grape").toMatch(/apple/);
+    expect("applefruits").toMatch("fruit"); // toMatch 也可以是一个字符串
+  });
   ```
 
 ### toMatchObject
@@ -1029,47 +1048,47 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   我们还可以传递对象数组。如果我们只想检查两个数组的元素数量是否匹配，该方法就会很有用，它不同于 `arrayContaining` ，它允许接收数组中的额外元素。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   const johnInvoice = {
     isActive: true,
     customer: {
-      first_name: 'John',
-      last_name: 'Doe',
-      location: 'China',
+      first_name: "John",
+      last_name: "Doe",
+      location: "China",
     },
     total_amount: 5000,
     items: [
       {
-        type: 'apples',
+        type: "apples",
         quantity: 10,
       },
       {
-        type: 'oranges',
+        type: "oranges",
         quantity: 5,
       },
     ],
-  }
+  };
 
   const johnDetails = {
     customer: {
-      first_name: 'John',
-      last_name: 'Doe',
-      location: 'China',
+      first_name: "John",
+      last_name: "Doe",
+      location: "China",
     },
-  }
+  };
 
-  test('invoice has john personal details', () => {
-    expect(johnInvoice).toMatchObject(johnDetails)
-  })
+  test("invoice has john personal details", () => {
+    expect(johnInvoice).toMatchObject(johnDetails);
+  });
 
-  test('the number of elements must match exactly', () => {
+  test("the number of elements must match exactly", () => {
     // 断言对象数组是否匹配
-    expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
-      { foo: 'bar' },
+    expect([{ foo: "bar" }, { baz: 1 }]).toMatchObject([
+      { foo: "bar" },
       { baz: 1 },
-    ])
-  })
+    ]);
+  });
   ```
 
 ### toThrowError
@@ -1086,29 +1105,31 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   - 字符串：错误消息包含指定子串
 
   :::tip 提示
-    你必须将代码包装在一个函数中，否则将无法捕获错误并且断言将会失败。
+  你必须将代码包装在一个函数中，否则将无法捕获错误并且断言将会失败。
   :::
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   function getFruitStock(type) {
-    if (type === 'pineapples')
-      throw new DiabetesError('Pineapples is not good for people with diabetes')
+    if (type === "pineapples")
+      throw new DiabetesError(
+        "Pineapples is not good for people with diabetes"
+      );
 
     // 可以做一些其他的事情
   }
 
-  test('throws on pineapples', () => {
+  test("throws on pineapples", () => {
     // 测试错误消息是否在某处显示 "diabetes" ：这些是等效的
-    expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
-    expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
+    expect(() => getFruitStock("pineapples")).toThrowError(/diabetes/);
+    expect(() => getFruitStock("pineapples")).toThrowError("diabetes");
 
     // 测试确切的错误信息
-    expect(() => getFruitStock('pineapples')).toThrowError(
-      /^Pineapples is not good for people with diabetes$/,
-    )
-  })
+    expect(() => getFruitStock("pineapples")).toThrowError(
+      /^Pineapples is not good for people with diabetes$/
+    );
+  });
   ```
 
 ### toMatchSnapshot
@@ -1120,27 +1141,27 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   你可以提供附加到测试名称的可选 `hint` 字符串参数。 尽管 Vitest 总是在快照名称的末尾附加一个数字，但在区分单个 it 或测试块中的多个快照时，简短的描述性提示可能比数字更有用。 Vitest 在相应的 `.snap` 文件中按名称对快照进行排序。
 
   :::tip 提示
-    当快照不匹配导致测试失败时，如果不匹配是预期的，你可以按 `u` 键更新一次快照。 或者可以通过 `-u` 或 `--update` CLI 选项使 Vitest 始终更新测试。
+  当快照不匹配导致测试失败时，如果不匹配是预期的，你可以按 `u` 键更新一次快照。 或者可以通过 `-u` 或 `--update` CLI 选项使 Vitest 始终更新测试。
   :::
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('matches snapshot', () => {
-    const data = { foo: new Set(['bar', 'snapshot']) }
-    expect(data).toMatchSnapshot()
-  })
+  test("matches snapshot", () => {
+    const data = { foo: new Set(["bar", "snapshot"]) };
+    expect(data).toMatchSnapshot();
+  });
   ```
 
   如果你只是测试一个对象的结构，并且不需要它是 100% 兼容的，还可以提供一个对象的结构：
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('matches snapshot', () => {
-    const data = { foo: new Set(['bar', 'snapshot']) }
-    expect(data).toMatchSnapshot({ foo: expect.any(Set) })
-  })
+  test("matches snapshot", () => {
+    const data = { foo: new Set(["bar", "snapshot"]) };
+    expect(data).toMatchSnapshot({ foo: expect.any(Set) });
+  });
   ```
 
 ### toMatchInlineSnapshot
@@ -1152,10 +1173,10 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   Vitest 将 inlineSnapshot 字符串参数添加并更新到测试文件中的匹配器（而不是外部 `.snap` 文件）。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('matches inline snapshot', () => {
-    const data = { foo: new Set(['bar', 'snapshot']) }
+  test("matches inline snapshot", () => {
+    const data = { foo: new Set(["bar", "snapshot"]) };
     // 当更新快照时，Vitest 将更新以下内容
     expect(data).toMatchInlineSnapshot(`
       {
@@ -1164,17 +1185,17 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
           "snapshot",
         },
       }
-    `)
-  })
+    `);
+  });
   ```
 
   如果你只是测试一个对象的结构，并且不需要它是 100% 兼容的，还可以提供一个对象的结构：
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('matches snapshot', () => {
-    const data = { foo: new Set(['bar', 'snapshot']) }
+  test("matches snapshot", () => {
+    const data = { foo: new Set(["bar", "snapshot"]) };
     expect(data).toMatchInlineSnapshot(
       { foo: expect.any(Set) },
       `
@@ -1182,10 +1203,9 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
         "foo": Any<Set>,
       }
     `
-    )
-  })
+    );
+  });
   ```
-
 
 ### toThrowErrorMatchingSnapshot
 
@@ -1210,247 +1230,247 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   此断言可以测试一个函数是否被调用过。需要给 `expect` 传递一个监听函数。
 
   ```ts
-  import { expect, test, vi } from 'vitest'
+  import { expect, test, vi } from "vitest";
 
   const market = {
     buy(subject: string, amount: number) {
       // ...
     },
-  }
+  };
 
-  test('spy function', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+  test("spy function", () => {
+    const buySpy = vi.spyOn(market, "buy");
 
-    expect(buySpy).not.toHaveBeenCalled()
+    expect(buySpy).not.toHaveBeenCalled();
 
-    market.buy('apples', 10)
+    market.buy("apples", 10);
 
-    expect(buySpy).toHaveBeenCalled()
-  })
+    expect(buySpy).toHaveBeenCalled();
+  });
   ```
 
 ### toHaveBeenCalledTimes
 
- - **类型**: `(amount: number) => Awaitable<void>`
+- **类型**: `(amount: number) => Awaitable<void>`
 
-  此断言将会检查一个函数是否被调用了一定的次数。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数是否被调用了一定的次数。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+};
 
-  test('spy function called two times', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test("spy function called two times", () => {
+  const buySpy = vi.spyOn(market, "buy");
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy("apples", 10);
+  market.buy("apples", 20);
 
-    expect(buySpy).toHaveBeenCalledTimes(2)
-  })
-  ```
+  expect(buySpy).toHaveBeenCalledTimes(2);
+});
+```
 
 ### toHaveBeenCalledWith
 
- - **类型**: `(...args: any[]) => Awaitable<void>`
+- **类型**: `(...args: any[]) => Awaitable<void>`
 
-  此断言将会检查一个函数是否被调用过，并且传入了指定的参数。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数是否被调用过，并且传入了指定的参数。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+};
 
-  test('spy function', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test("spy function", () => {
+  const buySpy = vi.spyOn(market, "buy");
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy("apples", 10);
+  market.buy("apples", 20);
 
-    expect(buySpy).toHaveBeenCalledWith('apples', 10)
-    expect(buySpy).toHaveBeenCalledWith('apples', 20)
-  })
-  ```
+  expect(buySpy).toHaveBeenCalledWith("apples", 10);
+  expect(buySpy).toHaveBeenCalledWith("apples", 20);
+});
+```
 
 ### toHaveBeenLastCalledWith
 
- - **类型**: `(...args: any[]) => Awaitable<void>`
+- **类型**: `(...args: any[]) => Awaitable<void>`
 
-  此断言将会检查一个函数在最后一次被调用时，是否使用了某些参数。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数在最后一次被调用时，是否使用了某些参数。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+};
 
-  test('spy function', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test("spy function", () => {
+  const buySpy = vi.spyOn(market, "buy");
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy("apples", 10);
+  market.buy("apples", 20);
 
-    expect(buySpy).not.toHaveBeenLastCalledWith('apples', 10)
-    expect(buySpy).toHaveBeenLastCalledWith('apples', 20)
-  })
-  ```
+  expect(buySpy).not.toHaveBeenLastCalledWith("apples", 10);
+  expect(buySpy).toHaveBeenLastCalledWith("apples", 20);
+});
+```
 
 ### toHaveBeenNthCalledWith
 
- - **类型**: `(time: number, ...args: any[]) => Awaitable<void>`
+- **类型**: `(time: number, ...args: any[]) => Awaitable<void>`
 
-  此断言将会检查一个函数在第某次调用时是否使用了某些参数，从第 1 次开始。所以如果要检查第 2 次调用，你可以这样写 `.toHaveBeenNthCalledWith(2, ...)`。
+此断言将会检查一个函数在第某次调用时是否使用了某些参数，从第 1 次开始。所以如果要检查第 2 次调用，你可以这样写 `.toHaveBeenNthCalledWith(2, ...)`。
 
-  需要给 `expect` 传递一个监听函数。
+需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+};
 
-  test('first call of spy function called with right params', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test("first call of spy function called with right params", () => {
+  const buySpy = vi.spyOn(market, "buy");
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy("apples", 10);
+  market.buy("apples", 20);
 
-    expect(buySpy).toHaveBeenNthCalledWith(1, 'apples', 10)
-  })
-  ```
+  expect(buySpy).toHaveBeenNthCalledWith(1, "apples", 10);
+});
+```
 
 ### toHaveReturned
 
-  - **类型**: `() => Awaitable<void>`
+- **类型**: `() => Awaitable<void>`
 
-  此断言检查一个函数是否至少成功返回了一次值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
+此断言检查一个函数是否至少成功返回了一次值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  const getApplesPrice = (amount: number) => {
-    const PRICE = 10
-    return amount * PRICE
-  }
+const getApplesPrice = (amount: number) => {
+  const PRICE = 10;
+  return amount * PRICE;
+};
 
-  test('spy function returned a value', () => {
-    const getPriceSpy = vi.fn(getApplesPrice)
+test("spy function returned a value", () => {
+  const getPriceSpy = vi.fn(getApplesPrice);
 
-    const price = getPriceSpy(10)
+  const price = getPriceSpy(10);
 
-    expect(price).toBe(100)
-    expect(getPriceSpy).toHaveReturned()
-  })
-  ```
+  expect(price).toBe(100);
+  expect(getPriceSpy).toHaveReturned();
+});
+```
 
 ### toHaveReturnedTimes
 
-  - **类型**: `(amount: number) => Awaitable<void>`
+- **类型**: `(amount: number) => Awaitable<void>`
 
-  此断言将会检查一个函数是否成功返回了确切的次数（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数是否成功返回了确切的次数（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  test('spy function returns a value two times', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test("spy function returns a value two times", () => {
+  const sell = vi.fn((product: string) => ({ product }));
 
-    sell('apples')
-    sell('bananas')
+  sell("apples");
+  sell("bananas");
 
-    expect(sell).toHaveReturnedTimes(2)
-  })
-  ```
+  expect(sell).toHaveReturnedTimes(2);
+});
+```
 
 ### toHaveReturnedWith
 
-  - **类型**: `(returnValue: any) => Awaitable<void>`
+- **类型**: `(returnValue: any) => Awaitable<void>`
 
-  此断言将会检查一个函数是否至少一次成功返回了指定的值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数是否至少一次成功返回了指定的值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  test('spy function returns a product', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test("spy function returns a product", () => {
+  const sell = vi.fn((product: string) => ({ product }));
 
-    sell('apples')
+  sell("apples");
 
-    expect(sell).toHaveReturnedWith({ product: 'apples' })
-  })
-  ```
+  expect(sell).toHaveReturnedWith({ product: "apples" });
+});
+```
 
 ### toHaveLastReturnedWith
 
-  - **类型**: `(returnValue: any) => Awaitable<void>`
+- **类型**: `(returnValue: any) => Awaitable<void>`
 
-  此断言将会检查一个函数是否在最后一次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数是否在最后一次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  test('spy function returns bananas on a last call', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test("spy function returns bananas on a last call", () => {
+  const sell = vi.fn((product: string) => ({ product }));
 
-    sell('apples')
-    sell('bananas')
+  sell("apples");
+  sell("bananas");
 
-    expect(sell).toHaveLastReturnedWith({ product: 'bananas' })
-  })
-  ```
+  expect(sell).toHaveLastReturnedWith({ product: "bananas" });
+});
+```
 
 ### toHaveNthReturnedWith
 
-  - **类型**: `(time: number, returnValue: any) => Awaitable<void>`
+- **类型**: `(time: number, returnValue: any) => Awaitable<void>`
 
-  此断言将会检查一个函数是否第某次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
+此断言将会检查一个函数是否第某次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from "vitest";
 
-  test('spy function returns bananas on second call', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test("spy function returns bananas on second call", () => {
+  const sell = vi.fn((product: string) => ({ product }));
 
-    sell('apples')
-    sell('bananas')
+  sell("apples");
+  sell("bananas");
 
-    expect(sell).toHaveNthReturnedWith(2, { product: 'bananas' })
-  })
-  ```
+  expect(sell).toHaveNthReturnedWith(2, { product: "bananas" });
+});
+```
 
 ### toSatisfy
 
-  - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
+- **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
 
-  此断言检查一个值是否满足某个谓词。
+此断言检查一个值是否满足某个谓词。
 
-  ```ts
-  describe('toSatisfy()', () => {
-    const isOdd = (value: number) => value % 2 !== 0
+```ts
+describe("toSatisfy()", () => {
+  const isOdd = (value: number) => value % 2 !== 0;
 
-    it('pass with 0', () => {
-      expect(1).toSatisfy(isOdd)
-    })
+  it("pass with 0", () => {
+    expect(1).toSatisfy(isOdd);
+  });
 
-    it('pass with negotiation', () => {
-      expect(2).not.toSatisfy(isOdd)
-    })
-  })
-  ```
+  it("pass with negotiation", () => {
+    expect(2).not.toSatisfy(isOdd);
+  });
+});
+```
 
 ### resolves
 
@@ -1463,17 +1483,17 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如，如果我们有一个函数，它调用 API 并返回一些数据，你可以使用下列代码来断言它的返回值：
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   async function buyApples() {
-    return fetch('/buy/apples').then(r => r.json())
+    return fetch("/buy/apples").then((r) => r.json());
   }
 
-  test('buyApples returns new stock id', async () => {
+  test("buyApples returns new stock id", async () => {
     // toEqual 现在返回一个 Promise ，所以我们必须等待它
-    await expect(buyApples()).resolves.toEqual({ id: 1 }) // jest API
-    await expect(buyApples()).resolves.to.equal({ id: 1 }) // chai API
-  })
+    await expect(buyApples()).resolves.toEqual({ id: 1 }); // jest API
+    await expect(buyApples()).resolves.to.equal({ id: 1 }); // chai API
+  });
   ```
 
   :::warning 警告
@@ -1491,17 +1511,16 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如，如果我们有一个调用失败的函数，我们可以使用此代码来断言原因：
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   async function buyApples(id) {
-    if (!id)
-      throw new Error('no id')
+    if (!id) throw new Error("no id");
   }
 
-  test('buyApples throws an error when no id provided', async () => {
+  test("buyApples throws an error when no id provided", async () => {
     // toThrow 现在返回一个 Promise ，所以你必须等待它
-    await expect(buyApples()).rejects.toThrow('no id')
-  })
+    await expect(buyApples()).rejects.toThrow("no id");
+  });
   ```
 
   :::warning 警告
@@ -1517,25 +1536,23 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如，如果我们有一个异步调用两个匹配器的函数，我们可以断言它们实际上是被调用的。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   async function doAsync(...cbs) {
-    await Promise.all(
-      cbs.map((cb, index) => cb({ index })),
-    )
+    await Promise.all(cbs.map((cb, index) => cb({ index })));
   }
 
-  test('all assertions are called', async () => {
-    expect.assertions(2)
+  test("all assertions are called", async () => {
+    expect.assertions(2);
     function callback1(data) {
-      expect(data).toBeTruthy()
+      expect(data).toBeTruthy();
     }
     function callback2(data) {
-      expect(data).toBeTruthy()
+      expect(data).toBeTruthy();
     }
 
-    await doAsync(callback1, callback2)
-  })
+    await doAsync(callback1, callback2);
+  });
   ```
 
 ### expect.hasAssertions
@@ -1547,34 +1564,32 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   例如，如果我们有一个调用回调的代码，我们可以在回调中进行断言，但如果我们不检查是否调用了断言，测试将始终通过。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { db } from './db'
+  import { expect, test } from "vitest";
+  import { db } from "./db";
 
-  const cbs = []
+  const cbs = [];
 
   function onSelect(cb) {
-    cbs.push(cb)
+    cbs.push(cb);
   }
 
   // 从 db 中选择后，我们调用所有的回调
   function select(id) {
     return db.select({ id }).then((data) => {
-      return Promise.all(
-        cbs.map(cb => cb(data)),
-      )
-    })
+      return Promise.all(cbs.map((cb) => cb(data)));
+    });
   }
 
-  test('callback was called', async () => {
-    expect.hasAssertions()
+  test("callback was called", async () => {
+    expect.hasAssertions();
     onSelect((data) => {
       // 在选择时调用
-      expect(data).toBeTruthy()
-    })
+      expect(data).toBeTruthy();
+    });
     // 如果不等待，测试将失败
     // 如果你没有 expect.hasAssertions()，测试将通过
-    await select(3)
-  })
+    await select(3);
+  });
   ```
 
 <!-- asymmetric matchers -->
@@ -1586,11 +1601,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   这种非对称匹配器在与相等检查一起使用时，将始终返回 `true`。 如果你只是想确保该属性存在时很有用。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   test('object has "apples" key', () => {
-    expect({ apples: 22 }).toEqual({ apples: expect.anything() })
-  })
+    expect({ apples: 22 }).toEqual({ apples: expect.anything() });
+  });
   ```
 
 ### expect.any
@@ -1600,12 +1615,12 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   此非对称匹配器与相等检查一起使用时，仅当 value 是指定构造函数的实例时才会返回 `true` 。 如果你有一个每次都生成的值，并且只想知道它以正确的类型存在是很有用。
 
   ```ts
-  import { expect, test } from 'vitest'
-  import { generateId } from './generators'
+  import { expect, test } from "vitest";
+  import { generateId } from "./generators";
 
   test('"id" is a number', () => {
-    expect({ id: generateId() }).toEqual({ id: expect.any(Number) })
-  })
+    expect({ id: generateId() }).toEqual({ id: expect.any(Number) });
+  });
   ```
 
 ### expect.arrayContaining
@@ -1615,22 +1630,18 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   当与相等检查一起使用时，如果 value 是一个数组并包含指定的选项，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('basket includes fuji', () => {
+  test("basket includes fuji", () => {
     const basket = {
-      varieties: [
-        'Empire',
-        'Fuji',
-        'Gala',
-      ],
-      count: 3
-    }
+      varieties: ["Empire", "Fuji", "Gala"],
+      count: 3,
+    };
     expect(basket).toEqual({
       count: 3,
-      varieties: expect.arrayContaining(['Fuji'])
-    })
-  })
+      varieties: expect.arrayContaining(["Fuji"]),
+    });
+  });
   ```
 
   :::tip 提示
@@ -1644,23 +1655,21 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   当与相等检查一起使用时，如果 value 具有相似的结构，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('basket has empire apples', () => {
+  test("basket has empire apples", () => {
     const basket = {
       varieties: [
         {
-          name: 'Empire',
+          name: "Empire",
           count: 1,
-        }
+        },
       ],
-    }
+    };
     expect(basket).toEqual({
-      varieties: [
-        expect.objectContaining({ name: 'Empire' }),
-      ]
-    })
-  })
+      varieties: [expect.objectContaining({ name: "Empire" })],
+    });
+  });
   ```
 
   :::tip 提示
@@ -1674,18 +1683,18 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   当与相等检查一起使用时，如果 value 是字符串并且包含指定的子字符串，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   test('variety has "Emp" in its name', () => {
     const variety = {
-      name: 'Empire',
+      name: "Empire",
       count: 1,
-    }
+    };
     expect(basket).toEqual({
-      name: expect.stringContaining('Emp'),
+      name: expect.stringContaining("Emp"),
       count: 1,
-    })
-  })
+    });
+  });
   ```
 
   :::tip 提示
@@ -1699,18 +1708,18 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   当与相等检查一起使用时，如果 value 是字符串并且包含指定的子字符串或字符串匹配正则表达式，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
   test('variety ends with "re"', () => {
     const variety = {
-      name: 'Empire',
+      name: "Empire",
       count: 1,
-    }
+    };
     expect(basket).toEqual({
       name: expect.stringMatching(/re$/),
       count: 1,
-    })
-  })
+    });
+  });
   ```
 
   :::tip 提示
@@ -1738,23 +1747,23 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   当你以这种方式定义匹配器时，还创建了可以像 `expect.stringContaining` 一样使用的不对称匹配器。
 
   ```ts
-  import { expect, test } from 'vitest'
+  import { expect, test } from "vitest";
 
-  test('custom matchers', () => {
+  test("custom matchers", () => {
     expect.extend({
       toBeFoo: (received, expected) => {
-        if (received !== 'foo') {
+        if (received !== "foo") {
           return {
             message: () => `expected ${received} to be foo`,
             pass: false,
-          }
+          };
         }
       },
-    })
+    });
 
-    expect('foo').toBeFoo()
-    expect({ foo: 'foo' }).toEqual({ foo: expect.toBeFoo() })
-  })
+    expect("foo").toBeFoo();
+    expect({ foo: "foo" }).toEqual({ foo: expect.toBeFoo() });
+  });
   ```
 
   > 如果你希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
@@ -1765,7 +1774,7 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 
   ```ts
   interface CustomMatchers<R = unknown> {
-    toBeFoo(): R
+    toBeFoo(): R;
   }
 
   declare global {
@@ -1796,13 +1805,13 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   或者，我们可以传递一个超时（以毫秒为单位），定义在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { beforeEach } from 'vitest'
+  import { beforeEach } from "vitest";
 
   beforeEach(async () => {
     // 在每次测试运行之前清除模拟并添加一些测试数据
-    await stopMocking()
-    await addUser({ name: 'John' })
-  })
+    await stopMocking();
+    await addUser({ name: "John" });
+  });
   ```
 
   这里的 `beforeEach` 确保为每个测试都添加用户。
@@ -1810,17 +1819,17 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   从 Vitest v0.10.0 开始，`beforeEach` 还接受一个可选的清理功能（相当于 `afterEach`）。
 
   ```ts
-  import { beforeEach } from 'vitest'
+  import { beforeEach } from "vitest";
 
   beforeEach(async () => {
     // 在所有测试运行之前调用一次
-    await prepareSomething()
+    await prepareSomething();
 
     // 清理方法，在所有测试运行后调用一次
     return async () => {
-      await resetSomething()
-    }
-  })
+      await resetSomething();
+    };
+  });
   ```
 
 ### afterEach
@@ -1833,12 +1842,13 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   或者，你可以设置超时（以毫秒为单位）以指定在终止前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { afterEach } from 'vitest'
+  import { afterEach } from "vitest";
 
   afterEach(async () => {
-    await clearTestingData() // 每次测试运行后清除测试数据
-  })
+    await clearTestingData(); // 每次测试运行后清除测试数据
+  });
   ```
+
   这里的 `afterEach` 确保在每次测试运行后清除测试数据。
 
 ### beforeAll
@@ -1851,11 +1861,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   或者，你可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { beforeAll } from 'vitest'
+  import { beforeAll } from "vitest";
 
   beforeAll(async () => {
-    await startMocking() // 在所有测试运行之前调用一次
-  })
+    await startMocking(); // 在所有测试运行之前调用一次
+  });
   ```
 
   这里的 `beforeAll` 确保在测试运行之前设置模拟数据。
@@ -1863,17 +1873,17 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   从 Vitest v0.10.0 开始，`beforeAll` 还可以接受一个可选的清理功能（相当于 `afterAll`）。
 
   ```ts
-  import { beforeAll } from 'vitest'
+  import { beforeAll } from "vitest";
 
   beforeAll(async () => {
     // 在所有测试运行之前调用一次
-    await startMocking()
+    await startMocking();
 
     // 清理函数，在所有测试运行后调用一次
     return async () => {
-      await stopMocking()
-    }
-  })
+      await stopMocking();
+    };
+  });
   ```
 
 ### afterAll
@@ -1886,11 +1896,11 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
   或者，你可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { afterAll } from 'vitest'
+  import { afterAll } from "vitest";
 
   afterAll(async () => {
-    await stopMocking() // 在所有测试运行后调用此方法
-  })
+    await stopMocking(); // 在所有测试运行后调用此方法
+  });
   ```
 
   这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
@@ -1906,10 +1916,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。例如，这将输出 `1, 2, 3` 并且不会抛出：
 
   ```ts
-  let i = 0
-  setInterval(() => console.log(++i), 50)
+  let i = 0;
+  setInterval(() => console.log(++i), 50);
 
-  vi.advanceTimersByTime(150)
+  vi.advanceTimersByTime(150);
   ```
 
 ### vi.advanceTimersToNextTimer
@@ -1919,25 +1929,25 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   调用下一个可调用的计时器。这在每个计时器调用间隔内进行断言很有用。你可以链式调用它来自己管理计时器。
 
   ```ts
-  let i = 0
-  setInterval(() => console.log(++i), 50)
+  let i = 0;
+  setInterval(() => console.log(++i), 50);
 
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
-    .advanceTimersToNextTimer() // log 3
+    .advanceTimersToNextTimer(); // log 3
   ```
 
 ### vi.clearAllMocks
 
-  将在所有对象监听(spies)上调用 [`.mockClear()`](/api/#mockclear)。这将清除模拟对象(mock)历史，但不会将其实现重置为默认实现。
+将在所有对象监听(spies)上调用 [`.mockClear()`](/api/#mockclear)。这将清除模拟对象(mock)历史，但不会将其实现重置为默认实现。
 
 ### vi.clearAllTimers
 
-  删除所有计划运行的计时器。这些计时器后续将不会运行。
+删除所有计划运行的计时器。这些计时器后续将不会运行。
 
 ### vi.dynamicImportSettled
 
-  等待加载所有导入。 如果你有一个开始导入模块的同步调用时很有用，否则你不能等待。
+等待加载所有导入。 如果你有一个开始导入模块的同步调用时很有用，否则你不能等待。
 
 ### vi.fn
 
@@ -1947,18 +1957,18 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   如果没有给出函数，mock 将在调用时返回 `undefined`。
 
   ```ts
-  const getApples = vi.fn(() => 0)
+  const getApples = vi.fn(() => 0);
 
-  getApples()
+  getApples();
 
-  expect(getApples).toHaveBeenCalled()
-  expect(getApples).toHaveReturnedWith(0)
+  expect(getApples).toHaveBeenCalled();
+  expect(getApples).toHaveReturnedWith(0);
 
-  getApples.mockReturnValueOnce(5)
+  getApples.mockReturnValueOnce(5);
 
-  const res = getApples()
-  expect(res).toBe(5)
-  expect(getApples).toHaveNthReturnedWith(2, 5)
+  const res = getApples();
+  expect(res).toBe(5);
+  expect(getApples).toHaveNthReturnedWith(2, 5);
   ```
 
 ### vi.getMockedSystemTime
@@ -1980,16 +1990,16 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   使传递的模块的所有 `imports`都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。
 
   - 如果定义了 `factory`，将返回其结果。工厂函数可以是异步的。你可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。对 `vi.mock` 的调用将被提升到文件的顶部，因此你无法访问在全局文件范围内声明的变量！
-  - 如果使用默认导出模拟模块，你需要在返回的工厂函数对象中提供一个 `default` key。 这是 ES 模块特定的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 commonJS 模块。*示例:*
+  - 如果使用默认导出模拟模块，你需要在返回的工厂函数对象中提供一个 `default` key。 这是 ES 模块特定的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 commonJS 模块。_示例:_
 
   ```ts
-  vi.mock('path', () => {
+  vi.mock("path", () => {
     return {
       default: { myDefaultKey: vi.fn() },
       namedExport: vi.fn(),
       // etc...
-    }
-  })
+    };
+  });
   ```
 
   - 如果 `__mocks__` 文件夹下存在同名文件，则所有导入都将返回其导出。例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
@@ -2005,16 +2015,16 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   当 `partial` 为 `true` 时，它会期望 `Partial<T>` 作为返回值。
 
   ```ts
-  import example from './example'
-  vi.mock('./example')
+  import example from "./example";
+  vi.mock("./example");
 
-  test('1+1 equals 2', async () => {
-    vi.mocked(example.calc).mockRestore()
+  test("1+1 equals 2", async () => {
+    vi.mocked(example.calc).mockRestore();
 
-    const res = example.calc(1, '+', 1)
+    const res = example.calc(1, "+", 1);
 
-    expect(res).toBe(2)
-  })
+    expect(res).toBe(2);
+  });
   ```
 
 ### vi.importActual
@@ -2024,12 +2034,12 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   导入模块，如果它应该被模拟，则绕过所有检查。如果你想部分模拟模块，这可能会很有用。
 
   ```ts
-  vi.mock('./example', async () => {
-    const axios = await vi.importActual('./example')
+  vi.mock("./example", async () => {
+    const axios = await vi.importActual("./example");
 
-    return { ...axios, get: vi.fn() }
-  })
-   ```
+    return { ...axios, get: vi.fn() };
+  });
+  ```
 
 ### vi.importMock
 
@@ -2039,7 +2049,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.resetAllMocks
 
-  将在所有对象监听(spies)上调用 [`.mockReset()`](/api/#mockreset)。这将清除模拟对象历史并将其实现重置为空函数（将返回 `undefined`）。
+将在所有对象监听(spies)上调用 [`.mockReset()`](/api/#mockreset)。这将清除模拟对象历史并将其实现重置为空函数（将返回 `undefined`）。
 
 ### vi.resetModules
 
@@ -2048,27 +2058,27 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   通过清除所有模块的缓存来重置模块的注册表。在我们对隔离测试本地状态冲突的模块时很有用。
 
   ```ts
-  import { vi } from 'vitest'
+  import { vi } from "vitest";
 
   beforeAll(() => {
-    vi.resetModules()
-  })
+    vi.resetModules();
+  });
 
-  test('change state', async () => {
-    const mod = await import('./some/path')
-    mod.changeLocalState('new value')
-    expect(mod.getlocalState()).toBe('new value')
-  })
+  test("change state", async () => {
+    const mod = await import("./some/path");
+    mod.changeLocalState("new value");
+    expect(mod.getlocalState()).toBe("new value");
+  });
 
-  test('module has old state', async () => {
-    const mod = await import('./some/path')
-    expect(mod.getlocalState()).toBe('old value')
-  })
+  test("module has old state", async () => {
+    const mod = await import("./some/path");
+    expect(mod.getlocalState()).toBe("old value");
+  });
   ```
 
 ### vi.restoreAllMocks
 
-  将在所有对象监听(spies)上调用 [`.mockRestore()`](/api/#mockrestore)。这将清除模拟对象历史并将其实现重置为原始实现。
+将在所有对象监听(spies)上调用 [`.mockRestore()`](/api/#mockrestore)。这将清除模拟对象历史并将其实现重置为原始实现。
 
 ### vi.restoreCurrentDate
 
@@ -2089,16 +2099,14 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   此方法将调用每个被创建的计时器，直到计时器队列为空。这意味着在 `runAllTimers` 期间调用的每个计时器都将被触发。如果你有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将输出 `1, 2, 3`：
 
   ```ts
-  let i = 0
-  setTimeout(() => console.log(++i))
+  let i = 0;
+  setTimeout(() => console.log(++i));
   const interval = setInterval(() => {
-    console.log(++i)
-    if (i === 3)
-      clearInterval(interval)
+    console.log(++i);
+    if (i === 3) clearInterval(interval);
+  }, 50);
 
-  }, 50)
-
-  vi.runAllTimers()
+  vi.runAllTimers();
   ```
 
 ### vi.runOnlyPendingTimers
@@ -2108,10 +2116,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   此方法将调用在 `vi.useFakeTimers()` 调用之后创建的每个计时器。它不会触发在其调用期间创建的任何计时器。例如，这只会输出 `1`：
 
   ```ts
-  let i = 0
-  setInterval(() => console.log(++i), 50)
+  let i = 0;
+  setInterval(() => console.log(++i), 50);
 
-  vi.runOnlyPendingTimers()
+  vi.runOnlyPendingTimers();
   ```
 
 ### vi.setSystemTime
@@ -2123,14 +2131,14 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   有助于你测试依赖当前日期的任何内容 —— 例如，你代码中的 [luxon](https://github.com/moment/luxon/) 调用。
 
   ```ts
-  const date = new Date(1998, 11, 19)
+  const date = new Date(1998, 11, 19);
 
-  vi.useFakeTimers()
-  vi.setSystemTime(date)
+  vi.useFakeTimers();
+  vi.setSystemTime(date);
 
-  expect(Date.now()).toBe(date.valueOf())
+  expect(Date.now()).toBe(date.valueOf());
 
-  vi.useRealTimers()
+  vi.useRealTimers();
   ```
 
 ### vi.spyOn
@@ -2140,18 +2148,18 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   在对象的方法或 getter/setter 上创建一个监听。
 
   ```ts
-  let apples = 0
+  let apples = 0;
   const obj = {
     getApples: () => 13,
-  }
+  };
 
-  const spy = vi.spyOn(obj, 'getApples').mockImplementation(() => apples)
-  apples = 1
+  const spy = vi.spyOn(obj, "getApples").mockImplementation(() => apples);
+  apples = 1;
 
-  expect(obj.getApples()).toBe(1)
+  expect(obj.getApples()).toBe(1);
 
-  expect(spy).toHaveBeenCalled()
-  expect(spy).toHaveReturnedWith(1)
+  expect(spy).toHaveBeenCalled();
+  expect(spy).toHaveReturnedWith(1);
   ```
 
 ### vi.stubGlobal
@@ -2213,17 +2221,17 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   例如:
 
   ```ts
-  const mockFn = vi.fn().mockImplementation(apples => apples + 1)
+  const mockFn = vi.fn().mockImplementation((apples) => apples + 1);
   // or: vi.fn(apples => apples + 1);
 
-  const NelliesBucket = mockFn(0)
-  const BobsBucket = mockFn(1)
+  const NelliesBucket = mockFn(0);
+  const BobsBucket = mockFn(1);
 
-  NelliesBucket === 1 // true
-  BobsBucket === 2 // true
+  NelliesBucket === 1; // true
+  BobsBucket === 2; // true
 
-  mockFn.mock.calls[0][0] === 0 // true
-  mockFn.mock.calls[1][0] === 1 // true
+  mockFn.mock.calls[0][0] === 0; // true
+  mockFn.mock.calls[1][0] === 1; // true
   ```
 
 ### mockImplementationOnce
@@ -2236,22 +2244,22 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   const myMockFn = vi
     .fn()
     .mockImplementationOnce(() => true)
-    .mockImplementationOnce(() => false)
+    .mockImplementationOnce(() => false);
 
-  myMockFn() // true
-  myMockFn() // false
+  myMockFn(); // true
+  myMockFn(); // false
   ```
 
   当对象模拟函数执行完毕，它将调用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 设置的默认实现。如果它们被调用：
 
   ```ts
   const myMockFn = vi
-    .fn(() => 'default')
-    .mockImplementationOnce(() => 'first call')
-    .mockImplementationOnce(() => 'second call')
+    .fn(() => "default")
+    .mockImplementationOnce(() => "first call")
+    .mockImplementationOnce(() => "second call");
 
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
   ```
 
 ### mockRejectedValue
@@ -2261,11 +2269,11 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   当异步函数被调用时，接收一个将被拒绝 ( reject ) 的错误。
 
   ```ts
-  test('async test', async () => {
-    const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
+  test("async test", async () => {
+    const asyncMock = vi.fn().mockRejectedValue(new Error("Async error"));
 
-    await asyncMock() // throws "Async error"
-  })
+    await asyncMock(); // throws "Async error"
+  });
   ```
 
 ### mockRejectedValueOnce
@@ -2275,15 +2283,15 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   接收一个只会被对象模拟函数拒绝一次的值。如果链式调用，每个连续调用都将拒绝传入的值。
 
   ```ts
-  test('async test', async () => {
+  test("async test", async () => {
     const asyncMock = vi
       .fn()
-      .mockResolvedValueOnce('first call')
-      .mockRejectedValueOnce(new Error('Async error'))
+      .mockResolvedValueOnce("first call")
+      .mockRejectedValueOnce(new Error("Async error"));
 
-    await asyncMock() // first call
-    await asyncMock() // throws "Async error"
-  })
+    await asyncMock(); // first call
+    await asyncMock(); // throws "Async error"
+  });
   ```
 
 ### mockReset
@@ -2311,11 +2319,11 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   当异步函数被调用时，接收一个将被决议 ( resolve ) 的值。
 
   ```ts
-  test('async test', async () => {
-    const asyncMock = vi.fn().mockResolvedValue(43)
+  test("async test", async () => {
+    const asyncMock = vi.fn().mockResolvedValue(43);
 
-    await asyncMock() // 43
-  })
+    await asyncMock(); // 43
+  });
   ```
 
 ### mockResolvedValueOnce
@@ -2325,18 +2333,18 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   接收一个只会被对象模拟函数决议一次的值。如果链式调用，每个连续调用都将决议传入的值。
 
   ```ts
-  test('async test', async () => {
+  test("async test", async () => {
     const asyncMock = vi
       .fn()
-      .mockResolvedValue('default')
-      .mockResolvedValueOnce('first call')
-      .mockResolvedValueOnce('second call')
+      .mockResolvedValue("default")
+      .mockResolvedValueOnce("first call")
+      .mockResolvedValueOnce("second call");
 
-    await asyncMock() // first call
-    await asyncMock() // second call
-    await asyncMock() // default
-    await asyncMock() // default
-  })
+    await asyncMock(); // first call
+    await asyncMock(); // second call
+    await asyncMock(); // default
+    await asyncMock(); // default
+  });
   ```
 
 ### mockReturnThis
@@ -2352,11 +2360,11 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   接收一个调用对象模拟函数时将返回的值。
 
   ```ts
-  const mock = vi.fn()
-  mock.mockReturnValue(42)
-  mock() // 42
-  mock.mockReturnValue(43)
-  mock() // 43
+  const mock = vi.fn();
+  mock.mockReturnValue(42);
+  mock(); // 42
+  mock.mockReturnValue(43);
+  mock(); // 43
   ```
 
 ### mockReturnValueOnce
@@ -2368,36 +2376,36 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   ```ts
   const myMockFn = vi
     .fn()
-    .mockReturnValue('default')
-    .mockReturnValueOnce('first call')
-    .mockReturnValueOnce('second call')
+    .mockReturnValue("default")
+    .mockReturnValueOnce("first call")
+    .mockReturnValueOnce("second call");
 
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
   ```
 
 ## MockInstance Properties
 
 ### mock.calls
 
-  这是一个包含每个调用的所有参数的数组。数组的每一项都是该调用的参数。
+这是一个包含每个调用的所有参数的数组。数组的每一项都是该调用的参数。
 
-  如果一个函数被调用两次，并依次使用以下参数 `fn(arg1, arg2)`、`fn(arg3, arg4)`，那么 `mock.calls` 将是：
+如果一个函数被调用两次，并依次使用以下参数 `fn(arg1, arg2)`、`fn(arg3, arg4)`，那么 `mock.calls` 将是：
 
 ```js
 [
-  ['arg1', 'arg2'],
-  ['arg3', 'arg4'],
-]
+  ["arg1", "arg2"],
+  ["arg3", "arg4"],
+];
 ```
 
 ### mock.lastCall
 
-  这包含最后一次调用的参数。 如果未调用 spy，将返回 `undefined`。
+这包含最后一次调用的参数。 如果未调用 spy，将返回 `undefined`。
 
 ### mock.results
 
-  这是一个包含所有函数 `return` 的值的数组。该数组的一项是具有 `type` 和 `value` 属性的对象。可用类型有：
+这是一个包含所有函数 `return` 的值的数组。该数组的一项是具有 `type` 和 `value` 属性的对象。可用类型有：
 
 - `'return'` - function returned without throwing.
 - `'throw'` - function threw a value.
@@ -2409,41 +2417,41 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 ```js
 [
   {
-    type: 'return',
-    value: 'result',
+    type: "return",
+    value: "result",
   },
   {
-    type: 'throw',
+    type: "throw",
     value: Error,
   },
-]
+];
 ```
 
 ### mock.instances
 
-  这是一个数组，包含在使用 `new` 关键字调用 mock 时实例化的所有实例。 请注意，这是函数的实际上下文（`this`），而不是返回值。
+这是一个数组，包含在使用 `new` 关键字调用 mock 时实例化的所有实例。 请注意，这是函数的实际上下文（`this`），而不是返回值。
 
-  例如，如果 mock 是用 `new MyClass()` 实例化的，那么 `mock.instances` 将是一个包含一个值的数组：
+例如，如果 mock 是用 `new MyClass()` 实例化的，那么 `mock.instances` 将是一个包含一个值的数组：
 
 ```js
-import { expect, vi } from 'vitest'
+import { expect, vi } from "vitest";
 
-const MyClass = vi.fn()
+const MyClass = vi.fn();
 
-const a = new MyClass()
+const a = new MyClass();
 
-expect(MyClass.mock.instances[0]).toBe(a)
+expect(MyClass.mock.instances[0]).toBe(a);
 ```
 
-  如果从构造函数返回一个值，它将不在 `instances` 数组中，而是在 `results` 中：
+如果从构造函数返回一个值，它将不在 `instances` 数组中，而是在 `results` 中：
 
 ```js
-import { expect, vi } from 'vitest'
+import { expect, vi } from "vitest";
 
-const Spy = vi.fn(() => ({ method: vi.fn() }))
+const Spy = vi.fn(() => ({ method: vi.fn() }));
 
-const a = new Spy()
+const a = new Spy();
 
-expect(Spy.mock.instances[0]).not.toBe(a)
-expect(Spy.mock.results[0]).toBe(a)
+expect(Spy.mock.instances[0]).not.toBe(a);
+expect(Spy.mock.results[0]).toBe(a);
 ```
