@@ -72,6 +72,10 @@ interface TestOptions {
   });
   ```
 
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
+
 ### test.runIf
 
 - **类型:** `(condition: any) => Test`
@@ -88,6 +92,10 @@ interface TestOptions {
     // 只在开发环境下进行测试
   });
   ```
+
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
 
 ### test.only
 
@@ -159,6 +167,10 @@ interface TestOptions {
   });
   ```
 
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
+
 ### test.todo
 
 - **类型:** `(name: string) => void`
@@ -185,6 +197,10 @@ interface TestOptions {
     await expect(myAsyncFunc()).rejects.toBe(1);
   });
   ```
+
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
 
 ### test.each
 
@@ -218,7 +234,32 @@ interface TestOptions {
   // ✓ add(2, 1) -> 3
   ```
 
+<<<<<<< HEAD
   如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
+=======
+  You can also access object properties with `$` prefix, if you are using objects as arguments:
+
+    ```ts
+    test.each([
+      { a: 1, b: 1, expected: 2 },
+      { a: 1, b: 2, expected: 3 },
+      { a: 2, b: 1, expected: 3 },
+    ])('add($a, $b) -> $expected', ({ a, b, expected }) => {
+      expect(a + b).toBe(expected)
+    })
+
+  // this will return
+  // ✓ add(1, 1) -> 2
+  // ✓ add(1, 2) -> 3
+  // ✓ add(2, 1) -> 3
+  ```
+
+  If you want to have access to `TestContext`, use `describe.each` with a single test.
+>>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
+
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
 
 ## bench
 
@@ -495,6 +536,10 @@ describe("numberToCurrency", () => {
   describe.todo.concurrent(/* ... */); // or describe.concurrent.todo(/* ... */)
   ```
 
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
+
 ### describe.shuffle
 
 - **类型:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
@@ -517,6 +562,10 @@ describe("numberToCurrency", () => {
   ```
 
 `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。以下所有组合均有效：
+
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
 
 ### describe.todo
 
@@ -555,6 +604,10 @@ describe("numberToCurrency", () => {
   });
   ```
 
+::: warning
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+:::
+
 ## expect
 
 - **类型:** `ExpectStatic & (actual: any) => Assertions`
@@ -575,6 +628,10 @@ describe("numberToCurrency", () => {
   从技术上来说，这里并没有使用 [`test`](#test) 方法，所以我们在控制台会看到 Nodejs 的报错，而不是 Vitest 的报错。想要了解更多关于 `test` 的信息，请参阅 [test 章节](#test)。
 
   此外，`expect` 可用于静态访问匹配器功能，这个后面会介绍。
+
+::: warning
+`expect` has no effect on testing types, if expression doesn't have a type error. If you want to use Vitest as [type checker](/guide/testing-types), use [`expectTypeOf`](#expecttypeof) or [`assertType`](#asserttype).
+:::
 
 ### not
 
@@ -1791,9 +1848,525 @@ describe("toSatisfy()", () => {
   如果你想了解更多信息，请查看 [关于扩展匹配器的指南](/guide/extending-matchers)。
   :::
 
+## expectTypeOf
+
+- **Type:** `<T>(a: unknown) => ExpectTypeOf`
+
+### not
+
+  - **Type:** `ExpectTypeOf`
+
+  You can negate all assertions, using `.not` property.
+
+### toEqualTypeOf
+
+  - **Type:** `<T>(expected: T) => void`
+
+  This matcher will check, if types are fully equal to each other. This matcher will not fail, if two objects have different values, but the same type, but will fail, if object is missing a property.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
+  expectTypeOf({ a: 1 }).toEqualTypeOf({ a: 1 })
+  expectTypeOf({ a: 1 }).toEqualTypeOf({ a: 2 })
+  expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
+  ```
+
+### toMatchTypeOf
+
+  - **Type:** `<T>(expected: T) => void`
+
+  This matcher checks if expect type extends provided type. It is different from `toEqual` and is more similar to expect's `toMatch`. With this matcher you can check, if an object "matches" a type.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf({ a: 1, b: 1 }).toMatchTypeOf({ a: 1 })
+  expectTypeOf<number>().toMatchTypeOf<string | number>()
+  expectTypeOf<string | number>().not.toMatchTypeOf<number>()
+  ```
+
+### extract
+
+  - **Type:** `ExpectTypeOf<ExtractedUnion>`
+
+  You can use `.extract` to narrow down types for further testing.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
+  const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({})
+  interface CSSProperties { margin?: string; padding?: string }
+
+  const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
+
+  expectTypeOf(getResponsiveProp(cssProperties))
+    .extract<{ xs?: any }>() // extracts the last type from a union
+    .toEqualTypeOf<{ xs?: CSSProperties; sm?: CSSProperties; md?: CSSProperties }>()
+
+  expectTypeOf(getResponsiveProp(cssProperties))
+    .extract<unknown[]>() // extracts an array from a union
+    .toEqualTypeOf<CSSProperties[]>()
+  ```
+
+  ::: warning
+  If no type is found in the union, `.extract` will return `never`.
+  :::
+
+### exclude
+
+  - **Type:** `ExpectTypeOf<NonExcludedUnion>`
+
+  You can use `.exclude` to remove types from a union for further testing.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
+  const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({})
+  interface CSSProperties { margin?: string; padding?: string }
+
+  const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
+
+  expectTypeOf(getResponsiveProp(cssProperties))
+    .exclude<unknown[]>()
+    .exclude<{ xs?: unknown }>() // or just .exclude<unknown[] | { xs?: unknown }>()
+    .toEqualTypeOf<CSSProperties>()
+  ```
+
+  ::: warning
+  If no type is found in the union, `.exclude` will return `never`.
+  :::
+
+### returns
+
+  - **Type:** `ExpectTypeOf<ReturnValue>`
+
+  You can use `.returns` to extract return value of a function type.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(() => {}).returns.toBeVoid()
+  expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2])
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+### parameters
+
+  - **Type:** `ExpectTypeOf<Parameters>`
+
+  You can extract function arguments with `.parameters` to perform assertions on its value. Parameters are returned as an array.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  type NoParam = () => void
+  type HasParam = (s: string) => void
+
+  expectTypeOf<NoParam>().parameters.toEqualTypeOf<[]>()
+  expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+  ::: tip
+  You can also use [`.toBeCallableWith`](#tobecallablewith) matcher as a more expressive assertion.
+  :::
+
+### parameter
+
+  - **Type:** `(nth: number) => ExpectTypeOf`
+
+  You can extract a certain function argument with `.parameter(number)` call to perform other assertions on it.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  const foo = (a: number, b: string) => [a, b]
+
+  expectTypeOf(foo).parameter(0).toBeNumber()
+  expectTypeOf(foo).parameter(1).toBeString()
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+### constructorParameters
+
+  - **Type:** `ExpectTypeOf<ConstructorParameters>`
+
+  You can extract constructor parameters as an array of values and perform assertions on them with this method.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(Date).constructorParameters.toEqualTypeOf<[] | [string | number | Date]>()
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+  ::: tip
+  You can also use [`.toBeConstructibleWith`](#tobeconstructiblewith) matcher as a more expressive assertion.
+  :::
+
+### instance
+
+  - **Type:** `ExpectTypeOf<ConstructableInstance>`
+
+  This property gives access to matchers that can be performed on an instance of the provided class.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(Date).instance.toHaveProperty('toISOString')
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+### items
+
+  - **Type:** `ExpectTypeOf<T>`
+
+  You can get array item type with `.items` to perform further assertions.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf([1, 2, 3]).items.toEqualTypeOf<number>()
+  expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>()
+  ```
+
+### resolves
+
+  - **Type:** `ExpectTypeOf<ResolvedPromise>`
+
+  This matcher extracts resolved value of a `Promise`, so you can perform other assertions on it.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  const asyncFunc = async () => 123
+
+  expectTypeOf(asyncFunc).returns.resolves.toBeNumber()
+  expectTypeOf(Promise.resolve('string')).resolves.toBeString()
+  ```
+
+  ::: warning
+  If used on a non-promise type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+### guards
+
+  - **Type:** `ExpectTypeOf<Guard>`
+
+  This matcher extracts guard value (e.g., `v is number`), so you can perform assertions on it.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  const isString = (v: any): v is string => typeof v === 'string'
+  expectTypeOf(isString).guards.toBeString()
+  ```
+
+  ::: warning
+  Returns `never`, if the value is not a guard function, so you won't be able to chain it with other matchers.
+  :::
+
+### asserts
+
+  - **Type:** `ExpectTypeOf<Assert>`
+
+  This matcher extracts assert value (e.g., `assert v is number`), so you can perform assertions on it.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  const assertNumber = (v: any): asserts v is number => {
+    if (typeof v !== 'number')
+      throw new TypeError('Nope !')
+  }
+
+  expectTypeOf(assertNumber).asserts.toBeNumber()
+  ```
+
+  ::: warning
+  Returns `never`, if the value is not an assert function, so you won't be able to chain it with other matchers.
+  :::
+
+### toBeAny
+
+  - **Type:** `() => void`
+
+  With this matcher you can check, if provided type is `any` type. If the type is too specific, the test will fail.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf<any>().toBeAny()
+  expectTypeOf({} as any).toBeAny()
+  expectTypeOf('string').not.toBeAny()
+  ```
+
+### toBeUnknown
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is `unknown` type.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf().toBeUnknown()
+  expectTypeOf({} as unknown).toBeUnknown()
+  expectTypeOf('string').not.toBeUnknown()
+  ```
+
+### toBeNever
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is a `never` type.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf<never>().toBeNever()
+  expectTypeOf((): never => {}).returns.toBeNever()
+  ```
+
+### toBeFunction
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is a `functon`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(42).not.toBeFunction()
+  expectTypeOf((): never => {}).toBeFunction()
+  ```
+
+### toBeObject
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is an `object`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(42).not.toBeObject()
+  expectTypeOf({}).toBeObject()
+  ```
+
+### toBeArray
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is `Array<T>`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(42).not.toBeArray()
+  expectTypeOf([]).toBeArray()
+  expectTypeOf([1, 2]).toBeArray()
+  expectTypeOf([{}, 42]).toBeArray()
+  ```
+
+### toBeString
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is a `string`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(42).not.toBeArray()
+  expectTypeOf([]).toBeArray()
+  expectTypeOf([1, 2]).toBeArray()
+  expectTypeOf<number[]>().toBeArray()
+  ```
+
+### toBeBoolean
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is `boolean`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(42).not.toBeBoolean()
+  expectTypeOf(true).toBeBoolean()
+  expectTypeOf<boolean>().toBeBoolean()
+  ```
+
+### toBeVoid
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is `void`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(() => {}).returns.toBeVoid()
+  expectTypeOf<void>().toBeVoid()
+  ```
+
+### toBeSymbol
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is a `symbol`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(Symbol(1)).toBeSymbol()
+  expectTypeOf<symbol>().toBeSymbol()
+  ```
+
+### toBeNull
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is `null`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(null).toBeNull()
+  expectTypeOf<null>().toBeNull()
+  expectTypeOf(undefined).not.toBeNull()
+  ```
+
+### toBeUndefined
+
+  - **Type:** `() => void`
+
+  This matcher checks, if provided type is `undefined`.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(undefined).toBeUndefined()
+  expectTypeOf<undefined>().toBeUndefined()
+  expectTypeOf(null).not.toBeUndefined()
+  ```
+
+### toBeNullable
+
+  - **Type:** `() => void`
+
+  This matcher checks, if you can use `null` or `undefined` with provided type.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf<1 | undefined>().toBeNullable()
+  expectTypeOf<1 | null>().toBeNullable()
+  expectTypeOf<1 | undefined | null>().toBeNullable()
+  ```
+
+### toBeCallableWith
+
+  - **Type:** `() => void`
+
+  This matcher ensures you can call provided function with a set of parameters.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  type NoParam = () => void
+  type HasParam = (s: string) => void
+
+  expectTypeOf<NoParam>().toBeCallableWith()
+  expectTypeOf<HasParam>().toBeCallableWith('some string')
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+### toBeConstructibleWith
+
+  - **Type:** `() => void`
+
+  This matcher ensures you can create a new instance with a set of constructor parameters.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  expectTypeOf(Date).toBeConstructibleWith(new Date())
+  expectTypeOf(Date).toBeConstructibleWith('01-01-2000')
+  ```
+
+  ::: warning
+  If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
+  :::
+
+### toHaveProperty
+
+  - **Type:** `<K extends keyof T>(property: K) => ExpectTypeOf<T[K>`
+
+  This matcher checks if a property exists on provided object. If it exists, it also returns the same set of matchers for the type of this property, so you can chain assertions one after another.
+
+  ```ts
+  import { expectTypeOf } from 'vitest'
+
+  const obj = { a: 1, b: '' }
+
+  expectTypeOf(obj).toHaveProperty('a')
+  expectTypeOf(obj).not.toHaveProperty('c')
+
+  expectTypeOf(obj).toHaveProperty('a').toBeNumber()
+  expectTypeOf(obj).toHaveProperty('b').toBeString()
+  expectTypeOf(obj).toHaveProperty('a').not.toBeString()
+  ```
+
+## assertType
+
+  - **Type:** `<T>(value: T): void`
+
+  You can use this function as an alternative for `expectTypeOf` to easily assert that argument type is equal to provided generic.
+
+  ```ts
+  import { assertType } from 'vitest'
+
+  function concat(a: string, b: string): string
+  function concat(a: number, b: number): number
+  function concat(a: string | number, b: string | number): string | number
+
+  assertType<string>(concat('a', 'b'))
+  assertType<number>(concat(1, 2))
+  // @ts-expect-error wrong types
+  assertType(concat('a', 2))
+  ```
+
 ## Setup and Teardown
 
+<<<<<<< HEAD
 这些功能允许我们连接到测试的生命周期，以避免重复设置和拆卸代码。 它们适用于当前上下文：如果它们在顶层使用，则适用于文件；如果它们在 `describe` 块内，则适用于当前测试套件。
+=======
+These functions allow you to hook into the life cycle of tests to avoid repeating setup and teardown code. They apply to the current context: the file if they are used at the top-level or the current suite if they are inside a `describe` block. These hooks are not called, when you are running Vitest as a type checker.
+>>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
 
 ### beforeEach
 
@@ -1987,10 +2560,17 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
+<<<<<<< HEAD
   使传递的模块的所有 `imports`都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。
 
   - 如果定义了 `factory`，将返回其结果。工厂函数可以是异步的。你可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。对 `vi.mock` 的调用将被提升到文件的顶部，因此你无法访问在全局文件范围内声明的变量！
   - 如果使用默认导出模拟模块，你需要在返回的工厂函数对象中提供一个 `default` key。 这是 ES 模块特定的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 commonJS 模块。_示例:_
+=======
+  Makes all `imports` to passed module to be mocked. Inside a path you _can_ use configured Vite aliases. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports.
+
+  - If `factory` is defined, will return its result. Factory function can be asynchronous. You may call [`vi.importActual`](#vi-importactual) inside to get the original module. Since the call to `vi.mock` is hoisted, you don't have access to variables declared in the global file scope!
+  - If mocking a module with a default export, you'll need to provide a `default` key within the returned factory function object. This is an ES modules specific caveat, therefore `jest` documentation may differ as `jest` uses commonJS modules. *Example:*
+>>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
 
   ```ts
   vi.mock("path", () => {

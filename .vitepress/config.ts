@@ -116,7 +116,15 @@ export default defineConfig({
               link: '/guide/features',
             },
             {
+<<<<<<< HEAD
               text: '命令行界面',
+=======
+              text: 'Testing Types',
+              link: '/guide/testing-types',
+            },
+            {
+              text: 'CLI',
+>>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
               link: '/guide/cli',
             },
             {
