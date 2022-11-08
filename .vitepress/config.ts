@@ -21,9 +21,32 @@ export default defineConfig({
   head: [
     ['meta', { name: 'theme-color', content: '#729b1a' }],
     ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    ['link', { rel: 'alternate icon', href: '/favicon.ico', type: 'image/png', sizes: '16x16' }],
-    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
-    ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node' }],
+    [
+      'link',
+      {
+        rel: 'alternate icon',
+        href: '/favicon.ico',
+        type: 'image/png',
+        sizes: '16x16',
+      },
+    ],
+    [
+      'meta',
+      {
+        name: 'author',
+        content: `${teamMembers
+          .map(c => c.name)
+          .join(', ')} and ${vitestName} contributors`,
+      },
+    ],
+    [
+      'meta',
+      {
+        name: 'keywords',
+        content:
+          'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node',
+      },
+    ],
     ['meta', { property: 'og:title', content: vitestName }],
     ['meta', { property: 'og:description', content: vitestDescription }],
     ['meta', { property: 'og:url', content: ogUrl }],
@@ -34,7 +57,14 @@ export default defineConfig({
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['link', { href: font, rel: 'stylesheet' }],
     ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
-    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+    [
+      'link',
+      {
+        rel: 'apple-touch-icon',
+        href: '/apple-touch-icon.png',
+        sizes: '180x180',
+      },
+    ],
   ],
   lastUpdated: true,
   markdown: {
@@ -62,9 +92,7 @@ export default defineConfig({
 
     localeLinks: {
       text: '简体中文',
-      items: [
-        { text: 'English', link: 'https://vitest.dev' },
-      ],
+      items: [{ text: 'English', link: 'https://vitest.dev' }],
     },
 
     socialLinks: [
@@ -75,7 +103,8 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2021-PRESENT Anthony Fu, Matías Capeletto and Vitest contributors',
+      copyright:
+        'Copyright © 2021-PRESENT Anthony Fu, Matías Capeletto and Vitest contributors',
     },
 
     nav: [
@@ -116,15 +145,11 @@ export default defineConfig({
               link: '/guide/features',
             },
             {
-<<<<<<< HEAD
-              text: '命令行界面',
-=======
-              text: 'Testing Types',
+              text: '类型测试',
               link: '/guide/testing-types',
             },
             {
-              text: 'CLI',
->>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
+              text: '命令行界面',
               link: '/guide/cli',
             },
             {

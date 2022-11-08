@@ -846,63 +846,59 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **类型**: `number`
 - **默认值**: `Date.now()`
 
-<<<<<<< HEAD
 如果测试以随机顺序运行，则设置随机化种子。
-=======
-Sets the randomization seed, if tests are running in random order.
 
 ### typecheck
 
-Options for configuring [typechecking](/guide/testing-types) test environment.
+用于配置 [typechecking](/guide/testing-types) 测试环境的选项。
 
 #### typecheck.checker
 
-- **Type**: `'tsc' | 'vue-tsc' | string`
-- **Default**: `tsc`
+- **类型**: `'tsc' | 'vue-tsc' | string`
+- **默认值**: `tsc`
 
-What tools to use for type checking. Vitest will spawn a process with certain parameters for easier parsing, depending on the type. Checker should implement the same output format as `tsc`.
+设置类型检查的检测器。Vitest 将根据类型生成具有某些参数的进程，以便于解析。 Checker 应该实现与 `tsc` 相同的输出格式。
 
-You need to have a package installed to use typecheker:
+你需要安装一个包才能使用 typecheker:
 
 - `tsc` requires `typescript` package
 - `vue-tsc` requires `vue-tsc` package
 
-You can also pass down a path to custom binary or command name that produces the same output as `tsc --noEmit --pretty false`.
+你还可以将路径传递到自定义二进制文件或命令名称，该路径会产生与 `tsc --noEmit --pretty false` 相同的输出。
 
 #### typecheck.include
 
-- **Type**: `string[]`
-- **Default**: `['**/*.{test,spec}-d.{ts,js}']`
+- **类型**: `string[]`
+- **默认值**: `['**/*.{test,spec}-d.{ts,js}']`
 
-Glob pattern for files that should be treated as test files
+匹配包含测试文件的 glob 规则。
 
 #### typecheck.exclude
 
-- **Type**: `string[]`
-- **Default**: `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
+- **类型**: `string[]`
+- **默认值**: `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
 
-Glob pattern for files that should not be treated as test files
+匹配排除测试文件的 glob 规则。
 
 #### typecheck.allowJs
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Check JS files that have `@ts-check` comment. If you have it enabled in tsconfig, this will not overwrite it.
+检查有 `@ts-check` 注释的 JS 文件。 如果你在 tsconfig 中启用它，则不会覆盖它。
 
 #### typecheck.ignoreSourceErrors
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Do not fail, if Vitest found errors outside the test files. This will not show you non-test errors at all.
+如果 Vitest 在测试文件之外发现错误，不要失败。 这根本不会向你显示非测试错误。
 
-By default, if Vitest finds source error, it will fail test suite.
+默认情况下，如果 Vitest 发现源错误，它将测试套件中抛出失败。
 
 #### typecheck.tsconfig
 
-- **Type**: `string`
-- **Default**: _tries to find closest tsconfig.json_
+- **类型**: `string`
+- **默认值**: _tries to find closest tsconfig.json_
 
-Path to custom tsconfig, relative to the project root.
->>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
+自定义 tsconfig 的路径，相对于项目根目录。

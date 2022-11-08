@@ -44,25 +44,37 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 在连续测试中使用 `.concurrent` 将会并发运行它们。
 
 ```ts
-import { describe, it } from 'vitest'
+import { describe, it } from "vitest";
 // The two tests marked with concurrent will be run in parallel
-describe('suite', () => {
-  it('serial test', async() => { /* ... */ })
-  it.concurrent('concurrent test 1', async() => { /* ... */ })
-  it.concurrent('concurrent test 2', async() => { /* ... */ })
-})
+describe("suite", () => {
+  it("serial test", async () => {
+    /* ... */
+  });
+  it.concurrent("concurrent test 1", async () => {
+    /* ... */
+  });
+  it.concurrent("concurrent test 2", async () => {
+    /* ... */
+  });
+});
 ```
 
 如果在测试套件中使用 `.concurrent`，则其中的每个测试用例都将并发运行。
 
 ```ts
-import { describe, it } from 'vitest'
+import { describe, it } from "vitest";
 // All tests within this suite will be run in parallel
-describe.concurrent('suite', () => {
-  it('concurrent test 1', async() => { /* ... */ })
-  it('concurrent test 2', async() => { /* ... */ })
-  it.concurrent('concurrent test 3', async() => { /* ... */ })
-})
+describe.concurrent("suite", () => {
+  it("concurrent test 1", async () => {
+    /* ... */
+  });
+  it("concurrent test 2", async () => {
+    /* ... */
+  });
+  it.concurrent("concurrent test 3", async () => {
+    /* ... */
+  });
+});
 ```
 
 你还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。
@@ -74,11 +86,11 @@ describe.concurrent('suite', () => {
 兼容 [Jest 快照测试](https://jestjs.io/zh-Hans/docs/snapshot-testing) 功能。
 
 ```ts
-import { expect, it } from 'vitest'
-it('renders correctly', () => {
-  const result = render()
-  expect(result).toMatchSnapshot()
-})
+import { expect, it } from "vitest";
+it("renders correctly", () => {
+  const result = render();
+  expect(result).toMatchSnapshot();
+});
 ```
 
 了解更多信息 [快照](/guide/snapshot)
@@ -94,14 +106,14 @@ it('renders correctly', () => {
 内置 [Tinyspy](https://github.com/tinylibs/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
 ```ts
-import { expect, vi } from 'vitest'
-const fn = vi.fn()
-fn('hello', 1)
-expect(vi.isMockFunction(fn)).toBe(true)
-expect(fn.mock.calls[0]).toEqual(['hello', 1])
-fn.mockImplementation(arg => arg)
-fn('world', 2)
-expect(fn.mock.results[1].value).toBe('world')
+import { expect, vi } from "vitest";
+const fn = vi.fn();
+fn("hello", 1);
+expect(vi.isMockFunction(fn)).toBe(true);
+expect(fn.mock.calls[0]).toEqual(["hello", 1]);
+fn.mockImplementation((arg) => arg);
+fn("world", 2);
+expect(fn.mock.results[1].value).toBe("world");
 ```
 
 Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以你可能需要安装：
@@ -116,12 +128,12 @@ $ npm i -D jsdom
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
-    environment: 'happy-dom', // or 'jsdom', 'node'
+    environment: "happy-dom", // or 'jsdom', 'node'
   },
-})
+});
 ```
 
 了解更多信息 [模拟对象](/guide/mocking)
@@ -143,14 +155,14 @@ Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。�
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ["text", "json", "html"],
     },
   },
-})
+});
 ```
 
 了解更多信息 [测试覆盖率](/guide/coverage)
@@ -165,16 +177,16 @@ Vitest 还提供了一种方式，可以运行与你的代码实现放在一起�
 // src/index.ts
 // the implementation
 export function add(...args: number[]) {
-  return args.reduce((a, b) => a + b, 0)
+  return args.reduce((a, b) => a + b, 0);
 }
 // in-source test suites
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest
-  it('add', () => {
-    expect(add()).toBe(0)
-    expect(add(1)).toBe(1)
-    expect(add(1, 2, 3)).toBe(6)
-  })
+  const { it, expect } = import.meta.vitest;
+  it("add", () => {
+    expect(add()).toBe(0);
+    expect(add(1)).toBe(1);
+    expect(add(1, 2, 3)).toBe(6);
+  });
 }
 ```
 
@@ -185,38 +197,38 @@ if (import.meta.vitest) {
 从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
 ```ts
-import { bench, describe } from 'vitest'
+import { bench, describe } from "vitest";
 
-describe('sort', () => {
-  bench('normal', () => {
-    const x = [1, 5, 4, 2, 3]
+describe("sort", () => {
+  bench("normal", () => {
+    const x = [1, 5, 4, 2, 3];
     x.sort((a, b) => {
-      return a - b
-    })
-  })
+      return a - b;
+    });
+  });
 
-  bench('reverse', () => {
-    const x = [1, 5, 4, 2, 3]
+  bench("reverse", () => {
+    const x = [1, 5, 4, 2, 3];
     x.reverse().sort((a, b) => {
-      return a - b
-    })
-  })
-})
+      return a - b;
+    });
+  });
+});
 ```
 
-## Type Testing <sup><code>experimental</code></sup>
+## 类型测试 <sup><code>experimental</code></sup>
 
-Since Vitest 0.25.0 you can [write tests](/guide/testing-types) to catch type regressions. Vitest comes with [`expect-type`](https://github.com/mmkal/expect-type) package to provide you with a similar and easy to understand API.
+从 Vitest 0.25.0 开始，你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 
 ```ts
-import { assertType, expectTypeOf } from 'vitest'
-import { mount } from './mount.js'
+import { assertType, expectTypeOf } from "vitest";
+import { mount } from "./mount.js";
 
-test('my types work properly', () => {
-  expectTypeOf(mount).toBeFunction()
-  expectTypeOf(mount).parameter(0).toMatchTypeOf<{ name: string }>()
+test("my types work properly", () => {
+  expectTypeOf(mount).toBeFunction();
+  expectTypeOf(mount).parameter(0).toMatchTypeOf<{ name: string }>();
 
   // @ts-expect-error name is a string
-  assertType(mount({ name: 42 }))
-})
+  assertType(mount({ name: 42 }));
+});
 ```
