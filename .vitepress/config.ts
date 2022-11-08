@@ -145,11 +145,15 @@ export default defineConfig({
               link: '/guide/features',
             },
             {
+<<<<<<< HEAD
               text: '类型测试',
               link: '/guide/testing-types',
             },
             {
               text: '命令行界面',
+=======
+              text: 'CLI',
+>>>>>>> 9b652fb88f415d4d52e767ab1d234d87b337b1a7
               link: '/guide/cli',
             },
             {
@@ -167,6 +171,10 @@ export default defineConfig({
             {
               text: '模拟对象',
               link: '/guide/mocking',
+            },
+            {
+              text: 'Testing Types',
+              link: '/guide/testing-types',
             },
             {
               text: 'Vitest UI',

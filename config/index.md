@@ -819,7 +819,11 @@ export default defineConfig({
 
 ### sequence
 
+<<<<<<< HEAD
 - **类型**: `{ sequencer?, shuffle?, seed? }`
+=======
+- **Type**: `{ sequencer?, shuffle?, seed?, hooks? }`
+>>>>>>> 9b652fb88f415d4d52e767ab1d234d87b337b1a7
 
 配置测试运行顺序的选项。
 
@@ -847,6 +851,17 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **默认值**: `Date.now()`
 
 如果测试以随机顺序运行，则设置随机化种子。
+
+#### sequence.hooks
+
+- **Type**: `'stack' | 'list' | 'parallel'`
+- **Default**: `'parallel'`
+
+Changes the order in which hooks are executed.
+
+- `stack` will order "after" hooks in reverse order, "before" hooks will run in the order they were defined
+- `list` will order all hooks in the order they are defined
+- `parallel` will run hooks in a single group in parallel (hooks in parent suites will still run before the current suite's hooks)
 
 ### typecheck
 

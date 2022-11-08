@@ -2640,6 +2640,12 @@ vi.mock("path", () => {
 
 将在所有对象监听(spies)上调用 [`.mockReset()`](/api/#mockreset)。这将清除模拟对象历史并将其实现重置为空函数（将返回 `undefined`）。
 
+### vi.resetConfig
+
+- **Type**: `RuntimeConfig`
+
+  If [`vi.setConfig`](/api/#vi-setconfig) was called before, this will reset config to the original state.
+
 ### vi.resetModules
 
 - **类型**: `() => Vitest`
@@ -2729,6 +2735,12 @@ vi.mock("path", () => {
 
   vi.useRealTimers();
   ```
+
+### vi.setConfig
+
+- **Type**: `RuntimeConfig`
+
+  Updates config for the current test file. You can only affect values that are used, when executing tests.
 
 ### vi.spyOn
 
