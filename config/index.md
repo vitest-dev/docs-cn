@@ -819,11 +819,7 @@ export default defineConfig({
 
 ### sequence
 
-<<<<<<< HEAD
-- **类型**: `{ sequencer?, shuffle?, seed? }`
-=======
-- **Type**: `{ sequencer?, shuffle?, seed?, hooks? }`
->>>>>>> 9b652fb88f415d4d52e767ab1d234d87b337b1a7
+- **类型**: `{ sequencer?, shuffle?, seed?, hooks? }`
 
 配置测试运行顺序的选项。
 
@@ -854,14 +850,14 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### sequence.hooks
 
-- **Type**: `'stack' | 'list' | 'parallel'`
-- **Default**: `'parallel'`
+- **类型**: `'stack' | 'list' | 'parallel'`
+- **默认值**: `'parallel'`
 
-Changes the order in which hooks are executed.
+更改钩子的执行顺序。
 
-- `stack` will order "after" hooks in reverse order, "before" hooks will run in the order they were defined
-- `list` will order all hooks in the order they are defined
-- `parallel` will run hooks in a single group in parallel (hooks in parent suites will still run before the current suite's hooks)
+- `stack` 将以相反的顺序排列 "after" 钩子，"before" 钩子将按照它们定义的顺序运行
+- `list` 将按照定义的顺序对所有钩子进行排序
+- `parallel` 将并行运行单个组中的钩子（父套件中的钩子仍将在当前套件的钩子之前运行）
 
 ### typecheck
 

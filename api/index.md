@@ -2642,9 +2642,9 @@ vi.mock("path", () => {
 
 ### vi.resetConfig
 
-- **Type**: `RuntimeConfig`
+- **类型**: `RuntimeConfig`
 
-  If [`vi.setConfig`](/api/#vi-setconfig) was called before, this will reset config to the original state.
+如果之前调用了 [`vi.setConfig`](/api/#vi-setconfig)，这会将配置重置为原始状态。
 
 ### vi.resetModules
 
@@ -2738,9 +2738,9 @@ vi.mock("path", () => {
 
 ### vi.setConfig
 
-- **Type**: `RuntimeConfig`
+- **类型**: `RuntimeConfig`
 
-  Updates config for the current test file. You can only affect values that are used, when executing tests.
+更新当前测试文件的配置。在执行测试时，你只影响使用的值。
 
 ### vi.spyOn
 
