@@ -761,7 +761,11 @@ export default defineConfig({
 
 ### css
 
+<<<<<<< HEAD
 - **类型**: `boolean | { include?, exclude? }`
+=======
+- **Type**: `boolean | { include?, exclude?, modules? }`
+>>>>>>> 87677691f39a76173b5467761934fbde934394b8
 
 配置是否应处理 CSS。 排除后，CSS 文件将被替换为空字符串以绕过后续处理。 CSS 模块将返回一个代理以不影响运行时。
 
@@ -771,6 +775,10 @@ export default defineConfig({
 - **默认值**: `[]`
 
 将返回匹配正则表达式并将由 Vite 管道处理的实际 CSS 文件。
+
+:::tip
+To process all CSS files, use `/.+/`.
+:::
 
 #### css.exclude
 
@@ -789,11 +797,23 @@ export default defineConfig({
 - **类型**: `'stable' | 'scoped' | 'non-scoped'`
 - **默认值**: `'stable'`
 
+<<<<<<< HEAD
 如果你决定处理 CSS 文件，你可以配置 CSS 模块中的类名是否在限定范围内。 默认情况下，Vitest 会导出一个代理，绕过 CSS 模块处理。 你可以选择以下选项之一：
 
 - `stable`: 类名将生成为`_${name}_${hashedFilename}`，这意味着如果 CSS 内容发生变化，生成的类将保持不变，但如果文件名被修改，或者文件名将发生变化 被移动到另一个文件夹。 如果你使用快照功能，此设置很有用。
 - `scoped`: 类名将照常生成，遵照 `css.modules.generateScopeName` 方法，如果你有的话。 默认情况下，文件名将生成为`_${name}_${hash}`，其中 hash 包括文件名和文件内容。
 - `non-scoped`: 类名将保留 CSS 中定义的名称。
+=======
+If you decide to process CSS files, you can configure if class names inside CSS modules should be scoped. You can choose one of the options:
+
+- `stable`: class names will be generated as `_${name}_${hashedFilename}`, which means that generated class will stay the same, if CSS content is changed, but will change, if the name of the file is modified, or file is moved to another folder. This setting is useful, if you use snapshot feature.
+- `scoped`: class names will be generated as usual, respecting `css.modules.generateScopeName` method, if you have one and CSS processing is enabled. By default, filename will be generated as `_${name}_${hash}`, where hash includes filename and content of the file.
+- `non-scoped`: class names will not be hashed.
+
+::: warning
+By default, Vitest exports a proxy, bypassing CSS Modules processing. If you rely on CSS properties on your classes, you have to enable CSS processing using `include` option.
+:::
+>>>>>>> 87677691f39a76173b5467761934fbde934394b8
 
 ### maxConcurrency
 
