@@ -773,7 +773,7 @@ export default defineConfig({
 将返回匹配正则表达式并将由 Vite 管道处理的实际 CSS 文件。
 
 :::tip
-To process all CSS files, use `/.+/`.
+如果需要处理所有 CSS 文件，请使用 `/.+/`。
 :::
 
 #### css.exclude
