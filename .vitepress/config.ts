@@ -81,14 +81,14 @@ export default defineConfig({
       text: "为此页提供修改建议",
     },
 
-    // algolia: {
-    //   appId: 'ZTF29HGJ69',
-    //   apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
-    //   indexName: 'vitest',
-    //   // searchParameters: {
-    //   //   facetFilters: ['tags:en'],
-    //   // },
-    // },
+    algolia: {
+      appId: '21WU5SMOMD',
+      apiKey: '7dab8e4b14cc5c6c31389197a7f33a7f',
+      indexName: 'vitest',
+      // searchParameters: {
+      //   facetFilters: ['tags:en'],
+      // },
+    },
 
     localeLinks: {
       text: "简体中文",
