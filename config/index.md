@@ -761,7 +761,7 @@ export default defineConfig({
 
 ### css
 
-- **类型**: `boolean | { include?, exclude? }`
+- **类型**: `boolean | { include?, exclude?, modules? }`
 
 配置是否应处理 CSS。 排除后，CSS 文件将被替换为空字符串以绕过后续处理。 CSS 模块将返回一个代理以不影响运行时。
 
@@ -771,6 +771,10 @@ export default defineConfig({
 - **默认值**: `[]`
 
 将返回匹配正则表达式并将由 Vite 管道处理的实际 CSS 文件。
+
+:::tip
+如果需要处理所有 CSS 文件，请使用 `/.+/`。
+:::
 
 #### css.exclude
 
@@ -794,6 +798,10 @@ export default defineConfig({
 - `stable`: 类名将生成为`_${name}_${hashedFilename}`，这意味着如果 CSS 内容发生变化，生成的类将保持不变，但如果文件名被修改，或者文件名将发生变化 被移动到另一个文件夹。 如果你使用快照功能，此设置很有用。
 - `scoped`: 类名将照常生成，遵照 `css.modules.generateScopeName` 方法，如果你有的话。 默认情况下，文件名将生成为`_${name}_${hash}`，其中 hash 包括文件名和文件内容。
 - `non-scoped`: 类名将保留 CSS 中定义的名称。
+
+::: warning
+在默认的情况下，Vitest 导出代理会绕过 CSS 模块处理。 如果你依赖类的 CSS 属性，就必须使用 `include` 选项启用 CSS 处理。
+:::
 
 ### maxConcurrency
 
