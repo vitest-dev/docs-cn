@@ -203,6 +203,12 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 :::
 
 ### test.each
+<<<<<<< HEAD
+=======
+
+- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
+- **Alias:** `it.each`
+>>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
 
 - **类型:** `(cases: ReadonlyArray<T>) => void`
 - **别名:** `it.each`
@@ -251,7 +257,30 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
+<<<<<<< HEAD
 如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
+=======
+
+  Starting from Vitest 0.25.3, you can also use template string table.
+
+  * First row should be column names, separated by `|`;
+  * One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+
+  ```ts
+  test.each`
+    a               | b      | expected
+    ${1}            | ${1}   | ${2}
+    ${'a'}          | ${'b'} | ${'ab'}
+    ${[]}           | ${'b'} | ${'b'}
+    ${{}}           | ${'b'} | ${'[object Object]b'}
+    ${{ asd: 1 }}   | ${'b'} | ${'[object Object]b'}
+  `('returns $expected when $a is added $b', ({ a, b, expected }) => {
+    expect(a + b).toBe(expected)
+  })
+  ```
+
+  If you want to have access to `TestContext`, use `describe.each` with a single test.
+>>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
 
 ::: warning
 You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
@@ -576,7 +605,11 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 
 ### describe.each
 
+<<<<<<< HEAD
 - **类型:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
+=======
+- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
+>>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
 
   如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
@@ -598,6 +631,26 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
       expect(a + b).not.toBeLessThan(expected);
     });
   });
+  ```
+
+  Starting from Vitest 0.25.3, you can also use template string table.
+
+  * First row should be column names, separated by `|`;
+  * One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+
+  ```ts
+  describe.each`
+    a               | b      | expected
+    ${1}            | ${1}   | ${2}
+    ${'a'}          | ${'b'} | ${'ab'}
+    ${[]}           | ${'b'} | ${'b'}
+    ${{}}           | ${'b'} | ${'[object Object]b'}
+    ${{ asd: 1 }}   | ${'b'} | ${'[object Object]b'}
+  `('describe template string add($a, $b)', ({ a, b, expected }) => {
+    test(`returns ${expected}`, () => {
+      expect(a + b).toBe(expected)
+    })
+  })
   ```
 
 ::: warning
