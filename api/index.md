@@ -234,29 +234,24 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   // ✓ add(2, 1) -> 3
   ```
 
-<<<<<<< HEAD
-如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
-=======
 You can also access object properties with `$` prefix, if you are using objects as arguments:
 
-    ```ts
-    test.each([
-      { a: 1, b: 1, expected: 2 },
-      { a: 1, b: 2, expected: 3 },
-      { a: 2, b: 1, expected: 3 },
-    ])('add($a, $b) -> $expected', ({ a, b, expected }) => {
-      expect(a + b).toBe(expected)
-    })
+```ts
+test.each([
+  { a: 1, b: 1, expected: 2 },
+  { a: 1, b: 2, expected: 3 },
+  { a: 2, b: 1, expected: 3 },
+])('add($a, $b) -> $expected', ({ a, b, expected }) => {
+  expect(a + b).toBe(expected)
+})
 
 // this will return
 // ✓ add(1, 1) -> 2
 // ✓ add(1, 2) -> 3
 // ✓ add(2, 1) -> 3
+```
 
-````
-
-If you want to have access to `TestContext`, use `describe.each` with a single test.
->>>>>>> ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
+如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
 
 ::: warning
 You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
