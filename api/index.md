@@ -618,10 +618,10 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   });
   ```
 
-  Starting from Vitest 0.25.3, you can also use template string table.
+  从 Vitest 0.25.3 开始，你可以使用模板字符串表。
 
-  * First row should be column names, separated by `|`;
-  * One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+  * 第一行应该是列名，使用 `|` 分隔；
+  * 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
 
   ```ts
   describe.each`
@@ -639,7 +639,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当使用 Vitest 作为 [type checker](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ## expect
