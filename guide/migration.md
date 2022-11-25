@@ -77,7 +77,6 @@ Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是�
 
 Vitest 不支持 jest 的传统计时器。
 
-<<<<<<< HEAD
 **it.each**
 
 Vitest 特意不支持 `it.each` 的模板字面量。你需要将其重写为参数数组或对象数组：
@@ -104,9 +103,6 @@ it.each([
 ```
 
 **Vue 快照**
-=======
-**Vue Snapshots**
->>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 

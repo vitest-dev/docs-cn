@@ -203,14 +203,8 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 :::
 
 ### test.each
-<<<<<<< HEAD
-=======
 
-- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
-- **Alias:** `it.each`
->>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
-
-- **类型:** `(cases: ReadonlyArray<T>) => void`
+- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
 
   当你需要使用不同的变量运行相同的测试时，请使用 `test.each`。
@@ -257,14 +251,10 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
-<<<<<<< HEAD
-如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
-=======
+  从 Vitest 0.25.3 开始，你可以使用模板字符串表。
 
-  Starting from Vitest 0.25.3, you can also use template string table.
-
-  * First row should be column names, separated by `|`;
-  * One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+  * 第一行应该是列名，使用 `|` 分隔；
+  * 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
 
   ```ts
   test.each`
@@ -279,11 +269,10 @@ test.each([
   })
   ```
 
-  If you want to have access to `TestContext`, use `describe.each` with a single test.
->>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
+  如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当使用 Vitest 作为 [type checker](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ## bench
@@ -605,11 +594,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 
 ### describe.each
 
-<<<<<<< HEAD
-- **类型:** `(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
-=======
-- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
->>>>>>> 2727f567c4e7be738e7ff3a687a163d70af6c53e
+- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
 
   如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
@@ -2617,17 +2602,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
-<<<<<<< HEAD
-使传递的模块的所有 `imports`都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。
+会使传递的模块的所有 `imports` 都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。对于 vi.mock 的调用会被提升，不管你在那调用它都会被提升到 import 语句之前。
 
 - 如果定义了 `factory`，将返回其结果。工厂函数可以是异步的。你可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。对 `vi.mock` 的调用将被提升到文件的顶部，因此你无法访问在全局文件范围内声明的变量！
-- # 如果使用默认导出模拟模块，你需要在返回的工厂函数对象中提供一个 `default` key。 这是 ES 模块特定的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 commonJS 模块。_示例:_
-
-  Makes all `imports` to passed module to be mocked. Inside a path you _can_ use configured Vite aliases. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports.
-
-- If `factory` is defined, will return its result. Factory function can be asynchronous. You may call [`vi.importActual`](#vi-importactual) inside to get the original module. Since the call to `vi.mock` is hoisted, you don't have access to variables declared in the global file scope!
-- If mocking a module with a default export, you'll need to provide a `default` key within the returned factory function object. This is an ES modules specific caveat, therefore `jest` documentation may differ as `jest` uses commonJS modules. _Example:_
-  > > > > > > > ef939a9e81764d2c1924f5e47fb2bc0c561baa2b
+- 如果使用默认导出模拟模块，你需要在返回的工厂函数对象中提供一个 `default` key。 这是 ES 模块特定的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 commonJS 模块。_示例:_
 
 ```ts
 vi.mock("path", () => {
