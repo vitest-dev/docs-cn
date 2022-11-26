@@ -2243,18 +2243,10 @@ This matcher checks, if provided type is a `string`.
 ```ts
 import { expectTypeOf } from "vitest";
 
-<<<<<<< HEAD
-expectTypeOf(42).not.toBeArray();
-expectTypeOf([]).toBeArray();
-expectTypeOf([1, 2]).toBeArray();
-expectTypeOf<number[]>().toBeArray();
+expectTypeOf(42).not.toBeString()
+expectTypeOf('').toBeString()
+expectTypeOf('a').toBeString()
 ```
-=======
-  expectTypeOf(42).not.toBeString()
-  expectTypeOf('').toBeString()
-  expectTypeOf('a').toBeString()
-  ```
->>>>>>> 9a4b7f07474942d580bbde994b4eeb14721f8914
 
 ### toBeBoolean
 
