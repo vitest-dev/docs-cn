@@ -106,7 +106,21 @@ it.each([
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
-```ts
+`vite.config.js`
+
+```js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  test: {
+    setupFiles: ['./tests/unit/setup.js']
+  }
+})
+```
+
+`tests/unit/setup.js`
+
+```js
 import vueSnapshotSerializer from 'jest-serializer-vue'
 
 // 添加快照系列化
