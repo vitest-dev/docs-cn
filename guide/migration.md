@@ -77,31 +77,6 @@ Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是�
 
 Vitest 不支持 jest 的传统计时器。
 
-**it.each**
-
-Vitest 特意不支持 `it.each` 的模板字面量。你需要将其重写为参数数组或对象数组：
-
-之前:
-```ts
-it.each`
-a    | b    | expected
-${1} | ${3} | ${4}
-${2} | ${2} | ${4}
-`('adds $a to $b', ({ a, b, expected }) => {
-  expect(add(a, b)).toEqual(expected)
-})
-```
-
-之后:
-```ts
-it.each([
-  [1, 3, 4],
-  [2, 2, 4],
-])('adds %d to %d', (a, b, expected) => {
-  expect(add(a, b)).toEqual(expected)
-})
-```
-
 **Vue 快照**
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
@@ -110,7 +85,6 @@ it.each([
 
 ```js
 import { defineConfig } from 'vite'
-
 export default defineConfig({
   test: {
     setupFiles: ['./tests/unit/setup.js']
@@ -122,8 +96,6 @@ export default defineConfig({
 
 ```js
 import vueSnapshotSerializer from 'jest-serializer-vue'
-
-// 添加快照系列化
 expect.addSnapshotSerializer(vueSnapshotSerializer)
 ```
 
