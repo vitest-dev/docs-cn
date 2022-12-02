@@ -920,4 +920,15 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **类型**: `string`
 - **默认值**: _tries to find closest tsconfig.json_
 
+<<<<<<< HEAD
 自定义 tsconfig 的路径，相对于项目根目录。
+=======
+Path to custom tsconfig, relative to the project root.
+
+### slowTestThreshold
+
+- **Type**: `number`
+- **Default**: `300`
+
+The number of milliseconds after which a test is considered slow and reported as such in the results.
+>>>>>>> 4a8cabf4b0faf28dc4663804fb2bdf12f64e6c6a
