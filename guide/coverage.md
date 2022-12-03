@@ -87,4 +87,29 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 请参阅类型定义查看有关详细信息。
+=======
+Please refer to the type definition for more details.
+
+## Ignoring code
+
+Both coverage providers have their own ways how to ignore code from coverage reports.
+
+- `c8`: https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks
+- `ìstanbul` https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines
+
+When using Typescript the source codes are transpiled using `esbuild`, which strips all comments from the source codes ([esbuild#516](https://github.com/evanw/esbuild/issues/516)).
+Comments which are considered as [legal comments](https://esbuild.github.io/api/#legal-comments) are preserved.
+
+For `istanbul` provider you can include a `@preserve` keyword in the ignore hint.
+Beware that these ignore hints may now be included in final production build as well.
+
+```diff
+-/* istanbul ignore if */
++/* istanbul ignore if -- @preserve */
+if (condition) {
+```
+
+Unfortunately this does not work for `c8` at the moment.
+>>>>>>> 53ee46ed09c6de6438fbdebc557d98ca1d5d9f96
