@@ -921,3 +921,10 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **默认值**: _tries to find closest tsconfig.json_
 
 自定义 tsconfig 的路径，相对于项目根目录。
+
+### slowTestThreshold
+
+- **类型**: `number`
+- **默认值**: `300`
+
+如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
