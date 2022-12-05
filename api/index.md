@@ -251,7 +251,28 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
+<<<<<<< HEAD
   从 Vitest 0.25.3 开始，你可以使用模板字符串表。
+=======
+  You can also access Object attributes with `.`, if you are using objects as arguments:
+
+    ```ts
+    test.each`
+    a               | b      | expected
+    ${{ val: 1 }}   | ${'b'} | ${'1b'}
+    ${{ val: 2 }}   | ${'b'} | ${'2b'}
+    ${{ val: 3 }}   | ${'b'} | ${'3b'}
+    `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
+      expect(a.val + b).toBe(expected)
+    })
+
+    // this will return
+    // ✓ add(1, b) -> 1b
+    // ✓ add(2, b) -> 2b
+    // ✓ add(3, b) -> 3b
+    ```
+
+>>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
 
   * 第一行应该是列名，使用 `|` 分隔；
   * 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
