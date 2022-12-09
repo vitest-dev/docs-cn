@@ -89,6 +89,22 @@ export default defineConfig({
 
 请参阅类型定义查看有关详细信息。
 
+## Changing the default coverage folder location
+
+When running a coverage report, a `coverage` folder is created in the root directory of your project. If you want to move it to a different directory, use the `test.coverage.reportsDirectory` property in the `vite.config.js` file.
+
+```js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      reportsDirectory: './tests/unit/coverage'
+    }
+  }
+})
+```
+
 ## Ignoring code
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码。
