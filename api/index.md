@@ -251,10 +251,7 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
-<<<<<<< HEAD
-  从 Vitest 0.25.3 开始，你可以使用模板字符串表。
-=======
-  You can also access Object attributes with `.`, if you are using objects as arguments:
+  如果使用对象作为参数，你还可以使用 `.` 访问对象属性：
 
     ```ts
     test.each`
@@ -271,8 +268,6 @@ test.each([
     // ✓ add(2, b) -> 2b
     // ✓ add(3, b) -> 3b
     ```
-
->>>>>>> 4a1f60ef793735ebeed6e3d020af2ff44777a9aa
 
   * 第一行应该是列名，使用 `|` 分隔；
   * 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
