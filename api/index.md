@@ -199,7 +199,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当将 Vitest 用作[type checker]（/guide/testing类型）时，不能使用此语法。
 :::
 
 ### test.each
@@ -234,7 +234,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   // ✓ add(2, 1) -> 3
   ```
 
-You can also access object properties with `$` prefix, if you are using objects as arguments:
+如果使用对象作为参数，你还可以访问带有 `$` 前缀的对象属性：
 
 ```ts
 test.each([
@@ -251,7 +251,7 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
-  如果使用对象作为参数，你还可以使用 `.` 访问对象属性：
+  如果使用对象作为参数，你还可以使用 `.` 访问Object属性：
 
     ```ts
     test.each`

@@ -520,7 +520,7 @@ test("execute a script", async () => {
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
-启用覆盖率收集。可以使用`--coverage` CLI选项覆盖。
+是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖CLI选项。
 
 #### include
 
@@ -528,13 +528,13 @@ test("execute a script", async () => {
 - **默认值:** `['**']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
-使用全局模式包含的文件列表。
-
 #### extension
 
-- **Type:** `string | string[]`
-- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **类型:** `string | string[]`
+- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+
+匹配包含测试覆盖率的 glob 规则
 
 #### exclude
 
@@ -561,6 +561,22 @@ test("execute a script", async () => {
 使用全局模式排除在覆盖范围之外的文件列表。
 
 #### all
+
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'c8' | 'istanbul'`
+
+是否将所有文件（包括未测试的文件）包括在报告中。
+
+#### clean
+
+- **类型:** `boolean`
+- **默认值:** `true`
+- **可用的测试提供者:** `'c8' | 'istanbul'`
+
+运行测试之前是否清除覆盖率结果
+
+#### cleanOnRerun
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -717,7 +733,6 @@ test("execute a script", async () => {
 }
 ```
 
-<<<<<<< HEAD
 指定语句、行、分支和函数的水印位置。
 
 ##### all
