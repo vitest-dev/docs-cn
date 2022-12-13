@@ -215,7 +215,11 @@ export default defineConfig({
 }
 ```
 
+<<<<<<< HEAD
 如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components)，你也可以直接用它来自动导入这些 API。
+=======
+If you are already using [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import) in your project, you can also use it directly for auto importing those APIs.
+>>>>>>> 2d177c10987d7a2402a1c70926d847f837cf0c9f
 
 ```ts
 // vite.config.ts
@@ -335,12 +339,21 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
+<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
 - `'junit'` - JUnit XML 报告器
 - `'json'` - 给出一个简单的 JSON 总结
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+=======
+  - `'default'` - collapse suites when they pass
+  - `'verbose'` - keep the full task tree visible
+  - `'dot'` -  show each task as a single dot
+  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
+  - `'json'` -  give a simple JSON summary
+  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+>>>>>>> 2d177c10987d7a2402a1c70926d847f837cf0c9f
 
 ### outputTruncateLength
 
@@ -530,11 +543,17 @@ test("execute a script", async () => {
 
 #### extension
 
+<<<<<<< HEAD
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
 匹配包含测试覆盖率的 glob 规则
+=======
+- **Type:** `string | string[]`
+- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **Available for providers:** `'c8' | 'istanbul'`
+>>>>>>> 2d177c10987d7a2402a1c70926d847f837cf0c9f
 
 #### exclude
 
