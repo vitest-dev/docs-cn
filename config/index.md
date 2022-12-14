@@ -338,7 +338,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
-- `'junit'` - JUnit XML 报告器
+- `'junit'` - JUnit XML 报告器（你可以使用 `VITEST_JUNIT_SUITE_NAME` 环境变量配置 `test suites` 标签名称）
 - `'json'` - 给出一个简单的 JSON 总结
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
