@@ -87,14 +87,11 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 请参阅类型定义查看有关详细信息。
-=======
-Please refer to the type definition for more details.
 
-## Changing the default coverage folder location
+## 更改默认覆盖文件夹位置
 
-When running a coverage report, a `coverage` folder is created in the root directory of your project. If you want to move it to a different directory, use the `test.coverage.reportsDirectory` property in the `vite.config.js` file.
+运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
 
 ```js
 import { defineConfig } from 'vite'
@@ -108,18 +105,18 @@ export default defineConfig({
 })
 ```
 
-## Ignoring code
+## 忽略代码
 
-Both coverage providers have their own ways how to ignore code from coverage reports.
+两个覆盖提供者都有自己的方法来忽略覆盖报告中的代码。
 
 - `c8`: https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks
 - `ìstanbul` https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines
 
-When using Typescript the source codes are transpiled using `esbuild`, which strips all comments from the source codes ([esbuild#516](https://github.com/evanw/esbuild/issues/516)).
-Comments which are considered as [legal comments](https://esbuild.github.io/api/#legal-comments) are preserved.
+使用 Typescript 时，源代码是使用 esbuild 转译的，它会从源代码中删除所有注释 ([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
+被视为[合法评论](https://esbuild.github.io/api/#legal-comments) 的评论将被保留。
 
-For `istanbul` provider you can include a `@preserve` keyword in the ignore hint.
-Beware that these ignore hints may now be included in final production build as well.
+对于 `istanbul` 提供者，您可以在忽略提示中包含一个 `@preserve` 关键字。
+请注意，这些忽略提示现在也可能包含在最终生产版本中。
 
 ```diff
 -/* istanbul ignore if */
@@ -127,5 +124,4 @@ Beware that these ignore hints may now be included in final production build as 
 if (condition) {
 ```
 
-Unfortunately this does not work for `c8` at the moment.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+不幸的是，这目前不适用于 `c8`。
