@@ -335,21 +335,12 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
-- `'junit'` - JUnit XML 报告器
+- `'junit'` - JUnit XML 报告器（你可以使用 `VITEST_JUNIT_SUITE_NAME` 环境变量配置 `test suites` 标签名称）
 - `'json'` - 给出一个简单的 JSON 总结
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
-=======
-  - `'default'` - collapse suites when they pass
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
-  - `'json'` -  give a simple JSON summary
-  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
 
 ### outputTruncateLength
 
@@ -511,14 +502,10 @@ test("execute a script", async () => {
 
 ### coverage
 
-<<<<<<< HEAD
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
 
 你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
-=======
-You can use [`c8`](https://github.com/bcoe/c8) or [`istanbul`](https://istanbul.js.org/) for coverage collection.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
 
 #### provider
 
@@ -529,44 +516,30 @@ You can use [`c8`](https://github.com/bcoe/c8) or [`istanbul`](https://istanbul.
 
 #### enabled
 
-<<<<<<< HEAD
-设置了 `provider: 'c8'` 时启用。 测试覆盖率选项被传递给 [`c8`](https://github.com/bcoe/c8)。
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用环境:** `'c8' | 'istanbul'`
 
-Enables coverage collection. Can be overriden using `--coverage` CLI option.
+启用覆盖率收集。 可以使用 `--coverage` CLI 选项覆盖。
 
-<<<<<<< HEAD
-设置了 `provider: 'istanbul'` 时启用。
-
-##### include
-=======
 #### include
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
 
-- **Type:** `string[]`
-- **Default:** `['**']`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **类型:** `string[]`
+- **默认值:** `['**']`
+- **可用环境:** `'c8' | 'istanbul'`
 
-List of files included in coverage as glob patterns
+作为 glob 模式包含在覆盖范围内的文件列表
 
 #### extension
 
-- **Type:** `string | string[]`
-- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **类型:** `string | string[]`
+- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **可用环境:** `'c8' | 'istanbul'`
 
 #### exclude
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `['coverage/**', 'dist/**', 'packages/*/test{,s}/**', '**/*.d.ts', 'cypress/**', 'test{,s}/**', 'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}', '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}', '**/__tests__/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.{js,cjs,mjs,ts}', '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}']`
-=======
-- **Type:** `string[]`
-- **Default:**
+- **默认值:**
 ```js
 [
   'coverage/**',
@@ -583,185 +556,141 @@ List of files included in coverage as glob patterns
   '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
 ]
 ```
-- **Available for providers:** `'c8' | 'istanbul'`
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+- **可用环境:** `'c8' | 'istanbul'`
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
 #### all
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **可用环境:** `'c8' | 'istanbul'`
 
-Whether to include all files, including the untested ones into report.
+是否包括所有文件，包括未测试的文件到报告中。
 
 #### clean
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **可用环境:** `'c8' | 'istanbul'`
 
-Clean coverage results before running tests
+在运行测试之前清除覆盖率结果
 
 #### cleanOnRerun
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用环境:** `'c8' | 'istanbul'`
 
-Clean coverage report on watch rerun
+清除覆盖率报告在重新运行
 
 #### reportsDirectory
 
-- **Type:** `string`
-- **Default:** `'./coverage'`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **类型:** `string`
+- **默认值:** `'./coverage'`
+- **可用环境:** `'c8' | 'istanbul'`
 
-Directory to write coverage report to.
-When using `c8` provider a temporary `/tmp` directory is created for [V8 coverage results](https://nodejs.org/api/cli.html#coverage-output).
+写入覆盖率报告的目录。
+使用 `c8` 提供程序时，会为 [V8 覆盖率结果](https://nodejs.org/api/cli.html#coverage-output) 创建一个临时的 `/tmp` 目录。
 
 #### reporter
 
-- **Type:** `string | string[]`
-- **Default:** `['text', 'html', 'clover', 'json']`
-- **Available for providers:** `'c8' | 'istanbul'`
+- **类型:** `string | string[]`
+- **默认值:** `['text', 'html', 'clover', 'json']`
+- **可用环境:** `'c8' | 'istanbul'`
 
-Coverage reporters to use. See [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) for detailed list of all reporters.
+使用覆盖率报告。 有关所有的详细列表，请参阅 [istanbul 文档](https://istanbul.js.org/docs/advanced/alternative-reporters/)。
 
 
 #### skipFull
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用环境:** `'c8' | 'istanbul'`
 
 是否显示具有 100% 语句、分支和函数的测试覆盖率的文件。
 
 #### perFile
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
+- **可用环境:** `'c8' | 'istanbul'`
 
 检查每个文件的阈值。
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
-
-Check thresholds per file.
-See `lines`, `functions`, `branches` and `statements` for the actual thresholds.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+有关实际阈值，请参阅“lines”、“functions”、“branches”和“statements”。
 
 #### lines
 
-<<<<<<< HEAD
 - **类型:** `number`
+- **可用环境:** `'c8' | 'istanbul'`
 
 行的阈值。
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'istanbul'`
-
-Threshold for lines.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+有关详细信息，请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 #### functions
 
-<<<<<<< HEAD
 - **类型:** `number`
+- **可用环境:** `'c8' | 'istanbul'`
 
 函数的阈值。
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'istanbul'`
-
-Threshold for functions.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+有关详细信息，请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 #### branches
 
-<<<<<<< HEAD
 - **类型:** `number`
+- **可用环境:** `'c8' | 'istanbul'`
 
 分支的阈值。
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'istanbul'`
-
-Threshold for branches.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+有关详细信息，请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 #### statements
 
-<<<<<<< HEAD
 - **类型:** `number`
+- **可用环境:** `'c8' | 'istanbul'`
 
 语句的阈值。
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'istanbul'`
-
-Threshold for statements.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+有关详细信息，请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 #### allowExternal
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8'`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用环境:** `'c8'`
 
-Allow files from outside of your cwd.
+允许来自 cwd 之外的文件。
 
 #### excludeNodeModules
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8'`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **可用环境:** `'c8'`
 
-Exclude coverage under `/node_modules/`.
+排除 `/node_modules/` 下的覆盖范围。
 
 #### src
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** []
+- **默认值:** `process.cwd()`
+- **可用环境:** `'c8'`
 
-设置忽略测试覆盖率的类方法名称的数组。
-=======
-- **Type:** `string[]`
-- **Default:** `process.cwd()`
-- **Available for providers:** `'c8'`
-
-Specifies the directories that are used when `--all` is enabled.
+指定启用“--all”时使用的目录。
 
 #### 100
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8'`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用环境:** `'c8'`
 
-Shortcut for `--check-coverage --lines 100 --functions 100 --branches 100 --statements 100`.
+`--check-coverage --lines 100 --functions 100 --branches 100 --statements 100` 的快捷方式。
 
 #### ignoreClassMethods
 
-- **Type:** `string[]`
-- **Default:** `[]`
-- **Available for providers:** `'istanbul'`
+- **类型:** `string[]`
+- **默认值:** `[]`
+- **可用环境:** `'istanbul'`
 
-Set to array of class method names to ignore for coverage.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods) for more information.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+设置为要忽略覆盖的类方法名称数组。
+有关详细信息，请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods)。
 
 #### watermarks
 
@@ -789,7 +718,6 @@ See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods)
 }
 ```
 
-<<<<<<< HEAD
 指定语句、行、分支和函数的水印位置。
 
 ##### all
@@ -798,11 +726,7 @@ See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods)
 - **默认值:** false
 
 是否包含所有文件，包括未测试的文件并包含在测试报告中。
-=======
-- **Available for providers:** `'istanbul'`
-
-Watermarks for statements, lines, branches and functions. See [istanbul documentation](https://github.com/istanbuljs/nyc#high-and-low-watermarks) for more information.
->>>>>>> e31e608061fed98442f5ea5f5cdd59d6913e868c
+有关详细信息，请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 ### testNamePattern
 
