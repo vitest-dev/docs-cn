@@ -105,18 +105,18 @@ export default defineConfig({
 })
 ```
 
-## 忽略代码
+## Ignoring code
 
-两个覆盖提供者都有自己的方法来忽略覆盖报告中的代码。
+两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码。
 
 - `c8`: https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks
 - `ìstanbul` https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines
 
-使用 Typescript 时，源代码是使用 esbuild 转译的，它会从源代码中删除所有注释 ([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
-被视为[合法评论](https://esbuild.github.io/api/#legal-comments) 的评论将被保留。
+使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
+被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释。
 
-对于 `istanbul` 提供者，您可以在忽略提示中包含一个 `@preserve` 关键字。
-请注意，这些忽略提示现在也可能包含在最终生产版本中。
+对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
+请注意，这些忽略提示现在也可能包含在最终的产品构建中。
 
 ```diff
 -/* istanbul ignore if */
@@ -124,4 +124,4 @@ export default defineConfig({
 if (condition) {
 ```
 
-不幸的是，这目前不适用于 `c8`。
+不幸的是，目前这在 `c8` 中不起作用。
