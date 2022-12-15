@@ -335,21 +335,12 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
 - `'junit'` - JUnit XML 报告器
 - `'json'` - 给出一个简单的 JSON 总结
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
-=======
-  - `'default'` - collapse suites when they pass
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
-  - `'json'` -  give a simple JSON summary
-  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
->>>>>>> 0831c066e3d699ab32c1ea6b13cde7fc5ccf361c
 
 ### outputTruncateLength
 
