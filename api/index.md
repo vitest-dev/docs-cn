@@ -199,7 +199,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   ```
 
 ::: warning
-当将 Vitest 用作[type checker]（/guide/testing类型）时，不能使用此语法。
+You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
 :::
 
 ### test.each
@@ -234,59 +234,60 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   // ✓ add(2, 1) -> 3
   ```
 
-如果使用对象作为参数，你还可以访问带有 `$` 前缀的对象属性：
+  如果你使用对象作为参数，你还可以使用 `$` 前缀访问对象属性：
 
-```ts
-test.each([
-  { a: 1, b: 1, expected: 2 },
-  { a: 1, b: 2, expected: 3 },
-  { a: 2, b: 1, expected: 3 },
-])('add($a, $b) -> $expected', ({ a, b, expected }) => {
-  expect(a + b).toBe(expected)
-})
+  ```ts
+  test.each([
+    { a: 1, b: 1, expected: 2 },
+    { a: 1, b: 2, expected: 3 },
+    { a: 2, b: 1, expected: 3 },
+  ])("add($a, $b) -> $expected", ({ a, b, expected }) => {
+    expect(a + b).toBe(expected);
+  });
 
-// this will return
-// ✓ add(1, 1) -> 2
-// ✓ add(1, 2) -> 3
-// ✓ add(2, 1) -> 3
-```
+  // this will return
+  // ✓ add(1, 1) -> 2
+  // ✓ add(1, 2) -> 3
+  // ✓ add(2, 1) -> 3
+  ```
 
-  如果使用对象作为参数，你还可以使用 `.` 访问Object属性：
-
-    ```ts
-    test.each`
-    a               | b      | expected
-    ${{ val: 1 }}   | ${'b'} | ${'1b'}
-    ${{ val: 2 }}   | ${'b'} | ${'2b'}
-    ${{ val: 3 }}   | ${'b'} | ${'3b'}
-    `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
-      expect(a.val + b).toBe(expected)
-    })
-
-    // this will return
-    // ✓ add(1, b) -> 1b
-    // ✓ add(2, b) -> 2b
-    // ✓ add(3, b) -> 3b
-    ```
-
-
-  * 第一行应该是列名，使用 `|` 分隔；
-  * 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
+  如果你使用对象作为参数，你还可以使用“.”访问对象属性：
 
   ```ts
   test.each`
-    a               | b      | expected
-    ${1}            | ${1}   | ${2}
-    ${'a'}          | ${'b'} | ${'ab'}
-    ${[]}           | ${'b'} | ${'b'}
-    ${{}}           | ${'b'} | ${'[object Object]b'}
-    ${{ asd: 1 }}   | ${'b'} | ${'[object Object]b'}
-  `('returns $expected when $a is added $b', ({ a, b, expected }) => {
-    expect(a + b).toBe(expected)
+  a               | b      | expected
+  ${{ val: 1 }}   | ${'b'} | ${'1b'}
+  ${{ val: 2 }}   | ${'b'} | ${'2b'}
+  ${{ val: 3 }}   | ${'b'} | ${'3b'}
+  `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
+    expect(a.val + b).toBe(expected)
   })
+
+  // this will return
+  // ✓ add(1, b) -> 1b
+  // ✓ add(2, b) -> 2b
+  // ✓ add(3, b) -> 3b
   ```
 
-  如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
+从 Vitest 0.25.3 开始，你可以使用模板字符串表。
+
+- 第一行应该是列名，使用 `|` 分隔；
+- 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
+
+```ts
+test.each`
+  a             | b      | expected
+  ${1}          | ${1}   | ${2}
+  ${"a"}        | ${"b"} | ${"ab"}
+  ${[]}         | ${"b"} | ${"b"}
+  ${{}}         | ${"b"} | ${"[object Object]b"}
+  ${{ asd: 1 }} | ${"b"} | ${"[object Object]b"}
+`("returns $expected when $a is added $b", ({ a, b, expected }) => {
+  expect(a + b).toBe(expected);
+});
+```
+
+如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
 
 ::: warning
 当使用 Vitest 作为 [type checker](/guide/testing-types) 时，不能使用此语法。
@@ -304,16 +305,16 @@ Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库�
 import { bench } from "vitest";
 
 bench(
-"normal sorting",
-() => {
-  const x = [1, 5, 4, 2, 3];
-  x.sort((a, b) => {
-    return a - b;
-  });
-},
-{ time: 1000 }
+  "normal sorting",
+  () => {
+    const x = [1, 5, 4, 2, 3];
+    x.sort((a, b) => {
+      return a - b;
+    });
+  },
+  { time: 1000 }
 );
-````
+```
 
 ```ts
 export interface Options {
@@ -637,22 +638,22 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 
   从 Vitest 0.25.3 开始，你可以使用模板字符串表。
 
-  * 第一行应该是列名，使用 `|` 分隔；
-  * 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
+  - 第一行应该是列名，使用 `|` 分隔；
+  - 使用 `${value}` 语法作为模板文本表达式，为一个或多个后续数据行提供数据。
 
   ```ts
   describe.each`
-    a               | b      | expected
-    ${1}            | ${1}   | ${2}
-    ${'a'}          | ${'b'} | ${'ab'}
-    ${[]}           | ${'b'} | ${'b'}
-    ${{}}           | ${'b'} | ${'[object Object]b'}
-    ${{ asd: 1 }}   | ${'b'} | ${'[object Object]b'}
-  `('describe template string add($a, $b)', ({ a, b, expected }) => {
+    a             | b      | expected
+    ${1}          | ${1}   | ${2}
+    ${"a"}        | ${"b"} | ${"ab"}
+    ${[]}         | ${"b"} | ${"b"}
+    ${{}}         | ${"b"} | ${"[object Object]b"}
+    ${{ asd: 1 }} | ${"b"} | ${"[object Object]b"}
+  `("describe template string add($a, $b)", ({ a, b, expected }) => {
     test(`returns ${expected}`, () => {
-      expect(a + b).toBe(expected)
-    })
-  })
+      expect(a + b).toBe(expected);
+    });
+  });
   ```
 
 ::: warning
@@ -2260,9 +2261,9 @@ This matcher checks, if provided type is a `string`.
 ```ts
 import { expectTypeOf } from "vitest";
 
-expectTypeOf(42).not.toBeString()
-expectTypeOf('').toBeString()
-expectTypeOf('a').toBeString()
+expectTypeOf(42).not.toBeString();
+expectTypeOf("").toBeString();
+expectTypeOf("a").toBeString();
 ```
 
 ### toBeBoolean
