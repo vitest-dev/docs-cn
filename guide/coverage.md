@@ -124,4 +124,4 @@ export default defineConfig({
 if (condition) {
 ```
 
-不幸的是，目前这在 `c8` 不起作用。
+不幸的是，目前这在 `c8` 中不起作用。
