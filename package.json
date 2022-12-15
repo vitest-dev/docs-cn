@@ -14,11 +14,12 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@vueuse/core": "^9.3.1",
+    "@vueuse/core": "^9.6.0",
     "jiti": "^1.16.0",
     "vue": "latest"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@antfu/eslint-config": "^0.27.0",
     "@antfu/ni": "^0.18.2",
     "@iconify-json/carbon": "^1.1.9",
@@ -27,10 +28,16 @@
     "@unocss/reset": "^0.46.0",
     "@vitejs/plugin-vue": "3.2.0",
     "eslint": "^8.27.0",
+=======
+    "@iconify-json/carbon": "^1.1.11",
+    "@unocss/reset": "^0.47.6",
+    "@vitejs/plugin-vue": "latest",
+>>>>>>> a3447432e70ec307fa4f60e8c15c069950fa2f69
     "esno": "^0.16.3",
     "fast-glob": "^3.2.12",
     "fs-extra": "^10.1.0",
     "https-localhost": "^4.7.1",
+<<<<<<< HEAD
     "ohmyfetch": "^0.4.19",
     "pathe": "^0.3.8",
     "pnpm": "^7.14.0",
@@ -39,6 +46,13 @@
     "vite": "^3.2.3",
     "vite-plugin-pwa": "0.13.1",
     "vitepress": "1.0.0-alpha.27",
+=======
+    "unocss": "^0.47.6",
+    "unplugin-vue-components": "^0.22.12",
+    "vite": "^4.0.0",
+    "vite-plugin-pwa": "0.14.0",
+    "vitepress": "1.0.0-alpha.31",
+>>>>>>> a3447432e70ec307fa4f60e8c15c069950fa2f69
     "workbox-window": "^6.5.4"
   }
 }

@@ -215,7 +215,11 @@ export default defineConfig({
 }
 ```
 
+<<<<<<< HEAD
 如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components)，你也可以直接用它来自动导入这些 API。
+=======
+If you are already using [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import) in your project, you can also use it directly for auto importing those APIs.
+>>>>>>> a3447432e70ec307fa4f60e8c15c069950fa2f69
 
 ```ts
 // vite.config.ts
@@ -530,11 +534,17 @@ test("execute a script", async () => {
 
 #### extension
 
+<<<<<<< HEAD
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
 匹配包含测试覆盖率的 glob 规则
+=======
+- **Type:** `string | string[]`
+- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **Available for providers:** `'c8' | 'istanbul'`
+>>>>>>> a3447432e70ec307fa4f60e8c15c069950fa2f69
 
 #### exclude
 
