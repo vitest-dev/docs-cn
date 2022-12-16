@@ -9,14 +9,9 @@
     "build-no-prefetch": "vitepress build && node .vitepress/scripts/build-pwa.mjs",
     "serve": "vitepress serve",
     "preview-https": "pnpm run build && serve .vitepress/dist",
-<<<<<<< HEAD
     "prefetch": "esno .vitepress/scripts/fetch-avatars.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
-=======
-    "preview-https-no-prefetch": "pnpm run build-no-prefetch && serve .vitepress/dist",
-    "prefetch": "esno .vitepress/scripts/fetch-avatars.ts"
->>>>>>> 8c69098f2561d2442597c5a41cd04cc124833ae8
   },
   "dependencies": {
     "@vueuse/core": "^9.3.1",
@@ -30,7 +25,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.23",
     "@unocss/reset": "^0.46.0",
-    "@vitejs/plugin-vue": "3.2.0",
+    "@vitejs/plugin-vue": "^4.0.0",
     "eslint": "^8.27.0",
     "esno": "^0.16.3",
     "fast-glob": "^3.2.12",
