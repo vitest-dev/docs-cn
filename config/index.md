@@ -530,11 +530,17 @@ test("execute a script", async () => {
 
 #### extension
 
+<<<<<<< HEAD
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
 匹配包含测试覆盖率的 glob 规则
+=======
+- **Type:** `string | string[]`
+- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **Available for providers:** `'c8' | 'istanbul'`
+>>>>>>> 2c0f05c349a400147e5dadbfb1c7fc932236567c
 
 #### exclude
 
@@ -800,6 +806,22 @@ test("doNotRun", () => {
 - **默认值:** `false`
 
 是否在每次测试之前对所有监听(Spy)调用 [`.mockRestore()`](/api/#mockrestore)。 这将清除模拟历史并将其实现重置为原始历史。
+
+### unstubEnvs
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.26.0
+
+Will call [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) before each test.
+
+### unstubGlobals
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.26.0
+
+Will call [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals) before each test.
 
 ### transformMode
 

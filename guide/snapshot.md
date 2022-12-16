@@ -4,7 +4,13 @@ title: Snapshot | Guide
 
 # 测试快照
 
+<<<<<<< HEAD
 当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
+=======
+<CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">Learn Snapshot by video from Vue School</CourseLink>
+
+Snapshot tests are a very useful tool whenever you want to make sure the output of your functions does not change unexpectedly.
+>>>>>>> 2c0f05c349a400147e5dadbfb1c7fc932236567c
 
 使用快照时，Vitest 将获取给定值的快照，将其比较时将参考存储在测试旁边的快照文件。如果两个快照不匹配，则测试将失败：要么更改是意外的，要么参考快照需要更新到测试结果的新版本。
 
