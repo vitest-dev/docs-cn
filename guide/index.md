@@ -38,15 +38,11 @@ pnpm add -D vitest
 Vitest 需要 Vite >=v3.0.0 和 Node >=v14
 :::
 
-<<<<<<< HEAD
+建议你使用上面列出的方法之一在 `package.json` 中安装 `vitest` 的副本。 但是，如果你希望直接运行 `vitest`，可以使用 `npx vitest`（npm 和 Node.js 附带 `npx` 命令）。
+
+`npx` 命令将从本地 `node_modules/.bin` 执行命令，安装命令运行所需的任何包。 默认情况下，npx 将检查命令是否存在于 $PATH 或本地项目二进制文件中，并执行它。 如果未找到命令，它将在执行之前安装。
+
 ## 配置 Vitest
-=======
-It is recommended that you install a copy of `vitest` in your `package.json`, using one of the methods listed above. However, if you would prefer to run `vitest` directly, you can use `npx vitest` (the `npx` command comes with npm and Node.js).
-
-The `npx` command will execute the command either from a local `node_modules/.bin` installing any packages needed in order for the command to run. By default, npx will check whether command exists in $PATH, or in the local project binaries, and execute that. If command is not found, it will be installed prior to execution.
-
-## Configuring Vitest
->>>>>>> 2d177c10987d7a2402a1c70926d847f837cf0c9f
 
 Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用程序。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
 
