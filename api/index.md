@@ -234,22 +234,40 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   // ✓ add(2, 1) -> 3
   ```
 
-You can also access object properties with `$` prefix, if you are using objects as arguments:
+  如果你使用对象作为参数，你还可以使用 `$` 前缀访问对象属性：
 
-```ts
-test.each([
-  { a: 1, b: 1, expected: 2 },
-  { a: 1, b: 2, expected: 3 },
-  { a: 2, b: 1, expected: 3 },
-])("add($a, $b) -> $expected", ({ a, b, expected }) => {
-  expect(a + b).toBe(expected);
-});
+  ```ts
+  test.each([
+    { a: 1, b: 1, expected: 2 },
+    { a: 1, b: 2, expected: 3 },
+    { a: 2, b: 1, expected: 3 },
+  ])("add($a, $b) -> $expected", ({ a, b, expected }) => {
+    expect(a + b).toBe(expected);
+  });
 
-// this will return
-// ✓ add(1, 1) -> 2
-// ✓ add(1, 2) -> 3
-// ✓ add(2, 1) -> 3
-```
+  // this will return
+  // ✓ add(1, 1) -> 2
+  // ✓ add(1, 2) -> 3
+  // ✓ add(2, 1) -> 3
+  ```
+
+  如果你使用对象作为参数，你还可以使用“.”访问对象属性：
+
+  ```ts
+  test.each`
+  a               | b      | expected
+  ${{ val: 1 }}   | ${'b'} | ${'1b'}
+  ${{ val: 2 }}   | ${'b'} | ${'2b'}
+  ${{ val: 3 }}   | ${'b'} | ${'3b'}
+  `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
+    expect(a.val + b).toBe(expected)
+  })
+
+  // this will return
+  // ✓ add(1, b) -> 1b
+  // ✓ add(2, b) -> 2b
+  // ✓ add(3, b) -> 3b
+  ```
 
 从 Vitest 0.25.3 开始，你可以使用模板字符串表。
 

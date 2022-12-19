@@ -89,6 +89,22 @@ export default defineConfig({
 
 请参阅类型定义查看有关详细信息。
 
+## 更改默认覆盖文件夹位置
+
+运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
+
+```js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      reportsDirectory: './tests/unit/coverage'
+    }
+  }
+})
+```
+
 ## Ignoring code
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码。

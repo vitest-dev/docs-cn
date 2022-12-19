@@ -26,7 +26,7 @@
     "@types/node": "^18.7.23",
     "eslint": "^8.30.0",
     "@unocss/reset": "^0.47.6",
-    "@vitejs/plugin-vue": "latest",
+    "@vitejs/plugin-vue": "^4.0.0",
     "esno": "^0.16.3",
     "fast-glob": "^3.2.12",
     "fs-extra": "^10.1.0",
