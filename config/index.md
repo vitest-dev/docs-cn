@@ -335,6 +335,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
+<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
@@ -355,6 +356,68 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - **默认值:** `15`
 
 指定输出差线的数量，最多 `15` 个。
+=======
+  - `'default'` - collapse suites when they pass
+  - `'verbose'` - keep the full task tree visible
+  - `'dot'` -  show each task as a single dot
+  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
+  - `'json'` -  give a simple JSON summary
+  - `'html'` -  outputs HTML report based on [`@vitest/ui`](/guide/ui)
+  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+
+### outputTruncateLength
+
+- **Type:** `number`
+- **Default:** `stdout.columns || 80`
+- **CLI:** `--outputTruncateLength <length>`, `--output-truncate-length <length>`
+
+Truncate the size of diff line up to `stdout.columns` or `80` number of characters. You may wish to tune this, depending on your terminal window width. Vitest includes `+-` characters and spaces for this. For example, you might see this diff, if you set this to `6`:
+
+```diff
+// actual line: "Text that seems correct"
+- Text...
++ Test...
+```
+
+### outputDiffLines
+
+- **Type:** `number`
+- **Default:** `15`
+- **CLI:** `--outputDiffLines <lines>`, `--output-diff-lines <lines>`
+
+Limit the number of single output diff lines up to `15`. Vitest counts all `+-` lines when determining when to stop. For example, you might see diff like this, if you set this property to `3`:
+
+```diff
+- test: 1,
++ test: 2,
+- obj: '1',
+...
+- test2: 1,
++ test2: 1,
+- obj2: '2',
+...
+```
+
+### outputDiffMaxLines
+
+- **Type:** `number`
+- **Default:** `50`
+- **CLI:** `--outputDiffMaxLines <lines>`, `--output-diff-max-lines <lines>`
+- **Version:** Since Vitest 0.26.0
+
+The maximum number of lines to display in diff window. Beware that if you have a large object with many small diffs, you might not see all of them at once.
+
+### outputDiffMaxSize
+
+- **Type:** `number`
+- **Default:** `10000`
+- **CLI:** `--outputDiffMaxSize <length>`, `--output-diff-max-size <length>`
+- **Version:** Since Vitest 0.26.0
+
+The maximum length of the stringified object before the diff happens. Vitest tries to stringify an object before doing a diff, but if the object is too large, it will reduce the depth of the object to fit within this limit. Because of this, if the object is too big or nested, you might not see the diff.
+
+Increasing this limit can increase the duration of diffing.
+>>>>>>> ddb768c5c30486791729e711dcb2fb81227ccb52
 
 ### outputFile
 
@@ -800,6 +863,22 @@ test("doNotRun", () => {
 - **默认值:** `false`
 
 是否在每次测试之前对所有监听(Spy)调用 [`.mockRestore()`](/api/#mockrestore)。 这将清除模拟历史并将其实现重置为原始历史。
+
+### unstubEnvs
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.26.0
+
+Will call [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) before each test.
+
+### unstubGlobals
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.26.0
+
+Will call [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals) before each test.
 
 ### transformMode
 
