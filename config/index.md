@@ -520,7 +520,7 @@ test("execute a script", async () => {
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
-是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖CLI选项。
+是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
 
 #### include
 
@@ -540,22 +540,24 @@ test("execute a script", async () => {
 
 - **类型:** `string[]`
 - **默认值:**
+
 ```js
 [
-  'coverage/**',
-  'dist/**',
-  'packages/*/test{,s}/**',
-  '**/*.d.ts',
-  'cypress/**',
-  'test{,s}/**',
-  'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}',
-  '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}',
-  '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}',
-  '**/__tests__/**',
-  '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*',
-  '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
-]
+  "coverage/**",
+  "dist/**",
+  "packages/*/test{,s}/**",
+  "**/*.d.ts",
+  "cypress/**",
+  "test{,s}/**",
+  "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
+  "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
+  "**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}",
+  "**/__tests__/**",
+  "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*",
+  "**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
+];
 ```
+
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
 使用全局模式排除在覆盖范围之外的文件列表。

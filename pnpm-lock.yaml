@@ -2329,17 +2329,6 @@ packages:
       vue: 3.2.45
     dev: true
 
-  /@vitejs/plugin-vue/4.0.0_vite@4.0.2+vue@3.2.45:
-    resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: ^4.0.0
-      vue: ^3.2.25
-    dependencies:
-      vite: 4.0.2_@types+node@18.7.23
-      vue: 3.2.45
-    dev: true
-
   /@vue/compiler-core/3.2.45:
     resolution: {integrity: sha512-rcMj7H+PYe5wBV3iYeUgbCglC+pbpN8hBLTJvRiK2eKQiWqu+fG9F+8sW99JdL4LQi7Re178UOxn09puSXvn4A==}
     dependencies:
@@ -2453,12 +2442,6 @@ packages:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       acorn: 8.8.1
-    dev: true
-
-  /acorn/8.8.1:
-    resolution: {integrity: sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
     dev: true
 
   /acorn/8.8.1:
@@ -3590,36 +3573,6 @@ packages:
       '@esbuild/win32-arm64': 0.16.9
       '@esbuild/win32-ia32': 0.16.9
       '@esbuild/win32-x64': 0.16.9
-    dev: true
-
-  /esbuild/0.16.10:
-    resolution: {integrity: sha512-z5dIViHoVnw2l+NCJ3zj5behdXjYvXne9gL18OOivCadXDUhyDkeSvEtLcGVAJW2fNmh33TDUpsi704XYlDodw==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    optionalDependencies:
-      '@esbuild/android-arm': 0.16.10
-      '@esbuild/android-arm64': 0.16.10
-      '@esbuild/android-x64': 0.16.10
-      '@esbuild/darwin-arm64': 0.16.10
-      '@esbuild/darwin-x64': 0.16.10
-      '@esbuild/freebsd-arm64': 0.16.10
-      '@esbuild/freebsd-x64': 0.16.10
-      '@esbuild/linux-arm': 0.16.10
-      '@esbuild/linux-arm64': 0.16.10
-      '@esbuild/linux-ia32': 0.16.10
-      '@esbuild/linux-loong64': 0.16.10
-      '@esbuild/linux-mips64el': 0.16.10
-      '@esbuild/linux-ppc64': 0.16.10
-      '@esbuild/linux-riscv64': 0.16.10
-      '@esbuild/linux-s390x': 0.16.10
-      '@esbuild/linux-x64': 0.16.10
-      '@esbuild/netbsd-x64': 0.16.10
-      '@esbuild/openbsd-x64': 0.16.10
-      '@esbuild/sunos-x64': 0.16.10
-      '@esbuild/win32-arm64': 0.16.10
-      '@esbuild/win32-ia32': 0.16.10
-      '@esbuild/win32-x64': 0.16.10
     dev: true
 
   /escalade/3.1.1:
