@@ -1,8 +1,8 @@
 {
   "name": "docs-cn",
-  "version": "0.25.0",
+  "version": "0.25.6",
   "private": true,
-  "packageManager": "pnpm@7.14.0",
+  "packageManager": "pnpm@7.18.2",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
     "build": "nr prefetch && vitepress build && node .vitepress/scripts/build-pwa.mjs",
@@ -19,37 +19,26 @@
     "vue": "latest"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@antfu/eslint-config": "^0.27.0",
-    "@antfu/ni": "^0.18.2",
-    "@iconify-json/carbon": "^1.1.9",
+    "@antfu/eslint-config": "^0.34.0",
+    "@antfu/ni": "^0.18.8",
+    "@iconify-json/carbon": "^1.1.11",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.7.23",
-    "@unocss/reset": "^0.46.0",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "eslint": "^8.27.0",
-=======
-    "@iconify-json/carbon": "^1.1.11",
     "@unocss/reset": "^0.47.6",
-    "@vitejs/plugin-vue": "latest",
->>>>>>> 2c0f05c349a400147e5dadbfb1c7fc932236567c
+    "@vitejs/plugin-vue": "^4.0.0",
+    "eslint": "^8.30.0",
     "esno": "^0.16.3",
     "fast-glob": "^3.2.12",
     "fs-extra": "^10.1.0",
     "https-localhost": "^4.7.1",
-<<<<<<< HEAD
     "ohmyfetch": "^0.4.19",
     "pathe": "^0.3.8",
-    "pnpm": "^7.14.0",
-    "unocss": "^0.46.0",
-    "unplugin-vue-components": "^0.22.9",
-=======
+    "pnpm": "^7.18.2",
     "unocss": "^0.47.6",
     "unplugin-vue-components": "^0.22.12",
->>>>>>> 2c0f05c349a400147e5dadbfb1c7fc932236567c
     "vite": "^4.0.0",
     "vite-plugin-pwa": "0.14.0",
-    "vitepress": "1.0.0-alpha.31",
+    "vitepress": "1.0.0-alpha.30",
     "workbox-window": "^6.5.4"
   }
 }

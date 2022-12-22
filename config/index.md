@@ -83,8 +83,8 @@ export default mergeConfig(
 
 ### exclude
 
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
+- **类型:** `string[]`
+- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
 
 匹配排除测试文件的 glob 规则。
 
@@ -317,8 +317,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### watch
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 启动监听模式
 
@@ -407,8 +407,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### teardownTimeout
 
-- **Type:** `number`
-- **Default:** `1000`
+- **类型:** `number`
+- **默认值:** `1000`
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
@@ -530,17 +530,11 @@ test("execute a script", async () => {
 
 #### extension
 
-<<<<<<< HEAD
 - **类型:** `string | string[]`
-- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
 匹配包含测试覆盖率的 glob 规则
-=======
-- **Type:** `string | string[]`
-- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
-- **Available for providers:** `'c8' | 'istanbul'`
->>>>>>> 2c0f05c349a400147e5dadbfb1c7fc932236567c
 
 #### exclude
 
@@ -809,19 +803,19 @@ test("doNotRun", () => {
 
 ### unstubEnvs
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-Will call [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) before each test.
+将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
 ### unstubGlobals
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-Will call [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals) before each test.
+将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
 ### transformMode
 
@@ -905,8 +899,8 @@ export default defineConfig({
 
 ### logHeapUsage
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
 每次测试后显示堆的使用情况。用于调试内存是否泄漏。
 
