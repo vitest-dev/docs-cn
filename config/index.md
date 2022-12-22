@@ -215,7 +215,7 @@ export default defineConfig({
 }
 ```
 
-如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components)，你也可以直接用它来自动导入这些 API。
+如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import)，你也可以直接用它来自动导入这些 API。
 
 ```ts
 // vite.config.ts
