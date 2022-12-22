@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@vueuse/core": "^9.6.0",
+    "@vueuse/core": "^9.7.0",
     "jiti": "^1.16.0",
     "vue": "latest"
   },
@@ -38,7 +38,11 @@
     "unplugin-vue-components": "^0.22.12",
     "vite": "^4.0.0",
     "vite-plugin-pwa": "0.14.0",
+<<<<<<< HEAD
     "vitepress": "1.0.0-alpha.30",
+=======
+    "vitepress": "1.0.0-alpha.32",
+>>>>>>> 5850d94dcf139e25edc0f36c85b0911c9dde30dd
     "workbox-window": "^6.5.4"
   }
 }
