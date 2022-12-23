@@ -83,8 +83,8 @@ export default mergeConfig(
 
 ### exclude
 
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
+- **类型:** `string[]`
+- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
 
 匹配排除测试文件的 glob 规则。
 
@@ -215,7 +215,7 @@ export default defineConfig({
 }
 ```
 
-如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-vue-components)，你也可以直接用它来自动导入这些 API。
+如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import)，你也可以直接用它来自动导入这些 API。
 
 ```ts
 // vite.config.ts
@@ -317,8 +317,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### watch
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 启动监听模式
 
@@ -407,8 +407,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### teardownTimeout
 
-- **Type:** `number`
-- **Default:** `1000`
+- **类型:** `number`
+- **默认值:** `1000`
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
@@ -803,19 +803,19 @@ test("doNotRun", () => {
 
 ### unstubEnvs
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-Will call [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) before each test.
+将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
 ### unstubGlobals
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-Will call [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals) before each test.
+将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
 ### transformMode
 
@@ -899,8 +899,8 @@ export default defineConfig({
 
 ### logHeapUsage
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
 每次测试后显示堆的使用情况。用于调试内存是否泄漏。
 

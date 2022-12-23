@@ -7,14 +7,10 @@ outline: deep
 
 <FeaturesList class="!gap-1 text-lg" />
 
-<<<<<<< HEAD
 ## 一套配置可以运用在多种环境
-=======
+
 <div h-2 />
 <CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">Learn how to write your first test by Video</CourseLink>
-
-## Shared config between test, dev and build
->>>>>>> cb8794251fb1d653a1adc90ce396a6d4c7d93e25
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用程序中的相同配置来运行测试。
 
