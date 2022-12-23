@@ -90,9 +90,15 @@ export default mergeConfig(
 
 ### deps
 
+<<<<<<< HEAD
 - **类型:** `{ external?, inline? }`
 
 对依赖关系进行内联或外联的处理
+=======
+- **Type:** `{ external?, inline?, ... }`
+
+Handling for dependencies resolution.
+>>>>>>> 49671ebc5a2967effa5cfcf752f80445f205d844
 
 #### deps.external
 
@@ -124,6 +130,7 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 使用 [实验性 Node 加载器](https://nodejs.org/api/esm.html#loaders) 解析 `node_modules` 中的导入，使用 Vite 解析算法。
 
 如果禁用，你的 `alias` 和 `<plugin>.resolveId` 不会影响 `node_modules` 或 `deps.external` 中的导入。
@@ -134,6 +141,34 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 - **默认值:** `true`
 
 将 CJS 模块的默认值视为命名导出。
+=======
+Use [experimental Node loader](https://nodejs.org/api/esm.html#loaders) to resolve imports inside externalized files, using Vite resolve algorithm.
+
+If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside externalized packages (by default, `node_modules`).
+
+#### deps.interopDefault
+
+- **Type:** `boolean`
+- **Default:** `false` if `environment` is `node`, `true` otherwise
+
+Interpret CJS module's default as named exports. Some dependencies only bundle CJS modules and don't use named exports that Node.js can statically analyze when a package is imported using `import` syntax instead of `require`. When importing such dependencies in Node environment using named exports, you will see this error:
+
+```
+import { read } from 'fs-jetpack';
+         ^^^^
+SyntaxError: Named export 'read' not found. The requested module 'fs-jetpack' is a CommonJS module, which may not support all module.exports as named exports.
+CommonJS modules can always be imported via the default export.
+```
+
+Vitest doesn't do static analysis, and cannot fail before your running code, so you will most likely see this error when running tests:
+
+```
+TypeError: createAsyncThunk is not a function
+TypeError: default is not a function
+```
+
+If you are using bundlers or transpilers that bypass this Node.js limitation, you can enable this option manually. By default, Vitest assumes you are using Node ESM syntax, when `environment` is `node`, and doesn't interpret named exports.
+>>>>>>> 49671ebc5a2967effa5cfcf752f80445f205d844
 
 ### benchmark
 
@@ -344,6 +379,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### outputTruncateLength
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `80`
 
@@ -355,6 +391,58 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - **默认值:** `15`
 
 指定输出差线的数量，最多 `15` 个。
+=======
+- **Type:** `number`
+- **Default:** `stdout.columns || 80`
+- **CLI:** `--outputTruncateLength <length>`, `--output-truncate-length <length>`
+
+Truncate the size of diff line up to `stdout.columns` or `80` number of characters. You may wish to tune this, depending on your terminal window width. Vitest includes `+-` characters and spaces for this. For example, you might see this diff, if you set this to `6`:
+
+```diff
+// actual line: "Text that seems correct"
+- Text...
++ Test...
+```
+
+### outputDiffLines
+
+- **Type:** `number`
+- **Default:** `15`
+- **CLI:** `--outputDiffLines <lines>`, `--output-diff-lines <lines>`
+
+Limit the number of single output diff lines up to `15`. Vitest counts all `+-` lines when determining when to stop. For example, you might see diff like this, if you set this property to `3`:
+
+```diff
+- test: 1,
++ test: 2,
+- obj: '1',
+...
+- test2: 1,
++ test2: 1,
+- obj2: '2',
+...
+```
+
+### outputDiffMaxLines
+
+- **Type:** `number`
+- **Default:** `50`
+- **CLI:** `--outputDiffMaxLines <lines>`, `--output-diff-max-lines <lines>`
+- **Version:** Since Vitest 0.26.0
+
+The maximum number of lines to display in diff window. Beware that if you have a large object with many small diffs, you might not see all of them at once.
+
+### outputDiffMaxSize
+
+- **Type:** `number`
+- **Default:** `10000`
+- **CLI:** `--outputDiffMaxSize <length>`, `--output-diff-max-size <length>`
+- **Version:** Since Vitest 0.26.0
+
+The maximum length of the stringified object before the diff happens. Vitest tries to stringify an object before doing a diff, but if the object is too large, it will reduce the depth of the object to fit within this limit. Because of this, if the object is too big or nested, you might not see the diff.
+
+Increasing this limit can increase the duration of diffing.
+>>>>>>> 49671ebc5a2967effa5cfcf752f80445f205d844
 
 ### outputFile
 
