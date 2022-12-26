@@ -90,9 +90,15 @@ export default mergeConfig(
 
 ### deps
 
+<<<<<<< HEAD
 - **类型:** `{ external?, inline? }`
 
 对依赖关系进行内联或外联的处理
+=======
+- **Type:** `{ external?, inline?, ... }`
+
+Handling for dependencies resolution.
+>>>>>>> 69e11996c5619ee6e662993f55b9bdf958ec2d33
 
 #### deps.external
 
@@ -124,6 +130,7 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 使用 [实验性 Node 加载器](https://nodejs.org/api/esm.html#loaders) 解析 `node_modules` 中的导入，使用 Vite 解析算法。
 
 如果禁用，你的 `alias` 和 `<plugin>.resolveId` 不会影响 `node_modules` 或 `deps.external` 中的导入。
@@ -134,6 +141,34 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 - **默认值:** `true`
 
 将 CJS 模块的默认值视为命名导出。
+=======
+Use [experimental Node loader](https://nodejs.org/api/esm.html#loaders) to resolve imports inside externalized files, using Vite resolve algorithm.
+
+If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside externalized packages (by default, `node_modules`).
+
+#### deps.interopDefault
+
+- **Type:** `boolean`
+- **Default:** `false` if `environment` is `node`, `true` otherwise
+
+Interpret CJS module's default as named exports. Some dependencies only bundle CJS modules and don't use named exports that Node.js can statically analyze when a package is imported using `import` syntax instead of `require`. When importing such dependencies in Node environment using named exports, you will see this error:
+
+```
+import { read } from 'fs-jetpack';
+         ^^^^
+SyntaxError: Named export 'read' not found. The requested module 'fs-jetpack' is a CommonJS module, which may not support all module.exports as named exports.
+CommonJS modules can always be imported via the default export.
+```
+
+Vitest doesn't do static analysis, and cannot fail before your running code, so you will most likely see this error when running tests:
+
+```
+TypeError: createAsyncThunk is not a function
+TypeError: default is not a function
+```
+
+If you are using bundlers or transpilers that bypass this Node.js limitation, you can enable this option manually. By default, Vitest assumes you are using Node ESM syntax, when `environment` is `node`, and doesn't interpret named exports.
+>>>>>>> 69e11996c5619ee6e662993f55b9bdf958ec2d33
 
 ### benchmark
 
