@@ -19,54 +19,53 @@ title: Mocking | Guide
 ### 示例
 
 ```js
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const businessHours = [9, 17]
+const businessHours = [9, 17];
 
 const purchase = () => {
-  const currentHour = new Date().getHours()
-  const [open, close] = businessHours
+  const currentHour = new Date().getHours();
+  const [open, close] = businessHours;
 
-  if (currentHour > open && currentHour < close)
-    return { message: 'Success' }
+  if (currentHour > open && currentHour < close) return { message: "Success" };
 
-  return { message: 'Error' }
-}
+  return { message: "Error" };
+};
 
-describe('purchasing flow', () => {
+describe("purchasing flow", () => {
   beforeEach(() => {
     // 告诉 vitest 我们使用模拟时间
-    vi.useFakeTimers()
-  })
+    vi.useFakeTimers();
+  });
 
   afterEach(() => {
     // 每次测试运行后恢复日期
-    vi.useRealTimers()
-  })
+    vi.useRealTimers();
+  });
 
-  it('allows purchases within business hours', () => {
+  it("allows purchases within business hours", () => {
     // 在工作时间内设置时间
-    const date = new Date(2000, 1, 1, 13)
-    vi.setSystemTime(date)
+    const date = new Date(2000, 1, 1, 13);
+    vi.setSystemTime(date);
 
     // 访问 Date.now() 将生成上面设置的日期
-    expect(purchase()).toEqual({ message: 'Success' })
-  })
+    expect(purchase()).toEqual({ message: "Success" });
+  });
 
-  it('disallows purchases outside of business hours', () => {
+  it("disallows purchases outside of business hours", () => {
     // 在工作时间之外设置时间
-    const date = new Date(2000, 1, 1, 19)
-    vi.setSystemTime(date)
+    const date = new Date(2000, 1, 1, 19);
+    vi.setSystemTime(date);
 
     // 访问 Date.now() 将生成上面设置的日期
-    expect(purchase()).toEqual({ message: 'Error' })
-  })
-})
+    expect(purchase()).toEqual({ message: "Error" });
+  });
+});
 ```
 
 ## 函数
 
-函数的模拟可以分为两个不同的类别：*对象监听(spying) & 对象模拟*。
+函数的模拟可以分为两个不同的类别：_对象监听(spying) & 对象模拟_。
 
 有时你可能只需要验证是否调用了特定函数（以及可能传递了哪些参数）。在这种情况下，我们就需要使用一个对象监听，可以直接使用 `vi.spyOn()` ([在此处阅读更多信息](/api/#vi-spyon))。
 
@@ -77,54 +76,54 @@ describe('purchasing flow', () => {
 ### 示例
 
 ```js
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-const getLatest = (index = messages.items.length - 1) => messages.items[index]
+const getLatest = (index = messages.items.length - 1) => messages.items[index];
 
 const messages = {
   items: [
-    { message: 'Simple test message', from: 'Testman' },
+    { message: "Simple test message", from: "Testman" },
     // ...
   ],
   getLatest, // 也可以是一个 `getter 或 setter 如果支持`
-}
+};
 
-describe('reading messages', () => {
+describe("reading messages", () => {
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
+    vi.restoreAllMocks();
+  });
 
-  it('should get the latest message with a spy', () => {
-    const spy = vi.spyOn(messages, 'getLatest')
-    expect(spy.getMockName()).toEqual('getLatest')
+  it("should get the latest message with a spy", () => {
+    const spy = vi.spyOn(messages, "getLatest");
+    expect(spy.getMockName()).toEqual("getLatest");
 
     expect(messages.getLatest()).toEqual(
-      messages.items[messages.items.length - 1],
-    )
+      messages.items[messages.items.length - 1]
+    );
 
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledTimes(1);
 
-    spy.mockImplementationOnce(() => 'access-restricted')
-    expect(messages.getLatest()).toEqual('access-restricted')
+    spy.mockImplementationOnce(() => "access-restricted");
+    expect(messages.getLatest()).toEqual("access-restricted");
 
-    expect(spy).toHaveBeenCalledTimes(2)
-  })
+    expect(spy).toHaveBeenCalledTimes(2);
+  });
 
-  it('should get with a mock', () => {
-    const mock = vi.fn().mockImplementation(getLatest)
+  it("should get with a mock", () => {
+    const mock = vi.fn().mockImplementation(getLatest);
 
-    expect(mock()).toEqual(messages.items[messages.items.length - 1])
-    expect(mock).toHaveBeenCalledTimes(1)
+    expect(mock()).toEqual(messages.items[messages.items.length - 1]);
+    expect(mock).toHaveBeenCalledTimes(1);
 
-    mock.mockImplementationOnce(() => 'access-restricted')
-    expect(mock()).toEqual('access-restricted')
+    mock.mockImplementationOnce(() => "access-restricted");
+    expect(mock()).toEqual("access-restricted");
 
-    expect(mock).toHaveBeenCalledTimes(2)
+    expect(mock).toHaveBeenCalledTimes(2);
 
-    expect(mock()).toEqual(messages.items[messages.items.length - 1])
-    expect(mock).toHaveBeenCalledTimes(3)
-  })
-})
+    expect(mock()).toEqual(messages.items[messages.items.length - 1]);
+    expect(mock).toHaveBeenCalledTimes(3);
+  });
+});
 ```
 
 ### 了解更多
@@ -136,16 +135,16 @@ describe('reading messages', () => {
 你可以通过使用 [`vi.stubGlobal`](/api/#vi-stubglobal) 来模拟 `jsdom` 或 `node` 中不存在的全局变量。它将把全局变量的值放入 `globalThis` 对象。
 
 ```ts
-import { vi } from 'vitest'
+import { vi } from "vitest";
 
 const IntersectionObserverMock = vi.fn(() => ({
   disconnect: vi.fn(),
   observe: vi.fn(),
   takeRecords: vi.fn(),
   unobserve: vi.fn(),
-}))
+}));
 
-vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 
 // 现在你可以通过 `IntersectionObserver` 或 `window.IntersectionObserver` 访问
 ```
@@ -161,17 +160,18 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 如果你的代码导入了模拟模块，并且没有任何与此模块相关联的 `__mocks__` 文件或 `factory`，Vitest 将通过调用模块并模拟每个导出来的模拟模块本身。
 
 以下原则适用
-* 所有的数组将被清空
-* 所有的基础类型和集合将保持不变
-* 所有的对象都将被深度克隆
-* 类的所有实例及其原型都将被深度克隆
+
+- 所有的数组将被清空
+- 所有的基础类型和集合将保持不变
+- 所有的对象都将被深度克隆
+- 类的所有实例及其原型都将被深度克隆
 
 ### 示例
 
 ```js
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Client } from 'pg'
-import { failure, success } from './handlers'
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { Client } from "pg";
+import { failure, success } from "./handlers";
 
 // handlers
 export function success(data) {}
@@ -181,85 +181,84 @@ export function failure(data) {}
 export const getTodos = async (event, context) => {
   const client = new Client({
     // ...clientOptions
-  })
+  });
 
-  await client.connect()
+  await client.connect();
 
   try {
-    const result = await client.query('SELECT * FROM todos;')
+    const result = await client.query("SELECT * FROM todos;");
 
-    client.end()
+    client.end();
 
     return success({
       message: `${result.rowCount} item(s) returned`,
       data: result.rows,
       status: true,
-    })
+    });
+  } catch (e) {
+    console.error(e.stack);
+
+    client.end();
+
+    return failure({ message: e, status: false });
   }
-  catch (e) {
-    console.error(e.stack)
+};
 
-    client.end()
+vi.mock("pg", () => {
+  const Client = vi.fn();
+  Client.prototype.connect = vi.fn();
+  Client.prototype.query = vi.fn();
+  Client.prototype.end = vi.fn();
 
-    return failure({ message: e, status: false })
-  }
-}
+  return { Client };
+});
 
-vi.mock('pg', () => {
-  const Client = vi.fn()
-  Client.prototype.connect = vi.fn()
-  Client.prototype.query = vi.fn()
-  Client.prototype.end = vi.fn()
-
-  return { Client }
-})
-
-vi.mock('./handlers', () => {
+vi.mock("./handlers", () => {
   return {
     success: vi.fn(),
     failure: vi.fn(),
-  }
-})
+  };
+});
 
-describe('get a list of todo items', () => {
-  let client
+describe("get a list of todo items", () => {
+  let client;
 
   beforeEach(() => {
-    client = new Client()
-  })
+    client = new Client();
+  });
 
   afterEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
 
-  it('should return items successfully', async () => {
-    client.query.mockResolvedValueOnce({ rows: [], rowCount: 0 })
+  it("should return items successfully", async () => {
+    client.query.mockResolvedValueOnce({ rows: [], rowCount: 0 });
 
-    await getTodos()
+    await getTodos();
 
-    expect(client.connect).toBeCalledTimes(1)
-    expect(client.query).toBeCalledWith('SELECT * FROM todos;')
-    expect(client.end).toBeCalledTimes(1)
+    expect(client.connect).toBeCalledTimes(1);
+    expect(client.query).toBeCalledWith("SELECT * FROM todos;");
+    expect(client.end).toBeCalledTimes(1);
 
     expect(success).toBeCalledWith({
-      message: '0 item(s) returned',
+      message: "0 item(s) returned",
       data: [],
       status: true,
-    })
-  })
+    });
+  });
 
-  it('should throw an error', async () => {
-    const mError = new Error('Unable to retrieve rows')
-    client.query.mockRejectedValueOnce(mError)
+  it("should throw an error", async () => {
+    const mError = new Error("Unable to retrieve rows");
+    client.query.mockRejectedValueOnce(mError);
 
-    await getTodos()
+    await getTodos();
 
-    expect(client.connect).toBeCalledTimes(1)
-    expect(client.query).toBeCalledWith('SELECT * FROM todos;')
-    expect(client.end).toBeCalledTimes(1)
-    expect(failure).toBeCalledWith({ message: mError, status: false })
-  })
-})
+    expect(client.connect).toBeCalledTimes(1);
+    expect(client.query).toBeCalledWith("SELECT * FROM todos;");
+    expect(client.end).toBeCalledTimes(1);
+    expect(failure).toBeCalledWith({ message: mError, status: false });
+  });
+});
 ```
 
 ## 请求
@@ -268,48 +267,50 @@ describe('get a list of todo items', () => {
 
 Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许你在不更改任何应用程序代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node 中，对于 Vitest，它使用 [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation)。了解有关 MSW 的更多信息，可以去阅读他们的 [introduction](https://mswjs.io/docs/)。
 
-
 ### 配置
 
 如下，你可以在你的 [配置文件](/config/#setupfiles) 中使用。
 
 ```js
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
-import { graphql, rest } from 'msw'
+import { afterAll, afterEach, beforeAll } from "vitest";
+import { setupServer } from "msw/node";
+import { graphql, rest } from "msw";
 
 const posts = [
   {
     userId: 1,
     id: 1,
-    title: 'first post title',
-    body: 'first post body',
+    title: "first post title",
+    body: "first post body",
   },
   // ...
-]
+];
 
 export const restHandlers = [
-  rest.get('https://rest-endpoint.example/path/to/posts', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(posts))
+  rest.get("https://rest-endpoint.example/path/to/posts", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(posts));
   }),
-]
+];
 
 const graphqlHandlers = [
-  graphql.query('https://graphql-endpoint.example/api/v1/posts', (req, res, ctx) => {
-    return res(ctx.data(posts))
-  }),
-]
+  graphql.query(
+    "https://graphql-endpoint.example/api/v1/posts",
+    (req, res, ctx) => {
+      return res(ctx.data(posts));
+    }
+  ),
+];
 
-const server = setupServer(...restHandlers, ...graphqlHandlers)
+const server = setupServer(...restHandlers, ...graphqlHandlers);
 
 // 在所有测试之前启动服务器
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 
 // 所有测试后关闭服务器
-afterAll(() => server.close())
+afterAll(() => server.close());
 
 // 每次测试后重置处理程序 `对测试隔离很重要`
-afterEach(() => server.resetHandlers())
+afterEach(() => server.resetHandlers());
 ```
 
 > 使用 `onUnhandleRequest: 'error'` 配置服务器可以确保每当有没有相应请求处理程序的请求时都会引发错误。
@@ -331,44 +332,44 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 ### 示例
 
 ```js
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const executeAfterTwoHours = (func) => {
-  setTimeout(func, 1000 * 60 * 60 * 2) // 2 hours
-}
+  setTimeout(func, 1000 * 60 * 60 * 2); // 2 hours
+};
 
 const executeEveryMinute = (func) => {
-  setInterval(func, 1000 * 60) // 1 minute
-}
+  setInterval(func, 1000 * 60); // 1 minute
+};
 
-const mock = vi.fn(() => console.log('executed'))
+const mock = vi.fn(() => console.log("executed"));
 
-describe('delayed execution', () => {
+describe("delayed execution", () => {
   beforeEach(() => {
-    vi.useFakeTimers()
-  })
+    vi.useFakeTimers();
+  });
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
-  it('should execute the function', () => {
-    executeAfterTwoHours(mock)
-    vi.runAllTimers()
-    expect(mock).toHaveBeenCalledTimes(1)
-  })
-  it('should not execute the function', () => {
-    executeAfterTwoHours(mock)
+    vi.restoreAllMocks();
+  });
+  it("should execute the function", () => {
+    executeAfterTwoHours(mock);
+    vi.runAllTimers();
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+  it("should not execute the function", () => {
+    executeAfterTwoHours(mock);
     // advancing by 2ms won't trigger the func
-    vi.advanceTimersByTime(2)
-    expect(mock).not.toHaveBeenCalled()
-  })
-  it('should execute every minute', () => {
-    executeEveryMinute(mock)
-    vi.advanceTimersToNextTimer()
-    expect(mock).toHaveBeenCalledTimes(1)
-    vi.advanceTimersToNextTimer()
-    expect(mock).toHaveBeenCalledTimes(2)
-  })
-})
+    vi.advanceTimersByTime(2);
+    expect(mock).not.toHaveBeenCalled();
+  });
+  it("should execute every minute", () => {
+    executeEveryMinute(mock);
+    vi.advanceTimersToNextTimer();
+    expect(mock).toHaveBeenCalledTimes(1);
+    vi.advanceTimersToNextTimer();
+    expect(mock).toHaveBeenCalledTimes(2);
+  });
+});
 ```
 
 ## 备忘单
@@ -382,29 +383,29 @@ describe('delayed execution', () => {
 - 监听一个 `method`
 
 ```ts
-const instance = new SomeClass()
-vi.spyOn(instance, 'method')
+const instance = new SomeClass();
+vi.spyOn(instance, "method");
 ```
 
 - 监听模块导出 function
 
 ```ts
 // some-path.ts
-export const getter = 'variable'
+export const getter = "variable";
 ```
 
 ```ts
 // some-path.test.ts
-import * as exports from 'some-path'
-vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
+import * as exports from "some-path";
+vi.spyOn(exports, "getter", "get").mockReturnValue("mocked");
 ```
 
 - 监听模块导出 setter/getter
 
 ```ts
-import * as exports from 'some-path'
-vi.spyOn(exports, 'getter', 'get')
-vi.spyOn(exports, 'setter', 'set')
+import * as exports from "some-path";
+vi.spyOn(exports, "getter", "get");
+vi.spyOn(exports, "setter", "set");
 ```
 
 - 模拟模块导出 function
@@ -417,25 +418,21 @@ export function method() {}
 ```
 
 ```ts
-import { method } from './some-path.ts'
-vi.mock('./some-path.ts', () => ({
-  method: vi.fn()
-}))
+import { method } from "./some-path.ts";
+vi.mock("./some-path.ts", () => ({
+  method: vi.fn(),
+}));
 ```
 
-<<<<<<< HEAD
-`vi.spyOn` 的示例：
-
-=======
 ::: warning
-Don't forget that `vi.mock` call is hoisted to top of the file. **Do not** put `vi.mock` calls inside `beforeEach`, only one of these will actually mock a module.
+不要忘记将 `vi.mock` 调用提升到文件顶部。 **不要**将 `vi.mock` 调用放在 `beforeEach` 中，只有其中一个会实际模拟模块。
 :::
 
-Example with `vi.spyOn`:
->>>>>>> ddb768c5c30486791729e711dcb2fb81227ccb52
+`vi.spyOn` 的示例：
+
 ```ts
-import * as exports from 'some-path'
-vi.spyOn(exports, 'method').mockImplementation(() => {})
+import * as exports from "some-path";
+vi.spyOn(exports, "method").mockImplementation(() => {});
 ```
 
 - 模拟模块导出 class implementation
@@ -448,35 +445,35 @@ export class SomeClass {}
 ```
 
 ```ts
-import { SomeClass } from 'some-path'
-vi.mock('some-path', () => {
-  const SomeClass = vi.fn()
-  SomeClass.prototype.someMethod = vi.fn()
-  return { SomeClass }
-})
+import { SomeClass } from "some-path";
+vi.mock("some-path", () => {
+  const SomeClass = vi.fn();
+  SomeClass.prototype.someMethod = vi.fn();
+  return { SomeClass };
+});
 // SomeClass.mock.instances will have SomeClass
 ```
 
 `vi.mock` and return value 的示例:
 
 ```ts
-import { SomeClass } from 'some-path'
-vi.mock('some-path', () => {
+import { SomeClass } from "some-path";
+vi.mock("some-path", () => {
   const SomeClass = vi.fn(() => ({
-    someMethod: vi.fn()
-  }))
-  return { SomeClass }
-})
+    someMethod: vi.fn(),
+  }));
+  return { SomeClass };
+});
 // SomeClass.mock.returns will have returned object
 ```
 
 `vi.spyOn` 的示例:
 
 ```ts
-import * as exports from 'some-path'
-vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
+import * as exports from "some-path";
+vi.spyOn(exports, "SomeClass").mockImplementation(() => {
   // whatever suites you from first two examples
-})
+});
 ```
 
 - 监听一个函数是否返回了一个对象
@@ -486,115 +483,115 @@ vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
 ```ts
 // some-path.ts
 export function useObject() {
-  return { method: () => true }
+  return { method: () => true };
 }
 ```
 
 ```ts
 // useObject.js
-import { useObject } from 'some-path'
-const obj = useObject()
-obj.method()
+import { useObject } from "some-path";
+const obj = useObject();
+obj.method();
 ```
 
 ```ts
 // useObject.test.js
-import { useObject } from 'some-path'
-vi.mock('some-path', () => {
-  let _cache
+import { useObject } from "some-path";
+vi.mock("some-path", () => {
+  let _cache;
   const useObject = () => {
     if (!_cache) {
       _cache = {
         method: vi.fn(),
-      }
+      };
     }
     // now everytime useObject() is called it will
     // return the same object reference
-    return _cache
-  }
-  return { useObject }
-})
+    return _cache;
+  };
+  return { useObject };
+});
 
-const obj = useObject()
+const obj = useObject();
 // obj.method was called inside some-path
-expect(obj.method).toHaveBeenCalled()
+expect(obj.method).toHaveBeenCalled();
 ```
 
 - 模拟部分 module
 
 ```ts
-import { mocked, original } from 'some-path'
-vi.mock('some-path', async () => {
-  const mod = await vi.importActual<typeof import('some-path')>('some-path')
+import { mocked, original } from "some-path";
+vi.mock("some-path", async () => {
+  const mod = await vi.importActual<typeof import("some-path")>("some-path");
   return {
     ...mod,
-    mocked: vi.fn()
-  }
-})
-original() // has original behaviour
-mocked() // is a spy function
+    mocked: vi.fn(),
+  };
+});
+original(); // has original behaviour
+mocked(); // is a spy function
 ```
 
 - 模拟当前日期
 
-To mock `Date`'s time, you can use `vi.setSystemTime` helper function. This value will **not** automatically reset between different tests.
+要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
 
-Beware that using `vi.useFakeTimers` also changes the `Date`'s time.
+请注意，使用 `vi.useFakeTimers` 也会更改 `Date` 的时间。
 
 ```ts
-const mockDate = new Date(2022, 0, 1)
-vi.setSystemTime(mockDate)
-const now = new Date()
-expect(now.valueOf()).toBe(mockDate.valueOf())
+const mockDate = new Date(2022, 0, 1);
+vi.setSystemTime(mockDate);
+const now = new Date();
+expect(now.valueOf()).toBe(mockDate.valueOf());
 // reset mocked time
-vi.useRealTimers()
+vi.useRealTimers();
 ```
 
 - 模拟全局变量
 
-You can set global variable by assigning a value to `globalThis` or using [`vi.stubGlobal`](/api/#vi-stubglobal) helper. When using `vi.stubGlobal`, it will **not** automatically reset between different tests, unless you enable [`unstubGlobals`](/config/#unstubglobals) config option or call [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals).
+你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会**在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/#unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
 ```ts
-vi.stubGlobal('__VERSION__', '1.0.0')
-expect(__VERSION__).toBe('1.0.0')
+vi.stubGlobal("__VERSION__", "1.0.0");
+expect(__VERSION__).toBe("1.0.0");
 ```
 
-- Mock `import.meta.env`
+- 模拟 `import.meta.env`
 
-To change environmental variable, you can just assign a new value to it. This value will **not** automatically reset between different tests.
+要更改环境变量，你只需为其分配一个新值即可。 该值将**不会**在不同的测试之间自动重置。
 
 ```ts
-import { beforeEach, expect, it } from 'vitest'
+import { beforeEach, expect, it } from "vitest";
 
 // you can reset it in beforeEach hook manually
-const originalViteEnv = import.meta.env.VITE_ENV
+const originalViteEnv = import.meta.env.VITE_ENV;
 
 beforeEach(() => {
-  import.meta.env.VITE_ENV = originalViteEnv
-})
+  import.meta.env.VITE_ENV = originalViteEnv;
+});
 
-it('changes value', () => {
-  import.meta.env.VITE_ENV = 'staging'
-  expect(import.meta.env.VITE_ENV).toBe('staging')
-})
+it("changes value", () => {
+  import.meta.env.VITE_ENV = "staging";
+  expect(import.meta.env.VITE_ENV).toBe("staging");
+});
 ```
 
-If you want to automatically reset value, you can use `vi.stubEnv` helper with [`unstubEnvs`](/config/#unstubEnvs) config option enabled (or call [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) manually in `beforeEach` hook):
+如果你想自动重置值，可以使用启用了 [`unstubEnvs`](/config/#unstubEnvs) 配置选项的 `vi.stubEnv` 助手（或调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) 在 `beforeEach` 钩子中手动执行）：
 
 ```ts
-import { expect, it, vi } from 'vitest'
+import { expect, it, vi } from "vitest";
 
 // before running tests "VITE_ENV" is "test"
-import.meta.env.VITE_ENV === 'test'
+import.meta.env.VITE_ENV === "test";
 
-it('changes value', () => {
-  vi.stubEnv('VITE_ENV', 'staging')
-  expect(import.meta.env.VITE_ENV).toBe('staging')
-})
+it("changes value", () => {
+  vi.stubEnv("VITE_ENV", "staging");
+  expect(import.meta.env.VITE_ENV).toBe("staging");
+});
 
-it('the value is restored before running an other test', () => {
-  expect(import.meta.env.VITE_ENV).toBe('test')
-})
+it("the value is restored before running an other test", () => {
+  expect(import.meta.env.VITE_ENV).toBe("test");
+});
 ```
 
 ```ts
@@ -602,6 +599,6 @@ it('the value is restored before running an other test', () => {
 export default {
   test: {
     unstubAllEnvs: true,
-  }
-}
+  },
+};
 ```

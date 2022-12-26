@@ -255,13 +255,13 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 
   ```ts
   test.each`
-  a               | b      | expected
-  ${{ val: 1 }}   | ${'b'} | ${'1b'}
-  ${{ val: 2 }}   | ${'b'} | ${'2b'}
-  ${{ val: 3 }}   | ${'b'} | ${'3b'}
-  `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
-    expect(a.val + b).toBe(expected)
-  })
+    a             | b      | expected
+    ${{ val: 1 }} | ${"b"} | ${"1b"}
+    ${{ val: 2 }} | ${"b"} | ${"2b"}
+    ${{ val: 3 }} | ${"b"} | ${"3b"}
+  `("add($a.val, $b) -> $expected", ({ a, b, expected }) => {
+    expect(a.val + b).toBe(expected);
+  });
 
   // this will return
   // ✓ add(1, b) -> 1b
@@ -2720,136 +2720,134 @@ vi.mock("path", () => {
 
 ### vi.restoreCurrentDate
 
-<<<<<<< HEAD
 - **类型**: `() => void`
-=======
-- **Type:** `() => void`
->>>>>>> ddb768c5c30486791729e711dcb2fb81227ccb52
 
   将 `Date` 恢复为系统时间。
 
 ### vi.stubEnv
 
-- **Type:** `(name: string, value: string) => Vitest`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `(name: string, value: string) => Vitest`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-  Changes the value of environmental variable on `process.env` and `import.meta.env`. You can restore its value by calling `vi.unstubAllEnvs`.
+  更改 `process.env` 和 `import.meta.env` 上的环境变量值。你可以通过调用 `vi.unstubAllEnvs` 恢复它的值。
 
 ```ts
-import { vi } from 'vitest'
+import { vi } from "vitest";
 
 // `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
 // are "development" before calling "vi.stubEnv"
 
-vi.stubEnv('NODE_ENV', 'production')
+vi.stubEnv("NODE_ENV", "production");
 
-process.env.NODE_ENV === 'production'
-import.meta.env.NODE_ENV === 'production'
+process.env.NODE_ENV === "production";
+import.meta.env.NODE_ENV === "production";
 // doesn't change other envs
-import.meta.env.MODE === 'development'
+import.meta.env.MODE === "development";
 ```
 
 :::tip
-You can also change the value by simply assigning it, but you won't be able to use `vi.unstubAllEnvs` to restore previous value:
+你也可以通过简单地分配它来更改值，但是你将无法使用 `vi.unstubAllEnvs` 来恢复以前的值：
 
 ```ts
-import.meta.env.MODE = 'test'
+import.meta.env.MODE = "test";
 ```
+
 :::
 
 :::warning
-Vitest transforms all `import.meta.env` calls into `process.env`, so they can be easily changed at runtime. Node.js only supports string values as env parameters, while Vite supports several built-in envs as boolean (namely, `SSR`, `DEV`, `PROD`). To mimic Vite, set "truthy" values as env: `''` instead of `false`, and `'1'` instead of `true`.
+Vitest 将所有 `import.meta.env` 调用转换为 `process.env`，因此它们可以在运行时轻松更改。 Node.js 只支持字符串值作为 env 参数，而 Vite 支持几种内置的 env 作为布尔值（即 `SSR`、`DEV`、`PROD`）。为了模仿 Vite，将 "truthy" 值设置为 env：使用 `''` 来代替 `false`，使用 `'1'` 来代替 `true`。
 
-But beware that you cannot rely on `import.meta.env.DEV === false` in this case. Use `!import.meta.env.DEV`. This also affects simple assigning, not just `vi.stubEnv` method.
+但请注意，在这种情况下，你不能依赖 `import.meta.env.DEV === false`。使用 `!import.meta.env.DEV`。这也会影响简单的分配，而不仅仅是 `vi.stubEnv` 方法。
 :::
 
 ### vi.unstubAllEnvs
 
-- **Type:** `() => Vitest`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `() => Vitest`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-  Restores all `import.meta.env` and `process.env` values that were changed with `vi.stubEnv`. When it's called for the first time, Vitest remembers the original value and will store it, until `unstubAllEnvs` is called again.
+  恢复使用 `vi.stubEnv` 更改的所有 `import.meta.env` 和 `process.env` 值。第一次调用时，Vitest 会记住原始值并存储它，直到再次调用 `unstubAllEnvs`。
 
 ```ts
-import { vi } from 'vitest'
+import { vi } from "vitest";
 
 // `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
 // are "development" before calling stubEnv
 
-vi.stubEnv('NODE_ENV', 'production')
+vi.stubEnv("NODE_ENV", "production");
 
-process.env.NODE_ENV === 'production'
-import.meta.env.NODE_ENV === 'production'
+process.env.NODE_ENV === "production";
+import.meta.env.NODE_ENV === "production";
 
-vi.stubEnv('NODE_ENV', 'staging')
+vi.stubEnv("NODE_ENV", "staging");
 
-process.env.NODE_ENV === 'staging'
-import.meta.env.NODE_ENV === 'staging'
+process.env.NODE_ENV === "staging";
+import.meta.env.NODE_ENV === "staging";
 
-vi.unstubAllEnvs()
+vi.unstubAllEnvs();
 
 // restores to the value that were stored before the first "stubEnv" call
-process.env.NODE_ENV === 'development'
-import.meta.env.NODE_ENV === 'development'
+process.env.NODE_ENV === "development";
+import.meta.env.NODE_ENV === "development";
 ```
 
 ### vi.stubGlobal
 
-- **Type:** `(name: stirng | number | symbol, value: uknown) => Vitest`
+- **类型:** `(name: stirng | number | symbol, value: uknown) => Vitest`
 
-  Changes the value of global variable. You can restore its original value by calling `vi.unstubAllGlobals`.
+  改变全局变量的值。 你可以通过调用 `vi.unstubAllGlobals` 恢复其原始值。
 
 ```ts
-import { vi } from 'vitest'
+import { vi } from "vitest";
 
 // `innerWidth` is "0" before callling stubGlobal
 
-vi.stubGlobal('innerWidth', 100)
+vi.stubGlobal("innerWidth", 100);
 
-innerWidth === 100
-globalThis.innerWidth === 100
+innerWidth === 100;
+globalThis.innerWidth === 100;
 // if you are using jsdom or happy-dom
-window.innerWidth === 100
+window.innerWidth === 100;
 ```
 
 :::tip
-You can also change the value by simply assigning it to `globalThis` or `window` (if you are using `jsdom` or `happy-dom` environment), but you won't be able to use `vi.unstubAllGlobals` to restore original value:
+你也可以通过简单地将其分配给 `globalThis` 或 `window` 来更改值（如果你使用的是 `jsdom` 或 `happy-dom` 环境），但是您将无法使用 `vi.unstubAllGlobals` 来恢复原始值：
 
 ```ts
-globalThis.innerWidth = 100
+globalThis.innerWidth = 100;
 // if you are using jsdom or happy-dom
-window.innerWidth = 100
+window.innerWidth = 100;
 ```
+
 :::
 
 ### vi.unstubAllGlobals
 
-- **Type:** `() => Vitest`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `() => Vitest`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-  Restores all global values on `globalThis`/`global` (and `window`/`top`/`self`/`parent`, if you are using `jsdom` or `happy-dom` environment) that were changed with `vi.stubGlobal`. When it's called for the first time, Vitest remembers the original value and will store it, until `unstubAllGlobals` is called again.
+  恢复 `globalThis`/`global`（和 `window`/`top`/`self`/`parent`，如果你使用 `jsdom` 或 `happy-dom` 环境）的所有全局值被 `vi.stubGlobal` 更改。第一次调用时，Vitest 会记住原始值并存储它，直到再次调用 `unstubAllGlobals`。
 
 ```ts
-import { vi } from 'vitest'
+import { vi } from "vitest";
 
-const Mock = vi.fn()
+const Mock = vi.fn();
 
 // IntersectionObserver is "undefined" before calling "stubGlobal"
 
-vi.stubGlobal('IntersectionObserver', Mock)
+vi.stubGlobal("IntersectionObserver", Mock);
 
-IntersectionObserver === Mock
-global.IntersectionObserver === Mock
-globalThis.IntersectionObserver === Mock
+IntersectionObserver === Mock;
+global.IntersectionObserver === Mock;
+globalThis.IntersectionObserver === Mock;
 // if you are using jsdom or happy-dom
-window.IntersectionObserver === Mock
+window.IntersectionObserver === Mock;
 
-vi.unstubAllGlobals()
+vi.unstubAllGlobals();
 
-globalThis.IntersectionObserver === undefined
-'IntersectionObserver' in globalThis === false
+globalThis.IntersectionObserver === undefined;
+"IntersectionObserver" in globalThis === false;
 // throws ReferenceError, because it's not defined
-IntersectionObserver === undefined
+IntersectionObserver === undefined;
 ```
 
 ### vi.runAllTicks
