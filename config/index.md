@@ -317,8 +317,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### watch
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 启动监听模式
 
@@ -446,8 +446,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### teardownTimeout
 
-- **Type:** `number`
-- **Default:** `1000`
+- **类型:** `number`
+- **默认值:** `1000`
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
@@ -842,19 +842,19 @@ test("doNotRun", () => {
 
 ### unstubEnvs
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-Will call [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) before each test.
+将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
 ### unstubGlobals
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-Will call [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals) before each test.
+将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
 ### transformMode
 
@@ -938,8 +938,8 @@ export default defineConfig({
 
 ### logHeapUsage
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
 每次测试后显示堆的使用情况。用于调试内存是否泄漏。
 
