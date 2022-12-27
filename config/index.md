@@ -335,7 +335,6 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
@@ -346,32 +345,10 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 ### outputTruncateLength
 
 - **类型:** `number`
-- **默认值:** `80`
+- **默认值:** `stdout.columns || 80`
+- **命令行终端:** `--outputTruncateLength <length>`, `--output-truncate-length <length>`
 
-指定截断输出差异的字符行数，最多 80 个字符。 你可能希望对此进行调整，取决于你的终端窗口宽度。
-
-### outputDiffLines
-
-- **类型:** `number`
-- **默认值:** `15`
-
-指定输出差线的数量，最多 `15` 个。
-=======
-  - `'default'` - collapse suites when they pass
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
-  - `'json'` -  give a simple JSON summary
-  - `'html'` -  outputs HTML report based on [`@vitest/ui`](/guide/ui)
-  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
-
-### outputTruncateLength
-
-- **Type:** `number`
-- **Default:** `stdout.columns || 80`
-- **CLI:** `--outputTruncateLength <length>`, `--output-truncate-length <length>`
-
-Truncate the size of diff line up to `stdout.columns` or `80` number of characters. You may wish to tune this, depending on your terminal window width. Vitest includes `+-` characters and spaces for this. For example, you might see this diff, if you set this to `6`:
+设置截断输出差异的字符行数为 `stdout.columns` 或者最多 `80` 个字符。 你可能希望对此进行调整，取决于你的终端窗口宽度。为此，Vitest 包括 `+-` 字符和空格。例如，如果将其设置为 `6`，你可能会看到此差异：
 
 ```diff
 // actual line: "Text that seems correct"
@@ -381,11 +358,11 @@ Truncate the size of diff line up to `stdout.columns` or `80` number of characte
 
 ### outputDiffLines
 
-- **Type:** `number`
-- **Default:** `15`
-- **CLI:** `--outputDiffLines <lines>`, `--output-diff-lines <lines>`
+- **类型:** `number`
+- **默认值:** `15`
+- **命令行终端:** `--outputDiffLines <lines>`, `--output-diff-lines <lines>`
 
-Limit the number of single output diff lines up to `15`. Vitest counts all `+-` lines when determining when to stop. For example, you might see diff like this, if you set this property to `3`:
+指定输出差线的数量，最多 `15` 个。当决定停止时，Vitest 统计所有 `+-` 行。例如，如果将其设置为 `3`，你可能会看到此差异：
 
 ```diff
 - test: 1,
@@ -400,24 +377,23 @@ Limit the number of single output diff lines up to `15`. Vitest counts all `+-` 
 
 ### outputDiffMaxLines
 
-- **Type:** `number`
-- **Default:** `50`
-- **CLI:** `--outputDiffMaxLines <lines>`, `--output-diff-max-lines <lines>`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `number`
+- **默认值:** `50`
+- **命令行终端:** `--outputDiffMaxLines <lines>`, `--output-diff-max-lines <lines>`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-The maximum number of lines to display in diff window. Beware that if you have a large object with many small diffs, you might not see all of them at once.
+指定差异窗口中显示的最大行数。请注意，如果你有一个包含许多小差异的大对象，可能不会一次看到所有这些差异。
 
 ### outputDiffMaxSize
 
-- **Type:** `number`
+- **类型:** `number`
 - **Default:** `10000`
-- **CLI:** `--outputDiffMaxSize <length>`, `--output-diff-max-size <length>`
-- **Version:** Since Vitest 0.26.0
+- **命令行终端:** `--outputDiffMaxSize <length>`, `--output-diff-max-size <length>`
+- **版本:** 从 Vitest 0.26.0 开始支持
 
-The maximum length of the stringified object before the diff happens. Vitest tries to stringify an object before doing a diff, but if the object is too large, it will reduce the depth of the object to fit within this limit. Because of this, if the object is too big or nested, you might not see the diff.
+指定差异发生之前字符串化对象的最大长度。Vitest 尝试在执行差异之前将对象字符串化，但如果对象太大，它会减少对象的深度以适应此限制。 因此，如果对象太大或嵌套过多，你可能看不到差异。
 
-Increasing this limit can increase the duration of diffing.
->>>>>>> 5850d94dcf139e25edc0f36c85b0911c9dde30dd
+增加此限制可以增加差异的持续时间。
 
 ### outputFile
 

@@ -2571,9 +2571,9 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.getTimerCount
 
-- **Type:** `() => number`
+- **类型:** `() => number`
 
-  Get the number of waiting timers.
+  获取等待计时器的数量。
 
 ### vi.clearAllMocks
 
@@ -2591,13 +2591,8 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 - **类型:** `(fn?: Function) => CallableMockInstance`
 
-<<<<<<< HEAD
   为函数创建一个监听，但也可以在没有监听的情况下启动。每次调用函数时，存储其调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵它的行为。
   如果没有给出函数，mock 将在调用时返回 `undefined`。
-=======
-  Creates a spy on a function, though can be initiated without one. Every time a function is invoked, it stores its call arguments, returns, and instances. Also, you can manipulate its behavior with [methods](#mockinstance-methods).
-  If no function is given, mock will return `undefined`, when invoked.
->>>>>>> 5850d94dcf139e25edc0f36c85b0911c9dde30dd
 
   ```ts
   const getApples = vi.fn(() => 0);
@@ -2630,36 +2625,17 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
-<<<<<<< HEAD
-会使传递的模块的所有 `imports` 都被模拟。在 `path` 中，你可以使用配置好的 Vite 别名。对于 vi.mock 的调用会被提升，不管你在那调用它都会被提升到 import 语句之前。
-
-- 如果定义了 `factory`，将返回其结果。工厂函数可以是异步的。你可以在内部调用 [`vi.importActual`](#vi-importactual) 来获取原始模块。对 `vi.mock` 的调用将被提升到文件的顶部，因此你无法访问在全局文件范围内声明的变量！
-- 如果使用默认导出模拟模块，你需要在返回的工厂函数对象中提供一个 `default` key。 这是 ES 模块特定的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 commonJS 模块。_示例:_
-
-```ts
-vi.mock("path", () => {
-  return {
-    default: { myDefaultKey: vi.fn() },
-    namedExport: vi.fn(),
-    // etc...
-  };
-});
-```
-
-- 如果 `__mocks__` 文件夹下存在同名文件，则所有导入都将返回其导出。例如，带有 `<root>/__mocks__/axios.ts` 文件夹的 `vi.mock('axios')` 将返回从 `axios.ts` 中导出的所有内容。
-- 如果里面没有 `__mocks__` 文件夹或同名文件，将调用原始模块并对其进行模拟。(有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。)
-=======
-  Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports.
+  用另一个模块替换提供的 `path` 中的所有导入模块。你可以在路径中使用配置的 Vite 别名。对 `vi.mock` 的调用被提升，所以你在哪里调用它并不重要。它将始终在所有导入之前执行。
 
   ::: warning
-  `vi.mock` works only for modules that were imported with the `import` keyword. It doesn't work with `require`.
+  `vi.mock` 仅适用于使用 `import` 关键字导入的模块。它不适用于 `require`。
 
-  Vitest statically analyzes your files to hoist `vi.mock`. It means that you cannot use `vi` that was not imported directly from `vitest` package (for example, from some utility file). To fix this, always use `vi.mock` with `vi` imported from `vitest`, or enable [`globals`](/config/#globals) config option.
+  Vitest 静态分析你的文件来提升 `vi.mock`。 这意味着你不能使用不是直接从 vitest 包（例如，从某些实用程序文件）导入的 vi。要解决此问题，请始终将 `vi.mock` 与从 vitest 导入的 `vi` 一起使用，或启用 [`globals`](/config/#globals) 配置选项。
   :::
 
-  If `factory` is defined, all imports will return its result. Vitest calls factory only once and caches result for all subsequent imports until [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock) is called.
+  如果定义了 `factory`，则所有导入都将返回其结果。Vitest 只调用一次工厂并缓存所有后续导入的结果，直到调用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 为止。
 
-  Unlike in `jest`, the factory can be asynchronous, so you can use [`vi.importActual`](#vi-importactual) or a helper, received as the first argument, inside to get the original module.
+  与 `jest` 不同，工厂可以是异步的，因此你可以在内部使用 [`vi.importActual`](#vi-importactual) 或作为第一个参数接收的助手来获取原始模块。
 
   ```ts
   vi.mock('./path/to/module.js', async (importOriginal) => {
@@ -2673,15 +2649,15 @@ vi.mock("path", () => {
   ```
 
   ::: warning
-  `vi.mock` is hoisted (in other words, _moved_) to **top of the file**. It means that whenever you write it (be it inside `beforeEach` or `test`), it will actually be called before that.
+  `vi.mock` 被提升（换句话说，_moved_）到**文件顶部**。 这意味着无论何时你编写它（无论是在 `beforeEach` 还是 `test` 中），它实际上都会在此之前被调用。
 
-  This also means that you cannot use any variables inside the factory that are defined outside the factory.
+  这也意味着你不能在工厂内部使用在工厂外部定义的任何变量。
 
-  If you need to use variables inside the factory, try [`vi.doMock`](#vi-domock). It works the same way but isn't hoisted. Beware that it only mocks subsequent imports.
+  如果你需要在工厂内部使用变量，请尝试 [`vi.doMock`](#vi-domock)。它的工作方式相同，但没有被提升。请注意，它只会模拟后续导入。
   :::
 
   ::: warning
-  If you are mocking a module with default export, you will need to provide a `default` key within the returned factory function object. This is an ES modules-specific caveat, therefore `jest` documentation may differ as `jest` uses CommonJS modules. For example,
+  如果你正在模拟具有默认导出的模块，则需要在返回的工厂函数对象中提供一个 `default` 键。这是一个特定于 ES 模块的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 CommonJS 模块。例如，
 
   ```ts
   vi.mock('./path/to/module.js', () => {
@@ -2694,9 +2670,9 @@ vi.mock("path", () => {
   ```
   :::
 
-  If there is a `__mocks__` folder alongside a file that you are mocking, and the factory is not provided, Vitest will try to find a file with the same name in the `__mocks__` subfolder and use it as an actual module. If you are mocking a dependency, Vitest will try to find a `__mocks__` folder in the [root](/config/#root) of the project (default is `process.cwd()`).
+  如果你正在模拟的文件同级有一个 `__mocks__` 文件夹，并且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个具有相同名称的文件，并将其用作实际模块。 如果你正在模拟一个依赖项，Vitest 将尝试在项目的 [root](/config/#root) 中找到一个 `__mocks__` 文件夹（默认是 `process.cwd()`）。
 
-  For example, you have this file structure:
+  例如，你具有以下类似的文件结构：
 
   ```
   - __mocks__
@@ -2709,7 +2685,7 @@ vi.mock("path", () => {
     - increment.test.js
   ```
 
-  If you call `vi.mock` in a test file without a factory provided, it will find a file in the `__mocks__` folder to use as a module:
+  如果你在未提供工厂的情况下在测试文件中调用 `vi.mock`，它将在 `__mocks__` 文件夹中找到一个文件以用作模块：
 
   ```ts
   // increment.test.js
@@ -2726,16 +2702,16 @@ vi.mock("path", () => {
   ```
 
   ::: warning
-  Beware that if you don't call `vi.mock`, modules **are not** mocked automatically.
+  请注意，如果你不调用 `vi.mock`，模块**不会**自动模拟。
   :::
 
-  If there is no `__mocks__` folder or a factory provided, Vitest will import the original module and auto-mock all its exports. For the rules applied, see [algorithm](/guide/mocking#automocking-algorithm).
+  如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#automocking-algorithm)。
 
 ### vi.doMock
 
-- **Type**: `(path: string, factory?: () => unknown) => void`
+- **类型**: `(path: string, factory?: () => unknown) => void`
 
-  The same as [`vi.mock`](#vi-mock), but it's not hoisted at the top of the file, so you can reference variables in the global file scope. The next import of the module will be mocked. This will not mock modules that were imported before this was called.
+  与 [`vi.mock`](#vi-mock) 相同，但它不会提升到文件顶部，因此你可以在全局文件范围内引用变量。模块的下一次导入将被模拟。 这不会模拟在调用之前导入的模块。
 
 ```ts
 // ./increment.js
@@ -2768,7 +2744,6 @@ test('importing the next module imports mocked one', () => {
   expect(mockedIncrement(1)).toBe(103)
 })
 ```
->>>>>>> 5850d94dcf139e25edc0f36c85b0911c9dde30dd
 
 ### vi.mocked
 
@@ -2991,11 +2966,7 @@ IntersectionObserver === undefined;
 
 - **类型:** `() => Vitest`
 
-<<<<<<< HEAD
   调用每个微任务。它们通常排列在 `proccess.nextTick` 中。它也将运行它们自己安排的所有微任务。
-=======
-  Calls every microtask that was queued by `proccess.nextTick`. This will also run all microtasks scheduled by themselves.
->>>>>>> 5850d94dcf139e25edc0f36c85b0911c9dde30dd
 
 ### vi.runAllTimers
 
@@ -3085,16 +3056,13 @@ IntersectionObserver === undefined;
 
 - **类型**: `(path: string) => void`
 
-<<<<<<< HEAD
-  从模拟注册表中删除模块。所有后续的导入调用都将返回原始模块，即使它被模拟了。
-=======
-  Removes module from the mocked registry. All calls to import will return the original module even if it was mocked before. This call is hoisted (moved) to the top of the file, so it will only unmock modules that were defined in `setupFiles`, for example.
+  从模拟注册表中删除模块。所有对导入的调用都将返回原始模块，即使它之前被模拟过。此调用被提升（移动）到文件的顶部，因此它只会取消模拟在 `setupFiles` 中定义的模块，例如。
 
 ### vi.doUnmock
 
-- **Type**: `(path: string) => void`
+- **类型**: `(path: string) => void`
 
-  The same as [`vi.unmock`](#vi-unmock), but is not hoisted to the top of the file. The next import of the module will import the original module instead of the mock. This will not unmock previously imported modules.
+  与 [`vi.unmock`](#vi-unmock) 相同，但不会提升到文件顶部。模块的下一次导入将导入原始模块而不是模拟。这不会取消模拟以前导入的模块。
 
 ```ts
 // ./increment.js
@@ -3127,7 +3095,6 @@ const { increment: unmockedIncrement } = await import('./increment.js')
 unmockedIncrement(1) === 2
 unmockedIncrement(30) === 31
 ```
->>>>>>> 5850d94dcf139e25edc0f36c85b0911c9dde30dd
 
 ### vi.useFakeTimers
 
