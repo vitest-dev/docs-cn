@@ -42,50 +42,7 @@ vitest related /src/index.ts /src/hello-world.js
 
 ### `vitest clean cache`
 
-<<<<<<< HEAD
 清空缓存目录。
-=======
-| Options       |               |
-| ------------- | ------------- |
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--threads` | Enable Threads (default: `true`) |
-| `--silent` | Silent console output from tests |
-| `--isolate` | Isolate environment for each test file (default: `true`) |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputDiffMaxSize <length>` | Object diff output max size (default: 10000) |
-| `--outputDiffMaxLines <lines>` | Max lines in diff output window (default: 50) |
-| `--outputTruncateLength <length>` | Truncate output diff lines up to `<length>` number of characters. |
-| `--outputDiffLines <lines>` | Limit number of output diff lines up to `<lines>`. |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Enable coverage report |
-| `--run` | Do not watch |
-| `--mode` | Override Vite mode (default: `test`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser api with happy-dom |
-| `--browser` | Run tests in browser |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--logHeapUsage` | Show the size of heap for each test |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order) |
-| `--no-color` | Removes colors from the console output |
-| `--inspect` | Enables Node.js inspector |
-| `--inspect-brk` | Enables Node.js inspector with break |
-| `-h, --help` | Display available CLI options |
->>>>>>> 49671ebc5a2967effa5cfcf752f80445f205d844
 
 ## 选项
 
@@ -105,6 +62,8 @@ vitest related /src/index.ts /src/hello-world.js
 | `--silent`                           | 测试的控制台输出                                                                                                                              |
 | `--isolate`                          | 为每个测试文件隔离环境 (default: `true`)                                                                                                      |
 | `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                                 |
+| `--outputDiffMaxSize <length>`       | 对象差异输出最大大小（default：10000）                                                                                                        |
+| `--outputDiffMaxLines <lines>`       | 差异输出窗口中的最大行数 (default: 50)                                                                                                        |
 | `--outputTruncateLength <length>`    | 使用 `<length>` 指定截断输出差异的字符行数                                                                                                    |
 | `--outputDiffLines <lines>`          | 使用 `<lines>` 指定输出差线的数量                                                                                                             |
 | `--outputFile <filename/-s>`         | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
@@ -117,13 +76,17 @@ vitest related /src/index.ts /src/hello-world.js
 | `--browser`                          | 在浏览器中运行测试                                                                                                                            |
 | `--environment <env>`                | 设置运行的环境 (default: `node`)                                                                                                              |
 | `--passWithNoTests`                  | 未找到测试时通过                                                                                                                              |
+| `--logHeapUsage`                     | 显示每个测试的堆大小                                                                                                                          |
 | `--allowOnly`                        | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise)                                                                         |
 | `--dangerouslyIgnoreUnhandledErrors` | 忽略发生的任何未处理的错误                                                                                                                    |
 | `--changed [since]`                  | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed)                                                                    |
 | `--shard <shard>`                    | 配置测试分片                                                                                                                                  |
 | `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                                 |
 | `--no-color`                         | 从控制台输出中禁用颜色                                                                                                                        |
+| `--inspect`                          | 启用 Node.js 检查器                                                                                                                           |
+| `--inspect-brk`                      | 使用 break 启用 Node.js 检查器                                                                                                                |
 | `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                           |
+|                                      |
 
 ### 变更
 
