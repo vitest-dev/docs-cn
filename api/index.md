@@ -2638,14 +2638,14 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   与 `jest` 不同，工厂可以是异步的，因此你可以在内部使用 [`vi.importActual`](#vi-importactual) 或作为第一个参数接收的助手来获取原始模块。
 
   ```ts
-  vi.mock("./path/to/module.js", async (importOriginal) => {
-    const mod = await importOriginal();
+  vi.mock('./path/to/module.js', async (importOriginal) => {
+    const mod = await importOriginal()
     return {
       ...mod,
       // replace some exports
       namedExport: vi.fn(),
-    };
-  });
+    }
+  })
   ```
 
   ::: warning
@@ -2660,15 +2660,14 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   如果你正在模拟具有默认导出的模块，则需要在返回的工厂函数对象中提供一个 `default` 键。这是一个特定于 ES 模块的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 CommonJS 模块。例如，
 
   ```ts
-  vi.mock("./path/to/module.js", () => {
+  vi.mock('./path/to/module.js', () => {
     return {
       default: { myDefaultKey: vi.fn() },
       namedExport: vi.fn(),
       // etc...
-    };
-  });
+    }
+  })
   ```
-
   :::
 
   如果你正在模拟的文件同级有一个 `__mocks__` 文件夹，并且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个具有相同名称的文件，并将其用作实际模块。 如果你正在模拟一个依赖项，Vitest 将尝试在项目的 [root](/config/#root) 中找到一个 `__mocks__` 文件夹（默认是 `process.cwd()`）。
@@ -2690,16 +2689,16 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
   ```ts
   // increment.test.js
-  import { vi } from "vitest";
+  import { vi } from 'vitest'
   // axios is a default export from `__mocks__/axios.js`
-  import axios from "axios";
+  import axios from 'axios'
   // increment is a named export from `src/__mocks__/increment.js`
-  import { increment } from "../increment.js";
+  import { increment } from '../increment.js'
 
-  vi.mock("axios");
-  vi.mock("../increment.js");
+  vi.mock('axios')
+  vi.mock('../increment.js')
 
-  axios.get(`/apples/${increment(1)}`);
+  axios.get(`/apples/${increment(1)}`)
   ```
 
   ::: warning
@@ -2716,34 +2715,34 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ```ts
 // ./increment.js
-export const increment = (number) => number + 1;
+export const increment = number => number + 1
 ```
 
 ```ts
-import { beforeEach, test } from "vitest";
-import { increment } from "./increment.js";
+import { beforeEach, test } from 'vitest'
+import { increment } from './increment.js'
 
 // the module is not mocked, because vi.doMock is not called yet
-increment(1) === 2;
+increment(1) === 2
 
-let mockedIncrement = 100;
+let mockedIncrement = 100
 
 beforeEach(() => {
   // simple doMock doesn't clear the previous cache, so we need to clear it manually here
-  vi.doUnmock("./increment.js");
+  vi.doUnmock('./increment.js')
   // you can access variables inside a factory
-  vi.doMock("./increment.js", () => ({ increment: () => mockedIncrement++ }));
-});
+  vi.doMock('./increment.js', () => ({ increment: () => mockedIncrement++ }))
+})
 
-test("importing the next module imports mocked one", () => {
+test('importing the next module imports mocked one', () => {
   // original import WAS NOT MOCKED, because vi.doMock is evaluated AFTER imports
-  expect(increment(1)).toBe(2);
-  const { increment: mockedIncrement } = await import("./increment.js");
+  expect(increment(1)).toBe(2)
+  const { increment: mockedIncrement } = await import('./increment.js')
   // new import returns mocked module
-  expect(mockedIncrement(1)).toBe(101);
-  expect(mockedIncrement(1)).toBe(102);
-  expect(mockedIncrement(1)).toBe(103);
-});
+  expect(mockedIncrement(1)).toBe(101)
+  expect(mockedIncrement(1)).toBe(102)
+  expect(mockedIncrement(1)).toBe(103)
+})
 ```
 
 ### vi.mocked
@@ -2824,7 +2823,7 @@ test("importing the next module imports mocked one", () => {
   ```
 
 ::: warning
-Does not reset mocks registry. To clear mocks registry, use [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock).
+不重置模拟注册表。要清除模拟注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock)。
 :::
 
 ### vi.restoreAllMocks
@@ -3067,34 +3066,34 @@ IntersectionObserver === undefined;
 
 ```ts
 // ./increment.js
-export const increment = (number) => number + 1;
+export const increment = number => number + 1
 ```
 
 ```ts
-import { increment } from "./increment.js";
+import { increment } from './increment.js'
 
 // increment is already mocked, because vi.mock is hoisted
-increment(1) === 100;
+increment(1) === 100
 
 // this is hoisted, and factory is called before the import on line 1
-vi.mock("./increment.js", () => ({ increment: () => 100 }));
+vi.mock('./increment.js', () => ({ increment: () => 100 }))
 
 // all calls are mocked, and `increment` always returns 100
-increment(1) === 100;
-increment(30) === 100;
+increment(1) === 100
+increment(30) === 100
 
 // this is not hoisted, so other import will return unmocked module
-vi.doUnmock("./increment.js");
+vi.doUnmock('./increment.js')
 
 // this STILL returns 100, because `vi.doUnmock` doesn't reevaluate a module
-increment(1) === 100;
-increment(30) === 100;
+increment(1) === 100
+increment(30) === 100
 
 // the next import is unmocked, now `increment` is the original function that returns count + 1
-const { increment: unmockedIncrement } = await import("./increment.js");
+const { increment: unmockedIncrement } = await import('./increment.js')
 
-unmockedIncrement(1) === 2;
-unmockedIncrement(30) === 31;
+unmockedIncrement(1) === 2
+unmockedIncrement(30) === 31
 ```
 
 ### vi.useFakeTimers
