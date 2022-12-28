@@ -2720,30 +2720,37 @@ export const increment = (number) => number + 1;
 ```
 
 ```ts
-import { beforeEach, test } from "vitest";
-import { increment } from "./increment.js";
+import { beforeEach, test } from 'vitest'
+import { increment } from './increment.js'
 
 // the module is not mocked, because vi.doMock is not called yet
-increment(1) === 2;
+increment(1) === 2
 
-let mockedIncrement = 100;
+let mockedIncrement = 100
 
 beforeEach(() => {
   // simple doMock doesn't clear the previous cache, so we need to clear it manually here
-  vi.doUnmock("./increment.js");
+  vi.doUnmock('./increment.js')
   // you can access variables inside a factory
-  vi.doMock("./increment.js", () => ({ increment: () => mockedIncrement++ }));
-});
+  vi.doMock('./increment.js', () => ({ increment: () => mockedIncrement++ }))
+})
 
-test("importing the next module imports mocked one", () => {
+test('importing the next module imports mocked one', () => {
   // original import WAS NOT MOCKED, because vi.doMock is evaluated AFTER imports
-  expect(increment(1)).toBe(2);
-  const { increment: mockedIncrement } = await import("./increment.js");
+  expect(increment(1)).toBe(2)
+  const { increment: mockedIncrement } = await import('./increment.js')
   // new import returns mocked module
+<<<<<<<<< Temporary merge branch 1
+  expect(mockedIncrement(1)).toBe(101)
+  expect(mockedIncrement(1)).toBe(102)
+  expect(mockedIncrement(1)).toBe(103)
+})
+=========
   expect(mockedIncrement(1)).toBe(101);
   expect(mockedIncrement(1)).toBe(102);
   expect(mockedIncrement(1)).toBe(103);
 });
+>>>>>>>>> Temporary merge branch 2
 ```
 
 ### vi.mocked
@@ -2824,7 +2831,7 @@ test("importing the next module imports mocked one", () => {
   ```
 
 ::: warning
-Does not reset mocks registry. To clear mocks registry, use [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock).
+不重置模拟注册表。要清除模拟注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock)。
 :::
 
 ### vi.restoreAllMocks
