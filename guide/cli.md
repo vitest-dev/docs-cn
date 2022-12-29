@@ -62,6 +62,8 @@ vitest related /src/index.ts /src/hello-world.js
 | `--silent`                           | 测试的控制台输出                                                                                                                              |
 | `--isolate`                          | 为每个测试文件隔离环境 (default: `true`)                                                                                                      |
 | `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                                 |
+| `--outputDiffMaxSize <length>`       | 对象差异输出最大大小（default：10000）                                                                                                        |
+| `--outputDiffMaxLines <lines>`       | 差异输出窗口中的最大行数 (default: 50)                                                                                                        |
 | `--outputTruncateLength <length>`    | 使用 `<length>` 指定截断输出差异的字符行数                                                                                                    |
 | `--outputDiffLines <lines>`          | 使用 `<lines>` 指定输出差线的数量                                                                                                             |
 | `--outputFile <filename/-s>`         | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
@@ -74,13 +76,17 @@ vitest related /src/index.ts /src/hello-world.js
 | `--browser`                          | 在浏览器中运行测试                                                                                                                            |
 | `--environment <env>`                | 设置运行的环境 (default: `node`)                                                                                                              |
 | `--passWithNoTests`                  | 未找到测试时通过                                                                                                                              |
+| `--logHeapUsage`                     | 显示每个测试的堆大小                                                                                                                          |
 | `--allowOnly`                        | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise)                                                                         |
 | `--dangerouslyIgnoreUnhandledErrors` | 忽略发生的任何未处理的错误                                                                                                                    |
 | `--changed [since]`                  | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed)                                                                    |
 | `--shard <shard>`                    | 配置测试分片                                                                                                                                  |
 | `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                                 |
 | `--no-color`                         | 从控制台输出中禁用颜色                                                                                                                        |
+| `--inspect`                          | 启用 Node.js 检查器                                                                                                                           |
+| `--inspect-brk`                      | 使用 break 启用 Node.js 检查器                                                                                                                |
 | `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                           |
+|                                      |
 
 ### 变更
 

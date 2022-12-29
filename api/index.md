@@ -2571,7 +2571,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ### vi.getTimerCount
 
-- **Type:** `() => number`
+- **类型:** `() => number`
 
   获取等待计时器的数量。
 
