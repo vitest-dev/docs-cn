@@ -90,15 +90,9 @@ export default mergeConfig(
 
 ### deps
 
-<<<<<<< HEAD
-- **类型:** `{ external?, inline? }`
+- **类型:** `{ external?, inline?, ... }`
 
 对依赖关系进行内联或外联的处理
-=======
-- **Type:** `{ external?, inline?, ... }`
-
-Handling for dependencies resolution.
->>>>>>> 69e11996c5619ee6e662993f55b9bdf958ec2d33
 
 #### deps.external
 
@@ -130,7 +124,6 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 - **类型:** `boolean`
 - **默认值:** `false`
 
-<<<<<<< HEAD
 使用 [实验性 Node 加载器](https://nodejs.org/api/esm.html#loaders) 解析 `node_modules` 中的导入，使用 Vite 解析算法。
 
 如果禁用，你的 `alias` 和 `<plugin>.resolveId` 不会影响 `node_modules` 或 `deps.external` 中的导入。
@@ -138,20 +131,9 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 #### deps.interopDefault
 
 - **类型:** `boolean`
-- **默认值:** `true`
+- **默认值:** `false` if `environment` is `node`, `true` otherwise
 
-将 CJS 模块的默认值视为命名导出。
-=======
-Use [experimental Node loader](https://nodejs.org/api/esm.html#loaders) to resolve imports inside externalized files, using Vite resolve algorithm.
-
-If disabled, your `alias` and `<plugin>.resolveId` won't affect imports inside externalized packages (by default, `node_modules`).
-
-#### deps.interopDefault
-
-- **Type:** `boolean`
-- **Default:** `false` if `environment` is `node`, `true` otherwise
-
-Interpret CJS module's default as named exports. Some dependencies only bundle CJS modules and don't use named exports that Node.js can statically analyze when a package is imported using `import` syntax instead of `require`. When importing such dependencies in Node environment using named exports, you will see this error:
+将 CJS 模块的默认值视为命名导出。某些依赖项仅捆绑 CJS 模块，不使用命名导出，Node.js 可以在使用 `import` 语法而不是 `require` 导入包时对其进行静态分析。使用命名导出在 Node 环境中导入此类依赖项时，你将看到此错误：
 
 ```
 import { read } from 'fs-jetpack';
@@ -160,15 +142,14 @@ SyntaxError: Named export 'read' not found. The requested module 'fs-jetpack' is
 CommonJS modules can always be imported via the default export.
 ```
 
-Vitest doesn't do static analysis, and cannot fail before your running code, so you will most likely see this error when running tests:
+Vitest 不进行静态分析，并且不会在你运行代码之前失败，因此你在运行测试时很可能会看到此错误：
 
 ```
 TypeError: createAsyncThunk is not a function
 TypeError: default is not a function
 ```
 
-If you are using bundlers or transpilers that bypass this Node.js limitation, you can enable this option manually. By default, Vitest assumes you are using Node ESM syntax, when `environment` is `node`, and doesn't interpret named exports.
->>>>>>> 69e11996c5619ee6e662993f55b9bdf958ec2d33
+如果你使用的是绕过此 Node.js 限制的捆绑器或转译器，则可以手动启用此选项。默认情况下，当 `environment` 为 `node` 时，Vitest 假定你使用的是 Node ESM 语法，并且不关心命名导出。
 
 ### benchmark
 
