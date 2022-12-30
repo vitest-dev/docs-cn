@@ -2706,7 +2706,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   请注意，如果你不调用 `vi.mock`，模块**不会**自动模拟。
   :::
 
-  如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#automocking-algorithm)。
+  如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法-automocking-algorithm)。
 
 ### vi.doMock
 
@@ -2793,7 +2793,7 @@ test('importing the next module imports mocked one', () => {
 
 - **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-  导入一个被模拟的包含其所有属性 (包括嵌套属性) 的模块。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法)。
+  导入一个被模拟的包含其所有属性 (包括嵌套属性) 的模块。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [自动模拟算法](/guide/mocking#自动模拟算法-automocking-algorithm)。
 
 ### vi.resetAllMocks
 
