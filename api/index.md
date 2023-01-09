@@ -1204,7 +1204,13 @@ expect(input).not.toBe(2); // jest API
 
 - **类型:** `(received: any) => Awaitable<void>`
 
+<<<<<<< HEAD
   `toThrowError` 用于断言函数在调用时是否抛出错误。
+=======
+- **Alias:** `toThrow`
+
+  `toThrowError` asserts if a function throws an error when it is called.
+>>>>>>> 248c757768680917e6d4c927e803f06a7562c179
 
   例如，如果我们想测试 `getFruitStock('pineapples')` 是否会抛出异常，我们可以这样写：
 
@@ -1241,6 +1247,10 @@ expect(input).not.toBe(2); // jest API
     );
   });
   ```
+
+  :::tip
+    To test async functions, use in combination with [rejects](#rejects).
+  :::
 
 ### toMatchSnapshot
 
