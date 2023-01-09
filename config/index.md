@@ -635,15 +635,9 @@ test("execute a script", async () => {
 
 #### cleanOnRerun
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `false`
+- **默认值:** `true`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8' | 'istanbul'`
->>>>>>> eacd99a6506704979f797aec78feb471e99fc66b
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
