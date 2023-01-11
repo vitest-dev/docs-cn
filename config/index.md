@@ -206,6 +206,7 @@ TypeError: default is not a function
 
 - **类型:** `boolean`
 - **默认值:** `false`
+- **命令行终端:** `--globals`, `--globals=false`
 
 默认情况下，`vitest` 不显式提供全局 API。如果你更倾向于使用类似 jest 中的全局 API，可以将 `--globals` 选项传递给 CLI 或在配置中添加 `globals: true`。
 
@@ -252,6 +253,7 @@ export default defineConfig({
 
 - **类型:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime' | string`
 - **默认值:** `'node'`
+- **命令行终端:** `--environment=<env>`
 
 Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用程序，你可以使用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
 如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
@@ -295,7 +297,7 @@ test("use jsdom in this test file", () => {
 });
 ```
 
-如果你使用 [`--no-threads`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
+如果你使用 [`--threads=false`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
@@ -326,8 +328,10 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### update
 
+
 - **类型:** `boolean`
 - **默认值:** `false`
+- **命令行终端:** `-u`, `--update`, `--update=false`
 
 更新快照文件。这将更新所有更改的快照并删除过时的快照。
 
@@ -335,12 +339,14 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 - **类型:** `boolean`
 - **默认值:** `true`
+- **命令行终端:** `-w`, `--watch`, `--watch=false`
 
 启动监听模式
 
 ### root
 
 - **类型:** `string`
+- **命令行终端:** `-r <path>`, `--root=<path>`
 
 项目的根目录
 
@@ -348,6 +354,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 - **类型:** `Reporter | Reporter[]`
 - **默认值:** `'default'`
+- **命令行终端:** `--reporter=<name>`, `--reporter=<name1> --reporter=<name2>`
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
@@ -362,7 +369,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 - **类型:** `number`
 - **默认值:** `stdout.columns || 80`
-- **命令行终端:** `--outputTruncateLength <length>`, `--output-truncate-length <length>`
+- **命令行终端:** `--outputTruncateLength=<length>`, `--output-truncate-length=<length>`
 
 设置截断输出差异的字符行数为 `stdout.columns` 或者最多 `80` 个字符。 你可能希望对此进行调整，取决于你的终端窗口宽度。为此，Vitest 包括 `+-` 字符和空格。例如，如果将其设置为 `6`，你可能会看到此差异：
 
@@ -376,7 +383,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 - **类型:** `number`
 - **默认值:** `15`
-- **命令行终端:** `--outputDiffLines <lines>`, `--output-diff-lines <lines>`
+- **命令行终端:** `--outputDiffLines=<lines>`, `--output-diff-lines=<lines>`
 
 指定输出差线的数量，最多 `15` 个。当决定停止时，Vitest 统计所有 `+-` 行。例如，如果将其设置为 `3`，你可能会看到此差异：
 
@@ -395,7 +402,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 - **类型:** `number`
 - **默认值:** `50`
-- **命令行终端:** `--outputDiffMaxLines <lines>`, `--output-diff-max-lines <lines>`
+- **命令行终端:** `--outputDiffMaxLines=<lines>`, `--output-diff-max-lines=<lines>`
 - **版本:** 从 Vitest 0.26.0 开始支持
 
 指定差异窗口中显示的最大行数。请注意，如果你有一个包含许多小差异的大对象，可能不会一次看到所有这些差异。
@@ -403,8 +410,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 ### outputDiffMaxSize
 
 - **类型:** `number`
-- **Default:** `10000`
-- **命令行终端:** `--outputDiffMaxSize <length>`, `--output-diff-max-size <length>`
+- **默认值:** `10000`
+- **命令行终端:** `--outputDiffMaxSize=<length>`, `--output-diff-max-size=<length>`
 - **版本:** 从 Vitest 0.26.0 开始支持
 
 指定差异发生之前字符串化对象的最大长度。Vitest 尝试在执行差异之前将对象字符串化，但如果对象太大，它会减少对象的深度以适应此限制。 因此，如果对象太大或嵌套过多，你可能看不到差异。
@@ -414,15 +421,15 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 ### outputFile
 
 - **类型:** `string | Record<string, string>`
+- **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
 
-当指定 `--reporter=json` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
-
-要通过 CLI 命令提供对象，请使用以下语法：`--outputFile.json=./path --outputFile.junit=./other-path`。
+当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit`  时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
 ### threads
 
 - **类型:** `boolean`
 - **默认值:** `true`
+- **命令行终端:** `--threads`, `--threads=false`
 
 通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
 
@@ -471,6 +478,7 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 - **类型:** `boolean`
 - **默认值:** `false`
+- **命令行终端:** `--silent`, `--silent=false`
 
 静默模式下启动测试。
 
@@ -483,7 +491,7 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
 
 :::tip 提醒
-请注意，如果你正在运行 [`--no-threads`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
+请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
 :::
 
 比如，你可能依赖于一个全局变量：
@@ -552,6 +560,7 @@ test("execute a script", async () => {
 
 - **类型:** `boolean`
 - **默认值:** `true`
+- **命令行终端:** `--isolate`, `--isolate=false`
 
 是否为每个测试文件构建隔离环境。 如果你禁用 [`--threads`](#threads)，它将不会工作。
 
@@ -562,10 +571,21 @@ test("execute a script", async () => {
 
 你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
 
+你可以使用点符号向 CLI 提供覆盖选项：
+
+```sh
+npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
+```
+
+::: warning
+如果你使用带点符号的覆盖选项，请不要忘记指定 `--coverage.enabled`。 在这种情况下，不要提供单个 --coverage 选项。
+:::
+
 #### provider
 
 - **类型:** `'c8' | 'istanbul'`
 - **默认值:** `'c8'`
+- **命令行终端:** `--coverage.provider=<provider>`
 
 使用 `provider` 选择收集测试覆盖率的工具。
 
@@ -574,6 +594,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.enabled`, `--coverage.enabled=false`
 
 是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
 
@@ -582,14 +603,16 @@ test("execute a script", async () => {
 - **类型:** `string[]`
 - **默认值:** `['**']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.include=<path>`, `--coverage.include=<path1> --coverage.include=<path2>`
+
+匹配包含测试覆盖率的 glob 规则
 
 #### extension
 
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
-
-匹配包含测试覆盖率的 glob 规则
+- **命令行终端:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
 
 #### exclude
 
@@ -614,6 +637,7 @@ test("execute a script", async () => {
 ```
 
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
@@ -622,6 +646,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.all`, --coverage.all=false`
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -630,6 +655,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `true`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.clean`, `--coverage.clean=false`
 
 运行测试之前是否清除覆盖率结果
 
@@ -638,6 +664,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `true`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -662,6 +689,7 @@ test("execute a script", async () => {
 - **类型:** `string`
 - **默认值:** `'./coverage'`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 配置测试覆盖率报告写入的目录。
 当使用 `c8` 提供程序时，将为 [V8 coverage results](https://nodejs.org/api/cli.html#coverage-output) 创建临时 `/tmp` 目录。
@@ -671,6 +699,7 @@ test("execute a script", async () => {
 - **类型:** `string | string[]`
 - **默认值:** `['text', 'html', 'clover', 'json']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
 
 要使用的测试覆盖率报告。详见 [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) 来了解报告详情。
 
@@ -679,6 +708,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.skipFull`, `--coverage.skipFull=false`
 
 是否显示具有 100% 语句、分支和函数的测试覆盖率的文件。
 
@@ -687,6 +717,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.perFile`, `--coverage.perFile=false`
 
 检查每个文件的阈值。
 有关实际阈值，请参见 `lines`, `functions`, `branches` and `statements` 。
@@ -695,6 +726,7 @@ test("execute a script", async () => {
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.lines=<number>`
 
 行的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
@@ -703,6 +735,7 @@ test("execute a script", async () => {
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.functions=<number>`
 
 函数的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
@@ -711,6 +744,7 @@ test("execute a script", async () => {
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.branches=<number>`
 
 分支的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
@@ -719,6 +753,7 @@ test("execute a script", async () => {
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.statements=<number>`
 
 语句的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
@@ -728,6 +763,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8'`
+- **命令行终端:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
 是否允许来自 cwd 外部的文件。
 
@@ -736,6 +772,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `true`
 - **可用的测试提供者:** `'c8'`
+- **命令行终端:** `--coverage.excludeNodeModules`, `--coverage.excludeNodeModules=false`
 
 排除 `/node_modules/` 下的覆盖范围。
 
@@ -744,6 +781,7 @@ test("execute a script", async () => {
 - **类型:** `string[]`
 - **默认值:** `process.cwd()`
 - **可用的测试提供者:** `'c8'`
+- **命令行终端:** `--coverage.src=<path>`
 
 指定启用 `--all` 时使用的目录。
 
@@ -752,6 +790,7 @@ test("execute a script", async () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8'`
+- **命令行终端:** `--coverage.100`, `--coverage.100=false`
 
 为 `--check-coverage --lines 100 --functions 100 --branches 100 --statements 100` 设置的快捷方式。
 
@@ -760,6 +799,7 @@ test("execute a script", async () => {
 - **类型:** `string[]`
 - **默认值:** `[]`
 - **可用的测试提供者:** `'istanbul'`
+- **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
 设置为要忽略覆盖率的类方法名称数组。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
@@ -803,6 +843,7 @@ test("execute a script", async () => {
 ### testNamePattern
 
 - **类型** `string | RegExp`
+- **命令行终端:** `-t <pattern>`, `--testNamePattern=<pattern>`, `--test-name-pattern=<pattern>`
 
 使用与模式匹配的全名运行测试。
 如果你将 `OnlyRunThis` 添加到此属性，将跳过测试名称中不包含单词 `OnlyRunThis` 的测试。
@@ -825,6 +866,7 @@ test("doNotRun", () => {
 
 - **类型:** `boolean`
 - **默认值:** `false`
+- **命令行终端:** `--open`, `--open=false`
 
 打开 Vitest UI (WIP: 赞助者计划可用)
 
@@ -832,6 +874,7 @@ test("doNotRun", () => {
 
 - **类型:** `boolean | number`
 - **默认值:** `false`
+- **命令行终端:** `--api`, `--api.port`, `--api.host`, `--api.strictPort`
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
@@ -935,6 +978,7 @@ export default defineConfig({
 
 - **类型**: `boolean`
 - **默认值**: `false`
+- **命令行终端:** `--allowOnly`, `--allowOnly=false`
 
 允许标记为 only 的测试和套件。
 
@@ -942,6 +986,7 @@ export default defineConfig({
 
 - **类型**: `boolean`
 - **默认值**: `false`
+- **命令行终端:** `--dangerouslyIgnoreUnhandledErrors` `--dangerouslyIgnoreUnhandledErrors=false`
 
 忽略发生的任何未处理的错误。
 
@@ -949,6 +994,7 @@ export default defineConfig({
 
 - **类型**: `boolean`
 - **默认值**: `false`
+- **命令行终端:** `--passWithNoTests`, `--passWithNoTests=false`
 
 如果没有找到测试，Vitest 不会失败。
 
@@ -956,6 +1002,7 @@ export default defineConfig({
 
 - **类型**: `boolean`
 - **默认值**: `false`
+- **命令行终端:** `--logHeapUsage`, `--logHeapUsage=false`
 
 每次测试后显示堆的使用情况。用于调试内存是否泄漏。
 
@@ -1031,6 +1078,12 @@ export default defineConfig({
 
 配置测试运行顺序的选项。
 
+你可以使用点符号向 CLI 提供序列选项：
+
+```sh
+npx vitest --sequence.shuffle --sequence.seed=1000
+```
+
 #### sequence.sequencer
 
 - **类型**: `TestSequencerConstructor`
@@ -1044,6 +1097,7 @@ export default defineConfig({
 
 - **类型**: `boolean`
 - **默认值**: `false`
+- **命令行终端**: `--sequence.shuffle`, `--sequence.shuffle=false`
 
 如果你希望测试随机运行，可以使用此选项或 CLI 参数 [`--sequence.shuffle`](/guide/cli) 启用它。
 
@@ -1053,6 +1107,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 - **类型**: `number`
 - **默认值**: `Date.now()`
+- **命令行终端**: `--sequence.seed=1000`
 
 如果测试以随机顺序运行，则设置随机化种子。
 
@@ -1060,6 +1115,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 - **类型**: `'stack' | 'list' | 'parallel'`
 - **默认值**: `'parallel'`
+- **命令行终端**: `--sequence.hooks=<value>`
 
 更改钩子的执行顺序。
 
