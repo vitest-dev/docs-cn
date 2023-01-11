@@ -328,7 +328,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### update
 
-<<<<<<< HEAD
+
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `-u`, `--update`, `--update=false`
