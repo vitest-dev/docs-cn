@@ -16,11 +16,7 @@ title: Command Line Interface | Guide
 vitest foobar
 ```
 
-<<<<<<< HEAD
-只运行包含 `foobar` 路径下的测试文件。
-=======
-Will run only the test file that contains `foobar` in their paths. This filter only checks inclusion and doesn't support regexp or glob patterns (unless your terminal processes it before Vitest receives the filter).
->>>>>>> 7971c4639c7a8678b09cef2c2bbe10d771abf11f
+将仅运行路径中包含 `foobar` 的测试文件。 此过滤器仅检查包含，不支持正则表达式或 glob 模式（除非你的终端在 Vitest 接收过滤器之前对其进行处理）。
 
 ### `vitest run`
 
@@ -48,30 +44,7 @@ vitest related /src/index.ts /src/hello-world.js
 
 清空缓存目录。
 
-<<<<<<< HEAD
 ## 选项
-=======
-::: tip
-Vitest supports both camel case and kebab case for CLI arguments. For example, `--passWithNoTests` and `--pass-with-no-tests` will both work (`--no-color` and `--inspect-brk` are the exceptions).
-
-Vitest also supports different ways of specifying the value: `--reporter dot` and `--reporter=dot` are both valid.
-
-If option supports an array of values, you need to pass the option multiple times:
-
-```
-vitest --reporter=dot --reporter=default
-```
-
-Boolean options can be negated with `no-` prefix. Specifying the value as `false` also works:
-
-```
-vitest --no-api
-vitest --api=false
-```
-:::
-
-### changed
->>>>>>> 7971c4639c7a8678b09cef2c2bbe10d771abf11f
 
 | 选项                                 | 描述                                                                                                                                          |
 | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -114,6 +87,25 @@ vitest --api=false
 | `--inspect-brk`                      | 使用 break 启用 Node.js 检查器                                                                                                                |
 | `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                           |
 |                                      |
+
+::: tip
+Vitest 支持 CLI 参数的 骆驼式命名法 和 烤肉串式命名法 。 例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
+
+Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=dot` 都是有效的。
+
+如果选项支持值数组，则需要多次传递选项：
+
+```
+vitest --reporter=dot --reporter=default
+```
+
+布尔值选项可以用 `no-` 前缀来否定。 将值指定为“false”也有效：
+
+```
+vitest --no-api
+vitest --api=false
+```
+:::
 
 ### 变更
 
