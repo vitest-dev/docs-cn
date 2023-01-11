@@ -571,14 +571,14 @@ test("execute a script", async () => {
 
 你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
 
-You can provide coverage options to CLI with dot notation:
+你可以使用点符号向 CLI 提供覆盖选项：
 
 ```sh
 npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 ```
 
 ::: warning
-If you are using coverage options with dot notation, don't forget to specify `--coverage.enabled`. Do not provide a single `--coverage` option in that case.
+如果你使用带点符号的覆盖选项，请不要忘记指定 `--coverage.enabled`。 在这种情况下，不要提供单个 --coverage 选项。
 :::
 
 #### provider
@@ -1078,7 +1078,7 @@ export default defineConfig({
 
 配置测试运行顺序的选项。
 
-You can provide sequence options to CLI with dot notation:
+你可以使用点符号向 CLI 提供序列选项：
 
 ```sh
 npx vitest --sequence.shuffle --sequence.seed=1000
