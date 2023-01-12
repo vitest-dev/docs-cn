@@ -511,6 +511,26 @@ describe("numberToCurrency", () => {
   });
   ```
 
+### describe.skipIf
+
+- **Type:** `(condition: any) => void`
+
+  In some cases, you might run suites multiple times with different environments, and some of the suites might be environment-specific. Instead of wrapping the suite with `if`, you can use `describe.skipIf` to skip the suite whenever the condition is truthy.
+
+  ```ts
+  import { assert, test } from 'vitest'
+
+  const isDev = process.env.NODE_ENV === 'development'
+
+  describe.skipIf(isDev)('prod only test', () => {
+    // this test only runs in production
+  })
+  ```
+
+::: warning
+You cannot use this syntax when using Vitest as [type checker](/guide/testing-types).
+:::
+
 ### describe.only
 
 - **类型:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
