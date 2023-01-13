@@ -471,8 +471,13 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### teardownTimeout
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `1000`
+=======
+- **Type:** `number`
+- **Default:** `10000`
+>>>>>>> 65ef1e84a9ab20c6c54229c0de15f7e8dc5e18c3
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
