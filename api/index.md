@@ -513,22 +513,22 @@ describe("numberToCurrency", () => {
 
 ### describe.skipIf
 
-- **Type:** `(condition: any) => void`
+- **类型:** `(condition: any) => void`
 
-  In some cases, you might run suites multiple times with different environments, and some of the suites might be environment-specific. Instead of wrapping the suite with `if`, you can use `describe.skipIf` to skip the suite whenever the condition is truthy.
+  在某些情况下，你可能会在不同的环境中多次运行套件，并且某些套件可能是特定于环境的。你可以使用 `describe.skipIf` 在条件为真时跳过套件，而不是用 `if` 包装套件。
 
   ```ts
-  import { assert, test } from 'vitest'
+  import { assert, test } from "vitest";
 
-  const isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === "development";
 
-  describe.skipIf(isDev)('prod only test', () => {
+  describe.skipIf(isDev)("prod only test", () => {
     // this test only runs in production
-  })
+  });
   ```
 
 ::: warning
-You cannot use this syntax when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### describe.only
@@ -589,7 +589,7 @@ You cannot use this syntax when using Vitest as [type checker](/guide/testing-ty
   ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### describe.shuffle
@@ -616,7 +616,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。以下所有组合均有效：
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### describe.todo
@@ -1264,7 +1264,7 @@ expect(input).not.toBe(2); // jest API
   ```
 
   :::tip
-    要测试异步函数，请结合使用 [rejects](#rejects)。
+  要测试异步函数，请结合使用 [rejects](#rejects)。
   :::
 
 ### toMatchSnapshot
