@@ -328,7 +328,6 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### update
 
-
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `-u`, `--update`, `--update=false`
@@ -363,7 +362,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - `'dot'` - 将每个任务显示为一个点
 - `'junit'` - JUnit XML 报告器（你可以使用 `VITEST_JUNIT_SUITE_NAME` 环境变量配置 `test suites` 标签名称）
 - `'json'` - 给出一个简单的 JSON 总结
-- `'html'` -  根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
+- `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
@@ -425,7 +424,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
 
-当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit`  时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
+当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
 ### threads
 
@@ -471,13 +470,8 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### teardownTimeout
 
-<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `1000`
-=======
-- **Type:** `number`
-- **Default:** `10000`
->>>>>>> 65ef1e84a9ab20c6c54229c0de15f7e8dc5e18c3
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 

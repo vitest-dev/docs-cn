@@ -42,10 +42,7 @@ import { teamMembers } from '../contributors'
               </a>
             </div>
             <div class="flex flex-col">
-<<<<<<< HEAD
-              <a text-lg h="32px" href="https://github.com/sponsors/patak-dev" rel="noopener noreferrer">Patak's 的赞助商</a>
-=======
-              <a text-lg h="32px" href="https://github.com/sponsors/sheremet-va" rel="noopener noreferrer">Vladimir's Sponsors</a>
+              <a text-lg h="32px" href="https://github.com/sponsors/sheremet-va" rel="noopener noreferrer">Vladimir's 的赞助商</a>
               <a href="https://cdn.jsdelivr.net/gh/sheremet-va/static/sponsors.svg" target="_blank" rel="noopener noreferrer">
                 <img
                   crossorigin="anonymous"
@@ -59,8 +56,7 @@ import { teamMembers } from '../contributors'
               </a>
             </div>
             <div class="flex flex-col">
-              <a text-lg h="32px" href="https://github.com/sponsors/patak-dev" rel="noopener noreferrer">Patak's Sponsors</a>
->>>>>>> 65ef1e84a9ab20c6c54229c0de15f7e8dc5e18c3
+              <a text-lg h="32px" href="https://github.com/sponsors/patak-dev" rel="noopener noreferrer">Patak's 的赞助商</a>
               <a href="https://cdn.jsdelivr.net/gh/patak-dev/static/sponsors.svg" target="_blank" rel="noopener noreferrer">
                 <img
                   crossorigin="anonymous"
