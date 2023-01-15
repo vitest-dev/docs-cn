@@ -2937,11 +2937,7 @@ import.meta.env.NODE_ENV === "development";
 
 ### vi.stubGlobal
 
-<<<<<<< HEAD
-- **类型:** `(name: stirng | number | symbol, value: uknown) => Vitest`
-=======
-- **Type:** `(name: string | number | symbol, value: uknown) => Vitest`
->>>>>>> 1fc846c16f1849b0c502eb28fad22f22d1ec8812
+- **类型:** `(name: string | number | symbol, value: uknown) => Vitest`
 
   改变全局变量的值。 你可以通过调用 `vi.unstubAllGlobals` 恢复其原始值。
 
