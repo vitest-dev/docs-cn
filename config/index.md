@@ -489,7 +489,15 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 setup 文件的路径。它们将运行在每个测试文件之前。
 
+<<<<<<< HEAD
 你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
+=======
+:::info
+Changing setup files will trigger rerun of all tests.
+:::
+
+You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between threads (will always be `'1'`, if run with `threads: false`).
+>>>>>>> f6590f2692395da138c3f5189669dee0982aae2b
 
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
