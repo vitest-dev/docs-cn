@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { defineConfig } from "vitepress";
 import { version } from "../package.json";
+=======
+import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
+import { version } from '../../package.json'
+>>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
 import {
   contributing,
   discord,
@@ -9,6 +15,7 @@ import {
   ogUrl,
   releases,
   twitter,
+<<<<<<< HEAD
   vitestDescription,
   vitestName,
 } from "./meta";
@@ -65,6 +72,36 @@ export default defineConfig({
         sizes: "180x180",
       },
     ],
+=======
+  vitestDescription, vitestName,
+} from './meta'
+import { pwa } from './scripts/pwa'
+import { transformHead } from './scripts/transformHead'
+import { teamMembers } from './contributors'
+
+export default withPwa(defineConfig({
+  lang: 'en-US',
+  title: vitestName,
+  description: vitestDescription,
+  head: [
+    ['meta', { name: 'theme-color', content: '#729b1a' }],
+    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'alternate icon', href: '/favicon.ico', type: 'image/png', sizes: '16x16' }],
+    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
+    ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node' }],
+    ['meta', { property: 'og:title', content: vitestName }],
+    ['meta', { property: 'og:description', content: vitestDescription }],
+    ['meta', { property: 'og:url', content: ogUrl }],
+    ['meta', { property: 'og:image', content: ogImage }],
+    ['meta', { name: 'twitter:title', content: vitestName }],
+    ['meta', { name: 'twitter:description', content: vitestDescription }],
+    ['meta', { name: 'twitter:image', content: ogImage }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
+    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
+    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+>>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
   ],
   lastUpdated: true,
   markdown: {
@@ -210,8 +247,33 @@ export default defineConfig({
           text: "API",
           items: [
             {
+<<<<<<< HEAD
               text: "API 索引",
               link: "/api/",
+=======
+              text: 'Test API Reference',
+              link: '/api/',
+>>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
+            },
+            {
+              text: 'Mock Functions',
+              link: '/api/mock',
+            },
+            {
+              text: 'Vi Utility',
+              link: '/api/vi',
+            },
+            {
+              text: 'Expect',
+              link: '/api/expect',
+            },
+            {
+              text: 'ExpectTypeOf',
+              link: '/api/expect-typeof',
+            },
+            {
+              text: 'assertType',
+              link: '/api/assert-type',
             },
           ],
         },
@@ -227,4 +289,10 @@ export default defineConfig({
       ],
     },
   },
+<<<<<<< HEAD
 });
+=======
+  pwa,
+  transformHead,
+}))
+>>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
