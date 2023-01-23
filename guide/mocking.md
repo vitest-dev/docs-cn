@@ -44,7 +44,7 @@ describe("purchasing flow", () => {
   });
 
   it("allows purchases within business hours", () => {
-    // 在工作时间内设置时间
+    // 将时间设置在工作时间之内
     const date = new Date(2000, 1, 1, 13);
     vi.setSystemTime(date);
 
@@ -53,7 +53,7 @@ describe("purchasing flow", () => {
   });
 
   it("disallows purchases outside of business hours", () => {
-    // 在工作时间之外设置时间
+    // 将时间设置在工作时间之外
     const date = new Date(2000, 1, 1, 19);
     vi.setSystemTime(date);
 
