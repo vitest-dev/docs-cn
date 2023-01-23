@@ -107,13 +107,22 @@ export default defineConfig({
 
 ## Ignoring code
 
+<<<<<<< HEAD
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码。
+=======
+Both coverage providers have their own ways how to ignore code from coverage reports:
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
-- `c8`: https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks
-- `ìstanbul` https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines
+- [`c8`](https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks)
+- [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
+<<<<<<< HEAD
 使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
 被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释。
+=======
+When using TypeScript the source codes are transpiled using `esbuild`, which strips all comments from the source codes ([esbuild#516](https://github.com/evanw/esbuild/issues/516)).
+Comments which are considered as [legal comments](https://esbuild.github.io/api/#legal-comments) are preserved.
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
 请注意，这些忽略提示现在也可能包含在最终的产品构建中。

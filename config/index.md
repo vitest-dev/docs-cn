@@ -83,8 +83,13 @@ export default mergeConfig(
 
 ### exclude
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
+=======
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 匹配排除测试文件的 glob 规则。
 
@@ -130,8 +135,13 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 #### deps.interopDefault
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false` if `environment` is `node`, `true` otherwise
+=======
+- **Type:** `boolean`
+- **Default:** `true`
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 将 CJS 模块的默认值视为命名导出。某些依赖项仅捆绑 CJS 模块，不使用命名导出，Node.js 可以在使用 `import` 语法而不是 `require` 导入包时对其进行静态分析。使用命名导出在 Node 环境中导入此类依赖项时，你将看到此错误：
 
@@ -142,14 +152,29 @@ SyntaxError: Named export 'read' not found. The requested module 'fs-jetpack' is
 CommonJS modules can always be imported via the default export.
 ```
 
+<<<<<<< HEAD
 Vitest 不进行静态分析，并且不会在你运行代码之前失败，因此你在运行测试时很可能会看到此错误：
+=======
+Vitest doesn't do static analysis, and cannot fail before your running code, so you will most likely see this error when running tests, if this feature is disabled:
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 ```
 TypeError: createAsyncThunk is not a function
 TypeError: default is not a function
 ```
 
+<<<<<<< HEAD
 如果你使用的是绕过此 Node.js 限制的捆绑器或转译器，则可以手动启用此选项。默认情况下，当 `environment` 为 `node` 时，Vitest 假定你使用的是 Node ESM 语法，并且不关心命名导出。
+=======
+By default, Vitest assumes you are using a bundler to bypass this and will not fail, but you can disable this behaviour manually, if you code is not processed.
+
+### runner
+
+- **Type**: `VitestRunnerConstructor`
+- **Default**: `node`, when running tests, or `benchmark`, when running benchmarks
+
+Path to a custom test runner. This is an advanced feature and should be used with custom library runners. You can read more about it in [the documentation](/advanced/runner).
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 ### benchmark
 
@@ -357,6 +382,7 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
+<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
@@ -365,6 +391,17 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 - `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+=======
+  - `'default'` - collapse suites when they pass
+  - `'basic'` - give a reporter like default reporter give in ci
+  - `'verbose'` - keep the full task tree visible
+  - `'dot'` -  show each task as a single dot
+  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
+  - `'json'` -  give a simple JSON summary
+  - `'html'` -  outputs HTML report based on [`@vitest/ui`](/guide/ui)
+  - `'hanging-process'` - displays a list of hanging processes, if Vitest cannot exit process safely. This might be a heavy operation, enable it only if Vitest consistently cannot exit process
+  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 ### outputTruncateLength
 
@@ -489,7 +526,15 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 setup 文件的路径。它们将运行在每个测试文件之前。
 
+<<<<<<< HEAD
 你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
+=======
+:::info
+Changing setup files will trigger rerun of all tests.
+:::
+
+You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between threads (will always be `'1'`, if run with `threads: false`).
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
@@ -622,6 +667,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 ```js
 [
+<<<<<<< HEAD
   "coverage/**",
   "dist/**",
   "packages/*/test{,s}/**",
@@ -635,6 +681,21 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*",
   "**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
 ];
+=======
+  'coverage/**',
+  'dist/**',
+  'packages/*/test{,s}/**',
+  '**/*.d.ts',
+  'cypress/**',
+  'test{,s}/**',
+  'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}',
+  '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}',
+  '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}',
+  '**/__tests__/**',
+  '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+  '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
+]
+>>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 ```
 
 - **可用的测试提供者:** `'c8' | 'istanbul'`
