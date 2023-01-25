@@ -2,7 +2,11 @@
 outline: deep
 ---
 
+<<<<<<< HEAD
 # API 索引
+=======
+# Test API Reference
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
 
 下面的变量中使用了以下类型签名
 
@@ -680,6 +684,7 @@ describe("numberToCurrency", () => {
 当使用 Vitest 作为 [type checker](/guide/testing-types) 时，不能使用此语法。
 :::
 
+<<<<<<< HEAD
 ## expect
 
 - **类型:** `ExpectStatic & (actual: any) => Assertions`
@@ -2448,6 +2453,8 @@ assertType<number>(concat(1, 2));
 assertType(concat("a", 2));
 ```
 
+=======
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
 ## Setup and Teardown
 
 这些功能允许我们连接到测试的生命周期，以避免重复设置和拆卸代码。 它们适用于当前上下文：如果它们在顶层使用，则适用于文件；如果它们在 `describe` 块内，则适用于当前测试套件。
@@ -2560,6 +2567,7 @@ assertType(concat("a", 2));
   });
   ```
 
+<<<<<<< HEAD
   这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
 
 ## Vi
@@ -3408,3 +3416,6 @@ const a = new Spy();
 expect(Spy.mock.instances[0]).not.toBe(a);
 expect(Spy.mock.results[0]).toBe(a);
 ```
+=======
+  Here the `afterAll` ensures that `stopMocking` method is called after all tests run.
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a

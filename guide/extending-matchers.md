@@ -23,7 +23,29 @@ expect.extend({
 })
 ```
 
+<<<<<<< HEAD
 断言的返回值应该兼容如下接口：
+=======
+If you are using TypeScript, you can extend default Matchers interface with the code bellow:
+
+```ts
+interface CustomMatchers<R = unknown> {
+  toBeFoo(): R
+}
+
+declare global {
+  namespace Vi {
+    interface Assertion extends CustomMatchers {}
+    interface AsymmetricMatchersContaining extends CustomMatchers {}
+  }
+
+  // Note: augmenting jest.Matchers interface will also work.
+}
+```
+
+The return value of a matcher should be compatible with the following interface:
+
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
 ```ts
 interface MatcherResult {
   pass: boolean

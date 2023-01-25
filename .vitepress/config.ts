@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { defineConfig } from "vitepress";
 import { version } from "../package.json";
+=======
+import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
+import { version } from '../../package.json'
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
 import {
   contributing,
   discord,
@@ -9,6 +15,7 @@ import {
   ogUrl,
   releases,
   twitter,
+<<<<<<< HEAD
   vitestDescription,
   vitestName,
 } from "./meta";
@@ -65,6 +72,36 @@ export default defineConfig({
         sizes: "180x180",
       },
     ],
+=======
+  vitestDescription, vitestName,
+} from './meta'
+import { pwa } from './scripts/pwa'
+import { transformHead } from './scripts/transformHead'
+import { teamMembers } from './contributors'
+
+export default withPwa(defineConfig({
+  lang: 'en-US',
+  title: vitestName,
+  description: vitestDescription,
+  head: [
+    ['meta', { name: 'theme-color', content: '#729b1a' }],
+    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'alternate icon', href: '/favicon.ico', type: 'image/png', sizes: '16x16' }],
+    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
+    ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node' }],
+    ['meta', { property: 'og:title', content: vitestName }],
+    ['meta', { property: 'og:description', content: vitestDescription }],
+    ['meta', { property: 'og:url', content: ogUrl }],
+    ['meta', { property: 'og:image', content: ogImage }],
+    ['meta', { name: 'twitter:title', content: vitestName }],
+    ['meta', { name: 'twitter:description', content: vitestDescription }],
+    ['meta', { name: 'twitter:image', content: ogImage }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
+    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
+    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
   ],
   lastUpdated: true,
   markdown: {
@@ -108,9 +145,16 @@ export default defineConfig({
     },
 
     nav: [
+<<<<<<< HEAD
       { text: "指南", link: "/guide/" },
       { text: "API", link: "/api/" },
       { text: "配置", link: "/config/" },
+=======
+      { text: 'Guide', link: '/guide/' },
+      { text: 'API', link: '/api/' },
+      { text: 'Config', link: '/config/' },
+      { text: 'Advanced', link: '/advanced/api' },
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
       {
         text: `v${version}`,
         items: [
@@ -128,7 +172,26 @@ export default defineConfig({
 
     sidebar: {
       // TODO: bring sidebar of apis and config back
+<<<<<<< HEAD
       "/": [
+=======
+      '/advanced': [
+        {
+          text: 'Advanced',
+          items: [
+            {
+              text: 'Vitest Node API',
+              link: '/advanced/api',
+            },
+            {
+              text: 'Runner API',
+              link: '/advanced/runner',
+            },
+          ],
+        },
+      ],
+      '/': [
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
         {
           text: "指南",
           items: [
@@ -210,8 +273,33 @@ export default defineConfig({
           text: "API",
           items: [
             {
+<<<<<<< HEAD
               text: "API 索引",
               link: "/api/",
+=======
+              text: 'Test API Reference',
+              link: '/api/',
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
+            },
+            {
+              text: 'Mock Functions',
+              link: '/api/mock',
+            },
+            {
+              text: 'Vi Utility',
+              link: '/api/vi',
+            },
+            {
+              text: 'Expect',
+              link: '/api/expect',
+            },
+            {
+              text: 'ExpectTypeOf',
+              link: '/api/expect-typeof',
+            },
+            {
+              text: 'assertType',
+              link: '/api/assert-type',
             },
           ],
         },
@@ -227,4 +315,10 @@ export default defineConfig({
       ],
     },
   },
+<<<<<<< HEAD
 });
+=======
+  pwa,
+  transformHead,
+}))
+>>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
