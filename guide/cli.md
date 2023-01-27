@@ -40,7 +40,22 @@ vitest foobar
 vitest related /src/index.ts /src/hello-world.js
 ```
 
+<<<<<<< HEAD
 ### `vitest clean cache`
+=======
+::: tip
+Don't forget that Vitest runs with enabled watch mode by default. If you are using tools like `lint-staged`, you  should also pass `--run` option, so that command can exit normally.
+
+```js
+// .lintstagedrc.js
+export default {
+  '*.{js,ts}': 'vitest related --run',
+}
+```
+:::
+
+## Options
+>>>>>>> dfe7ca411b16b84c988f5dc6ead57d14a58249a3
 
 清空缓存目录。
 

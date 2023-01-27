@@ -5,8 +5,8 @@
   "packageManager": "pnpm@7.21.0",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
-    "build": "nr prefetch && vitepress build && node .vitepress/scripts/build-pwa.mjs",
-    "build-no-prefetch": "vitepress build && node .vitepress/scripts/build-pwa.mjs",
+    "build": "nr prefetch && vitepress build",
+    "build-no-prefetch": "vitepress build",
     "serve": "vitepress serve",
     "preview-https": "pnpm run build && serve .vitepress/dist",
     "prefetch": "esno .vitepress/scripts/fetch-avatars.ts",
@@ -25,6 +25,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.11.18",
     "@unocss/reset": "^0.48.3",
+    "@vite-pwa/vitepress": "^0.0.4",
     "@vitejs/plugin-vue": "latest",
     "eslint": "^8.30.0",
     "esno": "^0.16.3",
@@ -37,8 +38,8 @@
     "unocss": "^0.48.3",
     "unplugin-vue-components": "^0.22.12",
     "vite": "^4.0.0",
-    "vite-plugin-pwa": "0.14.1",
-    "vitepress": "1.0.0-alpha.35",
+    "vite-plugin-pwa": "^0.14.1",
+    "vitepress": "1.0.0-alpha.36",
     "workbox-window": "^6.5.4"
   }
 }
