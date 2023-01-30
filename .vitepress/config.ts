@@ -210,33 +210,28 @@ export default defineConfig({
           text: "API",
           items: [
             {
-<<<<<<< HEAD
               text: "API 索引",
               link: "/api/",
-=======
-              text: 'Test API Reference',
-              link: '/api/',
->>>>>>> f6590f2692395da138c3f5189669dee0982aae2b
             },
             {
-              text: 'Mock Functions',
-              link: '/api/mock',
+              text: "Mock Functions",
+              link: "/api/mock",
             },
             {
-              text: 'Vi Utility',
-              link: '/api/vi',
+              text: "Vi Utility",
+              link: "/api/vi",
             },
             {
-              text: 'Expect',
-              link: '/api/expect',
+              text: "Expect",
+              link: "/api/expect",
             },
             {
-              text: 'ExpectTypeOf',
-              link: '/api/expect-typeof',
+              text: "ExpectTypeOf",
+              link: "/api/expect-typeof",
             },
             {
-              text: 'assertType',
-              link: '/api/assert-type',
+              text: "assertType",
+              link: "/api/assert-type",
             },
           ],
         },
