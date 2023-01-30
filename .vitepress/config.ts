@@ -1,14 +1,22 @@
+<<<<<<< HEAD
 import { defineConfig } from "vitepress";
 import { version } from "../package.json";
+=======
+import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
+import { version } from '../../package.json'
+>>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
 import {
   contributing,
   discord,
   font,
   github,
+  mastodon,
   ogImage,
   ogUrl,
   releases,
   twitter,
+<<<<<<< HEAD
   vitestDescription,
   vitestName,
 } from "./meta";
@@ -65,6 +73,36 @@ export default defineConfig({
         sizes: "180x180",
       },
     ],
+=======
+  vitestDescription, vitestName,
+} from './meta'
+import { pwa } from './scripts/pwa'
+import { transformHead } from './scripts/transformHead'
+import { teamMembers } from './contributors'
+
+export default withPwa(defineConfig({
+  lang: 'en-US',
+  title: vitestName,
+  description: vitestDescription,
+  head: [
+    ['meta', { name: 'theme-color', content: '#729b1a' }],
+    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'alternate icon', href: '/favicon.ico', type: 'image/png', sizes: '16x16' }],
+    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
+    ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node' }],
+    ['meta', { property: 'og:title', content: vitestName }],
+    ['meta', { property: 'og:description', content: vitestDescription }],
+    ['meta', { property: 'og:url', content: ogUrl }],
+    ['meta', { property: 'og:image', content: ogImage }],
+    ['meta', { name: 'twitter:title', content: vitestName }],
+    ['meta', { name: 'twitter:description', content: vitestDescription }],
+    ['meta', { name: 'twitter:image', content: ogImage }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
+    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
+    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+>>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
   ],
   lastUpdated: true,
   markdown: {
@@ -96,9 +134,16 @@ export default defineConfig({
     },
 
     socialLinks: [
+<<<<<<< HEAD
       { icon: "twitter", link: twitter },
       { icon: "discord", link: discord },
       { icon: "github", link: github },
+=======
+      { icon: 'mastodon', link: mastodon },
+      { icon: 'twitter', link: twitter },
+      { icon: 'discord', link: discord },
+      { icon: 'github', link: github },
+>>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
     ],
 
     footer: {
@@ -108,9 +153,16 @@ export default defineConfig({
     },
 
     nav: [
+<<<<<<< HEAD
       { text: "指南", link: "/guide/" },
       { text: "API", link: "/api/" },
       { text: "配置", link: "/config/" },
+=======
+      { text: 'Guide', link: '/guide/' },
+      { text: 'API', link: '/api/' },
+      { text: 'Config', link: '/config/' },
+      { text: 'Advanced', link: '/advanced/api' },
+>>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
       {
         text: `v${version}`,
         items: [
@@ -128,7 +180,26 @@ export default defineConfig({
 
     sidebar: {
       // TODO: bring sidebar of apis and config back
+<<<<<<< HEAD
       "/": [
+=======
+      '/advanced': [
+        {
+          text: 'Advanced',
+          items: [
+            {
+              text: 'Vitest Node API',
+              link: '/advanced/api',
+            },
+            {
+              text: 'Runner API',
+              link: '/advanced/runner',
+            },
+          ],
+        },
+      ],
+      '/': [
+>>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
         {
           text: "指南",
           items: [
@@ -247,4 +318,10 @@ export default defineConfig({
       ],
     },
   },
+<<<<<<< HEAD
 });
+=======
+  pwa,
+  transformHead,
+}))
+>>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
