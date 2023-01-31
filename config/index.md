@@ -83,13 +83,8 @@ export default mergeConfig(
 
 ### exclude
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
-=======
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
->>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
+- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
 
 匹配排除测试文件的 glob 规则。
 
@@ -494,15 +489,11 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 setup 文件的路径。它们将运行在每个测试文件之前。
 
-<<<<<<< HEAD
-你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
-=======
 :::info
-Changing setup files will trigger rerun of all tests.
+更改配置文件将触发所有测试的重新运行。
 :::
 
-You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between threads (will always be `'1'`, if run with `threads: false`).
->>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
+你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
 
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
@@ -635,7 +626,6 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 ```js
 [
-<<<<<<< HEAD
   "coverage/**",
   "dist/**",
   "packages/*/test{,s}/**",
@@ -646,24 +636,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
   "**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}",
   "**/__tests__/**",
-  "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*",
+  "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*",
   "**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
 ];
-=======
-  'coverage/**',
-  'dist/**',
-  'packages/*/test{,s}/**',
-  '**/*.d.ts',
-  'cypress/**',
-  'test{,s}/**',
-  'test{,-*}.{js,cjs,mjs,ts,tsx,jsx}',
-  '**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}',
-  '**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}',
-  '**/__tests__/**',
-  '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
-  '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
-]
->>>>>>> 3e098281391d25757331c06e541fb1ed6c021f4f
 ```
 
 - **可用的测试提供者:** `'c8' | 'istanbul'`
