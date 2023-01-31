@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
 import { withPwa } from "@vite-pwa/vitepress";
-import { version } from "../../package.json";
+import { version } from "../package.json";
 
 import {
   contributing,
