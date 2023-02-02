@@ -13,24 +13,21 @@ title: Extending Matchers | Guide
 ```ts
 expect.extend({
   toBeFoo(received, expected) {
-    const { isNot } = this
+    const { isNot } = this;
     return {
       // 请勿根据 isNot 参数更改你的 "pass" 值，Vitest 为你做了这件事情
-      pass: received === 'foo',
-      message: () => `${received} is${isNot ? ' not' : ''} foo`,
-    }
+      pass: received === "foo",
+      message: () => `${received} is${isNot ? " not" : ""} foo`,
+    };
   },
-})
+});
 ```
 
-<<<<<<< HEAD
-断言的返回值应该兼容如下接口：
-=======
-If you are using TypeScript, you can extend default Matchers interface with the code bellow:
+如果你使用 TypeScript，则可以使用以下代码扩展默认的 Matchers 接口：
 
 ```ts
 interface CustomMatchers<R = unknown> {
-  toBeFoo(): R
+  toBeFoo(): R;
 }
 
 declare global {
@@ -43,17 +40,16 @@ declare global {
 }
 ```
 
-The return value of a matcher should be compatible with the following interface:
+断言的返回值应该兼容如下接口：
 
->>>>>>> 23181e5d0461127cb387692db973a1a710865d0c
 ```ts
 interface MatcherResult {
-  pass: boolean
-  message: () => string
+  pass: boolean;
+  message: () => string;
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
   // 所以即便断言不通过，你也不必自己输出 diff
-  actual?: unknown
-  expected?: unknown
+  actual?: unknown;
+  expected?: unknown;
 }
 ```
 
@@ -82,6 +78,7 @@ interface MatcherResult {
   它包含了一系列工具函数，你可以使用它们来显示信息。
 
 `this` 上下文也包含了当前测试的信息，你可以通过调用 `expect.getState()` 来获取它，其中最有用的属性是：
+
 - `currentTestName`
 
   当前测试的全称(包括 describe 块)。
