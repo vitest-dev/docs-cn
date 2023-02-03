@@ -1,10 +1,7 @@
 import { defineConfig } from "vitepress";
 import { withPwa } from "@vite-pwa/vitepress";
 import { version } from "../package.json";
-<<<<<<< HEAD
-=======
 
->>>>>>> dd77e694b16c16275e84d1dc95783706f0cfad7d
 import {
   contributing,
   discord,
