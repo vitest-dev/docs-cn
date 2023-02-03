@@ -22,10 +22,14 @@ vitest --ui
 <img alt="Vitest UI" img-dark src="https://user-images.githubusercontent.com/11247099/171992272-7c6057e2-80c3-4b17-a7b6-0ac28e5a5e0b.png">
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 自 Vitest 0.26.0 开始, UI 也可以用作测试报告器。 在 Vitest 配置中使用 `'html'` 报告器生成 HTML 输出并预览测试结果：
 =======
 Since Vitest 0.26.0, UI can also be used as a reporter. Use `'html'` reporter in your Vitest configuration to generate HTML output and preview the results of your tests:
 >>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
+=======
+自 Vitest 0.26.0 开始, UI 也可以用作测试报告器。 在 Vitest 配置中使用 `'html'` 报告器生成 HTML 输出并预览测试结果：
+>>>>>>> dd77e694b16c16275e84d1dc95783706f0cfad7d
 
 ```ts
 // vitest.config.ts
