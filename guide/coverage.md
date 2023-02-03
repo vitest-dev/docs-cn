@@ -18,15 +18,15 @@ Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。�
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     coverage: {
-      provider: 'istanbul' // or 'c8'
+      provider: "istanbul", // or 'c8'
     },
   },
-})
+});
 ```
 
 当你启动 Vitest 进程时，它会提示你自动安装相应的支持包。
@@ -58,15 +58,15 @@ npm i -D @vitest/coverage-istanbul
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ["text", "json", "html"],
     },
   },
-})
+});
 ```
 
 ## 自定义覆盖率提供者
@@ -75,16 +75,16 @@ export default defineConfig({
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vitest/config'
-import CustomCoverageProvider from 'my-custom-coverage-provider'
+import { defineConfig } from "vitest/config";
+import CustomCoverageProvider from "my-custom-coverage-provider";
 
 export default defineConfig({
   test: {
     coverage: {
-      provider: CustomCoverageProvider()
+      provider: CustomCoverageProvider(),
     },
   },
-})
+});
 ```
 
 请参阅类型定义查看有关详细信息。
@@ -94,35 +94,26 @@ export default defineConfig({
 运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
 
 ```js
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
   test: {
     coverage: {
-      reportsDirectory: './tests/unit/coverage'
-    }
-  }
-})
+      reportsDirectory: "./tests/unit/coverage",
+    },
+  },
+});
 ```
 
 ## Ignoring code
 
-<<<<<<< HEAD
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码。
-=======
-Both coverage providers have their own ways how to ignore code from coverage reports:
->>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
 
 - [`c8`](https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks)
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
-<<<<<<< HEAD
 使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
 被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释。
-=======
-When using TypeScript the source codes are transpiled using `esbuild`, which strips all comments from the source codes ([esbuild#516](https://github.com/evanw/esbuild/issues/516)).
-Comments which are considered as [legal comments](https://esbuild.github.io/api/#legal-comments) are preserved.
->>>>>>> 5355fe1ee83c9359de44e6ac98a9d4c09334786a
 
 对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
 请注意，这些忽略提示现在也可能包含在最终的产品构建中。
