@@ -21,7 +21,15 @@ ndb npm run test
 
 ## VSCode
 
+<<<<<<< HEAD
 要在 VSCode 中调试测试文件，请创建以下启动配置。
+=======
+Quick way to debug tests in VSCode is via `JavaScript Debug Terminal`. Open a new `JavaScript Debug Terminal` and run `npm run test` or `vitest` directly. *this works with any code ran in Node, so will work with most JS testing frameworks*
+
+![image](https://user-images.githubusercontent.com/5594348/212169143-72bf39ce-f763-48f5-822a-0c8b2e6a8484.png)
+
+You can also add a dedicated launch configuration to debug a test file in VSCode:
+>>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
 
 ```json
 {

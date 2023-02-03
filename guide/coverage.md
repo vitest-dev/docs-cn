@@ -124,4 +124,14 @@ export default defineConfig({
 if (condition) {
 ```
 
+<<<<<<< HEAD
 不幸的是，目前这在 `c8` 中不起作用。
+=======
+For `c8` this does not cause any issues. You can use `c8 ignore` comments with Typescript as usual:
+
+<!-- eslint-skip -->
+```ts
+/* c8 ignore next 3 */
+if (condition) {
+```
+>>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b

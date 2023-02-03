@@ -7,6 +7,7 @@ import {
   discord,
   font,
   github,
+  mastodon,
   ogImage,
   ogUrl,
   releases,
@@ -83,6 +84,16 @@ export default withPwa(
           sizes: "180x180",
         },
       ],
+<<<<<<< HEAD
+=======
+    },
+
+    socialLinks: [
+      { icon: 'mastodon', link: mastodon },
+      { icon: 'twitter', link: twitter },
+      { icon: 'discord', link: discord },
+      { icon: 'github', link: github },
+>>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
     ],
     lastUpdated: true,
     markdown: {
