@@ -1,6 +1,6 @@
 {
   "name": "docs-cn",
-  "version": "0.28.3",
+  "version": "0.28.1",
   "private": true,
   "packageManager": "pnpm@7.26.3",
   "scripts": {
