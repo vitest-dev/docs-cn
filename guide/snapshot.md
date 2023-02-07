@@ -15,12 +15,12 @@ title: Snapshot | Guide
 要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
 
 ```ts
-import { expect, it } from "vitest";
+import { expect, it } from 'vitest'
 
-it("toUpperCase", () => {
-  const result = toUpperCase("foobar");
-  expect(result).toMatchSnapshot();
-});
+it('toUpperCase', () => {
+  const result = toUpperCase('foobar')
+  expect(result).toMatchSnapshot()
+})
 ```
 
 此测试在第一次运行时，Vitest 会创建一个快照文件，如下所示：
@@ -28,7 +28,7 @@ it("toUpperCase", () => {
 ```js
 // Vitest Snapshot v1
 
-exports["toUpperCase 1"] = '"FOOBAR"';
+exports['toUpperCase 1'] = '"FOOBAR"'
 ```
 
 快照文件应该与代码更改一起提交，并作为代码审查过程的一部分进行审查。在随后的测试运行中，Vitest 会将执行的输出与之前的快照进行比较。如果他们匹配，测试就会通过。如果它们不匹配，要么测试运行时在你的代码中发现了应该修复的错误，要么实现已经更改，需要更新快照。
@@ -38,23 +38,23 @@ exports["toUpperCase 1"] = '"FOOBAR"';
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
 ```ts
-import { expect, it } from "vitest";
+import { expect, it } from 'vitest'
 
-it("toUpperCase", () => {
-  const result = toUpperCase("foobar");
-  expect(result).toMatchInlineSnapshot();
-});
+it('toUpperCase', () => {
+  const result = toUpperCase('foobar')
+  expect(result).toMatchInlineSnapshot()
+})
 ```
 
 Vitest 将修改测试文件目录，以将快照更新为字符串，而不是创建快照文件：
 
 ```ts
-import { expect, it } from "vitest";
+import { expect, it } from 'vitest'
 
-it("toUpperCase", () => {
-  const result = toUpperCase("foobar");
-  expect(result).toMatchInlineSnapshot('"FOOBAR"');
-});
+it('toUpperCase', () => {
+  const result = toUpperCase('foobar')
+  expect(result).toMatchInlineSnapshot('"FOOBAR"')
+})
 ```
 
 这允许你直接查看期望输出，而无需跨不同的文件跳转。
@@ -80,9 +80,9 @@ npm i -D jest-image-snapshot
 ```
 
 ```ts
-test("image snapshot", () => {
-  expect(readFileSync("./test/stubs/input-image.png")).toMatchImageSnapshot();
-});
+test('image snapshot', () => {
+  expect(readFileSync('./test/stubs/input-image.png')).toMatchImageSnapshot()
+})
 ```
 
 你可以在 [`examples/image-snapshot`](https://github.com/vitest-dev/vitest/blob/main/examples/image-snapshot) 中学习更多案例。
@@ -97,27 +97,27 @@ test("image snapshot", () => {
 expect.addSnapshotSerializer({
   serialize(val, config, indentation, depth, refs, printer) {
     // `printer` is a function that serializes a value using existing plugins.
-    return `Pretty foo: ${printer(val.foo)}`;
+    return `Pretty foo: ${printer(val.foo)}`
   },
   test(val) {
-    return val && Object.prototype.hasOwnProperty.call(val, "foo");
+    return val && Object.prototype.hasOwnProperty.call(val, 'foo')
   },
-});
+})
 ```
 
 如下所示的测试添加后：
 
 ```ts
-test("foo snapshot test", () => {
+test('foo snapshot test', () => {
   const bar = {
     foo: {
       x: 1,
       y: 2,
     },
-  };
+  }
 
-  expect(bar).toMatchSnapshot();
-});
+  expect(bar).toMatchSnapshot()
+})
 ```
 
 你将获得以下快照：
@@ -149,14 +149,14 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 Jest 和 Vitest 的快照都是由 [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format) 支持的。在 Vitest 中，我们将 `printBasicPrototype` 的默认值设置为 `false` 以提供更清晰的快照输出，Jest 实际上将其默认设置为 `true` 。
 
 ```ts
-import { expect, test } from "vitest";
+import { expect, test } from 'vitest'
 
-test("snapshot", () => {
+test('snapshot', () => {
   const bar = [
     {
-      foo: "bar",
+      foo: 'bar',
     },
-  ];
+  ]
 
   // in Jest
   expect(bar).toMatchInlineSnapshot(`
@@ -165,7 +165,7 @@ test("snapshot", () => {
         "foo": "bar",
       },
     ]
-  `);
+  `)
 
   // in Vitest
   expect(bar).toMatchInlineSnapshot(`
@@ -174,8 +174,8 @@ test("snapshot", () => {
         "foo": "bar",
       },
     ]
-  `);
-});
+  `)
+})
 ```
 
 我们相信这种预设有更好的可读性和开发体验。如果你仍然喜欢 Jest 的行为，可以通过以下方式更改配置：
@@ -188,5 +188,5 @@ export default defineConfig({
       printBasicPrototype: true,
     },
   },
-});
+})
 ```

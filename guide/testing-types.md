@@ -13,16 +13,16 @@ Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编�
 使用 CLI 标志，如 `--allowOnly` 和 `-t` 也支持类型检查。
 
 ```ts
-import { assertType, expectTypeOf } from "vitest";
-import { mount } from "./mount.js";
+import { assertType, expectTypeOf } from 'vitest'
+import { mount } from './mount.js'
 
-test("my types work properly", () => {
-  expectTypeOf(mount).toBeFunction();
-  expectTypeOf(mount).parameter(0).toMatchTypeOf<{ name: string }>();
+test('my types work properly', () => {
+  expectTypeOf(mount).toBeFunction()
+  expectTypeOf(mount).parameter(0).toMatchTypeOf<{ name: string }>()
 
   // @ts-expect-error name is a string
-  assertType(mount({ name: 42 }));
-});
+  assertType(mount({ name: 42 }))
+})
 ```
 
 在测试文件中触发的任何类型错误都将被视为测试错误，因此你可以使用任何类型技巧来测试项目中的类型。
@@ -34,7 +34,7 @@ test("my types work properly", () => {
 如果你使用的是 `expectTypeOf` API，可能会注意到难以阅读的错误或意外的错误：
 
 ```ts
-expectTypeOf(1).toEqualTypeOf<string>();
+expectTypeOf(1).toEqualTypeOf<string>()
 //             ^^^^^^^^^^^^^^^^^^^^^^
 // index-c3943160.d.ts(90, 20): Arguments for the rest parameter 'MISMATCH' were not provided.
 ```
@@ -46,11 +46,11 @@ expectTypeOf(1).toEqualTypeOf<string>();
 如果你发现很难使用 `expectTypeOf` API 并找出错误，你始终可以使用更简单的 `assertType` API：
 
 ```ts
-const answer = 42;
+const answer = 42
 
-assertType<number>(answer);
+assertType<number>(answer)
 // @ts-expect-error answer is not a string
-assertType<string>(answer);
+assertType<string>(answer)
 ```
 
 ::: tip
@@ -60,7 +60,7 @@ assertType<string>(answer);
 
 ```ts
 // @ts-expect-error answer is not a string
-assertType<string>(answr); //
+assertType<string>(answr) //
 ```
 
 :::

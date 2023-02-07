@@ -18,37 +18,37 @@ outline: deep
 
 ```ts
 /// <reference types="vitest" />
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
     // ...
   },
-});
+})
 ```
 
 使用 `vitest` 的 `defineConfig` 可以参考下面的格式：
 
 ```ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     // ...
   },
-});
+})
 ```
 
 如果有需要，你可以获取到 Vitest 的默认选项以扩展它们：
 
 ```ts
-import { configDefaults, defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    exclude: [...configDefaults.exclude, "packages/template/*"],
+    exclude: [...configDefaults.exclude, 'packages/template/*'],
   },
-});
+})
 ```
 
 ## 选项
@@ -56,18 +56,18 @@ export default defineConfig({
 当使用单独的 `vitest.config.js` 时，如果需要，你还可以从另一个配置文件扩展 Vite 的选项：
 
 ```ts
-import { mergeConfig } from "vite";
-import { defineConfig } from "vitest/config";
-import viteConfig from "./vite.config";
+import { mergeConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
+import viteConfig from './vite.config'
 
 export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
-      exclude: ["packages/template/*"],
+      exclude: ['packages/template/*'],
     },
   })
-);
+)
 ```
 
 :::tip 提醒
@@ -83,13 +83,8 @@ export default mergeConfig(
 
 ### exclude
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*']`
-=======
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
->>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
+- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
 
 匹配排除测试文件的 glob 规则。
 
@@ -135,13 +130,8 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 #### deps.interopDefault
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `false` if `environment` is `node`, `true` otherwise
-=======
-- **Type:** `boolean`
-- **Default:** `true`
->>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
+- **默认值:** `true`
 
 将 CJS 模块的默认值视为命名导出。某些依赖项仅捆绑 CJS 模块，不使用命名导出，Node.js 可以在使用 `import` 语法而不是 `require` 导入包时对其进行静态分析。使用命名导出在 Node 环境中导入此类依赖项时，你将看到此错误：
 
@@ -152,29 +142,21 @@ SyntaxError: Named export 'read' not found. The requested module 'fs-jetpack' is
 CommonJS modules can always be imported via the default export.
 ```
 
-<<<<<<< HEAD
-Vitest 不进行静态分析，并且不会在你运行代码之前失败，因此你在运行测试时很可能会看到此错误：
-=======
-Vitest doesn't do static analysis, and cannot fail before your running code, so you will most likely see this error when running tests, if this feature is disabled:
->>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
+Vitest 不进行静态分析，并且不会在你运行代码之前失败，因此当该特性禁用时你在运行测试时很可能会看到此错误：
 
 ```
 TypeError: createAsyncThunk is not a function
 TypeError: default is not a function
 ```
 
-<<<<<<< HEAD
 如果你使用的是绕过此 Node.js 限制的捆绑器或转译器，则可以手动启用此选项。默认情况下，当 `environment` 为 `node` 时，Vitest 假定你使用的是 Node ESM 语法，并且不关心命名导出。
-=======
-By default, Vitest assumes you are using a bundler to bypass this and will not fail, but you can disable this behaviour manually, if you code is not processed.
 
 ### runner
 
-- **Type**: `VitestRunnerConstructor`
-- **Default**: `node`, when running tests, or `benchmark`, when running benchmarks
+- **类型**: `VitestRunnerConstructor`
+- **默认值**: `node`, when running tests, or `benchmark`, when running benchmarks
 
-Path to a custom test runner. This is an advanced feature and should be used with custom library runners. You can read more about it in [the documentation](/advanced/runner).
->>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
+自定义测试运行程序的路径。这是一项高级功能，应与自定义库运行器一起使用。你可以在 [文档](/advanced/runner) 中阅读更多相关信息。
 
 ### benchmark
 
@@ -237,13 +219,13 @@ Path to a custom test runner. This is an advanced feature and should be used wit
 
 ```ts
 // vite.config.ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     globals: true,
   },
-});
+})
 ```
 
 为了可以让全局 API 支持 Typescript，请将 `vitest/globals` 添加到 `tsconfig.json` 中的 `types` 选项中
@@ -261,17 +243,17 @@ export default defineConfig({
 
 ```ts
 // vite.config.ts
-import { defineConfig } from "vitest/config";
-import AutoImport from "unplugin-auto-import/vite";
+import { defineConfig } from 'vitest/config'
+import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
   plugins: [
     AutoImport({
-      imports: ["vitest"],
+      imports: ['vitest'],
       dts: true, // generate TypeScript declaration
     }),
   ],
-});
+})
 ```
 
 ### environment
@@ -292,10 +274,10 @@ Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 
  * @vitest-environment jsdom
  */
 
-test("use jsdom in this test file", () => {
-  const element = document.createElement("div");
-  expect(element).not.toBeNull();
-});
+test('use jsdom in this test file', () => {
+  const element = document.createElement('div')
+  expect(element).not.toBeNull()
+})
 ```
 
 注释格式:
@@ -303,10 +285,10 @@ test("use jsdom in this test file", () => {
 ```js
 // @vitest-environment happy-dom
 
-test("use happy-dom in this test file", () => {
-  const element = document.createElement("div");
-  expect(element).not.toBeNull();
-});
+test('use happy-dom in this test file', () => {
+  const element = document.createElement('div')
+  expect(element).not.toBeNull()
+})
 ```
 
 为了与 Jest 兼容，还存在一个配置 `@jest-environment`：
@@ -316,10 +298,10 @@ test("use happy-dom in this test file", () => {
  * @jest-environment jsdom
  */
 
-test("use jsdom in this test file", () => {
-  const element = document.createElement("div");
-  expect(element).not.toBeNull();
-});
+test('use jsdom in this test file', () => {
+  const element = document.createElement('div')
+  expect(element).not.toBeNull()
+})
 ```
 
 如果你使用 [`--threads=false`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
@@ -327,19 +309,19 @@ test("use jsdom in this test file", () => {
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
 ```ts
-import type { Environment } from "vitest";
+import type { Environment } from 'vitest'
 
 export default <Environment>{
-  name: "custom",
+  name: 'custom',
   setup() {
     // custom setup
     return {
       teardown() {
         // called after all tests with this env have been run
       },
-    };
+    }
   },
-};
+}
 ```
 
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
@@ -369,10 +351,10 @@ export default defineConfig({
       // all tests in tests/dom will run in jsdom
       ['tests/dom/**', 'jsdom'],
       // all tests in tests/ with .edge.test.ts will run in edge-runtime
-      ['**\/*.edge.test.ts', 'edge-runtime'],
+      ['**/*.edge.test.ts', 'edge-runtime'],
       // ...
-    ]
-  }
+    ],
+  },
 })
 ```
 
@@ -407,7 +389,6 @@ export default defineConfig({
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
@@ -416,17 +397,6 @@ export default defineConfig({
 - `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
-=======
-  - `'default'` - collapse suites when they pass
-  - `'basic'` - give a reporter like default reporter give in ci
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable)
-  - `'json'` -  give a simple JSON summary
-  - `'html'` -  outputs HTML report based on [`@vitest/ui`](/guide/ui)
-  - `'hanging-process'` - displays a list of hanging processes, if Vitest cannot exit process safely. This might be a heavy operation, enable it only if Vitest consistently cannot exit process
-  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
->>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
 
 ### outputTruncateLength
 
@@ -518,13 +488,13 @@ export default defineConfig({
 
 ### useAtomics
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.28.3
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.28.3 开始支持
 
-Use Atomics to synchronize threads.
+使用 Atomics 来同步线程。
 
-This can improve performance in some cases, but might cause segfault in older Node versions.
+这在某些情况下可以提高性能，但可能会在旧的 Node 版本中抛出错误。
 
 ### testTimeout
 
@@ -574,20 +544,20 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 比如，你可能依赖于一个全局变量：
 
 ```ts
-import { config } from "@some-testing-lib";
+import { config } from '@some-testing-lib'
 
 if (!globalThis.defined) {
-  config.plugins = [myCoolPlugin];
-  computeHeavyThing();
-  globalThis.defined = true;
+  config.plugins = [myCoolPlugin]
+  computeHeavyThing()
+  globalThis.defined = true
 }
 
 // hooks are reset before each suite
 afterEach(() => {
-  cleanup();
-});
+  cleanup()
+})
 
-globalThis.resetBeforeEachTest = true;
+globalThis.resetBeforeEachTest = true
 ```
 
 ### globalSetup
@@ -623,10 +593,10 @@ globalThis.resetBeforeEachTest = true;
 如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖图:
 
 ```ts
-test("execute a script", async () => {
+test('execute a script', async () => {
   // Vitest cannot rerun this test, if content of `dist/index.js` changes
-  await execa("node", ["dist/index.js"]);
-});
+  await execa('node', ['dist/index.js'])
+})
 ```
 
 :::tip 提醒
@@ -698,21 +668,6 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 ```js
 [
-<<<<<<< HEAD
-  "coverage/**",
-  "dist/**",
-  "packages/*/test{,s}/**",
-  "**/*.d.ts",
-  "cypress/**",
-  "test{,s}/**",
-  "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
-  "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
-  "**/*{.,-}spec.{js,cjs,mjs,ts,tsx,jsx}",
-  "**/__tests__/**",
-  "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress}.config.*",
-  "**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
-];
-=======
   'coverage/**',
   'dist/**',
   'packages/*/test{,s}/**',
@@ -726,7 +681,6 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
   '**/.{eslint,mocha,prettier}rc.{js,cjs,yml}',
 ]
->>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
 ```
 
 - **可用的测试提供者:** `'c8' | 'istanbul'`
@@ -942,17 +896,17 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 如果你将 `OnlyRunThis` 添加到此属性，将跳过测试名称中不包含单词 `OnlyRunThis` 的测试。
 
 ```js
-import { expect, test } from "vitest";
+import { expect, test } from 'vitest'
 
 // run
-test("OnlyRunThis", () => {
-  expect(true).toBe(true);
-});
+test('OnlyRunThis', () => {
+  expect(true).toBe(true)
+})
 
 // skipped
-test("doNotRun", () => {
-  expect(true).toBe(true);
-});
+test('doNotRun', () => {
+  expect(true).toBe(true)
+})
 ```
 
 ### open
@@ -1033,7 +987,7 @@ Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
 当你使用 JSX 作为 React 以外的组件模型（例如 Vue JSX 或 SolidJS）时，你可能需要进行如下配置以使 `.tsx` / `.jsx` 转换为客户端组件：
 
 ```ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -1041,7 +995,7 @@ export default defineConfig({
       web: [/\.[jt]sx$/],
     },
   },
-});
+})
 ```
 
 ### snapshotFormat
@@ -1058,13 +1012,13 @@ export default defineConfig({
 覆盖快照的默认路径。例如，要在测试文件旁边存储一下快照：
 
 ```ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     resolveSnapshotPath: (testPath, snapExtension) => testPath + snapExtension,
   },
-});
+})
 ```
 
 ### allowOnly
