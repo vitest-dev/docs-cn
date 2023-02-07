@@ -57,6 +57,18 @@ export default {
 ## Options
 >>>>>>> fe8053ef3ea2d56a427a78f6c88545082eaec635
 
+::: tip
+不要忘记 Vitest 默认情况下以启用的监视模式运行。如果你使用的是 `lint-staged` 之类的工具，你还应该传递 `--run` 选项，以便该命令可以正常退出。
+
+```js
+// .lintstagedrc.js
+export default {
+  "*.{js,ts}": "vitest related --run",
+};
+```
+
+:::
+
 清空缓存目录。
 
 ## 选项
@@ -120,6 +132,7 @@ vitest --reporter=dot --reporter=default
 vitest --no-api
 vitest --api=false
 ```
+
 :::
 
 ### 变更

@@ -1,3 +1,4 @@
+
 import type { VitePWAOptions } from 'vite-plugin-pwa'
 import {
   githubusercontentRegex,
