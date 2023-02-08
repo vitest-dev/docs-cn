@@ -28,9 +28,9 @@ vitest --ui
 
 export default {
   test: {
-    reporters: ["html"],
+    reporters: ['html'],
   },
-};
+}
 ```
 
 ::: warning

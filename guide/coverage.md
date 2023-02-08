@@ -18,15 +18,15 @@ Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。�
 
 ```ts
 // vite.config.ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     coverage: {
-      provider: "istanbul", // or 'c8'
+      provider: 'istanbul', // or 'c8'
     },
   },
-});
+})
 ```
 
 当你启动 Vitest 进程时，它会提示你自动安装相应的支持包。
@@ -58,15 +58,15 @@ npm i -D @vitest/coverage-istanbul
 
 ```ts
 // vite.config.ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     coverage: {
-      reporter: ["text", "json", "html"],
+      reporter: ['text', 'json', 'html'],
     },
   },
-});
+})
 ```
 
 ## 自定义覆盖率提供者
@@ -75,8 +75,8 @@ export default defineConfig({
 
 ```ts
 // vite.config.ts
-import { defineConfig } from "vitest/config";
-import CustomCoverageProvider from "my-custom-coverage-provider";
+import { defineConfig } from 'vitest/config'
+import CustomCoverageProvider from 'my-custom-coverage-provider'
 
 export default defineConfig({
   test: {
@@ -84,7 +84,7 @@ export default defineConfig({
       provider: CustomCoverageProvider(),
     },
   },
-});
+})
 ```
 
 请参阅类型定义查看有关详细信息。
@@ -94,15 +94,15 @@ export default defineConfig({
 运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
 
 ```js
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
     coverage: {
-      reportsDirectory: "./tests/unit/coverage",
+      reportsDirectory: './tests/unit/coverage',
     },
   },
-});
+})
 ```
 
 ## Ignoring code

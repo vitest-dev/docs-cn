@@ -1,6 +1,6 @@
-import { defineConfig } from "vitepress";
-import { withPwa } from "@vite-pwa/vitepress";
-import { version } from "../package.json";
+import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
+import { version } from '../package.json'
 
 import {
   contributing,
@@ -14,100 +14,96 @@ import {
   twitter,
   vitestDescription,
   vitestName,
-} from "./meta";
-import { pwa } from "./scripts/pwa";
-import { transformHead } from "./scripts/transformHead";
-import { teamMembers } from "./contributors";
+} from './meta'
+import { pwa } from './scripts/pwa'
+import { transformHead } from './scripts/transformHead'
+import { teamMembers } from './contributors'
 
 export default withPwa(
   defineConfig({
-    lang: "en-US",
+    lang: 'en-US',
     title: vitestName,
     description: vitestDescription,
     head: [
-      ["meta", { name: "theme-color", content: "#729b1a" }],
-      ["link", { rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
+      ['meta', { name: 'theme-color', content: '#729b1a' }],
+      ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
       [
-        "link",
+        'link',
         {
-          rel: "alternate icon",
-          href: "/favicon.ico",
-          type: "image/png",
-          sizes: "16x16",
+          rel: 'alternate icon',
+          href: '/favicon.ico',
+          type: 'image/png',
+          sizes: '16x16',
         },
       ],
       [
-        "meta",
+        'meta',
         {
-          name: "author",
+          name: 'author',
           content: `${teamMembers
-            .map((c) => c.name)
-            .join(", ")} and ${vitestName} contributors`,
+            .map(c => c.name)
+            .join(', ')} and ${vitestName} contributors`,
         },
       ],
       [
-        "meta",
+        'meta',
         {
-          name: "keywords",
+          name: 'keywords',
           content:
-            "vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node",
+            'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node',
         },
       ],
-      ["meta", { property: "og:title", content: vitestName }],
-      ["meta", { property: "og:description", content: vitestDescription }],
-      ["meta", { property: "og:url", content: ogUrl }],
-      ["meta", { property: "og:image", content: ogImage }],
-      ["meta", { name: "twitter:title", content: vitestName }],
-      ["meta", { name: "twitter:description", content: vitestDescription }],
-      ["meta", { name: "twitter:image", content: ogImage }],
-      ["meta", { name: "twitter:card", content: "summary_large_image" }],
+      ['meta', { property: 'og:title', content: vitestName }],
+      ['meta', { property: 'og:description', content: vitestDescription }],
+      ['meta', { property: 'og:url', content: ogUrl }],
+      ['meta', { property: 'og:image', content: ogImage }],
+      ['meta', { name: 'twitter:title', content: vitestName }],
+      ['meta', { name: 'twitter:description', content: vitestDescription }],
+      ['meta', { name: 'twitter:image', content: ogImage }],
+      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
       [
-        "link",
+        'link',
         {
-          rel: "preload",
-          as: "style",
-          onload: "this.onload=null;this.rel='stylesheet'",
+          rel: 'preload',
+          as: 'style',
+          onload: 'this.onload=null;this.rel=\'stylesheet\'',
           href: font,
         },
       ],
       [
-        "noscript",
+        'noscript',
         {},
         `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`,
       ],
-      ["link", { rel: "mask-icon", href: "/logo.svg", color: "#ffffff" }],
+      ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
       [
-        "link",
+        'link',
         {
-          rel: "apple-touch-icon",
-          href: "/apple-touch-icon.png",
-          sizes: "180x180",
+          rel: 'apple-touch-icon',
+          href: '/apple-touch-icon.png',
+          sizes: '180x180',
         },
       ],
-<<<<<<< HEAD
-=======
-    },
-
+    ],
     socialLinks: [
       { icon: 'mastodon', link: mastodon },
       { icon: 'twitter', link: twitter },
       { icon: 'discord', link: discord },
       { icon: 'github', link: github },
->>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
     ],
     lastUpdated: true,
     markdown: {
       theme: {
-        light: "vitesse-light",
-        dark: "vitesse-dark",
+        light: 'vitesse-light',
+        dark: 'vitesse-dark',
       },
     },
     themeConfig: {
-      logo: "/logo.svg",
+      logo: '/logo.svg',
 
       editLink: {
-        pattern: "https://github.com/vitest-dev/vitest/tree/main/docs/:path",
-        text: "为此页提供修改建议",
+        pattern: 'https://github.com/vitest-dev/vitest/tree/main/docs/:path',
+        text: '为此页提供修改建议',
       },
 
       // algolia: {
@@ -120,36 +116,37 @@ export default withPwa(
       // },
 
       localeLinks: {
-        text: "简体中文",
-        items: [{ text: "English", link: "https://vitest.dev" }],
+        text: '简体中文',
+        items: [{ text: 'English', link: 'https://vitest.dev' }],
       },
 
       socialLinks: [
-        { icon: "twitter", link: twitter },
-        { icon: "discord", link: discord },
-        { icon: "github", link: github },
+        { icon: 'mastodon', link: mastodon },
+        { icon: 'twitter', link: twitter },
+        { icon: 'discord', link: discord },
+        { icon: 'github', link: github },
       ],
 
       footer: {
-        message: "Released under the MIT License.",
+        message: 'Released under the MIT License.',
         copyright:
-          "Copyright © 2021-PRESENT Anthony Fu, Matías Capeletto and Vitest contributors",
+          'Copyright © 2021-PRESENT Anthony Fu, Matías Capeletto and Vitest contributors',
       },
 
       nav: [
-        { text: "指南", link: "/guide/" },
-        { text: "API", link: "/api/" },
-        { text: "配置", link: "/config/" },
-        { text: "Advanced", link: "/advanced/api" },
+        { text: '指南', link: '/guide/' },
+        { text: 'API', link: '/api/' },
+        { text: '配置', link: '/config/' },
+        { text: 'Advanced', link: '/advanced/api' },
         {
           text: `v${version}`,
           items: [
             {
-              text: "版本发布",
+              text: '版本发布',
               link: releases,
             },
             {
-              text: "社区指南",
+              text: '社区指南',
               link: contributing,
             },
           ],
@@ -158,134 +155,134 @@ export default withPwa(
 
       sidebar: {
         // TODO: bring sidebar of apis and config back
-        "/advanced": [
+        '/advanced': [
           {
-            text: "Advanced",
+            text: 'Advanced',
             items: [
               {
-                text: "Vitest Node API",
-                link: "/advanced/api",
+                text: 'Vitest Node API',
+                link: '/advanced/api',
               },
               {
-                text: "Runner API",
-                link: "/advanced/runner",
+                text: 'Runner API',
+                link: '/advanced/runner',
               },
             ],
           },
         ],
-        "/": [
+        '/': [
           {
-            text: "指南",
+            text: '指南',
             items: [
               {
-                text: "简介",
-                link: "/guide/why",
+                text: '简介',
+                link: '/guide/why',
               },
               {
-                text: "快速起步",
-                link: "/guide/",
+                text: '快速起步',
+                link: '/guide/',
               },
               {
-                text: "主要功能",
-                link: "/guide/features",
+                text: '主要功能',
+                link: '/guide/features',
               },
               {
-                text: "命令行界面",
-                link: "/guide/cli",
+                text: '命令行界面',
+                link: '/guide/cli',
               },
               {
-                text: "测试筛选",
-                link: "/guide/filtering",
+                text: '测试筛选',
+                link: '/guide/filtering',
               },
               {
-                text: "测试覆盖率",
-                link: "/guide/coverage",
+                text: '测试覆盖率',
+                link: '/guide/coverage',
               },
               {
-                text: "测试快照",
-                link: "/guide/snapshot",
+                text: '测试快照',
+                link: '/guide/snapshot',
               },
               {
-                text: "模拟对象",
-                link: "/guide/mocking",
+                text: '模拟对象',
+                link: '/guide/mocking',
               },
               {
-                text: "类型测试",
-                link: "/guide/testing-types",
+                text: '类型测试',
+                link: '/guide/testing-types',
               },
               {
-                text: "Vitest UI",
-                link: "/guide/ui",
+                text: 'Vitest UI',
+                link: '/guide/ui',
               },
               {
-                text: "源码内联测试",
-                link: "/guide/in-source",
+                text: '源码内联测试',
+                link: '/guide/in-source',
               },
               {
-                text: "测试上下文",
-                link: "/guide/test-context",
+                text: '测试上下文',
+                link: '/guide/test-context',
               },
               {
-                text: "测试环境",
-                link: "/guide/environment",
+                text: '测试环境',
+                link: '/guide/environment',
               },
               {
-                text: "扩展匹配器",
-                link: "/guide/extending-matchers",
+                text: '扩展匹配器',
+                link: '/guide/extending-matchers',
               },
               {
-                text: "IDE 插件",
-                link: "/guide/ide",
+                text: 'IDE 插件',
+                link: '/guide/ide',
               },
               {
-                text: "调试",
-                link: "/guide/debugging",
+                text: '调试',
+                link: '/guide/debugging',
               },
               {
-                text: "与其他测试框架对比",
-                link: "/guide/comparisons",
+                text: '与其他测试框架对比',
+                link: '/guide/comparisons',
               },
               {
-                text: "迁移指南",
-                link: "/guide/migration",
+                text: '迁移指南',
+                link: '/guide/migration',
               },
             ],
           },
           {
-            text: "API",
+            text: 'API',
             items: [
               {
-                text: "API 索引",
-                link: "/api/",
+                text: 'API 索引',
+                link: '/api/',
               },
               {
-                text: "Mock Functions",
-                link: "/api/mock",
+                text: 'Mock Functions',
+                link: '/api/mock',
               },
               {
-                text: "Vi Utility",
-                link: "/api/vi",
+                text: 'Vi Utility',
+                link: '/api/vi',
               },
               {
-                text: "Expect",
-                link: "/api/expect",
+                text: 'Expect',
+                link: '/api/expect',
               },
               {
-                text: "ExpectTypeOf",
-                link: "/api/expect-typeof",
+                text: 'ExpectTypeOf',
+                link: '/api/expect-typeof',
               },
               {
-                text: "assertType",
-                link: "/api/assert-type",
+                text: 'assertType',
+                link: '/api/assert-type',
               },
             ],
           },
           {
-            text: "配置",
+            text: '配置',
             items: [
               {
-                text: "配置索引",
-                link: "/config/",
+                text: '配置索引',
+                link: '/config/',
               },
             ],
           },
@@ -294,5 +291,5 @@ export default withPwa(
     },
     pwa,
     transformHead,
-  })
-);
+  }),
+)

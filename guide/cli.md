@@ -48,8 +48,8 @@ vitest related /src/index.ts /src/hello-world.js
 ```js
 // .lintstagedrc.js
 export default {
-  "*.{js,ts}": "vitest related --run",
-};
+  '*.{js,ts}': 'vitest related --run',
+}
 ```
 
 :::

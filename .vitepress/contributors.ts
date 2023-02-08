@@ -17,13 +17,19 @@ export interface CoreTeam extends DefaultTheme.TeamMember {
 
 const contributorsAvatars: Record<string, string> = {}
 
-const getAvatarUrl = (name: string) => import.meta.hot ? `https://github.com/${name}.png` : `/user-avatars/${name}.png`
+const getAvatarUrl = (name: string) =>
+  import.meta.hot
+    ? `https://github.com/${name}.png`
+    : `/user-avatars/${name}.png`
 
-export const contributors = (contributorNames as string[]).reduce((acc, name) => {
-  contributorsAvatars[name] = getAvatarUrl(name)
-  acc.push({ name, avatar: contributorsAvatars[name] })
-  return acc
-}, [] as Contributor[])
+export const contributors = (contributorNames as string[]).reduce(
+  (acc, name) => {
+    contributorsAvatars[name] = getAvatarUrl(name)
+    acc.push({ name, avatar: contributorsAvatars[name] })
+    return acc
+  },
+  [] as Contributor[],
+)
 const createLinks = (tm: CoreTeam): CoreTeam => {
   tm.links = [{ icon: 'github', link: `https://github.com/${tm.github}` }]
   if (tm.mastodon)
@@ -32,11 +38,19 @@ const createLinks = (tm: CoreTeam): CoreTeam => {
   if (tm.discord)
     tm.links.push({ icon: 'discord', link: tm.discord })
 
-  if (tm.youtube)
-    tm.links.push({ icon: 'youtube', link: `https://www.youtube.com/@${tm.youtube}` })
+  if (tm.youtube) {
+    tm.links.push({
+      icon: 'youtube',
+      link: `https://www.youtube.com/@${tm.youtube}`,
+    })
+  }
 
-  if (tm.twitter)
-    tm.links.push({ icon: 'twitter', link: `https://twitter.com/${tm.twitter}` })
+  if (tm.twitter) {
+    tm.links.push({
+      icon: 'twitter',
+      link: `https://twitter.com/${tm.twitter}`,
+    })
+  }
 
   return tm
 }
@@ -51,15 +65,10 @@ const plainTeamMembers: CoreTeam[] = [
     discord: 'https://chat.antfu.me',
     youtube: 'antfu',
     sponsor: 'https://github.com/sponsors/antfu',
-<<<<<<< HEAD
     title: '狂热的开源者，在 NuxtLabs 工作',
-    desc: 'Vite 和 Vue 的核心团队成员',
-=======
-    title: 'A fanatical open sourceror, working',
     org: 'NuxtLabs',
     orgLink: 'https://nuxtlabs.com/',
-    desc: 'Core team member of Vite & Vue',
->>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
+    desc: 'Vite 和 Vue 的核心团队成员',
   },
   {
     avatar: contributorsAvatars['sheremet-va'],
@@ -78,15 +87,10 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@patak',
     twitter: 'patak_dev',
     sponsor: 'https://github.com/sponsors/patak-dev',
-<<<<<<< HEAD
     title: '二当家，在 StackBlitz 工作',
-    desc: 'Vite 和 Vue 的核心团队成员',
-=======
-    title: 'A collaborative being, working',
     org: 'StackBlitz',
     orgLink: 'https://stackblitz.com/',
-    desc: 'Core team member of Vite & Vue',
->>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
+    desc: 'Vite 和 Vue 的核心团队成员',
   },
   {
     avatar: contributorsAvatars.Aslemammad,
@@ -101,15 +105,10 @@ const plainTeamMembers: CoreTeam[] = [
     avatar: contributorsAvatars.Demivan,
     name: 'Ivan Demchuk',
     github: 'Demivan',
-<<<<<<< HEAD
+    mastodon: 'https://elk.zone/fosstodon.org/@demivan',
     twitter: 'IvanDemchuk',
     title: '技术负责人，全栈开发人员',
     desc: 'fluent-vue 的作者',
-=======
-    mastodon: 'https://elk.zone/fosstodon.org/@demivan',
-    title: 'A tech lead, fullstack developer',
-    desc: 'Author of fluent-vue',
->>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
   },
   {
     avatar: contributorsAvatars.userquin,
@@ -126,12 +125,8 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'zxch3n',
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
-<<<<<<< HEAD
     title: '全栈开发人员',
     desc: '创建协作工具',
-=======
-    title: 'A fullstack developer',
-    desc: 'Working on CRDTs & local-first software',
   },
   {
     avatar: contributorsAvatars.poyoho,
@@ -149,7 +144,6 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Team member of Vitest',
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
->>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b
   },
 ]
 

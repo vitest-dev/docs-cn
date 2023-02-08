@@ -55,12 +55,12 @@ Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vit
 如果要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。 你还需要使用 [三斜线命令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html) ，同时如果是从 `vite` 本身导入 `defineConfig`，请在配置文件的顶部加上三斜线命令。
 
 ```ts
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     // ...
   },
-});
+})
 ```
 
 可以参阅 [配置索引](../config/) 中的配置选项列表

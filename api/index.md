@@ -7,12 +7,12 @@ outline: deep
 下面的变量中使用了以下类型签名
 
 ```ts
-type Awaitable<T> = T | PromiseLike<T>;
-type TestFunction = () => Awaitable<void>;
+type Awaitable<T> = T | PromiseLike<T>
+type TestFunction = () => Awaitable<void>
 
 interface TestOptions {
-  timeout?: number;
-  retry?: number;
+  timeout?: number
+  retry?: number
 }
 ```
 
@@ -32,11 +32,11 @@ interface TestOptions {
   同时，可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。你也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("should work as expected", () => {
-    expect(Math.sqrt(4)).toBe(2);
-  });
+  import { expect, test } from 'vitest'
+  
+  test('should work as expected', () => {
+    expect(Math.sqrt(4)).toBe(2)
+  })
   ```
 
 ### test.skip
@@ -47,12 +47,12 @@ interface TestOptions {
   如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
   ```ts
-  import { assert, test } from "vitest";
-
-  test.skip("skipped test", () => {
+  import { assert, test } from 'vitest'
+  
+  test.skip('skipped test', () => {
     // 跳过测试，没有错误
-    assert.equal(Math.sqrt(4), 3);
-  });
+    assert.equal(Math.sqrt(4), 3)
+  })
   ```
 
 ### test.skipIf
@@ -63,13 +63,13 @@ interface TestOptions {
   在某些情况下，你可能会在不同的环境中多次运行测试，并且某些测试可能基于特定环境下运行。只要条件成立，你就可以使用 `test.skipIf` 跳过测试，而不是用 `if` 包裹测试代码。
 
   ```ts
-  import { assert, test } from "vitest";
-
-  const isDev = process.env.NODE_ENV === "development";
-
-  test.skipIf(isDev)("prod only test", () => {
+  import { assert, test } from 'vitest'
+  
+  const isDev = process.env.NODE_ENV === 'development'
+  
+  test.skipIf(isDev)('prod only test', () => {
     // 只在生产环境下进行测试
-  });
+  })
   ```
 
 ::: warning
@@ -84,13 +84,13 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   [test.skipIf](#testskipif) 的相反面。
 
   ```ts
-  import { assert, test } from "vitest";
-
-  const isDev = process.env.NODE_ENV === "development";
-
-  test.runIf(isDev)("dev only test", () => {
+  import { assert, test } from 'vitest'
+  
+  const isDev = process.env.NODE_ENV === 'development'
+  
+  test.runIf(isDev)('dev only test', () => {
     // 只在开发环境下进行测试
-  });
+  })
   ```
 
 ::: warning
@@ -107,12 +107,12 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   同时，可以提供一个超时时限（以毫秒为单位）用于指定等待多长时间后终止测试，默认为 5 秒。你也可以通过 [testTimeout](/config/#testtimeout) 选项进行全局配置。
 
   ```ts
-  import { assert, test } from "vitest";
-
-  test.only("test", () => {
+  import { assert, test } from 'vitest'
+  
+  test.only('test', () => {
     // 仅运行此测试（以及仅标记有的其他测试）
-    assert.equal(Math.sqrt(4), 2);
-  });
+    assert.equal(Math.sqrt(4), 2)
+  })
   ```
 
   有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
@@ -131,40 +131,40 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   `test.concurrent` 将连续测试标记为并行运行。 它接收测试名称、带有要收集的测试的异步函数以及可选的超时时间（以毫秒为单位）。
 
   ```ts
-  import { describe, test } from "vitest";
-
+  import { describe, test } from 'vitest'
+  
   // 标有并发的两个测试将并发运行
-  describe("suite", () => {
-    test("serial test", async () => {
+  describe('suite', () => {
+    test('serial test', async () => {
       /* ... */
-    });
-    test.concurrent("concurrent test 1", async () => {
+    })
+    test.concurrent('concurrent test 1', async () => {
       /* ... */
-    });
-    test.concurrent("concurrent test 2", async () => {
+    })
+    test.concurrent('concurrent test 2', async () => {
       /* ... */
-    });
-  });
+    })
+  })
   ```
 
   `test.skip`、`test.only` 和 `test.todo` 适用于并发测试。 以下所有组合均有效：
 
   ```ts
-  test.concurrent(/* ... */);
-  test.skip.concurrent(/* ... */); // or test.concurrent.skip(/* ... */)
-  test.only.concurrent(/* ... */); // or test.concurrent.only(/* ... */)
-  test.todo.concurrent(/* ... */); // or test.concurrent.todo(/* ... */)
+  test.concurrent(/* ... */)
+  test.skip.concurrent(/* ... */) // or test.concurrent.skip(/* ... */)
+  test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
+  test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
   ```
 
   在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
 
   ```ts
-  test.concurrent("test 1", async ({ expect }) => {
-    expect(foo).toMatchSnapshot();
-  });
-  test.concurrent("test 2", async ({ expect }) => {
-    expect(foo).toMatchSnapshot();
-  });
+  test.concurrent('test 1', async ({ expect }) => {
+    expect(foo).toMatchSnapshot()
+  })
+  test.concurrent('test 2', async ({ expect }) => {
+    expect(foo).toMatchSnapshot()
+  })
   ```
 
 ::: warning
@@ -180,7 +180,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 
   ```ts
   // 测试的报告中将显示一个记录
-  test.todo("unimplemented test");
+  test.todo('unimplemented test')
   ```
 
 ### test.fails
@@ -191,11 +191,11 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   使用 `test.fails` 来指示测试断言将显式失败。
 
   ```ts
-  import { expect, test } from "vitest";
-  const myAsyncFunc = () => new Promise((resolve) => resolve(1));
-  test.fails("fail test", async () => {
-    await expect(myAsyncFunc()).rejects.toBe(1);
-  });
+  import { expect, test } from 'vitest'
+  const myAsyncFunc = () => new Promise(resolve => resolve(1))
+  test.fails('fail test', async () => {
+    await expect(myAsyncFunc()).rejects.toBe(1)
+  })
   ```
 
 ::: warning
@@ -224,9 +224,9 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
     [1, 1, 2],
     [1, 2, 3],
     [2, 1, 3],
-  ])("add(%i, %i) -> %i", (a, b, expected) => {
-    expect(a + b).toBe(expected);
-  });
+  ])('add(%i, %i) -> %i', (a, b, expected) => {
+    expect(a + b).toBe(expected)
+  })
 
   // 它将返回如下内容
   // ✓ add(1, 1) -> 2
@@ -241,9 +241,9 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
     { a: 1, b: 1, expected: 2 },
     { a: 1, b: 2, expected: 3 },
     { a: 2, b: 1, expected: 3 },
-  ])("add($a, $b) -> $expected", ({ a, b, expected }) => {
-    expect(a + b).toBe(expected);
-  });
+  ])('add($a, $b) -> $expected', ({ a, b, expected }) => {
+    expect(a + b).toBe(expected)
+  })
 
   // this will return
   // ✓ add(1, 1) -> 2
@@ -256,12 +256,12 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   ```ts
   test.each`
     a             | b      | expected
-    ${{ val: 1 }} | ${"b"} | ${"1b"}
-    ${{ val: 2 }} | ${"b"} | ${"2b"}
-    ${{ val: 3 }} | ${"b"} | ${"3b"}
-  `("add($a.val, $b) -> $expected", ({ a, b, expected }) => {
-    expect(a.val + b).toBe(expected);
-  });
+    ${{ val: 1 }} | ${'b'} | ${'1b'}
+    ${{ val: 2 }} | ${'b'} | ${'2b'}
+    ${{ val: 3 }} | ${'b'} | ${'3b'}
+  `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
+    expect(a.val + b).toBe(expected)
+  })
 
   // this will return
   // ✓ add(1, b) -> 1b
@@ -278,13 +278,13 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 test.each`
   a             | b      | expected
   ${1}          | ${1}   | ${2}
-  ${"a"}        | ${"b"} | ${"ab"}
-  ${[]}         | ${"b"} | ${"b"}
-  ${{}}         | ${"b"} | ${"[object Object]b"}
-  ${{ asd: 1 }} | ${"b"} | ${"[object Object]b"}
-`("returns $expected when $a is added $b", ({ a, b, expected }) => {
-  expect(a + b).toBe(expected);
-});
+  ${'a'}        | ${'b'} | ${'ab'}
+  ${[]}         | ${'b'} | ${'b'}
+  ${{}}         | ${'b'} | ${'[object Object]b'}
+  ${{ asd: 1 }} | ${'b'} | ${'[object Object]b'}
+`('returns $expected when $a is added $b', ({ a, b, expected }) => {
+  expect(a + b).toBe(expected)
+})
 ```
 
 如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
@@ -302,18 +302,18 @@ test.each`
 Vitest 在底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库，继承其所有可用选项作为第三个参数。
 
 ```ts
-import { bench } from "vitest";
+import { bench } from 'vitest'
 
 bench(
-  "normal sorting",
+  'normal sorting',
   () => {
-    const x = [1, 5, 4, 2, 3];
+    const x = [1, 5, 4, 2, 3]
     x.sort((a, b) => {
-      return a - b;
-    });
+      return a - b
+    })
   },
   { time: 1000 }
-);
+)
 ```
 
 ```ts
@@ -322,45 +322,45 @@ export interface Options {
    * time needed for running a benchmark task (milliseconds)
    * @default 500
    */
-  time?: number;
+  time?: number
 
   /**
    * number of times that a task should run if even the time option is finished
    * @default 10
    */
-  iterations?: number;
+  iterations?: number
 
   /**
    * function to get the current timestamp in milliseconds
    */
-  now?: () => number;
+  now?: () => number
 
   /**
    * An AbortSignal for aborting the benchmark
    */
-  signal?: AbortSignal;
+  signal?: AbortSignal
 
   /**
    * warmup time (milliseconds)
    * @default 100ms
    */
-  warmupTime?: number;
+  warmupTime?: number
 
   /**
    * warmup iterations
    * @default 5
    */
-  warmupIterations?: number;
+  warmupIterations?: number
 
   /**
    * setup function to run before each benchmark task (cycle)
    */
-  setup?: Hook;
+  setup?: Hook
 
   /**
    * teardown function to run after each benchmark task (cycle)
    */
-  teardown?: Hook;
+  teardown?: Hook
 }
 ```
 
@@ -371,14 +371,14 @@ export interface Options {
 你可以使用 `bench.skip` 语法跳过运行某些基准测试。
 
 ```ts
-import { bench } from "vitest";
+import { bench } from 'vitest'
 
-bench.skip("normal sorting", () => {
-  const x = [1, 5, 4, 2, 3];
+bench.skip('normal sorting', () => {
+  const x = [1, 5, 4, 2, 3]
   x.sort((a, b) => {
-    return a - b;
-  });
-});
+    return a - b
+  })
+})
 ```
 
 ### bench.only
@@ -388,14 +388,14 @@ bench.skip("normal sorting", () => {
 使用 `bench.only` 仅在指定测试套件中运行某些基准测试。这在调试时很有用。
 
 ```ts
-import { bench } from "vitest";
+import { bench } from 'vitest'
 
-bench.only("normal sorting", () => {
-  const x = [1, 5, 4, 2, 3];
+bench.only('normal sorting', () => {
+  const x = [1, 5, 4, 2, 3]
   x.sort((a, b) => {
-    return a - b;
-  });
-});
+    return a - b
+  })
+})
 ```
 
 ### bench.todo
@@ -405,9 +405,9 @@ bench.only("normal sorting", () => {
 使用 `bench.todo` 来存根基准测试，以便稍后实现。
 
 ```ts
-import { bench } from "vitest";
+import { bench } from 'vitest'
 
-bench.todo("unimplemented test");
+bench.todo('unimplemented test')
 ```
 
 ## describe
@@ -418,26 +418,26 @@ bench.todo("unimplemented test");
 // basic.spec.ts
 // organizing tests
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'vitest'
 
 const person = {
   isActive: true,
   age: 32,
-};
+}
 
-describe("person", () => {
-  test("person is defined", () => {
-    expect(person).toBeDefined();
-  });
+describe('person', () => {
+  test('person is defined', () => {
+    expect(person).toBeDefined()
+  })
 
-  test("is active", () => {
-    expect(person.isActive).toBeTruthy();
-  });
+  test('is active', () => {
+    expect(person.isActive).toBeTruthy()
+  })
 
-  test("age limit", () => {
-    expect(person.age).toBeLessThanOrEqual(32);
-  });
-});
+  test('age limit', () => {
+    expect(person.age).toBeLessThanOrEqual(32)
+  })
+})
 ```
 
 如果你需要有测试层次结构，你还可以嵌套描述块：
@@ -446,52 +446,53 @@ describe("person", () => {
 // basic.bench.ts
 // organizing benchmarks
 
-import { bench, describe } from "vitest";
+import { bench, describe } from 'vitest'
 
-describe("sort", () => {
-  bench("normal", () => {
-    const x = [1, 5, 4, 2, 3];
+describe('sort', () => {
+  bench('normal', () => {
+    const x = [1, 5, 4, 2, 3]
     x.sort((a, b) => {
-      return a - b;
-    });
-  });
+      return a - b
+    })
+  })
 
-  bench("reverse", () => {
-    const x = [1, 5, 4, 2, 3];
+  bench('reverse', () => {
+    const x = [1, 5, 4, 2, 3]
     x.reverse().sort((a, b) => {
-      return a - b;
-    });
-  });
-});
+      return a - b
+    })
+  })
+})
 ```
 
 如果你有测试或基准的层次结构，你还可以嵌套描述块：
 
 ```ts
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'vitest'
 
 const numberToCurrency = (value) => {
-  if (typeof value !== "number") throw new Error("Value must be a number");
+  if (typeof value !== 'number')
+    throw new Error('Value must be a number')
 
   return value
     .toFixed(2)
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
 
-describe("numberToCurrency", () => {
-  describe("given an invalid number", () => {
-    test("composed of non-numbers to throw error", () => {
-      expect(() => numberToCurrency("abc")).toThrowError();
-    });
-  });
+describe('numberToCurrency', () => {
+  describe('given an invalid number', () => {
+    test('composed of non-numbers to throw error', () => {
+      expect(() => numberToCurrency('abc')).toThrowError()
+    })
+  })
 
-  describe("given a valid number", () => {
-    test("returns the correct currency format", () => {
-      expect(numberToCurrency(10000)).toBe("10,000.00");
-    });
-  });
-});
+  describe('given a valid number', () => {
+    test('returns the correct currency format', () => {
+      expect(numberToCurrency(10000)).toBe('10,000.00')
+    })
+  })
+})
 ```
 
 ### describe.skip
@@ -501,14 +502,14 @@ describe("numberToCurrency", () => {
   在测试套件中使用 `describe.skip` 避免运行特定的描述块。
 
   ```ts
-  import { assert, describe, test } from "vitest";
-
-  describe.skip("skipped suite", () => {
-    test("sqrt", () => {
+  import { assert, describe, test } from 'vitest'
+  
+  describe.skip('skipped suite', () => {
+    test('sqrt', () => {
       // 跳过测试套件，不会有错误
-      assert.equal(Math.sqrt(4), 3);
-    });
-  });
+      assert.equal(Math.sqrt(4), 3)
+    })
+  })
   ```
 
 ### describe.skipIf
@@ -518,13 +519,13 @@ describe("numberToCurrency", () => {
   在某些情况下，你可能会在不同的环境中多次运行套件，并且某些套件可能是特定于环境的。你可以使用 `describe.skipIf` 在条件为真时跳过套件，而不是用 `if` 包装套件。
 
   ```ts
-  import { assert, test } from "vitest";
-
-  const isDev = process.env.NODE_ENV === "development";
-
-  describe.skipIf(isDev)("prod only test", () => {
+  import { assert, test } from 'vitest'
+  
+  const isDev = process.env.NODE_ENV === 'development'
+  
+  describe.skipIf(isDev)('prod only test', () => {
     // this test only runs in production
-  });
+  })
   ```
 
 ::: warning
@@ -539,15 +540,15 @@ describe("numberToCurrency", () => {
 
   ```ts
   // 仅运行此测试套件（以及仅标有的其他测试套件）
-  describe.only("suite", () => {
-    test("sqrt", () => {
-      assert.equal(Math.sqrt(4), 3);
-    });
-  });
-
-  describe("other suite", () => {
+  describe.only('suite', () => {
+    test('sqrt', () => {
+      assert.equal(Math.sqrt(4), 3)
+    })
+  })
+  
+  describe('other suite', () => {
     // ... 测试套件将会被跳过
-  });
+  })
   ```
 
   有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
@@ -566,26 +567,26 @@ describe("numberToCurrency", () => {
 
   ```ts
   // 该测试套件中的所有测试都将并行运行
-  describe.concurrent("suite", () => {
-    test("concurrent test 1", async () => {
+  describe.concurrent('suite', () => {
+    test('concurrent test 1', async () => {
       /* ... */
-    });
-    test("concurrent test 2", async () => {
+    })
+    test('concurrent test 2', async () => {
       /* ... */
-    });
-    test.concurrent("concurrent test 3", async () => {
+    })
+    test.concurrent('concurrent test 3', async () => {
       /* ... */
-    });
-  });
+    })
+  })
   ```
 
   `.skip`，`.only` 和 `.todo` 可以与并发测试套件一起使用。以下所有组合均有效：
 
   ```ts
-  describe.concurrent(/* ... */);
-  describe.skip.concurrent(/* ... */); // or describe.concurrent.skip(/* ... */)
-  describe.only.concurrent(/* ... */); // or describe.concurrent.only(/* ... */)
-  describe.todo.concurrent(/* ... */); // or describe.concurrent.todo(/* ... */)
+  describe.concurrent(/* ... */)
+  describe.skip.concurrent(/* ... */) // or describe.concurrent.skip(/* ... */)
+  describe.only.concurrent(/* ... */) // or describe.concurrent.only(/* ... */)
+  describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
   ```
 
 ::: warning
@@ -599,17 +600,17 @@ describe("numberToCurrency", () => {
   Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
   ```ts
-  describe.shuffle("suite", () => {
-    test("random test 1", async () => {
+  describe.shuffle('suite', () => {
+    test('random test 1', async () => {
       /* ... */
-    });
-    test("random test 2", async () => {
+    })
+    test('random test 2', async () => {
       /* ... */
-    });
-    test("random test 3", async () => {
+    })
+    test('random test 3', async () => {
       /* ... */
-    });
-  });
+    })
+  })
   // 执行顺序依赖于 sequence.seed 的配置选项(默认为 Date.now())
   ```
 
@@ -627,7 +628,7 @@ describe("numberToCurrency", () => {
 
   ```ts
   // 测试套件的报告中将显示一个记录
-  describe.todo("unimplemented suite");
+  describe.todo('unimplemented suite')
   ```
 
 ### describe.each
@@ -641,19 +642,19 @@ describe("numberToCurrency", () => {
     { a: 1, b: 1, expected: 2 },
     { a: 1, b: 2, expected: 3 },
     { a: 2, b: 1, expected: 3 },
-  ])("describe object add($a, $b)", ({ a, b, expected }) => {
+  ])('describe object add($a, $b)', ({ a, b, expected }) => {
     test(`returns ${expected}`, () => {
-      expect(a + b).toBe(expected);
-    });
-
+      expect(a + b).toBe(expected)
+    })
+  
     test(`returned value not be greater than ${expected}`, () => {
-      expect(a + b).not.toBeGreaterThan(expected);
-    });
-
+      expect(a + b).not.toBeGreaterThan(expected)
+    })
+  
     test(`returned value not be less than ${expected}`, () => {
-      expect(a + b).not.toBeLessThan(expected);
-    });
-  });
+      expect(a + b).not.toBeLessThan(expected)
+    })
+  })
   ```
 
   从 Vitest 0.25.3 开始，你可以使用模板字符串表。
@@ -665,15 +666,15 @@ describe("numberToCurrency", () => {
   describe.each`
     a             | b      | expected
     ${1}          | ${1}   | ${2}
-    ${"a"}        | ${"b"} | ${"ab"}
-    ${[]}         | ${"b"} | ${"b"}
-    ${{}}         | ${"b"} | ${"[object Object]b"}
-    ${{ asd: 1 }} | ${"b"} | ${"[object Object]b"}
-  `("describe template string add($a, $b)", ({ a, b, expected }) => {
+    ${'a'}        | ${'b'} | ${'ab'}
+    ${[]}         | ${'b'} | ${'b'}
+    ${{}}         | ${'b'} | ${'[object Object]b'}
+    ${{ asd: 1 }} | ${'b'} | ${'[object Object]b'}
+  `('describe template string add($a, $b)', ({ a, b, expected }) => {
     test(`returns ${expected}`, () => {
-      expect(a + b).toBe(expected);
-    });
-  });
+      expect(a + b).toBe(expected)
+    })
+  })
   ```
 
 ::: warning
@@ -689,12 +690,12 @@ describe("numberToCurrency", () => {
   例如，这里会断言 `input` 的值是否等于 `2` ，如果它们不相等，断言则会抛出错误，并且测试失败。
 
   ```ts
-  import { expect } from "vitest";
-
-  const input = Math.sqrt(4);
-
-  expect(input).to.equal(2); // chai API
-  expect(input).toBe(2); // jest API
+  import { expect } from 'vitest'
+  
+  const input = Math.sqrt(4)
+  
+  expect(input).to.equal(2) // chai API
+  expect(input).toBe(2) // jest API
   ```
 
   从技术上来说，这里并没有使用 [`test`](#test) 方法，所以我们在控制台会看到 Nodejs 的报错，而不是 Vitest 的报错。想要了解更多关于 `test` 的信息，请参阅 [test 章节](#test)。
@@ -710,12 +711,12 @@ describe("numberToCurrency", () => {
 使用 `not` 将会否定断言。举例，此代码断言 `input` 的值不等于 `2`。如果它们相等，断言则会抛出错误，并且测试失败。
 
 ```ts
-import { expect, test } from "vitest";
+import { expect, test } from 'vitest'
 
-const input = Math.sqrt(16);
+const input = Math.sqrt(16)
 
-expect(input).not.to.equal(2); // chai API
-expect(input).not.toBe(2); // jest API
+expect(input).not.to.equal(2) // chai API
+expect(input).not.toBe(2) // jest API
 ```
 
 ### toBe
@@ -727,23 +728,23 @@ expect(input).not.toBe(2); // jest API
   例如，下面的测试将会检查 stock 是否有 13 个苹果。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   const stock = {
-    type: "apples",
+    type: 'apples',
     count: 13,
-  };
-
-  test("stock has 13 apples", () => {
-    expect(stock.type).toBe("apples");
-    expect(stock.count).toBe(13);
-  });
-
-  test("stocks are the same", () => {
-    const refStock = stock; // 相同的引用
-
-    expect(stock).toBe(refStock);
-  });
+  }
+  
+  test('stock has 13 apples', () => {
+    expect(stock.type).toBe('apples')
+    expect(stock.count).toBe(13)
+  })
+  
+  test('stocks are the same', () => {
+    const refStock = stock // 相同的引用
+  
+    expect(stock).toBe(refStock)
+  })
   ```
 
   尽量不要将 `toBe` 与浮点数一起使用。由于 JavaScript 会对它们进行四舍五入，例如 `0.1 + 0.2` 的结果严格来说并不是 `0.3` 。如果需要可靠地断言浮点数，请使用 `toBeCloseTo` 进行断言。
@@ -755,18 +756,18 @@ expect(input).not.toBe(2); // jest API
   使用 `toBeCloseTo` 进行浮点数的比较。可以选择使用 `numDigits` 参数限制小数点后的检查位数。例如：
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test.fails("decimals are not equal in javascript", () => {
-    expect(0.2 + 0.1).toBe(0.3); // 0.2 + 0.1 is 0.30000000000000004
-  });
-
-  test("decimals are rounded to 5 after the point", () => {
+  import { expect, test } from 'vitest'
+  
+  test.fails('decimals are not equal in javascript', () => {
+    expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 is 0.30000000000000004
+  })
+  
+  test('decimals are rounded to 5 after the point', () => {
     // 0.2 + 0.1 is 0.30000 | "000000000004" removed
-    expect(0.2 + 0.1).toBeCloseTo(0.3, 5);
+    expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
     // nothing from 0.30000000000000004 is removed
-    expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50);
-  });
+    expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50)
+  })
   ```
 
 ### toBeDefined
@@ -776,13 +777,13 @@ expect(input).not.toBe(2); // jest API
   `toBeDefined` 断言检查值是否不等于 `undefined` 。在检查函数是否有返回值时非常有用。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  const getApples = () => 3;
-
-  test("function returned something", () => {
-    expect(getApples()).toBeDefined();
-  });
+  import { expect, test } from 'vitest'
+  
+  const getApples = () => 3
+  
+  test('function returned something', () => {
+    expect(getApples()).toBeDefined()
+  })
   ```
 
 ### toBeUndefined
@@ -792,15 +793,16 @@ expect(input).not.toBe(2); // jest API
   与 `toBeDefined` 相反，`toBeUndefined` 断言检查值是否等于 `undefined` 。在检查函数是否没有返回任何内容时非常有用。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   function getApplesFromStock(stock) {
-    if (stock === "Bill") return 13;
+    if (stock === 'Bill')
+      return 13
   }
 
-  test("mary doesn't have a stock", () => {
-    expect(getApplesFromStock("Mary")).toBeUndefined();
-  });
+  test('mary doesn\'t have a stock', () => {
+    expect(getApplesFromStock('Mary')).toBeUndefined()
+  })
   ```
 
 ### toBeTruthy
@@ -812,23 +814,24 @@ expect(input).not.toBe(2); // jest API
   例如下面这段代码，我们就不需要关心 `stocks.getInfo` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
-  import { Stocks } from "./stocks";
-  const stocks = new Stocks();
-  stocks.sync("Bill");
-  if (stocks.getInfo("Bill")) stocks.sell("apples", "Bill");
+  import { Stocks } from './stocks'
+  const stocks = new Stocks()
+  stocks.sync('Bill')
+  if (stocks.getInfo('Bill'))
+    stocks.sell('apples', 'Bill')
   ```
 
   所以如果我们想测试 `stocks.getInfo` 是否为 true，我们可以这样写：
 
   ```ts
-  import { expect, test } from "vitest";
-  import { Stocks } from "./stocks";
-  const stocks = new Stocks();
-
-  test("if we know Bill stock, sell apples to him", () => {
-    stocks.sync("Bill");
-    expect(stocks.getInfo("Bill")).toBeTruthy();
-  });
+  import { expect, test } from 'vitest'
+  import { Stocks } from './stocks'
+  const stocks = new Stocks()
+  
+  test('if we know Bill stock, sell apples to him', () => {
+    stocks.sync('Bill')
+    expect(stocks.getInfo('Bill')).toBeTruthy()
+  })
   ```
 
   JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
@@ -842,23 +845,24 @@ expect(input).not.toBe(2); // jest API
   例如下面这段代码，我们就不需要关心 `stocks.stockFailed` 的返回值，可能是复杂的对象、字符串或者是其他内容，代码仍然可以运行。
 
   ```ts
-  import { Stocks } from "./stocks";
-  const stocks = new Stocks();
-  stocks.sync("Bill");
-  if (!stocks.stockFailed("Bill")) stocks.sell("apples", "Bill");
+  import { Stocks } from './stocks'
+  const stocks = new Stocks()
+  stocks.sync('Bill')
+  if (!stocks.stockFailed('Bill'))
+    stocks.sell('apples', 'Bill')
   ```
 
   所以如果我们想测试 `stocks.stockFailed` 是否为 false，我们可以这样写：
 
   ```ts
-  import { expect, test } from "vitest";
-  import { Stocks } from "./stocks";
-  const stocks = new Stocks();
-
-  test("if Bill stock hasn't failed, sell apples to him", () => {
-    stocks.syncStocks("Bill");
-    expect(stocks.stockFailed("Bill")).toBeFalsy();
-  });
+  import { expect, test } from 'vitest'
+  import { Stocks } from './stocks'
+  const stocks = new Stocks()
+  
+  test('if Bill stock hasn\'t failed, sell apples to him', () => {
+    stocks.syncStocks('Bill')
+    expect(stocks.stockFailed('Bill')).toBeFalsy()
+  })
   ```
 
   JavaScript 中除了 `false` ，`0` ，`''` ，`null` ，`undefined` 和 `NaN`，其他一切都是为真。
@@ -870,15 +874,15 @@ expect(input).not.toBe(2); // jest API
   `toBeNull` 将简单地断言检查值是否为 `null`。 是 `.toBe(null)` 的别名。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   function apples() {
-    return null;
+    return null
   }
 
-  test("we don't have apples", () => {
-    expect(apples()).toBeNull();
-  });
+  test('we don\'t have apples', () => {
+    expect(apples()).toBeNull()
+  })
   ```
 
 ### toBeNaN
@@ -888,19 +892,19 @@ expect(input).not.toBe(2); // jest API
   `toBeNaN` 将简单地断言是否为 `NaN`，是 `.toBe(NaN)` 的别名。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  let i = 0;
-
+  import { expect, test } from 'vitest'
+  
+  let i = 0
+  
   function getApplesCount() {
-    i++;
-    return i > 1 ? NaN : i;
+    i++
+    return i > 1 ? NaN : i
   }
 
-  test("getApplesCount has some unusual side effects...", () => {
-    expect(getApplesCount()).not.toBeNaN();
-    expect(getApplesCount()).toBeNaN();
-  });
+  test('getApplesCount has some unusual side effects...', () => {
+    expect(getApplesCount()).not.toBeNaN()
+    expect(getApplesCount()).toBeNaN()
+  })
   ```
 
 ### toBeTypeOf
@@ -910,12 +914,12 @@ expect(input).not.toBe(2); // jest API
   `toBeTypeOf` 用于断言检查值是否属于接收的类型。
 
   ```ts
-  import { expect, test } from "vitest";
-  const actual = "stock";
-
-  test("stock is type of string", () => {
-    expect(actual).toBeTypeOf("string");
-  });
+  import { expect, test } from 'vitest'
+  const actual = 'stock'
+  
+  test('stock is type of string', () => {
+    expect(actual).toBeTypeOf('string')
+  })
   ```
 
 ### toBeInstanceOf
@@ -925,13 +929,13 @@ expect(input).not.toBe(2); // jest API
   `toBeInstanceOf` 用于断言检查值是否为接收的类的实例。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { Stocks } from "./stocks";
-  const stocks = new Stocks();
-
-  test("stocks are instance of Stocks", () => {
-    expect(stocks).toBeInstanceOf(Stocks);
-  });
+  import { expect, test } from 'vitest'
+  import { Stocks } from './stocks'
+  const stocks = new Stocks()
+  
+  test('stocks are instance of Stocks', () => {
+    expect(stocks).toBeInstanceOf(Stocks)
+  })
   ```
 
 ### toBeGreaterThan
@@ -941,12 +945,12 @@ expect(input).not.toBe(2); // jest API
   `toBeGreaterThan` 用于断言检查值是否大于接收值，如果相等将无法通过测试。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { getApples } from "./stock";
-
-  test("have more then 10 apples", () => {
-    expect(getApples()).toBeGreaterThan(10);
-  });
+  import { expect, test } from 'vitest'
+  import { getApples } from './stock'
+  
+  test('have more then 10 apples', () => {
+    expect(getApples()).toBeGreaterThan(10)
+  })
   ```
 
 ### toBeGreaterThanOrEqual
@@ -956,12 +960,12 @@ expect(input).not.toBe(2); // jest API
   `toBeGreaterThanOrEqual` 用于断言检查值是否大于等于接收值。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { getApples } from "./stock";
-
-  test("have 11 apples or more", () => {
-    expect(getApples()).toBeGreaterThanOrEqual(11);
-  });
+  import { expect, test } from 'vitest'
+  import { getApples } from './stock'
+  
+  test('have 11 apples or more', () => {
+    expect(getApples()).toBeGreaterThanOrEqual(11)
+  })
   ```
 
 ### toBeLessThan
@@ -971,12 +975,12 @@ expect(input).not.toBe(2); // jest API
   `toBeLessThan` 用于断言检查值是否小于接收值，如果相等将无法通过测试。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { getApples } from "./stock";
-
-  test("have less then 20 apples", () => {
-    expect(getApples()).toBeLessThan(20);
-  });
+  import { expect, test } from 'vitest'
+  import { getApples } from './stock'
+  
+  test('have less then 20 apples', () => {
+    expect(getApples()).toBeLessThan(20)
+  })
   ```
 
 ### toBeLessThanOrEqual
@@ -986,12 +990,12 @@ expect(input).not.toBe(2); // jest API
   `toBeLessThanOrEqual` 用于断言检查值是否小于等于接收值。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { getApples } from "./stock";
-
-  test("have 11 apples or less", () => {
-    expect(getApples()).toBeLessThanOrEqual(11);
-  });
+  import { expect, test } from 'vitest'
+  import { getApples } from './stock'
+  
+  test('have 11 apples or less', () => {
+    expect(getApples()).toBeLessThanOrEqual(11)
+  })
   ```
 
 ### toEqual
@@ -1001,25 +1005,25 @@ expect(input).not.toBe(2); // jest API
   `toEqual` 断言检查值是否等于接收值，或者是同样的结构，如果是对象类型（将会使用递归的方法进行比较）。在本例中，你可以看到 `toEqual` 和 `toBe` 之间的区别：
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   const stockBill = {
-    type: "apples",
+    type: 'apples',
     count: 13,
-  };
-
+  }
+  
   const stockMary = {
-    type: "apples",
+    type: 'apples',
     count: 13,
-  };
-
-  test("stocks have the same properties", () => {
-    expect(stockBill).toEqual(stockMary);
-  });
-
-  test("stocks are not the same", () => {
-    expect(stockBill).not.toBe(stockMary);
-  });
+  }
+  
+  test('stocks have the same properties', () => {
+    expect(stockBill).toEqual(stockMary)
+  })
+  
+  test('stocks are not the same', () => {
+    expect(stockBill).not.toBe(stockMary)
+  })
   ```
 
   :::warning 警告
@@ -1039,18 +1043,18 @@ expect(input).not.toBe(2); // jest API
   - 检查对象类型是否相等。例如具有字段 `a` 和 `b` 的实例对象不等于具有字段 `a` 和 `b` 的字面量对象。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   class Stock {
     constructor(type) {
-      this.type = type;
+      this.type = type
     }
   }
 
-  test("structurally the same, but semantically different", () => {
-    expect(new Stock("apples")).toEqual({ type: "apples" });
-    expect(new Stock("apples")).not.toStrictEqual({ type: "apples" });
-  });
+  test('structurally the same, but semantically different', () => {
+    expect(new Stock('apples')).toEqual({ type: 'apples' })
+    expect(new Stock('apples')).not.toStrictEqual({ type: 'apples' })
+  })
   ```
 
 ### toContain
@@ -1060,12 +1064,12 @@ expect(input).not.toBe(2); // jest API
   `toContain` 用于断言检查值是否在数组中。还可以检查一个字符串是否为另一个字符串的子串。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { getAllFruits } from "./stock";
-
-  test("the fruit list contains orange", () => {
-    expect(getAllFruits()).toContain("orange");
-  });
+  import { expect, test } from 'vitest'
+  import { getAllFruits } from './stock'
+  
+  test('the fruit list contains orange', () => {
+    expect(getAllFruits()).toContain('orange')
+  })
   ```
 
 ### toContainEqual
@@ -1075,12 +1079,12 @@ expect(input).not.toBe(2); // jest API
   `toContainEqual` 用于断言在数组中是否包含具有特定结构和值的元素。它就像对每个元素进行 [`toEqual`](#toequal) 操作。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { getFruitStock } from "./stock";
-
-  test("apple available", () => {
-    expect(getFruitStock()).toContainEqual({ fruit: "apple", count: 5 });
-  });
+  import { expect, test } from 'vitest'
+  import { getFruitStock } from './stock'
+  
+  test('apple available', () => {
+    expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
+  })
   ```
 
 ### toHaveLength
@@ -1090,15 +1094,15 @@ expect(input).not.toBe(2); // jest API
   `toHaveLength` 用于断言一个对象是否具有 `.length` 属性，并且它被设置为某个数值。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("toHaveLength", () => {
-    expect("abc").toHaveLength(3);
-    expect([1, 2, 3]).toHaveLength(3);
-
-    expect("").not.toHaveLength(3); // .length 的值并不是3
-    expect({ length: 3 }).toHaveLength(3);
-  });
+  import { expect, test } from 'vitest'
+  
+  test('toHaveLength', () => {
+    expect('abc').toHaveLength(3)
+    expect([1, 2, 3]).toHaveLength(3)
+  
+    expect('').not.toHaveLength(3) // .length 的值并不是3
+    expect({ length: 3 }).toHaveLength(3)
+  })
   ```
 
 ### toHaveProperty
@@ -1110,47 +1114,47 @@ expect(input).not.toBe(2); // jest API
   同时该方法还提供了一个可选参数，用于进行深度对比，就像使用 `toEqual` 匹配器来比较接收到的属性值。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   const invoice = {
-    isActive: true,
-    "P.O": "12345",
-    customer: {
-      first_name: "John",
-      last_name: "Doe",
-      location: "China",
+    'isActive': true,
+    'P.O': '12345',
+    'customer': {
+      first_name: 'John',
+      last_name: 'Doe',
+      location: 'China',
     },
-    total_amount: 5000,
-    items: [
+    'total_amount': 5000,
+    'items': [
       {
-        type: "apples",
+        type: 'apples',
         quantity: 10,
       },
       {
-        type: "oranges",
+        type: 'oranges',
         quantity: 5,
       },
     ],
-  };
-
-  test("John Doe Invoice", () => {
-    expect(invoice).toHaveProperty("isActive"); // 断言 key 存在
-    expect(invoice).toHaveProperty("total_amount", 5000); // 断言 key 存在且值相等
-
-    expect(invoice).not.toHaveProperty("account"); // 断言 key 不存在
-
+  }
+  
+  test('John Doe Invoice', () => {
+    expect(invoice).toHaveProperty('isActive') // 断言 key 存在
+    expect(invoice).toHaveProperty('total_amount', 5000) // 断言 key 存在且值相等
+  
+    expect(invoice).not.toHaveProperty('account') // 断言 key 不存在
+  
     // 使用 dot 进行深度引用
-    expect(invoice).toHaveProperty("customer.first_name");
-    expect(invoice).toHaveProperty("customer.last_name", "Doe");
-    expect(invoice).not.toHaveProperty("customer.location", "India");
-
+    expect(invoice).toHaveProperty('customer.first_name')
+    expect(invoice).toHaveProperty('customer.last_name', 'Doe')
+    expect(invoice).not.toHaveProperty('customer.location', 'India')
+  
     // 使用包含 key 的数组进行深度引用
-    expect(invoice).toHaveProperty("items[0].type", "apples");
-    expect(invoice).toHaveProperty("items.0.type", "apples"); // 使用 dot 也可以工作
-
+    expect(invoice).toHaveProperty('items[0].type', 'apples')
+    expect(invoice).toHaveProperty('items.0.type', 'apples') // 使用 dot 也可以工作
+  
     // 在数组中包装你的 key 来避免它作为深度引用
-    expect(invoice).toHaveProperty(["P.O"], "12345");
-  });
+    expect(invoice).toHaveProperty(['P.O'], '12345')
+  })
   ```
 
 ### toMatch
@@ -1160,12 +1164,12 @@ expect(input).not.toBe(2); // jest API
   `toMatch` 用于断言字符串是否匹配指定的正则表达式或字符串。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("top fruits", () => {
-    expect("top fruits include apple, orange and grape").toMatch(/apple/);
-    expect("applefruits").toMatch("fruit"); // toMatch 也可以是一个字符串
-  });
+  import { expect, test } from 'vitest'
+  
+  test('top fruits', () => {
+    expect('top fruits include apple, orange and grape').toMatch(/apple/)
+    expect('applefruits').toMatch('fruit') // toMatch 也可以是一个字符串
+  })
   ```
 
 ### toMatchObject
@@ -1177,47 +1181,47 @@ expect(input).not.toBe(2); // jest API
   我们还可以传递对象数组。如果我们只想检查两个数组的元素数量是否匹配，该方法就会很有用，它不同于 `arrayContaining` ，它允许接收数组中的额外元素。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   const johnInvoice = {
     isActive: true,
     customer: {
-      first_name: "John",
-      last_name: "Doe",
-      location: "China",
+      first_name: 'John',
+      last_name: 'Doe',
+      location: 'China',
     },
     total_amount: 5000,
     items: [
       {
-        type: "apples",
+        type: 'apples',
         quantity: 10,
       },
       {
-        type: "oranges",
+        type: 'oranges',
         quantity: 5,
       },
     ],
-  };
-
+  }
+  
   const johnDetails = {
     customer: {
-      first_name: "John",
-      last_name: "Doe",
-      location: "China",
+      first_name: 'John',
+      last_name: 'Doe',
+      location: 'China',
     },
-  };
-
-  test("invoice has john personal details", () => {
-    expect(johnInvoice).toMatchObject(johnDetails);
-  });
-
-  test("the number of elements must match exactly", () => {
+  }
+  
+  test('invoice has john personal details', () => {
+    expect(johnInvoice).toMatchObject(johnDetails)
+  })
+  
+  test('the number of elements must match exactly', () => {
     // 断言对象数组是否匹配
-    expect([{ foo: "bar" }, { baz: 1 }]).toMatchObject([
-      { foo: "bar" },
+    expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
+      { foo: 'bar' },
       { baz: 1 },
-    ]);
-  });
+    ])
+  })
   ```
 
 ### toThrowError
@@ -1239,28 +1243,28 @@ expect(input).not.toBe(2); // jest API
   :::
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   function getFruitStock(type) {
-    if (type === "pineapples") {
+    if (type === 'pineapples') {
       throw new DiabetesError(
-        "Pineapples is not good for people with diabetes"
-      );
+        'Pineapples is not good for people with diabetes'
+      )
     }
 
     // 可以做一些其他的事情
   }
 
-  test("throws on pineapples", () => {
+  test('throws on pineapples', () => {
     // 测试错误消息是否在某处显示 "diabetes" ：这些是等效的
-    expect(() => getFruitStock("pineapples")).toThrowError(/diabetes/);
-    expect(() => getFruitStock("pineapples")).toThrowError("diabetes");
-
+    expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
+    expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
+  
     // 测试确切的错误信息
-    expect(() => getFruitStock("pineapples")).toThrowError(
+    expect(() => getFruitStock('pineapples')).toThrowError(
       /^Pineapples is not good for people with diabetes$/
-    );
-  });
+    )
+  })
   ```
 
   :::tip
@@ -1280,23 +1284,23 @@ expect(input).not.toBe(2); // jest API
   :::
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("matches snapshot", () => {
-    const data = { foo: new Set(["bar", "snapshot"]) };
-    expect(data).toMatchSnapshot();
-  });
+  import { expect, test } from 'vitest'
+  
+  test('matches snapshot', () => {
+    const data = { foo: new Set(['bar', 'snapshot']) }
+    expect(data).toMatchSnapshot()
+  })
   ```
 
   如果你只是测试一个对象的结构，并且不需要它是 100% 兼容的，还可以提供一个对象的结构：
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("matches snapshot", () => {
-    const data = { foo: new Set(["bar", "snapshot"]) };
-    expect(data).toMatchSnapshot({ foo: expect.any(Set) });
-  });
+  import { expect, test } from 'vitest'
+  
+  test('matches snapshot', () => {
+    const data = { foo: new Set(['bar', 'snapshot']) }
+    expect(data).toMatchSnapshot({ foo: expect.any(Set) })
+  })
   ```
 
 ### toMatchInlineSnapshot
@@ -1308,10 +1312,10 @@ expect(input).not.toBe(2); // jest API
   Vitest 将 inlineSnapshot 字符串参数添加并更新到测试文件中的匹配器（而不是外部 `.snap` 文件）。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("matches inline snapshot", () => {
-    const data = { foo: new Set(["bar", "snapshot"]) };
+  import { expect, test } from 'vitest'
+  
+  test('matches inline snapshot', () => {
+    const data = { foo: new Set(['bar', 'snapshot']) }
     // 当更新快照时，Vitest 将更新以下内容
     expect(data).toMatchInlineSnapshot(`
       {
@@ -1320,17 +1324,17 @@ expect(input).not.toBe(2); // jest API
           "snapshot",
         },
       }
-    `);
-  });
+    `)
+  })
   ```
 
   如果你只是测试一个对象的结构，并且不需要它是 100% 兼容的，还可以提供一个对象的结构：
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("matches snapshot", () => {
-    const data = { foo: new Set(["bar", "snapshot"]) };
+  import { expect, test } from 'vitest'
+  
+  test('matches snapshot', () => {
+    const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchInlineSnapshot(
       { foo: expect.any(Set) },
       `
@@ -1338,8 +1342,8 @@ expect(input).not.toBe(2); // jest API
         "foo": Any<Set>,
       }
     `
-    );
-  });
+    )
+  })
   ```
 
 ### toThrowErrorMatchingSnapshot
@@ -1365,23 +1369,23 @@ expect(input).not.toBe(2); // jest API
   此断言可以测试一个函数是否被调用过。需要给 `expect` 传递一个监听函数。
 
   ```ts
-  import { expect, test, vi } from "vitest";
-
+  import { expect, test, vi } from 'vitest'
+  
   const market = {
     buy(subject: string, amount: number) {
       // ...
     },
-  };
-
-  test("spy function", () => {
-    const buySpy = vi.spyOn(market, "buy");
-
-    expect(buySpy).not.toHaveBeenCalled();
-
-    market.buy("apples", 10);
-
-    expect(buySpy).toHaveBeenCalled();
-  });
+  }
+  
+  test('spy function', () => {
+    const buySpy = vi.spyOn(market, 'buy')
+  
+    expect(buySpy).not.toHaveBeenCalled()
+  
+    market.buy('apples', 10)
+  
+    expect(buySpy).toHaveBeenCalled()
+  })
   ```
 
 ### toHaveBeenCalledTimes
@@ -1391,22 +1395,22 @@ expect(input).not.toBe(2); // jest API
 此断言将会检查一个函数是否被调用了一定的次数。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
 const market = {
   buy(subject: string, amount: number) {
     // ...
   },
-};
+}
 
-test("spy function called two times", () => {
-  const buySpy = vi.spyOn(market, "buy");
+test('spy function called two times', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-  market.buy("apples", 10);
-  market.buy("apples", 20);
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-  expect(buySpy).toHaveBeenCalledTimes(2);
-});
+  expect(buySpy).toHaveBeenCalledTimes(2)
+})
 ```
 
 ### toHaveBeenCalledWith
@@ -1416,23 +1420,23 @@ test("spy function called two times", () => {
 此断言将会检查一个函数是否被调用过，并且传入了指定的参数。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
 const market = {
   buy(subject: string, amount: number) {
     // ...
   },
-};
+}
 
-test("spy function", () => {
-  const buySpy = vi.spyOn(market, "buy");
+test('spy function', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-  market.buy("apples", 10);
-  market.buy("apples", 20);
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-  expect(buySpy).toHaveBeenCalledWith("apples", 10);
-  expect(buySpy).toHaveBeenCalledWith("apples", 20);
-});
+  expect(buySpy).toHaveBeenCalledWith('apples', 10)
+  expect(buySpy).toHaveBeenCalledWith('apples', 20)
+})
 ```
 
 ### toHaveBeenLastCalledWith
@@ -1442,23 +1446,23 @@ test("spy function", () => {
 此断言将会检查一个函数在最后一次被调用时，是否使用了某些参数。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
 const market = {
   buy(subject: string, amount: number) {
     // ...
   },
-};
+}
 
-test("spy function", () => {
-  const buySpy = vi.spyOn(market, "buy");
+test('spy function', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-  market.buy("apples", 10);
-  market.buy("apples", 20);
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-  expect(buySpy).not.toHaveBeenLastCalledWith("apples", 10);
-  expect(buySpy).toHaveBeenLastCalledWith("apples", 20);
-});
+  expect(buySpy).not.toHaveBeenLastCalledWith('apples', 10)
+  expect(buySpy).toHaveBeenLastCalledWith('apples', 20)
+})
 ```
 
 ### toHaveBeenNthCalledWith
@@ -1470,22 +1474,22 @@ test("spy function", () => {
 需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
 const market = {
   buy(subject: string, amount: number) {
     // ...
   },
-};
+}
 
-test("first call of spy function called with right params", () => {
-  const buySpy = vi.spyOn(market, "buy");
+test('first call of spy function called with right params', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-  market.buy("apples", 10);
-  market.buy("apples", 20);
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-  expect(buySpy).toHaveBeenNthCalledWith(1, "apples", 10);
-});
+  expect(buySpy).toHaveBeenNthCalledWith(1, 'apples', 10)
+})
 ```
 
 ### toHaveReturned
@@ -1495,21 +1499,21 @@ test("first call of spy function called with right params", () => {
 此断言检查一个函数是否至少成功返回了一次值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
 const getApplesPrice = (amount: number) => {
-  const PRICE = 10;
-  return amount * PRICE;
-};
+  const PRICE = 10
+  return amount * PRICE
+}
 
-test("spy function returned a value", () => {
-  const getPriceSpy = vi.fn(getApplesPrice);
+test('spy function returned a value', () => {
+  const getPriceSpy = vi.fn(getApplesPrice)
 
-  const price = getPriceSpy(10);
+  const price = getPriceSpy(10)
 
-  expect(price).toBe(100);
-  expect(getPriceSpy).toHaveReturned();
-});
+  expect(price).toBe(100)
+  expect(getPriceSpy).toHaveReturned()
+})
 ```
 
 ### toHaveReturnedTimes
@@ -1519,16 +1523,16 @@ test("spy function returned a value", () => {
 此断言将会检查一个函数是否成功返回了确切的次数（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
-test("spy function returns a value two times", () => {
-  const sell = vi.fn((product: string) => ({ product }));
+test('spy function returns a value two times', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-  sell("apples");
-  sell("bananas");
+  sell('apples')
+  sell('bananas')
 
-  expect(sell).toHaveReturnedTimes(2);
-});
+  expect(sell).toHaveReturnedTimes(2)
+})
 ```
 
 ### toHaveReturnedWith
@@ -1538,15 +1542,15 @@ test("spy function returns a value two times", () => {
 此断言将会检查一个函数是否至少一次成功返回了指定的值（即没有抛出错误）。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
-test("spy function returns a product", () => {
-  const sell = vi.fn((product: string) => ({ product }));
+test('spy function returns a product', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-  sell("apples");
+  sell('apples')
 
-  expect(sell).toHaveReturnedWith({ product: "apples" });
-});
+  expect(sell).toHaveReturnedWith({ product: 'apples' })
+})
 ```
 
 ### toHaveLastReturnedWith
@@ -1556,16 +1560,16 @@ test("spy function returns a product", () => {
 此断言将会检查一个函数是否在最后一次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
-test("spy function returns bananas on a last call", () => {
-  const sell = vi.fn((product: string) => ({ product }));
+test('spy function returns bananas on a last call', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-  sell("apples");
-  sell("bananas");
+  sell('apples')
+  sell('bananas')
 
-  expect(sell).toHaveLastReturnedWith({ product: "bananas" });
-});
+  expect(sell).toHaveLastReturnedWith({ product: 'bananas' })
+})
 ```
 
 ### toHaveNthReturnedWith
@@ -1575,16 +1579,16 @@ test("spy function returns bananas on a last call", () => {
 此断言将会检查一个函数是否第某次被调用时返回了指定的值。需要给 `expect` 传递一个监听函数。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
-test("spy function returns bananas on second call", () => {
-  const sell = vi.fn((product: string) => ({ product }));
+test('spy function returns bananas on second call', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-  sell("apples");
-  sell("bananas");
+  sell('apples')
+  sell('bananas')
 
-  expect(sell).toHaveNthReturnedWith(2, { product: "bananas" });
-});
+  expect(sell).toHaveNthReturnedWith(2, { product: 'bananas' })
+})
 ```
 
 ### toSatisfy
@@ -1594,17 +1598,17 @@ test("spy function returns bananas on second call", () => {
 此断言检查一个值是否满足某个谓词。
 
 ```ts
-describe("toSatisfy()", () => {
-  const isOdd = (value: number) => value % 2 !== 0;
+describe('toSatisfy()', () => {
+  const isOdd = (value: number) => value % 2 !== 0
 
-  it("pass with 0", () => {
-    expect(1).toSatisfy(isOdd);
-  });
+  it('pass with 0', () => {
+    expect(1).toSatisfy(isOdd)
+  })
 
-  it("pass with negotiation", () => {
-    expect(2).not.toSatisfy(isOdd);
-  });
-});
+  it('pass with negotiation', () => {
+    expect(2).not.toSatisfy(isOdd)
+  })
+})
 ```
 
 ### resolves
@@ -1618,17 +1622,17 @@ describe("toSatisfy()", () => {
   例如，如果我们有一个函数，它调用 API 并返回一些数据，你可以使用下列代码来断言它的返回值：
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   async function buyApples() {
-    return fetch("/buy/apples").then((r) => r.json());
+    return fetch('/buy/apples').then(r => r.json())
   }
 
-  test("buyApples returns new stock id", async () => {
+  test('buyApples returns new stock id', async () => {
     // toEqual 现在返回一个 Promise ，所以我们必须等待它
-    await expect(buyApples()).resolves.toEqual({ id: 1 }); // jest API
-    await expect(buyApples()).resolves.to.equal({ id: 1 }); // chai API
-  });
+    await expect(buyApples()).resolves.toEqual({ id: 1 }) // jest API
+    await expect(buyApples()).resolves.to.equal({ id: 1 }) // chai API
+  })
   ```
 
   :::warning 警告
@@ -1646,16 +1650,17 @@ describe("toSatisfy()", () => {
   例如，如果我们有一个调用失败的函数，我们可以使用此代码来断言原因：
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   async function buyApples(id) {
-    if (!id) throw new Error("no id");
+    if (!id)
+      throw new Error('no id')
   }
 
-  test("buyApples throws an error when no id provided", async () => {
+  test('buyApples throws an error when no id provided', async () => {
     // toThrow 现在返回一个 Promise ，所以你必须等待它
-    await expect(buyApples()).rejects.toThrow("no id");
-  });
+    await expect(buyApples()).rejects.toThrow('no id')
+  })
   ```
 
   :::warning 警告
@@ -1671,23 +1676,23 @@ describe("toSatisfy()", () => {
   例如，如果我们有一个异步调用两个匹配器的函数，我们可以断言它们实际上是被调用的。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   async function doAsync(...cbs) {
-    await Promise.all(cbs.map((cb, index) => cb({ index })));
+    await Promise.all(cbs.map((cb, index) => cb({ index })))
   }
 
-  test("all assertions are called", async () => {
-    expect.assertions(2);
+  test('all assertions are called', async () => {
+    expect.assertions(2)
     function callback1(data) {
-      expect(data).toBeTruthy();
+      expect(data).toBeTruthy()
     }
     function callback2(data) {
-      expect(data).toBeTruthy();
+      expect(data).toBeTruthy()
     }
 
-    await doAsync(callback1, callback2);
-  });
+    await doAsync(callback1, callback2)
+  })
   ```
 
 ### expect.hasAssertions
@@ -1699,32 +1704,32 @@ describe("toSatisfy()", () => {
   例如，如果我们有一个调用回调的代码，我们可以在回调中进行断言，但如果我们不检查是否调用了断言，测试将始终通过。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { db } from "./db";
-
-  const cbs = [];
-
+  import { expect, test } from 'vitest'
+  import { db } from './db'
+  
+  const cbs = []
+  
   function onSelect(cb) {
-    cbs.push(cb);
+    cbs.push(cb)
   }
 
   // 从 db 中选择后，我们调用所有的回调
   function select(id) {
     return db.select({ id }).then((data) => {
-      return Promise.all(cbs.map((cb) => cb(data)));
-    });
+      return Promise.all(cbs.map(cb => cb(data)))
+    })
   }
 
-  test("callback was called", async () => {
-    expect.hasAssertions();
+  test('callback was called', async () => {
+    expect.hasAssertions()
     onSelect((data) => {
       // 在选择时调用
-      expect(data).toBeTruthy();
-    });
+      expect(data).toBeTruthy()
+    })
     // 如果不等待，测试将失败
     // 如果你没有 expect.hasAssertions()，测试将通过
-    await select(3);
-  });
+    await select(3)
+  })
   ```
 
 <!-- asymmetric matchers -->
@@ -1736,11 +1741,11 @@ describe("toSatisfy()", () => {
   这种非对称匹配器在与相等检查一起使用时，将始终返回 `true`。 如果你只是想确保该属性存在时很有用。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   test('object has "apples" key', () => {
-    expect({ apples: 22 }).toEqual({ apples: expect.anything() });
-  });
+    expect({ apples: 22 }).toEqual({ apples: expect.anything() })
+  })
   ```
 
 ### expect.any
@@ -1750,12 +1755,12 @@ describe("toSatisfy()", () => {
   此非对称匹配器与相等检查一起使用时，仅当 value 是指定构造函数的实例时才会返回 `true` 。 如果你有一个每次都生成的值，并且只想知道它以正确的类型存在是很有用。
 
   ```ts
-  import { expect, test } from "vitest";
-  import { generateId } from "./generators";
-
+  import { expect, test } from 'vitest'
+  import { generateId } from './generators'
+  
   test('"id" is a number', () => {
-    expect({ id: generateId() }).toEqual({ id: expect.any(Number) });
-  });
+    expect({ id: generateId() }).toEqual({ id: expect.any(Number) })
+  })
   ```
 
 ### expect.arrayContaining
@@ -1765,18 +1770,18 @@ describe("toSatisfy()", () => {
   当与相等检查一起使用时，如果 value 是一个数组并包含指定的选项，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("basket includes fuji", () => {
+  import { expect, test } from 'vitest'
+  
+  test('basket includes fuji', () => {
     const basket = {
-      varieties: ["Empire", "Fuji", "Gala"],
+      varieties: ['Empire', 'Fuji', 'Gala'],
       count: 3,
-    };
+    }
     expect(basket).toEqual({
       count: 3,
-      varieties: expect.arrayContaining(["Fuji"]),
-    });
-  });
+      varieties: expect.arrayContaining(['Fuji']),
+    })
+  })
   ```
 
   :::tip 提示
@@ -1790,21 +1795,21 @@ describe("toSatisfy()", () => {
   当与相等检查一起使用时，如果 value 具有相似的结构，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("basket has empire apples", () => {
+  import { expect, test } from 'vitest'
+  
+  test('basket has empire apples', () => {
     const basket = {
       varieties: [
         {
-          name: "Empire",
+          name: 'Empire',
           count: 1,
         },
       ],
-    };
+    }
     expect(basket).toEqual({
-      varieties: [expect.objectContaining({ name: "Empire" })],
-    });
-  });
+      varieties: [expect.objectContaining({ name: 'Empire' })],
+    })
+  })
   ```
 
   :::tip 提示
@@ -1818,18 +1823,18 @@ describe("toSatisfy()", () => {
   当与相等检查一起使用时，如果 value 是字符串并且包含指定的子字符串，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   test('variety has "Emp" in its name', () => {
     const variety = {
-      name: "Empire",
+      name: 'Empire',
       count: 1,
-    };
+    }
     expect(basket).toEqual({
-      name: expect.stringContaining("Emp"),
+      name: expect.stringContaining('Emp'),
       count: 1,
-    });
-  });
+    })
+  })
   ```
 
   :::tip 提示
@@ -1843,18 +1848,18 @@ describe("toSatisfy()", () => {
   当与相等检查一起使用时，如果 value 是字符串并且包含指定的子字符串或字符串匹配正则表达式，则此非对称匹配器将返回 `true`。
 
   ```ts
-  import { expect, test } from "vitest";
-
+  import { expect, test } from 'vitest'
+  
   test('variety ends with "re"', () => {
     const variety = {
-      name: "Empire",
+      name: 'Empire',
       count: 1,
-    };
+    }
     expect(basket).toEqual({
       name: expect.stringMatching(/re$/),
       count: 1,
-    });
-  });
+    })
+  })
   ```
 
   :::tip 提示
@@ -1882,23 +1887,23 @@ describe("toSatisfy()", () => {
   当你以这种方式定义匹配器时，还创建了可以像 `expect.stringContaining` 一样使用的不对称匹配器。
 
   ```ts
-  import { expect, test } from "vitest";
-
-  test("custom matchers", () => {
+  import { expect, test } from 'vitest'
+  
+  test('custom matchers', () => {
     expect.extend({
       toBeFoo: (received, expected) => {
-        if (received !== "foo") {
+        if (received !== 'foo') {
           return {
             message: () => `expected ${received} to be foo`,
             pass: false,
-          };
+          }
         }
       },
-    });
-
-    expect("foo").toBeFoo();
-    expect({ foo: "foo" }).toEqual({ foo: expect.toBeFoo() });
-  });
+    })
+  
+    expect('foo').toBeFoo()
+    expect({ foo: 'foo' }).toEqual({ foo: expect.toBeFoo() })
+  })
   ```
 
   > 如果你希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
@@ -1909,7 +1914,7 @@ describe("toSatisfy()", () => {
 
   ```ts
   interface CustomMatchers<R = unknown> {
-    toBeFoo(): R;
+    toBeFoo(): R
   }
 
   declare global {
@@ -1943,12 +1948,12 @@ You can negate all assertions, using `.not` property.
 This matcher will check, if types are fully equal to each other. This matcher will not fail, if two objects have different values, but the same type, but will fail, if object is missing a property.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>();
-expectTypeOf({ a: 1 }).toEqualTypeOf({ a: 1 });
-expectTypeOf({ a: 1 }).toEqualTypeOf({ a: 2 });
-expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>();
+expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
+expectTypeOf({ a: 1 }).toEqualTypeOf({ a: 1 })
+expectTypeOf({ a: 1 }).toEqualTypeOf({ a: 2 })
+expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 ```
 
 ### toMatchTypeOf
@@ -1958,11 +1963,11 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>();
 This matcher checks if expect type extends provided type. It is different from `toEqual` and is more similar to expect's `toMatch`. With this matcher you can check, if an object "matches" a type.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf({ a: 1, b: 1 }).toMatchTypeOf({ a: 1 });
-expectTypeOf<number>().toMatchTypeOf<string | number>();
-expectTypeOf<string | number>().not.toMatchTypeOf<number>();
+expectTypeOf({ a: 1, b: 1 }).toMatchTypeOf({ a: 1 })
+expectTypeOf<number>().toMatchTypeOf<string | number>()
+expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 ```
 
 ### extract
@@ -1972,28 +1977,28 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>();
 You can use `.extract` to narrow down types for further testing.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T };
-const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({});
+type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
+const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({})
 interface CSSProperties {
-  margin?: string;
-  padding?: string;
+  margin?: string
+  padding?: string
 }
 
-const cssProperties: CSSProperties = { margin: "1px", padding: "2px" };
+const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<{ xs?: any }>() // extracts the last type from a union
   .toEqualTypeOf<{
-    xs?: CSSProperties;
-    sm?: CSSProperties;
-    md?: CSSProperties;
-  }>();
+    xs?: CSSProperties
+    sm?: CSSProperties
+    md?: CSSProperties
+  }>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<unknown[]>() // extracts an array from a union
-  .toEqualTypeOf<CSSProperties[]>();
+  .toEqualTypeOf<CSSProperties[]>()
 ```
 
 ::: warning
@@ -2007,21 +2012,21 @@ If no type is found in the union, `.extract` will return `never`.
 You can use `.exclude` to remove types from a union for further testing.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T };
-const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({});
+type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
+const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({})
 interface CSSProperties {
-  margin?: string;
-  padding?: string;
+  margin?: string
+  padding?: string
 }
 
-const cssProperties: CSSProperties = { margin: "1px", padding: "2px" };
+const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .exclude<unknown[]>()
   .exclude<{ xs?: unknown }>() // or just .exclude<unknown[] | { xs?: unknown }>()
-  .toEqualTypeOf<CSSProperties>();
+  .toEqualTypeOf<CSSProperties>()
 ```
 
 ::: warning
@@ -2035,10 +2040,10 @@ If no type is found in the union, `.exclude` will return `never`.
 You can use `.returns` to extract return value of a function type.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(() => {}).returns.toBeVoid();
-expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2]);
+expectTypeOf(() => {}).returns.toBeVoid()
+expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2])
 ```
 
 ::: warning
@@ -2052,13 +2057,13 @@ If used on a non-function type, it will return `never`, so you won't be able to 
 You can extract function arguments with `.parameters` to perform assertions on its value. Parameters are returned as an array.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-type NoParam = () => void;
-type HasParam = (s: string) => void;
+type NoParam = () => void
+type HasParam = (s: string) => void
 
-expectTypeOf<NoParam>().parameters.toEqualTypeOf<[]>();
-expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>();
+expectTypeOf<NoParam>().parameters.toEqualTypeOf<[]>()
+expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
 ```
 
 ::: warning
@@ -2076,12 +2081,12 @@ You can also use [`.toBeCallableWith`](#tobecallablewith) matcher as a more expr
 You can extract a certain function argument with `.parameter(number)` call to perform other assertions on it.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-const foo = (a: number, b: string) => [a, b];
+const foo = (a: number, b: string) => [a, b]
 
-expectTypeOf(foo).parameter(0).toBeNumber();
-expectTypeOf(foo).parameter(1).toBeString();
+expectTypeOf(foo).parameter(0).toBeNumber()
+expectTypeOf(foo).parameter(1).toBeString()
 ```
 
 ::: warning
@@ -2095,11 +2100,11 @@ If used on a non-function type, it will return `never`, so you won't be able to 
 You can extract constructor parameters as an array of values and perform assertions on them with this method.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
 expectTypeOf(Date).constructorParameters.toEqualTypeOf<
   [] | [string | number | Date]
->();
+>()
 ```
 
 ::: warning
@@ -2117,9 +2122,9 @@ You can also use [`.toBeConstructibleWith`](#tobeconstructiblewith) matcher as a
 This property gives access to matchers that can be performed on an instance of the provided class.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(Date).instance.toHaveProperty("toISOString");
+expectTypeOf(Date).instance.toHaveProperty('toISOString')
 ```
 
 ::: warning
@@ -2133,10 +2138,10 @@ If used on a non-function type, it will return `never`, so you won't be able to 
 You can get array item type with `.items` to perform further assertions.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf([1, 2, 3]).items.toEqualTypeOf<number>();
-expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>();
+expectTypeOf([1, 2, 3]).items.toEqualTypeOf<number>()
+expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>()
 ```
 
 ### resolves
@@ -2146,12 +2151,12 @@ expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>();
 This matcher extracts resolved value of a `Promise`, so you can perform other assertions on it.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-const asyncFunc = async () => 123;
+const asyncFunc = async () => 123
 
-expectTypeOf(asyncFunc).returns.resolves.toBeNumber();
-expectTypeOf(Promise.resolve("string")).resolves.toBeString();
+expectTypeOf(asyncFunc).returns.resolves.toBeNumber()
+expectTypeOf(Promise.resolve('string')).resolves.toBeString()
 ```
 
 ::: warning
@@ -2165,10 +2170,10 @@ If used on a non-promise type, it will return `never`, so you won't be able to c
 This matcher extracts guard value (e.g., `v is number`), so you can perform assertions on it.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-const isString = (v: any): v is string => typeof v === "string";
-expectTypeOf(isString).guards.toBeString();
+const isString = (v: any): v is string => typeof v === 'string'
+expectTypeOf(isString).guards.toBeString()
 ```
 
 ::: warning
@@ -2182,13 +2187,14 @@ Returns `never`, if the value is not a guard function, so you won't be able to c
 This matcher extracts assert value (e.g., `assert v is number`), so you can perform assertions on it.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
 const assertNumber = (v: any): asserts v is number => {
-  if (typeof v !== "number") throw new TypeError("Nope !");
-};
+  if (typeof v !== 'number')
+    throw new TypeError('Nope !')
+}
 
-expectTypeOf(assertNumber).asserts.toBeNumber();
+expectTypeOf(assertNumber).asserts.toBeNumber()
 ```
 
 ::: warning
@@ -2202,11 +2208,11 @@ Returns `never`, if the value is not an assert function, so you won't be able to
 With this matcher you can check, if provided type is `any` type. If the type is too specific, the test will fail.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf<any>().toBeAny();
-expectTypeOf({} as any).toBeAny();
-expectTypeOf("string").not.toBeAny();
+expectTypeOf<any>().toBeAny()
+expectTypeOf({} as any).toBeAny()
+expectTypeOf('string').not.toBeAny()
 ```
 
 ### toBeUnknown
@@ -2216,11 +2222,11 @@ expectTypeOf("string").not.toBeAny();
 This matcher checks, if provided type is `unknown` type.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf().toBeUnknown();
-expectTypeOf({} as unknown).toBeUnknown();
-expectTypeOf("string").not.toBeUnknown();
+expectTypeOf().toBeUnknown()
+expectTypeOf({} as unknown).toBeUnknown()
+expectTypeOf('string').not.toBeUnknown()
 ```
 
 ### toBeNever
@@ -2230,10 +2236,10 @@ expectTypeOf("string").not.toBeUnknown();
 This matcher checks, if provided type is a `never` type.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf<never>().toBeNever();
-expectTypeOf((): never => {}).returns.toBeNever();
+expectTypeOf<never>().toBeNever()
+expectTypeOf((): never => {}).returns.toBeNever()
 ```
 
 ### toBeFunction
@@ -2243,10 +2249,10 @@ expectTypeOf((): never => {}).returns.toBeNever();
 This matcher checks, if provided type is a `functon`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(42).not.toBeFunction();
-expectTypeOf((): never => {}).toBeFunction();
+expectTypeOf(42).not.toBeFunction()
+expectTypeOf((): never => {}).toBeFunction()
 ```
 
 ### toBeObject
@@ -2256,10 +2262,10 @@ expectTypeOf((): never => {}).toBeFunction();
 This matcher checks, if provided type is an `object`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(42).not.toBeObject();
-expectTypeOf({}).toBeObject();
+expectTypeOf(42).not.toBeObject()
+expectTypeOf({}).toBeObject()
 ```
 
 ### toBeArray
@@ -2269,12 +2275,12 @@ expectTypeOf({}).toBeObject();
 This matcher checks, if provided type is `Array<T>`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(42).not.toBeArray();
-expectTypeOf([]).toBeArray();
-expectTypeOf([1, 2]).toBeArray();
-expectTypeOf([{}, 42]).toBeArray();
+expectTypeOf(42).not.toBeArray()
+expectTypeOf([]).toBeArray()
+expectTypeOf([1, 2]).toBeArray()
+expectTypeOf([{}, 42]).toBeArray()
 ```
 
 ### toBeString
@@ -2284,11 +2290,11 @@ expectTypeOf([{}, 42]).toBeArray();
 This matcher checks, if provided type is a `string`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(42).not.toBeString();
-expectTypeOf("").toBeString();
-expectTypeOf("a").toBeString();
+expectTypeOf(42).not.toBeString()
+expectTypeOf('').toBeString()
+expectTypeOf('a').toBeString()
 ```
 
 ### toBeBoolean
@@ -2298,11 +2304,11 @@ expectTypeOf("a").toBeString();
 This matcher checks, if provided type is `boolean`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(42).not.toBeBoolean();
-expectTypeOf(true).toBeBoolean();
-expectTypeOf<boolean>().toBeBoolean();
+expectTypeOf(42).not.toBeBoolean()
+expectTypeOf(true).toBeBoolean()
+expectTypeOf<boolean>().toBeBoolean()
 ```
 
 ### toBeVoid
@@ -2312,10 +2318,10 @@ expectTypeOf<boolean>().toBeBoolean();
 This matcher checks, if provided type is `void`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(() => {}).returns.toBeVoid();
-expectTypeOf<void>().toBeVoid();
+expectTypeOf(() => {}).returns.toBeVoid()
+expectTypeOf<void>().toBeVoid()
 ```
 
 ### toBeSymbol
@@ -2325,10 +2331,10 @@ expectTypeOf<void>().toBeVoid();
 This matcher checks, if provided type is a `symbol`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(Symbol(1)).toBeSymbol();
-expectTypeOf<symbol>().toBeSymbol();
+expectTypeOf(Symbol(1)).toBeSymbol()
+expectTypeOf<symbol>().toBeSymbol()
 ```
 
 ### toBeNull
@@ -2338,11 +2344,11 @@ expectTypeOf<symbol>().toBeSymbol();
 This matcher checks, if provided type is `null`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(null).toBeNull();
-expectTypeOf<null>().toBeNull();
-expectTypeOf(undefined).not.toBeNull();
+expectTypeOf(null).toBeNull()
+expectTypeOf<null>().toBeNull()
+expectTypeOf(undefined).not.toBeNull()
 ```
 
 ### toBeUndefined
@@ -2352,11 +2358,11 @@ expectTypeOf(undefined).not.toBeNull();
 This matcher checks, if provided type is `undefined`.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(undefined).toBeUndefined();
-expectTypeOf<undefined>().toBeUndefined();
-expectTypeOf(null).not.toBeUndefined();
+expectTypeOf(undefined).toBeUndefined()
+expectTypeOf<undefined>().toBeUndefined()
+expectTypeOf(null).not.toBeUndefined()
 ```
 
 ### toBeNullable
@@ -2366,11 +2372,11 @@ expectTypeOf(null).not.toBeUndefined();
 This matcher checks, if you can use `null` or `undefined` with provided type.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf<1 | undefined>().toBeNullable();
-expectTypeOf<1 | null>().toBeNullable();
-expectTypeOf<1 | undefined | null>().toBeNullable();
+expectTypeOf<1 | undefined>().toBeNullable()
+expectTypeOf<1 | null>().toBeNullable()
+expectTypeOf<1 | undefined | null>().toBeNullable()
 ```
 
 ### toBeCallableWith
@@ -2380,13 +2386,13 @@ expectTypeOf<1 | undefined | null>().toBeNullable();
 This matcher ensures you can call provided function with a set of parameters.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-type NoParam = () => void;
-type HasParam = (s: string) => void;
+type NoParam = () => void
+type HasParam = (s: string) => void
 
-expectTypeOf<NoParam>().toBeCallableWith();
-expectTypeOf<HasParam>().toBeCallableWith("some string");
+expectTypeOf<NoParam>().toBeCallableWith()
+expectTypeOf<HasParam>().toBeCallableWith('some string')
 ```
 
 ::: warning
@@ -2400,10 +2406,10 @@ If used on a non-function type, it will return `never`, so you won't be able to 
 This matcher ensures you can create a new instance with a set of constructor parameters.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-expectTypeOf(Date).toBeConstructibleWith(new Date());
-expectTypeOf(Date).toBeConstructibleWith("01-01-2000");
+expectTypeOf(Date).toBeConstructibleWith(new Date())
+expectTypeOf(Date).toBeConstructibleWith('01-01-2000')
 ```
 
 ::: warning
@@ -2417,16 +2423,16 @@ If used on a non-function type, it will return `never`, so you won't be able to 
 This matcher checks if a property exists on provided object. If it exists, it also returns the same set of matchers for the type of this property, so you can chain assertions one after another.
 
 ```ts
-import { expectTypeOf } from "vitest";
+import { expectTypeOf } from 'vitest'
 
-const obj = { a: 1, b: "" };
+const obj = { a: 1, b: '' }
 
-expectTypeOf(obj).toHaveProperty("a");
-expectTypeOf(obj).not.toHaveProperty("c");
+expectTypeOf(obj).toHaveProperty('a')
+expectTypeOf(obj).not.toHaveProperty('c')
 
-expectTypeOf(obj).toHaveProperty("a").toBeNumber();
-expectTypeOf(obj).toHaveProperty("b").toBeString();
-expectTypeOf(obj).toHaveProperty("a").not.toBeString();
+expectTypeOf(obj).toHaveProperty('a').toBeNumber()
+expectTypeOf(obj).toHaveProperty('b').toBeString()
+expectTypeOf(obj).toHaveProperty('a').not.toBeString()
 ```
 
 ## assertType
@@ -2436,16 +2442,16 @@ expectTypeOf(obj).toHaveProperty("a").not.toBeString();
 You can use this function as an alternative for `expectTypeOf` to easily assert that argument type is equal to provided generic.
 
 ```ts
-import { assertType } from "vitest";
+import { assertType } from 'vitest'
 
-function concat(a: string, b: string): string;
-function concat(a: number, b: number): number;
-function concat(a: string | number, b: string | number): string | number;
+function concat(a: string, b: string): string
+function concat(a: number, b: number): number
+function concat(a: string | number, b: string | number): string | number
 
-assertType<string>(concat("a", "b"));
-assertType<number>(concat(1, 2));
+assertType<string>(concat('a', 'b'))
+assertType<number>(concat(1, 2))
 // @ts-expect-error wrong types
-assertType(concat("a", 2));
+assertType(concat('a', 2))
 ```
 
 ## Setup and Teardown
@@ -2462,13 +2468,13 @@ assertType(concat("a", 2));
   或者，我们可以传递一个超时（以毫秒为单位），定义在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { beforeEach } from "vitest";
-
+  import { beforeEach } from 'vitest'
+  
   beforeEach(async () => {
     // 在每次测试运行之前清除模拟并添加一些测试数据
-    await stopMocking();
-    await addUser({ name: "John" });
-  });
+    await stopMocking()
+    await addUser({ name: 'John' })
+  })
   ```
 
   这里的 `beforeEach` 确保为每个测试都添加用户。
@@ -2476,17 +2482,17 @@ assertType(concat("a", 2));
   从 Vitest v0.10.0 开始，`beforeEach` 还接受一个可选的清理功能（相当于 `afterEach`）。
 
   ```ts
-  import { beforeEach } from "vitest";
-
+  import { beforeEach } from 'vitest'
+  
   beforeEach(async () => {
     // 在所有测试运行之前调用一次
-    await prepareSomething();
-
+    await prepareSomething()
+  
     // 清理方法，在所有测试运行后调用一次
     return async () => {
-      await resetSomething();
-    };
-  });
+      await resetSomething()
+    }
+  })
   ```
 
 ### afterEach
@@ -2499,11 +2505,11 @@ assertType(concat("a", 2));
   或者，你可以设置超时（以毫秒为单位）以指定在终止前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { afterEach } from "vitest";
-
+  import { afterEach } from 'vitest'
+  
   afterEach(async () => {
-    await clearTestingData(); // 每次测试运行后清除测试数据
-  });
+    await clearTestingData() // 每次测试运行后清除测试数据
+  })
   ```
 
   这里的 `afterEach` 确保在每次测试运行后清除测试数据。
@@ -2518,11 +2524,11 @@ assertType(concat("a", 2));
   或者，你可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { beforeAll } from "vitest";
-
+  import { beforeAll } from 'vitest'
+  
   beforeAll(async () => {
-    await startMocking(); // 在所有测试运行之前调用一次
-  });
+    await startMocking() // 在所有测试运行之前调用一次
+  })
   ```
 
   这里的 `beforeAll` 确保在测试运行之前设置模拟数据。
@@ -2530,17 +2536,17 @@ assertType(concat("a", 2));
   从 Vitest v0.10.0 开始，`beforeAll` 还可以接受一个可选的清理功能（相当于 `afterAll`）。
 
   ```ts
-  import { beforeAll } from "vitest";
-
+  import { beforeAll } from 'vitest'
+  
   beforeAll(async () => {
     // 在所有测试运行之前调用一次
-    await startMocking();
-
+    await startMocking()
+  
     // 清理函数，在所有测试运行后调用一次
     return async () => {
-      await stopMocking();
-    };
-  });
+      await stopMocking()
+    }
+  })
   ```
 
 ### afterAll
@@ -2553,11 +2559,11 @@ assertType(concat("a", 2));
   或者，你可以提供超时（以毫秒为单位）以指定在终止之前等待多长时间。 默认值为 5 秒。
 
   ```ts
-  import { afterAll } from "vitest";
-
+  import { afterAll } from 'vitest'
+  
   afterAll(async () => {
-    await stopMocking(); // 在所有测试运行后调用此方法
-  });
+    await stopMocking() // 在所有测试运行后调用此方法
+  })
   ```
 
 这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
@@ -2573,10 +2579,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   就像 `runAllTimers` 一样工作，但会在经过几毫秒后结束。例如，这将输出 `1, 2, 3` 并且不会抛出：
 
   ```ts
-  let i = 0;
-  setInterval(() => console.log(++i), 50);
-
-  vi.advanceTimersByTime(150);
+  let i = 0
+  setInterval(() => console.log(++i), 50)
+  
+  vi.advanceTimersByTime(150)
   ```
 
 ### vi.advanceTimersToNextTimer
@@ -2586,12 +2592,12 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   调用下一个可调用的计时器。这在每个计时器调用间隔内进行断言很有用。你可以链式调用它来自己管理计时器。
 
   ```ts
-  let i = 0;
-  setInterval(() => console.log(++i), 50);
-
+  let i = 0
+  setInterval(() => console.log(++i), 50)
+  
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
-    .advanceTimersToNextTimer(); // log 3
+    .advanceTimersToNextTimer() // log 3
   ```
 
 ### vi.getTimerCount
@@ -2620,18 +2626,18 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   如果没有给出函数，mock 将在调用时返回 `undefined`。
 
   ```ts
-  const getApples = vi.fn(() => 0);
-
-  getApples();
-
-  expect(getApples).toHaveBeenCalled();
-  expect(getApples).toHaveReturnedWith(0);
-
-  getApples.mockReturnValueOnce(5);
-
-  const res = getApples();
-  expect(res).toBe(5);
-  expect(getApples).toHaveNthReturnedWith(2, 5);
+  const getApples = vi.fn(() => 0)
+  
+  getApples()
+  
+  expect(getApples).toHaveBeenCalled()
+  expect(getApples).toHaveReturnedWith(0)
+  
+  getApples.mockReturnValueOnce(5)
+  
+  const res = getApples()
+  expect(res).toBe(5)
+  expect(getApples).toHaveNthReturnedWith(2, 5)
   ```
 
 ### vi.getMockedSystemTime
@@ -2663,14 +2669,14 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   与 `jest` 不同，工厂可以是异步的，因此你可以在内部使用 [`vi.importActual`](#vi-importactual) 或作为第一个参数接收的助手来获取原始模块。
 
   ```ts
-  vi.mock("./path/to/module.js", async (importOriginal) => {
-    const mod = await importOriginal();
+  vi.mock('./path/to/module.js', async (importOriginal) => {
+    const mod = await importOriginal()
     return {
       ...mod,
       // replace some exports
       namedExport: vi.fn(),
-    };
-  });
+    }
+  })
   ```
 
   ::: warning
@@ -2685,13 +2691,13 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   如果你正在模拟具有默认导出的模块，则需要在返回的工厂函数对象中提供一个 `default` 键。这是一个特定于 ES 模块的警告，因此 `jest` 文档可能会有所不同，因为 `jest` 使用 CommonJS 模块。例如，
 
   ```ts
-  vi.mock("./path/to/module.js", () => {
+  vi.mock('./path/to/module.js', () => {
     return {
       default: { myDefaultKey: vi.fn() },
       namedExport: vi.fn(),
       // etc...
-    };
-  });
+    }
+  })
   ```
 
   :::
@@ -2715,16 +2721,16 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
   ```ts
   // increment.test.js
-  import { vi } from "vitest";
+  import { vi } from 'vitest'
   // axios is a default export from `__mocks__/axios.js`
-  import axios from "axios";
+  import axios from 'axios'
   // increment is a named export from `src/__mocks__/increment.js`
-  import { increment } from "../increment.js";
-
-  vi.mock("axios");
-  vi.mock("../increment.js");
-
-  axios.get(`/apples/${increment(1)}`);
+  import { increment } from '../increment.js'
+  
+  vi.mock('axios')
+  vi.mock('../increment.js')
+  
+  axios.get(`/apples/${increment(1)}`)
   ```
 
   ::: warning
@@ -2741,7 +2747,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
 ```ts
 // ./increment.js
-export const increment = (number) => number + 1;
+export const increment = number => number + 1
 ```
 
 ```ts
@@ -2788,16 +2794,16 @@ test('importing the next module imports mocked one', () => {
   当 `partial` 为 `true` 时，它会期望 `Partial<T>` 作为返回值。
 
   ```ts
-  import example from "./example";
-  vi.mock("./example");
-
-  test("1+1 equals 2", async () => {
-    vi.mocked(example.calc).mockRestore();
-
-    const res = example.calc(1, "+", 1);
-
-    expect(res).toBe(2);
-  });
+  import example from './example'
+  vi.mock('./example')
+  
+  test('1+1 equals 2', async () => {
+    vi.mocked(example.calc).mockRestore()
+  
+    const res = example.calc(1, '+', 1)
+  
+    expect(res).toBe(2)
+  })
   ```
 
 ### vi.importActual
@@ -2807,11 +2813,11 @@ test('importing the next module imports mocked one', () => {
   导入模块，如果它应该被模拟，则绕过所有检查。如果你想部分模拟模块，这可能会很有用。
 
   ```ts
-  vi.mock("./example", async () => {
-    const axios = await vi.importActual("./example");
-
-    return { ...axios, get: vi.fn() };
-  });
+  vi.mock('./example', async () => {
+    const axios = await vi.importActual('./example')
+  
+    return { ...axios, get: vi.fn() }
+  })
   ```
 
 ### vi.importMock
@@ -2837,22 +2843,22 @@ test('importing the next module imports mocked one', () => {
   通过清除所有模块的缓存来重置模块的注册表。在我们对隔离测试本地状态冲突的模块时很有用。
 
   ```ts
-  import { vi } from "vitest";
-
+  import { vi } from 'vitest'
+  
   beforeAll(() => {
-    vi.resetModules();
-  });
-
-  test("change state", async () => {
-    const mod = await import("./some/path");
-    mod.changeLocalState("new value");
-    expect(mod.getlocalState()).toBe("new value");
-  });
-
-  test("module has old state", async () => {
-    const mod = await import("./some/path");
-    expect(mod.getlocalState()).toBe("old value");
-  });
+    vi.resetModules()
+  })
+  
+  test('change state', async () => {
+    const mod = await import('./some/path')
+    mod.changeLocalState('new value')
+    expect(mod.getlocalState()).toBe('new value')
+  })
+  
+  test('module has old state', async () => {
+    const mod = await import('./some/path')
+    expect(mod.getlocalState()).toBe('old value')
+  })
   ```
 
 ::: warning
@@ -2877,24 +2883,24 @@ test('importing the next module imports mocked one', () => {
   更改 `process.env` 和 `import.meta.env` 上的环境变量值。你可以通过调用 `vi.unstubAllEnvs` 恢复它的值。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
 // are "development" before calling "vi.stubEnv"
 
-vi.stubEnv("NODE_ENV", "production");
+vi.stubEnv('NODE_ENV', 'production')
 
-process.env.NODE_ENV === "production";
-import.meta.env.NODE_ENV === "production";
+process.env.NODE_ENV === 'production'
+import.meta.env.NODE_ENV === 'production'
 // doesn't change other envs
-import.meta.env.MODE === "development";
+import.meta.env.MODE === 'development'
 ```
 
 :::tip
 你也可以通过简单地分配它来更改值，但是你将无法使用 `vi.unstubAllEnvs` 来恢复以前的值：
 
 ```ts
-import.meta.env.MODE = "test";
+import.meta.env.MODE = 'test'
 ```
 
 :::
@@ -2913,26 +2919,26 @@ Vitest 将所有 `import.meta.env` 调用转换为 `process.env`，因此它们�
   恢复使用 `vi.stubEnv` 更改的所有 `import.meta.env` 和 `process.env` 值。第一次调用时，Vitest 会记住原始值并存储它，直到再次调用 `unstubAllEnvs`。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
 // are "development" before calling stubEnv
 
-vi.stubEnv("NODE_ENV", "production");
+vi.stubEnv('NODE_ENV', 'production')
 
-process.env.NODE_ENV === "production";
-import.meta.env.NODE_ENV === "production";
+process.env.NODE_ENV === 'production'
+import.meta.env.NODE_ENV === 'production'
 
-vi.stubEnv("NODE_ENV", "staging");
+vi.stubEnv('NODE_ENV', 'staging')
 
-process.env.NODE_ENV === "staging";
-import.meta.env.NODE_ENV === "staging";
+process.env.NODE_ENV === 'staging'
+import.meta.env.NODE_ENV === 'staging'
 
-vi.unstubAllEnvs();
+vi.unstubAllEnvs()
 
 // restores to the value that were stored before the first "stubEnv" call
-process.env.NODE_ENV === "development";
-import.meta.env.NODE_ENV === "development";
+process.env.NODE_ENV === 'development'
+import.meta.env.NODE_ENV === 'development'
 ```
 
 ### vi.stubGlobal
@@ -2942,25 +2948,25 @@ import.meta.env.NODE_ENV === "development";
   改变全局变量的值。 你可以通过调用 `vi.unstubAllGlobals` 恢复其原始值。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // `innerWidth` is "0" before callling stubGlobal
 
-vi.stubGlobal("innerWidth", 100);
+vi.stubGlobal('innerWidth', 100)
 
-innerWidth === 100;
-globalThis.innerWidth === 100;
+innerWidth === 100
+globalThis.innerWidth === 100
 // if you are using jsdom or happy-dom
-window.innerWidth === 100;
+window.innerWidth === 100
 ```
 
 :::tip
 你也可以通过简单地将其分配给 `globalThis` 或 `window` 来更改值（如果你使用的是 `jsdom` 或 `happy-dom` 环境），但是您将无法使用 `vi.unstubAllGlobals` 来恢复原始值：
 
 ```ts
-globalThis.innerWidth = 100;
+globalThis.innerWidth = 100
 // if you are using jsdom or happy-dom
-window.innerWidth = 100;
+window.innerWidth = 100
 ```
 
 :::
@@ -2973,26 +2979,26 @@ window.innerWidth = 100;
   恢复 `globalThis`/`global`（和 `window`/`top`/`self`/`parent`，如果你使用 `jsdom` 或 `happy-dom` 环境）的所有全局值被 `vi.stubGlobal` 更改。第一次调用时，Vitest 会记住原始值并存储它，直到再次调用 `unstubAllGlobals`。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
-const Mock = vi.fn();
+const Mock = vi.fn()
 
 // IntersectionObserver is "undefined" before calling "stubGlobal"
 
-vi.stubGlobal("IntersectionObserver", Mock);
+vi.stubGlobal('IntersectionObserver', Mock)
 
-IntersectionObserver === Mock;
-global.IntersectionObserver === Mock;
-globalThis.IntersectionObserver === Mock;
+IntersectionObserver === Mock
+global.IntersectionObserver === Mock
+globalThis.IntersectionObserver === Mock
 // if you are using jsdom or happy-dom
-window.IntersectionObserver === Mock;
+window.IntersectionObserver === Mock
 
-vi.unstubAllGlobals();
+vi.unstubAllGlobals()
 
-globalThis.IntersectionObserver === undefined;
-"IntersectionObserver" in globalThis === false;
+globalThis.IntersectionObserver === undefined
+'IntersectionObserver' in globalThis === false
 // throws ReferenceError, because it's not defined
-IntersectionObserver === undefined;
+IntersectionObserver === undefined
 ```
 
 ### vi.runAllTicks
@@ -3008,14 +3014,15 @@ IntersectionObserver === undefined;
   此方法将调用每个被创建的计时器，直到计时器队列为空。这意味着在 `runAllTimers` 期间调用的每个计时器都将被触发。如果你有一个无限的区间，它会在 10000 次尝试后抛出。例如，这将输出 `1, 2, 3`：
 
   ```ts
-  let i = 0;
-  setTimeout(() => console.log(++i));
+  let i = 0
+  setTimeout(() => console.log(++i))
   const interval = setInterval(() => {
-    console.log(++i);
-    if (i === 3) clearInterval(interval);
-  }, 50);
-
-  vi.runAllTimers();
+    console.log(++i)
+    if (i === 3)
+      clearInterval(interval)
+  }, 50)
+  
+  vi.runAllTimers()
   ```
 
 ### vi.runOnlyPendingTimers
@@ -3025,10 +3032,10 @@ IntersectionObserver === undefined;
   此方法将调用在 `vi.useFakeTimers()` 调用之后创建的每个计时器。它不会触发在其调用期间创建的任何计时器。例如，这只会输出 `1`：
 
   ```ts
-  let i = 0;
-  setInterval(() => console.log(++i), 50);
-
-  vi.runOnlyPendingTimers();
+  let i = 0
+  setInterval(() => console.log(++i), 50)
+  
+  vi.runOnlyPendingTimers()
   ```
 
 ### vi.setSystemTime
@@ -3040,14 +3047,14 @@ IntersectionObserver === undefined;
   有助于你测试依赖当前日期的任何内容 —— 例如，你代码中的 [luxon](https://github.com/moment/luxon/) 调用。
 
   ```ts
-  const date = new Date(1998, 11, 19);
-
-  vi.useFakeTimers();
-  vi.setSystemTime(date);
-
-  expect(Date.now()).toBe(date.valueOf());
-
-  vi.useRealTimers();
+  const date = new Date(1998, 11, 19)
+  
+  vi.useFakeTimers()
+  vi.setSystemTime(date)
+  
+  expect(Date.now()).toBe(date.valueOf())
+  
+  vi.useRealTimers()
   ```
 
 ### vi.setConfig
@@ -3063,18 +3070,18 @@ IntersectionObserver === undefined;
   在对象的方法或 getter/setter 上创建一个监听。
 
   ```ts
-  let apples = 0;
+  let apples = 0
   const obj = {
     getApples: () => 13,
-  };
-
-  const spy = vi.spyOn(obj, "getApples").mockImplementation(() => apples);
-  apples = 1;
-
-  expect(obj.getApples()).toBe(1);
-
-  expect(spy).toHaveBeenCalled();
-  expect(spy).toHaveReturnedWith(1);
+  }
+  
+  const spy = vi.spyOn(obj, 'getApples').mockImplementation(() => apples)
+  apples = 1
+  
+  expect(obj.getApples()).toBe(1)
+  
+  expect(spy).toHaveBeenCalled()
+  expect(spy).toHaveReturnedWith(1)
   ```
 
 ### vi.stubGlobal
@@ -3099,34 +3106,34 @@ IntersectionObserver === undefined;
 
 ```ts
 // ./increment.js
-export const increment = (number) => number + 1;
+export const increment = number => number + 1
 ```
 
 ```ts
-import { increment } from "./increment.js";
+import { increment } from './increment.js'
 
 // increment is already mocked, because vi.mock is hoisted
-increment(1) === 100;
+increment(1) === 100
 
 // this is hoisted, and factory is called before the import on line 1
-vi.mock("./increment.js", () => ({ increment: () => 100 }));
+vi.mock('./increment.js', () => ({ increment: () => 100 }))
 
 // all calls are mocked, and `increment` always returns 100
-increment(1) === 100;
-increment(30) === 100;
+increment(1) === 100
+increment(30) === 100
 
 // this is not hoisted, so other import will return unmocked module
-vi.doUnmock("./increment.js");
+vi.doUnmock('./increment.js')
 
 // this STILL returns 100, because `vi.doUnmock` doesn't reevaluate a module
-increment(1) === 100;
-increment(30) === 100;
+increment(1) === 100
+increment(30) === 100
 
 // the next import is unmocked, now `increment` is the original function that returns count + 1
-const { increment: unmockedIncrement } = await import("./increment.js");
+const { increment: unmockedIncrement } = await import('./increment.js')
 
-unmockedIncrement(1) === 2;
-unmockedIncrement(30) === 31;
+unmockedIncrement(1) === 2
+unmockedIncrement(30) === 31
 ```
 
 ### vi.useFakeTimers
@@ -3174,17 +3181,17 @@ unmockedIncrement(30) === 31;
   例如:
 
   ```ts
-  const mockFn = vi.fn().mockImplementation((apples) => apples + 1);
+  const mockFn = vi.fn().mockImplementation(apples => apples + 1)
   // or: vi.fn(apples => apples + 1);
-
-  const NelliesBucket = mockFn(0);
-  const BobsBucket = mockFn(1);
-
-  NelliesBucket === 1; // true
-  BobsBucket === 2; // true
-
-  mockFn.mock.calls[0][0] === 0; // true
-  mockFn.mock.calls[1][0] === 1; // true
+  
+  const NelliesBucket = mockFn(0)
+  const BobsBucket = mockFn(1)
+  
+  NelliesBucket === 1 // true
+  BobsBucket === 2 // true
+  
+  mockFn.mock.calls[0][0] === 0 // true
+  mockFn.mock.calls[1][0] === 1 // true
   ```
 
 ### mockImplementationOnce
@@ -3197,22 +3204,22 @@ unmockedIncrement(30) === 31;
   const myMockFn = vi
     .fn()
     .mockImplementationOnce(() => true)
-    .mockImplementationOnce(() => false);
-
-  myMockFn(); // true
-  myMockFn(); // false
+    .mockImplementationOnce(() => false)
+  
+  myMockFn() // true
+  myMockFn() // false
   ```
 
   当对象模拟函数执行完毕，它将调用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 设置的默认实现。如果它们被调用：
 
   ```ts
   const myMockFn = vi
-    .fn(() => "default")
-    .mockImplementationOnce(() => "first call")
-    .mockImplementationOnce(() => "second call");
-
+    .fn(() => 'default')
+    .mockImplementationOnce(() => 'first call')
+    .mockImplementationOnce(() => 'second call')
+  
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
   ```
 
 ### mockRejectedValue
@@ -3222,11 +3229,11 @@ unmockedIncrement(30) === 31;
   当异步函数被调用时，接收一个将被拒绝 ( reject ) 的错误。
 
   ```ts
-  test("async test", async () => {
-    const asyncMock = vi.fn().mockRejectedValue(new Error("Async error"));
-
-    await asyncMock(); // throws "Async error"
-  });
+  test('async test', async () => {
+    const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
+  
+    await asyncMock() // throws "Async error"
+  })
   ```
 
 ### mockRejectedValueOnce
@@ -3236,15 +3243,15 @@ unmockedIncrement(30) === 31;
   接收一个只会被对象模拟函数拒绝一次的值。如果链式调用，每个连续调用都将拒绝传入的值。
 
   ```ts
-  test("async test", async () => {
+  test('async test', async () => {
     const asyncMock = vi
       .fn()
-      .mockResolvedValueOnce("first call")
-      .mockRejectedValueOnce(new Error("Async error"));
-
-    await asyncMock(); // first call
-    await asyncMock(); // throws "Async error"
-  });
+      .mockResolvedValueOnce('first call')
+      .mockRejectedValueOnce(new Error('Async error'))
+  
+    await asyncMock() // first call
+    await asyncMock() // throws "Async error"
+  })
   ```
 
 ### mockReset
@@ -3272,11 +3279,11 @@ unmockedIncrement(30) === 31;
   当异步函数被调用时，接收一个将被决议 ( resolve ) 的值。
 
   ```ts
-  test("async test", async () => {
-    const asyncMock = vi.fn().mockResolvedValue(43);
-
-    await asyncMock(); // 43
-  });
+  test('async test', async () => {
+    const asyncMock = vi.fn().mockResolvedValue(43)
+  
+    await asyncMock() // 43
+  })
   ```
 
 ### mockResolvedValueOnce
@@ -3286,18 +3293,18 @@ unmockedIncrement(30) === 31;
   接收一个只会被对象模拟函数决议一次的值。如果链式调用，每个连续调用都将决议传入的值。
 
   ```ts
-  test("async test", async () => {
+  test('async test', async () => {
     const asyncMock = vi
       .fn()
-      .mockResolvedValue("default")
-      .mockResolvedValueOnce("first call")
-      .mockResolvedValueOnce("second call");
-
-    await asyncMock(); // first call
-    await asyncMock(); // second call
-    await asyncMock(); // default
-    await asyncMock(); // default
-  });
+      .mockResolvedValue('default')
+      .mockResolvedValueOnce('first call')
+      .mockResolvedValueOnce('second call')
+  
+    await asyncMock() // first call
+    await asyncMock() // second call
+    await asyncMock() // default
+    await asyncMock() // default
+  })
   ```
 
 ### mockReturnThis
@@ -3313,11 +3320,11 @@ unmockedIncrement(30) === 31;
   接收一个调用对象模拟函数时将返回的值。
 
   ```ts
-  const mock = vi.fn();
-  mock.mockReturnValue(42);
-  mock(); // 42
-  mock.mockReturnValue(43);
-  mock(); // 43
+  const mock = vi.fn()
+  mock.mockReturnValue(42)
+  mock() // 42
+  mock.mockReturnValue(43)
+  mock() // 43
   ```
 
 ### mockReturnValueOnce
@@ -3329,12 +3336,12 @@ unmockedIncrement(30) === 31;
   ```ts
   const myMockFn = vi
     .fn()
-    .mockReturnValue("default")
-    .mockReturnValueOnce("first call")
-    .mockReturnValueOnce("second call");
-
+    .mockReturnValue('default')
+    .mockReturnValueOnce('first call')
+    .mockReturnValueOnce('second call')
+  
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
   ```
 
 ## MockInstance Properties
@@ -3347,9 +3354,9 @@ unmockedIncrement(30) === 31;
 
 ```js
 [
-  ["arg1", "arg2"],
-  ["arg3", "arg4"],
-];
+  ['arg1', 'arg2'],
+  ['arg3', 'arg4'],
+]
 ```
 
 ### mock.lastCall
@@ -3370,14 +3377,14 @@ unmockedIncrement(30) === 31;
 ```js
 [
   {
-    type: "return",
-    value: "result",
+    type: 'return',
+    value: 'result',
   },
   {
-    type: "throw",
+    type: 'throw',
     value: Error,
   },
-];
+]
 ```
 
 ### mock.instances
@@ -3387,24 +3394,24 @@ unmockedIncrement(30) === 31;
 例如，如果 mock 是用 `new MyClass()` 实例化的，那么 `mock.instances` 将是一个包含一个值的数组：
 
 ```js
-import { expect, vi } from "vitest";
+import { expect, vi } from 'vitest'
 
-const MyClass = vi.fn();
+const MyClass = vi.fn()
 
-const a = new MyClass();
+const a = new MyClass()
 
-expect(MyClass.mock.instances[0]).toBe(a);
+expect(MyClass.mock.instances[0]).toBe(a)
 ```
 
 如果从构造函数返回一个值，它将不在 `instances` 数组中，而是在 `results` 中：
 
 ```js
-import { expect, vi } from "vitest";
+import { expect, vi } from 'vitest'
 
-const Spy = vi.fn(() => ({ method: vi.fn() }));
+const Spy = vi.fn(() => ({ method: vi.fn() }))
 
-const a = new Spy();
+const a = new Spy()
 
-expect(Spy.mock.instances[0]).not.toBe(a);
-expect(Spy.mock.results[0]).toBe(a);
+expect(Spy.mock.instances[0]).not.toBe(a)
+expect(Spy.mock.results[0]).toBe(a)
 ```
