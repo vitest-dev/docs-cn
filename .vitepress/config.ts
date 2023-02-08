@@ -121,7 +121,6 @@ export default withPwa(
       },
 
       socialLinks: [
-        { icon: 'mastodon', link: mastodon },
         { icon: 'twitter', link: twitter },
         { icon: 'discord', link: discord },
         { icon: 'github', link: github },

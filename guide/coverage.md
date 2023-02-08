@@ -107,7 +107,7 @@ export default defineConfig({
 
 ## Ignoring code
 
-两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码。
+两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
 - [`c8`](https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks)
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
