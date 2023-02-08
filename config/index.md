@@ -643,7 +643,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 - **命令行终端:** `--coverage.enabled`, `--coverage.enabled=false`
 
+<<<<<<< HEAD
 是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
+=======
+Enables coverage collection. Can be overridden using `--coverage` CLI option.
+>>>>>>> 265241f33ad5e18cd538035c2e2784ce0f31eeed
 
 #### include
 
@@ -1181,7 +1185,11 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 设置类型检查的检测器。Vitest 将根据类型生成具有某些参数的进程，以便于解析。 Checker 应该实现与 `tsc` 相同的输出格式。
 
+<<<<<<< HEAD
 你需要安装一个包才能使用 typecheker:
+=======
+You need to have a package installed to use typechecker:
+>>>>>>> 265241f33ad5e18cd538035c2e2784ce0f31eeed
 
 - `tsc` requires `typescript` package
 - `vue-tsc` requires `vue-tsc` package

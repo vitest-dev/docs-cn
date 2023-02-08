@@ -327,7 +327,11 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 ## 计时器
 
+<<<<<<< HEAD
 每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 “假” 计时器来加速测试。
+=======
+See the [`vi.useFakeTimers` api section](/api/#vi-usefaketimers) for a more in depth detailed API description.
+>>>>>>> 265241f33ad5e18cd538035c2e2784ce0f31eeed
 
 有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/#vi-usefaketimers)。
 
@@ -507,7 +511,7 @@ vi.mock('some-path', () => {
         method: vi.fn(),
       }
     }
-    // now everytime useObject() is called it will
+    // now every time that useObject() is called it will
     // return the same object reference
     return _cache
   }

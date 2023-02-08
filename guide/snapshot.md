@@ -146,7 +146,11 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 #### 2. `printBasicPrototype` 默认为 `false`
 
+<<<<<<< HEAD
 Jest 和 Vitest 的快照都是由 [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format) 支持的。在 Vitest 中，我们将 `printBasicPrototype` 的默认值设置为 `false` 以提供更清晰的快照输出，Jest 实际上将其默认设置为 `true` 。
+=======
+Both Jest and Vitest's snapshots are powered by [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format). In Vitest we set `printBasicPrototype` default to `false` to provide a cleaner snapshot output, while in Jest <29.0.0 it's `true` by default.
+>>>>>>> 265241f33ad5e18cd538035c2e2784ce0f31eeed
 
 ```ts
 import { expect, test } from 'vitest'
