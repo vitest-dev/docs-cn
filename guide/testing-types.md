@@ -27,7 +27,11 @@ test('my types work properly', () => {
 
 在测试文件中触发的任何类型错误都将被视为测试错误，因此你可以使用任何类型技巧来测试项目中的类型。
 
+<<<<<<< HEAD
 您可以在 [API 部分](/api/#expecttypeof) 中查看可能的匹配器列表。
+=======
+You can see a list of possible matchers in [API section](/api/expect-typeof).
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ## 读取错误
 
@@ -41,7 +45,11 @@ expectTypeOf(1).toEqualTypeOf<string>()
 
 这是由于 [`expect-type`](https://github.com/mmkal/expect-type) 处理类型错误的方式。
 
+<<<<<<< HEAD
 不幸的是，TypeScript 在不打补丁的情况下不提供类型元数据，因此我们目前无法提供有用的错误消息，但是有 <a href="https://github.com/microsoft/TypeScript/pull/40468" tatger=" _blank">在 TypeScript 项目中工作</a> 来解决这个问题。如果你想要更好的消息，请让 TypeScript 团队查看提到的 PR。
+=======
+Unfortunately, TypeScript doesn't provide type metadata without patching, so we cannot provide useful error messages at this point, but there are <a href="https://github.com/microsoft/TypeScript/pull/40468" target="_blank">works in TypeScript project</a> to fix this. If you want better messages, please, ask TypeScript team to have a look at mentioned PR.
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 如果你发现很难使用 `expectTypeOf` API 并找出错误，你始终可以使用更简单的 `assertType` API：
 

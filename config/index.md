@@ -930,21 +930,33 @@ test('doNotRun', () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 是否在每次测试前对所有监听(Spy)调用 `.mockClear()`。这将清除模拟历史记录，但不会将其实现重置为默认值。
+=======
+Will call [`.mockClear()`](/api/mock#mockclear) on all spies before each test. This will clear mock history, but not reset its implementation to the default one.
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### mockReset
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 是否在每次测试之前对所有监听(Spy)调用 [`.mockReset()`](/api/#mockreset)。 这将清除模拟历史并将其实现重置为空函数（将返回`undefined`）。
+=======
+Will call [`.mockReset()`](/api/mock#mockreset) on all spies before each test. This will clear mock history and reset its implementation to an empty function (will return `undefined`).
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### restoreMocks
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 是否在每次测试之前对所有监听(Spy)调用 [`.mockRestore()`](/api/#mockrestore)。 这将清除模拟历史并将其实现重置为原始历史。
+=======
+Will call [`.mockRestore()`](/api/mock#mockrestore) on all spies before each test. This will clear mock history and reset its implementation to the original one.
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### unstubEnvs
 
@@ -952,7 +964,11 @@ test('doNotRun', () => {
 - **默认值:** `false`
 - **版本:** 从 Vitest 0.26.0 开始支持
 
+<<<<<<< HEAD
 将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
+=======
+Will call [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) before each test.
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### unstubGlobals
 
@@ -960,7 +976,11 @@ test('doNotRun', () => {
 - **默认值:** `false`
 - **版本:** 从 Vitest 0.26.0 开始支持
 
+<<<<<<< HEAD
 将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
+=======
+Will call [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals) before each test.
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### transformMode
 

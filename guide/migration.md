@@ -25,7 +25,11 @@ Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 + })
 ```
 
+<<<<<<< HEAD
 有关更深入的详细描述，请参阅 [vi.mock api](/api/#vi-mock)。
+=======
+For more details please refer to the [`vi.mock` api section](/api/vi#vi-mock).
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 **自动模拟行为**
 

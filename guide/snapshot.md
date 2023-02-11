@@ -12,7 +12,13 @@ title: Snapshot | Guide
 
 ## 使用快照
 
+<<<<<<< HEAD
 要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
+=======
+## Use Snapshots
+
+To snapshot a value, you can use the [`toMatchSnapshot()`](/api/expect#tomatchsnapshot) from `expect()` API:
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ```ts
 import { expect, it } from 'vitest'
@@ -35,7 +41,11 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 
 ## 内联快照
 
+<<<<<<< HEAD
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
+=======
+Similarly, you can use the [`toMatchInlineSnapshot()`](/api/expect#tomatchinlinesnapshot) to store the snapshot inline within the test file.
+>>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ```ts
 import { expect, it } from 'vitest'
