@@ -70,7 +70,7 @@ import { vi } from 'vitest'
 
 ## vi.clearAllMocks
 
-将对所有模拟调用 [`.mockClear()`](/api/mock#mockclear)。这将清除模拟历史记录，但不会将其实现重置为默认值。
+将对所有模拟调用 [`.mockClear()`](/api/mock.html#mockclear)。这将清除模拟历史记录，但不会将其实现重置为默认值。
 
 ## vi.clearAllTimers
 
@@ -84,23 +84,23 @@ import { vi } from 'vitest'
 
 - **类型:** `(fn?: Function) => CallableMockInstance`
 
-创建一个函数的模拟，尽管可以在没有一个的情况下启动。每次调用一个函数时，它都会存储它的调用参数、返回值和实例。此外，你可以使用 [methods](/api/mock) 操纵其行为。
-如果没有给出函数，mock 将在调用时返回 `undefined`。
+  创建一个函数的模拟，尽管可以在没有一个的情况下启动。每次调用一个函数时，它都会存储它的调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵其行为。
+  如果没有给出函数，mock 将在调用时返回 `undefined`。
 
-```ts
-const getApples = vi.fn(() => 0)
-
-getApples()
-
-expect(getApples).toHaveBeenCalled()
-expect(getApples).toHaveReturnedWith(0)
-
-getApples.mockReturnValueOnce(5)
-
-const res = getApples()
-expect(res).toBe(5)
-expect(getApples).toHaveNthReturnedWith(2, 5)
-```
+  ```ts
+  const getApples = vi.fn(() => 0)
+  
+  getApples()
+  
+  expect(getApples).toHaveBeenCalled()
+  expect(getApples).toHaveReturnedWith(0)
+  
+  getApples.mockReturnValueOnce(5)
+  
+  const res = getApples()
+  expect(res).toBe(5)
+  expect(getApples).toHaveNthReturnedWith(2, 5)
+  ```
 
 ## vi.getMockedSystemTime
 
@@ -283,7 +283,7 @@ test('importing the next module imports mocked one', () => {
 
 ## vi.resetAllMocks
 
-将对所有模拟调用 [`.mockReset()`](/api/mock#mockreset)。这将清除模拟历史并将其实现重置为空函数（将返回 `undefined`）。
+将对所有模拟调用 [`.mockReset()`](/api/mock.html#mockreset)。这将清除模拟历史并将其实现重置为空函数（将返回 `undefined`）。
 
 ## vi.resetConfig
 
@@ -322,7 +322,7 @@ test('importing the next module imports mocked one', () => {
 
 ## vi.restoreAllMocks
 
-将对所有模拟调用 [`.mockRestore()`](/api/mock#mockrestore)。这将清除模拟历史并将其实现重置为原始历史。
+将对所有模拟调用 [`.mockRestore()`](/api/mock.html#mockrestore)。这将清除模拟历史并将其实现重置为原始历史。
 
 ## vi.restoreCurrentDate
 
