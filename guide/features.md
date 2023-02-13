@@ -80,11 +80,7 @@ describe.concurrent('suite', () => {
 })
 ```
 
-<<<<<<< HEAD
 你还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。
-=======
-You can also use `.skip`, `.only`, and `.todo` with concurrent suites and tests. Read more in the [API Reference](/api/#test-concurrent).
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 了解更多信息 [API 索引](../api/#concurrent)
 

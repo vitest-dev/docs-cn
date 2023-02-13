@@ -7,25 +7,14 @@ title: Mocking | Guide
 在编写测试时，你可能会因为时间问题，需要创建内部或外部服务的 “假” 版本，这通常被称为 **对象模拟** 操作。Vitest 通过 **vi** 提供了一些实用的函数用于解决这个问题。你可以使用 `import { vi } from 'vitest'` 或者 **全局配置** 进行访问它 (当 **启用** [全局配置](/config/#globals) 时)。
 
 ::: warning
-<<<<<<< HEAD
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/#mockreset) 文档。
 :::
 
 如果你想从头开始，请查看 [API 部分](/api/#vi) 的 vi 部分，或者继续跟着文档深入了解一下这个对象模拟的世界。
-=======
-Always remember to clear or restore mocks before or after each test run to undo mock state changes between runs! See [`mockReset`](/api/mock#mockreset) docs for more info.
-:::
-
-If you wanna dive in head first, check out the [API section](/api/vi) otherwise keep reading to take a deeper dive into the world of mocking.
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ## 日期
 
-<<<<<<< HEAD
 有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 库来操作计时器以及系统日期。可以在 [此处](/api/#vi-setsystemtime) 找到有关特定 API 的更多详细信息。
-=======
-Sometimes you need to be in control of the date to ensure consistency when testing. Vitest uses [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) package for manipulating timers, as well as system date. You can find more about the specific API in detail [here](/api/vi#vi-setsystemtime).
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### 示例
 
@@ -79,15 +68,9 @@ describe('purchasing flow', () => {
 
 函数的模拟可以分为两个不同的类别：_对象监听(spying) & 对象模拟_。
 
-<<<<<<< HEAD
 有时你可能只需要验证是否调用了特定函数（以及可能传递了哪些参数）。在这种情况下，我们就需要使用一个对象监听，可以直接使用 `vi.spyOn()` ([在此处阅读更多信息](/api/#vi-spyon))。
 
-然而，对象监听只能帮助你 **监听** 函数，他们无法改变这些函数的实现。如果我们需要创建一个函数的假（或模拟）版本，可以使用它 `vi.fn()` ([在此处阅读更多信息](/api/#vi-fn))。
-=======
-Sometimes all you need is to validate whether or not a specific function has been called (and possibly which arguments were passed). In these cases a spy would be all we need which you can use directly with `vi.spyOn()` ([read more here](/api/vi#vi-spyon)).
-
-However spies can only help you **spy** on functions, they are not able to alter the implementation of those functions. In the case where we do need to create a fake (or mocked) version of a function we can  use `vi.fn()` ([read more here](/api/vi#vi-fn)).
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
+# 然而，对象监听只能帮助你 **监听** 函数，他们无法改变这些函数的实现。如果我们需要创建一个函数的假（或模拟）版本，可以使用它 `vi.fn()` ([在此处阅读更多信息](/api/#vi-fn))。
 
 我们使用 [Tinyspy](https://github.com/tinylibs/tinyspy) 作为模拟函数的基础，同时也有一套自己的封装来使其与 `Jest` 兼容。`vi.fn()` 和 `vi.spyOn()` 共享相同的方法，但是只有 `vi.fn()` 的返回结果是可调用的。
 
@@ -150,11 +133,7 @@ describe('reading messages', () => {
 
 ## 全局(Globals)
 
-<<<<<<< HEAD
 你可以通过使用 [`vi.stubGlobal`](/api/#vi-stubglobal) 来模拟 `jsdom` 或 `node` 中不存在的全局变量。它将把全局变量的值放入 `globalThis` 对象。
-=======
-You can mock global variables that are not present with `jsdom` or `node` by using [`vi.stubGlobal`](/api/vi#vi-stubglobal) helper. It will put the value of the global variable into a `globalThis` object.
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ```ts
 import { vi } from 'vitest'
@@ -175,11 +154,7 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 模拟模块监听在其他代码中调用的第三方库，允许你测试参数、输出甚至重新声明其实现。
 
-<<<<<<< HEAD
 参见 [`vi.mock()` API 部分](/api/#vi-mock) 以获得更深入详细 API 描述。
-=======
-See the [`vi.mock()` api section](/api/vi#vi-mock) for a more in-depth detailed API description.
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ### 自动模拟算法(Automocking algorithm)
 
@@ -352,11 +327,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 ## 计时器
 
-<<<<<<< HEAD
 每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 “假” 计时器来加速测试。
-=======
-See the [`vi.useFakeTimers` api section](/api/vi#vi-usefaketimers) for a more in depth detailed API description.
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/#vi-usefaketimers)。
 
@@ -580,11 +551,7 @@ vi.useRealTimers()
 
 - 模拟全局变量
 
-<<<<<<< HEAD
 你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会**在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/#unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
-=======
-You can set global variable by assigning a value to `globalThis` or using [`vi.stubGlobal`](/api/vi#vi-stubglobal) helper. When using `vi.stubGlobal`, it will **not** automatically reset between different tests, unless you enable [`unstubGlobals`](/config/#unstubglobals) config option or call [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals).
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ```ts
 vi.stubGlobal('__VERSION__', '1.0.0')
@@ -611,11 +578,7 @@ it('changes value', () => {
 })
 ```
 
-<<<<<<< HEAD
 如果你想自动重置值，可以使用启用了 [`unstubEnvs`](/config/#unstubEnvs) 配置选项的 `vi.stubEnv` 助手（或调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs) 在 `beforeEach` 钩子中手动执行）：
-=======
-If you want to automatically reset value, you can use `vi.stubEnv` helper with [`unstubEnvs`](/config/#unstubEnvs) config option enabled (or call [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) manually in `beforeEach` hook):
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 
 ```ts
 import { expect, it, vi } from 'vitest'

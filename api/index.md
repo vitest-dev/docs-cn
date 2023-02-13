@@ -18,13 +18,8 @@ interface TestOptions {
 
 当一个测试函数返回一个 promise 时，Vitest 将等待直到它被解决以收集异步的期望值。 如果 promise 被拒绝，测试将失败。
 
-<<<<<<< HEAD
 ::: tip 提示
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。 如果使用此选项，则在调用 `done` 之前测试不会结束。 你可以使用 `async` 函数实现相同的目的，请参阅迁移指南中的[回调](../guide/migration#done-callback)部分。
-=======
-::: tip
-In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](/guide/migration#done-callback).
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
 :::
 
 ## test
@@ -86,21 +81,17 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
 - **类型:** `(condition: any) => Test`
 - **别名:** `it.runIf`
 
-<<<<<<< HEAD
-  [test.skipIf](#testskipif) 的相反面。
-=======
-  Opposite of [test.skipIf](#test-skipif).
->>>>>>> 0958b9d6371db57940265599e6f7c25d6b656862
+[test.skipIf](#testskipif) 的相反面。
 
-  ```ts
-  import { assert, test } from 'vitest'
-  
-  const isDev = process.env.NODE_ENV === 'development'
-  
-  test.runIf(isDev)('dev only test', () => {
-    // 只在开发环境下进行测试
-  })
-  ```
+```ts
+import { assert, test } from 'vitest'
+
+const isDev = process.env.NODE_ENV === 'development'
+
+test.runIf(isDev)('dev only test', () => {
+  // 只在开发环境下进行测试
+})
+```
 
 ::: warning
 You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
