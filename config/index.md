@@ -613,8 +613,12 @@ test('execute a script', async () => {
 
 ### coverage
 
+<<<<<<< HEAD
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
+=======
+You can use [`c8`](https://github.com/bcoe/c8), [`istanbul`](https://istanbul.js.org/)  or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
 
@@ -630,9 +634,15 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### provider
 
+<<<<<<< HEAD
 - **类型:** `'c8' | 'istanbul'`
 - **默认值:** `'c8'`
 - **命令行终端:** `--coverage.provider=<provider>`
+=======
+- **Type:** `'c8' | 'istanbul' | 'custom'`
+- **Default:** `'c8'`
+- **CLI:** `--coverage.provider=<provider>`
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 使用 `provider` 选择收集测试覆盖率的工具。
 
@@ -738,8 +748,12 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
+<<<<<<< HEAD
 配置测试覆盖率报告写入的目录。
 当使用 `c8` 提供程序时，将为 [V8 coverage results](https://nodejs.org/api/cli.html#coverage-output) 创建临时 `/tmp` 目录。
+=======
+Directory to write coverage report to.
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 #### reporter
 
@@ -886,6 +900,14 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **可用的测试提供者:** `'istanbul'`
 
 指定语句、行、分支和函数的水印位置。参考 [istanbul documentation](https://github.com/istanbuljs/nyc#high-and-low-watermarks) 来了解详情。
+
+#### customProviderModule
+
+- **Type:** `string`
+- **Available for providers:** `'custom'`
+- **CLI:** `--coverage.customProviderModule=<path or module name>`
+
+Specifies the module name or path for the custom coverage provider module. See [Guide - Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information.
 
 ### testNamePattern
 

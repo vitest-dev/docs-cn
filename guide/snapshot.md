@@ -33,7 +33,15 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 
 快照文件应该与代码更改一起提交，并作为代码审查过程的一部分进行审查。在随后的测试运行中，Vitest 会将执行的输出与之前的快照进行比较。如果他们匹配，测试就会通过。如果它们不匹配，要么测试运行时在你的代码中发现了应该修复的错误，要么实现已经更改，需要更新快照。
 
+<<<<<<< HEAD
 ## 内联快照
+=======
+::: warning
+When using Snapshots with async concurrent tests, `expect` from the local [Test Context](/guide/test-context.md) must be used to ensure the right test is detected.
+:::
+
+## Inline Snapshots
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
@@ -59,7 +67,15 @@ it('toUpperCase', () => {
 
 这允许你直接查看期望输出，而无需跨不同的文件跳转。
 
+<<<<<<< HEAD
 ## 更新快照
+=======
+::: warning
+When using Snapshots with async concurrent tests, `expect` from the local [Test Context](/guide/test-context.md) must be used to ensure the right test is detected.
+:::
+
+## Updating Snapshots
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 当接收到的值与快照不匹配时，测试将失败，并显示它们之间的差异。当需要更改快照时，你可能希望从当前状态更新快照。
 
@@ -189,4 +205,27 @@ export default defineConfig({
     },
   },
 })
+```
+
+#### 3. Chevron `>` is used as a separator instead of colon `:` for custom messages
+
+Vitest uses chevron `>` as a separator instead of colon `:` for readability, when a custom message is passed during creation of a snapshot file.
+
+For the following example test code:
+```js
+test('toThrowErrorMatchingSnapshot', () => {
+  expect(() => {
+    throw new Error('error')
+  }).toThrowErrorMatchingSnapshot('hint')
+})
+```
+
+In Jest, the snapshot will be:
+```console
+exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
+```
+
+In Vitest, the equivalent snapshot will be:
+```console
+exports[`toThrowErrorMatchingSnapshot > hint 1`] = `"error"`;
 ```

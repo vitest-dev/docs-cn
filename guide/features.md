@@ -44,12 +44,17 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 
 ## 同时运行多个测试
 
+<<<<<<< HEAD
 在连续测试中使用 `.concurrent` 将会并发运行它们。
+=======
+Use `.concurrent` in consecutive tests to run them in parallel. 
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 ```ts
 import { describe, it } from 'vitest'
 // The two tests marked with concurrent will be run in parallel
 describe('suite', () => {
+<<<<<<< HEAD
   it('serial test', async () => {
     /* ... */
   })
@@ -59,6 +64,11 @@ describe('suite', () => {
   it.concurrent('concurrent test 2', async () => {
     /* ... */
   })
+=======
+  it('serial test', async () => { /* ... */ })
+  it.concurrent('concurrent test 1', async ({ expect }) => { /* ... */ })
+  it.concurrent('concurrent test 2', async ({ expect }) => { /* ... */ })
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 })
 ```
 
@@ -68,6 +78,7 @@ describe('suite', () => {
 import { describe, it } from 'vitest'
 // All tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
+<<<<<<< HEAD
   it('concurrent test 1', async () => {
     /* ... */
   })
@@ -77,12 +88,25 @@ describe.concurrent('suite', () => {
   it.concurrent('concurrent test 3', async () => {
     /* ... */
   })
+=======
+  it('concurrent test 1', async ({ expect }) => { /* ... */ })
+  it('concurrent test 2', async ({ expect }) => { /* ... */ })
+  it.concurrent('concurrent test 3', async ({ expect }) => { /* ... */ })
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 })
 ```
 
 你还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。
 
+<<<<<<< HEAD
 了解更多信息 [API 索引](../api/#concurrent)
+=======
+::: warning
+When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context.md) to ensure the right test is detected.
+:::
+
+## Snapshot
+>>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 ## 快照
 
