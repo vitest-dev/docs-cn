@@ -613,12 +613,8 @@ test('execute a script', async () => {
 
 ### coverage
 
-<<<<<<< HEAD
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
-=======
-You can use [`c8`](https://github.com/bcoe/c8), [`istanbul`](https://istanbul.js.org/)  or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
->>>>>>> 027cb3025019b36c0c413a60234cb68ec0b6fe6c
 
 你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
 
@@ -634,15 +630,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### provider
 
-<<<<<<< HEAD
 - **类型:** `'c8' | 'istanbul'`
 - **默认值:** `'c8'`
 - **命令行终端:** `--coverage.provider=<provider>`
-=======
-- **Type:** `'c8' | 'istanbul' | 'custom'`
-- **Default:** `'c8'`
-- **CLI:** `--coverage.provider=<provider>`
->>>>>>> 027cb3025019b36c0c413a60234cb68ec0b6fe6c
 
 使用 `provider` 选择收集测试覆盖率的工具。
 
@@ -899,11 +889,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### customProviderModule
 
-- **Type:** `string`
-- **Available for providers:** `'custom'`
-- **CLI:** `--coverage.customProviderModule=<path or module name>`
+- **类型:** `string`
+- **可用的测试提供者:** `'custom'`
+- **命令行终端:** `--coverage.customProviderModule=<path or module name>`
 
-Specifies the module name or path for the custom coverage provider module. See [Guide - Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information.
+指定自定义覆盖率提供者的模块名称或路径。有关详细信息，请参阅[指南 - 自定义覆盖率提供者](/guide/coverage#custom-coverage-provider)。
 
 ### testNamePattern
 
