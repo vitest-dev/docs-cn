@@ -71,11 +71,7 @@ export default defineConfig({
 
 ## 自定义覆盖率提供者
 
-<<<<<<< HEAD
-也可以通过将对象传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
-=======
-It's also possible to provide your custom coverage provider by passing `'custom'` in `test.coverage.provider`:
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
+也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
 ```ts
 // vite.config.ts
@@ -84,25 +80,23 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-<<<<<<< HEAD
-      provider: CustomCoverageProvider(),
-=======
       provider: 'custom',
-      customProviderModule: 'my-custom-coverage-provider'
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
+      customProviderModule: 'my-custom-coverage-provider',
     },
   },
 })
 ```
 
-<<<<<<< HEAD
-请参阅类型定义查看有关详细信息。
-=======
-The custom providers require a `customProviderModule` option which is a module name or path where to load the `CoverageProviderModule` from. It must export an object that implements `CoverageProviderModule` as default export:
+自定义覆盖率提供者需要一个 `customProviderModule` 选项，它是一个模块名称或从中加载 `CoverageProviderModule` 的路径。 它必须将实现 `CoverageProviderModule` 的对象导出为默认导出：
 
 ```ts
 // my-custom-coverage-provider.ts
-import type { CoverageProvider, CoverageProviderModule, ResolvedCoverageOptions, Vitest } from 'vitest'
+import type {
+  CoverageProvider,
+  CoverageProviderModule,
+  ResolvedCoverageOptions,
+  Vitest,
+} from 'vitest'
 
 const CustomCoverageProviderModule: CoverageProviderModule = {
   getProvider(): CoverageProvider {
@@ -126,8 +120,7 @@ class CustomCoverageProvider implements CoverageProvider {
 export default CustomCoverageProviderModule
 ```
 
-Please refer to the type definition for more details.
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
+请参阅类型定义查看有关详细信息。
 
 ## 更改默认覆盖文件夹位置
 
@@ -164,14 +157,11 @@ export default defineConfig({
 if (condition) {
 ```
 
-<<<<<<< HEAD
-不幸的是，目前这在 `c8` 中不起作用。
-=======
-For `c8` this does not cause any issues. You can use `c8 ignore` comments with Typescript as usual:
+不幸的是，目前这在 `c8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
 
 <!-- eslint-skip -->
+
 ```ts
 /* c8 ignore next 3 */
 if (condition) {
 ```
->>>>>>> b0400c7b9dbf7021658bb809c9f1399c75ec4e8b

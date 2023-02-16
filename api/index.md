@@ -156,12 +156,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
   ```
 
-<<<<<<< HEAD
   在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
-=======
-  When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context.md) to ensure the right test is detected.
-
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
   ```ts
   test.concurrent('test 1', async ({ expect }) => {
@@ -594,19 +589,19 @@ describe('numberToCurrency', () => {
   describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
   ```
 
-When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context.md) to ensure the right test is detected.
+在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
 
-
-  ```ts
-  describe.concurrent('suite', () => {
-    test('concurrent test 1', async ({ expect }) => {
-      expect(foo).toMatchSnapshot()
-    })
-    test('concurrent test 2', async ({ expect }) => {
-      expect(foo).toMatchSnapshot()
-    })
+```ts
+describe.concurrent('suite', () => {
+  test('concurrent test 1', async ({ expect }) => {
+    expect(foo).toMatchSnapshot()
   })
-  ```
+  test('concurrent test 2', async ({ expect }) => {
+    expect(foo).toMatchSnapshot()
+  })
+})
+```
+
 ::: warning
 当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::

@@ -613,14 +613,10 @@ test('execute a script', async () => {
 
 ### coverage
 
-<<<<<<< HEAD
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
-=======
-You can use [`c8`](https://github.com/bcoe/c8), [`istanbul`](https://istanbul.js.org/)  or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
-你可以使用 [`c8`](https://github.com/bcoe/c8) 或 [`istanbul`](https://istanbul.js.org/) 收集测试覆盖率。
+你可以使用 [`c8`](https://github.com/bcoe/c8), [`istanbul`](https://istanbul.js.org/) 或 [一个自定义覆盖率方案](/guide/coverage#custom-coverage-provider) 收集测试覆盖率。
 
 你可以使用点符号向 CLI 提供覆盖选项：
 
@@ -634,15 +630,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### provider
 
-<<<<<<< HEAD
-- **类型:** `'c8' | 'istanbul'`
+- **类型:** `'c8' | 'istanbul' | 'custom'`
 - **默认值:** `'c8'`
 - **命令行终端:** `--coverage.provider=<provider>`
-=======
-- **Type:** `'c8' | 'istanbul' | 'custom'`
-- **Default:** `'c8'`
-- **CLI:** `--coverage.provider=<provider>`
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 使用 `provider` 选择收集测试覆盖率的工具。
 
@@ -748,12 +738,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
-<<<<<<< HEAD
 配置测试覆盖率报告写入的目录。
-当使用 `c8` 提供程序时，将为 [V8 coverage results](https://nodejs.org/api/cli.html#coverage-output) 创建临时 `/tmp` 目录。
-=======
-Directory to write coverage report to.
->>>>>>> eb720e418dcbaadb3af38afafb3710b423ef1cd1
 
 #### reporter
 
@@ -903,11 +888,11 @@ Directory to write coverage report to.
 
 #### customProviderModule
 
-- **Type:** `string`
-- **Available for providers:** `'custom'`
-- **CLI:** `--coverage.customProviderModule=<path or module name>`
+- **类型:** `string`
+- **可用的测试提供者:** `'custom'`
+- **命令行终端:** `--coverage.customProviderModule=<path or module name>`
 
-Specifies the module name or path for the custom coverage provider module. See [Guide - Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information.
+指定自定义覆盖率提供者的模块名称或路径。有关详细信息，请参阅[指南 - 自定义覆盖率提供者](/guide/coverage#custom-coverage-provider)。
 
 ### testNamePattern
 
