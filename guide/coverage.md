@@ -160,7 +160,6 @@ if (condition) {
 不幸的是，目前这在 `c8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
 
 <!-- eslint-skip -->
-
 ```ts
 /* c8 ignore next 3 */
 if (condition) {
