@@ -1,8 +1,8 @@
 {
   "name": "docs-cn",
-  "version": "0.28.1",
+  "version": "0.28.5",
   "private": true,
-  "packageManager": "pnpm@7.26.3",
+  "packageManager": "pnpm@7.23.0",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
     "build": "nr prefetch && vitepress build",
@@ -34,12 +34,12 @@
     "https-localhost": "^4.7.1",
     "ohmyfetch": "^0.4.21",
     "pathe": "^0.3.9",
-    "pnpm": "^7.26.3",
+    "pnpm": "^7.23.0",
     "unocss": "^0.48.3",
     "unplugin-vue-components": "^0.22.12",
     "vite": "^4.0.0",
     "vite-plugin-pwa": "^0.14.1",
-    "vitepress": "1.0.0-alpha.40",
+    "vitepress": "1.0.0-alpha.47",
     "workbox-window": "^6.5.4"
   }
 }
