@@ -4,6 +4,7 @@ title: Debugging | Guide
 
 # 调试
 
+<<<<<<< HEAD
 ## Terminal
 
 在非集成开发环境下，为了调试一个测试文件，你可以使用 [`ndb`](https://github.com/GoogleChromeLabs/ndb)。仅仅在你的代码的任何位置添加一个 `debugger` 语句，然后运行 `ndb`：
@@ -19,6 +20,8 @@ yarn global add ndb
 ndb npm run test
 ```
 
+=======
+>>>>>>> 98c287a7716273558d70a78688057f8149591c77
 ## VSCode
 
 <<<<<<< HEAD
