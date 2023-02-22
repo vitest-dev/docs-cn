@@ -26,6 +26,12 @@ Cypress 还一直在 [尝试将 Vite 集成进他们自己的产品中](https://
 
 我们认为 Cypress 不是对业务代码进行单元测试好选择，但使用 Cypress（用于端对端和组件测试）配合 Vitest（用于非浏览器逻辑的单元测试）将满足你应用程序的测试需求。
 
+## WebdriverIO
+
+[WebdriverIO](https://webdriver.io/) is similar to Cypress a browser based alternative test runner and a complementary tool to Vitest. It can be used as end-to-end testing tool as well as for testing [web components](https://webdriver.io/docs/component-testing). It even uses components of Vitest under the hood, e.g. for [mocking and stubing](https://webdriver.io/docs/component-testing/mocks-and-spies) within component tests.
+
+WebdriverIO comes with the same advantages as Cypress allowing you to test your logic in real browser. However it uses actual [web standards](https://w3c.github.io/webdriver/) for automation which overcomes some of the tradeoffs and limitation when running tests in Cypress. Furthermore it allows you to run tests on mobile as well, giving you access to test your application in even more environments.
+
 ## Web Test Runner
 
 [@web/test-runner](https://modern-web.dev/docs/test-runner/overview/) 在无头浏览器中进行测试，提供与你的 Web 应用程序相同的运行环境，而不需要模拟浏览器的 API 和 DOM 。虽然没有像 Cypress 那样显示用于单步执行测试的 UI，但也使得我们可以使用 devtools 在浏览器中进行调试。@web/test-runner 有一个监听模式，但是不如 Vitest 智能，而且有时候不一定运行你想要的那个测试。要在 Vite 项目中使用 @web/test-runner，有一个 [plugin](https://github.com/material-svelte/vite-web-test-runner-plugin)，尽管某些功能还 [尚不可用](https://github.com/material-svelte/vite-web-test-runner-plugin/issues/11)（例如在测试中更改视口大小）。同时 @web/test-runner 不包含断言或对象模拟库，因此要靠你自己来添加它们。
