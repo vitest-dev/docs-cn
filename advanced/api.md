@@ -1,12 +1,12 @@
 # Node API
 
-::: warning
-Vitest exposes experimental private API. Breaking changes might not follow semver, please pin Vitest's version when using it.
+::: warning 警告
+Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规范（SemVer），因此可能会出现不兼容的更改，请在使用 Vitest 时锁定版本。
 :::
 
-## startVitest
+## 启动 Vitest
 
-You can start running Vitest tests using its Node API:
+你可以使用 Vitest 的 Node API 开始运行 Vitest 测试：
 
 ```js
 import { startVitest } from 'vitest/node'
@@ -16,21 +16,21 @@ const vitest = await startVitest('test', ['tests/run-only.test.ts'])
 await vitest?.close()
 ```
 
-`startVitest` function returns `Vitest` instance if tests can be started. It returns `undefined`, if one of the following occurs:
+如果测试可以启动，则 `startVitest` 函数返回 `Vitest` 实例。 如果出现以下情况之一，则返回 `undefined`：
 
-- Vitest didn't find "vite" package (usually installed with Vitest)
-- If coverage is enabled and run mode is "test", but the coverage package is not installed (`@vitest/coverage-c8` or `@vitest/coverage-istanbul`)
-- If the environment package is not installed (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
+- Vitest 未找到 "vite" 包 (通常与 Vitest 一起安装)
+- 如果启用了 `coverage`，并且运行模式为 "test"，但并未安装 "coverage" 包（`@vitest/coverage-c8` 或 `@vitest/coverage-istanbul`）
+- 如果未安装环境包 (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
 
-If `undefined` is returned or tests failed during the run, Vitest sets `process.exitCode` to `1`.
+如果在运行期间返回 `undefined` 或者测试失败, Vitest 会将 `process.exitCode` 设置为 `1`。
 
-If watch mode is not enabled, Vitest will call `close` method.
+如果未启用监视模式，Vitest 将会调用 `close` 方法。
 
-If watch mode is enabled and the terminal supports TTY, Vitest will register console shortcuts.
+如果启用了监视模式并且终端支持 TTY, 则 Vitest 会注册控制台快捷键。
 
-## createVitest
+## 创建 Vitest
 
-You can create Vitest instance yourself using `createVitest` function. It returns the same `Vitest` instance as `startVitest`, but it doesn't start tests and doesn't validate installed packages.
+你可以使用 `createVitest` 函数创建自己的 Vitest 实例. 它返回与 `startVitest` 相同的 `Vitest` 实例, 但不会启动测试，也不会验证已安装的包。
 
 ```js
 import { createVitest } from 'vitest/node'
@@ -42,26 +42,26 @@ const vitest = await createVitest('test', {
 
 ## Vitest
 
-Vitest instance requires the current test mode. I can be either:
+Vitest 实例需要当前的测试模式。它可以是以下之一：
 
-- `test` when running runtime tests
-- `benchmark` when running benchmarks
-- `typecheck` when running type tests
+- 运行运行时测试时为 `test`
+- 运行基准测试时为 `benchmark`
+- 运行类型测试时为 `typecheck`
 
-### mode
+### 模式
 
 #### test
 
-Test mode will only call functions inside `test` or `it`, and throws an error when `bench` is encountered. This mode uses `include` and `exclude` options in the config to find test files.
+测试模式仅会调用 `test` 或 `it` 中的函数，并在遇到 `bench` 时抛出错误。此模式使用配置中的 `include` 和 `exclude` 选项查找测试文件。
 
 #### benchmark
 
-Benchmark mode calls `bench` functions and throws an error, when it encounters `test` or `it`. This mode uses `benchmark.include` and `benchmark.exclude` options in the config to find benchmark files.
+基准测试模式会调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项查找基准测试文件。
 
 #### typecheck
 
-Typecheck mode doesn't _run_ tests. It only analyses types and gives a summary. This mode uses `typecheck.include` and `typecheck.exclude` options in the config to find files to analyze.
+类型检查模式不会***运行***测试。它仅分析类型并提供摘要信息。此模式使用配置中的 `typecheck.include` 和 `typecheck.exclude` 选项查找要分析的文件。
 
 ### start
 
-You can start running tests or benchmarks with `start` method. You can pass an array of strings to filter test files.
+你可以使用 `start` 方法运行测试或者基准测试。您还可以传递一个字符串数组以筛选测试文件。
