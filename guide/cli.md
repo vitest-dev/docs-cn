@@ -8,7 +8,7 @@ title: Command Line Interface | Guide
 
 ### `vitest`
 
-在当前目录中启动 Vitest 将进入浏览模式，它运行在开发环境并且在 CI 中自动运行。
+在当前目录中启动 Vitest。在开发环境会自动进入监听(`watch`)模式，在 CI 环境会自动进入运行(`run`)模式。
 
 你可以通过添加参数作为过滤器来运行测试文件，比如：
 
@@ -20,11 +20,11 @@ vitest foobar
 
 ### `vitest run`
 
-在没有浏览模式的情况下执行单次运行。
+在没有监听模式的情况下执行单次运行。
 
 ### `vitest watch`
 
-运行所有测试套件，但要注意更改并在更改时重新运行测试。类似于在没有命令的情况下调用 `vitest`。在 CI 环境中，此命令将回退到 `vitest run`。
+运行所有测试套件，监听变化并在变化时重新运行测试。与没有参数的情况下调用 `vitest` 一样。在 CI 环境中，此命令将回退到 `vitest run`。
 
 ### `vitest dev`
 
