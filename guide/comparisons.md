@@ -14,7 +14,11 @@ title: Comparisons with Other Test Runners | Guide
 
 Cypress 是著名的端到端测试工具，他们[最新的组件测试运行器](https://on.cypress.io/component) 对测试 Vite 组件有很好的支持，是测试任何在浏览器中渲染的东西的理想选择。
 
+<<<<<<< HEAD
 基于浏览器运行测试的框架，例如 Cypress 和 Web Test，会捕获到 Vitest 无法捕获的问题，因为他们都是使用真实的浏览器和 APIs。
+=======
+Browser-based runners, like Cypress, WebdriverIO and Web Test Runner, will catch issues that Vitest cannot because they use the real browser and real browser APIs.
+>>>>>>> ec5a7952ddb682c25a837e93d03ec616ed451aa8
 
 Cypress 的测试更加专注于确定元素是否可见，是否可以访问和交互。Cypress 专门为 UI 开发和测试而构建，它的开发体验趋向于测试你的视觉组件，你会看到程序的组件和测试报告一起出现。测试完成后，组件将保持交互状态，您可以使用浏览器开发工具调试发生的任何故障。
 
@@ -25,6 +29,12 @@ Cypress 的测试更加专注于确定元素是否可见，是否可以访问和
 Cypress 还一直在 [尝试将 Vite 集成进他们自己的产品中](https://www.youtube.com/watch?v=7S5cbY8iYLk)：使用 [Vitesse](https://github.com/antfu/vitesse) 重新构建他们的应用程序的 UI，并使用 Vite 来测试驱动他们项目的开发。
 
 我们认为 Cypress 不是对业务代码进行单元测试好选择，但使用 Cypress（用于端对端和组件测试）配合 Vitest（用于非浏览器逻辑的单元测试）将满足你应用程序的测试需求。
+
+## WebdriverIO
+
+[WebdriverIO](https://webdriver.io/) is similar to Cypress a browser based alternative test runner and a complementary tool to Vitest. It can be used as end-to-end testing tool as well as for testing [web components](https://webdriver.io/docs/component-testing). It even uses components of Vitest under the hood, e.g. for [mocking and stubing](https://webdriver.io/docs/component-testing/mocks-and-spies) within component tests.
+
+WebdriverIO comes with the same advantages as Cypress allowing you to test your logic in real browser. However it uses actual [web standards](https://w3c.github.io/webdriver/) for automation which overcomes some of the tradeoffs and limitation when running tests in Cypress. Furthermore it allows you to run tests on mobile as well, giving you access to test your application in even more environments.
 
 ## Web Test Runner
 

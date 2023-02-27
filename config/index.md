@@ -94,6 +94,28 @@ export default mergeConfig(
 
 对依赖关系进行内联或外联的处理
 
+#### deps.experimentalOptimizer
+
+- **Type:** `DepOptimizationConfig & { enabled: boolean }`
+- **Version:** Vitets 0.29.0
+- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
+
+Enable dependency optimization. If you have a lot of tests, this might improve their performance.
+
+For `jsdom` and `happy-dom` environments, when Vitest will encounter the external library, it will be bundled into a single file using esbuild and imported as a whole module. This is good for several reasons:
+
+- Importing packages with a lot of imports is expensive. By bundling them into one file we can save a lot of time
+- Importing UI libraries is expensive because they are not meant to run inside Node.js
+- Your `alias` configuration is now respected inside bundled packages
+
+You can opt-out of this behavior for certain packages with `exclude` option. You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs.
+
+This options also inherits your `optimizeDeps` configuration. If you redefine `include`/`exclude`/`entries` option in `deps.experimentalOptimizer` it will overwrite your `optimizeDeps` when running tests.
+
+::: tip
+You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` or `test.cache.dir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.experimentalOptimizer.force` option.
+:::
+
 #### deps.external
 
 - **类型:** `(string | RegExp)[]`
@@ -164,21 +186,21 @@ TypeError: default is not a function
 
 运行 `vitest bench` 时使用的选项。
 
-### benchmark.include
+#### benchmark.include
 
 - **类型:** `string[]`
 - **默认值:** `['**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
 
 匹配包含基准测试文件的 glob 规则。
 
-### benchmark.exclude
+#### benchmark.exclude
 
 - **类型:** `string[]`
 - **默认值:** `['node_modules', 'dist', '.idea', '.git', '.cache']`
 
 匹配排除基准测试文件的 glob 规则。
 
-### benchmark.includeSource
+#### benchmark.includeSource
 
 - **类型:** `string[]`
 - **默认值:** `[]`
@@ -187,14 +209,14 @@ TypeError: default is not a function
 
 定义后，Vitest 将运行所有匹配的文件，其中包含 `import.meta.vitest`。
 
-### benchmark.reporters
+#### benchmark.reporters
 
 - **类型:** `Arrayable<BenchmarkBuiltinReporters | Reporter>`
 - **默认值:** `'default'`
 
 用于定义输出的自定义报告器。它可以包含一个或多个内置报告名称、报告实例和(或)自定义报告的路径。
 
-### benchmark.outputFile
+#### benchmark.outputFile
 
 - **类型:** `string | Record<string, string>`
 
@@ -464,10 +486,28 @@ export default defineConfig({
 - **默认值:** `true`
 - **命令行终端:** `--threads`, `--threads=false`
 
+<<<<<<< HEAD
 通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
 
 :::warning 警告
 此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
+=======
+Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)). Prior to Vitest 0.29.0, Vitest was still running tests inside worker thread, even if this option was disabled. Since 0.29.0, if this option is disabled, Vitest uses `child_process` to spawn a process to run tests inside, meaning you can use `process.chdir` and other API that was not available inside workers. If you want to revert to the previous behaviour, use `--single-thread` option instead.
+
+Disabling this option also disables module isolation, meaning all tests with the same environment are running inside a single child process.
+
+### singleThread
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.29.0
+
+Run all tests with the same environment inside a single worker thread. This will disable built-in module isolation (your source code or [inlined](#deps-inline) code will still be reevaluated for each test), but can improve test performance. Before Vitest 0.29.0 this was equivalent to using `--no-threads`.
+
+
+:::warning
+Even though this option will force tests to run one after another, this option is different from Jest's `--runInBand`. Vitest uses workers not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
+>>>>>>> ec5a7952ddb682c25a837e93d03ec616ed451aa8
 
 如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但是可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态或可以轻松绕过它。
 :::
@@ -628,7 +668,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 如果你使用带点符号的覆盖选项，请不要忘记指定 `--coverage.enabled`。 在这种情况下，不要提供单个 --coverage 选项。
 :::
 
-#### provider
+#### coverage.provider
 
 - **类型:** `'c8' | 'istanbul' | 'custom'`
 - **默认值:** `'c8'`
@@ -636,7 +676,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 使用 `provider` 选择收集测试覆盖率的工具。
 
-#### enabled
+#### coverage.enabled
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -645,7 +685,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
 
-#### include
+#### coverage.include
 
 - **类型:** `string[]`
 - **默认值:** `['**']`
@@ -654,14 +694,14 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 匹配包含测试覆盖率的 glob 规则
 
-#### extension
+#### coverage.extension
 
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 - **命令行终端:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
 
-#### exclude
+#### coverage.exclude
 
 - **类型:** `string[]`
 - **默认值:**
@@ -688,7 +728,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
-#### all
+#### coverage.all
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -697,7 +737,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
-#### clean
+#### coverage.clean
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -706,7 +746,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 运行测试之前是否清除覆盖率结果
 
-#### cleanOnRerun
+#### coverage.cleanOnRerun
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -731,7 +771,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 监视重新运行时是否清除覆盖率报告
 
-#### reportsDirectory
+#### coverage.reportsDirectory
 
 - **类型:** `string`
 - **默认值:** `'./coverage'`
@@ -740,7 +780,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 配置测试覆盖率报告写入的目录。
 
-#### reporter
+#### coverage.reporter
 
 - **类型:** `string | string[] | [string, {}][]`
 - **默认值:** `['text', 'html', 'clover', 'json']`
@@ -765,7 +805,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   }
   ```
 
-#### skipFull
+#### coverage.skipFull
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -774,7 +814,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 是否显示具有 100% 语句、分支和函数的测试覆盖率的文件。
 
-#### perFile
+#### coverage.perFile
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -784,7 +824,17 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 检查每个文件的阈值。
 有关实际阈值，请参见 `lines`, `functions`, `branches` and `statements` 。
 
-#### lines
+#### coverage.thresholdAutoUpdate
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'c8' | 'istanbul'`
+- **CLI:** `--coverage.thresholdAutoUpdate=<boolean>`
+
+Update threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is above the configured thresholds.
+This option helps to maintain thresholds when coverage is improved.
+
+#### coverage.lines
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
@@ -793,7 +843,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 行的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
-#### functions
+#### coverage.functions
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
@@ -802,7 +852,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 函数的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
-#### branches
+#### coverage.branches
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
@@ -811,7 +861,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 分支的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
-#### statements
+#### coverage.statements
 
 - **类型:** `number`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
@@ -820,7 +870,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 语句的阈值。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
-#### allowExternal
+#### coverage.allowExternal
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -829,7 +879,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 是否允许来自 cwd 外部的文件。
 
-#### excludeNodeModules
+#### coverage.excludeNodeModules
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -838,7 +888,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 排除 `/node_modules/` 下的覆盖范围。
 
-#### src
+#### coverage.src
 
 - **类型:** `string[]`
 - **默认值:** `process.cwd()`
@@ -847,7 +897,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 指定启用 `--all` 时使用的目录。
 
-#### 100
+#### coverage.100
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -856,7 +906,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 为 `--check-coverage --lines 100 --functions 100 --branches 100 --statements 100` 设置的快捷方式。
 
-#### ignoreClassMethods
+#### coverage.ignoreClassMethods
 
 - **类型:** `string[]`
 - **默认值:** `[]`
@@ -866,7 +916,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 设置为要忽略覆盖率的类方法名称数组。
 参考 [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
 
-#### watermarks
+#### coverage.watermarks
 
 - **类型:**
 <!-- eslint-skip -->
@@ -902,7 +952,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 指定语句、行、分支和函数的水印位置。参考 [istanbul documentation](https://github.com/istanbuljs/nyc#high-and-low-watermarks) 来了解详情。
 
-#### customProviderModule
+#### coverage.customProviderModule
 
 - **类型:** `string`
 - **可用的测试提供者:** `'custom'`
