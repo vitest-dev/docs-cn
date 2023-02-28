@@ -742,37 +742,28 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### reporter
 
-<<<<<<< HEAD
-- **类型:** `string | string[]`
+- **类型:** `string | string[] | [string, {}][]`
 - **默认值:** `['text', 'html', 'clover', 'json']`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 - **命令行终端:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
 
-要使用的测试覆盖率报告。详见 [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) 来了解报告详情。
-=======
-- **Type:** `string | string[] | [string, {}][]`
-- **Default:** `['text', 'html', 'clover', 'json']`
-- **Available for providers:** `'c8' | 'istanbul'`
-- **CLI:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
+配置要使用的测试覆盖率报告器。查看 [istanbul 文档](https://istanbul.js.org/docs/advanced/alternative-reporters/) 来了解报告详情。有关报告特定选项的详细信息，请参阅 [`@types/istanbul-reporter`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts)。
 
-Coverage reporters to use. See [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) for detailed list of all reporters. See [`@types/istanbul-reporter`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts) for details about reporter specific options.
+该报告器支持三种不同的类型:
 
-The reporter has three different types:
-
-- A single reporter: `{ reporter: 'html' }`
-- Multiple reporters without options: `{ reporter: ['html', 'json'] }`
-- A single or multiple reporters with reporter options:
+- 单个报告器: `{ reporter: 'html' }`
+- 无配置的多个报告器: `{ reporter: ['html', 'json'] }`
+- 有配置的单个或多个报告器:
   <!-- eslint-skip -->
   ```ts
   {
     reporter: [
-      ['lcov', { 'projectRoot': './src' }],
-      ['json', { 'file': 'coverage.json' }],
-      ['text']
-    ]
+      ["lcov", { projectRoot: "./src" }],
+      ["json", { file: "coverage.json" }],
+      ["text"],
+    ];
   }
   ```
->>>>>>> 80dbc80d3d07782a52889e4ce3aad4c5c64cf908
 
 #### skipFull
 

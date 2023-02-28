@@ -14,25 +14,15 @@ title: IDE Integrations | Guide
 
 ![](https://i.ibb.co/bJCbCf2/202203292020.gif)
 
-<<<<<<< HEAD
-## IntelliJ/WebStorm <sup><code>社区</code></sup>
-
-由 [@linux-china](https://github.com/linux-china) 来维护。
-=======
 ## JetBrains IDE
 
 WebStorm, PhpStorm, IntelliJ IDEA Ultimate, and other JetBrains IDEs come with built-in support for Vitest.
->>>>>>> 80dbc80d3d07782a52889e4ce3aad4c5c64cf908
 
 <p text-center>
 <img src="https://raw.githubusercontent.com/kricact/WS-info/main/banners/vitest-jb.png" w-60>
 </p>
 
-<<<<<<< HEAD
-[GitHub](https://github.com/linux-china/vitest-jetbrains-plugin) | [JetBrains 插件](https://plugins.jetbrains.com/plugin/19220-vitest-runner)
-=======
 [WebStorm Help](https://www.jetbrains.com/help/webstorm/vitest.html) | [IntelliJ IDEA Ultimate Help](https://www.jetbrains.com/help/idea/vitest.html) | [PhpStorm Help](https://www.jetbrains.com/help/phpstorm/vitest.html)
->>>>>>> 80dbc80d3d07782a52889e4ce3aad4c5c64cf908
 
 ![Vitest WebStorm Demo](https://raw.githubusercontent.com/kricact/WS-info/main/gifs/vitest-run-all.gif)
 
