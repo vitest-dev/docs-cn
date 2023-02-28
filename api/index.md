@@ -73,7 +73,7 @@ interface TestOptions {
   ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### test.runIf
@@ -94,7 +94,7 @@ test.runIf(isDev)('dev only test', () => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### test.only
@@ -168,7 +168,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### test.todo
@@ -199,7 +199,7 @@ You cannot use this syntax, when using Vitest as [type checker](/guide/testing-t
   ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### test.each
