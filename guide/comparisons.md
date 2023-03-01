@@ -14,11 +14,7 @@ title: Comparisons with Other Test Runners | Guide
 
 Cypress 是著名的端到端测试工具，他们[最新的组件测试运行器](https://on.cypress.io/component) 对测试 Vite 组件有很好的支持，是测试任何在浏览器中渲染的东西的理想选择。
 
-<<<<<<< HEAD
-基于浏览器运行测试的框架，例如 Cypress 和 Web Test，会捕获到 Vitest 无法捕获的问题，因为他们都是使用真实的浏览器和 APIs。
-=======
-Browser-based runners, like Cypress, WebdriverIO and Web Test Runner, will catch issues that Vitest cannot because they use the real browser and real browser APIs.
->>>>>>> 84ad9173f4cfcacd566d39689becf9c38e15d555
+基于浏览器运行测试的框架，例如 Cypress, WebdriverIO 和 Web Test Runner，会捕获到 Vitest 无法捕获的问题，因为他们都是使用真实的浏览器和 APIs。
 
 Cypress 的测试更加专注于确定元素是否可见，是否可以访问和交互。Cypress 专门为 UI 开发和测试而构建，它的开发体验趋向于测试你的视觉组件，你会看到程序的组件和测试报告一起出现。测试完成后，组件将保持交互状态，您可以使用浏览器开发工具调试发生的任何故障。
 
@@ -32,9 +28,9 @@ Cypress 还一直在 [尝试将 Vite 集成进他们自己的产品中](https://
 
 ## WebdriverIO
 
-[WebdriverIO](https://webdriver.io/) is similar to Cypress a browser based alternative test runner and a complementary tool to Vitest. It can be used as end-to-end testing tool as well as for testing [web components](https://webdriver.io/docs/component-testing). It even uses components of Vitest under the hood, e.g. for [mocking and stubing](https://webdriver.io/docs/component-testing/mocks-and-spies) within component tests.
+[WebdriverIO](https://webdriver.io/) 类似于 Cypress，一个基于浏览器的替代测试运行器和 Vitest 的补充工具。它可以用作端到端测试工具以及测试 [web 组件](https://webdriver.io/docs/component-testing)。它甚至在底层使用了 Vitest 的组件，例如对于组件测试中的 [mocking and stubing](https://webdriver.io/docs/component-testing/mocks-and-spies)。
 
-WebdriverIO comes with the same advantages as Cypress allowing you to test your logic in real browser. However it uses actual [web standards](https://w3c.github.io/webdriver/) for automation which overcomes some of the tradeoffs and limitation when running tests in Cypress. Furthermore it allows you to run tests on mobile as well, giving you access to test your application in even more environments.
+WebdriverIO 具有与 Cypress 相同的优势，允许你在真实浏览器中测试您的逻辑。然而，它使用实际的 [web 标准](https://w3c.github.io/webdriver/) 进行自动化，这克服了在 Cypress 中运行测试时的一些权衡和限制。此外，它还允许你在移动设备上运行测试，让你可以在更多环境中测试你的应用程序。
 
 ## Web Test Runner
 
