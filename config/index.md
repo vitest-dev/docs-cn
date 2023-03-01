@@ -94,6 +94,28 @@ export default mergeConfig(
 
 对依赖关系进行内联或外联的处理
 
+#### deps.experimentalOptimizer
+
+- **类型:** `DepOptimizationConfig & { enabled: boolean }`
+- **版本:** Vitets 0.29.0
+- **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
+
+启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
+
+对于 `jsdom` 和 `happy-dom` 环境，当 Vitest 遇到外部库时，它会使用 esbuild 打包成一个文件，并作为一个整体模块导入。这有几个原因：
+
+- 导入大量导入的包很昂贵。通过将它们捆绑到一个文件中，我们可以节省大量时间
+- 导入 UI 库很昂贵，因为它们并不意味着在 Node.js 中运行
+- 你的 `alias` 配置现在在捆绑包中得到处理
+
+你可以使用 `exclude` 选项为某些包选择退出此行为。你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。
+
+此选项还继承了你的 `optimizeDeps` 配置。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。
+
+::: tip 提醒
+你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer.force` 选项强制重新绑定。
+:::
+
 #### deps.external
 
 - **类型:** `(string | RegExp)[]`
@@ -464,10 +486,28 @@ export default defineConfig({
 - **默认值:** `true`
 - **命令行终端:** `--threads`, `--threads=false`
 
+<<<<<<< HEAD
 通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
 
 :::warning 警告
 此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
+=======
+Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)). Prior to Vitest 0.29.0, Vitest was still running tests inside worker thread, even if this option was disabled. Since 0.29.0, if this option is disabled, Vitest uses `child_process` to spawn a process to run tests inside, meaning you can use `process.chdir` and other API that was not available inside workers. If you want to revert to the previous behaviour, use `--single-thread` option instead.
+
+Disabling this option also disables module isolation, meaning all tests with the same environment are running inside a single child process.
+
+### singleThread
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.29.0
+
+Run all tests with the same environment inside a single worker thread. This will disable built-in module isolation (your source code or [inlined](#deps-inline) code will still be reevaluated for each test), but can improve test performance. Before Vitest 0.29.0 this was equivalent to using `--no-threads`.
+
+:::warning
+Even though this option will force tests to run one after another, this option is different from Jest's `--runInBand`. Vitest uses workers not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
+
+> > > > > > > 84ad9173f4cfcacd566d39689becf9c38e15d555
 
 如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但是可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态或可以轻松绕过它。
 :::
@@ -783,6 +823,16 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 检查每个文件的阈值。
 有关实际阈值，请参见 `lines`, `functions`, `branches` and `statements` 。
+
+#### thresholdAutoUpdate
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'c8' | 'istanbul'`
+- **CLI:** `--coverage.thresholdAutoUpdate=<boolean>`
+
+Update threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is above the configured thresholds.
+This option helps to maintain thresholds when coverage is improved.
 
 #### lines
 
