@@ -1,103 +1,106 @@
-# Test Runner
+# 测试运行器
 
-::: warning
-This is advanced API. If you are just running tests, you probably don't need this. It is primarily used by library authors.
+::: warning 注意
+这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
 :::
 
-You can specify a path to your test runner with the `runner` option in your configuration file. This file should have a default export with a class implementing these methods:
+你可以在你的配置文件中使用 runner 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
 
 ```ts
 export interface VitestRunner {
   /**
-   * First thing that's getting called before actually collecting and running tests.
+   * 这是在实际收集和运行测试之前被调用的第一件事情。
    */
   onBeforeCollect?(paths: string[]): unknown
   /**
-   * Called after collecting tests and before "onBeforeRun".
+   * 这是在收集测试后、"onBeforeRun" 之前被调用的。
    */
   onCollected?(files: File[]): unknown
-
   /**
-   * Called before running a single test. Doesn't have "result" yet.
+   * 这是在运行单个测试之前被调用的，此时还没有测试结果。
    */
   onBeforeRunTest?(test: Test): unknown
   /**
-   * Called before actually running the test function. Already has "result" with "state" and "startTime".
+   * 这是在实际运行测试函数之前被调用的。
+   * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
   onBeforeTryTest?(test: Test, retryCount: number): unknown
   /**
-   * Called after result and state are set.
+   * 这是在结果和状态都被设置之后被调用的。
    */
   onAfterRunTest?(test: Test): unknown
   /**
-   * Called right after running the test function. Doesn't have new state yet. Will not be called, if the test function throws.
+   * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
+   * 如果测试函数抛出异常，将不会调用此方法。
    */
   onAfterTryTest?(test: Test, retryCount: number): unknown
 
   /**
-   * Called before running a single suite. Doesn't have "result" yet.
+   * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
    */
   onBeforeRunSuite?(suite: Suite): unknown
   /**
-   * Called after running a single suite. Has state and result.
+   * 这是在运行单个测试套件之后被调用的，此时已经有了状态和测试结果。
    */
   onAfterRunSuite?(suite: Suite): unknown
 
   /**
-   * If defined, will be called instead of usual Vitest suite partition and handling.
-   * "before" and "after" hooks will not be ignored.
+   * 如果定义了这个方法，它将会替代 Vitest 常规的测试套件分割和处理方式。
+   * 但 "before" 和 "after" 钩子函数仍然会被执行。
    */
   runSuite?(suite: Suite): Promise<void>
   /**
-   * If defined, will be called instead of usual Vitest handling. Useful, if you have your custom test function.
-   * "before" and "after" hooks will not be ignored.
+   * 如果定义了这个方法，它将会替代 Vitest 常规的测试处理方式。
+   * 如果你有自定义的测试函数，这个方法就很有用。
+   * 但 "before" 和 "after" 钩子函数仍然会被执行。
    */
   runTest?(test: Test): Promise<void>
 
   /**
-   * Called, when a task is updated. The same as "onTaskUpdate" in a reporter, but this is running in the same thread as tests.
+   * 当一个任务被更新时被调用。与报告器中的 "onTaskUpdate" 方法相同。
+   * 但该方法在同一个线程中运行，与测试运行在同一个线程中。
    */
   onTaskUpdate?(task: [string, TaskResult | undefined][]): Promise<void>
 
   /**
-   * Called before running all tests in collected paths.
+   * 这是在运行收集的所有测试之前被调用的。
    */
   onBeforeRun?(files: File[]): unknown
   /**
-   * Called right after running all tests in collected paths.
+   * 这是在运行收集的所有测试后立即被调用的。
    */
   onAfterRun?(files: File[]): unknown
   /**
-   * Called when new context for a test is defined. Useful, if you want to add custom properties to the context.
-   * If you only want to define custom context with a runner, consider using "beforeAll" in "setupFiles" instead.
+   * 当为一个测试定义新的上下文时被调用。如果你想要向上下文添加自定义属性，这个方法很有用。
+   * 如果你只想使用运行器定义自定义上下文，请考虑在 "setupFiles" 中使用 "beforeAll"。
    */
   extendTestContext?(context: TestContext): TestContext
   /**
-   * Called, when certain files are imported. Can be called in two situations: when collecting tests and when importing setup files.
+   * 当导入某些文件时被调用。在收集测试和导入设置文件时都可能会被调用。.
    */
   importFile(filepath: string, source: VitestRunnerImportSource): unknown
   /**
-   * Publicly available configuration.
+   * 公开可用的配置.
    */
   config: VitestRunnerConfig
 }
 ```
 
-When initiating this class, Vitest passes down Vitest config, - you should expose it as a `config` property.
+当初始化这个类时，Vitest会传递Vitest配置，你应该将它作为一个 `config` 属性暴露出来。
 
-::: warning
-Vitest also injects an instance of `ViteNodeRunner` as `__vitest_executor` property. You can use it to process files in `importFile` method (this is default behavior of `TestRunner`` and `BenchmarkRunner`).
+::: warning 注意
+Vitest 还将 `ViteNodeRunner` 实例注入为 `__vitest_executor `属性。你可以在 `importFile` 方法中使用它来处理文件（这是 `TestRunner` 和  `BenchmarkRunner` 的默认行为）。
 
-`ViteNodeRunner` exposes `executeId` method, which is used to import test files in a Vite-friendly environment. Meaning, it will resolve imports and transform file content at runtime so that Node can understand it.
+`ViteNodeRunner` 暴露了 `executeId` 方法，用于在适用于 Vite 的环境中导入测试文件。这意味着它将在运行时解析导入并转换文件内容，以便 Node 能够理解它。
 :::
 
-::: tip
-Snapshot support and some other features depend on the runner. If you don't want to lose it, you can extend your runner from `VitestTestRunner` imported from `vitest/runners`. It also exposes `BenchmarkNodeRunner`, if you want to extend benchmark functionality.
+::: tip 提示
+快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。它还暴露了 `BenchmarkNodeRunner`，如果你想扩展基准测试功能的话也可以继承它。
 :::
 
-## Your task function
+## 你的任务函数。
 
-You can extend Vitest task system with your tasks. A task is an object that is part of a suite. It is automatically added to the current suite with a `suite.custom` method:
+你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.custom` 方法添加到当前套件中：
 
 ```js
 // ./utils/custom.js
@@ -141,10 +144,10 @@ describe('take care of the garden', () => {
 vitest ./garden/tasks.test.js
 ```
 
-::: warning
-If you don't have a custom runner or didn't define `runTest` method, Vitest will try to retrieve a task automatically. If you didn't add a function with `setFn`, it will fail.
+::: warning 注意
+如果你没有定义自定义运行器，也没有定义 `runTest` 方法，Vitest 将会尝试自动获取任务。如果你没有使用 `setFn` 添加一个函数，这个过程会失败。
 :::
 
-::: tip
-Custom task system supports hooks and contexts. If you want to support property chaining (like, `only`, `skip`, and your custom ones), you can import `createChainable` from `vitest/suite` and wrap your function with it. You will need to call `custom` as `custom.call(this)`, if you decide to do this.
+::: tip 提示
+自定义任务系统支持钩子和上下文。如果你想支持属性链式调用（如 `only`、`skip` 和你自己的定制属性），你可以从 `vitest/suite` 导入 `createChainable` 并用它包装你的函数。如果你决定这样做，你需要将 `custom` 作为 `custom.call(this)` 来调用。
 :::
