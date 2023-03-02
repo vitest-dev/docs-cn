@@ -818,13 +818,13 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.thresholdAutoUpdate
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
-- **CLI:** `--coverage.thresholdAutoUpdate=<boolean>`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.thresholdAutoUpdate=<boolean>`
 
-Update threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is above the configured thresholds.
-This option helps to maintain thresholds when coverage is improved.
+当前覆盖率高于配置的阈值时，将阈值 `lines`、 `functions`、`branches` 和 `statements` 更新到配置文件。
+此选项有助于在提高覆盖率时维持阈值。
 
 #### coverage.lines
 
