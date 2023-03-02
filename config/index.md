@@ -486,30 +486,22 @@ export default defineConfig({
 - **默认值:** `true`
 - **命令行终端:** `--threads`, `--threads=false`
 
-<<<<<<< HEAD
-通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。
+通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。在 Vitest 0.29.0 之前，Vitest 仍在工作线程内运行测试，即使禁用了此选项。从 0.29.0 开始，如果禁用此选项，Vitest 将使用 `child_process` 生成一个进程以在内部运行测试，这意味着你可以使用 `process.chdir` 和其他在 worker 中不可用的 API。如果你想恢复到以前的行为，请改用 `--single-thread` 选项。
 
-:::warning 警告
-此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
-=======
-Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)). Prior to Vitest 0.29.0, Vitest was still running tests inside worker thread, even if this option was disabled. Since 0.29.0, if this option is disabled, Vitest uses `child_process` to spawn a process to run tests inside, meaning you can use `process.chdir` and other API that was not available inside workers. If you want to revert to the previous behaviour, use `--single-thread` option instead.
-
-Disabling this option also disables module isolation, meaning all tests with the same environment are running inside a single child process.
+禁用此选项也会禁用模块隔离，这意味着具有相同环境的所有测试都在单个子进程中运行。
 
 ### singleThread
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.29.0
+- **类型:** `boolean`
+- **默认值:** `false`
+- **版本:** 从 Vitest 0.29.0 开始支持
 
-Run all tests with the same environment inside a single worker thread. This will disable built-in module isolation (your source code or [inlined](#deps-inline) code will still be reevaluated for each test), but can improve test performance. Before Vitest 0.29.0 this was equivalent to using `--no-threads`.
+在单个工作线程内使用相同环境运行所有测试。这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。在 Vitest 0.29.0 之前，这等同于使用 `--no-threads`。
 
 :::warning
-Even though this option will force tests to run one after another, this option is different from Jest's `--runInBand`. Vitest uses workers not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
+尽管此选项会强制测试一个接一个地运行，但此选项与 Jest 的 --runInBand 不同。Vitest 使用 worker 不仅可以并行运行测试，还可以提供隔离。通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
-> > > > > > > ec5a7952ddb682c25a837e93d03ec616ed451aa8
-
-如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但是可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态或可以轻松绕过它。
+如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。但是可以提高你的测试速度（最多快 3 倍），它不一定依赖于全局状态或可以轻松绕过它。
 :::
 
 ### maxThreads
