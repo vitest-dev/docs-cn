@@ -40,6 +40,15 @@ If you are only partially mocking a package, you might have previously used Jest
 + const { cloneDeep } = await vi.importActual('lodash/cloneDeep')
 ```
 
+**Importing the original of a mocked package**
+
+If you are only partially mocking a package, you might have previously used Jest's function `requireActual`. In Vitest, you should replace these calls with `vi.importActual`.
+
+```diff
+- const { cloneDeep } = jest.requireActual('lodash/cloneDeep')
++ const { cloneDeep } = await vi.importActual('lodash/cloneDeep')
+```
+
 **Jasmine API**
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
