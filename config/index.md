@@ -96,24 +96,24 @@ export default mergeConfig(
 
 #### deps.experimentalOptimizer
 
-- **Type:** `DepOptimizationConfig & { enabled: boolean }`
-- **Version:** Vitets 0.29.0
-- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
+- **类型:** `DepOptimizationConfig & { enabled: boolean }`
+- **版本:** Vitets 0.29.0
+- **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
 
-Enable dependency optimization. If you have a lot of tests, this might improve their performance.
+启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
-For `jsdom` and `happy-dom` environments, when Vitest will encounter the external library, it will be bundled into a single file using esbuild and imported as a whole module. This is good for several reasons:
+对于 `jsdom` 和 `happy-dom` 环境，当 Vitest 遇到外部库时，它会使用 esbuild 打包成一个文件，并作为一个整体模块导入。这有几个原因：
 
-- Importing packages with a lot of imports is expensive. By bundling them into one file we can save a lot of time
-- Importing UI libraries is expensive because they are not meant to run inside Node.js
-- Your `alias` configuration is now respected inside bundled packages
+- 导入大量导入的包很昂贵。通过将它们捆绑到一个文件中，我们可以节省大量时间
+- 导入 UI 库很昂贵，因为它们并不意味着在 Node.js 中运行
+- 你的 `alias` 配置现在在捆绑包中得到处理
 
-You can opt-out of this behavior for certain packages with `exclude` option. You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs.
+你可以使用 `exclude` 选项为某些包选择退出此行为。你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。
 
-This options also inherits your `optimizeDeps` configuration. If you redefine `include`/`exclude`/`entries` option in `deps.experimentalOptimizer` it will overwrite your `optimizeDeps` when running tests.
+此选项还继承了你的 `optimizeDeps` 配置。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。
 
-::: tip
-You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` or `test.cache.dir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.experimentalOptimizer.force` option.
+::: tip 提醒
+你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer.force` 选项强制重新绑定。
 :::
 
 #### deps.external
@@ -504,10 +504,10 @@ Disabling this option also disables module isolation, meaning all tests with the
 
 Run all tests with the same environment inside a single worker thread. This will disable built-in module isolation (your source code or [inlined](#deps-inline) code will still be reevaluated for each test), but can improve test performance. Before Vitest 0.29.0 this was equivalent to using `--no-threads`.
 
-
 :::warning
 Even though this option will force tests to run one after another, this option is different from Jest's `--runInBand`. Vitest uses workers not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
->>>>>>> ec5a7952ddb682c25a837e93d03ec616ed451aa8
+
+> > > > > > > ec5a7952ddb682c25a837e93d03ec616ed451aa8
 
 如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但是可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态或可以轻松绕过它。
 :::
