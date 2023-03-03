@@ -2784,17 +2784,10 @@ test('importing the next module imports mocked one', () => {
   expect(increment(1)).toBe(2)
   const { increment: mockedIncrement } = await import('./increment.js')
   // new import returns mocked module
-<<<<<<<<< Temporary merge branch 1
   expect(mockedIncrement(1)).toBe(101)
   expect(mockedIncrement(1)).toBe(102)
   expect(mockedIncrement(1)).toBe(103)
 })
-=========
-  expect(mockedIncrement(1)).toBe(101);
-  expect(mockedIncrement(1)).toBe(102);
-  expect(mockedIncrement(1)).toBe(103);
-});
->>>>>>>>> Temporary merge branch 2
 ```
 
 ### vi.mocked
