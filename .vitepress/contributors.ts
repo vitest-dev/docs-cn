@@ -133,7 +133,7 @@ const plainTeamMembers: CoreTeam[] = [
     name: 'Yoho Po',
     github: 'poyoho',
     twitter: '@yoho_po',
-    title: '我写的代码在我本地绝对没问题',
+    title: '我写的代码在我电脑上绝对没问题',
     desc: 'Vite 核心团队成员 和 Vitest 团队成员',
   },
   {
