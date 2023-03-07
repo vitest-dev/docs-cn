@@ -57,7 +57,13 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 如果之前没有设置，Vitest 会像 Jest 一样，把 `NODE_ENV` 设置为 `test`。 Vitest 也有一个 `JEST_WORKER_ID` 的对应项，是 `VITEST_WORKER_ID`，所以如果你依赖它，不要忘记重命名它。
 
+<<<<<<< HEAD
 **回调**
+=======
+If you want to modify the envs, you will use [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value) in Jest, you can use [vi.stubEnv](https://vitest.dev/api/vi.html#vi-stubenv) to do it also in Vitest. 
+
+**Done Callback**
+>>>>>>> 209a257a16f88d2ed85d05348de5b94359f20813
 
 从 Vitest v0.10.0 开始，声明测试的回调样式被弃用。 你可以重写它们以使用 `async`/`await` 函数，或者使用 Promise 来模仿回调样式。
 

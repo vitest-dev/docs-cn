@@ -42,7 +42,11 @@ const vitest = await createVitest('test', {
 
 ## Vitest
 
+<<<<<<< HEAD
 Vitest 实例需要当前的测试模式。它可以是以下之一：
+=======
+Vitest instance requires the current test mode. It can be either:
+>>>>>>> 209a257a16f88d2ed85d05348de5b94359f20813
 
 - 运行运行时测试时为 `test`
 - 运行基准测试时为 `benchmark`
