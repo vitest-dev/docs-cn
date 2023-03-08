@@ -54,15 +54,11 @@ export default {
 
 :::
 
-<<<<<<< HEAD
-## 选项
-=======
 ### `vitest bench`
 
-Run only [benchmark](https://vitest.dev/guide/features.html#benchmarking-experimental) tests, which compare performance results.
+仅运行 [基准测试](https://vitest.dev/guide/features.html#benchmarking-experimental) 测试，比较性能结果。
 
-## Options
->>>>>>> 209a257a16f88d2ed85d05348de5b94359f20813
+## 选项
 
 | 选项                                 | 描述                                                                                                                                          |
 | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
