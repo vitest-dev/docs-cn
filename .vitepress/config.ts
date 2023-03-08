@@ -24,6 +24,17 @@ export default withPwa(
     lang: 'en-US',
     title: vitestName,
     description: vitestDescription,
+    locales:{
+      root: {
+        label: '简体中文',
+        lang: 'zh'
+      },
+      en: {
+        label: 'English',
+        lang: 'en',
+        link: 'https://vitest.dev/'
+      }
+    },
     head: [
       ['meta', { name: 'theme-color', content: '#729b1a' }],
       ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
