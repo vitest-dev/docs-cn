@@ -57,7 +57,7 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 如果之前没有设置，Vitest 会像 Jest 一样，把 `NODE_ENV` 设置为 `test`。 Vitest 也有一个 `JEST_WORKER_ID` 的对应项，是 `VITEST_WORKER_ID`，所以如果你依赖它，不要忘记重命名它。
 
-如果你想修改测试环境，你会在 Jest 中使用[replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用[vi.stubEnv](https: //vitest.dev/api/vi.html#vi-stubenv) 也可以在 Vitest 中执行此操作。
+如果你想修改测试环境，你会在 Jest 中使用[replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用[vi.stubEnv](https://cn.vitest.dev/api/vi.html#vi-stubenv) 也可以在 Vitest 中执行此操作。
 
 **回调完成**
 
