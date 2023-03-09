@@ -19,63 +19,21 @@ import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
 import { teamMembers } from './contributors'
 
-<<<<<<< HEAD
 export default withPwa(
   defineConfig({
     lang: 'en-US',
     title: vitestName,
     description: vitestDescription,
-    locales:{
+    locales: {
       root: {
         label: '简体中文',
-        lang: 'zh'
+        lang: 'zh',
       },
       en: {
         label: 'English',
         lang: 'en',
-        link: 'https://vitest.dev/'
-      }
-=======
-export default withPwa(defineConfig({
-  lang: 'en-US',
-  title: vitestName,
-  description: vitestDescription,
-  locales: {
-    root: {
-      label: 'English',
-      lang: 'en',
-    },
-    en: {
-      label: '简体中文',
-      lang: 'zh',
-      link: 'https://cn.vitest.dev/',
-    },
-  },
-  head: [
-    ['meta', { name: 'theme-color', content: '#729b1a' }],
-    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    ['link', { rel: 'alternate icon', href: '/favicon.ico', type: 'image/png', sizes: '16x16' }],
-    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
-    ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, c8, node' }],
-    ['meta', { property: 'og:title', content: vitestName }],
-    ['meta', { property: 'og:description', content: vitestDescription }],
-    ['meta', { property: 'og:url', content: ogUrl }],
-    ['meta', { property: 'og:image', content: ogImage }],
-    ['meta', { name: 'twitter:title', content: vitestName }],
-    ['meta', { name: 'twitter:description', content: vitestDescription }],
-    ['meta', { name: 'twitter:image', content: ogImage }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
-    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
-    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
-    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
-  ],
-  lastUpdated: true,
-  markdown: {
-    theme: {
-      light: 'vitesse-light',
-      dark: 'vitesse-dark',
->>>>>>> fd1946e90d8e31c522896f34f63ec0019c7e6104
+        link: 'https://vitest.dev/',
+      },
     },
     head: [
       ['meta', { name: 'theme-color', content: '#729b1a' }],
