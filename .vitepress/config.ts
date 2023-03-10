@@ -117,14 +117,14 @@ export default withPwa(
         text: '为此页提供修改建议',
       },
 
-      // algolia: {
-      //   appId: 'ZTF29HGJ69',
-      //   apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
-      //   indexName: 'vitest',
-      //   // searchParameters: {
-      //   //   facetFilters: ['tags:en'],
-      //   // },
-      // },
+      algolia: {
+        appId: '2HL8RDBURF',
+        apiKey: '7ba3675be5a60244df75cef30c92a66a',
+        indexName: 'vitest-cn',
+        // searchParameters: {
+        //   facetFilters: ['tags:zh'],
+        // },
+      },
 
       localeLinks: {
         text: '简体中文',
