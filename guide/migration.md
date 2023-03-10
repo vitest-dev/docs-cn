@@ -25,24 +25,15 @@ Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 + })
 ```
 
-有关更深入的详细描述，请参阅 [vi.mock api section](/api/#vi-mock)。
+有关更深入的详细描述，请参阅 [`vi.mock` api section](/api/#vi-mock)。
 
 **自动模拟行为**
 
 区别于 Jest，在 `<root>/__mocks__` 中的模拟模块只有在 `vi.mock()` 被调用时才会加载。如果你需要它们像在 Jest 中一样，在每个测试中都被模拟，你可以在 [`setupFiles`](/config/#setupfiles) 中模拟它们。
 
-**Importing the original of a mocked package**
+**导入模拟包的原始版本**
 
-If you are only partially mocking a package, you might have previously used Jest's function `requireActual`. In Vitest, you should replace these calls with `vi.importActual`.
-
-```diff
-- const { cloneDeep } = jest.requireActual('lodash/cloneDeep')
-+ const { cloneDeep } = await vi.importActual('lodash/cloneDeep')
-```
-
-**Importing the original of a mocked package**
-
-If you are only partially mocking a package, you might have previously used Jest's function `requireActual`. In Vitest, you should replace these calls with `vi.importActual`.
+如果你只需要模拟一个 package 的部分功能，你可能之前使用了 Jest 的 `requireActual` 函数。在 Vitest 中，你应该将这些调用替换为 `vi.importActual`。
 
 ```diff
 - const { cloneDeep } = jest.requireActual('lodash/cloneDeep')
@@ -57,7 +48,7 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 如果之前没有设置，Vitest 会像 Jest 一样，把 `NODE_ENV` 设置为 `test`。 Vitest 也有一个 `JEST_WORKER_ID` 的对应项，是 `VITEST_WORKER_ID`，所以如果你依赖它，不要忘记重命名它。
 
-如果你想修改测试环境，你会在 Jest 中使用[replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用[vi.stubEnv](https://cn.vitest.dev/api/vi.html#vi-stubenv) 也可以在 Vitest 中执行此操作。
+如果你想修改测试环境，你会在 Jest 中使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用 [vi.stubEnv](https://cn.vitest.dev/api/vi.html#vi-stubenv) 也可以在 Vitest 中执行此操作。
 
 **回调完成**
 
