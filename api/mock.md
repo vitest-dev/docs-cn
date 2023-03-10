@@ -3,22 +3,22 @@
 你可以使用 `vi.fn` 方法创建一个间谍函数（mock）来跟踪其执行。如果要跟踪已创建对象上的方法，可以使用 `vi.spyOn` 方法：
 
 ```js
-import { vi } from 'vitest'
+import { vi } from "vitest";
 
-const fn = vi.fn()
-fn('hello world')
-fn.mock.calls[0] === ['hello world']
+const fn = vi.fn();
+fn("hello world");
+fn.mock.calls[0] === ["hello world"];
 
 const market = {
   getApples: () => 100,
-}
+};
 
-const getApplesSpy = vi.spyOn(market, 'getApples')
-market.getApples()
-getApplesSpy.mock.calls.length === 1
+const getApplesSpy = vi.spyOn(market, "getApples");
+market.getApples();
+getApplesSpy.mock.calls.length === 1;
 ```
 
-你应该在 [`expect`](/api/expect) 上使用间谍断言（例如，[`toHaveBeenCalled`]([api/expect#tohavebeencalled)）来断言间谍结果。此 API 参考描述了用于操纵间谍行为的可用属性和方法。
+你应该在 [`expect`](/api/expect) 上使用间谍断言（例如，[`toHaveBeenCalled`]([/api/expect#tohavebeencalled)）来断言间谍结果。此 API 参考描述了用于操纵间谍行为的可用属性和方法。
 
 ## getMockName
 
@@ -49,17 +49,17 @@ getApplesSpy.mock.calls.length === 1
   例如：
 
   ```ts
-  const mockFn = vi.fn().mockImplementation(apples => apples + 1)
+  const mockFn = vi.fn().mockImplementation((apples) => apples + 1);
   // or: vi.fn(apples => apples + 1);
-  
-  const NelliesBucket = mockFn(0)
-  const BobsBucket = mockFn(1)
-  
-  NelliesBucket === 1 // true
-  BobsBucket === 2 // true
-  
-  mockFn.mock.calls[0][0] === 0 // true
-  mockFn.mock.calls[1][0] === 1 // true
+
+  const NelliesBucket = mockFn(0);
+  const BobsBucket = mockFn(1);
+
+  NelliesBucket === 1; // true
+  BobsBucket === 2; // true
+
+  mockFn.mock.calls[0][0] === 0; // true
+  mockFn.mock.calls[1][0] === 1; // true
   ```
 
 ## mockImplementationOnce
@@ -72,22 +72,22 @@ getApplesSpy.mock.calls.length === 1
   const myMockFn = vi
     .fn()
     .mockImplementationOnce(() => true)
-    .mockImplementationOnce(() => false)
-  
-  myMockFn() // true
-  myMockFn() // false
+    .mockImplementationOnce(() => false);
+
+  myMockFn(); // true
+  myMockFn(); // false
   ```
 
   当模拟函数用完实现时，它将调用使用 `vi.fn(() => defaultValue)` 或者 `.mockImplementation(() => defaultValue)` 设置的默认实现（如果调用了它们）：
 
   ```ts
   const myMockFn = vi
-    .fn(() => 'default')
-    .mockImplementationOnce(() => 'first call')
-    .mockImplementationOnce(() => 'second call')
-  
+    .fn(() => "default")
+    .mockImplementationOnce(() => "first call")
+    .mockImplementationOnce(() => "second call");
+
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
   ```
 
 ## withImplementation
@@ -98,34 +98,34 @@ getApplesSpy.mock.calls.length === 1
   在执行回调时临时重写原始模拟实现。
 
   ```js
-  const myMockFn = vi.fn(() => 'original')
-  
+  const myMockFn = vi.fn(() => "original");
+
   myMockFn.withImplementation(
-    () => 'temp',
+    () => "temp",
     () => {
-      myMockFn() // 'temp'
+      myMockFn(); // 'temp'
     }
-  )
-  
-  myMockFn() // 'original'
+  );
+
+  myMockFn(); // 'original'
   ```
 
   可以与异步回调一起使用。必须等待该方法之后才能使用原始实现。
 
   ```ts
-  test('async callback', () => {
-    const myMockFn = vi.fn(() => 'original')
-  
+  test("async callback", () => {
+    const myMockFn = vi.fn(() => "original");
+
     // We await this call since the callback is async
     await myMockFn.withImplementation(
-      () => 'temp',
+      () => "temp",
       async () => {
-        myMockFn() // 'temp'
+        myMockFn(); // 'temp'
       }
-    )
-  
-    myMockFn() // 'original'
-  })
+    );
+
+    myMockFn(); // 'original'
+  });
   ```
 
   此外，它优先于 [`mockImplementationOnce`](https://cn.vitest.dev/api/mock.html#mockimplementationonce)。
@@ -137,9 +137,9 @@ getApplesSpy.mock.calls.length === 1
   当调用异步函数时，接受一个将被拒绝的错误。
 
   ```ts
-  const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
-  
-  await asyncMock() // throws "Async error"
+  const asyncMock = vi.fn().mockRejectedValue(new Error("Async error"));
+
+  await asyncMock(); // throws "Async error"
   ```
 
 ## mockRejectedValueOnce
@@ -151,11 +151,11 @@ getApplesSpy.mock.calls.length === 1
   ```ts
   const asyncMock = vi
     .fn()
-    .mockResolvedValueOnce('first call')
-    .mockRejectedValueOnce(new Error('Async error'))
-  
-  await asyncMock() // first call
-  await asyncMock() // throws "Async error"
+    .mockResolvedValueOnce("first call")
+    .mockRejectedValueOnce(new Error("Async error"));
+
+  await asyncMock(); // first call
+  await asyncMock(); // throws "Async error"
   ```
 
 ## mockReset
@@ -183,9 +183,9 @@ getApplesSpy.mock.calls.length === 1
   接受一个将在调用异步函数时解析的值。
 
   ```ts
-  const asyncMock = vi.fn().mockResolvedValue(43)
-  
-  await asyncMock() // 43
+  const asyncMock = vi.fn().mockResolvedValue(43);
+
+  await asyncMock(); // 43
   ```
 
 ## mockResolvedValueOnce
@@ -197,14 +197,14 @@ getApplesSpy.mock.calls.length === 1
   ```ts
   const asyncMock = vi
     .fn()
-    .mockResolvedValue('default')
-    .mockResolvedValueOnce('first call')
-    .mockResolvedValueOnce('second call')
-  
-  await asyncMock() // first call
-  await asyncMock() // second call
-  await asyncMock() // default
-  await asyncMock() // default
+    .mockResolvedValue("default")
+    .mockResolvedValueOnce("first call")
+    .mockResolvedValueOnce("second call");
+
+  await asyncMock(); // first call
+  await asyncMock(); // second call
+  await asyncMock(); // default
+  await asyncMock(); // default
   ```
 
 ## mockReturnThis
@@ -220,11 +220,11 @@ getApplesSpy.mock.calls.length === 1
   接受一个当调用模拟函数时将返回的值。
 
   ```ts
-  const mock = vi.fn()
-  mock.mockReturnValue(42)
-  mock() // 42
-  mock.mockReturnValue(43)
-  mock() // 43
+  const mock = vi.fn();
+  mock.mockReturnValue(42);
+  mock(); // 42
+  mock.mockReturnValue(43);
+  mock(); // 43
   ```
 
 ## mockReturnValueOnce
@@ -236,12 +236,12 @@ getApplesSpy.mock.calls.length === 1
   ```ts
   const myMockFn = vi
     .fn()
-    .mockReturnValue('default')
-    .mockReturnValueOnce('first call')
-    .mockReturnValueOnce('second call')
-  
+    .mockReturnValue("default")
+    .mockReturnValueOnce("first call")
+    .mockReturnValueOnce("second call");
+
   // 'first call', 'second call', 'default', 'default'
-  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
+  console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
   ```
 
 ## mock.calls
@@ -252,9 +252,9 @@ getApplesSpy.mock.calls.length === 1
 
 ```js
 [
-  ['arg1', 'arg2'],
-  ['arg3', 'arg4'],
-]
+  ["arg1", "arg2"],
+  ["arg3", "arg4"],
+];
 ```
 
 ## mock.lastCall
@@ -275,14 +275,14 @@ getApplesSpy.mock.calls.length === 1
 ```js
 [
   {
-    type: 'return',
-    value: 'result',
+    type: "return",
+    value: "result",
   },
   {
-    type: 'throw',
+    type: "throw",
     value: Error,
   },
-]
+];
 ```
 
 ## mock.instances
@@ -293,20 +293,20 @@ getApplesSpy.mock.calls.length === 1
 如果 mock 是用 `new MyClass()` 实例化的，那么 `mock.instances` 将是一个具有一个值的数组：
 
 ```js
-const MyClass = vi.fn()
-const a = new MyClass()
+const MyClass = vi.fn();
+const a = new MyClass();
 
-MyClass.mock.instances[0] === a
+MyClass.mock.instances[0] === a;
 ```
 
 如果从构造函数返回值，它将不在 `instances` 数组中，而是在 `results` 中：
 
 ```js
-const Spy = vi.fn(() => ({ method: vi.fn() }))
-const a = new Spy()
+const Spy = vi.fn(() => ({ method: vi.fn() }));
+const a = new Spy();
 
-Spy.mock.instances[0] !== a
-Spy.mock.results[0] === a
+Spy.mock.instances[0] !== a;
+Spy.mock.results[0] === a;
 ```
 
 :::
