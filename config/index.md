@@ -96,9 +96,15 @@ export default mergeConfig(
 
 #### deps.experimentalOptimizer
 
+<<<<<<< HEAD
 - **类型:** `DepOptimizationConfig & { enabled: boolean }`
 - **版本:** Vitets 0.29.0
 - **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
+=======
+- **Type:** `DepOptimizationConfig & { enabled: boolean }`
+- **Version:** Since Vitest 0.29.0
+- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
+>>>>>>> 52fd6e49c6e2d6550c6649bed9bf18bb00e54903
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
@@ -1186,7 +1192,11 @@ export default defineConfig({
 
 ### sequence
 
+<<<<<<< HEAD
 - **类型**: `{ sequencer?, shuffle?, seed?, hooks? }`
+=======
+- **Type**: `{ sequencer?, shuffle?, seed?, hooks?, setupFiles? }`
+>>>>>>> 52fd6e49c6e2d6550c6649bed9bf18bb00e54903
 
 配置测试运行顺序的选项。
 
@@ -1234,6 +1244,18 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - `stack` 将以相反的顺序排列 "after" 钩子，"before" 钩子将按照它们定义的顺序运行
 - `list` 将按照定义的顺序对所有钩子进行排序
 - `parallel` 将并行运行单个组中的钩子（父套件中的钩子仍将在当前套件的钩子之前运行）
+
+#### sequence.setupFiles
+
+- **Type**: `'list' | 'parallel'`
+- **Default**: `'parallel'`
+- **CLI**: `--sequence.setupFiles=<value>`
+- **Version**: Since Vitest 0.29.3
+
+Changes the order in which setup files are executed.
+
+- `list` will run setup files in the order they are defined
+- `parallel` will run setup files in parallel
 
 ### typecheck
 
