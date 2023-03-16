@@ -59,14 +59,11 @@ ndb npm run test
 | JavaScript file        | ./node_modules/vitest/vitest.mjs |
 | Application parameters | run --threads false              |
 
-<<<<<<< HEAD
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
-=======
-Then run this configuration in debug mode. The IDE will stop at JS/TS breakpoints set in the editor.
 
 ## Node Inspector, e.g. Chrome DevTools
 
-Vitest also supports debugging tests without IDEs. However this requires that tests are not run parallel. Use one of the following commands to launch Vitest.
+Vitest 还支持在没有 IDE 的情况下调试测试。然而，这要求测试不是并行运行的。可以使用以下命令之一启动 Vitest。
 
 ```sh
 # To run in a single worker
@@ -76,7 +73,6 @@ vitest --inspect-brk --single-thread
 vitest --inspect-brk --no-threads
 ```
 
-Once Vitest starts it will stop execution and waits for you to open developer tools that can connect to [NodeJS inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/). You can use Chrome DevTools for this by opening `chrome://inspect` on browser.
+一旦 Vitest 启动，它将停止执行并等待你打开可以连接到 [NodeJS 检查器](https://nodejs.org/en/docs/guides/debugging-getting-started/) 的开发人员工具。 你可以通过在浏览器上打开 `chrome://inspect` 来使用 Chrome DevTools。
 
-In watch mode you can keep the debugger open during test re-runs by using the `--single-thread --isolate false` options.
->>>>>>> 52fd6e49c6e2d6550c6649bed9bf18bb00e54903
+在监视模式下，你可以使用 `--single-thread --isolate false` 选项在测试重新运行期间保持调试器打开。
