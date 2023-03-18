@@ -530,8 +530,14 @@ export default defineConfig({
 
 ### testTimeout
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `5000`
+=======
+- **Type:** `number`
+- **Default:** `5000`
+- **CLI:** `--test-timeout=5000`
+>>>>>>> 6f9ac9ad9ad3ec890fb6502c07ae43dc3d718e4a
 
 测试的默认超时时间（以毫秒为单位）。
 

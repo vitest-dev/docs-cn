@@ -19,6 +19,10 @@ yarn global add ndb
 ndb npm run test
 ```
 
+:::tip
+When debugging tests you might want to use `--test-timeout` CLI argument to prevent tests from timing out when stopping at breakpoints.
+:::
+
 ## VSCode
 
 在 VSCode 中调试测试的快速方法是通过 `JavaScript 调试终端`。 打开一个新的 `JavaScript 调试终端` 并直接运行 `npm run test` 或 `vitest`。_这适用于在 Node 中运行的任何代码，因此适用于大多数 JS 测试框架_
