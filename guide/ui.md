@@ -41,7 +41,7 @@ export default {
 要预览你的 HTML 报告，可以使用 [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) 命令：
 
 ```sh
-npx vite preview --base __vitest__ --outDir ./html
+npx vite preview --outDir ./html
 ```
 
 你可以使用 [`outputFile`](/config/#outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。

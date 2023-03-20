@@ -380,6 +380,33 @@ export default defineConfig({
 })
 ```
 
+### poolMatchGlobs
+
+- **Type:** `[string, 'browser' | 'threads' | 'child_process'][]`
+- **Default:** `[]`
+- **Version:** Since Vitest 0.29.4
+
+Automatically assign pool in which tests will run based on globs. The first match will be used.
+
+For example:
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolMatchGlobs: [
+      // all tests in "worker-specific" directory will run inside a worker as if you enabled `--threads` for them,
+      ['**/tests/worker-specific/**', 'threads'],
+      // run all tests in "browser" directory in an actual browser
+      ['**/tests/browser/**', 'browser'],
+      // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
+      // ...
+    ]
+  }
+})
+```
+
 ### update
 
 - **类型:** `boolean`
@@ -990,6 +1017,80 @@ test('doNotRun', () => {
 - **命令行终端:** `--api`, `--api.port`, `--api.host`, `--api.strictPort`
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
+
+### browser
+
+- **Type:** `{ enabled?, name?, provider?, headless?, api? }`
+- **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
+- **Version:** Since Vitest 0.29.4
+- **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
+
+Run Vitest tests in a browser. If the browser name is not specified, Vitest will try to determine your default browser automatically. We use [WebdriverIO](https://webdriver.io/) for running tests by default, but it can be configured with [browser.provider](/config/#browser-provider) option.
+
+::: tip NOTE
+Read more about testing in a real browser in the [guide page](/guide/browser).
+:::
+
+::: warning
+This is an experimental feature. Breaking changes might not follow semver, please pin Vitest's version when using it.
+:::
+
+#### browser.enabled
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **CLI:** `--browser`, `--browser.enabled=false`
+
+Run all tests inside a browser by default. Can be overriden with [`poolMatchGlobs`](/config/#poolmatchglobs) option.
+
+#### browser&#46;name
+
+- **Type:** `string`
+- **Default:** _tries to find default browser automatically_
+- **CLI:** `--browser=safari`
+
+Run all tests in a specific browser. If not specified, tries to find a browser automatically.
+
+
+#### browser.headless
+
+- **Type:** `boolean`
+- **Default:** `process.env.CI`
+- **CLI:** `--browser.headless`, `--brower.headless=false`
+
+Run the browser in a `headless` mode. If you are running Vitest in CI, it will be enabled by default.
+
+#### browser.api
+
+- **Type:** `number | { port?, strictPort?, host? }`
+- **Default:** `63315`
+- **CLI:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
+
+Configure options for Vite server that serves code in the browser. Does not affect [`test.api`](/config/#api) option.
+
+#### browser.provider
+
+- **Type:** `string`
+- **Default:** `'webdriverio'`
+- **CLI:** `--browser.provider=./custom-provider.ts`
+
+Path to a provider that will be used when running browser tests. Provider should be exported using `default` export and have this shape:
+
+```ts
+export interface BrowserProvider {
+  initialize(ctx: Vitest): Awaitable<void>
+  createPool(): {
+    runTests: (files: string[], invalidated: string[]) => void
+    close: () => Awaited<void>
+  }
+  // signals that test file stopped running, if it was opened with `id=` query
+  testFinished?(testId: string): Awaitable<void>
+}
+```
+
+::: warning
+This is an advanced API for library authors. If you just need to run tests in a browser, use the [browser](/config/#browser) option.
+:::
 
 ### clearMocks
 
