@@ -20,7 +20,7 @@ ndb npm run test
 ```
 
 :::tip
-When debugging tests you might want to use `--test-timeout` CLI argument to prevent tests from timing out when stopping at breakpoints.
+在调试测试时，你可能使用 `--test-timeout` CLI 参数来防止测试在断点处停止时超时。
 :::
 
 ## VSCode
