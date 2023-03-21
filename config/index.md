@@ -400,8 +400,8 @@ export default defineConfig({
       ['**/tests/worker-specific/**', 'threads'],
       // all other tests will run based on "threads" option, if you didn't specify other globs
       // ...
-    ]
-  }
+    ],
+  },
 })
 ```
 
