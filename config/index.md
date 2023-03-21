@@ -400,8 +400,8 @@ export default defineConfig({
       ['**/tests/worker-specific/**', 'threads'],
       // all other tests will run based on "threads" option, if you didn't specify other globs
       // ...
-    ]
-  }
+    ],
+  },
 })
 ```
 
@@ -555,14 +555,9 @@ export default defineConfig({
 
 ### testTimeout
 
-<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `5000`
-=======
-- **Type:** `number`
-- **Default:** `5000`
-- **CLI:** `--test-timeout=5000`
->>>>>>> 3080d9e788fa2a318ae1b93129e16351b991a6f4
+- **命令行终端:** `--test-timeout=5000`
 
 测试的默认超时时间（以毫秒为单位）。
 
