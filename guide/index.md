@@ -161,6 +161,10 @@ pnpm link --global # 你可以使用你喜爱的任何包管理工具来设置�
 
 ## 社区
 
+<<<<<<< HEAD
 如果你有疑问或者需要帮助，可以到 [Discord](https://chat.vitest.dev) 和 [GitHub Discussions](https://github.com/vitest-dev/vitest/discussions) 社区来寻求帮助。
 
 [cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options
+=======
+If you have questions or need help, reach out to the community at [Discord](https://chat.vitest.dev) and [GitHub Discussions](https://github.com/vitest-dev/vitest/discussions).
+>>>>>>> 4a495aa21afb8e4e17c5266519de717041d47ca0
