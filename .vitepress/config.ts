@@ -113,7 +113,7 @@ export default withPwa(
       logo: '/logo.svg',
 
       editLink: {
-        pattern: 'https://github.com/vitest-dev/vitest/tree/main/docs/:path',
+        pattern: 'https://github.com/vitest-dev/docs-cn/tree/dev/:path',
         text: '为此页提供修改建议',
       },
 
