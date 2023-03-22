@@ -382,13 +382,13 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
-- **类型:** `[string, 'browser' | 'threads' | 'child_process'][]`
-- **默认值:** `[]`
-- **版本:** 从 Vitest 0.29.4 开始支持
+- **Type:** `[string, 'threads' | 'child_process'][]`
+- **Default:** `[]`
+- **Version:** Since Vitest 0.29.4
 
-根据 globs 自动匹配测试将在其中运行的池。将使用第一个匹配项。
+Automatically assign pool in which tests will run based on globs. The first match will be used.
 
-例如：
+For example:
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -400,7 +400,7 @@ export default defineConfig({
       ['**/tests/worker-specific/**', 'threads'],
       // run all tests in "browser" directory in an actual browser
       ['**/tests/browser/**', 'browser'],
-      // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
+      // all other tests will run based on "threads" option, if you didn't specify other globs
       // ...
     ],
   },
