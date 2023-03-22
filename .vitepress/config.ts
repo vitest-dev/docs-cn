@@ -123,43 +123,43 @@ export default withPwa(
         indexName: 'vitest-cn',
         placeholder: '搜索文档',
         translations: {
-            button: {
-              buttonText: '搜索文档',
-              buttonAriaLabel: '搜索文档'
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档',
+          },
+          modal: {
+            searchBox: {
+              resetButtonTitle: '清除查询条件',
+              resetButtonAriaLabel: '清除查询条件',
+              cancelButtonText: '取消',
+              cancelButtonAriaLabel: '取消',
             },
-            modal: {
-              searchBox: {
-                resetButtonTitle: '清除查询条件',
-                resetButtonAriaLabel: '清除查询条件',
-                cancelButtonText: '取消',
-                cancelButtonAriaLabel: '取消'
-              },
-              startScreen: {
-                recentSearchesTitle: '搜索历史',
-                noRecentSearchesText: '没有搜索历史',
-                saveRecentSearchButtonTitle: '保存至搜索历史',
-                removeRecentSearchButtonTitle: '从搜索历史中移除',
-                favoriteSearchesTitle: '收藏',
-                removeFavoriteSearchButtonTitle: '从收藏中移除'
-              },
-              errorScreen: {
-                titleText: '无法获取结果',
-                helpText: '你可能需要检查你的网络连接'
-              },
-              footer: {
-                selectText: '选择',
-                navigateText: '切换',
-                closeText: '关闭',
-                searchByText: '搜索提供者'
-              },
-              noResultsScreen: {
-                noResultsText: '无法找到相关结果',
-                suggestedQueryText: '你可以尝试查询',
-                reportMissingResultsText: '你认为该查询应该有结果？',
-                reportMissingResultsLinkText: '点击反馈'
-              }
-            }
-          }
+            startScreen: {
+              recentSearchesTitle: '搜索历史',
+              noRecentSearchesText: '没有搜索历史',
+              saveRecentSearchButtonTitle: '保存至搜索历史',
+              removeRecentSearchButtonTitle: '从搜索历史中移除',
+              favoriteSearchesTitle: '收藏',
+              removeFavoriteSearchButtonTitle: '从收藏中移除',
+            },
+            errorScreen: {
+              titleText: '无法获取结果',
+              helpText: '你可能需要检查你的网络连接',
+            },
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
+              closeText: '关闭',
+              searchByText: '搜索提供者',
+            },
+            noResultsScreen: {
+              noResultsText: '无法找到相关结果',
+              suggestedQueryText: '你可以尝试查询',
+              reportMissingResultsText: '你认为该查询应该有结果？',
+              reportMissingResultsLinkText: '点击反馈',
+            },
+          },
+        },
         // searchParameters: {
         //   facetFilters: ['tags:zh'],
         // },
@@ -264,6 +264,10 @@ export default withPwa(
                 link: '/guide/ui',
               },
               {
+                text: '浏览器模式',
+                link: '/guide/browser',
+              },
+              {
                 text: '源码内联测试',
                 link: '/guide/in-source',
               },
@@ -337,149 +341,6 @@ export default withPwa(
           },
         ],
       },
-<<<<<<< HEAD
-=======
-    ],
-
-    sidebar: {
-      // TODO: bring sidebar of apis and config back
-      '/advanced': [
-        {
-          text: 'Advanced',
-          items: [
-            {
-              text: 'Vitest Node API',
-              link: '/advanced/api',
-            },
-            {
-              text: 'Runner API',
-              link: '/advanced/runner',
-            },
-          ],
-        },
-      ],
-      '/': [
-        {
-          text: 'Guide',
-          items: [
-            {
-              text: 'Why Vitest',
-              link: '/guide/why',
-            },
-            {
-              text: 'Getting Started',
-              link: '/guide/',
-            },
-            {
-              text: 'Features',
-              link: '/guide/features',
-            },
-            {
-              text: 'CLI',
-              link: '/guide/cli',
-            },
-            {
-              text: 'Test Filtering',
-              link: '/guide/filtering',
-            },
-            {
-              text: 'Coverage',
-              link: '/guide/coverage',
-            },
-            {
-              text: 'Snapshot',
-              link: '/guide/snapshot',
-            },
-            {
-              text: 'Mocking',
-              link: '/guide/mocking',
-            },
-            {
-              text: 'Testing Types',
-              link: '/guide/testing-types',
-            },
-            {
-              text: 'Vitest UI',
-              link: '/guide/ui',
-            },
-            {
-              text: 'Browser Mode',
-              link: '/guide/browser',
-            },
-            {
-              text: 'In-source Testing',
-              link: '/guide/in-source',
-            },
-            {
-              text: 'Test Context',
-              link: '/guide/test-context',
-            },
-            {
-              text: 'Environment',
-              link: '/guide/environment',
-            },
-            {
-              text: 'Extending Matchers',
-              link: '/guide/extending-matchers',
-            },
-            {
-              text: 'IDE Integration',
-              link: '/guide/ide',
-            },
-            {
-              text: 'Debugging',
-              link: '/guide/debugging',
-            },
-            {
-              text: 'Comparisons',
-              link: '/guide/comparisons',
-            },
-            {
-              text: 'Migration Guide',
-              link: '/guide/migration',
-            },
-          ],
-        },
-        {
-          text: 'API',
-          items: [
-            {
-              text: 'Test API Reference',
-              link: '/api/',
-            },
-            {
-              text: 'Mock Functions',
-              link: '/api/mock',
-            },
-            {
-              text: 'Vi Utility',
-              link: '/api/vi',
-            },
-            {
-              text: 'Expect',
-              link: '/api/expect',
-            },
-            {
-              text: 'ExpectTypeOf',
-              link: '/api/expect-typeof',
-            },
-            {
-              text: 'assertType',
-              link: '/api/assert-type',
-            },
-          ],
-        },
-        {
-          text: 'Config',
-          items: [
-            {
-              text: 'Config Reference',
-              link: '/config/',
-            },
-          ],
-        },
-      ],
->>>>>>> fce894a52ffcb0b7040c1f440a775ad1a1bb5399
     },
     pwa,
     transformHead,

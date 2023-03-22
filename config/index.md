@@ -357,12 +357,12 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### environmentMatchGlobs
 
-- **Type:** `[string, EnvironmentName][]`
-- **Default:** `[]`
+- **类型:** `[string, EnvironmentName][]`
+- **默认值:** `[]`
 
-Automatically assign environment based on globs. The first match will be used.
+基于 globs 自动匹配执行环境。将使用第一个匹配项。
 
-For example:
+例如：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -382,13 +382,13 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
-- **Type:** `[string, 'browser' | 'threads' | 'child_process'][]`
-- **Default:** `[]`
-- **Version:** Since Vitest 0.29.4
+- **类型:** `[string, 'browser' | 'threads' | 'child_process'][]`
+- **默认值:** `[]`
+- **版本:** 从 Vitest 0.29.4 开始支持
 
-Automatically assign pool in which tests will run based on globs. The first match will be used.
+根据 glob 自动匹配测试将在其中运行的池。将使用第一个匹配项。
 
-For example:
+例如：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -402,8 +402,8 @@ export default defineConfig({
       ['**/tests/browser/**', 'browser'],
       // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
       // ...
-    ]
-  }
+    ],
+  },
 })
 ```
 
@@ -1050,7 +1050,6 @@ Run all tests inside a browser by default. Can be overriden with [`poolMatchGlob
 - **CLI:** `--browser=safari`
 
 Run all tests in a specific browser. If not specified, tries to find a browser automatically.
-
 
 #### browser.headless
 
