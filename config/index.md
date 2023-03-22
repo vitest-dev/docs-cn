@@ -398,7 +398,6 @@ export default defineConfig({
     poolMatchGlobs: [
       // all tests in "worker-specific" directory will run inside a worker as if you enabled `--threads` for them,
       ['**/tests/worker-specific/**', 'threads'],
-      // run all tests in "browser" directory in an actual browser
       ['**/tests/browser/**', 'browser'],
       // all other tests will run based on "threads" option, if you didn't specify other globs
       // ...
