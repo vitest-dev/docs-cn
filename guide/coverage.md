@@ -146,7 +146,7 @@ export default defineConfig({
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
 使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
-被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释。
+被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
 
 对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
 请注意，这些忽略提示现在也可能包含在最终的产品构建中。
