@@ -357,12 +357,12 @@ Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以�
 
 ### environmentMatchGlobs
 
-- **Type:** `[string, EnvironmentName][]`
-- **Default:** `[]`
+- **类型:** `[string, EnvironmentName][]`
+- **默认值:** `[]`
 
-Automatically assign environment based on globs. The first match will be used.
+基于 globs 自动匹配执行环境。将使用第一个匹配项。
 
-For example:
+例如：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -398,6 +398,7 @@ export default defineConfig({
     poolMatchGlobs: [
       // all tests in "worker-specific" directory will run inside a worker as if you enabled `--threads` for them,
       ['**/tests/worker-specific/**', 'threads'],
+      ['**/tests/browser/**', 'browser'],
       // all other tests will run based on "threads" option, if you didn't specify other globs
       // ...
     ],
