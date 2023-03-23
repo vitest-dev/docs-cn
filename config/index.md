@@ -427,8 +427,8 @@ export default defineConfig({
       ['**/tests/browser/**', 'browser'],
       // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
       // ...
-    ]
-  }
+    ],
+  },
 })
 ```
 
@@ -1075,7 +1075,6 @@ Run all tests inside a browser by default. Can be overriden with [`poolMatchGlob
 - **CLI:** `--browser=safari`
 
 Run all tests in a specific browser. If not specified, tries to find a browser automatically.
-
 
 #### browser.headless
 

@@ -14,15 +14,16 @@ To activate browser mode in your Vitest configuration, you can use the `--browse
 export default defineConfig({
   test: {
     browser: {
-      enabled: true
+      enabled: true,
     },
-  }
+  },
 })
 ```
 
 ## Browser Option Types:
 
 The browser option in Vitest can be set to either a boolean or a string type. If set to `true`, Vitest will try to automatically find your default browser. You can also specify a browser by providing its name as a `string`. The available browser options are:
+
 - `firefox`
 - `chrome`
 - `edge`
@@ -37,7 +38,7 @@ export default defineConfig({
       enabled: true,
       name: 'chrome',
     },
-  }
+  },
 })
 ```
 
@@ -76,7 +77,7 @@ export default defineConfig({
       enabled: true,
       headless: true,
     },
-  }
+  },
 })
 ```
 
