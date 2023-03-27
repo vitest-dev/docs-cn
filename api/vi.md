@@ -293,23 +293,33 @@ test('importing the next module imports mocked one', async () => {
 
 - **类型**: `() => Vitest`
 
+<<<<<<< HEAD
   通过清除所有模块的缓存来重置模块注册表。可能有助于隔离测试之间本地状态冲突的模块。
 
   ```ts
   import { vi } from 'vitest'
   
   beforeAll(() => {
+=======
+  Resets modules registry by clearing cache of all modules. This allows modules to be reevaluated when reimported. Top-level imports cannot be reevaluated. Might be useful to isolate modules where local state conflicts between tests.
+
+  ```ts
+  import { vi } from 'vitest'
+  import { data } from './data.js' // Will not get reevaluated beforeEach test
+
+  beforeEach(() => {
+>>>>>>> b730dca2279e7f0624f32a3e1519f5b9473e47c9
     vi.resetModules()
   })
   
   test('change state', async () => {
-    const mod = await import('./some/path')
+    const mod = await import('./some/path.js') // Will get reevaluated
     mod.changeLocalState('new value')
     expect(mod.getLocalState()).toBe('new value')
   })
   
   test('module has old state', async () => {
-    const mod = await import('./some/path')
+    const mod = await import('./some/path.js') // Will get reevaluated
     expect(mod.getLocalState()).toBe('old value')
   })
   ```
