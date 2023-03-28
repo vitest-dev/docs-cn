@@ -1076,13 +1076,10 @@ Run all tests inside a browser by default. Can be overriden with [`poolMatchGlob
 
 Run all tests in a specific browser. Possible options in different providers:
 
-<<<<<<< HEAD
-=======
 - `webdriverio`: `firefox`, `chrome`, `edge`, `safari`
 - `playwright`: `firefox`, `webkit`, `chromium`
 - custom: any string that will be passed to the provider
 
->>>>>>> b730dca2279e7f0624f32a3e1519f5b9473e47c9
 #### browser.headless
 
 - **Type:** `boolean`
