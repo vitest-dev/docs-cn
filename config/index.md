@@ -473,8 +473,9 @@ export default defineConfig({
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
-### outputTruncateLength
+ ### outputDiffLines
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `stdout.columns || 80`
 - **命令行终端:** `--outputTruncateLength=<length>`, `--output-truncate-length=<length>`
@@ -525,6 +526,24 @@ export default defineConfig({
 指定差异发生之前字符串化对象的最大长度。Vitest 尝试在执行差异之前将对象字符串化，但如果对象太大，它会减少对象的深度以适应此限制。 因此，如果对象太大或嵌套过多，你可能看不到差异。
 
 增加此限制可以增加差异的持续时间。
+=======
+ - **Type:** `number`
+ - **Default:** `15`
+ - **CLI:** `--outputDiffLines=<lines>`, `--output-diff-lines=<lines>`
+
+ Limit the number of single output diff lines up to `15`. Vitest counts all `+-` lines when determining when to stop. For example, you might see diff like this, if you set this property to `3`:
+
+ ```diff
+ - test: 1,
+ + test: 2,
+ - obj: '1',
+ ...
+ - test2: 1,
+ + test2: 1,
+ - obj2: '2',
+ ...
+ ```
+>>>>>>> 135cd4fa541de2625efd62f459b08eb63b25ad0a
 
 ### outputFile
 
