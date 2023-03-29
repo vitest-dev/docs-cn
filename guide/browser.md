@@ -2,13 +2,13 @@
 title: Browser Mode | Guide
 ---
 
-# Browser Mode (experimental)
+# 浏览器模式 (实验性)
 
-This page provides information about the experimental browser mode feature in the Vitest API, which allows you to run your tests in the browser natively, providing access to browser globals like window and document. This feature is currently under development, and APIs may change in the future.
+此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
-## Configuration
+## 配置
 
-To activate browser mode in your Vitest configuration, you can use the `--browser` flag or set the `browser.enabled` field to `true` in your Vitest configuration file. Here is an example configuration using the browser field:
+要在 Vitest 配置中激活浏览器模式，你可以使用 `--browser` 标志或在你的 Vitest 配置文件中将 `browser.enabled` 字段设置为 `true`。这是使用浏览器字段的示例配置：
 
 ```ts
 export default defineConfig({
@@ -21,47 +21,47 @@ export default defineConfig({
 })
 ```
 
-## Browser Option Types:
+## 浏览器选项类型:
 
-The browser option in Vitest depends on the provider. Vitest will fail, if you pass `--browser` and don't specify its name in the config file. Available options:
+Vitest 中的浏览器选项取决于提供者。如果你传递 `--browser` 并且未在配置文件中指定其名称，Vitest 将失败。可用选项：
 
-- `webdriverio` (default) supports these browsers:
+- `webdriverio` (默认) 支持以下浏览器:
   - `firefox`
   - `chrome`
   - `edge`
   - `safari`
-- `playwright` supports these browsers:
+- `playwright` 支持以下浏览器:
   - `firefox`
   - `webkit`
   - `chromium`
 
-## Cross-browser Testing:
+## 跨浏览器测试:
 
-When you specify a browser name in the browser option, Vitest will try to run the specified browser using [WebdriverIO](https://webdriver.io/) by default, and then run the tests there. This feature makes cross-browser testing easy to use and configure in environments like a CI. If you don't want to use WebdriverIO, you can configure the custom browser provider by using `browser.provider` option.
+当你在浏览器选项中指定浏览器名称时，Vitest 将默认尝试使用 [WebdriverIO](https://webdriver.io/) 运行指定的浏览器，然后在那里运行测试。此功能使跨浏览器测试易于在 CI 等环境中使用和配置。如果不想使用 WebdriverIO，可以使用 `browser.provider` 选项配置自定义浏览器提供程序。
 
-To specify a browser using the CLI, use the `--browser` flag followed by the browser name, like this:
+要使用 CLI 指定浏览器，请使用 `--browser` 标志后跟浏览器名称，如下所示：
 
 ```sh
 npx vitest --browser=chrome
 ```
 
-Or you can provide browser options to CLI with dot notation:
+或者你可以使用点符号向 CLI 提供浏览器选项：
 
 ```sh
 npx vitest --browser.name=chrome --browser.headless
 ```
 
 ::: tip NOTE
-When using the Safari browser option with WebdriverIO, the `safaridriver` needs to be activated by running `sudo safaridriver --enable` on your device.
+当使用带有 WebdriverIO 的 Safari 浏览器选项时，需要通过在你的设备上运行 `sudo safaridriver --enable` 来激活`safaridriver`。
 
-Additionally, when running your tests, Vitest will attempt to install some drivers for compatibility with `safaridriver`.
+此外，在运行测试时，Vitest 将尝试安装一些驱动程序用于兼容 `safaridriver`。
 :::
 
 ## Headless
 
-Headless mode is another option available in the browser mode. In headless mode, the browser runs in the background without a user interface, which makes it useful for running automated tests. The headless option in Vitest can be set to a boolean value to enable or disable headless mode.
+headless 模式是浏览器模式下可用的另一个选项。在 headless 模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用 headless 模式。
 
-Here's an example configuration enabling headless mode:
+这是启用 headless 模式的示例配置：
 
 ```ts
 export default defineConfig({
@@ -74,17 +74,18 @@ export default defineConfig({
 })
 ```
 
-You can also set headless mode using the `--browser.headless` flag in the CLI, like this:
+你还可以在 CLI 中使用 `--browser.headless` 标志设置 headless 模式，如下所示：
 
 ```sh
 npx vitest --browser.name=chrome --browser.headless
 ```
 
-In this case, Vitest will run in headless mode using the Chrome browser.
+在这种情况下，Vitest 将使用 Chrome 浏览器以 headless 模式运行。
 
-## Limitations
-### Thread Blocking Dialogs
+## 限制
 
-When using Vitest Browser, it's important to note that thread blocking dialogs like `alert` or `confirm` cannot be used natively. This is because they block the web page, which means Vitest cannot continue communicating with the page, causing the execution to hang.
+### 线程阻塞对话框
 
-In such situations, Vitest provides default mocks with default returned values for these APIs. This ensures that if the user accidentally uses synchronous popup web APIs, the execution would not hang. However, it's still recommended for the user to mock these web APIs for better experience. Read more in [Mocking](/guide/mocking).
+使用 Vitest 浏览器时，需要注意的是像 `alert` 或 `confirm` 这样的线程阻塞对话框不能在本地使用。这是因为它们阻塞了网页，这意味着 Vitest 无法继续与该页面通信，导致执行挂起。
+
+在这种情况下，Vitest 为这些 API 提供默认模拟和默认返回值。这确保如果用户不小心使用了同步弹出式 Web API，执行不会挂起。但是，仍然建议用户模拟这些 Web API 以获得更好的体验。在 [Mocking](/guide/mocking) 中阅读更多内容。
