@@ -60,90 +60,46 @@ export default {
 
 ## 选项
 
-<<<<<<< HEAD
-| 选项                                 | 描述                                                                                                                                          |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-v, --version`                      | 显示版本号                                                                                                                                    |
-| `-r, --root <path>`                  | 定义项目根目录                                                                                                                                |
-| `-c, --config <path>`                | 定义配置文件路径                                                                                                                              |
-| `-u, --update`                       | 更新快照                                                                                                                                      |
-| `-w, --watch`                        | 智能即时浏览模式                                                                                                                              |
-| `-t, --testNamePattern <pattern>`    | 使用与模式匹配的全名运行测试                                                                                                                  |
-| `--dir <path>`                       | 用于扫描测试文件的基本目录                                                                                                                    |
-| `--ui`                               | 启用 UI                                                                                                                                       |
-| `--open`                             | 如果启用，则自动打开 UI (default: `true`)                                                                                                     |
-| `--api [api]`                        | 服务 API，可用选项：`--api.port <port>`、`--api.host [host]` 和 `--api.strictPort`                                                            |
-| `--threads`                          | 启用线程 (default: `true`)                                                                                                                    |
-| `--silent`                           | 测试的控制台输出                                                                                                                              |
-| `--isolate`                          | 为每个测试文件隔离环境 (default: `true`)                                                                                                      |
-| `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                                 |
-| `--outputDiffMaxSize <length>`       | 对象差异输出最大大小（default：10000）                                                                                                        |
-| `--outputDiffMaxLines <lines>`       | 差异输出窗口中的最大行数 (default: 50)                                                                                                        |
-| `--outputTruncateLength <length>`    | 使用 `<length>` 指定截断输出差异的字符行数                                                                                                    |
-| `--outputDiffLines <lines>`          | 使用 `<lines>` 指定输出差线的数量                                                                                                             |
-| `--outputFile <filename/-s>`         | 当还指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
-| `--coverage`                         | 使用 c8 进行覆盖率输出                                                                                                                        |
-| `--run`                              | 不使用浏览模式                                                                                                                                |
-| `--mode`                             | 覆盖 Vite 模式 (default: `test`)                                                                                                              |
-| `--mode <name>`                      | 覆盖 Vite 模式 (default: `test`)                                                                                                              |
-| `--globals`                          | 注入全局 API                                                                                                                                  |
-| `--dom`                              | 使用 happy-dom 模拟浏览器 API                                                                                                                 |
-| `--browser`                          | 在浏览器中运行测试                                                                                                                            |
-| `--environment <env>`                | 设置运行的环境 (default: `node`)                                                                                                              |
-| `--passWithNoTests`                  | 未找到测试时通过                                                                                                                              |
-| `--logHeapUsage`                     | 显示每个测试的堆大小                                                                                                                          |
-| `--allowOnly`                        | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise)                                                                         |
-| `--dangerouslyIgnoreUnhandledErrors` | 忽略发生的任何未处理的错误                                                                                                                    |
-| `--changed [since]`                  | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed)                                                                    |
-| `--shard <shard>`                    | 配置测试分片                                                                                                                                  |
-| `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                                 |
-| `--no-color`                         | 从控制台输出中禁用颜色                                                                                                                        |
-| `--inspect`                          | 启用 Node.js 检查器                                                                                                                           |
-| `--inspect-brk`                      | 使用 break 启用 Node.js 检查器                                                                                                                |
-| `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                           |
-|                                      |
-=======
-| Options       |               |
-| ------------- | ------------- |
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--threads` | Enable Threads (default: `true`) |
-| `--silent` | Silent console output from tests |
-| `--isolate` | Isolate environment for each test file (default: `true`) |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputDiffLines <lines>` | Limit number of output diff lines up to `<lines>`. |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Enable coverage report |
-| `--run` | Do not watch |
-| `--mode` | Override Vite mode (default: `test`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser api with happy-dom |
-| `--browser [options]` | Run tests in [the browser](/guide/browser) (default: `false`) |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--logHeapUsage` | Show the size of heap for each test |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order) |
-| `--no-color` | Removes colors from the console output |
-| `--inspect` | Enables Node.js inspector |
-| `--inspect-brk` | Enables Node.js inspector with break |
-| `-h, --help` | Display available CLI options |
->>>>>>> 135cd4fa541de2625efd62f459b08eb63b25ad0a
+| 选项                                 | 描述                                                                                                                                        |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-v, --version`                      | 显示版本号                                                                                                                                  |
+| `-r, --root <path>`                  | 定义项目根目录                                                                                                                              |
+| `-c, --config <path>`                | 定义配置文件路径                                                                                                                            |
+| `-u, --update`                       | 更新快照                                                                                                                                    |
+| `-w, --watch`                        | 智能即时浏览模式                                                                                                                            |
+| `-t, --testNamePattern <pattern>`    | 使用与模式匹配的全名运行测试                                                                                                                |
+| `--dir <path>`                       | 用于扫描测试文件的基本目录                                                                                                                  |
+| `--ui`                               | 启用 UI                                                                                                                                     |
+| `--open`                             | 如果启用，则自动打开 UI (default: `true`)                                                                                                   |
+| `--api [api]`                        | 服务 API，可用选项：`--api.port <port>`、`--api.host [host]` 和 `--api.strictPort`                                                          |
+| `--threads`                          | 启用线程 (default: `true`)                                                                                                                  |
+| `--silent`                           | 控制台输出测试结果                                                                                                                          |
+| `--isolate`                          | 为每个测试文件隔离环境 (default: `true`)                                                                                                    |
+| `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                               |
+| `--outputDiffLines <lines>`          | 使用 `<lines>` 指定输出 diff 的数量                                                                                                         |
+| `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
+| `--coverage`                         | 启用输出覆盖率报告                                                                                                                          |
+| `--run`                              | 不使用浏览模式                                                                                                                              |
+| `--mode`                             | 覆盖 Vite 模式 (default: `test`)                                                                                                            |
+| `--mode <name>`                      | 覆盖 Vite 模式 (default: `test`)                                                                                                            |
+| `--globals`                          | 注入全局 API                                                                                                                                |
+| `--dom`                              | 使用 happy-dom 模拟浏览器 API                                                                                                               |
+| `--browser [options]`                | 在 [浏览器模式](/guide/browser) 中运行测试(默认值：`false`）                                                                                |
+| `--environment <env>`                | Runner environment (default: `node`)                                                                                                        |
+| `--passWithNoTests`                  | 未找到测试时通过                                                                                                                            |
+| `--logHeapUsage`                     | 显示每个测试的堆大小                                                                                                                        |
+| `--allowOnly`                        | 允许标记为 `only` 的测试和套件 (default: false in CI, true otherwise)                                                                       |
+| `--dangerouslyIgnoreUnhandledErrors` | 忽略发生的任何未处理的错误                                                                                                                  |
+| `--changed [since]`                  | 运行受更改文件影响的测试 (default: false)，更多内容请查看 [文档](#changed)                                                                  |
+| `--shard <shard>`                    | 配置测试分片                                                                                                                                |
+| `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                               |
+| `--no-color`                         | 控制台输出中禁用颜色                                                                                                                        |
+| `--inspect`                          | 启用 Node.js 检查器                                                                                                                         |
+| `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
+| `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                         |
 
 ::: tip
-Vitest 支持 CLI 参数的 骆驼式命名法 和 烤肉串式命名法 。 例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
+Vitest 支持 CLI 参数的骆驼式命名法和烤肉串式命名法。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
 
 Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=dot` 都是有效的。
 
@@ -153,7 +109,7 @@ Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=d
 vitest --reporter=dot --reporter=default
 ```
 
-布尔值选项可以用 `no-` 前缀来否定。 将值指定为“false”也有效：
+布尔值选项可以用 `no-` 前缀来否定。将值指定为 `false` 也有效：
 
 ```
 vitest --no-api

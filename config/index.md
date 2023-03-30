@@ -473,28 +473,13 @@ export default defineConfig({
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
- ### outputDiffLines
-
-<<<<<<< HEAD
-- **类型:** `number`
-- **默认值:** `stdout.columns || 80`
-- **命令行终端:** `--outputTruncateLength=<length>`, `--output-truncate-length=<length>`
-
-设置截断输出差异的字符行数为 `stdout.columns` 或者最多 `80` 个字符。 你可能希望对此进行调整，取决于你的终端窗口宽度。为此，Vitest 包括 `+-` 字符和空格。例如，如果将其设置为 `6`，你可能会看到此差异：
-
-```diff
-// actual line: "Text that seems correct"
-- Text...
-+ Test...
-```
-
 ### outputDiffLines
 
 - **类型:** `number`
 - **默认值:** `15`
 - **命令行终端:** `--outputDiffLines=<lines>`, `--output-diff-lines=<lines>`
 
-指定输出差线的数量，最多 `15` 个。当决定停止时，Vitest 统计所有 `+-` 行。例如，如果将其设置为 `3`，你可能会看到此差异：
+将单个输出 diff 行的数量限制最多为 15。Vitest 在确定何时停止时计算所有 +- 行。例如，如果将此属性设置为 3，你可能会看到这样的差异：
 
 ```diff
 - test: 1,
@@ -506,44 +491,6 @@ export default defineConfig({
 - obj2: '2',
 ...
 ```
-
-### outputDiffMaxLines
-
-- **类型:** `number`
-- **默认值:** `50`
-- **命令行终端:** `--outputDiffMaxLines=<lines>`, `--output-diff-max-lines=<lines>`
-- **版本:** 从 Vitest 0.26.0 开始支持
-
-指定差异窗口中显示的最大行数。请注意，如果你有一个包含许多小差异的大对象，可能不会一次看到所有这些差异。
-
-### outputDiffMaxSize
-
-- **类型:** `number`
-- **默认值:** `10000`
-- **命令行终端:** `--outputDiffMaxSize=<length>`, `--output-diff-max-size=<length>`
-- **版本:** 从 Vitest 0.26.0 开始支持
-
-指定差异发生之前字符串化对象的最大长度。Vitest 尝试在执行差异之前将对象字符串化，但如果对象太大，它会减少对象的深度以适应此限制。 因此，如果对象太大或嵌套过多，你可能看不到差异。
-
-增加此限制可以增加差异的持续时间。
-=======
- - **Type:** `number`
- - **Default:** `15`
- - **CLI:** `--outputDiffLines=<lines>`, `--output-diff-lines=<lines>`
-
- Limit the number of single output diff lines up to `15`. Vitest counts all `+-` lines when determining when to stop. For example, you might see diff like this, if you set this property to `3`:
-
- ```diff
- - test: 1,
- + test: 2,
- - obj: '1',
- ...
- - test2: 1,
- + test2: 1,
- - obj2: '2',
- ...
- ```
->>>>>>> 135cd4fa541de2625efd62f459b08eb63b25ad0a
 
 ### outputFile
 

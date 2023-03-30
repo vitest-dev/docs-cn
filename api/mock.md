@@ -99,7 +99,6 @@ getApplesSpy.mock.calls.length === 1
 
   ```js
   const myMockFn = vi.fn(() => 'original')
-<<<<<<< HEAD
   
   myMockFn.withImplementation(
     () => 'temp',
@@ -108,13 +107,6 @@ getApplesSpy.mock.calls.length === 1
     }
   )
   
-=======
-
-  myMockFn.withImplementation(() => 'temp', () => {
-    myMockFn() // 'temp'
-  })
-
->>>>>>> 135cd4fa541de2625efd62f459b08eb63b25ad0a
   myMockFn() // 'original'
   ```
 
@@ -123,7 +115,7 @@ getApplesSpy.mock.calls.length === 1
   ```ts
   test('async callback', () => {
     const myMockFn = vi.fn(() => 'original')
-
+  
     // We await this call since the callback is async
     await myMockFn.withImplementation(
       () => 'temp',
@@ -131,7 +123,7 @@ getApplesSpy.mock.calls.length === 1
         myMockFn() // 'temp'
       }
     )
-
+  
     myMockFn() // 'original'
   })
   ```
@@ -256,21 +248,17 @@ getApplesSpy.mock.calls.length === 1
 
 这是一个包含每个调用的所有参数的数组。数组的元素是该调用的参数。
 
-<<<<<<< HEAD
-如果按以下参数 `fn(arg1, arg2)`, `fn(arg3, arg4)` 的顺序调用函数两次，则 `mock.calls` 将为：
-
-=======
->>>>>>> 135cd4fa541de2625efd62f459b08eb63b25ad0a
 ```js
 const fn = vi.fn()
 
 fn('arg1', 'arg2')
 fn('arg3', 'arg4')
 
-fn.mock.calls === [
-  ['arg1', 'arg2'], // first call
-  ['arg3', 'arg4'], // second call
-]
+fn.mock.calls
+  === [
+    ['arg1', 'arg2'], // first call
+    ['arg3', 'arg4'], // second call
+  ]
 ```
 
 ## mock.lastCall
@@ -286,11 +274,6 @@ fn.mock.calls === [
 
 `value` 属性包含返回的值或引发的错误。
 
-<<<<<<< HEAD
-如果函数返回 `result`，然后抛出错误，则 `mock.results` 将为：
-
-=======
->>>>>>> 135cd4fa541de2625efd62f459b08eb63b25ad0a
 ```js
 const fn = vi.fn()
 
@@ -301,18 +284,19 @@ try {
 }
 catch {}
 
-fn.mock.results === [
-  // first result
-  {
-    type: 'return',
-    value: 'result',
-  },
-  // last result
-  {
-    type: 'throw',
-    value: Error,
-  },
-]
+fn.mock.results
+  === [
+    // first result
+    {
+      type: 'return',
+      value: 'result',
+    },
+    // last result
+    {
+      type: 'throw',
+      value: Error,
+    },
+  ]
 ```
 
 ## mock.instances
