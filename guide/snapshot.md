@@ -79,14 +79,11 @@ it('toUpperCase', () => {
 vitest -u
 ```
 
-<<<<<<< HEAD
-## 图像快照
-=======
-## File Snapshots
+## 文件快照
 
-When calling `toMatchSnapshot()`, we store all snapshots in a formatted snap file. That means we need to escaping some characters (namely the double-quote `"` and backtick `\``) in the snapshot string. Meanwhile, you might lose the syntax highlighting for the snapshot content (if they are in some language).
+调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `\``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
 
-To improve this case, we introduce [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) to explicitly snapshot in a file. This allows you to assign any file extension to the snapshot file, and making them more readable.
+为了改善这种情况，我们引入 [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) 以在文件中显式快照。这允许你为快照文件分配任何文件扩展名，并使它们更具可读性。
 
 ```ts
 import { expect, it } from 'vitest'
@@ -97,10 +94,9 @@ it('render basic', async () => {
 })
 ```
 
-It will compare with the content of `./test/basic.output.html`. And can be written back with the `--update` flag.
+它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 标志写回。
 
-## Image Snapshots
->>>>>>> c59d6a257211fd8ab8ae6d602fb25d1f9b36b215
+## 图像快照
 
 快照图像也可以使用 [`jest-image-snapshot`](https://github.com/americanexpress/jest-image-snapshot)。
 
