@@ -126,7 +126,15 @@ import { vi } from 'vitest'
   Vitest 静态分析你的文件以提升 `vi.mock`。 这意味着你不能使用不是直接从 `vitest` 包（例如，从某些实用程序文件）导入的 `vi`。要解决此问题，请始终将 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/#globals) 配置选项。
   :::
 
+<<<<<<< HEAD
   如果定义了 `factory`，则所有导入都将返回其结果。Vitest 只调用一次工厂并缓存所有后续导入的结果，直到调用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 为止。
+=======
+  ::: warning
+	Mocking modules is not currently supported in the [browser mode](/guide/browser). You can track this feature in the GitHub <a href="https://github.com/vitest-dev/vitest/issues/3046">issue</a>.
+  :::
+
+  If `factory` is defined, all imports will return its result. Vitest calls factory only once and caches result for all subsequent imports until [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock) is called.
+>>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
 
   与 `jest` 不同，工厂可以是异步的，因此你可以在内部使用 [`vi.importActual`](#vi-importactual) 或作为第一个参数接收的助手来获取原始模块。
 

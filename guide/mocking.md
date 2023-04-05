@@ -172,7 +172,7 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Client } from 'pg'
-import { failure, success } from './handlers'
+import { failure, success } from './handlers.js'
 
 // handlers
 export function success(data) {}
@@ -389,16 +389,22 @@ const instance = new SomeClass()
 vi.spyOn(instance, 'method')
 ```
 
+<<<<<<< HEAD
 - 监听模块导出 function
 
 ```ts
 // some-path.ts
+=======
+- Mock exported variables
+```js
+// some-path.js
+>>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
 export const getter = 'variable'
 ```
 
 ```ts
 // some-path.test.ts
-import * as exports from 'some-path'
+import * as exports from './some-path.js'
 vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
@@ -415,14 +421,20 @@ vi.spyOn(exports, 'setter', 'set')
 `vi.mock` 的示例：
 
 ```ts
-// ./some-path.ts
+// ./some-path.js
 export function method() {}
 ```
 
 ```ts
+<<<<<<< HEAD
 import { method } from './some-path.ts'
 vi.mock('./some-path.ts', () => ({
   method: vi.fn(),
+=======
+import { method } from './some-path.js'
+vi.mock('./some-path.js', () => ({
+  method: vi.fn()
+>>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
 }))
 ```
 
@@ -433,7 +445,7 @@ vi.mock('./some-path.ts', () => ({
 `vi.spyOn` 的示例：
 
 ```ts
-import * as exports from 'some-path'
+import * as exports from './some-path.js'
 vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
@@ -447,8 +459,8 @@ export class SomeClass {}
 ```
 
 ```ts
-import { SomeClass } from 'some-path'
-vi.mock('some-path', () => {
+import { SomeClass } from './some-path.js'
+vi.mock('./some-path.js', () => {
   const SomeClass = vi.fn()
   SomeClass.prototype.someMethod = vi.fn()
   return { SomeClass }
@@ -459,8 +471,8 @@ vi.mock('some-path', () => {
 `vi.mock` and return value 的示例:
 
 ```ts
-import { SomeClass } from 'some-path'
-vi.mock('some-path', () => {
+import { SomeClass } from './some-path.js'
+vi.mock('./some-path.js', () => {
   const SomeClass = vi.fn(() => ({
     someMethod: vi.fn(),
   }))
@@ -472,7 +484,7 @@ vi.mock('some-path', () => {
 `vi.spyOn` 的示例:
 
 ```ts
-import * as exports from 'some-path'
+import * as exports from './some-path.js'
 vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
   // whatever suites you from first two examples
 })
@@ -491,15 +503,15 @@ export function useObject() {
 
 ```ts
 // useObject.js
-import { useObject } from 'some-path'
+import { useObject } from './some-path.js'
 const obj = useObject()
 obj.method()
 ```
 
 ```ts
 // useObject.test.js
-import { useObject } from 'some-path'
-vi.mock('some-path', () => {
+import { useObject } from './some-path.js'
+vi.mock('./some-path.js', () => {
   let _cache
   const useObject = () => {
     if (!_cache) {
@@ -522,9 +534,9 @@ expect(obj.method).toHaveBeenCalled()
 - 模拟部分 module
 
 ```ts
-import { mocked, original } from 'some-path'
-vi.mock('some-path', async () => {
-  const mod = await vi.importActual<typeof import('some-path')>('some-path')
+import { mocked, original } from './some-path.js'
+vi.mock('./some-path.js', async () => {
+  const mod = await vi.importActual<typeof import('./some-path.js')>('./some-path.js')
   return {
     ...mod,
     mocked: vi.fn(),

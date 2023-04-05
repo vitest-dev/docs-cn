@@ -135,7 +135,7 @@ type Awaitable<T> = T | PromiseLike<T>
   For example, having this code you don't care for the return value of `stocks.getInfo` - it maybe a complex object, a string, or anything else. The code will still work.
 
   ```ts
-  import { Stocks } from './stocks'
+  import { Stocks } from './stocks.js'
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (stocks.getInfo('Bill'))
@@ -146,7 +146,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { Stocks } from './stocks'
+  import { Stocks } from './stocks.js'
   const stocks = new Stocks()
 
   test('if we know Bill stock, sell apples to him', () => {
@@ -166,7 +166,7 @@ type Awaitable<T> = T | PromiseLike<T>
   For example, having this code you don't care for the return value of `stocks.stockFailed` - it may return any falsy value, but the code will still work.
 
   ```ts
-  import { Stocks } from './stocks'
+  import { Stocks } from './stocks.js'
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (!stocks.stockFailed('Bill'))
@@ -177,7 +177,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { Stocks } from './stocks'
+  import { Stocks } from './stocks.js'
   const stocks = new Stocks()
 
   test('if Bill stock hasn\'t failed, sell apples to him', () => {
@@ -251,7 +251,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { Stocks } from './stocks'
+  import { Stocks } from './stocks.js'
   const stocks = new Stocks()
 
   test('stocks are instance of Stocks', () => {
@@ -267,7 +267,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { getApples } from './stocks.js'
 
   test('have more then 10 apples', () => {
     expect(getApples()).toBeGreaterThan(10)
@@ -282,7 +282,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { getApples } from './stocks.js'
 
   test('have 11 apples or more', () => {
     expect(getApples()).toBeGreaterThanOrEqual(11)
@@ -297,7 +297,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { getApples } from './stocks.js'
 
   test('have less then 20 apples', () => {
     expect(getApples()).toBeLessThan(20)
@@ -312,7 +312,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { getApples } from './stock'
+  import { getApples } from './stocks.js'
 
   test('have 11 apples or less', () => {
     expect(getApples()).toBeLessThanOrEqual(11)
@@ -386,7 +386,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { getAllFruits } from './stock'
+  import { getAllFruits } from './stocks.js'
 
   test('the fruit list contains orange', () => {
     expect(getAllFruits()).toContain('orange')
@@ -402,7 +402,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { getFruitStock } from './stock'
+  import { getFruitStock } from './stocks.js'
 
   test('apple available', () => {
     expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
@@ -681,6 +681,7 @@ type Awaitable<T> = T | PromiseLike<T>
 ## toMatchFileSnapshot
 
 - **Type:** `<T>(filepath: string, message?: string) => Promise<void>`
+- **Version:** Vitest 0.30.0
 
   Compare or update the snapshot with the content of a file explicitly specified (instead of the `.snap` file).
 
@@ -1060,7 +1061,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { db } from './db'
+  import { db } from './db.js'
 
   const cbs = []
 
@@ -1113,7 +1114,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-  import { generateId } from './generators'
+  import { generateId } from './generators.js'
 
   test('"id" is a number', () => {
     expect({ id: generateId() }).toEqual({ id: expect.any(Number) })
@@ -1275,22 +1276,24 @@ type Awaitable<T> = T | PromiseLike<T>
 
   This function is compatible with Jest's `expect.extend`, so any library that uses it to create custom matchers will work with Vitest.
 
-  If you are using TypeScript, you can extend default Matchers interface with the code bellow:
+  If you are using TypeScript, you can extend default `Matchers` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
 
   ```ts
   interface CustomMatchers<R = unknown> {
     toBeFoo(): R
   }
 
-  declare global {
-    namespace Vi {
-      interface Assertion extends CustomMatchers {}
-      interface AsymmetricMatchersContaining extends CustomMatchers {}
-    }
+  declare namespace Vi {
+    interface Assertion extends CustomMatchers {}
+    interface AsymmetricMatchersContaining extends CustomMatchers {}
 
     // Note: augmenting jest.Matchers interface will also work.
   }
   ```
+
+  ::: warning
+  Don't forget to include the ambient declaration file in your `tsconfig.json`.
+  :::
 
   :::tip
   If you want to know more, checkout [guide on extending matchers](/guide/extending-matchers).
