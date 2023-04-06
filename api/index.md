@@ -192,7 +192,10 @@ test.runIf(isDev)('dev only test', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  const myAsyncFunc = () => new Promise(resolve => resolve(1))
+
+  function myAsyncFunc() {
+    return new Promise(resolve => resolve(1))
+  }
   test.fails('fail test', async () => {
     await expect(myAsyncFunc()).rejects.toBe(1)
   })
@@ -288,6 +291,10 @@ test.each`
 ```
 
 如果你想访问 `TestContext`，请在单个测试中使用 `describe.each`。
+
+::: tip
+Vitest processes `$values` with chai `format` method. If the value is too truncated, you can increase [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold) in your config file.
+:::
 
 ::: warning
 当使用 Vitest 作为 [type checker](/guide/testing-types) 时，不能使用此语法。
@@ -487,9 +494,35 @@ describe('numberToCurrency', () => {
     })
   })
 
+<<<<<<< HEAD
   describe('given a valid number', () => {
     test('returns the correct currency format', () => {
       expect(numberToCurrency(10000)).toBe('10,000.00')
+=======
+  You can also nest describe blocks if you have a hierarchy of tests or benchmarks:
+
+  ```ts
+  import { describe, expect, test } from 'vitest'
+
+  function numberToCurrency(value) {
+    if (typeof value !== 'number')
+      throw new Error('Value must be a number')
+
+    return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
+  describe('numberToCurrency', () => {
+    describe('given an invalid number', () => {
+      test('composed of non-numbers to throw error', () => {
+        expect(() => numberToCurrency('abc')).toThrowError()
+      })
+    })
+
+    describe('given a valid number', () => {
+      test('returns the correct currency format', () => {
+        expect(numberToCurrency(10000)).toBe('10,000.00')
+      })
+>>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
     })
   })
 })

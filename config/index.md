@@ -56,8 +56,7 @@ export default defineConfig({
 当使用单独的 `vitest.config.js` 时，如果需要，你还可以从另一个配置文件扩展 Vite 的选项：
 
 ```ts
-import { mergeConfig } from 'vite'
-import { defineConfig } from 'vitest/config'
+import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
 export default mergeConfig(
@@ -70,8 +69,19 @@ export default mergeConfig(
 )
 ```
 
+<<<<<<< HEAD
 :::tip 提醒
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
+=======
+::: warning
+`mergeConfig` helper is availabe in Vitest since v0.30.0. You can import it from `vite` directly, if you use lower version.
+:::
+
+## Options
+
+:::tip
+In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
+>>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 :::
 
 ### include
@@ -473,6 +483,7 @@ export default defineConfig({
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
+<<<<<<< HEAD
 ### outputDiffLines
 
 - **类型:** `number`
@@ -492,6 +503,8 @@ export default defineConfig({
 ...
 ```
 
+=======
+>>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 ### outputFile
 
 - **类型:** `string | Record<string, string>`
@@ -1401,4 +1414,39 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **类型**: `number`
 - **默认值**: `300`
 
+<<<<<<< HEAD
 如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
+=======
+The number of milliseconds after which a test is considered slow and reported as such in the results.
+
+### chaiConfig
+
+- **Type:** `{ includeStack?, showDiff?, truncateThreshold? }`
+- **Default:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
+- **Version:** Vitest 0.30.0
+
+Equivalent to [Chai config](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js).
+
+#### chaiConfig.includeStack
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Influences whether stack trace is included in Assertion error message. Default of false suppresses stack trace in the error message.
+
+#### chaiConfig.showDiff
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Influences whether or not the `showDiff` flag should be included in the thrown AssertionErrors. `false` will always be `false`; `true` will be true when the assertion has requested a diff to be shown.
+
+#### chaiConfig.truncateThreshold
+
+- **Type:** `number`
+- **Default:** `40`
+
+Sets length threshold for actual and expected values in assertion errors. If this threshold is exceeded, for example for large data structures, the value is replaced with something like `[ Array(3) ]` or `{ Object (prop1, prop2) }`. Set it to `0` if you want to disable truncating altogether.
+
+This config option affects truncating values in `test.each` titles and inside the assertion error message.
+>>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db

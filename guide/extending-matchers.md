@@ -23,24 +23,34 @@ expect.extend({
 })
 ```
 
+<<<<<<< HEAD
 如果你使用 TypeScript，则可以使用以下代码扩展默认的 Matchers 接口：
+=======
+If you are using TypeScript, you can extend default Matchers interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
+>>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 
 ```ts
 interface CustomMatchers<R = unknown> {
   toBeFoo(): R
 }
 
-declare global {
-  namespace Vi {
-    interface Assertion extends CustomMatchers {}
-    interface AsymmetricMatchersContaining extends CustomMatchers {}
-  }
+declare namespace Vi {
+  interface Assertion extends CustomMatchers {}
+  interface AsymmetricMatchersContaining extends CustomMatchers {}
 
   // Note: augmenting jest.Matchers interface will also work.
 }
 ```
 
+<<<<<<< HEAD
 断言的返回值应该兼容如下接口：
+=======
+::: warning
+Don't forget to include the ambient declaration file in your `tsconfig.json`.
+:::
+
+The return value of a matcher should be compatible with the following interface:
+>>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 
 ```ts
 interface MatcherResult {
