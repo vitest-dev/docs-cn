@@ -6,9 +6,6 @@ title: Browser Mode | Guide
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
-<<<<<<< HEAD
-## 配置
-=======
 ## Motivation
 
 We developed the Vitest browser mode feature to help improve testing workflows and achieve more accurate and reliable test results. This experimental addition to our testing API allows developers to run tests in a native browser environment. In this section, we'll explore the motivations behind this feature and its benefits for testing.
@@ -35,8 +32,7 @@ The browser mode feature of Vitest is still in its early stages of development. 
 
 Vitest browser requires spinning up the provider and the browser during the initialization process, which can take some time. This can result in longer initialization times compared to other testing patterns.
 
-## Configuration
->>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
+## 配置
 
 要在 Vitest 配置中激活浏览器模式，你可以使用 `--browser` 标志或在你的 Vitest 配置文件中将 `browser.enabled` 字段设置为 `true`。这是使用浏览器字段的示例配置：
 

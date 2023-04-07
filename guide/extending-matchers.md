@@ -23,11 +23,7 @@ expect.extend({
 })
 ```
 
-<<<<<<< HEAD
-如果你使用 TypeScript，则可以使用以下代码扩展默认的 Matchers 接口：
-=======
-If you are using TypeScript, you can extend default Matchers interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
->>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
+如果你使用的是 TypeScript，则可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 Matchers 接口：
 
 ```ts
 interface CustomMatchers<R = unknown> {
@@ -42,15 +38,11 @@ declare namespace Vi {
 }
 ```
 
-<<<<<<< HEAD
-断言的返回值应该兼容如下接口：
-=======
 ::: warning
-Don't forget to include the ambient declaration file in your `tsconfig.json`.
+不要忘记在 `tsconfig.json` 中包含声明文件。
 :::
 
-The return value of a matcher should be compatible with the following interface:
->>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
+断言的返回值应该兼容如下接口：
 
 ```ts
 interface MatcherResult {

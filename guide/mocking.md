@@ -389,16 +389,9 @@ const instance = new SomeClass()
 vi.spyOn(instance, 'method')
 ```
 
-<<<<<<< HEAD
-- 监听模块导出 function
-
-```ts
-// some-path.ts
-=======
-- Mock exported variables
+- 模拟导出变量
 ```js
 // some-path.js
->>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
 export const getter = 'variable'
 ```
 
@@ -426,15 +419,9 @@ export function method() {}
 ```
 
 ```ts
-<<<<<<< HEAD
-import { method } from './some-path.ts'
-vi.mock('./some-path.ts', () => ({
-  method: vi.fn(),
-=======
 import { method } from './some-path.js'
 vi.mock('./some-path.js', () => ({
   method: vi.fn()
->>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
 }))
 ```
 

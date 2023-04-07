@@ -69,19 +69,14 @@ export default mergeConfig(
 )
 ```
 
-<<<<<<< HEAD
-:::tip 提醒
-除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
-=======
 ::: warning
-`mergeConfig` helper is availabe in Vitest since v0.30.0. You can import it from `vite` directly, if you use lower version.
+`mergeConfig` helper 在 Vitest v0.30.0 之后可用。如果你使用低版本，你可以直接从 `vite` 导入它。
 :::
 
 ## Options
 
 :::tip
-In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
->>>>>>> f3ef71c112fad1bc4e102a00914039b4ef764c70
+除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
 :::
 
 ### include
