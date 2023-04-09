@@ -1073,7 +1073,6 @@ describe('toSatisfy()', () => {
   ```ts
   import { expect, test } from 'vitest'
   import { db } from './db.js'
-  
   const cbs = []
   
   function onSelect(cb) {

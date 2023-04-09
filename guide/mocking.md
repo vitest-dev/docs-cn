@@ -414,7 +414,6 @@ vi.spyOn(exports, 'setter', 'set')
 ```
 
 - 模拟模块导出 function
-
 `vi.mock` 的示例：
 
 ```ts
@@ -425,7 +424,7 @@ export function method() {}
 ```ts
 import { method } from './some-path.js'
 vi.mock('./some-path.js', () => ({
-  method: vi.fn(),
+  method: vi.fn()
 }))
 ```
 
@@ -533,9 +532,7 @@ expect(obj.method).toHaveBeenCalled()
 import { mocked, original } from './some-path.js'
 
 vi.mock('./some-path.js', async () => {
-  const mod = await vi.importActual<typeof import('./some-path.js')>(
-    './some-path.js'
-  )
+  const mod = await vi.importActual<typeof import('./some-path.js')>('./some-path.js')
   return {
     ...mod,
     mocked: vi.fn(),
