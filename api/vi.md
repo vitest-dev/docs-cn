@@ -253,10 +253,17 @@ test('importing the next module imports mocked one', async () => {
   当 `partial` 为 `true` 时，它将期望 `Partial<T>` 作为返回值。
 
   ```ts
+<<<<<<< HEAD
   import example from './example'
   
   vi.mock('./example')
   
+=======
+  import example from './example.js'
+
+  vi.mock('./example.js')
+
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
   
@@ -273,9 +280,15 @@ test('importing the next module imports mocked one', async () => {
   导入模块，绕过所有检查是否应该被模拟。如果你想部分模拟模块，这可能很有用。
 
   ```ts
+<<<<<<< HEAD
   vi.mock('./example', async () => {
     const axios = await vi.importActual('./example')
   
+=======
+  vi.mock('./example.js', async () => {
+    const axios = await vi.importActual('./example.js')
+
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
     return { ...axios, get: vi.fn() }
   })
   ```

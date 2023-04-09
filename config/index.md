@@ -79,6 +79,10 @@ export default mergeConfig(
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
 :::
 
+::: tip
+All configuration options that are not supported inside a [workspace](/guide/workspace) project config have <NonProjectOption /> sign next them.
+:::
+
 ### include
 
 - **类型:** `string[]`
@@ -105,7 +109,15 @@ export default mergeConfig(
 - **版本:** Vitets 0.29.0
 - **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
 
+<<<<<<< HEAD
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
+=======
+::: warning
+This feature is temporary disabled since Vitest 0.30.0.
+:::
+
+Enable dependency optimization. If you have a lot of tests, this might improve their performance.
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 对于 `jsdom` 和 `happy-dom` 环境，当 Vitest 遇到外部库时，它会使用 esbuild 打包成一个文件，并作为一个整体模块导入。这有几个原因：
 
@@ -146,7 +158,7 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 
 如果包在 ESM 和 CJS 模式下具有不同的逻辑，可能会导致一些错误的产生。
 
-#### deps.registerNodeLoader
+#### deps.registerNodeLoader<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -438,7 +450,7 @@ export default defineConfig({
 })
 ```
 
-### update
+### update<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -446,7 +458,7 @@ export default defineConfig({
 
 更新快照文件。这将更新所有更改的快照并删除过时的快照。
 
-### watch
+### watch<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -461,7 +473,7 @@ export default defineConfig({
 
 项目的根目录
 
-### reporters
+### reporters<NonProjectOption />
 
 - **类型:** `Reporter | Reporter[]`
 - **默认值:** `'default'`
@@ -478,6 +490,7 @@ export default defineConfig({
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 ### outputDiffLines
 
@@ -501,6 +514,9 @@ export default defineConfig({
 =======
 >>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 ### outputFile
+=======
+### outputFile<NonProjectOption />
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
@@ -531,21 +547,21 @@ export default defineConfig({
 如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。但是可以提高你的测试速度（最多快 3 倍），它不一定依赖于全局状态或可以轻松绕过它。
 :::
 
-### maxThreads
+### maxThreads<NonProjectOption />
 
 - **类型:** `number`
 - **默认值:** 可用的 CPU 数量
 
 允许的最大线程数。你也可以使用 `VITEST_MAX_THREADS` 环境变量。
 
-### minThreads
+### minThreads<NonProjectOption />
 
 - **类型:** `number`
 - **默认值:** 可用的 CPU 数量
 
 允许的最小线程数。你也可以使用 `VITEST_MIN_THREADS` 环境变量。
 
-### useAtomics
+### useAtomics<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -570,14 +586,14 @@ export default defineConfig({
 
 钩子(hook)的默认超时时间（以毫秒为单位）。
 
-### teardownTimeout
+### teardownTimeout<NonProjectOption />
 
 - **类型:** `number`
 - **默认值:** `1000`
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
-### silent
+### silent<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -636,14 +652,19 @@ globalThis.resetBeforeEachTest = true
 请注意，全局设置在不同的全局范围内运行，因此你的测试无权访问此处定义的变量。
 :::
 
+<<<<<<< HEAD
 ### watchExclude
+=======
+
+### watchExclude<NonProjectOption />
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**']`
 
 触发监视重新运行时要忽略的文件路径的全局 glob 模式。
 
-### forceRerunTriggers
+### forceRerunTriggers<NonProjectOption />
 
 - **类型**: `string[]`
 - **默认值:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
@@ -671,7 +692,7 @@ test('execute a script', async () => {
 
 是否为每个测试文件构建隔离环境。 如果你禁用 [`--threads`](#threads)，它将不会工作。
 
-### coverage
+### coverage<NonProjectOption />
 
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
@@ -750,10 +771,17 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.all
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 - **命令行终端:** `--coverage.all`, --coverage.all=false`
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'c8' | 'istanbul'`
+- **CLI:** `--coverage.all`, `--coverage.all=false`
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -980,7 +1008,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 指定自定义覆盖率提供者的模块名称或路径。有关详细信息，请参阅[指南 - 自定义覆盖率提供者](/guide/coverage#custom-coverage-provider)。
 
-### testNamePattern
+### testNamePattern<NonProjectOption />
 
 - **类型** `string | RegExp`
 - **命令行终端:** `-t <pattern>`, `--testNamePattern=<pattern>`, `--test-name-pattern=<pattern>`
@@ -1002,7 +1030,7 @@ test('doNotRun', () => {
 })
 ```
 
-### open
+### open<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -1165,13 +1193,13 @@ export default defineConfig({
 })
 ```
 
-### snapshotFormat
+### snapshotFormat<NonProjectOption />
 
 - **类型:** `PrettyFormatOptions`
 
 测试快照的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
 
-### resolveSnapshotPath
+### resolveSnapshotPath<NonProjectOption />
 
 - **类型**: `(testPath: string, snapExtension: string) => string`
 - **默认值**: 存储快照文件在 `__snapshots__` 目录
@@ -1196,7 +1224,7 @@ export default defineConfig({
 
 允许标记为 only 的测试和套件。
 
-### dangerouslyIgnoreUnhandledErrors
+### dangerouslyIgnoreUnhandledErrors<NonProjectOption />
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -1204,7 +1232,7 @@ export default defineConfig({
 
 忽略发生的任何未处理的错误。
 
-### passWithNoTests
+### passWithNoTests<NonProjectOption />
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -1273,7 +1301,7 @@ export default defineConfig({
 
 当出现可用插槽时，超过此限制的测试将排队运行。
 
-### cache
+### cache<NonProjectOption />
 
 - **类型**: `false | { dir? }`
 
@@ -1298,7 +1326,7 @@ export default defineConfig({
 npx vitest --sequence.shuffle --sequence.seed=1000
 ```
 
-#### sequence.sequencer
+#### sequence.sequencer<NonProjectOption />
 
 - **类型**: `TestSequencerConstructor`
 - **默认值**: `BaseSequencer`
@@ -1317,7 +1345,7 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始 - 这会使测试运行得更快。 如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
 
-#### sequence.seed
+#### sequence.seed<NonProjectOption />
 
 - **类型**: `number`
 - **默认值**: `Date.now()`
@@ -1404,7 +1432,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 自定义 tsconfig 的路径，相对于项目根目录。
 
-### slowTestThreshold
+### slowTestThreshold<NonProjectOption />
 
 - **类型**: `number`
 - **默认值**: `300`

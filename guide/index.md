@@ -36,8 +36,13 @@ yarn add -D vitest
 pnpm add -D vitest
 ```
 
+<<<<<<< HEAD
 :::tip 提示
 Vitest 需要 Vite >=v3.0.0 和 Node >=v14
+=======
+:::tip
+Vitest requires Vite >=v3.0.0 and Node >=v14.18
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 :::
 
 建议你使用上面列出的方法之一在 `package.json` 中安装 `vitest` 的副本。 但是，如果你希望直接运行 `vitest`，可以使用 `npx vitest`（npm 和 Node.js 附带 `npx` 命令）。
@@ -65,7 +70,45 @@ export default defineConfig({
 
 可以参阅 [配置索引](../config/) 中的配置选项列表
 
+<<<<<<< HEAD
 ## 命令行
+=======
+## Workspaces Support
+
+Run different project configurations inside the same project with [Vitest Workspaces](/guide/workspace). You can define a list of files and folders that define you workspace in `vitest.workspace` file. The file supports `js`/`ts`/`json` extensions. This feature works great with monorepo setups.
+
+```ts
+import { defineWorkspace } from 'vitest/config'
+
+export default defineWorkspace([
+  // you can use a list of glob patterns to define your workspaces
+  // Vitest expects a list of config files
+  // or directories where there is a config file
+  'packages/*',
+  'tests/*/vitest.config.{e2e,unit}.ts',
+  // you can even run the same tests,
+  // but with different configs in the same "vitest" process
+  {
+    test: {
+      name: 'happy-dom',
+      root: './shared_tests',
+      environment: 'happy-dom',
+      setupFiles: ['./setup.happy-dom.ts'],
+    },
+  },
+  {
+    test: {
+      name: 'node',
+      root: './shared_tests',
+      environment: 'node',
+      setupFiles: ['./setup.node.ts'],
+    },
+  },
+])
+```
+
+## Command Line Interface
+>>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 在安装了 Vitest 的项目中，你可以在 npm 脚本中使用 `vitest` 脚本，或者直接使用 `npx vitest` 运行它。 以下是脚手架 Vitest 项目中的默认 npm 脚本：
 
