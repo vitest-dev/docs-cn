@@ -437,7 +437,6 @@ vi.mock('./some-path.js', () => ({
 
 ```ts
 import * as exports from './some-path.js'
-
 vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 

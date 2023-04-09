@@ -6,22 +6,22 @@ The following types are used in the type signatures below
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
-  `expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions build on top of `chai`.
+`expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions build on top of `chai`.
 
-  For example, this code asserts that an `input` value is equal to `2`. If it's not, the assertion will throw an error, and the test will fail.
+For example, this code asserts that an `input` value is equal to `2`. If it's not, the assertion will throw an error, and the test will fail.
 
-  ```ts
-  import { expect } from 'vitest'
+```ts
+import { expect } from 'vitest'
 
-  const input = Math.sqrt(4)
+const input = Math.sqrt(4)
 
-  expect(input).to.equal(2) // chai API
-  expect(input).toBe(2) // jest API
-  ```
+expect(input).to.equal(2) // chai API
+expect(input).toBe(2) // jest API
+```
 
-  Technically this example doesn't use [`test`](/api/#test) function, so in the console you will see Nodejs error instead of Vitest output. To learn more about `test`, please read [Test API Reference](/api/).
+Technically this example doesn't use [`test`](/api/#test) function, so in the console you will see Nodejs error instead of Vitest output. To learn more about `test`, please read [Test API Reference](/api/).
 
-  Also, `expect` can be used statically to access matchers functions, described later, and more.
+Also, `expect` can be used statically to access matchers functions, described later, and more.
 
 ::: warning
 `expect` has no effect on testing types, if the expression doesn't have a type error. If you want to use Vitest as [type checker](/guide/testing-types), use [`expectTypeOf`](/api/expect-typeof) or [`assertType`](/api/assert-type).
@@ -29,16 +29,16 @@ type Awaitable<T> = T | PromiseLike<T>
 
 ## not
 
-  Using `not` will negate the assertion. For example, this code asserts that an `input` value is not equal to `2`. If it's equal, the assertion will throw an error, and the test will fail.
+Using `not` will negate the assertion. For example, this code asserts that an `input` value is not equal to `2`. If it's equal, the assertion will throw an error, and the test will fail.
 
-  ```ts
-  import { expect, test } from 'vitest'
+```ts
+import { expect, test } from 'vitest'
 
-  const input = Math.sqrt(16)
+const input = Math.sqrt(16)
 
-  expect(input).not.to.equal(2) // chai API
-  expect(input).not.toBe(2) // jest API
-  ```
+expect(input).not.to.equal(2) // chai API
+expect(input).not.toBe(2) // jest API
+```
 
 ## toBe
 
@@ -50,20 +50,20 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const stock = {
     type: 'apples',
     count: 13,
   }
-
+  
   test('stock has 13 apples', () => {
     expect(stock.type).toBe('apples')
     expect(stock.count).toBe(13)
   })
-
+  
   test('stocks are the same', () => {
     const refStock = stock // same reference
-
+  
     expect(stock).toBe(refStock)
   })
   ```
@@ -78,11 +78,11 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test.fails('decimals are not equal in javascript', () => {
     expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 is 0.30000000000000004
   })
-
+  
   test('decimals are rounded to 5 after the point', () => {
     // 0.2 + 0.1 is 0.30000 | "000000000004" removed
     expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
@@ -99,7 +99,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function getApples() {
     return 3
   }
@@ -117,7 +117,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function getApplesFromStock(stock) {
     if (stock === 'Bill')
       return 13
@@ -138,7 +138,6 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { Stocks } from './stocks.js'
-  
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (stocks.getInfo('Bill'))
@@ -150,9 +149,8 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-  
   const stocks = new Stocks()
-
+  
   test('if we know Bill stock, sell apples to him', () => {
     stocks.sync('Bill')
     expect(stocks.getInfo('Bill')).toBeTruthy()
@@ -171,7 +169,6 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { Stocks } from './stocks.js'
-  
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (!stocks.stockFailed('Bill'))
@@ -183,9 +180,8 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-  
   const stocks = new Stocks()
-
+  
   test('if Bill stock hasn\'t failed, sell apples to him', () => {
     stocks.syncStocks('Bill')
     expect(stocks.stockFailed('Bill')).toBeFalsy()
@@ -202,7 +198,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function apples() {
     return null
   }
@@ -220,9 +216,9 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   let i = 0
-
+  
   function getApplesCount() {
     i++
     return i > 1 ? NaN : i
@@ -244,7 +240,7 @@ type Awaitable<T> = T | PromiseLike<T>
   import { expect, test } from 'vitest'
   
   const actual = 'stock'
-
+  
   test('stock is type of string', () => {
     expect(actual).toBeTypeOf('string')
   })
@@ -259,9 +255,8 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-  
   const stocks = new Stocks()
-
+  
   test('stocks are instance of Stocks', () => {
     expect(stocks).toBeInstanceOf(Stocks)
   })
@@ -276,7 +271,7 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have more then 10 apples', () => {
     expect(getApples()).toBeGreaterThan(10)
   })
@@ -291,7 +286,7 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have 11 apples or more', () => {
     expect(getApples()).toBeGreaterThanOrEqual(11)
   })
@@ -306,7 +301,7 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have less then 20 apples', () => {
     expect(getApples()).toBeLessThan(20)
   })
@@ -321,7 +316,7 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have 11 apples or less', () => {
     expect(getApples()).toBeLessThanOrEqual(11)
   })
@@ -335,21 +330,21 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const stockBill = {
     type: 'apples',
     count: 13,
   }
-
+  
   const stockMary = {
     type: 'apples',
     count: 13,
   }
-
+  
   test('stocks have the same properties', () => {
     expect(stockBill).toEqual(stockMary)
   })
-
+  
   test('stocks are not the same', () => {
     expect(stockBill).not.toBe(stockMary)
   })
@@ -367,13 +362,13 @@ type Awaitable<T> = T | PromiseLike<T>
 
   Differences from [`.toEqual`](#toequal):
 
-  -  Keys with `undefined` properties are checked. e.g. `{a: undefined, b: 2}` does not match `{b: 2}` when using `.toStrictEqual`.
-  -  Array sparseness is checked. e.g. `[, 1]` does not match `[undefined, 1]` when using `.toStrictEqual`.
-  -  Object types are checked to be equal. e.g. A class instance with fields `a` and` b` will not equal a literal object with fields `a` and `b`.
+  - Keys with `undefined` properties are checked. e.g. `{a: undefined, b: 2}` does not match `{b: 2}` when using `.toStrictEqual`.
+  - Array sparseness is checked. e.g. `[, 1]` does not match `[undefined, 1]` when using `.toStrictEqual`.
+  - Object types are checked to be equal. e.g. A class instance with fields `a` and` b` will not equal a literal object with fields `a` and `b`.
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   class Stock {
     constructor(type) {
       this.type = type
@@ -395,7 +390,7 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { getAllFruits } from './stocks.js'
-
+  
   test('the fruit list contains orange', () => {
     expect(getAllFruits()).toContain('orange')
   })
@@ -411,7 +406,7 @@ type Awaitable<T> = T | PromiseLike<T>
   ```ts
   import { expect, test } from 'vitest'
   import { getFruitStock } from './stocks.js'
-
+  
   test('apple available', () => {
     expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
   })
@@ -425,11 +420,11 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('toHaveLength', () => {
     expect('abc').toHaveLength(3)
     expect([1, 2, 3]).toHaveLength(3)
-
+  
     expect('').not.toHaveLength(3) // doesn't have .length of 3
     expect({ length: 3 }).toHaveLength(3)
   })
@@ -445,7 +440,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const invoice = {
     'isActive': true,
     'P.O': '12345',
@@ -466,26 +461,26 @@ type Awaitable<T> = T | PromiseLike<T>
       },
     ],
   }
-
+  
   test('John Doe Invoice', () => {
     expect(invoice).toHaveProperty('isActive') // assert that the key exists
     expect(invoice).toHaveProperty('total_amount', 5000) // assert that the key exists and the value is equal
-
+  
     expect(invoice).not.toHaveProperty('account') // assert that this key does not exist
-
+  
     // Deep referencing using dot notation
     expect(invoice).toHaveProperty('customer.first_name')
     expect(invoice).toHaveProperty('customer.last_name', 'Doe')
     expect(invoice).not.toHaveProperty('customer.location', 'India')
-
+  
     // Deep referencing using an array containing the key
     expect(invoice).toHaveProperty('items[0].type', 'apples')
     expect(invoice).toHaveProperty('items.0.type', 'apples') // dot notation also works
-
+  
     // Deep referencing using an array containing the keyPath
     expect(invoice).toHaveProperty(['items', 0, 'type'], 'apples')
     expect(invoice).toHaveProperty(['items', '0', 'type'], 'apples') // string notation also works
-
+  
     // Wrap your key in an array to avoid the key from being parsed as a deep reference
     expect(invoice).toHaveProperty(['P.O'], '12345')
   })
@@ -499,7 +494,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('top fruits', () => {
     expect('top fruits include apple, orange and grape').toMatch(/apple/)
     expect('applefruits').toMatch('fruit') // toMatch also accepts a string
@@ -520,7 +515,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const johnInvoice = {
     isActive: true,
     customer: {
@@ -540,7 +535,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
       },
     ],
   }
-
+  
   const johnDetails = {
     customer: {
       first_name: 'John',
@@ -548,11 +543,11 @@ If the value in the error message is too truncated, you can increase [chaiConfig
       location: 'China',
     },
   }
-
+  
   test('invoice has john personal details', () => {
     expect(johnInvoice).toMatchObject(johnDetails)
   })
-
+  
   test('the number of elements must match exactly', () => {
     // Assert that an array of object matches
     expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
@@ -583,10 +578,13 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function getFruitStock(type) {
-    if (type === 'pineapples')
-      throw new DiabetesError('Pineapples are not good for people with diabetes')
+    if (type === 'pineapples') {
+      throw new DiabetesError(
+        'Pineapples are not good for people with diabetes'
+      )
+    }
 
     // Do some other stuff
   }
@@ -595,10 +593,10 @@ If the value in the error message is too truncated, you can increase [chaiConfig
     // Test that the error message says "diabetes" somewhere: these are equivalent
     expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
     expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
-
+  
     // Test the exact error message
     expect(() => getFruitStock('pineapples')).toThrowError(
-      /^Pineapples are not good for people with diabetes$/,
+      /^Pineapples are not good for people with diabetes$/
     )
   })
   ```
@@ -615,6 +613,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
     await expect(() => getAsyncFruitStock()).rejects.toThrowError('empty')
   })
   ```
+
   :::
 
 ## toMatchSnapshot
@@ -626,12 +625,12 @@ If the value in the error message is too truncated, you can increase [chaiConfig
   You can provide an optional `hint` string argument that is appended to the test name. Although Vitest always appends a number at the end of a snapshot name, short descriptive hints might be more useful than numbers to differentiate multiple snapshots in a single it or test block. Vitest sorts snapshots by name in the corresponding `.snap` file.
 
   :::tip
-    When snapshot mismatch and causing the test failing, if the mismatch is expected, you can press `u` key to update the snapshot for once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
+  When snapshot mismatch and causing the test failing, if the mismatch is expected, you can press `u` key to update the snapshot for once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
   :::
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchSnapshot()
@@ -642,7 +641,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchSnapshot({ foo: expect.any(Set) })
@@ -659,7 +658,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches inline snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     // Vitest will update following content when updating the snapshot
@@ -678,7 +677,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchInlineSnapshot(
@@ -701,7 +700,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, it } from 'vitest'
-
+  
   it('render basic', async () => {
     const result = renderHTML(h('div', { class: 'foo' }))
     await expect(result).toMatchFileSnapshot('./test/basic.output.html')
@@ -734,246 +733,246 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test, vi } from 'vitest'
-
+  
   const market = {
     buy(subject: string, amount: number) {
       // ...
     },
   }
-
+  
   test('spy function', () => {
     const buySpy = vi.spyOn(market, 'buy')
-
+  
     expect(buySpy).not.toHaveBeenCalled()
-
+  
     market.buy('apples', 10)
-
+  
     expect(buySpy).toHaveBeenCalled()
   })
   ```
 
 ## toHaveBeenCalledTimes
 
- - **Type**: `(amount: number) => Awaitable<void>`
+- **Type**: `(amount: number) => Awaitable<void>`
 
-  This assertion checks if a function was called a certain amount of times. Requires a spy function to be passed to `expect`.
+This assertion checks if a function was called a certain amount of times. Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+}
 
-  test('spy function called two times', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test('spy function called two times', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-    expect(buySpy).toHaveBeenCalledTimes(2)
-  })
-  ```
+  expect(buySpy).toHaveBeenCalledTimes(2)
+})
+```
 
 ## toHaveBeenCalledWith
 
- - **Type**: `(...args: any[]) => Awaitable<void>`
+- **Type**: `(...args: any[]) => Awaitable<void>`
 
-  This assertion checks if a function was called at least once with certain parameters. Requires a spy function to be passed to `expect`.
+This assertion checks if a function was called at least once with certain parameters. Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+}
 
-  test('spy function', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test('spy function', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-    expect(buySpy).toHaveBeenCalledWith('apples', 10)
-    expect(buySpy).toHaveBeenCalledWith('apples', 20)
-  })
-  ```
+  expect(buySpy).toHaveBeenCalledWith('apples', 10)
+  expect(buySpy).toHaveBeenCalledWith('apples', 20)
+})
+```
 
 ## toHaveBeenLastCalledWith
 
- - **Type**: `(...args: any[]) => Awaitable<void>`
+- **Type**: `(...args: any[]) => Awaitable<void>`
 
-  This assertion checks if a function was called with certain parameters at it's last invocation. Requires a spy function to be passed to `expect`.
+This assertion checks if a function was called with certain parameters at it's last invocation. Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+}
 
-  test('spy function', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test('spy function', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-    expect(buySpy).not.toHaveBeenLastCalledWith('apples', 10)
-    expect(buySpy).toHaveBeenLastCalledWith('apples', 20)
-  })
-  ```
+  expect(buySpy).not.toHaveBeenLastCalledWith('apples', 10)
+  expect(buySpy).toHaveBeenLastCalledWith('apples', 20)
+})
+```
 
 ## toHaveBeenNthCalledWith
 
- - **Type**: `(time: number, ...args: any[]) => Awaitable<void>`
+- **Type**: `(time: number, ...args: any[]) => Awaitable<void>`
 
-  This assertion checks if a function was called with certain parameters at the certain time. The count starts at 1. So, to check the second entry, you would write `.toHaveBeenNthCalledWith(2, ...)`.
+This assertion checks if a function was called with certain parameters at the certain time. The count starts at 1. So, to check the second entry, you would write `.toHaveBeenNthCalledWith(2, ...)`.
 
-  Requires a spy function to be passed to `expect`.
+Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  const market = {
-    buy(subject: string, amount: number) {
-      // ...
-    },
-  }
+const market = {
+  buy(subject: string, amount: number) {
+    // ...
+  },
+}
 
-  test('first call of spy function called with right params', () => {
-    const buySpy = vi.spyOn(market, 'buy')
+test('first call of spy function called with right params', () => {
+  const buySpy = vi.spyOn(market, 'buy')
 
-    market.buy('apples', 10)
-    market.buy('apples', 20)
+  market.buy('apples', 10)
+  market.buy('apples', 20)
 
-    expect(buySpy).toHaveBeenNthCalledWith(1, 'apples', 10)
-  })
-  ```
+  expect(buySpy).toHaveBeenNthCalledWith(1, 'apples', 10)
+})
+```
 
 ## toHaveReturned
 
-  - **Type**: `() => Awaitable<void>`
+- **Type**: `() => Awaitable<void>`
 
-  This assertion checks if a function has successfully returned a value at least once (i.e., did not throw an error). Requires a spy function to be passed to `expect`.
+This assertion checks if a function has successfully returned a value at least once (i.e., did not throw an error). Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  function getApplesPrice(amount: number) {
-    const PRICE = 10
-    return amount * PRICE
-  }
+function getApplesPrice(amount: number) {
+  const PRICE = 10
+  return amount * PRICE
+}
 
-  test('spy function returned a value', () => {
-    const getPriceSpy = vi.fn(getApplesPrice)
+test('spy function returned a value', () => {
+  const getPriceSpy = vi.fn(getApplesPrice)
 
-    const price = getPriceSpy(10)
+  const price = getPriceSpy(10)
 
-    expect(price).toBe(100)
-    expect(getPriceSpy).toHaveReturned()
-  })
-  ```
+  expect(price).toBe(100)
+  expect(getPriceSpy).toHaveReturned()
+})
+```
 
 ## toHaveReturnedTimes
 
-  - **Type**: `(amount: number) => Awaitable<void>`
+- **Type**: `(amount: number) => Awaitable<void>`
 
-  This assertion checks if a function has successfully returned a value exact amount of times (i.e., did not throw an error). Requires a spy function to be passed to `expect`.
+This assertion checks if a function has successfully returned a value exact amount of times (i.e., did not throw an error). Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  test('spy function returns a value two times', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test('spy function returns a value two times', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-    sell('apples')
-    sell('bananas')
+  sell('apples')
+  sell('bananas')
 
-    expect(sell).toHaveReturnedTimes(2)
-  })
-  ```
+  expect(sell).toHaveReturnedTimes(2)
+})
+```
 
 ## toHaveReturnedWith
 
-  - **Type**: `(returnValue: any) => Awaitable<void>`
+- **Type**: `(returnValue: any) => Awaitable<void>`
 
-  You can call this assertion to check if a function has successfully returned a value with certain parameters at least once. Requires a spy function to be passed to `expect`.
+You can call this assertion to check if a function has successfully returned a value with certain parameters at least once. Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  test('spy function returns a product', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test('spy function returns a product', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-    sell('apples')
+  sell('apples')
 
-    expect(sell).toHaveReturnedWith({ product: 'apples' })
-  })
-  ```
+  expect(sell).toHaveReturnedWith({ product: 'apples' })
+})
+```
 
 ## toHaveLastReturnedWith
 
-  - **Type**: `(returnValue: any) => Awaitable<void>`
+- **Type**: `(returnValue: any) => Awaitable<void>`
 
-  You can call this assertion to check if a function has successfully returned a value with certain parameters on it's last invoking. Requires a spy function to be passed to `expect`.
+You can call this assertion to check if a function has successfully returned a value with certain parameters on it's last invoking. Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  test('spy function returns bananas on a last call', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test('spy function returns bananas on a last call', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-    sell('apples')
-    sell('bananas')
+  sell('apples')
+  sell('bananas')
 
-    expect(sell).toHaveLastReturnedWith({ product: 'bananas' })
-  })
-  ```
+  expect(sell).toHaveLastReturnedWith({ product: 'bananas' })
+})
+```
 
 ## toHaveNthReturnedWith
 
-  - **Type**: `(time: number, returnValue: any) => Awaitable<void>`
+- **Type**: `(time: number, returnValue: any) => Awaitable<void>`
 
-  You can call this assertion to check if a function has successfully returned a value with certain parameters on a certain call. Requires a spy function to be passed to `expect`.
+You can call this assertion to check if a function has successfully returned a value with certain parameters on a certain call. Requires a spy function to be passed to `expect`.
 
-  ```ts
-  import { expect, test, vi } from 'vitest'
+```ts
+import { expect, test, vi } from 'vitest'
 
-  test('spy function returns bananas on second call', () => {
-    const sell = vi.fn((product: string) => ({ product }))
+test('spy function returns bananas on second call', () => {
+  const sell = vi.fn((product: string) => ({ product }))
 
-    sell('apples')
-    sell('bananas')
+  sell('apples')
+  sell('bananas')
 
-    expect(sell).toHaveNthReturnedWith(2, { product: 'bananas' })
-  })
-  ```
+  expect(sell).toHaveNthReturnedWith(2, { product: 'bananas' })
+})
+```
 
 ## toSatisfy
 
-  - **Type:** `(predicate: (value: any) => boolean) => Awaitable<void>`
+- **Type:** `(predicate: (value: any) => boolean) => Awaitable<void>`
 
-  This assertion checks if a value satisfies a certain predicate.
+This assertion checks if a value satisfies a certain predicate.
 
-  ```ts
-  describe('toSatisfy()', () => {
-    const isOdd = (value: number) => value % 2 !== 0
+```ts
+describe('toSatisfy()', () => {
+  const isOdd = (value: number) => value % 2 !== 0
 
-    it('pass with 0', () => {
-      expect(1).toSatisfy(isOdd)
-    })
-
-    it('pass with negotiation', () => {
-      expect(2).not.toSatisfy(isOdd)
-    })
+  it('pass with 0', () => {
+    expect(1).toSatisfy(isOdd)
   })
-  ```
+
+  it('pass with negotiation', () => {
+    expect(2).not.toSatisfy(isOdd)
+  })
+})
+```
 
 ## resolves
 
@@ -987,7 +986,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function buyApples() {
     return fetch('/buy/apples').then(r => r.json())
   }
@@ -1015,7 +1014,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function buyApples(id) {
     if (!id)
       throw new Error('no id')
@@ -1041,11 +1040,9 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function doAsync(...cbs) {
-    await Promise.all(
-      cbs.map((cb, index) => cb({ index })),
-    )
+    await Promise.all(cbs.map((cb, index) => cb({ index })))
   }
 
   test('all assertions are called', async () => {
@@ -1060,10 +1057,10 @@ If the value in the error message is too truncated, you can increase [chaiConfig
     await doAsync(callback1, callback2)
   })
   ```
+
   ::: warning
   When using `assertions` with async concurrent tests, `expect` from the local [Test Context](/guide/test-context.md) must be used to ensure the right test is detected.
   :::
-
 
 ## expect.hasAssertions
 
@@ -1076,9 +1073,9 @@ If the value in the error message is too truncated, you can increase [chaiConfig
   ```ts
   import { expect, test } from 'vitest'
   import { db } from './db.js'
-
+  
   const cbs = []
-
+  
   function onSelect(cb) {
     cbs.push(cb)
   }
@@ -1086,9 +1083,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
   // after selecting from db, we call all callbacks
   function select(id) {
     return db.select({ id }).then((data) => {
-      return Promise.all(
-        cbs.map(cb => cb(data)),
-      )
+      return Promise.all(cbs.map(cb => cb(data)))
     })
   }
 
@@ -1114,7 +1109,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('object has "apples" key', () => {
     expect({ apples: 22 }).toEqual({ apples: expect.anything() })
   })
@@ -1129,7 +1124,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
   ```ts
   import { expect, test } from 'vitest'
   import { generateId } from './generators.js'
-
+  
   test('"id" is a number', () => {
     expect({ id: generateId() }).toEqual({ id: expect.any(Number) })
   })
@@ -1143,19 +1138,15 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('basket includes fuji', () => {
     const basket = {
-      varieties: [
-        'Empire',
-        'Fuji',
-        'Gala',
-      ],
-      count: 3
+      varieties: ['Empire', 'Fuji', 'Gala'],
+      count: 3,
     }
     expect(basket).toEqual({
       count: 3,
-      varieties: expect.arrayContaining(['Fuji'])
+      varieties: expect.arrayContaining(['Fuji']),
     })
   })
   ```
@@ -1172,20 +1163,18 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('basket has empire apples', () => {
     const basket = {
       varieties: [
         {
           name: 'Empire',
           count: 1,
-        }
+        },
       ],
     }
     expect(basket).toEqual({
-      varieties: [
-        expect.objectContaining({ name: 'Empire' }),
-      ]
+      varieties: [expect.objectContaining({ name: 'Empire' })],
     })
   })
   ```
@@ -1202,7 +1191,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('variety has "Emp" in its name', () => {
     const variety = {
       name: 'Empire',
@@ -1227,7 +1216,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('variety ends with "re"', () => {
     const variety = {
       name: 'Empire',
@@ -1266,7 +1255,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('custom matchers', () => {
     expect.extend({
       toBeFoo: (received, expected) => {
@@ -1278,7 +1267,7 @@ If the value in the error message is too truncated, you can increase [chaiConfig
         }
       },
     })
-
+  
     expect('foo').toBeFoo()
     expect({ foo: 'foo' }).toEqual({ foo: expect.toBeFoo() })
   })

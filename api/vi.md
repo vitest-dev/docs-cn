@@ -15,7 +15,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.advanceTimersByTime(150)
   ```
 
@@ -28,7 +28,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-
+  
   await vi.advanceTimersByTimeAsync(150)
   ```
 
@@ -41,7 +41,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
     .advanceTimersToNextTimer() // log 3
@@ -56,7 +56,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-
+  
   vi.advanceTimersToNextTimerAsync() // log 1
     .advanceTimersToNextTimerAsync() // log 2
     .advanceTimersToNextTimerAsync() // log 3
@@ -89,14 +89,14 @@ import { vi } from 'vitest'
 
   ```ts
   const getApples = vi.fn(() => 0)
-
+  
   getApples()
-
+  
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
-
+  
   getApples.mockReturnValueOnce(5)
-
+  
   const res = getApples()
   expect(res).toBe(5)
   expect(getApples).toHaveNthReturnedWith(2, 5)
@@ -127,7 +127,7 @@ import { vi } from 'vitest'
   :::
 
   ::: warning
-	[浏览器模式](/guide/browser) 当前不支持模拟模块。你可以在 GitHub <a href="https://github.com/vitest-dev/vitest/issues/3046">问题</a>中跟踪此功能。
+  [浏览器模式](/guide/browser) 当前不支持模拟模块。你可以在 GitHub <a href="https://github.com/vitest-dev/vitest/issues/3046">问题</a>中跟踪此功能。
   :::
 
   如果定义了 `factory`，则所有导入都将返回其结果。Vitest 只调用一次工厂并缓存所有后续导入的结果，直到调用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 为止。
@@ -192,10 +192,10 @@ import { vi } from 'vitest'
   import axios from 'axios'
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
-
+  
   vi.mock('axios')
   vi.mock('../increment.js')
-
+  
   axios.get(`/apples/${increment(1)}`)
   ```
 
@@ -254,14 +254,14 @@ test('importing the next module imports mocked one', async () => {
 
   ```ts
   import example from './example'
-
+  
   vi.mock('./example')
-
+  
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
-
+  
     const res = example.calc(1, '+', 1)
-
+  
     expect(res).toBe(2)
   })
   ```
@@ -275,7 +275,7 @@ test('importing the next module imports mocked one', async () => {
   ```ts
   vi.mock('./example', async () => {
     const axios = await vi.importActual('./example')
-
+  
     return { ...axios, get: vi.fn() }
   })
   ```
@@ -305,17 +305,17 @@ test('importing the next module imports mocked one', async () => {
   ```ts
   import { vi } from 'vitest'
   import { data } from './data.js' // Will not get reevaluated beforeEach test
-
+  
   beforeEach(() => {
     vi.resetModules()
   })
-
+  
   test('change state', async () => {
     const mod = await import('./some/path.js') // Will get reevaluated
     mod.changeLocalState('new value')
     expect(mod.getLocalState()).toBe('new value')
   })
-
+  
   test('module has old state', async () => {
     const mod = await import('./some/path.js') // Will get reevaluated
     expect(mod.getLocalState()).toBe('old value')
@@ -482,7 +482,7 @@ IntersectionObserver === undefined
     if (i === 3)
       clearInterval(interval)
   }, 50)
-
+  
   vi.runAllTimers()
   ```
 
@@ -496,7 +496,7 @@ IntersectionObserver === undefined
   setTimeout(async () => {
     console.log(await Promise.resolve('result'))
   }, 100)
-
+  
   await vi.runAllTimersAsync()
   ```
 
@@ -509,7 +509,7 @@ IntersectionObserver === undefined
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.runOnlyPendingTimers()
   ```
 
@@ -531,7 +531,7 @@ IntersectionObserver === undefined
       }, 40)
     })
   }, 10)
-
+  
   await vi.runOnlyPendingTimersAsync()
   ```
 
@@ -545,12 +545,12 @@ IntersectionObserver === undefined
 
   ```ts
   const date = new Date(1998, 11, 19)
-
+  
   vi.useFakeTimers()
   vi.setSystemTime(date)
-
+  
   expect(Date.now()).toBe(date.valueOf())
-
+  
   vi.useRealTimers()
   ```
 
@@ -571,12 +571,12 @@ IntersectionObserver === undefined
   const obj = {
     getApples: () => 13,
   }
-
+  
   const spy = vi.spyOn(obj, 'getApples').mockImplementation(() => apples)
   apples = 1
-
+  
   expect(obj.getApples()).toBe(1)
-
+  
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
