@@ -46,26 +46,15 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 ```ts
 import { expectTypeOf } from 'vitest'
 
-<<<<<<< HEAD
 type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
-const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({})
-interface CSSProperties {
-  margin?: string
-  padding?: string
+
+interface CSSProperties { margin?: string; padding?: string }
+
+function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
+  return {}
 }
 
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
-=======
-  type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
-
-  interface CSSProperties { margin?: string; padding?: string }
-
-  function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
-    return {}
-  }
-
-  const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<{ xs?: any }>() // extracts the last type from a union
@@ -93,7 +82,6 @@ expectTypeOf(getResponsiveProp(cssProperties))
 ```ts
 import { expectTypeOf } from 'vitest'
 
-<<<<<<< HEAD
 type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 const getResponsiveProp = <T>(_props: T): ResponsiveProp<T> => ({})
 interface CSSProperties {
@@ -102,17 +90,6 @@ interface CSSProperties {
 }
 
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
-=======
-  type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
-
-  interface CSSProperties { margin?: string; padding?: string }
-
-  function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
-    return {}
-  }
-
-  const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .exclude<unknown[]>()
@@ -174,13 +151,9 @@ expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
 ```ts
 import { expectTypeOf } from 'vitest'
 
-<<<<<<< HEAD
-const foo = (a: number, b: string) => [a, b]
-=======
-  function foo(a: number, b: string) {
-    return [a, b]
-  }
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
+function foo(a: number, b: string) {
+  return [a, b]
+}
 
 expectTypeOf(foo).parameter(0).toBeNumber()
 expectTypeOf(foo).parameter(1).toBeString()
@@ -250,13 +223,9 @@ expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>()
 ```ts
 import { expectTypeOf } from 'vitest'
 
-<<<<<<< HEAD
-const asyncFunc = async () => 123
-=======
-  async function asyncFunc() {
-    return 123
-  }
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
+async function asyncFunc() {
+  return 123
+}
 
 expectTypeOf(asyncFunc).returns.resolves.toBeNumber()
 expectTypeOf(Promise.resolve('string')).resolves.toBeString()
@@ -275,17 +244,12 @@ expectTypeOf(Promise.resolve('string')).resolves.toBeString()
 ```ts
 import { expectTypeOf } from 'vitest'
 
-<<<<<<< HEAD
-const isString = (v: any): v is string => typeof v === 'string'
+function isString(v: any): v is string {
+  return typeof v === 'string'
+}
+
 expectTypeOf(isString).guards.toBeString()
 ```
-=======
-  function isString(v: any): v is string {
-    return typeof v === 'string'
-  }
-  expectTypeOf(isString).guards.toBeString()
-  ```
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 
 ::: warning
 如果该值不是保护函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
@@ -300,17 +264,10 @@ expectTypeOf(isString).guards.toBeString()
 ```ts
 import { expectTypeOf } from 'vitest'
 
-<<<<<<< HEAD
-const assertNumber = (v: any): asserts v is number => {
+function assertNumber(v: any): asserts v is number {
   if (typeof v !== 'number')
     throw new TypeError('Nope !')
 }
-=======
-  function assertNumber(v: any): asserts v is number {
-    if (typeof v !== 'number')
-      throw new TypeError('Nope !')
-  }
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
 
 expectTypeOf(assertNumber).asserts.toBeNumber()
 ```

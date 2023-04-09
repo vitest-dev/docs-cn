@@ -33,7 +33,7 @@ interface TestOptions {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('should work as expected', () => {
     expect(Math.sqrt(4)).toBe(2)
   })
@@ -48,7 +48,7 @@ interface TestOptions {
 
   ```ts
   import { assert, test } from 'vitest'
-  
+
   test.skip('skipped test', () => {
     // 跳过测试，没有错误
     assert.equal(Math.sqrt(4), 3)
@@ -64,9 +64,9 @@ interface TestOptions {
 
   ```ts
   import { assert, test } from 'vitest'
-  
+
   const isDev = process.env.NODE_ENV === 'development'
-  
+
   test.skipIf(isDev)('prod only test', () => {
     // 只在生产环境下进行测试
   })
@@ -108,7 +108,7 @@ test.runIf(isDev)('dev only test', () => {
 
   ```ts
   import { assert, test } from 'vitest'
-  
+
   test.only('test', () => {
     // 仅运行此测试（以及仅标记有的其他测试）
     assert.equal(Math.sqrt(4), 2)
@@ -132,7 +132,7 @@ test.runIf(isDev)('dev only test', () => {
 
   ```ts
   import { describe, test } from 'vitest'
-  
+
   // 标有并发的两个测试将并发运行
   describe('suite', () => {
     test('serial test', async () => {
@@ -477,14 +477,11 @@ describe('sort', () => {
 ```ts
 import { describe, expect, test } from 'vitest'
 
-const numberToCurrency = (value) => {
+function numberToCurrency(value) {
   if (typeof value !== 'number')
     throw new Error('Value must be a number')
 
-  return value
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 describe('numberToCurrency', () => {
@@ -494,35 +491,9 @@ describe('numberToCurrency', () => {
     })
   })
 
-<<<<<<< HEAD
   describe('given a valid number', () => {
     test('returns the correct currency format', () => {
       expect(numberToCurrency(10000)).toBe('10,000.00')
-=======
-  You can also nest describe blocks if you have a hierarchy of tests or benchmarks:
-
-  ```ts
-  import { describe, expect, test } from 'vitest'
-
-  function numberToCurrency(value) {
-    if (typeof value !== 'number')
-      throw new Error('Value must be a number')
-
-    return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
-  describe('numberToCurrency', () => {
-    describe('given an invalid number', () => {
-      test('composed of non-numbers to throw error', () => {
-        expect(() => numberToCurrency('abc')).toThrowError()
-      })
-    })
-
-    describe('given a valid number', () => {
-      test('returns the correct currency format', () => {
-        expect(numberToCurrency(10000)).toBe('10,000.00')
-      })
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
     })
   })
 })
@@ -536,7 +507,7 @@ describe('numberToCurrency', () => {
 
   ```ts
   import { assert, describe, test } from 'vitest'
-  
+
   describe.skip('skipped suite', () => {
     test('sqrt', () => {
       // 跳过测试套件，不会有错误
@@ -553,9 +524,9 @@ describe('numberToCurrency', () => {
 
   ```ts
   import { assert, test } from 'vitest'
-  
+
   const isDev = process.env.NODE_ENV === 'development'
-  
+
   describe.skipIf(isDev)('prod only test', () => {
     // this test only runs in production
   })
@@ -578,7 +549,7 @@ describe('numberToCurrency', () => {
       assert.equal(Math.sqrt(4), 3)
     })
   })
-  
+
   describe('other suite', () => {
     // ... 测试套件将会被跳过
   })
@@ -692,11 +663,11 @@ describe.concurrent('suite', () => {
     test(`returns ${expected}`, () => {
       expect(a + b).toBe(expected)
     })
-  
+
     test(`returned value not be greater than ${expected}`, () => {
       expect(a + b).not.toBeGreaterThan(expected)
     })
-  
+
     test(`returned value not be less than ${expected}`, () => {
       expect(a + b).not.toBeLessThan(expected)
     })
@@ -737,9 +708,9 @@ describe.concurrent('suite', () => {
 
   ```ts
   import { expect } from 'vitest'
-  
+
   const input = Math.sqrt(4)
-  
+
   expect(input).to.equal(2) // chai API
   expect(input).toBe(2) // jest API
   ```
@@ -775,20 +746,20 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   const stock = {
     type: 'apples',
     count: 13,
   }
-  
+
   test('stock has 13 apples', () => {
     expect(stock.type).toBe('apples')
     expect(stock.count).toBe(13)
   })
-  
+
   test('stocks are the same', () => {
     const refStock = stock // 相同的引用
-  
+
     expect(stock).toBe(refStock)
   })
   ```
@@ -803,11 +774,11 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test.fails('decimals are not equal in javascript', () => {
     expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 is 0.30000000000000004
   })
-  
+
   test('decimals are rounded to 5 after the point', () => {
     // 0.2 + 0.1 is 0.30000 | "000000000004" removed
     expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
@@ -824,9 +795,9 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   const getApples = () => 3
-  
+
   test('function returned something', () => {
     expect(getApples()).toBeDefined()
   })
@@ -840,7 +811,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   function getApplesFromStock(stock) {
     if (stock === 'Bill')
       return 13
@@ -873,7 +844,7 @@ expect(input).not.toBe(2) // jest API
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks'
   const stocks = new Stocks()
-  
+
   test('if we know Bill stock, sell apples to him', () => {
     stocks.sync('Bill')
     expect(stocks.getInfo('Bill')).toBeTruthy()
@@ -904,7 +875,7 @@ expect(input).not.toBe(2) // jest API
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks'
   const stocks = new Stocks()
-  
+
   test('if Bill stock hasn\'t failed, sell apples to him', () => {
     stocks.syncStocks('Bill')
     expect(stocks.stockFailed('Bill')).toBeFalsy()
@@ -921,7 +892,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   function apples() {
     return null
   }
@@ -939,9 +910,9 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   let i = 0
-  
+
   function getApplesCount() {
     i++
     return i > 1 ? NaN : i
@@ -962,7 +933,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   const actual = 'stock'
-  
+
   test('stock is type of string', () => {
     expect(actual).toBeTypeOf('string')
   })
@@ -978,7 +949,7 @@ expect(input).not.toBe(2) // jest API
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks'
   const stocks = new Stocks()
-  
+
   test('stocks are instance of Stocks', () => {
     expect(stocks).toBeInstanceOf(Stocks)
   })
@@ -993,7 +964,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stock'
-  
+
   test('have more then 10 apples', () => {
     expect(getApples()).toBeGreaterThan(10)
   })
@@ -1008,7 +979,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stock'
-  
+
   test('have 11 apples or more', () => {
     expect(getApples()).toBeGreaterThanOrEqual(11)
   })
@@ -1023,7 +994,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stock'
-  
+
   test('have less then 20 apples', () => {
     expect(getApples()).toBeLessThan(20)
   })
@@ -1038,7 +1009,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stock'
-  
+
   test('have 11 apples or less', () => {
     expect(getApples()).toBeLessThanOrEqual(11)
   })
@@ -1052,21 +1023,21 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   const stockBill = {
     type: 'apples',
     count: 13,
   }
-  
+
   const stockMary = {
     type: 'apples',
     count: 13,
   }
-  
+
   test('stocks have the same properties', () => {
     expect(stockBill).toEqual(stockMary)
   })
-  
+
   test('stocks are not the same', () => {
     expect(stockBill).not.toBe(stockMary)
   })
@@ -1090,7 +1061,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   class Stock {
     constructor(type) {
       this.type = type
@@ -1112,7 +1083,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getAllFruits } from './stock'
-  
+
   test('the fruit list contains orange', () => {
     expect(getAllFruits()).toContain('orange')
   })
@@ -1127,7 +1098,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getFruitStock } from './stock'
-  
+
   test('apple available', () => {
     expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
   })
@@ -1141,11 +1112,11 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('toHaveLength', () => {
     expect('abc').toHaveLength(3)
     expect([1, 2, 3]).toHaveLength(3)
-  
+
     expect('').not.toHaveLength(3) // .length 的值并不是3
     expect({ length: 3 }).toHaveLength(3)
   })
@@ -1161,7 +1132,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   const invoice = {
     'isActive': true,
     'P.O': '12345',
@@ -1182,22 +1153,22 @@ expect(input).not.toBe(2) // jest API
       },
     ],
   }
-  
+
   test('John Doe Invoice', () => {
     expect(invoice).toHaveProperty('isActive') // 断言 key 存在
     expect(invoice).toHaveProperty('total_amount', 5000) // 断言 key 存在且值相等
-  
+
     expect(invoice).not.toHaveProperty('account') // 断言 key 不存在
-  
+
     // 使用 dot 进行深度引用
     expect(invoice).toHaveProperty('customer.first_name')
     expect(invoice).toHaveProperty('customer.last_name', 'Doe')
     expect(invoice).not.toHaveProperty('customer.location', 'India')
-  
+
     // 使用包含 key 的数组进行深度引用
     expect(invoice).toHaveProperty('items[0].type', 'apples')
     expect(invoice).toHaveProperty('items.0.type', 'apples') // 使用 dot 也可以工作
-  
+
     // 在数组中包装你的 key 来避免它作为深度引用
     expect(invoice).toHaveProperty(['P.O'], '12345')
   })
@@ -1211,7 +1182,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('top fruits', () => {
     expect('top fruits include apple, orange and grape').toMatch(/apple/)
     expect('applefruits').toMatch('fruit') // toMatch 也可以是一个字符串
@@ -1228,7 +1199,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   const johnInvoice = {
     isActive: true,
     customer: {
@@ -1248,7 +1219,7 @@ expect(input).not.toBe(2) // jest API
       },
     ],
   }
-  
+
   const johnDetails = {
     customer: {
       first_name: 'John',
@@ -1256,11 +1227,11 @@ expect(input).not.toBe(2) // jest API
       location: 'China',
     },
   }
-  
+
   test('invoice has john personal details', () => {
     expect(johnInvoice).toMatchObject(johnDetails)
   })
-  
+
   test('the number of elements must match exactly', () => {
     // 断言对象数组是否匹配
     expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
@@ -1290,7 +1261,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   function getFruitStock(type) {
     if (type === 'pineapples') {
       throw new DiabetesError(
@@ -1305,7 +1276,7 @@ expect(input).not.toBe(2) // jest API
     // 测试错误消息是否在某处显示 "diabetes" ：这些是等效的
     expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
     expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
-  
+
     // 测试确切的错误信息
     expect(() => getFruitStock('pineapples')).toThrowError(
       /^Pineapples is not good for people with diabetes$/
@@ -1331,7 +1302,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchSnapshot()
@@ -1342,7 +1313,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchSnapshot({ foo: expect.any(Set) })
@@ -1359,7 +1330,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('matches inline snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     // 当更新快照时，Vitest 将更新以下内容
@@ -1378,7 +1349,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchInlineSnapshot(
@@ -1416,20 +1387,20 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test, vi } from 'vitest'
-  
+
   const market = {
     buy(subject: string, amount: number) {
       // ...
     },
   }
-  
+
   test('spy function', () => {
     const buySpy = vi.spyOn(market, 'buy')
-  
+
     expect(buySpy).not.toHaveBeenCalled()
-  
+
     market.buy('apples', 10)
-  
+
     expect(buySpy).toHaveBeenCalled()
   })
   ```
@@ -1669,7 +1640,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   async function buyApples() {
     return fetch('/buy/apples').then(r => r.json())
   }
@@ -1697,7 +1668,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   async function buyApples(id) {
     if (!id)
       throw new Error('no id')
@@ -1723,7 +1694,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   async function doAsync(...cbs) {
     await Promise.all(cbs.map((cb, index) => cb({ index })))
   }
@@ -1752,9 +1723,9 @@ describe('toSatisfy()', () => {
   ```ts
   import { expect, test } from 'vitest'
   import { db } from './db'
-  
+
   const cbs = []
-  
+
   function onSelect(cb) {
     cbs.push(cb)
   }
@@ -1788,7 +1759,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('object has "apples" key', () => {
     expect({ apples: 22 }).toEqual({ apples: expect.anything() })
   })
@@ -1803,7 +1774,7 @@ describe('toSatisfy()', () => {
   ```ts
   import { expect, test } from 'vitest'
   import { generateId } from './generators'
-  
+
   test('"id" is a number', () => {
     expect({ id: generateId() }).toEqual({ id: expect.any(Number) })
   })
@@ -1817,7 +1788,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('basket includes fuji', () => {
     const basket = {
       varieties: ['Empire', 'Fuji', 'Gala'],
@@ -1842,7 +1813,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('basket has empire apples', () => {
     const basket = {
       varieties: [
@@ -1870,7 +1841,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('variety has "Emp" in its name', () => {
     const variety = {
       name: 'Empire',
@@ -1895,7 +1866,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('variety ends with "re"', () => {
     const variety = {
       name: 'Empire',
@@ -1934,7 +1905,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-  
+
   test('custom matchers', () => {
     expect.extend({
       toBeFoo: (received, expected) => {
@@ -1946,7 +1917,7 @@ describe('toSatisfy()', () => {
         }
       },
     })
-  
+
     expect('foo').toBeFoo()
     expect({ foo: 'foo' }).toEqual({ foo: expect.toBeFoo() })
   })
@@ -2515,7 +2486,7 @@ assertType(concat('a', 2))
 
   ```ts
   import { beforeEach } from 'vitest'
-  
+
   beforeEach(async () => {
     // 在每次测试运行之前清除模拟并添加一些测试数据
     await stopMocking()
@@ -2529,11 +2500,11 @@ assertType(concat('a', 2))
 
   ```ts
   import { beforeEach } from 'vitest'
-  
+
   beforeEach(async () => {
     // 在所有测试运行之前调用一次
     await prepareSomething()
-  
+
     // 清理方法，在所有测试运行后调用一次
     return async () => {
       await resetSomething()
@@ -2552,7 +2523,7 @@ assertType(concat('a', 2))
 
   ```ts
   import { afterEach } from 'vitest'
-  
+
   afterEach(async () => {
     await clearTestingData() // 每次测试运行后清除测试数据
   })
@@ -2571,7 +2542,7 @@ assertType(concat('a', 2))
 
   ```ts
   import { beforeAll } from 'vitest'
-  
+
   beforeAll(async () => {
     await startMocking() // 在所有测试运行之前调用一次
   })
@@ -2583,11 +2554,11 @@ assertType(concat('a', 2))
 
   ```ts
   import { beforeAll } from 'vitest'
-  
+
   beforeAll(async () => {
     // 在所有测试运行之前调用一次
     await startMocking()
-  
+
     // 清理函数，在所有测试运行后调用一次
     return async () => {
       await stopMocking()
@@ -2606,7 +2577,7 @@ assertType(concat('a', 2))
 
   ```ts
   import { afterAll } from 'vitest'
-  
+
   afterAll(async () => {
     await stopMocking() // 在所有测试运行后调用此方法
   })
@@ -2627,7 +2598,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-  
+
   vi.advanceTimersByTime(150)
   ```
 
@@ -2640,7 +2611,7 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-  
+
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
     .advanceTimersToNextTimer() // log 3
@@ -2673,14 +2644,14 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
 
   ```ts
   const getApples = vi.fn(() => 0)
-  
+
   getApples()
-  
+
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
-  
+
   getApples.mockReturnValueOnce(5)
-  
+
   const res = getApples()
   expect(res).toBe(5)
   expect(getApples).toHaveNthReturnedWith(2, 5)
@@ -2772,10 +2743,10 @@ Vitest 通过 **vi** 提供工具函数来帮助你。你可以 `import { vi } f
   import axios from 'axios'
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
-  
+
   vi.mock('axios')
   vi.mock('../increment.js')
-  
+
   axios.get(`/apples/${increment(1)}`)
   ```
 
@@ -2835,12 +2806,12 @@ test('importing the next module imports mocked one', () => {
   ```ts
   import example from './example'
   vi.mock('./example')
-  
+
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
-  
+
     const res = example.calc(1, '+', 1)
-  
+
     expect(res).toBe(2)
   })
   ```
@@ -2854,7 +2825,7 @@ test('importing the next module imports mocked one', () => {
   ```ts
   vi.mock('./example', async () => {
     const axios = await vi.importActual('./example')
-  
+
     return { ...axios, get: vi.fn() }
   })
   ```
@@ -2883,17 +2854,17 @@ test('importing the next module imports mocked one', () => {
 
   ```ts
   import { vi } from 'vitest'
-  
+
   beforeAll(() => {
     vi.resetModules()
   })
-  
+
   test('change state', async () => {
     const mod = await import('./some/path')
     mod.changeLocalState('new value')
     expect(mod.getlocalState()).toBe('new value')
   })
-  
+
   test('module has old state', async () => {
     const mod = await import('./some/path')
     expect(mod.getlocalState()).toBe('old value')
@@ -3060,7 +3031,7 @@ IntersectionObserver === undefined
     if (i === 3)
       clearInterval(interval)
   }, 50)
-  
+
   vi.runAllTimers()
   ```
 
@@ -3073,7 +3044,7 @@ IntersectionObserver === undefined
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-  
+
   vi.runOnlyPendingTimers()
   ```
 
@@ -3087,12 +3058,12 @@ IntersectionObserver === undefined
 
   ```ts
   const date = new Date(1998, 11, 19)
-  
+
   vi.useFakeTimers()
   vi.setSystemTime(date)
-  
+
   expect(Date.now()).toBe(date.valueOf())
-  
+
   vi.useRealTimers()
   ```
 
@@ -3113,12 +3084,12 @@ IntersectionObserver === undefined
   const obj = {
     getApples: () => 13,
   }
-  
+
   const spy = vi.spyOn(obj, 'getApples').mockImplementation(() => apples)
   apples = 1
-  
+
   expect(obj.getApples()).toBe(1)
-  
+
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
@@ -3222,13 +3193,13 @@ unmockedIncrement(30) === 31
   ```ts
   const mockFn = vi.fn().mockImplementation(apples => apples + 1)
   // or: vi.fn(apples => apples + 1);
-  
+
   const NelliesBucket = mockFn(0)
   const BobsBucket = mockFn(1)
-  
+
   NelliesBucket === 1 // true
   BobsBucket === 2 // true
-  
+
   mockFn.mock.calls[0][0] === 0 // true
   mockFn.mock.calls[1][0] === 1 // true
   ```
@@ -3244,7 +3215,7 @@ unmockedIncrement(30) === 31
     .fn()
     .mockImplementationOnce(() => true)
     .mockImplementationOnce(() => false)
-  
+
   myMockFn() // true
   myMockFn() // false
   ```
@@ -3256,7 +3227,7 @@ unmockedIncrement(30) === 31
     .fn(() => 'default')
     .mockImplementationOnce(() => 'first call')
     .mockImplementationOnce(() => 'second call')
-  
+
   // 'first call', 'second call', 'default', 'default'
   console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
   ```
@@ -3270,7 +3241,7 @@ unmockedIncrement(30) === 31
   ```ts
   test('async test', async () => {
     const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
-  
+
     await asyncMock() // throws "Async error"
   })
   ```
@@ -3287,7 +3258,7 @@ unmockedIncrement(30) === 31
       .fn()
       .mockResolvedValueOnce('first call')
       .mockRejectedValueOnce(new Error('Async error'))
-  
+
     await asyncMock() // first call
     await asyncMock() // throws "Async error"
   })
@@ -3320,7 +3291,7 @@ unmockedIncrement(30) === 31
   ```ts
   test('async test', async () => {
     const asyncMock = vi.fn().mockResolvedValue(43)
-  
+
     await asyncMock() // 43
   })
   ```
@@ -3338,7 +3309,7 @@ unmockedIncrement(30) === 31
       .mockResolvedValue('default')
       .mockResolvedValueOnce('first call')
       .mockResolvedValueOnce('second call')
-  
+
     await asyncMock() // first call
     await asyncMock() // second call
     await asyncMock() // default
@@ -3378,7 +3349,7 @@ unmockedIncrement(30) === 31
     .mockReturnValue('default')
     .mockReturnValueOnce('first call')
     .mockReturnValueOnce('second call')
-  
+
   // 'first call', 'second call', 'default', 'default'
   console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
   ```

@@ -17,22 +17,6 @@ export interface CoreTeam extends DefaultTheme.TeamMember {
 
 const contributorsAvatars: Record<string, string> = {}
 
-<<<<<<< HEAD
-const getAvatarUrl = (name: string) =>
-  import.meta.hot
-    ? `https://github.com/${name}.png`
-    : `/user-avatars/${name}.png`
-
-export const contributors = (contributorNames as string[]).reduce(
-  (acc, name) => {
-    contributorsAvatars[name] = getAvatarUrl(name)
-    acc.push({ name, avatar: contributorsAvatars[name] })
-    return acc
-  },
-  [] as Contributor[],
-)
-const createLinks = (tm: CoreTeam): CoreTeam => {
-=======
 function getAvatarUrl(name: string) {
   return import.meta.hot ? `https://github.com/${name}.png` : `/user-avatars/${name}.png`
 }
@@ -43,7 +27,6 @@ export const contributors = (contributorNames as string[]).reduce((acc, name) =>
   return acc
 }, [] as Contributor[])
 function createLinks(tm: CoreTeam): CoreTeam {
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
   tm.links = [{ icon: 'github', link: `https://github.com/${tm.github}` }]
   if (tm.mastodon)
     tm.links.push({ icon: 'mastodon', link: tm.mastodon })
