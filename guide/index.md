@@ -152,7 +152,7 @@ export default defineWorkspace([
 
 ## 使用 Vitest 的项目
 
-- [unocss](https://github.com/antfu/unocss)
+- [unocss](https://github.com/unocss/unocss)
 - [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import)
 - [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
 - [vitesse](https://github.com/antfu/vitesse)
