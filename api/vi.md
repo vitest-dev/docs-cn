@@ -253,17 +253,10 @@ test('importing the next module imports mocked one', async () => {
   当 `partial` 为 `true` 时，它将期望 `Partial<T>` 作为返回值。
 
   ```ts
-<<<<<<< HEAD
-  import example from './example'
-  
-  vi.mock('./example')
-  
-=======
   import example from './example.js'
-
+  
   vi.mock('./example.js')
-
->>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
+  
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
   
@@ -280,15 +273,8 @@ test('importing the next module imports mocked one', async () => {
   导入模块，绕过所有检查是否应该被模拟。如果你想部分模拟模块，这可能很有用。
 
   ```ts
-<<<<<<< HEAD
-  vi.mock('./example', async () => {
-    const axios = await vi.importActual('./example')
-  
-=======
   vi.mock('./example.js', async () => {
     const axios = await vi.importActual('./example.js')
-
->>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
     return { ...axios, get: vi.fn() }
   })
   ```
@@ -297,7 +283,7 @@ test('importing the next module imports mocked one', async () => {
 
 - **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-  导入一个模块，其所有属性（包括嵌套属性）都被模拟。遵循 [`vi.mock`](#vi-mock) 遵循的相同规则。有关应用的规则，请参阅 [algorithm](/guide/mocking#automocking-algorithm)。
+导入一个模块，其所有属性（包括嵌套属性）都被模拟。遵循 [`vi.mock`](#vi-mock) 遵循的相同规则。有关应用的规则，请参阅 [algorithm](/guide/mocking#automocking-algorithm)。
 
 ## vi.resetAllMocks
 
@@ -307,33 +293,33 @@ test('importing the next module imports mocked one', async () => {
 
 - **类型**: `RuntimeConfig`
 
-  如果之前调用了 [`vi.setConfig`](#vi-setconfig)，这会将配置重置为原始状态。
+如果之前调用了 [`vi.setConfig`](#vi-setconfig)，这会将配置重置为原始状态。
 
 ## vi.resetModules
 
 - **类型**: `() => Vitest`
 
-  通过清除所有模块的缓存来重置模块注册表。这允许在重新导入时重新评估模块。但是无法重新评估顶级导入。这可能有助于隔离测试之间本地状态冲突的模块。
+通过清除所有模块的缓存来重置模块注册表。这允许在重新导入时重新评估模块。但是无法重新评估顶级导入。这可能有助于隔离测试之间本地状态冲突的模块。
 
-  ```ts
-  import { vi } from 'vitest'
-  import { data } from './data.js' // Will not get reevaluated beforeEach test
-  
-  beforeEach(() => {
-    vi.resetModules()
-  })
-  
-  test('change state', async () => {
-    const mod = await import('./some/path.js') // Will get reevaluated
-    mod.changeLocalState('new value')
-    expect(mod.getLocalState()).toBe('new value')
-  })
-  
-  test('module has old state', async () => {
-    const mod = await import('./some/path.js') // Will get reevaluated
-    expect(mod.getLocalState()).toBe('old value')
-  })
-  ```
+```ts
+import { vi } from 'vitest'
+import { data } from './data.js' // Will not get reevaluated beforeEach test
+
+beforeEach(() => {
+  vi.resetModules()
+})
+
+test('change state', async () => {
+  const mod = await import('./some/path.js') // Will get reevaluated
+  mod.changeLocalState('new value')
+  expect(mod.getLocalState()).toBe('new value')
+})
+
+test('module has old state', async () => {
+  const mod = await import('./some/path.js') // Will get reevaluated
+  expect(mod.getLocalState()).toBe('old value')
+})
+```
 
 ::: warning
 不重置模拟注册表。要清除模拟注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock)。

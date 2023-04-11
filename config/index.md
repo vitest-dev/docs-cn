@@ -109,15 +109,11 @@ All configuration options that are not supported inside a [workspace](/guide/wor
 - **版本:** Vitets 0.29.0
 - **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
 
-<<<<<<< HEAD
-启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
-=======
 ::: warning
-This feature is temporary disabled since Vitest 0.30.0.
+此功能从 Vitest 0.30.0 起暂时禁用。
 :::
 
-Enable dependency optimization. If you have a lot of tests, this might improve their performance.
->>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
+启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
 对于 `jsdom` 和 `happy-dom` 环境，当 Vitest 遇到外部库时，它会使用 esbuild 打包成一个文件，并作为一个整体模块导入。这有几个原因：
 
@@ -492,6 +488,7 @@ export default defineConfig({
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+
 ### outputDiffLines
 
 - **类型:** `number`
@@ -512,11 +509,16 @@ export default defineConfig({
 ```
 
 =======
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
+
+> > > > > > > dde0d197948d3b8698868cca0daf0aa61142c2db
+
 ### outputFile
+
 =======
+
 ### outputFile<NonProjectOption />
->>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
+
+> > > > > > > e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
@@ -653,11 +655,14 @@ globalThis.resetBeforeEachTest = true
 :::
 
 <<<<<<< HEAD
+
 ### watchExclude
+
 =======
 
 ### watchExclude<NonProjectOption />
->>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
+
+> > > > > > > e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**']`
@@ -772,16 +777,16 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 #### coverage.all
 
 <<<<<<< HEAD
+
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
-- **命令行终端:** `--coverage.all`, --coverage.all=false`
-=======
+- # **命令行终端:** `--coverage.all`, --coverage.all=false`
 - **Type:** `boolean`
 - **Default:** `false`
 - **Available for providers:** `'c8' | 'istanbul'`
 - **CLI:** `--coverage.all`, `--coverage.all=false`
->>>>>>> e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
+  > > > > > > > e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -1472,4 +1477,5 @@ Influences whether or not the `showDiff` flag should be included in the thrown A
 Sets length threshold for actual and expected values in assertion errors. If this threshold is exceeded, for example for large data structures, the value is replaced with something like `[ Array(3) ]` or `{ Object (prop1, prop2) }`. Set it to `0` if you want to disable truncating altogether.
 
 This config option affects truncating values in `test.each` titles and inside the assertion error message.
->>>>>>> dde0d197948d3b8698868cca0daf0aa61142c2db
+
+> > > > > > > dde0d197948d3b8698868cca0daf0aa61142c2db
