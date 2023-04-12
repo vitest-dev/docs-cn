@@ -67,7 +67,11 @@ export default defineConfig({
 
 ## 支持工作空间
 
+<<<<<<< HEAD
 使用 [Vitest Workspaces](/guide/workspace) 在同一个项目中运行不同的项目配置。你可以在 `vitest.workspace` 文件中定义定义工作区的文件和文件夹列表。该文件支持 `js`/`ts`/`json` 扩展。此功能适用于 monorepo 设置。
+=======
+Run different project configurations inside the same project with [Vitest Workspaces](/guide/workspace). You can define a list of files and folders that define your workspace in `vitest.workspace` file. The file supports `js`/`ts`/`json` extensions. This feature works great with monorepo setups.
+>>>>>>> 5429591d884d69ac2bddaa560c89a26246f0901a
 
 ```ts
 import { defineWorkspace } from 'vitest/config'
