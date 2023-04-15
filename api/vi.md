@@ -567,15 +567,24 @@ IntersectionObserver === undefined
 
   ```ts
   let apples = 0
-  const obj = {
+  const cart = {
     getApples: () => 13,
   }
+<<<<<<< HEAD
   
   const spy = vi.spyOn(obj, 'getApples').mockImplementation(() => apples)
   apples = 1
   
   expect(obj.getApples()).toBe(1)
   
+=======
+
+  const spy = vi.spyOn(cart, 'getApples').mockImplementation(() => apples)
+  apples = 1
+
+  expect(cart.getApples()).toBe(1)
+
+>>>>>>> 536365bddd3c5c8bfdbfa67c49afd66f0d80ef6b
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
