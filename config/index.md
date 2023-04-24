@@ -80,7 +80,7 @@ export default mergeConfig(
 :::
 
 ::: tip
-All configuration options that are not supported inside a [workspace](/guide/workspace) project config have <NonProjectOption /> sign next to them.
+所有不支持在 [workspace](/guide/workspace) 项目配置中的配置选项都会有 <NonProjectOption /> 标记。
 :::
 
 ### include
@@ -110,11 +110,7 @@ All configuration options that are not supported inside a [workspace](/guide/wor
 - **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
 
 ::: warning
-<<<<<<< HEAD
 此功能从 Vitest 0.30.0 起暂时禁用。
-=======
-This feature is temporarily disabled since Vitest 0.30.0.
->>>>>>> 536365bddd3c5c8bfdbfa67c49afd66f0d80ef6b
 :::
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。

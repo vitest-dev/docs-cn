@@ -1,12 +1,12 @@
 # Workspace
 
-Vitest provides built-in support for monorepositories through a workspace configuration file. You can create a workspace to define your project's setups.
+Vitest 提供了内置支持 monorepo 的工作区配置文件。你可以创建一个工作区来定义项目设置。
 
-## Defining a workspace
+## 定义 Workspace
 
-A workspace should have a `vitest.workspace` or `vitest.projects` file in its root (in the same folder as your config file if you have one). Vitest supports `ts`/`js`/`json` extensions for this file.
+一个工作区应该在其根目录下（如果你有配置文件，则与其位于同一文件夹中）有一个名为 `vitest.workspace` 或 `vitest.projects` 的文件。Vitest 支持 `ts`/`js`/`json` 扩展名的文件。
 
-Workspace configuration file should have a default export with a list of files or glob patterns referencing your projects. For example, if you have a folder with your projects named `packages`, you can define a workspace with this config file:
+工作区配置文件应该有一个默认导出，其中包含一个文件列表或 glob 模式，引用你的项目。例如，如果你有一个名为 `packages` 的项目文件夹，你可以使用以下配置文件定义一个工作区：
 
 :::code-group
 ```ts [vitest.workspace.ts]
@@ -16,13 +16,13 @@ export default [
 ```
 :::
 
-Vitest will consider every folder in `packages` as a separate project even if it doesn't have a config file inside.
+即使某个文件夹中没有配置文件，Vitest 也会将 `packages` 文件夹中的每个文件夹视为单独的项目。
 
 ::: warning
-Vitest will not consider the root config as a workspace project (so it will not run tests specified in `include`) unless it is specified in this config.
+除非在此配置文件中指定，否则 Vitest 不会将根配置文件视为工作区项目（因此它不会运行在 `include` 中指定的测试）。
 :::
 
-You can also reference projects with their config files:
+你还可以使用项目的配置文件引用项目：
 
 :::code-group
 ```ts [vitest.workspace.ts]
@@ -32,13 +32,13 @@ export default [
 ```
 :::
 
-This pattern will only include projects with `vitest.config` file that includes `e2e` and `unit` before the extension.
+该模式仅包括具有包含 `e2e` 和 `unit` 的 `vitest.config` 文件的项目。这些关键字需要在文件扩展名之前出现。
 
 ::: warning
-If you are referencing filenames with glob pattern, make sure your config file starts with `vite.config` or `vitest.config`. Otherwise Vitest will skip it.
+如果你正在使用 glob 模式引用文件名，请确保你的配置文件以 `vite.config` 或 `vitest.config` 开头。否则，Vitest将跳过它。
 :::
 
-You can also define projects with inline config. Workspace file supports using both syntaxes at the same time.
+你还可以使用内联配置定义项目。工作区文件支持同时使用这两种语法。
 
 :::code-group
 ```ts [vitest.workspace.ts]
@@ -69,10 +69,10 @@ export default defineWorkspace([
 :::
 
 ::: warning
-All projects should have unique names. Otherwise, Vitest will throw an error. If you do not provide a name inside the inline config, Vitest will assign a number. If you don't provide a name inside a project config defined with glob syntax, Vitest will use the directory name by default.
+所有项目应该具有唯一的名称。否则，Vitest会抛出错误。如果你没有在内联配置中提供名称，Vitest将分配一个数字。如果你没有在使用 glob 语法定义的项目配置中提供名称，Vitest将默认使用目录名称。
 :::
 
-If you don't rely on inline configs, you can just create a small json file in your root directory:
+如果你不依赖内联配置，你可以在根目录中创建一个小的 JSON 文件：
 
 :::code-group
 ```json [vitest.workspace.json]
@@ -82,7 +82,7 @@ If you don't rely on inline configs, you can just create a small json file in yo
 ```
 :::
 
-Workspace projects don't support all configuration properties. For better type safety, use `defineProject` instead of `defineConfig` method inside project configuration files:
+工作区项目不支持所有配置属性。为了获得更好的类型安全性，请在项目配置文件中使用 `defineProject` 方法而不是 `defineConfig` 方法：
 
 :::code-group
 ```ts [packages/a/vitest.config.ts]
@@ -101,7 +101,7 @@ export default defineProject({
 
 ## Configuration
 
-None of the configuration options are inherited from the root-level config file. You can create a shared config file and merge it with the project config yourself:
+没有任何配置选项从根级别的配置文件继承。你可以创建一个共享的配置文件，并将其与项目配置文件合并：
 
 :::code-group
 ```ts [packages/a/vitest.config.ts]
@@ -119,19 +119,19 @@ export default mergeConfig(
 ```
 :::
 
-Also, some of the configuration options are not allowed in a project config. Most notably:
+此外，某些配置选项不允许在项目配置中使用。其中最明显的是：
 
-- `coverage`: coverage is done for the whole workspace
-- `reporters`: only root-level reporters can be supported
-- `resolveSnapshotPath`: only root-level resolver is respected
-- all other options that don't affect test runners
+- `coverage`: 覆盖率是针对整个工作区进行的。
+- `reporters`: 仅支持根级别的报告器。
+- `resolveSnapshotPath`: 仅支持根级别的解析器。
+- 所有其他不影响测试运行器的选项。
 
 ::: tip
-All configuration options that are not supported inside a project config have <NonProjectOption /> sign next them in ["Config"](/config/) page.
+所有不支持在项目配置中使用的配置选项，在 ["Config"](/config/) 页面上都有一个 <NonProjectOption /> 标记。
 :::
 
 ## Coverage
 
-Coverage for workspace projects works out of the box. But if you have [`all`](/config/#coverage-all) option enabled and use non-conventional extensions in some of your projects, you will need to have a plugin that handles this extension in your root configuration file.
+工作区项目的覆盖率可以直接使用。但是，如果你启用了 [`all`](/config/#coverage-all) 选项并且在某些项目中使用了非常规扩展名，则需要在根配置文件中使用处理此扩展名的插件。
 
-For example, if you have a package that uses Vue files and it has its own config file, but some of the files are not imported in your tests, coverage will fail trying to analyze the usage of unused files, because it relies on the root configuration rather than project configuration.
+例如，如果你有一个使用 Vue 文件的包，并且它有自己的配置文件，但是某些文件没有在测试中导入，覆盖率分析将会失败，因为它依赖于根配置而不是项目配置，试图分析未使用文件的使用情况。
