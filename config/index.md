@@ -80,7 +80,7 @@ export default mergeConfig(
 :::
 
 ::: tip
-All configuration options that are not supported inside a [workspace](/guide/workspace) project config have <NonProjectOption /> sign next them.
+所有不支持在 [workspace](/guide/workspace) 项目配置中的配置选项都会有 <NonProjectOption /> 标记。
 :::
 
 ### include
