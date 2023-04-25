@@ -183,10 +183,10 @@ export default withPwa(
       },
 
       nav: [
-        { text: '指南', link: '/guide/' },
-        { text: 'API', link: '/api/' },
-        { text: '配置', link: '/config/' },
-        { text: 'Advanced', link: '/advanced/api' },
+        { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
+        { text: 'API', link: '/api/', activeMatch: '^/api/' },
+        { text: '配置', link: '/config/', activeMatch: '^/config/' },
+        { text: 'Advanced', link: '/advanced/api', activeMatch: '^/advanced/' },
         {
           text: `v${version}`,
           items: [
