@@ -50,11 +50,7 @@ it('toUpperCase', () => {
 })
 ```
 
-<<<<<<< HEAD
-Vitest 将修改测试文件目录，以将快照更新为字符串，而不是创建快照文件：
-=======
-Instead of creating a snapshot file, Vitest will modify the test file directly to update the snapshot as a string:
->>>>>>> 6a04ba3c8596e2546f1a431f3f645c1dffe0c5b5
+Vitest 不会创建快照文件，而是直接修改测试文件，将快照作为字符串更新到文件中：
 
 ```ts
 import { expect, it } from 'vitest'
