@@ -1457,4 +1457,16 @@ Sets length threshold for actual and expected values in assertion errors. If thi
 
 This config option affects truncating values in `test.each` titles and inside the assertion error message.
 
+<<<<<<< HEAD
 > > > > > > > dde0d197948d3b8698868cca0daf0aa61142c2db
+=======
+### bail
+
+- **Type:** `number`
+- **Default:** `0`
+- **CLI**: `--bail=<value>`
+
+Stop test execution when given number of tests have failed.
+
+By default Vitest will run all of your test cases even if some of them fail. This may not be desired for CI builds where you are only interested in 100% successful builds and would like to stop test execution as early as possible when test failures occur. The `bail` option can be used to speed up CI runs by preventing it from running more tests when failures have occured.
+>>>>>>> cebeb56f6961d8d33fac73a3c956c777faf26fb0
