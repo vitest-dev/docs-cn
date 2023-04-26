@@ -508,17 +508,7 @@ export default defineConfig({
 ...
 ```
 
-=======
-
-> > > > > > > dde0d197948d3b8698868cca0daf0aa61142c2db
-
-### outputFile
-
-=======
-
 ### outputFile<NonProjectOption />
-
-> > > > > > > e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
@@ -654,15 +644,7 @@ globalThis.resetBeforeEachTest = true
 请注意，全局设置在不同的全局范围内运行，因此你的测试无权访问此处定义的变量。
 :::
 
-<<<<<<< HEAD
-
-### watchExclude
-
-=======
-
 ### watchExclude<NonProjectOption />
-
-> > > > > > > e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
 
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**']`
@@ -1442,10 +1424,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **类型**: `number`
 - **默认值**: `300`
 
-<<<<<<< HEAD
 如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
-=======
-The number of milliseconds after which a test is considered slow and reported as such in the results.
 
 ### chaiConfig
 
