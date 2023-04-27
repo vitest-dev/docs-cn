@@ -95,8 +95,11 @@ export default {
 | `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                               |
 | `--no-color`                         | 控制台输出中禁用颜色                                                                                                                        |
 | `--inspect`                          | 启用 Node.js 检查器                                                                                                                         |
-| `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
+| `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                           |
+| `--bail <number>` | 当给定数量的测试失败时停止测试执行。 |
 | `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                         |
+
+
 
 ::: tip
 Vitest 支持 CLI 参数的骆驼式命名法和烤肉串式命名法。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。

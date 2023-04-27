@@ -17,7 +17,13 @@ export interface VitestRunner {
    */
   onCollected?(files: File[]): unknown
   /**
-   * 这是在运行单个测试之前被调用的，此时还没有测试结果。
+   * 当测试运行程序应该取消下一次测试运行时调用。
+   * 运行程序应该监听此方法，并在“onBeforeRunSuite”和“onBeforeRunTest”中将测试和套件标记为跳过。
+   */
+  onCancel?(reason: CancelReason): unknown
+
+  /**
+   * 在运行单个测试之前调用。此时还没有“result”。
    */
   onBeforeRunTest?(test: Test): unknown
   /**
@@ -89,7 +95,7 @@ export interface VitestRunner {
 当初始化这个类时，Vitest会传递Vitest配置，你应该将它作为一个 `config` 属性暴露出来。
 
 ::: warning 注意
-Vitest 还将 `ViteNodeRunner` 实例注入为 `__vitest_executor `属性。你可以在 `importFile` 方法中使用它来处理文件（这是 `TestRunner` 和  `BenchmarkRunner` 的默认行为）。
+Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注入。你可以使用它来处理 `importFile` 方法中的文件（这是 `TestRunner` 和 `BenchmarkRunner` 的默认行为）。
 
 `ViteNodeRunner` 暴露了 `executeId` 方法，用于在适用于 Vite 的环境中导入测试文件。这意味着它将在运行时解析导入并转换文件内容，以便 Node 能够理解它。
 :::
