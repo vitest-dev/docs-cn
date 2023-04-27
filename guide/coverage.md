@@ -164,3 +164,7 @@ if (condition) {
 /* c8 ignore next 3 */
 if (condition) {
 ```
+
+## Other Options
+
+To see all configurable options for coverage, see the [coverage Config Reference](https://vitest.dev/config/#coverage).
