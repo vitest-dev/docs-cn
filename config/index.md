@@ -1428,45 +1428,41 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### chaiConfig
 
-- **Type:** `{ includeStack?, showDiff?, truncateThreshold? }`
-- **Default:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
-- **Version:** Vitest 0.30.0
+- **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
+- **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
+- **版本:** Vitest 0.30.0
 
-Equivalent to [Chai config](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js).
+等同于 [Chai 配置](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js)。
 
 #### chaiConfig.includeStack
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Influences whether stack trace is included in Assertion error message. Default of false suppresses stack trace in the error message.
+影响断言错误消息中是否包含堆栈跟踪。默认值为 false，在错误消息中抑制堆栈跟踪。
 
 #### chaiConfig.showDiff
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Influences whether or not the `showDiff` flag should be included in the thrown AssertionErrors. `false` will always be `false`; `true` will be true when the assertion has requested a diff to be shown.
+影响是否应在抛出的 AssertionErrors 中包含 `showDiff` 标志。`false` 始终为 `false`；`true` 将在断言请求显示差异时为 `true`。
 
 #### chaiConfig.truncateThreshold
 
-- **Type:** `number`
-- **Default:** `40`
+- **类型:** `number`
+- **默认值:** `40`
 
-Sets length threshold for actual and expected values in assertion errors. If this threshold is exceeded, for example for large data structures, the value is replaced with something like `[ Array(3) ]` or `{ Object (prop1, prop2) }`. Set it to `0` if you want to disable truncating altogether.
+设置断言错误中实际值和期望值的长度阈值。如果超过此阈值，例如对于大型数据结构，该值将被替换为类似 `[ Array(3) ]` 或 `{ Object (prop1, prop2) }` 的内容。如果要完全禁用截断，请将其设置为 `0`。
 
-This config option affects truncating values in `test.each` titles and inside the assertion error message.
+此配置选项影响在 `test.each` 标题和断言错误消息中截断值的方式。
 
-<<<<<<< HEAD
-> > > > > > > dde0d197948d3b8698868cca0daf0aa61142c2db
-=======
 ### bail
 
-- **Type:** `number`
-- **Default:** `0`
-- **CLI**: `--bail=<value>`
+- **类型:** `number`
+- **默认值:** `0`
+- **命令行终端**: `--bail=<value>`
 
-Stop test execution when given number of tests have failed.
+当给定数量的测试失败时停止测试执行。
 
-By default Vitest will run all of your test cases even if some of them fail. This may not be desired for CI builds where you are only interested in 100% successful builds and would like to stop test execution as early as possible when test failures occur. The `bail` option can be used to speed up CI runs by preventing it from running more tests when failures have occured.
->>>>>>> cebeb56f6961d8d33fac73a3c956c777faf26fb0
+默认情况下，即使其中一些测试失败，Vitest 也会运行你的所有测试用例。这可能不适用于 CI 构建，你只对 100% 成功的构建感兴趣，并且希望在测试失败时尽早停止测试执行。`bail` 选项可用于通过在发生故障时防止运行更多测试来加速 CI 运行。
