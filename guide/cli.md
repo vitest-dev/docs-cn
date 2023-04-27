@@ -60,7 +60,6 @@ export default {
 
 ## 选项
 
-<<<<<<< HEAD
 | 选项                                 | 描述                                                                                                                                        |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-v, --version`                      | 显示版本号                                                                                                                                  |
@@ -96,47 +95,11 @@ export default {
 | `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                               |
 | `--no-color`                         | 控制台输出中禁用颜色                                                                                                                        |
 | `--inspect`                          | 启用 Node.js 检查器                                                                                                                         |
-| `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
+| `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                           |
+| `--bail <number>` | 当给定数量的测试失败时停止测试执行。 |
 | `-h, --help`                         | 显示可用的 CLI 选项                                                                                                                         |
-=======
-| Options       |               |
-| ------------- | ------------- |
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--threads` | Enable Threads (default: `true`) |
-| `--silent` | Silent console output from tests |
-| `--isolate` | Isolate environment for each test file (default: `true`) |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Enable coverage report |
-| `--run` | Do not watch |
-| `--mode` | Override Vite mode (default: `test`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser api with happy-dom |
-| `--browser [options]` | Run tests in [the browser](/guide/browser) (default: `false`) |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--logHeapUsage` | Show the size of heap for each test |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order) |
-| `--no-color` | Removes colors from the console output |
-| `--inspect` | Enables Node.js inspector |
-| `--inspect-brk` | Enables Node.js inspector with break |
-| `--bail <number>` | Stop test execution when given number of tests have failed |
-| `-h, --help` | Display available CLI options |
->>>>>>> cebeb56f6961d8d33fac73a3c956c777faf26fb0
+
+
 
 ::: tip
 Vitest 支持 CLI 参数的骆驼式命名法和烤肉串式命名法。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
