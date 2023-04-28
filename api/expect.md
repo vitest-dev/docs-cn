@@ -138,10 +138,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { Stocks } from './stocks.js'
-<<<<<<< HEAD
-=======
 
->>>>>>> 6419e7b10827ccf1651879ff2d14675805a3c9ed
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (stocks.getInfo('Bill'))
