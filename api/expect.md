@@ -153,10 +153,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-<<<<<<< HEAD
-=======
 
->>>>>>> 6419e7b10827ccf1651879ff2d14675805a3c9ed
   const stocks = new Stocks()
   
   test('if we know Bill stock, sell apples to him', () => {
@@ -177,10 +174,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { Stocks } from './stocks.js'
-<<<<<<< HEAD
-=======
 
->>>>>>> 6419e7b10827ccf1651879ff2d14675805a3c9ed
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (!stocks.stockFailed('Bill'))
@@ -192,10 +186,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-<<<<<<< HEAD
-=======
 
->>>>>>> 6419e7b10827ccf1651879ff2d14675805a3c9ed
   const stocks = new Stocks()
   
   test('if Bill stock hasn\'t failed, sell apples to him', () => {
@@ -271,10 +262,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-<<<<<<< HEAD
-=======
 
->>>>>>> 6419e7b10827ccf1651879ff2d14675805a3c9ed
   const stocks = new Stocks()
   
   test('stocks are instance of Stocks', () => {
