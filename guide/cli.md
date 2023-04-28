@@ -80,7 +80,6 @@ export default {
 | `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
 | `--coverage`                         | 启用输出覆盖率报告                                                                                                                          |
 | `--run`                              | 不使用浏览模式                                                                                                                              |
-| `--mode`                             | 覆盖 Vite 模式 (default: `test`)                                                                                                            |
 | `--mode <name>`                      | 覆盖 Vite 模式 (default: `test`)                                                                                                            |
 | `--globals`                          | 注入全局 API                                                                                                                                |
 | `--dom`                              | 使用 happy-dom 模拟浏览器 API                                                                                                               |
