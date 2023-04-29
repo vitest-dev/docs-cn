@@ -112,6 +112,7 @@ export default withPwa(
     themeConfig: {
       logo: '/logo.svg',
 
+<<<<<<< HEAD
       editLink: {
         pattern: 'https://github.com/vitest-dev/docs-cn/tree/dev/:path',
         text: '为此页提供修改建议',
@@ -205,6 +206,16 @@ export default withPwa(
       sidebar: {
         // TODO: bring sidebar of apis and config back
         '/advanced': [
+=======
+    nav: [
+      { text: 'Guide', link: '/guide/', activeMatch: '^/guide/' },
+      { text: 'API', link: '/api/', activeMatch: '^/api/' },
+      { text: 'Config', link: '/config/', activeMatch: '^/config/' },
+      { text: 'Advanced', link: '/advanced/api', activeMatch: '^/advanced/' },
+      {
+        text: `v${version}`,
+        items: [
+>>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
           {
             text: 'Advanced',
             items: [

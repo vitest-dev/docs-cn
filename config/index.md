@@ -97,6 +97,15 @@ export default mergeConfig(
 
 匹配排除测试文件的 glob 规则。
 
+### includeSource
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+Include globs for in-source test files.
+
+When defined, Vitest will run all matched files with `import.meta.vitest` inside.
+
 ### deps
 
 - **类型:** `{ external?, inline?, ... }`
@@ -977,7 +986,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 }
 ```
 
+<<<<<<< HEAD
 指定语句、行、分支和函数的水印位置。
+=======
+- **Available for providers:** `'c8' | 'istanbul'`
+>>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
 
 ##### all
 
@@ -1035,7 +1048,7 @@ test('doNotRun', () => {
 
 ### browser
 
-- **Type:** `{ enabled?, name?, provider?, headless?, api? }`
+- **Type:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
 - **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
 - **Version:** Since Vitest 0.29.4
 - **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
@@ -1106,6 +1119,19 @@ export interface BrowserProvider {
 ::: warning
 This is an advanced API for library authors. If you just need to run tests in a browser, use the [browser](/config/#browser) option.
 :::
+
+#### browser.slowHijackESM
+
+- **Type:** `boolean`
+- **Default:** `true`
+- **Version:** Since Vitest 0.31.0
+
+When running tests in Node.js Vitest can use its own module resolution to easily mock modules with `vi.mock` syntax. However it's not so easy to replicate ES module resolution in browser, so we need to transform your source files before browser can consume it.
+
+This option has no effect on tests running inside Node.js.
+
+This options is enabled by default when running in the browser. If you don't rely on spying on ES modules with `vi.spyOn` and don't use `vi.mock`, you can disable this to get a slight boost to performance.
+
 
 ### clearMocks
 
@@ -1428,9 +1454,15 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### chaiConfig
 
+<<<<<<< HEAD
 - **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
 - **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
 - **版本:** Vitest 0.30.0
+=======
+- **Type:** `{ includeStack?, showDiff?, truncateThreshold? }`
+- **Default:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
+- **Version:** Since Vitest 0.30.0
+>>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
 
 等同于 [Chai 配置](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js)。
 

@@ -114,11 +114,59 @@ import { vi } from 'vitest'
 
   使用 `vi.useFakeTimers` 时，`Date.now` 调用被模拟。如果需要获取毫秒级的实时时间，可以调用该函数。
 
+## vi.hoisted
+
+- **Type**: `<T>(factory: () => T) => T`
+- **Version**: Since Vitest 0.31.0
+
+  All static `import` statements in ES modules are hoisted to top of the file, so any code that is define before the imports will actually be executed after imports are evaluated.
+
+  Hovewer it can be useful to invoke some side effect like mocking dates before importing a module.
+
+  To bypass this limitation, you can rewrite static imports into dynamic ones like this:
+
+  ```diff
+  callFunctionWithSideEffect()
+  - import { value } from './some/module.ts'
+  + const { value } = await import('./some/module.ts')
+  ```
+
+  When running `vitest`, you can do this automatically by using `vi.hoisted` method.
+
+  ```diff
+  - callFunctionWithSideEffect()
+  import { value } from './some/module.ts'
+  + vi.hoisted(() => callFunctionWithSideEffect())
+  ```
+
+  This method returns the value that was returned from the factory. You can use that value in your `vi.mock` factories if you need an easy access to locally defined variables:
+
+  ```ts
+  import { expect, vi } from 'vitest'
+  import { originalMethod } from './path/to/module.js'
+
+  const { mockedMethod } = vi.hoisted(() => {
+    return { mockedMethod: vi.fn() }
+  })
+
+  vi.mocked('./path/to/module.js', () => {
+    return { originalMethod: mockedMethod }
+  })
+
+  mockedMethod.mockReturnValue(100)
+  expect(originalMethod()).toBe(100)
+  ```
+
+
 ## vi.mock
 
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
+<<<<<<< HEAD
   用另一个模块替换提供的 `path` 中的所有导入模块。你可以在路径中使用配置的 Vite 别名。对 `vi.mock` 的调用被挂起，所以你在哪里调用它并不重要。它将始终在所有导入之前执行。
+=======
+  Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports. If you need to reference some variables outside of its scope, you can defined them inside [`vi.hoisted`](/api/vi#vi-hoisted) and reference inside `vi.mock`.
+>>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
 
   ::: warning
   `vi.mock` 仅适用于使用 `import` 关键字导入的模块。它不适用于 `require`。
@@ -150,7 +198,34 @@ import { vi } from 'vitest'
 
   这也意味着你不能在工厂内部使用在工厂外部定义的任何变量。
 
+<<<<<<< HEAD
   如果你需要在工厂内部使用变量，请尝试 [`vi.doMock`](#vi-domock)。它的工作方式相同，但没有被吊起。请注意，它只会模拟后续导入。
+=======
+  If you need to use variables inside the factory, try [`vi.doMock`](#vi-domock). It works the same way but isn't hoisted. Beware that it only mocks subsequent imports.
+
+  You can also reference variables defined by `vi.hoisted` method if it was declared before `vi.mock`:
+
+  ```ts
+  import { namedExport } from './path/to/module.js'
+
+  const mocks = vi.hoisted(() => {
+    return {
+      namedExport: vi.fn(),
+    }
+  })
+
+  vi.mock('./path/to/module.js', () => {
+    return {
+      namedExport: mocks.namedExport,
+    }
+  })
+
+  vi.mocked(namedExport).mockReturnValue(100)
+
+  expect(namedExport()).toBe(100)
+  expect(namedExport).toBe(mocks.namedExport)
+  ```
+>>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
   :::
 
   ::: warning
@@ -200,7 +275,11 @@ import { vi } from 'vitest'
   ```
 
   ::: warning
+<<<<<<< HEAD
   请注意，如果你不调用 `vi.mock`，模块**不会**自动模拟。
+=======
+  Beware that if you don't call `vi.mock`, modules **are not** mocked automatically. To replicate Jest's automocking behaviour, you can call `vi.mock` for each required module inside [`setupFiles`](/config/#setupfiles).
+>>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
   :::
 
   如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [algorithm](/guide/mocking#automocking-algorithm)。
