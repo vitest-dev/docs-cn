@@ -165,6 +165,6 @@ if (condition) {
 if (condition) {
 ```
 
-## Other Options
+## 其他选项
 
-To see all configurable options for coverage, see the [coverage Config Reference](https://vitest.dev/config/#coverage).
+要查看有关覆盖率的所有可配置选项，请参见 [覆盖率配置参考](https://cn.vitest.dev/config/#coverage)。
