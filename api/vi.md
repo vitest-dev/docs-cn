@@ -163,11 +163,6 @@ import { vi } from 'vitest'
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
   使用提供的 `path` 替换所有导入的模块为另一个模块。您可以在路径中使用配置的 Vite 别名。对 `vi.mock` 的调用是提升的，因此您在哪里调用它并不重要。它将始终在所有导入之前执行。如果您需要引用其作用域外的某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted) 中定义它们，并在 `vi.mock` 中引用。
-<<<<<<< HEAD
-  用另一个模块替换提供的 `path` 中的所有导入模块。你可以在路径中使用配置的 Vite 别名。对 `vi.mock` 的调用被挂起，所以你在哪里调用它并不重要。它将始终在所有导入之前执行。
-=======
-  Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports. If you need to reference some variables outside of its scope, you can defined them inside [`vi.hoisted`](/api/vi#vi-hoisted) and reference inside `vi.mock`.
->>>>>>> 00d53cc0c06a273374cffc595a54577c7a5acf27
 
   ::: warning
   `vi.mock` 仅适用于使用 `import` 关键字导入的模块。它不适用于 `require`。
