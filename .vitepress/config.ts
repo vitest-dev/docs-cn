@@ -206,7 +206,7 @@ export default withPwa(
         // TODO: bring sidebar of apis and config back
         '/advanced': [
           {
-            text: 'Advanced',
+            text: '高级功能',
             items: [
               {
                 text: 'Vitest Node API',

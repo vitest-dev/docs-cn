@@ -138,7 +138,6 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { Stocks } from './stocks.js'
-
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (stocks.getInfo('Bill'))
@@ -150,7 +149,6 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-
   const stocks = new Stocks()
 
   test('if we know Bill stock, sell apples to him', () => {
