@@ -164,3 +164,7 @@ if (condition) {
 /* c8 ignore next 3 */
 if (condition) {
 ```
+
+## 其他选项
+
+要查看有关覆盖率的所有可配置选项，请参见 [覆盖率配置参考](https://cn.vitest.dev/config/#coverage)。

@@ -97,6 +97,15 @@ export default mergeConfig(
 
 匹配排除测试文件的 glob 规则。
 
+### includeSource
+
+- **类型:** `string[]`
+- **默认值:** `[]`
+
+包括源代码中的测试文件的通配符。
+
+当定义时，Vitest 将运行所有包含 `import.meta.vitest` 的匹配文件。
+
 ### deps
 
 - **类型:** `{ external?, inline?, ... }`
@@ -976,16 +985,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   lines: [50, 80]
 }
 ```
+- **可用的测试提供者:** `'c8' | 'istanbul'`
 
-指定语句、行、分支和函数的水印位置。
-
-##### all
-
-- **类型:** `boolean`
-- **默认值:** false
-- **可用的测试提供者:** `'istanbul'`
-
-指定语句、行、分支和函数的水印位置。参考 [istanbul documentation](https://github.com/istanbuljs/nyc#high-and-low-watermarks) 来了解详情。
+语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
 #### coverage.customProviderModule
 
@@ -1035,7 +1037,7 @@ test('doNotRun', () => {
 
 ### browser
 
-- **Type:** `{ enabled?, name?, provider?, headless?, api? }`
+- **Type:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
 - **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
 - **Version:** Since Vitest 0.29.4
 - **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
@@ -1106,6 +1108,19 @@ export interface BrowserProvider {
 ::: warning
 This is an advanced API for library authors. If you just need to run tests in a browser, use the [browser](/config/#browser) option.
 :::
+
+#### browser.slowHijackESM
+
+- **类型:** `boolean`
+- **默认值:** `true`
+- **版本:** Since Vitest 0.31.0
+
+在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换您的源文件。
+
+此选项对在 Node.js 中运行的测试没有影响。
+
+在浏览器中运行时，默认情况下启用此选项。如果您不依赖使用 `vi.spyOn` 监视 ES 模块并且不使用 `vi.mock`，则可以禁用此选项以获得轻微的性能提升。
+
 
 ### clearMocks
 
@@ -1430,7 +1445,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 - **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
 - **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
-- **版本:** Vitest 0.30.0
+- **版本:** Since Vitest 0.30.0
 
 等同于 [Chai 配置](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js)。
 
