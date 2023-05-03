@@ -849,6 +849,8 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   }
   ```
 
+Since Vitest 0.31.0, you can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
+
 #### coverage.skipFull
 
 - **类型:** `boolean`
@@ -1474,9 +1476,16 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### bail
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `0`
 - **命令行终端**: `--bail=<value>`
+=======
+- **Type:** `number`
+- **Default:** `0`
+- **CLI**: `--bail=<value>`
+- **Version:** Since Vitest 0.31.0
+>>>>>>> 07badf273182215581413e3b941c1fe909b4341c
 
 当给定数量的测试失败时停止测试执行。
 

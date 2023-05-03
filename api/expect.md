@@ -1280,18 +1280,16 @@ describe('toSatisfy()', () => {
 
   此函数与 Jest 的 `expect.extend` 兼容，因此使用它创建自定义匹配器的任何库都可以与 Vitest 一起使用。
 
-  If you are using TypeScript, you can extend default `Matchers` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
+  If you are using TypeScript, since Vitest 0.31.0 you can extend default `Assertion` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
 
   ```ts
   interface CustomMatchers<R = unknown> {
     toBeFoo(): R
   }
 
-  declare namespace Vi {
-    interface Assertion extends CustomMatchers {}
+  declare module '@vitest/expect' {
+    interface Assertion<T = any> extends CustomMatchers<T> {}
     interface AsymmetricMatchersContaining extends CustomMatchers {}
-
-    // Note: augmenting jest.Matchers interface will also work.
   }
   ```
 
