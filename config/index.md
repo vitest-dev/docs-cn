@@ -849,6 +849,8 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   }
   ```
 
+Since Vitest 0.31.0, you can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
+
 #### coverage.skipFull
 
 - **类型:** `boolean`
@@ -985,6 +987,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   lines: [50, 80]
 }
 ```
+
 - **可用的测试提供者:** `'c8' | 'istanbul'`
 
 语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
@@ -1120,7 +1123,6 @@ This is an advanced API for library authors. If you just need to run tests in a 
 此选项对在 Node.js 中运行的测试没有影响。
 
 在浏览器中运行时，默认情况下启用此选项。如果您不依赖使用 `vi.spyOn` 监视 ES 模块并且不使用 `vi.mock`，则可以禁用此选项以获得轻微的性能提升。
-
 
 ### clearMocks
 
@@ -1474,9 +1476,10 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### bail
 
-- **类型:** `number`
-- **默认值:** `0`
-- **命令行终端**: `--bail=<value>`
+- **Type:** `number`
+- **Default:** `0`
+- **CLI**: `--bail=<value>`
+- **版本:** Since Vitest 0.31.0
 
 当给定数量的测试失败时停止测试执行。
 

@@ -44,6 +44,7 @@ npm i -D @vitest/coverage-istanbul
 ## 覆盖率配置
 
 要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
+默认情况下, 将使用 `['text', 'html', 'clover', 'json']` 作为测试报告器。
 
 ```json
 {
@@ -160,6 +161,7 @@ if (condition) {
 不幸的是，目前这在 `c8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
 
 <!-- eslint-skip -->
+
 ```ts
 /* c8 ignore next 3 */
 if (condition) {
@@ -168,3 +170,15 @@ if (condition) {
 ## 其他选项
 
 要查看有关覆盖率的所有可配置选项，请参见 [覆盖率配置参考](https://cn.vitest.dev/config/#coverage)。
+
+## Vitest UI
+
+Since Vitest 0.31.0, you can check your coverage report in [Vitest UI](./ui).
+
+If you have configured coverage reporters, don't forget to add `html` reporter to the list, Vitest UI will only enable html coverage report if it is present.
+
+<img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
+<img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
+
+<img alt="html coverage in Vitest UI" img-light src="/vitest-ui-coverage-light.png">
+<img alt="html coverage in Vitest UI" img-dark src="/vitest-ui-coverage-dark.png">
