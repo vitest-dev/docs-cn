@@ -23,11 +23,7 @@ expect.extend({
 })
 ```
 
-<<<<<<< HEAD
-如果你使用的是 TypeScript，则可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 Matchers 接口：
-=======
-If you are using TypeScript, since Vitest 0.31.0 you can extend default `Assertion` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
->>>>>>> 07badf273182215581413e3b941c1fe909b4341c
+如果你使用 TypeScript，自 Vitest 0.31.0 起，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
 
 ```ts
 interface CustomMatchers<R = unknown> {

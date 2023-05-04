@@ -50,20 +50,20 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const stock = {
     type: 'apples',
     count: 13,
   }
-
+  
   test('stock has 13 apples', () => {
     expect(stock.type).toBe('apples')
     expect(stock.count).toBe(13)
   })
-
+  
   test('stocks are the same', () => {
     const refStock = stock // same reference
-
+  
     expect(stock).toBe(refStock)
   })
   ```
@@ -78,11 +78,11 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test.fails('decimals are not equal in javascript', () => {
     expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 is 0.30000000000000004
   })
-
+  
   test('decimals are rounded to 5 after the point', () => {
     // 0.2 + 0.1 is 0.30000 | "000000000004" removed
     expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
@@ -99,7 +99,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function getApples() {
     return 3
   }
@@ -117,7 +117,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function getApplesFromStock(stock) {
     if (stock === 'Bill')
       return 13
@@ -150,7 +150,7 @@ expect(input).not.toBe(2) // jest API
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
   const stocks = new Stocks()
-
+  
   test('if we know Bill stock, sell apples to him', () => {
     stocks.sync('Bill')
     expect(stocks.getInfo('Bill')).toBeTruthy()
@@ -169,7 +169,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { Stocks } from './stocks.js'
-
+  
   const stocks = new Stocks()
   stocks.sync('Bill')
   if (!stocks.stockFailed('Bill'))
@@ -181,9 +181,9 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-
+  
   const stocks = new Stocks()
-
+  
   test('if Bill stock hasn\'t failed, sell apples to him', () => {
     stocks.syncStocks('Bill')
     expect(stocks.stockFailed('Bill')).toBeFalsy()
@@ -200,7 +200,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function apples() {
     return null
   }
@@ -218,9 +218,9 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   let i = 0
-
+  
   function getApplesCount() {
     i++
     return i > 1 ? NaN : i
@@ -240,9 +240,9 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const actual = 'stock'
-
+  
   test('stock is type of string', () => {
     expect(actual).toBeTypeOf('string')
   })
@@ -257,9 +257,9 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { Stocks } from './stocks.js'
-
+  
   const stocks = new Stocks()
-
+  
   test('stocks are instance of Stocks', () => {
     expect(stocks).toBeInstanceOf(Stocks)
   })
@@ -274,7 +274,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have more then 10 apples', () => {
     expect(getApples()).toBeGreaterThan(10)
   })
@@ -289,7 +289,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have 11 apples or more', () => {
     expect(getApples()).toBeGreaterThanOrEqual(11)
   })
@@ -304,7 +304,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have less then 20 apples', () => {
     expect(getApples()).toBeLessThan(20)
   })
@@ -319,7 +319,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getApples } from './stocks.js'
-
+  
   test('have 11 apples or less', () => {
     expect(getApples()).toBeLessThanOrEqual(11)
   })
@@ -333,21 +333,21 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const stockBill = {
     type: 'apples',
     count: 13,
   }
-
+  
   const stockMary = {
     type: 'apples',
     count: 13,
   }
-
+  
   test('stocks have the same properties', () => {
     expect(stockBill).toEqual(stockMary)
   })
-
+  
   test('stocks are not the same', () => {
     expect(stockBill).not.toBe(stockMary)
   })
@@ -371,7 +371,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   class Stock {
     constructor(type) {
       this.type = type
@@ -393,7 +393,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getAllFruits } from './stocks.js'
-
+  
   test('the fruit list contains orange', () => {
     expect(getAllFruits()).toContain('orange')
   })
@@ -408,7 +408,7 @@ expect(input).not.toBe(2) // jest API
   ```ts
   import { expect, test } from 'vitest'
   import { getFruitStock } from './stocks.js'
-
+  
   test('apple available', () => {
     expect(getFruitStock()).toContainEqual({ fruit: 'apple', count: 5 })
   })
@@ -422,11 +422,11 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('toHaveLength', () => {
     expect('abc').toHaveLength(3)
     expect([1, 2, 3]).toHaveLength(3)
-
+  
     expect('').not.toHaveLength(3) // doesn't have .length of 3
     expect({ length: 3 }).toHaveLength(3)
   })
@@ -442,7 +442,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const invoice = {
     'isActive': true,
     'P.O': '12345',
@@ -463,26 +463,26 @@ expect(input).not.toBe(2) // jest API
       },
     ],
   }
-
+  
   test('John Doe Invoice', () => {
     expect(invoice).toHaveProperty('isActive') // assert that the key exists
     expect(invoice).toHaveProperty('total_amount', 5000) // assert that the key exists and the value is equal
-
+  
     expect(invoice).not.toHaveProperty('account') // assert that this key does not exist
-
+  
     // Deep referencing using dot notation
     expect(invoice).toHaveProperty('customer.first_name')
     expect(invoice).toHaveProperty('customer.last_name', 'Doe')
     expect(invoice).not.toHaveProperty('customer.location', 'India')
-
+  
     // Deep referencing using an array containing the key
     expect(invoice).toHaveProperty('items[0].type', 'apples')
     expect(invoice).toHaveProperty('items.0.type', 'apples') // dot notation also works
-
+  
     // Deep referencing using an array containing the keyPath
     expect(invoice).toHaveProperty(['items', 0, 'type'], 'apples')
     expect(invoice).toHaveProperty(['items', '0', 'type'], 'apples') // string notation also works
-
+  
     // Wrap your key in an array to avoid the key from being parsed as a deep reference
     expect(invoice).toHaveProperty(['P.O'], '12345')
   })
@@ -496,7 +496,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('top fruits', () => {
     expect('top fruits include apple, orange and grape').toMatch(/apple/)
     expect('applefruits').toMatch('fruit') // toMatch also accepts a string
@@ -517,7 +517,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   const johnInvoice = {
     isActive: true,
     customer: {
@@ -537,7 +537,7 @@ expect(input).not.toBe(2) // jest API
       },
     ],
   }
-
+  
   const johnDetails = {
     customer: {
       first_name: 'John',
@@ -545,11 +545,11 @@ expect(input).not.toBe(2) // jest API
       location: 'China',
     },
   }
-
+  
   test('invoice has john personal details', () => {
     expect(johnInvoice).toMatchObject(johnDetails)
   })
-
+  
   test('the number of elements must match exactly', () => {
     // Assert that an array of object matches
     expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
@@ -580,7 +580,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   function getFruitStock(type) {
     if (type === 'pineapples') {
       throw new DiabetesError(
@@ -595,7 +595,7 @@ expect(input).not.toBe(2) // jest API
     // Test that the error message says "diabetes" somewhere: these are equivalent
     expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
     expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
-
+  
     // Test the exact error message
     expect(() => getFruitStock('pineapples')).toThrowError(
       /^Pineapples are not good for people with diabetes$/
@@ -632,7 +632,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchSnapshot()
@@ -643,7 +643,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchSnapshot({ foo: expect.any(Set) })
@@ -660,7 +660,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches inline snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     // Vitest will update following content when updating the snapshot
@@ -679,7 +679,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('matches snapshot', () => {
     const data = { foo: new Set(['bar', 'snapshot']) }
     expect(data).toMatchInlineSnapshot(
@@ -702,7 +702,7 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, it } from 'vitest'
-
+  
   it('render basic', async () => {
     const result = renderHTML(h('div', { class: 'foo' }))
     await expect(result).toMatchFileSnapshot('./test/basic.output.html')
@@ -735,20 +735,20 @@ expect(input).not.toBe(2) // jest API
 
   ```ts
   import { expect, test, vi } from 'vitest'
-
+  
   const market = {
     buy(subject: string, amount: number) {
       // ...
     },
   }
-
+  
   test('spy function', () => {
     const buySpy = vi.spyOn(market, 'buy')
-
+  
     expect(buySpy).not.toHaveBeenCalled()
-
+  
     market.buy('apples', 10)
-
+  
     expect(buySpy).toHaveBeenCalled()
   })
   ```
@@ -988,7 +988,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function buyApples() {
     return fetch('/buy/apples').then(r => r.json())
   }
@@ -1016,7 +1016,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function buyApples(id) {
     if (!id)
       throw new Error('no id')
@@ -1042,7 +1042,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function doAsync(...cbs) {
     await Promise.all(cbs.map((cb, index) => cb({ index })))
   }
@@ -1076,7 +1076,7 @@ describe('toSatisfy()', () => {
   import { expect, test } from 'vitest'
   import { db } from './db.js'
   const cbs = []
-
+  
   function onSelect(cb) {
     cbs.push(cb)
   }
@@ -1110,7 +1110,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('object has "apples" key', () => {
     expect({ apples: 22 }).toEqual({ apples: expect.anything() })
   })
@@ -1125,7 +1125,7 @@ describe('toSatisfy()', () => {
   ```ts
   import { expect, test } from 'vitest'
   import { generateId } from './generators.js'
-
+  
   test('"id" is a number', () => {
     expect({ id: generateId() }).toEqual({ id: expect.any(Number) })
   })
@@ -1139,7 +1139,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('basket includes fuji', () => {
     const basket = {
       varieties: ['Empire', 'Fuji', 'Gala'],
@@ -1164,7 +1164,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('basket has empire apples', () => {
     const basket = {
       varieties: [
@@ -1192,7 +1192,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('variety has "Emp" in its name', () => {
     const variety = {
       name: 'Empire',
@@ -1217,7 +1217,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('variety ends with "re"', () => {
     const variety = {
       name: 'Empire',
@@ -1256,7 +1256,7 @@ describe('toSatisfy()', () => {
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   test('custom matchers', () => {
     expect.extend({
       toBeFoo: (received, expected) => {
@@ -1268,7 +1268,7 @@ describe('toSatisfy()', () => {
         }
       },
     })
-
+  
     expect('foo').toBeFoo()
     expect({ foo: 'foo' }).toEqual({ foo: expect.toBeFoo() })
   })
@@ -1280,7 +1280,7 @@ describe('toSatisfy()', () => {
 
   此函数与 Jest 的 `expect.extend` 兼容，因此使用它创建自定义匹配器的任何库都可以与 Vitest 一起使用。
 
-  If you are using TypeScript, since Vitest 0.31.0 you can extend default `Assertion` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
+  如果你使用 TypeScript，自 Vitest 0.31.0 起，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
 
   ```ts
   interface CustomMatchers<R = unknown> {
