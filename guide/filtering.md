@@ -19,6 +19,7 @@ $ vitest basic
 ```
 basic.test.ts
 basic-foo.test.ts
+basic/foo.test.ts
 ```
 
 ## 指定超时阈值
