@@ -346,52 +346,6 @@ test('importing the next module imports mocked one', async () => {
     const axios = await vi.importActual('./example.js')
     return { ...axios, get: vi.fn() }
   })
-<<<<<<< HEAD
-=======
-   ```
-
-## vi.importMock
-
-- **Type**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
-
-  Imports a module with all of its properties (including nested properties) mocked. Follows the same rules that [`vi.mock`](#vi-mock) follows. For the rules applied, see [algorithm](/guide/mocking#automocking-algorithm).
-
-## vi.resetAllMocks
-
-  Will call [`.mockReset()`](/api/mock#mockreset) on all spies. This will clear mock history and reset its implementation to an empty function (will return `undefined`).
-
-## vi.resetConfig
-
-- **Type**: `RuntimeConfig`
-
-  If [`vi.setConfig`](#vi-setconfig) was called before, this will reset config to the original state.
-
-## vi.resetModules
-
-- **Type**: `() => Vitest`
-
-  Resets modules registry by clearing cache of all modules. This allows modules to be reevaluated when reimported. Top-level imports cannot be reevaluated. Might be useful to isolate modules where local state conflicts between tests.
-
-  ```ts
-  import { vi } from 'vitest'
-  
-  import { data } from './data.js' // Will not get reevaluated beforeEach test
-
-  beforeEach(() => {
-    vi.resetModules()
-  })
-
-  test('change state', async () => {
-    const mod = await import('./some/path.js') // Will get reevaluated
-    mod.changeLocalState('new value')
-    expect(mod.getLocalState()).toBe('new value')
-  })
-
-  test('module has old state', async () => {
-    const mod = await import('./some/path.js') // Will get reevaluated
-    expect(mod.getLocalState()).toBe('old value')
-  })
->>>>>>> cddeda0442687e3364fad40096efe0ad2eb3c06c
   ```
 
 ## vi.importMock
