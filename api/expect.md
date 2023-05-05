@@ -1198,7 +1198,7 @@ describe('toSatisfy()', () => {
       name: 'Empire',
       count: 1,
     }
-    expect(basket).toEqual({
+    expect(variety).toEqual({
       name: expect.stringContaining('Emp'),
       count: 1,
     })
@@ -1223,7 +1223,7 @@ describe('toSatisfy()', () => {
       name: 'Empire',
       count: 1,
     }
-    expect(basket).toEqual({
+    expect(variety).toEqual({
       name: expect.stringMatching(/re$/),
       count: 1,
     })
