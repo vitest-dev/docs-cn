@@ -11,7 +11,7 @@ Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规
 ```js
 import { startVitest } from 'vitest/node'
 
-const vitest = await startVitest('test', ['tests/run-only.test.ts'])
+const vitest = await startVitest('test')
 
 await vitest?.close()
 ```
@@ -28,7 +28,17 @@ await vitest?.close()
 
 如果启用了监视模式并且终端支持 TTY, 则 Vitest 会注册控制台快捷键。
 
+<<<<<<< HEAD
 ## 创建 Vitest
+=======
+You can pass down a list of filters as a second argument. Vitest will run only tests that contain at least one of the passed-down strings in their file path.
+
+Additionally, you can use the third argument to pass in CLI arguments, which will override any test config options.
+
+Alternatively, you can pass in the complete Vite config as the fourth argument, which will take precedence over any other user-defined options.
+
+## createVitest
+>>>>>>> 5530880cd3504f813bbf62929b124cf82437e39f
 
 你可以使用 `createVitest` 函数创建自己的 Vitest 实例. 它返回与 `startVitest` 相同的 `Vitest` 实例, 但不会启动测试，也不会验证已安装的包。
 
