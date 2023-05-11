@@ -11,7 +11,7 @@ Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规
 ```js
 import { startVitest } from 'vitest/node'
 
-const vitest = await startVitest('test', ['tests/run-only.test.ts'])
+const vitest = await startVitest('test')
 
 await vitest?.close()
 ```
@@ -27,6 +27,12 @@ await vitest?.close()
 如果未启用监视模式，Vitest 将会调用 `close` 方法。
 
 如果启用了监视模式并且终端支持 TTY, 则 Vitest 会注册控制台快捷键。
+
+你可以将过滤器列表作为第二个参数传递下去。Vitest 将仅运行包含其文件路径中至少一个传递字符串的测试。
+
+此外，你可以使用第三个参数传递 CLI 参数，这将覆盖任何测试配置选项。
+
+或者，你可以将完整的 Vite 配置作为第四个参数传递进去，这将优先于任何其他用户定义的选项。
 
 ## 创建 Vitest
 
