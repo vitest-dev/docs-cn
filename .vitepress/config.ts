@@ -110,6 +110,11 @@ export default withPwa(
         pattern: 'https://github.com/vitest-dev/docs-cn/tree/dev/:path',
         text: '为此页提供修改建议',
       },
+
+      outline: {
+        label: '本页目录',
+      },
+
       search: {
         provider: 'local',
       },
@@ -120,6 +125,11 @@ export default withPwa(
         { icon: 'discord', link: discord },
         { icon: 'github', link: github },
       ],
+
+      docFooter: {
+        prev: '上一篇',
+        next: '下一篇',
+      },
 
       footer: {
         message: 'Released under the MIT License.',
