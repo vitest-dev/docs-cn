@@ -404,39 +404,13 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
-- **Type:** `[string, 'threads' | 'child_process'][]`
-- **Default:** `[]`
-- **Version:** Since Vitest 0.29.4
+- **类型:** `[string, 'browser' | 'threads' | 'child_process'][]`
+- **默认值:** `[]`
+- **版本:** Vitest 0.29.4
 
-Automatically assign pool in which tests will run based on globs. The first match will be used.
+基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
-For example:
-
-```ts
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    poolMatchGlobs: [
-      // all tests in "worker-specific" directory will run inside a worker as if you enabled `--threads` for them,
-      ['**/tests/worker-specific/**', 'threads'],
-      ['**/tests/browser/**', 'browser'],
-      // all other tests will run based on "threads" option, if you didn't specify other globs
-      // ...
-    ],
-  },
-})
-```
-
-### poolMatchGlobs
-
-- **Type:** `[string, 'browser' | 'threads' | 'child_process'][]`
-- **Default:** `[]`
-- **Version:** Since Vitest 0.29.4
-
-Automatically assign pool in which tests will run based on globs. The first match will be used.
-
-For example:
+例如:
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -495,9 +469,6 @@ export default defineConfig({
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 ### outputDiffLines
 
 - **类型:** `number`
@@ -538,7 +509,7 @@ export default defineConfig({
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** 从 Vitest 0.29.0 开始支持
+- **版本:** Vitest 0.29.0
 
 在单个工作线程内使用相同环境运行所有测试。这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。在 Vitest 0.29.0 之前，这等同于使用 `--no-threads`。
 
@@ -566,7 +537,7 @@ export default defineConfig({
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** 从 Vitest 0.28.3 开始支持
+- **版本:** Vitest 0.28.3
 
 使用 Atomics 来同步线程。
 
@@ -767,17 +738,10 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.all
 
-<<<<<<< HEAD
-
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'c8' | 'istanbul'`
-- # **命令行终端:** `--coverage.all`, --coverage.all=false`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'istanbul'`
-- **CLI:** `--coverage.all`, `--coverage.all=false`
-  > > > > > > > e3da066a38b6b4f460d82bc2e00ed450dbe1ac75
+- **命令行终端:** `--coverage.all`, `--coverage.all=false`
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -849,17 +813,17 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   }
   ```
 
-Since Vitest 0.31.0, you can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
+从 Vitest 0.31.0 开始，你可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI 测试覆盖率](/guide/coverage#vitest-ui) 了解更多详情。
 
 #### coverage.reportOnFailure
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8' | 'istanbul'`
-- **CLI:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
-- **Version:** Since Vitest 0.31.2
+- **类型:** `boolean`
+- **默认值:** `true`
+- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **命令行终端:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
+- **版本:** Vitest 0.31.2
 
-Generate coverage report even when tests fail.
+即使测试失败也会生成覆盖率报告。
 
 #### coverage.skipFull
 
@@ -897,7 +861,7 @@ Generate coverage report even when tests fail.
 - **命令行终端:** `--coverage.lines=<number>`
 
 行的阈值。
-参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
+参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.functions
 
@@ -906,7 +870,7 @@ Generate coverage report even when tests fail.
 - **命令行终端:** `--coverage.functions=<number>`
 
 函数的阈值。
-参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
+参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.branches
 
@@ -915,7 +879,7 @@ Generate coverage report even when tests fail.
 - **命令行终端:** `--coverage.branches=<number>`
 
 分支的阈值。
-参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
+参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.statements
 
@@ -924,7 +888,7 @@ Generate coverage report even when tests fail.
 - **命令行终端:** `--coverage.statements=<number>`
 
 语句的阈值。
-参考 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
+参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.allowExternal
 
@@ -970,7 +934,7 @@ Generate coverage report even when tests fail.
 - **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
 设置为要忽略覆盖率的类方法名称数组。
-参考 [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
+参考 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
 
 #### coverage.watermarks
 
@@ -1050,63 +1014,63 @@ test('doNotRun', () => {
 
 ### browser
 
-- **Type:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
-- **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
-- **Version:** Since Vitest 0.29.4
-- **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
+- **类型:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
+- **默认值:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
+- **版本:** Vitest 0.29.4
+- **命令行终端:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
 
-Run Vitest tests in a browser. We use [WebdriverIO](https://webdriver.io/) for running tests by default, but it can be configured with [browser.provider](/config/#browser-provider) option.
+在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](/config/#browser-provider) 选项进行配置。
 
 ::: tip NOTE
-Read more about testing in a real browser in the [guide page](/guide/browser).
+在 [指南页面](/guide/browser) 中阅读有关在真实浏览器中进行测试的更多信息。
 :::
 
 ::: warning
-This is an experimental feature. Breaking changes might not follow semver, please pin Vitest's version when using it.
+这是一项实验性功能。重大更改可能不会遵循 semver，请在使用时锁定 Vitest 的版本。
 :::
 
 #### browser.enabled
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--browser`, `--browser.enabled=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--browser`, `--browser.enabled=false`
 
-Run all tests inside a browser by default. Can be overriden with [`poolMatchGlobs`](/config/#poolmatchglobs) option.
+默认情况下在浏览器中运行所有测试。可以用 [`poolMatchGlobs`](/config/#poolmatchglobs) 选项覆盖。
 
 #### browser&#46;name
 
-- **Type:** `string`
-- **CLI:** `--browser=safari`
+- **类型:** `string`
+- **命令行终端:** `--browser=safari`
 
-Run all tests in a specific browser. Possible options in different providers:
+在特定浏览器中运行所有测试。不同的浏览器提供商有以下选项：
 
 - `webdriverio`: `firefox`, `chrome`, `edge`, `safari`
 - `playwright`: `firefox`, `webkit`, `chromium`
-- custom: any string that will be passed to the provider
+- 自定义: 将传递给提供者的任何字符串
 
 #### browser.headless
 
-- **Type:** `boolean`
-- **Default:** `process.env.CI`
-- **CLI:** `--browser.headless`, `--brower.headless=false`
+- **类型:** `boolean`
+- **默认值:** `process.env.CI`
+- **命令行终端:** `--browser.headless`, `--brower.headless=false`
 
-Run the browser in a `headless` mode. If you are running Vitest in CI, it will be enabled by default.
+以 `headless` 模式运行浏览器。如果你在 CI 中运行 Vitest，它将默认启用。
 
 #### browser.api
 
-- **Type:** `number | { port?, strictPort?, host? }`
-- **Default:** `63315`
-- **CLI:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
+- **类型:** `number | { port?, strictPort?, host? }`
+- **默认值:** `63315`
+- **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
-Configure options for Vite server that serves code in the browser. Does not affect [`test.api`](/config/#api) option.
+为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](/config/#api) 选项。
 
 #### browser.provider
 
-- **Type:** `'webdriverio' | 'playwright' | string`
-- **Default:** `'webdriverio'`
-- **CLI:** `--browser.provider=playwright`
+- **类型:** `'webdriverio' | 'playwright' | string`
+- **默认值:** `'webdriverio'`
+- **命令行终端:** `--browser.provider=playwright`
 
-Path to a provider that will be used when running browser tests. Vitest provides two providers which are `webdriverio` (default) and `playwright`. Custom providers should be exported using `default` export and have this shape:
+设置运行浏览器测试时浏览器的路径。Vitest 提供了两个浏览器驱动选项: `webdriverio`(默认) 和 `playwright`。自定义提供商应该使用 `default` 进行导出，并具有如下类型签名:
 
 ```ts
 export interface BrowserProvider {
@@ -1119,14 +1083,14 @@ export interface BrowserProvider {
 ```
 
 ::: warning
-This is an advanced API for library authors. If you just need to run tests in a browser, use the [browser](/config/#browser) option.
+这是一个对库作者友好的的高级 API。如果你只需要在浏览器中运行测试，请使用 [browser](/config/#browser) 选项。
 :::
 
 #### browser.slowHijackESM
 
 - **类型:** `boolean`
 - **默认值:** `true`
-- **版本:** Since Vitest 0.31.0
+- **版本:** Vitest 0.31.0
 
 在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换您的源文件。
 
@@ -1159,7 +1123,7 @@ This is an advanced API for library authors. If you just need to run tests in a 
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** 从 Vitest 0.26.0 开始支持
+- **版本:** Vitest 0.26.0
 
 将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
@@ -1167,7 +1131,7 @@ This is an advanced API for library authors. If you just need to run tests in a 
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** 从 Vitest 0.26.0 开始支持
+- **版本:** Vitest 0.26.0
 
 将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
@@ -1457,7 +1421,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 - **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
 - **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
-- **版本:** Since Vitest 0.30.0
+- **版本:** Vitest 0.30.0
 
 等同于 [Chai 配置](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js)。
 
@@ -1489,7 +1453,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **Type:** `number`
 - **Default:** `0`
 - **CLI**: `--bail=<value>`
-- **版本:** Since Vitest 0.31.0
+- **版本:** Vitest 0.31.0
 
 当给定数量的测试失败时停止测试执行。
 

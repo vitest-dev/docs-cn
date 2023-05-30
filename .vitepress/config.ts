@@ -131,6 +131,8 @@ export default withPwa(
         next: '下一篇',
       },
 
+      lastUpdatedText: '最后更新时间',
+
       footer: {
         message: 'Released under the MIT License.',
         copyright:
