@@ -140,8 +140,13 @@ export default mergeConfig(
 
 #### deps.external
 
+<<<<<<< HEAD
 - **类型:** `(string | RegExp)[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**']`
+=======
+- **Type:** `(string | RegExp)[]`
+- **Default:** `['**/node_modules/**']`
+>>>>>>> e2ce6ba08a3e6b42cc5bc581c02217255d644849
 
 Externalize 意味着 Vite 会绕过包到原生 Node.js 中。Vite 的转换器和解析器不会应用外部依赖项，因此不会支持重新加载时的热更新。通常，`node_modules` 下的包是外部依赖。
 
@@ -194,6 +199,29 @@ TypeError: default is not a function
 ```
 
 如果你使用的是绕过此 Node.js 限制的捆绑器或转译器，则可以手动启用此选项。默认情况下，当 `environment` 为 `node` 时，Vitest 假定你使用的是 Node ESM 语法，并且不关心命名导出。
+
+#### deps.moduleDirectories
+
+- **Type:** `string[]`
+- **Default**: `['node_modules']`
+
+A list of directories that should be treated as module directories. This config option affects the behavior of [`vi.mock`](/api/vi#vi-mock): when no factory is provided and the path of what you are mocking matches one of the `moduleDirectories` values, Vitest will try to resolve the mock by looking for a `__mocks__` folder in the [root](/config/#root) of the project.
+
+This option will also affect if a file should be treated as a module when externalizing dependencies. By default, Vitest imports external modules with native Node.js bypassing Vite transformation step.
+
+Setting this option will _override_ the default, if you wish to still search `node_modules` for packages include it along with any other options:
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    deps: {
+      moduleDirectories: ['node_modules', path.resolve('../../packages')],
+    }
+  },
+})
+```
 
 ### runner
 

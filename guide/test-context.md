@@ -15,13 +15,13 @@ import { it } from 'vitest'
 
 it('should work', (ctx) => {
   // prints name of the test
-  console.log(ctx.meta.name)
+  console.log(ctx.task.name)
 })
 ```
 
 ## 内置测试上下文
 
-#### `context.meta`
+#### `context.task`
 
 包含关于测试的元数据的只读对象。
 
