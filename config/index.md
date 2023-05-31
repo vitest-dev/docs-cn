@@ -75,7 +75,7 @@ export default mergeConfig(
 
 ## Options
 
-:::tip
+::: tip
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
 :::
 
@@ -140,13 +140,8 @@ export default mergeConfig(
 
 #### deps.external
 
-<<<<<<< HEAD
 - **类型:** `(string | RegExp)[]`
-- **默认值:** `['**/node_modules/**', '**/dist/**']`
-=======
-- **Type:** `(string | RegExp)[]`
-- **Default:** `['**/node_modules/**']`
->>>>>>> e2ce6ba08a3e6b42cc5bc581c02217255d644849
+- **默认值:** `['**/node_modules/**']`
 
 Externalize 意味着 Vite 会绕过包到原生 Node.js 中。Vite 的转换器和解析器不会应用外部依赖项，因此不会支持重新加载时的热更新。通常，`node_modules` 下的包是外部依赖。
 
@@ -202,14 +197,14 @@ TypeError: default is not a function
 
 #### deps.moduleDirectories
 
-- **Type:** `string[]`
-- **Default**: `['node_modules']`
+- **类型:** `string[]`
+- **默认值**: `['node_modules']`
 
-A list of directories that should be treated as module directories. This config option affects the behavior of [`vi.mock`](/api/vi#vi-mock): when no factory is provided and the path of what you are mocking matches one of the `moduleDirectories` values, Vitest will try to resolve the mock by looking for a `__mocks__` folder in the [root](/config/#root) of the project.
+配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且您正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/#root) 中查找 `__mocks__` 文件夹来解析 mock。
 
-This option will also affect if a file should be treated as a module when externalizing dependencies. By default, Vitest imports external modules with native Node.js bypassing Vite transformation step.
+此选项还将影响在外部化依赖项时是否应将文件视为模块。默认情况下，Vitest 绕过 Vite 转换步骤导入带有原生 Node.js 的外部模块。
 
-Setting this option will _override_ the default, if you wish to still search `node_modules` for packages include it along with any other options:
+设置此选项将 _覆盖_ 默认值，如果你仍希望搜索 `node_modules` 包包括它连同任何其它选项：
 
 ```ts
 import { defineConfig } from 'vitest/config'

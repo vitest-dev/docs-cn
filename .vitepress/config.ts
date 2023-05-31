@@ -143,7 +143,7 @@ export default withPwa(
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
         { text: 'API', link: '/api/', activeMatch: '^/api/' },
         { text: '配置', link: '/config/', activeMatch: '^/config/' },
-        { text: 'Advanced', link: '/advanced/api', activeMatch: '^/advanced/' },
+        { text: '高级 API', link: '/advanced/api', activeMatch: '^/advanced/' },
         {
           text: `v${version}`,
           items: [
@@ -163,15 +163,19 @@ export default withPwa(
         // TODO: bring sidebar of apis and config back
         '/advanced': [
           {
-            text: '高级功能',
+            text: '高级 API',
             items: [
               {
-                text: 'Vitest Node API',
+                text: 'Node API',
                 link: '/advanced/api',
               },
               {
                 text: 'Runner API',
                 link: '/advanced/runner',
+              },
+              {
+                text: 'Task Metadata',
+                link: '/advanced/metadata',
               },
             ],
           },
@@ -240,7 +244,7 @@ export default withPwa(
                 link: '/guide/environment',
               },
               {
-                text: '扩展匹配器',
+                text: '扩展断言',
                 link: '/guide/extending-matchers',
               },
               {
@@ -285,7 +289,7 @@ export default withPwa(
                 link: '/api/expect-typeof',
               },
               {
-                text: 'assertType',
+                text: 'AssertType',
                 link: '/api/assert-type',
               },
             ],
@@ -301,157 +305,6 @@ export default withPwa(
           },
         ],
       },
-<<<<<<< HEAD
-=======
-    ],
-
-    sidebar: {
-      // TODO: bring sidebar of apis and config back
-      '/advanced': [
-        {
-          text: 'Advanced',
-          items: [
-            {
-              text: 'Vitest Node API',
-              link: '/advanced/api',
-            },
-            {
-              text: 'Runner API',
-              link: '/advanced/runner',
-            },
-            {
-              text: 'Task Metadata',
-              link: '/advanced/metadata',
-            },
-          ],
-        },
-      ],
-      '/': [
-        {
-          text: 'Guide',
-          items: [
-            {
-              text: 'Why Vitest',
-              link: '/guide/why',
-            },
-            {
-              text: 'Getting Started',
-              link: '/guide/',
-            },
-            {
-              text: 'Features',
-              link: '/guide/features',
-            },
-            {
-              text: 'Workspace',
-              link: '/guide/workspace',
-            },
-            {
-              text: 'CLI',
-              link: '/guide/cli',
-            },
-            {
-              text: 'Test Filtering',
-              link: '/guide/filtering',
-            },
-            {
-              text: 'Coverage',
-              link: '/guide/coverage',
-            },
-            {
-              text: 'Snapshot',
-              link: '/guide/snapshot',
-            },
-            {
-              text: 'Mocking',
-              link: '/guide/mocking',
-            },
-            {
-              text: 'Testing Types',
-              link: '/guide/testing-types',
-            },
-            {
-              text: 'Vitest UI',
-              link: '/guide/ui',
-            },
-            {
-              text: 'Browser Mode',
-              link: '/guide/browser',
-            },
-            {
-              text: 'In-source Testing',
-              link: '/guide/in-source',
-            },
-            {
-              text: 'Test Context',
-              link: '/guide/test-context',
-            },
-            {
-              text: 'Environment',
-              link: '/guide/environment',
-            },
-            {
-              text: 'Extending Matchers',
-              link: '/guide/extending-matchers',
-            },
-            {
-              text: 'IDE Integration',
-              link: '/guide/ide',
-            },
-            {
-              text: 'Debugging',
-              link: '/guide/debugging',
-            },
-            {
-              text: 'Comparisons',
-              link: '/guide/comparisons',
-            },
-            {
-              text: 'Migration Guide',
-              link: '/guide/migration',
-            },
-          ],
-        },
-        {
-          text: 'API',
-          items: [
-            {
-              text: 'Test API Reference',
-              link: '/api/',
-            },
-            {
-              text: 'Mock Functions',
-              link: '/api/mock',
-            },
-            {
-              text: 'Vi Utility',
-              link: '/api/vi',
-            },
-            {
-              text: 'Expect',
-              link: '/api/expect',
-            },
-            {
-              text: 'ExpectTypeOf',
-              link: '/api/expect-typeof',
-            },
-            {
-              text: 'assertType',
-              link: '/api/assert-type',
-            },
-          ],
-        },
-        {
-          text: 'Config',
-          items: [
-            {
-              text: 'Config Reference',
-              link: '/config/',
-            },
-          ],
-        },
-      ],
->>>>>>> e2ce6ba08a3e6b42cc5bc581c02217255d644849
     },
     pwa,
     transformHead,

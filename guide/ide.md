@@ -2,7 +2,7 @@
 title: IDE Integrations | Guide
 ---
 
-# IDE 集成
+# IDE 插件
 
 ## VS Code <sup><code>官方</code></sup>
 
