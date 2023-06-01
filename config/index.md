@@ -118,14 +118,19 @@ export default mergeConfig(
 - **版本:** Vitets 0.29.0
 - **参考:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
 
+<<<<<<< HEAD
 ::: warning
 此功能从 Vitest 0.30.0 起暂时禁用。
 :::
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
+=======
+Enable dependency optimization. If you have a lot of tests, this might improve their performance.
+>>>>>>> e8f84f8ad602a910eced5f4ccab2adff0d82d46d
 
 对于 `jsdom` 和 `happy-dom` 环境，当 Vitest 遇到外部库时，它会使用 esbuild 打包成一个文件，并作为一个整体模块导入。这有几个原因：
 
+<<<<<<< HEAD
 - 导入大量导入的包很昂贵。通过将它们捆绑到一个文件中，我们可以节省大量时间
 - 导入 UI 库很昂贵，因为它们并不意味着在 Node.js 中运行
 - 你的 `alias` 配置现在在捆绑包中得到处理
@@ -133,6 +138,16 @@ export default mergeConfig(
 你可以使用 `exclude` 选项为某些包选择退出此行为。你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。
 
 此选项还继承了你的 `optimizeDeps` 配置。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。
+=======
+- Importing packages with a lot of imports is expensive. By bundling them into one file we can save a lot of time
+- Importing UI libraries is expensive because they are not meant to run inside Node.js
+- Your `alias` configuration is now respected inside bundled packages
+- Code in your tests is running closer to how it's running in the browser
+
+Be aware that only packages in `deps.experimentalOptimizer.include` option are bundled (some plugins populate this automatically, like Svelte). You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs.
+
+This options also inherits your `optimizeDeps` configuration. If you redefine `include`/`exclude` option in `deps.experimentalOptimizer` it will extend your `optimizeDeps` when running tests. Vitest automatically removes the same options from `include`, if they are listed in `exclude`.
+>>>>>>> e8f84f8ad602a910eced5f4ccab2adff0d82d46d
 
 ::: tip 提醒
 你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer.force` 选项强制重新绑定。
