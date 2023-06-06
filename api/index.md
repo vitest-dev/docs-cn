@@ -36,13 +36,8 @@ interface TestOptions {
 
 ## test
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
-- **Alias:** `it`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
 
   `test` 定义了一组关于测试期望的方法。它接收测试名称和一个含有测试期望的函数。
 
@@ -58,13 +53,8 @@ interface TestOptions {
 
 ### test.skip
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it.skip`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
-- **Alias:** `it.skip`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
 
   如果你想跳过运行某些测试，但由于一些原因不想删除代码，你可以使用 `test.skip` 来避免运行它们。
 
@@ -121,13 +111,8 @@ test.runIf(isDev)('dev only test', () => {
 
 ### test.only
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.only`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
 
   使用 `test.only` 只允许特定条件的测试套件。这在调试模式下是很有用的。
 
@@ -152,13 +137,8 @@ test.runIf(isDev)('dev only test', () => {
 
 ### test.concurrent
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.concurrent`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.concurrent`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
 
   `test.concurrent` 将连续测试标记为并行运行。 它接收测试名称、带有要收集的测试的异步函数以及可选的超时时间（以毫秒为单位）。
 
@@ -205,13 +185,8 @@ test.runIf(isDev)('dev only test', () => {
 
 ### test.todo
 
-<<<<<<< HEAD
-- **类型:** `(name: string) => void`
+- **类型:** `(name: string | Function) => void`
 - **别名:** `it.todo`
-=======
-- **Type:** `(name: string | Function) => void`
-- **Alias:** `it.todo`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
 
   使用 `test.todo` 来存根测试，以便稍后实现。 测试报告中将显示一个条目，以便告知你还有多少测试未实现。
 
@@ -222,13 +197,8 @@ test.runIf(isDev)('dev only test', () => {
 
 ### test.fails
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.fails`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.fails`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
 
   使用 `test.fails` 来指示测试断言将显式失败。
 
@@ -543,11 +513,7 @@ describe('numberToCurrency', () => {
 
 ### describe.skip
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
   在测试套件中使用 `describe.skip` 避免运行特定的描述块。
 
@@ -584,11 +550,7 @@ describe('numberToCurrency', () => {
 
 ### describe.only
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
   使用 `describe.only` 仅运行指定的测试套件。
 
@@ -615,11 +577,7 @@ describe('numberToCurrency', () => {
 
 ### describe.concurrent
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
   使用 `describe.concurrent` 在测试套件中将每个测试标记为并发。
 
@@ -666,11 +624,7 @@ describe.concurrent('suite', () => {
 
 ### describe.shuffle
 
-<<<<<<< HEAD
-- **类型:** `(name: string, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
   Vitest 提供了一种通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle) 来随机运行所有测试的方法，但是如果你只想让测试套件的一部分以随机顺序运行测试，可以使用此标志对其进行标记。
 
@@ -697,11 +651,7 @@ describe.concurrent('suite', () => {
 
 ### describe.todo
 
-<<<<<<< HEAD
-- **类型:** `(name: string) => void`
-=======
-- **Type:** `(name: string | Function) => void`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
+- **类型:** `(name: string | Function) => void`
 
   使用 `describe.todo` 将稍后实现的测试套件进行存档。测试报告中将显示一个记录，以便你知道还多少条未实现的测试。
 
@@ -712,11 +662,7 @@ describe.concurrent('suite', () => {
 
 ### describe.each
 
-<<<<<<< HEAD
-- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
-=======
-- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
->>>>>>> 1c29e0d75b9350ccc8b4e0f563e33dab23647de5
+- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
 
   如果你有多个测试依赖相同的数据，可以使用 `describe.each`。
 
