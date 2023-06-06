@@ -4,7 +4,15 @@ title: Coverage | Guide
 
 # 测试覆盖率
 
+<<<<<<< HEAD
 Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
+=======
+Vitest supports Native code coverage via [`v8`](https://v8.dev/blog/javascript-code-coverage) and instrumented code coverage via [`istanbul`](https://istanbul.js.org/).
+
+:::info
+The `c8` provider is being replaced by the [`v8`](https://v8.dev/blog/javascript-code-coverage) provider. It will be deprecated in the next major version.
+:::
+>>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 ## 覆盖率提供者
 
@@ -12,9 +20,15 @@ Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。�
 从 Vitest v0.22.0 开始支持
 :::
 
+<<<<<<< HEAD
 `c8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `c8`。
 
 你可以通过将 `test.coverage.provider` 设置为 `c8` 或 `istanbul` 来选择覆盖工具：
+=======
+Both `v8` and `istanbul` support are optional. By default, `v8` will be used.
+
+You can select the coverage tool by setting `test.coverage.provider` to `v8` or `istanbul`:
+>>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 ```ts
 // vite.config.ts
@@ -23,7 +37,11 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
+<<<<<<< HEAD
       provider: 'istanbul', // or 'c8'
+=======
+      provider: 'istanbul' // or 'v8'
+>>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
     },
   },
 })
@@ -34,8 +52,8 @@ export default defineConfig({
 或者，如果你更喜欢手动安装它们：
 
 ```bash
-# For c8
-npm i -D @vitest/coverage-c8
+# For v8
+npm i -D @vitest/coverage-v8
 
 # For istanbul
 npm i -D @vitest/coverage-istanbul
@@ -143,7 +161,7 @@ export default defineConfig({
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
-- [`c8`](https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks)
+- [`v8`](https://github.com/istanbuljs/v8-to-istanbul#ignoring-uncovered-lines)
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
 使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
@@ -158,7 +176,11 @@ export default defineConfig({
 if (condition) {
 ```
 
+<<<<<<< HEAD
 不幸的是，目前这在 `c8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
+=======
+For `v8` this does not cause any issues. You can use `c8 ignore` comments with Typescript as usual:
+>>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 <!-- eslint-skip -->
 
