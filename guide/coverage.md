@@ -4,15 +4,11 @@ title: Coverage | Guide
 
 # 测试覆盖率
 
-<<<<<<< HEAD
-Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
-=======
-Vitest supports Native code coverage via [`v8`](https://v8.dev/blog/javascript-code-coverage) and instrumented code coverage via [`istanbul`](https://istanbul.js.org/).
+Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
-:::info
-The `c8` provider is being replaced by the [`v8`](https://v8.dev/blog/javascript-code-coverage) provider. It will be deprecated in the next major version.
+:::info 信息
+`c8` 覆盖率提供者正在被 [`v8`](https://v8.dev/blog/javascript-code-coverage) 替换。它将在下一个主要版本中被弃用。
 :::
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 ## 覆盖率提供者
 
@@ -20,15 +16,9 @@ The `c8` provider is being replaced by the [`v8`](https://v8.dev/blog/javascript
 从 Vitest v0.22.0 开始支持
 :::
 
-<<<<<<< HEAD
 `c8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `c8`。
 
 你可以通过将 `test.coverage.provider` 设置为 `c8` 或 `istanbul` 来选择覆盖工具：
-=======
-Both `v8` and `istanbul` support are optional. By default, `v8` will be used.
-
-You can select the coverage tool by setting `test.coverage.provider` to `v8` or `istanbul`:
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 ```ts
 // vite.config.ts
@@ -37,11 +27,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-<<<<<<< HEAD
-      provider: 'istanbul', // or 'c8'
-=======
       provider: 'istanbul' // or 'v8'
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
     },
   },
 })
@@ -157,7 +143,7 @@ export default defineConfig({
 })
 ```
 
-## Ignoring code
+## 代码忽略
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
@@ -176,11 +162,7 @@ export default defineConfig({
 if (condition) {
 ```
 
-<<<<<<< HEAD
-不幸的是，目前这在 `c8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
-=======
-For `v8` this does not cause any issues. You can use `c8 ignore` comments with Typescript as usual:
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+不幸的是，目前这在 `v8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
 
 <!-- eslint-skip -->
 

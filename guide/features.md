@@ -147,11 +147,7 @@ export default defineConfig({
 
 ## 测试覆盖率
 
-<<<<<<< HEAD
-Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
-=======
-Vitest supports Native code coverage via [`v8`](https://v8.dev/blog/javascript-code-coverage) and instrumented code coverage via [`istanbul`](https://istanbul.js.org/).
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
 ```json
 {

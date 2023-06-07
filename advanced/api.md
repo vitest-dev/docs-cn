@@ -18,15 +18,9 @@ await vitest?.close()
 
 如果测试可以启动，则 `startVitest` 函数返回 `Vitest` 实例。 如果出现以下情况之一，则返回 `undefined`：
 
-<<<<<<< HEAD
 - Vitest 未找到 "vite" 包 (通常与 Vitest 一起安装)
-- 如果启用了 `coverage`，并且运行模式为 "test"，但并未安装 "coverage" 包（`@vitest/coverage-c8` 或 `@vitest/coverage-istanbul`）
-- 如果未安装环境包 (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
-=======
-- Vitest didn't find "vite" package (usually installed with Vitest)
-- If coverage is enabled and run mode is "test", but the coverage package is not installed (`@vitest/coverage-v8` or `@vitest/coverage-istanbul`)
-- If the environment package is not installed (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+- 如果启用了 `coverage`，并且运行模式为 "test"，但并未安装 coverage 包（`@vitest/coverage-c8` 或 `@vitest/coverage-istanbul`）
+- 如果未安装环境依赖包 (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
 
 如果在运行期间返回 `undefined` 或者测试失败, Vitest 会将 `process.exitCode` 设置为 `1`。
 
