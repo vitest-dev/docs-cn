@@ -4,7 +4,11 @@ title: Coverage | Guide
 
 # 测试覆盖率
 
-Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
+Vitest 通过 [`v8`](https://github.com/bcoe/v8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
+
+::: info 提示
+`c8` 提供者要被替换为 [`v8`](https://v8.dev/blog/javascript-code-coverage) 提供者。它会在下一个主版本被废弃。
+:::
 
 ## 覆盖率提供者
 
@@ -12,9 +16,9 @@ Vitest 通过 [`c8`](https://github.com/bcoe/c8) 支持本机代码覆盖率。�
 从 Vitest v0.22.0 开始支持
 :::
 
-`c8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `c8`。
+`v8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `v8`。
 
-你可以通过将 `test.coverage.provider` 设置为 `c8` 或 `istanbul` 来选择覆盖工具：
+你可以通过将 `test.coverage.provider` 设置为 `v8` 或 `istanbul` 来选择覆盖工具：
 
 ```ts
 // vite.config.ts
@@ -23,7 +27,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-      provider: 'istanbul', // or 'c8'
+      provider: 'istanbul', // or 'v8'
     },
   },
 })
@@ -35,7 +39,7 @@ export default defineConfig({
 
 ```bash
 # For c8
-npm i -D @vitest/coverage-c8
+npm i -D @vitest/coverage-v8
 
 # For istanbul
 npm i -D @vitest/coverage-istanbul
@@ -143,7 +147,7 @@ export default defineConfig({
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
-- [`c8`](https://github.com/bcoe/c8#ignoring-uncovered-lines-functions-and-blocks)
+- [`v8`](https://github.com/istanbuljs/v8-to-istanbul#ignoring-uncovered-lines)
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
 使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
@@ -158,7 +162,7 @@ export default defineConfig({
 if (condition) {
 ```
 
-不幸的是，目前这在 `c8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
+不幸的是，目前这在 `v8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
 
 <!-- eslint-skip -->
 

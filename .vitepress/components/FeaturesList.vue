@@ -18,7 +18,7 @@
     <ListItem>内置 <a target="_blank" href="https://www.chaijs.com/" rel="nofollow">Chai</a> 进行断言 + 与 <a href="https://jestjs.io/zh-Hans/docs/expect" rel="nofollow">Jest expect 语法</a>兼容的 API</ListItem>
     <ListItem>内置用于对象模拟(Mock)的 <a target="_blank" href="https://github.com/Aslemammad/tinyspy" rel="nofollow">Tinyspy</a></ListItem>
     <ListItem>使用 <a target="_blank" href="https://github.com/jsdom/jsdom">jsdom</a> 或 <a target="_blank" href="https://github.com/capricorn86/happy-dom">happy-dom</a> 用于 DOM 模拟</ListItem>
-    <ListItem>通过 <a target="_blank" href="https://github.com/bcoe/c8">c8</a> 来输出代码测试覆盖率</ListItem>
+    <ListItem>通过 <a target="_blank" href="https://v8.dev/blog/javascript-code-coverage" rel="noopener noreferrer">v8</a> or <a target="_blank" href="https://istanbul.js.org/" rel="noopener noreferrer">istanbul</a>来输出代码测试覆盖率</ListItem>
     <ListItem>类似于 Rust 语言的 <a target="_blank" href="https://cn.vitest.dev/guide/in-source.html">源码内联测试</a></ListItem>
     <ListItem>通过 <a target="_blank" href="https://github.com/mmkal/expect-type" rel="noopener noreferrer">expect-type</a> 进行类型测试</ListItem>
   </ul>

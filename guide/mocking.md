@@ -378,7 +378,7 @@ describe('delayed execution', () => {
 
 ## 备忘单
 
-:::info
+::: info 提示
 下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [config](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。
 :::
 

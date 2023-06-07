@@ -19,7 +19,7 @@ await vitest?.close()
 如果测试可以启动，则 `startVitest` 函数返回 `Vitest` 实例。 如果出现以下情况之一，则返回 `undefined`：
 
 - Vitest 未找到 "vite" 包 (通常与 Vitest 一起安装)
-- 如果启用了 `coverage`，并且运行模式为 "test"，但并未安装 "coverage" 包（`@vitest/coverage-c8` 或 `@vitest/coverage-istanbul`）
+- 如果启用了 `coverage`，并且运行模式为 "test"，但并未安装 "coverage" 包（`@vitest/coverage-v8` 或 `@vitest/coverage-istanbul`）
 - 如果未安装环境包 (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
 
 如果在运行期间返回 `undefined` 或者测试失败, Vitest 会将 `process.exitCode` 设置为 `1`。

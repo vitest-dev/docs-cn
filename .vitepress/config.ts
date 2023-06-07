@@ -263,6 +263,10 @@ export default withPwa(
                 text: '迁移指南',
                 link: '/guide/migration',
               },
+              {
+                text: '常见错误',
+                link: '/guide/common-errors',
+              },
             ],
           },
           {
