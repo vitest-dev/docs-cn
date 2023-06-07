@@ -147,7 +147,7 @@ export default defineConfig({
 
 ## 测试覆盖率
 
-Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
+Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
 ```json
 {

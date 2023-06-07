@@ -753,7 +753,6 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
 ]
 ```
-
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
@@ -1399,7 +1398,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 #### typecheck.include
 
 - **类型**: `string[]`
-- **默认值**: `['**/*.{test,spec}-d.{ts,js}']`
+- **默认值**: `['**/?(*.){test,spec}-d.?(c|m)[jt]s?(x)']`
 
 匹配包含测试文件的 glob 规则。
 

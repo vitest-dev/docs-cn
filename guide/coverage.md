@@ -4,10 +4,10 @@ title: Coverage | Guide
 
 # 测试覆盖率
 
-Vitest 通过 [`v8`](https://github.com/bcoe/v8) 支持本机代码覆盖率。同时也支持 [`istanbul`](https://istanbul.js.org/)。
+Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
-::: info 提示
-`c8` 提供者要被替换为 [`v8`](https://v8.dev/blog/javascript-code-coverage) 提供者。它会在下一个主版本被废弃。
+:::info 信息
+`c8` 覆盖率提供者正在被 [`v8`](https://v8.dev/blog/javascript-code-coverage) 替换。它将在下一个主要版本中被弃用。
 :::
 
 ## 覆盖率提供者
@@ -27,7 +27,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-      provider: 'istanbul', // or 'v8'
+      provider: 'istanbul' // or 'v8'
     },
   },
 })
@@ -38,7 +38,7 @@ export default defineConfig({
 或者，如果你更喜欢手动安装它们：
 
 ```bash
-# For c8
+# For v8
 npm i -D @vitest/coverage-v8
 
 # For istanbul
@@ -143,7 +143,7 @@ export default defineConfig({
 })
 ```
 
-## Ignoring code
+## 代码忽略
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
