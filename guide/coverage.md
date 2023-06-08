@@ -16,9 +16,9 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 从 Vitest v0.22.0 开始支持
 :::
 
-`c8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `c8`。
+`v8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `v8`。
 
-你可以通过将 `test.coverage.provider` 设置为 `c8` 或 `istanbul` 来选择覆盖工具：
+你可以通过将 `test.coverage.provider` 设置为 `v8` 或 `istanbul` 来选择覆盖工具：
 
 ```ts
 // vite.config.ts

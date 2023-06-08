@@ -85,13 +85,8 @@ export default mergeConfig(
 
 ### include
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
-=======
-- **Type:** `string[]`
-- **Default:** `['**/__tests__/**/*.?(c|m)[jt]s?(x)', '**/?(*.){test,spec}.?(c|m)[jt]s?(x)']`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+- **默认值:** `['**/__tests__/**/*.?(c|m)[jt]s?(x)', '**/?(*.){test,spec}.?(c|m)[jt]s?(x)']`
 
 匹配包含测试文件的 glob 规则。
 
@@ -119,44 +114,25 @@ export default mergeConfig(
 
 #### deps.experimentalOptimizer
 
-<<<<<<< HEAD
-- **类型:** `DepOptimizationConfig & { enabled: boolean }`
+- **类型:** `{ ssr?, web? }`
 - **版本:** Vitets 0.29.0
 - **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
-=======
-- **Type:** `{ ssr?, web? }`
-- **Version:** Since Vitest 0.29.0
-- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
-<<<<<<< HEAD
-对于 `jsdom` 和 `happy-dom` 环境，当 Vitest 遇到外部库时，它会使用 esbuild 打包成一个文件，并作为一个整体模块导入。这有几个原因：
-=======
-When Vitest encounters the external library listed in `include`, it will be bundled into a single file using esbuild and imported as a whole module. This is good for several reasons:
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+当 Vitest 遇到 `include` 中列出的外部库时，它将使用 esbuild 打包到单个文件中，并作为整个模块导入。这很好，原因如下：
 
 - 导入大量导入的包很昂贵。通过将它们捆绑到一个文件中，我们可以节省大量时间
 - 导入 UI 库很昂贵，因为它们并不意味着在 Node.js 中运行
 - 你的 `alias` 配置现在在捆绑包中得到处理
 - 测试中的代码更接近于它在浏览器中的运行方式
 
-<<<<<<< HEAD
-请注意，只有 `deps.experimentalOptimizer.include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。
+请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` and `happy-dom`, 在 `node` and `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
 
-此选项还继承了你的 `optimizeDeps` 配置。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
+此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
 ::: tip 提醒
-你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer.force` 选项强制重新绑定。
-=======
-Be aware that only packages in `deps.experimentalOptimizer?.[mode].include` option are bundled (some plugins populate this automatically, like Svelte). You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs. By default, Vitest uses `experimentalOptimizer.web` for `jsdom` and `happy-dom` environments, and `experimentalOptimizer.ssr` for `node` and `edge` environments, but it is configurable by [`transformMode`](#transformmode).
-
-This options also inherits your `optimizeDeps` configuration (for web Vitest will extend `optimizeDeps`, for ssr - `ssr.optimizeDeps`). If you redefine `include`/`exclude` option in `deps.experimentalOptimizer` it will extend your `optimizeDeps` when running tests. Vitest automatically removes the same options from `include`, if they are listed in `exclude`.
-
-::: tip
-You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` or `test.cache.dir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.experimentalOptimizer?.[mode].force` option.
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
 :::
 
 #### deps.external
@@ -254,13 +230,8 @@ export default defineConfig({
 
 #### benchmark.include
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `['**/*.{bench,benchmark}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}']`
-=======
-- **Type:** `string[]`
-- **Default:** `['**/*.{bench,benchmark}.?(c|m)[jt]s?(x)']`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+- **默认值:** `['**/*.{bench,benchmark}.?(c|m)[jt]s?(x)']`
 
 匹配包含基准测试文件的 glob 规则。
 
@@ -628,7 +599,7 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 setup 文件的路径。它们将运行在每个测试文件之前。
 
-:::info
+::: info 提示
 更改配置文件将触发所有测试的重新运行。
 :::
 
@@ -710,18 +681,14 @@ test('execute a script', async () => {
 
 ### coverage<NonProjectOption />
 
-<<<<<<< HEAD
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
-=======
-You can use [`v8`](https://v8.dev/blog/javascript-code-coverage), [`istanbul`](https://istanbul.js.org/) or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
 
-::: info
-The `c8` provider is being replaced by the `v8` provider. It will be deprecated in the next major version.
+你可以使用 [`v8`](https://v8.dev/blog/javascript-code-coverage), [`istanbul`](https://istanbul.js.org/) 或 [一个自定义覆盖率方案](/guide/coverage#custom-coverage-provider) 收集测试覆盖率。
+
+::: info 提示
+`c8` 提供者要被替换为 [`v8`](https://v8.dev/blog/javascript-code-coverage) 提供者。它会在下一个主版本被废弃。
 :::
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
-
-你可以使用 [`c8`](https://github.com/bcoe/c8), [`istanbul`](https://istanbul.js.org/) 或 [一个自定义覆盖率方案](/guide/coverage#custom-coverage-provider) 收集测试覆盖率。
 
 你可以使用点符号向 CLI 提供覆盖选项：
 
@@ -735,63 +702,36 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.provider
 
-<<<<<<< HEAD
-- **类型:** `'c8' | 'istanbul' | 'custom'`
-- **默认值:** `'c8'`
+- **类型:** `'v8' | 'istanbul' | 'custom'`
+- **默认值:** `'v8'`
 - **命令行终端:** `--coverage.provider=<provider>`
-=======
-- **Type:** `'c8' | 'v8' | 'istanbul' | 'custom'`
-- **Default:** `'v8'`
-- **CLI:** `--coverage.provider=<provider>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 使用 `provider` 选择收集测试覆盖率的工具。
 
 #### coverage.enabled
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.enabled`, `--coverage.enabled=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.enabled`, `--coverage.enabled=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
 
 #### coverage.include
 
-<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**']`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.include=<path>`, `--coverage.include=<path1> --coverage.include=<path2>`
-=======
-- **Type:** `string[]`
-- **Default:** `['**']`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.include=<path>`, `--coverage.include=<path1> --coverage.include=<path2>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 匹配包含测试覆盖率的 glob 规则
 
 #### coverage.extension
 
-<<<<<<< HEAD
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
-=======
-- **Type:** `string | string[]`
-- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 #### coverage.exclude
 
@@ -813,62 +753,35 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
 ]
 ```
-<<<<<<< HEAD
-=======
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
-
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
 #### coverage.all
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.all`, `--coverage.all=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.all`, `--coverage.all=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
 #### coverage.clean
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.clean`, `--coverage.clean=false`
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.clean`, `--coverage.clean=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 运行测试之前是否清除覆盖率结果
 
 #### coverage.cleanOnRerun
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -876,7 +789,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 - **类型:** `boolean`
 - **默认值:** `true`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
 运行测试之前是否清除覆盖率结果
 
@@ -884,39 +797,25 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
 监视重新运行时是否清除覆盖率报告
 
 #### coverage.reportsDirectory
 
-<<<<<<< HEAD
 - **类型:** `string`
 - **默认值:** `'./coverage'`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
-=======
-- **Type:** `string`
-- **Default:** `'./coverage'`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.reportsDirectory=<path>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 配置测试覆盖率报告写入的目录。
 
 #### coverage.reporter
 
-<<<<<<< HEAD
 - **类型:** `string | string[] | [string, {}][]`
 - **默认值:** `['text', 'html', 'clover', 'json']`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
-=======
-- **Type:** `string | string[] | [string, {}][]`
-- **Default:** `['text', 'html', 'clover', 'json']`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 配置要使用的测试覆盖率报告器。查看 [istanbul 文档](https://istanbul.js.org/docs/advanced/alternative-reporters/) 来了解报告详情。有关报告特定选项的详细信息，请参阅 [`@types/istanbul-reporter`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts)。
 
@@ -940,128 +839,75 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.reportOnFailure
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
 - **版本:** Vitest 0.31.2
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
-- **Version:** Since Vitest 0.31.2
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 即使测试失败也会生成覆盖率报告。
 
 #### coverage.skipFull
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.skipFull`, `--coverage.skipFull=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.skipFull`, `--coverage.skipFull=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 是否显示具有 100% 语句、分支和函数的测试覆盖率的文件。
 
 #### coverage.perFile
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.perFile`, `--coverage.perFile=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.perFile`, `--coverage.perFile=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 检查每个文件的阈值。
 有关实际阈值，请参见 `lines`, `functions`, `branches` and `statements` 。
 
 #### coverage.thresholdAutoUpdate
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholdAutoUpdate=<boolean>`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholdAutoUpdate=<boolean>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 当前覆盖率高于配置的阈值时，将阈值 `lines`、 `functions`、`branches` 和 `statements` 更新到配置文件。
 此选项有助于在提高覆盖率时维持阈值。
 
 #### coverage.lines
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.lines=<number>`
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.lines=<number>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 行的阈值。
 参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.functions
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.functions=<number>`
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.functions=<number>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 函数的阈值。
 参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.branches
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.branches=<number>`
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.branches=<number>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 分支的阈值。
 参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
 
 #### coverage.statements
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **可用的测试提供者:** `'c8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.statements=<number>`
-=======
-- **Type:** `number`
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
-- **CLI:** `--coverage.statements=<number>`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 语句的阈值。
 参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
@@ -1070,7 +916,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8'`
+- **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
 是否允许来自 cwd 外部的文件。
@@ -1079,7 +925,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 - **类型:** `boolean`
 - **默认值:** `true`
-- **可用的测试提供者:** `'c8'`
+- **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.excludeNodeModules`, `--coverage.excludeNodeModules=false`
 
 排除 `/node_modules/` 下的覆盖范围。
@@ -1088,24 +934,17 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 - **类型:** `string[]`
 - **默认值:** `process.cwd()`
-- **可用的测试提供者:** `'c8'`
+- **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.src=<path>`
 
 指定启用 `--all` 时使用的目录。
 
 #### coverage.100
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **可用的测试提供者:** `'c8'`
+- **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.100`, `--coverage.100=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'c8' | 'v8'`
-- **CLI:** `--coverage.100`, `--coverage.100=false`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
 
 为 `--check-coverage --lines 100 --functions 100 --branches 100 --statements 100` 设置的快捷方式。
 
@@ -1145,11 +984,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 }
 ```
 
-<<<<<<< HEAD
-- **可用的测试提供者:** `'c8' | 'istanbul'`
-=======
-- **Available for providers:** `'c8' | 'v8' | 'istanbul'`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
 语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
@@ -1562,13 +1397,8 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### typecheck.include
 
-<<<<<<< HEAD
 - **类型**: `string[]`
-- **默认值**: `['**/*.{test,spec}-d.{ts,js}']`
-=======
-- **Type**: `string[]`
-- **Default**: `['**/?(*.){test,spec}-d.?(c|m)[jt]s?(x)']`
->>>>>>> f7f121cea377c1a241585a952c25636b91b54caa
+- **默认值**: `['**/?(*.){test,spec}-d.?(c|m)[jt]s?(x)']`
 
 匹配包含测试文件的 glob 规则。
 

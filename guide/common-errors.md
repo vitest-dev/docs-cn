@@ -1,12 +1,10 @@
-# Common Errors
+# 常见错误
 
 ## Cannot find module './relative-path'
 
-If you receive an error that module cannot be found, it might mean several different things:
-
-- 1. You misspelled the path. Make sure the path is correct.
-
-- 2. It's possible that your rely on `baseUrl` in your `tsconfig.json`. Vite doesn't take into account `tsconfig.json` by default, so you might need to install [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths) yourself, if you rely on this behaviour.
+如果你收到一个 **module cannot be found** 的报错，则可能意味着几种不同情况：
+- 1.你拼错了路径。确保路径正确。
+- 2.你可能依赖于 `tsconfig.json` 中的 `baseUrl`。默认情况下，Vite 不考虑 `tsconfig.json`，因此如果你依赖此行为，您可能需要自己安装 [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths) 。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -17,14 +15,14 @@ export default defineConfig({
 })
 ```
 
-Or rewrite your path to not be relative to root:
+或者重写你的路径，使它不是相对于 root。
 
 ```diff
 - import helpers from 'src/helpers'
 + import helpers from '../src/helpers'
 ```
 
-- 3. Make sure you don't have relative [aliases](/config/#alias). Vite treats them as relative to the file where the import is instead of the root.
+- 3. 确保你没有使用相对路径的 [别名](/config/#alias)。Vite 将它们视为相对于导入所在的文件而不是根目录。
 
 ```diff
 import { defineConfig } from 'vitest/config'
