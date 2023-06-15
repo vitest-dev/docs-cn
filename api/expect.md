@@ -27,6 +27,38 @@ expect(input).toBe(2) // jest API
 如果表达式没有类型错误，`expect` 对测试类型没有影响。如果你想将 Vitest 用作 [类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type)。
 :::
 
+## soft
+
+- **Type:** `ExpectStatic & (actual: any) => Assertions`
+
+`expect.soft` functions similarly to `expect`, but instead of terminating the test execution upon a failed assertion, it continues running and marks the failure as a test failure. All errors encountered during the test will be displayed until the test is completed.
+
+  ```ts
+  import { expect, test } from 'vitest'
+
+  test('expect.soft test', () => {
+    expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
+    expect.soft(1 + 2).toBe(4) // mark the test as fail and continue
+  })
+  // At the end of the test, the above errors will be output.
+  ```
+  
+  It can also be used with `expect`. if `expect` assertion fails, the test will be terminated and all errors will be displayed.
+
+  ```ts
+  import { expect, test } from 'vitest'
+
+  test('expect.soft test', () => {
+    expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
+    expect(1 + 2).toBe(3) // failed and terminate the test, all previous errors will be output
+    expect.soft(1 + 2).toBe(4) // do not run
+  })
+  ```
+  
+::: warning
+`expect.soft` can only be used inside the [`test`](/api/#test) function.
+:::
+
 ## not
 
 使用 `not` 将否定断言。例如，这段代码断言一个 `input` 值不等于 `2`。如果相等，断言将抛出一个错误，测试将失败。
