@@ -29,9 +29,9 @@ expect(input).toBe(2) // jest API
 
 ## soft
 
-- **Type:** `ExpectStatic & (actual: any) => Assertions`
+- **类型:** `ExpectStatic & (actual: any) => Assertions`
 
-`expect.soft` functions similarly to `expect`, but instead of terminating the test execution upon a failed assertion, it continues running and marks the failure as a test failure. All errors encountered during the test will be displayed until the test is completed.
+`expect.soft` 的功能与 `expect` 类似，但它不会在断言失败时终止测试执行，而是继续运行并将失败标记为测试失败。 测试过程中遇到的所有错误都会显示出来，直到测试完成。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -43,7 +43,7 @@ expect(input).toBe(2) // jest API
   // At the end of the test, the above errors will be output.
   ```
   
-  It can also be used with `expect`. if `expect` assertion fails, the test will be terminated and all errors will be displayed.
+  它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
 
   ```ts
   import { expect, test } from 'vitest'
@@ -56,7 +56,7 @@ expect(input).toBe(2) // jest API
   ```
   
 ::: warning
-`expect.soft` can only be used inside the [`test`](/api/#test) function.
+`expect.soft` 只能在 [`test`](/api/#test) 函数内部使用。
 :::
 
 ## not
