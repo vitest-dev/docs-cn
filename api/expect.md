@@ -42,8 +42,13 @@ expect(input).toBe(2) // jest API
   })
   // At the end of the test, the above errors will be output.
   ```
+<<<<<<< HEAD
   
   它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
+=======
+
+  It can also be used with `expect`. if `expect` assertion fails, the test will be terminated and all errors will be displayed.
+>>>>>>> 0002ad1cf8493af01629c0579a01a9870bb53823
 
   ```ts
   import { expect, test } from 'vitest'
@@ -54,7 +59,7 @@ expect(input).toBe(2) // jest API
     expect.soft(1 + 2).toBe(4) // do not run
   })
   ```
-  
+
 ::: warning
 `expect.soft` 只能在 [`test`](/api/#test) 函数内部使用。
 :::
@@ -1129,6 +1134,49 @@ describe('toSatisfy()', () => {
     // if not awaited, test will fail
     // if you don't have expect.hasAssertions(), test will pass
     await select(3)
+  })
+  ```
+
+## expect.unreachable
+
+- **Type:** `(message?: string) => never`
+
+  This method is used to asserting that a line should never be reached.
+
+  For example, if we want to test that `build()` throws due to receiving directories having no `src` folder, and also handle each error separately, we could do this:
+
+  ```ts
+  import { expect, test } from 'vitest'
+
+  async function build(dir) {
+    if (dir.includes('no-src'))
+      throw new Error(`${dir}/src does not exist`)
+  }
+
+  const errorDirs = [
+    'no-src-folder',
+    // ...
+  ]
+
+  test.each(errorDirs)('build fails with "%s"', async (dir) => {
+    try {
+      await build(dir)
+      expect.unreachable('Should not pass build')
+    }
+    catch (err: any) {
+      expect(err).toBeInstanceOf(Error)
+      expect(err.stack).toContain('build')
+
+      switch (dir) {
+        case 'no-src-folder':
+          expect(err.message).toBe(`${dir}/src does not exist`)
+          break
+        default:
+          // to exhaust all error tests
+          expect.unreachable('All error test must be handled')
+          break
+      }
+    }
   })
   ```
 
