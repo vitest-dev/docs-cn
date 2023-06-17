@@ -177,9 +177,9 @@ if (condition) {
 
 ## Vitest UI
 
-Since Vitest 0.31.0, you can check your coverage report in [Vitest UI](./ui).
+从 Vitest 0.31.0 开始，你可以在 [Vitest UI](./ui) 中查看你的覆盖率报告。
 
-If you have configured coverage reporters, don't forget to add `html` reporter to the list, Vitest UI will only enable html coverage report if it is present.
+如果您配置了覆盖率报告器，请不要忘记将 `html` 报告器添加到列表中，Vitest UI 将仅在 html 报告器存在时启用 html 覆盖率报告。
 
 <img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
 <img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
