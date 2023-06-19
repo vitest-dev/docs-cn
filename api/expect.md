@@ -54,7 +54,7 @@ expect(input).toBe(2) // jest API
     expect.soft(1 + 2).toBe(4) // do not run
   })
   ```
-  
+
 ::: warning
 `expect.soft` 只能在 [`test`](/api/#test) 函数内部使用。
 :::
@@ -1129,6 +1129,49 @@ describe('toSatisfy()', () => {
     // if not awaited, test will fail
     // if you don't have expect.hasAssertions(), test will pass
     await select(3)
+  })
+  ```
+
+## expect.unreachable
+
+- **类型:** `(message?: string) => never`
+
+  此方法用于断言永远不应该到达一条线。
+  
+  例如，如果我们想测试 `build()` 由于接收目录没有 `src` 文件夹而抛出，并且还单独处理每个错误，我们可以这样做：
+
+  ```ts
+  import { expect, test } from 'vitest'
+
+  async function build(dir) {
+    if (dir.includes('no-src'))
+      throw new Error(`${dir}/src does not exist`)
+  }
+
+  const errorDirs = [
+    'no-src-folder',
+    // ...
+  ]
+
+  test.each(errorDirs)('build fails with "%s"', async (dir) => {
+    try {
+      await build(dir)
+      expect.unreachable('Should not pass build')
+    }
+    catch (err: any) {
+      expect(err).toBeInstanceOf(Error)
+      expect(err.stack).toContain('build')
+
+      switch (dir) {
+        case 'no-src-folder':
+          expect(err.message).toBe(`${dir}/src does not exist`)
+          break
+        default:
+          // to exhaust all error tests
+          expect.unreachable('All error test must be handled')
+          break
+      }
+    }
   })
   ```
 
