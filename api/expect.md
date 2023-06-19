@@ -42,13 +42,8 @@ expect(input).toBe(2) // jest API
   })
   // At the end of the test, the above errors will be output.
   ```
-<<<<<<< HEAD
   
   它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
-=======
-
-  It can also be used with `expect`. if `expect` assertion fails, the test will be terminated and all errors will be displayed.
->>>>>>> 0002ad1cf8493af01629c0579a01a9870bb53823
 
   ```ts
   import { expect, test } from 'vitest'
@@ -1139,11 +1134,11 @@ describe('toSatisfy()', () => {
 
 ## expect.unreachable
 
-- **Type:** `(message?: string) => never`
+- **类型:** `(message?: string) => never`
 
-  This method is used to asserting that a line should never be reached.
-
-  For example, if we want to test that `build()` throws due to receiving directories having no `src` folder, and also handle each error separately, we could do this:
+  此方法用于断言永远不应该到达一条线。
+  
+  例如，如果我们想测试 `build()` 由于接收目录没有 `src` 文件夹而抛出，并且还单独处理每个错误，我们可以这样做：
 
   ```ts
   import { expect, test } from 'vitest'
