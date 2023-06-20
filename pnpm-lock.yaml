@@ -4,7 +4,7 @@ specifiers:
   '@antfu/eslint-config': ^0.35.3
   '@antfu/ni': ^0.18.8
   '@iconify-json/carbon': ^1.1.16
-  '@types/fs-extra': ^9.0.13
+  '@types/fs-extra': ^11.0.1
   '@types/node': ^18.11.18
   '@unocss/reset': ^0.51.8
   '@vite-pwa/vitepress': ^0.0.5
@@ -13,7 +13,7 @@ specifiers:
   eslint: ^8.34.0
   esno: ^0.16.3
   fast-glob: ^3.2.12
-  fs-extra: ^10.1.0
+  fs-extra: ^11.1.1
   https-localhost: ^4.7.1
   jiti: ^1.18.2
   ohmyfetch: ^0.4.21
@@ -37,7 +37,7 @@ devDependencies:
   '@antfu/eslint-config': 0.35.3_voubu7prgxjfsfbgx5d4sqnwiy
   '@antfu/ni': 0.18.8
   '@iconify-json/carbon': 1.1.16
-  '@types/fs-extra': 9.0.13
+  '@types/fs-extra': 11.0.1
   '@types/node': 18.15.11
   '@unocss/reset': 0.51.8
   '@vite-pwa/vitepress': 0.0.5_vite-plugin-pwa@0.14.7
@@ -45,7 +45,7 @@ devDependencies:
   eslint: 8.38.0
   esno: 0.16.3
   fast-glob: 3.2.12
-  fs-extra: 10.1.0
+  fs-extra: 11.1.1
   https-localhost: 4.7.1
   ohmyfetch: 0.4.21
   pathe: 0.3.9
@@ -1966,9 +1966,10 @@ packages:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
 
-  /@types/fs-extra/9.0.13:
-    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+  /@types/fs-extra/11.0.1:
+    resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
     dependencies:
+      '@types/jsonfile': 6.1.1
       '@types/node': 18.15.11
     dev: true
 
@@ -1978,6 +1979,12 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/jsonfile/6.1.1:
+    resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
+    dependencies:
+      '@types/node': 18.15.11
     dev: true
 
   /@types/mdast/3.0.11:
@@ -3823,9 +3830,9 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /fs-extra/10.1.0:
-    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
-    engines: {node: '>=12'}
+  /fs-extra/11.1.1:
+    resolution: {integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==}
+    engines: {node: '>=14.14'}
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0

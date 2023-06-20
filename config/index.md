@@ -1347,12 +1347,12 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### sequence.concurrent
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.concurrent`, `--sequence.concurrent=false`
-- **Version**: Since Vitest 0.32.2
+- **类型**: `boolean`
+- **默认值**: `false`
+- **命令行终端**: `--sequence.concurrent`, `--sequence.concurrent=false`
+- **版本**: Since Vitest 0.32.2
 
-If you want tests to run in parallel, you can enable it with this option, or CLI argument [`--sequence.concurrent`](/guide/cli).
+如果你希望测试并行运行，可以使用此选项或 CLI 参数 [`--sequence.concurrent`](/guide/cli) 启用它。
 
 #### sequence.seed<NonProjectOption />
 

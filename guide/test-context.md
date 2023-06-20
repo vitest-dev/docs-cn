@@ -31,16 +31,13 @@ it('should work', (ctx) => {
 
 ## 扩展测试上下文
 
-<<<<<<< HEAD
-每个测试的上下文都不同。 你可以在 `beforeEach` 和 `afterEach` hooks 中访问和扩展它们。
-=======
-Vitest provides two diffident ways to help you extend the test context.
+Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
 ### `test.extend`
 
-Like [Playwright](https://playwright.dev/docs/api/class-test#test-extend), you can use this method to define your own `test` API with custom fixtures and reuse it anywhere.
+与 [Playwright](https://playwright.dev/docs/api/class-test#test-extend) 一样，你可以使用此方法通过自定义装置定义你自己的 `test` API，并在任何地方重复使用它。
 
-For example, we first create `myTest` with two fixtures, `todos` and `archive`.
+例如，我们首先使用两个固定装置创建 `myTest`，`todos` 和 `archive`。
 
 ```ts
 // my-test.ts
@@ -64,7 +61,7 @@ export const myTest = test.extend({
 })
 ```
 
-Then we can import and use it.
+然后我们就可以导入使用了。
 
 ```ts
 import { expect } from 'vitest'
@@ -87,7 +84,7 @@ myTest('move items from todos to archive', ({ todos, archive }) => {
 })
 ```
 
-We can also add more fixtures or override existing fixtures by extending `myTest`.
+我们还可以通过扩展 `myTest` 添加更多的固定装置或覆盖现有的固定装置。
 
 ```ts
 export const myTest2 = myTest.extend({
@@ -97,9 +94,9 @@ export const myTest2 = myTest.extend({
 })
 ```
 
-#### Fixture initialization
+#### 固定装置初始化
 
-Vitest runner will smartly initialize your fixtures and inject them into the test context based on usage.
+Vitest 运行器将智能地初始化你的 fixtures 并根据使用情况将它们注入到测试上下文中。
 
 ```ts
 import { test } from 'vitest'
@@ -125,7 +122,7 @@ myTest('', ({ archive, ...rest }) => {}) // both are available
 
 #### TypeScript
 
-To provide fixture types for all your custom contexts, you can pass the fixtures type as a generic.
+要为所有自定义上下文提供固定装置类型，你可以将固定装置类型作为泛型(generic)传递。
 
 ```ts
 interface MyFixtures {
@@ -146,8 +143,7 @@ myTest('', (context) => {
 
 ### `beforeEach` and `afterEach`
 
-The contexts are different for each test. You can access and extend them within the `beforeEach` and `afterEach` hooks.
->>>>>>> c74d2d3ce09143d2382e6178db0ab61908c16c43
+每个测试的上下文都不同。 你可以在 `beforeEach` 和 `afterEach` hooks 中访问和扩展它们。
 
 ```ts
 import { beforeEach, it } from 'vitest'
