@@ -151,6 +151,8 @@ export default defineWorkspace([
 - [unocss](https://github.com/unocss/unocss)
 - [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import)
 - [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
+- [vue](https://github.com/vuejs/core)
+- [vite](https://github.com/vitejs/vite)
 - [vitesse](https://github.com/antfu/vitesse)
 - [vitesse-lite](https://github.com/antfu/vitesse-lite)
 - [fluent-vue](https://github.com/demivan/fluent-vue)
