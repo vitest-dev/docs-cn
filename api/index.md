@@ -16,27 +16,17 @@ interface TestOptions {
    */
   timeout?: number
   /**
-<<<<<<< HEAD
    * 如果测试失败，将会重试指定次数。
+   *
+   * @default 0
    */
   retry?: number
   /**
    * 即使每次测试失败，也会多次重复相同的测试
    * 如果您有 "retry" 选项并且它失败了，它将在每个周期中使用每个重试
    * 用于调试随机失败的情况非常有用
-=======
-   * Will retry the test specific number of times if it fails
    *
    * @default 0
-   */
-  retry?: number
-  /**
-   * Will repeat the same test several times even if it fails each time
-   * If you have "retry" option and it fails, it will use every retry in each cycle
-   * Useful for debugging random failings
-   *
-   * @default 0
->>>>>>> 7ad0ad476121d000babb29936b2ebea134836e50
    */
   repeats?: number
 }
