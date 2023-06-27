@@ -1488,4 +1488,17 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 当给定数量的测试失败时停止测试执行。
 
+<<<<<<< HEAD
 默认情况下，即使其中一些测试失败，Vitest 也会运行你的所有测试用例。这可能不适用于 CI 构建，你只对 100% 成功的构建感兴趣，并且希望在测试失败时尽早停止测试执行。`bail` 选项可用于通过在发生故障时防止运行更多测试来加速 CI 运行。
+=======
+By default Vitest will run all of your test cases even if some of them fail. This may not be desired for CI builds where you are only interested in 100% successful builds and would like to stop test execution as early as possible when test failures occur. The `bail` option can be used to speed up CI runs by preventing it from running more tests when failures have occured.
+
+### retry
+
+- **Type:** `number`
+- **Default:** `0`
+- **CLI:** `--retry=<value>`
+- **Version:** Since Vitest 0.32.3
+
+Retry the test specific number of times if it fails.
+>>>>>>> 7eecb19a916567fca8b0e8238569c73d2e094437
