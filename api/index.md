@@ -57,18 +57,11 @@ interface TestOptions {
 
 ### test.extend
 
-<<<<<<< HEAD
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
-  
-  使用 `test.extend` 来扩展带有自定义装置的测试上下文。这将返回一个新的 `test` 并且它也是可扩展的，因此你可以根据需要通过扩展它来组合更多装置或覆盖现有装置。有关详细信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
-=======
-- **Type:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
-- **Alias:** `it.extend`
-- **Version:** Vitest 0.32.3
+- **版本:** Vitest 0.32.3
 
-  Use `test.extend` to extend the test context with custom fixtures. This will return a new `test` and it's also extendable, so you can compose more fixtures or override existing ones by extending it as you need. See [Extend Test Context](/guide/test-context.html#test-extend) for more information.
->>>>>>> 7eecb19a916567fca8b0e8238569c73d2e094437
+  使用 `test.extend` 来扩展带有自定义装置的测试上下文。这将返回一个新的 `test` 并且它也是可扩展的，因此你可以根据需要通过扩展它来组合更多装置或覆盖现有装置。有关详细信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
 
   ```ts
   import { expect, test } from 'vitest'

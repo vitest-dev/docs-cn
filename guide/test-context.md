@@ -35,15 +35,11 @@ Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
 ### `test.extend`
 
-<<<<<<< HEAD
 与 [Playwright](https://playwright.dev/docs/api/class-test#test-extend) 一样，你可以使用此方法通过自定义装置定义你自己的 `test` API，并在任何地方重复使用它。
-=======
-::: warning
-This API is available since Vitest 0.32.3.
-:::
 
-Like [Playwright](https://playwright.dev/docs/api/class-test#test-extend), you can use this method to define your own `test` API with custom fixtures and reuse it anywhere.
->>>>>>> 7eecb19a916567fca8b0e8238569c73d2e094437
+::: warning
+该 API 从 Vitest 0.32.3 开始可以使用。
+:::
 
 例如，我们首先使用两个固定装置创建 `myTest`，`todos` 和 `archive`。
 
