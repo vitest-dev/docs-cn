@@ -255,7 +255,7 @@ expect(input).not.toBe(2) // jest API
   
   function getApplesCount() {
     i++
-    return i > 1 ? NaN : i
+    return i > 1 ? Number.NaN : i
   }
 
   test('getApplesCount has some unusual side effects...', () => {
