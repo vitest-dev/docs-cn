@@ -216,11 +216,11 @@ export default defineConfig({
 })
 ```
 
-#### 3. Chevron `>` is used as a separator instead of colon `:` for custom messages
+#### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符
 
-Vitest uses chevron `>` as a separator instead of colon `:` for readability, when a custom message is passed during creation of a snapshot file.
+当创建快照文件期间传递自定义消息时，Vitest 使用 V 形 `>` 作为分隔符而不是冒号 `:` 以提高自定义消息可读性。
 
-For the following example test code:
+对于以下示例测试代码：
 
 ```js
 test('toThrowErrorMatchingSnapshot', () => {
@@ -230,13 +230,13 @@ test('toThrowErrorMatchingSnapshot', () => {
 })
 ```
 
-In Jest, the snapshot will be:
+在 Jest 中，快照将是：
 
 ```console
 exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 ```
 
-In Vitest, the equivalent snapshot will be:
+在 Vitest 中，等效的快照将是：
 
 ```console
 exports[`toThrowErrorMatchingSnapshot > hint 1`] = `"error"`;
