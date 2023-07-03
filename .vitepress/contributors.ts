@@ -77,6 +77,15 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Vitest 的核心团队成员',
   },
   {
+    avatar: contributorsAvatars.AriPerkkio,
+    name: 'Ari Perkkiö',
+    github: 'AriPerkkio',
+    title: 'A fullstack developer, working',
+    desc: 'Team member of Vitest',
+    org: 'Cloudamite',
+    orgLink: 'https://cloudamite.com/',
+  },
+  {
     avatar: contributorsAvatars['patak-dev'],
     name: 'Patak',
     github: 'patak-dev',
@@ -87,6 +96,15 @@ const plainTeamMembers: CoreTeam[] = [
     org: 'StackBlitz',
     orgLink: 'https://stackblitz.com/',
     desc: 'Vite 和 Vue 的核心团队成员',
+  },
+  {
+    avatar: contributorsAvatars.userquin,
+    name: 'Joaquín Sánchez',
+    github: 'userquin',
+    mastodon: 'https://elk.zone/m.webtoo.ls/@userquin',
+    twitter: 'userquin',
+    title: 'A fullstack and android developer',
+    desc: 'Vite\'s fanatical follower',
   },
   {
     avatar: contributorsAvatars.Aslemammad,
@@ -107,6 +125,7 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'fluent-vue 的作者',
   },
   {
+<<<<<<< HEAD
     avatar: contributorsAvatars.userquin,
     name: 'Joaquín Sánchez',
     github: 'userquin',
@@ -116,6 +135,8 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Vite 的狂热追随者',
   },
   {
+=======
+>>>>>>> 52a31d08c09b84adbd537f82e339342c881180fc
     avatar: contributorsAvatars.zxch3n,
     name: 'Zixuan Chen',
     github: 'zxch3n',
@@ -132,6 +153,7 @@ const plainTeamMembers: CoreTeam[] = [
     title: '我写的代码在我电脑上绝对没问题',
     desc: 'Vite 核心团队成员 和 Vitest 团队成员',
   },
+<<<<<<< HEAD
   {
     avatar: contributorsAvatars.AriPerkkio,
     name: 'Ari Perkkiö',
@@ -141,6 +163,8 @@ const plainTeamMembers: CoreTeam[] = [
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
   },
+=======
+>>>>>>> 52a31d08c09b84adbd537f82e339342c881180fc
 ]
 
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))

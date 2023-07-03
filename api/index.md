@@ -70,7 +70,7 @@ interface TestOptions {
   const archive = []
 
   const myTest = test.extend({
-    todos: async (use) => {
+    todos: async ({ task }, use) => {
       todos.push(1, 2, 3)
       await use(todos)
       todos.length = 0
@@ -349,7 +349,11 @@ Vitest processes `$values` with chai `format` method. If the value is too trunca
 
 ## bench
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+=======
+- **Type:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
+>>>>>>> 52a31d08c09b84adbd537f82e339342c881180fc
 
 `bench` 定义了一个基准。 在 Vitest 术语中，基准是定义一系列操作的函数。 Vitest 多次运行此函数以显示不同的性能结果。
 
@@ -420,7 +424,11 @@ export interface Options {
 
 ### bench.skip
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+=======
+- **Type:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
+>>>>>>> 52a31d08c09b84adbd537f82e339342c881180fc
 
 你可以使用 `bench.skip` 语法跳过运行某些基准测试。
 
@@ -437,7 +445,11 @@ bench.skip('normal sorting', () => {
 
 ### bench.only
 
+<<<<<<< HEAD
 - **类型:** `(name: string, fn: BenchFunction, options?: BenchOptions) => void`
+=======
+- **Type:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
+>>>>>>> 52a31d08c09b84adbd537f82e339342c881180fc
 
 使用 `bench.only` 仅在指定测试套件中运行某些基准测试。这在调试时很有用。
 
@@ -510,10 +522,51 @@ describe('sort', () => {
     })
   })
 
+<<<<<<< HEAD
   bench('reverse', () => {
     const x = [1, 5, 4, 2, 3]
     x.reverse().sort((a, b) => {
       return a - b
+=======
+### bench.todo
+
+- **Type:** `(name: string | Function) => void`
+
+Use `bench.todo` to stub benchmarks to be implemented later.
+
+  ```ts
+  import { bench } from 'vitest'
+
+  bench.todo('unimplemented test')
+  ```
+
+## describe
+
+When you use `test` or `bench` in the top level of file, they are collected as part of the implicit suite for it. Using `describe` you can define a new suite in the current context, as a set of related tests or benchmarks and other nested suites. A suite lets you organize your tests and benchmarks so reports are more clear.
+
+  ```ts
+  // basic.spec.ts
+  // organizing tests
+
+  import { describe, expect, test } from 'vitest'
+
+  const person = {
+    isActive: true,
+    age: 32,
+  }
+
+  describe('person', () => {
+    test('person is defined', () => {
+      expect(person).toBeDefined()
+    })
+
+    test('is active', () => {
+      expect(person.isActive).toBeTruthy()
+    })
+
+    test('age limit', () => {
+      expect(person.age).toBeLessThanOrEqual(32)
+>>>>>>> 52a31d08c09b84adbd537f82e339342c881180fc
     })
   })
 })
