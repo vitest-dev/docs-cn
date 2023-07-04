@@ -33,7 +33,7 @@
     "@vitejs/plugin-vue": "latest",
     "eslint": "^8.34.0",
     "esno": "^0.16.3",
-    "fast-glob": "^3.2.12",
+    "fast-glob": "^3.3.0",
     "fs-extra": "^11.1.1",
     "https-localhost": "^4.7.1",
     "ohmyfetch": "^0.4.21",
@@ -44,7 +44,7 @@
     "unplugin-vue-components": "^0.25.1",
     "vite": "^4.0.0",
     "vite-plugin-pwa": "^0.16.4",
-    "vitepress": "1.0.0-beta.3",
+    "vitepress": "1.0.0-beta.5",
     "workbox-window": "^7.0.0"
   }
 }
