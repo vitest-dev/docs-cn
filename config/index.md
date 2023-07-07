@@ -85,13 +85,8 @@ export default mergeConfig(
 
 ### include
 
-<<<<<<< HEAD
 - **类型:** `string[]`
-- **默认值:** `['**/__tests__/**/*.?(c|m)[jt]s?(x)', '**/?(*.){test,spec}.?(c|m)[jt]s?(x)']`
-=======
-- **Type:** `string[]`
-- **Default:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
->>>>>>> 5ba1778ce836c0647ce60f1ead8ae5b748f348eb
+- **默认值:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
 
 匹配包含测试文件的 glob 规则。
 
@@ -215,7 +210,7 @@ export default defineConfig({
   test: {
     deps: {
       moduleDirectories: ['node_modules', path.resolve('../../packages')],
-    }
+    },
   },
 })
 ```
@@ -758,6 +753,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
 ]
 ```
+
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
@@ -1411,13 +1407,8 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### typecheck.include
 
-<<<<<<< HEAD
 - **类型**: `string[]`
-- **默认值**: `['**/?(*.){test,spec}-d.?(c|m)[jt]s?(x)']`
-=======
-- **Type**: `string[]`
-- **Default**: `['**/*.{test,spec}-d.?(c|m)[jt]s?(x)']`
->>>>>>> 5ba1778ce836c0647ce60f1ead8ae5b748f348eb
+- **默认值**: `['**/*.{test,spec}-d.?(c|m)[jt]s?(x)']`
 
 匹配包含测试文件的 glob 规则。
 

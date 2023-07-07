@@ -1,9 +1,9 @@
 {
   "name": "docs-cn",
   "type": "module",
-  "version": "0.32.4",
+  "version": "0.33.0",
   "private": true,
-  "packageManager": "pnpm@8.6.5",
+  "packageManager": "pnpm@8.6.6",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
     "build": "nr prefetch && vitepress build",
@@ -38,7 +38,7 @@
     "https-localhost": "^4.7.1",
     "ohmyfetch": "^0.4.21",
     "pathe": "^0.3.9",
-    "pnpm": "8.6.5",
+    "pnpm": "8.6.6",
     "typescript": "5.0.4",
     "unocss": "^0.53.4",
     "unplugin-vue-components": "^0.25.1",
