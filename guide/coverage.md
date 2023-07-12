@@ -6,15 +6,7 @@ title: Coverage | Guide
 
 Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
-<<<<<<< HEAD
-:::info 信息
-`c8` 覆盖率提供者正在被 [`v8`](https://v8.dev/blog/javascript-code-coverage) 替换。它将在下一个主要版本中被弃用。
-:::
-
-## 覆盖率提供者
-=======
-## Coverage Providers
->>>>>>> c6b841dda3e63ec525cc929dd70af783b38f6321
+## 测试覆盖率提供者
 
 :::tip 提醒
 从 Vitest v0.22.0 开始支持
@@ -31,7 +23,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-      provider: 'istanbul' // or 'v8'
+      provider: 'istanbul', // or 'v8'
     },
   },
 })

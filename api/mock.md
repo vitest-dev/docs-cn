@@ -272,11 +272,7 @@ fn.mock.calls
 - `'return'` - 未发生异常的函数。
 - `'throw'` - 抛出一个值的函数。
 
-<<<<<<< HEAD
-`value` 属性包含返回的值或引发的错误。
-=======
-The `value` property contains the returned value or thrown error. If the function returned a promise, when it resolves the `value` property will become the value the promise resolved to.
->>>>>>> c6b841dda3e63ec525cc929dd70af783b38f6321
+`value` 属性包含返回的值或引发的错误。如果函数返回了一个 promise ，当它解析时，`value` 属性将变成 promise 解析到的值。
 
 ```js
 const fn = vi.fn()
@@ -326,8 +322,3 @@ const a = new Spy()
 Spy.mock.instances[0] !== a
 Spy.mock.results[0] === a
 ```
-<<<<<<< HEAD
-
-=======
->>>>>>> c6b841dda3e63ec525cc929dd70af783b38f6321
-:::
