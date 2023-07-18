@@ -40,8 +40,6 @@ vitest foobar
 vitest related /src/index.ts /src/hello-world.js
 ```
 
-### `vitest clean cache`
-
 ::: tip
 不要忘记 Vitest 默认情况下以启用的监视模式运行。如果你使用的是 `lint-staged` 之类的工具，你还应该传递 `--run` 选项，以便该命令可以正常退出。
 
@@ -56,7 +54,7 @@ export default {
 
 ### `vitest bench`
 
-仅运行 [基准测试](https://vitest.dev/guide/features.html#benchmarking-experimental) 测试，比较性能结果。
+仅运行 [基准](https://vitest.dev/guide/features.html#benchmarking-experimental) 测试，比较性能结果。
 
 ## 选项
 
@@ -79,7 +77,7 @@ export default {
 | `--outputDiffLines <lines>`          | 使用 `<lines>` 指定输出 diff 的数量                                                                                                         |
 | `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
 | `--coverage`                         | 启用输出覆盖率报告                                                                                                                          |
-| `--run`                              | 不使用浏览模式                                                                                                                              |
+| `--run`                              | 不使用监听模式                                                                                                                              |
 | `--mode <name>`                      | 覆盖 Vite 模式 (default: `test`)                                                                                                            |
 | `--globals`                          | 注入全局 API                                                                                                                                |
 | `--dom`                              | 使用 happy-dom 模拟浏览器 API                                                                                                               |
@@ -106,41 +104,41 @@ Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=d
 
 如果选项支持值数组，则需要多次传递选项：
 
-```
+```bash
 vitest --reporter=dot --reporter=default
 ```
 
 布尔值选项可以用 `no-` 前缀来否定。将值指定为 `false` 也有效：
 
-```
+```bash
 vitest --no-api
 vitest --api=false
 ```
 
 :::
 
-### 变更
+### changed
 
 - **类型**: `boolean | string`
 - **默认值**: false
 
-  再次运行有变更的测试文件。如果未发生变更，它将再次运行未提交的变更（包括分段和非分段）。
+  设置为 true 时，仅对已更改的文件运行测试。默认情况下，将考虑所有未提交的更改（包括已暂存和未暂存的文件）。
 
-  在上次提交的变更模式下，再次运行测试，你可以使用 `--changed HEAD~1`。也可以使用提交哈希或者分支名称。
+  要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
 
-### 分片
+  如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
 
-假如找到匹配项，如果配置了 `forceRerunTriggers` 选项，那么它将运行整个测试套件。
+### shard
 
 - **类型**: `string`
 - **默认值**: disabled
 
-  要以 `<index>`/`<count>` 格式来执行的测试套件分片，其中
+  测试套件分片，格式为 `<index>/<count>`，其中
 
-  - `count` 是一个正整数，它表示拆分测试分片的数量
-  - `index` 是一个正整数, 它表示拆分测试分片的索引
+  - `count` 是正整数，表示分割的部分数
+  - `index` 是正整数，表示当前分片的索引
 
-  该命令将所有测试通过 `count` 来拆分，并仅运行恰好位于 `index` 部分的测试。比如，将你的测试套件拆分为三份，可以这样使用：
+  该命令将将所有测试分成 `count` 个相等的部分，并只运行位于 `index` 部分的测试。例如，要将测试套件分成三个部分，请使用以下命令：
 
   ```sh
   vitest run --shard=1/3
@@ -149,5 +147,5 @@ vitest --api=false
   ```
 
 :::warning 警告
-你不能使用 `--watch` 选项 (在开发环境下默认启用)。
+无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
 :::
