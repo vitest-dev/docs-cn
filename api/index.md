@@ -658,6 +658,24 @@ describe.concurrent('suite', () => {
 当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
+### describe.sequential
+
+- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+
+  `describe.sequential` in a suite marks every test as sequential. This is useful if you want to run tests in sequential within `describe.concurrent` or with the `--sequence.concurrent` command option.
+
+  ```ts
+  describe.concurrent('suite', () => {
+    test('concurrent test 1', async () => { /* ... */ })
+    test('concurrent test 2', async () => { /* ... */ })
+
+    describe.sequential('', () => {
+      test('sequential test 1', async () => { /* ... */ })
+      test('sequential test 2', async () => { /* ... */ })
+    })
+  })
+  ```
+
 ### describe.shuffle
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
