@@ -660,18 +660,26 @@ describe.concurrent('suite', () => {
 
 ### describe.sequential
 
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-  `describe.sequential` in a suite marks every test as sequential. This is useful if you want to run tests in sequential within `describe.concurrent` or with the `--sequence.concurrent` command option.
+  测试套件中的 `describe.sequential` 将每个测试标记为连续的。如果你想在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这非常有用。
 
   ```ts
   describe.concurrent('suite', () => {
-    test('concurrent test 1', async () => { /* ... */ })
-    test('concurrent test 2', async () => { /* ... */ })
-
+    test('concurrent test 1', async () => {
+      /* ... */
+    })
+    test('concurrent test 2', async () => {
+      /* ... */
+    })
+  
     describe.sequential('', () => {
-      test('sequential test 1', async () => { /* ... */ })
-      test('sequential test 2', async () => { /* ... */ })
+      test('sequential test 1', async () => {
+        /* ... */
+      })
+      test('sequential test 2', async () => {
+        /* ... */
+      })
     })
   })
   ```
