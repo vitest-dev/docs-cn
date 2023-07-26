@@ -571,18 +571,13 @@ describe('numberToCurrency', () => {
   在某些情况下，你可能会在不同的环境中多次运行套件，并且某些套件可能是特定于环境的。你可以使用 `describe.skipIf` 在条件为真时跳过套件，而不是用 `if` 包装套件。
 
   ```ts
-<<<<<<< HEAD
-  import { assert, test } from 'vitest'
-  
-=======
-  import { describe, test } from 'vitest'
+import { assert, test } from 'vitest'
 
->>>>>>> cbe5c2a07d719154269aac7cd3e24e8c9c7151f1
-  const isDev = process.env.NODE_ENV === 'development'
-  
-  describe.skipIf(isDev)('prod only test', () => {
-    // this test only runs in production
-  })
+const isDev = process.env.NODE_ENV === 'development'
+
+test.skipIf(isDev)('prod only test', () => {
+  // 仅在生产中运行
+})
   ```
 
 ::: warning
