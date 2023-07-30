@@ -137,10 +137,18 @@ export default mergeConfig(
 
 #### deps.external
 
+<<<<<<< HEAD
 - **类型:** `(string | RegExp)[]`
 - **默认值:** `['**/node_modules/**']`
+=======
+- **Type:** `(string | RegExp)[]`
+- **Default:** `[/\/node_modules\//]`
+>>>>>>> f8d5e92424b52e24f099094c25507124f846c8b6
 
 Externalize 意味着 Vite 会绕过包到原生 Node.js 中。Vite 的转换器和解析器不会应用外部依赖项，因此不会支持重新加载时的热更新。通常，`node_modules` 下的包是外部依赖。
+
+When using strings they need to be paths inside your [`deps.moduleDirectories`](/config/#deps-moduledirectories). For example `external: ['module/folder']` with the default `moduleDirectories` option will externalize `node_modules/module/folder`.
+Regular expressions on the other hand are matched against the whole path.
 
 #### deps.inline
 
@@ -480,6 +488,7 @@ export default defineConfig({
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
+<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
@@ -507,6 +516,17 @@ export default defineConfig({
 - obj2: '2',
 ...
 ```
+=======
+  - `'default'` - collapse suites when they pass
+  - `'basic'` - give a reporter like default reporter in ci
+  - `'verbose'` - keep the full task tree visible
+  - `'dot'` -  show each task as a single dot
+  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable, and `classname` tag property with `VITEST_JUNIT_CLASSNAME`)
+  - `'json'` -  give a simple JSON summary
+  - `'html'` -  outputs HTML report based on [`@vitest/ui`](/guide/ui)
+  - `'hanging-process'` - displays a list of hanging processes, if Vitest cannot exit process safely. This might be a heavy operation, enable it only if Vitest consistently cannot exit process
+  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+>>>>>>> f8d5e92424b52e24f099094c25507124f846c8b6
 
 ### outputFile<NonProjectOption />
 
@@ -738,6 +758,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   'dist/**',
   'packages/*/test?(s)/**',
   '**/*.d.ts',
+  '**/virtual:*',
+  '**/__x00__*',
+  '**/\x00*',
   'cypress/**',
   'test?(s)/**',
   'test?(-*).?(c|m)[jt]s?(x)',
