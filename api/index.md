@@ -570,7 +570,7 @@ describe('numberToCurrency', () => {
 
   在某些情况下，你可能会在不同的环境中多次运行套件，并且某些套件可能是特定于环境的。你可以使用 `describe.skipIf` 在条件为真时跳过套件，而不是用 `if` 包装套件。
 
-  ```ts
+```ts
 import { assert, test } from 'vitest'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -578,7 +578,7 @@ const isDev = process.env.NODE_ENV === 'development'
 test.skipIf(isDev)('prod only test', () => {
   // 仅在生产中运行
 })
-  ```
+```
 
 ::: warning
 当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
@@ -588,28 +588,28 @@ test.skipIf(isDev)('prod only test', () => {
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-  使用 `describe.only` 仅运行指定的测试套件。
+使用 `describe.only` 仅运行指定的测试套件。
 
-  ```ts
-  // 仅运行此测试套件（以及仅标有的其他测试套件）
-  describe.only('suite', () => {
-    test('sqrt', () => {
-      assert.equal(Math.sqrt(4), 3)
-    })
+```ts
+// 仅运行此测试套件（以及仅标有的其他测试套件）
+describe.only('suite', () => {
+  test('sqrt', () => {
+    assert.equal(Math.sqrt(4), 3)
   })
-  
-  describe('other suite', () => {
-    // ... 测试套件将会被跳过
-  })
-  ```
+})
 
-  有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
+describe('other suite', () => {
+  // ... 测试套件将会被跳过
+})
+```
 
-  为了做到这一点，运行 `vitest` 命令并带上包含有问题的测试的特定文件。
+有时候只运行一个特定文件中的 `only` 测试用例是很有用的，这可以忽略整个测试套件中的所有其他测试用例，避免污染输出。
 
-  ```
-  # vitest interesting.test.ts
-  ```
+为了做到这一点，运行 `vitest` 命令并带上包含有问题的测试的特定文件。
+
+```
+# vitest interesting.test.ts
+```
 
 ### describe.concurrent
 
