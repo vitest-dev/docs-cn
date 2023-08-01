@@ -27,13 +27,31 @@ test('test', () => {
 
 ## Custom Environment
 
+<<<<<<< HEAD
 从 0.23.0 开始，你可以创建自己的包来扩展 Vitest 环境。 为此，请创建名为 `vitest-environment-${name}` 的包。 该包应导出一个具有 `Environment` 属性的对象：
+=======
+Starting from 0.23.0, you can create your own package to extend Vitest environment. To do so, create package with the name `vitest-environment-${name}` or specify a path to a valid JS file (supported since 0.34.0). That package should export an object with the shape of `Environment`:
+>>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
 
 ```ts
 import type { Environment } from 'vitest'
 
 export default <Environment>{
   name: 'custom',
+  transformMode: 'ssr',
+  // optional - only if you support "experimental-vm" pool
+  async setupVM() {
+    const vm = await import('node:vm')
+    const context = vm.createContext()
+    return {
+      getVmContext() {
+        return context
+      },
+      teardown() {
+        // called after all tests with this env have been run
+      }
+    }
+  },
   setup() {
     // custom setup
     return {
@@ -45,7 +63,15 @@ export default <Environment>{
 }
 ```
 
+<<<<<<< HEAD
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
+=======
+::: warning
+Since 0.34.0 Vitest requires `transformMode` option on environment object. It should be equal to `ssr` or `web`. This value determines how plugins will transform source code. If it's set to `ssr`, plugin hooks will receive `ssr: true` when transforming or resolving files. Otherwise, `ssr` is set to `false`.
+:::
+
+You also have access to default Vitest environments through `vitest/environments` entry:
+>>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
 
 ```ts
 import { builtinEnvironments, populateGlobal } from 'vitest/environments'
