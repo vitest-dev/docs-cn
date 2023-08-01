@@ -570,7 +570,7 @@ describe('numberToCurrency', () => {
 
   在某些情况下，你可能会在不同的环境中多次运行套件，并且某些套件可能是特定于环境的。你可以使用 `describe.skipIf` 在条件为真时跳过套件，而不是用 `if` 包装套件。
 
-  ```ts
+```ts
 import { assert, test } from 'vitest'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -578,7 +578,7 @@ const isDev = process.env.NODE_ENV === 'development'
 test.skipIf(isDev)('prod only test', () => {
   // 仅在生产中运行
 })
-  ```
+```
 
 ::: warning
 当 Vitest 作为 [类型检查器](/guide/testing-types) 时，你不能使用此语法。

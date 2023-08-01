@@ -137,18 +137,10 @@ export default mergeConfig(
 
 #### deps.external
 
-<<<<<<< HEAD
 - **类型:** `(string | RegExp)[]`
-- **默认值:** `['**/node_modules/**']`
-=======
-- **Type:** `(string | RegExp)[]`
-- **Default:** `[/\/node_modules\//]`
->>>>>>> f8d5e92424b52e24f099094c25507124f846c8b6
+- **默认值:** `[/\/node_modules\//]`
 
-Externalize 意味着 Vite 会绕过包到原生 Node.js 中。Vite 的转换器和解析器不会应用外部依赖项，因此不会支持重新加载时的热更新。通常，`node_modules` 下的包是外部依赖。
-
-When using strings they need to be paths inside your [`deps.moduleDirectories`](/config/#deps-moduledirectories). For example `external: ['module/folder']` with the default `moduleDirectories` option will externalize `node_modules/module/folder`.
-Regular expressions on the other hand are matched against the whole path.
+当使用字符串时，需要指定基于 [`deps.moduleDirectories`](/config/#deps-moduledirectories)的路径。例如，带有默认 `moduleDirectories` 选项的 `external: ['module/folder']` 将外部化 `node_modules/module/folder`。另一方面，正则表达式与整个路径进行匹配。
 
 #### deps.inline
 
@@ -488,8 +480,8 @@ export default defineConfig({
 
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
-<<<<<<< HEAD
 - `'default'` - 当他们经过测试套件
+- `'basic'` - 给定一个类似于 CI 中的默认报告实例
 - `'verbose'` - 保持完整的任务树可见
 - `'dot'` - 将每个任务显示为一个点
 - `'junit'` - JUnit XML 报告器（你可以使用 `VITEST_JUNIT_SUITE_NAME` 环境变量配置 `test suites` 标签名称）
@@ -497,36 +489,6 @@ export default defineConfig({
 - `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
-
-### outputDiffLines
-
-- **类型:** `number`
-- **默认值:** `15`
-- **命令行终端:** `--outputDiffLines=<lines>`, `--output-diff-lines=<lines>`
-
-将单个输出 diff 行的数量限制最多为 15。Vitest 在确定何时停止时计算所有 +- 行。例如，如果将此属性设置为 3，你可能会看到这样的差异：
-
-```diff
-- test: 1,
-+ test: 2,
-- obj: '1',
-...
-- test2: 1,
-+ test2: 1,
-- obj2: '2',
-...
-```
-=======
-  - `'default'` - collapse suites when they pass
-  - `'basic'` - give a reporter like default reporter in ci
-  - `'verbose'` - keep the full task tree visible
-  - `'dot'` -  show each task as a single dot
-  - `'junit'` - JUnit XML reporter (you can configure `testsuites` tag name with `VITEST_JUNIT_SUITE_NAME` environmental variable, and `classname` tag property with `VITEST_JUNIT_CLASSNAME`)
-  - `'json'` -  give a simple JSON summary
-  - `'html'` -  outputs HTML report based on [`@vitest/ui`](/guide/ui)
-  - `'hanging-process'` - displays a list of hanging processes, if Vitest cannot exit process safely. This might be a heavy operation, enable it only if Vitest consistently cannot exit process
-  - path of a custom reporter (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`)
->>>>>>> f8d5e92424b52e24f099094c25507124f846c8b6
 
 ### outputFile<NonProjectOption />
 
