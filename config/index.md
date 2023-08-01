@@ -76,7 +76,7 @@ export default mergeConfig(
 ## Options
 
 ::: tip
-除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或`resolve.alias` 定义别名。
+除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
 :::
 
 ::: tip
@@ -108,35 +108,35 @@ export default mergeConfig(
 
 ### server
 
-- **Type:** `{ sourcemap?, deps?, ... }`
-- **Version:** Since Vitest 0.34.0
+- **类型:** `{ sourcemap?, deps?, ... }`
+- **版本:** Since Vitest 0.34.0
 
-Vite-Node server options.
+Vite-Node 服务端选项。
 
 #### server.sourcemap
 
-- **Type:** `'inline' | boolean`
-- **Default:** `'inline'`
+- **类型:** `'inline' | boolean`
+- **默认值:** `'inline'`
 
-Inject inline sourcemap to modules.
+通过内联方式注入到模块。
 
 #### server.debug
 
-- **Type:** `{ dumpModules?, loadDumppedModules? }`
+- **类型:** `{ dumpModules?, loadDumppedModules? }`
 
-Vite-Node debugger options.
+Vite-Node 调试器选项。
 
 #### server.debug.dumpModules
 
-- **Type:** `boolean | string`
+- **类型:** `boolean | string`
 
-Dump the transformed module to filesystem. Passing a string will dump to the specified path.
+将转换后的模块转储到文件系统。传递字符串将转储到指定路径。
 
 #### server.debug.loadDumppedModules
 
-- **Type:** `boolean`
+- **类型:** `boolean`
 
-Read dumped module from filesystem whenever exists. Useful for debugging by modifying the dump result from the filesystem.
+不管是否存在，就从文件系统中读取转储的模块。通过修改文件系统的转储结果对于调试会有帮助。
 
 #### server.deps
 
@@ -146,41 +146,41 @@ Read dumped module from filesystem whenever exists. Useful for debugging by modi
 
 #### server.deps.external
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** `[/\/node_modules\//]`
+- **类型:** `(string | RegExp)[]`
+- **默认值:** `[/\/node_modules\//]`
 
-Externalize means that Vite will bypass the package to native Node. Externalized dependencies will not be applied Vite's transformers and resolvers, so they do not support HMR on reload. All packages under `node_modules` are externalized.
+外部化（Externalize）意味着 Vite 将绕过原生 Node 的包。外部化依赖不会应用于 Vite 的转换器和解析器，因此它们不支持重新加载时的 HMR。 `node_modules` 下的所有包都被外部化。
 
 #### server.deps.inline
 
-- **Type:** `(string | RegExp)[] | true`
-- **Default:** `[]`
+- **类型:** `(string | RegExp)[] | true`
+- **默认值:** `[]`
 
-Vite will process inlined modules. This could be helpful to handle packages that ship `.js` in ESM format (that Node can't handle).
+Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 的包（Node 无法处理）。
 
-If `true`, every dependency will be inlined. All dependencies, specified in [`ssr.noExternal`](https://vitejs.dev/guide/ssr.html#ssr-externals) will be inlined by default.
+如果设置为 `true`，则每个依赖项都将被内联。默认情况下，将内联 [`ssr.noExternal`](https://cn.vitejs.dev/guide/ssr.html#ssr-externals) 中指定的所有依赖项。
 
 #### server.deps.fallbackCJS
 
-- **Type** `boolean`
-- **Default:** `false`
+- **类型** `boolean`
+- **默认值:** `false`
 
-When a dependency is a valid ESM package, try to guess the cjs version based on the path. This might be helpful, if a dependency has the wrong ESM file.
+当依赖项是有效的 ESM 包时，尝试根据路径猜测 cjs 版本。如果依赖项是有错误的 ESM 文件，这可能会有所帮助。
 
-This might potentially cause some misalignment if a package has different logic in ESM and CJS mode.
+如果包在 ESM 和 CJS 模式下具有不同的逻辑，这可能会导致一些错位。
 
 #### server.deps.cacheDir
 
-- **Type** `string`
-- **Default**: `'node_modules/.vite'`
+- **类型** `string`
+- **默认值**: `'node_modules/.vite'`
 
-Directory to save cache files.
+保存缓存文件的目录。
 
 ### deps
 
-- **Type:** `{ experimentalOptimizer?, registerNodeLoader?, ... }`
+- **类型:** `{ experimentalOptimizer?, registerNodeLoader?, ... }`
 
-Handling for dependencies resolution.
+处理依赖关系解析。
 
 #### deps.experimentalOptimizer
 
@@ -206,6 +206,7 @@ Handling for dependencies resolution.
 :::
 
 <<<<<<< HEAD
+
 #### deps.external
 
 - **类型:** `(string | RegExp)[]`
@@ -232,7 +233,9 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 如果包在 ESM 和 CJS 模式下具有不同的逻辑，可能会导致一些错误的产生。
 
 =======
->>>>>>> 6403d84f3f16e40b3ea51864596cdc8daec6b192
+
+> > > > > > > 6403d84f3f16e40b3ea51864596cdc8daec6b192
+
 #### deps.registerNodeLoader<NonProjectOption />
 
 - **类型:** `boolean`
