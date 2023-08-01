@@ -97,17 +97,11 @@ Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vit
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`。
 - 在 `defineConfig` 上使用 `process.env.VITEST` 或 `mode` 属性（如果没有被覆盖，将设置为 `test`）有条件地在 `vite.config.ts` 中应用不同的配置。
 
-<<<<<<< HEAD
 如果要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。 你还需要使用 [三斜线命令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html) ，同时如果是从 `vite` 本身导入 `defineConfig`，请在配置文件的顶部加上三斜线命令。
-=======
-Vitest supports the same extensions for your configuration file as Vite does: `.js`, `.mjs`, `.cjs`, `.ts`, `.cts`, `.mts`. Vitest does not support `.json` extension.
-
-If you are not using Vite as your build tool, you can configure Vitest using the `test` property in your config file:
-
-> > > > > > > f8d5e92424b52e24f099094c25507124f846c8b6
 
 ```ts
 import { defineConfig } from 'vitest/config'
+
 export default defineConfig({
   test: {
     // ...
@@ -115,65 +109,9 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 可以参阅 [配置索引](../config/) 中的配置选项列表
 
 ## 支持工作空间
-
-=======
-::: tip
-Even if you do not use Vite yourself, Vitest relies heavily on it for its transformation pipeline. For that reason, you can also configure any property described in [Vite documentation](https://vitejs.dev/config/).
-:::
-
-If you are already using Vite, add `test` property in your Vite config. You'll also need to add a reference to Vitest types using a [triple slash command](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) at the top of your config file.
-
-```ts
-/// <reference types="vitest" />
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  test: {
-    // ...
-  },
-})
-```
-
-See the list of config options in the [Config Reference](../config/)
-
-::: warning
-If you decide to have two separate config files for Vite and Vitest, make sure to define the same Vite options in your Vitest config file since it will override your Vite file, not extend it. You can also use `mergeConfig` method from `vite` or `vitest/config` entries to merge Vite config with Vitest config:
-
-:::code-group
-
-```ts [vitest.config.mjs]
-import { defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config.mjs'
-
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      // ...
-    },
-  })
-)
-```
-
-```ts [vite.config.mjs]
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-
-export default defineConfig({
-  plugins: [Vue()],
-})
-```
-
-But we recommend to use the same file for both Vite and Vitest instead of creating two separate files.
-:::
-
-## Workspaces Support
-
-> > > > > > > f8d5e92424b52e24f099094c25507124f846c8b6
 
 使用 [Vitest Workspaces](/guide/workspace) 在同一项目中运行不同的项目配置。你可以在`vitest.workspace`文件中定义工作区的文件和文件夹列表。该文件支持 `js` / `ts` / `json` 扩展名。此功能与 monorepo 设置非常配合使用。
 
