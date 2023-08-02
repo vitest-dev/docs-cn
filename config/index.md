@@ -619,12 +619,17 @@ catch (err) {
 
 可以通过多种不同的方式指定限制，无论结果是什么，`Math.floor` 都用于将其转换为整数值：
 
-- `<= 1` - 该值假定为系统内存的百分比。所以 0.5 将 worker 的内存限制设置为系统总内存的一半
+- `<= 1` - 该值假定为系统内存的百分比。所以 0.5 将 worker 的内存限制设置为系统总内存的一半。
 - `\> 1` - 假设是固定字节值。由于之前的规则，如果你想要 1 字节的值（我不知道为什么），你可以使用 1.1。
-- 当有单位时
+- 有单位时
   - `50%` - 如上，占系统总内存的百分比
-  - `100KB`, `65MB`, 等 - 用单位表示固定的内存限制 - `K` / `KB` - Kilobytes (x1000) - `KiB` - Kibibytes (x1024) - `M` / `MB` - Megabytes - `MiB` - Mebibytes - `G` / `GB` - Gigabytes - `GiB` - Gibibytes
-    :::
+  - `100KB`, `65MB`, 等 - 用单位表示固定的内存限制
+    - `K` / `KB` - Kilobytes (x1000)
+    - `KiB` - Kibibytes (x1024)
+    - `M` / `MB` - Megabytes - `MiB` - Mebibytes
+    - `G` / `GB` - Gigabytes - `GiB` - Gibibytes
+
+:::
 
 ::: warning
 由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
