@@ -149,15 +149,11 @@ Vite-Node 调试器选项。
 - **类型:** `(string | RegExp)[]`
 - **默认值:** `[/\/node_modules\//]`
 
-<<<<<<< HEAD
 外部化（Externalize）意味着 Vite 将绕过原生 Node 的包。外部化依赖不会应用于 Vite 的转换器和解析器，因此它们不支持重新加载时的 HMR。 `node_modules` 下的所有包都被外部化。
-=======
-Externalize means that Vite will bypass the package to the native Node. Externalized dependencies will not be applied to Vite's transformers and resolvers, so they do not support HMR on reload. By default, all packages inside `node_modules` are externalized.
 
-These options support package names as they are written in `node_modules` or specified inside [`deps.moduleDirectories`](#deps-moduledirectories). For example, package `@company/some-name` located inside `packages/some-name` should be specified as `some-name`, and `packages` should be included in `deps.moduleDirectories`. Basically, Vitest always checks the file path, not the actual package name.
+这些选项支持在 `node_modules` 中编写的包名称或在 [`deps.moduleDirectories`](#deps-moduledirectories) 中指定的包名称。例如，位于 `packages/some-name` 内的包`@company/some-name` 应指定为 `some-name`，并且 `packages` 应包含在 `deps.moduleDirectories` 中。基本上，Vitest 总是检查文件路径，而不是实际的包名称。
 
-If regexp is used, Vitest calls it on the _file path_, not the package name.
->>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
+如果成功匹配，Vitest 会在 _file path_ 上调用它，而不是包名称。
 
 #### server.deps.inline
 
@@ -186,29 +182,17 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 ### deps
 
-<<<<<<< HEAD
-- **类型:** `{ experimentalOptimizer?, registerNodeLoader?, ... }`
-=======
-- **Type:** `{ optimizer?, registerNodeLoader?, ... }`
->>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
+- **类型:** `{ optimizer?, registerNodeLoader?, ... }`
 
 处理依赖关系解析。
 
 #### deps.optimizer
 
-<<<<<<< HEAD
 - **类型:** `{ ssr?, web? }`
-- **版本:** Vitets 0.29.0
+- **版本:** Since Vitest 0.34.0
 - **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
 
-启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
-=======
-- **Type:** `{ ssr?, web? }`
-- **Version:** Since Vitest 0.34.0
-- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
-
-Enable dependency optimization. If you have a lot of tests, this might improve their performance. Before Vitest 0.34.0, it was named as `deps.experimentalOptimizer`.
->>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
+启用依赖优化。如果你有很多测试，这可能会提高它们的性能。在 Vitest 0.34.0 之前, 它被命名为 `deps.experimentalOptimizer`。
 
 当 Vitest 遇到 `include` 中列出的外部库时，它将使用 esbuild 打包到单个文件中，并作为整个模块导入。这很好，原因如下：
 
@@ -217,24 +201,13 @@ Enable dependency optimization. If you have a lot of tests, this might improve t
 - 你的 `alias` 配置现在在捆绑包中得到处理
 - 测试中的代码更接近于它在浏览器中的运行方式
 
-<<<<<<< HEAD
 请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` and `happy-dom`, 在 `node` and `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
 ::: tip 提醒
 你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
-=======
-Be aware that only packages in `deps.optimizer?.[mode].include` option are bundled (some plugins populate this automatically, like Svelte). You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs. By default, Vitest uses `optimizer.web` for `jsdom` and `happy-dom` environments, and `optimizer.ssr` for `node` and `edge` environments, but it is configurable by [`transformMode`](#transformmode).
-
-This options also inherits your `optimizeDeps` configuration (for web Vitest will extend `optimizeDeps`, for ssr - `ssr.optimizeDeps`). If you redefine `include`/`exclude` option in `deps.optimizer` it will extend your `optimizeDeps` when running tests. Vitest automatically removes the same options from `include`, if they are listed in `exclude`.
-
-::: tip
-You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` or `test.cache.dir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.optimizer?.[mode].force` option.
->>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
 :::
-
-<<<<<<< HEAD
 
 #### deps.external
 
@@ -260,10 +233,6 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 当一个依赖项是有效的 ESM 包时，将会尝试根据路径猜测 cjs 版本。
 
 如果包在 ESM 和 CJS 模式下具有不同的逻辑，可能会导致一些错误的产生。
-
-=======
-
-> > > > > > > 6403d84f3f16e40b3ea51864596cdc8daec6b192
 
 #### deps.registerNodeLoader<NonProjectOption />
 
@@ -530,15 +499,9 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
-<<<<<<< HEAD
-- **类型:** `[string, 'browser' | 'threads' | 'child_process'][]`
+- **类型:** `[string, 'threads' | 'child_process' | 'experimentalVmThreads'][]`
 - **默认值:** `[]`
-- **版本:** Vitest 0.29.4
-=======
-- **Type:** `[string, 'threads' | 'child_process' | 'experimentalVmThreads'][]`
-- **Default:** `[]`
-- **Version:** Since Vitest 0.29.4
->>>>>>> f7425be3e611936a6044aaf8d1400dbdfa7e968d
+- **版本:** Since Vitest 0.29.4
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -611,18 +574,19 @@ export default defineConfig({
 
 ### experimentalVmThreads
 
-- **Type:** `boolean`
-- **CLI:** `--experimentalVmThreads`, `--experimental-vm-threads`
-- **Version:** Since Vitest 0.34.0
+- **类型:** `boolean`
+- **命令行终端:** `--experimentalVmThreads`, `--experimental-vm-threads`
+- **版本:** Since Vitest 0.34.0
 
-Run tests using [VM context](https://nodejs.org/api/vm.html) (inside a sandboxed environment) in a worker pool.
+使用工作池中的 [VM 上下文](https://nodejs.org/api/vm.html)（在沙盒环境内）运行测试。
 
-This makes tests run faster, but the VM module is unstable when running [ESM code](https://github.com/nodejs/node/issues/37648). Your tests will [leak memory](https://github.com/nodejs/node/issues/33439) - to battle that, consider manually editing [`experimentalVmWorkerMemoryLimit`](#experimentalvmworkermemorylimit) value.
+这使得测试运行得更快，但运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时 VM 模块不稳定。你的测试将出现[泄漏内存](https://github.com/nodejs/node/issues/33439) - 为了解决这个问题，请考虑手动编辑 [`experimentalVmWorkerMemoryLimit`](#experimentalvmworkermemorylimit) 值。
 
 ::: warning
+在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
 Running code in a sandbox has some advantages (faster tests), but also comes with a number of disadvantages.
 
-- The globals within native modules, such as (`fs`, `path`, etc), differ from the globals present in your test environment. As a result, any error thrown by these native modules will reference a different Error constructor compared to the one used in your code:
+- 原生模块中的全局变量，例如（`fs`、`path`等），与测试环境中存在的全局变量不同。因此，这些原生模块引发的任何错误都将引用与代码中使用的错误构造函数不同的错误构造函数：
 
 ```ts
 try {
@@ -633,43 +597,37 @@ catch (err) {
 }
 ```
 
-- Importing ES modules caches them indefinitely which introduces memory leaks if you have a lot of contexts (test files). There is no API in Node.js that clears that cache.
-- Accessing globals [takes longer](https://github.com/nodejs/node/issues/31658) in a sandbox environment.
+- 导入 ES 模块会无限期地缓存它们，如果你有很多上下文（测试文件），这会导致内存泄漏。Node.js 中没有可以清除该缓存的 API。
+- 在沙盒环境中访问全局变量[需要更长的时间](https://github.com/nodejs/node/issues/31658)。
 
-Please, be aware of these issues when using this option. Vitest team cannot fix any of the issues on our side.
+使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
 
 ### experimentalVmWorkerMemoryLimit
 
-- **Type:** `string | number`
-- **CLI:** `--experimentalVmWorkerMemoryLimit`, `--experimental-vm-worker-memory-limit`
-- **Default:** `1 / CPU Cores`
-- **Version:** Since Vitest 0.34.0
+- **类型:** `string | number`
+- **命令行终端:** `--experimentalVmWorkerMemoryLimit`, `--experimental-vm-worker-memory-limit`
+- **默认值:** `1 / CPU Cores`
+- **版本:** Since Vitest 0.34.0
 
-Specifies the memory limit for workers before they are recycled. This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default.
+指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
 
-This option only affects workers that run tests in [VM context](#experimentalvmthreads).
+此选项仅影响在 [VM 上下文](#experimentalvmthreads) 中运行测试的工作线程。
 
 ::: tip
-The implementation is based on Jest's [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring).
+该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
 
-The limit can be specified in a number of different ways and whatever the result is `Math.floor` is used to turn it into an integer value:
+可以通过多种不同的方式指定限制，无论结果是什么，`Math.floor` 都用于将其转换为整数值：
 
-- `<= 1` - The value is assumed to be a percentage of system memory. So 0.5 sets the memory limit of the worker to half of the total system memory
-- `\> 1` - Assumed to be a fixed byte value. Because of the previous rule if you wanted a value of 1 byte (I don't know why) you could use 1.1.
-- With units
-  - `50%` - As above, a percentage of total system memory
-  - `100KB`, `65MB`, etc - With units to denote a fixed memory limit.
-    - `K` / `KB` - Kilobytes (x1000)
-    - `KiB` - Kibibytes (x1024)
-    - `M` / `MB` - Megabytes
-    - `MiB` - Mebibytes
-    - `G` / `GB` - Gigabytes
-    - `GiB` - Gibibytes
-:::
+- `<= 1` - 该值假定为系统内存的百分比。所以 0.5 将 worker 的内存限制设置为系统总内存的一半
+- `\> 1` - 假设是固定字节值。由于之前的规则，如果你想要 1 字节的值（我不知道为什么），你可以使用 1.1。
+- 当有单位时
+  - `50%` - 如上，占系统总内存的百分比
+  - `100KB`, `65MB`, 等 - 用单位表示固定的内存限制 - `K` / `KB` - Kilobytes (x1000) - `KiB` - Kibibytes (x1024) - `M` / `MB` - Megabytes - `MiB` - Mebibytes - `G` / `GB` - Gigabytes - `GiB` - Gibibytes
+    :::
 
 ::: warning
-Percentage based memory limit [does not work on Linux CircleCI](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677) workers due to incorrect system memory being reported.
+由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
 
 ### threads
