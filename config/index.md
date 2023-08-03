@@ -201,7 +201,11 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 - 你的 `alias` 配置现在在捆绑包中得到处理
 - 测试中的代码更接近于它在浏览器中的运行方式
 
+<<<<<<< HEAD
 请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` and `happy-dom`, 在 `node` and `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
+=======
+Be aware that only packages in `deps.optimizer?.[mode].include` option are bundled (some plugins populate this automatically, like Svelte). You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs (Vitest doesn't support `disable` and `noDiscovery` options). By default, Vitest uses `optimizer.web` for `jsdom` and `happy-dom` environments, and `optimizer.ssr` for `node` and `edge` environments, but it is configurable by [`transformMode`](#transformmode).
+>>>>>>> df30ef40149a0545105017fb9b43938ac417508d
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
@@ -209,6 +213,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。 如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
 :::
 
+<<<<<<< HEAD
 #### deps.external
 
 - **类型:** `(string | RegExp)[]`
@@ -233,6 +238,62 @@ Vite 将会处理的内联模块。这有助于处理以 ESM 格式（Node 无�
 当一个依赖项是有效的 ESM 包时，将会尝试根据路径猜测 cjs 版本。
 
 如果包在 ESM 和 CJS 模式下具有不同的逻辑，可能会导致一些错误的产生。
+=======
+#### deps.optimizer.{mode}.enabled
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Enable dependency optimization.
+
+#### deps.web
+
+- **Type:** `{ transformAssets?, ... }`
+- **Version:** Since Vite 0.34.2
+
+Options that are applied to external files when transform mode is set to `web`. By default, `jsdom` and `happy-dom` use `web` mode, while `node` and `edge` environments use `ssr` transform mode, so these options will have no affect on files inside those environments.
+
+Usually, files inside `node_modules` are externalized, but these options also affect files in [`server.deps.external`](#server-deps-external).
+
+#### deps.web.transformAssets
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Should Vitest process assets (.png, .svg, .jpg, etc) files and resolve them like Vite does in the browser.
+
+hese module will have a default export equal to the path to the asset, if no query is specified.
+
+::: warning
+At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+:::
+
+#### deps.web.transformCss
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Should Vitest process CSS (.css, .scss, .sass, etc) files and resolve them like Vite does in the browser.
+
+If CSS files are disabled with [`css`](#css) options, this option will just silence `UNKNOWN_EXTENSION` errors.
+
+::: warning
+At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+:::
+
+#### deps.web.transformGlobPattern
+
+- **Type:** `RegExp | RegExp[]`
+- **Default:** `[]`
+
+Regexp pattern to match external files that should be transformed.
+
+By default, files inside `node_modules` are externalized and not transformed, unless it's CSS or an asset, and corresponding option is not disabled.
+
+::: warning
+At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+:::
+>>>>>>> df30ef40149a0545105017fb9b43938ac417508d
 
 #### deps.registerNodeLoader<NonProjectOption />
 
