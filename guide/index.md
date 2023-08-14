@@ -103,7 +103,66 @@ Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vit
 
 ## 支持工作空间
 
+<<<<<<< HEAD
 使用 [Vitest Workspaces](/guide/workspace) 在同一项目中运行不同的项目配置。你可以在`vitest.workspace`文件中定义工作区的文件和文件夹列表。该文件支持 `js` / `ts` / `json` 扩展名。此功能与 monorepo 设置非常配合使用。
+=======
+export default defineConfig({
+  test: {
+    // ...
+  },
+})
+```
+
+::: tip
+Even if you do not use Vite yourself, Vitest relies heavily on it for its transformation pipeline. For that reason, you can also configure any property described in [Vite documentation](https://vitejs.dev/config/).
+:::
+
+If you are already using Vite, add `test` property in your Vite config. You'll also need to add a reference to Vitest types using a [triple slash directive](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) at the top of your config file.
+
+```ts 
+/// <reference types="vitest" />
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  test: {
+    // ...
+  },
+})
+```
+
+See the list of config options in the [Config Reference](../config/)
+
+::: warning
+If you decide to have two separate config files for Vite and Vitest, make sure to define the same Vite options in your Vitest config file since it will override your Vite file, not extend it. You can also use `mergeConfig` method from `vite` or `vitest/config` entries to merge Vite config with Vitest config:
+
+:::code-group
+```ts [vitest.config.mjs]
+import { defineConfig, mergeConfig } from 'vitest/config'
+import viteConfig from './vite.config.mjs'
+
+export default mergeConfig(viteConfig, defineConfig({
+  test: {
+    // ...
+  }
+}))
+```
+
+```ts [vite.config.mjs]
+import { defineConfig } from 'vite'
+import Vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [Vue()],
+})
+```
+
+But we recommend to use the same file for both Vite and Vitest instead of creating two separate files.
+:::
+
+## Workspaces Support
+
+Run different project configurations inside the same project with [Vitest Workspaces](/guide/workspace). You can define a list of files and folders that define your workspace in `vitest.workspace` file. The file supports `js`/`ts`/`json` extensions. This feature works great with monorepo setups.
+>>>>>>> de1246ae1ed2371fdab0528f4f22d6e4fc88fbeb
 
 ```ts
 import { defineWorkspace } from 'vitest/config'

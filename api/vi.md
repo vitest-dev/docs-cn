@@ -82,7 +82,11 @@ import { vi } from 'vitest'
 
 ## vi.fn
 
+<<<<<<< HEAD
 - **类型:** `(fn?: Function) => CallableMockInstance`
+=======
+- **Type:** `(fn?: Function) => Mock`
+>>>>>>> de1246ae1ed2371fdab0528f4f22d6e4fc88fbeb
 
   创建一个函数的模拟，尽管可以在没有一个的情况下启动。每次调用一个函数时，它都会存储它的调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵其行为。
   如果没有给出函数，mock 将在调用时返回 `undefined`。
