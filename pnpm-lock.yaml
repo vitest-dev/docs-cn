@@ -65,14 +65,14 @@ devDependencies:
     specifier: ^0.3.9
     version: 0.3.9
   pnpm:
-    specifier: 8.6.10
-    version: 8.6.10
+    specifier: 8.6.12
+    version: 8.6.12
   typescript:
     specifier: 5.0.4
     version: 5.0.4
   unocss:
     specifier: ^0.53.4
-    version: 0.53.4(postcss@8.4.25)(rollup@2.79.1)(vite@4.2.1)
+    version: 0.53.4(postcss@8.4.27)(rollup@2.79.1)(vite@4.2.1)
   unplugin-vue-components:
     specifier: ^0.25.1
     version: 0.25.1(rollup@2.79.1)(vue@3.3.4)
@@ -2435,7 +2435,7 @@ packages:
       sirv: 2.0.3
     dev: true
 
-  /@unocss/postcss@0.53.4(postcss@8.4.25):
+  /@unocss/postcss@0.53.4(postcss@8.4.27):
     resolution: {integrity: sha512-G7ZWqUszJiXrQVOzLBzOFZwGIVGwH695lE75NufQi8tXQF9QphGKT0t7AX1NRxA3IZpZW2Twxa/tZYRh2PJQAg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2446,7 +2446,7 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.3.0
       magic-string: 0.30.0
-      postcss: 8.4.25
+      postcss: 8.4.27
     dev: true
 
   /@unocss/preset-attributify@0.53.4:
@@ -2634,7 +2634,7 @@ packages:
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       magic-string: 0.30.0
-      postcss: 8.4.25
+      postcss: 8.4.27
       source-map-js: 1.0.2
 
   /@vue/compiler-ssr@3.3.4:
@@ -5400,8 +5400,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pnpm@8.6.10:
-    resolution: {integrity: sha512-EBlPdgrAqmIDK6lflNm8M4lueWGM4PKJIDngt6vJ1+fmzh3e0482tg52nUjiuGvkzZ2sngA181GLqknXhAHgIg==}
+  /pnpm@8.6.12:
+    resolution: {integrity: sha512-Eza4C5SO/Xl5IYozupbZ5NOA5leBRPYxmXmXfe7G4/4uCkRLhks84rB33aitxNZU/uMrnDGGjwrLktoKvPjqHA==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: true
@@ -5423,14 +5423,6 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /postcss@8.4.25:
-    resolution: {integrity: sha512-7taJ/8t2av0Z+sQEvNzCkpDynl0tX3uJMCODi6nT3PfASC7dYCWV9aQ+uiCf+KBD4SEFcu+GvJdGdwzQ6OSjCw==}
-    engines: {node: ^10 || ^12 || >=14}
-    dependencies:
-      nanoid: 3.3.6
-      picocolors: 1.0.0
-      source-map-js: 1.0.2
-
   /postcss@8.4.27:
     resolution: {integrity: sha512-gY/ACJtJPSmUFPDCHtX78+01fHa64FaU4zaaWfuh1MhGJISufJAH4cun6k/8fwsHYeK4UQmENQK+tRLCFJE8JQ==}
     engines: {node: ^10 || ^12 || >=14}
@@ -5438,7 +5430,6 @@ packages:
       nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: true
 
   /preact@10.13.2:
     resolution: {integrity: sha512-q44QFLhOhty2Bd0Y46fnYW0gD/cbVM9dUVtNTDKPcdXSMA7jfY+Jpd6rk3GB0lcQss0z5s/6CmVP0Z/hV+g6pw==}
@@ -6364,7 +6355,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unocss@0.53.4(postcss@8.4.25)(rollup@2.79.1)(vite@4.2.1):
+  /unocss@0.53.4(postcss@8.4.27)(rollup@2.79.1)(vite@4.2.1):
     resolution: {integrity: sha512-UUEi+oh1rngHHP0DVESRS+ScoKMRF8q6GIQrElHb67gqG7GDEGpy3oocIA/6+1t71I4FFvnnxLMGIo9qAD0TEw==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -6377,7 +6368,7 @@ packages:
       '@unocss/cli': 0.53.4(rollup@2.79.1)
       '@unocss/core': 0.53.4
       '@unocss/extractor-arbitrary-variants': 0.53.4
-      '@unocss/postcss': 0.53.4(postcss@8.4.25)
+      '@unocss/postcss': 0.53.4(postcss@8.4.27)
       '@unocss/preset-attributify': 0.53.4
       '@unocss/preset-icons': 0.53.4
       '@unocss/preset-mini': 0.53.4

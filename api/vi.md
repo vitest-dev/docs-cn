@@ -15,7 +15,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.advanceTimersByTime(150)
   ```
 
@@ -28,7 +28,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-
+  
   await vi.advanceTimersByTimeAsync(150)
   ```
 
@@ -41,7 +41,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
     .advanceTimersToNextTimer() // log 3
@@ -56,7 +56,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-
+  
   vi.advanceTimersToNextTimerAsync() // log 1
     .advanceTimersToNextTimerAsync() // log 2
     .advanceTimersToNextTimerAsync() // log 3
@@ -82,25 +82,21 @@ import { vi } from 'vitest'
 
 ## vi.fn
 
-<<<<<<< HEAD
-- **类型:** `(fn?: Function) => CallableMockInstance`
-=======
-- **Type:** `(fn?: Function) => Mock`
->>>>>>> de1246ae1ed2371fdab0528f4f22d6e4fc88fbeb
+- **类型:** `(fn?: Function) => Mock`
 
   创建一个函数的模拟，尽管可以在没有一个的情况下启动。每次调用一个函数时，它都会存储它的调用参数、返回值和实例。此外，你可以使用 [methods](#mockinstance-methods) 操纵其行为。
   如果没有给出函数，mock 将在调用时返回 `undefined`。
 
   ```ts
   const getApples = vi.fn(() => 0)
-
+  
   getApples()
-
+  
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
-
+  
   getApples.mockReturnValueOnce(5)
-
+  
   const res = getApples()
   expect(res).toBe(5)
   expect(getApples).toHaveNthReturnedWith(2, 5)
@@ -148,19 +144,18 @@ import { vi } from 'vitest'
   ```ts
   import { expect, vi } from 'vitest'
   import { originalMethod } from './path/to/module.js'
-
+  
   const { mockedMethod } = vi.hoisted(() => {
     return { mockedMethod: vi.fn() }
   })
-
+  
   vi.mock('./path/to/module.js', () => {
     return { originalMethod: mockedMethod }
   })
-
+  
   mockedMethod.mockReturnValue(100)
   expect(originalMethod()).toBe(100)
   ```
-
 
 ## vi.mock
 
@@ -204,24 +199,25 @@ import { vi } from 'vitest'
 
   ```ts
   import { namedExport } from './path/to/module.js'
-
+  
   const mocks = vi.hoisted(() => {
     return {
       namedExport: vi.fn(),
     }
   })
-
+  
   vi.mock('./path/to/module.js', () => {
     return {
       namedExport: mocks.namedExport,
     }
   })
-
+  
   vi.mocked(namedExport).mockReturnValue(100)
-
+  
   expect(namedExport()).toBe(100)
   expect(namedExport).toBe(mocks.namedExport)
   ```
+
   :::
 
   ::: warning
@@ -265,10 +261,10 @@ import { vi } from 'vitest'
   
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
-
+  
   vi.mock('axios')
   vi.mock('../increment.js')
-
+  
   axios.get(`/apples/${increment(1)}`)
   ```
 
@@ -327,14 +323,14 @@ test('importing the next module imports mocked one', async () => {
 
   ```ts
   import example from './example.js'
-
+  
   vi.mock('./example.js')
-
+  
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
-
+  
     const res = example.calc(1, '+', 1)
-
+  
     expect(res).toBe(2)
   })
   ```
@@ -554,7 +550,7 @@ IntersectionObserver === undefined
     if (i === 3)
       clearInterval(interval)
   }, 50)
-
+  
   vi.runAllTimers()
   ```
 
@@ -568,7 +564,7 @@ IntersectionObserver === undefined
   setTimeout(async () => {
     console.log(await Promise.resolve('result'))
   }, 100)
-
+  
   await vi.runAllTimersAsync()
   ```
 
@@ -581,7 +577,7 @@ IntersectionObserver === undefined
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.runOnlyPendingTimers()
   ```
 
@@ -603,7 +599,7 @@ IntersectionObserver === undefined
       }, 40)
     })
   }, 10)
-
+  
   await vi.runOnlyPendingTimersAsync()
   ```
 
@@ -617,12 +613,12 @@ IntersectionObserver === undefined
 
   ```ts
   const date = new Date(1998, 11, 19)
-
+  
   vi.useFakeTimers()
   vi.setSystemTime(date)
-
+  
   expect(Date.now()).toBe(date.valueOf())
-
+  
   vi.useRealTimers()
   ```
 
@@ -643,12 +639,12 @@ IntersectionObserver === undefined
   const cart = {
     getApples: () => 13,
   }
-
+  
   const spy = vi.spyOn(cart, 'getApples').mockImplementation(() => apples)
   apples = 1
-
+  
   expect(cart.getApples()).toBe(1)
-
+  
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```

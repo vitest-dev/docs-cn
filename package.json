@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.34.1",
   "private": true,
-  "packageManager": "pnpm@8.6.10",
+  "packageManager": "pnpm@8.6.12",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
     "build": "nr prefetch && vitepress build",
@@ -38,7 +38,7 @@
     "https-localhost": "^4.7.1",
     "ohmyfetch": "^0.4.21",
     "pathe": "^0.3.9",
-    "pnpm": "8.6.10",
+    "pnpm": "8.6.12",
     "typescript": "5.0.4",
     "unocss": "^0.53.4",
     "unplugin-vue-components": "^0.25.1",
