@@ -102,6 +102,18 @@ interface TestOptions {
   })
   ```
 
+  You can also skip test by calling `skip` on its [context](/guide/test-context) dynamically:
+
+  ```ts
+  import { assert, test } from 'vitest'
+
+  test('skipped test', (context) => {
+    context.skip()
+    // Test skipped, no error
+    assert.equal(Math.sqrt(4), 3)
+  })
+  ```
+
 ### test.skipIf
 
 - **类型:** `(condition: any) => Test`

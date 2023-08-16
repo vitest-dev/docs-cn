@@ -27,7 +27,46 @@ it('should work', (ctx) => {
 
 #### `context.expect`
 
+<<<<<<< HEAD
 绑定到当前测试的 `expect` API。
+=======
+The `expect` API bound to the current test:
+
+```ts
+import { it } from 'vitest'
+
+it('math is easy', ({ expect }) => {
+  expect(2 + 2).toBe(4)
+})
+```
+
+This API is useful for running snapshot tests concurrently because global expect cannot track them:
+
+```ts
+import { it } from 'vitest'
+
+it.concurrent('math is easy', ({ expect }) => {
+  expect(2 + 2).toMatchInlineSnapshot()
+})
+
+it.concurrent('math is hard', ({ expect }) => {
+  expect(2 * 2).toMatchInlineSnapshot()
+})
+```
+
+#### `context.skip`
+
+Skips subsequent test execution and marks test as skipped:
+
+```ts
+import { expect, it } from 'vitest'
+
+it('math is hard', ({ skip }) => {
+  skip()
+  expect(2 + 2).toBe(5)
+})
+```
+>>>>>>> 3aad4f495d1222f357d857581fe6435940ba8ec4
 
 ## 扩展测试上下文
 
