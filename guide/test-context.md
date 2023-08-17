@@ -27,10 +27,7 @@ it('should work', (ctx) => {
 
 #### `context.expect`
 
-<<<<<<< HEAD
-绑定到当前测试的 `expect` API。
-=======
-The `expect` API bound to the current test:
+绑定到当前测试的 `expect` API:
 
 ```ts
 import { it } from 'vitest'
@@ -40,7 +37,7 @@ it('math is easy', ({ expect }) => {
 })
 ```
 
-This API is useful for running snapshot tests concurrently because global expect cannot track them:
+此 API 对于同时运行快照测试非常有用，因为全局 Expect 无法跟踪它们:
 
 ```ts
 import { it } from 'vitest'
@@ -56,7 +53,7 @@ it.concurrent('math is hard', ({ expect }) => {
 
 #### `context.skip`
 
-Skips subsequent test execution and marks test as skipped:
+跳过后续测试执行并将测试标记为已跳过：
 
 ```ts
 import { expect, it } from 'vitest'
@@ -66,7 +63,6 @@ it('math is hard', ({ skip }) => {
   expect(2 + 2).toBe(5)
 })
 ```
->>>>>>> 3aad4f495d1222f357d857581fe6435940ba8ec4
 
 ## 扩展测试上下文
 
@@ -100,7 +96,7 @@ export const myTest = test.extend({
     // cleanup the fixture after each test function
     todos.length = 0
   },
-  archive
+  archive,
 })
 ```
 
@@ -133,7 +129,7 @@ myTest('move items from todos to archive', ({ todos, archive }) => {
 export const myTest2 = myTest.extend({
   settings: {
     // ...
-  }
+  },
 })
 ```
 
@@ -150,7 +146,7 @@ async function todosFn({ task }, use) {
 
 const myTest = test.extend({
   todos: todosFn,
-  archive: []
+  archive: [],
 })
 
 // todosFn will not run
@@ -177,7 +173,7 @@ interface MyFixtures {
 
 const myTest = test.extend<MyFixtures>({
   todos: [],
-  archive: []
+  archive: [],
 })
 
 myTest('', (context) => {
