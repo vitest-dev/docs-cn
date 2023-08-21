@@ -205,8 +205,72 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
+<<<<<<< HEAD
 ::: tip 提醒
 你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
+=======
+::: tip
+You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` or `test.cache.dir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.optimizer?.[mode].force` option.
+:::
+
+#### deps.optimizer.{mode}.enabled
+
+- **Type:** `boolean`
+- **Default:** `true` if using >= Vite 4.3.2, `false` otherwise
+
+Enable dependency optimization.
+
+::: warning
+This option only works with Vite 4.3.2 and higher.
+:::
+
+#### deps.web
+
+- **Type:** `{ transformAssets?, ... }`
+- **Version:** Since Vite 0.34.2
+
+Options that are applied to external files when transform mode is set to `web`. By default, `jsdom` and `happy-dom` use `web` mode, while `node` and `edge` environments use `ssr` transform mode, so these options will have no affect on files inside those environments.
+
+Usually, files inside `node_modules` are externalized, but these options also affect files in [`server.deps.external`](#server-deps-external).
+
+#### deps.web.transformAssets
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Should Vitest process assets (.png, .svg, .jpg, etc) files and resolve them like Vite does in the browser.
+
+This module will have a default export equal to the path to the asset, if no query is specified.
+
+::: warning
+At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+:::
+
+#### deps.web.transformCss
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Should Vitest process CSS (.css, .scss, .sass, etc) files and resolve them like Vite does in the browser.
+
+If CSS files are disabled with [`css`](#css) options, this option will just silence `ERR_UNKNOWN_FILE_EXTENSION` errors.
+
+::: warning
+At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+:::
+
+#### deps.web.transformGlobPattern
+
+- **Type:** `RegExp | RegExp[]`
+- **Default:** `[]`
+
+Regexp pattern to match external files that should be transformed.
+
+By default, files inside `node_modules` are externalized and not transformed, unless it's CSS or an asset, and corresponding option is not disabled.
+
+::: warning
+At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+>>>>>>> 44196223441b2620f46fe7a07ca83fbd35ec8fc9
 :::
 
 #### deps.registerNodeLoader<NonProjectOption />
@@ -844,6 +908,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   '**/*{.,-}{test,spec}.?(c|m)[jt]s?(x)',
   '**/__tests__/**',
   '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+  '**/vitest.{workspace,projects}.[jt]s?(on)',
   '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
 ]
 ```
@@ -941,6 +1006,15 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **版本:** Vitest 0.31.2
 
 即使测试失败也会生成覆盖率报告。
+
+#### coverage.allowExternal
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
+
+Collect coverage of files outside the [project `root`](https://vitest.dev/config/#root).
 
 #### coverage.skipFull
 
