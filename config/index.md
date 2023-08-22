@@ -205,72 +205,67 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
-<<<<<<< HEAD
-::: tip 提醒
-你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
-=======
 ::: tip
-You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` or `test.cache.dir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.optimizer?.[mode].force` option.
+你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
 :::
 
 #### deps.optimizer.{mode}.enabled
 
-- **Type:** `boolean`
-- **Default:** `true` if using >= Vite 4.3.2, `false` otherwise
+- **类型:** `boolean`
+- **默认值:** `true` if using >= Vite 4.3.2, `false` otherwise
 
-Enable dependency optimization.
+启用依赖优化。
 
 ::: warning
-This option only works with Vite 4.3.2 and higher.
+此选项仅适用于 Vite 4.3.2 及更高版本。
 :::
 
 #### deps.web
 
-- **Type:** `{ transformAssets?, ... }`
-- **Version:** Since Vite 0.34.2
+- **类型:** `{ transformAssets?, ... }`
+- **版本:** Since Vite 0.34.2
 
-Options that are applied to external files when transform mode is set to `web`. By default, `jsdom` and `happy-dom` use `web` mode, while `node` and `edge` environments use `ssr` transform mode, so these options will have no affect on files inside those environments.
+当转换模式设置为 `web` 时应用于外部文件的选项。默认情况下，`jsdom` 和 `happy-dom` 使用 `web` 模式，而 `node` 和 `edge` 环境使用 `ssr` 转换模式，因此这些选项不会影响这些环境中的文件。
 
-Usually, files inside `node_modules` are externalized, but these options also affect files in [`server.deps.external`](#server-deps-external).
+通常，`node_modules` 内的文件是外部化的，但这些选项也会影响 [`server.deps.external`](#server-deps-external) 中的文件。
 
 #### deps.web.transformAssets
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Should Vitest process assets (.png, .svg, .jpg, etc) files and resolve them like Vite does in the browser.
+Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.jpg 等）文件并解析它们。
 
-This module will have a default export equal to the path to the asset, if no query is specified.
+如果未指定查询，此模块将具有等同于资产路径的默认导出。
 
 ::: warning
-At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
 :::
 
 #### deps.web.transformCss
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Should Vitest process CSS (.css, .scss, .sass, etc) files and resolve them like Vite does in the browser.
+Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sass 等）文件并解析它们。
 
-If CSS files are disabled with [`css`](#css) options, this option will just silence `ERR_UNKNOWN_FILE_EXTENSION` errors.
+如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
-At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
+目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
 :::
 
 #### deps.web.transformGlobPattern
 
-- **Type:** `RegExp | RegExp[]`
-- **Default:** `[]`
+- **类型:** `RegExp | RegExp[]`
+- **默认值:** `[]`
 
-Regexp pattern to match external files that should be transformed.
+正则表达式模式匹配应转换的外部文件。
 
-By default, files inside `node_modules` are externalized and not transformed, unless it's CSS or an asset, and corresponding option is not disabled.
+默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
-At the moment, this option only works with [`experimentalVmThreads`](#experimentalvmthreads) pool.
->>>>>>> 44196223441b2620f46fe7a07ca83fbd35ec8fc9
+目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
 :::
 
 #### deps.registerNodeLoader<NonProjectOption />
