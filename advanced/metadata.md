@@ -1,14 +1,14 @@
-# Task Metadata
+# 任务元数据
 
 ::: warning
-Vitest exposes experimental private API. Breaking changes might not follow semver, please pin Vitest's version when using it.
+Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。
 :::
 
-If you are developing a custom reporter or using Vitest Node.js API, you might find it useful to pass data from tests that are being executed in various contexts to your reporter or custom Vitest handler.
+如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。
 
-To accomplish this, relying on the [test context](/guide/test-context) is not feasible since it cannot be serialized. However, with Vitest, you can utilize the `meta` property available on every task (suite or test) to share data between your tests and the Node.js process. It's important to note that this communication is one-way only, as the `meta` property can only be modified from within the test context. Any changes made within the Node.js context will not be visible in your tests.
+要实现此目的，依靠 [测试上下文](/guide/test-context) 是不可行的，因为它无法序列化。但是，使用 Vitest 时，你可以利用每个任务（套件或测试）上可用的 `meta` 属性在测试和 Node.js 进程之间共享数据。值得注意的是，这种通信只是单向的，因为 `meta` 属性只能在测试上下文中修改。Node.js 上下文中所做的任何更改在你的测试中都将不可见。
 
-You can populate `meta` property on test context or inside `beforeAll`/`afterAll` hooks for suite tasks.
+你可以在测试上下文中或在套件任务的 `beforeAll`/`afterAll` 钩子中填充 `meta` 属性。
 
 ```ts
 afterAll((suite) => {
@@ -20,7 +20,7 @@ test('custom', ({ task }) => {
 })
 ```
 
-Once a test is completed, Vitest will send a task including the result and `meta` to the Node.js process using RPC. To intercept and process this task, you can utilize the `onTaskUpdate` method available in your reporter implementation:
+一旦测试完成，Vitest 将使用 RPC 将包含结果和 `meta` 的任务发送到 Node.js 进程。要拦截和处理此任务，你可以利用报告器实现中可用的 `onTaskUpdate` 方法：
 
 ```ts
 // custom-reporter.js
@@ -33,27 +33,27 @@ export default {
   onFinished(files) {
     files[0].meta.done === true
     files[0].tasks[0].meta.custom === 'some-custom-handler'
-  }
+  },
 }
 ```
 
 ::: warning
-Vitest can send several tasks at the same time if several tests are completed in a short period of time.
+如果短时间内完成多个测试，Vitest 可以同时发送多个任务。
 :::
 
 ::: danger BEWARE
-Vitest uses different methods to communicate with the Node.js process.
+Vitest 使用不同的方法与 Node.js 进程进行通信。
 
-- If Vitest runs tests inside worker threads, it will send data via [message port](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)
-- If Vitest uses child process, the data will be send as a serialized Buffer via [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API
-- If Vitest run tests in the browser, the data will be stringified using [flatted](https://www.npmjs.com/package/flatted) package
+- 如果 Vitest 在工作线程内运行测试，它将通过[消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)发送数据
+- 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
+- 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
 
-The general rule of thumb is that you can send almost anything, except for functions, Promises, regexp (`v8.stringify` cannot serialize it, but you can send a string version and parse it in the Node.js process yourself), and other non-serializable data, but you can have cyclic references inside.
+一般经验法则是，你几乎可以发送任何内容，除了函数、Promises、regexp（`v8.stringify` 无法序列化它，但你可以发送字符串版本并自己在 Node.js 进程中解析它），以及其他不可序列化的数据，但内部可以有循环引用。
 
-Also, make sure you serialize [Error properties](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types) before you set them.
+另外，请确保在设置[错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types)之前序列化它们。
 :::
 
-You can also get this information from Vitest state when tests finished running:
+当测试运行完成时，你还可以从 Vitest 状态获取此信息：
 
 ```ts
 const vitest = await createVitest('test')
