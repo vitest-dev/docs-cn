@@ -73,6 +73,21 @@ export default mergeConfig(
 `mergeConfig` helper 在 Vitest v0.30.0 之后可用。如果你使用低版本，你可以直接从 `vite` 导入它。
 :::
 
+If your vite config is defined as a function, you can define the config like this:
+```ts
+import { defineConfig, mergeConfig } from 'vitest/config'
+import viteConfig from './vite.config'
+
+export default defineConfig(configEnv => mergeConfig(
+  viteConfig(configEnv),
+  defineConfig({
+    test: {
+      exclude: ['packages/template/*'],
+    },
+  })
+))
+```
+
 ## Options
 
 ::: tip
