@@ -6,7 +6,7 @@ outline: deep
 
 ## 配置
 
-`vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用程序。如果你想使用不同的配置进行测试，你可以：
+`vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用程序。如果想使用不同的配置进行测试，你可以：
 
 - 创建 `vitest.config.ts`，优先级更高。
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts` 。
@@ -70,22 +70,25 @@ export default mergeConfig(
 ```
 
 ::: warning
-`mergeConfig` helper 在 Vitest v0.30.0 之后可用。如果你使用低版本，你可以直接从 `vite` 导入它。
+`mergeConfig` helper 在 Vitest v0.30.0 之后可用。如果使用低版本，你可以直接从 `vite` 导入它。
 :::
 
-If your vite config is defined as a function, you can define the config like this:
+如果你的 vite 配置被定义为一个函数，可以像这样定义配置：
+
 ```ts
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
-export default defineConfig(configEnv => mergeConfig(
-  viteConfig(configEnv),
-  defineConfig({
-    test: {
-      exclude: ['packages/template/*'],
-    },
-  })
-))
+export default defineConfig(configEnv =>
+  mergeConfig(
+    viteConfig(configEnv),
+    defineConfig({
+      test: {
+        exclude: ['packages/template/*'],
+      },
+    })
+  )
+)
 ```
 
 ## Options
