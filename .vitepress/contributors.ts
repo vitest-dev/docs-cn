@@ -80,8 +80,8 @@ const plainTeamMembers: CoreTeam[] = [
     avatar: contributorsAvatars.AriPerkkio,
     name: 'Ari Perkkiö',
     github: 'AriPerkkio',
-    title: 'A fullstack developer, working',
-    desc: 'Team member of Vitest',
+    title: '全栈开发人员, 在 Cloudamite 工作',
+    desc: 'Vitest 团队成员',
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
   },
@@ -103,8 +103,8 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'userquin',
     mastodon: 'https://elk.zone/m.webtoo.ls/@userquin',
     twitter: 'userquin',
-    title: 'A fullstack and android developer',
-    desc: 'Vite\'s fanatical follower',
+    title: '全栈和安卓开发者',
+    desc: 'Vite 的狂热追随者',
   },
   {
     avatar: contributorsAvatars.Aslemammad,
@@ -125,15 +125,6 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'fluent-vue 的作者',
   },
   {
-    avatar: contributorsAvatars.userquin,
-    name: 'Joaquín Sánchez',
-    github: 'userquin',
-    mastodon: 'https://elk.zone/m.webtoo.ls/@userquin',
-    twitter: 'userquin',
-    title: '全栈和安卓开发者',
-    desc: 'Vite 的狂热追随者',
-  },
-  {
     avatar: contributorsAvatars.zxch3n,
     name: 'Zixuan Chen',
     github: 'zxch3n',
@@ -150,15 +141,7 @@ const plainTeamMembers: CoreTeam[] = [
     title: '我写的代码在我电脑上绝对没问题',
     desc: 'Vite 核心团队成员 和 Vitest 团队成员',
   },
-  {
-    avatar: contributorsAvatars.AriPerkkio,
-    name: 'Ari Perkkiö',
-    github: 'AriPerkkio',
-    title: '全栈开发人员, 在 Cloudamite 工作',
-    desc: 'Vitest 团队成员',
-    org: 'Cloudamite',
-    orgLink: 'https://cloudamite.com/',
-  },
+  
 ]
 
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))
