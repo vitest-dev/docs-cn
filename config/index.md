@@ -1339,7 +1339,7 @@ export interface BrowserProvider {
 - **类型:** `{ web?, ssr? }`
 - **版本:** Since Vitest 0.34.0
 
-确定与测试中的全局模式匹配的所有导入模块的转换方法。默认情况下，依赖于环境。例如，使用 JSDOM 环境的测试将处理所有带有 `ssr: false` 标志的文件，而使用 Node 环境的测试将处理所有带有 `ssr: true` 的模块。
+确定与测试中的 glob 模式匹配的所有导入模块的转换方法。默认情况下，依赖于环境。例如，使用 JSDOM 环境的测试将处理所有带有 `ssr: false` 标志的文件，而使用 Node 环境的测试将处理所有带有 `ssr: true` 的模块。
 
 #### testTransformMode.ssr
 
