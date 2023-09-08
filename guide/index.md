@@ -77,7 +77,7 @@ test('adds 1 + 2 to equal 3', () => {
 
 最后，运行 `npm run test`、`yarn test` 或 `pnpm test`，具体取决于你的包管理器，Vitest 将打印此消息：
 
-```log
+```txt
 ✓ sum.test.js (1)
   ✓ adds 1 + 2 to equal 3
 
