@@ -1675,4 +1675,30 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **命令行终端:** `--retry=<value>`
 - **版本:** Since Vitest 0.32.3
 
+<<<<<<< HEAD
 如果测试失败，请重试特定次数的测试。
+=======
+Retry the test specific number of times if it fails.
+
+### onConsoleLog
+
+- **Type**: `(log: string, type: 'stdout' | 'stderr') => false | void`
+
+Custom handler for `console.log` in tests. If you return `false`, Vitest will not print the log to the console.
+
+Can be useful for filtering out logs from third-party libraries.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    onConsoleLog(log: string, type: 'stdout' | 'stderr'): boolean | void {
+      if (log === 'message from third party library' && type === 'stdout')
+        return false
+    },
+  },
+})
+```
+
+>>>>>>> ceaeb9eef5c379d63836ad377dd3e0dd75ce4dab
