@@ -1119,12 +1119,21 @@ Collect coverage of files outside the [project `root`](https://vitest.dev/config
 
 #### coverage.100
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.100`, `--coverage.100=false`
 
 为 `--check-coverage --lines 100 --functions 100 --branches 100 --statements 100` 设置的快捷方式。
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.100`, `--coverage.100=false`
+
+Shortcut for `--coverage.lines 100 --coverage.functions 100 --coverage.branches 100 --coverage.statements 100`.
+>>>>>>> f9b48c06847dafa1e3f0b6b9d4aeb3ba92ce3a26
 
 #### coverage.ignoreClassMethods
 
