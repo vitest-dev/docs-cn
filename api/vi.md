@@ -432,17 +432,6 @@ import.meta.env.MODE === 'development'
 import.meta.env.MODE = 'test'
 ```
 
-:::
-
-<<<<<<< HEAD
-:::warning
-Vitest 将所有 `import.meta.env` 调用转换为 `process.env`，因此它们可以在运行时轻松更改。 Node.js 只支持字符串值作为 env 参数，而 Vite 支持几种内置的 env 作为布尔值（即 `SSR`、`DEV`、`PROD`）。 为了模仿 Vite，将 "truthy" 值设置为 env：`''` 而不是 `false`，`'1'` 而不是 `true`。
-
-但请注意，在这种情况下，你不能使用 `import.meta.env.DEV === false`。使用 `!import.meta.env.DEV`。这也会影响简单的分配，而不仅仅是 `vi.stubEnv` 方法。
-:::
-
-=======
->>>>>>> f9b48c06847dafa1e3f0b6b9d4aeb3ba92ce3a26
 ## vi.unstubAllEnvs
 
 - **类型:** `() => Vitest`
