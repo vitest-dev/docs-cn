@@ -255,10 +255,10 @@ import { vi } from 'vitest'
   ```ts
   // increment.test.js
   import { vi } from 'vitest'
-  
+
   // axios is a default export from `__mocks__/axios.js`
   import axios from 'axios'
-  
+
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
   
@@ -346,6 +346,52 @@ test('importing the next module imports mocked one', async () => {
     const axios = await vi.importActual('./example.js')
     return { ...axios, get: vi.fn() }
   })
+<<<<<<< HEAD
+=======
+   ```
+
+## vi.importMock
+
+- **Type**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
+
+  Imports a module with all of its properties (including nested properties) mocked. Follows the same rules that [`vi.mock`](#vi-mock) follows. For the rules applied, see [algorithm](/guide/mocking#automocking-algorithm).
+
+## vi.resetAllMocks
+
+  Will call [`.mockReset()`](/api/mock#mockreset) on all spies. This will clear mock history and reset its implementation to an empty function (will return `undefined`).
+
+## vi.resetConfig
+
+- **Type**: `RuntimeConfig`
+
+  If [`vi.setConfig`](#vi-setconfig) was called before, this will reset config to the original state.
+
+## vi.resetModules
+
+- **Type**: `() => Vitest`
+
+  Resets modules registry by clearing cache of all modules. This allows modules to be reevaluated when reimported. Top-level imports cannot be reevaluated. Might be useful to isolate modules where local state conflicts between tests.
+
+  ```ts
+  import { vi } from 'vitest'
+
+  import { data } from './data.js' // Will not get reevaluated beforeEach test
+
+  beforeEach(() => {
+    vi.resetModules()
+  })
+
+  test('change state', async () => {
+    const mod = await import('./some/path.js') // Will get reevaluated
+    mod.changeLocalState('new value')
+    expect(mod.getLocalState()).toBe('new value')
+  })
+
+  test('module has old state', async () => {
+    const mod = await import('./some/path.js') // Will get reevaluated
+    expect(mod.getLocalState()).toBe('old value')
+  })
+>>>>>>> fd71e1d4e7a2243233f094e382960aeb39cea5cf
   ```
 
 ## vi.importMock
@@ -703,8 +749,104 @@ unmockedIncrement(30) === 31
 
   该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
+## vi.isFakeTimers
+
+- **Type:** `() => boolean`
+- **Version:** Since Vitest 0.34.5
+
+  Returns `true` if fake timers are enabled.
+
 ## vi.useRealTimers
 
 - **类型:** `() => Vitest`
 
+<<<<<<< HEAD
   当计时器用完时，你可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都不会恢复。
+=======
+  When timers are run out, you may call this method to return mocked timers to its original implementations. All timers that were run before will not be restored.
+
+### vi.waitFor
+
+- **Type:** `function waitFor<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions): Promise<T>`
+- **Version**: Since Vitest 0.34.5
+
+Wait for the callback to execute successfully. If the callback throws an error or returns a rejected promise it will continue to wait until it succeeds or times out.
+
+This is very useful when you need to wait for some asynchronous action to complete, for example, when you start a server and need to wait for it to start.
+
+```ts
+import { expect, test, vi } from 'vitest'
+import { createServer } from './server.js'
+
+test('Server started successfully', async () => {
+  const server = createServer()
+
+  await vi.waitFor(
+    () => {
+      if (!server.isReady)
+        throw new Error('Server not started')
+
+      console.log('Server started')
+    }, {
+      timeout: 500, // default is 1000
+      interval: 20, // default is 50
+    }
+  )
+  expect(server.isReady).toBe(true)
+})
+```
+
+It also works for asynchronous callbacks
+
+```ts
+// @vitest-environment jsdom
+
+import { expect, test, vi } from 'vitest'
+import { getDOMElementAsync, populateDOMAsync } from './dom.js'
+
+test('Element exists in a DOM', async () => {
+  // start populating DOM
+  populateDOMAsync()
+
+  const element = await vi.waitFor(async () => {
+    // try to get the element until it exists
+    const element = await getDOMElementAsync() as HTMLElement | null
+    expect(element).toBeTruthy()
+    expect(element.dataset.initialized).toBeTruthy()
+    return element
+  }, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
+  expect(element).toBeInstanceOf(HTMLElement)
+})
+```
+
+If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
+
+### vi.waitUntil
+
+- **Type:** `function waitUntil(callback: WaitUntilCallback, options?: number | WaitUntilOptions): Promise`
+- **Version**: Since Vitest 0.34.5
+
+This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
+
+Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
+
+```ts
+import { expect, test, vi } from 'vitest'
+
+test('Element render correctly', async () => {
+  const element = await vi.waitUntil(
+    () => document.querySelector('.element'),
+    {
+      timeout: 500, // default is 1000
+      interval: 20, // default is 50
+    }
+  )
+
+  // do something with the element
+  expect(element.querySelector('.element-child')).toBeTruthy()
+})
+```
+>>>>>>> fd71e1d4e7a2243233f094e382960aeb39cea5cf
