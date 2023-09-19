@@ -1697,3 +1697,34 @@ export default defineConfig({
   },
 })
 ```
+
+### diff
+
+- **类型:** `string`
+- **命令行终端:** `--diff=<value>`
+- **版本:** 从 Vitest 0.34.5 开始支持
+
+生成差异界面时使用的不同配置的路径。如果你想自定义差异显示，这将非常有用。
+
+:::code-group
+```ts [vitest.diff.ts]
+import type { DiffOptions } from 'vitest'
+import c from 'picocolors'
+
+export default {
+  aIndicator: c.bold('--'),
+  bIndicator: c.bold('++'),
+  omitAnnotationLines: true,
+} satisfies DiffOptions
+```
+
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    diff: './vitest.diff.ts'
+  }
+})
+```
+:::

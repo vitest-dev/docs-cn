@@ -368,7 +368,7 @@ test('importing the next module imports mocked one', async () => {
 
 - **类型**: `() => Vitest`
 
-  通过清除所有模块的缓存来重置模块注册表。这样在重新导入时可以重新评估模块。顶级导入无法重新评估。这对于在测试之间隔离模块并解决本地状态冲突可能很有用。
+通过清除所有模块的缓存来重置模块注册表。这样在重新导入时可以重新评估模块。顶级导入无法重新评估。这对于在测试之间隔离模块并解决本地状态冲突可能很有用。
 
   ```ts
   import { vi } from 'vitest'
@@ -817,3 +817,29 @@ test('Server started successfully', async () => {
 ```
 
 如果使用了 `vi.useFakeTimers`，`vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)`。
+
+### vi.waitUntil
+
+- **类型:** `function waitUntil(callback: WaitUntilCallback, options?: number | WaitUntilOptions): Promise`
+- **版本**: 从 Vitest 0.34.5 开始支持
+
+这与 `vi.waitFor` 类似，但如果回调函数抛出任何错误，执行将立即中断并接收到错误消息。如果回调函数返回假值，下一个检查将继续进行，直到返回真值为止。当您需要在进行下一步之前等待某个元素存在时，这非常有用。
+
+请看下面的示例。我们可以使用 `vi.waitUntil` 来等待页面上的元素出现，然后我们可以对该元素进行操作。
+
+```ts
+import { expect, test, vi } from 'vitest'
+
+test('Element render correctly', async () => {
+  const element = await vi.waitUntil(
+    () => document.querySelector('.element'),
+    {
+      timeout: 500, // default is 1000
+      interval: 20, // default is 50
+    }
+  )
+
+  // do something with the element
+  expect(element.querySelector('.element-child')).toBeTruthy()
+})
+```
