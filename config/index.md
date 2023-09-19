@@ -1697,16 +1697,14 @@ export default defineConfig({
   },
 })
 ```
-<<<<<<< HEAD
-=======
 
 ### diff
 
-- **Type:** `string`
-- **CLI:** `--diff=<value>`
-- **Version:** Since Vitest 0.34.5
+- **类型:** `string`
+- **命令行终端:** `--diff=<value>`
+- **版本:** 从 Vitest 0.34.5 开始支持
 
-Path to a diff config that will be used to generate diff interface. Useful if you want to customize diff display.
+生成差异界面时使用的不同配置的路径。如果你想自定义差异显示，这将非常有用。
 
 :::code-group
 ```ts [vitest.diff.ts]
@@ -1730,4 +1728,3 @@ export default defineConfig({
 })
 ```
 :::
->>>>>>> ebdeb672cef81eb24a5eb3b148fcc0e5d2f971c2
