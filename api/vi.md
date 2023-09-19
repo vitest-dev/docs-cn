@@ -255,10 +255,10 @@ import { vi } from 'vitest'
   ```ts
   // increment.test.js
   import { vi } from 'vitest'
-  
+
   // axios is a default export from `__mocks__/axios.js`
   import axios from 'axios'
-  
+
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
   
@@ -345,6 +345,49 @@ test('importing the next module imports mocked one', async () => {
   vi.mock('./example.js', async () => {
     const axios = await vi.importActual('./example.js')
     return { ...axios, get: vi.fn() }
+  })
+  ```
+
+## vi.importMock
+
+- **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
+
+  导入一个模块，并将其所有属性（包括嵌套属性）进行模拟。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [algorithm](/guide/mocking#automocking-algorithm)。
+
+## vi.resetAllMocks
+
+  将在所有间谍上调用 [`.mockReset()`](/api/mock#mockreset)。这将清除模拟历史记录并将其实现重置为一个空函数（将返回 `undefined`）。
+
+## vi.resetConfig
+
+- **类型**: `RuntimeConfig`
+
+  如果在此之前调用了 [`vi.setConfig`](#vi-setconfig)，这将将配置重置为原始状态。
+
+## vi.resetModules
+
+- **类型**: `() => Vitest`
+
+  通过清除所有模块的缓存来重置模块注册表。这样在重新导入时可以重新评估模块。顶级导入无法重新评估。这对于在测试之间隔离模块并解决本地状态冲突可能很有用。
+  
+  ```ts
+  import { vi } from 'vitest'
+
+  import { data } from './data.js' // Will not get reevaluated beforeEach test
+
+  beforeEach(() => {
+    vi.resetModules()
+  })
+
+  test('change state', async () => {
+    const mod = await import('./some/path.js') // Will get reevaluated
+    mod.changeLocalState('new value')
+    expect(mod.getLocalState()).toBe('new value')
+  })
+
+  test('module has old state', async () => {
+    const mod = await import('./some/path.js') // Will get reevaluated
+    expect(mod.getLocalState()).toBe('old value')
   })
   ```
 
@@ -703,8 +746,74 @@ unmockedIncrement(30) === 31
 
   该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
+## vi.isFakeTimers
+
+- **类型:** `() => boolean`
+- **版本:** 从 Vitest 0.34.5 开始支持
+
+  如果启用了虚拟计时器，则返回 `true`。
+
 ## vi.useRealTimers
 
 - **类型:** `() => Vitest`
 
   当计时器用完时，你可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都不会恢复。
+
+### vi.waitFor
+
+- **类型:** `function waitFor<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions): Promise<T>`
+- **版本**: 从 Vitest 0.34.5 开始支持
+
+等待回调成功执行。如果回调抛出错误或返回一个被拒绝的 Promise，它将继续等待，直到成功或超时。
+
+当您需要等待某些异步操作完成时，这非常有用，例如，当您启动服务器并需要等待它启动时。
+
+```ts
+import { test, vi } from 'vitest'
+
+test('Server started successfully', async () => {
+  let server = false
+
+  setTimeout(() => {
+    server = true
+  }, 100)
+
+  function checkServerStart() {
+    if (!server)
+      throw new Error('Server not started')
+
+    console.log('Server started')
+  }
+
+  const res = await vi.waitFor(checkServerStart, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
+  expect(server).toBe(true)
+})
+```
+
+它也适用于异步回调。
+
+```ts
+import { test, vi } from 'vitest'
+
+test('Server started successfully', async () => {
+  async function startServer() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        server = true
+        resolve('Server started')
+      }, 100)
+    })
+  }
+
+  const server = await vi.waitFor(startServer, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
+  expect(server).toBe('Server started')
+})
+```
+
+如果使用了 `vi.useFakeTimers`，`vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)`。
