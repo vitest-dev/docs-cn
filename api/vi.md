@@ -15,7 +15,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-  
+
   vi.advanceTimersByTime(150)
   ```
 
@@ -28,7 +28,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-  
+
   await vi.advanceTimersByTimeAsync(150)
   ```
 
@@ -41,7 +41,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-  
+
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
     .advanceTimersToNextTimer() // log 3
@@ -56,7 +56,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-  
+
   vi.advanceTimersToNextTimerAsync() // log 1
     .advanceTimersToNextTimerAsync() // log 2
     .advanceTimersToNextTimerAsync() // log 3
@@ -89,14 +89,14 @@ import { vi } from 'vitest'
 
   ```ts
   const getApples = vi.fn(() => 0)
-  
+
   getApples()
-  
+
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
-  
+
   getApples.mockReturnValueOnce(5)
-  
+
   const res = getApples()
   expect(res).toBe(5)
   expect(getApples).toHaveNthReturnedWith(2, 5)
@@ -144,15 +144,15 @@ import { vi } from 'vitest'
   ```ts
   import { expect, vi } from 'vitest'
   import { originalMethod } from './path/to/module.js'
-  
+
   const { mockedMethod } = vi.hoisted(() => {
     return { mockedMethod: vi.fn() }
   })
-  
+
   vi.mock('./path/to/module.js', () => {
     return { originalMethod: mockedMethod }
   })
-  
+
   mockedMethod.mockReturnValue(100)
   expect(originalMethod()).toBe(100)
   ```
@@ -199,21 +199,21 @@ import { vi } from 'vitest'
 
   ```ts
   import { namedExport } from './path/to/module.js'
-  
+
   const mocks = vi.hoisted(() => {
     return {
       namedExport: vi.fn(),
     }
   })
-  
+
   vi.mock('./path/to/module.js', () => {
     return {
       namedExport: mocks.namedExport,
     }
   })
-  
+
   vi.mocked(namedExport).mockReturnValue(100)
-  
+
   expect(namedExport()).toBe(100)
   expect(namedExport).toBe(mocks.namedExport)
   ```
@@ -261,10 +261,10 @@ import { vi } from 'vitest'
 
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
-  
+
   vi.mock('axios')
   vi.mock('../increment.js')
-  
+
   axios.get(`/apples/${increment(1)}`)
   ```
 
@@ -323,14 +323,14 @@ test('importing the next module imports mocked one', async () => {
 
   ```ts
   import example from './example.js'
-  
+
   vi.mock('./example.js')
-  
+
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
-  
+
     const res = example.calc(1, '+', 1)
-  
+
     expect(res).toBe(2)
   })
   ```
@@ -369,7 +369,7 @@ test('importing the next module imports mocked one', async () => {
 - **类型**: `() => Vitest`
 
   通过清除所有模块的缓存来重置模块注册表。这样在重新导入时可以重新评估模块。顶级导入无法重新评估。这对于在测试之间隔离模块并解决本地状态冲突可能很有用。
-  
+
   ```ts
   import { vi } from 'vitest'
 
@@ -585,7 +585,7 @@ IntersectionObserver === undefined
     if (i === 3)
       clearInterval(interval)
   }, 50)
-  
+
   vi.runAllTimers()
   ```
 
@@ -599,7 +599,7 @@ IntersectionObserver === undefined
   setTimeout(async () => {
     console.log(await Promise.resolve('result'))
   }, 100)
-  
+
   await vi.runAllTimersAsync()
   ```
 
@@ -612,7 +612,7 @@ IntersectionObserver === undefined
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-  
+
   vi.runOnlyPendingTimers()
   ```
 
@@ -634,7 +634,7 @@ IntersectionObserver === undefined
       }, 40)
     })
   }, 10)
-  
+
   await vi.runOnlyPendingTimersAsync()
   ```
 
@@ -648,12 +648,12 @@ IntersectionObserver === undefined
 
   ```ts
   const date = new Date(1998, 11, 19)
-  
+
   vi.useFakeTimers()
   vi.setSystemTime(date)
-  
+
   expect(Date.now()).toBe(date.valueOf())
-  
+
   vi.useRealTimers()
   ```
 
@@ -674,12 +674,12 @@ IntersectionObserver === undefined
   const cart = {
     getApples: () => 13,
   }
-  
+
   const spy = vi.spyOn(cart, 'getApples').mockImplementation(() => apples)
   apples = 1
-  
+
   expect(cart.getApples()).toBe(1)
-  
+
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
@@ -757,7 +757,7 @@ unmockedIncrement(30) === 31
 
 - **类型:** `() => Vitest`
 
-  当计时器用完时，你可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都不会恢复。
+当计时器用完时，你可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都不会恢复。
 
 ### vi.waitFor
 
