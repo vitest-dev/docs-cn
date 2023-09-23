@@ -441,15 +441,6 @@ test('module has old state', async () => {
 
 将对所有模拟调用 [`.mockRestore()`](/api/mock.html#mockrestore)。这将清除模拟历史并将其实现重置为原始历史。
 
-<<<<<<< HEAD
-## vi.restoreCurrentDate
-
-- **类型:** `() => void`
-
-  将 `Date` 恢复为其本机实现。
-
-=======
->>>>>>> b411438f76d80848ce2f3c991cf67eecdfaea1ce
 ## vi.stubEnv
 
 - **类型:** `(name: string, value: string) => Vitest`
