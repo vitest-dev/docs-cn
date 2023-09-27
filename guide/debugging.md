@@ -74,7 +74,7 @@ Vitest 还支持在没有 IDE 的情况下调试测试。然而，这要求测�
 vitest --inspect-brk --single-thread
 
 # To run in a child process
-vitest --inspect-brk --no-threads
+vitest --inspect-brk  --single-thread --no-threads
 ```
 
 一旦 Vitest 启动，它将停止执行并等待你打开可以连接到 [NodeJS 检查器](https://nodejs.org/en/docs/guides/debugging-getting-started/) 的开发人员工具。 你可以通过在浏览器上打开 `chrome://inspect` 来使用 Chrome DevTools。

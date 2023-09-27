@@ -278,7 +278,11 @@ import { vi } from 'vitest'
 
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
+<<<<<<< HEAD
   与 [`vi.mock`](#vi-mock) 相同，但它不会提升到文件顶部，因此您可以在全局文件范围内引用变量。模块的下一次导入将被模拟。这不会模拟在调用之前导入的模块。
+=======
+  The same as [`vi.mock`](#vi-mock), but it's not hoisted at the top of the file, so you can reference variables in the global file scope. The next [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) of the module will be mocked. This will not mock modules that were imported before this was called.
+>>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
 
 ```ts
 // ./increment.js
@@ -305,7 +309,7 @@ test('importing the next module imports mocked one', async () => {
   // original import WAS NOT MOCKED, because vi.doMock is evaluated AFTER imports
   expect(increment(1)).toBe(2)
   const { increment: mockedIncrement } = await import('./increment.js')
-  // new import returns mocked module
+  // new dynamic import returns mocked module
   expect(mockedIncrement(1)).toBe(101)
   expect(mockedIncrement(1)).toBe(102)
   expect(mockedIncrement(1)).toBe(103)
@@ -738,7 +742,18 @@ unmockedIncrement(30) === 31
 
   要启用模拟计时器，你需要调用此方法。它将包装所有对计时器的进一步调用（例如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`），直到 [`vi. useRealTimers()`](#vi-userealtimers) 被调用。
 
+<<<<<<< HEAD
   该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
+=======
+  Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--no-threads`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--threads`.
+
+  The implementation is based internally on [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+>>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
+
+  ::: tip
+  Since version `0.35.0` `vi.useFakeTimers()` no longer automatically mocks `process.nextTick`.
+  It can still be mocked by specyfing the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick'] })`.
+  :::
 
 ## vi.isFakeTimers
 
@@ -753,10 +768,15 @@ unmockedIncrement(30) === 31
 
 当计时器用完时，你可以调用此方法将模拟计时器返回到其原始实现。之前运行的所有计时器都不会恢复。
 
-### vi.waitFor
+## vi.waitFor
 
+<<<<<<< HEAD
 - **类型:** `function waitFor<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions): Promise<T>`
 - **版本**: 从 Vitest 0.34.5 开始支持
+=======
+- **Type:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
+- **Version**: Since Vitest 0.34.5
+>>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
 
 等待回调成功执行。如果回调抛出错误或返回一个被拒绝的 Promise，它将继续等待，直到成功或超时。
 
@@ -812,10 +832,15 @@ test('Server started successfully', async () => {
 
 如果使用了 `vi.useFakeTimers`，`vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)`。
 
-### vi.waitUntil
+## vi.waitUntil
 
+<<<<<<< HEAD
 - **类型:** `function waitUntil(callback: WaitUntilCallback, options?: number | WaitUntilOptions): Promise`
 - **版本**: 从 Vitest 0.34.5 开始支持
+=======
+- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
+- **Version**: Since Vitest 0.34.5
+>>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
 
 这与 `vi.waitFor` 类似，但如果回调函数抛出任何错误，执行将立即中断并接收到错误消息。如果回调函数返回假值，下一个检查将继续进行，直到返回真值为止。当您需要在进行下一步之前等待某个元素存在时，这非常有用。
 
