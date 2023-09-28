@@ -15,7 +15,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.advanceTimersByTime(150)
   ```
 
@@ -28,7 +28,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-
+  
   await vi.advanceTimersByTimeAsync(150)
   ```
 
@@ -41,7 +41,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.advanceTimersToNextTimer() // log 1
     .advanceTimersToNextTimer() // log 2
     .advanceTimersToNextTimer() // log 3
@@ -56,7 +56,7 @@ import { vi } from 'vitest'
   ```ts
   let i = 0
   setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
-
+  
   vi.advanceTimersToNextTimerAsync() // log 1
     .advanceTimersToNextTimerAsync() // log 2
     .advanceTimersToNextTimerAsync() // log 3
@@ -89,14 +89,14 @@ import { vi } from 'vitest'
 
   ```ts
   const getApples = vi.fn(() => 0)
-
+  
   getApples()
-
+  
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveReturnedWith(0)
-
+  
   getApples.mockReturnValueOnce(5)
-
+  
   const res = getApples()
   expect(res).toBe(5)
   expect(getApples).toHaveNthReturnedWith(2, 5)
@@ -144,15 +144,15 @@ import { vi } from 'vitest'
   ```ts
   import { expect, vi } from 'vitest'
   import { originalMethod } from './path/to/module.js'
-
+  
   const { mockedMethod } = vi.hoisted(() => {
     return { mockedMethod: vi.fn() }
   })
-
+  
   vi.mock('./path/to/module.js', () => {
     return { originalMethod: mockedMethod }
   })
-
+  
   mockedMethod.mockReturnValue(100)
   expect(originalMethod()).toBe(100)
   ```
@@ -199,21 +199,21 @@ import { vi } from 'vitest'
 
   ```ts
   import { namedExport } from './path/to/module.js'
-
+  
   const mocks = vi.hoisted(() => {
     return {
       namedExport: vi.fn(),
     }
   })
-
+  
   vi.mock('./path/to/module.js', () => {
     return {
       namedExport: mocks.namedExport,
     }
   })
-
+  
   vi.mocked(namedExport).mockReturnValue(100)
-
+  
   expect(namedExport()).toBe(100)
   expect(namedExport).toBe(mocks.namedExport)
   ```
@@ -255,16 +255,16 @@ import { vi } from 'vitest'
   ```ts
   // increment.test.js
   import { vi } from 'vitest'
-
+  
   // axios is a default export from `__mocks__/axios.js`
   import axios from 'axios'
-
+  
   // increment is a named export from `src/__mocks__/increment.js`
   import { increment } from '../increment.js'
-
+  
   vi.mock('axios')
   vi.mock('../increment.js')
-
+  
   axios.get(`/apples/${increment(1)}`)
   ```
 
@@ -278,11 +278,7 @@ import { vi } from 'vitest'
 
 - **类型**: `(path: string, factory?: () => unknown) => void`
 
-<<<<<<< HEAD
-  与 [`vi.mock`](#vi-mock) 相同，但它不会提升到文件顶部，因此您可以在全局文件范围内引用变量。模块的下一次导入将被模拟。这不会模拟在调用之前导入的模块。
-=======
-  The same as [`vi.mock`](#vi-mock), but it's not hoisted at the top of the file, so you can reference variables in the global file scope. The next [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) of the module will be mocked. This will not mock modules that were imported before this was called.
->>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
+  与 [`vi.mock`](#vi-mock) 相同，但它没有被提升到文件的顶部，因此你可以在全局文件范围内引用变量。下一个[dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)模块的将被模拟。这将不会模拟在调用之前导入的模块。
 
 ```ts
 // ./increment.js
@@ -327,14 +323,14 @@ test('importing the next module imports mocked one', async () => {
 
   ```ts
   import example from './example.js'
-
+  
   vi.mock('./example.js')
-
+  
   test('1+1 equals 2', async () => {
     vi.mocked(example.calc).mockRestore()
-
+  
     const res = example.calc(1, '+', 1)
-
+  
     expect(res).toBe(2)
   })
   ```
@@ -360,7 +356,7 @@ test('importing the next module imports mocked one', async () => {
 
 ## vi.resetAllMocks
 
-  将在所有间谍上调用 [`.mockReset()`](/api/mock#mockreset)。这将清除模拟历史记录并将其实现重置为一个空函数（将返回 `undefined`）。
+将在所有间谍上调用 [`.mockReset()`](/api/mock#mockreset)。这将清除模拟历史记录并将其实现重置为一个空函数（将返回 `undefined`）。
 
 ## vi.resetConfig
 
@@ -374,26 +370,26 @@ test('importing the next module imports mocked one', async () => {
 
 通过清除所有模块的缓存来重置模块注册表。这样在重新导入时可以重新评估模块。顶级导入无法重新评估。这对于在测试之间隔离模块并解决本地状态冲突可能很有用。
 
-  ```ts
-  import { vi } from 'vitest'
+```ts
+import { vi } from 'vitest'
 
-  import { data } from './data.js' // Will not get reevaluated beforeEach test
+import { data } from './data.js' // Will not get reevaluated beforeEach test
 
-  beforeEach(() => {
-    vi.resetModules()
-  })
+beforeEach(() => {
+  vi.resetModules()
+})
 
-  test('change state', async () => {
-    const mod = await import('./some/path.js') // Will get reevaluated
-    mod.changeLocalState('new value')
-    expect(mod.getLocalState()).toBe('new value')
-  })
+test('change state', async () => {
+  const mod = await import('./some/path.js') // Will get reevaluated
+  mod.changeLocalState('new value')
+  expect(mod.getLocalState()).toBe('new value')
+})
 
-  test('module has old state', async () => {
-    const mod = await import('./some/path.js') // Will get reevaluated
-    expect(mod.getLocalState()).toBe('old value')
-  })
-  ```
+test('module has old state', async () => {
+  const mod = await import('./some/path.js') // Will get reevaluated
+  expect(mod.getLocalState()).toBe('old value')
+})
+```
 
 ## vi.importMock
 
@@ -583,7 +579,7 @@ IntersectionObserver === undefined
     if (i === 3)
       clearInterval(interval)
   }, 50)
-
+  
   vi.runAllTimers()
   ```
 
@@ -597,7 +593,7 @@ IntersectionObserver === undefined
   setTimeout(async () => {
     console.log(await Promise.resolve('result'))
   }, 100)
-
+  
   await vi.runAllTimersAsync()
   ```
 
@@ -610,7 +606,7 @@ IntersectionObserver === undefined
   ```ts
   let i = 0
   setInterval(() => console.log(++i), 50)
-
+  
   vi.runOnlyPendingTimers()
   ```
 
@@ -632,7 +628,7 @@ IntersectionObserver === undefined
       }, 40)
     })
   }, 10)
-
+  
   await vi.runOnlyPendingTimersAsync()
   ```
 
@@ -646,12 +642,12 @@ IntersectionObserver === undefined
 
   ```ts
   const date = new Date(1998, 11, 19)
-
+  
   vi.useFakeTimers()
   vi.setSystemTime(date)
-
+  
   expect(Date.now()).toBe(date.valueOf())
-
+  
   vi.useRealTimers()
   ```
 
@@ -672,12 +668,12 @@ IntersectionObserver === undefined
   const cart = {
     getApples: () => 13,
   }
-
+  
   const spy = vi.spyOn(cart, 'getApples').mockImplementation(() => apples)
   apples = 1
-
+  
   expect(cart.getApples()).toBe(1)
-
+  
   expect(spy).toHaveBeenCalled()
   expect(spy).toHaveReturnedWith(1)
   ```
@@ -742,18 +738,14 @@ unmockedIncrement(30) === 31
 
   要启用模拟计时器，你需要调用此方法。它将包装所有对计时器的进一步调用（例如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`），直到 [`vi. useRealTimers()`](#vi-userealtimers) 被调用。
 
-<<<<<<< HEAD
+  使用 `--no-threads` 在 `node:child_process` 内部运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 在 `node:child_process` 中内部使用 `process.nextTick`，并在被模拟时挂起。使用 `--threads` 运行 Vitest 时，支持模拟 `nextTick`。
+
   该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
-=======
-  Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--no-threads`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--threads`.
 
-  The implementation is based internally on [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
->>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
-
-  ::: tip
-  Since version `0.35.0` `vi.useFakeTimers()` no longer automatically mocks `process.nextTick`.
-  It can still be mocked by specyfing the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick'] })`.
-  :::
+::: tip
+由于版本 `0.35.0` `vi.useFakeTimers()` 不再自动模拟 `process.nextTik`。
+它仍然可以通过在 `toFake` 参数中指定选项来模拟：`vi.useFakeTimers({ toFake: ['nextTick'] })`。
+:::
 
 ## vi.isFakeTimers
 
@@ -770,13 +762,8 @@ unmockedIncrement(30) === 31
 
 ## vi.waitFor
 
-<<<<<<< HEAD
-- **类型:** `function waitFor<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions): Promise<T>`
-- **版本**: 从 Vitest 0.34.5 开始支持
-=======
-- **Type:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
-- **Version**: Since Vitest 0.34.5
->>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
+- **类型:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
+- **版本**: Since Vitest 0.34.5
 
 等待回调成功执行。如果回调抛出错误或返回一个被拒绝的 Promise，它将继续等待，直到成功或超时。
 
@@ -834,13 +821,8 @@ test('Server started successfully', async () => {
 
 ## vi.waitUntil
 
-<<<<<<< HEAD
-- **类型:** `function waitUntil(callback: WaitUntilCallback, options?: number | WaitUntilOptions): Promise`
-- **版本**: 从 Vitest 0.34.5 开始支持
-=======
-- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
+- **类型:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
 - **Version**: Since Vitest 0.34.5
->>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
 
 这与 `vi.waitFor` 类似，但如果回调函数抛出任何错误，执行将立即中断并接收到错误消息。如果回调函数返回假值，下一个检查将继续进行，直到返回真值为止。当您需要在进行下一步之前等待某个元素存在时，这非常有用。
 
@@ -850,13 +832,10 @@ test('Server started successfully', async () => {
 import { expect, test, vi } from 'vitest'
 
 test('Element render correctly', async () => {
-  const element = await vi.waitUntil(
-    () => document.querySelector('.element'),
-    {
-      timeout: 500, // default is 1000
-      interval: 20, // default is 50
-    }
-  )
+  const element = await vi.waitUntil(() => document.querySelector('.element'), {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
 
   // do something with the element
   expect(element.querySelector('.element-child')).toBeTruthy()

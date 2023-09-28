@@ -695,11 +695,7 @@ catch (err) {
 
 通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。在 Vitest 0.29.0 之前，Vitest 仍在工作线程内运行测试，即使禁用了此选项。从 0.29.0 开始，如果禁用此选项，Vitest 将使用 `child_process` 生成一个进程以在内部运行测试，这意味着你可以使用 `process.chdir` 和其他在 worker 中不可用的 API。如果你想恢复到以前的行为，请改用 `--single-thread` 选项。
 
-<<<<<<< HEAD
 禁用此选项也会禁用模块隔离，这意味着具有相同环境的所有测试都在单个子进程中运行。
-=======
-Disabling this option makes all tests run inside multiple child processes.
->>>>>>> 05b129c2cec681f5bd823efb5984bfcaa03e41ff
 
 ### singleThread
 
@@ -1711,6 +1707,7 @@ export default defineConfig({
 生成差异界面时使用的不同配置的路径。如果你想自定义差异显示，这将非常有用。
 
 :::code-group
+
 ```ts [vitest.diff.ts]
 import type { DiffOptions } from 'vitest'
 import c from 'picocolors'
@@ -1727,8 +1724,9 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    diff: './vitest.diff.ts'
-  }
+    diff: './vitest.diff.ts',
+  },
 })
 ```
+
 :::
