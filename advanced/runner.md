@@ -104,7 +104,7 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。它还暴露了 `BenchmarkNodeRunner`，如果你想扩展基准测试功能的话也可以继承它。
 :::
 
-## 你的任务函数。
+## 你的任务函数
 
 你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.custom` 方法添加到当前套件中：
 
