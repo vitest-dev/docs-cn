@@ -17,14 +17,8 @@ export interface VitestRunner {
    */
   onCollected?(files: File[]): unknown
   /**
-<<<<<<< HEAD
    * 当测试运行程序应该取消下一次测试运行时调用。
    * 运行程序应该监听此方法，并在“onBeforeRunSuite”和“onBeforeRunTest”中将测试和套件标记为跳过。
-=======
-   * Called when test runner should cancel next test runs.
-   * Runner should listen for this method and mark tests and suites as skipped in
-   * "onBeforeRunSuite" and "onBeforeRunTask" when called.
->>>>>>> e3d0dcc6dd912d29edcad2690326f8d280a3fe80
    */
   onCancel?(reason: CancelReason): unknown
 
@@ -83,17 +77,9 @@ export interface VitestRunner {
    */
   onAfterRunFiles?(files: File[]): unknown
   /**
-<<<<<<< HEAD
-   * 当为一个测试定义新的上下文时被调用。如果你想要向上下文添加自定义属性，这个方法很有用。
-   * 如果你只想使用运行器定义自定义上下文，请考虑在 "setupFiles" 中使用 "beforeAll"。
-=======
-   * Called when new context for a test is defined. Useful, if you want to add custom properties to the context.
-   * If you only want to define custom context with a runner, consider using "beforeAll" in "setupFiles" instead.
-   *
-   * This method is called for both "test" and "custom" handlers.
-   *
-   * @see https://vitest.dev/advanced/runner.html#your-task-function
->>>>>>> e3d0dcc6dd912d29edcad2690326f8d280a3fe80
+   * 这个方法被用于 "test" 和 "custom" 处理程序。
+   * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
+   * 更多信息请参考：[https://vitest.dev/advanced/runner.html#your-task-function](https://vitest.dev/advanced/runner.html#your-task-function)
    */
   extendTaskContext?<T extends Test | Custom>(context: TaskContext<T>): TaskContext<T>
   /**
@@ -129,9 +115,9 @@ import { createTaskCollector, getCurrentSuite, setFn } from 'vitest/suite'
 
 export { describe, beforeAll, afterAll } from 'vitest'
 
-// this function will be called when Vitest collects tasks
-// createTaskCollector just provides all "todo"/"each"/... support, you don't have to use it
-// To support custom tasks, you just need to call "getCurrentSuite().task()"
+// 当 Vitest 收集任务时，将调用此函数
+// createTaskCollector 只提供了所有的 "todo"/"each"/... 支持，你不必使用它
+// 要支持自定义任务，你只需要调用 "getCurrentSuite().task()"
 export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
   getCurrentSuite().task(name, {
     ...this, // so "todo"/"skip" is tracked correctly
