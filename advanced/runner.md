@@ -25,21 +25,21 @@ export interface VitestRunner {
   /**
    * 在运行单个测试之前调用。此时还没有“result”。
    */
-  onBeforeRunTest?(test: Test): unknown
+  onBeforeRunTask?(test: TaskPopulated): unknown
   /**
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTest?(test: Test, retryCount: number): unknown
+  onBeforeTryTask?(test: TaskPopulated, options: { retry: number; repeats: number }): unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
-  onAfterRunTest?(test: Test): unknown
+  onAfterRunTask?(test: TaskPopulated): unknown
   /**
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTest?(test: Test, retryCount: number): unknown
+  onAfterTryTask?(test: TaskPopulated, options: { retry: number; repeats: number }): unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -60,7 +60,7 @@ export interface VitestRunner {
    * 如果你有自定义的测试函数，这个方法就很有用。
    * 但 "before" 和 "after" 钩子函数仍然会被执行。
    */
-  runTest?(test: Test): Promise<void>
+  runTask?(test: TaskPopulated): Promise<void>
 
   /**
    * 当一个任务被更新时被调用。与报告器中的 "onTaskUpdate" 方法相同。
@@ -71,16 +71,17 @@ export interface VitestRunner {
   /**
    * 这是在运行收集的所有测试之前被调用的。
    */
-  onBeforeRun?(files: File[]): unknown
+  onBeforeRunFiles?(files: File[]): unknown
   /**
    * 这是在运行收集的所有测试后立即被调用的。
    */
-  onAfterRun?(files: File[]): unknown
+  onAfterRunFiles?(files: File[]): unknown
   /**
-   * 当为一个测试定义新的上下文时被调用。如果你想要向上下文添加自定义属性，这个方法很有用。
-   * 如果你只想使用运行器定义自定义上下文，请考虑在 "setupFiles" 中使用 "beforeAll"。
+   * 这个方法被用于 "test" 和 "custom" 处理程序。
+   * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
+   * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
-  extendTestContext?(context: TestContext): TestContext
+  extendTaskContext?<T extends Test | Custom>(context: TaskContext<T>): TaskContext<T>
   /**
    * 当导入某些文件时被调用。在收集测试和导入设置文件时都可能会被调用。.
    */
@@ -110,18 +111,23 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 
 ```js
 // ./utils/custom.js
-import { getCurrentSuite, setFn } from 'vitest/suite'
+import { createTaskCollector, getCurrentSuite, setFn } from 'vitest/suite'
 
 export { describe, beforeAll, afterAll } from 'vitest'
 
-// this function will be called, when Vitest collects tasks
-export const myCustomTask = function (name, fn) {
-  const task = getCurrentSuite().custom(name)
-  task.meta = {
-    customPropertyToDifferentiateTask: true
-  }
-  setFn(task, fn || (() => {}))
-}
+// 当 Vitest 收集任务时，将调用此函数
+// createTaskCollector 只提供了所有的 "todo"/"each"/... 支持，你不必使用它
+// 要支持自定义任务，你只需要调用 "getCurrentSuite().task()"
+export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
+  getCurrentSuite().task(name, {
+    ...this, // so "todo"/"skip" is tracked correctly
+    meta: {
+      customPropertyToDifferentiateTask: true
+    },
+    handler: fn,
+    timeout,
+  })
+})
 ```
 
 ```js
@@ -136,6 +142,9 @@ describe('take care of the garden', () => {
 
   myCustomTask('weed the grass', () => {
     gardener.weedTheGrass()
+  })
+  myCustomTask.todo('mow the lawn', () => {
+    gardener.mowerTheLawn()
   })
   myCustomTask('water flowers', () => {
     gardener.waterFlowers()
