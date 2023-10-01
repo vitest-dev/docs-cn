@@ -1377,6 +1377,12 @@ export default defineConfig({
 
 测试快照的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
 
+::: tip
+Beware that `plugins` field on this object will be ignored.
+
+If you need to extend snapshot serializer via pretty-format plugins, please, use [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API.
+:::
+
 ### resolveSnapshotPath<NonProjectOption />
 
 - **类型**: `(testPath: string, snapExtension: string) => string`
