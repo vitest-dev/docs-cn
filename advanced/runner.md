@@ -79,7 +79,7 @@ export interface VitestRunner {
   /**
    * 这个方法被用于 "test" 和 "custom" 处理程序。
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
-   * 更多信息请参考：[https://vitest.dev/advanced/runner.html#your-task-function](https://vitest.dev/advanced/runner.html#your-task-function)
+   * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
   extendTaskContext?<T extends Test | Custom>(context: TaskContext<T>): TaskContext<T>
   /**
