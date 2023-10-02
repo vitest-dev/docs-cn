@@ -257,7 +257,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 如果未指定查询，此模块将具有等同于资产路径的默认导出。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 :::
 
 #### deps.web.transformCss
@@ -270,7 +274,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 :::
 
 #### deps.web.transformGlobPattern
@@ -283,7 +291,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 :::
 
 #### deps.registerNodeLoader<NonProjectOption />
@@ -551,9 +563,15 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
+<<<<<<< HEAD
 - **类型:** `[string, 'threads' | 'child_process' | 'experimentalVmThreads'][]`
 - **默认值:** `[]`
 - **版本:** Since Vitest 0.29.4
+=======
+- **Type:** `[string, 'threads' | 'forks' | 'vmThreads'][]`
+- **Default:** `[]`
+- **Version:** Since Vitest 0.29.4
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -624,8 +642,9 @@ export default defineConfig({
 
 当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
-### experimentalVmThreads
+### pool<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **命令行终端:** `--experimentalVmThreads`, `--experimental-vm-threads`
 - **版本:** Since Vitest 0.34.0
@@ -633,6 +652,28 @@ export default defineConfig({
 使用工作池中的 [VM 上下文](https://nodejs.org/api/vm.html)（在沙盒环境内）运行测试。
 
 这使得测试运行得更快，但运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时 VM 模块不稳定。你的测试将出现[泄漏内存](https://github.com/nodejs/node/issues/33439) - 为了解决这个问题，请考虑手动编辑 [`experimentalVmWorkerMemoryLimit`](#experimentalvmworkermemorylimit) 值。
+=======
+- **Type:** `'threads' | 'forks' | 'vmThreads'`
+- **Default:** `'threads'`
+- **CLI:** `--pool=threads`
+- **Version:** Since Vitest 1.0.0-beta
+
+Pool used to run tests in.
+
+#### threads<NonProjectOption />
+
+Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)). When using threads you are unable to use process related APIs such as `process.chdir()`. Some libraries written in native languages, such as Prisma, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is adviced to use `forks` pool instead.
+
+#### forks<NonProjectOption />
+
+Similar as `threads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and main process is not as fast as with `threads` pool. Process related APIs such as `process.chdir()` are available in `forks` pool.
+
+#### vmThreads<NonProjectOption />
+
+Run tests using [VM context](https://nodejs.org/api/vm.html) (inside a sandboxed environment) in a `threads` pool.
+
+This makes tests run faster, but the VM module is unstable when running [ESM code](https://github.com/nodejs/node/issues/37648). Your tests will [leak memory](https://github.com/nodejs/node/issues/33439) - to battle that, consider manually editing [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) value.
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 
 ::: warning
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
@@ -655,17 +696,178 @@ catch (err) {
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
 
-### experimentalVmWorkerMemoryLimit
+### poolOptions<NonProjectOption />
 
+- **Type:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
+- **Default:** `{}`
+- **Version:** Since Vitest 1.0.0-beta
+
+#### poolOptions.threads<NonProjectOption />
+
+Options for `threads` pool.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      threads: {
+        // Threads related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.threads.maxThreads<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Maximum number of threads. You can also use `VITEST_MAX_THREADS` environment variable.
+
+##### poolOptions.threads.minThreads<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Minimum number of threads. You can also use `VITEST_MIN_THREADS` environment variable.
+
+##### poolOptions.threads.singleThread<NonProjectOption />
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Run all tests with the same environment inside a single worker thread. This will disable built-in module isolation (your source code or [inlined](#deps-inline) code will still be reevaluated for each test), but can improve test performance.
+
+
+:::warning
+Even though this option will force tests to run one after another, this option is different from Jest's `--runInBand`. Vitest uses workers not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
+
+This might cause all sorts of issues, if you are relying on global state (frontend frameworks usually do) or your code relies on environment to be defined separately for each test. But can be a speed boost for your tests (up to 3 times faster), that don't necessarily rely on global state or can easily bypass that.
+:::
+
+##### poolOptions.threads.useAtomics<NonProjectOption />
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Use Atomics to synchronize threads.
+
+This can improve performance in some cases, but might cause segfault in older Node versions.
+
+##### poolOptions.threads.isolate<NonProjectOption />
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Isolate environment for each test file.
+
+#### poolOptions.forks<NonProjectOption />
+
+Options for `forks` pool.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      forks: {
+        // Forks related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.forks.maxForks<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Maximum number of forks.
+
+##### poolOptions.forks.minForks<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Minimum number of forks.
+
+##### poolOptions.forks.isolate<NonProjectOption />
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Isolate environment for each test file.
+
+##### poolOptions.forks.singleFork<NonProjectOption />
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Run all tests with the same environment inside a single child process. This will disable built-in module isolation (your source code or [inlined](#deps-inline) code will still be reevaluated for each test), but can improve test performance.
+
+
+:::warning
+Even though this option will force tests to run one after another, this option is different from Jest's `--runInBand`. Vitest uses child processes not only for running tests in parallel, but also to provide isolation. By disabling this option, your tests will run sequentially, but in the same global context, so you must provide isolation yourself.
+
+This might cause all sorts of issues, if you are relying on global state (frontend frameworks usually do) or your code relies on environment to be defined separately for each test. But can be a speed boost for your tests (up to 3 times faster), that don't necessarily rely on global state or can easily bypass that.
+:::
+
+#### poolOptions.vmThreads<NonProjectOption />
+
+Options for `vmThreads` pool.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      vmThreads: {
+        // VM threads related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.vmThreads.maxThreads<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Maximum number of threads. You can also use `VITEST_MAX_THREADS` environment variable.
+
+##### poolOptions.vmThreads.minThreads<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Minimum number of threads. You can also use `VITEST_MIN_THREADS` environment variable.
+
+##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
+
+<<<<<<< HEAD
 - **类型:** `string | number`
 - **命令行终端:** `--experimentalVmWorkerMemoryLimit`, `--experimental-vm-worker-memory-limit`
 - **默认值:** `1 / CPU Cores`
 - **版本:** Since Vitest 0.34.0
+=======
+- **Type:** `string | number`
+- **Default:** `1 / CPU Cores`
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
 
+<<<<<<< HEAD
 此选项仅影响在 [VM 上下文](#experimentalvmthreads) 中运行测试的工作线程。
 
+=======
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 ::: tip
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
 
@@ -687,6 +889,7 @@ catch (err) {
 由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
 
+<<<<<<< HEAD
 ### threads
 
 - **类型:** `boolean`
@@ -730,6 +933,12 @@ catch (err) {
 - **类型:** `boolean`
 - **默认值:** `false`
 - **版本:** Vitest 0.28.3
+=======
+##### poolOptions.vmThreads.useAtomics<NonProjectOption />
+
+- **Type:** `boolean`
+- **Default:** `false`
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 
 使用 Atomics 来同步线程。
 
@@ -775,7 +984,11 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 更改配置文件将触发所有测试的重新运行。
 :::
 
+<<<<<<< HEAD
 你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
+=======
+You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between threads.
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
@@ -804,7 +1017,11 @@ globalThis.resetBeforeEachTest = true
 
 - **类型:** `string | string[]`
 
+<<<<<<< HEAD
 全局的 setup 文件的路径，相对于项目的根目录。
+=======
+Path to global setup files, relative to project root.
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 
 全局的 setup 文件可以导出命名函数 `setup` 和 `teardown` 或返回拆卸函数的 `default` 函数（[示例](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts))。
 
@@ -812,8 +1029,13 @@ globalThis.resetBeforeEachTest = true
 可以存在多个 globalSetup。setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
 :::
 
+<<<<<<< HEAD
 ::: warning 警告
 请注意，全局设置在不同的全局范围内运行，因此你的测试无权访问此处定义的变量。
+=======
+::: warning
+Beware that the global setup is running in a different global scope, so your tests don't have access to variables defined here. Also, since Vitest 1.0.0-beta, global setup runs only if there is at least one running test. This means that global setup might start running during watch mode after test file is changed, for example (the test file will wait for global setup to finish before running).
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 :::
 
 ### watchExclude<NonProjectOption />
@@ -843,6 +1065,7 @@ test('execute a script', async () => {
 确保你的的文件未被 `watchExclude` 排除。
 :::
 
+<<<<<<< HEAD
 ### isolate
 
 - **类型:** `boolean`
@@ -853,6 +1076,8 @@ test('execute a script', async () => {
 
 This options has no effect on [`experimentalVmThreads`](#experimentalvmthreads).
 
+=======
+>>>>>>> cb69bc05c7771162ba40c1ca12afe895661e516d
 ### coverage<NonProjectOption />
 
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
@@ -1254,6 +1479,14 @@ test('doNotRun', () => {
 - **命令行终端:** `--browser.headless`, `--brower.headless=false`
 
 以 `headless` 模式运行浏览器。如果你在 CI 中运行 Vitest，它将默认启用。
+
+#### browser.isolate
+
+- **Type:** `boolean`
+- **Default:** `true`
+- **CLI:** `--browser.isolate`, `--browser.isolate=false`
+
+Isolate test environment after each test.
 
 #### browser.api
 
