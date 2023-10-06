@@ -738,7 +738,11 @@ unmockedIncrement(30) === 31
 
   要启用模拟计时器，你需要调用此方法。它将包装所有对计时器的进一步调用（例如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`nextTick`、`setImmediate`、`clearImmediate` 和 `Date`），直到 [`vi. useRealTimers()`](#vi-userealtimers) 被调用。
 
+<<<<<<< HEAD
   使用 `--no-threads` 在 `node:child_process` 内部运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 在 `node:child_process` 中内部使用 `process.nextTick`，并在被模拟时挂起。使用 `--threads` 运行 Vitest 时，支持模拟 `nextTick`。
+=======
+  Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--pool=threads`.
+>>>>>>> 1e3489528802cb8645bb398bab3f8a176e309335
 
   该实现在内部基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 

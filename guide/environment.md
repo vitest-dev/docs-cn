@@ -27,7 +27,11 @@ test('test', () => {
 
 ## Custom Environment
 
+<<<<<<< HEAD
 从 0.23.0 开始，你可以创建自己的包来扩展 Vitest 环境。为此，请创建名为 `vitest-environment-${name}` 的包或指定有效 JS 文件的路径（从 0.34.0 起支持）。该包应导出一个具有 `Environment` 属性的对象：
+=======
+Starting from 0.23.0, you can create your own package to extend Vitest environment. To do so, create package with the name `vitest-environment-${name}` or specify a path to a valid JS/TS file (supported since 0.34.0). That package should export an object with the shape of `Environment`:
+>>>>>>> 1e3489528802cb8645bb398bab3f8a176e309335
 
 ```ts
 import type { Environment } from 'vitest'
