@@ -34,7 +34,7 @@ if (import.meta.vitest) {
 更新 Vitest 配置文件内的 `includeSource` 以获取到 `src/` 下的文件：
 
 ```ts
-// vite.config.ts
+// vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -54,14 +54,14 @@ $ npx vitest
 
 对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
 
-```diff
-// vite.config.ts
+```ts
+// vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-+ define: {
-+   'import.meta.vitest': 'undefined',
-+ },
+  define: { // [!code ++]
+    'import.meta.vitest': 'undefined', // [!code ++]
+  }, // [!code ++]
   test: {
     includeSource: ['src/**/*.{js,ts}']
   },
@@ -73,14 +73,14 @@ export default defineConfig({
 <details mt4>
 <summary text-xl>unbuild</summary>
 
-```diff
+```ts
 // build.config.ts
 import { defineBuildConfig } from 'unbuild'
 
 export default defineBuildConfig({
-+ replace: {
-+   'import.meta.vitest': 'undefined',
-+ },
+  replace: { // [!code ++]
+    'import.meta.vitest': 'undefined', // [!code ++]
+  }, // [!code ++]
   // other options
 })
 ```
@@ -92,15 +92,15 @@ export default defineBuildConfig({
 <details my2>
 <summary text-xl>rollup</summary>
 
-```diff
+```ts
 // rollup.config.js
-+ import replace from '@rollup/plugin-replace'
+import replace from '@rollup/plugin-replace' // [!code ++]
 
 export default {
   plugins: [
-+   replace({
-+     'import.meta.vitest': 'undefined',
-+   })
+    replace({ // [!code ++]
+      'import.meta.vitest': 'undefined', // [!code ++]
+    }) // [!code ++]
   ],
   // other options
 }
@@ -114,12 +114,12 @@ export default {
 
 要获得对 `import.meta.vitest` 的 TypeScript 支持，添加 `vitest/importMeta` 到 `tsconfig.json`:
 
-```diff
+```json
 // tsconfig.json
 {
   "compilerOptions": {
     "types": [
-+     "vitest/importMeta"
+      "vitest/importMeta" // [!code ++]
     ]
   }
 }

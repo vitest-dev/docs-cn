@@ -44,7 +44,11 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 
 ## 同时运行多个测试
 
+<<<<<<< HEAD
 在连续测试中使用 `.concurrent` 将会并发运行它们。
+=======
+Use `.concurrent` in consecutive tests to run them in parallel.
+>>>>>>> 6885d5a0956d57ef9836bb98f3d584be2d67acdc
 
 ```ts
 import { describe, it } from 'vitest'
@@ -134,7 +138,7 @@ $ npm i -D jsdom
 然后，更改 `environment` 配置文件中的选项：
 
 ```ts
-// vite.config.ts
+// vitest.config.ts
 import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
