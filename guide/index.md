@@ -6,7 +6,11 @@ title: Getting Started | Guide
 
 ## 总览
 
+<<<<<<< HEAD
 Vitest 是一个由 Vite 提供支持的极速单元测试框架。
+=======
+Vitest is a next generation testing framework powered by Vite.
+>>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
 
 你可以在 [为什么是 Vitest](./why) 中了解有关该项目背后的基本原理的更多信息。
 
