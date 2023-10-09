@@ -57,19 +57,11 @@ ndb npm run test
 
 创建一个 'Node.js' 运行配置。使用以下配置在调试模式下运行所有测试：
 
-<<<<<<< HEAD
-| Setting                | Value                            |
-| ---------------------- | -------------------------------- |
-| Working directory      | /path/to/your-project-root       |
-| JavaScript file        | ./node_modules/vitest/vitest.mjs |
-| Application parameters | run --threads false              |
-=======
 Setting | Value
  --- | ---
 Working directory | /path/to/your-project-root
 JavaScript file | ./node_modules/vitest/vitest.mjs
 Application parameters | run --pool forks
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 
