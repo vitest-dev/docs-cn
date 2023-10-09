@@ -100,22 +100,13 @@ let fn: Mock<[string], string> // [!code ++]
 
 ### 定时器
 
-Vitest 不支持 jest 的传统计时器。
-
-<<<<<<< HEAD
-### Vue 快照
-=======
-### Timeout
-
-If you used `jest.setTimeout`, you would need to migrate to `vi.setConfig`:
+如果你之前在测试中使用了 jest.setTimeout ，那么你需要迁移到 Vitest 中的`vi.setConfig` :
 
 ```ts
 jest.setTimeout(5_000) // [!code --]
 vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 ```
-
-### Vue Snapshots
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+### Vue 快照
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
