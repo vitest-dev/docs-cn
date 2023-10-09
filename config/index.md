@@ -258,10 +258,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 
 ::: warning
 <<<<<<< HEAD
-目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
-=======
-At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
 
 #### deps.web.transformCss
@@ -274,11 +271,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
-<<<<<<< HEAD
-目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
-=======
-At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
 
 #### deps.web.transformGlobPattern
@@ -291,11 +284,7 @@ At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
-<<<<<<< HEAD
-目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
-=======
-At the moment, this option only works with [`vmThreads`](#vmthreads) pool.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
 
 #### deps.registerNodeLoader<NonProjectOption />
@@ -563,15 +552,9 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
-<<<<<<< HEAD
-- **类型:** `[string, 'threads' | 'child_process' | 'experimentalVmThreads'][]`
+- **类型:** `[string, 'threads' | 'forks' | 'vmThreads'][]`
 - **默认值:** `[]`
 - **版本:** Since Vitest 0.29.4
-=======
-- **Type:** `[string, 'threads' | 'forks' | 'vmThreads'][]`
-- **Default:** `[]`
-- **Version:** Since Vitest 0.29.4
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -645,35 +628,25 @@ export default defineConfig({
 ### pool<NonProjectOption />
 
 <<<<<<< HEAD
-- **类型:** `boolean`
-- **命令行终端:** `--experimentalVmThreads`, `--experimental-vm-threads`
-- **版本:** Since Vitest 0.34.0
+- **类型:** `'threads'`
+- **命令行终端:** `--pool=threads`
+- **版本:** Since Vitest 1.0.0-beta
 
-使用工作池中的 [VM 上下文](https://nodejs.org/api/vm.html)（在沙盒环境内）运行测试。
-
-这使得测试运行得更快，但运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时 VM 模块不稳定。你的测试将出现[泄漏内存](https://github.com/nodejs/node/issues/33439) - 为了解决这个问题，请考虑手动编辑 [`experimentalVmWorkerMemoryLimit`](#experimentalvmworkermemorylimit) 值。
-=======
-- **Type:** `'threads' | 'forks' | 'vmThreads'`
-- **Default:** `'threads'`
-- **CLI:** `--pool=threads`
-- **Version:** Since Vitest 1.0.0-beta
-
-Pool used to run tests in.
+用于运行测试的线程池。
 
 #### threads<NonProjectOption />
 
-Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)). When using threads you are unable to use process related APIs such as `process.chdir()`. Some libraries written in native languages, such as Prisma, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is adviced to use `forks` pool instead.
+使用 [tinypool](https://github.com/tinylibs/tinypool)（一个轻量级的 [Piscina](https://github.com/piscinajs/piscina) 分支）来启用多线程。当使用线程时，你无法使用与进程相关的API，如 `process.chdir()` 。一些使用原生语言编写的库，如 Prisma 、`bcrypt` 和 `canvas` ，在多线程环境下可能会遇到问题并导致段错误。在这些情况下，建议使用 `forks` 线程池。
 
 #### forks<NonProjectOption />
 
-Similar as `threads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and main process is not as fast as with `threads` pool. Process related APIs such as `process.chdir()` are available in `forks` pool.
+与 `threads` 线程池类似，但是使用 `child_process` 而不是 `worker_threads` ，通过 [tinypool](https://github.com/tinylibs/tinypool) 实现。与 `threads` 线程池相比，测试与主进程之间的通信速度不够快。在 `forks` 线程池中，可以使用与进程相关的 API ，如 `process.chdir()` 。
 
 #### vmThreads<NonProjectOption />
 
-Run tests using [VM context](https://nodejs.org/api/vm.html) (inside a sandboxed environment) in a `threads` pool.
+在 `threads` 线程池中使用[ VM 上下文](https://nodejs.org/api/vm.html)（在受限环境中）运行测试。
 
-This makes tests run faster, but the VM module is unstable when running [ESM code](https://github.com/nodejs/node/issues/37648). Your tests will [leak memory](https://github.com/nodejs/node/issues/33439) - to battle that, consider manually editing [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) value.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+这样可以加快测试速度，但是当运行[ ES M代码](https://github.com/nodejs/node/issues/37648)时，VM 模块可能不稳定。你的测试可能会[泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
 
 ::: warning
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
@@ -851,23 +824,11 @@ Minimum number of threads. You can also use `VITEST_MIN_THREADS` environment var
 
 ##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
 
-<<<<<<< HEAD
 - **类型:** `string | number`
-- **命令行终端:** `--experimentalVmWorkerMemoryLimit`, `--experimental-vm-worker-memory-limit`
-- **默认值:** `1 / CPU Cores`
-- **版本:** Since Vitest 0.34.0
-=======
-- **Type:** `string | number`
-- **Default:** `1 / CPU Cores`
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+- **命令行终端:** `1 / CPU Cores`
 
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
 
-<<<<<<< HEAD
-此选项仅影响在 [VM 上下文](#experimentalvmthreads) 中运行测试的工作线程。
-
-=======
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
 ::: tip
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
 
