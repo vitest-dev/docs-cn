@@ -1206,6 +1206,29 @@ describe('toSatisfy()', () => {
   })
   ```
 
+## expect.closeTo
+
+- **类型:** `(expected: any, precision?: number) => any`
+- **版本:** Since Vitest 1.0.0
+
+当比较对象属性或数组项中的浮点数时，`expect.closeTo`非常有用。但如果你需要比较一个数字，请使用`.toBeCloseTo`。
+
+可选的`numDigits`参数用于限制小数点后要检查的位数。默认值为`2`，即测试条件为`Math.abs(expected - received) < 0.005`（即10的负2次方除以2）。
+
+例如，以下测试在精度为5位的情况下通过：
+
+```js
+test('compare float in object properties', () => {
+  expect({
+    title: '0.1 + 0.2',
+    sum: 0.1 + 0.2,
+  }).toEqual({
+    title: '0.1 + 0.2',
+    sum: expect.closeTo(0.3, 5),
+  })
+})
+```
+
 ## expect.arrayContaining
 
 - **类型:** `<T>(expected: T[]) => any`

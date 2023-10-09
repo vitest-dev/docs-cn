@@ -22,7 +22,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ...
+    // ... Specify options here.
   },
 })
 ```
@@ -34,7 +34,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    // ...
+    // ... Specify options here.
   },
 })
 ```
@@ -257,7 +257,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 如果未指定查询，此模块将具有等同于资产路径的默认导出。
 
 ::: warning
-目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
 
 #### deps.web.transformCss
@@ -270,7 +270,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
-目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
 
 #### deps.web.transformGlobPattern
@@ -283,7 +283,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
-目前，此选项仅适用于 [`experimentalVmThreads`](#experimentalvmthreads) 池。
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
 
 #### deps.registerNodeLoader<NonProjectOption />
@@ -408,7 +408,7 @@ export default defineConfig({
 默认情况下，`vitest` 不显式提供全局 API。如果你更倾向于使用类似 jest 中的全局 API，可以将 `--globals` 选项传递给 CLI 或在配置中添加 `globals: true`。
 
 ```ts
-// vite.config.ts
+// vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -432,7 +432,7 @@ export default defineConfig({
 如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import)，你也可以直接用它来自动导入这些 API。
 
 ```ts
-// vite.config.ts
+// vitest.config.ts
 import { defineConfig } from 'vitest/config'
 import AutoImport from 'unplugin-auto-import/vite'
 
@@ -551,7 +551,7 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
-- **类型:** `[string, 'threads' | 'child_process' | 'experimentalVmThreads'][]`
+- **类型:** `[string, 'threads' | 'forks' | 'vmThreads'][]`
 - **默认值:** `[]`
 - **版本:** Since Vitest 0.29.4
 
@@ -624,19 +624,31 @@ export default defineConfig({
 
 当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
-### experimentalVmThreads
+### pool<NonProjectOption />
 
-- **类型:** `boolean`
-- **命令行终端:** `--experimentalVmThreads`, `--experimental-vm-threads`
-- **版本:** Since Vitest 0.34.0
+- **类型:** `'threads' | 'forks' | 'vmThreads'`
+- **默认值:** `'threads'`
+- **命令行终端:** `--pool=threads`
+- **版本:** Since Vitest 1.0.0-beta
 
-使用工作池中的 [VM 上下文](https://nodejs.org/api/vm.html)（在沙盒环境内）运行测试。
+用于运行测试的线程池。
 
-这使得测试运行得更快，但运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时 VM 模块不稳定。你的测试将出现[泄漏内存](https://github.com/nodejs/node/issues/33439) - 为了解决这个问题，请考虑手动编辑 [`experimentalVmWorkerMemoryLimit`](#experimentalvmworkermemorylimit) 值。
+#### threads<NonProjectOption />
+
+使用 [tinypool](https://github.com/tinylibs/tinypool)（一个轻量级的 [Piscina](https://github.com/piscinajs/piscina) 分支）来启用多线程。当使用线程时，你无法使用与进程相关的API，如 `process.chdir()` 。一些使用原生语言编写的库，如 Prisma 、`bcrypt` 和 `canvas` ，在多线程环境下可能会遇到问题并导致段错误。在这些情况下，建议使用 `forks` 线程池。
+
+#### forks<NonProjectOption />
+
+与 `threads` 线程池类似，但是使用 `child_process` 而不是 `worker_threads` ，通过 [tinypool](https://github.com/tinylibs/tinypool) 实现。与 `threads` 线程池相比，测试与主进程之间的通信速度不够快。在 `forks` 线程池中，可以使用与进程相关的 API ，如 `process.chdir()` 。
+
+#### vmThreads<NonProjectOption />
+
+在 `threads` 线程池中使用[ VM 上下文](https://nodejs.org/api/vm.html)（在受限环境中）运行测试。
+
+这样可以加快测试速度，但是当运行[ ES M代码](https://github.com/nodejs/node/issues/37648)时，VM 模块可能不稳定。你的测试可能会[泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
 
 ::: warning
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
-Running code in a sandbox has some advantages (faster tests), but also comes with a number of disadvantages.
 
 - 原生模块中的全局变量，例如（`fs`、`path`等），与测试环境中存在的全局变量不同。因此，这些原生模块引发的任何错误都将引用与代码中使用的错误构造函数不同的错误构造函数：
 
@@ -655,16 +667,165 @@ catch (err) {
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
 
-### experimentalVmWorkerMemoryLimit
+### poolOptions<NonProjectOption />
+
+- **类型:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
+- **默认值:** `{}`
+- **版本:** Since Vitest 1.0.0-beta
+
+#### poolOptions.threads<NonProjectOption />
+
+`threads` 池的选项。
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      threads: {
+        // Threads related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.threads.maxThreads<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最大线程数。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
+
+##### poolOptions.threads.minThreads<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最小线程数。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
+
+##### poolOptions.threads.singleThread<NonProjectOption />
+
+- **类型:** `boolean`
+- **默认值:** `false`
+
+在单个工作线程内使用相同的环境运行所有测试。 这将禁用内置模块隔离（我们的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
+
+
+:::warning
+尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
+
+如果您依赖全局状态（前端框架通常这样做）或者您的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+:::
+
+##### poolOptions.threads.useAtomics<NonProjectOption />
+
+- **类型:** `boolean`
+- **默认值:** `false`
+
+使用 Atomics 来同步线程。
+
+这在某些情况下可以提高性能，但可能会导致旧 Node 版本中出现段错误。
+
+##### poolOptions.threads.isolate<NonProjectOption />
+
+- **类型:** `boolean`
+- **默认值:** `true`
+
+隔离每个测试文件的环境。
+
+#### poolOptions.forks<NonProjectOption />
+
+`forks` 池的选项。
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      forks: {
+        // Forks related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.forks.maxForks<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最大分支数量。
+
+##### poolOptions.forks.minForks<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最小分支数量。
+
+##### poolOptions.forks.isolate<NonProjectOption />
+
+- **类型:** `boolean`
+- **默认值:** `true`
+
+隔离每个测试文件的环境。
+
+##### poolOptions.forks.singleFork<NonProjectOption />
+
+- **类型:** `boolean`
+- **默认值:** `false`
+
+在单个子进程中使用相同的环境运行所有测试。 这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
+
+
+:::warning
+尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
+
+如果你依赖全局状态（前端框架通常这样做）或者您的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+:::
+
+#### poolOptions.vmThreads<NonProjectOption />
+
+`vmThreads` 池的选项。
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      vmThreads: {
+        // VM threads related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.vmThreads.maxThreads<NonProjectOption />
+
+- **类型:** `number`
+- **默认:** _available CPUs_
+
+最大线程数。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
+
+##### poolOptions.vmThreads.minThreads<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最小线程数。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
+
+##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
-- **命令行终端:** `--experimentalVmWorkerMemoryLimit`, `--experimental-vm-worker-memory-limit`
-- **默认值:** `1 / CPU Cores`
-- **版本:** Since Vitest 0.34.0
+- **命令行终端:** `1 / CPU Cores`
 
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
-
-此选项仅影响在 [VM 上下文](#experimentalvmthreads) 中运行测试的工作线程。
 
 ::: tip
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
@@ -686,50 +847,10 @@ catch (err) {
 ::: warning
 由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
-
-### threads
-
-- **类型:** `boolean`
-- **默认值:** `true`
-- **命令行终端:** `--threads`, `--threads=false`
-
-通过使用 [tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支）可以启用多线程。在 Vitest 0.29.0 之前，Vitest 仍在工作线程内运行测试，即使禁用了此选项。从 0.29.0 开始，如果禁用此选项，Vitest 将使用 `child_process` 生成一个进程以在内部运行测试，这意味着你可以使用 `process.chdir` 和其他在 worker 中不可用的 API。如果你想恢复到以前的行为，请改用 `--single-thread` 选项。
-
-禁用此选项也会禁用模块隔离，这意味着具有相同环境的所有测试都在单个子进程中运行。
-
-### singleThread
+##### poolOptions.vmThreads.useAtomics<NonProjectOption />
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** Vitest 0.29.0
-
-在单个工作线程内使用相同环境运行所有测试。这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。在 Vitest 0.29.0 之前，这等同于使用 `--no-threads`。
-
-:::warning
-尽管此选项会强制测试一个接一个地运行，但此选项与 Jest 的 --runInBand 不同。Vitest 使用 worker 不仅可以并行运行测试，还可以提供隔离。通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
-
-如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。但是可以提高你的测试速度（最多快 3 倍），它不一定依赖于全局状态或可以轻松绕过它。
-:::
-
-### maxThreads<NonProjectOption />
-
-- **类型:** `number`
-- **默认值:** 可用的 CPU 数量
-
-允许的最大线程数。你也可以使用 `VITEST_MAX_THREADS` 环境变量。
-
-### minThreads<NonProjectOption />
-
-- **类型:** `number`
-- **默认值:** 可用的 CPU 数量
-
-允许的最小线程数。你也可以使用 `VITEST_MIN_THREADS` 环境变量。
-
-### useAtomics<NonProjectOption />
-
-- **类型:** `boolean`
-- **默认值:** `false`
-- **版本:** Vitest 0.28.3
 
 使用 Atomics 来同步线程。
 
@@ -775,7 +896,7 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 更改配置文件将触发所有测试的重新运行。
 :::
 
-你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
+你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
@@ -813,7 +934,7 @@ globalThis.resetBeforeEachTest = true
 :::
 
 ::: warning 警告
-请注意，全局设置在不同的全局范围内运行，因此你的测试无权访问此处定义的变量。
+请注意，全局设置在不同的全局作用域中运行，因此你的测试无法访问在此处定义的变量。此外，自Vitest 1.0.0-beta版本以来，只有在至少有一个正在运行的测试时，全局设置才会运行。这意味着在监视模式下，全局设置可能会在测试文件更改后开始运行，例如（测试文件将在全局设置完成之前等待运行）。
 :::
 
 ### watchExclude<NonProjectOption />
@@ -842,16 +963,6 @@ test('execute a script', async () => {
 :::tip 提醒
 确保你的的文件未被 `watchExclude` 排除。
 :::
-
-### isolate
-
-- **类型:** `boolean`
-- **默认值:** `true`
-- **命令行终端:** `--isolate`, `--isolate=false`
-
-是否为每个测试文件构建隔离环境。 如果你禁用 [`--threads`](#threads)，它将不会工作。
-
-This options has no effect on [`experimentalVmThreads`](#experimentalvmthreads).
 
 ### coverage<NonProjectOption />
 
@@ -897,7 +1008,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 #### coverage.extension
 
 - **类型:** `string | string[]`
-- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte']`
+- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte', '.marko']`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
 
@@ -934,7 +1045,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 #### coverage.all
 
 - **类型:** `boolean`
-- **默认值:** `false`
+- **默认值:** `true` (since Vitest `1.0.0`)
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.all`, `--coverage.all=false`
 
@@ -1255,6 +1366,14 @@ test('doNotRun', () => {
 
 以 `headless` 模式运行浏览器。如果你在 CI 中运行 Vitest，它将默认启用。
 
+#### browser.isolate
+
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--browser.isolate`, `--browser.isolate=false`
+
+在每个测试之后隔离测试环境。
+
 #### browser.api
 
 - **类型:** `number | { port?, strictPort?, host? }`
@@ -1378,9 +1497,9 @@ export default defineConfig({
 测试快照的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
 
 ::: tip
-Beware that `plugins` field on this object will be ignored.
+请注意，此对象上的 `plugins` 字段将被忽略。
 
-If you need to extend snapshot serializer via pretty-format plugins, please, use [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API.
+如果需要通过 pretty-format 插件扩展快照序列化器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API。
 :::
 
 ### resolveSnapshotPath<NonProjectOption />

@@ -24,14 +24,14 @@ export default defineConfig({
 
 - 3. 确保你没有使用相对路径的 [别名](/config/#alias)。Vite 将它们视为相对于导入所在的文件而不是根目录。
 
-```diff
+```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     alias: {
--     '@/': './src/',
-+     '@/': new URL('./src/', import.meta.url).pathname,
+      '@/': './src/', // [!code --]
+      '@/': new URL('./src/', import.meta.url).pathname, // [!code ++]
     }
   }
 })
