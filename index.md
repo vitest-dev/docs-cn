@@ -4,20 +4,12 @@ sidebar: false
 
 title: Vitest
 <<<<<<< HEAD
-titleTemplate: 由 Vite 提供支持的极速单元测试框架
+titleTemplate: 下一代测试框架
 
 hero:
   name: Vitest
-  text: 由 Vite 提供支持的极速单元测试框架
-  tagline: 一个 Vite 原生的单元测试框架。非常的快！
-=======
-titleTemplate: Next Generation testing framework
-
-hero:
-  name: Vitest
-  text: Next Generation Testing Framework
-  tagline: A Vite-native testing framework. It's fast!
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+  text: 下一代测试框架
+  tagline: 一个原生支持 Vite 的测试框架。非常快速！
   image:
     src: /logo-shadow.svg
     alt: Vitest
@@ -36,24 +28,12 @@ hero:
       link: https://github.com/vitest-dev/vitest
 
 features:
-<<<<<<< HEAD
-  - title: Vite 支持
-    details: 重复使用 Vite 的配置、转换器、解析器和插件 - 在您的应用程序和测试中保持一致。
-  - title: 兼容 Jest
-    details: 拥有预期、快照、覆盖等 - 从 Jest 迁移很简单。
-  - title: 智能即时浏览模式
-    details: 智能文件监听模式，就像是测试的 HMR！
-  - title: ESM, TypeScript, JSX
-    details: 由 esbuild 提供的开箱即用 ESM、TypeScript 和 JSX 支持。
+  - title：基于Vite驱动
+    details：可以重用Vite的配置和插件，使得应用程序和测试保持一致。但是使用Vitest并不需要使用Vite！
+  - title：与Jest兼容
+    details：支持Expect断言、快照测试、覆盖率等功能，从Jest迁移过来非常简单。
+  - title：智能且即时的监视模式
+    details：只重新运行相关的更改，就像测试的热模块重载一样！
+  - title：ESM、TypeScript、JSX支持
+    details：内置ESM、TypeScript和JSX支持，由esbuild提供动力。
 ---
-=======
-  - title: Vite Powered
-    details: Reuse Vite's config and plugins - consistent across your app and tests. But it's not required to use Vitest!
-  - title: Jest Compatible
-    details: Expect, snapshot, coverage, and more - migrating from Jest is straightforward.
-  - title: Smart & instant watch mode
-    details: Only rerun the related changes, just like HMR for tests!
-  - title: ESM, TypeScript, JSX
-    details: Out-of-box ESM, TypeScript and JSX support powered by esbuild.
----
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
