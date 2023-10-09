@@ -35,7 +35,6 @@ export default withPwa(
         link: 'https://vitest.dev/',
       },
     },
-<<<<<<< HEAD
     head: [
       ['meta', { name: 'theme-color', content: '#729b1a' }],
       ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
