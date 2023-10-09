@@ -22,13 +22,9 @@ basic-foo.test.ts
 basic/foo.test.ts
 ```
 
-<<<<<<< HEAD
-## 指定超时阈值
-=======
-You can also use the `-t, --testNamePattern <pattern>	` option to filter tests by full name. This can be helpful when you want to filter by the name defined within a file rather than the filename itself.
+你还可以使用 `-t, --testNamePattern <pattern>` 选项按全名过滤测试。当你想按文件内定义的名称而不是文件名本身进行过滤时，这将非常有用。
 
-## Specifying a Timeout
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+## 指定超时阈值
 
 你可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试。默认值为 5 秒。
 
