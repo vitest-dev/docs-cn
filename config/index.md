@@ -1381,11 +1381,11 @@ test('doNotRun', () => {
 
 #### browser.isolate
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--browser.isolate`, `--browser.isolate=false`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--browser.isolate`, `--browser.isolate=false`
 
-Isolate test environment after each test.
+在每个测试之后隔离测试环境。
 
 #### browser.api
 
@@ -1510,9 +1510,9 @@ export default defineConfig({
 测试快照的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
 
 ::: tip
-Beware that `plugins` field on this object will be ignored.
+请注意，此对象上的 `plugins` 字段将被忽略。
 
-If you need to extend snapshot serializer via pretty-format plugins, please, use [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API.
+如果需要通过 pretty-format 插件扩展快照序列化器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API。
 :::
 
 ### resolveSnapshotPath<NonProjectOption />
