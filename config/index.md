@@ -896,11 +896,7 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 更改配置文件将触发所有测试的重新运行。
 :::
 
-<<<<<<< HEAD
-你可以在内部使用 `process.env.VITEST_WORKER_ID` (类似整数的字符串）来区分线程（如果`threads: false`，那么这个值将永远会是`1`）。
-=======
-You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between threads.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
@@ -929,11 +925,7 @@ globalThis.resetBeforeEachTest = true
 
 - **类型:** `string | string[]`
 
-<<<<<<< HEAD
 全局的 setup 文件的路径，相对于项目的根目录。
-=======
-Path to global setup files, relative to project root.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
 
 全局的 setup 文件可以导出命名函数 `setup` 和 `teardown` 或返回拆卸函数的 `default` 函数（[示例](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts))。
 
@@ -941,13 +933,8 @@ Path to global setup files, relative to project root.
 可以存在多个 globalSetup。setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
 :::
 
-<<<<<<< HEAD
 ::: warning 警告
-请注意，全局设置在不同的全局范围内运行，因此你的测试无权访问此处定义的变量。
-=======
-::: warning
-Beware that the global setup is running in a different global scope, so your tests don't have access to variables defined here. Also, since Vitest 1.0.0-beta, global setup runs only if there is at least one running test. This means that global setup might start running during watch mode after test file is changed, for example (the test file will wait for global setup to finish before running).
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+请注意，全局设置在不同的全局作用域中运行，因此你的测试无法访问在此处定义的变量。此外，自Vitest 1.0.0-beta版本以来，只有在至少有一个正在运行的测试时，全局设置才会运行。这意味着在监视模式下，全局设置可能会在测试文件更改后开始运行，例如（测试文件将在全局设置完成之前等待运行）。
 :::
 
 ### watchExclude<NonProjectOption />
