@@ -3,7 +3,6 @@ layout: home
 sidebar: false
 
 title: Vitest
-<<<<<<< HEAD
 titleTemplate: 下一代测试框架
 
 hero:
