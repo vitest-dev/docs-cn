@@ -66,11 +66,7 @@ it('math is hard', ({ skip }) => {
 
 ## 扩展测试上下文
 
-<<<<<<< HEAD
 Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
-=======
-Vitest provides two different ways to help you extend the test context.
->>>>>>> 53fe715b57c08a39c8bb52db021dd09b8a0e492c
 
 ### `test.extend`
 
