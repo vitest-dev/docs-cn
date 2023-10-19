@@ -67,12 +67,16 @@ assertType<string>(answr) //
 
 ## 运行 typechecking
 
+<<<<<<< HEAD
 在 `package.json` 文件 `scripts` 部分添加如下命令：
+=======
+To enabled typechecking, just add `--typecheck` flag to your Vitest command in `package.json`:
+>>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
 
 ```json
 {
   "scripts": {
-    "typecheck": "vitest typecheck"
+    "test": "vitest --typecheck"
   }
 }
 ```
@@ -81,13 +85,13 @@ assertType<string>(answr) //
 
 ```sh
 # npm
-npm run typecheck
+npm run test
 
 # yarn
-yarn typecheck
+yarn test
 
 # pnpm
-pnpm run typecheck
+pnpm run test
 ```
 
 Vitest 使用 `tsc --noEmit` 或 `vue-tsc --noEmit`，具体取决于你的配置，因此可以从管道中删除这些脚本。

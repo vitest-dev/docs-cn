@@ -551,9 +551,15 @@ export default defineConfig({
 
 ### poolMatchGlobs
 
+<<<<<<< HEAD
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads'][]`
 - **默认值:** `[]`
 - **版本:** Since Vitest 0.29.4
+=======
+- **Type:** `[string, 'threads' | 'forks' | 'vmThreads' | 'typescript'][]`
+- **Default:** `[]`
+- **Version:** Since Vitest 0.29.4
+>>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -1360,9 +1366,15 @@ test('doNotRun', () => {
 
 #### browser.headless
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `process.env.CI`
 - **命令行终端:** `--browser.headless`, `--brower.headless=false`
+=======
+- **Type:** `boolean`
+- **Default:** `process.env.CI`
+- **CLI:** `--browser.headless`, `--browser.headless=false`
+>>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
 
 以 `headless` 模式运行浏览器。如果你在 CI 中运行 Vitest，它将默认启用。
 
@@ -1692,6 +1704,24 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 ### typecheck
 
 用于配置 [typechecking](/guide/testing-types) 测试环境的选项。
+
+#### typecheck.enabled
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **CLI**: `--typecheck`, `--typecheck.enabled`
+- **Version**: Since Vitest 1.0.0-beta.3
+
+Enable typechecking alongside your regular tests.
+
+#### typecheck.only
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **CLI**: `--typecheck.only`
+- **Version**: Since Vitest 1.0.0-beta.3
+
+Run only typecheck tests, when typechecking is enabled. When using CLI, this option will automatically enable typechecking.
 
 #### typecheck.checker
 
