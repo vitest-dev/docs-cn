@@ -50,14 +50,9 @@ const vitest = await createVitest('test', {
 
 Vitest 实例需要当前的测试模式。它可以是以下之一：
 
-<<<<<<< HEAD
 - 运行运行时测试时为 `test`
 - 运行基准测试时为 `benchmark`
 - 运行类型测试时为 `typecheck`
-=======
-- `test` when running runtime tests
-- `benchmark` when running benchmarks
->>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
 
 ### 模式
 
@@ -69,13 +64,10 @@ Vitest 实例需要当前的测试模式。它可以是以下之一：
 
 基准测试模式会调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项查找基准测试文件。
 
-<<<<<<< HEAD
 #### typecheck
 
 类型检查模式不会*运行*测试。它仅分析类型并提供摘要信息。此模式使用配置中的 `typecheck.include` 和 `typecheck.exclude` 选项查找要分析的文件。
 
-=======
->>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
 ### start
 
 你可以使用 `start` 方法运行测试或者基准测试。您还可以传递一个字符串数组以筛选测试文件。

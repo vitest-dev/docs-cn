@@ -67,11 +67,7 @@ assertType<string>(answr) //
 
 ## 运行 typechecking
 
-<<<<<<< HEAD
-在 `package.json` 文件 `scripts` 部分添加如下命令：
-=======
-To enabled typechecking, just add `--typecheck` flag to your Vitest command in `package.json`:
->>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
+要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 `--typecheck` 标志：
 
 ```json
 {

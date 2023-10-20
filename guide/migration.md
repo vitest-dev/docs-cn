@@ -91,8 +91,8 @@ export default defineConfig({
 Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是为了与匹配器兼容，因此你可能需要直接从 `vitest` 导入类型，而不是依赖 `Vi` 命名空间：
 
 ```ts
-let fn: jest.Mock<string, [string]> // [!code --]
-import type { Mock } from 'vitest' // [!code ++]
+// [!code --]
+import type { Mock } from 'vitest' let fn: jest.Mock<string, [string]> // [!code ++]
 let fn: Mock<[string], string> // [!code ++]
 ```
 

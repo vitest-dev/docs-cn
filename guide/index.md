@@ -21,34 +21,18 @@ Vitest 是由 Vite 驱动的下一代测试框架。
 <CourseLink href="https://vueschool.io/lessons/how-to-install-vitest?friend=vueuse">Learn how to install by Video</CourseLink>
 
 ::: code-group
-<<<<<<< HEAD
-
 ```bash [npm]
 npm install -D vitest
 ```
-
 ```bash [yarn]
 yarn add -D vitest
 ```
-
 ```bash [pnpm]
 pnpm add -D vitest
 ```
-
-=======
-  ```bash [npm]
-  npm install -D vitest
-  ```
-  ```bash [yarn]
-  yarn add -D vitest
-  ```
-  ```bash [pnpm]
-  pnpm add -D vitest
-  ```
-  ```bash [bun]
-  bun add -D vitest
-  ```
->>>>>>> 3aa350d7d42edc822eba70060d264740e5f116bd
+```bash [bun]
+bun add -D vitest
+```
 :::
 
 :::tip
