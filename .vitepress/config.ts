@@ -270,6 +270,169 @@ export default withPwa(
           },
         ],
       },
+<<<<<<< HEAD
+=======
+    ],
+
+    sidebar: {
+      // TODO: bring sidebar of apis and config back
+      '/advanced': [
+        {
+          text: 'Advanced',
+          items: [
+            {
+              text: 'Vitest Node API',
+              link: '/advanced/api',
+            },
+            {
+              text: 'Runner API',
+              link: '/advanced/runner',
+            },
+            {
+              text: 'Task Metadata',
+              link: '/advanced/metadata',
+            },
+            {
+              text: 'Extending default reporters',
+              link: '/advanced/reporters',
+            },
+          ],
+        },
+      ],
+      '/': [
+        {
+          text: 'Guide',
+          items: [
+            {
+              text: 'Why Vitest',
+              link: '/guide/why',
+            },
+            {
+              text: 'Getting Started',
+              link: '/guide/',
+            },
+            {
+              text: 'Features',
+              link: '/guide/features',
+            },
+            {
+              text: 'Workspace',
+              link: '/guide/workspace',
+            },
+            {
+              text: 'CLI',
+              link: '/guide/cli',
+            },
+            {
+              text: 'Test Filtering',
+              link: '/guide/filtering',
+            },
+            {
+              text: 'Reporters',
+              link: '/guide/reporters',
+            },
+            {
+              text: 'Coverage',
+              link: '/guide/coverage',
+            },
+            {
+              text: 'Snapshot',
+              link: '/guide/snapshot',
+            },
+            {
+              text: 'Mocking',
+              link: '/guide/mocking',
+            },
+            {
+              text: 'Testing Types',
+              link: '/guide/testing-types',
+            },
+            {
+              text: 'Vitest UI',
+              link: '/guide/ui',
+            },
+            {
+              text: 'Browser Mode',
+              link: '/guide/browser',
+            },
+            {
+              text: 'In-source Testing',
+              link: '/guide/in-source',
+            },
+            {
+              text: 'Test Context',
+              link: '/guide/test-context',
+            },
+            {
+              text: 'Environment',
+              link: '/guide/environment',
+            },
+            {
+              text: 'Extending Matchers',
+              link: '/guide/extending-matchers',
+            },
+            {
+              text: 'IDE Integration',
+              link: '/guide/ide',
+            },
+            {
+              text: 'Debugging',
+              link: '/guide/debugging',
+            },
+            {
+              text: 'Comparisons',
+              link: '/guide/comparisons',
+            },
+            {
+              text: 'Migration Guide',
+              link: '/guide/migration',
+            },
+            {
+              text: 'Common Errors',
+              link: '/guide/common-errors',
+            },
+          ],
+        },
+        {
+          text: 'API',
+          items: [
+            {
+              text: 'Test API Reference',
+              link: '/api/',
+            },
+            {
+              text: 'Mock Functions',
+              link: '/api/mock',
+            },
+            {
+              text: 'Vi Utility',
+              link: '/api/vi',
+            },
+            {
+              text: 'Expect',
+              link: '/api/expect',
+            },
+            {
+              text: 'ExpectTypeOf',
+              link: '/api/expect-typeof',
+            },
+            {
+              text: 'assertType',
+              link: '/api/assert-type',
+            },
+          ],
+        },
+        {
+          text: 'Config',
+          items: [
+            {
+              text: 'Config Reference',
+              link: '/config/',
+            },
+          ],
+        },
+      ],
+>>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
     },
     pwa,
     transformHead,

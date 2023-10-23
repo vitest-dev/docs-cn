@@ -605,6 +605,7 @@ export default defineConfig({
 - **默认值:** `'default'`
 - **命令行终端:** `--reporter=<name>`, `--reporter=<name1> --reporter=<name2>`
 
+<<<<<<< HEAD
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
 - `'default'` - 当他们经过测试套件
@@ -616,6 +617,9 @@ export default defineConfig({
 - `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+=======
+Custom [reporters](/guide/reporters) for output. Reporters can be [a Reporter instance](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts), a string to select built-in reporters, or a path to a custom implementation (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`).
+>>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
 
 ### outputFile<NonProjectOption />
 
@@ -1835,6 +1839,34 @@ export default defineConfig({
   test: {
     onConsoleLog(log: string, type: 'stdout' | 'stderr'): boolean | void {
       if (log === 'message from third party library' && type === 'stdout')
+        return false
+    },
+  },
+})
+```
+
+### onStackTrace
+
+- **Type**: `(error: Error, frame: ParsedStack) => boolean | void`
+- **Version**: Since Vitest 1.0.0-beta.3
+
+Apply a filtering function to each frame of each stacktrace when handling errors. The first argument, `error`, is an object with the same properties as a standard `Error`, but it is not an actual instance.
+
+Can be useful for filtering out stacktrace frames from third-party libraries.
+
+```ts
+import type { ParsedStack } from 'vitest'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    onStackTrace(error: Error, { file }: ParsedStack): boolean | void {
+      // If we've encountered a ReferenceError, show the whole stack.
+      if (error.name === 'ReferenceError')
+        return
+
+      // Reject all frames from third party libraries.
+      if (file.includes('node_modules'))
         return false
     },
   },

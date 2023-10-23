@@ -189,7 +189,11 @@ expect(input).not.toBe(2) // jest API
   })
   ```
 
+<<<<<<< HEAD
   在 JavaScript 中，除了 `false`、`0`、`''`、`null`、`undefined` 和 `NaN` 之外，所有值都是真值。
+=======
+  Everything in JavaScript is truthy, except `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, `""` and `document.all`.
+>>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
 
 ## toBeFalsy
 
@@ -222,7 +226,11 @@ expect(input).not.toBe(2) // jest API
   })
   ```
 
+<<<<<<< HEAD
   在 JavaScript 中，除了 `false`、`0`、`''`、`null`、`undefined` 和 `NaN` 之外，所有值都是真值。
+=======
+  Everything in JavaScript is truthy, except `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, `""` and `document.all`.
+>>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
 
 ## toBeNull
 
