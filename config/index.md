@@ -605,7 +605,6 @@ export default defineConfig({
 - **默认值:** `'default'`
 - **命令行终端:** `--reporter=<name>`, `--reporter=<name1> --reporter=<name2>`
 
-<<<<<<< HEAD
 用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
 
 - `'default'` - 当他们经过测试套件
@@ -617,9 +616,6 @@ export default defineConfig({
 - `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
 - `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
 - 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
-=======
-Custom [reporters](/guide/reporters) for output. Reporters can be [a Reporter instance](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts), a string to select built-in reporters, or a path to a custom implementation (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`).
->>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
 
 ### outputFile<NonProjectOption />
 
@@ -639,7 +635,7 @@ Custom [reporters](/guide/reporters) for output. Reporters can be [a Reporter in
 
 #### threads<NonProjectOption />
 
-使用 [tinypool](https://github.com/tinylibs/tinypool)（一个轻量级的 [Piscina](https://github.com/piscinajs/piscina) 分支）来启用多线程。当使用线程时，你无法使用与进程相关的API，如 `process.chdir()` 。一些使用原生语言编写的库，如 Prisma 、`bcrypt` 和 `canvas` ，在多线程环境下可能会遇到问题并导致段错误。在这些情况下，建议使用 `forks` 线程池。
+使用 [tinypool](https://github.com/tinylibs/tinypool)（一个轻量级的 [Piscina](https://github.com/piscinajs/piscina) 分支）来启用多线程。当使用线程时，你无法使用与进程相关的 API，如 `process.chdir()` 。一些使用原生语言编写的库，如 Prisma 、`bcrypt` 和 `canvas` ，在多线程环境下可能会遇到问题并导致段错误。在这些情况下，建议使用 `forks` 线程池。
 
 #### forks<NonProjectOption />
 
@@ -649,7 +645,7 @@ Custom [reporters](/guide/reporters) for output. Reporters can be [a Reporter in
 
 在 `threads` 线程池中使用[ VM 上下文](https://nodejs.org/api/vm.html)（在受限环境中）运行测试。
 
-这样可以加快测试速度，但是当运行[ ES M代码](https://github.com/nodejs/node/issues/37648)时，VM 模块可能不稳定。你的测试可能会[泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
+这样可以加快测试速度，但是当运行[ ES M 代码](https://github.com/nodejs/node/issues/37648)时，VM 模块可能不稳定。你的测试可能会[泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
 
 ::: warning
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
@@ -689,9 +685,9 @@ export default defineConfig({
     poolOptions: {
       threads: {
         // Threads related options here
-      }
-    }
-  }
+      },
+    },
+  },
 })
 ```
 
@@ -715,7 +711,6 @@ export default defineConfig({
 - **默认值:** `false`
 
 在单个工作线程内使用相同的环境运行所有测试。 这将禁用内置模块隔离（我们的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
-
 
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
@@ -751,9 +746,9 @@ export default defineConfig({
     poolOptions: {
       forks: {
         // Forks related options here
-      }
-    }
-  }
+      },
+    },
+  },
 })
 ```
 
@@ -785,7 +780,6 @@ export default defineConfig({
 
 在单个子进程中使用相同的环境运行所有测试。 这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
-
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
@@ -804,9 +798,9 @@ export default defineConfig({
     poolOptions: {
       vmThreads: {
         // VM threads related options here
-      }
-    }
-  }
+      },
+    },
+  },
 })
 ```
 
@@ -851,6 +845,7 @@ export default defineConfig({
 ::: warning
 由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
+
 ##### poolOptions.vmThreads.useAtomics<NonProjectOption />
 
 - **类型:** `boolean`
@@ -938,7 +933,7 @@ globalThis.resetBeforeEachTest = true
 :::
 
 ::: warning 警告
-请注意，全局设置在不同的全局作用域中运行，因此你的测试无法访问在此处定义的变量。此外，自Vitest 1.0.0-beta版本以来，只有在至少有一个正在运行的测试时，全局设置才会运行。这意味着在监视模式下，全局设置可能会在测试文件更改后开始运行，例如（测试文件将在全局设置完成之前等待运行）。
+请注意，全局设置在不同的全局作用域中运行，因此你的测试无法访问在此处定义的变量。此外，自 Vitest 1.0.0-beta 版本以来，只有在至少有一个正在运行的测试时，全局设置才会运行。这意味着在监视模式下，全局设置可能会在测试文件更改后开始运行，例如（测试文件将在全局设置完成之前等待运行）。
 :::
 
 ### watchExclude<NonProjectOption />
@@ -1713,7 +1708,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **命令行终端**: `--typecheck.only`
 - **版本**: Since Vitest 1.0.0-beta.3
 
-启用类型检查时，仅运行类型检查测试。使用CLI时，此选项将自动启用类型检查。
+启用类型检查时，仅运行类型检查测试。使用 CLI 时，此选项将自动启用类型检查。
 
 #### typecheck.checker
 
@@ -1847,12 +1842,12 @@ export default defineConfig({
 
 ### onStackTrace
 
-- **Type**: `(error: Error, frame: ParsedStack) => boolean | void`
-- **Version**: Since Vitest 1.0.0-beta.3
+- **类型**: `(error: Error, frame: ParsedStack) => boolean | void`
+- **版本**: Since Vitest 1.0.0-beta.3
 
-Apply a filtering function to each frame of each stacktrace when handling errors. The first argument, `error`, is an object with the same properties as a standard `Error`, but it is not an actual instance.
+在处理错误时，对每个堆栈的每个帧应用过滤功能。第一个参数 `error` 是一个与标准 `Error` 具有相同属性的对象，但它不是实际实例。
 
-Can be useful for filtering out stacktrace frames from third-party libraries.
+可用于从第三方库中筛选堆栈跟踪帧。
 
 ```ts
 import type { ParsedStack } from 'vitest'

@@ -33,27 +33,27 @@ expect(input).toBe(2) // jest API
 
 `expect.soft` 的功能与 `expect` 类似，但它不会在断言失败时终止测试执行，而是继续运行并将失败标记为测试失败。 测试过程中遇到的所有错误都会显示出来，直到测试完成。
 
-  ```ts
-  import { expect, test } from 'vitest'
+```ts
+import { expect, test } from 'vitest'
 
-  test('expect.soft test', () => {
-    expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
-    expect.soft(1 + 2).toBe(4) // mark the test as fail and continue
-  })
-  // At the end of the test, the above errors will be output.
-  ```
-  
-  它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
+test('expect.soft test', () => {
+  expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
+  expect.soft(1 + 2).toBe(4) // mark the test as fail and continue
+})
+// At the end of the test, the above errors will be output.
+```
 
-  ```ts
-  import { expect, test } from 'vitest'
+它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
 
-  test('expect.soft test', () => {
-    expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
-    expect(1 + 2).toBe(3) // failed and terminate the test, all previous errors will be output
-    expect.soft(1 + 2).toBe(4) // do not run
-  })
-  ```
+```ts
+import { expect, test } from 'vitest'
+
+test('expect.soft test', () => {
+  expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
+  expect(1 + 2).toBe(3) // failed and terminate the test, all previous errors will be output
+  expect.soft(1 + 2).toBe(4) // do not run
+})
+```
 
 ::: warning
 `expect.soft` 只能在 [`test`](/api/#test) 函数内部使用。
@@ -189,11 +189,7 @@ expect(input).not.toBe(2) // jest API
   })
   ```
 
-<<<<<<< HEAD
-  在 JavaScript 中，除了 `false`、`0`、`''`、`null`、`undefined` 和 `NaN` 之外，所有值都是真值。
-=======
-  Everything in JavaScript is truthy, except `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, `""` and `document.all`.
->>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
+  在 JavaScript 中，除了 `false`、`null`、`undefined`、`NaN`、`0`、`-0`、`0n`、`""` 和 `document.all` 之外，所有值都是真值。
 
 ## toBeFalsy
 
@@ -226,11 +222,7 @@ expect(input).not.toBe(2) // jest API
   })
   ```
 
-<<<<<<< HEAD
-  在 JavaScript 中，除了 `false`、`0`、`''`、`null`、`undefined` 和 `NaN` 之外，所有值都是真值。
-=======
-  Everything in JavaScript is truthy, except `false`, `null`, `undefined`, `NaN`, `0`, `-0`, `0n`, `""` and `document.all`.
->>>>>>> ef052c101a2c12e420722b8d2b817e5e1187e4c4
+在 JavaScript 中，除了 `false`、`null`、`undefined`、`NaN`、`0`、`-0`、`0n`、`""` 和 `document.all` 之外，所有值都是真值。
 
 ## toBeNull
 
@@ -1145,12 +1137,12 @@ describe('toSatisfy()', () => {
 - **类型:** `(message?: string) => never`
 
   此方法用于断言永远不应该到达一条线。
-  
+
   例如，如果我们想测试 `build()` 由于接收目录没有 `src` 文件夹而抛出，并且还单独处理每个错误，我们可以这样做：
 
   ```ts
   import { expect, test } from 'vitest'
-
+  
   async function build(dir) {
     if (dir.includes('no-src'))
       throw new Error(`${dir}/src does not exist`)
@@ -1160,7 +1152,7 @@ describe('toSatisfy()', () => {
     'no-src-folder',
     // ...
   ]
-
+  
   test.each(errorDirs)('build fails with "%s"', async (dir) => {
     try {
       await build(dir)
@@ -1169,7 +1161,7 @@ describe('toSatisfy()', () => {
     catch (err: any) {
       expect(err).toBeInstanceOf(Error)
       expect(err.stack).toContain('build')
-
+  
       switch (dir) {
         case 'no-src-folder':
           expect(err.message).toBe(`${dir}/src does not exist`)
@@ -1221,9 +1213,9 @@ describe('toSatisfy()', () => {
 
 当比较对象属性或数组项中的浮点数时，`expect.closeTo`非常有用。但如果你需要比较一个数字，请使用`.toBeCloseTo`。
 
-可选的`numDigits`参数用于限制小数点后要检查的位数。默认值为`2`，即测试条件为`Math.abs(expected - received) < 0.005`（即10的负2次方除以2）。
+可选的`numDigits`参数用于限制小数点后要检查的位数。默认值为`2`，即测试条件为`Math.abs(expected - received) < 0.005`（即 10 的负 2 次方除以 2）。
 
-例如，以下测试在精度为5位的情况下通过：
+例如，以下测试在精度为 5 位的情况下通过：
 
 ```js
 test('compare float in object properties', () => {
