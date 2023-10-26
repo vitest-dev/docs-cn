@@ -200,7 +200,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 ### deps
 
-- **类型:** `{ optimizer?, registerNodeLoader?, ... }`
+- **类型:** `{ optimizer?, ... }`
 
 处理依赖关系解析。
 
@@ -285,15 +285,6 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 ::: warning
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
 :::
-
-#### deps.registerNodeLoader<NonProjectOption />
-
-- **类型:** `boolean`
-- **默认值:** `false`
-
-使用 [实验性 Node 加载器](https://nodejs.org/api/esm.html#loaders) 解析 `node_modules` 中的导入，使用 Vite 解析算法。
-
-如果禁用，你的 `alias` 和 `<plugin>.resolveId` 不会影响 `node_modules` 或 `deps.external` 中的导入。
 
 #### deps.interopDefault
 
