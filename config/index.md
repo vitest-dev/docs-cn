@@ -93,8 +93,23 @@ export default defineConfig(configEnv =>
 
 ## Options
 
+<<<<<<< HEAD
 ::: tip
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
+=======
+:::tip
+In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
+
+_All_ listed options here are located on a `test` property inside the config:
+
+```ts
+export default defineConfig({
+  test: {
+    exclude: [],
+  },
+})
+```
+>>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
 :::
 
 ::: tip
@@ -725,6 +740,17 @@ export default defineConfig({
 
 隔离每个测试文件的环境。
 
+##### poolOptions.threads.execArgv<NonProjectOption />
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+Pass additional arguments to `node` in the threads. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
+
+:::warning
+Be careful when using, it as some options may crash worker, e.g. --prof, --title. See https://github.com/nodejs/node/issues/41103.
+:::
+
 #### poolOptions.forks<NonProjectOption />
 
 `forks` 池的选项。
@@ -775,6 +801,17 @@ export default defineConfig({
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
 如果你依赖全局状态（前端框架通常这样做）或者您的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+:::
+
+##### poolOptions.forks.execArgv<NonProjectOption />
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+Pass additional arguments to `node` process in the child processes. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
+
+:::warning
+Be careful when using, it as some options may crash worker, e.g. --prof, --title. See https://github.com/nodejs/node/issues/41103.
 :::
 
 #### poolOptions.vmThreads<NonProjectOption />
@@ -845,6 +882,17 @@ export default defineConfig({
 使用 Atomics 来同步线程。
 
 这在某些情况下可以提高性能，但可能会在旧的 Node 版本中抛出错误。
+
+##### poolOptions.vmThreads.execArgv<NonProjectOption />
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+Pass additional arguments to `node` process in the VM context. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
+
+:::warning
+Be careful when using, it as some options may crash worker, e.g. --prof, --title. See https://github.com/nodejs/node/issues/41103.
+:::
 
 ### testTimeout
 
@@ -1927,3 +1975,54 @@ export default defineConfig({
 ```
 
 :::
+
+### fakeTimers
+
+- **Type:** `FakeTimerInstallOpts`
+
+Options that Vitest will pass down to [`@sinon/fake-timers`](https://www.npmjs.com/package/@sinonjs/fake-timers) when using [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers).
+
+#### fakeTimers.now
+
+- **Type:** `number | Date`
+- **Default:** `Date.now()`
+
+Installs fake timers with the specified unix epoch.
+
+#### fakeTimers.toFake
+
+- **Type:** `FakeMethod[]`
+
+An array with names of global methods and APIs to fake. By default, Vitest does not replace `nextTick()` and `queueMicrotask()`.
+
+To only mock `setTimeout()` and `nextTick()`, specify this property as `['setTimeout', 'nextTick']`.
+
+Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--pool=threads`.
+
+#### fakeTimers.loopLimit
+
+- **Type:** `number`
+- **Default:** `10_000`
+
+The maximum number of timers that will be run when calling [`vi.runAllTimers()`](/api/vi#vi-runalltimers).
+
+#### fakeTimers.shouldAdvanceTime
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Tells @sinonjs/fake-timers to increment mocked time automatically based on the real system time shift (e.g. the mocked time will be incremented by 20ms for every 20ms change in the real system time).
+
+#### fakeTimers.advanceTimeDelta
+
+- **Type:** `number`
+- **Default:** `20`
+
+Relevant only when using with `shouldAdvanceTime: true`. increment mocked time by advanceTimeDelta ms every advanceTimeDelta ms change in the real system time.
+
+#### fakeTimers.shouldClearNativeTimers
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Tells fake timers to clear "native" (i.e. not fake) timers by delegating to their respective handlers. These are not cleared by default, leading to potentially unexpected behavior if timers existed prior to starting fake timers session.

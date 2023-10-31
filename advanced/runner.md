@@ -107,7 +107,11 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 
 ## 你的任务函数
 
+<<<<<<< HEAD
 你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.custom` 方法添加到当前套件中：
+=======
+You can extend Vitest task system with your tasks. A task is an object that is part of a suite. It is automatically added to the current suite with a `suite.task` method:
+>>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
 
 ```js
 // ./utils/custom.js
@@ -115,6 +119,7 @@ import { createTaskCollector, getCurrentSuite, setFn } from 'vitest/suite'
 
 export { describe, beforeAll, afterAll } from 'vitest'
 
+<<<<<<< HEAD
 // 当 Vitest 收集任务时，将调用此函数
 // createTaskCollector 只提供了所有的 "todo"/"each"/... 支持，你不必使用它
 // 要支持自定义任务，你只需要调用 "getCurrentSuite().task()"
@@ -128,11 +133,29 @@ export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
     timeout,
   })
 })
+=======
+// this function will be called during collection phase:
+// don't call function handler here, add it to suite tasks
+// with "getCurrentSuite().task()" method
+// note: createTaskCollector provides support for "todo"/"each"/...
+export const myCustomTask = createTaskCollector(
+  function (name, fn, timeout) {
+    getCurrentSuite().task(name, {
+      ...this, // so "todo"/"skip"/... is tracked correctly
+      meta: {
+        customPropertyToDifferentiateTask: true
+      },
+      handler: fn,
+      timeout,
+    })
+  }
+)
+>>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
 ```
 
 ```js
 // ./garden/tasks.test.js
-import { afterAll, beforeAll, describe, myCustomTask } from '../utils/custom.js'
+import { afterAll, beforeAll, describe, myCustomTask } from '../custom.js'
 import { gardener } from './gardener.js'
 
 describe('take care of the garden', () => {

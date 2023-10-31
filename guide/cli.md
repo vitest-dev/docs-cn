@@ -32,7 +32,11 @@ vitest foobar
 
 ### `vitest related`
 
+<<<<<<< HEAD
 仅运行涵盖源文件列表的测试。 适用于静态惰性导入(例如, `import('./index.ts')` 或者 `import index from './index.ts`)，但不适用于动态导入(例如, `import(filepath)`)。 所有文件都应该相对于根文件夹。
+=======
+Run only tests that cover a list of source files. Works with static imports (e.g., `import('./index.js')` or `import index from './index.js`), but not the dynamic ones (e.g., `import(filepath)`). All files should be relative to root folder.
+>>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
 
 与 [`lint-staged`](https://github.com/okonet/lint-staged) 或你的 CI 设置一起运行很有用。
 
