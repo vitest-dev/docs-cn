@@ -44,7 +44,7 @@
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.5.0",
     "vite-plugin-pwa": "^0.16.6",
-    "vitepress": "1.0.0-rc.24",
+    "vitepress": "^1.0.0-rc.24",
     "workbox-window": "^7.0.0"
   }
 }
