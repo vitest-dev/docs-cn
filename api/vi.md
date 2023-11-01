@@ -431,9 +431,9 @@ The same as [`vi.mock`](#vi-mock), but it's not hoisted to the top of the file, 
 This will not mock modules that were imported before this was called. Don't forget that all static imports in ESM are always [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting), so putting this before static import will not force it to be called before the import:
 
 ```ts
-vi.doMock('./increment.js') // this will be called _after_ the import statement
+// this will be called _after_ the import statement
 
-import { increment } from './increment.js'
+import { increment } from './increment.js' vi.doMock('./increment.js')
 ```
 :::
 >>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e

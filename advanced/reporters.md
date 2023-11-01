@@ -58,11 +58,7 @@ export default defineConfig({
 
 ## 导出报告器
 
-<<<<<<< HEAD
-`vitest` 附带了一些内置的报告器，你可以开箱即用。
-=======
-`vitest` comes with a few [built-in reporters](/guide/reporters) that you can use out of the box.
->>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
+`vitest` 附带了一些[内置报告器](/guide/reporters)，你可以开箱即用。
 
 ### 内置报告器:
 

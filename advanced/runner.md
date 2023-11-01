@@ -30,7 +30,10 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?(test: TaskPopulated, options: { retry: number; repeats: number }): unknown
+  onBeforeTryTask?(
+    test: TaskPopulated,
+    options: { retry: number; repeats: number }
+  ): unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -39,7 +42,10 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?(test: TaskPopulated, options: { retry: number; repeats: number }): unknown
+  onAfterTryTask?(
+    test: TaskPopulated,
+    options: { retry: number; repeats: number }
+  ): unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -81,7 +87,9 @@ export interface VitestRunner {
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
    * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
-  extendTaskContext?<T extends Test | Custom>(context: TaskContext<T>): TaskContext<T>
+  extendTaskContext?<T extends Test | Custom>(
+    context: TaskContext<T>
+  ): TaskContext<T>
   /**
    * 当导入某些文件时被调用。在收集测试和导入设置文件时都可能会被调用。.
    */
@@ -93,7 +101,7 @@ export interface VitestRunner {
 }
 ```
 
-当初始化这个类时，Vitest会传递Vitest配置，你应该将它作为一个 `config` 属性暴露出来。
+当初始化这个类时，Vitest 会传递 Vitest 配置，你应该将它作为一个 `config` 属性暴露出来。
 
 ::: warning 注意
 Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注入。你可以使用它来处理 `importFile` 方法中的文件（这是 `TestRunner` 和 `BenchmarkRunner` 的默认行为）。
@@ -107,11 +115,7 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 
 ## 你的任务函数
 
-<<<<<<< HEAD
-你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.custom` 方法添加到当前套件中：
-=======
-You can extend Vitest task system with your tasks. A task is an object that is part of a suite. It is automatically added to the current suite with a `suite.task` method:
->>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
+你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.task` 方法添加到当前套件中：
 
 ```js
 // ./utils/custom.js
@@ -119,7 +123,6 @@ import { createTaskCollector, getCurrentSuite, setFn } from 'vitest/suite'
 
 export { describe, beforeAll, afterAll } from 'vitest'
 
-<<<<<<< HEAD
 // 当 Vitest 收集任务时，将调用此函数
 // createTaskCollector 只提供了所有的 "todo"/"each"/... 支持，你不必使用它
 // 要支持自定义任务，你只需要调用 "getCurrentSuite().task()"
@@ -127,30 +130,12 @@ export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
   getCurrentSuite().task(name, {
     ...this, // so "todo"/"skip" is tracked correctly
     meta: {
-      customPropertyToDifferentiateTask: true
+      customPropertyToDifferentiateTask: true,
     },
     handler: fn,
     timeout,
   })
 })
-=======
-// this function will be called during collection phase:
-// don't call function handler here, add it to suite tasks
-// with "getCurrentSuite().task()" method
-// note: createTaskCollector provides support for "todo"/"each"/...
-export const myCustomTask = createTaskCollector(
-  function (name, fn, timeout) {
-    getCurrentSuite().task(name, {
-      ...this, // so "todo"/"skip"/... is tracked correctly
-      meta: {
-        customPropertyToDifferentiateTask: true
-      },
-      handler: fn,
-      timeout,
-    })
-  }
-)
->>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
 ```
 
 ```js

@@ -93,14 +93,10 @@ export default defineConfig(configEnv =>
 
 ## Options
 
-<<<<<<< HEAD
-::: tip
-除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
-=======
 :::tip
-In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
+除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
 
-_All_ listed options here are located on a `test` property inside the config:
+*此处列出的*所有选项都位于配置中的 `test` 属性上：
 
 ```ts
 export default defineConfig({
@@ -109,7 +105,7 @@ export default defineConfig({
   },
 })
 ```
->>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
+
 :::
 
 ::: tip
@@ -1432,7 +1428,10 @@ test('doNotRun', () => {
 export interface BrowserProvider {
   name: string
   getSupportedBrowsers(): readonly string[]
-  initialize(ctx: Vitest, options: { browser: string; options?: BrowserProviderOptions }): Awaitable<void>
+  initialize(
+    ctx: Vitest,
+    options: { browser: string; options?: BrowserProviderOptions }
+  ): Awaitable<void>
   openPage(url: string): Awaitable<void>
   close(): Awaitable<void>
 }
@@ -1456,10 +1455,10 @@ export default defineConfig({
       providerOptions: {
         launch: {
           devtools: true,
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 })
 ```
 
@@ -1476,6 +1475,7 @@ To have a better type safety when using built-in providers, you can add one of t
   }
 }
 ```
+
 :::
 
 #### browser.slowHijackESM

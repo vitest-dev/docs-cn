@@ -32,11 +32,7 @@ vitest foobar
 
 ### `vitest related`
 
-<<<<<<< HEAD
 仅运行涵盖源文件列表的测试。 适用于静态惰性导入(例如, `import('./index.ts')` 或者 `import index from './index.ts`)，但不适用于动态导入(例如, `import(filepath)`)。 所有文件都应该相对于根文件夹。
-=======
-Run only tests that cover a list of source files. Works with static imports (e.g., `import('./index.js')` or `import index from './index.js`), but not the dynamic ones (e.g., `import(filepath)`). All files should be relative to root folder.
->>>>>>> 449e91a10caf45fec9786d40c3eaa7aa488ed69e
 
 与 [`lint-staged`](https://github.com/okonet/lint-staged) 或你的 CI 设置一起运行很有用。
 
@@ -63,7 +59,7 @@ export default {
 ## 选项
 
 | 选项                                 |                                                                                                                                             |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | `-v, --version`                      | 显示版本号                                                                                                                                  |
 | `-r, --root <path>`                  | 指定项目根目录                                                                                                                              |
 | `-c, --config <path>`                | 指定配置文件路径                                                                                                                            |
@@ -101,9 +97,9 @@ export default {
 | `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
 | `--bail <number>`                    | 当给定数量的测试失败时停止测试执行                                                                                                          |
 | `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
-| `--typecheck [options]` | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查 |
-| `--typecheck.enabled` | 在测试的同时启用类型检查 (默认值: `false`) |
-| `--typecheck.only` | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`) |
+| `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
+| `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
+| `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
 
 ::: tip
