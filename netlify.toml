@@ -3,7 +3,7 @@
 
 [build]
   publish = ".vitepress/dist"
-  command = "pnpm run build"
+  command = "npx pnpm i --ignore-scripts && pnpm run build"
 
 [[redirects]]
   from = "https://cn-vitest.netlify.app/*"
