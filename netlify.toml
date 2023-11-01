@@ -1,10 +1,9 @@
 [build.environment]
-  NPM_FLAGS = "--version"
-  NODE_VERSION = "16"
+  NODE_VERSION = "18"
 
 [build]
   publish = ".vitepress/dist"
-  command = "npx pnpm i --ignore-scripts --store=node_modules/.pnpm-store && npm run build"
+  command = "pnpm run build"
 
 [[redirects]]
   from = "https://cn-vitest.netlify.app/*"
