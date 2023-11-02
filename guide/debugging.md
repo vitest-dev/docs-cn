@@ -57,11 +57,11 @@ ndb npm run test
 
 创建一个 'Node.js' 运行配置。使用以下配置在调试模式下运行所有测试：
 
-Setting | Value
- --- | ---
-Working directory | /path/to/your-project-root
-JavaScript file | ./node_modules/vitest/vitest.mjs
-Application parameters | run --pool forks
+| Setting                | Value                            |
+| ---------------------- | -------------------------------- |
+| Working directory      | /path/to/your-project-root       |
+| JavaScript file        | ./node_modules/vitest/vitest.mjs |
+| Application parameters | run --pool forks                 |
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 
@@ -79,8 +79,4 @@ vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
 
 一旦 Vitest 启动，它将停止执行并等待你打开可以连接到 [NodeJS 检查器](https://nodejs.org/en/docs/guides/debugging-getting-started/) 的开发人员工具。 你可以通过在浏览器上打开 `chrome://inspect` 来使用 Chrome DevTools。
 
-<<<<<<< HEAD
-在监视模式下，你可以使用 `--single-thread --isolate false` 选项在测试重新运行期间保持调试器打开。
-=======
-In watch mode you can keep the debugger open during test re-runs by using the `--poolOptions.threads.isolate false` options.
->>>>>>> fc96d113a2bbcb534bccee5334cca566bbadfd4d
+在监视模式下，你可以使用 `--poolOptions.threads.isolate false` 选项在测试重新运行期间保持调试器打开。
