@@ -88,7 +88,11 @@ export default defineConfig({
 
 ### 类型
 
+<<<<<<< HEAD
 Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是为了与匹配器兼容，因此你可能需要直接从 `vitest` 导入类型，而不是依赖 `Vi` 命名空间：
+=======
+Vitest doesn't have an equivalent to `jest` namespace, so you will need to import types directly from `vitest`:
+>>>>>>> 4be1f32f7b1f40c6c8d7f479bcb751276ae29f47
 
 ```ts
 // [!code --]

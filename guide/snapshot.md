@@ -239,5 +239,32 @@ exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 在 Vitest 中，等效的快照将是：
 
 ```console
-exports[`toThrowErrorMatchingSnapshot > hint 1`] = `"error"`;
+exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
+```
+
+#### 4. default `Error` snapshot is different for `toThrowErrorMatchingSnapshot` and `toThrowErrorMatchingInlineSnapshot`
+
+```js
+test('snapshot', () => {
+  //
+  // in Jest
+  //
+
+  expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
+
+  // Jest snapshots `Error.message` for `Error` instance
+  expect(() => {
+    throw new Error('error')
+  }).toThrowErrorMatchingInlineSnapshot(`"error"`)
+
+  //
+  // in Vitest
+  //
+
+  expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
+
+  expect(() => {
+    throw new Error('error')
+  }).toThrowErrorMatchingInlineSnapshot(`[Error: error]`)
+})
 ```

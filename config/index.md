@@ -1480,15 +1480,27 @@ To have a better type safety when using built-in providers, you can add one of t
 
 #### browser.slowHijackESM
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **版本:** Vitest 0.31.0
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **Version:** Since Vitest 0.31.0
+>>>>>>> 4be1f32f7b1f40c6c8d7f479bcb751276ae29f47
 
 在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换您的源文件。
 
+<<<<<<< HEAD
 此选项对在 Node.js 中运行的测试没有影响。
 
 在浏览器中运行时，默认情况下启用此选项。如果您不依赖使用 `vi.spyOn` 监视 ES 模块并且不使用 `vi.mock`，则可以禁用此选项以获得轻微的性能提升。
+=======
+This option has no effect on tests running inside Node.js.
+
+If you rely on spying on ES modules with `vi.spyOn`, you can enable this experimental feature to allow spying on module exports.
+>>>>>>> 4be1f32f7b1f40c6c8d7f479bcb751276ae29f47
 
 ### clearMocks
 
