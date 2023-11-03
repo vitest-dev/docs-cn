@@ -230,6 +230,8 @@ test('toThrowErrorMatchingSnapshot', () => {
 })
 ```
 
+“toThrowErrorMatchingSnapshot”和“toThrow ErrorMatchingInlineSnapshot”的默认“错误”快照不同`
+
 在 Jest 中，快照将是：
 
 ```console
@@ -242,7 +244,7 @@ exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 ```
 
-#### 4. default `Error` snapshot is different for `toThrowErrorMatchingSnapshot` and `toThrowErrorMatchingInlineSnapshot`
+#### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同
 
 ```js
 test('snapshot', () => {
@@ -250,21 +252,21 @@ test('snapshot', () => {
   // in Jest
   //
 
-  expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
+  expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
 
   // Jest snapshots `Error.message` for `Error` instance
   expect(() => {
     throw new Error('error')
-  }).toThrowErrorMatchingInlineSnapshot(`"error"`)
+  }).toThrowErrorMatchingInlineSnapshot('"error"')
 
   //
   // in Vitest
   //
 
-  expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
+  expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
 
   expect(() => {
     throw new Error('error')
-  }).toThrowErrorMatchingInlineSnapshot(`[Error: error]`)
+  }).toThrowErrorMatchingInlineSnapshot('[Error: error]')
 })
 ```

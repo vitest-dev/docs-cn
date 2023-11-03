@@ -1443,10 +1443,10 @@ export interface BrowserProvider {
 
 #### browser.providerOptions
 
-- **Type:** `BrowserProviderOptions`
-- **Version:** Since Vitest 1.0.0-beta.3
+- **类型:** `BrowserProviderOptions`
+- **版本:** Since Vitest 1.0.0-beta.3
 
-Options that will be passed down to provider when calling `provider.initialize`.
+调用 `provider.initialize` 时将传递给提供程序的选项。
 
 ```ts
 export default defineConfig({
@@ -1463,7 +1463,7 @@ export default defineConfig({
 ```
 
 ::: tip
-To have a better type safety when using built-in providers, you can add one of these types (for provider that you are using) to your tsconfig's `compilerOptions.types` field:
+为了在使用内置提供程序时获得更好的类型安全性，你可以将以下类型之一（针对正在使用的提供程序）添加到 tsconfig 的 `compilerOptions.types` 字段中：
 
 ```json
 {
@@ -1480,27 +1480,15 @@ To have a better type safety when using built-in providers, you can add one of t
 
 #### browser.slowHijackESM
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `true`
-- **版本:** Vitest 0.31.0
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Version:** Since Vitest 0.31.0
->>>>>>> 4be1f32f7b1f40c6c8d7f479bcb751276ae29f47
+- **默认值:** `false`
+- **版本:** Since Vitest 0.31.0
 
 在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换您的源文件。
 
-<<<<<<< HEAD
 此选项对在 Node.js 中运行的测试没有影响。
 
-在浏览器中运行时，默认情况下启用此选项。如果您不依赖使用 `vi.spyOn` 监视 ES 模块并且不使用 `vi.mock`，则可以禁用此选项以获得轻微的性能提升。
-=======
-This option has no effect on tests running inside Node.js.
-
-If you rely on spying on ES modules with `vi.spyOn`, you can enable this experimental feature to allow spying on module exports.
->>>>>>> 4be1f32f7b1f40c6c8d7f479bcb751276ae29f47
+在浏览器中运行时，默认情况下会启用此选项。如果你依赖于使用 `vi.spyOn` 监视 ES 模块，则可以启用此实验功能来监视模块导出。
 
 ### clearMocks
 

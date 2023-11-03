@@ -22,6 +22,9 @@ devDependencies:
   '@iconify-json/carbon':
     specifier: ^1.1.21
     version: 1.1.21
+  '@iconify-json/logos':
+    specifier: ^1.1.37
+    version: 1.1.37
   '@types/fs-extra':
     specifier: ^11.0.1
     version: 11.0.1
@@ -2020,6 +2023,12 @@ packages:
 
   /@iconify-json/carbon@1.1.21:
     resolution: {integrity: sha512-bK2cMVM4noBU+FGlay433flpXLRzQu0ED095iAnoO6ka3yb4uz0lvb8acpN5gthyGLJ89C4HpfIbQZLQnMKQww==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/logos@1.1.37:
+    resolution: {integrity: sha512-H2S8frTEznk6paX2kMzeUGn4KSiykghvO0b8UvEDd1fFFzt0WxCXpP1tBv67XaWK99e6JgA34hhv4lRGAm1hJg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

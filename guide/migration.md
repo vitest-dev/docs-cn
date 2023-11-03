@@ -20,7 +20,8 @@ Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 
 ```ts
 jest.mock('./some-path', () => 'hello') // [!code --]
-vi.mock('./some-path', () => ({ // [!code ++]
+vi.mock('./some-path', () => ({
+  // [!code ++]
   default: 'hello', // [!code ++]
 })) // [!code ++]
 ```
@@ -50,7 +51,7 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 ### Replace property
 
-如果你想修改测试环境，你会在 Jest 中使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用 [vi.stubEnv](https://cn.vitest.dev/api/vi.html#vi-stubenv) 或者 [`vi.spyOn`](/api/vi#vi-spyon)  也可以在 Vitest 中执行此操作。
+如果你想修改测试环境，你会在 Jest 中使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用 [vi.stubEnv](https://cn.vitest.dev/api/vi.html#vi-stubenv) 或者 [`vi.spyOn`](/api/vi#vi-spyon) 也可以在 Vitest 中执行此操作。
 
 ### 回调完成
 
@@ -71,7 +72,9 @@ it('should work', () => new Promise(done => { // [!code ++]
 
 ```ts
 beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
-beforeEach(() => { setActivePinia(createTestingPinia()) }) // [!code ++]
+beforeEach(() => {
+  setActivePinia(createTestingPinia())
+}) // [!code ++]
 ```
 
 In Jest hooks are called sequentially (one after another). By default, Vitest runs hooks in parallel. To use Jest's behavior, update [`sequence.hooks`](/config/#sequence-hooks) option:
@@ -79,20 +82,17 @@ In Jest hooks are called sequentially (one after another). By default, Vitest ru
 ```ts
 export default defineConfig({
   test: {
-    sequence: { // [!code ++]
+    sequence: {
+      // [!code ++]
       hooks: 'list', // [!code ++]
-    } // [!code ++]
-  }
+    }, // [!code ++]
+  },
 })
 ```
 
 ### 类型
 
-<<<<<<< HEAD
-Vitest 没有在 `Vi` 命名空间上导出很多类型，它的存在主要是为了与匹配器兼容，因此你可能需要直接从 `vitest` 导入类型，而不是依赖 `Vi` 命名空间：
-=======
-Vitest doesn't have an equivalent to `jest` namespace, so you will need to import types directly from `vitest`:
->>>>>>> 4be1f32f7b1f40c6c8d7f479bcb751276ae29f47
+Vitest 没有等效于 `jest` 的命名空间，因此你需要直接从 `Vitest` 导入类型：
 
 ```ts
 // [!code --]
@@ -110,6 +110,7 @@ let fn: Mock<[string], string> // [!code ++]
 jest.setTimeout(5_000) // [!code --]
 vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 ```
+
 ### Vue 快照
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
