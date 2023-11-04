@@ -967,8 +967,36 @@ globalThis.resetBeforeEachTest = true
 可以存在多个 globalSetup。setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
 :::
 
+<<<<<<< HEAD
 ::: warning 警告
 请注意，全局设置在不同的全局作用域中运行，因此你的测试无法访问在此处定义的变量。此外，自 Vitest 1.0.0-beta 版本以来，只有在至少有一个正在运行的测试时，全局设置才会运行。这意味着在监视模式下，全局设置可能会在测试文件更改后开始运行，例如（测试文件将在全局设置完成之前等待运行）。
+=======
+::: warning
+Since Vitest 1.0.0-beta, global setup runs only if there is at least one running test. This means that global setup might start running during watch mode after test file is changed (the test file will wait for global setup to finish before running).
+
+Beware that the global setup is running in a different global scope, so your tests don't have access to variables defined here. Hovewer, since 1.0.0 you can pass down serializable data to tests via `provide` method:
+
+```ts
+// globalSetup.js
+export default function setup({ provide }) {
+  provide('wsPort', 3000)
+}
+// example.test.js
+import { inject } from 'vitest'
+
+inject('wsPort') === 3000
+```
+
+If you are using TypeScript, you can extend `ProvidedContext` type to have type safe access to `provide/inject` methods:
+
+```ts
+declare module 'vitest' {
+  export interface ProvidedContext {
+    wsPort: number
+  }
+}
+```
+>>>>>>> a6e2e76e92ae3bbed3b140991e365e9978fb675f
 :::
 
 ### watchExclude<NonProjectOption />
@@ -1055,6 +1083,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 [
   'coverage/**',
   'dist/**',
+  '**/[.]**',
   'packages/*/test?(s)/**',
   '**/*.d.ts',
   '**/virtual:*',
