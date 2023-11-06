@@ -967,27 +967,23 @@ globalThis.resetBeforeEachTest = true
 可以存在多个 globalSetup。setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
 :::
 
-<<<<<<< HEAD
-::: warning 警告
-请注意，全局设置在不同的全局作用域中运行，因此你的测试无法访问在此处定义的变量。此外，自 Vitest 1.0.0-beta 版本以来，只有在至少有一个正在运行的测试时，全局设置才会运行。这意味着在监视模式下，全局设置可能会在测试文件更改后开始运行，例如（测试文件将在全局设置完成之前等待运行）。
-=======
 ::: warning
-Since Vitest 1.0.0-beta, global setup runs only if there is at least one running test. This means that global setup might start running during watch mode after test file is changed (the test file will wait for global setup to finish before running).
+由于 Vitest 1.0.0-beta，全局设置只有在至少有一个正在运行的测试时才运行。这意味着在测试文件更改后，全局安装程序可能会在监视模式下开始运行（测试文件将等待全局安装程序完成后再运行）。
 
-Beware that the global setup is running in a different global scope, so your tests don't have access to variables defined here. Hovewer, since 1.0.0 you can pass down serializable data to tests via `provide` method:
+请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 `provide` 方法将可序列化数据传递给测试：
 
 ```ts
 // globalSetup.js
+// example.test.js
+import { inject } from 'vitest'
 export default function setup({ provide }) {
   provide('wsPort', 3000)
 }
-// example.test.js
-import { inject } from 'vitest'
 
 inject('wsPort') === 3000
 ```
 
-If you are using TypeScript, you can extend `ProvidedContext` type to have type safe access to `provide/inject` methods:
+如果你使用的是 TypeScript，则可以扩展 `ProvidedContext` 类型，以便对 `provide/inject` 方法进行类型安全访问：
 
 ```ts
 declare module 'vitest' {
@@ -996,7 +992,7 @@ declare module 'vitest' {
   }
 }
 ```
->>>>>>> a6e2e76e92ae3bbed3b140991e365e9978fb675f
+
 :::
 
 ### watchExclude<NonProjectOption />
