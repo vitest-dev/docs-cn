@@ -3,17 +3,17 @@ title: Reporters | Guide
 outline: deep
 ---
 
-# Reporters
+# 报告器
 
-Vitest provides several built-in reporters to display test output in different formats, as well as the ability to use custom reporters. You can select different reporters either by using the `--reporter` command line option, or by including a `reporters` property in your [configuration file](https://vitest.dev/config/#reporters). If no reporter is specified, Vitest will use the `default` reporter as described below.
+Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile`[配置选项](https://vitest.dev/config/#reporters)中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
 
-Using reporters via command line:
+通过命令行使用报告器:
 
 ```bash
 npx vitest --reporter=verbose
 ```
 
-Using reporters via [`vitest.config.ts`](/config/):
+通过配置文件 [`vitest.config.ts`](/config/) 使用报告器:
 
 ```ts
 /// <reference types="vitest" />
@@ -26,9 +26,9 @@ export default defineConfig({
 })
 ```
 
-## Reporter Output
+## 报告器输出
 
-By default, Vitest's reporters will print their output to the terminal. When using the `json`, `html` or `junit` reporters, you can instead write your tests' output to a file by including an `outputFile` [configuration option](https://vitest.dev/config/#outputfile) either in your Vite configuration file or via CLI.
+默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
 
 :::code-group
 ```bash [CLI]
@@ -45,9 +45,11 @@ export default defineConfig({
 ```
 :::
 
-## Combining Reporters
+## 组合报告器
 
-You can use multiple reporters simultaneously to print your test results in different formats. For example:
+你可以同时使用多个报告器，并以不同格式打印测试结果。 
+
+例如:
 
 ```bash
 npx vitest --reporter=json --reporter=default
@@ -62,9 +64,9 @@ export default defineConfig({
 })
 ```
 
-The above example will both print the test results to the terminal in the default style and write them as JSON to the designated output file.
+上面的示例将同时把测试结果以默认样式打印到终端，和以 JSON 格式写入指定的输出文件。  
 
-When using multiple reporters, it's also possible to designate multiple output files, as follows:
+使用多个报告器时，还可以指定多个输出文件，如下所示:
 
 ```ts
 export default defineConfig({
@@ -76,15 +78,15 @@ export default defineConfig({
 })
 ```
 
-This example will write separate JSON and XML reports as well as printing a verbose report to the terminal.
+这个示例将编写单独的 JSON 和 XML 报告，并将详细报告打印到终端。
 
-## Built-in Reporters
+## 内置报告器
 
-### Default reporter
+### 默认报告器
 
-By default (i.e. if no reporter is specified), Vitest will display results for each test suite hierarchically as they run, and then collapse after a suite passes. When all tests have finished running, the final terminal output will display a summary of results and details of any failed tests.
+默认情况下（即未指定报告程序），Vitest 会在每个测试套件运行时分级显示结果，并在套件通过后折叠显示。所有测试运行结束后，最终终端输出将显示结果摘要和失败测试的详细信息。
 
-Example output for tests in progress:
+项目中的测试输出示例:
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -94,7 +96,7 @@ Example output for tests in progress:
     ✓ 2 - 1 should equal 1
 ```
 
-Final output after tests have finished:
+测试完成后的最终输出:
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -106,9 +108,9 @@ Final output after tests have finished:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Basic reporter
+### 基础报告器
 
-The `basic` reporter displays the test files that have run and a summary of results after the entire suite has finished running. Individual tests are not included in the report unless they fail. 
+基础报告器会显示已运行的测试文件，以及整个套件运行结束后的结果摘要。单独的测试除非不合格，否则不列入报告。  
 
 :::code-group
 ```bash [CLI]
@@ -124,7 +126,7 @@ export default defineConfig({
 ```
 :::
 
-Example output using basic reporter:
+使用基础报告器的输出示例:
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
 ✓ __tests__/file2.test.ts (2) 746ms
@@ -135,9 +137,9 @@ Example output using basic reporter:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Verbose reporter
+### 详细报告器
 
-Follows the same hierarchical structure as the `default` reporter, but does not collapse sub-trees for passed test suites. The final terminal output displays all tests that have run, including those that have passed.
+采用与`默认报告器`相同的层次结构，但不会折叠已通过测试套件的子树。终端最终输出会显示所有已运行的测试，包括已通过的测试。
 
 :::code-group
 ```bash [CLI]
@@ -153,7 +155,7 @@ export default defineConfig({
 ```
 :::
 
-Example of final terminal output for a passing test suite:
+测试套件通过后的终端最终输出示例:
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -171,9 +173,9 @@ Example of final terminal output for a passing test suite:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Dot reporter
+### Dot报告器
 
-Prints a single dot for each completed test to provide minimal output while still showing all tests that have run. Details are only provided for failed tests, along with the `basic` reporter summary for the suite.
+为每个已完成的测试打印一个点，以提供最少的输出，并显示所有已运行的测试。只提供失败测试的详细信息，以及套件的基本报告摘要。
 
 :::code-group
 ```bash [CLI]
@@ -189,7 +191,7 @@ export default defineConfig({
 ```
 :::
 
-Example terminal output for a passing test suite:
+测试套件通过后的终端最终输出示例:
 
 ```bash
 ....
@@ -200,9 +202,9 @@ Example terminal output for a passing test suite:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### JUnit reporter
+### JUnit报告器
 
-Outputs a report of the test results in JUnit XML format. Can either be printed to the terminal or written to an XML file using the [`outputFile`](##Reporter-Output) configuration option. 
+以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入 XML 文件。 
 
 :::code-group
 ```bash [CLI]
@@ -218,7 +220,7 @@ export default defineConfig({
 ```
 :::
 
-Example of a JUnit XML report:
+JUnit XML 报告示例:
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites name="vitest tests" tests="2" failures="1" errors="0" time="0.503">
@@ -234,11 +236,11 @@ AssertionError: expected 5 to be 4 // Object.is equality
     </testsuite>
 </testsuites>
 ```
-The outputted XML contains nested `testsuites` and `testcase` tags. You can use the environment variables `VITEST_JUNIT_SUITE_NAME` and `VITEST_JUNIT_CLASSNAME` to configure their `name` and `classname` attributes, respectively.
+输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
 
-### JSON reporter
+### JSON报告器
 
-Outputs a report of the test results in JSON format. Can either be printed to the terminal or written to a file using the [`outputFile`](##Reporter-Output) configuration option. 
+以 JSON 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入文件。 
 
 :::code-group
 ```bash [CLI]
@@ -254,7 +256,7 @@ export default defineConfig({
 ```
 :::
 
-Example of a JSON report:
+JSON 报告示例:
 
 ```json
 {
@@ -300,12 +302,11 @@ Example of a JSON report:
 }
 ```
 
-### HTML reporter
+### HTML报告器
 
-Generates an HTML file to view test results through an interactive [GUI](/guide/ui). After the file has been generated, Vitest will keep a local development server running and provide a link to view the report in a browser.
+生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
 
-Output file can be specified using the [`outputFile`](##Reporter-Output) configuration option. If no `outputFile` option is provided, a new HTML file will be created. 
-
+可使用 [`outputFile`](##报告器输出) 配置选项指定输出文件。如果没有提供 `outputFile` 选项，则会创建一个新的 HTML 文件。
 :::code-group
 ```bash [CLI]
 npx vitest --reporter=html
@@ -321,12 +322,13 @@ export default defineConfig({
 :::
 
 ::: tip
-This reporter requires installed [`@vitest/ui`](/guide/ui) package.
+该报告器需要安装 [`@vitest/ui`](/guide/ui) 。
 :::
 
-### TAP reporter
+### TAP报告器
 
-Outputs a report following [Test Anything Protocol](https://testanything.org/) (TAP). 
+
+按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
 
 :::code-group
 ```bash [CLI]
@@ -342,7 +344,7 @@ export default defineConfig({
 ```
 :::
 
-Example of a TAP report:
+TAP报告示例:
 ```bash
 TAP version 13
 1..1
@@ -364,9 +366,9 @@ not ok 1 - __tests__/test-file-1.test.ts # time=14.00ms {
 }
 ```
 
-### TAP flat reporter
+### TAP扁平报告器
 
-Outputs a TAP flat report. Like the `tap` reporter, test results are formatted to follow TAP standards, but test suites are formatted as a flat list rather than a nested hierarchy.
+输出 TAP 扁平报告。与 `TAP Reporter` 一样，测试结果的格式遵循 TAP 标准，但测试套件的格式是扁平列表，而不是嵌套层次结构。
 
 :::code-group
 ```bash [CLI]
@@ -382,7 +384,7 @@ export default defineConfig({
 ```
 :::
 
-Example of a TAP flat report:
+TAP 扁平报告示例:
 ```bash
 TAP version 13
 1..2
@@ -399,10 +401,9 @@ ok 2 - __tests__/test-file-1.test.ts > first test file > 4 - 2 should equal 2 # 
 ```
 
 
-### Hanging process reporter
+### Hanging process报告器
 
-Displays a list of hanging processes, if any are preventing Vitest from exiting safely. The `hanging-process` reporter does not itself display test results, but can be used in conjunction with another reporter to monitor processes while tests run. Using this reporter can be resource-intensive, so should generally be reserved for debugging purposes in situations where Vitest consistently cannot exit the process.
-
+展示任何妨碍 Vitest 安全退出的 hanging processes ，`hanging-process` 报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
 :::code-group
 ```bash [CLI]
 npx vitest --reporter=hanging-process
@@ -417,9 +418,9 @@ export default defineConfig({
 ```
 :::
 
-## Custom reporters
+## 自定义报告器
 
-You can use third-party custom reporters installed from NPM by specifying their package name in the reporters' option:
+你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
 
 :::code-group
 ```bash [CLI]
@@ -435,10 +436,10 @@ export default defineConfig({
 ```
 :::
 
-Additionally, you can define your own [custom reporters](/advanced/reporters) and use them by specifying their file path:
+此外，你还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
 
 ```bash
 npx vitest --reporter=./path/to/reporter.ts
 ```
 
-Custom reporters should implement the [Reporter interface](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts). 
+自定义报告器应实现[报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts)。
