@@ -97,6 +97,7 @@ export default {
 | `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
 | `--bail <number>`                    | 当给定数量的测试失败时停止测试执行                                                                                                          |
 | `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
+| `--expand-snapshot-diff`             | 快照失败时显示完整差异                                                                                                                 |
 | `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
 | `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
