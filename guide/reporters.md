@@ -5,7 +5,7 @@ outline: deep
 
 # 报告器
 
-Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的`outputFile`[配置选项](https://vitest.dev/config/#reporters)中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
+Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile`[配置选项](https://vitest.dev/config/#reporters)中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
 
 通过命令行使用报告器:
 
