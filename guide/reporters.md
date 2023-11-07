@@ -204,7 +204,7 @@ export default defineConfig({
 
 ### JUnit报告器
 
-以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出)配置选项写入 XML 文件。 
+以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入 XML 文件。 
 
 :::code-group
 ```bash [CLI]
