@@ -147,7 +147,9 @@ const IntersectionObserverMock = vi.fn(() => ({
   unobserve: vi.fn(),
 }))
 
-vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+// vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+// 不明白,这里是不是应该这样啊???
+vi.stubGlobal('IntersectionObserver', IntersectionObserverMock())
 
 // 现在你可以通过 `IntersectionObserver` 或 `window.IntersectionObserver` 访问
 ```
