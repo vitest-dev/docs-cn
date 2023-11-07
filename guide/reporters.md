@@ -5,7 +5,7 @@ outline: deep
 
 # 报告器
 
-Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。您可以使用 `--reporter` 命令行选项，或者在您的`outputFile`[配置选项](https://vitest.dev/config/#reporters)中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
+Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的`outputFile`[配置选项](https://vitest.dev/config/#reporters)中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
 
 通过命令行使用报告器:
 
@@ -28,7 +28,7 @@ export default defineConfig({
 
 ## 报告器输出
 
-默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json`、`html` 或 `junit` 报告器时，您可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
+默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json`、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
 
 :::code-group
 ```bash [CLI]
@@ -47,7 +47,8 @@ export default defineConfig({
 
 ## 组合报告器
 
-您可以同时使用多个报告器，并以不同格式打印测试结果。  
+你可以同时使用多个报告器，并以不同格式打印测试结果。 
+
 例如:
 
 ```bash
@@ -77,7 +78,7 @@ export default defineConfig({
 })
 ```
 
-这个示例将编写单独的JSON和XML报告，并将详细报告打印到终端。
+这个示例将编写单独的 JSON 和 XML 报告，并将详细报告打印到终端。
 
 ## 内置报告器
 
@@ -235,11 +236,11 @@ AssertionError: expected 5 to be 4 // Object.is equality
     </testsuite>
 </testsuites>
 ```
-输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。您可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
+输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
 
 ### JSON报告器
 
-以 JSON 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出)配置选项写入文件。 
+以 JSON 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入文件。 
 
 :::code-group
 ```bash [CLI]
@@ -303,7 +304,7 @@ JSON 报告示例:
 
 ### HTML报告器
 
-生成 HTML 文件，通过交互式[GUI](/guide/ui)查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
+生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
 
 可使用 [`outputFile`](##报告器输出) 配置选项指定输出文件。如果没有提供 `outputFile` 选项，则会创建一个新的 HTML 文件。
 :::code-group
@@ -321,13 +322,13 @@ export default defineConfig({
 :::
 
 ::: tip
-该报告器需要安装 [`@vitest/ui`](/guide/ui)。
+该报告器需要安装 [`@vitest/ui`](/guide/ui) 。
 :::
 
 ### TAP报告器
 
 
-按照[Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
+按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
 
 :::code-group
 ```bash [CLI]
@@ -402,7 +403,7 @@ ok 2 - __tests__/test-file-1.test.ts > first test file > 4 - 2 should equal 2 # 
 
 ### Hanging process报告器
 
-展示任何妨碍Vitest安全退出的hanging processes，`hanging-process`报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
+展示任何妨碍 Vitest 安全退出的 hanging processes ，`hanging-process` 报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
 :::code-group
 ```bash [CLI]
 npx vitest --reporter=hanging-process
@@ -419,7 +420,7 @@ export default defineConfig({
 
 ## 自定义报告器
 
-你可以使用从 NPM 安装的第三方自定义报告器，方法是在`reporter`选项中指定它们的软件包名称:
+你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
 
 :::code-group
 ```bash [CLI]
@@ -435,8 +436,7 @@ export default defineConfig({
 ```
 :::
 
-Additionally, you can define your own [custom reporters](/advanced/reporters) and use them by specifying their file path:
-此外，您还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
+此外，你还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
 
 ```bash
 npx vitest --reporter=./path/to/reporter.ts
