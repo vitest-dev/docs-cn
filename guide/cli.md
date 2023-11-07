@@ -58,7 +58,6 @@ export default {
 
 ## 选项
 
-<<<<<<< HEAD
 | 选项                                 |                                                                                                                                             |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | `-v, --version`                      | 显示版本号                                                                                                                                  |
@@ -98,56 +97,11 @@ export default {
 | `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
 | `--bail <number>`                    | 当给定数量的测试失败时停止测试执行                                                                                                          |
 | `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
+| `--expand-snapshot-diff`             | 快照失败时显示完整差异                                                                                                                 |
 | `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
 | `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
-=======
-| Options       |               |
-| ------------- | ------------- |
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--pool <pool>` | Specify pool, if not running in the browser (default: `threads`)  |
-| `--poolOptions <options>` | Specify pool options |
-| `--poolOptions.threads.isolate` | Isolate tests in threads pool (default: `true`)  |
-| `--poolOptions.forks.isolate` | Isolate tests in forks pool (default: `true`)  |
-| `--silent` | Silent console output from tests |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Enable coverage report |
-| `--run` | Do not watch |
-| `--mode` | Override Vite mode (default: `test`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser api with happy-dom |
-| `--browser [options]` | Run tests in [the browser](/guide/browser) (default: `false`) |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--logHeapUsage` | Show the size of heap for each test |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order or `--sequence.shuffle --sequence.seed SEED_ID` to run a specific order) |
-| `--no-color` | Removes colors from the console output |
-| `--inspect` | Enables Node.js inspector |
-| `--inspect-brk` | Enables Node.js inspector with break |
-| `--bail <number>` | Stop test execution when given number of tests have failed |
-| `--retry <times>` | Retry the test specific number of times if it fails |
-| `--expand-snapshot-diff` | Show full diff when snapshot fails |
-| `--typecheck [options]` | Custom options for typecheck pool. If passed without options, enables typechecking |
-| `--typecheck.enabled` | Enable typechecking alongside tests (default: `false`) |
-| `--typecheck.only` | Run only typecheck tests. This automatically enables typecheck (default: `false`) |
-| `-h, --help` | Display available CLI options |
->>>>>>> 639fa33d2981f04d2af8b247fb3f7631ad4ef0b5
 
 ::: tip
 Vitest 支持 CLI 参数的骆驼式命名法和烤肉串式命名法。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
