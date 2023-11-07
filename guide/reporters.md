@@ -13,7 +13,7 @@ Vitest 提供了几种内置报告器，以不同格式显示测试输出，以�
 npx vitest --reporter=verbose
 ```
 
-通过配置文件[`vitest.config.ts`](/config/)使用报告器:
+通过配置文件 [`vitest.config.ts`](/config/) 使用报告器:
 
 ```ts
 /// <reference types="vitest" />
@@ -28,7 +28,7 @@ export default defineConfig({
 
 ## 报告器输出
 
-默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json`、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
+默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
 
 :::code-group
 ```bash [CLI]
