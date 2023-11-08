@@ -16,7 +16,7 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 ```ts
 // @vitest-environment jsdom
 
-import { test } from 'vitest'
+import { expect, test } from 'vitest'
 
 test('test', () => {
   expect(typeof window).not.toBe('undefined')
