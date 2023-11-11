@@ -34,12 +34,13 @@ if (import.meta.vitest) {
 更新 Vitest 配置文件内的 `includeSource` 以获取到 `src/` 下的文件：
 
 ```ts
-// vitest.config.ts
-import { defineConfig } from 'vitest/config'
+// vite.config.ts
+/// <reference types="vitest" />
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    includeSource: ['src/**/*.{js,ts}'],
+    includeSource: ['src/**/*.{js,ts}'], // [!code ++]
   },
 })
 ```
@@ -55,16 +56,17 @@ $ npx vitest
 对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
 
 ```ts
-// vitest.config.ts
-import { defineConfig } from 'vitest/config'
+// vite.config.ts
+/// <reference types="vitest" />
+import { defineConfig } from 'vite'
 
 export default defineConfig({
+  test: {
+    includeSource: ['src/**/*.{js,ts}'],
+  },
   define: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  test: {
-    includeSource: ['src/**/*.{js,ts}']
-  },
 })
 ```
 

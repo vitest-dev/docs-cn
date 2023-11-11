@@ -31,17 +31,72 @@ test('my types work properly', () => {
 
 ## 读取错误
 
+<<<<<<< HEAD
 如果你使用的是 `expectTypeOf` API，可能会注意到难以阅读的错误或意外的错误：
+=======
+If you are using `expectTypeOf` API, refer to the [expect-type documentation on its error messages](https://github.com/mmkal/expect-type#error-messages).
+
+When types don't match, `.toEqualTypeOf` and `.toMatchTypeOf` use a special helper type to produce error messages that are as actionable as possible. But there's a bit of an nuance to understanding them. Since the assertions are written "fluently", the failure should be on the "expected" type, not the "actual" type (`expect<Actual>().toEqualTypeOf<Expected>()`). This means that type errors can be a little confusing - so this library produces a `MismatchInfo` type to try to make explicit what the expectation is. For example:
+>>>>>>> f204bb763bdc9cfe2222caa89d2436208ee321dd
 
 ```ts
-expectTypeOf(1).toEqualTypeOf<string>()
-//             ^^^^^^^^^^^^^^^^^^^^^^
-// index-c3943160.d.ts(90, 20): Arguments for the rest parameter 'MISMATCH' were not provided.
+expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
+<<<<<<< HEAD
 这是由于 [`expect-type`](https://github.com/mmkal/expect-type) 处理类型错误的方式。
 
 不幸的是，TypeScript 在不打补丁的情况下不提供类型元数据，因此我们目前无法提供有用的错误消息，但是有 <a href="https://github.com/microsoft/TypeScript/pull/40468" tatger=" _blank">在 TypeScript 项目中工作</a> 来解决这个问题。如果你想要更好的消息，请让 TypeScript 团队查看提到的 PR。
+=======
+Is an assertion that will fail, since `{a: 1}` has type `{a: number}` and not `{a: string}`.  The error message in this case will read something like this:
+
+```
+test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the constraint '{ a: \\"Expected: string, Actual: number\\"; }'.
+  Types of property 'a' are incompatible.
+    Type 'string' is not assignable to type '\\"Expected: string, Actual: number\\"'.
+
+999 expectTypeOf({a: 1}).toEqualTypeOf<{a: string}>()
+```
+
+Note that the type constraint reported is a human-readable messaging specifying both the "expected" and "actual" types. Rather than taking the sentence `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"` literally - just look at the property name (`'a'`) and the message: `Expected: string, Actual: number`. This will tell you what's wrong, in most cases. Extremely complex types will of course be more effort to debug, and may require some experimentation. Please [raise an issue](https://github.com/mmkal/expect-type) if the error messages are actually misleading.
+
+The `toBe...` methods (like `toBeString`, `toBeNumber`, `toBeVoid` etc.) fail by resolving to a non-callable type when the `Actual` type under test doesn't match up. For example, the failure for an assertion like `expectTypeOf(1).toBeString()` will look something like this:
+
+```
+test/test.ts:999:999 - error TS2349: This expression is not callable.
+  Type 'ExpectString<number>' has no call signatures.
+
+999 expectTypeOf(1).toBeString()
+                    ~~~~~~~~~~
+```
+
+The `This expression is not callable` part isn't all that helpful - the meaningful error is the next line, `Type 'ExpectString<number> has no call signatures`. This essentially means you passed a number but asserted it should be a string.
+
+If TypeScript added support for ["throw" types](https://github.com/microsoft/TypeScript/pull/40468) these error messagess could be improved significantly. Until then they will take a certain amount of squinting.
+
+#### Concrete "expected" objects vs typeargs
+
+Error messages for an assertion like this:
+
+```ts
+expectTypeOf({ a: 1 }).toEqualTypeOf({ a: '' })
+```
+
+Will be less helpful than for an assertion like this:
+
+```ts
+expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
+```
+
+This is because the TypeScript compiler needs to infer the typearg for the `.toEqualTypeOf({a: ''})` style, and this library can only mark it as a failure by comparing it against a generic `Mismatch` type. So, where possible, use a typearg rather than a concrete type for `.toEqualTypeOf` and `toMatchTypeOf`. If it's much more convenient to compare two concrete types, you can use `typeof`:
+
+```ts
+const one = valueFromFunctionOne({ some: { complex: inputs } })
+const two = valueFromFunctionTwo({ some: { other: inputs } })
+
+expectTypeOf(one).toEqualTypeof<typeof two>()
+```
+>>>>>>> f204bb763bdc9cfe2222caa89d2436208ee321dd
 
 如果你发现很难使用 `expectTypeOf` API 并找出错误，你始终可以使用更简单的 `assertType` API：
 
