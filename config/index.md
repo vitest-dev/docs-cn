@@ -974,19 +974,14 @@ globalThis.resetBeforeEachTest = true
 
 ```ts
 // globalSetup.js
-// example.test.js
-import { inject } from 'vitest'
 export default function setup({ provide }) {
   provide('wsPort', 3000)
 }
-<<<<<<< HEAD
-=======
 ```
 
 ```ts
 // example.test.js
 import { inject } from 'vitest'
->>>>>>> f204bb763bdc9cfe2222caa89d2436208ee321dd
 
 inject('wsPort') === 3000
 ```
