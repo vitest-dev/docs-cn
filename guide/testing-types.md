@@ -31,24 +31,16 @@ test('my types work properly', () => {
 
 ## 读取错误
 
-<<<<<<< HEAD
-如果你使用的是 `expectTypeOf` API，可能会注意到难以阅读的错误或意外的错误：
-=======
-If you are using `expectTypeOf` API, refer to the [expect-type documentation on its error messages](https://github.com/mmkal/expect-type#error-messages).
+如果使用的是 `expectTypeOf` API，请参阅 [expect-type 关于其错误信息的文档](https://github.com/mmkal/expect-type#error-messages)。
 
-When types don't match, `.toEqualTypeOf` and `.toMatchTypeOf` use a special helper type to produce error messages that are as actionable as possible. But there's a bit of an nuance to understanding them. Since the assertions are written "fluently", the failure should be on the "expected" type, not the "actual" type (`expect<Actual>().toEqualTypeOf<Expected>()`). This means that type errors can be a little confusing - so this library produces a `MismatchInfo` type to try to make explicit what the expectation is. For example:
->>>>>>> f204bb763bdc9cfe2222caa89d2436208ee321dd
+当类型不匹配时，`.toEqualTypeOf` 和 `.toMatchTypeOf`会使用一种特殊的辅助类型来生成尽可能可操作的错误信息。但要理解它们还有一些细微差别。由于断言是 "流畅地 "编写的，所以失败应该发生在 "预期 "类型上，而不是 "实际 "类型上（`expect<Actual>().toEqualTypeOf<Expected>()`）。这意味着类型错误可能有点令人困惑，因此该库生成了一个 `MismatchInfo` 类型，试图明确说明期望是什么。例如
 
 ```ts
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
 <<<<<<< HEAD
-这是由于 [`expect-type`](https://github.com/mmkal/expect-type) 处理类型错误的方式。
-
-不幸的是，TypeScript 在不打补丁的情况下不提供类型元数据，因此我们目前无法提供有用的错误消息，但是有 <a href="https://github.com/microsoft/TypeScript/pull/40468" tatger=" _blank">在 TypeScript 项目中工作</a> 来解决这个问题。如果你想要更好的消息，请让 TypeScript 团队查看提到的 PR。
-=======
-Is an assertion that will fail, since `{a: 1}` has type `{a: number}` and not `{a: string}`.  The error message in this case will read something like this:
+是一个将失败的断言，因为 `{a: 1}` 的类型是 `{a: number}` 而不是 `{a: string}`。  这种情况下的错误信息如下
 
 ```
 test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the constraint '{ a: \\"Expected: string, Actual: number\\"; }'.
@@ -58,9 +50,9 @@ test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the 
 999 expectTypeOf({a: 1}).toEqualTypeOf<{a: string}>()
 ```
 
-Note that the type constraint reported is a human-readable messaging specifying both the "expected" and "actual" types. Rather than taking the sentence `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"` literally - just look at the property name (`'a'`) and the message: `Expected: string, Actual: number`. This will tell you what's wrong, in most cases. Extremely complex types will of course be more effort to debug, and may require some experimentation. Please [raise an issue](https://github.com/mmkal/expect-type) if the error messages are actually misleading.
+请注意，报告的类型约束是一个可读性强的消息，指定了"期望"和"实际"类型。不要字面上解读句子 `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"` ，而是看属性名（`'a'`）和消息内容：`Expected: string, Actual: number`。这将告诉你出了什么问题，在大多数情况下。当然，对于非常复杂的类型，调试可能需要更多的努力，并且可能需要一些试验。如果错误消息实际上是误导性的，请[提出问题](https://github.com/mmkal/expect-type)。
 
-The `toBe...` methods (like `toBeString`, `toBeNumber`, `toBeVoid` etc.) fail by resolving to a non-callable type when the `Actual` type under test doesn't match up. For example, the failure for an assertion like `expectTypeOf(1).toBeString()` will look something like this:
+对于像 `expectTypeOf(1).toBeString()` 这样的断言，`toBe...` 方法（如 `toBeString`、`toBeNumber`、`toBeVoid` 等）在被测试的 `Actual` 类型不匹配时会解析为一个不可调用的类型。例如，失败的断言可能会显示如下内容：
 
 ```
 test/test.ts:999:999 - error TS2349: This expression is not callable.
@@ -70,10 +62,10 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
                     ~~~~~~~~~~
 ```
 
-The `This expression is not callable` part isn't all that helpful - the meaningful error is the next line, `Type 'ExpectString<number> has no call signatures`. This essentially means you passed a number but asserted it should be a string.
+这部分的`This expression is not callable`并没有太大的帮助 - 有意义的错误在下一行，`Type 'ExpectString<number> has no call signatures`。这基本上意味着你传递了一个数字，但断言它应该是一个字符串。
 
-If TypeScript added support for ["throw" types](https://github.com/microsoft/TypeScript/pull/40468) these error messagess could be improved significantly. Until then they will take a certain amount of squinting.
-
+如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
+=======
 #### Concrete "expected" objects vs typeargs
 
 Error messages for an assertion like this:
@@ -109,7 +101,7 @@ assertType<string>(answer)
 ```
 
 ::: tip
-使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/#include) 配置选项中包含您的类型文件来做到这一点，因此 Vitest 实际上也会*运行*这些测试并因 `ReferenceError` 而失败。
+使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/#include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会*运行*这些测试并因 `ReferenceError` 而失败。
 
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：
 
