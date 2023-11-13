@@ -39,7 +39,6 @@ test('my types work properly', () => {
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
-<<<<<<< HEAD
 是一个将失败的断言，因为 `{a: 1}` 的类型是 `{a: number}` 而不是 `{a: string}`。  这种情况下的错误信息如下
 
 ```
