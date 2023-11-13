@@ -57,7 +57,7 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 从 Vitest v0.10.0 开始，声明测试的回调样式被弃用。 你可以重写它们以使用 `async`/`await` 函数，或者使用 Promise 来模仿回调样式。
 
-```ts
+```
 it('should work', (done) => {  // [!code --]
 it('should work', () => new Promise(done => { // [!code ++]
   // ...

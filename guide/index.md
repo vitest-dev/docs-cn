@@ -36,7 +36,7 @@ bun add -D vitest
 :::
 
 :::tip
-Vitest 需要 Vite >=v3.0.0 和 Node >=v14.18
+Vitest 1.0 需要 Vite >=v5.0.0 和 Node >=v18.00
 :::
 
 建议你使用上面列出的方法之一在 `package.json` 中安装 `vitest` 的副本。 但是，如果你希望直接运行 `vitest`，可以使用 `npx vitest`（npm 和 Node.js 附带 `npx` 命令）。
