@@ -65,22 +65,22 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 这部分的`This expression is not callable`并没有太大的帮助 - 有意义的错误在下一行，`Type 'ExpectString<number> has no call signatures`。这基本上意味着你传递了一个数字，但断言它应该是一个字符串。
 
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
-=======
-#### Concrete "expected" objects vs typeargs
 
-Error messages for an assertion like this:
+#### 具体的 "expected "对象与类型参数
+
+像这样的断言的错误消息：
 
 ```ts
 expectTypeOf({ a: 1 }).toEqualTypeOf({ a: '' })
 ```
 
-Will be less helpful than for an assertion like this:
+对于像这样的断言，错误消息将不够有帮助：
 
 ```ts
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
-This is because the TypeScript compiler needs to infer the typearg for the `.toEqualTypeOf({a: ''})` style, and this library can only mark it as a failure by comparing it against a generic `Mismatch` type. So, where possible, use a typearg rather than a concrete type for `.toEqualTypeOf` and `toMatchTypeOf`. If it's much more convenient to compare two concrete types, you can use `typeof`:
+这是因为 TypeScript 编译器需要推断 `.toEqualTypeOf({a: ''})` 样式的类型参数，并且该库只能通过将其与通用的 `Mismatch` 类型进行比较来标记它为失败。因此，在可能的情况下，使用类型参数而不是具体类型来使用 `.toEqualTypeOf` 和 `toMatchTypeOf`。如果使用两个具体类型进行比较更加方便，可以使用 `typeof`：
 
 ```ts
 const one = valueFromFunctionOne({ some: { complex: inputs } })
@@ -88,7 +88,6 @@ const two = valueFromFunctionTwo({ some: { other: inputs } })
 
 expectTypeOf(one).toEqualTypeof<typeof two>()
 ```
->>>>>>> f204bb763bdc9cfe2222caa89d2436208ee321dd
 
 如果你发现很难使用 `expectTypeOf` API 并找出错误，你始终可以使用更简单的 `assertType` API：
 
