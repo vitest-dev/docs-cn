@@ -278,7 +278,7 @@ Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
-import { graphql, rest } from 'msw'
+import { HttpResponse, graphql, rest } from 'msw'
 
 const posts = [
   {
@@ -291,18 +291,28 @@ const posts = [
 ]
 
 export const restHandlers = [
-  rest.get('https://rest-endpoint.example/path/to/posts', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(posts))
+  http.get('https://rest-endpoint.example/path/to/posts', () => {
+    return HttpResponse.json(posts)
   }),
 ]
 
 const graphqlHandlers = [
+<<<<<<< HEAD
   graphql.query(
     'https://graphql-endpoint.example/api/v1/posts',
     (req, res, ctx) => {
       return res(ctx.data(posts))
     }
   ),
+=======
+  graphql.query('https://graphql-endpoint.example/api/v1/posts', () => {
+    return HttpResponse.json(
+      {
+        data: { posts },
+      },
+    )
+  }),
+>>>>>>> 44722d4697a401ddd873810875482a75abc1e7a9
 ]
 
 const server = setupServer(...restHandlers, ...graphqlHandlers)
