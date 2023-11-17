@@ -14,7 +14,11 @@ outline: deep
 
 要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。如果你使用 `vite` 的 `defineConfig` 你还需要将 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 写在配置文件的顶部。
 
+<<<<<<< HEAD
 使用 `vite` 的 `defineConfig` 可以参考下面的格式：
+=======
+Using `defineConfig` from `vite` you should follow this:
+>>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
 ```ts
 /// <reference types="vitest" />
@@ -27,7 +31,11 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 使用 `vitest` 的 `defineConfig` 可以参考下面的格式：
+=======
+Using `defineConfig` from `vitest/config` you should follow this:
+>>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -1211,8 +1219,49 @@ Collect coverage of files outside the [project `root`](https://vitest.dev/config
 
 是否显示具有 100% 语句、分支和函数的测试覆盖率的文件。
 
-#### coverage.perFile
+#### coverage.thresholds
 
+Options for coverage thresholds
+
+##### coverage.thresholds.lines
+
+- **Type:** `number`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.lines=<number>`
+
+Global threshold for lines.
+See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+
+##### coverage.thresholds.functions
+
+- **Type:** `number`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.functions=<number>`
+
+Global threshold for functions.
+See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+
+##### coverage.thresholds.branches
+
+- **Type:** `number`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.branches=<number>`
+
+Global threshold for branches.
+See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+
+##### coverage.thresholds.statements
+
+- **Type:** `number`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.statements=<number>`
+
+Global threshold for statements.
+See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+
+##### coverage.thresholds.perFile
+
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
@@ -1220,9 +1269,18 @@ Collect coverage of files outside the [project `root`](https://vitest.dev/config
 
 检查每个文件的阈值。
 有关实际阈值，请参见 `lines`, `functions`, `branches` and `statements` 。
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
 
-#### coverage.thresholdAutoUpdate
+Check thresholds per file.
+>>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
+##### coverage.thresholds.autoUpdate
+
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
@@ -1298,6 +1356,60 @@ Collect coverage of files outside the [project `root`](https://vitest.dev/config
 - **命令行终端:** `--coverage.100`, `--coverage.100=false`
 
 为 `--coverage.lines 100 --coverage.functions 100 --coverage.branches 100 --coverage.statements 100` 设置的快捷方式。
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.autoUpdate=<boolean>`
+
+Update all threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is above the configured thresholds.
+This option helps to maintain thresholds when coverage is improved.
+
+##### coverage.thresholds.100
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.thresholds.100`, `--coverage.thresholds.100=false`
+
+Sets global thresholds to 100.
+Shortcut for `--coverage.thresholds.lines 100 --coverage.thresholds.functions 100 --coverage.thresholds.branches 100 --coverage.thresholds.statements 100`.
+
+##### coverage.thresholds[glob-pattern]
+
+- **Type:** `{ statements?: number functions?: number branches?: number lines?: number }`
+- **Default:** `undefined`
+- **Available for providers:** `'v8' | 'istanbul'`
+
+Sets thresholds for files matching the glob pattern.
+
+<!-- eslint-skip -->
+```ts
+{
+  coverage: {
+    thresholds: {
+      // Thresholds for all files
+      functions: 95,
+      branches: 70,
+
+      // Thresholds for matching glob pattern
+      'src/utils/**.ts': {
+        statements: 95,
+        functions: 90,
+        branches: 85,
+        lines: 80,
+      },
+
+      // Files matching this pattern will only have lines thresholds set.
+      // Global thresholds are not inherited.
+      '**/math.ts': {
+        lines: 100,
+      }
+    }
+  }
+}
+```
+>>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
 #### coverage.ignoreClassMethods
 
