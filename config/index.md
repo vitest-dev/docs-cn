@@ -14,11 +14,7 @@ outline: deep
 
 要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。如果你使用 `vite` 的 `defineConfig` 你还需要将 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 写在配置文件的顶部。
 
-<<<<<<< HEAD
 使用 `vite` 的 `defineConfig` 可以参考下面的格式：
-=======
-Using `defineConfig` from `vite` you should follow this:
->>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
 ```ts
 /// <reference types="vitest" />
@@ -31,11 +27,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-使用 `vitest` 的 `defineConfig` 可以参考下面的格式：
-=======
-Using `defineConfig` from `vitest/config` you should follow this:
->>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
+使用 `vitest/config` 中的 `defineConfig`  可以参考下面的格式：
 
 ```ts
 import { defineConfig } from 'vitest/config'
