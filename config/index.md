@@ -1115,7 +1115,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.clean
 
-- **Type:** `boolean`
+- **类型:** `boolean`
 - **默认值:** `true`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.clean`, `--coverage.clean=false`
@@ -1195,9 +1195,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.allowExternal
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **CLI:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
 Collect coverage of files outside the [project `root`](https://vitest.dev/config/#root).
@@ -1213,167 +1213,80 @@ Collect coverage of files outside the [project `root`](https://vitest.dev/config
 
 #### coverage.thresholds
 
-Options for coverage thresholds
+覆盖范围阈值选项
 
 ##### coverage.thresholds.lines
 
-- **Type:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.lines=<number>`
+- **类型:** `number`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.thresholds.lines=<number>`
 
-Global threshold for lines.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+lines 的全局阈值。
+更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 ##### coverage.thresholds.functions
 
-- **Type:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.functions=<number>`
+- **类型:** `number`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.thresholds.functions=<number>`
 
-Global threshold for functions.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+functions 的全局阈值。
+更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 ##### coverage.thresholds.branches
 
-- **Type:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.branches=<number>`
+- **类型:** `number`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.thresholds.branches=<number>`
 
-Global threshold for branches.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+branches 的全局阈值。
+更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 ##### coverage.thresholds.statements
 
-- **Type:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.statements=<number>`
+- **类型:** `number`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.thresholds.statements=<number>`
 
-Global threshold for statements.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds) for more information.
+statements 的全局阈值。
+更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 ##### coverage.thresholds.perFile
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.perFile`, `--coverage.perFile=false`
+- **命令行终端:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
 
 检查每个文件的阈值。
-有关实际阈值，请参见 `lines`, `functions`, `branches` and `statements` 。
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
-
-Check thresholds per file.
->>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
 ##### coverage.thresholds.autoUpdate
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.thresholdAutoUpdate=<boolean>`
+- **命令行终端:** `--coverage.thresholds.autoUpdate=<boolean>`
 
-当前覆盖率高于配置的阈值时，将阈值 `lines`、 `functions`、`branches` 和 `statements` 更新到配置文件。
-此选项有助于在提高覆盖率时维持阈值。
-
-#### coverage.lines
-
-- **类型:** `number`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.lines=<number>`
-
-行的阈值。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
-
-#### coverage.functions
-
-- **类型:** `number`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.functions=<number>`
-
-函数的阈值。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
-
-#### coverage.branches
-
-- **类型:** `number`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.branches=<number>`
-
-分支的阈值。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
-
-#### coverage.statements
-
-- **类型:** `number`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.statements=<number>`
-
-语句的阈值。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 来了解详情。
-
-#### coverage.allowExternal
-
-- **类型:** `boolean`
-- **默认值:** `false`
-- **可用的测试提供者:** `'v8'`
-- **命令行终端:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
-
-是否允许来自 cwd 外部的文件。
-
-#### coverage.excludeNodeModules
-
-- **类型:** `boolean`
-- **默认值:** `true`
-- **可用的测试提供者:** `'v8'`
-- **命令行终端:** `--coverage.excludeNodeModules`, `--coverage.excludeNodeModules=false`
-
-排除 `/node_modules/` 下的覆盖范围。
-
-#### coverage.src
-
-- **类型:** `string[]`
-- **默认值:** `process.cwd()`
-- **可用的测试提供者:** `'v8'`
-- **命令行终端:** `--coverage.src=<path>`
-
-指定启用 `--all` 时使用的目录。
-
-#### coverage.100
-
-- **类型:** `boolean`
-- **默认值:** `false`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.100`, `--coverage.100=false`
-
-为 `--coverage.lines 100 --coverage.functions 100 --coverage.branches 100 --coverage.statements 100` 设置的快捷方式。
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.autoUpdate=<boolean>`
-
-Update all threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is above the configured thresholds.
-This option helps to maintain thresholds when coverage is improved.
+如果当前覆盖率高于配置的阈值时，将所有阈值 `lines` 、`functions` 、`branches` 和 `statements` 更新到配置文件中。
+此选项有助于在覆盖率提高时保持阈值不变。
 
 ##### coverage.thresholds.100
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.100`, `--coverage.thresholds.100=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.thresholds.100`, `--coverage.thresholds.100=false`
 
-Sets global thresholds to 100.
-Shortcut for `--coverage.thresholds.lines 100 --coverage.thresholds.functions 100 --coverage.thresholds.branches 100 --coverage.thresholds.statements 100`.
+将全局阈值设置为 100。
+这是 `--coverage.thresholds.lines 100 --coverage.thresholds.functions 100 --coverage.thresholds.branches 100 --coverage.thresholds.statements 100` 的快捷方式。
 
 ##### coverage.thresholds[glob-pattern]
 
-- **Type:** `{ statements?: number functions?: number branches?: number lines?: number }`
-- **Default:** `undefined`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **类型:** `{ statements?: number functions?: number branches?: number lines?: number }`
+- **默认值:** `undefined`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
-Sets thresholds for files matching the glob pattern.
+设置与 glob 模式匹配的文件的阈值。
 
 <!-- eslint-skip -->
 ```ts
@@ -1401,7 +1314,6 @@ Sets thresholds for files matching the glob pattern.
   }
 }
 ```
->>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 
 #### coverage.ignoreClassMethods
 
