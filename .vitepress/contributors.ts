@@ -54,6 +54,16 @@ function createLinks(tm: CoreTeam): CoreTeam {
 
 const plainTeamMembers: CoreTeam[] = [
   {
+    avatar: contributorsAvatars['sheremet-va'],
+    name: 'Vladimir',
+    github: 'sheremet-va',
+    mastodon: 'https://elk.zone/m.webtoo.ls/@sheremet_va',
+    twitter: 'sheremet_va',
+    sponsor: 'https://github.com/sponsors/sheremet-va',
+    title: '全栈开源开发者',
+    desc: 'Vitest 的核心团队成员',
+  },
+  {
     avatar: contributorsAvatars.antfu,
     name: 'Anthony Fu',
     github: 'antfu',
@@ -66,16 +76,6 @@ const plainTeamMembers: CoreTeam[] = [
     org: 'NuxtLabs',
     orgLink: 'https://nuxtlabs.com/',
     desc: 'Vite 和 Vue 的核心团队成员',
-  },
-  {
-    avatar: contributorsAvatars['sheremet-va'],
-    name: 'Vladimir',
-    github: 'sheremet-va',
-    mastodon: 'https://elk.zone/m.webtoo.ls/@sheremet_va',
-    twitter: 'sheremet_va',
-    sponsor: 'https://github.com/sponsors/sheremet-va',
-    title: '全栈开源开发者',
-    desc: 'Vitest 的核心团队成员',
   },
   {
     avatar: contributorsAvatars.AriPerkkio,
