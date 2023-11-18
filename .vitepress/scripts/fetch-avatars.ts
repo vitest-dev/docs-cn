@@ -1,14 +1,16 @@
 import { existsSync, promises as fsp } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'pathe'
+import { teamMembers } from '../contributors'
 
 const docsDir = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
+<<<<<<< HEAD
 
 const pathContributors = resolve(docsDir, '.vitepress/contributor-names.json')
+=======
+>>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
 const dirAvatars = resolve(docsDir, 'public/user-avatars/')
 const dirSponsors = resolve(docsDir, 'public/sponsors/')
-
-let contributors: string[] = []
 
 async function download(url: string, fileName: string) {
   if (existsSync(fileName))
@@ -25,9 +27,8 @@ async function download(url: string, fileName: string) {
 async function fetchAvatars() {
   if (!existsSync(dirAvatars))
     await fsp.mkdir(dirAvatars, { recursive: true })
-  contributors = JSON.parse(await fsp.readFile(pathContributors, { encoding: 'utf-8' }))
 
-  await Promise.all(contributors.map(name => download(`https://github.com/${name}.png?size=100`, join(dirAvatars, `${name}.png`))))
+  await Promise.all(teamMembers.map(c => c.github).map(name => download(`https://github.com/${name}.png?size=100`, join(dirAvatars, `${name}.png`))))
 }
 
 async function fetchSponsors() {

@@ -81,8 +81,13 @@ const plainTeamMembers: CoreTeam[] = [
     avatar: contributorsAvatars.AriPerkkio,
     name: 'Ari Perkkiö',
     github: 'AriPerkkio',
+<<<<<<< HEAD
     title: '全栈开发人员, 在 Cloudamite 工作',
     desc: 'Vitest 团队成员',
+=======
+    title: 'A fullstack developer, working',
+    desc: 'Core team member of Vitest',
+>>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
   },
@@ -106,6 +111,14 @@ const plainTeamMembers: CoreTeam[] = [
     twitter: 'userquin',
     title: '全栈和安卓开发者',
     desc: 'Vite 的狂热追随者',
+  },
+  {
+    avatar: contributorsAvatars.Dunqing,
+    name: 'Dunqing',
+    github: 'Dunqing',
+    twitter: '@Dunqingg',
+    title: 'A passionate enthusiast of open source contributions',
+    desc: 'Team member of Vitest & UnoCSS',
   },
   {
     avatar: contributorsAvatars.Aslemammad,
