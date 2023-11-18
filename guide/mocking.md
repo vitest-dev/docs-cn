@@ -297,14 +297,6 @@ export const restHandlers = [
 ]
 
 const graphqlHandlers = [
-<<<<<<< HEAD
-  graphql.query(
-    'https://graphql-endpoint.example/api/v1/posts',
-    (req, res, ctx) => {
-      return res(ctx.data(posts))
-    }
-  ),
-=======
   graphql.query('https://graphql-endpoint.example/api/v1/posts', () => {
     return HttpResponse.json(
       {
@@ -312,7 +304,6 @@ const graphqlHandlers = [
       },
     )
   }),
->>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
 ]
 
 const server = setupServer(...restHandlers, ...graphqlHandlers)
