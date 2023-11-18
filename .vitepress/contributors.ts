@@ -60,8 +60,8 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@sheremet_va',
     twitter: 'sheremet_va',
     sponsor: 'https://github.com/sponsors/sheremet-va',
-    title: 'An open source fullstack developer',
-    desc: 'Core team member of Vitest & Vite',
+    title: '全栈开源开发者',
+    desc: 'Vitest 的核心团队成员',
   },
   {
     avatar: contributorsAvatars.antfu,
@@ -78,19 +78,6 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Vite 和 Vue 的核心团队成员',
   },
   {
-<<<<<<< HEAD
-    avatar: contributorsAvatars['sheremet-va'],
-    name: 'Vladimir',
-    github: 'sheremet-va',
-    mastodon: 'https://elk.zone/m.webtoo.ls/@sheremet_va',
-    twitter: 'sheremet_va',
-    sponsor: 'https://github.com/sponsors/sheremet-va',
-    title: '全栈开源开发者',
-    desc: 'Vitest 的核心团队成员',
-  },
-  {
-=======
->>>>>>> 2af12936f0e014e6b4e25d461ec09721565e8c8b
     avatar: contributorsAvatars.AriPerkkio,
     name: 'Ari Perkkiö',
     github: 'AriPerkkio',
