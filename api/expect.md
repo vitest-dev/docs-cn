@@ -1,14 +1,14 @@
 # expect
 
-The following types are used in the type signatures below
+以下类型在下面的类型签名中被使用。
 
 ```ts
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
-`expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions build on top of `chai`.
+`expect` 用于创建断言。 在这种情况下， `assertions` 是可以调用来断言语句的函数。 Vitest 默认提供 `chai` 断言，并且还在 `chai` 之上构建了与  `Jest`  兼容的断言。
 
-For example, this code asserts that an `input` value is equal to `2`. If it's not, the assertion will throw an error, and the test will fail.
+例如，此代码断言 `input`  值等于 `2`。 如果不是，assertions 将抛出错误，并且测试将失败。
 
 ```ts
 import { expect } from 'vitest'
@@ -19,19 +19,19 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
-Technically this example doesn't use [`test`](/api/#test) function, so in the console you will see Nodejs error instead of Vitest output. To learn more about `test`, please read [Test API Reference](/api/).
+从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[测试 API 参考](/api/)。
 
-Also, `expect` can be used statically to access matchers functions, described later, and more.
+此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
-`expect` has no effect on testing types, if the expression doesn't have a type error. If you want to use Vitest as [type checker](/guide/testing-types), use [`expectTypeOf`](/api/expect-typeof) or [`assertType`](/api/assert-type).
+如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果您想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
 :::
 
 ## soft
 
-- **Type:** `ExpectStatic & (actual: any) => Assertions`
+- **类型:** `ExpectStatic & (actual: any) => Assertions`
 
-`expect.soft` functions similarly to `expect`, but instead of terminating the test execution upon a failed assertion, it continues running and marks the failure as a test failure. All errors encountered during the test will be displayed until the test is completed.
+`expect.soft` 的功能与 `expect` 类似，但它不会在断言失败时终止测试执行，而是继续运行并将失败标记为测试失败。 测试过程中遇到的所有错误都会显示出来，直到测试完成。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -43,7 +43,7 @@ test('expect.soft test', () => {
 // At the end of the test, the above errors will be output.
 ```
 
-It can also be used with `expect`. if `expect` assertion fails, the test will be terminated and all errors will be displayed.
+它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -56,12 +56,12 @@ test('expect.soft test', () => {
 ```
 
 ::: warning
-`expect.soft` can only be used inside the [`test`](/api/#test) function.
+`expect.soft` 只能在 [`test`](/api/#test) 函数的内部使用。
 :::
 
 ## not
 
-Using `not` will negate the assertion. For example, this code asserts that an `input` value is not equal to `2`. If it's equal, the assertion will throw an error, and the test will fail.
+使用 `not` 将否定该断言。 例如，此代码断言 `input` 值不等于 `2`。 如果相等，断言将抛出错误，测试将失败。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -74,11 +74,11 @@ expect(input).not.toBe(2) // jest API
 
 ## toBe
 
-- **Type:** `(value: any) => Awaitable<void>`
+- **类型:** `(value: any) => Awaitable<void>`
 
-`toBe` can be used to assert if primitives are equal or that objects share the same reference. It is equivalent of calling `expect(Object.is(3, 3)).toBe(true)`. If the objects are not the same, but you want to check if their structures are identical, you can use [`toEqual`](#toequal).
+`toBe` 可用于断言基元是否相等或对象共享相同的引用。 它相当于调用 `expect(Object.is(3, 3)).toBe(true)` 。 如果对象不相同，但你想检查它们的结构是否相同，可以使用 [`toEqual`](#toequal)。
 
-For example, the code below checks if the trader has 13 apples.
+例如，下面的代码检查交易者是否有 13 个苹果。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -100,7 +100,7 @@ test('stocks are the same', () => {
 })
 ```
 
-Try not to use `toBe` with floating-point numbers. Since JavaScript rounds them, `0.1 + 0.2` is not strictly `0.3`. To reliably assert floating-point numbers, use [`toBeCloseTo`](#tobecloseto) assertion.
+尽量不要将 `toBe` 与浮点数一起使用。 由于 JavaScript 对它们进行四舍五入，因此 `0.1 + 0.2` 并不严格是 `0.3` 。 要可靠地断言浮点数，请使用 [`toBeCloseTo`](#tobecloseto) 断言。
 
 ## toBeCloseTo
 
