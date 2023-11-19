@@ -72,7 +72,7 @@ const plainTeamMembers: CoreTeam[] = [
     discord: 'https://chat.antfu.me',
     youtube: 'antfu',
     sponsor: 'https://github.com/sponsors/antfu',
-    title: '狂热的开源者，在 NuxtLabs 工作',
+    title: '狂热的开源者，工作于',
     org: 'NuxtLabs',
     orgLink: 'https://nuxtlabs.com/',
     desc: 'Vite 和 Vue 的核心团队成员',
@@ -81,13 +81,8 @@ const plainTeamMembers: CoreTeam[] = [
     avatar: contributorsAvatars.AriPerkkio,
     name: 'Ari Perkkiö',
     github: 'AriPerkkio',
-<<<<<<< HEAD
-    title: '全栈开发人员, 在 Cloudamite 工作',
-    desc: 'Vitest 团队成员',
-=======
-    title: 'A fullstack developer, working',
-    desc: 'Core team member of Vitest',
->>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
+    title: '全栈开发人员, 工作于',
+    desc: 'Vitest 核心团队成员',
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
   },
@@ -98,7 +93,7 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@patak',
     twitter: 'patak_dev',
     sponsor: 'https://github.com/sponsors/patak-dev',
-    title: '二当家，在 StackBlitz 工作',
+    title: '二当家，工作于',
     org: 'StackBlitz',
     orgLink: 'https://stackblitz.com/',
     desc: 'Vite 和 Vue 的核心团队成员',
@@ -117,8 +112,8 @@ const plainTeamMembers: CoreTeam[] = [
     name: 'Dunqing',
     github: 'Dunqing',
     twitter: '@Dunqingg',
-    title: 'A passionate enthusiast of open source contributions',
-    desc: 'Team member of Vitest & UnoCSS',
+    title: '热衷于开源贡献者',
+    desc: 'Vitest 和 UnoCSS 团队成员',
   },
   {
     avatar: contributorsAvatars.Aslemammad,
@@ -145,7 +140,7 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
     title: '全栈开发人员',
-    desc: '创建协作工具',
+    desc: '开发 CRDT 和本地优先软件',
   },
   {
     avatar: contributorsAvatars.poyoho,
