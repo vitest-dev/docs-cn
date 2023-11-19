@@ -1,31 +1,31 @@
 # Custom Pool
 
 ::: warning
-This is advanced API. If you are just running tests, you probably don't need this. It is primarily used by library authors.
+这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
 :::
 
-Vitest runs tests in pools. By default, there are several pools:
+Vitest 在默认情况下以多种方式运行测试：
 
-- `threads` to run tests using `node:worker_threads` (isolation is provided with a new worker context)
-- `forks` to run tests using `node:child_process` (isolation is provided with a new `child_process.fork` process)
-- `vmThreads` to run tests using `node:worker_threads` (but isolation is provided with `vm` module instead of a new worker context)
-- `browser` to run tests using browser providers
-- `typescript` to run typechecking on tests
+- `threads` 使用 `node:worker_threads` 运行测试（通过新的 worker 上下文提供隔离）
+- `forks` 使用 `node:child_process` 运行测试（通过新的 `child_process.fork` 进程提供隔离）
+- `vmThreads` 使用 `node:worker_threads` 运行测试（但是通过 `vm` 模块而不是新的 worker 上下文提供隔离）
+- `browser` 使用浏览器提供程序运行测试
+- `typescript` 在测试中运行类型检查
 
-You can provide your own pool by specifying a file path:
+你可以通过指定文件路径来提供自己的池：
 
 ```ts
 export default defineConfig({
   test: {
-    // will run every file with a custom pool by default
+    // 默认情况下，将使用自定义池运行每个文件
     pool: './my-custom-pool.ts',
-    // you can provide options using `poolOptions` object
+    // 可以使用 `poolOptions` 对象提供选项
     poolOptions: {
       myCustomPool: {
         customProperty: true,
       },
     },
-    // you can also specify pool for a subset of files
+    // 还可以为文件子集指定池
     poolMatchGlobs: [
       ['**/*.custom.test.ts', './my-custom-pool.ts'],
     ],
@@ -35,7 +35,7 @@ export default defineConfig({
 
 ## API
 
-The file specified in `pool` option should export a function (can be async) that accepts `Vitest` interface as its first option. This function needs to return an object matching `ProcessPool` interface:
+在 `pool` 选项中指定的文件应该导出一个函数（可以是异步的），该函数接受 `Vitest` 接口作为其第一个选项。这个函数需要返回一个与 `ProcessPool` 接口匹配的对象：
 
 ```ts
 import { ProcessPool, WorkspaceProject } from 'vitest/node'
@@ -47,15 +47,15 @@ export interface ProcessPool {
 }
 ```
 
-The function is called only once (unless the server config was updated), and it's generally a good idea to initialize everything you need for tests inside that function and reuse it when `runTests` is called.
+这个函数只会被调用一次（除非服务器配置被更新），通常最好在这个函数内初始化测试所需的一切，并在调用 `runTests` 时重复使用它。
 
-Vitest calls `runTest` when new tests are scheduled to run. It will not call it if `files` is empty. The first argument is an array of tuples: the first element is a reference to a workspace project and the second one is an absolute path to a test file. Files are sorted using [`sequencer`](/config/#sequence.sequencer) before `runTests` is called. It's possible (but unlikely) to have the same file twice, but it will always have a different project - this is implemented via [`vitest.workspace.ts`](/guide/workspace) configuration.
+Vitest 在安排运行新测试时调用 `runTest`。如果 `files` 为空，将不会调用它。第一个参数是一个元组数组：第一个元素是对工作区项目的引用，第二个元素是测试文件的绝对路径。在调用 `runTests` 之前，文件将使用 [`sequencer`](/config/#sequence.sequencer) 进行排序。可能（但不太可能）会有相同的文件出现两次，但它们将始终属于不同的项目 - 这是通过 [`vitest.workspace.ts`](/guide/workspace) 配置实现的。
 
-Vitest will wait until `runTests` is executed before finishing a run (i.e., it will emit [`onFinished`](/guide/reporters) only after `runTests` is resolved).
+Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTests` 解决后才会触发 [`onFinished`](/guide/reporters)）。
 
-If you are using a custom pool, you will have to provide test files and their results yourself - you can reference [`vitest.state`](https://github.com/vitest-dev/vitest/blob/feat/custom-pool/packages/vitest/src/node/state.ts) for that (most important are `collectFiles` and `updateTasks`). Vitest uses `startTests` function from `@vitest/runner` package to do that.
+如果你正在使用自定义池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/feat/custom-pool/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
 
-To communicate between different processes, you can create methods object using `createMethodsRPC` from `vitest/node`, and use any form of communication that you prefer. For example, to use websockets with `birpc` you can write something like this:
+要在不同进程之间进行通信，可以使用 `vitest/node` 中的 `createMethodsRPC` 创建方法对象，并使用你喜欢的任何通信形式。例如，要使用 `birpc` 的 websockets，可以编写类似以下的内容：
 
 ```ts
 import { createBirpc } from 'birpc'
@@ -75,16 +75,16 @@ function createRpc(project: WorkspaceProject, wss: WebSocketServer) {
 }
 ```
 
-To make sure every test is collected, you would call `ctx.state.collectFiles` and report it to Vitest reporters:
+为了确保收集每个测试，您可以调用 `ctx.state.collectFiles` 并将其交给 Vitest 报告器：
 
 ```ts
 async function runTests(project: WorkspaceProject, tests: string[]) {
-  // ... running tests, put into "files" and "tasks"
+  // ... 运行测试，放入 `files` 和 `tasks` 中
   const methods = createMethodsRPC(project)
   await methods.onCollected(files)
-  // most reporters rely on results being updated in "onTaskUpdate"
+  // 大多数报告都依赖于在 `onTaskUpdate` 中更新结果
   await methods.onTaskUpdate(tasks)
 }
 ```
 
-You can see a simple example in [pool/custom-pool.ts](https://github.com/vitest-dev/vitest/blob/feat/custom-pool/test/run/pool-custom-fixtures/pool/custom-pool.ts).
+可以在 [pool/custom-pool.ts](https://github.com/vitest-dev/vitest/blob/feat/custom-pool/test/run/pool-custom-fixtures/pool/custom-pool.ts). 中看到一个简单的示例。
