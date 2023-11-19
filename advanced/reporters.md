@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-# 扩展默认报告器
-=======
-# Extending Reporters
->>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
+# 扩展默认报告器 (Extending Reporters)
 
 你可以从 `vitest/reporters` 导入报告器并扩展它们以创建您的自定义报告器。
 
-<<<<<<< HEAD
-## 扩展内置报告器
-=======
-## Extending Built-in Reporters
->>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
+## 扩展内置报告器 (Extending Built-in Reporters)
 
 一般来说，你不需要从头开始创建报告器。`vitest` 附带了几个可以扩展的默认报告程序。
 
@@ -64,11 +56,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-## 导出报告器
-=======
-## Exported Reporters
->>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
+## 导出报告器 (Exported Reporters)
 
 `vitest` 附带了一些[内置报告器](/guide/reporters)，你可以开箱即用。
 
