@@ -4,11 +4,7 @@ import { dirname, join, resolve } from 'pathe'
 import { teamMembers } from '../contributors'
 
 const docsDir = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
-<<<<<<< HEAD
 
-const pathContributors = resolve(docsDir, '.vitepress/contributor-names.json')
-=======
->>>>>>> 83a0cab9c04ffffabcfca4cb8f906fe8f752edf7
 const dirAvatars = resolve(docsDir, 'public/user-avatars/')
 const dirSponsors = resolve(docsDir, 'public/sponsors/')
 
