@@ -2,9 +2,9 @@
 outline: deep
 ---
 
-# Test API Reference
+# Test API 索引
 
-The following types are used in the type signatures below
+下面的类型签名中使用了以下类型：
 
 ```ts
 type Awaitable<T> = T | PromiseLike<T>
@@ -12,19 +12,19 @@ type TestFunction = () => Awaitable<void>
 
 interface TestOptions {
   /**
-   * Will fail the test if it takes too long to execute
+   * 如果执行时间过长，测试将失败
    */
   timeout?: number
   /**
-   * Will retry the test specific number of times if it fails
+   * 如果测试失败，将重试特定次数
    *
    * @default 0
    */
   retry?: number
   /**
-   * Will repeat the same test several times even if it fails each time
-   * If you have "retry" option and it fails, it will use every retry in each cycle
-   * Useful for debugging random failings
+   * 即使每次都失败，也会重复多次相同的测试
+   * 如果有 "retry" 选项并且失败，它将在每个周期中使用每次重试
+   * 对于调试随机故障很有用
    *
    * @default 0
    */
@@ -32,20 +32,24 @@ interface TestOptions {
 }
 ```
 
-When a test function returns a promise, the runner will wait until it is resolved to collect async expectations. If the promise is rejected, the test will fail.
+当测试函数返回承诺时，运行程序将等待它被解析以收集异步期望。 如果承诺被拒绝，测试就会失败。
 
 ::: tip
-In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](/guide/migration#done-callback).
+在Jest中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
 :::
 
 ## test
 
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
-- **Alias:** `it`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
+- **别名:** `it`
 
 `test` defines a set of related expectations. It receives the test name and a function that holds the expectations to test.
 
 Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds, and can be configured globally with [testTimeout](/config/#testtimeout)
+
+`test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
+
+或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为5秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
 
 ```ts
 import { expect, test } from 'vitest'
@@ -57,11 +61,11 @@ test('should work as expected', () => {
 
 ### test.extend
 
-- **Type:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
-- **Alias:** `it.extend`
-- **Version:** Vitest 0.32.3
+- **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
+- **别名:** `it.extend`
+- **支持版本:** Vitest 0.32.3
 
-Use `test.extend` to extend the test context with custom fixtures. This will return a new `test` and it's also extendable, so you can compose more fixtures or override existing ones by extending it as you need. See [Extend Test Context](/guide/test-context.html#test-extend) for more information.
+使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -88,10 +92,10 @@ myTest('add item', ({ todos }) => {
 
 ### test.skip
 
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
-- **Alias:** `it.skip`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
+- **别名:** `it.skip`
 
-If you want to skip running certain tests, but you don't want to delete the code due to any reason, you can use `test.skip` to avoid running them.
+如果想跳过运行某些测试，但又不想删代码，可以使用 `test.skip` 来跳过这些测试。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -102,7 +106,7 @@ test.skip('skipped test', () => {
 })
 ```
 
-You can also skip test by calling `skip` on its [context](/guide/test-context) dynamically:
+还可以通过在 [context](/guide/test-context) 上动态调用 `skip` 来跳过测试：
 
 ```ts
 import { assert, test } from 'vitest'
@@ -116,10 +120,10 @@ test('skipped test', (context) => {
 
 ### test.skipIf
 
-- **Type:** `(condition: any) => Test`
-- **Alias:** `it.skipIf`
+- **类型:** `(condition: any) => Test`
+- **别名:** `it.skipIf`
 
-In some cases you might run tests multiple times with different environments, and some of the tests might be environment-specific. Instead of wrapping the test code with `if`, you can use `test.skipIf` to skip the test whenever the condition is truthy.
+在某些情况下，可能会需要在不同的环境下多次运行测试，而且某些测试可能是特定于环境的。我们这时候可以通过使用 `test.skipIf` 来跳过测试，而不是用 `if` 来封装测试代码。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -132,7 +136,7 @@ test.skipIf(isDev)('prod only test', () => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### test.runIf
