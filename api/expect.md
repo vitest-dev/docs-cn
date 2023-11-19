@@ -1042,11 +1042,11 @@ test('buyApples returns new stock id', async () => {
 
 - **类型:** `Promisify<Assertions>`
 
-`rejects` is intended to remove boilerplate when asserting asynchronous code. Use it to unwrap reason why the promise was rejected, and assert its value with usual assertions. If the promise successfully resolves, the assertion will fail.
+`rejects` 旨在在断言异步代码时消除样板代码。使用它来解包 Promise 被拒绝的原因，并使用通常的断言来断言其值。如果 Promise 成功解决，断言将失败。
 
-It returns the same `Assertions` object, but all matchers now return `Promise`, so you would need to `await` it. Also works with `chai` assertions.
+它返回相同的 `Assertions` 对象，但所有匹配器现在都返回 `Promise`，因此需要使用 `await`。它也适用于 `chai` 断言。
 
-For example, if you have a function that fails when you call it, you may use this code to assert the reason:
+例如，如果有一个在调用时失败的函数，可以使用以下代码来断言失败的原因：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1063,16 +1063,16 @@ test('buyApples throws an error when no id provided', async () => {
 ```
 
 :::warning
-If the assertion is not awaited, then you will have a false-positive test that will pass every time. To make sure that assertions were actually called, you can use [`expect.assertions(number)`](#expect-assertions).
+如果不等待断言，那么将得到每次都会通过的误报测试。 为了确保确实调用了断言，可以使用 [`expect.assertions(number)`](#expect-assertions)。
 :::
 
 ## expect.assertions
 
-- **Type:** `(count: number) => void`
+- **类型:** `(count: number) => void`
 
-After the test has passed or failed verify that a certain number of assertions was called during a test. A useful case would be to check if an asynchronous code was called.
+在测试通过或失败后，验证在测试期间调用了特定数量的断言。一个有用的情况是检查异步代码是否被调用了。
 
-For example, if we have a function that asynchronously calls two matchers, we can assert that they were actually called.
+例如，如果我们有一个异步调用了两个匹配器的函数，我们可以断言它们是否真的被调用了。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1095,16 +1095,16 @@ test('all assertions are called', async () => {
 ```
 
 ::: warning
-When using `assertions` with async concurrent tests, `expect` from the local [Test Context](/guide/test-context.md) must be used to ensure the right test is detected.
+在使用异步并发测试时，必须使用本地 [Test Context](/guide/test-context.md) 中的 `expect` 来确保正确的测试被检测到。
 :::
 
 ## expect.hasAssertions
 
-- **Type:** `() => void`
+- **类型:** `() => void`
 
-After the test has passed or failed verify that at least one assertion was called during a test. A useful case would be to check if an asynchronous code was called.
+在测试通过或失败后，验证在测试期间至少调用了一个断言。一个有用的情况是检查是否调用了异步代码。
 
-For example, if you have a code that calls a callback, we can make an assertion inside a callback, but the test will always pass if we don't check if an assertion was called.
+例如，如果有一个调用回调的代码，我们可以在回调中进行断言，但是如果我们不检查是否调用了断言，测试将始终通过。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1137,11 +1137,11 @@ test('callback was called', async () => {
 
 ## expect.unreachable
 
-- **Type:** `(message?: string) => never`
+- **类型:** `(message?: string) => never`
 
-This method is used to asserting that a line should never be reached.
+这种方法用于断言某一行永远不会被执行。
 
-For example, if we want to test that `build()` throws due to receiving directories having no `src` folder, and also handle each error separately, we could do this:
+例如，如果我们想要测试 `build()` 因为接收到没有 `src` 文件夹的目录而抛出异常，并且还要分别处理每个错误，我们可以这样做：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1180,9 +1180,9 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
 
 ## expect.anything
 
-- **Type:** `() => any`
+- **类型:** `() => any`
 
-This asymmetric matcher, when used with equality check, will always return `true`. Useful, if you just want to be sure that the property exist.
+该非对称匹配器与相等检查一起使用时，将始终返回 `true`。如果只想确定属性是否存在，那么它就很有用。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1194,9 +1194,10 @@ test('object has "apples" key', () => {
 
 ## expect.any
 
-- **Type:** `(constructor: unknown) => any`
+- **类型:** `(constructor: unknown) => any`
 
-This asymmetric matcher, when used with an equality check, will return `true` only if the value is an instance of a specified constructor. Useful, if you have a value that is generated each time, and you only want to know that it exists with a proper type.
+这个不对称的匹配器在与相等性检查一起使用时，只有当该值是指定构造函数的实例时才会返回`true`。
+如果我们有一个每次生成的值，并且只想知道它是否存在，这将非常有用。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1209,14 +1210,14 @@ test('"id" is a number', () => {
 
 ## expect.closeTo
 
-- **Type:** `(expected: any, precision?: number) => any`
-- **Version:** Since Vitest 1.0.0
+- **类型:** `(expected: any, precision?: number) => any`
+- **版本:** 从 Vitest 1.0.0 开始支持
 
-`expect.closeTo` is useful when comparing floating point numbers in object properties or array item. If you need to compare a number, please use `.toBeCloseTo` instead.
+在比较对象属性或数组项中的浮点数时，`expect.closeTo` 非常有用。 如果需要比较数字，请改用 `.toBeCloseTo` 。
 
-The optional `numDigits` argument limits the number of digits to check **after** the decimal point. For the default value `2`, the test criterion is `Math.abs(expected - received) < 0.005 (that is, 10 ** -2 / 2)`.
+可选的 `numDigits` 参数限制要检查小数点**后**的位数。 对于默认值 `2` ，测试标准为 `Math.abs(expected - received) < 0.005 (that is, 10 ** -2 / 2)` 。
 
-For example, this test passes with a precision of 5 digits:
+例如，此测试以 5 位精度通过：
 
 ```js
 test('compare float in object properties', () => {
@@ -1232,9 +1233,9 @@ test('compare float in object properties', () => {
 
 ## expect.arrayContaining
 
-- **Type:** `<T>(expected: T[]) => any`
+- **类型:** `<T>(expected: T[]) => any`
 
-When used with an equality check, this asymmetric matcher will return `true` if the value is an array and contains specified items.
+与相等检查一起使用时，如果值是数组且包含指定项，则此非对称匹配器将返回 `true`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1252,14 +1253,14 @@ test('basket includes fuji', () => {
 ```
 
 :::tip
-You can use `expect.not` with this matcher to negate the expected value.
+可以将 `expect.not` 与此匹配器一起使用来否定期望值。
 :::
 
 ## expect.objectContaining
 
-- **Type:** `(expected: any) => any`
+- **类型:** `(expected: any) => any`
 
-When used with an equality check, this asymmetric matcher will return `true` if the value has a similar shape.
+当与相等检查一起使用时，如果值的形状相似，该非对称匹配器将返回 `true`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1280,14 +1281,14 @@ test('basket has empire apples', () => {
 ```
 
 :::tip
-You can use `expect.not` with this matcher to negate the expected value.
+可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
 :::
 
 ## expect.stringContaining
 
-- **Type:** `(expected: any) => any`
+- **类型:** `(expected: any) => any`
 
-When used with an equality check, this asymmetric matcher will return `true` if the value is a string and contains a specified substring.
+当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串时返回`true`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1305,14 +1306,14 @@ test('variety has "Emp" in its name', () => {
 ```
 
 :::tip
-You can use `expect.not` with this matcher to negate the expected value.
+可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
 :::
 
 ## expect.stringMatching
 
-- **Type:** `(expected: any) => any`
+- **类型:** `(expected: any) => any`
 
-When used with an equality check, this asymmetric matcher will return `true` if the value is a string and contains a specified substring or if the string matches a regular expression.
+当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串，或者字符串与正则表达式匹配时返回 `true` 。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1330,29 +1331,28 @@ test('variety ends with "re"', () => {
 ```
 
 :::tip
-You can use `expect.not` with this matcher to negate the expected value.
+可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
 :::
 
 ## expect.addSnapshotSerializer
 
-- **Type:** `(plugin: PrettyFormatPlugin) => void`
+- **类型:** `(plugin: PrettyFormatPlugin) => void`
 
-This method adds custom serializers that are called when creating a snapshot. This is an advanced feature - if you want to know more, please read a [guide on custom serializers](/guide/snapshot#custom-serializer).
+这个方法添加了在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果想了解更多，请阅读有关[自定义序列化程序的指南](/guide/snapshot#custom-serializer)。
 
-If you are adding custom serializers, you should call this method inside [`setupFiles`](/config/#setupfiles). This will affect every snapshot.
+如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/#setupfiles) 中调用此方法。这将影响每个快照。
 
 :::tip
-If you previously used Vue CLI with Jest, you might want to install [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue). Otherwise, your snapshots will be wrapped in a string, which cases `"` to be escaped.
+如果以前将 Vue CLI 与 Jest 一起使用，需要安装 [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue)。 否则，的快照将被包裹在一个字符串中，其中 `"` 是要转义的。
 :::
 
 ## expect.extend
 
-- **Type:** `(matchers: MatchersObject) => void`
+- **类型:** `(matchers: MatchersObject) => void`
 
-You can extend default matchers with your own. This function is used to extend the matchers object with custom matchers.
+我们可以使用自定义匹配器扩展默认匹配器。这个函数用于使用自定义匹配器扩展匹配器对象。
 
-When you define matchers that way, you also create asymmetric matchers that can be used like `expect.stringContaining`.
-
+当我们以这种方式定义匹配器时，还会创建可以像 `expect.stringContaining` 一样使用的不对称匹配器。
 ```ts
 import { expect, test } from 'vitest'
 
@@ -1374,12 +1374,12 @@ test('custom matchers', () => {
 ```
 
 ::: tip
-If you want your matchers to appear in every test, you should call this method inside [`setupFiles`](/config/#setupFiles).
+如果希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
 :::
 
-This function is compatible with Jest's `expect.extend`, so any library that uses it to create custom matchers will work with Vitest.
+这个函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
 
-If you are using TypeScript, since Vitest 0.31.0 you can extend default `Assertion` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
+如果正在使用 TypeScript，自从 Vitest 0.31.0 版本以来，我们可以在环境声明文件（例如：`vitest.d.ts`）中使用下面的代码扩展默认的 `Assertion` 接口：
 
 ```ts
 interface CustomMatchers<R = unknown> {
@@ -1393,9 +1393,9 @@ declare module 'vitest' {
 ```
 
 ::: warning
-Don't forget to include the ambient declaration file in your `tsconfig.json`.
+不要忘记在 `tsconfig.json` 中包含环境声明文件。
 :::
 
 :::tip
-If you want to know more, checkout [guide on extending matchers](/guide/extending-matchers).
+如果想了解更多信息，请查看 [扩展断言 (Matchers) 指南](/guide/extending-matchers)。
 :::
