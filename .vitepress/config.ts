@@ -123,7 +123,7 @@ export default withPwa(
             text: '高级 API',
             items: [
               {
-                text: 'Node API',
+                text: 'Vitest Node API',
                 link: '/advanced/api',
               },
               {
@@ -135,8 +135,12 @@ export default withPwa(
                 link: '/advanced/metadata',
               },
               {
-                text: 'Extending default reporters',
+                text: 'Extending Reporters',
                 link: '/advanced/reporters',
+              },
+              {
+                text: 'Custom Pool',
+                link: '/advanced/pool',
               },
             ],
           },

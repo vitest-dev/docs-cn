@@ -278,7 +278,7 @@ Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
-import { HttpResponse, graphql, rest } from 'msw'
+import { HttpResponse, graphql, http } from 'msw'
 
 const posts = [
   {
