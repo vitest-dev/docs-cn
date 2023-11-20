@@ -389,11 +389,11 @@ Vitest 使用 chai `format` 方法处理`$values`。如果数值太短，可以�
 
 ## bench
 
-- **Type:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
+- **类型:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
 
-`bench` defines a benchmark. In Vitest terms benchmark is a function that defines a series of operations. Vitest runs this function multiple times to display different performance results.
+`bench` 定义了一个基准。在 Vitest 术语中，基准是定义一系列操作的函数。Vitest 会多次运行该函数，以显示不同的性能结果。
 
-Vitest uses [`tinybench`](https://github.com/tinylibs/tinybench) library under the hood, inheriting all its options that can be used as a third argument.
+Vitest 使用了 [`tinybench`](https://github.com/tinylibs/tinybench)库，继承其所有可用作第三个参数的选项。
 
 ```ts
 import { bench } from 'vitest'
@@ -413,46 +413,46 @@ bench(
 ```ts
 export interface Options {
   /**
-   * time needed for running a benchmark task (milliseconds)
+   * 运行基准任务所需时间（毫秒）
    * @default 500
    */
   time?: number
 
   /**
-   * number of times that a task should run if even the time option is finished
+   * 如果连时间选项都已完成，任务应运行的次数
    * @default 10
    */
   iterations?: number
 
   /**
-   * function to get the current timestamp in milliseconds
+   * 函数以毫秒为单位获取当前时间戳
    */
   now?: () => number
 
   /**
-   * An AbortSignal for aborting the benchmark
+   * 用于中止基准测试的中止信号
    */
   signal?: AbortSignal
 
   /**
-   * warmup time (milliseconds)
+   * 预热时间（毫秒）
    * @default 100ms
    */
   warmupTime?: number
 
   /**
-   * warmup iterations
+   * 热身迭代
    * @default 5
    */
   warmupIterations?: number
 
   /**
-   * setup function to run before each benchmark task (cycle)
+   * 在每个基准任务（周期）之前运行的设置函数
    */
   setup?: Hook
 
   /**
-   * teardown function to run after each benchmark task (cycle)
+   * 在每个基准任务（周期）之后运行的拆机函数
    */
   teardown?: Hook
 }
@@ -460,9 +460,9 @@ export interface Options {
 
 ### bench.skip
 
-- **Type:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
+- **类型:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
 
-You can use `bench.skip` syntax to skip running certain benchmarks.
+可以使用 "bench.skip "语法跳过运行某些基准。
 
 ```ts
 import { bench } from 'vitest'
@@ -477,9 +477,9 @@ bench.skip('normal sorting', () => {
 
 ### bench.only
 
-- **Type:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
+- **类型:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
 
-Use `bench.only` to only run certain benchmarks in a given suite. This is useful when debugging.
+使用 `bench.only` 仅运行给定测试套件中的某些基准。这在调试时非常有用。
 
 ```ts
 import { bench } from 'vitest'
@@ -494,9 +494,9 @@ bench.only('normal sorting', () => {
 
 ### bench.todo
 
-- **Type:** `(name: string | Function) => void`
+- **类型:** `(name: string | Function) => void`
 
-Use `bench.todo` to stub benchmarks to be implemented later.
+使用 `bench.todo` 来存根基准，以便以后实施。
 
 ```ts
 import { bench } from 'vitest'
@@ -506,7 +506,7 @@ bench.todo('unimplemented test')
 
 ## describe
 
-When you use `test` or `bench` in the top level of file, they are collected as part of the implicit suite for it. Using `describe` you can define a new suite in the current context, as a set of related tests or benchmarks and other nested suites. A suite lets you organize your tests and benchmarks so reports are more clear.
+当在文件的顶层使用 `test` 或 `bench` 时，它们会作为隐式套件的一部分被收集起来。使用 `describe` 可以在当前上下文中定义一个新的测试套件，作为一组相关测试或基准以及其他嵌套测试套件。测试套件可让组织测试和基准，使报告更加清晰。
 
 ```ts
 // basic.spec.ts
@@ -557,7 +557,7 @@ describe('sort', () => {
 })
 ```
 
-You can also nest describe blocks if you have a hierarchy of tests or benchmarks:
+如果测试或基准具有层次结构，还可以嵌套描述块：
 
 ```ts
 import { describe, expect, test } from 'vitest'
@@ -589,9 +589,9 @@ describe('numberToCurrency', () => {
 
 ### describe.skip
 
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-Use `describe.skip` in a suite to avoid running a particular describe block.
+在套件中使用 `describe.skip` 可避免运行特定的 describe 块。
 
 ```ts
 import { assert, describe, test } from 'vitest'
@@ -606,9 +606,9 @@ describe.skip('skipped suite', () => {
 
 ### describe.skipIf
 
-- **Type:** `(condition: any) => void`
+- **类型:** `(condition: any) => void`
 
-In some cases, you might run suites multiple times with different environments, and some of the suites might be environment-specific. Instead of wrapping the suite with `if`, you can use `describe.skipIf` to skip the suite whenever the condition is truthy.
+在某些情况下，可能会在不同的环境下多次运行套件，其中一些测试套件可能是特定于环境的。可以使用 `describe.skipIf` 来跳过条件为真时的套件，而不是使用 `if` 来封装套件。
 
 ```ts
 import { describe, test } from 'vitest'
@@ -621,7 +621,7 @@ describe.skipIf(isDev)('prod only test', () => {
 ```
 
 ::: warning
-You cannot use this syntax when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### describe.only
