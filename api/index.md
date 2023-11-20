@@ -815,7 +815,7 @@ describe.each`
 在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
-## 设置和拆卸 (Setup and Teardown)
+## Setup and Teardown
 
 通过这些函数，我们可以挂钩测试的生命周期，避免重复设置和拆卸代码。它们适用于当前上下文：如果在顶层使用，则适用于文件；如果在 `describe` 块内使用，则适用于当前测试套件。
 将 Vitest 作为类型检查器运行时，不会调用这些钩子。
