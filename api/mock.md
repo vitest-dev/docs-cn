@@ -1,6 +1,6 @@
 # Mock Functions
 
-You can create a mock function to track its execution with `vi.fn` method. If you want to track a method on an already created object, you can use `vi.spyOn` method:
+我们可以使用 `vi.fn` 方法创建一个 mock 函数来跟踪其执行情况。如果要跟踪已创建对象上的方法，可以使用 `vi.spyOn` 方法：
 
 ```js
 import { vi } from 'vitest'
@@ -18,43 +18,43 @@ market.getApples()
 getApplesSpy.mock.calls.length === 1
 ```
 
-You should use mock assertions (e.g., [`toHaveBeenCalled`](/api/expect#tohavebeencalled)) on [`expect`](/api/expect) to assert mock result. This API reference describes available properties and methods to manipulate mock behavior.
+我们应该在 [`expect`](/api/expect) 上使用 mock 断言（例如 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) ）来断言 mock 结果。在这里我们介绍了用于操作 mock 行为的可用属性和方法。
 
 ## getMockImplementation
 
-- **Type:** `(...args: any) => any`
+- **类型:** `(...args: any) => any`
 
-Returns current mock implementation if there is one.
+返回当前的模拟实现（如果有）。
 
-If mock was created with [`vi.fn`](/api/vi#vi-fn), it will consider passed down method as a mock implementation.
+如果使用 [`vi.fn`](/api/vi#vi-fn) 创建了 mock，它将把向下传递的方法视为 mock 实现。
 
-If mock was created with [`vi.spyOn`](/api/vi#vi-spyon), it will return `undefined` unless a custom implementation was provided.
+如果使用 [`vi.spyOn`](/api/vi#vi-spyon) 创建了 mock，除非提供了自定义实现，否则将返回 `undefined` 。
 
 ## getMockName
 
-- **Type:** `() => string`
+- **类型:** `() => string`
 
-Use it to return the name given to mock with method `.mockName(name)`.
+用它来返回使用方法 `.mockName(name)` 给 mock 的名称。
 
 ## mockClear
 
-- **Type:** `() => MockInstance`
+- **类型:** `() => MockInstance`
 
-Clears all information about every call. After calling it, all properties on `.mock` will return empty state. This method does not reset implementations. It is useful if you need to clean up mock between different assertions.
+清除每次调用的所有信息。调用该方法后，`.mock` 上的所有属性都将返回空状态。此方法不会重置实现。如果需要在不同断言之间清理 mock，该方法非常有用。
 
-If you want this method to be called before each test automatically, you can enable [`clearMocks`](/config/#clearmocks) setting in config.
+如果我们希望在每次测试前自动调用该方法，可以在配置中启用 [`clearMocks``](/config/#clearmocks)设置。
 
 ## mockName
 
-- **Type:** `(name: string) => MockInstance`
+- **类型:** `(name: string) => MockInstance`
 
-Sets internal mock name. Useful to see the name of the mock if assertion fails.
+设置内部 mock 名称。用于在断言失败时查看 mock 名称。
 
 ## mockImplementation
 
-- **Type:** `(fn: Function) => MockInstance`
+- **类型:** `(fn: Function) => MockInstance`
 
-Accepts a function that will be used as an implementation of the mock.
+接受一个函数，该函数将用作 mock 的实现。
 
 ```ts
 const mockFn = vi.fn().mockImplementation(apples => apples + 1)
@@ -72,9 +72,9 @@ mockFn.mock.calls[1][0] === 1 // true
 
 ## mockImplementationOnce
 
-- **Type:** `(fn: Function) => MockInstance`
+- **类型:** `(fn: Function) => MockInstance`
 
-Accepts a function that will be used as mock's implementation during the next call. Can be chained so that multiple function calls produce different results.
+接受一个函数，该函数将在下一次调用时用作 mock 的实现。可以链式调用多个函数，从而产生不同的结果。
 
 ```ts
 const myMockFn = vi
@@ -86,7 +86,7 @@ myMockFn() // true
 myMockFn() // false
 ```
 
-When the mocked function runs out of implementations, it will invoke the default implementation that was set with `vi.fn(() => defaultValue)` or `.mockImplementation(() => defaultValue)` if they were called:
+当模拟函数的实现耗尽时，它会调用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 所设置的默认实现（如果它们被调用）：
 
 ```ts
 const myMockFn = vi
@@ -100,10 +100,10 @@ console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 
 ## withImplementation
 
-- **Type:** `(fn: Function, callback: () => void) => MockInstance`
-- **Type:** `(fn: Function, callback: () => Promise<unknown>) => Promise<MockInstance>`
+- **类型:** `(fn: Function, callback: () => void) => MockInstance`
+- **类型:** `(fn: Function, callback: () => Promise<unknown>) => Promise<MockInstance>`
 
-Overrides the original mock implementation temporarily while the callback is being executed.
+在执行回调时，临时覆盖原始模拟实现。
 
 ```js
 const myMockFn = vi.fn(() => 'original')
@@ -118,7 +118,7 @@ myMockFn.withImplementation(
 myMockFn() // 'original'
 ```
 
-Can be used with an asynchronous callback. The method has to be awaited to use the original implementation afterward.
+可与异步回调一起使用。该方法必须等待，之后才能使用原始实现。
 
 ```ts
 test('async callback', () => {
@@ -136,13 +136,13 @@ test('async callback', () => {
 })
 ```
 
-Note that this method takes precedence over the [`mockImplementationOnce`](https://vitest.dev/api/mock.html#mockimplementationonce).
+请注意，该方法优先于 [`mockImplementationOnce`](https://cn.vitest.dev/api/mock.html#mockimplementationonce)。
 
 ## mockRejectedValue
 
-- **Type:** `(value: any) => MockInstance`
+- **类型:** `(value: any) => MockInstance`
 
-Accepts an error that will be rejected when async function is called.
+接受在调用 async 函数时将被拒绝的错误。
 
 ```ts
 const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
@@ -152,9 +152,9 @@ await asyncMock() // throws "Async error"
 
 ## mockRejectedValueOnce
 
-- **Type:** `(value: any) => MockInstance`
+- **类型:** `(value: any) => MockInstance`
 
-Accepts a value that will be rejected during the next function call. If chained, every consecutive call will reject specified value.
+接受一个将在下一次函数调用中被剔除的值。如果是链式调用，则每次连续调用都会剔除指定值。
 
 ```ts
 const asyncMock = vi
@@ -168,27 +168,27 @@ await asyncMock() // throws "Async error"
 
 ## mockReset
 
-- **Type:** `() => MockInstance`
+- **类型:** `() => MockInstance`
 
-Does what `mockClear` does and makes inner implementation an empty function (returning `undefined` when invoked). This also resets all "once" implementations. This is useful when you want to completely reset a mock to the default state.
+执行 `mockClear` 的功能，并使内部实现成为空函数（调用时返回 `undefined` ）。这也会重置所有 "once" 实现。当我们想将 mock 完全重置为默认状态时，这很有用。
 
-If you want this method to be called before each test automatically, you can enable [`mockReset`](/config/#mockreset) setting in config.
+如果我们希望在每次测试前自动调用该方法，可以启用配置中的 [`mockReset`](/config/#mockreset) 设置。
 
 ## mockRestore
 
-- **Type:** `() => MockInstance`
+- **类型:** `() => MockInstance`
 
-Does what `mockReset` does and restores inner implementation to the original function.
+执行与 `mockReset` 相同的功能，并将内部实现还原为原始函数。
 
-Note that restoring mock from `vi.fn()` will set implementation to an empty function that returns `undefined`. Restoring a `vi.fn(impl)` will restore implementation to `impl`.
+请注意，从 `vi.fn()` 恢复 mock 会将实现设置为返回 `undefined` 的空函数。还原 `vi.fn(impl)` 会将实现还原为 `impl`。
 
-If you want this method to be called before each test automatically, you can enable [`restoreMocks`](/config/#restoreMocks) setting in config.
+如果希望在每次测试前自动调用此方法，可以启用配置中的 [`restoreMocks`](/config/#restoreMocks) 设置。
 
 ## mockResolvedValue
 
-- **Type:** `(value: any) => MockInstance`
+- **类型:** `(value: any) => MockInstance`
 
-Accepts a value that will be resolved when async function is called.
+接受将在调用 async 函数时解析的值。
 
 ```ts
 const asyncMock = vi.fn().mockResolvedValue(42)
@@ -198,9 +198,9 @@ await asyncMock() // 42
 
 ## mockResolvedValueOnce
 
-- **Type:** `(value: any) => MockInstance`
+- **类型:** `(value: any) => MockInstance`
 
-Accepts a value that will be resolved during the next function call. If chained, every consecutive call will resolve specified value.
+接受一个将在下一次函数调用时解析的值。如果是链式调用，则每次连续调用都会解析指定的值。
 
 ```ts
 const asyncMock = vi
@@ -217,9 +217,9 @@ await asyncMock() // default
 
 ## mockReturnThis
 
-- **Type:** `() => MockInstance`
+- **类型:** `() => MockInstance`
 
-Use this if you need to return `this` context from the method without invoking actual implementation. This is a shorthand for:
+如果需要在不调用实际实现的情况下从方法中返回 `this` 上下文，请使用此参数。这是一个简写：
 
 ```ts
 spy.mockImplementation(function () {
@@ -229,9 +229,9 @@ spy.mockImplementation(function () {
 
 ## mockReturnValue
 
-- **Type:** `(value: any) => MockInstance`
+- **类型:** `(value: any) => MockInstance`
 
-Accepts a value that will be returned whenever the mock function is called.
+接受一个值，该值将在调用 mock 函数时返回。
 
 ```ts
 const mock = vi.fn()
@@ -243,11 +243,11 @@ mock() // 43
 
 ## mockReturnValueOnce
 
-- **Type:** `(value: any) => MockInstance`
+- **类型:** `(value: any) => MockInstance`
 
-Accepts a value that will be returned during the next function call. If chained, every consecutive call will return the specified value.
+接受将在下一次函数调用中返回的值。如果是链式调用，则每次连续调用都会返回指定值。
 
-When there are no more `mockReturnValueOnce` values to use, mock will fallback to preivously defined implementation if there is one.
+如果没有更多的 `mockReturnValueOnce` 值可使用，mock 将返回到预先定义的实现（如果有的话）。
 
 ```ts
 const myMockFn = vi
@@ -262,7 +262,7 @@ console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 
 ## mock.calls
 
-This is an array containing all arguments for each call. One item of the array is the arguments of that call.
+这是一个数组，包含每次调用的所有参数。数组中的一项就是该调用的参数。
 
 ```js
 const fn = vi.fn()
@@ -279,16 +279,18 @@ fn.mock.calls
 
 ## mock.lastCall
 
-This contains the arguments of the last call. If mock wasn't called, will return `undefined`.
+其中包含最后一次调用的参数。如果 mock 未被调用，将返回 `undefined`。
 
 ## mock.results
 
 This is an array containing all values that were `returned` from the function. One item of the array is an object with properties `type` and `value`. Available types are:
 
-- `'return'` - function returned without throwing.
-- `'throw'` - function threw a value.
+这是一个数组，包含函数 `returned` 的所有值。数组中的一项是一个具有 `type` 和 `value` 属性的对象。可用的类型有
 
-The `value` property contains the returned value or thrown error. If the function returned a promise, the `value` will be the _resolved_ value, not the actual `Promise`, unless it was never resolved.
+- `'return'` - 函数返回时没有抛出。
+- `'throw'` - 函数抛出了一个值。
+
+`value` 属性包含返回值或抛出的错误。如果函数返回一个 Promise，`value` 将是 _resolved_ 值，而不是实际的 `Promise`，除非它从未被解析。
 
 ```js
 const fn = vi
@@ -322,7 +324,7 @@ fn.mock.results
 
 ## mock.invocationCallOrder
 
-The order of mock's execution. This returns an array of numbers that are shared between all defined mocks.
+模拟的执行顺序。这将返回一个数字数组，所有已定义的 mock 都共享该数组。
 
 ```js
 const fn1 = vi.fn()
@@ -338,10 +340,10 @@ fn2.mock.invocationCallOrder === [2]
 
 ## mock.instances
 
-This is an array containing all instances that were instantiated when mock was called with a `new` keyword. Note that this is an actual context (`this`) of the function, not a return value.
+这是一个数组，包含使用 `new` 关键字调用 mock 时实例化的所有实例。请注意，这是函数的实际上下文（`this`），而不是返回值。
 
 ::: warning
-If mock was instantiated with `new MyClass()`, then `mock.instances` will be an array with one value:
+如果使用 `new MyClass()` 对 mock 进行实例化，那么 `mock.instances` 将是一个只有一个值的数组：
 
 ```js
 const MyClass = vi.fn()
@@ -350,7 +352,7 @@ const a = new MyClass()
 MyClass.mock.instances[0] === a
 ```
 
-If you return a value from constructor, it will not be in `instances` array, but instead inside `results`:
+如果从构造函数返回一个值，该值不会出现在 `instances` 数组中，而是会出现在 `results` 中：
 
 ```js
 const Spy = vi.fn(() => ({ method: vi.fn() }))
