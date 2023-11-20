@@ -626,9 +626,9 @@ describe.skipIf(isDev)('prod only test', () => {
 
 ### describe.only
 
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-Use `describe.only` to only run certain suites
+使用 `describe.only` 只运行某些测试套件
 
 ```ts
 // Only this suite (and others marked with only) are run
@@ -643,9 +643,11 @@ describe('other suite', () => {
 })
 ```
 
-Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
-
 In order to do that run `vitest` with specific file containing the tests in question.
+
+有时，只运行某个文件中的测试套件，而忽略整个测试套件中的所有其他测试是非常有用的，因为这些测试会污染输出。
+
+要做到这一点，请在包含相关测试的特定文件中运行 `vitest`。
 
 ```
 # vitest interesting.test.ts
@@ -653,9 +655,9 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 ### describe.concurrent
 
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-`describe.concurrent` in a suite marks every tests as concurrent
+测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试
 
 ```ts
 // All tests within this suite will be run in parallel
@@ -672,7 +674,7 @@ describe.concurrent('suite', () => {
 })
 ```
 
-`.skip`, `.only`, and `.todo` works with concurrent suites. All the following combinations are valid:
+`.skip`、`.only`和`.todo`适用于并发测试套件。以下所有组合都有效：
 
 ```ts
 describe.concurrent(/* ... */)
@@ -681,7 +683,7 @@ describe.only.concurrent(/* ... */) // or describe.concurrent.only(/* ... */)
 describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
 ```
 
-When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context.md) to ensure the right test is detected.
+运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect` ，以确保检测到正确的测试。
 
 ```ts
 describe.concurrent('suite', () => {
@@ -695,14 +697,14 @@ describe.concurrent('suite', () => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### describe.sequential
 
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-`describe.sequential` in a suite marks every test as sequential. This is useful if you want to run tests in sequence within `describe.concurrent` or with the `--sequence.concurrent` command option.
+测试套件中的 `describe.sequential` 会将每个测试标记为顺序测试。如果需要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
 ```ts
 describe.concurrent('suite', () => {
@@ -726,9 +728,10 @@ describe.concurrent('suite', () => {
 
 ### describe.shuffle
 
-- **Type:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-Vitest provides a way to run all tests in random order via CLI flag [`--sequence.shuffle`](/guide/cli) or config option [`sequence.shuffle`](/config/#sequence-shuffle), but if you want to have only part of your test suite to run tests in random order, you can mark it with this flag.
+
+Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
 
 ```ts
 describe.shuffle('suite', () => {
@@ -745,17 +748,17 @@ describe.shuffle('suite', () => {
 // order depends on sequence.seed option in config (Date.now() by default)
 ```
 
-`.skip`, `.only`, and `.todo` works with random suites.
+`.skip`、`.only`和`.todo`适用于随机测试套件。
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### describe.todo
 
-- **Type:** `(name: string | Function) => void`
+- **类型:** `(name: string | Function) => void`
 
-Use `describe.todo` to stub suites to be implemented later. An entry will be shown in the report for the tests so you know how many tests you still need to implement.
+使用 `describe.todo` 来暂存待以后实施的套件。测试报告中会显示一个条目，这样就能知道还有多少测试需要执行。
 
 ```ts
 // An entry will be shown in the report for this suite
@@ -764,9 +767,9 @@ describe.todo('unimplemented suite')
 
 ### describe.each
 
-- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
+- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
 
-Use `describe.each` if you have more than one test that depends on the same data.
+如果有多个测试依赖于相同的数据，请使用 `describe.each` 。
 
 ```ts
 describe.each([
@@ -788,10 +791,10 @@ describe.each([
 })
 ```
 
-Starting from Vitest 0.25.3, you can also use template string table.
+从 Vitest 0.25.3 开始，还可以使用模板字符串表。
 
-- First row should be column names, separated by `|`;
-- One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+- 第一行应为列名，用 `|` 分隔；
+- 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
 
 ```ts
 describe.each`
@@ -809,21 +812,23 @@ describe.each`
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
-## Setup and Teardown
+## 设置和拆卸 (Setup and Teardown)
 
-These functions allow you to hook into the life cycle of tests to avoid repeating setup and teardown code. They apply to the current context: the file if they are used at the top-level or the current suite if they are inside a `describe` block. These hooks are not called, when you are running Vitest as a type checker.
+通过这些函数，我们可以挂钩测试的生命周期，避免重复设置和拆卸代码。它们适用于当前上下文：如果在顶层使用，则适用于文件；如果在 `describe` 块内使用，则适用于当前测试套件。
+将 Vitest 作为类型检查器运行时，不会调用这些钩子。
 
 ### beforeEach
 
-- **Type:** `beforeEach(fn: () => Awaitable<void>, timeout?: number)`
+- **类型:** `beforeEach(fn: () => Awaitable<void>, timeout?: number)`
 
-Register a callback to be called before each of the tests in the current context runs.
-If the function returns a promise, Vitest waits until the promise resolve before running the test.
 
-Optionally, you can pass a timeout (in milliseconds) defining how long to wait before terminating. The default is 5 seconds.
+注册一个回调函数，在当前上下文中的每个测试运行前调用。
+如果函数返回一个 Promise ，Vitest 会等待承诺解析后再运行测试。
+
+作为选项，可以传递一个超时（以毫秒为单位），定义终止前需要等待的时间。默认值为 5 秒。
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -835,9 +840,9 @@ beforeEach(async () => {
 })
 ```
 
-Here, the `beforeEach` ensures that user is added for each test.
+这里， `beforeEach` 确保每次测试都会添加用户。
 
-Since Vitest v0.10.0, `beforeEach` also accepts an optional cleanup function (equivalent to `afterEach`).
+自 Vitest v0.10.0 起，`beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -855,12 +860,12 @@ beforeEach(async () => {
 
 ### afterEach
 
-- **Type:** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
+- **类型  :** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
 
-Register a callback to be called after each one of the tests in the current context completes.
-If the function returns a promise, Vitest waits until the promise resolve before continuing.
+注册一个回调函数，在当前上下文中的每个测试完成后调用。
+如果函数返回一个承诺，Vitest 会等待承诺解析后再继续。
 
-Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+可以选择提供一个超时（毫秒），用于指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
 import { afterEach } from 'vitest'
@@ -870,16 +875,16 @@ afterEach(async () => {
 })
 ```
 
-Here, the `afterEach` ensures that testing data is cleared after each test runs.
+在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
 ### beforeAll
 
-- **Type:** `beforeAll(fn: () => Awaitable<void>, timeout?: number)`
+- **类型:** `beforeAll(fn: () => Awaitable<void>, timeout?: number)`
 
-Register a callback to be called once before starting to run all tests in the current context.
-If the function returns a promise, Vitest waits until the promise resolve before running tests.
+注册一个回调函数，在开始运行当前上下文中的所有测试之前调用一次。
+如果函数返回一个 Promise ，Vitest 会等待承诺解析后再运行测试。
 
-Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+可以选择提供一个超时（毫秒），用于指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
 import { beforeAll } from 'vitest'
@@ -889,9 +894,9 @@ beforeAll(async () => {
 })
 ```
 
-Here the `beforeAll` ensures that the mock data is set up before tests run.
+这里的 `beforeAll` 确保在测试运行前设置好模拟数据。
 
-Since Vitest v0.10.0, `beforeAll` also accepts an optional cleanup function (equivalent to `afterAll`).
+自 Vitest v0.10.0 起，`beforeAll` 还接受一个可选的清理函数（相当于 `afterAll`）。
 
 ```ts
 import { beforeAll } from 'vitest'
@@ -909,12 +914,12 @@ beforeAll(async () => {
 
 ### afterAll
 
-- **Type:** `afterAll(fn: () => Awaitable<void>, timeout?: number)`
+- **类型:** `afterAll(fn: () => Awaitable<void>, timeout?: number)`
 
-Register a callback to be called once after all tests have run in the current context.
-If the function returns a promise, Vitest waits until the promise resolve before continuing.
+注册一个回调函数，以便在当前上下文中所有测试运行完毕后调用一次。
+如果函数返回一个 Promise ，Vitest 会等待承诺解析后再继续。
 
-Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds.
+您还可以选择提供超时（毫秒），以指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
 import { afterAll } from 'vitest'
@@ -924,4 +929,4 @@ afterAll(async () => {
 })
 ```
 
-Here the `afterAll` ensures that `stopMocking` method is called after all tests run.
+这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
