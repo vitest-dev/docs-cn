@@ -136,15 +136,15 @@ test.skipIf(isDev)('prod only test', () => {
 ```
 
 ::: warning
-将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### test.runIf
 
-- **Type:** `(condition: any) => Test`
-- **Alias:** `it.runIf`
+- **类型:** `(condition: any) => Test`
+- **别名:** `it.runIf`
 
-Opposite of [test.skipIf](#test-skipif).
+与 [test.skipIf](#test-skipif) 相反。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -157,17 +157,17 @@ test.runIf(isDev)('dev only test', () => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### test.only
 
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.only`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.only`
 
-Use `test.only` to only run certain tests in a given suite. This is useful when debugging.
+使用 `test.only` 仅运行给定 测试套件 中的某些测试。这在调试时非常有用。
 
-Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds, and can be configured globally with [testTimeout](/config/#testtimeout).
+可选择提供超时（以毫秒为单位），用于指定终止前的等待时间。默认值为 5 秒，可通过 [testTimeout](/config/#testtimeout) 进行全局配置。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -178,9 +178,9 @@ test.only('test', () => {
 })
 ```
 
-Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
+有时，只运行某个文件中的 "测试"，而忽略整个 测试套件 中的所有其他测试是非常有用的，因为这些测试会污染输出。
 
-In order to do that run `vitest` with specific file containing the tests in question.
+为此，请使用包含相关测试的特定文件运行 `vitest`。
 
 ```
 # vitest interesting.test.ts
@@ -188,10 +188,10 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 ### test.concurrent
 
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.concurrent`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.concurrent`
 
-`test.concurrent` marks consecutive tests to be run in parallel. It receives the test name, an async function with the tests to collect, and an optional timeout (in milliseconds).
+`test.concurrent` 标记并行运行的连续测试。它接收测试名称、包含要收集的测试的异步函数以及可选的超时（以毫秒为单位）。
 
 ```ts
 import { describe, test } from 'vitest'
@@ -210,7 +210,7 @@ describe('suite', () => {
 })
 ```
 
-`test.skip`, `test.only`, and `test.todo` works with concurrent tests. All the following combinations are valid:
+`test.skip`、 `test.only` 和 `test.todo` 适用于并发测试。以下所有组合均有效：
 
 ```ts
 test.concurrent(/* ... */)
@@ -219,7 +219,7 @@ test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
 test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
 ```
 
-When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context.md) to ensure the right test is detected.
+运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect`，以确保检测到正确的测试。
 
 ```ts
 test.concurrent('test 1', async ({ expect }) => {
@@ -231,14 +231,14 @@ test.concurrent('test 2', async ({ expect }) => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### test.sequential
 
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 
-`test.sequential` marks a test as sequential. This is useful if you want to run tests in sequence within `describe.concurrent` or with the `--sequence.concurrent` command option.
+`test.sequential` 标记一个测试为顺序测试。如果要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
 ```ts
 // with config option { sequence: { concurrent: true } }
@@ -260,10 +260,10 @@ describe.concurrent('suite', () => {
 
 ### test.todo
 
-- **Type:** `(name: string | Function) => void`
-- **Alias:** `it.todo`
+- **类型:** `(name: string | Function) => void`
+- **别名:** `it.todo`
 
-Use `test.todo` to stub tests to be implemented later. An entry will be shown in the report for the tests so you know how many tests you still need to implement.
+使用 `test.todo` 来存根测试，以便稍后实施。测试报告中将显示一个条目，以便知道还有多少测试需要执行。
 
 ```ts
 // An entry will be shown in the report for this test
@@ -272,10 +272,10 @@ test.todo('unimplemented test')
 
 ### test.fails
 
-- **Type:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-- **Alias:** `it.fails`
+- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.fails`
 
-Use `test.fails` to indicate that an assertion will fail explicitly.
+使用 `test.fails` 明确表示断言将失败。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -289,16 +289,16 @@ test.fails('fail test', async () => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ### test.each
 
-- **Type:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
-- **Alias:** `it.each`
+- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
+- **别名:** `it.each`
 
-Use `test.each` when you need to run the same test with different variables.
-You can inject parameters with [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) in the test name in the order of the test function parameters.
+当需要使用不同变量运行同一测试时，请使用 `test.each`。
+我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
 
 - `%s`: string
 - `%d`: number
@@ -324,7 +324,7 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
-You can also access object properties with `$` prefix, if you are using objects as arguments:
+如果使用对象作为参数，也可以使用前缀 `$` 访问对象属性：
 
 ```ts
 test.each([
@@ -341,7 +341,7 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
-You can also access Object attributes with `.`, if you are using objects as arguments:
+如果使用对象作为参数，也可以使用 `.` 访问对象属性：
 
 ```ts
 test.each`
@@ -359,11 +359,11 @@ test.each`
 // ✓ add(3, b) -> 3b
 ```
 
-Starting from Vitest 0.25.3, you can also use template string table.
+从 Vitest 0.25.3 开始，还可以使用模板字符串表。
 
-- First row should be column names, separated by `|`;
-- One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
-
+- 第一行应为列名，用 `|` 分隔；
+- 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
+- 
 ```ts
 test.each`
   a             | b      | expected
@@ -377,14 +377,14 @@ test.each`
 })
 ```
 
-If you want to have access to `TestContext`, use `describe.each` with a single test.
+如果您想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
 
 ::: tip
-Vitest processes `$values` with chai `format` method. If the value is too truncated, you can increase [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold) in your config file.
+Vitest 使用 chai `format` 方法处理`$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
 :::
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
 
 ## bench
