@@ -4,7 +4,7 @@ outline: deep
 
 # Vi
 
-Vitest provides utility functions to help you out through its `vi` helper. You can access it globally (when [globals configuration](/config/#globals) is enabled), or import it from `vitest` directly:
+Vitest 通过其 `vi` 辅助工具提供实用功能来帮助您。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
 
 ```js
 import { vi } from 'vitest'
@@ -12,11 +12,11 @@ import { vi } from 'vitest'
 
 ## Mock Modules
 
-This section describes the API that you can use when [mocking a module](/guide/mocking#modules). Beware that Vitest doesn't support mocking modules imported using `require()`.
+本节介绍在 [模拟模块](/guide/mocking#modules) 时可以使用的 API。请注意，Vitest 不支持模拟使用 `require()` 导入的模块。
 
 ### vi.mock
 
-- **Type**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
+- **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 
 Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports. If you need to reference some variables outside of its scope, you can define them inside [`vi.hoisted`](/api/vi#vi-hoisted) and reference them inside `vi.mock`.
 
