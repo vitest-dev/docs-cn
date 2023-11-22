@@ -112,7 +112,11 @@ assertType<string>(answr) //
 
 ## 运行 typechecking
 
+<<<<<<< HEAD
 要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 `--typecheck` 标志：
+=======
+Since Vitest 1.0, to enabled typechecking, just add [`--typecheck`](/config/#typecheck) flag to your Vitest command in `package.json`:
+>>>>>>> 58b22ab4a7c3e7417aca19988cba5f23156b97c0
 
 ```json
 {
@@ -124,15 +128,19 @@ assertType<string>(answr) //
 
 现在你可以运行 typecheck:
 
-```sh
-# npm
+::: code-group
+```bash [npm]
 npm run test
-
-# yarn
+```
+```bash [yarn]
 yarn test
-
-# pnpm
+```
+```bash [pnpm]
 pnpm run test
 ```
+```bash [bun]
+bun test
+```
+:::
 
 Vitest 使用 `tsc --noEmit` 或 `vue-tsc --noEmit`，具体取决于你的配置，因此可以从管道中删除这些脚本。
