@@ -39,7 +39,7 @@ test('my types work properly', () => {
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
-是一个将失败的断言，因为 `{a: 1}` 的类型是 `{a: number}` 而不是 `{a: string}`。  这种情况下的错误信息如下
+是一个将失败的断言，因为 `{a: 1}` 的类型是 `{a: number}` 而不是 `{a: string}`。 这种情况下的错误信息如下
 
 ```
 test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the constraint '{ a: \\"Expected: string, Actual: number\\"; }'.
@@ -112,11 +112,7 @@ assertType<string>(answr) //
 
 ## 运行 typechecking
 
-<<<<<<< HEAD
-要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 `--typecheck` 标志：
-=======
-Since Vitest 1.0, to enabled typechecking, just add [`--typecheck`](/config/#typecheck) flag to your Vitest command in `package.json`:
->>>>>>> 58b22ab4a7c3e7417aca19988cba5f23156b97c0
+从 Vitest 1.0 开始要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
 
 ```json
 {
@@ -129,18 +125,23 @@ Since Vitest 1.0, to enabled typechecking, just add [`--typecheck`](/config/#typ
 现在你可以运行 typecheck:
 
 ::: code-group
+
 ```bash [npm]
 npm run test
 ```
+
 ```bash [yarn]
 yarn test
 ```
+
 ```bash [pnpm]
 pnpm run test
 ```
+
 ```bash [bun]
 bun test
 ```
+
 :::
 
 Vitest 使用 `tsc --noEmit` 或 `vue-tsc --noEmit`，具体取决于你的配置，因此可以从管道中删除这些脚本。
