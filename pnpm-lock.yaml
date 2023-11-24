@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@vueuse/core':
-    specifier: ^10.6.0
-    version: 10.6.0(vue@3.3.7)
+    specifier: ^10.6.1
+    version: 10.6.1(vue@3.3.7)
   vue:
     specifier: latest
     version: 3.3.7(typescript@5.0.4)
@@ -23,8 +23,8 @@ devDependencies:
     specifier: ^1.1.21
     version: 1.1.21
   '@iconify-json/logos':
-    specifier: ^1.1.37
-    version: 1.1.37
+    specifier: ^1.1.38
+    version: 1.1.38
   '@types/fs-extra':
     specifier: ^11.0.1
     version: 11.0.1
@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^0.57.4
     version: 0.57.4
   '@vite-pwa/assets-generator':
-    specifier: ^0.0.10
-    version: 0.0.10
+    specifier: ^0.0.11
+    version: 0.0.11
   '@vite-pwa/vitepress':
     specifier: ^0.2.3
     version: 0.2.3(vite-plugin-pwa@0.16.7)
@@ -68,8 +68,8 @@ devDependencies:
     specifier: ^0.3.9
     version: 0.3.9
   pnpm:
-    specifier: 8.6.12
-    version: 8.6.12
+    specifier: 8.10.3
+    version: 8.10.3
   tsx:
     specifier: ^4.1.1
     version: 4.1.1
@@ -2026,8 +2026,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/logos@1.1.37:
-    resolution: {integrity: sha512-H2S8frTEznk6paX2kMzeUGn4KSiykghvO0b8UvEDd1fFFzt0WxCXpP1tBv67XaWK99e6JgA34hhv4lRGAm1hJg==}
+  /@iconify-json/logos@1.1.38:
+    resolution: {integrity: sha512-26sPSWn/Y3nY4Kx3kbHOPU8zzEFaDMeuStFhDbW2SpLy6grusqTAgf0o4r4irNAPkdI1gPF8kuSyGDKeSPFzZw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -2403,7 +2403,7 @@ packages:
       grapheme-splitter: 1.0.4
       ignore: 5.2.4
       natural-compare-lite: 1.4.0
-      semver: 7.5.2
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
@@ -2477,7 +2477,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.2
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
@@ -2498,7 +2498,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.57.1(typescript@5.0.4)
       eslint: 8.38.0
       eslint-scope: 5.1.1
-      semver: 7.5.2
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -2721,8 +2721,8 @@ packages:
       - rollup
     dev: true
 
-  /@vite-pwa/assets-generator@0.0.10:
-    resolution: {integrity: sha512-Ya3iE0EWIV+0g0XFXIjqSU8ZnhpJeLi9/xx+VfbSyXThKjk168GUYqd1z+SOuRO03bSRFDeK8wGixtwWuedjqg==}
+  /@vite-pwa/assets-generator@0.0.11:
+    resolution: {integrity: sha512-fm2aRHYM3O8wmsOPq04g/xcmlkyvvcI+SaKbAHyrIS+gP4fEESa8/UadxMqV531QW6Xe1ECQNSxFKffmNS7yQg==}
     engines: {node: '>=16.14.0'}
     hasBin: true
     dependencies:
@@ -2924,12 +2924,12 @@ packages:
     resolution: {integrity: sha512-8PGwybFwM4x8pcfgqEQFy70NaQxASvOC5DJwLQfpArw1UDfUXrJkdxD3BhVTMS+0Lef/TU7YO0Jvr0jJY8T+mw==}
     dev: true
 
-  /@vueuse/core@10.6.0(vue@3.3.7):
-    resolution: {integrity: sha512-+Yee+g9+9BEbvkyGdn4Bf4yZx9EfocAytpV2ZlrlP7xcz+qznLmZIDqDroTvc5vtMkWZicisgEv8dt3+jL+HQg==}
+  /@vueuse/core@10.6.1(vue@3.3.7):
+    resolution: {integrity: sha512-Pc26IJbqgC9VG1u6VY/xrXXfxD33hnvxBnKrLlA2LJlyHII+BSrRoTPJgGYq7qZOu61itITFUnm6QbacwZ4H8Q==}
     dependencies:
       '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 10.6.0
-      '@vueuse/shared': 10.6.0(vue@3.3.7)
+      '@vueuse/metadata': 10.6.1
+      '@vueuse/shared': 10.6.1(vue@3.3.7)
       vue-demi: 0.14.6(vue@3.3.7)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -2998,16 +2998,11 @@ packages:
       - vue
     dev: true
 
-  /@vueuse/metadata@10.6.0:
-    resolution: {integrity: sha512-mzKHkHoiK6xVz01VzQjM2l6ofUanEaofgEGPgDHcAzlvOTccPRTIdEuzneOUTYxgfm1vkDikS6rtrEw/NYlaTQ==}
-    dev: false
-
   /@vueuse/metadata@10.6.1:
     resolution: {integrity: sha512-qhdwPI65Bgcj23e5lpGfQsxcy0bMjCAsUGoXkJ7DsoeDUdasbZ2DBa4dinFCOER3lF4gwUv+UD2AlA11zdzMFw==}
-    dev: true
 
-  /@vueuse/shared@10.6.0(vue@3.3.7):
-    resolution: {integrity: sha512-0t4MVE18sO+/4Gh0jfeOXBTjKeV4606N9kIrDOLPjFl8Rwnlodn+QC5A4LfJuysK7aOsTMjF3KnzNeueaI0xlQ==}
+  /@vueuse/shared@10.6.1(vue@3.3.7):
+    resolution: {integrity: sha512-TECVDTIedFlL0NUfHWncf3zF9Gc4VfdxfQc8JFwoVZQmxpONhLxFrlm0eHQeidHj4rdTPL3KXJa0TZCk1wnc5Q==}
     dependencies:
       vue-demi: 0.14.6(vue@3.3.7)
     transitivePeerDependencies:
@@ -3032,12 +3027,12 @@ packages:
       negotiator: 0.6.3
     dev: true
 
-  /acorn-jsx@5.3.2(acorn@8.8.2):
+  /acorn-jsx@5.3.2(acorn@8.11.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.8.2
+      acorn: 8.11.2
     dev: true
 
   /acorn@8.11.2:
@@ -3324,7 +3319,7 @@ packages:
   /builtins@5.0.1:
     resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
     dependencies:
-      semver: 7.5.2
+      semver: 7.5.4
     dev: true
 
   /busboy@1.6.0:
@@ -4092,7 +4087,7 @@ packages:
       is-core-module: 2.11.0
       minimatch: 3.1.2
       resolve: 1.22.2
-      semver: 7.5.2
+      semver: 7.5.4
     dev: true
 
   /eslint-plugin-no-only-tests@3.1.0:
@@ -4130,7 +4125,7 @@ packages:
       regexp-tree: 0.1.24
       regjsparser: 0.9.1
       safe-regex: 2.1.1
-      semver: 7.5.2
+      semver: 7.5.4
       strip-indent: 3.0.0
     dev: true
 
@@ -4160,7 +4155,7 @@ packages:
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 6.0.11
-      semver: 7.5.2
+      semver: 7.5.4
       vue-eslint-parser: 9.1.1(eslint@8.38.0)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
@@ -4295,8 +4290,8 @@ packages:
     resolution: {integrity: sha512-5yxtHSZXRSW5pvv3hAlXM5+/Oswi1AUFqBmbibKb5s6bp3rGIDkyXU6xCoyuuLhijr4SFwPrXRoZjz0AZDN9tg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      acorn: 8.8.2
-      acorn-jsx: 5.3.2(acorn@8.8.2)
+      acorn: 8.11.2
+      acorn-jsx: 5.3.2(acorn@8.11.2)
       eslint-visitor-keys: 3.4.0
     dev: true
 
@@ -5147,7 +5142,7 @@ packages:
       acorn: 8.8.2
       eslint-visitor-keys: 3.4.0
       espree: 9.5.1
-      semver: 7.5.2
+      semver: 7.5.4
     dev: true
 
   /jsonc-parser@3.2.0:
@@ -5697,8 +5692,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pnpm@8.6.12:
-    resolution: {integrity: sha512-Eza4C5SO/Xl5IYozupbZ5NOA5leBRPYxmXmXfe7G4/4uCkRLhks84rB33aitxNZU/uMrnDGGjwrLktoKvPjqHA==}
+  /pnpm@8.10.3:
+    resolution: {integrity: sha512-1952Dqr41NA/lzmkYr4L43mHQmDhG8QjuVFu8G6XVCguiEgELzMX2TRAo1vX5NWO6w0eSphyc0fow/o6DDgTFA==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: true
@@ -6058,14 +6053,6 @@ packages:
   /semver@6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
     hasBin: true
-    dev: true
-
-  /semver@7.5.2:
-    resolution: {integrity: sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
     dev: true
 
   /semver@7.5.4:
@@ -7019,7 +7006,7 @@ packages:
       espree: 9.5.1
       esquery: 1.5.0
       lodash: 4.17.21
-      semver: 7.5.2
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true

@@ -158,11 +158,7 @@ export default defineConfig({
 if (condition) {
 ```
 
-<<<<<<< HEAD
-不幸的是，目前这在 `v8` 中不起作用。你通常可以在 Typescript 使用 `c8 ignore` 注释：
-=======
-For `v8` this does not cause any issues. You can use `v8 ignore` comments with Typescript as usual:
->>>>>>> 5111d855ceb0c13479248a5f9f9a9d864596da6a
+不幸的是，目前这在 `v8` 中不起作用。你通常可以在 Typescript 使用 `v8 ignore` 注释：
 
 <!-- eslint-skip -->
 
