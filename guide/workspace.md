@@ -99,6 +99,49 @@ export default defineProject({
 ```
 :::
 
+## Running tests
+
+要在工作区内运行测试，请在根目录 `package.json` 中定义一个脚本：
+
+```json
+{
+  "scripts": {
+    "test": "vitest"
+  }
+}
+```
+
+现在可以使用 CLI 运行测试了：
+
+::: code-group
+```bash [npm]
+npm run test
+```
+```bash [yarn]
+yarn test
+```
+```bash [pnpm]
+pnpm run test
+```
+```bash [bun]
+bun test
+```
+:::
+
+如果只需在单个项目内运行测试，使用 `--project` CLI 选项：
+
+```bash
+npm run test --project e2e
+```
+
+::: tip
+CLI 选项 `--project` 可多次使用，以筛选出多个项目：
+
+```bash
+npm run test --project e2e --project unit
+```
+:::
+
 ## Configuration
 
 没有任何配置选项从根级别的配置文件继承。你可以创建一个共享的配置文件，并将其与项目配置文件合并：

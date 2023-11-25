@@ -101,6 +101,7 @@ export default {
 | `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
 | `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
+| `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`                                              |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
 
 ::: tip
