@@ -101,7 +101,7 @@ export default defineProject({
 
 ## Running tests
 
-To run tests inside the workspace, define a script in your root `package.json`:
+要在工作区内运行测试，请在根目录 `package.json` 中定义一个脚本：
 
 ```json
 {
@@ -111,7 +111,7 @@ To run tests inside the workspace, define a script in your root `package.json`:
 }
 ```
 
-Now tests can be run using your package manager:
+现在可以使用 CLI 运行测试了：
 
 ::: code-group
 ```bash [npm]
@@ -128,14 +128,14 @@ bun test
 ```
 :::
 
-If you need to run tests only inside a single project, use the `--project` CLI option:
+如果只需在单个项目内运行测试，使用 `--project` CLI 选项：
 
 ```bash
 npm run test --project e2e
 ```
 
 ::: tip
-CLI option `--project` can be used multiple times to filter out several projects:
+CLI 选项 `--project` 可多次使用，以筛选出多个项目：
 
 ```bash
 npm run test --project e2e --project unit
