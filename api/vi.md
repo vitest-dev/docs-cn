@@ -460,10 +460,10 @@ import.meta.env.MODE = 'test'
 
 ### vi.unstubAllEnvs
 
-- **Type:** `() => Vitest`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `() => Vitest`
+- **版本:** Since Vitest 0.26.0
 
-Restores all `import.meta.env` and `process.env` values that were changed with `vi.stubEnv`. When it's called for the first time, Vitest remembers the original value and will store it, until `unstubAllEnvs` is called again.
+恢复通过 `vi.stubEnv` 更改的所有 `import.meta.env` 和 `process.env` 值。首次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllEnvs`。
 
 ```ts
 import { vi } from 'vitest'
@@ -490,9 +490,9 @@ import.meta.env.NODE_ENV === 'development'
 
 ### vi.stubGlobal
 
-- **Type:** `(name: string | number | symbol, value: unknown) => Vitest`
+- **类型:** `(name: string | number | symbol, value: unknown) => Vitest`
 
-Changes the value of global variable. You can restore its original value by calling `vi.unstubAllGlobals`.
+更改全局变量的值。我们可以调用 `vi.unstubAllGlobals` 恢复其原始值。
 
 ```ts
 import { vi } from 'vitest'
@@ -508,7 +508,7 @@ window.innerWidth === 100
 ```
 
 :::tip
-You can also change the value by simply assigning it to `globalThis` or `window` (if you are using `jsdom` or `happy-dom` environment), but you won't be able to use `vi.unstubAllGlobals` to restore original value:
+我们也可以通过简单地将其赋值给 `globalThis` 或 `window`（如果我们使用的是 `jsdom` 或 `happy-dom` 环境）来更改该值，但无法使用 `vi.unstubAllGlobals` 恢复原始值：
 
 ```ts
 globalThis.innerWidth = 100
@@ -520,10 +520,10 @@ window.innerWidth = 100
 
 ### vi.unstubAllGlobals
 
-- **Type:** `() => Vitest`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `() => Vitest`
+- **版本:** Since Vitest 0.26.0
 
-Restores all global values on `globalThis`/`global` (and `window`/`top`/`self`/`parent`, if you are using `jsdom` or `happy-dom` environment) that were changed with `vi.stubGlobal`. When it's called for the first time, Vitest remembers the original value and will store it, until `unstubAllGlobals` is called again.
+恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent `，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
 
 ```ts
 import { vi } from 'vitest'
@@ -550,13 +550,13 @@ IntersectionObserver === undefined
 
 ## Fake Timers
 
-This sections descibes how to work with [fake timers](/guide/mocking#timers).
+本节介绍如何使用 [fake timers](/guide/mocking#%E8%AE%A1%E6%97%B6%E5%99%A8) 。
 
 ### vi.advanceTimersByTime
 
-- **Type:** `(ms: number) => Vitest`
+- **类型:** `(ms: number) => Vitest`
 
-This method will invoke every initiated timer until the specified number of milliseconds is passed or the queue is empty - whatever comes first.
+该方法将调用每个启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。
 
 ```ts
 let i = 0
@@ -571,9 +571,9 @@ vi.advanceTimersByTime(150)
 
 ### vi.advanceTimersByTimeAsync
 
-- **Type:** `(ms: number) => Promise<Vitest>`
+- **类型:** `(ms: number) => Promise<Vitest>`
 
-This method will invoke every initiated timer until the specified number of milliseconds is passed or the queue is empty - whatever comes first. This will include asynchronously set timers.
+该方法将调用每个已启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。这将包括异步设置的计时器。
 
 ```ts
 let i = 0
@@ -588,9 +588,9 @@ await vi.advanceTimersByTimeAsync(150)
 
 ### vi.advanceTimersToNextTimer
 
-- **Type:** `() => Vitest`
+- **类型:** `() => Vitest`
 
-Will call next available timer. Useful to make assertions between each timer call. You can chain call it to manage timers by yourself.
+将调用下一个可用的定时器。在每次调用定时器之间进行断言非常有用。我们可以调用它来管理自己的定时器。
 
 ```ts
 let i = 0
@@ -603,9 +603,9 @@ vi.advanceTimersToNextTimer() // log: 1
 
 ### vi.advanceTimersToNextTimerAsync
 
-- **Type:** `() => Promise<Vitest>`
+- **类型:** `() => Promise<Vitest>`
 
-Will call next available timer and wait until it's resolved if it was set asynchronously. Useful to make assertions between each timer call.
+如果定时器是异步设置的，则会调用下一个可用的定时器并等待解决。在每次调用定时器之间进行断言非常有用。
 
 ```ts
 let i = 0
@@ -620,37 +620,37 @@ await vi.advanceTimersToNextTimerAsync() // log: 3
 
 ### vi.getTimerCount
 
-- **Type:** `() => number`
+- **类型:** `() => number`
 
-Get the number of waiting timers.
+获取等待计时器的数量。
 
 ### vi.clearAllTimers
 
-Removes all timers that are scheduled to run. These timers will never run in the future.
+删除所有计划运行的计时器。这些定时器今后将不再运行。
 
 ### vi.getMockedSystemTime
 
-- **Type**: `() => Date | null`
+- **类型**: `() => Date | null`
 
-Returns mocked current date that was set using `setSystemTime`. If date is not mocked the method will return `null`.
+返回使用 `setSystemTime` 设置的模拟当前日期。如果没有模拟日期，该方法将返回 `null` 。
 
 ### vi.getRealSystemTime
 
-- **Type**: `() => number`
+- **类型**: `() => number`
 
-When using `vi.useFakeTimers`, `Date.now` calls are mocked. If you need to get real time in milliseconds, you can call this function.
+使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要以毫秒为单位获取实时时间，可以调用此函数。
 
 ### vi.runAllTicks
 
-- **Type:** `() => Vitest`
+- **类型:** `() => Vitest`
 
-Calls every microtask that was queued by `process.nextTick`. This will also run all microtasks scheduled by themselves.
+调用由 `process.nextTick` 排在队列中的每个微任务。这也将运行所有自己安排的微任务。
 
 ### vi.runAllTimers
 
-- **Type:** `() => Vitest`
+- **类型:** `() => Vitest`
 
-This method will invoke every initiated timer until the timer queue is empty. It means that every timer called during `runAllTimers` will be fired. If you have an infinite interval, it will throw after 10 000 tries (can be configured with [`fakeTimers.loopLimit`](/config/#faketimers-looplimit)).
+该方法将调用每个已经启动的定时器，直到定时器队列为空。这意味着在 `runAllTimers` 期间调用的每个定时器都会被触发。如果时间间隔为无限，则会在尝试 10000 次后触发（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) 进行配置）。
 
 ```ts
 let i = 0
@@ -670,10 +670,10 @@ vi.runAllTimers()
 
 ### vi.runAllTimersAsync
 
-- **Type:** `() => Promise<Vitest>`
+- **类型:** `() => Promise<Vitest>`
 
-This method will asynchronously invoke every initiated timer until the timer queue is empty. It means that every timer called during `runAllTimersAsync` will be fired even asynchronous timers. If you have an infinite interval,
-it will throw after 10 000 tries (can be configured with [`fakeTimers.loopLimit`](/config/#faketimers-looplimit)).
+该方法将异步调用每个已启动的定时器，直到定时器队列为空。这意味着在 `runAllTimersAsync` 期间调用的每个定时器都会被触发，即使是异步定时器。如果我们有一个无限的时间间隔、
+会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) ）。
 
 ```ts
 setTimeout(async () => {
@@ -687,9 +687,9 @@ await vi.runAllTimersAsync()
 
 ### vi.runOnlyPendingTimers
 
-- **Type:** `() => Vitest`
+- **类型:** `() => Vitest`
 
-This method will call every timer that was initiated after [`vi.useFakeTimers`](#vi-usefaketimers) call. It will not fire any timer that was initiated during its call.
+此方法将调用 [`vi.useFakeTimers`](#vii-usefaketimers) 调用后启动的所有计时器。它不会调用在调用期间启动的任何计时器。
 
 ```ts
 let i = 0
@@ -702,9 +702,9 @@ vi.runOnlyPendingTimers()
 
 ### vi.runOnlyPendingTimersAsync
 
-- **Type:** `() => Promise<Vitest>`
+- **类型:** `() => Promise<Vitest>`
 
-This method will asynchronously call every timer that was initiated after [`vi.useFakeTimers`](#vi-usefaketimers) call, even asynchronous ones. It will not fire any timer that was initiated during its call.
+此方法将异步调用 [`vi.useFakeTimers`](#vi-usefaketimers) 调用后启动的每个定时器，即使是异步定时器。它不会触发任何在调用期间启动的定时器。
 
 ```ts
 setTimeout(() => {
@@ -729,11 +729,11 @@ await vi.runOnlyPendingTimersAsync()
 
 ### vi.setSystemTime
 
-- **Type**: `(date: string | number | Date) => void`
+- **类型**: `(date: string | number | Date) => void`
 
-If fake timers are enabled, this method simulates a user changing the system clock (will affect date related API like `hrtime`, `performance.now` or `new Date()`) - however, it will not fire any timers. If fake timers are not enabled, this method will only mock `Date.*` calls.
+如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime` 、`performance.now` 或 `new Date()` ），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 调用。
 
-Useful if you need to test anything that depends on the current date - for example [luxon](https://github.com/moment/luxon/) calls inside your code.
+如果我们需要测试任何依赖于当前日期的内容 -- 例如在代码中调用 [luxon](https://github.com/moment/luxon/) --则非常有用。
 
 ```ts
 const date = new Date(1998, 11, 19)
@@ -748,44 +748,44 @@ vi.useRealTimers()
 
 ### vi.useFakeTimers
 
-- **Type:** `() => Vitest`
+- **类型:** `() => Vitest`
 
-To enable mocking timers, you need to call this method. It will wrap all further calls to timers (such as `setTimeout`, `setInterval`, `clearTimeout`, `clearInterval`, `nextTick`, `setImmediate`, `clearImmediate`, and `Date`), until [`vi.useRealTimers()`](#vi-userealtimers) is called.
+要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`nextTick` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
 
-Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--pool=threads`.
+在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick` 。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick` ，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
-The implementation is based internally on [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
 
 ::: tip
-Since version `0.35.0` `vi.useFakeTimers()` no longer automatically mocks `process.nextTick`.
-It can still be mocked by specyfing the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick'] })`.
+从版本 `0.35.0` 开始，`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
+仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
 :::
 
 ### vi.isFakeTimers
 
-- **Type:** `() => boolean`
-- **Version:** Since Vitest 0.34.5
+- **类型:** `() => boolean`
+- **版本:** Since Vitest 0.34.5
 
-Returns `true` if fake timers are enabled.
+如果启用了假计时器，则返回 `true` 。
 
 ### vi.useRealTimers
 
-- **Type:** `() => Vitest`
+- **类型:** `() => Vitest`
 
-When timers are run out, you may call this method to return mocked timers to its original implementations. All timers that were scheduled before will be discarded.
+定时器用完后，可以调用此方法将模拟的定时器返回到其原始实现。之前调度的所有计时器都将被丢弃。
 
 ## Miscellaneous
 
-A set of useful helper functions that Vitest provides.
+Vitest 提供的一组有用的辅助函数。
 
 ### vi.waitFor
 
-- **Type:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
-- **Version**: Since Vitest 0.34.5
+- **类型:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
+- **版本**: Since Vitest 0.34.5
 
-Wait for the callback to execute successfully. If the callback throws an error or returns a rejected promise it will continue to wait until it succeeds or times out.
+等待回调成功执行。如果回调抛出错误或返回拒绝的承诺，它将继续等待，直到成功或超时。
 
-This is very useful when you need to wait for some asynchronous action to complete, for example, when you start a server and need to wait for it to start.
+这在需要等待某些异步操作完成时非常有用，例如，在启动服务器并需要等待其启动时。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -810,7 +810,7 @@ test('Server started successfully', async () => {
 })
 ```
 
-It also works for asynchronous callbacks
+它也适用于异步回调
 
 ```ts
 // @vitest-environment jsdom
@@ -839,16 +839,18 @@ test('Element exists in a DOM', async () => {
 })
 ```
 
-If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
+如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
 
 ### vi.waitUntil
 
-- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
-- **Version**: Since Vitest 0.34.5
+- **类型:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
+- **版本**: Since Vitest 0.34.5
 
 This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
 
-Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
+这与 `vi.waitFor` 类似，但如果回调抛出任何错误，执行将立即中断并收到一条错误信息。如果回调返回 虚假值(falsy) ，下一次检查将继续，直到返回 真实值(truthy) 。这在需要等待某项内容存在后再执行下一步时非常有用。
+
+请看下面的示例。我们可以使用 `vi.waitUntil` 等待元素出现在页面上，然后对元素进行操作。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -866,14 +868,14 @@ test('Element render correctly', async () => {
 
 ### vi.hoisted
 
-- **Type**: `<T>(factory: () => T) => T`
-- **Version**: Since Vitest 0.31.0
+- **类型**: `<T>(factory: () => T) => T`
+- **版本**: Since Vitest 0.31.0
 
-All static `import` statements in ES modules are hoisted to the top of the file, so any code that is defined before the imports will actually be executed after imports are evaluated.
+ES 模块中的所有静态 "导入 "语句都被提升到文件顶部，因此在导入之前定义的任何代码都将在导入评估之后执行。
 
-However, it can be useful to invoke some side effects like mocking dates before importing a module.
+不过，在导入模块之前，调用一些副作用（如模拟日期）可能会很有用。
 
-To bypass this limitation, you can rewrite static imports into dynamic ones like this:
+要绕过这一限制，可以像这样将静态导入重写为动态导入：
 
 ```diff
 callFunctionWithSideEffect()
@@ -881,7 +883,7 @@ callFunctionWithSideEffect()
 + const { value } = await import('./some/module.js')
 ```
 
-When running `vitest`, you can do this automatically by using `vi.hoisted` method.
+运行 `vitest` 时，可以使用 `vi.hoisted` 方法自动完成此操作。
 
 ```diff
 - callFunctionWithSideEffect()
@@ -889,7 +891,7 @@ import { value } from './some/module.js'
 + vi.hoisted(() => callFunctionWithSideEffect())
 ```
 
-This method returns the value that was returned from the factory. You can use that value in your `vi.mock` factories if you need easy access to locally defined variables:
+该方法返回从工厂返回的值。如果我们需要轻松访问本地定义的变量，可以在我们的 `vi.mock` factories 中使用该值：
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -907,7 +909,7 @@ mockedMethod.mockReturnValue(100)
 expect(originalMethod()).toBe(100)
 ```
 
-Note that this method can also be called asynchronously even if your environment doesn't support top-level await:
+请注意，即使我们的环境不支持顶级等待，也可以异步调用此方法：
 
 ```ts
 const promised = await vi.hoisted(async () => {
@@ -918,9 +920,9 @@ const promised = await vi.hoisted(async () => {
 
 ### vi.setConfig
 
-- **Type**: `RuntimeConfig`
+- **类型**: `RuntimeConfig`
 
-Updates config for the current test file. This method supports only config options that will affect the current test file:
+更新当前测试文件的配置。此方法只会影响当前测试文件的配置选项：
 
 ```ts
 vi.setConfig({
@@ -943,6 +945,6 @@ vi.setConfig({
 
 ### vi.resetConfig
 
-- **Type**: `RuntimeConfig`
+- **类型**: `RuntimeConfig`
 
-If [`vi.setConfig`](#vi-setconfig) was called before, this will reset config to the original state.
+如果之前调用过 [`vi.setConfig`](#vi-setconfig) ，则会将配置重置为原始状态。
