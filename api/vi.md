@@ -18,58 +18,58 @@ import { vi } from 'vitest'
 
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 
-Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports. If you need to reference some variables outside of its scope, you can define them inside [`vi.hoisted`](/api/vi#vi-hoisted) and reference them inside `vi.mock`.
+用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
 
 ::: warning
-`vi.mock` works only for modules that were imported with the `import` keyword. It doesn't work with `require`.
+`vi.mock` 仅对使用 `import` 关键字导入的模块有效。它对 `require` 无效。
 
-In order to hoist `vi.mock`, Vitest statically analyzes your files. It indicates that `vi` that was not directly imported from the `vitest` package (for example, from some utility file) cannot be used. Use `vi.mock` with `vi` imported from `vitest`, or enable [`globals`](/config/#globals) config option.
+为了提升 `vi.mock` ，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi` （例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/#globals) 配置选项。
 
-Vitest will not mock modules that were imported inside a [setup file](/config/#setupfiles) because they are cached by the time a test file is running. You can call [`vi.resetModules()`](#vi-resetmodules) inside [`vi.hoisted`](#vi-hoisted) to clear all module caches before running a test file.
+Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules) ，在运行测试文件前清除所有模块缓存。
 :::
 
 ::: warning
-The [browser mode](/guide/browser) does not presently support mocking modules. You can track this feature in the GitHub <a href="https://github.com/vitest-dev/vitest/issues/3046">issue</a>.
+[浏览器模式](/guide/browser)目前不支持模拟模块。可以在这个 <a href="https://github.com/vitest-dev/vitest/issues/3046">issue</a> 中持续关注此功能。
 :::
 
-If `factory` is defined, all imports will return its result. Vitest calls factory only once and caches results for all subsequent imports until [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock) is called.
+如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
 
-Unlike in `jest`, the factory can be asynchronous, so you can use [`vi.importActual`](#vi-importactual) or a helper, received as the first argument, inside to get the original module.
+与 `jest` 不同，该 factory 可以是异步的，因此可以使用 [`vi.importActual`](#vi-importactual) 或作为第一个参数接收的助手来获取原始模块。
 
 ```js
-// when using JavaScript
+// 使用 JavaScript 时
 
 vi.mock('./path/to/module.js', async (importOriginal) => {
   const mod = await importOriginal()
   return {
     ...mod,
-    // replace some exports
+    // 取代部分出口
     namedExport: vi.fn(),
   }
 })
 ```
 
 ```ts
-// when using TypeScript
+// 使用 TypeScript 时 
 
 vi.mock('./path/to/module.js', async (importOriginal) => {
   const mod = await importOriginal<typeof import('./path/to/module.js')>()
   return {
     ...mod,
-    // replace some exports
+    // 取代部分出口
     namedExport: vi.fn(),
   }
 })
 ```
 
 ::: warning
-`vi.mock` is hoisted (in other words, _moved_) to **top of the file**. It means that whenever you write it (be it inside `beforeEach` or `test`), it will actually be called before that.
+`vi.mock` 被提升（换句话说，_移动_）到**文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
 
-This also means that you cannot use any variables inside the factory that are defined outside the factory.
+这也意味着不能在 factory 内部使用任何在 factory 外部定义的变量。
 
-If you need to use variables inside the factory, try [`vi.doMock`](#vi-domock). It works the same way but isn't hoisted. Beware that it only mocks subsequent imports.
+如果需要在 factory 内部使用变量，请尝试 [`vi.doMock`](#vi-domock) 。它以同样的方式工作，但不会被吊起。请注意，它只能模拟后续的导入。
 
-You can also reference variables defined by `vi.hoisted` method if it was declared before `vi.mock`:
+如果在 `vi.mock` 之前声明了 `vi.hoisted` 方法，也可以引用该方法定义的变量：
 
 ```ts
 import { namedExport } from './path/to/module.js'
@@ -95,7 +95,7 @@ expect(namedExport).toBe(mocks.namedExport)
 :::
 
 ::: warning
-If you are mocking a module with default export, you will need to provide a `default` key within the returned factory function object. This is an ES module-specific caveat; therefore, `jest` documentation may differ as `jest` uses CommonJS modules. For example,
+如果我们模拟的模块有默认导出，则需要在返回的工厂函数对象中提供一个 `default` 键。这是 ES 模块特有的注意事项；因此，由于 `jest` 使用 CommonJS 模块，`jest` 文档可能会有所不同。例如：
 
 ```ts
 vi.mock('./path/to/module.js', () => {
@@ -108,10 +108,9 @@ vi.mock('./path/to/module.js', () => {
 ```
 
 :::
+如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/#root)（默认为 `process.cwd()` ）中找到 `__mocks__` 文件夹。我们可以通过 [deps.moduleDirectories](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
 
-If there is a `__mocks__` folder alongside a file that you are mocking, and the factory is not provided, Vitest will try to find a file with the same name in the `__mocks__` subfolder and use it as an actual module. If you are mocking a dependency, Vitest will try to find a `__mocks__` folder in the [root](/config/#root) of the project (default is `process.cwd()`). You can tell Vitest where the dependencies are located through the [deps.moduleDirectories](/config/#deps-moduledirectories) config option.
-
-For example, you have this file structure:
+例如，我们有这样的文件结构：
 
 ```
 - __mocks__
@@ -124,7 +123,7 @@ For example, you have this file structure:
   - increment.test.js
 ```
 
-If you call `vi.mock` in a test file without a factory provided, it will find a file in the `__mocks__` folder to use as a module:
+如果在没有提供工厂的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
 
 ```ts
 // increment.test.js
@@ -144,18 +143,22 @@ axios.get(`/apples/${increment(1)}`)
 
 ::: warning
 Beware that if you don't call `vi.mock`, modules **are not** mocked automatically. To replicate Jest's automocking behaviour, you can call `vi.mock` for each required module inside [`setupFiles`](/config/#setupfiles).
+
+请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/#setupfiles) 中为每个所需的模块调用 `vi.mock` 。
 :::
 
 If there is no `__mocks__` folder or a factory provided, Vitest will import the original module and auto-mock all its exports. For the rules applied, see [algorithm](/guide/mocking#automocking-algorithm).
 
+如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有输出。有关应用的规则，请参阅[模块](/guide/mocking#%E6%A8%A1%E5%9D%97)。
+
 ### vi.doMock
 
-- **Type**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
+- **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 
-The same as [`vi.mock`](#vi-mock), but it's not hoisted to the top of the file, so you can reference variables in the global file scope. The next [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) of the module will be mocked.
+与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
 
 ::: warning
-This will not mock modules that were imported before this was called. Don't forget that all static imports in ESM are always [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting), so putting this before static import will not force it to be called before the import:
+这将不会模拟在调用此调用之前导入的模块。不要忘记，ESM 中的所有静态导入都是 [hoaded](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting)，因此在静态导入前调用此调用不会强制在导入前调用：
 
 ```ts
 // this will be called _after_ the import statement
@@ -199,12 +202,12 @@ test('importing the next module imports mocked one', async () => {
 
 ### vi.mocked
 
-- **Type**: `<T>(obj: T, deep?: boolean) => MaybeMockedDeep<T>`
-- **Type**: `<T>(obj: T, options?: { partial?: boolean; deep?: boolean }) => MaybePartiallyMockedDeep<T>`
+- **类型**: `<T>(obj: T, deep?: boolean) => MaybeMockedDeep<T>`
+- **类型**: `<T>(obj: T, options?: { partial?: boolean; deep?: boolean }) => MaybePartiallyMockedDeep<T>`
 
-Type helper for TypeScript. Just returns the object that was passed.
+TypeScript 的类型助手。只返回传入的对象。
 
-When `partial` is `true` it will expect a `Partial<T>` as a return value. By default, this will only make TypeScript believe that the first level values are mocked. You can pass down `{ deep: true }` as a second argument to tell TypeScript that the whole object is mocked, if it actually is.
+当 `partial` 为 `true` 时，它将期望一个 `Partial<T>` 作为返回值。默认情况下，这只会让 TypeScript 认为第一层的值是模拟的。我们可以将 `{ deep: true }` 作为第二个参数传递给 TypeScript，告诉它整个对象都是模拟的（如果实际上是的话）。
 
 ```ts
 import example from './example.js'
@@ -219,9 +222,9 @@ test('1 + 1 equals 10', async () => {
 
 ### vi.importActual
 
-- **Type**: `<T>(path: string) => Promise<T>`
+- **类型**: `<T>(path: string) => Promise<T>`
 
-Imports module, bypassing all checks if it should be mocked. Can be useful if you want to mock module partially.
+导入模块，绕过模块是否应被模拟的所有检查。如果我们想部分模拟模块，这一点很有用。
 
 ```ts
 vi.mock('./example.js', async () => {
@@ -233,21 +236,21 @@ vi.mock('./example.js', async () => {
 
 ### vi.importMock
 
-- **Type**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
+- **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-Imports a module with all of its properties (including nested properties) mocked. Follows the same rules that [`vi.mock`](#vi-mock) does. For the rules applied, see [algorithm](/guide/mocking#automocking-algorithm).
+导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅[模块](/guide/mocking#%E6%A8%A1%E5%9D%97)。
 
 ### vi.unmock
 
-- **Type**: `(path: string) => void`
+- **类型**: `(path: string) => void`
 
-Removes module from the mocked registry. All calls to import will return the original module even if it was mocked before. This call is hoisted to the top of the file, so it will only unmock modules that were defined in `setupFiles`, for example.
+从模拟注册表中删除模块。所有导入调用都将返回原始模块，即使该模块之前已被模拟。该调用会被移动到文件顶端，因此只会解除在 `setupFiles` 中定义的模块。
 
 ### vi.doUnmock
 
-- **Type**: `(path: string) => void`
+- **类型**: `(path: string) => void`
 
-The same as [`vi.unmock`](#vi-unmock), but is not hoisted to the top of the file. The next import of the module will import the original module instead of the mock. This will not unmock previously imported modules.
+与 [`vi.unmock`](#vi-unmock) 相同，但不会移动到文件顶端。下一次导入模块时，将导入原始模块而非 mock。这不会解除先前导入的模块。
 
 ```ts
 // ./increment.js
@@ -285,9 +288,9 @@ unmockedIncrement(30) === 31
 
 ### vi.resetModules
 
-- **Type**: `() => Vitest`
+- **类型**: `() => Vitest`
 
-Resets modules registry by clearing the cache of all modules. This allows modules to be reevaluated when reimported. Top-level imports cannot be re-evaluated. Might be useful to isolate modules where local state conflicts between tests.
+通过清除所有模块的缓存来重置模块注册表。这样就可以在重新导入模块时对模块进行重新评估。顶层导入无法重新评估。这可能有助于隔离测试之间存在本地状态冲突的模块。
 
 ```ts
 import { vi } from 'vitest'
@@ -311,12 +314,12 @@ test('module has old state', async () => {
 ```
 
 ::: warning
-Does not reset mocks registry. To clear mocks registry, use [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock).
+不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 。
 :::
 
 ### vi.dynamicImportSettled
 
-Wait for all imports to load. Useful, if you have a synchronous call that starts importing a module that you cannot wait otherwise.
+等待加载所有导入模块。如果有同步调用开始导入一个模块，而如果不这样做就无法等待，那么它就很有用。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -336,21 +339,21 @@ test('operations are resolved', async () => {
 ```
 
 ::: tip
-If during a dynamic import another dynamic import is initiated, this method will wait unti all of them are resolved.
+如果在动态导入过程中又启动了另一个动态导入，则该方法将等待直到所有动态导入都解决为止。
 
-This method will also wait for the next `setTimeout` tick after the import is resolved so all synchronous operations should be completed by the time it's resolved.
+该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
 :::
 
 ## Mocking Functions and Objects
 
-This section describes how to work with [method mocks](/api/mock) and replace environmental and global variables.
+本节介绍如何使用 [method mock](/api/mock) 替换环境变量和全局变量。
 
 ### vi.fn
 
-- **Type:** `(fn?: Function) => Mock`
+- **类型:** `(fn?: Function) => Mock`
 
-Creates a spy on a function, though can be initiated without one. Every time a function is invoked, it stores its call arguments, returns, and instances. Also, you can manipulate its behavior with [methods](/api/mock).
-If no function is given, mock will return `undefined`, when invoked.
+创建函数的监视程序，但也可以不创建监视程序。每次调用函数时，它都会存储调用参数、返回值和实例。此外，我们还可以使用 [methods](/api/mock) 操纵它的行为。
+如果没有给出函数，调用 mock 时将返回 `undefined`。
 
 ```ts
 const getApples = vi.fn(() => 0)
@@ -369,27 +372,27 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 
 ### vi.isMockFunction
 
-- **Type:** `(fn: Function) => boolean`
+- **类型:** `(fn: Function) => boolean`
 
-Checks that a given parameter is a mock function. If you are using TypeScript, it will also narrow down its type.
+检查给定参数是否为 mock 函数。如果使用的是 TypeScript ，它还会缩小参数类型的范围。
 
 ### vi.clearAllMocks
 
-Will call [`.mockClear()`](/api/mock#mockclear) on all spies. This will clear mock history, but not reset its implementation to the default one.
+将对所有 监听(spies) 调用 [`.mockClear()`](/api/mock#mockclear)。这将清除 mock 历史记录，但不会将其重置为默认实现。
 
 ### vi.resetAllMocks
 
-Will call [`.mockReset()`](/api/mock#mockreset) on all spies. This will clear mock history and reset its implementation to an empty function (will return `undefined`).
+将对所有 监听(spies) 调用 [`.mockReset()`](/api/mock#mockreset)。这将清除 mock 历史记录，并将其重置为空函数（将返回 `undefined` ）。
 
 ### vi.restoreAllMocks
 
-Will call [`.mockRestore()`](/api/mock#mockrestore) on all spies. This will clear mock history and reset its implementation to the original one.
+将对所有 监听(spies) 调用 [`.mockRestore()`](/api/mock#mockrestore)。这将清除 mock 的历史记录，并将其重置为原来的实现。
 
 ### vi.spyOn
 
-- **Type:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
+- **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
-Creates a spy on a method or getter/setter of an object simillar to [`vi.fn()`](/#vi-fn). It returns a [mock function](/api/mock).
+创建与 [`vi.fn()`](/#vi-fn) 类似的对象的方法或 getter/setter 的 监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
 
 ```ts
 let apples = 0
@@ -407,7 +410,7 @@ expect(spy).toHaveReturnedWith(1)
 ```
 
 ::: tip
-You can call [`vi.restoreAllMocks`](#vi-restoreallmocks) inside [`afterEach`](/api/#aftereach) (or enable [`test.restoreMocks`](/config/#restoreMocks)) to restore all methods to their original implementations. This will restore the original [object descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), so you won't be able to change method's implementation:
+你可以在 [`afterEach`](/api/#aftereach)（或启用 [`test.restoreMocks`](/config/#restoreMocks) ）中调用 [`vi.restoreAllMocks`](#vi-restoreallmocks) ，将所有方法还原为原始实现。这将还原原始的 [object descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) ，因此无法更改方法的实现：
 
 ```ts
 const cart = {
@@ -427,10 +430,10 @@ console.log(cart.getApples()) // still 42!
 
 ### vi.stubEnv
 
-- **Type:** `(name: string, value: string) => Vitest`
-- **Version:** Since Vitest 0.26.0
+- **类型:** `(name: string, value: string) => Vitest`
+- **版本:** Since Vitest 0.26.0
 
-Changes the value of environmental variable on `process.env` and `import.meta.env`. You can restore its value by calling `vi.unstubAllEnvs`.
+更改 `process.env` 和 `import.meta.env` 中环境变量的值。我们可以调用 `vi.unstubAllEnvs` 恢复其值。
 
 ```ts
 import { vi } from 'vitest'
@@ -447,7 +450,7 @@ import.meta.env.MODE === 'development'
 ```
 
 :::tip
-You can also change the value by simply assigning it, but you won't be able to use `vi.unstubAllEnvs` to restore previous value:
+我们也可以通过简单赋值来更改值，但无法使用 `vi.unstubAllEnvs` 恢复以前的值：
 
 ```ts
 import.meta.env.MODE = 'test'
