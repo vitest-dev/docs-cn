@@ -21,12 +21,17 @@
     "vue": "latest"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@antfu/eslint-config": "^0.35.3",
     "@antfu/ni": "^0.18.8",
     "@iconify-json/carbon": "^1.1.21",
     "@iconify-json/logos": "^1.1.38",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
+=======
+    "@iconify-json/carbon": "^1.1.22",
+    "@iconify-json/logos": "^1.1.39",
+>>>>>>> 3a0673ebf72ee6fbf49207d9de007192a546ee15
     "@unocss/reset": "^0.57.4",
     "@vite-pwa/assets-generator": "^0.0.11",
     "@vite-pwa/vitepress": "^0.2.3",
