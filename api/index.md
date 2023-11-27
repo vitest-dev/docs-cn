@@ -43,10 +43,6 @@ interface TestOptions {
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it`
 
-`test` defines a set of related expectations. It receives the test name and a function that holds the expectations to test.
-
-Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating. The default is 5 seconds, and can be configured globally with [testTimeout](/config/#testtimeout)
-
 `test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
 
 或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为5秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
