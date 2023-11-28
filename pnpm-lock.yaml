@@ -20,11 +20,11 @@ devDependencies:
     specifier: ^0.18.8
     version: 0.18.8
   '@iconify-json/carbon':
-    specifier: ^1.1.21
-    version: 1.1.21
+    specifier: ^1.1.22
+    version: 1.1.22
   '@iconify-json/logos':
-    specifier: ^1.1.38
-    version: 1.1.38
+    specifier: ^1.1.39
+    version: 1.1.39
   '@types/fs-extra':
     specifier: ^11.0.1
     version: 11.0.1
@@ -2020,14 +2020,14 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/carbon@1.1.21:
-    resolution: {integrity: sha512-bK2cMVM4noBU+FGlay433flpXLRzQu0ED095iAnoO6ka3yb4uz0lvb8acpN5gthyGLJ89C4HpfIbQZLQnMKQww==}
+  /@iconify-json/carbon@1.1.22:
+    resolution: {integrity: sha512-kQqCxiRkXtT7RO612GosIgvmQ8M8Ltgwl8LZZ4LKO8jip77W4rLK2PFjuS1uXRM1Lu879uzH73mMUClqFLsA0Q==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/logos@1.1.38:
-    resolution: {integrity: sha512-26sPSWn/Y3nY4Kx3kbHOPU8zzEFaDMeuStFhDbW2SpLy6grusqTAgf0o4r4irNAPkdI1gPF8kuSyGDKeSPFzZw==}
+  /@iconify-json/logos@1.1.39:
+    resolution: {integrity: sha512-ABYVTpbgNh9qDer1p2Jz3oDNHoRL/OlSS/jpo/OLI1buCmw/lI6mHk7D6nBB6w2AY7DQ60yyck/WN+zGD/fpLA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
