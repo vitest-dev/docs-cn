@@ -155,7 +155,11 @@ If there is no `__mocks__` folder or a factory provided, Vitest will import the 
 
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 
+<<<<<<< HEAD
 与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
+=======
+The same as [`vi.mock`](#vi-mock), but it's not hoisted to the top of the file, so you can reference variables in the global file scope. The next [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) of the module will be mocked.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ::: warning
 这将不会模拟在调用此调用之前导入的模块。不要忘记，ESM 中的所有静态导入都是 [hoaded](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting)，因此在静态导入前调用此调用不会强制在导入前调用：
@@ -339,7 +343,11 @@ test('operations are resolved', async () => {
 ```
 
 ::: tip
+<<<<<<< HEAD
 如果在动态导入过程中又启动了另一个动态导入，则该方法将等待直到所有动态导入都解决为止。
+=======
+If during a dynamic import another dynamic import is initiated, this method will wait until all of them are resolved.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
 :::
@@ -392,7 +400,11 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 
 - **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
+<<<<<<< HEAD
 创建与 [`vi.fn()`](/#vi-fn) 类似的对象的方法或 getter/setter 的 监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
+=======
+Creates a spy on a method or getter/setter of an object similar to [`vi.fn()`](/#vi-fn). It returns a [mock function](/api/mock).
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```ts
 let apples = 0
@@ -733,7 +745,11 @@ await vi.runOnlyPendingTimersAsync()
 
 如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime` 、`performance.now` 或 `new Date()` ），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 调用。
 
+<<<<<<< HEAD
 如果我们需要测试任何依赖于当前日期的内容 -- 例如在代码中调用 [luxon](https://github.com/moment/luxon/) --则非常有用。
+=======
+Useful if you need to test anything that depends on the current date - for example [Luxon](https://github.com/moment/luxon/) calls inside your code.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```ts
 const date = new Date(1998, 11, 19)
@@ -757,8 +773,13 @@ vi.useRealTimers()
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
 
 ::: tip
+<<<<<<< HEAD
 从版本 `0.35.0` 开始，`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
+=======
+Since version `0.35.0` `vi.useFakeTimers()` no longer automatically mocks `process.nextTick`.
+It can still be mocked by specifying the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick'] })`.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 :::
 
 ### vi.isFakeTimers

@@ -12,7 +12,11 @@ outline: deep
 <div h-2 />
 <CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">Learn how to write your first test by Video</CourseLink>
 
+<<<<<<< HEAD
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用程序中的相同配置来运行测试。
+=======
+## Shared Config between Test, Dev and Build
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 了解更多信息 [配置 Vitest](/guide/#配置-vitest)
 
@@ -26,7 +30,11 @@ $ vitest
 
 `vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 
+<<<<<<< HEAD
 ## 开箱即用的常见 Web 支持
+=======
+## Common Web Idioms Out-Of-The-Box
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 开箱即用的 ES Module / TypeScript / JSX support / PostCSS
 
@@ -42,7 +50,11 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 
 了解更多信息 [测试筛选](./filtering.md)
 
+<<<<<<< HEAD
 ## 同时运行多个测试
+=======
+## Running Tests Concurrently
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 在连续的测试中使用 `.concurrent` 来并行运行它们。
 
@@ -102,7 +114,11 @@ it('renders correctly', () => {
 
 了解更多信息 [快照](/guide/snapshot)
 
+<<<<<<< HEAD
 ## Chai 和 Jest 的 expect 语法兼容
+=======
+## Chai and Jest `expect` Compatibility
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 APIs
 
@@ -160,6 +176,7 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 
 可以在配置文件中设置 `test.coverage` 选项来配置它：
 
+<<<<<<< HEAD
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vitest/config'
@@ -171,6 +188,9 @@ export default defineConfig({
   },
 })
 ```
+=======
+## In-Source Testing
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 了解更多信息 [测试覆盖率](/guide/coverage)
 
@@ -199,7 +219,11 @@ if (import.meta.vitest) {
 
 了解更多信息 [源码内联测试](/guide/in-source)
 
+<<<<<<< HEAD
 ## 基准测试 <sup><code>experimental</code></sup>
+=======
+## Benchmarking <Badge type="warning">Experimental</Badge>
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
@@ -223,7 +247,11 @@ describe('sort', () => {
 })
 ```
 
+<<<<<<< HEAD
 ## 类型测试 <sup><code>experimental</code></sup>
+=======
+## Type Testing <Badge type="warning">Experimental</Badge>
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 从 Vitest 0.25.0 开始，你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 

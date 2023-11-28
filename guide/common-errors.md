@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 # 常见错误
+=======
+---
+title: Common Errors | Guide
+---
+
+# Common Errors
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ## Cannot find module './relative-path'
 

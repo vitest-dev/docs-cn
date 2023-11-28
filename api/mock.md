@@ -247,7 +247,11 @@ mock() // 43
 
 接受将在下一次函数调用中返回的值。如果是链式调用，则每次连续调用都会返回指定值。
 
+<<<<<<< HEAD
 如果没有更多的 `mockReturnValueOnce` 值可使用，mock 将返回到预先定义的实现（如果有的话）。
+=======
+When there are no more `mockReturnValueOnce` values to use, mock will fallback to previously defined implementation if there is one.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```ts
 const myMockFn = vi

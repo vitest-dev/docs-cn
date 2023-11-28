@@ -40,7 +40,11 @@ export default {
 :::
 
 ::: tip
+<<<<<<< HEAD
 要预览你的 HTML 报告，可以使用 [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) 命令：
+=======
+To preview your HTML report, you can use the [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) command:
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```sh
 npx vite preview --outDir ./html

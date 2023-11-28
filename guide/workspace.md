@@ -1,8 +1,18 @@
+---
+title: Workspace | Guide
+---
+
 # Workspace
 
+<<<<<<< HEAD
 Vitest 提供了内置支持 monorepo 的工作区配置文件。你可以创建一个工作区来定义项目设置。
 
 ## 定义 Workspace
+=======
+Vitest provides built-in support for monorepos through a workspace configuration file. You can create a workspace to define your project's setups.
+
+## Defining a Workspace
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 一个工作区应该在其根目录下（如果你有配置文件，则与其位于同一文件夹中）有一个名为 `vitest.workspace` 或 `vitest.projects` 的文件。Vitest 支持 `ts`/`js`/`json` 扩展名的文件。
 

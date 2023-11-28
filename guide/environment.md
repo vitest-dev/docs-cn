@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 # 测试环境
+=======
+---
+title: Test Environment | Guide
+---
+
+# Test Environment
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/#environmentoptions) 选项修改环境的行为方式。
 
@@ -9,7 +17,7 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 - `happy-dom` 通过提供 Browser API 模拟浏览器环境，被认为比 jsdom 更快，但缺少一些 API，使用 [`happy-dom`](https://github.com/capricorn86/happy-dom) 包
 - `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
 
-## Environments for specific files
+## Environments for Specific Files
 
 如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 

@@ -123,7 +123,11 @@ export default CustomCoverageProviderModule
 
 请参阅类型定义查看有关详细信息。
 
+<<<<<<< HEAD
 ## 更改默认覆盖文件夹位置
+=======
+## Changing the Default Coverage Folder Location
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
 
@@ -139,7 +143,11 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ## 代码忽略
+=======
+## Ignoring Code
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 

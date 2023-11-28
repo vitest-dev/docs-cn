@@ -8,7 +8,11 @@ title: Why Vitest | Guide
 该文档假设你是熟悉 Vite 的。开始阅读之前建议先浏览 [为什么选 Vite](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS](https://www.bilibili.com/video/BV1kh411Q7WN) ，在视频中 [尤雨溪](https://github.com/yyx990803) 做了一个示范来解释 Vite 的主要概念。
 :::
 
+<<<<<<< HEAD
 ## Vite 原生测试运行器的必要性
+=======
+## The Need for a Vite Native Test Runner
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 Vite 天然支持常见的 Web 模式，同时支持 glob 导入和 SSR 等功能，而且它拥有许多插件和集成框架，从而慢慢形成一个活跃的生态社区。它的开发和构建模式是其成功的关键。对于文档构建框架，Vite 提供了一些基于 SSG 的替代方案。但是 Vite 的单元测试形式还不是十分清晰，而对于目前一些现有方案，比如 [Jest](https://jestjs.io/zh-Hans/) 而言，它们会在不同的上下文环境中被创建的。并且 Jest 和 Vite 之间有很多重复的部分，让用户不得不创建两个不同的配置文件。
 

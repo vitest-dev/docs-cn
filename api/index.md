@@ -376,7 +376,11 @@ test.each`
 如果您想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
 
 ::: tip
+<<<<<<< HEAD
 Vitest 使用 chai `format` 方法处理`$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
+=======
+Vitest processes `$values` with Chai `format` method. If the value is too truncated, you can increase [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold) in your config file.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 :::
 
 ::: warning

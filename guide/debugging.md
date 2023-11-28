@@ -23,13 +23,21 @@ ndb npm run test
 在调试测试时，你可能使用 `--test-timeout` CLI 参数来防止测试在断点处停止时超时。
 :::
 
-## VSCode
+## VS Code
 
+<<<<<<< HEAD
 在 VSCode 中调试测试的快速方法是通过 `JavaScript 调试终端`。 打开一个新的 `JavaScript 调试终端` 并直接运行 `npm run test` 或 `vitest`。_这适用于在 Node 中运行的任何代码，因此适用于大多数 JS 测试框架_
 
 ![image](https://user-images.githubusercontent.com/5594348/212169143-72bf39ce-f763-48f5-822a-0c8b2e6a8484.png)
 
 你还可以添加专用启动配置以在 VSCode 中调试测试文件:
+=======
+Quick way to debug tests in VS Code is via `JavaScript Debug Terminal`. Open a new `JavaScript Debug Terminal` and run `npm run test` or `vitest` directly. *this works with any code ran in Node, so will work with most JS testing frameworks*
+
+![image](https://user-images.githubusercontent.com/5594348/212169143-72bf39ce-f763-48f5-822a-0c8b2e6a8484.png)
+
+You can also add a dedicated launch configuration to debug a test file in VS Code:
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```json
 {
@@ -57,11 +65,19 @@ ndb npm run test
 
 创建一个 'Node.js' 运行配置。使用以下配置在调试模式下运行所有测试：
 
+<<<<<<< HEAD
 | Setting                | Value                            |
 | ---------------------- | -------------------------------- |
 | Working directory      | /path/to/your-project-root       |
 | JavaScript file        | ./node_modules/vitest/vitest.mjs |
 | Application parameters | run --pool forks                 |
+=======
+Setting | Value
+ --- | ---
+Working directory | `/path/to/your-project-root`
+JavaScript file | `./node_modules/vitest/vitest.mjs`
+Application parameters | `run --pool forks`
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 
@@ -77,6 +93,10 @@ vitest --inspect-brk --pool threads --poolOptions.threads.singleThread
 vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
 ```
 
+<<<<<<< HEAD
 一旦 Vitest 启动，它将停止执行并等待你打开可以连接到 [NodeJS 检查器](https://nodejs.org/en/docs/guides/debugging-getting-started/) 的开发人员工具。 你可以通过在浏览器上打开 `chrome://inspect` 来使用 Chrome DevTools。
+=======
+Once Vitest starts it will stop execution and wait for you to open developer tools that can connect to [Node.js inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/). You can use Chrome DevTools for this by opening `chrome://inspect` on browser.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 在监视模式下，你可以使用 `--poolOptions.threads.isolate false` 选项在测试重新运行期间保持调试器打开。

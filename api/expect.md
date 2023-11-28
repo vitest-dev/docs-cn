@@ -19,9 +19,15 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
+<<<<<<< HEAD
 从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[测试 API 参考](/api/)。
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
+=======
+Technically this example doesn't use [`test`](/api/#test) function, so in the console you will see Node.js error instead of Vitest output. To learn more about `test`, please read [Test API Reference](/api/).
+
+Also, `expect` can be used statically to access matcher functions, described later, and more.
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ::: warning
 如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果您想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
@@ -624,19 +630,23 @@ import { expect, test } from 'vitest'
 
 function getFruitStock(type) {
   if (type === 'pineapples')
-    throw new DiabetesError('Pineapples are not good for people with diabetes')
+    throw new Error('Pineapples are not in stock')
 
   // Do some other stuff
 }
 
 test('throws on pineapples', () => {
-  // Test that the error message says "diabetes" somewhere: these are equivalent
-  expect(() => getFruitStock('pineapples')).toThrowError(/diabetes/)
-  expect(() => getFruitStock('pineapples')).toThrowError('diabetes')
+  // Test that the error message says "stock" somewhere: these are equivalent
+  expect(() => getFruitStock('pineapples')).toThrowError(/stock/)
+  expect(() => getFruitStock('pineapples')).toThrowError('stock')
 
   // Test the exact error message
   expect(() => getFruitStock('pineapples')).toThrowError(
+<<<<<<< HEAD
     /^Pineapples are not good for people with diabetes$/
+=======
+    /^Pineapples are not in stock$/,
+>>>>>>> b9c1282b606be155425faa96a433eabab02b7167
   )
 })
 ```
