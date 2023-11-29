@@ -160,8 +160,6 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 
 可以在配置文件中设置 `test.coverage` 选项来配置它：
 
-<<<<<<< HEAD
-
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vitest/config'
