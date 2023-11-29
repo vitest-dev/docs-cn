@@ -35,7 +35,7 @@ interface TestOptions {
 当测试函数返回承诺时，运行程序将等待它被解析以收集异步期望。 如果承诺被拒绝，测试就会失败。
 
 ::: tip
-在Jest中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
+在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
 :::
 
 ## test
@@ -45,7 +45,7 @@ interface TestOptions {
 
 `test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
 
-或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为5秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
+或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为 5 秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
 
 ```ts
 import { expect, test } from 'vitest'
@@ -238,19 +238,35 @@ test.concurrent('test 2', async ({ expect }) => {
 
 ```ts
 // with config option { sequence: { concurrent: true } }
-test('concurrent test 1', async () => { /* ... */ })
-test('concurrent test 2', async () => { /* ... */ })
+test('concurrent test 1', async () => {
+  /* ... */
+})
+test('concurrent test 2', async () => {
+  /* ... */
+})
 
-test.sequential('sequential test 1', async () => { /* ... */ })
-test.sequential('sequential test 2', async () => { /* ... */ })
+test.sequential('sequential test 1', async () => {
+  /* ... */
+})
+test.sequential('sequential test 2', async () => {
+  /* ... */
+})
 
 // within concurrent suite
 describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => { /* ... */ })
-  test('concurrent test 2', async () => { /* ... */ })
+  test('concurrent test 1', async () => {
+    /* ... */
+  })
+  test('concurrent test 2', async () => {
+    /* ... */
+  })
 
-  test.sequential('sequential test 1', async () => { /* ... */ })
-  test.sequential('sequential test 2', async () => { /* ... */ })
+  test.sequential('sequential test 1', async () => {
+    /* ... */
+  })
+  test.sequential('sequential test 2', async () => {
+    /* ... */
+  })
 })
 ```
 
@@ -359,7 +375,8 @@ test.each`
 
 - 第一行应为列名，用 `|` 分隔；
 - 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
-- 
+-
+
 ```ts
 test.each`
   a             | b      | expected
@@ -376,11 +393,7 @@ test.each`
 如果您想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
 
 ::: tip
-<<<<<<< HEAD
-Vitest 使用 chai `format` 方法处理`$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
-=======
-Vitest processes `$values` with Chai `format` method. If the value is too truncated, you can increase [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold) in your config file.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
 :::
 
 ::: warning
@@ -730,7 +743,6 @@ describe.concurrent('suite', () => {
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-
 Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
 
 ```ts
@@ -824,7 +836,6 @@ describe.each`
 
 - **类型:** `beforeEach(fn: () => Awaitable<void>, timeout?: number)`
 
-
 注册一个回调函数，在当前上下文中的每个测试运行前调用。
 如果函数返回一个 Promise ，Vitest 会等待承诺解析后再运行测试。
 
@@ -860,7 +871,7 @@ beforeEach(async () => {
 
 ### afterEach
 
-- **类型  :** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
+- **类型 :** `afterEach(fn: () => Awaitable<void>, timeout?: number)`
 
 注册一个回调函数，在当前上下文中的每个测试完成后调用。
 如果函数返回一个承诺，Vitest 会等待承诺解析后再继续。

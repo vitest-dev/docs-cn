@@ -1,5 +1,5 @@
 ---
-title: Mocking | Guide
+title: 模拟对象 | 指南
 ---
 
 # 模拟对象
@@ -156,15 +156,9 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 模拟模块监听在其他代码中调用的第三方库，允许你测试参数、输出甚至重新声明其实现。
 
-<<<<<<< HEAD
-参见 [`vi.mock()` API 部分](/api/vi#vi-mock) 以获得更深入详细 API 描述。
-
 ### 自动模拟算法(Automocking algorithm)
-=======
-See the [`vi.mock()` API section](/api/vi#vi-mock) for a more in-depth detailed API description.
 
-### Automocking Algorithm
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+参见 [`vi.mock()` API 部分](/api/vi#vi-mock) 以获得更深入详细 API 描述。
 
 如果你的代码导入了模拟模块，并且没有任何与此模块相关联的 `__mocks__` 文件或 `factory`，Vitest 将通过调用模块并模拟每个导出来的模拟模块本身。
 
@@ -304,11 +298,9 @@ export const restHandlers = [
 
 const graphqlHandlers = [
   graphql.query('https://graphql-endpoint.example/api/v1/posts', () => {
-    return HttpResponse.json(
-      {
-        data: { posts },
-      },
-    )
+    return HttpResponse.json({
+      data: { posts },
+    })
   }),
 ]
 
@@ -336,11 +328,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 ## 计时器
 
-<<<<<<< HEAD
-每当我们的测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 "fake" 计时器来加速测试。
-=======
-See the [`vi.useFakeTimers` API section](/api/vi#vi-usefaketimers) for a more in depth detailed API description.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+每当测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 "fake" 计时器来加速测试。
 
 有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/vi#vi-usefaketimers)。
 
@@ -425,7 +413,7 @@ vi.spyOn(exports, 'setter', 'set')
 ```
 
 - 模拟模块导出 function
-`vi.mock` 的示例：
+  `vi.mock` 的示例：
 
 ```ts
 // ./some-path.js
@@ -435,7 +423,7 @@ export function method() {}
 ```ts
 import { method } from './some-path.js'
 vi.mock('./some-path.js', () => ({
-  method: vi.fn()
+  method: vi.fn(),
 }))
 ```
 
@@ -543,7 +531,9 @@ expect(obj.method).toHaveBeenCalled()
 import { mocked, original } from './some-path.js'
 
 vi.mock('./some-path.js', async () => {
-  const mod = await vi.importActual<typeof import('./some-path.js')>('./some-path.js')
+  const mod = await vi.importActual<typeof import('./some-path.js')>(
+    './some-path.js'
+  )
   return {
     ...mod,
     mocked: vi.fn(),

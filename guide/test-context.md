@@ -1,5 +1,5 @@
 ---
-title: Test Context | Guide
+title: 测试上下文 | 指南
 ---
 
 # 测试上下文
@@ -86,6 +86,7 @@ const todos = []
 const archive = []
 
 export const myTest = test.extend({
+  // eslint-disable-next-line no-empty-pattern
   todos: async ({}, use) => {
     // setup the fixture before each test function
     todos.push(1, 2, 3)

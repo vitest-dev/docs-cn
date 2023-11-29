@@ -1,14 +1,10 @@
 ---
-title: IDE Integrations | Guide
+title: IDE 插件 | 指南
 ---
 
 # IDE 插件
 
-<<<<<<< HEAD
-## VS Code <sup><code>官方</code></sup>
-=======
 ## VS Code <Badge>Offical</Badge>
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 <p text-center>
 <img src="https://raw.githubusercontent.com/vitest-dev/vscode/main/img/cover.png" w-60>

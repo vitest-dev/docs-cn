@@ -1,5 +1,5 @@
 ---
-title: Using Plugins | Guide
+title: 使用插件 | 指南
 ---
 
 # 使用插件

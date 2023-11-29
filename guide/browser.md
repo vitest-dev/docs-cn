@@ -1,12 +1,8 @@
 ---
-title: Browser Mode | Guide
+title: 浏览器模式 | 指南
 ---
 
-<<<<<<< HEAD
-# 浏览器模式 (实验性)
-=======
-# Browser Mode <Badge type="warning">Experimental</Badge>
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+# 浏览器模式 <Badge type="warning">实验性</Badge>
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
@@ -14,19 +10,11 @@ title: Browser Mode | Guide
 
 我们开发了 Vitest 浏览器模式功能，以帮助改进测试工作流程并实现更准确、可靠的测试结果。这个实验性的测试 API 增加了在本地浏览器环境中运行测试的功能。在本节中，我们将探讨这个功能背后的动机以及它对测试的好处。
 
-<<<<<<< HEAD
 ### 不同的测试方式
-=======
-### Different Ways of Testing
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 有不同的方法来测试 JavaScript 代码。一些测试框架在 Node.js 中模拟浏览器环境，而其他框架则在真实浏览器中运行测试。在这种情况下，[jsdom](https://www.npmjs.com/package/jsdom) 是一个模拟浏览器环境的规范实现，可以与 Jest 或 Vitest 等测试运行器一起使用，而其他测试工具，如 [WebdriverIO](https://webdriver.io/) 或 [Cypress](https://www.cypress.io/) 则允许开发人员在真实浏览器中测试他们的应用程序，或者在 [Playwright](https://playwright.dev/) 的情况下提供一个浏览器引擎。
 
-<<<<<<< HEAD
 ### 模拟警告
-=======
-### The Simulation Caveat
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 在模拟环境（如 jsdom 或 happy-dom）中测试 JavaScript 程序简化了测试设置并提供了易于使用的 API，使它们适用于许多项目并增加了对测试结果的信心。然而，需要牢记的是，这些工具仅模拟浏览器环境而不是实际浏览器，这可能导致模拟环境和真实环境之间存在一些差异。因此，测试结果可能会出现误报或漏报。
 
@@ -42,7 +30,7 @@ Vitest 的浏览器模式功能目前仍处于早期开发阶段，因此可能�
 
 ### 更长的初始化时间
 
-Vitest浏览器在初始化过程中需要启动提供程序和浏览器，这可能需要一些时间。与其他测试模式相比，这可能导致更长的初始化时间。
+Vitest 浏览器在初始化过程中需要启动提供程序和浏览器，这可能需要一些时间。与其他测试模式相比，这可能导致更长的初始化时间。
 
 ## 配置
 
@@ -59,11 +47,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-## 浏览器选项类型:
-=======
-## Browser Option Types
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+## 浏览器选项类型
 
 Vitest 中的浏览器选项取决于提供者。如果你传递 `--browser` 并且未在配置文件中指定其名称，Vitest 将失败。可用选项：
 
@@ -77,11 +61,7 @@ Vitest 中的浏览器选项取决于提供者。如果你传递 `--browser` 并
   - `webkit`
   - `chromium`
 
-<<<<<<< HEAD
-## 跨浏览器测试:
-=======
-## Cross-Browser Testing
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+## 跨浏览器测试
 
 当你在浏览器选项中指定浏览器名称时，Vitest 将默认尝试使用 [WebdriverIO](https://webdriver.io/) 运行指定的浏览器，然后在那里运行测试。此功能使跨浏览器测试易于在 CI 等环境中使用和配置。如果不想使用 WebdriverIO，可以使用 `browser.provider` 选项配置自定义浏览器提供程序。
 
@@ -128,13 +108,7 @@ npx vitest --browser.name=chrome --browser.headless
 
 在这种情况下，Vitest 将使用 Chrome 浏览器以 headless 模式运行。
 
-<<<<<<< HEAD
 ## 限制
-=======
-## Limitations
-
-### Thread Blocking Dialogs
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ### 线程阻塞对话框
 

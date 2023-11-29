@@ -27,7 +27,7 @@ export default defineConfig({
 })
 ```
 
-使用 `vitest/config` 中的 `defineConfig`  可以参考下面的格式：
+使用 `vitest/config` 中的 `defineConfig` 可以参考下面的格式：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -59,29 +59,8 @@ export default defineConfig({
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
-<<<<<<< HEAD
 export default mergeConfig(
   viteConfig,
-=======
-export default mergeConfig(viteConfig, defineConfig({
-  test: {
-    exclude: ['packages/template/*'],
-  },
-}))
-```
-
-::: warning
-`mergeConfig` helper is available in Vitest since v0.30.0. You can import it from `vite` directly, if you use lower version.
-:::
-
-If your Vite config is defined as a function, you can define the config like this:
-```ts
-import { defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config'
-
-export default defineConfig(configEnv => mergeConfig(
-  viteConfig(configEnv),
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
   defineConfig({
     test: {
       exclude: ['packages/template/*'],
@@ -112,7 +91,7 @@ export default defineConfig(configEnv =>
 )
 ```
 
-## Options
+## 配置选项
 
 :::tip
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
@@ -168,11 +147,7 @@ Vite-Node 服务端选项。
 - **类型:** `'inline' | boolean`
 - **默认值:** `'inline'`
 
-<<<<<<< HEAD
 通过内联方式注入到模块。
-=======
-Inject inline source map to modules.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 #### server.debug
 
@@ -662,11 +637,7 @@ export default defineConfig({
 
 #### threads<NonProjectOption />
 
-<<<<<<< HEAD
 使用 [tinypool](https://github.com/tinylibs/tinypool)（一个轻量级的 [Piscina](https://github.com/piscinajs/piscina) 分支）来启用多线程。当使用线程时，你无法使用与进程相关的 API，如 `process.chdir()` 。一些使用原生语言编写的库，如 Prisma 、`bcrypt` 和 `canvas` ，在多线程环境下可能会遇到问题并导致段错误。在这些情况下，建议使用 `forks` 线程池。
-=======
-Enable multi-threading using [tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)). When using threads you are unable to use process related APIs such as `process.chdir()`. Some libraries written in native languages, such as Prisma, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is advised to use `forks` pool instead.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 #### forks<NonProjectOption />
 
@@ -999,11 +970,7 @@ globalThis.resetBeforeEachTest = true
 ::: warning
 由于 Vitest 1.0.0-beta，全局设置只有在至少有一个正在运行的测试时才运行。这意味着在测试文件更改后，全局安装程序可能会在监视模式下开始运行（测试文件将等待全局安装程序完成后再运行）。
 
-<<<<<<< HEAD
 请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 `provide` 方法将可序列化数据传递给测试：
-=======
-Beware that the global setup is running in a different global scope, so your tests don't have access to variables defined here. However, since 1.0.0 you can pass down serializable data to tests via `provide` method:
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```ts
 // globalSetup.js
@@ -1322,6 +1289,7 @@ statements 的全局阈值。
 设置与 glob 模式匹配的文件的阈值。
 
 <!-- eslint-skip -->
+
 ```ts
 {
   coverage: {
@@ -1389,12 +1357,12 @@ statements 的全局阈值。
 
 #### coverage.processingConcurrency
 
-- **Type:** `boolean`
-- **Default:** `Math.min(20, os.cpu().length)`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.processingConcurrency=<number>`
+- **类型:** `boolean`
+- **默认值:** `Math.min(20, os.cpu().length)`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.processingConcurrency=<number>`
 
-Concurrency limit used when processing the coverage results.
+处理覆盖率结果时使用的并发限制。
 
 #### coverage.customProviderModule
 
@@ -1456,11 +1424,7 @@ test('doNotRun', () => {
 :::
 
 ::: warning
-<<<<<<< HEAD
 这是一项实验性功能。重大更改可能不会遵循 semver，请在使用时锁定 Vitest 的版本。
-=======
-This is an experimental feature. Breaking changes might not follow SemVer, please pin Vitest's version when using it.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 :::
 
 #### browser.enabled
@@ -1469,11 +1433,7 @@ This is an experimental feature. Breaking changes might not follow SemVer, pleas
 - **默认值:** `false`
 - **命令行终端:** `--browser`, `--browser.enabled=false`
 
-<<<<<<< HEAD
 默认情况下在浏览器中运行所有测试。可以用 [`poolMatchGlobs`](/config/#poolmatchglobs) 选项覆盖。
-=======
-Run all tests inside a browser by default. Can be overridden with [`poolMatchGlobs`](/config/#poolmatchglobs) option.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 #### browser&#46;name
 
@@ -1977,11 +1937,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 当给定数量的测试失败时停止测试执行。
 
-<<<<<<< HEAD
 默认情况下，即使其中一些测试失败，Vitest 也会运行你的所有测试用例。这可能不适用于 CI 构建，你只对 100% 成功的构建感兴趣，并且希望在测试失败时尽早停止测试执行。`bail` 选项可用于通过在发生故障时防止运行更多测试来加速 CI 运行。
-=======
-By default Vitest will run all of your test cases even if some of them fail. This may not be desired for CI builds where you are only interested in 100% successful builds and would like to stop test execution as early as possible when test failures occur. The `bail` option can be used to speed up CI runs by preventing it from running more tests when failures have occurred.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ### retry
 
@@ -2018,15 +1974,9 @@ export default defineConfig({
 - **类型**: `(error: Error, frame: ParsedStack) => boolean | void`
 - **版本**: Since Vitest 1.0.0-beta.3
 
-<<<<<<< HEAD
 在处理错误时，对每个堆栈的每个帧应用过滤功能。第一个参数 `error` 是一个与标准 `Error` 具有相同属性的对象，但它不是实际实例。
 
 可用于从第三方库中筛选堆栈跟踪帧。
-=======
-Apply a filtering function to each frame of each stack trace when handling errors. The first argument, `error`, is an object with the same properties as a standard `Error`, but it is not an actual instance.
-
-Can be useful for filtering out stack trace frames from third-party libraries.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ```ts
 import type { ParsedStack } from 'vitest'
@@ -2091,11 +2041,7 @@ export default defineConfig({
 - **类型:** `number | Date`
 - **默认值:** `Date.now()`
 
-<<<<<<< HEAD
 用指定的 unix 时间安装假计时器。
-=======
-Installs fake timers with the specified Unix epoch.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 #### fakeTimers.toFake
 

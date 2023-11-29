@@ -1,5 +1,5 @@
 ---
-title: Test Filtering | Guide
+title: 测试筛选 | 指南
 ---
 
 # 测试筛选
@@ -31,7 +31,9 @@ basic/foo.test.ts
 ```ts
 import { test } from 'vitest'
 
-test('name', async () => { /* ... */ }, 1000)
+test('name', async () => {
+  /* ... */
+}, 1000)
 ```
 
 Hooks 也可以接收超时阈值，默认值为 5 秒。
@@ -39,7 +41,9 @@ Hooks 也可以接收超时阈值，默认值为 5 秒。
 ```ts
 import { beforeAll } from 'vitest'
 
-beforeAll(async () => { /* ... */ }, 1000)
+beforeAll(async () => {
+  /* ... */
+}, 1000)
 ```
 
 ## 跳过测试套件和测试

@@ -1,11 +1,7 @@
 # 任务元数据
 
 ::: warning
-<<<<<<< HEAD
 Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。
-=======
-Vitest exposes experimental private API. Breaking changes might not follow SemVer, please pin Vitest's version when using it.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 :::
 
 如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。

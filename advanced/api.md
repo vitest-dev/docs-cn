@@ -1,12 +1,7 @@
 # Node API
 
-<<<<<<< HEAD
-::: warning 警告
-Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规范（SemVer），因此可能会出现不兼容的更改，请在使用 Vitest 时锁定版本。
-=======
 ::: warning
-Vitest exposes experimental private API. Breaking changes might not follow SemVer, please pin Vitest's version when using it.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规范（SemVer），因此可能会出现不兼容的更改，请在使用 Vitest 时锁定版本。
 :::
 
 ## 启动 Vitest
@@ -23,15 +18,9 @@ await vitest?.close()
 
 如果测试可以启动，则 `startVitest` 函数返回 `Vitest` 实例。 如果出现以下情况之一，则返回 `undefined`：
 
-<<<<<<< HEAD
-- Vitest 未找到 "vite" 包 (通常与 Vitest 一起安装)
+- Vitest 未找到 `vite` 包 (通常与 Vitest 一起安装)
 - 如果启用了 `coverage`，并且运行模式为 "test"，但并未安装 "coverage" 包（`@vitest/coverage-v8` 或 `@vitest/coverage-istanbul`）
 - 如果未安装环境包 (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
-=======
-- Vitest didn't find the `vite` package (usually installed with Vitest)
-- If coverage is enabled and run mode is "test", but the coverage package is not installed (`@vitest/coverage-v8` or `@vitest/coverage-istanbul`)
-- If the environment package is not installed (`jsdom`/`happy-dom`/`@edge-runtime/vm`)
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 如果在运行期间返回 `undefined` 或者测试失败, Vitest 会将 `process.exitCode` 设置为 `1`。
 

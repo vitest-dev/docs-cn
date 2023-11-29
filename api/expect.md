@@ -6,9 +6,9 @@
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
-`expect` 用于创建断言。 在这种情况下， `assertions` 是可以调用来断言语句的函数。 Vitest 默认提供 `chai` 断言，并且还在 `chai` 之上构建了与  `Jest`  兼容的断言。
+`expect` 用于创建断言。 在这种情况下， `assertions` 是可以调用来断言语句的函数。 Vitest 默认提供 `chai` 断言，并且还在 `chai` 之上构建了与 `Jest` 兼容的断言。
 
-例如，此代码断言 `input`  值等于 `2`。 如果不是，assertions 将抛出错误，并且测试将失败。
+例如，此代码断言 `input` 值等于 `2`。 如果不是，assertions 将抛出错误，并且测试将失败。
 
 ```ts
 import { expect } from 'vitest'
@@ -19,15 +19,9 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
-<<<<<<< HEAD
 从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[测试 API 参考](/api/)。
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
-=======
-Technically this example doesn't use [`test`](/api/#test) function, so in the console you will see Node.js error instead of Vitest output. To learn more about `test`, please read [Test API Reference](/api/).
-
-Also, `expect` can be used statically to access matcher functions, described later, and more.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
 ::: warning
 如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果您想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
@@ -170,7 +164,7 @@ test('mary doesn\'t have a stock', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeTruthy`断言值在转换为布尔值时为true。如果你不关心值，只想知道它可以转换为`true`，这将非常有用。
+`toBeTruthy`断言值在转换为布尔值时为 true。如果你不关心值，只想知道它可以转换为`true`，这将非常有用。
 
 例如，假设有以下代码，我们不关心 `stocks.getInfo` 的返回值 - 它可能是一个复杂对象、一个字符串或其他任何值。代码仍然可以正常工作。
 
@@ -203,7 +197,7 @@ test('if we know Bill stock, sell apples to him', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeFalsy` 断言值在转换为布尔值时为false。如果你不关心值，只想知道它可以转换为`false`，这将非常有用。
+`toBeFalsy` 断言值在转换为布尔值时为 false。如果你不关心值，只想知道它可以转换为`false`，这将非常有用。
 
 例如，假设有以下代码，我们不关心 `stocks.stockFailed` 的返回值 - 它可能返回任何假值，但代码仍然可以正常工作。
 
@@ -642,11 +636,7 @@ test('throws on pineapples', () => {
 
   // Test the exact error message
   expect(() => getFruitStock('pineapples')).toThrowError(
-<<<<<<< HEAD
-    /^Pineapples are not good for people with diabetes$/
-=======
-    /^Pineapples are not in stock$/,
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+    /^Pineapples are not in stock$/
   )
 })
 ```
@@ -1363,6 +1353,7 @@ test('variety ends with "re"', () => {
 我们可以使用自定义匹配器扩展默认匹配器。这个函数用于使用自定义匹配器扩展匹配器对象。
 
 当我们以这种方式定义匹配器时，还会创建可以像 `expect.stringContaining` 一样使用的不对称匹配器。
+
 ```ts
 import { expect, test } from 'vitest'
 

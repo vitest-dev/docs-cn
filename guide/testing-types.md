@@ -1,5 +1,5 @@
 ---
-title: Testing Types | Guide
+title: 类型测试 | 指南
 ---
 
 # 类型测试
@@ -63,13 +63,9 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 
 这部分的`This expression is not callable`并没有太大的帮助 - 有意义的错误在下一行，`Type 'ExpectString<number> has no call signatures`。这基本上意味着你传递了一个数字，但断言它应该是一个字符串。
 
-<<<<<<< HEAD
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
-=======
-If TypeScript added support for ["throw" types](https://github.com/microsoft/TypeScript/pull/40468) these error messages could be improved significantly. Until then they will take a certain amount of squinting.
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
 
-#### 具体的 "expected "对象与类型参数
+#### 具体的 "expected " 对象与类型参数
 
 像这样的断言的错误消息：
 
@@ -114,11 +110,7 @@ assertType<string>(answr) //
 
 :::
 
-<<<<<<< HEAD
-## 运行 typechecking
-=======
-## Run Typechecking
->>>>>>> b9c1282b606be155425faa96a433eabab02b7167
+## 运行类型检查
 
 从 Vitest 1.0 开始要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
 
