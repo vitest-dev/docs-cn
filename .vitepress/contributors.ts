@@ -81,8 +81,16 @@ const plainTeamMembers: CoreTeam[] = [
     avatar: contributorsAvatars.AriPerkkio,
     name: 'Ari Perkkiö',
     github: 'AriPerkkio',
+<<<<<<< HEAD
     title: '全栈开发人员, 工作于',
     desc: 'Vitest 核心团队成员',
+=======
+    mastodon: 'https://elk.zone/m.webtoo.ls/@AriPerkkio',
+    twitter: 'ari_perkkio',
+    sponsor: 'https://github.com/sponsors/AriPerkkio',
+    title: 'A fullstack developer, working',
+    desc: 'Core team member of Vitest',
+>>>>>>> 3c921e1ec6d0182d4a5a5be92225777ed4f27d31
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
   },
