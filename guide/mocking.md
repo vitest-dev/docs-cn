@@ -164,17 +164,14 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 以下原则适用
 
-<<<<<<< HEAD
 - 所有的数组将被清空
 - 所有的基础类型和集合将保持不变
 - 所有的对象都将被深度克隆
 - 类的所有实例及其原型都将被深度克隆
 
-### 示例
-=======
 ### Mocking Pitfalls
 
-Beware that it is not possible to mock calls to methods that are called inside other methods of the same file. For example, in this code:
+请注意，对在同一文件的其他方法中调用的方法的模拟调用是不可能的。例如，在此代码中：
 
 ```ts
 export function foo() {
@@ -186,7 +183,7 @@ export function foobar() {
 }
 ```
 
-It is not possible to mock the `foo` method from the outside because it is referenced directly. So this code will have no effect on the `foo` call inside `foobar` (but it will affect the `foo` call in other modules):
+不可能从外部模拟 `foo` 方法，因为它是直接引用的。因此，此代码对 `foobar` 内部的 `foo` 调用没有影响（但会影响其他模块中的 `foo` 调用）：
 
 ```ts
 import { vi } from 'vitest'
@@ -196,14 +193,14 @@ import * as mod from './foobar.js'
 vi.spyOn(mod, 'foo')
 vi.mock('./foobar.js', async (importOriginal) => {
   return {
-    ...await importOriginal(),
+    ...(await importOriginal()),
     // this will only affect "foo" outside of the original module
-    foo: () => 'mocked'
+    foo: () => 'mocked',
   }
 })
 ```
 
-You can confirm this behaviour by providing the implementation to the `foobar` method directly:
+你可以通过直接向 `foobar` 方法提供实现来确认这种行为：
 
 ```ts
 // foobar.test.js
@@ -226,10 +223,9 @@ export function foobar(injectedFoo) {
 }
 ```
 
-This is the intended behaviour. It is usually a sign of bad code when mocking is involved in such a manner. Consider refactoring your code into multiple files or improving your application architecture by using techniques such as [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection).
+这就是预期行为。当以这种方式进行嘲讽时，这通常是坏代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用程序体系结构。
 
-### Example
->>>>>>> 4552257c48c8ddca575c27a3874fa5aa897cfdef
+### 示例
 
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'

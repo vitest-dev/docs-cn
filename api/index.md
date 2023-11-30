@@ -634,14 +634,14 @@ describe.skipIf(isDev)('prod only test suite', () => {
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+将 Vitest 用作[类型检查器](/guide/testing-types)时，你不能使用此语法。
 :::
 
 ### describe.runIf
 
-- **Type:** `(condition: any) => void`
+- **类型:** `(condition: any) => void`
 
-Opposite of [describe.skipIf](#describe-skipif).
+与 [describe.skipIf](#describe-skipif) 相反。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -654,7 +654,7 @@ describe.runIf(isDev)('dev only test suite', () => {
 ```
 
 ::: warning
-You cannot use this syntax, when using Vitest as [type checker](/guide/testing-types).
+将 Vitest 用作[类型检查器](/guide/testing-types)时，你不能使用此语法。
 :::
 
 ### describe.only
