@@ -169,6 +169,42 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 - 所有的对象都将被深度克隆
 - 类的所有实例及其原型都将被深度克隆
 
+### Virtual Modules
+
+Vitest 支持模拟 Vite [虚拟模块](https://cn.vitejs.dev/guide/api-plugin#virtual-modules-convention)。它的工作方式与 Jest 中处理虚拟模块的方式不同。我们不需要将 `virtual: true` 传递给 `vi.mock` 函数，而是需要告诉 Vite 模块存在，否则它将在解析过程中失败。有几种方法可以做到这一点：
+
+1. 提供别名
+
+```ts
+// vitest.config.js
+export default {
+  test: {
+    alias: {
+      '$app/forms': resolve('./mocks/forms.js')
+    }
+  }
+}
+```
+
+2. 提供解析虚拟模块的插件
+
+```ts
+// vitest.config.js
+export default {
+  plugins: [
+    {
+      name: 'virtual-modules',
+      resolveId(id) {
+        if (id === '$app/forms')
+          return 'virtual:$app/forms'
+      }
+    }
+  ]
+}
+```
+
+第二种方法的好处是可以动态创建不同的虚拟入口点。如果将多个虚拟模块重定向到一个文件中，那么所有这些模块都将受到 `vi.mock` 的影响，因此请确保使用唯一的标识符。
+
 ### Mocking Pitfalls
 
 请注意，对在同一文件的其他方法中调用的方法的模拟调用是不可能的。例如，在此代码中：

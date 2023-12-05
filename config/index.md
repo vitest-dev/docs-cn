@@ -1360,7 +1360,7 @@ statements 的全局阈值。
 #### coverage.processingConcurrency
 
 - **类型:** `boolean`
-- **默认值:** `Math.min(20, os.cpus().length)`
+- **默认值:** `Math.min(20, os.availableParallelism?.() ?? os.cpus().length)`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
 
