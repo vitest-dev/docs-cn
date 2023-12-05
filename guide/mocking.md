@@ -171,9 +171,9 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 ### Virtual Modules
 
-Vitest supports mocking Vite [virtual modules](https://vitejs.dev/guide/api-plugin.html#virtual-modules-convention). It works differently from how virtual modules are treated in Jest. Instead of passing down `virtual: true` to a `vi.mock` function, you need to tell Vite that module exists otherwise it will fail during parsing. You can do that in several ways:
+Vitest 支持模拟 Vite [虚拟模块](https://cn.vitejs.dev/guide/api-plugin#virtual-modules-convention)。它的工作方式与 Jest 中处理虚拟模块的方式不同。我们不需要将 `virtual: true` 传递给 `vi.mock` 函数，而是需要告诉 Vite 模块存在，否则它将在解析过程中失败。有几种方法可以做到这一点：
 
-1. Provide an alias
+1. 提供别名
 
 ```ts
 // vitest.config.js
@@ -186,7 +186,7 @@ export default {
 }
 ```
 
-2. Provide a plugin that resolves a virtual module
+2. 提供解析虚拟模块的插件
 
 ```ts
 // vitest.config.js
@@ -203,7 +203,7 @@ export default {
 }
 ```
 
-The benefit of the second approach is that you can dynamically create different virtual entrypoints. If you redirect several virtual modules into a single file, then all of them will be affected by `vi.mock`, so make sure to use unique identifiers.
+第二种方法的好处是可以动态创建不同的虚拟入口点。如果将多个虚拟模块重定向到一个文件中，那么所有这些模块都将受到 `vi.mock` 的影响，因此请确保使用唯一的标识符。
 
 ### Mocking Pitfalls
 
