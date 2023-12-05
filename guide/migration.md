@@ -1,33 +1,25 @@
 ---
-<<<<<<< HEAD
 title: 迁移指南 | 指南
-=======
-title: Migration Guide | Guide
 outline: deep
->>>>>>> 7fd5ce3a13bc12f3308d6dc2c074d3ed95c30715
 ---
 
 # 迁移指南
 
-<<<<<<< HEAD
-## 从 Jest 迁移
-=======
-## Migrating from Vitest 0.34.6
+## 从 Vitest 0.34.6 迁移
 
 <!-- introduction -->
 
-### Minimum Requirements
+### 最低要求
 
-Vitest 1.0 requires Vite 5.0 and Node.js 18 or higher.
+Vitest 1.0 需要 Vite 5.0 和 Node.js 18 或更高版本。
 
-All `@vitest/*` sub packages require Vitest version 1.0.
+所有 `@vitest/*` 子软件包都需要 Vitest 1.0 版本。
 
-### Snapshots Update [#3961](https://github.com/vitest-dev/vitest/pull/3961)
+### Snapshots 更新 [#3961](https://github.com/vitest-dev/vitest/pull/3961)
 
-Quotes in snapshots are no longer escaped, and all snapshots use backtick quotes (`) even if the string is just a single line.
+快照中的引号不再转义，即使字符串只有一行，所有快照也都使用回车引号 (`)。
 
-
-1. Quotes are no longer escaped:
+1. 引号不再转义：
 
 ```diff
 expect({ foo: 'bar' }).toMatchInlineSnapshot(`
@@ -38,35 +30,37 @@ expect({ foo: 'bar' }).toMatchInlineSnapshot(`
 `)
 ```
 
-2. One-line snapshots now use "`" quotes instead of ':
+2. 单行快照现在使用"`"引号，而不是"'"：
 
 ```diff
 - expect('some string').toMatchInlineSnapshot('"some string"')
 + expect('some string').toMatchInlineSnapshot(`"some string"`)
 ```
 
-There were also [changes](https://github.com/vitest-dev/vitest/pull/4076) to `@vitest/snapshot` package. If you are not using it directly, you don't need to change anything.
+对 `@vitest/snapshot` 也有[修改](https://github.com/vitest-dev/vitest/pull/4076)。如果不直接使用它，则无需做任何更改。
 
-- You no longer need to extend `SnapshotClient` just to override `equalityCheck` method: just pass it down as `isEqual` when initiating an instance
-- `client.setTest` was renamed to `client.startCurrentRun`
-- `client.resetCurrent` was renamed to `client.finishCurrentRun`
+- 我们不再需要扩展 `SnapshotClient` 以覆盖 `equalityCheck` 方法：只需在启动实例时将其作为 `isEqual` 传递即可。
+- `client.setTest` 更名为 `client.startCurrentRun`
+- `client.resetCurrent` 更名为 `client.finishCurrentRun` 。
 
 
-### Pools are Standardized [#4172](https://github.com/vitest-dev/vitest/pull/4172)
+### Pools 标准化 [#4172](https://github.com/vitest-dev/vitest/pull/4172)
 
 We removed a lot of configuration options to make it easier to configure the runner to your needs. Please, have a look at migration examples if you rely on `--threads` or other related flags.
 
-- `--threads` is now `--pool=threads`
-- `--no-threads` is now `--pool=forks`
-- `--single-thread` is now `--poolOptions.threads.singleThread`
-- `--experimental-vm-threads` is now `--pool=vmThreads`
-- `--experimental-vm-worker-memory-limit` is now `--poolOptions.vmThreads.memoryLimit`
-- `--isolate` is now `--poolOptions.<pool-name>.isolate` and `browser.isolate`
-- `test.maxThreads` is now `test.poolOptions.<pool-name>.maxThreads`
-- `test.minThreads` is now `test.poolOptions.<pool-name>.minThreads`
-- `test.useAtomics` is now `test.poolOptions.<pool-name>.useAtomics`
-- `test.poolMatchGlobs.child_process` is now `test.poolMatchGlobs.forks`
-- `test.poolMatchGlobs.experimentalVmThreads` is now `test.poolMatchGlobs.vmThreads`
+我们删除了大量配置选项，以便根据需要配置运行程序。如果你已经使用了 `--threads` 或其他相关标记，请查看迁移示例。
+
+- `--threads` 现在是 `--pool=threads`
+- `--no-threads` 现在是 `--pool=forks`
+- `--single-thread` 现在是 `--poolOptions.threads.singleThread`
+- `--experimental-vm-threads` 现在是 `--pool=vmThreads`
+- `--experimental-vm-worker-memory-limit` 现在是 `--poolOptions.vmThreads.memoryLimit`
+- `--isolate` 现在是 `--poolOptions.<pool-name>.isolate` 和 `browser.isolate`
+- `test.maxThreads` 现在是 `test.poolOptions.<pool-name>.maxThreads`
+- `test.minThreads` 现在是 `test.poolOptions.<pool-name>.minThreads`
+- `test.useAtomics` 现在是 `test.poolOptions.<pool-name>.useAtomics`
+- `test.poolMatchGlobs.child_process` 现在是 `test.poolMatchGlobs.forks`
+- `test.poolMatchGlobs.experimentalVmThreads` 现在是 `test.poolMatchGlobs.vmThreads`
 
 ```diff
 {
@@ -108,11 +102,11 @@ We removed a lot of configuration options to make it easier to configure the run
 }
 ```
 
-### Changes to Coverage [#4265](https://github.com/vitest-dev/vitest/pull/4265), [#4442](https://github.com/vitest-dev/vitest/pull/4442)
+### Coverage 的变化 [#4265](https://github.com/vitest-dev/vitest/pull/4265), [#4442](https://github.com/vitest-dev/vitest/pull/4442)
 
-Option `coverage.all` is now enabled by default. This means that all project files matching `coverage.include` pattern will be processed even if they are not executed.
+选项 `coverage.all` 现在默认启用。这意味着，所有符合 `coverage.include` 模式的项目文件都将被处理，即使它们未被执行。
 
-Coverage thresholds API's shape was changed, and it now supports specifying thresholds for specific files using glob patterns:
+更改了覆盖阈值 API 的形状，现在它支持使用 glob 模式为特定文件指定阈值：
 
 ```diff
 export default defineConfig({
@@ -139,9 +133,9 @@ export default defineConfig({
 })
 ```
 
-### Mock Types [#4400](https://github.com/vitest-dev/vitest/pull/4400)
+### Mock 类型 [#4400](https://github.com/vitest-dev/vitest/pull/4400)
 
-A few types were removed in favor of Jest-style "Mock" naming.
+删除了一些类型，改用 Jest 风格的 "Mock "命名。
 
 ```diff
 - import { EnhancedSpy, SpyInstance } from 'vitest'
@@ -149,7 +143,7 @@ A few types were removed in favor of Jest-style "Mock" naming.
 ```
 
 ::: warning
-`SpyInstance` is deprecated in favor of `MockInstance` and will be removed in the next major release.
+`SpyInstance` 已被弃用，取而代之的是  `MockInstance` ，并会在下一个主要版本中移除。
 :::
 
 
@@ -160,8 +154,12 @@ It's still possible to mock `process.nextTick` by explicitly specifying it by us
 
 However, mocking `process.nextTick` is not possible when using `--pool=forks`. Use a different `--pool` option if you need `process.nextTick` mocking.
 
-## Migrating from Jest
->>>>>>> 7fd5ce3a13bc12f3308d6dc2c074d3ed95c30715
+`vi.useFakeTimers()` 不再自动模拟 [`process.nextTick`](https://nodejs.org/api/process.html#processnexttickcallback-args) 。
+仍然可以通过使用 `vi.useFakeTimers({ toFake: ['nextTick'] })` 明确指定来模拟 `process.nextTick`。
+
+但是，在使用 `--pool=forks` 时，无法模拟 `process.nextTick` 。如果需要模拟 `process.nextTick` ，请使用不同的 `--pool` 选项。
+
+## 从 Jest 迁移
 
 Vitest 设计了与 Jest 兼容的 API ，方便你从 Jest 的迁移尽可能简单。尽管做出了这些努力，你仍然可能会遇到以下差异：
 
