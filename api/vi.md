@@ -34,7 +34,11 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 
 如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
 
+<<<<<<< HEAD
 与 `jest` 不同，该 factory 可以是异步的，因此可以使用 [`vi.importActual`](#vi-importactual) 或作为第一个参数接收的助手来获取原始模块。
+=======
+Unlike in `jest`, the factory can be asynchronous. You can use [`vi.importActual`](#vi-importactual) or a helper with the factory passed in as the first argument, and get the original module inside.
+>>>>>>> 48ea922b849ea9b84eaf44b5f87648a747930045
 
 ```js
 // 使用 JavaScript 时
