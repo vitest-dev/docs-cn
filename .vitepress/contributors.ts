@@ -42,12 +42,8 @@ function createLinks(tm: CoreTeam): CoreTeam {
     })
   }
 
-  if (tm.twitter) {
-    tm.links.push({
-      icon: 'twitter',
-      link: `https://twitter.com/${tm.twitter}`,
-    })
-  }
+if (tm.twitter)
+    tm.links.push({ icon: 'x', link: `https://twitter.com/${tm.twitter}` })
 
   return tm
 }
