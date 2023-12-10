@@ -361,7 +361,7 @@ describe('get a list of todo items', () => {
 
 因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `REST` 和 `GraphQL` 网络请求，并且与框架无关。
 
-Mock Service Worker (MSW) 通过拦截测试发出的请求进行工作，允许你在不更改任何应用程序代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node 中，对于 Vitest，它使用 [node-request-interceptor](https://mswjs.io/docs/api/setup-server#operation)。了解有关 MSW 的更多信息，可以去阅读他们的 [introduction](https://mswjs.io/docs/)。
+Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用程序代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [introduction](https://mswjs.io/docs/) 。
 
 ### 配置
 
@@ -389,10 +389,12 @@ export const restHandlers = [
 ]
 
 const graphqlHandlers = [
-  graphql.query('https://graphql-endpoint.example/api/v1/posts', () => {
-    return HttpResponse.json({
-      data: { posts },
-    })
+  graphql.query('ListPosts', () => {
+    return HttpResponse.json(
+      {
+        data: { posts },
+      },
+    )
   }),
 ]
 
@@ -416,7 +418,7 @@ afterEach(() => server.resetHandlers())
 
 ### 了解更多
 
-MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs/recipes).
+MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs).
 
 ## 计时器
 
