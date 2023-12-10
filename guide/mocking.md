@@ -389,7 +389,7 @@ export const restHandlers = [
 ]
 
 const graphqlHandlers = [
-graphql.query('ListPosts', () => {
+  graphql.query('ListPosts', () => {
     return HttpResponse.json(
       {
         data: { posts },
