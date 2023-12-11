@@ -21,9 +21,13 @@
     "vue": "latest"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@antfu/eslint-config": "^0.35.3",
     "@antfu/ni": "^0.18.8",
     "@iconify-json/carbon": "^1.1.24",
+=======
+    "@iconify-json/carbon": "^1.1.25",
+>>>>>>> 6b3313efb05ddf04a9664c89a625618e04f27591
     "@iconify-json/logos": "^1.1.40",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
