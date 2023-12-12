@@ -20,8 +20,8 @@ devDependencies:
     specifier: ^0.18.8
     version: 0.18.8
   '@iconify-json/carbon':
-    specifier: ^1.1.24
-    version: 1.1.24
+    specifier: ^1.1.25
+    version: 1.1.26
   '@iconify-json/logos':
     specifier: ^1.1.40
     version: 1.1.40
@@ -68,8 +68,8 @@ devDependencies:
     specifier: ^0.3.9
     version: 0.3.9
   pnpm:
-    specifier: 8.10.3
-    version: 8.10.3
+    specifier: 8.12.0
+    version: 8.12.0
   tsx:
     specifier: ^4.1.1
     version: 4.1.1
@@ -2020,8 +2020,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/carbon@1.1.24:
-    resolution: {integrity: sha512-Sx4vj3HfQj3yP6a4QzWc1BymDO5uTOGTHeb5it/xaMa196C6+RegNUv1F+Y1h8AJ2Sv93GMI+PyMH0HyqTHEmg==}
+  /@iconify-json/carbon@1.1.26:
+    resolution: {integrity: sha512-0y6JstqPCsjEiUuyTTdHE7Wd9gGlxzH2dEfvKUJe5E741qRgLlIipVdBoCkOtbyAT92WEcU8BNfDaC585OCC8w==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -5692,8 +5692,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pnpm@8.10.3:
-    resolution: {integrity: sha512-1952Dqr41NA/lzmkYr4L43mHQmDhG8QjuVFu8G6XVCguiEgELzMX2TRAo1vX5NWO6w0eSphyc0fow/o6DDgTFA==}
+  /pnpm@8.12.0:
+    resolution: {integrity: sha512-J5J4+Dvngvb6rvusvMxQMwHE7Cza/UCYPnwmru7nw4Jw9cjmNbQ0ZGkbiXq+FnW0DAbfbtrd6SJTK3NoqppSZw==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: true
