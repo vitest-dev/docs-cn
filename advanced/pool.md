@@ -54,7 +54,7 @@ Vitest 在安排运行新测试时调用 `runTest`。如果 `files` 为空，将
 
 Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTests` 解决后才会触发 [`onFinished`](/guide/reporters)）。
 
-如果你正在使用自定义池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/feat/custom-pool/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
+如果你正在使用自定义池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
 
 要在不同进程之间进行通信，可以使用 `vitest/node` 中的 `createMethodsRPC` 创建方法对象，并使用你喜欢的任何通信形式。例如，要使用 `birpc` 的 websockets，可以编写类似以下的内容：
 
@@ -85,4 +85,4 @@ async function runTests(project: WorkspaceProject, tests: string[]) {
 }
 ```
 
-可以在 [pool/custom-pool.ts](https://github.com/vitest-dev/vitest/blob/feat/custom-pool/test/run/pool-custom-fixtures/pool/custom-pool.ts). 中看到一个简单的示例。
+可以在 [pool/custom-pool.ts](https://github.com/vitest-dev/vitest/blob/main/test/run/pool-custom-fixtures/pool/custom-pool.ts) 中看到一个简单的示例。
