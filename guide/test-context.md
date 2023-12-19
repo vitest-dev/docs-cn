@@ -177,9 +177,9 @@ const myTest = test.extend<MyFixtures>({
   archive: [],
 })
 
-myTest('', (context) => {
-  expectTypeOf(context.todos).toEqualTypeOf<number[]>()
-  expectTypeOf(context.archive).toEqualTypeOf<number[]>()
+myTest('', ({ todos, archive }) => {
+  expectTypeOf(todos).toEqualTypeOf<number[]>()
+  expectTypeOf(archive).toEqualTypeOf<number[]>()
 })
 ```
 
