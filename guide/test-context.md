@@ -159,7 +159,7 @@ myTest('', ({ todos }) => {})
 ```
 
 ::: warning
-When using `test.extend()` with fixtures, you should always use the object destructuring pattern `{ todos }` to access context both in fixture function and test function.
+在 fixtures 中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问 fixtures 函数和测试函数中的上下文。
 :::
 
 #### TypeScript
