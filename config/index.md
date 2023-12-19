@@ -892,6 +892,33 @@ Pass additional arguments to `node` process in the VM context. See [Command-line
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
 :::
 
+### fileParallelism
+
+- **Type:** `boolean`
+- **Default:** `true`
+- **CLI:** `--no-file-parallelism`, `--fileParallelism=false`
+- **Version:** Since Vitest 1.1
+
+Should all test files run in parallel. Setting this to `false` will override `maxWorkers` and `minWorkers` options to `1`.
+
+::: tip
+This option doesn't affect tests running in the same file. If you want to run those in parallel, use `concurrent` option on [describe](/api/#describe-concurrent) or via [a config](#sequence-concurrent).
+:::
+
+### maxWorkers
+
+- **Type:** `number`
+- **Version:** Since Vitest 1.1
+
+Maximum number of workers to run tests in. `poolOptions.{threads,vmThreads}.maxThreads`/`poolOptions.forks.maxForks` has higher priority.
+
+### minWorkers
+
+- **Type:** `number`
+- **Version:** Since Vitest 1.1
+
+Minimum number of workers to run tests in. `poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` has higher priority.
+
 ### testTimeout
 
 - **类型:** `number`
@@ -1157,6 +1184,8 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 配置测试覆盖率报告写入的目录。
+
+To preview the coverage report in the output of [HTML reporter](/guide/reporters.html#html-reporter), this option must be set as a sub-directory of the html report directory (for example `./html/coverage`).
 
 #### coverage.reporter
 
@@ -2081,4 +2110,32 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。这些计时器默认情况下不会被清除，如果计时器在假计时器会话启动前就已存在，则可能会导致意外行为。
+=======
+Tells fake timers to clear "native" (i.e. not fake) timers by delegating to their respective handlers. These are not cleared by default, leading to potentially unexpected behavior if timers existed prior to starting fake timers session.
+
+### workspace
+
+- **Type:** `string`
+- **CLI:** `--workspace=./file.js`
+- **Default:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
+- **Version:** Since Vitest 1.1.0
+
+Path to a [workspace](/guide/workspace) config file relative to [root](#root).
+
+### isolate
+
+- **Type:** `boolean`
+- **Default:** `true`
+- **CLI:** `--no-isolate`, `--isolate=false` 
+- **Version:** Since Vitest 1.1.0
+
+Run tests in an isolated environment. This option has no effect on `vmThreads` pool.
+
+Disabling this option might improve [performance](/guide/performance) if your code doesn't rely on side effects (which is usually true for projects with `node` environment).
+
+::: note
+You can disable isolation for specific pools by using [`poolOptions`](#pooloptions) property.
+:::
+>>>>>>> 9fadb56ba449ca2306feab97e6f902f3f0fc75f7
