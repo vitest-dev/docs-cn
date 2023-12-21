@@ -105,7 +105,7 @@ export default {
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
 
 ::: tip
-Vitest 支持 CLI 参数的骆驼式命名法和烤肉串式命名法。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
+Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
 
 Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=dot` 都是有效的。
 
