@@ -2110,33 +2110,28 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
-<<<<<<< HEAD
 通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。这些计时器默认情况下不会被清除，如果计时器在假计时器会话启动前就已存在，则可能会导致意外行为。
-=======
-Tells fake timers to clear "native" (i.e. not fake) timers by delegating to their respective handlers. These are not cleared by default, leading to potentially unexpected behavior if timers existed prior to starting fake timers session.
 
 ### workspace
 
-- **Type:** `string`
-- **CLI:** `--workspace=./file.js`
-- **Default:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
-- **Version:** Since Vitest 1.1.0
+- **类型:** `string`
+- **命令行终端:** `--workspace=./file.js`
+- **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
+- **版本:** Since Vitest 1.1.0
 
-Path to a [workspace](/guide/workspace) config file relative to [root](#root).
+相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
 
 ### isolate
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-isolate`, `--isolate=false`
-- **Version:** Since Vitest 1.1.0
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-isolate`, `--isolate=false`
+- **版本:** Since Vitest 1.1.0
 
-Run tests in an isolated environment. This option has no effect on `vmThreads` pool.
+在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
 
-Disabling this option might improve [performance](/guide/performance) if your code doesn't rely on side effects (which is usually true for projects with `node` environment).
+如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会提高[性能](/guide/performance)。
 
 ::: note
-You can disable isolation for specific pools by using [`poolOptions`](#pooloptions) property.
+你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
 :::
-
-> > > > > > > 9fadb56ba449ca2306feab97e6f902f3f0fc75f7
