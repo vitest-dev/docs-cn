@@ -894,30 +894,30 @@ Pass additional arguments to `node` process in the VM context. See [Command-line
 
 ### fileParallelism
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-file-parallelism`, `--fileParallelism=false`
-- **Version:** Since Vitest 1.1
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-file-parallelism`, `--fileParallelism=false`
+- **版本:** Since Vitest 1.1
 
-Should all test files run in parallel. Setting this to `false` will override `maxWorkers` and `minWorkers` options to `1`.
+所有测试文件应该并行运行。将其设置为 `false` 将覆盖 `maxWorkers` 和 `minWorkers` 选项为 `1`。
 
 ::: tip
-This option doesn't affect tests running in the same file. If you want to run those in parallel, use `concurrent` option on [describe](/api/#describe-concurrent) or via [a config](#sequence-concurrent).
+此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
 :::
 
 ### maxWorkers
 
-- **Type:** `number`
-- **Version:** Since Vitest 1.1
+- **类型:** `number`
+- **版本:** Since Vitest 1.1
 
-Maximum number of workers to run tests in. `poolOptions.{threads,vmThreads}.maxThreads`/`poolOptions.forks.maxForks` has higher priority.
+运行测试时设置的最大工作线程数。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
 ### minWorkers
 
-- **Type:** `number`
-- **Version:** Since Vitest 1.1
+- **类型:** `number`
+- **版本:** Since Vitest 1.1
 
-Minimum number of workers to run tests in. `poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` has higher priority.
+运行测试时设置的最小工作线程数。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
 
 ### testTimeout
 
@@ -2128,7 +2128,7 @@ Path to a [workspace](/guide/workspace) config file relative to [root](#root).
 
 - **Type:** `boolean`
 - **Default:** `true`
-- **CLI:** `--no-isolate`, `--isolate=false` 
+- **CLI:** `--no-isolate`, `--isolate=false`
 - **Version:** Since Vitest 1.1.0
 
 Run tests in an isolated environment. This option has no effect on `vmThreads` pool.
@@ -2138,4 +2138,5 @@ Disabling this option might improve [performance](/guide/performance) if your co
 ::: note
 You can disable isolation for specific pools by using [`poolOptions`](#pooloptions) property.
 :::
->>>>>>> 9fadb56ba449ca2306feab97e6f902f3f0fc75f7
+
+> > > > > > > 9fadb56ba449ca2306feab97e6f902f3f0fc75f7

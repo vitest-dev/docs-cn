@@ -58,7 +58,6 @@ export default {
 
 ## 选项
 
-<<<<<<< HEAD
 | 选项                                 |                                                                                                                                             |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-v, --version`                      | 显示版本号                                                                                                                                  |
@@ -74,8 +73,11 @@ export default {
 | `--pool <pool>`                      | 指定池（如果未在浏览器中运行） (默认值: `threads`)                                                                                          |
 | `--poolOptions <options>`            | 指定池选项                                                                                                                                  |
 | `--poolOptions.threads.isolate`      | 隔离线程池中的测试 (默认值: `true`)                                                                                                         |
-| `--poolOptions.forks.isolate`        | 隔离分叉池中的测试 (默认值: `true`)                                                                                                         |     
-| `--silent`                           | 控制台输出测试结果                                                                                                                          |     
+| `--poolOptions.forks.isolate`        | 隔离分叉池中的测试 (默认值: `true`)                                                                                                         |
+| `--fileParallelism`                  | 所有测试文件应该并行运行。使用--no parallelism 以禁用（默认值：true）                                                                       |
+| `--maxWorkers`                       | 运行测试时设置的最大工作线程数 in                                                                                                           |
+| `--minWorkers`                       | 运行测试时设置的最小工作线程数 in                                                                                                           |
+| `--silent`                           | 控制台输出测试结果                                                                                                                          |
 | `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                               |
 | `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
 | `--coverage`                         | 启用输出覆盖率报告                                                                                                                          |
@@ -104,58 +106,6 @@ export default {
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
 | `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`                                           |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
-=======
-| Options       |               |
-| ------------- | ------------- |
-| `-v, --version` | Display version number |
-| `-r, --root <path>` | Define the project root |
-| `-c, --config <path>` | Path to config file |
-| `-u, --update` | Update snapshots |
-| `-w, --watch` | Smart & instant watch mode |
-| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
-| `--dir <path>`| Base directory to scan for the test files |
-| `--ui` | Enable UI |
-| `--open` | Open the UI automatically if enabled (default: `true`) |
-| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
-| `--pool <pool>` | Specify pool, if not running in the browser (default: `threads`)  |
-| `--poolOptions <options>` | Specify pool options |
-| `--poolOptions.threads.isolate` | Isolate tests in threads pool (default: `true`)  |
-| `--poolOptions.forks.isolate` | Isolate tests in forks pool (default: `true`)  |
-| `--fileParallelism` | Should all test files run in parallel. Use --no-parallelism to disable (default: true) |
-| `--maxWorkers` | Maximum number of workers to run tests in |
-| `--minWorkers` | Minimum number of workers to run tests in |
-| `--silent` | Silent console output from tests |
-| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
-| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
-| `--coverage` | Enable coverage report |
-| `--run` | Do not watch |
-| `--isolate` | Run every test file in isolation. To disable isolation, use --no-isolate (default: `true`) |
-| `--mode <name>` | Override Vite mode (default: `test`) |
-| `--workspace <path>` | Path to a workspace configuration file |
-| `--globals` | Inject APIs globally |
-| `--dom` | Mock browser API with happy-dom |
-| `--browser [options]` | Run tests in [the browser](/guide/browser) (default: `false`) |
-| `--environment <env>` | Runner environment (default: `node`) |
-| `--passWithNoTests` | Pass when no tests found |
-| `--logHeapUsage` | Show the size of heap for each test |
-| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
-| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
-| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
-| `--shard <shard>` | Execute tests in a specified shard |
-| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order or `--sequence.shuffle --sequence.seed SEED_ID` to run a specific order) |
-| `--no-color` | Removes colors from the console output |
-| `--inspect` | Enables Node.js inspector |
-| `--inspect-brk` | Enables Node.js inspector with break |
-| `--bail <number>` | Stop test execution when given number of tests have failed |
-| `--retry <times>` | Retry the test specific number of times if it fails |
-| `--exclude <glob>` | Additional file globs to be excluded from test |
-| `--expand-snapshot-diff` | Show full diff when snapshot fails |
-| `--typecheck [options]` | Custom options for typecheck pool. If passed without options, enables typechecking |
-| `--typecheck.enabled` | Enable typechecking alongside tests (default: `false`) |
-| `--typecheck.only` | Run only typecheck tests. This automatically enables typecheck (default: `false`) |
-| `--project` | The name of the project to run if you are using Vitest workspace feature. This can be repeated for multiple projects: `--project=1 --project=2` |
-| `-h, --help` | Display available CLI options |
->>>>>>> 9fadb56ba449ca2306feab97e6f902f3f0fc75f7
 
 ::: tip
 Vitest 支持 CLI 参数的骆驼式命名法和烤肉串式命名法。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
