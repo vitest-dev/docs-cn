@@ -73,8 +73,11 @@ export default {
 | `--pool <pool>`                      | 指定池（如果未在浏览器中运行） (默认值: `threads`)                                                                                          |
 | `--poolOptions <options>`            | 指定池选项                                                                                                                                  |
 | `--poolOptions.threads.isolate`      | 隔离线程池中的测试 (默认值: `true`)                                                                                                         |
-| `--poolOptions.forks.isolate`        | 隔离分叉池中的测试 (默认值: `true`)                                                                                                         |     
-| `--silent`                           | 控制台输出测试结果                                                                                                                          |     
+| `--poolOptions.forks.isolate`        | 隔离分叉池中的测试 (默认值: `true`)                                                                                                         |
+| `--fileParallelism`                  | 所有测试文件应该并行运行。使用--no parallelism 以禁用（默认值：true）                                                                       |
+| `--maxWorkers`                       | 运行测试时设置的最大工作线程数 in                                                                                                           |
+| `--minWorkers`                       | 运行测试时设置的最小工作线程数 in                                                                                                           |
+| `--silent`                           | 控制台输出测试结果                                                                                                                          |
 | `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                               |
 | `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
 | `--coverage`                         | 启用输出覆盖率报告                                                                                                                          |

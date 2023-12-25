@@ -892,6 +892,33 @@ Pass additional arguments to `node` process in the VM context. See [Command-line
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
 :::
 
+### fileParallelism
+
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-file-parallelism`, `--fileParallelism=false`
+- **版本:** Since Vitest 1.1
+
+所有测试文件应该并行运行。将其设置为 `false` 将覆盖 `maxWorkers` 和 `minWorkers` 选项为 `1`。
+
+::: tip
+此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
+:::
+
+### maxWorkers
+
+- **类型:** `number`
+- **版本:** Since Vitest 1.1
+
+运行测试时设置的最大工作线程数。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
+
+### minWorkers
+
+- **类型:** `number`
+- **版本:** Since Vitest 1.1
+
+运行测试时设置的最小工作线程数。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
+
 ### testTimeout
 
 - **类型:** `number`
@@ -1157,6 +1184,8 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 配置测试覆盖率报告写入的目录。
+
+To preview the coverage report in the output of [HTML reporter](/guide/reporters.html#html-reporter), this option must be set as a sub-directory of the html report directory (for example `./html/coverage`).
 
 #### coverage.reporter
 
@@ -2082,3 +2111,27 @@ export default defineConfig({
 - **默认值:** `false`
 
 通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。这些计时器默认情况下不会被清除，如果计时器在假计时器会话启动前就已存在，则可能会导致意外行为。
+
+### workspace
+
+- **类型:** `string`
+- **命令行终端:** `--workspace=./file.js`
+- **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
+- **版本:** Since Vitest 1.1.0
+
+相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
+
+### isolate
+
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-isolate`, `--isolate=false`
+- **版本:** Since Vitest 1.1.0
+
+在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
+
+如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会提高[性能](/guide/performance)。
+
+::: note
+你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
+:::
