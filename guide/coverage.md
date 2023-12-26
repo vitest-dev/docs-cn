@@ -178,7 +178,7 @@ if (condition) {
 Vitest UI 将在显式启用覆盖率报告且存在 html 覆盖率报告器的情况下启用覆盖率报告，否则将不可用：
 
 - 在配置中启用 `coverage.enabled=true` 或使用 `--coverage.enabled=true` 标志运行 Vitest
-- 在 `coverage.reporters` 列表中添加 `html`：也可以启用 `subdir` 选项，将覆盖率报告放到子目录中
+- 在 `coverage.reporter` 列表中添加 `html`：也可以启用 `subdir` 选项，将覆盖率报告放到子目录中
 
 <img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
 <img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
