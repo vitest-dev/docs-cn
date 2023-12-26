@@ -1,24 +1,30 @@
-# Performance
+---
+title: 性能 | 指南
+---
 
-By default Vitest runs every test file in an isolated environment based on the [pool](/config/#pool):
+# 性能
 
-- `threads` pool runs every test file in a separate [`Worker`](https://nodejs.org/api/worker_threads.html#class-worker)
-- `forks` pool runs every test file in a separate [forked child process](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options)
-- `vmThreads` pool runs every test file in a separate [VM context](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options), but it uses workers for parallelism
+默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
-This greatly increases test times, which might not be desirable for projects that don't rely on side effects and properly cleanup their state (which is usually true for projects with `node` environment). In this case disabling isolation will improve the speed of your tests. To do that, you can provide `--no-isolate` flag to the CLI or set [`test.isolate`](/config/#isolate) property in the config to `false`. If you are using several pools at once with `poolMatchGlobs`, you can also disable isolation for a specific pool you are using.
+- `threads` 池在单独的 [`Worker`](https://nodejs.org/api/worker_threads.html#class-worker) 中运行每个测试文件
+- `forks` 池在单独的 [forked child process](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) 中运行每个测试文件
+- `vmThreads` 池在单独的 [VM context](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options) 中运行每个测试文件，但它并行工作
+
+这大大增加了测试时间，这对于不依赖副作用并正确清理其状态的项目来说可能是不可取的（对于具有 `node` 环境的项目来说通常是这样）。在这种情况下，禁用隔离将提高测试的速度。要做到这一点，你可以向 CLI 提供 `--no-isolate` 标志，或者将 config 中的[`test.sisolate`](/config/#isolate) 属性设置为 `false`。如果你使用 `poolMatchGlobs` 同时使用多个池，你还可以禁用正在使用的特定池的隔离。
 
 ::: code-group
+
 ```bash [CLI]
 vitest --no-isolate
 ```
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     isolate: false,
-    // you can also disable isolation only for specific pools
+    // 你还可以仅对特定池禁用隔离
     poolOptions: {
       forks: {
         isolate: false,
@@ -27,18 +33,21 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ::: note
-If you are using `vmThreads` pool, you cannot disable isolation. Use `threads` pool instead to improve your tests performance.
+如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
 :::
 
-For some projects, it might also be desirable to disable parallelism to improve startup time. To do that, provide `--no-file-parallelism` flag to the CLI or set [`test.fileParallelism`](/config/#fileParallelism) property in the config to `false`.
+对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的[`test.fileParallelism`](/config/#fileParallelism)属性设置为 `false`。
 
 ::: code-group
+
 ```bash [CLI]
 vitest --no-file-parallelism
 ```
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -48,4 +57,5 @@ export default defineConfig({
   },
 })
 ```
+
 :::
