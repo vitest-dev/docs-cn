@@ -1,6 +1,10 @@
+<<<<<<< HEAD:guide/performance.md
 ---
 title: 性能 | 指南
 ---
+=======
+# Improving Performance
+>>>>>>> 4a1a671968f24c7cfe4098cb46295a85b014ef42:guide/improving-performance.md
 
 # 性能
 

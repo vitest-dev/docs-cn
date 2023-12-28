@@ -122,7 +122,13 @@ test('image snapshot', () => {
 expect.addSnapshotSerializer({
   serialize(val, config, indentation, depth, refs, printer) {
     // `printer` is a function that serializes a value using existing plugins.
-    return `Pretty foo: ${printer(val.foo)}`
+    return `Pretty foo: ${printer(
+      val.foo,
+      config,
+      indentation,
+      depth,
+      refs,
+    )}`
   },
   test(val) {
     return val && Object.prototype.hasOwnProperty.call(val, 'foo')

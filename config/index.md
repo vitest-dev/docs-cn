@@ -1992,7 +1992,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    onConsoleLog(log: string, type: 'stdout' | 'stderr'): boolean | void {
+    onConsoleLog(log: string, type: 'stdout' | 'stderr'): false | void {
       if (log === 'message from third party library' && type === 'stdout')
         return false
     },
@@ -2130,7 +2130,11 @@ export default defineConfig({
 
 在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
 
+<<<<<<< HEAD
 如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会提高[性能](/guide/performance)。
+=======
+Disabling this option might [improve performance](/guide/improving-performance) if your code doesn't rely on side effects (which is usually true for projects with `node` environment).
+>>>>>>> 4a1a671968f24c7cfe4098cb46295a85b014ef42
 
 ::: note
 你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
