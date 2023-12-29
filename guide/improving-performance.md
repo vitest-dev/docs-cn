@@ -1,12 +1,8 @@
-<<<<<<< HEAD:guide/performance.md
 ---
-title: 性能 | 指南
+title: 性能优化 | 指南
 ---
-=======
-# Improving Performance
->>>>>>> 4a1a671968f24c7cfe4098cb46295a85b014ef42:guide/improving-performance.md
 
-# 性能
+# 性能优化
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
