@@ -77,7 +77,11 @@ vitest --inspect-brk --pool threads --poolOptions.threads.singleThread
 vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
 ```
 
+<<<<<<< HEAD
 如果你使用的是 Vitest 1.1 或更高版本，你也可以只提供 `--no-parallelism` 标志：
+=======
+If you are using Vitest 1.1 or higher, you can also just provide `--no-file-parallelism` flag:
+>>>>>>> aa917fe3b6c3532069cbc0f0a32cf7925ff90277
 
 ```sh
 # 如果线程池未知

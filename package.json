@@ -24,9 +24,13 @@
     "@antfu/eslint-config": "^0.35.3",
     "@antfu/ni": "^0.18.8",
     "@iconify-json/carbon": "^1.1.27",
+<<<<<<< HEAD
     "@iconify-json/logos": "^1.1.41",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
+=======
+    "@iconify-json/logos": "^1.1.42",
+>>>>>>> aa917fe3b6c3532069cbc0f0a32cf7925ff90277
     "@unocss/reset": "^0.57.4",
     "@vite-pwa/assets-generator": "^0.0.11",
     "@vite-pwa/vitepress": "^0.2.3",
