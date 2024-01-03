@@ -429,10 +429,14 @@ console.log(cart.getApples()) // still 42!
 
 :::
 
-### vi.stubEnv
+### vi.stubEnv <Badge type="info">0.26.0+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `(name: string, value: string) => Vitest`
 - **版本:** Since Vitest 0.26.0
+=======
+- **Type:** `(name: string, value: string) => Vitest`
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
 
 更改 `process.env` 和 `import.meta.env` 中环境变量的值。我们可以调用 `vi.unstubAllEnvs` 恢复其值。
 
@@ -459,10 +463,14 @@ import.meta.env.MODE = 'test'
 
 :::
 
-### vi.unstubAllEnvs
+### vi.unstubAllEnvs <Badge type="info">0.26.0+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `() => Vitest`
 - **版本:** Since Vitest 0.26.0
+=======
+- **Type:** `() => Vitest`
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
 
 恢复通过 `vi.stubEnv` 更改的所有 `import.meta.env` 和 `process.env` 值。首次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllEnvs`。
 
@@ -519,10 +527,14 @@ window.innerWidth = 100
 
 :::
 
-### vi.unstubAllGlobals
+### vi.unstubAllGlobals <Badge type="info">0.26.0+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `() => Vitest`
 - **版本:** Since Vitest 0.26.0
+=======
+- **Type:** `() => Vitest`
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
 
 恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent `，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
 
@@ -762,10 +774,14 @@ vi.useRealTimers()
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
 :::
 
-### vi.isFakeTimers
+### vi.isFakeTimers <Badge type="info">0.34.5+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `() => boolean`
 - **版本:** Since Vitest 0.34.5
+=======
+- **Type:** `() => boolean`
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
 
 如果启用了假计时器，则返回 `true` 。
 
@@ -779,10 +795,14 @@ vi.useRealTimers()
 
 Vitest 提供的一组有用的辅助函数。
 
-### vi.waitFor
+### vi.waitFor <Badge type="info">0.34.5+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
 - **版本**: Since Vitest 0.34.5
+=======
+- **Type:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
 
 等待回调成功执行。如果回调抛出错误或返回拒绝的承诺，它将继续等待，直到成功或超时。
 
@@ -823,6 +843,7 @@ test('Element exists in a DOM', async () => {
   // start populating DOM
   populateDOMAsync()
 
+<<<<<<< HEAD
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
@@ -831,6 +852,38 @@ test('Element exists in a DOM', async () => {
       expect(element.dataset.initialized).toBeTruthy()
       return element
     },
+=======
+  const element = await vi.waitFor(async () => {
+    // try to get the element until it exists
+    const element = await getDOMElementAsync() as HTMLElement | null
+    expect(element).toBeTruthy()
+    expect(element.dataset.initialized).toBeTruthy()
+    return element
+  }, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
+  expect(element).toBeInstanceOf(HTMLElement)
+})
+```
+
+If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
+
+### vi.waitUntil <Badge type="info">0.34.5+</Badge>
+
+- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
+
+This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
+
+Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
+
+```ts
+import { expect, test, vi } from 'vitest'
+
+test('Element render correctly', async () => {
+  const element = await vi.waitUntil(
+    () => document.querySelector('.element'),
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50
@@ -867,10 +920,14 @@ test('Element render correctly', async () => {
 })
 ```
 
-### vi.hoisted
+### vi.hoisted <Badge type="info">0.31.0+</Badge>
 
+<<<<<<< HEAD
 - **类型**: `<T>(factory: () => T) => T`
 - **版本**: Since Vitest 0.31.0
+=======
+- **Type**: `<T>(factory: () => T) => T`
+>>>>>>> dd3067772130c681c4d4cc9d90d845cb401323a3
 
 ES 模块中的所有静态 "导入 "语句都被提升到文件顶部，因此在导入之前定义的任何代码都将在导入评估之后执行。
 
