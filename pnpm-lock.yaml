@@ -23,8 +23,8 @@ devDependencies:
     specifier: ^1.1.27
     version: 1.1.27
   '@iconify-json/logos':
-    specifier: ^1.1.41
-    version: 1.1.41
+    specifier: ^1.1.42
+    version: 1.1.42
   '@types/fs-extra':
     specifier: ^11.0.1
     version: 11.0.1
@@ -2026,8 +2026,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/logos@1.1.41:
-    resolution: {integrity: sha512-nq69aemSNSxsPh6hDx6QHQBZca6vQzTg6fUXdo996IQe41TNueyJrQXjdhaZr0jaqGEforuSPGLB16SMSZ+T2A==}
+  /@iconify-json/logos@1.1.42:
+    resolution: {integrity: sha512-/f+frtPm3m3Z30oy8Pk+QqRDkbmAiIaWGPl5CmsCXm15MVfvw9a/V/gD7WzdyuSGAZcFuQaqbHXj92y/n+2ifg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
