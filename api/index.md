@@ -55,11 +55,16 @@ test('should work as expected', () => {
 })
 ```
 
-### test.extend
+### test.extend <Badge type="info">0.32.3+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
 - **支持版本:** Vitest 0.32.3
+=======
+- **Type:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
+- **Alias:** `it.extend`
+>>>>>>> 109f52553e18291d8ebbe201832fbe2ab20a3c55
 
 使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
 
