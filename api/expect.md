@@ -733,12 +733,7 @@ test('matches snapshot', () => {
 
 ## toMatchFileSnapshot <Badge type="info">0.30.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `<T>(filepath: string, message?: string) => Promise<void>`
-- **版本:** 需要 Vitest 0.30.0 以上
-=======
-- **Type:** `<T>(filepath: string, message?: string) => Promise<void>`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 明确比较或更新快照与显式指定的文件内容（而不是 `.snap` 文件）。
 
@@ -1214,12 +1209,7 @@ test('"id" is a number', () => {
 
 ## expect.closeTo <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `(expected: any, precision?: number) => any`
-- **版本:** 从 Vitest 1.0.0 开始支持
-=======
-- **Type:** `(expected: any, precision?: number) => any`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 在比较对象属性或数组项中的浮点数时，`expect.closeTo` 非常有用。 如果需要比较数字，请改用 `.toBeCloseTo` 。
 

@@ -137,12 +137,8 @@ export default defineConfig({
 
 ### server <Badge type="info">0.34.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `{ sourcemap?, deps?, ... }`
 - **版本:** Since Vitest 0.34.0
-=======
-- **Type:** `{ sourcemap?, deps?, ... }`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 Vite-Node 服务端选项。
 
@@ -221,14 +217,8 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 #### deps.optimizer <Badge type="info">0.34.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `{ ssr?, web? }`
-- **版本:** Since Vitest 0.34.0
 - **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
-=======
-- **Type:** `{ ssr?, web? }`
-- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。在 Vitest 0.34.0 之前, 它被命名为 `deps.experimentalOptimizer`。
 
@@ -260,12 +250,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 #### deps.web <Badge type="info">0.34.2+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `{ transformAssets?, ... }`
-- **版本:** Since Vite 0.34.2
-=======
-- **Type:** `{ transformAssets?, ... }`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 当转换模式设置为 `web` 时应用于外部文件的选项。默认情况下，`jsdom` 和 `happy-dom` 使用 `web` 模式，而 `node` 和 `edge` 环境使用 `ssr` 转换模式，因此这些选项不会影响这些环境中的文件。
 
@@ -566,14 +551,8 @@ export default defineConfig({
 
 ### poolMatchGlobs <Badge type="info">0.29.4+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'typescript'][]`
 - **默认值:** `[]`
-- **版本:** Since Vitest 0.29.4
-=======
-- **Type:** `[string, 'threads' | 'forks' | 'vmThreads' | 'typescript'][]`
-- **Default:** `[]`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -646,16 +625,9 @@ export default defineConfig({
 
 ### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `'threads' | 'forks' | 'vmThreads'`
 - **默认值:** `'threads'`
 - **命令行终端:** `--pool=threads`
-- **版本:** Since Vitest 1.0.0-beta
-=======
-- **Type:** `'threads' | 'forks' | 'vmThreads'`
-- **Default:** `'threads'`
-- **CLI:** `--pool=threads`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 用于运行测试的线程池。
 
@@ -695,14 +667,8 @@ catch (err) {
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
 - **默认值:** `{}`
-- **版本:** Since Vitest 1.0.0-beta
-=======
-- **Type:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
-- **Default:** `{}`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 #### poolOptions.threads<NonProjectOption />
 
@@ -923,16 +889,9 @@ Pass additional arguments to `node` process in the VM context. See [Command-line
 
 ### fileParallelism <Badge type="info">1.1.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `--no-file-parallelism`, `--fileParallelism=false`
-- **版本:** Since Vitest 1.1
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-file-parallelism`, `--fileParallelism=false`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 所有测试文件应该并行运行。将其设置为 `false` 将覆盖 `maxWorkers` 和 `minWorkers` 选项为 `1`。
 
@@ -942,23 +901,13 @@ Pass additional arguments to `node` process in the VM context. See [Command-line
 
 ### maxWorkers <Badge type="info">1.1.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **版本:** Since Vitest 1.1
-=======
-- **Type:** `number`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 运行测试时设置的最大工作线程数。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
 ### minWorkers <Badge type="info">1.1.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **版本:** Since Vitest 1.1
-=======
-- **Type:** `number`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 运行测试时设置的最小工作线程数。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
 
@@ -1259,18 +1208,10 @@ To preview the coverage report in the output of [HTML reporter](/guide/reporters
 
 #### coverage.reportOnFailure <Badge type="info">0.31.2+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false` (since Vitest `0.34.0`)
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
-- **版本:** Vitest 0.31.2
-=======
-- **Type:** `boolean`
-- **Default:** `false` (since Vitest `0.34.0`)
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 即使测试失败也会生成覆盖率报告。
 
@@ -1281,7 +1222,7 @@ To preview the coverage report in the output of [HTML reporter](/guide/reporters
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **CLI:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
-Collect coverage of files outside the [project `root`](https://vitest.dev/config/#root).
+收集 [项目`root`](https://vitest.dev/config/#root) 之外文件的覆盖率。
 
 #### coverage.skipFull
 
@@ -1493,16 +1434,9 @@ test('doNotRun', () => {
 
 ### browser <Badge type="info">0.29.4+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
 - **默认值:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
-- **版本:** Vitest 0.29.4
 - **命令行终端:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
-=======
-- **Type:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
-- **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
-- **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](/config/#browser-provider) 选项进行配置。
 
@@ -1584,12 +1518,7 @@ export interface BrowserProvider {
 
 #### browser.providerOptions <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `BrowserProviderOptions`
-- **版本:** Since Vitest 1.0.0-beta.3
-=======
-- **Type:** `BrowserProviderOptions`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 调用 `provider.initialize` 时将传递给提供程序的选项。
 
@@ -1625,14 +1554,8 @@ export default defineConfig({
 
 #### browser.slowHijackESM <Badge type="info">0.31.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** Since Vitest 0.31.0
-=======
-- **Type:** `boolean`
-- **Default:** `false`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换您的源文件。
 
@@ -1663,38 +1586,21 @@ export default defineConfig({
 
 ### unstubEnvs <Badge type="info">0.26.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** Vitest 0.26.0
-=======
-- **Type:** `boolean`
-- **Default:** `false`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
 ### unstubGlobals <Badge type="info">0.26.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
-- **版本:** Vitest 0.26.0
-=======
-- **Type:** `boolean`
-- **Default:** `false`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
 ### testTransformMode <Badge type="info">0.34.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `{ web?, ssr? }`
-- **版本:** Since Vitest 0.34.0
-=======
- - **Type:** `{ web?, ssr? }`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 确定与测试中的 glob 模式匹配的所有导入模块的转换方法。默认情况下，依赖于环境。例如，使用 JSDOM 环境的测试将处理所有带有 `ssr: false` 标志的文件，而使用 Node 环境的测试将处理所有带有 `ssr: true` 的模块。
 
@@ -1888,16 +1794,9 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### sequence.concurrent <Badge type="info">0.32.2+</Badge>
 
-<<<<<<< HEAD
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--sequence.concurrent`, `--sequence.concurrent=false`
-- **版本**: Since Vitest 0.32.2
-=======
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.concurrent`, `--sequence.concurrent=false`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 如果你希望测试并行运行，可以使用此选项或 CLI 参数 [`--sequence.concurrent`](/guide/cli) 启用它。
 
@@ -1923,16 +1822,9 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### sequence.setupFiles <Badge type="info">0.29.3+</Badge>
 
-<<<<<<< HEAD
 - **类型**: `'list' | 'parallel'`
 - **默认值**: `'parallel'`
 - **命令行终端**: `--sequence.setupFiles=<value>`
-- **版本**: Since Vitest 0.29.3
-=======
-- **Type**: `'list' | 'parallel'`
-- **Default**: `'parallel'`
-- **CLI**: `--sequence.setupFiles=<value>`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 更改安装文件的执行顺序。
 
@@ -1945,31 +1837,17 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 #### typecheck.enabled <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--typecheck`, `--typecheck.enabled`
-- **版本**: Since Vitest 1.0.0-beta.3
-=======
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--typecheck`, `--typecheck.enabled`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 常规测试时是否进行类型检查。
 
 #### typecheck.only <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--typecheck.only`
-- **版本**: Since Vitest 1.0.0-beta.3
-=======
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--typecheck.only`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 启用类型检查时，仅运行类型检查测试。使用 CLI 时，此选项将自动启用类型检查。
 
@@ -2033,14 +1911,8 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### chaiConfig <Badge type="info">0.30.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
 - **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
-- **版本:** Vitest 0.30.0
-=======
-- **Type:** `{ includeStack?, showDiff?, truncateThreshold? }`
-- **Default:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 等同于 [Chai 配置](https://github.com/chaijs/chai/blob/4.x.x/lib/chai/config.js)。
 
@@ -2069,16 +1941,9 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### bail <Badge type="info">0.31.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `0`
 - **命令行终端**: `--bail=<value>`
-- **版本:** Vitest 0.31.0
-=======
-- **Type:** `number`
-- **Default:** `0`
-- **CLI**: `--bail=<value>`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 当给定数量的测试失败时停止测试执行。
 
@@ -2086,16 +1951,9 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### retry <Badge type="info">0.32.3+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `0`
 - **命令行终端:** `--retry=<value>`
-- **版本:** Since Vitest 0.32.3
-=======
-- **Type:** `number`
-- **Default:** `0`
-- **CLI:** `--retry=<value>`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 如果测试失败，请重试特定次数的测试。
 
@@ -2122,12 +1980,7 @@ export default defineConfig({
 
 ### onStackTrace<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
 - **类型**: `(error: Error, frame: ParsedStack) => boolean | void`
-- **版本**: Since Vitest 1.0.0-beta.3
-=======
-- **Type**: `(error: Error, frame: ParsedStack) => boolean | void`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 在处理错误时，对每个堆栈的每个帧应用过滤功能。第一个参数 `error` 是一个与标准 `Error` 具有相同属性的对象，但它不是实际实例。
 
@@ -2154,14 +2007,8 @@ export default defineConfig({
 
 ### diff <Badge type="info">0.34.5+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `string`
 - **命令行终端:** `--diff=<value>`
-- **版本:** 从 Vitest 0.34.5 开始支持
-=======
-- **Type:** `string`
-- **CLI:** `--diff=<value>`
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 生成差异界面时使用的不同配置的路径。如果你想自定义差异显示，这将非常有用。
 
@@ -2243,41 +2090,22 @@ export default defineConfig({
 
 ### workspace<NonProjectOption /> <Badge type="info">1.1.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `string`
 - **命令行终端:** `--workspace=./file.js`
 - **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
-- **版本:** Since Vitest 1.1.0
-=======
-- **Type:** `string`
-- **CLI:** `--workspace=./file.js`
-- **Default:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
 
 ### isolate <Badge type="info">1.1.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `--no-isolate`, `--isolate=false`
-- **版本:** Since Vitest 1.1.0
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-isolate`, `--isolate=false` 
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
 
 在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
 
 如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会[改进性能](/guide/improving-performance)。
 
-<<<<<<< HEAD
-::: note
-你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
-=======
 ::: tip
-You can disable isolation for specific pools by using [`poolOptions`](#pooloptions) property.
->>>>>>> a38bcaafe630203d183fa69724cf356dcc25f81f
+你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
 :::
