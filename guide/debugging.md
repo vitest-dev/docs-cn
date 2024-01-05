@@ -77,7 +77,7 @@ vitest --inspect-brk --pool threads --poolOptions.threads.singleThread
 vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
 ```
 
-如果你使用的是 Vitest 1.1 或更高版本，你也可以只提供 `--no-parallelism` 标志：
+如果你使用的是 Vitest 1.1 或更高版本，你也可以仅提供 `--no-parallelism` 标志：
 
 ```sh
 # 如果线程池未知
