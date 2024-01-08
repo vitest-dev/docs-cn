@@ -10,7 +10,7 @@ title: 性能优化 | 指南
 - `forks` 池在单独的 [forked child process](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) 中运行每个测试文件
 - `vmThreads` 池在单独的 [VM context](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options) 中运行每个测试文件，但它并行工作
 
-这大大增加了测试时间，这对于不依赖副作用并正确清理其状态的项目来说可能是不可取的（对于具有 `node` 环境的项目来说通常是这样）。在这种情况下，禁用隔离将提高测试的速度。要做到这一点，你可以向 CLI 提供 `--no-isolate` 标志，或者将 config 中的[`test.sisolate`](/config/#isolate) 属性设置为 `false`。如果你使用 `poolMatchGlobs` 同时使用多个池，你还可以禁用正在使用的特定池的隔离。
+这大大增加了测试时间，这对于不依赖副作用并正确清理其状态的项目来说可能是不可取的（对于具有 `node` 环境的项目来说通常是这样）。在这种情况下，禁用隔离将提高测试的速度。要做到这一点，你可以向 CLI 提供 `--no-isolate` 标志，或者将 config 中的[`test.isolate`](/config/#isolate) 属性设置为 `false`。如果你使用 `poolMatchGlobs` 同时使用多个池，你还可以禁用正在使用的特定池的隔离。
 
 ::: code-group
 
