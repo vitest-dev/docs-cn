@@ -669,7 +669,7 @@ try {
 - **类型:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
 - **默认值:** `{}`
 
-#### poolOptions.threads<NonProjectOption />
+#### poolOptions.threads
 
 `threads` 池的选项。
 
@@ -701,7 +701,7 @@ export default defineConfig({
 
 最小线程数。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
 
-##### poolOptions.threads.singleThread<NonProjectOption />
+##### poolOptions.threads.singleThread
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -723,7 +723,7 @@ export default defineConfig({
 
 这在某些情况下可以提高性能，但可能会导致旧 Node 版本中出现段错误。
 
-##### poolOptions.threads.isolate<NonProjectOption />
+##### poolOptions.threads.isolate
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -741,7 +741,7 @@ export default defineConfig({
 使用时要小心，因为某些选项（如--prof、--title）可能会导致 worker 崩溃。具体信息可以浏览 https://github.com/nodejs/node/issues/41103。
 :::
 
-#### poolOptions.forks<NonProjectOption />
+#### poolOptions.forks
 
 `forks` 池的选项。
 
@@ -773,14 +773,14 @@ export default defineConfig({
 
 最小分支数量。
 
-##### poolOptions.forks.isolate<NonProjectOption />
+##### poolOptions.forks.isolate
 
 - **类型:** `boolean`
 - **默认值:** `true`
 
 隔离每个测试文件的环境。
 
-##### poolOptions.forks.singleFork<NonProjectOption />
+##### poolOptions.forks.singleFork
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -804,7 +804,7 @@ export default defineConfig({
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
 :::
 
-#### poolOptions.vmThreads<NonProjectOption />
+#### poolOptions.vmThreads
 
 `vmThreads` 池的选项。
 
