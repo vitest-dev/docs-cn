@@ -44,9 +44,9 @@ export default defineConfig({
 
 ## Cannot mock "./mocked-file.js" because it is already loaded
 
-This error happens when `vi.mock` method is called on a module that was already loaded. Vitest throws this error because this call has no effect since cached modules are preferred.
+当对已加载的模块调用 `vi.mock` 方法时，会发生此错误。Vitest 抛出此错误，因为此调用没有效果，因为首选缓存模块。
 
-Remember that `vi.mock` is always hoisted - it means that the module was loaded before the test file started executing - most likely in a setup file. To fix the error, remove the import or clear the cache at the end of a setup file - beware that setup file and your test file will reference different modules in that case.
+请记住，`vi.mock` 总是挂起的 - 这意味着模块在测试文件开始执行之前就已经加载了 - 很可能是在安装文件中。要修复此错误，请删除导入或清除安装文件末尾的缓存 - 请注意，在这种情况下，安装文件和测试文件将引用不同的模块。
 
 ```ts
 // setupFile.js

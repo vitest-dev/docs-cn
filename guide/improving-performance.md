@@ -36,13 +36,8 @@ export default defineConfig({
 
 :::
 
-<<<<<<< HEAD
-::: note
-如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
-=======
 :::tip
-If you are using `vmThreads` pool, you cannot disable isolation. Use `threads` pool instead to improve your tests performance.
->>>>>>> 35b17b0042e4b7536067a19d68a17ce3051cbe6f
+如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
 :::
 
 对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的[`test.fileParallelism`](/config/#fileParallelism)属性设置为 `false`。
@@ -62,8 +57,4 @@ export default defineConfig({
   },
 })
 ```
-<<<<<<< HEAD
-
-=======
->>>>>>> 35b17b0042e4b7536067a19d68a17ce3051cbe6f
 :::
