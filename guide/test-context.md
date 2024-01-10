@@ -14,7 +14,7 @@ title: 测试上下文 | 指南
 import { it } from 'vitest'
 
 it('should work', (ctx) => {
-  // prints name of the test
+  // 打印测试的名称
   console.log(ctx.task.name)
 })
 ```
@@ -88,13 +88,13 @@ const archive = []
 export const myTest = test.extend({
   // eslint-disable-next-line no-empty-pattern
   todos: async ({}, use) => {
-    // setup the fixture before each test function
+    // 在每次测试函数运行之前设置固定装置
     todos.push(1, 2, 3)
 
-    // use the fixture value
+    // 使用固定装置的值
     await use(todos)
 
-    // cleanup the fixture after each test function
+    // 在每次测试函数运行之后清除固定装置
     todos.length = 0
   },
   archive,
@@ -136,7 +136,7 @@ export const myTest2 = myTest.extend({
 
 #### 固定装置初始化
 
-Vitest 运行器将智能地初始化你的 fixtures 并根据使用情况将它们注入到测试上下文中。
+Vitest 运行器将智能地初始化你的固定装置并根据使用情况将它们注入到测试上下文中。
 
 ```ts
 import { test } from 'vitest'
@@ -150,16 +150,16 @@ const myTest = test.extend({
   archive: [],
 })
 
-// todosFn will not run
+// todosFn 不会运行
 myTest('', () => {})
 myTest('', ({ archive }) => {})
 
-// todosFn will run
+// todosFn 会运行
 myTest('', ({ todos }) => {})
 ```
 
 ::: warning
-在 fixtures 中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问 fixtures 函数和测试函数中的上下文。
+在固定装置中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问固定装置函数和测试函数中的上下文。
 :::
 
 #### TypeScript
@@ -191,7 +191,7 @@ myTest('', (context) => {
 import { beforeEach, it } from 'vitest'
 
 beforeEach(async (context) => {
-  // extend context
+  // 扩展上下文
   context.foo = 'bar'
 })
 
@@ -220,12 +220,12 @@ interface LocalTestContext {
 }
 
 beforeEach<LocalTestContext>(async (context) => {
-  // typeof context is 'TestContext & LocalTestContext'
+  // 上下文的类型是 'TestContext & LocalTestContext'
   context.foo = 'bar'
 })
 
 it<LocalTestContext>('should work', ({ foo }) => {
-  // typeof foo is 'string'
+  // foo 的类型是 'string'
   console.log(foo) // 'bar'
 })
 ```
