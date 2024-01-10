@@ -225,12 +225,12 @@ export function foobar() {
 import { vi } from 'vitest'
 import * as mod from './foobar.js'
 
-// this will only affect "foo" outside of the original module
+// 这只会影响在原始模块之外的 "foo"
 vi.spyOn(mod, 'foo')
 vi.mock('./foobar.js', async (importOriginal) => {
   return {
     ...(await importOriginal()),
-    // this will only affect "foo" outside of the original module
+    // 这只会影响在原始模块之外的 "foo"
     foo: () => 'mocked',
   }
 })
@@ -244,7 +244,7 @@ import * as mod from './foobar.js'
 
 vi.spyOn(mod, 'foo')
 
-// exported foo references mocked method
+// 导出的 foo  引用模拟的方法
 mod.foobar(mod.foo)
 ```
 
@@ -259,7 +259,7 @@ export function foobar(injectedFoo) {
 }
 ```
 
-这就是预期行为。当以这种方式进行嘲讽时，这通常是坏代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用程序体系结构。
+这就是预期行为。当以这种方式包含 mock 时，这通常是不良代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用程序体系结构。
 
 ### 示例
 
@@ -410,7 +410,7 @@ afterAll(() => server.close())
 afterEach(() => server.resetHandlers())
 ```
 
-> 使用 `onUnhandleRequest: 'error'` 配置服务器可以确保每当有没有相应请求处理程序的请求时都会引发错误。
+> 使用 `onUnhandleRequest: 'error'` 配置服务器可以确保即使某个请求没有相应的请求处理程序，也会抛出错误。
 
 ### 示例
 
@@ -422,7 +422,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 ## 计时器
 
-每当测试代码涉及到 `超时` 或者间隔时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 "fake" 计时器来加速测试。
+每当测试代码涉及到 timeout 或者 interval 时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 "fake" 计时器来加速测试。
 
 有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` api 部分](/api/vi#vi-usefaketimers)。
 
@@ -432,11 +432,11 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 function executeAfterTwoHours(func) {
-  setTimeout(func, 1000 * 60 * 60 * 2) // 2 hours
+  setTimeout(func, 1000 * 60 * 60 * 2) // 2小时
 }
 
 function executeEveryMinute(func) {
-  setInterval(func, 1000 * 60) // 1 minute
+  setInterval(func, 1000 * 60) // 1分钟
 }
 
 const mock = vi.fn(() => console.log('executed'))
@@ -455,7 +455,7 @@ describe('delayed execution', () => {
   })
   it('should not execute the function', () => {
     executeAfterTwoHours(mock)
-    // advancing by 2ms won't trigger the func
+    // 前进2毫秒并不会触发方法
     vi.advanceTimersByTime(2)
     expect(mock).not.toHaveBeenCalled()
   })
@@ -534,7 +534,7 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 
 - 模拟模块导出 class implementation
 
-`vi.mock` and prototype 的示例:
+`vi.mock` 和 prototype 的示例:
 
 ```ts
 // some-path.ts
@@ -549,10 +549,10 @@ vi.mock('./some-path.js', () => {
   SomeClass.prototype.someMethod = vi.fn()
   return { SomeClass }
 })
-// SomeClass.mock.instances will have SomeClass
+// SomeClass.mock.instances 上将会有 someMethod 方法
 ```
 
-`vi.mock` and return value 的示例:
+`vi.mock` 和返回值配合的示例:
 
 ```ts
 import { SomeClass } from './some-path.js'
@@ -563,7 +563,7 @@ vi.mock('./some-path.js', () => {
   }))
   return { SomeClass }
 })
-// SomeClass.mock.returns will have returned object
+// SomeClass.mock.returns 将会返回对象
 ```
 
 `vi.spyOn` 的示例:
@@ -572,7 +572,7 @@ vi.mock('./some-path.js', () => {
 import * as exports from './some-path.js'
 
 vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
-  // whatever suites you from first two examples
+  // 前两个例子中有非常适合你的
 })
 ```
 
@@ -607,15 +607,15 @@ vi.mock('./some-path.js', () => {
         method: vi.fn(),
       }
     }
-    // now every time that useObject() is called it will
-    // return the same object reference
+    // 现在每次调用 useObject() 后，都会
+    // 返回相同的对象引用
     return _cache
   }
   return { useObject }
 })
 
 const obj = useObject()
-// obj.method was called inside some-path
+// obj.method 在 some-path 内调用
 expect(obj.method).toHaveBeenCalled()
 ```
 
@@ -633,8 +633,8 @@ vi.mock('./some-path.js', async () => {
     mocked: vi.fn(),
   }
 })
-original() // has original behaviour
-mocked() // is a spy function
+original() // 有原始的行为
+mocked() // 是一个 spy 函数
 ```
 
 - 模拟当前日期
@@ -648,7 +648,7 @@ const mockDate = new Date(2022, 0, 1)
 vi.setSystemTime(mockDate)
 const now = new Date()
 expect(now.valueOf()).toBe(mockDate.valueOf())
-// reset mocked time
+// 重置模拟的时间
 vi.useRealTimers()
 ```
 
@@ -668,7 +668,7 @@ expect(__VERSION__).toBe('1.0.0')
 ```ts
 import { beforeEach, expect, it } from 'vitest'
 
-// you can reset it in beforeEach hook manually
+// 你可以在 beforeEach 钩子里手动重置
 const originalViteEnv = import.meta.env.VITE_ENV
 
 beforeEach(() => {
@@ -686,7 +686,7 @@ it('changes value', () => {
 ```ts
 import { expect, it, vi } from 'vitest'
 
-// before running tests "VITE_ENV" is "test"
+// 在运行测试之前， "VITE_ENV" 的值是 "test"
 import.meta.env.VITE_ENV === 'test'
 
 it('changes value', () => {
