@@ -534,7 +534,7 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 
 - 模拟模块导出 class implementation
 
-`vi.mock` 和原型配合的示例:
+`vi.mock` 和 prototype 的示例:
 
 ```ts
 // some-path.ts
@@ -572,7 +572,7 @@ vi.mock('./some-path.js', () => {
 import * as exports from './some-path.js'
 
 vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
-  // whatever suites you from first two examples
+  // 前两个例子中有非常适合你的
 })
 ```
 
@@ -634,7 +634,7 @@ vi.mock('./some-path.js', async () => {
   }
 })
 original() // 有原始的行为
-mocked() // 是一个间谍函数
+mocked() // 是一个 spy 函数
 ```
 
 - 模拟当前日期
