@@ -10,7 +10,7 @@ title: 与其他测试框架对比 | 指南
 
 可以在 Vite 设置中使用 Jest。[@sodatea](https://twitter.com/haoqunjiang) 开发了 [vite-jest](https://github.com/sodatea/vite-jest#readme) ，旨在为 [Jest](https://jestjs.io/) 提供一流的 Vite 集成。[Jest 中最后的阻碍](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest)已经解决，因此这是你单元测试的有效选项。
 
-然而，在 [Vite](https://vitejs.dev) 为最常见的 Web 工具（typecript、JSX、最流行的 UI 框架）提供支持的世界中，引入 Jest 代表了复杂性的重复。如果你的应用程序由 Vite 驱动，那么需要配置和维护两个不同的管道是不合理的。使用 Vitest，您可以将开发、构建和测试环境的配置定义为一个管道，共享相同的插件和 `vite.config.js` 文件。
+然而，在 [Vite](https://vitejs.dev) 为最常见的 Web 工具（TypeScript、JSX、最流行的 UI 框架）提供支持的世界中，引入 Jest 代表了复杂性的重复。如果你的应用程序由 Vite 驱动，那么需要配置和维护两个不同的管道是不合理的。使用 Vitest，您可以将开发、构建和测试环境的配置定义为一个管道，共享相同的插件和 `vite.config.js` 文件。
 
 即使你的库没有使用 Vite（例如，如果它是使用 esbuild 或 rollup 构建的），Vitest 也是一个有趣的选择，因为它可以让你更快地运行单元测试，并通过默认使用 Vite 的即时热模块重载（HMR）观察模式来提高 DX。 Vitest 提供了与大多数 Jest API 和生态系统库兼容性，因此在大多数项目中，它应该可以作为 Jest 的替代品直接使用。
 

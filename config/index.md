@@ -418,7 +418,7 @@ export default defineConfig({
 });
 ```
 
-为了可以让全局 API 支持 Typescript，请将 `vitest/globals` 添加到 `tsconfig.json` 中的 `types` 选项中
+为了可以让全局 API 支持 TypeScript，请将 `vitest/globals` 添加到 `tsconfig.json` 中的 `types` 选项中
 
 ```json
 // tsconfig.json
