@@ -236,8 +236,6 @@ test('toThrowErrorMatchingSnapshot', () => {
 })
 ```
 
-“toThrowErrorMatchingSnapshot”和“toThrow ErrorMatchingInlineSnapshot”的默认“错误”快照不同`
-
 在 Jest 中，快照将是：
 
 ```console
@@ -260,7 +258,7 @@ test('snapshot', () => {
 
   expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
 
-  // Jest snapshots `Error.message` for `Error` instance
+  // Jest 在 `Error` 实例上记录 `Error.message` 快照
   expect(() => {
     throw new Error('error')
   }).toThrowErrorMatchingInlineSnapshot('"error"')
