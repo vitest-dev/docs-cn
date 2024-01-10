@@ -49,15 +49,15 @@ export default ['packages/*/vitest.config.{e2e,unit}.ts']
 ```ts [vitest.workspace.ts]
 import { defineWorkspace } from 'vitest/config'
 
-// defineWorkspace provides a nice type hinting DX
+// defineWorkspace 会提供一个很好的类型提示开发体验
 export default defineWorkspace([
   'packages/*',
   {
-    // add "extends" to merge two configs together
+    // 添加 "extends" 将两个配置合并到一起
     extends: './vite.config.js',
     test: {
       include: ['tests/**/*.{browser}.test.{ts,js}'],
-      // it is recommended to define a name when using inline configs
+      // 在使用内联配置的时候，建议定义一个名称
       name: 'happy-dom',
       environment: 'happy-dom',
     },
@@ -98,8 +98,8 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
   test: {
     environment: 'jsdom',
-    // "reporters" is not supported in a project config,
-    // so it will show an error
+    // "reporters" 在项目配置中是不支持的，
+    // 所以会报错
     reporters: ['json'],
   },
 })
