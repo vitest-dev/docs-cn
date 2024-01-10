@@ -146,7 +146,7 @@ export default defineConfig({
 - [`v8`](https://github.com/istanbuljs/v8-to-istanbul#ignoring-uncovered-lines)
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
-使用 Typescript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
+使用 TypeScript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
 被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
 
 对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
@@ -158,7 +158,7 @@ export default defineConfig({
 if (condition) {
 ```
 
-不幸的是，目前这在 `v8` 中不起作用。你通常可以在 Typescript 使用 `v8 ignore` 注释：
+不幸的是，目前这在 `v8` 中不起作用。你通常可以在 TypeScript 使用 `v8 ignore` 注释：
 
 <!-- eslint-skip -->
 
