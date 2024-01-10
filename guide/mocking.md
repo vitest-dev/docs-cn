@@ -686,7 +686,7 @@ it('changes value', () => {
 ```ts
 import { expect, it, vi } from 'vitest'
 
-// before running tests "VITE_ENV" is "test" 在运行测试之前， "VITE_ENV" 的值是 "test"
+// 在运行测试之前， "VITE_ENV" 的值是 "test"
 import.meta.env.VITE_ENV === 'test'
 
 it('changes value', () => {
