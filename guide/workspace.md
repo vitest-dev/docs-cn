@@ -10,11 +10,7 @@ Vitest 通过工作空间配置文件提供了对 monorepos 的内置支持。�
 
 一个工作区应该在其根目录下（如果你有配置文件，则与其位于同一文件夹中）有一个名为 `vitest.workspace` 或 `vitest.projects` 的文件。Vitest 支持 `ts`/`js`/`json` 扩展名的文件。
 
-<<<<<<< HEAD
 工作区配置文件应该有一个默认导出，其中包含一个文件列表或 glob 模式，引用你的项目。例如，如果你有一个名为 `packages` 的项目文件夹，你可以使用以下配置文件定义一个工作区：
-=======
-Workspace configuration file should have a default export with a list of files or glob patterns referencing your projects. For example, if you have a folder named `packages` that contains your projects, you can define a workspace with this config file:
->>>>>>> 9fdb743a1d771d6c150df40628f072869ddfe50d
 
 :::code-group
 
