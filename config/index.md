@@ -266,7 +266,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 如果未指定查询，此模块将具有等同于资产路径的默认导出。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmForks) pools.
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 :::
 
 #### deps.web.transformCss
@@ -279,7 +283,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmForks) pools.
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 :::
 
 #### deps.web.transformGlobPattern
@@ -292,7 +300,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmForks) pools.
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 :::
 
 #### deps.interopDefault
@@ -551,8 +563,13 @@ export default defineConfig({
 
 ### poolMatchGlobs <Badge type="info">0.29.4+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'typescript'][]`
 - **默认值:** `[]`
+=======
+- **Type:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
+- **Default:** `[]`
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -625,9 +642,15 @@ export default defineConfig({
 
 ### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `'threads' | 'forks' | 'vmThreads'`
 - **默认值:** `'threads'`
 - **命令行终端:** `--pool=threads`
+=======
+- **Type:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
+- **Default:** `'threads'`
+- **CLI:** `--pool=threads`
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 
 用于运行测试的线程池。
 
@@ -664,10 +687,19 @@ try {
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
 
+#### vmForks<NonProjectOption />
+
+Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`. 
+
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
 - **默认值:** `{}`
+=======
+- **Type:** `Record<'threads' | 'forks' | 'vmThreads' | 'vmForks', {}>`
+- **Default:** `{}`
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 
 #### poolOptions.threads
 
@@ -884,6 +916,57 @@ Pass additional arguments to `node` process in the VM context. See [Command-line
 
 :::warning
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
+:::
+
+
+#### poolOptions.vmForks<NonProjectOption />
+
+Options for `vmForks` pool.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      vmForks: {
+        // VM forks related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.vmForks.maxForks<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Maximum number of threads. You can also use `VITEST_MAX_FORKS` environment variable.
+
+##### poolOptions.vmForks.minForks<NonProjectOption />
+
+- **Type:** `number`
+- **Default:** _available CPUs_
+
+Minimum number of threads. You can also use `VITEST_MIN_FORKS` environment variable.
+
+##### poolOptions.vmForks.memoryLimit<NonProjectOption />
+
+- **Type:** `string | number`
+- **Default:** `1 / CPU Cores`
+
+Specifies the memory limit for workers before they are recycled. This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default. How the value is calculated is described in [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit)
+
+##### poolOptions.vmForks.execArgv<NonProjectOption />
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+Pass additional arguments to `node` process in the VM context. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
+
+:::warning
+Be careful when using, it as some options may crash worker, e.g. --prof, --title. See https://github.com/nodejs/node/issues/41103.
 :::
 
 ### fileParallelism <Badge type="info">1.1.0+</Badge>
@@ -1203,7 +1286,28 @@ To preview the coverage report in the output of [HTML reporter](/guide/reporters
   }
   ```
 
+<<<<<<< HEAD
 从 Vitest 0.31.0 开始，你可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI 测试覆盖率](/guide/coverage#vitest-ui) 了解更多详情。
+=======
+Since Vitest 1.2.0, you can also pass custom coverage reporters. See [Guide - Custom Coverage Reporter](/guide/coverage#custom-coverage-reporter) for more information.
+
+<!-- eslint-skip -->
+```ts
+  {
+    reporter: [
+      // Specify reporter using name of the NPM package
+      '@vitest/custom-coverage-reporter',
+      ['@vitest/custom-coverage-reporter', { someOption: true }],
+
+      // Specify reporter using local path
+      '/absolute/path/to/custom-reporter.cjs',
+      ['/absolute/path/to/custom-reporter.cjs', { someOption: true }],
+    ]
+  }
+```
+
+Since Vitest 0.31.0, you can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 
 #### coverage.reportOnFailure <Badge type="info">0.31.2+</Badge>
 
@@ -2095,11 +2199,19 @@ export default defineConfig({
 
 ### isolate <Badge type="info">1.1.0+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `--no-isolate`, `--isolate=false`
 
 在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
+=======
+- **Type:** `boolean`
+- **Default:** `true`
+- **CLI:** `--no-isolate`, `--isolate=false`
+
+Run tests in an isolated environment. This option has no effect on `vmThreads` and `vmForks` pools.
+>>>>>>> 29466f855e82a378e236ee298b62e8c85c275f53
 
 如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会[改进性能](/guide/improving-performance)。
 
