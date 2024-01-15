@@ -70,7 +70,60 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ## 自定义覆盖率提供者
+=======
+## Custom Coverage Reporter
+
+You can use custom coverage reporters by passing either the name of the package or absolute path in `test.coverage.reporter`:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      reporter: [
+        // Specify reporter using name of the NPM package
+        ['@vitest/custom-coverage-reporter', { someOption: true }],
+
+        // Specify reporter using local path
+        '/absolute/path/to/custom-reporter.cjs',
+      ],
+    },
+  },
+})
+```
+
+Custom reporters are loaded by Istanbul and must match its reporter interface. See [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) for reference.
+
+```js
+// custom-reporter.cjs
+const { ReportBase } = require('istanbul-lib-report')
+
+module.exports = class CustomReporter extends ReportBase {
+  constructor(opts) {
+    super()
+
+    // Options passed from configuration are available here
+    this.file = opts.file
+  }
+
+  onStart(root, context) {
+    this.contentWriter = context.writer.writeFile(this.file)
+    this.contentWriter.println('Start of custom coverage report')
+  }
+
+  onEnd() {
+    this.contentWriter.println('End of custom coverage report')
+    this.contentWriter.close()
+  }
+}
+```
+
+## Custom Coverage Provider
+>>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
 
 也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
