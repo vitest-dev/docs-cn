@@ -999,17 +999,10 @@ describe("toSatisfy()", () => {
     expect(1).toSatisfy(isOdd);
   });
 
-<<<<<<< HEAD
-  it("pass with negotiation", () => {
-    expect(2).not.toSatisfy(isOdd);
-  });
-});
-=======
   it('pass with negation', () => {
     expect(2).not.toSatisfy(isOdd)
   })
 })
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
 ```
 
 ## resolves
