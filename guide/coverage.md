@@ -70,7 +70,56 @@ export default defineConfig({
 })
 ```
 
-## 自定义覆盖率提供者
+## 自定义覆盖率的报告器
+
+我们可以通过在 `test.coverage.reporter` 中传递软件包名称或绝对路径来使用自定义覆盖报告器：
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      reporter: [
+        // Specify reporter using name of the NPM package
+        ['@vitest/custom-coverage-reporter', { someOption: true }],
+
+        // Specify reporter using local path
+        '/absolute/path/to/custom-reporter.cjs',
+      ],
+    },
+  },
+})
+```
+
+自定义报告器由 Istanbul 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
+
+```js
+// custom-reporter.cjs
+const { ReportBase } = require('istanbul-lib-report')
+
+module.exports = class CustomReporter extends ReportBase {
+  constructor(opts) {
+    super()
+
+    // Options passed from configuration are available here
+    this.file = opts.file
+  }
+
+  onStart(root, context) {
+    this.contentWriter = context.writer.writeFile(this.file)
+    this.contentWriter.println('Start of custom coverage report')
+  }
+
+  onEnd() {
+    this.contentWriter.println('End of custom coverage report')
+    this.contentWriter.close()
+  }
+}
+```
+
+## 自定义覆盖率的提供者
 
 也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 

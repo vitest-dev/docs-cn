@@ -266,7 +266,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 如果未指定查询，此模块将具有等同于资产路径的默认导出。
 
 ::: warning
-目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
+目前，此选项适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
 #### deps.web.transformCss
@@ -279,7 +279,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
-目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
 #### deps.web.transformGlobPattern
@@ -292,7 +292,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
-目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
 #### deps.interopDefault
@@ -551,7 +551,7 @@ export default defineConfig({
 
 ### poolMatchGlobs <Badge type="info">0.29.4+</Badge>
 
-- **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'typescript'][]`
+- **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
 - **默认值:** `[]`
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
@@ -625,7 +625,7 @@ export default defineConfig({
 
 ### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-- **类型:** `'threads' | 'forks' | 'vmThreads'`
+- **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
 - **默认值:** `'threads'`
 - **命令行终端:** `--pool=threads`
 
@@ -664,9 +664,13 @@ try {
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
 
+#### vmForks<NonProjectOption />
+
+与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不是 `worker_threads`。测试与主进程之间的通信速度不如 `vmThreads` 池快。与进程相关的 API（如 `process.chdir()` ）在 `vmForks` 池中可用。请注意，该池与 `vmThreads` 中列出的池具有相同的缺陷。
+
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-- **类型:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
+- **类型:** `Record<'threads' | 'forks' | 'vmThreads' | 'vmForks', {}>`
 - **默认值:** `{}`
 
 #### poolOptions.threads
@@ -878,12 +882,61 @@ export default defineConfig({
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-Pass additional arguments to `node` process in the VM context. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
-
 将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，详细信息可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 。
 
 :::warning
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
+:::
+
+
+#### poolOptions.vmForks<NonProjectOption />
+
+`vmForks` 池的选项
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    poolOptions: {
+      vmForks: {
+        // VM forks related options here
+      }
+    }
+  }
+})
+```
+
+##### poolOptions.vmForks.maxForks<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最大线程数。也可以使用 `VITEST_MAX_FORKS` 环境变量。
+
+##### poolOptions.vmForks.minForks<NonProjectOption />
+
+- **类型:** `number`
+- **默认值:** _available CPUs_
+
+最小线程数。也可以使用 `VITEST_MIN_FORKS` 环境变量。
+
+##### poolOptions.vmForks.memoryLimit<NonProjectOption />
+
+- **类型:** `string | number`
+- **默认值:** `1 / CPU Cores`
+
+指定 Worker 被回收前的内存限制。该值在很大程度上取决于环境，因此最好手动指定，而不是依赖默认值。该值的计算方法查看 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit)
+
+##### poolOptions.vmForks.execArgv<NonProjectOption />
+
+- **类型:** `string[]`
+- **默认值:** `[]`
+
+将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，查看 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 了解更多详情。。
+
+:::warning
+使用时要小心，因为某些选项（如 `--prof` 、`--title`）可能会导致 worker 崩溃。查看 https://github.com/nodejs/node/issues/41103 了解更多详情。
 :::
 
 ### fileParallelism <Badge type="info">1.1.0+</Badge>
@@ -1203,7 +1256,24 @@ To preview the coverage report in the output of [HTML reporter](/guide/reporters
   }
   ```
 
-从 Vitest 0.31.0 开始，你可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI 测试覆盖率](/guide/coverage#vitest-ui) 了解更多详情。
+从 Vitest 1.2.0 起，我们还可以传递自定义覆盖报告器。查看[自定义覆盖报告器](/guide/coverage#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A6%86%E7%9B%96%E7%8E%87%E6%8F%90%E4%BE%9B%E8%80%85)了解更多详情。
+
+<!-- eslint-skip -->
+```ts
+  {
+    reporter: [
+      // Specify reporter using name of the NPM package
+      '@vitest/custom-coverage-reporter',
+      ['@vitest/custom-coverage-reporter', { someOption: true }],
+
+      // Specify reporter using local path
+      '/absolute/path/to/custom-reporter.cjs',
+      ['/absolute/path/to/custom-reporter.cjs', { someOption: true }],
+    ]
+  }
+```
+
+从 Vitest 0.31.0 起，我们可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI Coverage](/guide/coverage#vitest-ui) 了解更多详情。
 
 #### coverage.reportOnFailure <Badge type="info">0.31.2+</Badge>
 
@@ -2099,7 +2169,7 @@ export default defineConfig({
 - **默认值:** `true`
 - **命令行终端:** `--no-isolate`, `--isolate=false`
 
-在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
+在隔离的环境中运行测试。此选项对 `vmThreads` 和 `vmForks` 池没有影响。
 
 如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会[改进性能](/guide/improving-performance)。
 
