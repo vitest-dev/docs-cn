@@ -70,12 +70,9 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-## 自定义覆盖率提供者
-=======
-## Custom Coverage Reporter
+## 自定义覆盖率的报告器
 
-You can use custom coverage reporters by passing either the name of the package or absolute path in `test.coverage.reporter`:
+我们可以通过在 `test.coverage.reporter` 中传递软件包名称或绝对路径来使用自定义覆盖报告器：
 
 ```ts
 // vitest.config.ts
@@ -96,7 +93,7 @@ export default defineConfig({
 })
 ```
 
-Custom reporters are loaded by Istanbul and must match its reporter interface. See [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) for reference.
+自定义报告器由 Istanbul 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
 
 ```js
 // custom-reporter.cjs
@@ -122,8 +119,7 @@ module.exports = class CustomReporter extends ReportBase {
 }
 ```
 
-## Custom Coverage Provider
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+## 自定义覆盖率的提供者
 
 也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
