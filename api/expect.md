@@ -1394,9 +1394,9 @@ declare module "vitest" {
 
 ## expect.addEqualityTesters <Badge type="info">1.2.0+</Badge>
 
-- **Type:** `(tester: Array<Tester>) => void`
+- **类型:** `(tester: Array<Tester>) => void`
 
-You can use this method to define custom testers, which are methods used by matchers, to test if two objects are equal. It is compatible with Jest's `expect.addEqualityTesters`.
+你可以使用此方法定义自定义测试器（匹配器使用的方法），以测试两个对象是否相等。它与 Jest 的 `expect.addEqualityTesters` 兼容。
 
 ```ts
 import { expect, test } from 'vitest'
