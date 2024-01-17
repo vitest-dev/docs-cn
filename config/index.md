@@ -1275,8 +1275,7 @@ To preview the coverage report in the output of [HTML reporter](/guide/reporters
   }
 ```
 
-Since Vitest 0.31.0, you can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+从 Vitest 0.31.0 起，我们可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI Coverage](/guide/coverage#vitest-ui) 了解更多详情。
 
 #### coverage.reportOnFailure <Badge type="info">0.31.2+</Badge>
 
