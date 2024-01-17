@@ -666,7 +666,7 @@ try {
 
 #### vmForks<NonProjectOption />
 
-Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`. 
+与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不是 `worker_threads`。测试与主进程之间的通信速度不如 `vmThreads` 池快。与进程相关的 API（如 `process.chdir()` ）在 `vmForks` 池中可用。请注意，该池与 `vmThreads` 中列出的池具有相同的缺陷。
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
@@ -882,8 +882,6 @@ export default defineConfig({
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-Pass additional arguments to `node` process in the VM context. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
-
 将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，详细信息可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 。
 
 :::warning
@@ -911,34 +909,34 @@ export default defineConfig({
 
 ##### poolOptions.vmForks.maxForks<NonProjectOption />
 
-- **Type:** `number`
-- **Default:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _available CPUs_
 
-Maximum number of threads. You can also use `VITEST_MAX_FORKS` environment variable.
+最大线程数。也可以使用 `VITEST_MAX_FORKS` 环境变量。
 
 ##### poolOptions.vmForks.minForks<NonProjectOption />
 
-- **Type:** `number`
-- **Default:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _available CPUs_
 
-Minimum number of threads. You can also use `VITEST_MIN_FORKS` environment variable.
+最小线程数。也可以使用 `VITEST_MIN_FORKS` 环境变量。
 
 ##### poolOptions.vmForks.memoryLimit<NonProjectOption />
 
-- **Type:** `string | number`
-- **Default:** `1 / CPU Cores`
+- **类型:** `string | number`
+- **默认值:** `1 / CPU Cores`
 
-Specifies the memory limit for workers before they are recycled. This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default. How the value is calculated is described in [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit)
+指定 Worker 被回收前的内存限制。该值在很大程度上取决于环境，因此最好手动指定，而不是依赖默认值。该值的计算方法查看 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit)
 
 ##### poolOptions.vmForks.execArgv<NonProjectOption />
 
-- **Type:** `string[]`
-- **Default:** `[]`
+- **类型:** `string[]`
+- **默认值:** `[]`
 
-Pass additional arguments to `node` process in the VM context. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
+将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，查看 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 了解更多详情。。
 
 :::warning
-Be careful when using, it as some options may crash worker, e.g. --prof, --title. See https://github.com/nodejs/node/issues/41103.
+使用时要小心，因为某些选项（如 `--prof` 、`--title`）可能会导致 worker 崩溃。查看 https://github.com/nodejs/node/issues/41103 了解更多详情。
 :::
 
 ### fileParallelism <Badge type="info">1.1.0+</Badge>
