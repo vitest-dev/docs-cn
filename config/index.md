@@ -891,7 +891,7 @@ export default defineConfig({
 
 #### poolOptions.vmForks<NonProjectOption />
 
-Options for `vmForks` pool.
+`vmForks` 池的选项
 
 ```ts
 import { defineConfig } from 'vitest/config'
