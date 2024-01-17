@@ -266,11 +266,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 如果未指定查询，此模块将具有等同于资产路径的默认导出。
 
 ::: warning
-<<<<<<< HEAD
-目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
-=======
-At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmForks) pools.
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+目前，此选项适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
 #### deps.web.transformCss
@@ -283,11 +279,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
-<<<<<<< HEAD
-目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
-=======
-At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmForks) pools.
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
 #### deps.web.transformGlobPattern
@@ -300,11 +292,7 @@ At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmFor
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
 
 ::: warning
-<<<<<<< HEAD
-目前，此选项仅适用于 [`vmThreads`](#vmthreads) 池。
-=======
-At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmForks) pools.
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
 #### deps.interopDefault
@@ -563,13 +551,8 @@ export default defineConfig({
 
 ### poolMatchGlobs <Badge type="info">0.29.4+</Badge>
 
-<<<<<<< HEAD
-- **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'typescript'][]`
+- **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
 - **默认值:** `[]`
-=======
-- **Type:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
-- **Default:** `[]`
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
 
 基于 globs 模式来匹配运行池中的测试并运行，将使用第一个匹配项。
 
@@ -642,15 +625,9 @@ export default defineConfig({
 
 ### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
-- **类型:** `'threads' | 'forks' | 'vmThreads'`
+- **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
 - **默认值:** `'threads'`
 - **命令行终端:** `--pool=threads`
-=======
-- **Type:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
-- **Default:** `'threads'`
-- **CLI:** `--pool=threads`
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
 
 用于运行测试的线程池。
 
@@ -693,13 +670,8 @@ Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads`
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
-<<<<<<< HEAD
-- **类型:** `Record<'threads' | 'forks' | 'vmThreads', {}>`
+- **类型:** `Record<'threads' | 'forks' | 'vmThreads' | 'vmForks', {}>`
 - **默认值:** `{}`
-=======
-- **Type:** `Record<'threads' | 'forks' | 'vmThreads' | 'vmForks', {}>`
-- **Default:** `{}`
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
 
 #### poolOptions.threads
 
@@ -1286,10 +1258,7 @@ To preview the coverage report in the output of [HTML reporter](/guide/reporters
   }
   ```
 
-<<<<<<< HEAD
-从 Vitest 0.31.0 开始，你可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI 测试覆盖率](/guide/coverage#vitest-ui) 了解更多详情。
-=======
-Since Vitest 1.2.0, you can also pass custom coverage reporters. See [Guide - Custom Coverage Reporter](/guide/coverage#custom-coverage-reporter) for more information.
+从 Vitest 1.2.0 起，我们还可以传递自定义覆盖报告器。查看[自定义覆盖报告器](/guide/coverage#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A6%86%E7%9B%96%E7%8E%87%E6%8F%90%E4%BE%9B%E8%80%85)了解更多详情。
 
 <!-- eslint-skip -->
 ```ts
@@ -2199,19 +2168,11 @@ export default defineConfig({
 
 ### isolate <Badge type="info">1.1.0+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `--no-isolate`, `--isolate=false`
 
-在隔离的环境中运行测试。此选项对 `vmThreads` 池没有影响。
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-isolate`, `--isolate=false`
-
-Run tests in an isolated environment. This option has no effect on `vmThreads` and `vmForks` pools.
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+在隔离的环境中运行测试。此选项对 `vmThreads` 和 `vmForks` 池没有影响。
 
 如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会[改进性能](/guide/improving-performance)。
 
