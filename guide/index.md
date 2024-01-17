@@ -67,15 +67,11 @@ test('adds 1 + 2 to equal 3', () => {
 })
 ```
 
-<<<<<<< HEAD
-接下来，为了执行测试，请将以下部分添加到你的 `package.json` 文件中：
-=======
 ::: tip
-By default, tests must contain ".test." or ".spec." in their file name.
+一般情况下，执行测试的文件名中必须包含 ".test." 或 ".spec." 。
 :::
 
-Next, in order to execute the test, add the following section to your `package.json`:
->>>>>>> 273750bdacfadcde8027641cb1018067003f7dcd
+接下来，为了执行测试，请将以下部分添加到你的 `package.json` 文件中：
 
 ```json
 {
