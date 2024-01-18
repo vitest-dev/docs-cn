@@ -32,7 +32,7 @@ $ vitest
 
 ## 多线程
 
-默认的情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool) 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 在多个线程中运行测试[Piscina](https://github.com/piscinajs/piscina) 的轻量级分支，允许测试同时运行。 如果我们的测试运行的代码与多线程不兼容，我们可以切换到 [`--pool=forks`](/config/#pool-1-0-0)，它会通过 Tinypool [`在多个进程中运行测试节点：child_process`](https://nodejs.org/api/child_process.html) 。
+默认的情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool) 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 在多个线程中运行 [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支，允许测试同时运行。 如果我们的测试运行的代码与多线程不兼容，我们可以切换到 [`--pool=forks`](/config/#pool-1-0-0)，它会通过 Tinypool [`在多个进程中运行测试节点：child_process`](https://nodejs.org/api/child_process.html) 。
 
 要在单个线程或进程中运行测试，查看 [`poolOptions`](/config/#pooloptions-1-0-0) 了解更多消息。
 
