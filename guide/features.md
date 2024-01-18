@@ -32,7 +32,9 @@ $ vitest
 
 ## 多线程
 
-通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 Worker 线程尽可能多地并发运行（ [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支），允许多个测试同时运行。Vitest 默认启动多线程，可以通过 CLI 中的 `--no-threads` 禁用。
+默认的情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool) 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 在多个线程中运行 [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支，允许测试同时运行。 如果我们的测试运行的代码与多线程不兼容，我们可以切换到 [`--pool=forks`](/config/#pool-1-0-0)，它会通过 Tinypool [`在多个进程中运行测试节点：child_process`](https://nodejs.org/api/child_process.html) 。
+
+要在单个线程或进程中运行测试，查看 [`poolOptions`](/config/#pooloptions-1-0-0) 了解更多消息。
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
