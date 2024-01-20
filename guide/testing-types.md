@@ -4,7 +4,17 @@ title: 类型测试 | 指南
 
 # 类型测试
 
+<<<<<<< HEAD
 Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编写测试。默认情况下，`*.test-d.ts` 文件中的所有测试都被视为类型测试，但你可以使用 [`typecheck.include`](/config/#typecheck-include) 配置选项更改它。
+=======
+::: tip Sample Project
+
+[GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/typecheck) - [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/typecheck?initialPath=__vitest__/)
+
+:::
+
+Vitest allows you to write tests for your types, using `expectTypeOf` or `assertType` syntaxes. By default all tests inside `*.test-d.ts` files are considered type tests, but you can change it with [`typecheck.include`](/config/#typecheck-include) config option.
+>>>>>>> f8a685616de1b10e4889634bf4d6c1a84ccc6a5a
 
 在这里，Vitest 调用 `tsc` 或 `vue-tsc`，具体取决于你的配置，并解析结果。如果发现任何类型错误，Vitest 还会在你的源代码中打印出类型错误。你可以使用 [`typecheck.ignoreSourceErrors`](/config/#typecheck-ignoresourceerrors) 配置选项禁用它。
 
