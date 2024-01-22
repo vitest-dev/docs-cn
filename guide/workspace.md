@@ -4,6 +4,12 @@ title: 工作空间 | 指南
 
 # 工作空间
 
+::: tip Sample Project
+
+[GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/workspace) - [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/workspace?initialPath=__vitest__/)
+
+:::
+
 Vitest 通过工作空间配置文件提供了对 monorepos 的内置支持。你可以创建一个工作空间来定义项目的配置。
 
 ## 定义工作空间
