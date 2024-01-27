@@ -57,3 +57,30 @@ sideEffect()
 
 vi.resetModules()
 ```
+
+## Failed to terminate worker
+
+当 NodeJS 的 fetch 与默认的 [`pool: 'threads'`](/config/#pool-1-0-0) 一起使用时，可能会发生此错误。 问题可以在  [issue#3077](https://github.com/vitest-dev/vitest/issues/3077) 上进行持续更新。
+
+作为解决方法，我们可以切换到 [`pool: 'forks'`](/config/#forks) 或 [`pool: 'vmForks'`](/config/#vmforks)。
+
+在配置文件中指定 `pool` ：
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    pool: 'forks',
+  },
+})
+```
+
+或者可以在我们的 `package.json` 中增加 script ：
+
+```diff
+scripts: {
+-  "test": "vitest"
++  "test": "vitest --pool=forks"
+}
+```

@@ -23,7 +23,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.35.3",
     "@antfu/ni": "^0.18.8",
-    "@iconify-json/carbon": "^1.1.27",
+    "@iconify-json/carbon": "^1.1.28",
     "@iconify-json/logos": "^1.1.42",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.11.18",
