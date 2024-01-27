@@ -60,11 +60,11 @@ vi.resetModules()
 
 ## Failed to terminate worker
 
-This error can happen when NodeJS's `fetch` is used with default [`pool: 'threads'`](/config/#pool-1-0-0). This issue is tracked on issue [Timeout abort can leave process(es) running in the background #3077](https://github.com/vitest-dev/vitest/issues/3077).
+当 NodeJS 的 fetch 与默认的 [`pool: 'threads'`](/config/#pool-1-0-0) 一起使用时，可能会发生此错误。 问题可以在  [issue#3077](https://github.com/vitest-dev/vitest/issues/3077) 上进行持续更新。
 
-As work-around you can switch to [`pool: 'forks'`](/config/#forks) or [`pool: 'vmForks'`](/config/#vmforks).
+作为解决方法，我们可以切换到 [`pool: 'forks'`](/config/#forks) 或 [`pool: 'vmForks'`](/config/#vmforks)。
 
-Specify `pool` in your configuration file:
+在配置文件中指定 `pool` ：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -76,7 +76,7 @@ export default defineConfig({
 })
 ```
 
-Or in your `package.json` scripts:
+或者可以在我们的 `package.json` 中增加 script ：
 
 ```diff
 scripts: {
