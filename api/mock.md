@@ -283,9 +283,8 @@ fn.mock.calls
 
 ## mock.results
 
-This is an array containing all values that were `returned` from the function. One item of the array is an object with properties `type` and `value`. Available types are:
 
-这是一个数组，包含函数 `returned` 的所有值。数组中的一项是一个具有 `type` 和 `value` 属性的对象。可用的类型有
+这是一个数组，包含函数 `returned` 的所有值。数组中的一项是一个具有 `type` 和 `value` 属性的对象。可用的类型有:
 
 - `'return'` - 函数返回时没有抛出。
 - `'throw'` - 函数抛出了一个值。

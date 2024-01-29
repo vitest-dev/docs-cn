@@ -62,7 +62,7 @@ vitest.state.getFiles()[0].meta.done === true
 vitest.state.getFiles()[0].tasks[0].meta.custom === 'some-custom-handler'
 ```
 
-It's also possible to extend type definitions when using TypeScript:
+使用 TypeScript 时，还可以扩展类型定义：
 
 ```ts
 declare module 'vitest' {

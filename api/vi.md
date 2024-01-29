@@ -43,7 +43,7 @@ vi.mock("./path/to/module.js", async (importOriginal) => {
   const mod = await importOriginal();
   return {
     ...mod,
-    // 取代部分出口
+    // 替换一些导出
     namedExport: vi.fn(),
   };
 });
@@ -56,7 +56,7 @@ vi.mock("./path/to/module.js", async (importOriginal) => {
   const mod = await importOriginal<typeof import("./path/to/module.js")>();
   return {
     ...mod,
-    // 取代部分出口
+    // 替换一些导出
     namedExport: vi.fn(),
   };
 });

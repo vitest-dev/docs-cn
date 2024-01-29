@@ -10,7 +10,7 @@ outline: deep
 ## 一套配置可以运用在多种环境
 
 <div h-2 />
-<CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">Learn how to write your first test by Video</CourseLink>
+<CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">通过视频了解如何编写您的第一个测试</CourseLink>
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用程序中的相同配置来运行测试。
 
@@ -22,7 +22,7 @@ outline: deep
 $ vitest
 ```
 
-当你修改源代码或测试文件时，Vitest 智能搜索模块依赖树并只重新运行相关测试，[just like how HMR works in Vite!](https://twitter.com/antfu7/status/1468233216939245579)
+当你修改源代码或测试文件时，Vitest 智能搜索模块依赖树并只重新运行相关测试，[就像 HMR 在 Vite 中的工作方式一样!](https://twitter.com/antfu7/status/1468233216939245579)
 
 `vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 

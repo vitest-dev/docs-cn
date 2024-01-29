@@ -16,7 +16,7 @@ Vitest 是由 Vite 驱动的下一代测试框架。
 
 ## 将 Vitest 安装到项目
 
-<CourseLink href="https://vueschool.io/lessons/how-to-install-vitest?friend=vueuse">Learn how to install by Video</CourseLink>
+<CourseLink href="https://vueschool.io/lessons/how-to-install-vitest?friend=vueuse">通过视频了解如何安装</CourseLink>
 
 ::: code-group
 
