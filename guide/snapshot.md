@@ -6,7 +6,7 @@ title: 测试快照 | 指南
 
 当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
 
-<CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">Learn Snapshot by video from Vue School</CourseLink>
+<CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
 
 使用快照时，Vitest 将获取给定值的快照，将其比较时将参考存储在测试旁边的快照文件。如果两个快照不匹配，则测试将失败：要么更改是意外的，要么参考快照需要更新到测试结果的新版本。
 
@@ -81,7 +81,7 @@ vitest -u
 
 ## 文件快照
 
-调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 ` \``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
+调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `\``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
 
 为了改善这种情况，我们引入 [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) 以在文件中显式快照。这允许你为快照文件分配任何文件扩展名，并使它们更具可读性。
 
