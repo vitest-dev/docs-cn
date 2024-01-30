@@ -10,7 +10,7 @@ title: 与其他测试框架对比 | 指南
 
 可以在 Vite 设置中使用 Jest。[@sodatea](https://twitter.com/haoqunjiang) 开发了 [vite-jest](https://github.com/sodatea/vite-jest#readme) ，旨在为 [Jest](https://jestjs.io/) 提供一流的 Vite 集成。[Jest 中最后的阻碍](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest)已经解决，因此这是你单元测试的有效选项。
 
-然而，在 [Vite](https://vitejs.dev) 为最常见的 Web 工具（TypeScript、JSX、最流行的 UI 框架）提供支持的世界中，引入 Jest 代表了复杂性的重复。如果你的应用程序由 Vite 驱动，那么需要配置和维护两个不同的管道是不合理的。使用 Vitest，您可以将开发、构建和测试环境的配置定义为一个管道，共享相同的插件和 `vite.config.js` 文件。
+然而，在 [Vite](https://vitejs.dev) 为最常见的 Web 工具（TypeScript、JSX、最流行的 UI 框架）提供支持的世界中，引入 Jest 代表了复杂性的重复。如果你的应用程序由 Vite 驱动，那么需要配置和维护两个不同的管道是不合理的。使用 Vitest，你可以将开发、构建和测试环境的配置定义为一个管道，共享相同的插件和 `vite.config.js` 文件。
 
 即使你的库没有使用 Vite（例如，如果它是使用 esbuild 或 rollup 构建的），Vitest 也是一个有趣的选择，因为它可以让你更快地运行单元测试，并通过默认使用 Vite 的即时热模块重载（HMR）观察模式来提高 DX。 Vitest 提供了与大多数 Jest API 和生态系统库兼容性，因此在大多数项目中，它应该可以作为 Jest 的替代品直接使用。
 
@@ -22,7 +22,7 @@ Cypress 是著名的端到端测试工具，他们[最新的组件测试运行�
 
 基于浏览器运行测试的框架，例如 Cypress, WebdriverIO 和 Web Test Runner，会捕获到 Vitest 无法捕获的问题，因为他们都是使用真实的浏览器和 APIs。
 
-Cypress 的测试更加专注于确定元素是否可见，是否可以访问和交互。Cypress 专门为 UI 开发和测试而构建，它的开发体验趋向于测试你的视觉组件，你会看到程序的组件和测试报告一起出现。测试完成后，组件将保持交互状态，您可以使用浏览器开发工具调试发生的任何故障。
+Cypress 的测试更加专注于确定元素是否可见，是否可以访问和交互。Cypress 专门为 UI 开发和测试而构建，它的开发体验趋向于测试你的视觉组件，你会看到程序的组件和测试报告一起出现。测试完成后，组件将保持交互状态，你可以使用浏览器开发工具调试发生的任何故障。
 
 相比之下，Vitest 专注于为非浏览器逻辑提供最佳的开发体验。像 Vitest 这样的基于 Node.js 的测试框架支持各种实现部分浏览器环境的第三方包，例如 `jsdom` ，他们实现的足够多，就可以让我们快速的对于任何引用浏览器 APIs 的代码进行单元测试。其代价是，这些浏览器环境在实现上有局限性。例如，[jsdom 缺少相当数量的特性](https://github.com/jsdom/jsdom/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc)，诸如 `window.navigation` 或者布局引擎（ `offsetTop` 等）。
 
@@ -44,4 +44,4 @@ WebdriverIO 具有与 Cypress 相同的优点，允许你在真实浏览器中�
 
 ## uvu
 
-[uvu](https://github.com/lukeed/uvu) 是一个适用于 Node.js 和浏览器的测试运行器。它在单个线程中运行测试，因此测试不是隔离的，可能会跨文件泄漏。然而，Vitest 使用工作线程来隔离测试并并行运行它们。对于转换你的代码，uvu 依赖 require 和 loader 钩子。Vitest 使用 [Vite](https://vitejs.dev)，因此文件使用 Vite 的插件系统进行转换。在我们拥有 Vite 提供支持最常见 Web 工具（ TypeScript 、JSX 、最流行的 UI 框架）的世界中，uvu 代表了复杂性重复。如果你的应用程序由 Vite 提供支持，则配置和维护两个不同管道是不可接受的。使用 Vitest，您可以将开发、构建和测试环境的配置定义为一个单一的流程，并共享相同的插件和 `vite.config.js`。 uvu 不提供智能监视模式以重新运行更改后的测试, 而 Vitest 则通过默认监视模式使用 Vite 实时热更新 (HMR) 功能带给你惊人开发体验。 uvu 是运行简单测试快速选项, 但对于更复杂的测试和项目, Vitest 可能更快、更可靠。
+[uvu](https://github.com/lukeed/uvu) 是一个适用于 Node.js 和浏览器的测试运行器。它在单个线程中运行测试，因此测试不是隔离的，可能会跨文件泄漏。然而，Vitest 使用工作线程来隔离测试并并行运行它们。对于转换你的代码，uvu 依赖 require 和 loader 钩子。Vitest 使用 [Vite](https://vitejs.dev)，因此文件使用 Vite 的插件系统进行转换。在我们拥有 Vite 提供支持最常见 Web 工具（ TypeScript 、JSX 、最流行的 UI 框架）的世界中，uvu 代表了复杂性重复。如果你的应用程序由 Vite 提供支持，则配置和维护两个不同管道是不可接受的。使用 Vitest，你可以将开发、构建和测试环境的配置定义为一个单一的流程，并共享相同的插件和 `vite.config.js`。 uvu 不提供智能监视模式以重新运行更改后的测试, 而 Vitest 则通过默认监视模式使用 Vite 实时热更新 (HMR) 功能带给你惊人开发体验。 uvu 是运行简单测试快速选项, 但对于更复杂的测试和项目, Vitest 可能更快、更可靠。

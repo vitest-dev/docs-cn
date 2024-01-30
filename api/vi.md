@@ -4,7 +4,7 @@ outline: deep
 
 # Vi
 
-Vitest 通过其 `vi` 辅助工具提供实用功能来帮助您。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
+Vitest 通过其 `vi` 辅助工具提供实用功能来帮助你。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
 
 ```js
 import { vi } from "vitest";

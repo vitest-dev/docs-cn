@@ -80,7 +80,7 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@AriPerkkio',
     twitter: 'ari_perkkio',
     sponsor: 'https://github.com/sponsors/AriPerkkio',
-    title: '全栈开发人员, 工作于',
+    title: '全栈开发者, 工作于',
     desc: 'Vitest 核心团队成员',
     org: 'Cloudamite',
     orgLink: 'https://cloudamite.com/',
@@ -129,7 +129,7 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'Demivan',
     mastodon: 'https://elk.zone/fosstodon.org/@demivan',
     twitter: 'IvanDemchuk',
-    title: '技术负责人，全栈开发人员',
+    title: '技术负责人，全栈开发者',
     desc: 'fluent-vue 的作者',
   },
   {
@@ -138,7 +138,7 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'zxch3n',
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
-    title: '全栈开发人员',
+    title: '全栈开发者',
     desc: '开发 CRDT 和本地优先软件',
   },
   {

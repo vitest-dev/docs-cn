@@ -24,7 +24,7 @@ expect(input).toBe(2); // jest API
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
-如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果您想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
+如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
 :::
 
 ## soft
@@ -709,7 +709,7 @@ test("matches inline snapshot", () => {
 });
 ```
 
-我们还可以提供一个对象的形状，如果您只是测试对象的形状，而不需要它完全兼容：
+我们还可以提供一个对象的形状，如果你只是测试对象的形状，而不需要它完全兼容：
 
 ```ts
 import { expect, test } from "vitest";
@@ -742,7 +742,7 @@ it("render basic", async () => {
 });
 ```
 
-请注意，由于文件系统操作是异步的，您需要在 `toMatchFileSnapshot()` 中使用 `await`。
+请注意，由于文件系统操作是异步的，你需要在 `toMatchFileSnapshot()` 中使用 `await`。
 
 ## toThrowErrorMatchingSnapshot
 

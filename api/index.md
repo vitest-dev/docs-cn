@@ -389,7 +389,7 @@ test.each`
 });
 ```
 
-如果您想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
+如果你想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
 
 ::: tip
 Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
@@ -948,7 +948,7 @@ beforeAll(async () => {
 注册一个回调函数，以便在当前上下文中所有测试运行完毕后调用一次。
 如果函数返回一个 Promise ，Vitest 会等待承诺解析后再继续。
 
-您还可以选择提供超时（毫秒），以指定终止前的等待时间。默认值为 5 秒。
+你还可以选择提供超时（毫秒），以指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
 import { afterAll } from "vitest";

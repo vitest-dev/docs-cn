@@ -323,11 +323,11 @@ TypeError: default is not a function
 - **类型:** `string[]`
 - **默认值**: `['node_modules']`
 
-配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且您正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/#root) 中查找 `__mocks__` 文件夹来解析 mock。
+配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且你正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/#root) 中查找 `__mocks__` 文件夹来解析 mock。
 
 此选项还将影响在外部化依赖项时是否应将文件视为模块。默认情况下，Vitest 绕过 Vite 转换步骤导入带有原生 Node.js 的外部模块。
 
-设置此选项将 _覆盖_ 默认值，如果你仍希望搜索 `node_modules` 包包括它连同任何其它选项：
+设置此选项将 _覆盖_ 默认值，如果你仍希望搜索 `node_modules` 包包括它连同任何其他选项：
 
 ```ts
 import { defineConfig } from "vitest/config";
@@ -389,7 +389,7 @@ export default defineConfig({
 - **类型:** `string | Record<string, string>`
 
 当指定了 `--reporter=json` 选项时，可以将基准测试结果写入文件。
-通过提供对象而不是字符串，您可以在使用多个报告器时定义单独的输出。
+通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
 通过 CLI 命令提供对象，请使用以下语法: `--outputFile.json=./path --outputFile.junit=./other-path`.
 
@@ -715,7 +715,7 @@ export default defineConfig({
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
-如果您依赖全局状态（前端框架通常这样做）或者您的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
 :::
 
 ##### poolOptions.threads.useAtomics<NonProjectOption />
@@ -794,7 +794,7 @@ export default defineConfig({
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
-如果你依赖全局状态（前端框架通常这样做）或者您的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
 :::
 
 ##### poolOptions.forks.execArgv<NonProjectOption />
@@ -1626,7 +1626,7 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
-在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换您的源文件。
+在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换你的源文件。
 
 此选项对在 Node.js 中运行的测试没有影响。
 

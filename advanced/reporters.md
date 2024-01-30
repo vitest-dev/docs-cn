@@ -1,6 +1,6 @@
 # 扩展默认报告器 (Extending Reporters)
 
-你可以从 `vitest/reporters` 导入报告器并扩展它们以创建您的自定义报告器。
+你可以从 `vitest/reporters` 导入报告器并扩展它们以创建你的自定义报告器。
 
 ## 扩展内置报告器 (Extending Built-in Reporters)
 

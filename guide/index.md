@@ -105,7 +105,7 @@ Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vit
 
 Vitest 支持与 Vite 相同的配置文件扩展名：`.js`、`.mjs`、`.cjs`、`.ts`、`.cts`、`.mts`。 Vitest 不支持 `.json` 扩展名。
 
-如果您不使用 Vite 作为构建工具，您可以使用配置文件中的 `test` 属性来配置 Vitest：
+如果你不使用 Vite 作为构建工具，你可以使用配置文件中的 `test` 属性来配置 Vitest：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -137,7 +137,7 @@ export default defineConfig({
 可以参阅 [配置索引](../config/) 中的配置选项列表
 
 ::: warning
-如果你决定为 Vite 和 Vitest 使用两个单独的配置文件，请确保在 Vitest 配置文件中定义相同的 Vite 选项，因为它将覆盖您的 Vite 文件，而不是扩展它。你还可以使用 `vite` 或`vitest/config` 条目中的 `mergeConfig` 方法将 Vite 配置与 Vitest 配置合并：
+如果你决定为 Vite 和 Vitest 使用两个单独的配置文件，请确保在 Vitest 配置文件中定义相同的 Vite 选项，因为它将覆盖你的 Vite 文件，而不是扩展它。你还可以使用 `vite` 或`vitest/config` 条目中的 `mergeConfig` 方法将 Vite 配置与 Vitest 配置合并：
 
 :::code-group
 
