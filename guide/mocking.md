@@ -418,7 +418,7 @@ afterEach(() => server.resetHandlers())
 
 ### 了解更多
 
-MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看您可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs).
+MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看你可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs).
 
 ## 计时器
 

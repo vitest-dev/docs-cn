@@ -73,7 +73,7 @@ function createRpc(project: WorkspaceProject, wss: WebSocketServer) {
 }
 ```
 
-为了确保收集每个测试，您可以调用 `ctx.state.collectFiles` 并将其交给 Vitest 报告器：
+为了确保收集每个测试，你可以调用 `ctx.state.collectFiles` 并将其交给 Vitest 报告器：
 
 ```ts
 async function runTests(project: WorkspaceProject, tests: string[]) {
