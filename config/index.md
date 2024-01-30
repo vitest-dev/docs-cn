@@ -261,9 +261,9 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 - **类型:** `boolean`
 - **默认值:** `true`
 
-Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.jpg 等）文件并解析它们。
+Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.png、.svg、.jpg 等）文件并解析它们。
 
-如果未指定查询，此模块将具有等同于资产路径的默认导出。
+如果未指定查询，此模块将具有等同于静态资源路径的默认导出。
 
 ::: warning
 目前，此选项适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
@@ -274,7 +274,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.png、.svg、.j
 - **类型:** `boolean`
 - **默认值:** `true`
 
-Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sass 等）文件并解析它们。
+Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.css, .scss, .sass 等）文件并解析它们。
 
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
@@ -289,7 +289,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理资产（.css, .scss, .sa
 
 正则表达式模式匹配应转换的外部文件。
 
-默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或资产，并且相应的选项不会被禁用。
+默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或静态资源，并且相应的选项不会被禁用。
 
 ::: warning
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
@@ -1229,7 +1229,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 配置测试覆盖率报告写入的目录。
 
-To preview the coverage report in the output of [HTML reporter](/guide/reporters.html#html-reporter), this option must be set as a sub-directory of the html report directory (for example `./html/coverage`).
+要预览覆盖范围报告，请使用 [HTML reporter](/guide/reporters.html#html-reporter), 该选项必须设置为 html 报告目录的子目录 (比如 `./html/coverage`).
 
 #### coverage.reporter
 
