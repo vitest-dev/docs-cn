@@ -84,6 +84,6 @@ vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
 vitest --inspect-brk --no-file-parallelism
 ```
 
-一旦 Vitest 启动，它将停止执行并等待你打开可以连接到 [NodeJS 检查器](https://nodejs.org/en/docs/guides/debugging-getting-started/) 的开发人员工具。 你可以通过在浏览器上打开 `chrome://inspect` 来使用 Chrome DevTools。
+一旦 Vitest 启动，它将停止执行并等待你打开可以连接到 [NodeJS 检查器](https://nodejs.org/en/docs/guides/debugging-getting-started/) 的开发者工具。 你可以通过在浏览器上打开 `chrome://inspect` 来使用 Chrome DevTools。
 
 在监视模式下，你可以使用 `--poolOptions.threads.isolate false` 选项在测试重新运行期间保持调试器打开。
