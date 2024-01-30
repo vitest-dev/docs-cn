@@ -5,7 +5,7 @@
     flex="~ col gap2 md:gap-3"
   >
     <ListItem>与 <a target="_blank" href="https://vitejs.dev" rel="noopener noreferrer">Vite</a> 通用的配置、转换器、解析器和插件。</ListItem>
-    <ListItem>使用与你的应用程序相同的设置来运行测试！</ListItem>
+    <ListItem>使用与你的应用相同的设置来运行测试！</ListItem>
     <ListItem><a target="_blank" href="https://twitter.com/antfu7/status/1468233216939245579" rel="noopener noreferrer">智能文件监听模式，就像是测试的 HMR！</a></ListItem>
     <ListItem>支持对 Vue、React、Svelte、Lit等框架进行组件测试。</ListItem>
     <ListItem>开箱即用的 TypeScript / JSX 支持</ListItem>

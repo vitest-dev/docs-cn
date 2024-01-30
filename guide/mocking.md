@@ -259,7 +259,7 @@ export function foobar(injectedFoo) {
 }
 ```
 
-这就是预期行为。当以这种方式包含 mock 时，这通常是不良代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用程序体系结构。
+这就是预期行为。当以这种方式包含 mock 时，这通常是不良代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用体系结构。
 
 ### 示例
 
@@ -361,7 +361,7 @@ describe('get a list of todo items', () => {
 
 因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `REST` 和 `GraphQL` 网络请求，并且与框架无关。
 
-Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用程序代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [introduction](https://mswjs.io/docs/) 。
+Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [introduction](https://mswjs.io/docs/) 。
 
 ### 配置
 
