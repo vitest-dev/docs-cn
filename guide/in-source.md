@@ -71,7 +71,7 @@ export default defineConfig({
 })
 ```
 
-### 其它的打包器
+### 其他的打包器
 
 <details mt4>
 <summary text-xl>unbuild</summary>
