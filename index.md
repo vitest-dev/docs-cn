@@ -29,7 +29,7 @@ hero:
 features:
   - title: 基于 Vite 驱动
     icon: <span class="i-logos:vitejs"></span>
-    details: 可以重用 Vite 的配置和插件，使得应用程序和测试保持一致。但是使用 Vitest 并不需要使用 Vite！
+    details: 可以重用 Vite 的配置和插件，使得应用和测试保持一致。但是使用 Vitest 并不需要使用 Vite！
   - title: 与 Jest 兼容
     icon: <span class="i-logos:jest"></span>
     details: 支持 Expect 断言、快照测试、覆盖率等功能，从 Jest 迁移过来非常简单。
