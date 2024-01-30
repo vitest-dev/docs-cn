@@ -1085,7 +1085,7 @@ declare module "vitest" {
 
 将触发整个套件重新运行的文件路径的全局 glob 模式。 如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
 
-如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖图:
+如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖树:
 
 ```ts
 test("execute a script", async () => {
