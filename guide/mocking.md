@@ -180,9 +180,9 @@ Vitest 支持模拟 Vite [虚拟模块](https://cn.vitejs.dev/guide/api-plugin#v
 export default {
   test: {
     alias: {
-      '$app/forms': resolve('./mocks/forms.js')
-    }
-  }
+      '$app/forms': resolve('./mocks/forms.js'),
+    },
+  },
 }
 ```
 
@@ -197,9 +197,9 @@ export default {
       resolveId(id) {
         if (id === '$app/forms')
           return 'virtual:$app/forms'
-      }
-    }
-  ]
+      },
+    },
+  ],
 }
 ```
 
@@ -229,15 +229,9 @@ import * as mod from './foobar.js'
 vi.spyOn(mod, 'foo')
 vi.mock('./foobar.js', async (importOriginal) => {
   return {
-<<<<<<< HEAD
-    ...(await importOriginal()),
+    ...(await importOriginal<typeof import('./foobar.js')>()),
     // 这只会影响在原始模块之外的 "foo"
     foo: () => 'mocked',
-=======
-    ...await importOriginal<typeof import('./foobar.js')>(),
-    // this will only affect "foo" outside of the original module
-    foo: () => 'mocked'
->>>>>>> d669117367776306054442c75c3a67a672b9d05f
   }
 })
 ```
@@ -396,11 +390,9 @@ export const restHandlers = [
 
 const graphqlHandlers = [
   graphql.query('ListPosts', () => {
-    return HttpResponse.json(
-      {
-        data: { posts },
-      },
-    )
+    return HttpResponse.json({
+      data: { posts },
+    })
   }),
 ]
 
@@ -630,15 +622,8 @@ expect(obj.method).toHaveBeenCalled()
 ```ts
 import { mocked, original } from './some-path.js'
 
-<<<<<<< HEAD
-vi.mock('./some-path.js', async () => {
-  const mod = await vi.importActual<typeof import('./some-path.js')>(
-    './some-path.js'
-  )
-=======
 vi.mock('./some-path.js', async (importOriginal) => {
   const mod = await importOriginal<typeof import('./some-path.js')>()
->>>>>>> d669117367776306054442c75c3a67a672b9d05f
   return {
     ...mod,
     mocked: vi.fn(),
