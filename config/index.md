@@ -494,7 +494,11 @@ test("use jsdom in this test file", () => {
 });
 ```
 
+<<<<<<< HEAD
 如果你使用 [`--threads=false`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
+=======
+If you are running Vitest with [`--isolate=false`](#isolate-1-1-0) flag, your tests will be run in this order: `node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`. Meaning, that every test with the same environment is grouped, but is still running sequentially.
+>>>>>>> c3260b0d544563d85f7550efc35a346f926904e8
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
@@ -564,8 +568,13 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     poolMatchGlobs: [
+<<<<<<< HEAD
       // all tests in "worker-specific" directory will run inside a worker as if you enabled `--threads` for them,
       ["**/tests/worker-specific/**", "threads"],
+=======
+      // all tests in "worker-specific" directory will run inside a worker as if you enabled `--pool=threads` for them,
+      ['**/tests/worker-specific/**', 'threads'],
+>>>>>>> c3260b0d544563d85f7550efc35a346f926904e8
       // run all tests in "browser" directory in an actual browser
       ["**/tests/browser/**", "browser"],
       // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
@@ -666,7 +675,11 @@ try {
 
 #### vmForks<NonProjectOption />
 
+<<<<<<< HEAD
 与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不是 `worker_threads`。测试与主进程之间的通信速度不如 `vmThreads` 池快。与进程相关的 API（如 `process.chdir()` ）在 `vmForks` 池中可用。请注意，该池与 `vmThreads` 中列出的池具有相同的缺陷。
+=======
+Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and the main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`.
+>>>>>>> c3260b0d544563d85f7550efc35a346f926904e8
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
@@ -1005,8 +1018,13 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
+<<<<<<< HEAD
 :::tip 提醒
 请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
+=======
+:::tip
+Note, that if you are running [`--isolate=false`](#isolate-1-1-0), this setup file will be run in the same global scope multiple times. Meaning, that you are accessing the same global object before each test, so make sure you are not doing the same thing more than you need.
+>>>>>>> c3260b0d544563d85f7550efc35a346f926904e8
 :::
 
 比如，你可能依赖于一个全局变量：
