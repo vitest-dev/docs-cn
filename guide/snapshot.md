@@ -116,7 +116,11 @@ test('image snapshot', () => {
 
 你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 为内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 
+<<<<<<< HEAD
 序列化模块示例：
+=======
+You can explicitly add custom serializer by using [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API.
+>>>>>>> 59fbf224b7a1a0574b399ee2f917c09295d5cb48
 
 ```ts
 expect.addSnapshotSerializer({
@@ -136,7 +140,44 @@ expect.addSnapshotSerializer({
 })
 ```
 
+<<<<<<< HEAD
 如下所示的测试添加后：
+=======
+We also support [snapshotSerializers](/config/#snapshotserializers-1-3-0) option to implicitly add custom serializers.
+
+```ts
+import { SnapshotSerializer } from 'vitest'
+
+export default {
+  serialize(val, config, indentation, depth, refs, printer) {
+    // `printer` is a function that serializes a value using existing plugins.
+    return `Pretty foo: ${printer(
+      val.foo,
+      config,
+      indentation,
+      depth,
+      refs,
+    )}`
+  },
+  test(val) {
+    return val && Object.prototype.hasOwnProperty.call(val, 'foo')
+  },
+} satisfies SnapshotSerializer
+```
+
+
+```ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  test: {
+    snapshotSerializers: ['path/to/custom-serializer.ts']
+  },
+})
+```
+
+After adding a test like this:
+>>>>>>> 59fbf224b7a1a0574b399ee2f917c09295d5cb48
 
 ```ts
 test('foo snapshot test', () => {
