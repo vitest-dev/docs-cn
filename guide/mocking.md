@@ -363,9 +363,13 @@ describe('get a list of todo items', () => {
 
 Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [introduction](https://mswjs.io/docs/) 。
 
+<<<<<<< HEAD
 ### 配置
 
 如下，你可以在你的 [配置文件](/config/#setupfiles) 中使用。
+=======
+### Configuration
+>>>>>>> 9c839d716eafb637aa5c17e1a21cc5d5d396112e
 
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
