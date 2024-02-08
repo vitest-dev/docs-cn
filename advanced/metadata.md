@@ -1,14 +1,14 @@
 # 任务元数据
 
 ::: warning
-Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。
+Vitest 暴露了实验性的私有 API。由于可能不严格遵循语义化版本规范，因此可能会出现破坏性更改，在使用 Vitest 的私有 API 时锁定版本。
 :::
 
 如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。
 
 要实现此目的，依靠 [测试上下文](/guide/test-context) 是不可行的，因为它无法序列化。但是，使用 Vitest 时，你可以利用每个任务（套件或测试）上可用的 `meta` 属性在测试和 Node.js 进程之间共享数据。值得注意的是，这种通信只是单向的，因为 `meta` 属性只能在测试上下文中修改。Node.js 上下文中所做的任何更改在你的测试中都将不可见。
 
-你可以在测试上下文中或在套件任务的 `beforeAll`/`afterAll` 钩子中填充 `meta` 属性。
+你可以在测试上下文中或在测试套件的 `beforeAll`/`afterAll` 中填充 `meta` 属性。
 
 ```ts
 afterAll((suite) => {
@@ -20,16 +20,16 @@ test('custom', ({ task }) => {
 })
 ```
 
-一旦测试完成，Vitest 将使用 RPC 将包含结果和 `meta` 的任务发送到 Node.js 进程。要拦截和处理此任务，你可以利用报告器实现中可用的 `onTaskUpdate` 方法：
+一旦测试完成，Vitest 将使用 RPC 将包含结果和 `meta` 信息的任务发送到 Node.js 进程。要拦截和处理此任务，你可以利用报告器实现中可用的 `onTaskUpdate` 方法：
 
 ```ts
 // custom-reporter.js
 export default {
-  // you can intercept packs if needed
+  // 如有需要，您可以拦截此任务并修改它
   onTaskUpdate(packs) {
     const [id, result, meta] = packs[0]
   },
-  // meta is located on every task inside "onFinished"
+  // meta 位于 `onFinished` 内的每个任务上
   onFinished(files) {
     files[0].meta.done === true
     files[0].tasks[0].meta.custom === 'some-custom-handler'
@@ -38,15 +38,15 @@ export default {
 ```
 
 ::: warning
-如果短时间内完成多个测试，Vitest 可以同时发送多个任务。
+如果需要在短时间内完成多个测试，Vitest 可以同时发送多个任务。
 :::
 
 ::: danger BEWARE
 Vitest 使用不同的方法与 Node.js 进程进行通信。
 
 - 如果 Vitest 在工作线程内运行测试，它将通过[消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)发送数据
-- 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
-- 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
+- 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) 作为序列化缓冲区发送
+- 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 进行字符串化
 
 一般经验法则是，你几乎可以发送任何内容，除了函数、Promises、regexp（`v8.stringify` 无法序列化它，但你可以发送字符串版本并自己在 Node.js 进程中解析它），以及其他不可序列化的数据，但内部可以有循环引用。
 

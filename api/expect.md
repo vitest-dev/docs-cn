@@ -23,7 +23,7 @@ expect(input).toBe(2); // jest API
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
-::: warning
+::: warning 注意
 如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
 :::
 
@@ -55,7 +55,7 @@ test("expect.soft test", () => {
 });
 ```
 
-::: warning
+::: warning 注意
 `expect.soft` 只能在 [`test`](/api/#test) 函数的内部使用。
 :::
 
@@ -541,7 +541,7 @@ test("top fruits", () => {
 });
 ```
 
-::: tip
+::: tip 提示
 如果错误消息中的值被截断得太厉害，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
 :::
 
@@ -1088,7 +1088,7 @@ test("all assertions are called", async () => {
 });
 ```
 
-::: warning
+::: warning 注意
 在使用异步并发测试时，必须使用本地 [Test Context](/guide/test-context.md) 中的 `expect` 来确保正确的测试被检测到。
 :::
 
@@ -1365,7 +1365,7 @@ test("custom matchers", () => {
 });
 ```
 
-::: tip
+::: tip 提示
 如果希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
 :::
 
@@ -1384,7 +1384,7 @@ declare module "vitest" {
 }
 ```
 
-::: warning
+::: warning 注意
 不要忘记在 `tsconfig.json` 中包含环境声明文件。
 :::
 

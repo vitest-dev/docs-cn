@@ -115,7 +115,7 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 
 ## 你的任务函数
 
-你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.task` 方法添加到当前套件中：
+你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是测试套件的一部分。它会自动通过 `suite.task` 方法添加到当前测试套件中：
 
 ```js
 // ./utils/custom.js

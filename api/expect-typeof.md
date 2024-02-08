@@ -1,10 +1,10 @@
 # expectTypeOf
 
-- **类型:** `<T>(a: unknown) => ExpectTypeOf`
-
-::: warning
-在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
+::: warning 注意
+运行时，此函数不会执行任何操作。要 [「 启用类型检查 / enable typechecking 」](/guide/testing-types#run-typechecking)，不要忘了传递 `--typecheck`。
 :::
+
+- **类型:** `<T>(a: unknown) => ExpectTypeOf`
 
 ## not
 
@@ -76,8 +76,8 @@ expectTypeOf(getResponsiveProp(cssProperties))
   .toEqualTypeOf<CSSProperties[]>()
 ```
 
-::: warning
-如果在联合类型中找不到类型，`.extract` 将返回 `never`。
+::: warning 注意
+如果在 union 中找不到类型，`.extract` 将返回 `never`。
 :::
 
 ## exclude
@@ -106,8 +106,8 @@ expectTypeOf(getResponsiveProp(cssProperties))
 
 ```
 
-::: warning
-如果在联合类型中找不到类型，`.extract` 将返回 `never`。
+::: warning 注意
+如果在 union 中找不到类型，`.extract` 将返回 `never`。
 :::
 
 ## returns
@@ -123,7 +123,7 @@ expectTypeOf(() => {}).returns.toBeVoid()
 expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2])
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -143,11 +143,11 @@ expectTypeOf<NoParam>().parameters.toEqualTypeOf<[]>()
 expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
-::: tip
+::: tip 提示
 你还可以使用 [`.toBeCallableWith`](#tobecallablewith) 匹配器作为更具表现力的断言。
 :::
 
@@ -168,7 +168,7 @@ expectTypeOf(foo).parameter(0).toBeNumber()
 expectTypeOf(foo).parameter(1).toBeString()
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -186,11 +186,11 @@ expectTypeOf(Date).constructorParameters.toEqualTypeOf<
 >()
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
-::: tip
+::: tip 提示
 你还可以使用 [`.toBeConstructibleWith`](#tobeconstructiblewith) 匹配器作为更具表现力的断言。
 :::
 
@@ -206,7 +206,7 @@ import { expectTypeOf } from 'vitest'
 expectTypeOf(Date).instance.toHaveProperty('toISOString')
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -240,7 +240,7 @@ expectTypeOf(asyncFunc).returns.resolves.toBeNumber()
 expectTypeOf(Promise.resolve('string')).resolves.toBeString()
 ```
 
-::: warning
+::: warning 注意
 如果用于非承诺类型，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -260,7 +260,7 @@ function isString(v: any): v is string {
 expectTypeOf(isString).guards.toBeString()
 ```
 
-::: warning
+::: warning 注意
 如果该值不是保护函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -281,7 +281,7 @@ function assertNumber(v: any): asserts v is number {
 expectTypeOf(assertNumber).asserts.toBeNumber()
 ```
 
-::: warning
+::: warning 注意
 如果该值不是断言函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -479,7 +479,7 @@ expectTypeOf<NoParam>().toBeCallableWith()
 expectTypeOf<HasParam>().toBeCallableWith('some string')
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 
@@ -496,7 +496,7 @@ expectTypeOf(Date).toBeConstructibleWith(new Date())
 expectTypeOf(Date).toBeConstructibleWith('01-01-2000')
 ```
 
-::: warning
+::: warning 注意
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
 :::
 

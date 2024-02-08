@@ -1,7 +1,7 @@
 # Node API
 
 ::: warning
-Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规范（SemVer），因此可能会出现不兼容的更改，请在使用 Vitest 时锁定版本。
+Vitest 暴露了实验性的私有 API。由于可能不严格遵循语义化版本规范，因此可能会出现破坏性更改，在使用 Vitest 的私有 API 时锁定版本。
 :::
 
 ## 启动 Vitest
