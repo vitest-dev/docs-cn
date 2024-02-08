@@ -907,7 +907,7 @@ afterEach(async () => {
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
 ::: tip
-Vitest 1.3.0 added [`onTestFinished`](##ontestfinished-1-3-0) hook. You can call it during the test execution to cleanup any state after the test has finished running.
+Vitest 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) hook。你可以在测试执行过程中调用，以便在测试运行结束后清理任何状态。
 :::
 
 ### beforeAll
@@ -962,22 +962,19 @@ afterAll(async () => {
 });
 ```
 
-<<<<<<< HEAD
 这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
-=======
-Here the `afterAll` ensures that `stopMocking` method is called after all tests run.
 
 ## Test Hooks
 
-Vitest provides a few hooks that you can call _during_ the test execution to cleanup the state when the test has finished runnning.
+Vitest 提供了一些 hooks，你可以在测试执行期间调用这些钩子，以便在测试运行结束后清理状态。
 
 ::: warning
-These hooks will throw an error if they are called outside of the test body.
+如果在测试体之外调用这些 hooks ，则会出错。
 :::
 
 ### onTestFinished <Badge type="info">1.3.0+</Badge>
 
-This hook is always called after the test has finished running. It is called after `afterEach` hooks since they can influence the test result. It receives a `TaskResult` object with the current test result.
+这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
 
 ```ts
 import { onTestFinished, test } from 'vitest'
@@ -990,7 +987,7 @@ test('performs a query', () => {
 ```
 
 ::: warning
-If you are running tests concurrently, you should always use `onTestFinished` hook from the test context since Vitest doesn't track concurrent tests in global hooks:
+如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts
 import { test } from 'vitest'
@@ -1003,10 +1000,10 @@ test.concurrent('performs a query', (t) => {
 ```
 :::
 
-This hook is particularly useful when creating reusable logic:
+这个 hook 在创建可重复使用的逻辑时特别有用：
 
 ```ts
-// this can be in a separate file
+// 这可以是一个单独的文件
 function getTestDb() {
   const db = connectMockedDb()
   onTestFinished(() => db.close())
@@ -1030,7 +1027,7 @@ test('performs an organization query', async () => {
 
 ### onTestFailed
 
-This hook is called only after the test has failed. It is called after `afterEach` hooks since they can influence the test result. It receives a `TaskResult` object with the current test result. This hook is useful for debugging.
+只有在测试失败后才会调用这个 hook 。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它将接收一个包含当前测试结果的 `TaskResult` 。这个 hook 对调试非常有用。
 
 ```ts
 import { onTestFailed, test } from 'vitest'
@@ -1045,7 +1042,7 @@ test('performs a query', () => {
 ```
 
 ::: warning
-If you are running tests concurrently, you should always use `onTestFailed` hook from the test context since Vitest doesn't track concurrent tests in global hooks:
+如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts
 import { test } from 'vitest'
@@ -1059,4 +1056,3 @@ test.concurrent('performs a query', (t) => {
 })
 ```
 :::
->>>>>>> 83318726ac8c79a95f23ac73d3d36073999dd123
