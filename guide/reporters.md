@@ -26,6 +26,23 @@ export default defineConfig({
 })
 ```
 
+某些报告器可以通过传递附加选项进行自定义。具体选项将在下面的章节中介绍。
+
+:::tip
+从 Vitest v1.3.0 开始支持
+:::
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      'default',
+      ['junit', { suiteName: 'UI tests' }]
+    ],
+  },
+})
+```
+
 ## 报告器输出
 
 默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
@@ -248,6 +265,17 @@ AssertionError: expected 5 to be 4 // Object.is equality
     </testsuite>
 </testsuites>
 ```
+输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的 `name` 和 `classname` 属性。这些属性也可通过 reporter 选项进行自定义：
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['junit', { suiteName: 'custom suite name', classname: 'custom-classname' }]
+    ]
+  },
+})
+```
 
 输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
 
@@ -436,6 +464,15 @@ export default defineConfig({
 ```
 
 :::
+
+### Github Actions Reporter <Badge type="info">1.3.0+</Badge>
+
+输出[工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，该报告器会自动启用，因此无需任何配置。
+
+<img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
+<img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
+
+
 
 ## 自定义报告器
 

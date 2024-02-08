@@ -906,6 +906,10 @@ afterEach(async () => {
 
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
+::: tip
+Vitest 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) hook。你可以在测试执行过程中调用，以便在测试运行结束后清理任何状态。
+:::
+
 ### beforeAll
 
 - **类型:** `beforeAll(fn: () => Awaitable<void>, timeout?: number)`
@@ -959,3 +963,96 @@ afterAll(async () => {
 ```
 
 这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
+
+## Test Hooks
+
+Vitest 提供了一些 hooks，你可以在测试执行期间调用这些钩子，以便在测试运行结束后清理状态。
+
+::: warning
+如果在测试体之外调用这些 hooks ，则会出错。
+:::
+
+### onTestFinished <Badge type="info">1.3.0+</Badge>
+
+这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
+
+```ts
+import { onTestFinished, test } from 'vitest'
+
+test('performs a query', () => {
+  const db = connectDb()
+  onTestFinished(() => db.close())
+  db.query('SELECT * FROM users')
+})
+```
+
+::: warning
+如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
+
+```ts
+import { test } from 'vitest'
+
+test.concurrent('performs a query', (t) => {
+  const db = connectDb()
+  t.onTestFinished(() => db.close())
+  db.query('SELECT * FROM users')
+})
+```
+:::
+
+这个 hook 在创建可重复使用的逻辑时特别有用：
+
+```ts
+// 这可以是一个单独的文件
+function getTestDb() {
+  const db = connectMockedDb()
+  onTestFinished(() => db.close())
+  return db
+}
+
+test('performs a user query', async () => {
+  const db = getTestDb()
+  expect(
+    await db.query('SELECT * from users').perform()
+  ).toEqual([])
+})
+
+test('performs an organization query', async () => {
+  const db = getTestDb()
+  expect(
+    await db.query('SELECT * from organizations').perform()
+  ).toEqual([])
+})
+```
+
+### onTestFailed
+
+只有在测试失败后才会调用这个 hook 。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它将接收一个包含当前测试结果的 `TaskResult` 。这个 hook 对调试非常有用。
+
+```ts
+import { onTestFailed, test } from 'vitest'
+
+test('performs a query', () => {
+  const db = connectDb()
+  onTestFailed((e) => {
+    console.log(e.result.errors)
+  })
+  db.query('SELECT * FROM users')
+})
+```
+
+::: warning
+如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
+
+```ts
+import { test } from 'vitest'
+
+test.concurrent('performs a query', (t) => {
+  const db = connectDb()
+  onTestFailed((result) => {
+    console.log(result.errors)
+  })
+  db.query('SELECT * FROM users')
+})
+```
+:::

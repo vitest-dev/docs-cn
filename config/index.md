@@ -494,7 +494,7 @@ test("use jsdom in this test file", () => {
 });
 ```
 
-如果你使用 [`--threads=false`](#threads) 标志运行 Vitest，你的测试将按以下顺序运行：`node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`。 这意味着，具有相同环境的每个测试都组合在一起，但仍按顺序运行。
+如果使用 [`--isolate=false`](#isolate-1-1-0) 运行 Vitest，测试将按以下顺序运行：`node`、`jsdom`、`happy-dom`、`edge-runtime`、`custom environments`。也就是说，具有相同环境的每个测试都会被分组，但仍会按顺序运行。
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
@@ -564,8 +564,8 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     poolMatchGlobs: [
-      // all tests in "worker-specific" directory will run inside a worker as if you enabled `--threads` for them,
-      ["**/tests/worker-specific/**", "threads"],
+      // all tests in "worker-specific" directory will run inside a worker as if you enabled `--pool=threads` for them,
+      ['**/tests/worker-specific/**', 'threads'],
       // run all tests in "browser" directory in an actual browser
       ["**/tests/browser/**", "browser"],
       // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
@@ -666,7 +666,7 @@ try {
 
 #### vmForks<NonProjectOption />
 
-与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不是 `worker_threads`。测试与主进程之间的通信速度不如 `vmThreads` 池快。与进程相关的 API（如 `process.chdir()` ）在 `vmForks` 池中可用。请注意，该池与 `vmThreads` 中列出的池具有相同的缺陷。
+与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不使用 `worker_threads`。测试与主进程之间的通信速度虽然不如 `vmThreads` 快。但进程相关的 API（如 `process.chdir()` ）在 `vmForks` 中却可以使用。请注意，这个与 `vmThreads` 中列出的池具有相同的缺陷。
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
@@ -1005,8 +1005,8 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
-:::tip 提醒
-请注意，如果你正在运行 [`--threads=false`](#threads)，则此设置文件将在同一全局范围内多次运行。 这意味着，你在每次测试之前都在访问同一个全局对象，因此请确保你做的事情没有超出你的需要。
+:::tip
+请注意，如果运行 [`--isolate=false`](#isolate-1-1-0) ，这个-设置文件将在全局范围内多次运行。这意味着每次测试前都要访问同一个全局对象，因此请确保不要重复做同一件事。
 :::
 
 比如，你可能依赖于一个全局变量：
@@ -1550,7 +1550,21 @@ test("doNotRun", () => {
 - **默认值:** `true`
 - **命令行终端:** `--browser.isolate`, `--browser.isolate=false`
 
-在每个测试之后隔离测试环境。
+在单独的 iframe 中运行每个测试。
+
+### browser.fileParallelism <Badge type="info">1.3.0+</Badge>
+
+- **类型:** `boolean`
+- **默认值:** 与 [`fileParallelism`]（#fileparallelism-110）相同
+- **命令行终端:** `--browser.fileParallelism=false`
+
+同时创建所有测试 iframe，使它们并行运行。
+
+这样就无法使用交互式 API（如点击或悬停），因为屏幕上会同时出现多个 iframe，但如果你的测试不依赖于这些 API，那么同时运行所有 iframe 可能会快很多。
+
+::: tip
+如果通过 [`browser.isolate=false`](#browserisolate) 禁用了隔离，由于测试运行器的特性，测试文件仍会一个接一个地运行。
+:::
 
 #### browser.api
 
@@ -1712,8 +1726,15 @@ export default defineConfig({
 ::: tip
 请注意，此对象上的 `plugins` 字段将被忽略。
 
-如果需要通过 pretty-format 插件扩展快照序列化器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API。
+如果你需要通过 pretty-format 插件扩展快照序列器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 或 [snapshotSerializers](#snapshotserializers-1-3-0) 选项。
 :::
+
+### snapshotSerializers<NonProjectOption /> <Badge type="info">1.3.0+</Badge>
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+A list of paths to snapshot serializer modules for snapshot testing, useful if you want add custom snapshot serializers. See [Custom Serializer](/guide/snapshot#custom-serializer) for more information.
 
 ### resolveSnapshotPath<NonProjectOption />
 
