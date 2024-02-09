@@ -494,7 +494,11 @@ test("use jsdom in this test file", () => {
 });
 ```
 
+<<<<<<< HEAD
 如果使用 [`--isolate=false`](#isolate-1-1-0) 运行 Vitest，测试将按以下顺序运行：`node`、`jsdom`、`happy-dom`、`edge-runtime`、`custom environments`。也就是说，具有相同环境的每个测试都会被分组，但仍会按顺序运行。
+=======
+If you are running Vitest with [`--isolate=false`](#isolate-1-1-0) flag, your tests will be run in this order: `node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`. Meaning, that every test with the same environment is grouped, but is still running sequentially.
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
@@ -516,6 +520,18 @@ export default <Environment>{
 ```
 
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
+
+::: tip
+Since Vitest 1.3.0 jsdom environment exposes `jsdom` global variable equal to the current [JSDOM](https://github.com/jsdom/jsdom) instance. If you want TypeScript to recognize it, you can add `vitest/jsdom` to your `tsconfig.json` when you use this environment:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["vitest/jsdom"]
+  }
+}
+```
+:::
 
 ### environmentOptions
 
@@ -666,7 +682,11 @@ try {
 
 #### vmForks<NonProjectOption />
 
+<<<<<<< HEAD
 与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不使用 `worker_threads`。测试与主进程之间的通信速度虽然不如 `vmThreads` 快。但进程相关的 API（如 `process.chdir()` ）在 `vmForks` 中却可以使用。请注意，这个与 `vmThreads` 中列出的池具有相同的缺陷。
+=======
+Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and the main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`.
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
@@ -710,8 +730,11 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 在单个工作线程内使用相同的环境运行所有测试。 这将禁用内置模块隔离（我们的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
+=======
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
@@ -789,8 +812,11 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 在单个子进程中使用相同的环境运行所有测试。 这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
+=======
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
@@ -887,7 +913,6 @@ export default defineConfig({
 :::warning
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
 :::
-
 
 #### poolOptions.vmForks<NonProjectOption />
 
@@ -1006,7 +1031,11 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
 :::tip
+<<<<<<< HEAD
 请注意，如果运行 [`--isolate=false`](#isolate-1-1-0) ，这个-设置文件将在全局范围内多次运行。这意味着每次测试前都要访问同一个全局对象，因此请确保不要重复做同一件事。
+=======
+Note, that if you are running [`--isolate=false`](#isolate-1-1-0), this setup file will be run in the same global scope multiple times. Meaning, that you are accessing the same global object before each test, so make sure you are not doing the same thing more than you need.
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 :::
 
 比如，你可能依赖于一个全局变量：
@@ -1069,8 +1098,11 @@ declare module "vitest" {
 }
 ```
 
+<<<<<<< HEAD
 :::
 
+=======
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 ### watchExclude<NonProjectOption />
 
 - **类型:** `string[]`
@@ -1550,6 +1582,7 @@ test("doNotRun", () => {
 - **默认值:** `true`
 - **命令行终端:** `--browser.isolate`, `--browser.isolate=false`
 
+<<<<<<< HEAD
 在单独的 iframe 中运行每个测试。
 
 ### browser.fileParallelism <Badge type="info">1.3.0+</Badge>
@@ -1564,6 +1597,22 @@ test("doNotRun", () => {
 
 ::: tip
 如果通过 [`browser.isolate=false`](#browserisolate) 禁用了隔离，由于测试运行器的特性，测试文件仍会一个接一个地运行。
+=======
+Run every test in a separate iframe.
+
+### browser.fileParallelism <Badge type="info">1.3.0+</Badge>
+
+- **Type:** `boolean`
+- **Default:** the same as [`fileParallelism`](#fileparallelism-110)
+- **CLI:** `--browser.fileParallelism=false`
+
+Create all test iframes at the same time so they are running in parallel.
+
+This makes it impossible to use interactive APIs (like clicking or hovering) because there are several iframes on the screen at the same time, but if your tests don't rely on those APIs, it might be much faster to just run all of them at the same time.
+
+::: tip
+If you disabled isolation via [`browser.isolate=false`](#browserisolate), your test files will still run one after another because of the nature of the test runner.
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 :::
 
 #### browser.api
@@ -1584,6 +1633,7 @@ test("doNotRun", () => {
 
 ```ts
 export interface BrowserProvider {
+<<<<<<< HEAD
   name: string;
   getSupportedBrowsers(): readonly string[];
   initialize(
@@ -1592,6 +1642,13 @@ export interface BrowserProvider {
   ): Awaitable<void>;
   openPage(url: string): Awaitable<void>;
   close(): Awaitable<void>;
+=======
+  name: string
+  getSupportedBrowsers: () => readonly string[]
+  initialize: (ctx: Vitest, options: { browser: string; options?: BrowserProviderOptions }) => Awaitable<void>
+  openPage: (url: string) => Awaitable<void>
+  close: () => Awaitable<void>
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 }
 ```
 
@@ -1726,7 +1783,11 @@ export default defineConfig({
 ::: tip
 请注意，此对象上的 `plugins` 字段将被忽略。
 
+<<<<<<< HEAD
 如果你需要通过 pretty-format 插件扩展快照序列器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 或 [snapshotSerializers](#snapshotserializers-1-3-0) 选项。
+=======
+If you need to extend snapshot serializer via pretty-format plugins, please, use [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API or [snapshotSerializers](#snapshotserializers-1-3-0) option.
+>>>>>>> 487f62a6a6b0b74b96367e8268f29e2628690176
 :::
 
 ### snapshotSerializers<NonProjectOption /> <Badge type="info">1.3.0+</Badge>
