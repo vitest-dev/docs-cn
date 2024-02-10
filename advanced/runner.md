@@ -11,89 +11,106 @@ export interface VitestRunner {
   /**
    * 这是在实际收集和运行测试之前被调用的第一件事情。
    */
-  onBeforeCollect?(paths: string[]): unknown
+  onBeforeCollect?: (paths: string[]) => unknown
   /**
    * 这是在收集测试后、"onBeforeRun" 之前被调用的。
    */
+<<<<<<< HEAD
   onCollected?(files: File[]): unknown
+=======
+  onCollected?: (files: File[]) => unknown
+
+>>>>>>> d84e9335662acd91faa77211e8ba58249600109e
   /**
    * 当测试运行程序应该取消下一次测试运行时调用。
    * 运行程序应该监听此方法，并在“onBeforeRunSuite”和“onBeforeRunTest”中将测试和套件标记为跳过。
    */
-  onCancel?(reason: CancelReason): unknown
+  onCancel?: (reason: CancelReason) => unknown
 
   /**
    * 在运行单个测试之前调用。此时还没有“result”。
    */
-  onBeforeRunTask?(test: TaskPopulated): unknown
+  onBeforeRunTask?: (test: TaskPopulated) => unknown
   /**
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
+<<<<<<< HEAD
   onBeforeTryTask?(
     test: TaskPopulated,
     options: { retry: number; repeats: number }
   ): unknown
+=======
+  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
+>>>>>>> d84e9335662acd91faa77211e8ba58249600109e
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
-  onAfterRunTask?(test: TaskPopulated): unknown
+  onAfterRunTask?: (test: TaskPopulated) => unknown
   /**
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
+<<<<<<< HEAD
   onAfterTryTask?(
     test: TaskPopulated,
     options: { retry: number; repeats: number }
   ): unknown
+=======
+  onAfterTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
+>>>>>>> d84e9335662acd91faa77211e8ba58249600109e
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
    */
-  onBeforeRunSuite?(suite: Suite): unknown
+  onBeforeRunSuite?: (suite: Suite) => unknown
   /**
    * 这是在运行单个测试套件之后被调用的，此时已经有了状态和测试结果。
    */
-  onAfterRunSuite?(suite: Suite): unknown
+  onAfterRunSuite?: (suite: Suite) => unknown
 
   /**
    * 如果定义了这个方法，它将会替代 Vitest 常规的测试套件分割和处理方式。
    * 但 "before" 和 "after" 钩子函数仍然会被执行。
    */
-  runSuite?(suite: Suite): Promise<void>
+  runSuite?: (suite: Suite) => Promise<void>
   /**
    * 如果定义了这个方法，它将会替代 Vitest 常规的测试处理方式。
    * 如果你有自定义的测试函数，这个方法就很有用。
    * 但 "before" 和 "after" 钩子函数仍然会被执行。
    */
-  runTask?(test: TaskPopulated): Promise<void>
+  runTask?: (test: TaskPopulated) => Promise<void>
 
   /**
    * 当一个任务被更新时被调用。与报告器中的 "onTaskUpdate" 方法相同。
    * 但该方法在同一个线程中运行，与测试运行在同一个线程中。
    */
-  onTaskUpdate?(task: [string, TaskResult | undefined][]): Promise<void>
+  onTaskUpdate?: (task: [string, TaskResult | undefined][]) => Promise<void>
 
   /**
    * 这是在运行收集的所有测试之前被调用的。
    */
-  onBeforeRunFiles?(files: File[]): unknown
+  onBeforeRunFiles?: (files: File[]) => unknown
   /**
    * 这是在运行收集的所有测试后立即被调用的。
    */
-  onAfterRunFiles?(files: File[]): unknown
+  onAfterRunFiles?: (files: File[]) => unknown
   /**
    * 这个方法被用于 "test" 和 "custom" 处理程序。
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
    * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
+<<<<<<< HEAD
   extendTaskContext?<T extends Test | Custom>(
     context: TaskContext<T>
   ): TaskContext<T>
+=======
+  extendTaskContext?: <T extends Test | Custom>(context: TaskContext<T>) => TaskContext<T>
+>>>>>>> d84e9335662acd91faa77211e8ba58249600109e
   /**
    * 当导入某些文件时被调用。在收集测试和导入设置文件时都可能会被调用。.
    */
-  importFile(filepath: string, source: VitestRunnerImportSource): unknown
+  importFile: (filepath: string, source: VitestRunnerImportSource) => unknown
   /**
    * 公开可用的配置.
    */
