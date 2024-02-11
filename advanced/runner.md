@@ -15,12 +15,8 @@ export interface VitestRunner {
   /**
    * 这是在收集测试后、"onBeforeRun" 之前被调用的。
    */
-<<<<<<< HEAD
-  onCollected?(files: File[]): unknown
-=======
   onCollected?: (files: File[]) => unknown
 
->>>>>>> d84e9335662acd91faa77211e8ba58249600109e
   /**
    * 当测试运行程序应该取消下一次测试运行时调用。
    * 运行程序应该监听此方法，并在“onBeforeRunSuite”和“onBeforeRunTest”中将测试和套件标记为跳过。
@@ -35,14 +31,7 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-<<<<<<< HEAD
-  onBeforeTryTask?(
-    test: TaskPopulated,
-    options: { retry: number; repeats: number }
-  ): unknown
-=======
   onBeforeTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
->>>>>>> d84e9335662acd91faa77211e8ba58249600109e
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -51,14 +40,7 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-<<<<<<< HEAD
-  onAfterTryTask?(
-    test: TaskPopulated,
-    options: { retry: number; repeats: number }
-  ): unknown
-=======
   onAfterTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
->>>>>>> d84e9335662acd91faa77211e8ba58249600109e
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -100,13 +82,7 @@ export interface VitestRunner {
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
    * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
-<<<<<<< HEAD
-  extendTaskContext?<T extends Test | Custom>(
-    context: TaskContext<T>
-  ): TaskContext<T>
-=======
   extendTaskContext?: <T extends Test | Custom>(context: TaskContext<T>) => TaskContext<T>
->>>>>>> d84e9335662acd91faa77211e8ba58249600109e
   /**
    * 当导入某些文件时被调用。在收集测试和导入设置文件时都可能会被调用。.
    */

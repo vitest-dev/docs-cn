@@ -1375,11 +1375,7 @@ test("custom matchers", () => {
 
 ```ts
 interface CustomMatchers<R = unknown> {
-<<<<<<< HEAD
-  toBeFoo(): R;
-=======
   toBeFoo: () => R
->>>>>>> d84e9335662acd91faa77211e8ba58249600109e
 }
 
 declare module "vitest" {
