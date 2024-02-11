@@ -149,7 +149,14 @@ const plainTeamMembers: CoreTeam[] = [
     title: '我写的代码在我电脑上绝对没问题',
     desc: 'Vite 核心团队成员 和 Vitest 团队成员',
   },
-
+  {
+    avatar: contributorsAvatars['hi-ogawa'],
+    name: 'Hiroshi Ogawa',
+    github: 'hi-ogawa',
+    twitter: 'hiroshi_18181',
+    title: '开源爱好者',
+    desc: 'Vitest 团队成员',
+  },
 ]
 
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))

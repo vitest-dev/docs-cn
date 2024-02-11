@@ -158,7 +158,6 @@ export default {
 } satisfies SnapshotSerializer
 ```
 
-
 ```ts
 import { defineConfig } from 'vite'
 

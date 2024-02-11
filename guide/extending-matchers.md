@@ -29,7 +29,7 @@ expect.extend({
 import type { Assertion, AsymmetricMatchersContaining } from 'vitest'
 
 interface CustomMatchers<R = unknown> {
-  toBeFoo(): R
+  toBeFoo: () => R
 }
 
 declare module 'vitest' {

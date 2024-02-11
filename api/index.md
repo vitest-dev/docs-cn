@@ -907,7 +907,7 @@ afterEach(async () => {
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
 ::: tip
-Vitest 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) hook。你可以在测试执行过程中调用，以便在测试运行结束后清理任何状态。
+Vitest在 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) 。你可以在测试执行过程中调用它，以便在测试运行结束后清理任何状态。
 :::
 
 ### beforeAll
@@ -966,7 +966,7 @@ afterAll(async () => {
 
 ## Test Hooks
 
-Vitest 提供了一些 hooks，你可以在测试执行期间调用这些钩子，以便在测试运行结束后清理状态。
+Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些钩子，以便在测试运行结束后清理状态。
 
 ::: warning
 如果在测试体之外调用这些 hooks ，则会出错。
@@ -985,7 +985,6 @@ test('performs a query', () => {
   db.query('SELECT * FROM users')
 })
 ```
-
 ::: warning
 如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
@@ -1043,7 +1042,6 @@ test('performs a query', () => {
 
 ::: warning
 如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
-
 ```ts
 import { test } from 'vitest'
 
