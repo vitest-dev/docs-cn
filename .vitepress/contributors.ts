@@ -115,6 +115,18 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Vitest 和 UnoCSS 团队成员',
   },
   {
+    avatar: contributorsAvatars.zxch3n,
+    name: 'Zixuan Chen',
+    github: 'zxch3n',
+    mastodon: 'https://elk.zone/hachyderm.io/@zx',
+    twitter: 'zxch3n',
+    title: 'A fullstack developer',
+    desc: 'Working on CRDTs & local-first software',
+  },
+]
+
+const plainTeamEmeritiMembers: CoreTeam[] = [
+  {
     avatar: contributorsAvatars.Aslemammad,
     name: 'Mohammad Bagher',
     github: 'Aslemammad',
@@ -133,6 +145,7 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'fluent-vue 的作者',
   },
   {
+<<<<<<< HEAD
     avatar: contributorsAvatars.zxch3n,
     name: 'Zixuan Chen',
     github: 'zxch3n',
@@ -142,6 +155,8 @@ const plainTeamMembers: CoreTeam[] = [
     desc: '开发 CRDT 和本地优先软件',
   },
   {
+=======
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
     avatar: contributorsAvatars.poyoho,
     name: 'Yoho Po',
     github: 'poyoho',
@@ -157,8 +172,17 @@ const plainTeamMembers: CoreTeam[] = [
     title: '开源爱好者',
     desc: 'Vitest 团队成员',
   },
+  {
+    avatar: contributorsAvatars['hi-ogawa'],
+    name: 'Hiroshi Ogawa',
+    github: 'hi-ogawa',
+    twitter: 'hiroshi_18181',
+    title: 'Open source enthusiast',
+    desc: 'Team member of Vitest',
+  },
 ]
 
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))
+const teamEmeritiMembers = plainTeamEmeritiMembers.map(tm => createLinks(tm))
 
-export { teamMembers }
+export { teamMembers, teamEmeritiMembers }

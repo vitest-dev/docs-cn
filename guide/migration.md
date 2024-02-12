@@ -19,7 +19,11 @@ Vitest 1.0 需要 Vite 5.0 和 Node.js 18 或更高版本。
 
 快照中的引号不再转义，即使字符串只有一行，所有快照也都使用回车引号 (`)。
 
+<<<<<<< HEAD
 1. 引号不再转义：
+=======
+1. Quotes are no longer escaped:
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
 
 ```diff
 expect({ foo: 'bar' }).toMatchInlineSnapshot(`
@@ -43,7 +47,11 @@ expect({ foo: 'bar' }).toMatchInlineSnapshot(`
 - `client.setTest` 更名为 `client.startCurrentRun`
 - `client.resetCurrent` 更名为 `client.finishCurrentRun` 。
 
+<<<<<<< HEAD
 ### Pools 标准化 [#4172](https://github.com/vitest-dev/vitest/pull/4172)
+=======
+### Pools are Standardized [#4172](https://github.com/vitest-dev/vitest/pull/4172)
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
 
 We removed a lot of configuration options to make it easier to configure the runner to your needs. Please, have a look at migration examples if you rely on `--threads` or other related flags.
 

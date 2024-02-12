@@ -26,7 +26,28 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 某些报告器可以通过传递附加选项进行自定义。具体选项将在下面的章节中介绍。
+=======
+Some reporters can be customized by passing additional options to them. Reporter specific options are described in sections below.
+
+:::tip
+Since Vitest v1.3.0
+:::
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      'default',
+      ['junit', { suiteName: 'UI tests' }]
+    ],
+  },
+})
+```
+
+## Reporter Output
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
 
 :::tip
 从 Vitest v1.3.0 开始支持
@@ -265,6 +286,21 @@ AssertionError: expected 5 to be 4 // Object.is equality
     </testsuite>
 </testsuites>
 ```
+<<<<<<< HEAD
+=======
+
+The outputted XML contains nested `testsuites` and `testcase` tags. You can use the environment variables `VITEST_JUNIT_SUITE_NAME` and `VITEST_JUNIT_CLASSNAME` to configure their `name` and `classname` attributes, respectively. These can also be customized via reporter options:
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['junit', { suiteName: 'custom suite name', classname: 'custom-classname' }]
+    ]
+  },
+})
+```
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
 
 输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的 `name` 和 `classname` 属性。这些属性也可通过 reporter 选项进行自定义：
 
@@ -447,9 +483,16 @@ not ok 1 - __tests__/test-file-1.test.ts > first test file > 2 + 2 should equal 
 ok 2 - __tests__/test-file-1.test.ts > first test file > 4 - 2 should equal 2 # time=0.00ms
 ```
 
+<<<<<<< HEAD
 ### Hanging process 报告器
 
 展示任何妨碍 Vitest 安全退出的 hanging processes ，`hanging-process` 报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
+=======
+### Hanging Process Reporter
+
+Displays a list of hanging processes, if any are preventing Vitest from exiting safely. The `hanging-process` reporter does not itself display test results, but can be used in conjunction with another reporter to monitor processes while tests run. Using this reporter can be resource-intensive, so should generally be reserved for debugging purposes in situations where Vitest consistently cannot exit the process.
+
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
 :::code-group
 
 ```bash [CLI]
@@ -467,6 +510,27 @@ export default defineConfig({
 :::
 
 ### Github Actions Reporter <Badge type="info">1.3.0+</Badge>
+<<<<<<< HEAD
+=======
+
+Output [workflow commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
+to provide annotations for test failures. This reporter is automatically enabled with a [`default`](#default-reporter) reporter when `process.env.GITHUB_ACTIONS === 'true'`.
+
+If you configure non-default reporters, you need to explicitly add `github-actions`.
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: process.env.GITHUB_ACTIONS ? ['dot', 'github-actions'] : ['dot'],
+  },
+})
+```
+
+<img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
+<img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
+
+## Custom Reporters
+>>>>>>> ab22a457b1dbf3a9bfcfb64e2e18eeffbb1f2178
 
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
