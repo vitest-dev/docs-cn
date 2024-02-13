@@ -4,6 +4,7 @@ outline: deep
 
 # 配置索引
 
+<<<<<<< HEAD
 ## 配置
 
 `vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用。如果想使用不同的配置进行测试，你可以：
@@ -97,6 +98,12 @@ export default defineConfig((configEnv) =>
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
 
 *此处列出的*所有选项都位于配置中的 `test` 属性上：
+=======
+To create a Vitest configuration file, follow [the guide](/config/file). Make sure you understand how Vitest config resolution works before proceeding.
+
+::: warning
+_All_ listed options here are located on a `test` property inside the config:
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 ```ts
 export default defineConfig({
@@ -109,11 +116,18 @@ export default defineConfig({
 :::
 
 ::: tip
+<<<<<<< HEAD
 所有不支持在 [workspace](/guide/workspace) 项目配置中的配置选项都会有 <NonProjectOption /> 标记。
+=======
+In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
+
+All configuration options that are not supported inside a [workspace](/guide/workspace) project config have <NonProjectOption /> sign next to them.
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 :::
 
 ### include
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
 
@@ -125,6 +139,27 @@ export default defineConfig({
 - **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
 
 匹配排除测试文件的 glob 规则。
+=======
+- **Type:** `string[]`
+- **Default:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
+- **CLI:** `vitest [...include]`, `vitest **/*.test.js`
+
+A list of glob patterns that match your test files.
+
+### exclude
+
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
+- **CLI:** `vitest --exclude "**/excluded-file"`
+
+A list of glob patterns that should be excluded from your test files.
+
+::: warning
+This option does not affect coverage. If you need to remove certain files from the coverage report, use [`coverage.exclude`](#coverage-exclude).
+
+This is the only option that doesn't override your configuration if you provide it with a CLI flag. All glob patterns added via `--exclude` flag will be added to the config's `exclude`.
+:::
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 ### includeSource
 
@@ -239,8 +274,13 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 #### deps.optimizer.{mode}.enabled
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true` if using >= Vite 4.3.2, `false` otherwise
+=======
+- **Type:** `boolean`
+- **Default:** `false` since Vitest 1.3.0
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 启用依赖优化。
 
@@ -494,7 +534,11 @@ test("use jsdom in this test file", () => {
 });
 ```
 
+<<<<<<< HEAD
 如果使用 [`--isolate=false`](#isolate-1-1-0) 运行 Vitest，测试将按以下顺序运行：`node`、`jsdom`、`happy-dom`、`edge-runtime`、`custom environments`。也就是说，具有相同环境的每个测试都会被分组，但仍会按顺序运行。
+=======
+If you are running Vitest with [`--isolate=false`](#isolate-1-1-0) flag, your tests will be run in this order: `node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`. Meaning, that every test with the same environment is grouped, but is still running sequentially.
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
@@ -516,6 +560,18 @@ export default <Environment>{
 ```
 
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
+
+::: tip
+Since Vitest 1.3.0 jsdom environment exposes `jsdom` global variable equal to the current [JSDOM](https://github.com/jsdom/jsdom) instance. If you want TypeScript to recognize it, you can add `vitest/jsdom` to your `tsconfig.json` when you use this environment:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["vitest/jsdom"]
+  }
+}
+```
+:::
 
 ::: tip
 Since Vitest 1.3.0 jsdom environment exposes `jsdom` global variable equal to the current [JSDOM](https://github.com/jsdom/jsdom) instance. If you want TypeScript to recognize it, you can add `vitest/jsdom` to your `tsconfig.json` when you use this environment:
@@ -678,7 +734,11 @@ try {
 
 #### vmForks<NonProjectOption />
 
+<<<<<<< HEAD
 与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不使用 `worker_threads`。测试与主进程之间的通信速度虽然不如 `vmThreads` 快。但进程相关的 API（如 `process.chdir()` ）在 `vmForks` 中却可以使用。请注意，这个与 `vmThreads` 中列出的池具有相同的缺陷。
+=======
+Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads` via [tinypool](https://github.com/tinylibs/tinypool). Communication between tests and the main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`.
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 ### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
 
@@ -722,8 +782,11 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 在单个工作线程内使用相同的环境运行所有测试。 这将禁用内置模块隔离（我们的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
+=======
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
@@ -801,8 +864,11 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 在单个子进程中使用相同的环境运行所有测试。 这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
+=======
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 :::warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
@@ -976,25 +1042,43 @@ export default defineConfig({
 
 ### testTimeout
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `5000`
 - **命令行终端:** `--test-timeout=5000`, `--testTimeout=5000`
+=======
+- **Type:** `number`
+- **Default:** `5000`
+- **CLI:** `--test-timeout=5000`, `--testTimeout=5000`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 测试的默认超时时间（以毫秒为单位）。
 
 ### hookTimeout
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `10000`
 - **命令行终端:** `--hook-timeout=10000`, `--hookTimeout=10000`
+=======
+- **Type:** `number`
+- **Default:** `10000`
+- **CLI:** `--hook-timeout=10000`, `--hookTimeout=10000`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 钩子(hook)的默认超时时间（以毫秒为单位）。
 
 ### teardownTimeout<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `1000`
 - **命令行终端:** `--teardown-timeout=5000`, `--teardownTimeout=5000`
+=======
+- **Type:** `number`
+- **Default:** `10000`
+- **CLI:** `--teardown-timeout=5000`, `--teardownTimeout=5000`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
@@ -1019,7 +1103,11 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
 :::tip
+<<<<<<< HEAD
 请注意，如果运行 [`--isolate=false`](#isolate-1-1-0) ，这个配置文件将在全局范围内多次运行。这意味着每次测试前都要访问同一个全局对象，因此请确保不要重复做同一件事。
+=======
+Note, that if you are running [`--isolate=false`](#isolate-1-1-0), this setup file will be run in the same global scope multiple times. Meaning, that you are accessing the same global object before each test, so make sure you are not doing the same thing more than you need.
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 :::
 
 比如，你可能依赖于一个全局变量：
@@ -1082,12 +1170,20 @@ declare module "vitest" {
 }
 ```
 
+<<<<<<< HEAD
 :::
 
 ### watchExclude<NonProjectOption />
 
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**']`
+=======
+### watchExclude<NonProjectOption />
+
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/dist/**']`
+- **Deprecated** use [`server.watch.ignored`](https://vitejs.dev/config/server-options.html#server-watch)
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 触发监视重新运行时要忽略的文件路径的全局 glob 模式。
 
@@ -1455,8 +1551,13 @@ statements 的全局阈值。
 }
 ```
 
+<<<<<<< HEAD
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.watermarks.statements=50,80`， `--coverage.watermarks.branches=50,80`
+=======
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.watermarks.statements=50,80`, `--coverage.watermarks.branches=50,80`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
@@ -1564,6 +1665,7 @@ test("doNotRun", () => {
 - **默认值:** `true`
 - **命令行终端:** `--browser.isolate`, `--browser.isolate=false`
 
+<<<<<<< HEAD
 在单独的 iframe 中运行每个测试。
 
 ### browser.fileParallelism <Badge type="info">1.3.0+</Badge>
@@ -1578,6 +1680,22 @@ test("doNotRun", () => {
 
 ::: tip
 如果通过 [`browser.isolate=false`](#browserisolate) 禁用了隔离，由于测试运行器的特性，测试文件仍会一个接一个地运行。
+=======
+Run every test in a separate iframe.
+
+### browser.fileParallelism <Badge type="info">1.3.0+</Badge>
+
+- **Type:** `boolean`
+- **Default:** the same as [`fileParallelism`](#fileparallelism-110)
+- **CLI:** `--browser.fileParallelism=false`
+
+Create all test iframes at the same time so they are running in parallel.
+
+This makes it impossible to use interactive APIs (like clicking or hovering) because there are several iframes on the screen at the same time, but if your tests don't rely on those APIs, it might be much faster to just run all of them at the same time.
+
+::: tip
+If you disabled isolation via [`browser.isolate=false`](#browserisolate), your test files will still run one after another because of the nature of the test runner.
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 :::
 
 #### browser.api
@@ -1598,6 +1716,7 @@ test("doNotRun", () => {
 
 ```ts
 export interface BrowserProvider {
+<<<<<<< HEAD
   name: string;
   getSupportedBrowsers(): readonly string[];
   initialize(
@@ -1606,6 +1725,13 @@ export interface BrowserProvider {
   ): Awaitable<void>;
   openPage(url: string): Awaitable<void>;
   close(): Awaitable<void>;
+=======
+  name: string
+  getSupportedBrowsers: () => readonly string[]
+  initialize: (ctx: Vitest, options: { browser: string; options?: BrowserProviderOptions }) => Awaitable<void>
+  openPage: (url: string) => Awaitable<void>
+  close: () => Awaitable<void>
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 }
 ```
 
@@ -1740,7 +1866,11 @@ export default defineConfig({
 ::: tip
 请注意，此对象上的 `plugins` 字段将被忽略。
 
+<<<<<<< HEAD
 如果你需要通过 pretty-format 插件扩展快照序列器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 或 [snapshotSerializers](#snapshotserializers-1-3-0) 选项。
+=======
+If you need to extend snapshot serializer via pretty-format plugins, please, use [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API or [snapshotSerializers](#snapshotserializers-1-3-0) option.
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 :::
 
 ### snapshotSerializers<NonProjectOption /> <Badge type="info">1.3.0+</Badge>
@@ -1845,9 +1975,15 @@ export default defineConfig({
 
 ### maxConcurrency
 
+<<<<<<< HEAD
 - **类型**: `number`
 - **默认值**: `5`
 - **命令行终端**: `--max-concurrency=10`, `--maxConcurrency=10`
+=======
+- **Type**: `number`
+- **Default**: `5`
+- **CLI**: `--max-concurrency=10`, `--maxConcurrency=10`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 使用 `test.concurrent` 标记允许同时运行的最大测试数量。
 
@@ -1855,16 +1991,27 @@ export default defineConfig({
 
 ### cache<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型**: `false | { dir? }`
 - **命令行终端**: `--no-cache`, `--cache=false`
+=======
+- **Type**: `false | { dir? }`
+- **CLI**: `--no-cache`, `--cache=false`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 配置 Vitest 缓存策略的选项。目前 Vitest 为测试结果存储缓存，以便先运行更长且失败的测试。
 
 #### cache.dir
 
+<<<<<<< HEAD
 - **类型**: `string`
 - **默认值**: `node_modules/.vitest`
 - **命令行终端**: `--cache.dir=./cache`
+=======
+- **Type**: `string`
+- **Default**: `node_modules/.vitest`
+- **CLI**: `--cache.dir=./cache`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 缓存目录的路径。
 
@@ -2011,9 +2158,15 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### slowTestThreshold<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型**: `number`
 - **默认值**: `300`
 - **命令行终端:**:`--slow-test-threshold=<number>`, `--slowTestThreshold=<number>`
+=======
+- **Type**: `number`
+- **Default**: `300`
+- **CLI**: `--slow-test-threshold=<number>`, `--slowTestThreshold=<number>`
+>>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
 
