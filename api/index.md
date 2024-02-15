@@ -32,16 +32,52 @@ interface TestOptions {
 }
 ```
 
+<<<<<<< HEAD
 当测试函数返回承诺时，运行程序将等待它被解析以收集异步期望。 如果承诺被拒绝，测试就会失败。
+=======
+Vitest 1.3.0 deprecates the use of options as the last parameter. You will see a deprecation message until 2.0.0 when this syntax will be removed. If you need to pass down options, use `test` function's second argument:
+
+```ts
+import { test } from 'vitest'
+
+test('flaky test', () => {}, { retry: 3 }) // [!code --]
+test('flaky test', { retry: 3 }, () => {}) // [!code ++]
+```
+
+When a test function returns a promise, the runner will wait until it is resolved to collect async expectations. If the promise is rejected, the test will fail.
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 ::: tip
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
 :::
 
+Since Vitest 1.3.0 most options support both dot-syntax and object-syntax allowing you to use whatever style you prefer.
+
+:::code-group
+```ts [dot-syntax]
+import { test } from 'vitest'
+
+test.skip('skipped test', () => {
+  // some logic that fails right now
+})
+```
+```ts [object-syntax <Badge type="info">1.3.0+</Badge>]
+import { test } from 'vitest'
+
+test('skipped test', { skip: true }, () => {
+  // some logic that fails right now
+})
+```
+:::
+
 ## test
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it`
+=======
+- **Alias:** `it`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 `test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
 
@@ -57,8 +93,12 @@ test("should work as expected", () => {
 
 ### test.extend <Badge type="info">0.32.3+</Badge>
 
+<<<<<<< HEAD
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
+=======
+- **Alias:** `it.extend`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
 
@@ -87,8 +127,12 @@ myTest("add item", ({ todos }) => {
 
 ### test.skip
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it.skip`
+=======
+- **Alias:** `it.skip`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 如果想跳过运行某些测试，但又不想删代码，可以使用 `test.skip` 来跳过这些测试。
 
@@ -115,8 +159,12 @@ test("skipped test", (context) => {
 
 ### test.skipIf
 
+<<<<<<< HEAD
 - **类型:** `(condition: any) => Test`
 - **别名:** `it.skipIf`
+=======
+- **Alias:** `it.skipIf`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 在某些情况下，可能会需要在不同的环境下多次运行测试，而且某些测试可能是特定于环境的。我们这时候可以通过使用 `test.skipIf` 来跳过测试，而不是用 `if` 来封装测试代码。
 
@@ -136,8 +184,12 @@ test.skipIf(isDev)("prod only test", () => {
 
 ### test.runIf
 
+<<<<<<< HEAD
 - **类型:** `(condition: any) => Test`
 - **别名:** `it.runIf`
+=======
+- **Alias:** `it.runIf`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 与 [test.skipIf](#test-skipif) 相反。
 
@@ -157,8 +209,12 @@ test.runIf(isDev)("dev only test", () => {
 
 ### test.only
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
+=======
+- **Alias:** `it.only`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 使用 `test.only` 仅运行给定 测试套件 中的某些测试。这在调试时非常有用。
 
@@ -183,8 +239,12 @@ test.only("test", () => {
 
 ### test.concurrent
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.concurrent`
+=======
+- **Alias:** `it.concurrent`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 `test.concurrent` 标记并行运行的连续测试。它接收测试名称、包含要收集的测试的异步函数以及可选的超时（以毫秒为单位）。
 
@@ -214,7 +274,11 @@ test.only.concurrent(/* ... */); // or test.concurrent.only(/* ... */)
 test.todo.concurrent(/* ... */); // or test.concurrent.todo(/* ... */)
 ```
 
+<<<<<<< HEAD
 运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect`，以确保检测到正确的测试。
+=======
+When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context.md) to ensure the right test is detected.
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 ```ts
 test.concurrent("test 1", async ({ expect }) => {
@@ -231,7 +295,11 @@ test.concurrent("test 2", async ({ expect }) => {
 
 ### test.sequential
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
+=======
+- **Alias:** `it.sequential`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 `test.sequential` 标记一个测试为顺序测试。如果要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
@@ -271,8 +339,12 @@ describe.concurrent("suite", () => {
 
 ### test.todo
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function) => void`
 - **别名:** `it.todo`
+=======
+- **Alias:** `it.todo`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 使用 `test.todo` 来存根测试，以便稍后实施。测试报告中将显示一个条目，以便知道还有多少测试需要执行。
 
@@ -283,8 +355,12 @@ test.todo("unimplemented test");
 
 ### test.fails
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.fails`
+=======
+- **Alias:** `it.fails`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 使用 `test.fails` 明确表示断言将失败。
 
@@ -305,8 +381,12 @@ test.fails("fail test", async () => {
 
 ### test.each
 
+<<<<<<< HEAD
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
+=======
+- **Alias:** `it.each`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 当需要使用不同变量运行同一测试时，请使用 `test.each`。
 我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
@@ -600,7 +680,11 @@ describe("numberToCurrency", () => {
 
 ### describe.skip
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+=======
+- **Alias:** `suite.skip`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 在套件中使用 `describe.skip` 可避免运行特定的 describe 块。
 
@@ -617,7 +701,11 @@ describe.skip("skipped suite", () => {
 
 ### describe.skipIf
 
+<<<<<<< HEAD
 - **类型:** `(condition: any) => void`
+=======
+- **Alias:** `suite.skipIf`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 在某些情况下，可能会在不同的环境下多次运行套件，其中一些测试套件可能是特定于环境的。可以使用 `describe.skipIf` 来跳过条件为真时的套件，而不是使用 `if` 来封装套件。
 
@@ -637,7 +725,11 @@ describe.skipIf(isDev)("prod only test suite", () => {
 
 ### describe.runIf
 
+<<<<<<< HEAD
 - **类型:** `(condition: any) => void`
+=======
+- **Alias:** `suite.runIf`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 与 [describe.skipIf](#describe-skipif) 相反。
 
@@ -686,7 +778,11 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 ### describe.concurrent
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+=======
+- **Alias:** `suite.concurrent`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试
 
@@ -733,7 +829,11 @@ describe.concurrent("suite", () => {
 
 ### describe.sequential
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+=======
+- **Alias:** `suite.sequential`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 测试套件中的 `describe.sequential` 会将每个测试标记为顺序测试。如果需要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
@@ -759,7 +859,11 @@ describe.concurrent("suite", () => {
 
 ### describe.shuffle
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+=======
+- **Alias:** `suite.shuffle`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
 
@@ -786,7 +890,11 @@ describe.shuffle("suite", () => {
 
 ### describe.todo
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function) => void`
+=======
+- **Alias:** `suite.todo`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 使用 `describe.todo` 来暂存待以后实施的套件。测试报告中会显示一个条目，这样就能知道还有多少测试需要执行。
 
@@ -797,7 +905,11 @@ describe.todo("unimplemented suite");
 
 ### describe.each
 
+<<<<<<< HEAD
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
+=======
+- **Alias:** `suite.each`
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 如果有多个测试依赖于相同的数据，请使用 `describe.each` 。
 
@@ -908,6 +1020,10 @@ afterEach(async () => {
 
 ::: tip
 Vitest在 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) 。你可以在测试执行过程中调用它，以便在测试运行结束后清理任何状态。
+:::
+
+::: tip
+Vitest 1.3.0 added [`onTestFinished`](##ontestfinished-1-3-0) hook. You can call it during the test execution to cleanup any state after the test has finished running.
 :::
 
 ### beforeAll
@@ -1024,9 +1140,78 @@ test('performs an organization query', async () => {
 })
 ```
 
+<<<<<<< HEAD
 ### onTestFailed
 
 只有在测试失败后才会调用这个 hook 。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它将接收一个包含当前测试结果的 `TaskResult` 。这个 hook 对调试非常有用。
+=======
+Here the `afterAll` ensures that `stopMocking` method is called after all tests run.
+
+## Test Hooks
+
+Vitest provides a few hooks that you can call _during_ the test execution to cleanup the state when the test has finished runnning.
+
+::: warning
+These hooks will throw an error if they are called outside of the test body.
+:::
+
+### onTestFinished <Badge type="info">1.3.0+</Badge>
+
+This hook is always called after the test has finished running. It is called after `afterEach` hooks since they can influence the test result. It receives a `TaskResult` object with the current test result.
+
+```ts
+import { onTestFinished, test } from 'vitest'
+
+test('performs a query', () => {
+  const db = connectDb()
+  onTestFinished(() => db.close())
+  db.query('SELECT * FROM users')
+})
+```
+
+::: warning
+If you are running tests concurrently, you should always use `onTestFinished` hook from the test context since Vitest doesn't track concurrent tests in global hooks:
+
+```ts
+import { test } from 'vitest'
+
+test.concurrent('performs a query', (t) => {
+  const db = connectDb()
+  t.onTestFinished(() => db.close())
+  db.query('SELECT * FROM users')
+})
+```
+:::
+
+This hook is particularly useful when creating reusable logic:
+
+```ts
+// this can be in a separate file
+function getTestDb() {
+  const db = connectMockedDb()
+  onTestFinished(() => db.close())
+  return db
+}
+
+test('performs a user query', async () => {
+  const db = getTestDb()
+  expect(
+    await db.query('SELECT * from users').perform()
+  ).toEqual([])
+})
+
+test('performs an organization query', async () => {
+  const db = getTestDb()
+  expect(
+    await db.query('SELECT * from organizations').perform()
+  ).toEqual([])
+})
+```
+
+### onTestFailed
+
+This hook is called only after the test has failed. It is called after `afterEach` hooks since they can influence the test result. It receives a `TaskResult` object with the current test result. This hook is useful for debugging.
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 
 ```ts
 import { onTestFailed, test } from 'vitest'
@@ -1041,7 +1226,12 @@ test('performs a query', () => {
 ```
 
 ::: warning
+<<<<<<< HEAD
 如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
+=======
+If you are running tests concurrently, you should always use `onTestFailed` hook from the test context since Vitest doesn't track concurrent tests in global hooks:
+
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
 ```ts
 import { test } from 'vitest'
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { VPTeamMembers, VPHomeSponsors } from 'vitepress/theme'
-import { teamMembers } from '../contributors'
+import { VPHomeSponsors } from 'vitepress/theme'
 import { sponsors } from '../sponsors'
 </script>
 
@@ -8,6 +7,7 @@ import { sponsors } from '../sponsors'
   <div class="content">
     <div class="content-container">
       <main class="main">
+<<<<<<< HEAD
         <div class="vp-doc" flex flex-col items-center>
           <h2 id="meet-the-team" op50 font-normal p="t-10 b-2">
             认识一下团队
@@ -16,6 +16,8 @@ import { sponsors } from '../sponsors'
             <VPTeamMembers size="small" :members="teamMembers" />
           </div>
         </div>
+=======
+>>>>>>> 20bbc0e332142974dc5e5f58db5257131ac1b798
         <VPHomeSponsors
           v-if="sponsors"
           message="Vitest 是优秀的开源软件，这得益于这些出色的赞助商。"
