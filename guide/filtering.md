@@ -22,7 +22,11 @@ basic-foo.test.ts
 basic/foo.test.ts
 ```
 
+<<<<<<< HEAD
 你还可以使用 `-t, --testNamePattern <pattern>` 选项按全名过滤测试。当你想按文件内定义的名称而不是文件名本身进行过滤时，这将非常有用。
+=======
+You can also use the `-t, --testNamePattern <pattern>` option to filter tests by full name. This can be helpful when you want to filter by the name defined within a file rather than the filename itself.
+>>>>>>> a4f1197ab8e985104c95ea8b471bb6fc6c4d4462
 
 ## 指定超时阈值
 

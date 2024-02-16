@@ -743,7 +743,11 @@ vi.useRealTimers();
 
 ### vi.useFakeTimers
 
+<<<<<<< HEAD
 - **类型:** `() => Vitest`
+=======
+- **Type:** `(config?: FakeTimerInstallOpts) => Vitest`
+>>>>>>> a4f1197ab8e985104c95ea8b471bb6fc6c4d4462
 
 要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`nextTick` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
 

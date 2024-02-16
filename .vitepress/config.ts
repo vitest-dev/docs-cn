@@ -64,6 +64,7 @@ export default withPwa(
     themeConfig: {
       logo: '/logo.svg',
 
+<<<<<<< HEAD
       editLink: {
         pattern: 'https://github.com/vitest-dev/docs-cn/tree/dev/:path',
         text: '为此页提供修改建议',
@@ -277,11 +278,221 @@ export default withPwa(
               {
                 text: '配置索引',
                 link: '/config/',
+=======
+    nav: [
+      { text: 'Guide', link: '/guide/', activeMatch: '^/guide/' },
+      { text: 'API', link: '/api/', activeMatch: '^/api/' },
+      { text: 'Config', link: '/config/', activeMatch: '^/config/' },
+      { text: 'Advanced', link: '/advanced/api', activeMatch: '^/advanced/' },
+      {
+        text: 'Resources',
+        items: [
+          {
+            text: 'Team',
+            link: '/team',
+          },
+          {
+            items: [
+              {
+                text: 'X (formerly Twitter)',
+                link: twitter,
+              },
+              {
+                text: 'Discord Chat',
+                link: discord,
+              },
+              {
+                text: 'Releases ',
+                link: releases,
+              },
+              {
+                text: 'Contributing ',
+                link: contributing,
+>>>>>>> a4f1197ab8e985104c95ea8b471bb6fc6c4d4462
               },
             ],
           },
         ],
       },
+<<<<<<< HEAD
+=======
+      {
+        text: `v${version}`,
+        link: `https://github.com/vitest-dev/vitest/releases/tag/v${version}`,
+      },
+    ],
+
+    sidebar: {
+      // TODO: bring sidebar of apis and config back
+      '/advanced': [
+        {
+          items: [
+            {
+              text: 'Vitest Node API',
+              link: '/advanced/api',
+            },
+            {
+              text: 'Runner API',
+              link: '/advanced/runner',
+            },
+            {
+              text: 'Task Metadata',
+              link: '/advanced/metadata',
+            },
+            {
+              text: 'Extending Reporters',
+              link: '/advanced/reporters',
+            },
+            {
+              text: 'Custom Pool',
+              link: '/advanced/pool',
+            },
+          ],
+        },
+      ],
+      '/guide/': [
+        {
+          items: [
+            {
+              text: 'Why Vitest',
+              link: '/guide/why',
+            },
+            {
+              text: 'Getting Started',
+              link: '/guide/',
+            },
+            {
+              text: 'Features',
+              link: '/guide/features',
+            },
+            {
+              text: 'Workspace',
+              link: '/guide/workspace',
+            },
+            {
+              text: 'CLI',
+              link: '/guide/cli',
+            },
+            {
+              text: 'Test Filtering',
+              link: '/guide/filtering',
+            },
+            {
+              text: 'Reporters',
+              link: '/guide/reporters',
+            },
+            {
+              text: 'Coverage',
+              link: '/guide/coverage',
+            },
+            {
+              text: 'Snapshot',
+              link: '/guide/snapshot',
+            },
+            {
+              text: 'Mocking',
+              link: '/guide/mocking',
+            },
+            {
+              text: 'Testing Types',
+              link: '/guide/testing-types',
+            },
+            {
+              text: 'Vitest UI',
+              link: '/guide/ui',
+            },
+            {
+              text: 'Browser Mode',
+              link: '/guide/browser',
+            },
+            {
+              text: 'In-Source Testing',
+              link: '/guide/in-source',
+            },
+            {
+              text: 'Test Context',
+              link: '/guide/test-context',
+            },
+            {
+              text: 'Environment',
+              link: '/guide/environment',
+            },
+            {
+              text: 'Extending Matchers',
+              link: '/guide/extending-matchers',
+            },
+            {
+              text: 'IDE Integration',
+              link: '/guide/ide',
+            },
+            {
+              text: 'Debugging',
+              link: '/guide/debugging',
+            },
+            {
+              text: 'Comparisons',
+              link: '/guide/comparisons',
+            },
+            {
+              text: 'Migration Guide',
+              link: '/guide/migration',
+            },
+            {
+              text: 'Common Errors',
+              link: '/guide/common-errors',
+            },
+            {
+              text: 'Improving Performance',
+              link: '/guide/improving-performance',
+            },
+          ],
+        },
+      ],
+      '/api/': [
+        {
+          items: [
+            {
+              text: 'Test API Reference',
+              link: '/api/',
+            },
+            {
+              text: 'Mock Functions',
+              link: '/api/mock',
+            },
+            {
+              text: 'Vi Utility',
+              link: '/api/vi',
+            },
+            {
+              text: 'Expect',
+              link: '/api/expect',
+            },
+            {
+              text: 'ExpectTypeOf',
+              link: '/api/expect-typeof',
+            },
+            {
+              text: 'AssertType',
+              link: '/api/assert-type',
+            },
+          ],
+        },
+      ],
+      '/config/': [
+        {
+          items: [
+            {
+              text: 'Config File',
+              link: '/config/file',
+            },
+            {
+              text: 'Config Reference',
+              link: '/config/',
+            },
+          ],
+        },
+      ],
+>>>>>>> a4f1197ab8e985104c95ea8b471bb6fc6c4d4462
     },
     pwa,
     transformHead,
