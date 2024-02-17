@@ -42,7 +42,7 @@ function createLinks(tm: CoreTeam): CoreTeam {
     })
   }
 
-if (tm.twitter)
+  if (tm.twitter)
     tm.links.push({ icon: 'x', link: `https://twitter.com/${tm.twitter}` })
 
   return tm
@@ -156,14 +156,6 @@ const plainTeamMembers: CoreTeam[] = [
     twitter: 'hiroshi_18181',
     title: '开源爱好者',
     desc: 'Vitest 团队成员',
-  },
-  {
-    avatar: contributorsAvatars['hi-ogawa'],
-    name: 'Hiroshi Ogawa',
-    github: 'hi-ogawa',
-    twitter: 'hiroshi_18181',
-    title: 'Open source enthusiast',
-    desc: 'Team member of Vitest',
   },
 ]
 
