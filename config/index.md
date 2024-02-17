@@ -4,6 +4,7 @@ outline: deep
 
 # 配置索引
 
+<<<<<<< HEAD
 ## 配置
 
 `vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用。如果想使用不同的配置进行测试，你可以：
@@ -97,6 +98,12 @@ export default defineConfig(configEnv =>
 除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
 
 *此处列出的*所有选项都位于配置中的 `test` 属性上：
+=======
+To create a Vitest configuration file, follow [the guide](/config/file). Make sure you understand how Vitest config resolution works before proceeding.
+
+::: warning
+_All_ listed options here are located on a `test` property inside the config:
+>>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 ```ts
 export default defineConfig({
@@ -109,11 +116,18 @@ export default defineConfig({
 :::
 
 ::: tip
+<<<<<<< HEAD
 所有不支持在 [workspace](/guide/workspace) 项目配置中的配置选项都会有 <NonProjectOption /> 标记。
+=======
+In addition to the following options, you can also use any configuration option from [Vite](https://vitejs.dev/config/). For example, `define` to define global variables, or `resolve.alias` to define aliases.
+
+All configuration options that are not supported inside a [workspace](/guide/workspace) project config have <NonProjectOption /> sign next to them.
+>>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 :::
 
 ### include
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
 
@@ -125,6 +139,27 @@ export default defineConfig({
 - **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
 
 匹配排除测试文件的 glob 规则。
+=======
+- **Type:** `string[]`
+- **Default:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
+- **CLI:** `vitest [...include]`, `vitest **/*.test.js`
+
+A list of glob patterns that match your test files.
+
+### exclude
+
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
+- **CLI:** `vitest --exclude "**/excluded-file"`
+
+A list of glob patterns that should be excluded from your test files.
+
+::: warning
+This option does not affect coverage. If you need to remove certain files from the coverage report, use [`coverage.exclude`](#coverage-exclude).
+
+This is the only option that doesn't override your configuration if you provide it with a CLI flag. All glob patterns added via `--exclude` flag will be added to the config's `exclude`.
+:::
+>>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 ### includeSource
 
@@ -239,8 +274,13 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 #### deps.optimizer.{mode}.enabled
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true` if using >= Vite 4.3.2, `false` otherwise
+=======
+- **Type:** `boolean`
+- **Default:** `false` since Vitest 1.3.0
+>>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 启用依赖优化。
 
@@ -1088,8 +1128,14 @@ declare module 'vitest' {
 
 ### watchExclude<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**']`
+=======
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/dist/**']`
+- **Deprecated** use [`server.watch.ignored`](https://vitejs.dev/config/server-options.html#server-watch)
+>>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 触发监视重新运行时要忽略的文件路径的全局 glob 模式。
 

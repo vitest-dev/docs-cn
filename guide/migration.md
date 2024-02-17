@@ -189,7 +189,21 @@ const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
 const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 ```
 
+<<<<<<< HEAD
 **Jasmine API**
+=======
+### Accessing the Return Values of a Mocked Promise
+
+Both Jest and Vitest store the results of all mock calls in the [`mock.results`](/api/mock.html#mock-results) array, where the return values of each call are stored in the `value` property.
+However, when mocking or spying on a promise (e.g. using `mockResolvedValue`), in Jest the `value` property will be a promise, while in Vitest, it will become a resolved value when a promise is resolved.
+
+```ts
+await expect(spy.mock.results[0].value).resolves.toBe(123) // [!code --]
+expect(spy.mock.results[0].value).toBe(123) // [!code ++]
+```
+
+### Envs
+>>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
 
