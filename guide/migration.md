@@ -19,11 +19,7 @@ Vitest 1.0 需要 Vite 5.0 和 Node.js 18 或更高版本。
 
 快照中的引号不再转义，即使字符串只有一行，所有快照也都使用回车引号 (`)。
 
-<<<<<<< HEAD
 1. 引号不再转义：
-=======
-1. Quotes are no longer escaped:
->>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 ```diff
 expect({ foo: 'bar' }).toMatchInlineSnapshot(`
@@ -47,11 +43,7 @@ expect({ foo: 'bar' }).toMatchInlineSnapshot(`
 - `client.setTest` 更名为 `client.startCurrentRun`
 - `client.resetCurrent` 更名为 `client.finishCurrentRun` 。
 
-<<<<<<< HEAD
 ### Pools 标准化 [#4172](https://github.com/vitest-dev/vitest/pull/4172)
-=======
-### Pools are Standardized [#4172](https://github.com/vitest-dev/vitest/pull/4172)
->>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 We removed a lot of configuration options to make it easier to configure the runner to your needs. Please, have a look at migration examples if you rely on `--threads` or other related flags.
 
@@ -150,7 +142,7 @@ export default defineConfig({
 ```
 
 ::: warning
-`SpyInstance` 已被弃用，取而代之的是  `MockInstance` ，并会在下一个主要版本中移除。
+`SpyInstance` 已被弃用，取而代之的是 `MockInstance` ，并会在下一个主要版本中移除。
 :::
 
 ### Timer mocks [#3925](https://github.com/vitest-dev/vitest/pull/3925)
@@ -197,21 +189,7 @@ const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
 const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 ```
 
-<<<<<<< HEAD
 **Jasmine API**
-=======
-### Accessing the Return Values of a Mocked Promise
-
-Both Jest and Vitest store the results of all mock calls in the [`mock.results`](/api/mock.html#mock-results) array, where the return values of each call are stored in the `value` property.
-However, when mocking or spying on a promise (e.g. using `mockResolvedValue`), in Jest the `value` property will be a promise, while in Vitest, it will become a resolved value when a promise is resolved.
-
-```ts
-await expect(spy.mock.results[0].value).resolves.toBe(123) // [!code --]
-expect(spy.mock.results[0].value).toBe(123) // [!code ++]
-```
-
-### Envs
->>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
 

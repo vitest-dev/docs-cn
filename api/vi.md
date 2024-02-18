@@ -7,7 +7,7 @@ outline: deep
 Vitest 通过其 `vi` 辅助工具提供实用功能来帮助你。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
 
 ```js
-import { vi } from "vitest";
+import { vi } from 'vitest'
 ```
 
 ## Mock Modules
@@ -39,27 +39,27 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 ```js
 // 使用 JavaScript 时
 
-vi.mock("./path/to/module.js", async (importOriginal) => {
-  const mod = await importOriginal();
+vi.mock('./path/to/module.js', async (importOriginal) => {
+  const mod = await importOriginal()
   return {
     ...mod,
     // 替换一些导出
     namedExport: vi.fn(),
-  };
-});
+  }
+})
 ```
 
 ```ts
 // 使用 TypeScript 时
 
-vi.mock("./path/to/module.js", async (importOriginal) => {
-  const mod = await importOriginal<typeof import("./path/to/module.js")>();
+vi.mock('./path/to/module.js', async (importOriginal) => {
+  const mod = await importOriginal<typeof import('./path/to/module.js')>()
   return {
     ...mod,
     // 替换一些导出
     namedExport: vi.fn(),
-  };
-});
+  }
+})
 ```
 
 ::: warning
@@ -72,24 +72,24 @@ vi.mock("./path/to/module.js", async (importOriginal) => {
 如果在 `vi.mock` 之前声明了 `vi.hoisted` 方法，也可以引用该方法定义的变量：
 
 ```ts
-import { namedExport } from "./path/to/module.js";
+import { namedExport } from './path/to/module.js'
 
 const mocks = vi.hoisted(() => {
   return {
     namedExport: vi.fn(),
-  };
-});
+  }
+})
 
-vi.mock("./path/to/module.js", () => {
+vi.mock('./path/to/module.js', () => {
   return {
     namedExport: mocks.namedExport,
-  };
-});
+  }
+})
 
-vi.mocked(namedExport).mockReturnValue(100);
+vi.mocked(namedExport).mockReturnValue(100)
 
-expect(namedExport()).toBe(100);
-expect(namedExport).toBe(mocks.namedExport);
+expect(namedExport()).toBe(100)
+expect(namedExport).toBe(mocks.namedExport)
 ```
 
 :::
@@ -98,13 +98,13 @@ expect(namedExport).toBe(mocks.namedExport);
 如果我们模拟的模块有默认导出，则需要在返回的工厂函数对象中提供一个 `default` 键。这是 ES 模块特有的注意事项；因此，由于 `jest` 使用 CommonJS 模块，`jest` 文档可能会有所不同。例如：
 
 ```ts
-vi.mock("./path/to/module.js", () => {
+vi.mock('./path/to/module.js', () => {
   return {
     default: { myDefaultKey: vi.fn() },
     namedExport: vi.fn(),
     // etc...
-  };
-});
+  }
+})
 ```
 
 :::
@@ -127,18 +127,18 @@ vi.mock("./path/to/module.js", () => {
 
 ```ts
 // increment.test.js
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // axios is a default export from `__mocks__/axios.js`
-import axios from "axios";
+import axios from 'axios'
 
 // increment is a named export from `src/__mocks__/increment.js`
-import { increment } from "../increment.js";
+import { increment } from '../increment.js'
 
-vi.mock("axios");
-vi.mock("../increment.js");
+vi.mock('axios')
+vi.mock('../increment.js')
 
-axios.get(`/apples/${increment(1)}`);
+axios.get(`/apples/${increment(1)}`)
 ```
 
 ::: warning
@@ -161,8 +161,8 @@ axios.get(`/apples/${increment(1)}`);
 ```ts
 // this will be called _after_ the import statement
 
-import { increment } from "./increment.js";
-vi.doMock("./increment.js");
+import { increment } from './increment.js'
+vi.doMock('./increment.js')
 ```
 
 :::
@@ -170,33 +170,33 @@ vi.doMock("./increment.js");
 ```ts
 // ./increment.js
 export function increment(number) {
-  return number + 1;
+  return number + 1
 }
 ```
 
 ```ts
-import { beforeEach, test } from "vitest";
-import { increment } from "./increment.js";
+import { beforeEach, test } from 'vitest'
+import { increment } from './increment.js'
 
 // the module is not mocked, because vi.doMock is not called yet
-increment(1) === 2;
+increment(1) === 2
 
-let mockedIncrement = 100;
+let mockedIncrement = 100
 
 beforeEach(() => {
   // you can access variables inside a factory
-  vi.doMock("./increment.js", () => ({ increment: () => ++mockedIncrement }));
-});
+  vi.doMock('./increment.js', () => ({ increment: () => ++mockedIncrement }))
+})
 
-test("importing the next module imports mocked one", async () => {
+test('importing the next module imports mocked one', async () => {
   // original import WAS NOT MOCKED, because vi.doMock is evaluated AFTER imports
-  expect(increment(1)).toBe(2);
-  const { increment: mockedIncrement } = await import("./increment.js");
+  expect(increment(1)).toBe(2)
+  const { increment: mockedIncrement } = await import('./increment.js')
   // new dynamic import returns mocked module
-  expect(mockedIncrement(1)).toBe(101);
-  expect(mockedIncrement(1)).toBe(102);
-  expect(mockedIncrement(1)).toBe(103);
-});
+  expect(mockedIncrement(1)).toBe(101)
+  expect(mockedIncrement(1)).toBe(102)
+  expect(mockedIncrement(1)).toBe(103)
+})
 ```
 
 ### vi.mocked
@@ -209,14 +209,14 @@ TypeScript 的类型助手。只返回传入的对象。
 当 `partial` 为 `true` 时，它将期望一个 `Partial<T>` 作为返回值。默认情况下，这只会让 TypeScript 认为第一层的值是模拟的。我们可以将 `{ deep: true }` 作为第二个参数传递给 TypeScript，告诉它整个对象都是模拟的（如果实际上是的话）。
 
 ```ts
-import example from "./example.js";
+import example from './example.js'
 
-vi.mock("./example.js");
+vi.mock('./example.js')
 
-test("1 + 1 equals 10", async () => {
-  vi.mocked(example.calc).mockReturnValue(10);
-  expect(example.calc(1, "+", 1)).toBe(10);
-});
+test('1 + 1 equals 10', async () => {
+  vi.mocked(example.calc).mockReturnValue(10)
+  expect(example.calc(1, '+', 1)).toBe(10)
+})
 ```
 
 ### vi.importActual
@@ -226,11 +226,11 @@ test("1 + 1 equals 10", async () => {
 导入模块，绕过模块是否应被模拟的所有检查。如果我们想部分模拟模块，这一点很有用。
 
 ```ts
-vi.mock("./example.js", async () => {
-  const axios = await vi.importActual("./example.js");
+vi.mock('./example.js', async () => {
+  const axios = await vi.importActual('./example.js')
 
-  return { ...axios, get: vi.fn() };
-});
+  return { ...axios, get: vi.fn() }
+})
 ```
 
 ### vi.importMock
@@ -254,35 +254,35 @@ vi.mock("./example.js", async () => {
 ```ts
 // ./increment.js
 export function increment(number) {
-  return number + 1;
+  return number + 1
 }
 ```
 
 ```ts
-import { increment } from "./increment.js";
+import { increment } from './increment.js'
 
 // increment is already mocked, because vi.mock is hoisted
-increment(1) === 100;
+increment(1) === 100
 
 // this is hoisted, and factory is called before the import on line 1
-vi.mock("./increment.js", () => ({ increment: () => 100 }));
+vi.mock('./increment.js', () => ({ increment: () => 100 }))
 
 // all calls are mocked, and `increment` always returns 100
-increment(1) === 100;
-increment(30) === 100;
+increment(1) === 100
+increment(30) === 100
 
 // this is not hoisted, so other import will return unmocked module
-vi.doUnmock("./increment.js");
+vi.doUnmock('./increment.js')
 
 // this STILL returns 100, because `vi.doUnmock` doesn't reevaluate a module
-increment(1) === 100;
-increment(30) === 100;
+increment(1) === 100
+increment(30) === 100
 
 // the next import is unmocked, now `increment` is the original function that returns count + 1
-const { increment: unmockedIncrement } = await import("./increment.js");
+const { increment: unmockedIncrement } = await import('./increment.js')
 
-unmockedIncrement(1) === 2;
-unmockedIncrement(30) === 31;
+unmockedIncrement(1) === 2
+unmockedIncrement(30) === 31
 ```
 
 ### vi.resetModules
@@ -292,24 +292,24 @@ unmockedIncrement(30) === 31;
 通过清除所有模块的缓存来重置模块注册表。这样就可以在重新导入模块时对模块进行重新评估。顶层导入无法重新评估。这可能有助于隔离测试之间存在本地状态冲突的模块。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
-import { data } from "./data.js"; // Will not get reevaluated beforeEach test
+import { data } from './data.js' // Will not get reevaluated beforeEach test
 
 beforeEach(() => {
-  vi.resetModules();
-});
+  vi.resetModules()
+})
 
-test("change state", async () => {
-  const mod = await import("./some/path.js"); // Will get reevaluated
-  mod.changeLocalState("new value");
-  expect(mod.getLocalState()).toBe("new value");
-});
+test('change state', async () => {
+  const mod = await import('./some/path.js') // Will get reevaluated
+  mod.changeLocalState('new value')
+  expect(mod.getLocalState()).toBe('new value')
+})
 
-test("module has old state", async () => {
-  const mod = await import("./some/path.js"); // Will get reevaluated
-  expect(mod.getLocalState()).toBe("old value");
-});
+test('module has old state', async () => {
+  const mod = await import('./some/path.js') // Will get reevaluated
+  expect(mod.getLocalState()).toBe('old value')
+})
 ```
 
 ::: warning
@@ -321,20 +321,20 @@ test("module has old state", async () => {
 等待加载所有导入模块。如果有同步调用开始导入一个模块，而如果不这样做就无法等待，那么它就很有用。
 
 ```ts
-import { expect, test } from "vitest";
+import { expect, test } from 'vitest'
 
 // cannot track import because Promise is not returned
 function renderComponent() {
-  import("./component.js").then(({ render }) => {
-    render();
-  });
+  import('./component.js').then(({ render }) => {
+    render()
+  })
 }
 
-test("operations are resolved", async () => {
-  renderComponent();
-  await vi.dynamicImportSettled();
-  expect(document.querySelector(".component")).not.toBeNull();
-});
+test('operations are resolved', async () => {
+  renderComponent()
+  await vi.dynamicImportSettled()
+  expect(document.querySelector('.component')).not.toBeNull()
+})
 ```
 
 ::: tip
@@ -355,18 +355,18 @@ test("operations are resolved", async () => {
 如果没有给出函数，调用 mock 时将返回 `undefined`。
 
 ```ts
-const getApples = vi.fn(() => 0);
+const getApples = vi.fn(() => 0)
 
-getApples();
+getApples()
 
-expect(getApples).toHaveBeenCalled();
-expect(getApples).toHaveReturnedWith(0);
+expect(getApples).toHaveBeenCalled()
+expect(getApples).toHaveReturnedWith(0)
 
-getApples.mockReturnValueOnce(5);
+getApples.mockReturnValueOnce(5)
 
-const res = getApples();
-expect(res).toBe(5);
-expect(getApples).toHaveNthReturnedWith(2, 5);
+const res = getApples()
+expect(res).toBe(5)
+expect(getApples).toHaveNthReturnedWith(2, 5)
 ```
 
 ### vi.isMockFunction
@@ -394,18 +394,18 @@ expect(getApples).toHaveNthReturnedWith(2, 5);
 创建与 [`vi.fn()`](/#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
 
 ```ts
-let apples = 0;
+let apples = 0
 const cart = {
   getApples: () => 42,
-};
+}
 
-const spy = vi.spyOn(cart, "getApples").mockImplementation(() => apples);
-apples = 1;
+const spy = vi.spyOn(cart, 'getApples').mockImplementation(() => apples)
+apples = 1
 
-expect(cart.getApples()).toBe(1);
+expect(cart.getApples()).toBe(1)
 
-expect(spy).toHaveBeenCalled();
-expect(spy).toHaveReturnedWith(1);
+expect(spy).toHaveBeenCalled()
+expect(spy).toHaveReturnedWith(1)
 ```
 
 ::: tip
@@ -414,15 +414,15 @@ expect(spy).toHaveReturnedWith(1);
 ```ts
 const cart = {
   getApples: () => 42,
-};
+}
 
-const spy = vi.spyOn(cart, "getApples").mockReturnValue(10);
+const spy = vi.spyOn(cart, 'getApples').mockReturnValue(10)
 
-console.log(cart.getApples()); // 10
-vi.restoreAllMocks();
-console.log(cart.getApples()); // 42
-spy.mockReturnValue(10);
-console.log(cart.getApples()); // still 42!
+console.log(cart.getApples()) // 10
+vi.restoreAllMocks()
+console.log(cart.getApples()) // 42
+spy.mockReturnValue(10)
+console.log(cart.getApples()) // still 42!
 ```
 
 :::
@@ -434,24 +434,24 @@ console.log(cart.getApples()); // still 42!
 更改 `process.env` 和 `import.meta.env` 中环境变量的值。我们可以调用 `vi.unstubAllEnvs` 恢复其值。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
 // are "development" before calling "vi.stubEnv"
 
-vi.stubEnv("NODE_ENV", "production");
+vi.stubEnv('NODE_ENV', 'production')
 
-process.env.NODE_ENV === "production";
-import.meta.env.NODE_ENV === "production";
+process.env.NODE_ENV === 'production'
+import.meta.env.NODE_ENV === 'production'
 // doesn't change other envs
-import.meta.env.MODE === "development";
+import.meta.env.MODE === 'development'
 ```
 
 :::tip
 我们也可以通过简单赋值来更改值，但无法使用 `vi.unstubAllEnvs` 恢复以前的值：
 
 ```ts
-import.meta.env.MODE = "test";
+import.meta.env.MODE = 'test'
 ```
 
 :::
@@ -463,26 +463,26 @@ import.meta.env.MODE = "test";
 恢复通过 `vi.stubEnv` 更改的所有 `import.meta.env` 和 `process.env` 值。首次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllEnvs`。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
 // are "development" before calling stubEnv
 
-vi.stubEnv("NODE_ENV", "production");
+vi.stubEnv('NODE_ENV', 'production')
 
-process.env.NODE_ENV === "production";
-import.meta.env.NODE_ENV === "production";
+process.env.NODE_ENV === 'production'
+import.meta.env.NODE_ENV === 'production'
 
-vi.stubEnv("NODE_ENV", "staging");
+vi.stubEnv('NODE_ENV', 'staging')
 
-process.env.NODE_ENV === "staging";
-import.meta.env.NODE_ENV === "staging";
+process.env.NODE_ENV === 'staging'
+import.meta.env.NODE_ENV === 'staging'
 
-vi.unstubAllEnvs();
+vi.unstubAllEnvs()
 
 // restores to the value that were stored before the first "stubEnv" call
-process.env.NODE_ENV === "development";
-import.meta.env.NODE_ENV === "development";
+process.env.NODE_ENV === 'development'
+import.meta.env.NODE_ENV === 'development'
 ```
 
 ### vi.stubGlobal
@@ -492,25 +492,25 @@ import.meta.env.NODE_ENV === "development";
 更改全局变量的值。我们可以调用 `vi.unstubAllGlobals` 恢复其原始值。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
 // `innerWidth` is "0" before calling stubGlobal
 
-vi.stubGlobal("innerWidth", 100);
+vi.stubGlobal('innerWidth', 100)
 
-innerWidth === 100;
-globalThis.innerWidth === 100;
+innerWidth === 100
+globalThis.innerWidth === 100
 // if you are using jsdom or happy-dom
-window.innerWidth === 100;
+window.innerWidth === 100
 ```
 
 :::tip
 我们也可以通过简单地将其赋值给 `globalThis` 或 `window`（如果我们使用的是 `jsdom` 或 `happy-dom` 环境）来更改该值，但无法使用 `vi.unstubAllGlobals` 恢复原始值：
 
 ```ts
-globalThis.innerWidth = 100;
+globalThis.innerWidth = 100
 // if you are using jsdom or happy-dom
-window.innerWidth = 100;
+window.innerWidth = 100
 ```
 
 :::
@@ -522,26 +522,26 @@ window.innerWidth = 100;
 恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent `，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
 
 ```ts
-import { vi } from "vitest";
+import { vi } from 'vitest'
 
-const Mock = vi.fn();
+const Mock = vi.fn()
 
 // IntersectionObserver is "undefined" before calling "stubGlobal"
 
-vi.stubGlobal("IntersectionObserver", Mock);
+vi.stubGlobal('IntersectionObserver', Mock)
 
-IntersectionObserver === Mock;
-global.IntersectionObserver === Mock;
-globalThis.IntersectionObserver === Mock;
+IntersectionObserver === Mock
+global.IntersectionObserver === Mock
+globalThis.IntersectionObserver === Mock
 // if you are using jsdom or happy-dom
-window.IntersectionObserver === Mock;
+window.IntersectionObserver === Mock
 
-vi.unstubAllGlobals();
+vi.unstubAllGlobals()
 
-globalThis.IntersectionObserver === undefined;
-"IntersectionObserver" in globalThis === false;
+globalThis.IntersectionObserver === undefined
+'IntersectionObserver' in globalThis === false
 // throws ReferenceError, because it's not defined
-IntersectionObserver === undefined;
+IntersectionObserver === undefined
 ```
 
 ## Fake Timers
@@ -555,10 +555,10 @@ IntersectionObserver === undefined;
 该方法将调用每个启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。
 
 ```ts
-let i = 0;
-setInterval(() => console.log(++i), 50);
+let i = 0
+setInterval(() => console.log(++i), 50)
 
-vi.advanceTimersByTime(150);
+vi.advanceTimersByTime(150)
 
 // log: 1
 // log: 2
@@ -572,10 +572,10 @@ vi.advanceTimersByTime(150);
 该方法将调用每个已启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。这将包括异步设置的计时器。
 
 ```ts
-let i = 0;
-setInterval(() => Promise.resolve().then(() => console.log(++i)), 50);
+let i = 0
+setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
 
-await vi.advanceTimersByTimeAsync(150);
+await vi.advanceTimersByTimeAsync(150)
 
 // log: 1
 // log: 2
@@ -589,12 +589,12 @@ await vi.advanceTimersByTimeAsync(150);
 将调用下一个可用的定时器。在每次调用定时器之间进行断言非常有用。我们可以调用它来管理自己的定时器。
 
 ```ts
-let i = 0;
-setInterval(() => console.log(++i), 50);
+let i = 0
+setInterval(() => console.log(++i), 50)
 
 vi.advanceTimersToNextTimer() // log: 1
   .advanceTimersToNextTimer() // log: 2
-  .advanceTimersToNextTimer(); // log: 3
+  .advanceTimersToNextTimer() // log: 3
 ```
 
 ### vi.advanceTimersToNextTimerAsync
@@ -604,14 +604,14 @@ vi.advanceTimersToNextTimer() // log: 1
 如果定时器是异步设置的，则会调用下一个可用的定时器并等待解决。在每次调用定时器之间进行断言非常有用。
 
 ```ts
-let i = 0;
-setInterval(() => Promise.resolve().then(() => console.log(++i)), 50);
+let i = 0
+setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
 
-await vi.advanceTimersToNextTimerAsync(); // log: 1
-expect(console.log).toHaveBeenCalledWith(1);
+await vi.advanceTimersToNextTimerAsync() // log: 1
+expect(console.log).toHaveBeenCalledWith(1)
 
-await vi.advanceTimersToNextTimerAsync(); // log: 2
-await vi.advanceTimersToNextTimerAsync(); // log: 3
+await vi.advanceTimersToNextTimerAsync() // log: 2
+await vi.advanceTimersToNextTimerAsync() // log: 3
 ```
 
 ### vi.getTimerCount
@@ -649,14 +649,15 @@ await vi.advanceTimersToNextTimerAsync(); // log: 3
 该方法将调用每个已经启动的定时器，直到定时器队列为空。这意味着在 `runAllTimers` 期间调用的每个定时器都会被触发。如果时间间隔为无限，则会在尝试 10000 次后触发（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) 进行配置）。
 
 ```ts
-let i = 0;
-setTimeout(() => console.log(++i));
+let i = 0
+setTimeout(() => console.log(++i))
 const interval = setInterval(() => {
-  console.log(++i);
-  if (i === 3) clearInterval(interval);
-}, 50);
+  console.log(++i)
+  if (i === 3)
+    clearInterval(interval)
+}, 50)
 
-vi.runAllTimers();
+vi.runAllTimers()
 
 // log: 1
 // log: 2
@@ -672,10 +673,10 @@ vi.runAllTimers();
 
 ```ts
 setTimeout(async () => {
-  console.log(await Promise.resolve("result"));
-}, 100);
+  console.log(await Promise.resolve('result'))
+}, 100)
 
-await vi.runAllTimersAsync();
+await vi.runAllTimersAsync()
 
 // log: result
 ```
@@ -687,10 +688,10 @@ await vi.runAllTimersAsync();
 此方法将调用 [`vi.useFakeTimers`](#vii-usefaketimers) 调用后启动的所有计时器。它不会调用在调用期间启动的任何计时器。
 
 ```ts
-let i = 0;
-setInterval(() => console.log(++i), 50);
+let i = 0
+setInterval(() => console.log(++i), 50)
 
-vi.runOnlyPendingTimers();
+vi.runOnlyPendingTimers()
 
 // log: 1
 ```
@@ -703,18 +704,18 @@ vi.runOnlyPendingTimers();
 
 ```ts
 setTimeout(() => {
-  console.log(1);
-}, 100);
+  console.log(1)
+}, 100)
 setTimeout(() => {
   Promise.resolve().then(() => {
-    console.log(2);
+    console.log(2)
     setInterval(() => {
-      console.log(3);
-    }, 40);
-  });
-}, 10);
+      console.log(3)
+    }, 40)
+  })
+}, 10)
 
-await vi.runOnlyPendingTimersAsync();
+await vi.runOnlyPendingTimersAsync()
 
 // log: 2
 // log: 3
@@ -731,14 +732,14 @@ await vi.runOnlyPendingTimersAsync();
 如果我们需要测试任何依赖于当前日期的内容 -- 例如在代码中调用 [luxon](https://github.com/moment/luxon/) --则非常有用。
 
 ```ts
-const date = new Date(1998, 11, 19);
+const date = new Date(1998, 11, 19)
 
-vi.useFakeTimers();
-vi.setSystemTime(date);
+vi.useFakeTimers()
+vi.setSystemTime(date)
 
-expect(Date.now()).toBe(date.valueOf());
+expect(Date.now()).toBe(date.valueOf())
 
-vi.useRealTimers();
+vi.useRealTimers()
 ```
 
 ### vi.useFakeTimers
@@ -781,25 +782,26 @@ Vitest 提供的一组有用的辅助函数。
 这在需要等待某些异步操作完成时非常有用，例如，在启动服务器并需要等待其启动时。
 
 ```ts
-import { expect, test, vi } from "vitest";
-import { createServer } from "./server.js";
+import { expect, test, vi } from 'vitest'
+import { createServer } from './server.js'
 
-test("Server started successfully", async () => {
-  const server = createServer();
+test('Server started successfully', async () => {
+  const server = createServer()
 
   await vi.waitFor(
     () => {
-      if (!server.isReady) throw new Error("Server not started");
+      if (!server.isReady)
+        throw new Error('Server not started')
 
-      console.log("Server started");
+      console.log('Server started')
     },
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50
     }
-  );
-  expect(server.isReady).toBe(true);
-});
+  )
+  expect(server.isReady).toBe(true)
+})
 ```
 
 它也适用于异步回调。
@@ -807,28 +809,28 @@ test("Server started successfully", async () => {
 ```ts
 // @vitest-environment jsdom
 
-import { expect, test, vi } from "vitest";
-import { getDOMElementAsync, populateDOMAsync } from "./dom.js";
+import { expect, test, vi } from 'vitest'
+import { getDOMElementAsync, populateDOMAsync } from './dom.js'
 
-test("Element exists in a DOM", async () => {
+test('Element exists in a DOM', async () => {
   // start populating DOM
-  populateDOMAsync();
+  populateDOMAsync()
 
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
-      const element = (await getDOMElementAsync()) as HTMLElement | null;
-      expect(element).toBeTruthy();
-      expect(element.dataset.initialized).toBeTruthy();
-      return element;
+      const element = (await getDOMElementAsync()) as HTMLElement | null
+      expect(element).toBeTruthy()
+      expect(element.dataset.initialized).toBeTruthy()
+      return element
     },
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50
     }
-  );
-  expect(element).toBeInstanceOf(HTMLElement);
-});
+  )
+  expect(element).toBeInstanceOf(HTMLElement)
+})
 ```
 
 如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
@@ -842,17 +844,17 @@ test("Element exists in a DOM", async () => {
 请看下面的示例。我们可以使用 `vi.waitUntil` 等待元素出现在页面上，然后对元素进行操作。
 
 ```ts
-import { expect, test, vi } from "vitest";
+import { expect, test, vi } from 'vitest'
 
-test("Element render correctly", async () => {
-  const element = await vi.waitUntil(() => document.querySelector(".element"), {
+test('Element render correctly', async () => {
+  const element = await vi.waitUntil(() => document.querySelector('.element'), {
     timeout: 500, // default is 1000
     interval: 20, // default is 50
-  });
+  })
 
   // do something with the element
-  expect(element.querySelector(".element-child")).toBeTruthy();
-});
+  expect(element.querySelector('.element-child')).toBeTruthy()
+})
 ```
 
 ### vi.hoisted <Badge type="info">0.31.0+</Badge>
@@ -882,28 +884,28 @@ import { value } from './some/module.js'
 该方法返回从工厂返回的值。 如果我们需要轻松访问本地定义的变量，可以在我们的 `vi.mock` 工厂中使用该值：
 
 ```ts
-import { expect, vi } from "vitest";
-import { originalMethod } from "./path/to/module.js";
+import { expect, vi } from 'vitest'
+import { originalMethod } from './path/to/module.js'
 
 const { mockedMethod } = vi.hoisted(() => {
-  return { mockedMethod: vi.fn() };
-});
+  return { mockedMethod: vi.fn() }
+})
 
-vi.mock("./path/to/module.js", () => {
-  return { originalMethod: mockedMethod };
-});
+vi.mock('./path/to/module.js', () => {
+  return { originalMethod: mockedMethod }
+})
 
-mockedMethod.mockReturnValue(100);
-expect(originalMethod()).toBe(100);
+mockedMethod.mockReturnValue(100)
+expect(originalMethod()).toBe(100)
 ```
 
 请注意，即使我们的环境不支持顶级等待，也可以异步调用此方法：
 
 ```ts
 const promised = await vi.hoisted(async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  return response.json();
-});
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+  return response.json()
+})
 ```
 
 ### vi.setConfig
@@ -925,10 +927,10 @@ vi.setConfig({
   },
   maxConcurrency: 10,
   sequence: {
-    hooks: "stack",
+    hooks: 'stack',
     // supports only "sequence.hooks"
   },
-});
+})
 ```
 
 ### vi.resetConfig

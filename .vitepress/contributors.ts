@@ -42,7 +42,7 @@ function createLinks(tm: CoreTeam): CoreTeam {
     })
   }
 
-if (tm.twitter)
+  if (tm.twitter)
     tm.links.push({ icon: 'x', link: `https://twitter.com/${tm.twitter}` })
 
   return tm
@@ -120,8 +120,8 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'zxch3n',
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
-    title: 'A fullstack developer',
-    desc: 'Working on CRDTs & local-first software',
+    title: '全栈开发者',
+    desc: '开发 CRDT 和本地优先软件',
   },
 ]
 
@@ -145,18 +145,6 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     desc: 'fluent-vue 的作者',
   },
   {
-<<<<<<< HEAD
-    avatar: contributorsAvatars.zxch3n,
-    name: 'Zixuan Chen',
-    github: 'zxch3n',
-    mastodon: 'https://elk.zone/hachyderm.io/@zx',
-    twitter: 'zxch3n',
-    title: '全栈开发者',
-    desc: '开发 CRDT 和本地优先软件',
-  },
-  {
-=======
->>>>>>> 1b834973caf23ffaa26fd5e54a35c10296d5c712
     avatar: contributorsAvatars.poyoho,
     name: 'Yoho Po',
     github: 'poyoho',
