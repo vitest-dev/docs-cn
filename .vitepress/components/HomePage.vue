@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { VPTeamMembers, VPHomeSponsors } from 'vitepress/theme'
-import { teamMembers } from '../contributors'
+import { VPHomeSponsors } from 'vitepress/theme'
 import { sponsors } from '../sponsors'
 </script>
 
@@ -8,14 +7,6 @@ import { sponsors } from '../sponsors'
   <div class="content">
     <div class="content-container">
       <main class="main">
-        <div class="vp-doc" flex flex-col items-center>
-          <h2 id="meet-the-team" op50 font-normal p="t-10 b-2">
-            认识一下团队
-          </h2>
-          <div w-full p-10>
-            <VPTeamMembers size="small" :members="teamMembers" />
-          </div>
-        </div>
         <VPHomeSponsors
           v-if="sponsors"
           message="Vitest 是优秀的开源软件，这得益于这些出色的赞助商。"
@@ -33,7 +24,13 @@ import { sponsors } from '../sponsors'
         </div>
         <p flex flex-col items-center mt-10 class="text-center opacity-75">
           <a href="https://www.netlify.com" rel="noopener noreferrer">
-            <img src="/netlify.svg" alt="Deploys by Netlify" width="114" height="151" decoding="async">
+            <img
+              src="/netlify.svg"
+              alt="Deploys by Netlify"
+              width="114"
+              height="151"
+              decoding="async"
+            >
           </a>
         </p>
       </main>
@@ -56,10 +53,7 @@ import { sponsors } from '../sponsors'
   text-align: center;
   font-weight: 600;
   white-space: nowrap;
-  transition:
-    color 0.25s,
-    border-color 0.25s,
-    background-color 0.25s;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
   /* .VPButton.medium */
   border-radius: 20px;
   padding: 0 20px;

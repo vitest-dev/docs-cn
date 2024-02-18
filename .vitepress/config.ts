@@ -275,6 +275,10 @@ export default withPwa(
             text: '配置',
             items: [
               {
+                text: '配置文件',
+                link: '/config/file',
+              },
+              {
                 text: '配置索引',
                 link: '/config/',
               },
