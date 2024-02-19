@@ -46,8 +46,8 @@ vitest related /src/index.ts /src/hello-world.js
 ```js
 // .lintstagedrc.js
 export default {
-  '*.{js,ts}': 'vitest related --run',
-}
+  "*.{js,ts}": "vitest related --run",
+};
 ```
 
 :::
@@ -103,7 +103,7 @@ export default {
 | `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
 | `--exclude <glob>`                   | 要从测试中排除的其他文件 globs                                                                                                              |
 | `--expand-snapshot-diff`             | 快照失败时显示完整差异                                                                                                                      |
-| `--disable-console-intercept` | 禁用自动拦截控制台日志（默认：`false` ） |
+| `--disable-console-intercept`        | 禁用自动拦截控制台日志（默认：`false` ）                                                                                                    |
 | `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
 | `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
@@ -137,15 +137,9 @@ vitest --api=false
 
   设置为 true 时，仅对已更改的文件运行测试。默认情况下，将考虑所有未提交的更改（包括已暂存和未暂存的文件）。
 
-<<<<<<< HEAD
   要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
 
   如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
-=======
-  To run tests against changes made in the last commit, you can use `--changed HEAD~1`. You can also pass commit hash (e.g. `--changed 09a9920`) or branch name (e.g. `--changed origin/develop`).
-
-  If paired with the [`forceRerunTriggers`](/config/#forcereruntriggers) config option it will run the whole test suite if at least one of the files listed in the `forceRerunTriggers` list changes. By default, changes to the Vitest config file and `package.json` will always rerun the whole suite.
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 ### shard
 

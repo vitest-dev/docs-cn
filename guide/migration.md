@@ -167,11 +167,11 @@ Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 在 Jest 中模拟一个模块时，工厂参数的返回值是默认导出。在 Vitest 中，工厂参数必须返回一个明确定义了每个导出的对象。例如，下面的 `jest.mock` 必须更新如下：
 
 ```ts
-jest.mock('./some-path', () => 'hello') // [!code --]
-vi.mock('./some-path', () => ({
+jest.mock("./some-path", () => "hello"); // [!code --]
+vi.mock("./some-path", () => ({
   // [!code ++]
-  default: 'hello', // [!code ++]
-})) // [!code ++]
+  default: "hello", // [!code ++]
+})); // [!code ++]
 ```
 
 有关更深入的详细描述，请参阅 [`vi.mock` api section](/api/#vi-mock)。
@@ -185,25 +185,11 @@ vi.mock('./some-path', () => ({
 如果你只需要模拟一个 package 的部分功能，你可能之前使用了 Jest 的 `requireActual` 函数。在 Vitest 中，你应该将这些调用替换为 `vi.importActual`。
 
 ```ts
-const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
-const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
+const { cloneDeep } = jest.requireActual("lodash/cloneDeep"); // [!code --]
+const { cloneDeep } = await vi.importActual("lodash/cloneDeep"); // [!code ++]
 ```
 
-<<<<<<< HEAD
 **Jasmine API**
-=======
-### Accessing the Return Values of a Mocked Promise
-
-Both Jest and Vitest store the results of all mock calls in the [`mock.results`](/api/mock.html#mock-results) array, where the return values of each call are stored in the `value` property.
-However, when mocking or spying on a promise (e.g. using `mockResolvedValue`), in Jest the `value` property will be a promise, while in Vitest, it will become a resolved value when a promise is resolved.
-
-```ts
-await expect(spy.mock.results[0].value).resolves.toBe(123) // [!code --]
-expect(spy.mock.results[0].value).toBe(123) // [!code ++]
-```
-
-### Envs
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
 
@@ -233,10 +219,10 @@ it('should work', () => new Promise(done => { // [!code ++]
 `beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown)中返回。因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
 
 ```ts
-beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
+beforeEach(() => setActivePinia(createTestingPinia())); // [!code --]
 beforeEach(() => {
-  setActivePinia(createTestingPinia())
-}) // [!code ++]
+  setActivePinia(createTestingPinia());
+}); // [!code ++]
 ```
 
 在 Jest 中，钩子是按顺序调用的（一个接一个）。默认情况下，Vitest 并行运行钩子。要使用 Jest 的行为，请更新 [`sequence.hooks`](/config/#sequence-hooks) 选项：
@@ -246,10 +232,10 @@ export default defineConfig({
   test: {
     sequence: {
       // [!code ++]
-      hooks: 'list', // [!code ++]
+      hooks: "list", // [!code ++]
     }, // [!code ++]
   },
-})
+});
 ```
 
 ### 类型
@@ -269,8 +255,8 @@ let fn: Mock<[string], string> // [!code ++]
 如果你之前在测试中使用了 jest.setTimeout ，那么你需要迁移到 Vitest 中的`vi.setConfig` :
 
 ```ts
-jest.setTimeout(5_000) // [!code --]
-vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
+jest.setTimeout(5_000); // [!code --]
+vi.setConfig({ testTimeout: 5_000 }); // [!code ++]
 ```
 
 ### Vue 快照
@@ -280,19 +266,19 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 `vite.config.js`
 
 ```js
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 export default defineConfig({
   test: {
-    setupFiles: ['./tests/unit/setup.js'],
+    setupFiles: ["./tests/unit/setup.js"],
   },
-})
+});
 ```
 
 `tests/unit/setup.js`
 
 ```js
-import vueSnapshotSerializer from 'jest-serializer-vue'
-expect.addSnapshotSerializer(vueSnapshotSerializer)
+import vueSnapshotSerializer from "jest-serializer-vue";
+expect.addSnapshotSerializer(vueSnapshotSerializer);
 ```
 
 否则你的快照将出现大量的 `"` 字符。

@@ -7,20 +7,20 @@ outline: deep
 下面的类型签名中使用了以下类型：
 
 ```ts
-type Awaitable<T> = T | PromiseLike<T>
-type TestFunction = () => Awaitable<void>
+type Awaitable<T> = T | PromiseLike<T>;
+type TestFunction = () => Awaitable<void>;
 
 interface TestOptions {
   /**
    * 如果执行时间过长，测试将失败
    */
-  timeout?: number
+  timeout?: number;
   /**
    * 如果测试失败，将重试特定次数
    *
    * @default 0
    */
-  retry?: number
+  retry?: number;
   /**
    * 即使每次都失败，也会重复多次相同的测试
    * 如果有 "retry" 选项并且失败，它将在每个周期中使用每次重试
@@ -28,154 +28,106 @@ interface TestOptions {
    *
    * @default 0
    */
-  repeats?: number
+  repeats?: number;
 }
 ```
 
-<<<<<<< HEAD
 当测试函数返回承诺时，运行程序将等待它被解析以收集异步期望。 如果承诺被拒绝，测试就会失败。
-=======
-Vitest 1.3.0 deprecates the use of options as the last parameter. You will see a deprecation message until 2.0.0 when this syntax will be removed. If you need to pass down options, use `test` function's second argument:
-
-```ts
-import { test } from 'vitest'
-
-test('flaky test', () => {}, { retry: 3 }) // [!code --]
-test('flaky test', { retry: 3 }, () => {}) // [!code ++]
-```
-
-When a test function returns a promise, the runner will wait until it is resolved to collect async expectations. If the promise is rejected, the test will fail.
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 ::: tip
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
 :::
 
-Since Vitest 1.3.0 most options support both dot-syntax and object-syntax allowing you to use whatever style you prefer.
-
-:::code-group
-```ts [dot-syntax]
-import { test } from 'vitest'
-
-test.skip('skipped test', () => {
-  // some logic that fails right now
-})
-```
-```ts [object-syntax <Badge type="info">1.3.0+</Badge>]
-import { test } from 'vitest'
-
-test('skipped test', { skip: true }, () => {
-  // some logic that fails right now
-})
-```
-:::
-
 ## test
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it`
-=======
-- **Alias:** `it`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 `test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
 
 或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为 5 秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
 
 ```ts
-import { expect, test } from 'vitest'
+import { expect, test } from "vitest";
 
-test('should work as expected', () => {
-  expect(Math.sqrt(4)).toBe(2)
-})
+test("should work as expected", () => {
+  expect(Math.sqrt(4)).toBe(2);
+});
 ```
 
 ### test.extend <Badge type="info">0.32.3+</Badge>
 
-<<<<<<< HEAD
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
-=======
-- **Alias:** `it.extend`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
 
 ```ts
-import { expect, test } from 'vitest'
+import { expect, test } from "vitest";
 
-const todos = []
-const archive = []
+const todos = [];
+const archive = [];
 
 const myTest = test.extend({
   todos: async ({ task }, use) => {
-    todos.push(1, 2, 3)
-    await use(todos)
-    todos.length = 0
+    todos.push(1, 2, 3);
+    await use(todos);
+    todos.length = 0;
   },
   archive,
-})
+});
 
-myTest('add item', ({ todos }) => {
-  expect(todos.length).toBe(3)
+myTest("add item", ({ todos }) => {
+  expect(todos.length).toBe(3);
 
-  todos.push(4)
-  expect(todos.length).toBe(4)
-})
+  todos.push(4);
+  expect(todos.length).toBe(4);
+});
 ```
 
 ### test.skip
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it.skip`
-=======
-- **Alias:** `it.skip`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 如果想跳过运行某些测试，但又不想删代码，可以使用 `test.skip` 来跳过这些测试。
 
 ```ts
-import { assert, test } from 'vitest'
+import { assert, test } from "vitest";
 
-test.skip('skipped test', () => {
+test.skip("skipped test", () => {
   // Test skipped, no error
-  assert.equal(Math.sqrt(4), 3)
-})
+  assert.equal(Math.sqrt(4), 3);
+});
 ```
 
 还可以通过在 [context](/guide/test-context) 上动态调用 `skip` 来跳过测试：
 
 ```ts
-import { assert, test } from 'vitest'
+import { assert, test } from "vitest";
 
-test('skipped test', (context) => {
-  context.skip()
+test("skipped test", (context) => {
+  context.skip();
   // Test skipped, no error
-  assert.equal(Math.sqrt(4), 3)
-})
+  assert.equal(Math.sqrt(4), 3);
+});
 ```
 
 ### test.skipIf
 
-<<<<<<< HEAD
 - **类型:** `(condition: any) => Test`
 - **别名:** `it.skipIf`
-=======
-- **Alias:** `it.skipIf`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 在某些情况下，可能会需要在不同的环境下多次运行测试，而且某些测试可能是特定于环境的。我们这时候可以通过使用 `test.skipIf` 来跳过测试，而不是用 `if` 来封装测试代码。
 
 ```ts
-import { assert, test } from 'vitest'
+import { assert, test } from "vitest";
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === "development";
 
-test.skipIf(isDev)('prod only test', () => {
+test.skipIf(isDev)("prod only test", () => {
   // this test only runs in production
-})
+});
 ```
 
 ::: warning
@@ -184,23 +136,19 @@ test.skipIf(isDev)('prod only test', () => {
 
 ### test.runIf
 
-<<<<<<< HEAD
 - **类型:** `(condition: any) => Test`
 - **别名:** `it.runIf`
-=======
-- **Alias:** `it.runIf`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 与 [test.skipIf](#test-skipif) 相反。
 
 ```ts
-import { assert, test } from 'vitest'
+import { assert, test } from "vitest";
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === "development";
 
-test.runIf(isDev)('dev only test', () => {
+test.runIf(isDev)("dev only test", () => {
   // this test only runs in development
-})
+});
 ```
 
 ::: warning
@@ -209,24 +157,20 @@ test.runIf(isDev)('dev only test', () => {
 
 ### test.only
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
-=======
-- **Alias:** `it.only`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 使用 `test.only` 仅运行给定 测试套件 中的某些测试。这在调试时非常有用。
 
 可选择提供超时（以毫秒为单位），用于指定终止前的等待时间。默认值为 5 秒，可通过 [testTimeout](/config/#testtimeout) 进行全局配置。
 
 ```ts
-import { assert, test } from 'vitest'
+import { assert, test } from "vitest";
 
-test.only('test', () => {
+test.only("test", () => {
   // Only this test (and others marked with only) are run
-  assert.equal(Math.sqrt(4), 2)
-})
+  assert.equal(Math.sqrt(4), 2);
+});
 ```
 
 有时，只运行某个文件中的 "测试"，而忽略整个 测试套件 中的所有其他测试是非常有用的，因为这些测试会污染输出。
@@ -239,50 +183,46 @@ test.only('test', () => {
 
 ### test.concurrent
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.concurrent`
-=======
-- **Alias:** `it.concurrent`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 `test.concurrent` 标记并行运行的连续测试。它接收测试名称、包含要收集的测试的异步函数以及可选的超时（以毫秒为单位）。
 
 ```ts
-import { describe, test } from 'vitest'
+import { describe, test } from "vitest";
 
 // The two tests marked with concurrent will be run in parallel
-describe('suite', () => {
-  test('serial test', async () => {
+describe("suite", () => {
+  test("serial test", async () => {
     /* ... */
-  })
-  test.concurrent('concurrent test 1', async () => {
+  });
+  test.concurrent("concurrent test 1", async () => {
     /* ... */
-  })
-  test.concurrent('concurrent test 2', async () => {
+  });
+  test.concurrent("concurrent test 2", async () => {
     /* ... */
-  })
-})
+  });
+});
 ```
 
 `test.skip`、 `test.only` 和 `test.todo` 适用于并发测试。以下所有组合均有效：
 
 ```ts
-test.concurrent(/* ... */)
-test.skip.concurrent(/* ... */) // or test.concurrent.skip(/* ... */)
-test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
-test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
+test.concurrent(/* ... */);
+test.skip.concurrent(/* ... */); // or test.concurrent.skip(/* ... */)
+test.only.concurrent(/* ... */); // or test.concurrent.only(/* ... */)
+test.todo.concurrent(/* ... */); // or test.concurrent.todo(/* ... */)
 ```
 
 运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect`，以确保检测到正确的测试。
 
 ```ts
-test.concurrent('test 1', async ({ expect }) => {
-  expect(foo).toMatchSnapshot()
-})
-test.concurrent('test 2', async ({ expect }) => {
-  expect(foo).toMatchSnapshot()
-})
+test.concurrent("test 1", async ({ expect }) => {
+  expect(foo).toMatchSnapshot();
+});
+test.concurrent("test 2", async ({ expect }) => {
+  expect(foo).toMatchSnapshot();
+});
 ```
 
 ::: warning
@@ -291,84 +231,72 @@ test.concurrent('test 2', async ({ expect }) => {
 
 ### test.sequential
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
-=======
-- **Alias:** `it.sequential`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 `test.sequential` 标记一个测试为顺序测试。如果要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
 ```ts
 // with config option { sequence: { concurrent: true } }
-test('concurrent test 1', async () => {
+test("concurrent test 1", async () => {
   /* ... */
-})
-test('concurrent test 2', async () => {
+});
+test("concurrent test 2", async () => {
   /* ... */
-})
+});
 
-test.sequential('sequential test 1', async () => {
+test.sequential("sequential test 1", async () => {
   /* ... */
-})
-test.sequential('sequential test 2', async () => {
+});
+test.sequential("sequential test 2", async () => {
   /* ... */
-})
+});
 
 // within concurrent suite
-describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => {
+describe.concurrent("suite", () => {
+  test("concurrent test 1", async () => {
     /* ... */
-  })
-  test('concurrent test 2', async () => {
+  });
+  test("concurrent test 2", async () => {
     /* ... */
-  })
+  });
 
-  test.sequential('sequential test 1', async () => {
+  test.sequential("sequential test 1", async () => {
     /* ... */
-  })
-  test.sequential('sequential test 2', async () => {
+  });
+  test.sequential("sequential test 2", async () => {
     /* ... */
-  })
-})
+  });
+});
 ```
 
 ### test.todo
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function) => void`
 - **别名:** `it.todo`
-=======
-- **Alias:** `it.todo`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 使用 `test.todo` 来存根测试，以便稍后实施。测试报告中将显示一个条目，以便知道还有多少测试需要执行。
 
 ```ts
 // An entry will be shown in the report for this test
-test.todo('unimplemented test')
+test.todo("unimplemented test");
 ```
 
 ### test.fails
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.fails`
-=======
-- **Alias:** `it.fails`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 使用 `test.fails` 明确表示断言将失败。
 
 ```ts
-import { expect, test } from 'vitest'
+import { expect, test } from "vitest";
 
 function myAsyncFunc() {
-  return new Promise(resolve => resolve(1))
+  return new Promise((resolve) => resolve(1));
 }
-test.fails('fail test', async () => {
-  await expect(myAsyncFunc()).rejects.toBe(1)
-})
+test.fails("fail test", async () => {
+  await expect(myAsyncFunc()).rejects.toBe(1);
+});
 ```
 
 ::: warning
@@ -377,12 +305,8 @@ test.fails('fail test', async () => {
 
 ### test.each
 
-<<<<<<< HEAD
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
-=======
-- **Alias:** `it.each`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 当需要使用不同变量运行同一测试时，请使用 `test.each`。
 我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
@@ -401,9 +325,9 @@ test.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', (a, b, expected) => {
-  expect(a + b).toBe(expected)
-})
+])("add(%i, %i) -> %i", (a, b, expected) => {
+  expect(a + b).toBe(expected);
+});
 
 // this will return
 // ✓ add(1, 1) -> 2
@@ -418,9 +342,9 @@ test.each([
   { a: 1, b: 1, expected: 2 },
   { a: 1, b: 2, expected: 3 },
   { a: 2, b: 1, expected: 3 },
-])('add($a, $b) -> $expected', ({ a, b, expected }) => {
-  expect(a + b).toBe(expected)
-})
+])("add($a, $b) -> $expected", ({ a, b, expected }) => {
+  expect(a + b).toBe(expected);
+});
 
 // this will return
 // ✓ add(1, 1) -> 2
@@ -433,12 +357,12 @@ test.each([
 ```ts
 test.each`
   a             | b      | expected
-  ${{ val: 1 }} | ${'b'} | ${'1b'}
-  ${{ val: 2 }} | ${'b'} | ${'2b'}
-  ${{ val: 3 }} | ${'b'} | ${'3b'}
-`('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
-  expect(a.val + b).toBe(expected)
-})
+  ${{ val: 1 }} | ${"b"} | ${"1b"}
+  ${{ val: 2 }} | ${"b"} | ${"2b"}
+  ${{ val: 3 }} | ${"b"} | ${"3b"}
+`("add($a.val, $b) -> $expected", ({ a, b, expected }) => {
+  expect(a.val + b).toBe(expected);
+});
 
 // this will return
 // ✓ add(1, b) -> 1b
@@ -456,13 +380,13 @@ test.each`
 test.each`
   a             | b      | expected
   ${1}          | ${1}   | ${2}
-  ${'a'}        | ${'b'} | ${'ab'}
-  ${[]}         | ${'b'} | ${'b'}
-  ${{}}         | ${'b'} | ${'[object Object]b'}
-  ${{ asd: 1 }} | ${'b'} | ${'[object Object]b'}
-`('returns $expected when $a is added $b', ({ a, b, expected }) => {
-  expect(a + b).toBe(expected)
-})
+  ${"a"}        | ${"b"} | ${"ab"}
+  ${[]}         | ${"b"} | ${"b"}
+  ${{}}         | ${"b"} | ${"[object Object]b"}
+  ${{ asd: 1 }} | ${"b"} | ${"[object Object]b"}
+`("returns $expected when $a is added $b", ({ a, b, expected }) => {
+  expect(a + b).toBe(expected);
+});
 ```
 
 如果你想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
@@ -484,18 +408,18 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 Vitest 使用了 [`tinybench`](https://github.com/tinylibs/tinybench)库，继承其所有可用作第三个参数的选项。
 
 ```ts
-import { bench } from 'vitest'
+import { bench } from "vitest";
 
 bench(
-  'normal sorting',
+  "normal sorting",
   () => {
-    const x = [1, 5, 4, 2, 3]
+    const x = [1, 5, 4, 2, 3];
     x.sort((a, b) => {
-      return a - b
-    })
+      return a - b;
+    });
   },
   { time: 1000 }
-)
+);
 ```
 
 ```ts
@@ -504,45 +428,45 @@ export interface Options {
    * 运行基准任务所需时间（毫秒）
    * @default 500
    */
-  time?: number
+  time?: number;
 
   /**
    * 如果连时间选项都已完成，任务应运行的次数
    * @default 10
    */
-  iterations?: number
+  iterations?: number;
 
   /**
    * 函数以毫秒为单位获取当前时间戳
    */
-  now?: () => number
+  now?: () => number;
 
   /**
    * 用于中止基准测试的中止信号
    */
-  signal?: AbortSignal
+  signal?: AbortSignal;
 
   /**
    * 预热时间（毫秒）
    * @default 100ms
    */
-  warmupTime?: number
+  warmupTime?: number;
 
   /**
    * 热身迭代
    * @default 5
    */
-  warmupIterations?: number
+  warmupIterations?: number;
 
   /**
    * 在每个基准任务（周期）之前运行的设置函数
    */
-  setup?: Hook
+  setup?: Hook;
 
   /**
    * 在每个基准任务（周期）之后运行的拆机函数
    */
-  teardown?: Hook
+  teardown?: Hook;
 }
 ```
 
@@ -553,14 +477,14 @@ export interface Options {
 可以使用 "bench.skip "语法跳过运行某些基准。
 
 ```ts
-import { bench } from 'vitest'
+import { bench } from "vitest";
 
-bench.skip('normal sorting', () => {
-  const x = [1, 5, 4, 2, 3]
+bench.skip("normal sorting", () => {
+  const x = [1, 5, 4, 2, 3];
   x.sort((a, b) => {
-    return a - b
-  })
-})
+    return a - b;
+  });
+});
 ```
 
 ### bench.only
@@ -570,14 +494,14 @@ bench.skip('normal sorting', () => {
 使用 `bench.only` 仅运行给定测试套件中的某些基准。这在调试时非常有用。
 
 ```ts
-import { bench } from 'vitest'
+import { bench } from "vitest";
 
-bench.only('normal sorting', () => {
-  const x = [1, 5, 4, 2, 3]
+bench.only("normal sorting", () => {
+  const x = [1, 5, 4, 2, 3];
   x.sort((a, b) => {
-    return a - b
-  })
-})
+    return a - b;
+  });
+});
 ```
 
 ### bench.todo
@@ -587,9 +511,9 @@ bench.only('normal sorting', () => {
 使用 `bench.todo` 来存根基准，以便以后实施。
 
 ```ts
-import { bench } from 'vitest'
+import { bench } from "vitest";
 
-bench.todo('unimplemented test')
+bench.todo("unimplemented test");
 ```
 
 ## describe
@@ -600,120 +524,111 @@ bench.todo('unimplemented test')
 // basic.spec.ts
 // organizing tests
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from "vitest";
 
 const person = {
   isActive: true,
   age: 32,
-}
+};
 
-describe('person', () => {
-  test('person is defined', () => {
-    expect(person).toBeDefined()
-  })
+describe("person", () => {
+  test("person is defined", () => {
+    expect(person).toBeDefined();
+  });
 
-  test('is active', () => {
-    expect(person.isActive).toBeTruthy()
-  })
+  test("is active", () => {
+    expect(person.isActive).toBeTruthy();
+  });
 
-  test('age limit', () => {
-    expect(person.age).toBeLessThanOrEqual(32)
-  })
-})
+  test("age limit", () => {
+    expect(person.age).toBeLessThanOrEqual(32);
+  });
+});
 ```
 
 ```ts
 // basic.bench.ts
 // organizing benchmarks
 
-import { bench, describe } from 'vitest'
+import { bench, describe } from "vitest";
 
-describe('sort', () => {
-  bench('normal', () => {
-    const x = [1, 5, 4, 2, 3]
+describe("sort", () => {
+  bench("normal", () => {
+    const x = [1, 5, 4, 2, 3];
     x.sort((a, b) => {
-      return a - b
-    })
-  })
+      return a - b;
+    });
+  });
 
-  bench('reverse', () => {
-    const x = [1, 5, 4, 2, 3]
+  bench("reverse", () => {
+    const x = [1, 5, 4, 2, 3];
     x.reverse().sort((a, b) => {
-      return a - b
-    })
-  })
-})
+      return a - b;
+    });
+  });
+});
 ```
 
 如果测试或基准具有层次结构，还可以嵌套描述块：
 
 ```ts
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from "vitest";
 
 function numberToCurrency(value) {
-  if (typeof value !== 'number')
-    throw new Error('Value must be a number')
+  if (typeof value !== "number") throw new Error("Value must be a number");
 
   return value
     .toFixed(2)
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-describe('numberToCurrency', () => {
-  describe('given an invalid number', () => {
-    test('composed of non-numbers to throw error', () => {
-      expect(() => numberToCurrency('abc')).toThrowError()
-    })
-  })
+describe("numberToCurrency", () => {
+  describe("given an invalid number", () => {
+    test("composed of non-numbers to throw error", () => {
+      expect(() => numberToCurrency("abc")).toThrowError();
+    });
+  });
 
-  describe('given a valid number', () => {
-    test('returns the correct currency format', () => {
-      expect(numberToCurrency(10000)).toBe('10,000.00')
-    })
-  })
-})
+  describe("given a valid number", () => {
+    test("returns the correct currency format", () => {
+      expect(numberToCurrency(10000)).toBe("10,000.00");
+    });
+  });
+});
 ```
 
 ### describe.skip
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Alias:** `suite.skip`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 在套件中使用 `describe.skip` 可避免运行特定的 describe 块。
 
 ```ts
-import { assert, describe, test } from 'vitest'
+import { assert, describe, test } from "vitest";
 
-describe.skip('skipped suite', () => {
-  test('sqrt', () => {
+describe.skip("skipped suite", () => {
+  test("sqrt", () => {
     // Suite skipped, no error
-    assert.equal(Math.sqrt(4), 3)
-  })
-})
+    assert.equal(Math.sqrt(4), 3);
+  });
+});
 ```
 
 ### describe.skipIf
 
-<<<<<<< HEAD
 - **类型:** `(condition: any) => void`
-=======
-- **Alias:** `suite.skipIf`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 在某些情况下，可能会在不同的环境下多次运行套件，其中一些测试套件可能是特定于环境的。可以使用 `describe.skipIf` 来跳过条件为真时的套件，而不是使用 `if` 来封装套件。
 
 ```ts
-import { describe, test } from 'vitest'
+import { describe, test } from "vitest";
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === "development";
 
-describe.skipIf(isDev)('prod only test suite', () => {
+describe.skipIf(isDev)("prod only test suite", () => {
   // this test suite only runs in production
-})
+});
 ```
 
 ::: warning
@@ -722,22 +637,18 @@ describe.skipIf(isDev)('prod only test suite', () => {
 
 ### describe.runIf
 
-<<<<<<< HEAD
 - **类型:** `(condition: any) => void`
-=======
-- **Alias:** `suite.runIf`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 与 [describe.skipIf](#describe-skipif) 相反。
 
 ```ts
-import { assert, test } from 'vitest'
+import { assert, test } from "vitest";
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === "development";
 
-describe.runIf(isDev)('dev only test suite', () => {
+describe.runIf(isDev)("dev only test suite", () => {
   // this test suite only runs in development
-})
+});
 ```
 
 ::: warning
@@ -752,15 +663,15 @@ describe.runIf(isDev)('dev only test suite', () => {
 
 ```ts
 // Only this suite (and others marked with only) are run
-describe.only('suite', () => {
-  test('sqrt', () => {
-    assert.equal(Math.sqrt(4), 3)
-  })
-})
+describe.only("suite", () => {
+  test("sqrt", () => {
+    assert.equal(Math.sqrt(4), 3);
+  });
+});
 
-describe('other suite', () => {
+describe("other suite", () => {
   // ... will be skipped
-})
+});
 ```
 
 In order to do that run `vitest` with specific file containing the tests in question.
@@ -775,49 +686,45 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 ### describe.concurrent
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Alias:** `suite.concurrent`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试
 
 ```ts
 // All tests within this suite will be run in parallel
-describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => {
+describe.concurrent("suite", () => {
+  test("concurrent test 1", async () => {
     /* ... */
-  })
-  test('concurrent test 2', async () => {
+  });
+  test("concurrent test 2", async () => {
     /* ... */
-  })
-  test.concurrent('concurrent test 3', async () => {
+  });
+  test.concurrent("concurrent test 3", async () => {
     /* ... */
-  })
-})
+  });
+});
 ```
 
 `.skip`、`.only`和`.todo`适用于并发测试套件。以下所有组合都有效：
 
 ```ts
-describe.concurrent(/* ... */)
-describe.skip.concurrent(/* ... */) // or describe.concurrent.skip(/* ... */)
-describe.only.concurrent(/* ... */) // or describe.concurrent.only(/* ... */)
-describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
+describe.concurrent(/* ... */);
+describe.skip.concurrent(/* ... */); // or describe.concurrent.skip(/* ... */)
+describe.only.concurrent(/* ... */); // or describe.concurrent.only(/* ... */)
+describe.todo.concurrent(/* ... */); // or describe.concurrent.todo(/* ... */)
 ```
 
 运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect` ，以确保检测到正确的测试。
 
 ```ts
-describe.concurrent('suite', () => {
-  test('concurrent test 1', async ({ expect }) => {
-    expect(foo).toMatchSnapshot()
-  })
-  test('concurrent test 2', async ({ expect }) => {
-    expect(foo).toMatchSnapshot()
-  })
-})
+describe.concurrent("suite", () => {
+  test("concurrent test 1", async ({ expect }) => {
+    expect(foo).toMatchSnapshot();
+  });
+  test("concurrent test 2", async ({ expect }) => {
+    expect(foo).toMatchSnapshot();
+  });
+});
 ```
 
 ::: warning
@@ -826,56 +733,48 @@ describe.concurrent('suite', () => {
 
 ### describe.sequential
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Alias:** `suite.sequential`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 测试套件中的 `describe.sequential` 会将每个测试标记为顺序测试。如果需要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
 ```ts
-describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => {
+describe.concurrent("suite", () => {
+  test("concurrent test 1", async () => {
     /* ... */
-  })
-  test('concurrent test 2', async () => {
+  });
+  test("concurrent test 2", async () => {
     /* ... */
-  })
+  });
 
-  describe.sequential('', () => {
-    test('sequential test 1', async () => {
+  describe.sequential("", () => {
+    test("sequential test 1", async () => {
       /* ... */
-    })
-    test('sequential test 2', async () => {
+    });
+    test("sequential test 2", async () => {
       /* ... */
-    })
-  })
-})
+    });
+  });
+});
 ```
 
 ### describe.shuffle
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
-=======
-- **Alias:** `suite.shuffle`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
 
 ```ts
-describe.shuffle('suite', () => {
-  test('random test 1', async () => {
+describe.shuffle("suite", () => {
+  test("random test 1", async () => {
     /* ... */
-  })
-  test('random test 2', async () => {
+  });
+  test("random test 2", async () => {
     /* ... */
-  })
-  test('random test 3', async () => {
+  });
+  test("random test 3", async () => {
     /* ... */
-  })
-})
+  });
+});
 // order depends on sequence.seed option in config (Date.now() by default)
 ```
 
@@ -887,26 +786,18 @@ describe.shuffle('suite', () => {
 
 ### describe.todo
 
-<<<<<<< HEAD
 - **类型:** `(name: string | Function) => void`
-=======
-- **Alias:** `suite.todo`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 使用 `describe.todo` 来暂存待以后实施的套件。测试报告中会显示一个条目，这样就能知道还有多少测试需要执行。
 
 ```ts
 // An entry will be shown in the report for this suite
-describe.todo('unimplemented suite')
+describe.todo("unimplemented suite");
 ```
 
 ### describe.each
 
-<<<<<<< HEAD
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
-=======
-- **Alias:** `suite.each`
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 
 如果有多个测试依赖于相同的数据，请使用 `describe.each` 。
 
@@ -915,19 +806,19 @@ describe.each([
   { a: 1, b: 1, expected: 2 },
   { a: 1, b: 2, expected: 3 },
   { a: 2, b: 1, expected: 3 },
-])('describe object add($a, $b)', ({ a, b, expected }) => {
+])("describe object add($a, $b)", ({ a, b, expected }) => {
   test(`returns ${expected}`, () => {
-    expect(a + b).toBe(expected)
-  })
+    expect(a + b).toBe(expected);
+  });
 
   test(`returned value not be greater than ${expected}`, () => {
-    expect(a + b).not.toBeGreaterThan(expected)
-  })
+    expect(a + b).not.toBeGreaterThan(expected);
+  });
 
   test(`returned value not be less than ${expected}`, () => {
-    expect(a + b).not.toBeLessThan(expected)
-  })
-})
+    expect(a + b).not.toBeLessThan(expected);
+  });
+});
 ```
 
 从 Vitest 0.25.3 开始，还可以使用模板字符串表。
@@ -939,15 +830,15 @@ describe.each([
 describe.each`
   a             | b      | expected
   ${1}          | ${1}   | ${2}
-  ${'a'}        | ${'b'} | ${'ab'}
-  ${[]}         | ${'b'} | ${'b'}
-  ${{}}         | ${'b'} | ${'[object Object]b'}
-  ${{ asd: 1 }} | ${'b'} | ${'[object Object]b'}
-`('describe template string add($a, $b)', ({ a, b, expected }) => {
+  ${"a"}        | ${"b"} | ${"ab"}
+  ${[]}         | ${"b"} | ${"b"}
+  ${{}}         | ${"b"} | ${"[object Object]b"}
+  ${{ asd: 1 }} | ${"b"} | ${"[object Object]b"}
+`("describe template string add($a, $b)", ({ a, b, expected }) => {
   test(`returns ${expected}`, () => {
-    expect(a + b).toBe(expected)
-  })
-})
+    expect(a + b).toBe(expected);
+  });
+});
 ```
 
 ::: warning
@@ -969,13 +860,13 @@ describe.each`
 作为选项，可以传递一个超时（以毫秒为单位），定义终止前需要等待的时间。默认值为 5 秒。
 
 ```ts
-import { beforeEach } from 'vitest'
+import { beforeEach } from "vitest";
 
 beforeEach(async () => {
   // Clear mocks and add some testing data after before each test run
-  await stopMocking()
-  await addUser({ name: 'John' })
-})
+  await stopMocking();
+  await addUser({ name: "John" });
+});
 ```
 
 这里， `beforeEach` 确保每次测试都会添加用户。
@@ -983,17 +874,17 @@ beforeEach(async () => {
 自 Vitest v0.10.0 起，`beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
 
 ```ts
-import { beforeEach } from 'vitest'
+import { beforeEach } from "vitest";
 
 beforeEach(async () => {
   // called once before each test run
-  await prepareSomething()
+  await prepareSomething();
 
   // clean up function, called once after each test run
   return async () => {
-    await resetSomething()
-  }
-})
+    await resetSomething();
+  };
+});
 ```
 
 ### afterEach
@@ -1006,11 +897,11 @@ beforeEach(async () => {
 可以选择提供一个超时（毫秒），用于指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
-import { afterEach } from 'vitest'
+import { afterEach } from "vitest";
 
 afterEach(async () => {
-  await clearTestingData() // clear testing data after each test run
-})
+  await clearTestingData(); // clear testing data after each test run
+});
 ```
 
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
@@ -1029,11 +920,11 @@ Vitest 在 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) 。你可以�
 可以选择提供一个超时（毫秒），用于指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
-import { beforeAll } from 'vitest'
+import { beforeAll } from "vitest";
 
 beforeAll(async () => {
-  await startMocking() // called once before all tests run
-})
+  await startMocking(); // called once before all tests run
+});
 ```
 
 这里的 `beforeAll` 确保在测试运行前设置好模拟数据。
@@ -1041,17 +932,17 @@ beforeAll(async () => {
 自 Vitest v0.10.0 起，`beforeAll` 还接受一个可选的清理函数（相当于 `afterAll`）。
 
 ```ts
-import { beforeAll } from 'vitest'
+import { beforeAll } from "vitest";
 
 beforeAll(async () => {
   // called once before all tests run
-  await startMocking()
+  await startMocking();
 
   // clean up function, called once after all tests run
   return async () => {
-    await stopMocking()
-  }
-})
+    await stopMocking();
+  };
+});
 ```
 
 ### afterAll
@@ -1064,11 +955,11 @@ beforeAll(async () => {
 你还可以选择提供超时（毫秒），以指定终止前的等待时间。默认值为 5 秒。
 
 ```ts
-import { afterAll } from 'vitest'
+import { afterAll } from "vitest";
 
 afterAll(async () => {
-  await stopMocking() // this method is called after all tests run
-})
+  await stopMocking(); // this method is called after all tests run
+});
 ```
 
 这里的 `afterAll` 确保在所有测试运行后调用 `stopMocking` 方法。
@@ -1086,26 +977,26 @@ Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些钩
 这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
 
 ```ts
-import { onTestFinished, test } from 'vitest'
+import { onTestFinished, test } from "vitest";
 
-test('performs a query', () => {
-  const db = connectDb()
-  onTestFinished(() => db.close())
-  db.query('SELECT * FROM users')
-})
+test("performs a query", () => {
+  const db = connectDb();
+  onTestFinished(() => db.close());
+  db.query("SELECT * FROM users");
+});
 ```
 
 ::: warning
 如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts
-import { test } from 'vitest'
+import { test } from "vitest";
 
-test.concurrent('performs a query', (t) => {
-  const db = connectDb()
-  t.onTestFinished(() => db.close())
-  db.query('SELECT * FROM users')
-})
+test.concurrent("performs a query", (t) => {
+  const db = connectDb();
+  t.onTestFinished(() => db.close());
+  db.query("SELECT * FROM users");
+});
 ```
 
 :::
@@ -1115,20 +1006,20 @@ test.concurrent('performs a query', (t) => {
 ```ts
 // 这可以是一个单独的文件
 function getTestDb() {
-  const db = connectMockedDb()
-  onTestFinished(() => db.close())
-  return db
+  const db = connectMockedDb();
+  onTestFinished(() => db.close());
+  return db;
 }
 
-test('performs a user query', async () => {
-  const db = getTestDb()
-  expect(await db.query('SELECT * from users').perform()).toEqual([])
-})
+test("performs a user query", async () => {
+  const db = getTestDb();
+  expect(await db.query("SELECT * from users").perform()).toEqual([]);
+});
 
-test('performs an organization query', async () => {
-  const db = getTestDb()
-  expect(await db.query('SELECT * from organizations').perform()).toEqual([])
-})
+test("performs an organization query", async () => {
+  const db = getTestDb();
+  expect(await db.query("SELECT * from organizations").perform()).toEqual([]);
+});
 ```
 
 ### onTestFailed
@@ -1136,30 +1027,30 @@ test('performs an organization query', async () => {
 只有在测试失败后才会调用这个 hook 。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它将接收一个包含当前测试结果的 `TaskResult` 。这个 hook 对调试非常有用。
 
 ```ts
-import { onTestFailed, test } from 'vitest'
+import { onTestFailed, test } from "vitest";
 
-test('performs a query', () => {
-  const db = connectDb()
+test("performs a query", () => {
+  const db = connectDb();
   onTestFailed((e) => {
-    console.log(e.result.errors)
-  })
-  db.query('SELECT * FROM users')
-})
+    console.log(e.result.errors);
+  });
+  db.query("SELECT * FROM users");
+});
 ```
 
 ::: warning
 如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts
-import { test } from 'vitest'
+import { test } from "vitest";
 
-test.concurrent('performs a query', (t) => {
-  const db = connectDb()
+test.concurrent("performs a query", (t) => {
+  const db = connectDb();
   onTestFailed((result) => {
-    console.log(result.errors)
-  })
-  db.query('SELECT * FROM users')
-})
+    console.log(result.errors);
+  });
+  db.query("SELECT * FROM users");
+});
 ```
 
 :::
