@@ -46,8 +46,8 @@ vitest related /src/index.ts /src/hello-world.js
 ```js
 // .lintstagedrc.js
 export default {
-  '*.{js,ts}': 'vitest related --run',
-}
+  "*.{js,ts}": "vitest related --run",
+};
 ```
 
 :::
@@ -103,7 +103,7 @@ export default {
 | `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
 | `--exclude <glob>`                   | 要从测试中排除的其他文件 globs                                                                                                              |
 | `--expand-snapshot-diff`             | 快照失败时显示完整差异                                                                                                                      |
-| `--disable-console-intercept` | 禁用自动拦截控制台日志（默认：`false` ） |
+| `--disable-console-intercept`        | 禁用自动拦截控制台日志（默认：`false` ）                                                                                                    |
 | `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
 | `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
