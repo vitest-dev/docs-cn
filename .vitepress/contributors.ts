@@ -120,16 +120,8 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'zxch3n',
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
-    title: 'A fullstack developer',
-    desc: 'Working on CRDTs & local-first software',
-  },
-  {
-    avatar: contributorsAvatars['hi-ogawa'],
-    name: 'Hiroshi Ogawa',
-    github: 'hi-ogawa',
-    twitter: 'hiroshi_18181',
-    title: 'Open source enthusiast',
-    desc: 'Team member of Vitest',
+    title: '全栈开发者',
+    desc: '开发 CRDT 和本地优先软件',
   },
 ]
 
@@ -153,18 +145,6 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     desc: 'fluent-vue 的作者',
   },
   {
-<<<<<<< HEAD
-    avatar: contributorsAvatars.zxch3n,
-    name: 'Zixuan Chen',
-    github: 'zxch3n',
-    mastodon: 'https://elk.zone/hachyderm.io/@zx',
-    twitter: 'zxch3n',
-    title: '全栈开发者',
-    desc: '开发 CRDT 和本地优先软件',
-  },
-  {
-=======
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
     avatar: contributorsAvatars.poyoho,
     name: 'Yoho Po',
     github: 'poyoho',
@@ -172,7 +152,6 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     title: '我写的代码在我电脑上绝对没问题',
     desc: 'Vite 核心团队成员 和 Vitest 团队成员',
   },
-<<<<<<< HEAD
   {
     avatar: contributorsAvatars['hi-ogawa'],
     name: 'Hiroshi Ogawa',
@@ -181,8 +160,6 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     title: '开源爱好者',
     desc: 'Vitest 团队成员',
   },
-=======
->>>>>>> 90326b0b3cca1a912836c6186e7505d8a4b35618
 ]
 
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))
