@@ -10,7 +10,11 @@ title: IDE 插件 | 指南
 <img src="https://raw.githubusercontent.com/vitest-dev/vscode/main/img/cover.png" w-60>
 </p>
 
+<<<<<<< HEAD
 [GitHub](https://github.com/vitest-dev/vscode) | [VS Code 插件](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
+=======
+[GitHub](https://github.com/vitest-dev/vscode) | [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
+>>>>>>> 12b341cbfc48f32eeac0aa5041e23af8f28b968a
 
 ![](https://i.ibb.co/bJCbCf2/202203292020.gif)
 
