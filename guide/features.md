@@ -32,9 +32,15 @@ $ vitest
 
 ## 多线程
 
+<<<<<<< HEAD
 默认的情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool) 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 在多个线程中运行 [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支，允许测试同时运行。 如果我们的测试运行的代码与多线程不兼容，我们可以切换到 [`--pool=forks`](/config/#pool-1-0-0)，它会通过 Tinypool [`在多个进程中运行测试节点：child_process`](https://nodejs.org/api/child_process.html) 。
 
 要在单个线程或进程中运行测试，查看 [`poolOptions`](/config/#pooloptions-1-0-0) 了解更多消息。
+=======
+By default Vitest runs test files in multiple threads using [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) via [Tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)), allowing tests to run simultaneously. If your tests are running code that is not compatible with multi-threading, you can switch to [`--pool=forks`](/config/#pool) which runs tests in multiple processes using [`node:child_process`](https://nodejs.org/api/child_process.html) via Tinypool.
+
+To run tests in a single thread or process, see [`poolOptions`](/config/#pooloptions).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
@@ -42,7 +48,11 @@ Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的�
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
+<<<<<<< HEAD
 了解更多信息 [测试筛选](./filtering.md)
+=======
+Learn more about [Test Filtering](/guide/filtering).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## 同时运行多个测试
 
@@ -87,7 +97,11 @@ describe.concurrent('suite', () => {
 了解更多信息 [API 索引](../api/#concurrent)
 
 ::: warning
+<<<<<<< HEAD
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
+=======
+When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context) to ensure the right test is detected.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 ## 快照
@@ -201,7 +215,11 @@ if (import.meta.vitest) {
 
 了解更多信息 [源码内联测试](/guide/in-source)
 
+<<<<<<< HEAD
 ## 基准测试 <Badge type="warning">Experimental</Badge>
+=======
+## Benchmarking <Badge type="warning">Experimental</Badge> {#benchmarking}
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
@@ -225,7 +243,11 @@ describe('sort', () => {
 })
 ```
 
+<<<<<<< HEAD
 ## 类型测试 <Badge type="warning">Experimental</Badge>
+=======
+## Type Testing <Badge type="warning">Experimental</Badge> {#type-testing}
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 从 Vitest 0.25.0 开始，你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 

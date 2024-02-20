@@ -46,6 +46,16 @@ const vitest = await createVitest('test', {
 })
 ```
 
+## parseCLI
+
+You can use this method to parse CLI arguments. It accepts a string (where arguments are split by a single space) or a strings array of CLI arguments in the same format that Vitest CLI uses. It returns a filter and `options` that you can later pass down to `createVitest` or `startVitest` methods.
+
+```ts
+import { parseCLI } from 'vitest/node'
+
+parseCLI('vitest ./files.ts --coverage --browser=chrome')
+```
+
 ## Vitest
 
 Vitest 实例需要当前的测试模式。它可以是以下之一：

@@ -18,7 +18,11 @@ import { vi } from "vitest";
 
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 
+<<<<<<< HEAD
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
+=======
+Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports. If you need to reference some variables outside of its scope, you can define them inside [`vi.hoisted`](#vi-hoisted) and reference them inside `vi.mock`.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ::: warning
 `vi.mock` 仅对使用 `import` 关键字导入的模块有效。它对 `require` 无效。
@@ -29,7 +33,11 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 :::
 
 ::: warning
+<<<<<<< HEAD
 [浏览器模式](/guide/browser)目前不支持模拟模块。可以在这个 <a href="https://github.com/vitest-dev/vitest/issues/3046">issue</a> 中持续关注此功能。
+=======
+The [browser mode](/guide/browser) does not presently support mocking modules. You can track this feature in the GitHub [issue](https://github.com/vitest-dev/vitest/issues/3046).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
@@ -390,7 +398,11 @@ expect(getApples).toHaveNthReturnedWith(2, 5);
 
 - **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
+<<<<<<< HEAD
 创建与 [`vi.fn()`](/#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
+=======
+Creates a spy on a method or getter/setter of an object similar to [`vi.fn()`](#vi-fn). It returns a [mock function](/api/mock).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ```ts
 let apples = 0;
@@ -426,7 +438,7 @@ console.log(cart.getApples()); // still 42!
 
 :::
 
-### vi.stubEnv <Badge type="info">0.26.0+</Badge>
+### vi.stubEnv <Badge type="info">0.26.0+</Badge> {#vi-stubenv}
 
 - **类型:** `(name: string, value: string) => Vitest`
 
@@ -455,7 +467,7 @@ import.meta.env.MODE = "test";
 
 :::
 
-### vi.unstubAllEnvs <Badge type="info">0.26.0+</Badge>
+### vi.unstubAllEnvs <Badge type="info">0.26.0+</Badge> {#vi-unstuballenvs}
 
 - **类型:** `() => Vitest`
 
@@ -514,7 +526,7 @@ window.innerWidth = 100;
 
 :::
 
-### vi.unstubAllGlobals <Badge type="info">0.26.0+</Badge>
+### vi.unstubAllGlobals <Badge type="info">0.26.0+</Badge> {#vi-unstuballglobals}
 
 - **类型:** `() => Vitest`
 
@@ -755,7 +767,7 @@ vi.useRealTimers();
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
 :::
 
-### vi.isFakeTimers <Badge type="info">0.34.5+</Badge>
+### vi.isFakeTimers <Badge type="info">0.34.5+</Badge> {#vi-isfaketimers}
 
 - **类型:** `() => boolean`
 
@@ -771,7 +783,7 @@ vi.useRealTimers();
 
 Vitest 提供的一组有用的辅助函数。
 
-### vi.waitFor <Badge type="info">0.34.5+</Badge>
+### vi.waitFor <Badge type="info">0.34.5+</Badge> {#vi-waitfor}
 
 - **类型:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
 
@@ -813,6 +825,7 @@ test("Element exists in a DOM", async () => {
   // start populating DOM
   populateDOMAsync();
 
+<<<<<<< HEAD
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
@@ -821,6 +834,38 @@ test("Element exists in a DOM", async () => {
       expect(element.dataset.initialized).toBeTruthy();
       return element;
     },
+=======
+  const element = await vi.waitFor(async () => {
+    // try to get the element until it exists
+    const element = await getDOMElementAsync() as HTMLElement | null
+    expect(element).toBeTruthy()
+    expect(element.dataset.initialized).toBeTruthy()
+    return element
+  }, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
+  expect(element).toBeInstanceOf(HTMLElement)
+})
+```
+
+If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
+
+### vi.waitUntil <Badge type="info">0.34.5+</Badge> {#vi-waituntil}
+
+- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
+
+This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
+
+Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
+
+```ts
+import { expect, test, vi } from 'vitest'
+
+test('Element render correctly', async () => {
+  const element = await vi.waitUntil(
+    () => document.querySelector('.element'),
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50
@@ -854,7 +899,7 @@ test("Element render correctly", async () => {
 });
 ```
 
-### vi.hoisted <Badge type="info">0.31.0+</Badge>
+### vi.hoisted <Badge type="info">0.31.0+</Badge> {#vi-hoisted}
 
 - **类型**: `<T>(factory: () => T) => T`
 

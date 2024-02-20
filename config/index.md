@@ -135,7 +135,7 @@ export default defineConfig({
 
 当定义时，Vitest 将运行所有包含 `import.meta.vitest` 的匹配文件。
 
-### server <Badge type="info">0.34.0+</Badge>
+### server <Badge type="info">0.34.0+</Badge> {#server}
 
 - **类型:** `{ sourcemap?, deps?, ... }`
 - **版本:** Since Vitest 0.34.0
@@ -215,7 +215,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 处理依赖关系解析。
 
-#### deps.optimizer <Badge type="info">0.34.0+</Badge>
+#### deps.optimizer <Badge type="info">0.34.0+</Badge> {#deps-optimizer}
 
 - **类型:** `{ ssr?, web? }`
 - **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
@@ -229,7 +229,11 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 - 你的 `alias` 配置现在在捆绑包中得到处理
 - 测试中的代码更接近于它在浏览器中的运行方式
 
+<<<<<<< HEAD
 请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` 和 `happy-dom`, 在 `node` 和 `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
+=======
+Be aware that only packages in `deps.optimizer?.[mode].include` option are bundled (some plugins populate this automatically, like Svelte). You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs (Vitest doesn't support `disable` and `noDiscovery` options). By default, Vitest uses `optimizer.web` for `jsdom` and `happy-dom` environments, and `optimizer.ssr` for `node` and `edge` environments, but it is configurable by [`transformMode`](#testtransformmode).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
@@ -248,7 +252,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 此选项仅适用于 Vite 4.3.2 及更高版本。
 :::
 
-#### deps.web <Badge type="info">0.34.2+</Badge>
+#### deps.web <Badge type="info">0.34.2+</Badge> {#deps-web}
 
 - **类型:** `{ transformAssets?, ... }`
 
@@ -266,7 +270,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.png、.sv
 如果未指定查询，此模块将具有等同于静态资源路径的默认导出。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmforks) pools.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 #### deps.web.transformCss
@@ -279,7 +287,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.css, .scs
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmforks) pools.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 #### deps.web.transformGlobPattern
@@ -292,7 +304,11 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.css, .scs
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或静态资源，并且相应的选项不会被禁用。
 
 ::: warning
+<<<<<<< HEAD
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
+=======
+At the moment, this option only works with [`vmThreads`](#vmthreads) and [`vmForks`](#vmforks) pools.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 #### deps.interopDefault
@@ -323,7 +339,11 @@ TypeError: default is not a function
 - **类型:** `string[]`
 - **默认值**: `['node_modules']`
 
+<<<<<<< HEAD
 配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且你正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/#root) 中查找 `__mocks__` 文件夹来解析 mock。
+=======
+A list of directories that should be treated as module directories. This config option affects the behavior of [`vi.mock`](/api/vi#vi-mock): when no factory is provided and the path of what you are mocking matches one of the `moduleDirectories` values, Vitest will try to resolve the mock by looking for a `__mocks__` folder in the [root](#root) of the project.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 此选项还将影响在外部化依赖项时是否应将文件视为模块。默认情况下，Vitest 绕过 Vite 转换步骤导入带有原生 Node.js 的外部模块。
 
@@ -494,7 +514,11 @@ test("use jsdom in this test file", () => {
 });
 ```
 
+<<<<<<< HEAD
 如果使用 [`--isolate=false`](#isolate-1-1-0) 运行 Vitest，测试将按以下顺序运行：`node`、`jsdom`、`happy-dom`、`edge-runtime`、`custom environments`。也就是说，具有相同环境的每个测试都会被分组，但仍会按顺序运行。
+=======
+If you are running Vitest with [`--isolate=false`](#isolate) flag, your tests will be run in this order: `node`, `jsdom`, `happy-dom`, `edge-runtime`, `custom environments`. Meaning, that every test with the same environment is grouped, but is still running sequentially.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
@@ -562,7 +586,7 @@ export default defineConfig({
 });
 ```
 
-### poolMatchGlobs <Badge type="info">0.29.4+</Badge>
+### poolMatchGlobs <Badge type="info">0.29.4+</Badge> {#poolmatchglobs}
 
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
 - **默认值:** `[]`
@@ -598,9 +622,15 @@ export default defineConfig({
 
 ### watch<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `-w`, `--watch`, `--watch=false`
+=======
+- **Type:** `boolean`
+- **Default:** `!process.env.CI`
+- **CLI:** `-w`, `--watch`, `--watch=false`
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 启动监听模式
 
@@ -636,7 +666,7 @@ export default defineConfig({
 
 当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
-### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
+### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge> {#pool}
 
 - **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
 - **默认值:** `'threads'`
@@ -681,7 +711,7 @@ try {
 
 与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不使用 `worker_threads`。测试与主进程之间的通信速度虽然不如 `vmThreads` 快。但进程相关的 API（如 `process.chdir()` ）在 `vmForks` 中却可以使用。请注意，这个与 `vmThreads` 中列出的池具有相同的缺陷。
 
-### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
+### poolOptions<NonProjectOption /> <Badge type="info">1.0.0+</Badge> {#pooloptions}
 
 - **类型:** `Record<'threads' | 'forks' | 'vmThreads' | 'vmForks', {}>`
 - **默认值:** `{}`
@@ -723,7 +753,11 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 在单个工作线程内使用相同的环境运行所有测试。 这将禁用内置模块隔离（我们的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
+=======
+Run all tests with the same environment inside a single worker thread. This will disable built-in module isolation (your source code or [inlined](#server-deps-inline) code will still be reevaluated for each test), but can improve test performance.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ::: warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
@@ -802,7 +836,11 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 在单个子进程中使用相同的环境运行所有测试。 这将禁用内置模块隔离（你的源代码或 [inlined](#deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
+=======
+Run all tests with the same environment inside a single child process. This will disable built-in module isolation (your source code or [inlined](#server-deps-inline) code will still be reevaluated for each test), but can improve test performance.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ::: warning
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
@@ -951,7 +989,7 @@ export default defineConfig({
 使用时要小心，因为某些选项（如 `--prof` 、`--title`）可能会导致 worker 崩溃。查看 https://github.com/nodejs/node/issues/41103 了解更多详情。
 :::
 
-### fileParallelism <Badge type="info">1.1.0+</Badge>
+### fileParallelism <Badge type="info">1.1.0+</Badge> {#fileparallelism}
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -963,13 +1001,13 @@ export default defineConfig({
 此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
 :::
 
-### maxWorkers <Badge type="info">1.1.0+</Badge>
+### maxWorkers <Badge type="info">1.1.0+</Badge> {#maxworkers}
 
 - **类型:** `number`
 
 运行测试时设置的最大工作线程数。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
-### minWorkers <Badge type="info">1.1.0+</Badge>
+### minWorkers <Badge type="info">1.1.0+</Badge> {#minworkers}
 
 - **类型:** `number`
 
@@ -1020,7 +1058,11 @@ setup 文件的路径。它们将运行在每个测试文件之前。
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
 :::tip
+<<<<<<< HEAD
 请注意，如果运行 [`--isolate=false`](#isolate-1-1-0) ，这个配置文件将在全局范围内多次运行。这意味着每次测试前都要访问同一个全局对象，因此请确保不要重复做同一件事。
+=======
+Note, that if you are running [`--isolate=false`](#isolate), this setup file will be run in the same global scope multiple times. Meaning, that you are accessing the same global object before each test, so make sure you are not doing the same thing more than you need.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 比如，你可能依赖于一个全局变量：
@@ -1290,7 +1332,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 从 Vitest 0.31.0 起，我们可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI Coverage](/guide/coverage#vitest-ui) 了解更多详情。
 
-#### coverage.reportOnFailure <Badge type="info">0.31.2+</Badge>
+#### coverage.reportOnFailure <Badge type="info">0.31.2+</Badge> {#coverage-reportonfailure}
 
 - **类型:** `boolean`
 - **默认值:** `false` (since Vitest `0.34.0`)
@@ -1306,7 +1348,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **CLI:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
+<<<<<<< HEAD
 收集 [项目`root`](https://vitest.dev/config/#root) 之外文件的覆盖率。
+=======
+Collect coverage of files outside the [project `root`](#root).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 #### coverage.skipFull
 
@@ -1503,9 +1549,15 @@ test("doNotRun", () => {
 
 ### open<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--open`, `--open=false`
+=======
+- **Type:** `boolean`
+- **Default:** `!process.env.CI`
+- **CLI:** `--open`, `--open=false`
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 打开 Vitest UI (WIP: 赞助者计划可用)
 
@@ -1517,13 +1569,17 @@ test("doNotRun", () => {
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
-### browser <Badge type="info">0.29.4+</Badge>
+### browser <Badge type="info">0.29.4+</Badge> {#browser}
 
 - **类型:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
 - **默认值:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
 - **命令行终端:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
 
+<<<<<<< HEAD
 在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](/config/#browser-provider) 选项进行配置。
+=======
+Run Vitest tests in a browser. We use [WebdriverIO](https://webdriver.io/) for running tests by default, but it can be configured with [browser.provider](#browser-provider) option.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ::: tip NOTE
 在 [指南页面](/guide/browser) 中阅读有关在真实浏览器中进行测试的更多信息。
@@ -1539,7 +1595,11 @@ test("doNotRun", () => {
 - **默认值:** `false`
 - **命令行终端:** `--browser`, `--browser.enabled=false`
 
+<<<<<<< HEAD
 默认情况下在浏览器中运行所有测试。可以用 [`poolMatchGlobs`](/config/#poolmatchglobs) 选项覆盖。
+=======
+Run all tests inside a browser by default. Can be overridden with [`poolMatchGlobs`](#poolmatchglobs) option.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 #### browser&#46;name
 
@@ -1568,18 +1628,28 @@ test("doNotRun", () => {
 
 在单独的 iframe 中运行每个测试。
 
-### browser.fileParallelism <Badge type="info">1.3.0+</Badge>
+### browser.fileParallelism <Badge type="info">1.3.0+</Badge> {#browser-fileparallelism}
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** 与 [`fileParallelism`]（#fileparallelism-110）相同
 - **命令行终端:** `--browser.fileParallelism=false`
+=======
+- **Type:** `boolean`
+- **Default:** the same as [`fileParallelism`](#fileparallelism)
+- **CLI:** `--browser.fileParallelism=false`
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 同时创建所有测试 iframe，使它们并行运行。
 
 这样就无法使用交互式 API（如点击或悬停），因为屏幕上会同时出现多个 iframe，但如果在测试中不依赖于这些 API，那么同时运行所有 iframe 可能会快很多。
 
 ::: tip
+<<<<<<< HEAD
 如果通过 [`browser.isolate=false`](#browserisolate) 禁用了隔离，由于测试运行器的特性，测试文件仍会一个接一个地运行。
+=======
+If you disabled isolation via [`browser.isolate=false`](#browser-isolate), your test files will still run one after another because of the nature of the test runner.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 #### browser.api
@@ -1588,7 +1658,11 @@ test("doNotRun", () => {
 - **默认值:** `63315`
 - **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
+<<<<<<< HEAD
 为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](/config/#api) 选项。
+=======
+Configure options for Vite server that serves code in the browser. Does not affect [`test.api`](#api) option.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 #### browser.provider
 
@@ -1612,10 +1686,14 @@ export interface BrowserProvider {
 ```
 
 ::: warning
+<<<<<<< HEAD
 这是一个对库作者友好的的高级 API。如果你只需要在浏览器中运行测试，请使用 [browser](/config/#browser) 选项。
+=======
+This is an advanced API for library authors. If you just need to run tests in a browser, use the [browser](#browser) option.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
-#### browser.providerOptions <Badge type="info">1.0.0+</Badge>
+#### browser.providerOptions <Badge type="info">1.0.0+</Badge> {#browser-provideroptions}
 
 - **类型:** `BrowserProviderOptions`
 
@@ -1651,7 +1729,7 @@ export default defineConfig({
 
 :::
 
-#### browser.slowHijackESM <Badge type="info">0.31.0+</Badge>
+#### browser.slowHijackESM <Badge type="info">0.31.0+</Badge> {#browser-slowhijackesm}
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -1683,21 +1761,21 @@ export default defineConfig({
 
 是否在每次测试之前对所有监听(Spy)调用 [`.mockRestore()`](/api/#mockrestore)。 这将清除模拟历史并将其实现重置为原始历史。
 
-### unstubEnvs <Badge type="info">0.26.0+</Badge>
+### unstubEnvs <Badge type="info">0.26.0+</Badge> {#unstubenvs}
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
 将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
-### unstubGlobals <Badge type="info">0.26.0+</Badge>
+### unstubGlobals <Badge type="info">0.26.0+</Badge> {#unstubglobals}
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
 将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
-### testTransformMode <Badge type="info">0.34.0+</Badge>
+### testTransformMode <Badge type="info">0.34.0+</Badge> {#testtransformmode}
 
 - **类型:** `{ web?, ssr? }`
 
@@ -1742,10 +1820,14 @@ export default defineConfig({
 ::: tip
 请注意，此对象上的 `plugins` 字段将被忽略。
 
+<<<<<<< HEAD
 如果你需要通过 pretty-format 插件扩展快照序列器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 或 [snapshotSerializers](#snapshotserializers-1-3-0) 选项。
+=======
+If you need to extend snapshot serializer via pretty-format plugins, please, use [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) API or [snapshotSerializers](#snapshotserializers) option.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
-### snapshotSerializers<NonProjectOption /> <Badge type="info">1.3.0+</Badge>
+### snapshotSerializers<NonProjectOption /> <Badge type="info">1.3.0+</Badge> {#snapshotserializers}
 
 - **类型:** `string[]`
 - **默认值:** `[]`
@@ -1771,9 +1853,15 @@ export default defineConfig({
 
 ### allowOnly
 
+<<<<<<< HEAD
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端:** `--allowOnly`, `--allowOnly=false`
+=======
+- **Type**: `boolean`
+- **Default**: `!process.env.CI`
+- **CLI:** `--allowOnly`, `--allowOnly=false`
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 允许标记为 only 的测试和套件。
 
@@ -1901,7 +1989,7 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始 - 这会使测试运行得更快。 如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
 
-#### sequence.concurrent <Badge type="info">0.32.2+</Badge>
+#### sequence.concurrent <Badge type="info">0.32.2+</Badge> {#sequence-concurrent}
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -1929,7 +2017,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - `list` 将按照定义的顺序对所有钩子进行排序
 - `parallel` 将并行运行单个组中的钩子（父套件中的钩子仍将在当前套件的钩子之前运行）
 
-#### sequence.setupFiles <Badge type="info">0.29.3+</Badge>
+#### sequence.setupFiles <Badge type="info">0.29.3+</Badge> {#sequence-setupfiles}
 
 - **类型**: `'list' | 'parallel'`
 - **默认值**: `'parallel'`
@@ -1944,7 +2032,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 用于配置 [typechecking](/guide/testing-types) 测试环境的选项。
 
-#### typecheck.enabled <Badge type="info">1.0.0+</Badge>
+#### typecheck.enabled <Badge type="info">1.0.0+</Badge> {#typecheck-enabled}
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -1952,7 +2040,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 常规测试时是否进行类型检查。
 
-#### typecheck.only <Badge type="info">1.0.0+</Badge>
+#### typecheck.only <Badge type="info">1.0.0+</Badge> {#typecheck-only}
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -2019,7 +2107,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
 
-### chaiConfig <Badge type="info">0.30.0+</Badge>
+### chaiConfig <Badge type="info">0.30.0+</Badge> {#chaiconfig}
 
 - **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
 - **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
@@ -2049,7 +2137,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 此配置选项影响在 `test.each` 标题和断言错误消息中截断值的方式。
 
-### bail <Badge type="info">0.31.0+</Badge>
+### bail <Badge type="info">0.31.0+</Badge> {#bail}
 
 - **类型:** `number`
 - **默认值:** `0`
@@ -2059,7 +2147,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 默认情况下，即使其中一些测试失败，Vitest 也会运行你的所有测试用例。这可能不适用于 CI 构建，你只对 100% 成功的构建感兴趣，并且希望在测试失败时尽早停止测试执行。`bail` 选项可用于通过在发生故障时防止运行更多测试来加速 CI 运行。
 
-### retry <Badge type="info">0.32.3+</Badge>
+### retry <Badge type="info">0.32.3+</Badge> {#retry}
 
 - **类型:** `number`
 - **默认值:** `0`
@@ -2088,7 +2176,7 @@ export default defineConfig({
 });
 ```
 
-### onStackTrace<NonProjectOption /> <Badge type="info">1.0.0+</Badge>
+### onStackTrace<NonProjectOption /> <Badge type="info">1.0.0+</Badge> {#onstacktrace}
 
 - **类型**: `(error: Error, frame: ParsedStack) => boolean | void`
 
@@ -2113,7 +2201,7 @@ export default defineConfig({
 });
 ```
 
-### diff <Badge type="info">0.34.5+</Badge>
+### diff <Badge type="info">0.34.5+</Badge> {#diff}
 
 - **类型:** `string`
 - **命令行终端:** `--diff=<value>`
@@ -2196,7 +2284,7 @@ export default defineConfig({
 
 通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。这些计时器默认情况下不会被清除，如果计时器在假计时器会话启动前就已存在，则可能会导致意外行为。
 
-### workspace<NonProjectOption /> <Badge type="info">1.1.0+</Badge>
+### workspace<NonProjectOption /> <Badge type="info">1.1.0+</Badge> {#workspace}
 
 - **类型:** `string`
 - **命令行终端:** `--workspace=./file.js`
@@ -2204,7 +2292,7 @@ export default defineConfig({
 
 相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
 
-### isolate <Badge type="info">1.1.0+</Badge>
+### isolate <Badge type="info">1.1.0+</Badge> {#isolate}
 
 - **类型:** `boolean`
 - **默认值:** `true`

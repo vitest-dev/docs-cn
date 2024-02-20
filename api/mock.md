@@ -136,7 +136,11 @@ test('async callback', () => {
 })
 ```
 
+<<<<<<< HEAD
 请注意，该方法优先于 [`mockImplementationOnce`](https://cn.vitest.dev/api/mock.html#mockimplementationonce)。
+=======
+Note that this method takes precedence over the [`mockImplementationOnce`](#mockimplementationonce).
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## mockRejectedValue
 
@@ -182,7 +186,11 @@ await asyncMock() // throws "Async error"
 
 请注意，从 `vi.fn()` 恢复 mock 会将实现设置为返回 `undefined` 的空函数。还原 `vi.fn(impl)` 会将实现还原为 `impl`。
 
+<<<<<<< HEAD
 如果希望在每次测试前自动调用此方法，可以启用配置中的 [`restoreMocks`](/config/#restoreMocks) 设置。
+=======
+If you want this method to be called before each test automatically, you can enable [`restoreMocks`](/config/#restoremocks) setting in config.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## mockResolvedValue
 

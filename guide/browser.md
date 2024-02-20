@@ -2,7 +2,11 @@
 title: 浏览器模式 | 指南
 ---
 
+<<<<<<< HEAD
 # 浏览器模式 <Badge type="warning">实验性</Badge>
+=======
+# Browser Mode <Badge type="warning">Experimental</Badge> {#browser-mode}
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 

@@ -486,7 +486,7 @@ export default defineConfig({
 
 :::
 
-### Github Actions Reporter <Badge type="info">1.3.0+</Badge>
+### Github Actions Reporter <Badge type="info">1.3.0+</Badge> {#github-actions-reporter}
 
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。

@@ -8,7 +8,11 @@ title: 快速起步 | 指南
 
 Vitest 是由 Vite 驱动的下一代测试框架。
 
+<<<<<<< HEAD
 你可以在 [为什么是 Vitest](./why) 中了解有关该项目背后的基本原理的更多信息。
+=======
+You can learn more about the rationale behind the project in the [Why Vitest](/guide/why) section.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## 在线试用 Vitest
 
@@ -218,7 +222,11 @@ export default defineWorkspace([
 要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
 你还可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 有关 CLI 选项的完整列表，可以在你的项目中运行 `npx vitest --help`。
 
+<<<<<<< HEAD
 了解更多有关 [命令行界面](./cli.md) 的更多信息
+=======
+Learn more about the [Command Line Interface](/guide/cli)
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## IDE 集成
 
@@ -226,7 +234,11 @@ export default defineWorkspace([
 
 [从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
 
+<<<<<<< HEAD
 了解更多有关 [IDE 插件](./ide.md) 的更多信息
+=======
+Learn more about [IDE Integrations](/guide/ide)
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## 示例
 

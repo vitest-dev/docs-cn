@@ -55,7 +55,7 @@ test("should work as expected", () => {
 });
 ```
 
-### test.extend <Badge type="info">0.32.3+</Badge>
+### test.extend <Badge type="info">0.32.3+</Badge> {#test-extended}
 
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
@@ -714,7 +714,11 @@ describe.only.concurrent(/* ... */); // or describe.concurrent.only(/* ... */)
 describe.todo.concurrent(/* ... */); // or describe.concurrent.todo(/* ... */)
 ```
 
+<<<<<<< HEAD
 运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect` ，以确保检测到正确的测试。
+=======
+When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context) to ensure the right test is detected.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ```ts
 describe.concurrent("suite", () => {
@@ -907,7 +911,11 @@ afterEach(async () => {
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
 ::: tip
+<<<<<<< HEAD
 Vitest 在 1.3.0 新增 [`onTestFinished`](##ontestfinished-1-3-0) 。你可以在测试执行过程中调用它，以便在测试运行结束后清理任何状态。
+=======
+Vitest 1.3.0 added [`onTestFinished`](#ontestfinished) hook. You can call it during the test execution to cleanup any state after the test has finished running.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 ### beforeAll
@@ -972,7 +980,7 @@ Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些钩
 如果在测试体之外调用这些 hooks ，则会出错。
 :::
 
-### onTestFinished <Badge type="info">1.3.0+</Badge>
+### onTestFinished <Badge type="info">1.3.0+</Badge> {#ontestfinished}
 
 这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
 

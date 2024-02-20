@@ -36,7 +36,11 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 ## 内联快照
 
 ::: warning
+<<<<<<< HEAD
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
+=======
+When using Snapshots with async concurrent tests, `expect` from the local [Test Context](/guide/test-context) must be used to ensure the right test is detected.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
@@ -66,7 +70,11 @@ it('toUpperCase', () => {
 ## 更新快照
 
 ::: warning
+<<<<<<< HEAD
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context.md) 中的 `expect` 来确保检测到正确的测试。
+=======
+When using Snapshots with async concurrent tests, `expect` from the local [Test Context](/guide/test-context) must be used to ensure the right test is detected.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 当接收到的值与快照不匹配时，测试将失败，并显示它们之间的差异。当需要更改快照时，你可能希望从当前状态更新快照。
@@ -130,7 +138,11 @@ expect.addSnapshotSerializer({
 })
 ```
 
+<<<<<<< HEAD
 我们还支持 [snapshotSerializers](/config/#snapshotserializers-1-3-0) 选项来隐式添加自定义序列化器。
+=======
+We also support [snapshotSerializers](/config/#snapshotserializers) option to implicitly add custom serializers.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ```ts
 import { SnapshotSerializer } from 'vitest'

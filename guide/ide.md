@@ -4,7 +4,7 @@ title: IDE 插件 | 指南
 
 # IDE 插件
 
-## VS Code <Badge>Official</Badge>
+## VS Code <Badge>Official</Badge> {#vs-code}
 
 <p text-center>
 <img src="https://raw.githubusercontent.com/vitest-dev/vscode/main/img/cover.png" w-60>

@@ -50,7 +50,11 @@ export interface ProcessPool {
 
 这个函数只会被调用一次（除非服务器配置被更新），通常最好在这个函数内初始化测试所需的一切，并在调用 `runTests` 时重复使用它。
 
+<<<<<<< HEAD
 Vitest 在安排运行新测试时调用 `runTest`。如果 `files` 为空，将不会调用它。第一个参数是一个元组数组：第一个元素是对工作区项目的引用，第二个元素是测试文件的绝对路径。在调用 `runTests` 之前，文件将使用 [`sequencer`](/config/#sequence.sequencer) 进行排序。可能（但不太可能）会有相同的文件出现两次，但它们将始终属于不同的项目 - 这是通过 [`vitest.workspace.ts`](/guide/workspace) 配置实现的。
+=======
+Vitest calls `runTest` when new tests are scheduled to run. It will not call it if `files` is empty. The first argument is an array of tuples: the first element is a reference to a workspace project and the second one is an absolute path to a test file. Files are sorted using [`sequencer`](/config/#sequence-sequencer) before `runTests` is called. It's possible (but unlikely) to have the same file twice, but it will always have a different project - this is implemented via [`vitest.workspace.ts`](/guide/workspace) configuration.
+>>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTests` 解决后才会触发 [`onFinished`](/guide/reporters)）。
 
