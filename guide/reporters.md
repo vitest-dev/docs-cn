@@ -263,25 +263,6 @@ AssertionError: expected 5 to be 4 // Object.is equality
 </testsuites>
 ```
 
-# <<<<<<< HEAD
-
-The outputted XML contains nested `testsuites` and `testcase` tags. You can use the environment variables `VITEST_JUNIT_SUITE_NAME` and `VITEST_JUNIT_CLASSNAME` to configure their `name` and `classname` attributes, respectively. These can also be customized via reporter options:
-
-```ts
-export default defineConfig({
-  test: {
-    reporters: [
-      [
-        'junit',
-        { suiteName: 'custom suite name', classname: 'custom-classname' },
-      ],
-    ],
-  },
-})
-```
-
-> > > > > > > d84e9335662acd91faa77211e8ba58249600109e
-
 输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的 `name` 和 `classname` 属性。这些属性也可通过 reporter 选项进行自定义：
 
 ```ts
