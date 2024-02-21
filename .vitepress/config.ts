@@ -61,6 +61,7 @@ export default withPwa(
         dark: 'vitesse-dark',
       },
     },
+    ignoreDeadLinks: true,
     themeConfig: {
       logo: '/logo.svg',
 
