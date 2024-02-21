@@ -1094,11 +1094,7 @@ test('all assertions are called', async () => {
 ```
 
 ::: warning
-<<<<<<< HEAD
 在使用异步并发测试时，必须使用本地 [Test Context](/guide/test-context.md) 中的 `expect` 来确保正确的测试被检测到。
-=======
-When using `assertions` with async concurrent tests, `expect` from the local [Test Context](/guide/test-context) must be used to ensure the right test is detected.
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 ## expect.hasAssertions
@@ -1377,11 +1373,7 @@ test('custom matchers', () => {
 ```
 
 ::: tip
-<<<<<<< HEAD
 如果希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
-=======
-If you want your matchers to appear in every test, you should call this method inside [`setupFiles`](/config/#setupfiles).
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 :::
 
 这个函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
@@ -1444,17 +1436,16 @@ function areAnagramsEqual(a: unknown, b: unknown): boolean | undefined {
 
   if (isAAnagramComparator && isBAnagramComparator)
     return a.equals(b)
-
   else if (isAAnagramComparator === isBAnagramComparator)
     return undefined
-
-  else
-    return false
+  else return false
 }
 
 expect.addEqualityTesters([areAnagramsEqual])
 
 test('custom equality tester', () => {
-  expect(new AnagramComparator('listen')).toEqual(new AnagramComparator('silent'))
+  expect(new AnagramComparator('listen')).toEqual(
+    new AnagramComparator('silent')
+  )
 })
 ```

@@ -222,11 +222,7 @@ if (condition) {
 
 ## Vitest UI
 
-<<<<<<< HEAD
-从 Vitest 0.31.0 开始，你可以在 [Vitest UI](./ui) 中查看你的覆盖率报告。
-=======
-Since Vitest 0.31.0, you can check your coverage report in [Vitest UI](/guide/ui).
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
+从 Vitest 0.31.0 开始，你可以在 [Vitest UI](guide/ui) 中查看你的覆盖率报告。
 
 Vitest UI 将在显式启用覆盖率报告且存在 html 覆盖率报告器的情况下启用覆盖率报告，否则将不可用：
 

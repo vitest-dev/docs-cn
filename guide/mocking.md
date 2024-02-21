@@ -675,11 +675,7 @@ it('changes value', () => {
 })
 ```
 
-<<<<<<< HEAD
 如果你想自动重置值，可以使用启用了 [`unstubEnvs`](/config/#unstubEnvs) 配置选项的 `vi.stubEnv` 助手（或调用 [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) 在 `beforeEach` 钩子中手动执行）：
-=======
-If you want to automatically reset value, you can use `vi.stubEnv` helper with [`unstubEnvs`](/config/#unstubenvs) config option enabled (or call [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) manually in `beforeEach` hook):
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ```ts
 import { expect, it, vi } from 'vitest'

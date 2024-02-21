@@ -396,7 +396,7 @@ Asserts that `value` is a function.
 ```ts
 import { assert, test } from 'vitest'
 
-function name() { return 'foo' };
+function name() { return 'foo' }
 
 test('assert.isFunction', () => {
   assert.isFunction(name, 'name is function')
@@ -1610,7 +1610,7 @@ import { assert, test } from 'vitest'
 
 test('assert.changes', () => {
   const obj = { val: 10 }
-  function fn() { obj.val = 22 };
+  function fn() { obj.val = 22 }
   assert.changes(fn, obj, 'val')
 })
 ```
@@ -1626,7 +1626,7 @@ import { assert, test } from 'vitest'
 
 test('assert.changesBy', () => {
   const obj = { val: 10 }
-  function fn() { obj.val += 2 };
+  function fn() { obj.val += 2 }
   assert.changesBy(fn, obj, 'val', 2)
 })
 ```
@@ -1642,7 +1642,7 @@ import { assert, test } from 'vitest'
 
 test('assert.doesNotChange', () => {
   const obj = { val: 10 }
-  function fn() { obj.val += 2 };
+  function fn() { obj.val += 2 }
   assert.doesNotChange(fn, obj, 'val', 2)
 })
 ```
@@ -1658,7 +1658,7 @@ import { assert, test } from 'vitest'
 
 test('assert.changesButNotBy', () => {
   const obj = { val: 10 }
-  function fn() { obj.val += 10 };
+  function fn() { obj.val += 10 }
   assert.changesButNotBy(fn, obj, 'val', 5)
 })
 ```
@@ -1674,7 +1674,7 @@ import { assert, test } from 'vitest'
 
 test('assert.increases', () => {
   const obj = { val: 10 }
-  function fn() { obj.val = 13 };
+  function fn() { obj.val = 13 }
   assert.increases(fn, obj, 'val')
 })
 ```
@@ -1690,7 +1690,7 @@ import { assert, test } from 'vitest'
 
 test('assert.increases', () => {
   const obj = { val: 10 }
-  function fn() { obj.val += 10 };
+  function fn() { obj.val += 10 }
   assert.increases(fn, obj, 'val', 10)
 })
 ```
@@ -1722,7 +1722,7 @@ import { assert, test } from 'vitest'
 
 test('assert.increasesButNotBy', () => {
   const obj = { val: 10 }
-  function fn() { obj.val += 15 };
+  function fn() { obj.val += 15 }
   assert.increasesButNotBy(fn, obj, 'val', 10)
 })
 ```
@@ -1738,7 +1738,7 @@ import { assert, test } from 'vitest'
 
 test('assert.decreases', () => {
   const obj = { val: 10 }
-  function fn() { obj.val = 5 };
+  function fn() { obj.val = 5 }
   assert.decreases(fn, obj, 'val')
 })
 ```
@@ -1754,7 +1754,7 @@ import { assert, test } from 'vitest'
 
 test('assert.decreasesBy', () => {
   const obj = { val: 10 }
-  function fn() { obj.val -= 5 };
+  function fn() { obj.val -= 5 }
   assert.decreasesBy(fn, obj, 'val', 5)
 })
 ```
@@ -1786,7 +1786,7 @@ import { assert, test } from 'vitest'
 
 test('assert.doesNotDecreaseBy', () => {
   const obj = { val: 10 }
-  function fn() { obj.val = 5 };
+  function fn() { obj.val = 5 }
   assert.doesNotDecreaseBy(fn, obj, 'val', 1)
 })
 ```
@@ -1802,7 +1802,7 @@ import { assert, test } from 'vitest'
 
 test('assert.decreasesButNotBy', () => {
   const obj = { val: 10 }
-  function fn() { obj.val = 5 };
+  function fn() { obj.val = 5 }
   assert.decreasesButNotBy(fn, obj, 'val', 1)
 })
 ```

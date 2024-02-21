@@ -136,11 +136,7 @@ test('async callback', () => {
 })
 ```
 
-<<<<<<< HEAD
-请注意，该方法优先于 [`mockImplementationOnce`](https://cn.vitest.dev/api/mock.html#mockimplementationonce)。
-=======
-Note that this method takes precedence over the [`mockImplementationOnce`](#mockimplementationonce).
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
+请注意，该方法优先于 [`mockImplementationOnce`](#mockimplementationonce)。
 
 ## mockRejectedValue
 
@@ -186,11 +182,7 @@ await asyncMock() // throws "Async error"
 
 请注意，从 `vi.fn()` 恢复 mock 会将实现设置为返回 `undefined` 的空函数。还原 `vi.fn(impl)` 会将实现还原为 `impl`。
 
-<<<<<<< HEAD
 如果希望在每次测试前自动调用此方法，可以启用配置中的 [`restoreMocks`](/config/#restoreMocks) 设置。
-=======
-If you want this method to be called before each test automatically, you can enable [`restoreMocks`](/config/#restoremocks) setting in config.
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
 
 ## mockResolvedValue
 
@@ -290,7 +282,6 @@ fn.mock.calls
 其中包含最后一次调用的参数。如果 mock 未被调用，将返回 `undefined`。
 
 ## mock.results
-
 
 这是一个数组，包含函数 `returned` 的所有值。数组中的一项是一个具有 `type` 和 `value` 属性的对象。可用的类型有:
 

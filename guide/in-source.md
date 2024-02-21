@@ -89,11 +89,7 @@ export default defineBuildConfig({
 })
 ```
 
-<<<<<<< HEAD
-了解更多：<a href="https://github.com/unjs/unbuild" target="_blank">unbuild</a>
-=======
-Learn more: [unbuild](https://github.com/unjs/unbuild)
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
+了解更多：[unbuild](https://github.com/unjs/unbuild)
 
 </details>
 
@@ -115,11 +111,7 @@ export default {
 }
 ```
 
-<<<<<<< HEAD
-了解更多：<a href="https://rollupjs.org/" target="_blank">Rollup</a>
-=======
-Learn more: [Rollup](https://rollupjs.org/)
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
+了解更多：[Rollup](https://rollupjs.org/)
 
 </details>
 

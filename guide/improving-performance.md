@@ -40,11 +40,7 @@ export default defineConfig({
 如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
 :::
 
-<<<<<<< HEAD
-对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的[`test.fileParallelism`](/config/#fileParallelism)属性设置为 `false`。
-=======
-For some projects, it might also be desirable to disable parallelism to improve startup time. To do that, provide `--no-file-parallelism` flag to the CLI or set [`test.fileParallelism`](/config/#fileparallelism) property in the config to `false`.
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
+对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的[`test.fileParallelism`](/config/#fileParallelism) 属性设置为 `false`。
 
 ::: code-group
 
@@ -61,4 +57,5 @@ export default defineConfig({
   },
 })
 ```
+
 :::

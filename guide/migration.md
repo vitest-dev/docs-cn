@@ -167,11 +167,11 @@ Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vites
 在 Jest 中模拟一个模块时，工厂参数的返回值是默认导出。在 Vitest 中，工厂参数必须返回一个明确定义了每个导出的对象。例如，下面的 `jest.mock` 必须更新如下：
 
 ```ts
-jest.mock("./some-path", () => "hello"); // [!code --]
-vi.mock("./some-path", () => ({
+jest.mock('./some-path', () => 'hello') // [!code --]
+vi.mock('./some-path', () => ({
   // [!code ++]
-  default: "hello", // [!code ++]
-})); // [!code ++]
+  default: 'hello', // [!code ++]
+})) // [!code ++]
 ```
 
 有关更深入的详细描述，请参阅 [`vi.mock` api section](/api/#vi-mock)。
@@ -185,8 +185,8 @@ vi.mock("./some-path", () => ({
 如果你只需要模拟一个 package 的部分功能，你可能之前使用了 Jest 的 `requireActual` 函数。在 Vitest 中，你应该将这些调用替换为 `vi.importActual`。
 
 ```ts
-const { cloneDeep } = jest.requireActual("lodash/cloneDeep"); // [!code --]
-const { cloneDeep } = await vi.importActual("lodash/cloneDeep"); // [!code ++]
+const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
+const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 ```
 
 **Jasmine API**
@@ -199,13 +199,7 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 
 ### 属性替换
 
-如果你想修改测试环境，你会在 Jest 中使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用 [vi.stubEnv](https://cn.vitest.dev/api/vi.html#vi-stubenv) 或者 [`vi.spyOn`](/api/vi#vi-spyon) 也可以在 Vitest 中执行此操作。
-
-<<<<<<< HEAD
-### 回调完成
-=======
-If you want to modify the object, you will use [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value) in Jest, you can use [`vi.stubEnv`](/api/#vi-stubenv) or [`vi.spyOn`](/api/vi#vi-spyon) to do the same also in Vitest.
->>>>>>> b017fcf5511078b058f902eae0469535dfe8392b
+如果你想修改测试环境，你会在 Jest 中使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用 [vi.stubEnv](/api/vi#vi-stubenv) 或者 [`vi.spyOn`](/api/vi#vi-spyon) 也可以在 Vitest 中执行此操作。
 
 从 Vitest v0.10.0 开始，声明测试的回调样式被弃用。 你可以重写它们以使用 `async`/`await` 函数，或者使用 Promise 来模仿回调样式。
 
@@ -223,10 +217,10 @@ it('should work', () => new Promise(done => { // [!code ++]
 `beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown)中返回。因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
 
 ```ts
-beforeEach(() => setActivePinia(createTestingPinia())); // [!code --]
+beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
 beforeEach(() => {
-  setActivePinia(createTestingPinia());
-}); // [!code ++]
+  setActivePinia(createTestingPinia())
+}) // [!code ++]
 ```
 
 在 Jest 中，钩子是按顺序调用的（一个接一个）。默认情况下，Vitest 并行运行钩子。要使用 Jest 的行为，请更新 [`sequence.hooks`](/config/#sequence-hooks) 选项：
@@ -236,10 +230,10 @@ export default defineConfig({
   test: {
     sequence: {
       // [!code ++]
-      hooks: "list", // [!code ++]
+      hooks: 'list', // [!code ++]
     }, // [!code ++]
   },
-});
+})
 ```
 
 ### 类型
@@ -259,8 +253,8 @@ let fn: Mock<[string], string> // [!code ++]
 如果你之前在测试中使用了 jest.setTimeout ，那么你需要迁移到 Vitest 中的`vi.setConfig` :
 
 ```ts
-jest.setTimeout(5_000); // [!code --]
-vi.setConfig({ testTimeout: 5_000 }); // [!code ++]
+jest.setTimeout(5_000) // [!code --]
+vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 ```
 
 ### Vue 快照
@@ -270,19 +264,19 @@ vi.setConfig({ testTimeout: 5_000 }); // [!code ++]
 `vite.config.js`
 
 ```js
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite'
 export default defineConfig({
   test: {
-    setupFiles: ["./tests/unit/setup.js"],
+    setupFiles: ['./tests/unit/setup.js'],
   },
-});
+})
 ```
 
 `tests/unit/setup.js`
 
 ```js
-import vueSnapshotSerializer from "jest-serializer-vue";
-expect.addSnapshotSerializer(vueSnapshotSerializer);
+import vueSnapshotSerializer from 'jest-serializer-vue'
+expect.addSnapshotSerializer(vueSnapshotSerializer)
 ```
 
 否则你的快照将出现大量的 `"` 字符。
