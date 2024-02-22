@@ -40,7 +40,13 @@ WebdriverIO 具有与 Cypress 相同的优点，允许你在真实浏览器中�
 
 ## Web Test Runner
 
+<<<<<<< HEAD
 [@web/test-runner](https://modern-web.dev/docs/test-runner/overview/) 在无头浏览器中进行测试，提供与你的 Web 应用相同的运行环境，而不需要模拟浏览器的 API 和 DOM。虽然没有像 Cypress 那样显示用于单步执行测试的 UI，但也使得我们可以使用 devtools 在浏览器中进行调试。@web/test-runner 有一个监听模式，但是不如 Vitest 智能，而且有时候不一定运行你想要的那个测试。要在 Vite 项目中使用 @web/test-runner，有一个 [plugin](https://github.com/material-svelte/vite-web-test-runner-plugin)，尽管某些功能还 [尚不可用](https://github.com/material-svelte/vite-web-test-runner-plugin/issues/11)（例如在测试中更改视口大小）。同时 @web/test-runner 不包含断言或对象模拟库，因此要靠你自己来添加它们。
+=======
+[@web/test-runner](https://modern-web.dev/docs/test-runner/overview/) runs tests inside a headless browser, providing the same execution environment as your web application without the need for mocking out browser APIs or the DOM. This also makes it possible to debug inside a real browser using the devtools, although there is no UI shown for stepping through the test, as there is in Cypress tests.
+
+To use @web/test-runner with a Vite project, use [@remcovaes/web-test-runner-vite-plugin](https://github.com/remcovaes/web-test-runner-vite-plugin). @web/test-runner does not include assertion or mocking libraries, so it is up to you to add them.
+>>>>>>> c6847ca1740aafc89855f7d15d83ea4b21195ec7
 
 ## uvu
 
