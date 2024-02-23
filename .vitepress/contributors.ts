@@ -115,22 +115,12 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Vitest 和 UnoCSS 团队成员',
   },
   {
-<<<<<<< HEAD
-    avatar: contributorsAvatars.zxch3n,
-    name: 'Zixuan Chen',
-    github: 'zxch3n',
-    mastodon: 'https://elk.zone/hachyderm.io/@zx',
-    twitter: 'zxch3n',
-    title: '全栈开发者',
-    desc: '开发 CRDT 和本地优先软件',
-=======
     avatar: contributorsAvatars['hi-ogawa'],
     name: 'Hiroshi Ogawa',
     github: 'hi-ogawa',
     twitter: 'hiroshi_18181',
-    title: 'Open source enthusiast',
-    desc: 'Team member of Vitest',
->>>>>>> c6847ca1740aafc89855f7d15d83ea4b21195ec7
+    title: '开源爱好者',
+    desc: 'Vitest 团队成员',
   },
 ]
 
@@ -162,21 +152,13 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     desc: 'Vite 核心团队成员 和 Vitest 团队成员',
   },
   {
-    avatar: contributorsAvatars['hi-ogawa'],
-    name: 'Hiroshi Ogawa',
-    github: 'hi-ogawa',
-    twitter: 'hiroshi_18181',
-    title: '开源爱好者',
-    desc: 'Vitest 团队成员',
-  },
-  {
     avatar: contributorsAvatars.zxch3n,
     name: 'Zixuan Chen',
     github: 'zxch3n',
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
-    title: 'A fullstack developer',
-    desc: 'Working on CRDTs & local-first software',
+    title: '全栈开发者',
+    desc: '开发 CRDT 和本地优先软件',
   },
 ]
 
