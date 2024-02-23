@@ -224,7 +224,11 @@ export default defineWorkspace([
 
 我们还提供了 Visual Studio Code 的官方扩展，以增强你使用 Vitest 的测试体验。
 
+<<<<<<< HEAD
 [从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer)
+=======
+[Install from VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
+>>>>>>> 9ddd1c4cea4c2fb02cdd9e62b17aedd0d0875882
 
 了解更多有关 [IDE 插件](guide/ide.md) 的更多信息
 

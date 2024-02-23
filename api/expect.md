@@ -544,10 +544,13 @@ test('top fruits', () => {
 })
 ```
 
+<<<<<<< HEAD
 ::: tip
 如果错误消息中的值被截断得太厉害，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
 :::
 
+=======
+>>>>>>> 9ddd1c4cea4c2fb02cdd9e62b17aedd0d0875882
 ## toMatchObject
 
 - **类型:** `(received: object | array) => Awaitable<void>`
