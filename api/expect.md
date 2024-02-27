@@ -388,11 +388,7 @@ test('stocks are not the same', () => {
 ```
 
 :::warning
-<<<<<<< HEAD
-不会对 `Error` 对象执行 _deep equality_ 。要测试是否抛出了错误，需要使用 [`toThrowError`](#tothrowerror)断言。
-=======
-A _deep equality_ will not be performed for `Error` objects. Only the `message` property of an Error is considered for equality. To customize equality to check properties other than `message`, use [`expect.addEqualityTesters`](#expect-addequalitytesters). To test if something was thrown, use [`toThrowError`](#tothrowerror) assertion.
->>>>>>> d4d7218cf783c612c95d3aeb7f02f3d41f18e691
+不会对 `Error` 对象执行 _deep equality_ 。只有 Error 的 `message` 属性才被视为相等。要自定义相等以检查 `message` 以外的属性，请使用 [`expect.addEqualityTesters`](#expect-addequalitytesters)。要测试是否抛出了错误，需要使用 [`toThrowError`](#tothrowerror) 断言。
 :::
 
 ## toStrictEqual
