@@ -218,7 +218,7 @@ export default defineWorkspace([
 要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
 你还可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 有关 CLI 选项的完整列表，可以在你的项目中运行 `npx vitest --help`。
 
-了解更多有关 [命令行界面](guide/cli) 的更多信息
+了解更多有关 [命令行界面](/guide/cli) 的更多信息
 
 ## IDE 集成
 
