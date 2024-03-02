@@ -837,7 +837,11 @@ test('spy function', () => {
 
 - **类型**: `(...args: any[]) => Awaitable<void>`
 
+<<<<<<< HEAD
 这个断言检查函数在最后一次调用时是否使用了特定参数。需要将一个 spy 函数传递给 `expect`。
+=======
+This assertion checks if a function was called with certain parameters at its last invocation. Requires a spy function to be passed to `expect`.
+>>>>>>> 5b0fd41ea96dafe59d1b7ca0b60379f97a61886f
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -951,7 +955,11 @@ test('spy function returns a product', () => {
 
 - **类型**: `(returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 我们可以调用此断言来检查函数是否在最后一次调用时成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully returned a value with certain parameters on its last invoking. Requires a spy function to be passed to `expect`.
+>>>>>>> 5b0fd41ea96dafe59d1b7ca0b60379f97a61886f
 
 ```ts
 import { expect, test, vi } from 'vitest'
