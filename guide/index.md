@@ -8,7 +8,7 @@ title: 快速起步 | 指南
 
 Vitest 是由 Vite 驱动的下一代测试框架。
 
-你可以在 [为什么是 Vitest](guide/why) 中了解有关该项目背后的基本原理的更多信息。
+你可以在 [为什么是 Vitest](/guide/why) 中了解有关该项目背后的基本原理的更多信息。
 
 ## 在线试用 Vitest
 
