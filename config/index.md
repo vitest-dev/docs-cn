@@ -1242,7 +1242,15 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
+<<<<<<< HEAD
 配置测试覆盖率报告写入的目录。
+=======
+::: warning
+Vitest will delete this directory before running tests if `coverage.clean` is enabled (default value).
+:::
+
+Directory to write coverage report to.
+>>>>>>> 8dafc10e9783484581ffae013410aeb12d328525
 
 要预览覆盖范围报告，请使用 [HTML reporter](/guide/reporters.html#html-reporter), 该选项必须设置为 html 报告目录的子目录 (比如 `./html/coverage`).
 
@@ -1894,6 +1902,7 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 #### sequence.shuffle
 
+<<<<<<< HEAD
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--sequence.shuffle`, `--sequence.shuffle=false`
@@ -1901,6 +1910,31 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 如果你希望测试随机运行，可以使用此选项或 CLI 参数 [`--sequence.shuffle`](/guide/cli) 启用它。
 
 Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始 - 这会使测试运行得更快。 如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
+=======
+- **Type**: `boolean | { files?, tests? }`
+- **Default**: `false`
+- **CLI**: `--sequence.shuffle`, `--sequence.shuffle=false`
+
+If you want files and tests to run randomly, you can enable it with this option, or CLI argument [`--sequence.shuffle`](/guide/cli).
+
+Vitest usually uses cache to sort tests, so long running tests start earlier - this makes tests run faster. If your files and tests will run in random order you will lose this performance improvement, but it may be useful to track tests that accidentally depend on another run previously.
+
+#### sequence.shuffle.files <Badge type="info">1.4.0+</Badge> {#sequence-shuffle-files}
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **CLI**: `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
+
+Whether to randomize files, be aware that long running tests will not start earlier if you enable this option.
+
+#### sequence.shuffle.tests <Badge type="info">1.4.0+</Badge> {#sequence-shuffle-tests}
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **CLI**: `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
+
+Whether to randomize tests.
+>>>>>>> 8dafc10e9783484581ffae013410aeb12d328525
 
 #### sequence.concurrent <Badge type="info">0.32.2+</Badge> {#sequence-concurrent}
 
@@ -2219,4 +2253,17 @@ export default defineConfig({
 
 ::: tip
 你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
+:::
+
+### includeTaskLocation <Badge type="info">1.4.0+</Badge> {#includeTaskLocation}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Should `location` property be included when Vitest API receives tasks in [reporters](#reporters). If you have a lot of tests, this might cause a small performance regression.
+
+The `location` property has `column` and `line` values that correspond to the `test` or `describe` position in the original file.
+
+::: tip
+This option has no effect if you do not use custom code that relies on this.
 :::

@@ -58,6 +58,7 @@ export default {
 
 ## 选项
 
+<<<<<<< HEAD
 | 选项                                 |                                                                                                                                             |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-v, --version`                      | 显示版本号                                                                                                                                  |
@@ -109,6 +110,60 @@ export default {
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
 | `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`                                           |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
+=======
+| Options       |               |
+| ------------- | ------------- |
+| `-v, --version` | Display version number |
+| `-r, --root <path>` | Define the project root |
+| `-c, --config <path>` | Path to config file |
+| `-u, --update` | Update snapshots |
+| `-w, --watch` | Smart & instant watch mode |
+| `-t, --testNamePattern <pattern>` | Run tests with full names matching the pattern |
+| `--dir <path>`| Base directory to scan for the test files |
+| `--ui` | Enable UI |
+| `--open` | Open the UI automatically if enabled (default: `true`) |
+| `--api [api]` | Serve API, available options: `--api.port <port>`, `--api.host [host]` and `--api.strictPort` |
+| `--pool <pool>` | Specify pool, if not running in the browser (default: `threads`)  |
+| `--poolOptions <options>` | Specify pool options |
+| `--poolOptions.threads.isolate` | Isolate tests in threads pool (default: `true`)  |
+| `--poolOptions.forks.isolate` | Isolate tests in forks pool (default: `true`)  |
+| `--fileParallelism` | Should all test files run in parallel. Use --no-file-parallelism to disable (default: true) |
+| `--maxWorkers <workers>` | Maximum number of workers to run tests in |
+| `--minWorkers <workers>` | Minimum number of workers to run tests in |
+| `--silent` | Silent console output from tests |
+| `--reporter <name>` | Select reporter: `default`, `verbose`, `dot`, `junit`, `json`, or a path to a custom reporter |
+| `--outputFile <filename/-s>` | Write test results to a file when the `--reporter=json` or `--reporter=junit` option is also specified <br /> Via [cac's dot notation] you can specify individual outputs for multiple reporters |
+| `--coverage` | Enable coverage report |
+| `--run` | Do not watch |
+| `--isolate` | Run every test file in isolation. To disable isolation, use --no-isolate (default: `true`) |
+| `--mode <name>` | Override Vite mode (default: `test`) |
+| `--workspace <path>` | Path to a workspace configuration file |
+| `--globals` | Inject APIs globally |
+| `--dom` | Mock browser API with happy-dom |
+| `--browser [options]` | Run tests in [the browser](/guide/browser) (default: `false`) |
+| `--environment <env>` | Runner environment (default: `node`) |
+| `--passWithNoTests` | Pass when no tests found |
+| `--logHeapUsage` | Show the size of heap for each test |
+| `--allowOnly` | Allow tests and suites that are marked as `only` (default: false in CI, true otherwise) |
+| `--dangerouslyIgnoreUnhandledErrors` | Ignore any unhandled errors that occur |
+| `--changed [since]` | Run tests that are affected by the changed files (default: false). See [docs](#changed) |
+| `--shard <shard>` | Execute tests in a specified shard |
+| `--sequence` | Define in what order to run tests. Use [cac's dot notation] to specify options (for example, use `--sequence.shuffle` to run tests in random order or `--sequence.shuffle --sequence.seed SEED_ID` to run a specific order) |
+| `--no-color` | Removes colors from the console output |
+| `--inspect` | Enables Node.js inspector |
+| `--inspect-brk` | Enables Node.js inspector with break |
+| `--bail <number>` | Stop test execution when given number of tests have failed |
+| `--retry <times>` | Retry the test specific number of times if it fails |
+| `--exclude <glob>` | Additional file globs to be excluded from test |
+| `--expand-snapshot-diff` | Show full diff when snapshot fails |
+| `--disable-console-intercept` | Disable automatic interception of console logging (default: `false`) |
+| `--clearScreen` | Clear terminal screen when re-running tests during watch mode (default: `true`) |
+| `--typecheck [options]` | Custom options for typecheck pool. If passed without options, enables typechecking |
+| `--typecheck.enabled` | Enable typechecking alongside tests (default: `false`) |
+| `--typecheck.only` | Run only typecheck tests. This automatically enables typecheck (default: `false`) |
+| `--project` | The name of the project to run if you are using Vitest workspace feature. This can be repeated for multiple projects: `--project=1 --project=2`. You can also filter projects using wildcards like `--project=packages*` |
+| `-h, --help` | Display available CLI options |
+>>>>>>> 8dafc10e9783484581ffae013410aeb12d328525
 
 ::: tip
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
@@ -139,7 +194,13 @@ vitest --api=false
 
   要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
 
+<<<<<<< HEAD
   如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
+=======
+  When used with code coverage the report will contain only the files that were related to the changes.
+
+  If paired with the [`forceRerunTriggers`](/config/#forcereruntriggers) config option it will run the whole test suite if at least one of the files listed in the `forceRerunTriggers` list changes. By default, changes to the Vitest config file and `package.json` will always rerun the whole suite.
+>>>>>>> 8dafc10e9783484581ffae013410aeb12d328525
 
 ### shard
 
