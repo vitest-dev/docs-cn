@@ -75,8 +75,8 @@ export default {
 | `--poolOptions.threads.isolate`      | 隔离线程池中的测试 (默认值: `true`)                                                                                                         |
 | `--poolOptions.forks.isolate`        | 隔离分叉池中的测试 (默认值: `true`)                                                                                                         |
 | `--fileParallelism`                  | 所有测试文件应该并行运行。使用--no parallelism 以禁用（默认值：true）                                                                       |
-| `--maxWorkers`                       | 运行测试时设置的最大工作线程数 in                                                                                                           |
-| `--minWorkers`                       | 运行测试时设置的最小工作线程数 in                                                                                                           |
+| `--maxWorkers <workers>`                       | 运行测试时设置的最大工作线程数                                                                                                           |
+| `--minWorkers <workers>`                       | 运行测试时设置的最小工作线程数                                                                                                            |
 | `--silent`                           | 控制台输出测试结果                                                                                                                          |
 | `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                               |
 | `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
@@ -104,10 +104,11 @@ export default {
 | `--exclude <glob>`                   | 要从测试中排除的其他文件 globs                                                                                                              |
 | `--expand-snapshot-diff`             | 快照失败时显示完整差异                                                                                                                      |
 | `--disable-console-intercept`        | 禁用自动拦截控制台日志（默认：`false` ）                                                                                                    |
+| `--clearScreen` | 在观察模式下重新运行测试时清除终端屏幕（默认：`true`）。 |
 | `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
 | `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
-| `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`                                           |
+| `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`。也可以使用通配符过滤项目，如 `--project=packages*`                                           |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
 
 ::: tip
@@ -140,6 +141,10 @@ vitest --api=false
   要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
 
   如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
+
+  与代码覆盖一起使用时，报告将只包含与更改相关的文件。
+
+  如果与 [`forceRerunTriggers`](/config/#forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
 
 ### shard
 
