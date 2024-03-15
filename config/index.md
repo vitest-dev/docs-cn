@@ -1862,6 +1862,7 @@ export default defineConfig({
 
 ### cache<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型**: `false | { dir? }`
 - **命令行终端**: `--no-cache`, `--cache=false`
 
@@ -1874,6 +1875,12 @@ export default defineConfig({
 - **命令行终端**: `--cache.dir=./cache`
 
 缓存目录的路径。
+=======
+- **Type**: `false`
+- **CLI**: `--no-cache`, `--cache=false`
+
+Use this option if you want to disable the cache feature. At the moment Vitest stores cache for test results to run the longer and failed tests first.
+>>>>>>> 667a9651b0918977a69f3e8734ade2902cdec25e
 
 ### sequence
 
