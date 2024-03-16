@@ -1862,6 +1862,7 @@ export default defineConfig({
 
 ### cache<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型**: `false | { dir? }`
 - **命令行终端**: `--no-cache`, `--cache=false`
 
@@ -1874,6 +1875,12 @@ export default defineConfig({
 - **命令行终端**: `--cache.dir=./cache`
 
 缓存目录的路径。
+=======
+- **Type**: `false`
+- **CLI**: `--no-cache`, `--cache=false`
+
+Use this option if you want to disable the cache feature. At the moment Vitest stores cache for test results to run the longer and failed tests first.
+>>>>>>> 72494c8c1aca5356ff02f704b1ea8dc103ffc69d
 
 ### sequence
 
@@ -2094,7 +2101,11 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### onConsoleLog<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型**: `(log: string, type: 'stdout' | 'stderr') => false | void`
+=======
+- **Type**: `(log: string, type: 'stdout' | 'stderr') => boolean | void`
+>>>>>>> 72494c8c1aca5356ff02f704b1ea8dc103ffc69d
 
 在测试自定义 `console.log` 的处理程序。如果返回 `false`，Vitest 将不会将日志打印到控制台上。
 
@@ -2105,9 +2116,8 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    onConsoleLog(log: string, type: 'stdout' | 'stderr'): false | void {
-      if (log === 'message from third party library' && type === 'stdout')
-        return false
+    onConsoleLog(log: string, type: 'stdout' | 'stderr'): boolean | void {
+      return !(log === 'message from third party library' && type === 'stdout')
     },
   },
 })
