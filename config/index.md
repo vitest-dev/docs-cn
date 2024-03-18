@@ -1862,25 +1862,10 @@ export default defineConfig({
 
 ### cache<NonProjectOption />
 
-<<<<<<< HEAD
-- **类型**: `false | { dir? }`
+- **类型**: `false`
 - **命令行终端**: `--no-cache`, `--cache=false`
 
-配置 Vitest 缓存策略的选项。目前 Vitest 为测试结果存储缓存，以便先运行更长且失败的测试。
-
-#### cache.dir
-
-- **类型**: `string`
-- **默认值**: `node_modules/.vitest`
-- **命令行终端**: `--cache.dir=./cache`
-
-缓存目录的路径。
-=======
-- **Type**: `false`
-- **CLI**: `--no-cache`, `--cache=false`
-
-Use this option if you want to disable the cache feature. At the moment Vitest stores cache for test results to run the longer and failed tests first.
->>>>>>> 72494c8c1aca5356ff02f704b1ea8dc103ffc69d
+如果要禁用缓存功能，请使用此选项。目前，Vitest 会对测试结果进行缓存，优先运行时间较长和失败的测试。
 
 ### sequence
 
@@ -2101,11 +2086,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### onConsoleLog<NonProjectOption />
 
-<<<<<<< HEAD
-- **类型**: `(log: string, type: 'stdout' | 'stderr') => false | void`
-=======
-- **Type**: `(log: string, type: 'stdout' | 'stderr') => boolean | void`
->>>>>>> 72494c8c1aca5356ff02f704b1ea8dc103ffc69d
+- **类型**: `(log: string, type: 'stdout' | 'stderr') => boolean | void`
 
 在测试自定义 `console.log` 的处理程序。如果返回 `false`，Vitest 将不会将日志打印到控制台上。
 
