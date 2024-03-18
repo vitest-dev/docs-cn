@@ -2086,7 +2086,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### onConsoleLog<NonProjectOption />
 
-- **类型**: `(log: string, type: 'stdout' | 'stderr') => false | void`
+- **类型**: `(log: string, type: 'stdout' | 'stderr') => boolean | void`
 
 在测试自定义 `console.log` 的处理程序。如果返回 `false`，Vitest 将不会将日志打印到控制台上。
 
@@ -2097,9 +2097,8 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    onConsoleLog(log: string, type: 'stdout' | 'stderr'): false | void {
-      if (log === 'message from third party library' && type === 'stdout')
-        return false
+    onConsoleLog(log: string, type: 'stdout' | 'stderr'): boolean | void {
+      return !(log === 'message from third party library' && type === 'stdout')
     },
   },
 })

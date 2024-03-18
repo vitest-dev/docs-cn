@@ -977,7 +977,7 @@ Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些钩
 
 这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
 
-```ts
+```ts {1,5}
 import { onTestFinished, test } from 'vitest'
 
 test('performs a query', () => {
@@ -990,12 +990,12 @@ test('performs a query', () => {
 ::: warning
 如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
-```ts
+```ts {3,5}
 import { test } from 'vitest'
 
-test.concurrent('performs a query', (t) => {
+test.concurrent('performs a query', ({ onTestFinished }) => {
   const db = connectDb()
-  t.onTestFinished(() => db.close())
+  onTestFinished(() => db.close())
   db.query('SELECT * FROM users')
 })
 ```
@@ -1027,7 +1027,7 @@ test('performs an organization query', async () => {
 
 只有在测试失败后才会调用这个 hook 。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它将接收一个包含当前测试结果的 `TaskResult` 。这个 hook 对调试非常有用。
 
-```ts
+```ts {1,5-7}
 import { onTestFailed, test } from 'vitest'
 
 test('performs a query', () => {
@@ -1042,10 +1042,10 @@ test('performs a query', () => {
 ::: warning
 如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
-```ts
+```ts {3,5-7}
 import { test } from 'vitest'
 
-test.concurrent('performs a query', (t) => {
+test.concurrent('performs a query', ({ onTestFailed }) => {
   const db = connectDb()
   onTestFailed((result) => {
     console.log(result.errors)
