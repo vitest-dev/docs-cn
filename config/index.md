@@ -1862,25 +1862,10 @@ export default defineConfig({
 
 ### cache<NonProjectOption />
 
-<<<<<<< HEAD
-- **类型**: `false | { dir? }`
+- **类型**: `false`
 - **命令行终端**: `--no-cache`, `--cache=false`
 
-配置 Vitest 缓存策略的选项。目前 Vitest 为测试结果存储缓存，以便先运行更长且失败的测试。
-
-#### cache.dir
-
-- **类型**: `string`
-- **默认值**: `node_modules/.vitest`
-- **命令行终端**: `--cache.dir=./cache`
-
-缓存目录的路径。
-=======
-- **Type**: `false`
-- **CLI**: `--no-cache`, `--cache=false`
-
-Use this option if you want to disable the cache feature. At the moment Vitest stores cache for test results to run the longer and failed tests first.
->>>>>>> 667a9651b0918977a69f3e8734ade2902cdec25e
+如果要禁用缓存功能，请使用此选项。目前，Vitest 会对测试结果进行缓存，优先运行时间较长和失败的测试。
 
 ### sequence
 
