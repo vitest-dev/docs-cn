@@ -224,7 +224,7 @@ export default defineWorkspace([
 
 我们还提供了 Visual Studio Code 的官方扩展，以增强你使用 Vitest 的测试体验。
 
-[从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=vitest.vitest-explorer)
+[从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
 
 了解更多有关 [IDE 插件](guide/ide.md) 的更多信息
 
