@@ -745,7 +745,11 @@ vi.useRealTimers()
 
 - **类型:** `(config?: FakeTimerInstallOpts) => Vitest`
 
+<<<<<<< HEAD
 要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`nextTick` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
+=======
+To enable mocking timers, you need to call this method. It will wrap all further calls to timers (such as `setTimeout`, `setInterval`, `clearTimeout`, `clearInterval`, `setImmediate`, `clearImmediate`, and `Date`) until [`vi.useRealTimers()`](#vi-userealtimers) is called.
+>>>>>>> 55338ff17bcb6c81e0c8d9bd81af0cc4babaae62
 
 在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick` 。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick` ，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
