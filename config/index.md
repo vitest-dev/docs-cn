@@ -2178,9 +2178,11 @@ export default defineConfig({
 
 #### fakeTimers.toFake
 
-- **类型:** `FakeMethod[]`
+- **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
+- **默认值:** `['setTimeout', 'clearTimeout', 'setImmediate', 'clearImmediate', 'setInterval', 'clearInterval', 'Date']`
 
-包含要伪造的全局方法和 API 名称的数组。默认情况下，Vitest 不会替换 `nextTick()` 和 `queueMicrotask()`。
+包含要伪造的全局方法和 API 名称的数组。
+
 
 要只模拟 `setTimeout()` 和 `nextTick()` ，请将此属性指定为 `['setTimeout','nextTick']`。
 
