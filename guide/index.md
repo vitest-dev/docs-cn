@@ -90,7 +90,7 @@ test('adds 1 + 2 to equal 3', () => {
 Test Files  1 passed (1)
     Tests  1 passed (1)
   Start at  02:15:44
-  Duration  311ms (transform 23ms, setup 0ms, collect 16ms, tests 2ms, environment 0ms, prepare 106ms)
+  Duration  311ms
 ```
 
 了解更多关于 Vitest 的使用，请参考 [API 索引](https://cn.vitest.dev/api/) 部分。
