@@ -1944,23 +1944,23 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始 - 这会使测试运行得更快。 如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
 
-- **Type**: `boolean | { files?, tests? }`
-- **Default**: `false`
-- **CLI**: `--sequence.shuffle`, `--sequence.shuffle=false`
+- **类型**: `boolean | { files?, tests? }`
+- **默认值**: `false`
+- **命令行终端**: `--sequence.shuffle`, `--sequence.shuffle=false`
 
 #### sequence.shuffle.files <Badge type="info">1.4.0+</Badge> {#sequence-shuffle-files}
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
+- **类型**: `boolean`
+- **默认值**: `false`
+- **命令行终端**: `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
 
 是否随机化文件，注意如果启用此选项，长时间运行的测试将不会提前启动。
 
 #### sequence.shuffle.tests <Badge type="info">1.4.0+</Badge> {#sequence-shuffle-tests}
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
+- **类型**: `boolean`
+- **默认值**: `false`
+- **命令行终端**: `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
 
 是否随机测试。
 
@@ -2211,23 +2211,23 @@ export default defineConfig({
 
 #### diff.truncateThreshold
 
-- **Type**: `number`
-- **Default**: `0`
+- **类型**: `number`
+- **默认值**: `0`
 
 要显示的差异结果的最大长度。超过此阈值的差异将被截断。
 默认值为 0 时，截断不会生效。
 
 #### diff.truncateAnnotation
 
-- **Type**: `string`
-- **Default**: `'... Diff result is truncated'`
+- **类型**: `string`
+- **默认值**: `'... Diff result is truncated'`
 
 在 diff 结果末尾输出的注释（如果被截断）。
 
 #### diff.truncateAnnotationColor
 
-- **Type**: `DiffOptionsColor = (arg: string) => string`
-- **Default**: `noColor = (string: string): string => string`
+- **类型**: `DiffOptionsColor = (arg: string) => string`
+- **默认值**: `noColor = (string: string): string => string`
 
 截断注释的颜色，默认为无色输出。
 
@@ -2308,8 +2308,8 @@ export default defineConfig({
 
 ### includeTaskLocation <Badge type="info">1.4.0+</Badge> {#includeTaskLocation}
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`location`属性。如果您有大量测试，这可能会导致性能小幅下降。
 
