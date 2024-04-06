@@ -43,18 +43,13 @@ npm i -D @vitest/coverage-istanbul
 
 ## 覆盖率配置
 
-<<<<<<< HEAD
-要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
-默认情况下, 将使用 `['text', 'html', 'clover', 'json']` 作为测试报告器。
-=======
 :::tip
-It's recommended to always define [`coverage.include`](https://vitest.dev/config/#coverage-include) in your configuration file.
-This helps Vitest to reduce the amount of files picked by [`coverage.all`](https://vitest.dev/config/#coverage-all).
+建议始终在配置文件中定义 [`coverage.include`](https://cn.vitest.dev/config/#coverage-include)。
+这有助于 Vitest 减少 [`coverage.all`](https://cn.vitest.dev/config/#coverage-all) 选择的文件数量。
 :::
 
-To test with coverage enabled, you can pass the `--coverage` flag in CLI.
-By default, reporter `['text', 'html', 'clover', 'json']` will be used.
->>>>>>> f7a4944b4903ab94959e5fe867b67aab7121bedc
+要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
+默认情况下, 将使用 `['text', 'html', 'clover', 'json']` 作为测试报告器。
 
 ```json
 {

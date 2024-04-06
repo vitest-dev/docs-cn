@@ -1192,7 +1192,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 使用全局模式排除在覆盖范围之外的文件列表。
 
-This option overrides all default options. Extend the default options when adding new patterns to ignore:
+该选项覆盖所有默认选项。添加新的忽略模式时，扩展默认选项：
 
 ```ts
 import { coverageConfigDefaults, defineConfig } from 'vitest/config'
@@ -1443,17 +1443,17 @@ statements 的全局阈值。
 
 #### coverage.ignoreEmptyLines
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8'`
-- **CLI:** `--coverage.ignoreEmptyLines=<boolean>`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8'`
+- **命令行终端:** `--coverage.ignoreEmptyLines=<boolean>`
 
-Ignore empty lines, comments and other non-runtime code, e.g. Typescript types.
+忽略空行、注释和其他非运行时代码，如 Typescript 类型。
 
-This option works only if the used compiler removes comments and other non-runtime code from the transpiled code.
-By default Vite uses ESBuild which removes comments and Typescript types from `.ts`, `.tsx` and `.jsx` files.
+该选项只有在使用的编译器删除了转译代码中的注释和其他非运行时代码时才有效。
+默认情况下，Vite 使用 ESBuild，它会删除 `.ts`、`.tsx` 和 `.jsx` 文件中的注释和 Typescript 类型。
 
-If you want to apply ESBuild to other files as well, define them in [`esbuild` options](https://vitejs.dev/config/shared-options.html#esbuild):
+如果还想将 ESBuild 应用于其他文件，请在 [`esbuild` options](https://cn.vitejs.dev/config/shared-options.html#esbuild) 中定义它们：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -2214,22 +2214,22 @@ export default defineConfig({
 - **Type**: `number`
 - **Default**: `0`
 
-The maximum length of diff result to be displayed. Diffs above this threshold will be truncated.
-Truncation won't take effect with default value 0.
+要显示的差异结果的最大长度。超过此阈值的差异将被截断。
+默认值为 0 时，截断不会生效。
 
 #### diff.truncateAnnotation
 
 - **Type**: `string`
 - **Default**: `'... Diff result is truncated'`
 
-Annotation that is output at the end of diff result if it's truncated.
+在 diff 结果末尾输出的注释（如果被截断）。
 
 #### diff.truncateAnnotationColor
 
 - **Type**: `DiffOptionsColor = (arg: string) => string`
 - **Default**: `noColor = (string: string): string => string`
 
-Color of truncate annotation, default is output with no color.
+截断注释的颜色，默认为无色输出。
 
 ### fakeTimers
 
