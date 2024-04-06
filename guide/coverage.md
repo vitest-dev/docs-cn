@@ -43,6 +43,11 @@ npm i -D @vitest/coverage-istanbul
 
 ## 覆盖率配置
 
+:::tip
+建议始终在配置文件中定义 [`coverage.include`](https://cn.vitest.dev/config/#coverage-include)。
+这有助于 Vitest 减少 [`coverage.all`](https://cn.vitest.dev/config/#coverage-all) 选择的文件数量。
+:::
+
 要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
 默认情况下, 将使用 `['text', 'html', 'clover', 'json']` 作为测试报告器。
 
