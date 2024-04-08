@@ -36,8 +36,15 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 
 与 `jest` 不同，factory 可以是异步的。可以使用 [`vi.importActual`](#vi-importactual)，或者将 factory 作为第一个参数传递的助手，并在其中获取原始模块。
 
+<<<<<<< HEAD
 ```js
 // 使用 JavaScript 时
+=======
+```js twoslash
+import { vi } from 'vitest'
+// ---cut---
+// when using JavaScript
+>>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
 
 vi.mock('./path/to/module.js', async (importOriginal) => {
   const mod = await importOriginal()
@@ -353,7 +360,9 @@ test('operations are resolved', async () => {
 创建函数的监视程序，但也可以不创建监视程序。每次调用函数时，它都会存储调用参数、返回值和实例。此外，我们还可以使用 [methods](/api/mock) 操纵它的行为。
 如果没有给出函数，调用 mock 时将返回 `undefined`。
 
-```ts
+```ts twoslash
+import { expect, vi } from 'vitest'
+// ---cut---
 const getApples = vi.fn(() => 0)
 
 getApples()
@@ -392,7 +401,9 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 
 创建与 [`vi.fn()`](/#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
 
-```ts
+```ts twoslash
+import { expect, vi } from 'vitest'
+// ---cut---
 let apples = 0
 const cart = {
   getApples: () => 42,
@@ -490,7 +501,7 @@ import.meta.env.NODE_ENV === 'development'
 
 更改全局变量的值。我们可以调用 `vi.unstubAllGlobals` 恢复其原始值。
 
-```ts
+```ts twoslash
 import { vi } from 'vitest'
 
 // `innerWidth` is "0" before calling stubGlobal
@@ -553,7 +564,9 @@ IntersectionObserver === undefined
 
 该方法将调用每个启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 let i = 0
 setInterval(() => console.log(++i), 50)
 
@@ -570,7 +583,9 @@ vi.advanceTimersByTime(150)
 
 该方法将调用每个已启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。这将包括异步设置的计时器。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 let i = 0
 setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
 
@@ -587,7 +602,9 @@ await vi.advanceTimersByTimeAsync(150)
 
 将调用下一个可用的定时器。在每次调用定时器之间进行断言非常有用。我们可以调用它来管理自己的定时器。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 let i = 0
 setInterval(() => console.log(++i), 50)
 
@@ -602,7 +619,9 @@ vi.advanceTimersToNextTimer() // log: 1
 
 如果定时器是异步设置的，则会调用下一个可用的定时器并等待解决。在每次调用定时器之间进行断言非常有用。
 
-```ts
+```ts twoslash
+import { expect, vi } from 'vitest'
+// ---cut---
 let i = 0
 setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
 
@@ -647,7 +666,9 @@ await vi.advanceTimersToNextTimerAsync() // log: 3
 
 该方法将调用每个已经启动的定时器，直到定时器队列为空。这意味着在 `runAllTimers` 期间调用的每个定时器都会被触发。如果时间间隔为无限，则会在尝试 10000 次后触发（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) 进行配置）。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 let i = 0
 setTimeout(() => console.log(++i))
 const interval = setInterval(() => {
@@ -670,7 +691,9 @@ vi.runAllTimers()
 该方法将异步调用每个已启动的定时器，直到定时器队列为空。这意味着在 `runAllTimersAsync` 期间调用的每个定时器都会被触发，即使是异步定时器。如果我们有一个无限的时间间隔、
 会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) ）。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 setTimeout(async () => {
   console.log(await Promise.resolve('result'))
 }, 100)
@@ -686,7 +709,9 @@ await vi.runAllTimersAsync()
 
 此方法将调用 [`vi.useFakeTimers`](#vii-usefaketimers) 调用后启动的所有计时器。它不会调用在调用期间启动的任何计时器。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 let i = 0
 setInterval(() => console.log(++i), 50)
 
@@ -701,7 +726,9 @@ vi.runOnlyPendingTimers()
 
 此方法将异步调用 [`vi.useFakeTimers`](#vi-usefaketimers) 调用后启动的每个定时器，即使是异步定时器。它不会触发任何在调用期间启动的定时器。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 setTimeout(() => {
   console.log(1)
 }, 100)
@@ -730,7 +757,9 @@ await vi.runOnlyPendingTimersAsync()
 
 如果我们需要测试任何依赖于当前日期的内容 -- 例如在代码中调用 [luxon](https://github.com/moment/luxon/) --则非常有用。
 
-```ts
+```ts twoslash
+import { expect, vi } from 'vitest'
+// ---cut---
 const date = new Date(1998, 11, 19)
 
 vi.useFakeTimers()
@@ -815,6 +844,7 @@ test('Element exists in a DOM', async () => {
   // start populating DOM
   populateDOMAsync()
 
+<<<<<<< HEAD
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
@@ -823,6 +853,38 @@ test('Element exists in a DOM', async () => {
       expect(element.dataset.initialized).toBeTruthy()
       return element
     },
+=======
+  const element = await vi.waitFor(async () => {
+    // try to get the element until it exists
+    const element = await getDOMElementAsync() as HTMLElement | null
+    expect(element).toBeTruthy()
+    expect(element.dataset.initialized).toBeTruthy()
+    return element
+  }, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
+  expect(element).toBeInstanceOf(HTMLElement)
+})
+```
+
+If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
+
+### vi.waitUntil <Badge type="info">0.34.5+</Badge> {#vi-waituntil}
+
+- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
+
+This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
+
+Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('Element render correctly', async () => {
+  const element = await vi.waitUntil(
+    () => document.querySelector('.element'),
+>>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50

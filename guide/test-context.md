@@ -10,7 +10,7 @@ title: 测试上下文 | 指南
 
 第一个参数或每个测试回调是一个测试上下文。
 
-```ts
+```ts twoslash
 import { it } from 'vitest'
 
 it('should work', (ctx) => {
@@ -29,7 +29,7 @@ it('should work', (ctx) => {
 
 绑定到当前测试的 `expect` API:
 
-```ts
+```ts twoslash
 import { it } from 'vitest'
 
 it('math is easy', ({ expect }) => {
@@ -39,7 +39,7 @@ it('math is easy', ({ expect }) => {
 
 此 API 对于同时运行快照测试非常有用，因为全局 Expect 无法跟踪它们:
 
-```ts
+```ts twoslash
 import { it } from 'vitest'
 
 it.concurrent('math is easy', ({ expect }) => {

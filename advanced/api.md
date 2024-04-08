@@ -8,7 +8,7 @@ Vitest 暴露了实验性的私有 API。由于可能不遵循语义化版本规
 
 你可以使用 Vitest 的 Node API 开始运行 Vitest 测试：
 
-```js
+```js twoslash
 import { startVitest } from 'vitest/node'
 
 const vitest = await startVitest('test')
@@ -38,7 +38,7 @@ await vitest?.close()
 
 你可以使用 `createVitest` 函数创建自己的 Vitest 实例. 它返回与 `startVitest` 相同的 `Vitest` 实例, 但不会启动测试，也不会验证已安装的包。
 
-```js
+```js twoslash
 import { createVitest } from 'vitest/node'
 
 const vitest = await createVitest('test', {
@@ -50,7 +50,7 @@ const vitest = await createVitest('test', {
 
 你可以使用此方法来解析 CLI 参数。它接受字符串（其中参数由单个空格分隔）或与 Vitest CLI 使用的格式相同的 CLI 参数的字符串数组。它返回一个过滤器和`选项`，你可以稍后将其传递给 `createVitest` 或 `startVitest` 方法。
 
-```ts
+```ts twoslash
 import { parseCLI } from 'vitest/node'
 
 parseCLI('vitest ./files.ts --coverage --browser=chrome')

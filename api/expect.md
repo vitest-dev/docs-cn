@@ -10,7 +10,7 @@ type Awaitable<T> = T | PromiseLike<T>
 
 例如，此代码断言 `input` 值等于 `2`。 如果不是，assertions 将抛出错误，并且测试将失败。
 
-```ts
+```ts twoslash
 import { expect } from 'vitest'
 
 const input = Math.sqrt(4)
@@ -33,7 +33,7 @@ expect(input).toBe(2) // jest API
 
 `expect.soft` 的功能与 `expect` 类似，但它不会在断言失败时终止测试执行，而是继续运行并将失败标记为测试失败。 测试过程中遇到的所有错误都会显示出来，直到测试完成。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('expect.soft test', () => {
@@ -45,7 +45,7 @@ test('expect.soft test', () => {
 
 它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('expect.soft test', () => {
@@ -63,7 +63,7 @@ test('expect.soft test', () => {
 
 使用 `not` 将否定该断言。 例如，此代码断言 `input` 值不等于 `2`。 如果相等，断言将抛出错误，测试将失败。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 const input = Math.sqrt(16)
@@ -80,7 +80,7 @@ expect(input).not.toBe(2) // jest API
 
 例如，下面的代码检查交易者是否有 13 个苹果。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 const stock = {
@@ -108,7 +108,7 @@ test('stocks are the same', () => {
 
 使用 `toBeCloseTo` 比较浮点数。可选的 `numDigits` 参数限制了小数点后要检查的位数。例如：
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test.fails('decimals are not equal in javascript', () => {
@@ -129,7 +129,7 @@ test('decimals are rounded to 5 after the point', () => {
 
 `toBeDefined` 断言值不等于 `undefined`。有用的用例是检查函数是否有返回任何内容。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 function getApples() {
@@ -147,10 +147,10 @@ test('function returned something', () => {
 
 与 `toBeDefined` 相反，`toBeUndefined` 断言值 _is_ 等于 `undefined`。有用的用例是检查函数是否没有返回任何东西。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
-function getApplesFromStock(stock) {
+function getApplesFromStock(stock: string) {
   if (stock === 'Bill')
     return 13
 }
@@ -232,7 +232,7 @@ test('if Bill stock hasn\'t failed, sell apples to him', () => {
 
 `toBeNull` 只是断言某些内容是否为 `null`。 `.toBe(null)` 的别名。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 function apples() {
@@ -250,7 +250,7 @@ test('we don\'t have apples', () => {
 
 `toBeNaN` 简单地断言某些内容是否为 `NaN`。toBe(NaN)` 的别名。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 let i = 0
@@ -272,7 +272,7 @@ test('getApplesCount has some unusual side effects...', () => {
 
 `toBeTypeOf` 断言实际值是否属于接收类型。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 const actual = 'stock'
@@ -365,7 +365,7 @@ test('have 11 apples or less', () => {
 
 `toEqual` 断言实际值是否等于接收到的值，或者如果它是一个对象，则是否具有相同的结构（递归比较它们）。我们可以通过以下示例看到 `toEqual` 与 [`toBe`](#tobe) 之间的区别：
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 const stockBill = {
@@ -461,7 +461,7 @@ test('apple available', () => {
 
 `toHaveLength` 断言对象是否具有 `.length` 属性，并且该属性设置为特定的数值。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('toHaveLength', () => {
@@ -481,7 +481,7 @@ test('toHaveLength', () => {
 
 我们还可以提供一个可选的值参数，也称为深相等，就像 `toEqual` 匹配器一样，用于比较接收到的属性值。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 const invoice = {
@@ -535,7 +535,7 @@ test('John Doe Invoice', () => {
 
 `toMatch` 断言字符串是否与正则表达式或字符串匹配。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('top fruits', () => {
@@ -552,7 +552,7 @@ test('top fruits', () => {
 
 我们还可以传递一个对象数组。如果想要检查两个数组在元素数量上是否匹配，这将非常有用，与`arrayContaining`不同，后者允许接收到的数组中有额外的元素。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 const johnInvoice = {
@@ -615,10 +615,10 @@ test('the number of elements must match exactly', () => {
 
 例如，如果我们想要测试 `getFruitStock('pineapples')` 是否会抛出错误，我们可以这样写：
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
-function getFruitStock(type) {
+function getFruitStock(type: string) {
   if (type === 'pineapples')
     throw new Error('Pineapples are not in stock')
 
@@ -640,7 +640,7 @@ test('throws on pineapples', () => {
 :::tip
 要测试异步函数，请与 [rejects](#rejects) 结合使用。
 
-```js
+```js twoslash
 function getAsyncFruitStock() {
   return Promise.reject(new Error('empty'))
 }
@@ -664,7 +664,7 @@ test('throws on pineapples', async () => {
 当快照不匹配导致测试失败时，如果这种不匹配是预期的，我们可以按 `u` 键一次性更新快照。或者可以传递 `-u` 或 `--update` 命令行选项，使 Vitest 始终更新测试。
 :::
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('matches snapshot', () => {
@@ -675,7 +675,7 @@ test('matches snapshot', () => {
 
 我们还可以提供一个对象的形状，如果我们只是测试对象的形状，而不需要它完全兼容：
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('matches snapshot', () => {
@@ -692,7 +692,7 @@ test('matches snapshot', () => {
 
 Vitest 将内联快照字符串参数添加并更新到测试文件中的匹配器（而不是外部的 `.snap` 文件）。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('matches inline snapshot', () => {
@@ -711,7 +711,7 @@ test('matches inline snapshot', () => {
 
 我们还可以提供一个对象的形状，如果你只是测试对象的形状，而不需要它完全兼容：
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('matches snapshot', () => {
@@ -762,7 +762,7 @@ it('render basic', async () => {
 
 这个断言对于测试函数是否被调用很有用。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 const market = {
@@ -788,7 +788,7 @@ test('spy function', () => {
 
 这个断言检查函数被调用的次数是否达到特定次数。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 const market = {
@@ -813,7 +813,7 @@ test('spy function called two times', () => {
 
 这个断言检查函数是否至少被传递了特定参数调用过一次。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 const market = {
@@ -839,7 +839,7 @@ test('spy function', () => {
 
 这个断言检查函数在最后一次调用时是否使用了特定参数。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 const market = {
@@ -867,7 +867,7 @@ test('spy function', () => {
 
 需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 const market = {
@@ -892,7 +892,7 @@ test('first call of spy function called with right params', () => {
 
 这个断言检查函数是否至少成功返回过一个值（即没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 function getApplesPrice(amount: number) {
@@ -916,7 +916,7 @@ test('spy function returned a value', () => {
 
 这个断言检查函数是否成功返回了确切次数的值（即没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 test('spy function returns a value two times', () => {
@@ -935,7 +935,7 @@ test('spy function returns a value two times', () => {
 
 我们可以调用此断言来检查函数是否至少成功返回过一个带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 test('spy function returns a product', () => {
@@ -953,7 +953,7 @@ test('spy function returns a product', () => {
 
 我们可以调用此断言来检查函数是否在最后一次调用时成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 test('spy function returns bananas on a last call', () => {
@@ -972,7 +972,7 @@ test('spy function returns bananas on a last call', () => {
 
 我们可以调用此断言来检查函数是否在特定调用时成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
-```ts
+```ts twoslash
 import { expect, test, vi } from 'vitest'
 
 test('spy function returns bananas on second call', () => {
@@ -991,7 +991,8 @@ test('spy function returns bananas on second call', () => {
 
 该断言检查一个值是否满足「某个谓词/certain predicate」。
 
-```ts
+```ts twoslash
+import { describe, expect, it } from 'vitest'
 describe('toSatisfy()', () => {
   const isOdd = (value: number) => value % 2 !== 0
 
@@ -1231,7 +1232,7 @@ test('compare float in object properties', () => {
 
 与相等检查一起使用时，如果值是数组且包含指定项，则此非对称匹配器将返回 `true`。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('basket includes fuji', () => {
@@ -1256,7 +1257,7 @@ test('basket includes fuji', () => {
 
 当与相等检查一起使用时，如果值的形状相似，该非对称匹配器将返回 `true`。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('basket has empire apples', () => {
@@ -1284,7 +1285,7 @@ test('basket has empire apples', () => {
 
 当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串时返回`true`。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('variety has "Emp" in its name', () => {
@@ -1309,7 +1310,7 @@ test('variety has "Emp" in its name', () => {
 
 当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串，或者字符串与正则表达式匹配时返回 `true` 。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('variety ends with "re"', () => {
@@ -1401,7 +1402,7 @@ declare module 'vitest' {
 
 你可以使用此方法定义自定义测试器（匹配器使用的方法），以测试两个对象是否相等。它与 Jest 的 `expect.addEqualityTesters` 兼容。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 class AnagramComparator {

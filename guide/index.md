@@ -107,7 +107,7 @@ Vitest 支持与 Vite 相同的配置文件扩展名：`.js`、`.mjs`、`.cjs`�
 
 如果你不使用 Vite 作为构建工具，你可以使用配置文件中的 `test` 属性来配置 Vitest：
 
-```ts
+```ts twoslash
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -171,7 +171,7 @@ export default defineConfig({
 
 使用 [Vitest Workspaces](/guide/workspace) 在同一项目中运行不同的项目配置。你可以在`vitest.workspace`文件中定义工作区的文件和文件夹列表。该文件支持 `js` / `ts` / `json` 扩展名。此功能非常适合配合 monorepo 使用。
 
-```ts
+```ts twoslash
 import { defineWorkspace } from 'vitest/config'
 
 export default defineWorkspace([

@@ -263,7 +263,7 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 
 `vite.config.js`
 
-```js
+```js twoslash
 import { defineConfig } from 'vite'
 export default defineConfig({
   test: {

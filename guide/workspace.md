@@ -51,8 +51,12 @@ export default ['packages/*/vitest.config.{e2e,unit}.ts']
 你还可以使用内联配置定义项目。工作区文件支持同时使用这两种语法。
 
 :::code-group
+<<<<<<< HEAD
 
 ```ts [vitest.workspace.ts]
+=======
+```ts [vitest.workspace.ts] twoslash
+>>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
 import { defineWorkspace } from 'vitest/config'
 
 // defineWorkspace 会提供一个很好的类型提示开发体验
@@ -97,8 +101,12 @@ export default defineWorkspace([
 工作区项目不支持所有配置属性。为了获得更好的类型安全性，请在项目配置文件中使用 `defineProject` 方法而不是 `defineConfig` 方法：
 
 :::code-group
+<<<<<<< HEAD
 
 ```ts [packages/a/vitest.config.ts]
+=======
+```ts [packages/a/vitest.config.ts] twoslash
+>>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
 import { defineProject } from 'vitest/config'
 
 export default defineProject({
