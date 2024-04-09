@@ -56,7 +56,9 @@ getApplesSpy.mock.calls.length === 1
 
 接受一个函数，该函数将用作 mock 的实现。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const mockFn = vi.fn().mockImplementation(apples => apples + 1)
 // or: vi.fn(apples => apples + 1);
 
@@ -76,7 +78,9 @@ mockFn.mock.calls[1][0] === 1 // true
 
 接受一个函数，该函数将在下一次调用时用作 mock 的实现。可以链式调用多个函数，从而产生不同的结果。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const myMockFn = vi
   .fn()
   .mockImplementationOnce(() => true)
@@ -88,7 +92,9 @@ myMockFn() // false
 
 当模拟函数的实现耗尽时，它会调用 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)` 所设置的默认实现（如果它们被调用）：
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const myMockFn = vi
   .fn(() => 'default')
   .mockImplementationOnce(() => 'first call')
@@ -105,7 +111,9 @@ console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 
 在执行回调时，临时覆盖原始模拟实现。
 
-```js
+```js twoslash
+import { vi } from 'vitest'
+// ---cut---
 const myMockFn = vi.fn(() => 'original')
 
 myMockFn.withImplementation(
@@ -144,7 +152,9 @@ test('async callback', () => {
 
 接受在调用 async 函数时将被拒绝的错误。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
 
 await asyncMock() // throws "Async error"
@@ -156,7 +166,9 @@ await asyncMock() // throws "Async error"
 
 接受一个将在下一次函数调用中被剔除的值。如果是链式调用，则每次连续调用都会剔除指定值。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const asyncMock = vi
   .fn()
   .mockResolvedValueOnce('first call')
@@ -190,7 +202,9 @@ await asyncMock() // throws "Async error"
 
 接受将在调用 async 函数时解析的值。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const asyncMock = vi.fn().mockResolvedValue(42)
 
 await asyncMock() // 42
@@ -202,7 +216,9 @@ await asyncMock() // 42
 
 接受一个将在下一次函数调用时解析的值。如果是链式调用，则每次连续调用都会解析指定的值。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const asyncMock = vi
   .fn()
   .mockResolvedValue('default')
@@ -233,7 +249,9 @@ spy.mockImplementation(function () {
 
 接受一个值，该值将在调用 mock 函数时返回。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const mock = vi.fn()
 mock.mockReturnValue(42)
 mock() // 42
@@ -249,7 +267,9 @@ mock() // 43
 
 如果没有更多的 `mockReturnValueOnce` 值可使用，mock 将返回到预先定义的实现（如果有的话）。
 
-```ts
+```ts twoslash
+import { vi } from 'vitest'
+// ---cut---
 const myMockFn = vi
   .fn()
   .mockReturnValue('default')

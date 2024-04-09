@@ -28,7 +28,7 @@ basic/foo.test.ts
 
 你可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试。默认值为 5 秒。
 
-```ts
+```ts twoslash
 import { test } from 'vitest'
 
 test('name', async () => {
@@ -38,7 +38,7 @@ test('name', async () => {
 
 Hooks 也可以接收超时阈值，默认值为 5 秒。
 
-```ts
+```ts twoslash
 import { beforeAll } from 'vitest'
 
 beforeAll(async () => {
@@ -50,7 +50,7 @@ beforeAll(async () => {
 
 使用 `.skip` 以避免运行某些测试套件或测试
 
-```ts
+```ts twoslash
 import { assert, describe, it } from 'vitest'
 
 describe.skip('skipped suite', () => {
@@ -72,7 +72,7 @@ describe('suite', () => {
 
 使用 `.only` 仅运行某些测试套件或测试
 
-```ts
+```ts twoslash
 import { assert, describe, it } from 'vitest'
 
 // 仅运行此测试套件（以及标记为 Only 的其他测试套件）
@@ -99,7 +99,7 @@ describe('another suite', () => {
 
 使用 `.todo` 留存将要实施的测试套件和测试的待办事项
 
-```ts
+```ts twoslash
 import { describe, it } from 'vitest'
 
 // 此测试套件的报告中将显示一个条目

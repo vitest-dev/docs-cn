@@ -18,7 +18,7 @@ title: 模拟对象 | 指南
 
 ### 示例
 
-```js
+```js twoslash
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const businessHours = [9, 17]
@@ -76,7 +76,7 @@ describe('purchasing flow', () => {
 
 ### 示例
 
-```js
+```js twoslash
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 function getLatest(index = messages.items.length - 1) {
@@ -137,7 +137,7 @@ describe('reading messages', () => {
 
 你可以通过使用 [`vi.stubGlobal`](/api/vi#stubglobal) 来模拟 `jsdom` 或 `node` 中不存在的全局变量。它将把全局变量的值放入 `globalThis` 对象。
 
-```ts
+```ts twoslash
 import { vi } from 'vitest'
 
 const IntersectionObserverMock = vi.fn(() => ({
@@ -365,7 +365,8 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 
 ### 配置
 
-```js
+您可以像下面一样在您的 [setup file](/config/#setupfiles)
+```js twoslash
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { HttpResponse, graphql, http } from 'msw'
@@ -424,7 +425,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 ### 示例
 
-```js
+```js twoslash
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 function executeAfterTwoHours(func) {

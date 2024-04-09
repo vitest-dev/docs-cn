@@ -97,8 +97,8 @@ export default {
 | `--shard <shard>`                    | 按照指定分片执行测试                                                                                                                        |
 | `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                               |
 | `--no-color`                         | 控制台输出中禁用颜色                                                                                                                        |
-| `--inspect`                          | 启用 Node.js 检查器                                                                                                                         |
-| `--inspect-brk`                      | 使用中断模式启用 Node.js 检查器                                                                                                             |
+| `--inspect [[host:]port]`                          | 启用 Node.js 检查器（默认值：127.0.0.1:9229）                                                                                                                         |
+| `--inspect-brk [[host:]port]`                      | 启用 Node.js 检查器并在测试开始前中断                                                                                                             |
 | `--bail <number>`                    | 当给定数量的测试失败时停止测试执行                                                                                                          |
 | `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
 | `--exclude <glob>`                   | 要从测试中排除的其他文件 globs                                                                                                              |

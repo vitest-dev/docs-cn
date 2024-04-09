@@ -48,7 +48,7 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 
 在连续的测试中使用 `.concurrent` 来并行运行它们。
 
-```ts
+```ts twoslash
 import { describe, it } from 'vitest'
 // The two tests marked with concurrent will be run in parallel
 describe('suite', () => {
@@ -66,7 +66,7 @@ describe('suite', () => {
 
 如果在测试套件中使用 `.concurrent`，则其中的每个测试用例都将并发运行。
 
-```ts
+```ts twoslash
 import { describe, it } from 'vitest'
 // All tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
@@ -114,7 +114,7 @@ it('renders correctly', () => {
 
 内置 [Tinyspy](https://github.com/tinylibs/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
-```ts
+```ts twoslash
 import { expect, vi } from 'vitest'
 const fn = vi.fn()
 fn('hello', 1)
@@ -135,7 +135,7 @@ $ npm i -D jsdom
 
 然后，更改 `environment` 配置文件中的选项：
 
-```ts
+```ts twoslash
 // vitest.config.ts
 import { defineConfig } from 'vitest/config'
 export default defineConfig({
@@ -205,7 +205,7 @@ if (import.meta.vitest) {
 
 从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
-```ts
+```ts twoslash
 import { bench, describe } from 'vitest'
 
 describe('sort', () => {

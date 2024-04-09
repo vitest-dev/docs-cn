@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { version } from '../package.json'
-
 import {
   contributing,
   discord,
@@ -62,6 +62,7 @@ export default withPwa(
       },
     },
     ignoreDeadLinks: true,
+    codeTransformers: [transformerTwoslash()],
     themeConfig: {
       logo: '/logo.svg',
 

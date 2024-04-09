@@ -36,6 +36,26 @@ interface TestOptions {
 
 ::: tip
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
+
+:::
+
+自 Vitest 1.3.0 以来，大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
+
+:::code-group
+```ts [dot-syntax] twoslash
+import { test } from 'vitest'
+
+test.skip('skipped test', () => {
+  // 一些现在失败的逻辑
+})
+```
+```ts [object-syntax <Badge type="info">1.3.0+</Badge>] twoslash
+import { test } from 'vitest'
+
+test('skipped test', { skip: true }, () => {
+  // 一些现在失败的逻辑
+})
+```
 :::
 
 ## test
@@ -47,7 +67,7 @@ interface TestOptions {
 
 或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为 5 秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 test('should work as expected', () => {
@@ -92,7 +112,7 @@ myTest('add item', ({ todos }) => {
 
 如果想跳过运行某些测试，但又不想删代码，可以使用 `test.skip` 来跳过这些测试。
 
-```ts
+```ts twoslash
 import { assert, test } from 'vitest'
 
 test.skip('skipped test', () => {
@@ -103,7 +123,7 @@ test.skip('skipped test', () => {
 
 还可以通过在 [context](/guide/test-context) 上动态调用 `skip` 来跳过测试：
 
-```ts
+```ts twoslash
 import { assert, test } from 'vitest'
 
 test('skipped test', (context) => {
@@ -120,7 +140,7 @@ test('skipped test', (context) => {
 
 在某些情况下，可能会需要在不同的环境下多次运行测试，而且某些测试可能是特定于环境的。我们这时候可以通过使用 `test.skipIf` 来跳过测试，而不是用 `if` 来封装测试代码。
 
-```ts
+```ts twoslash
 import { assert, test } from 'vitest'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -141,7 +161,7 @@ test.skipIf(isDev)('prod only test', () => {
 
 与 [test.skipIf](#test-skipif) 相反。
 
-```ts
+```ts twoslash
 import { assert, test } from 'vitest'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -164,7 +184,7 @@ test.runIf(isDev)('dev only test', () => {
 
 可选择提供超时（以毫秒为单位），用于指定终止前的等待时间。默认值为 5 秒，可通过 [testTimeout](/config/#testtimeout) 进行全局配置。
 
-```ts
+```ts twoslash
 import { assert, test } from 'vitest'
 
 test.only('test', () => {
@@ -188,7 +208,7 @@ test.only('test', () => {
 
 `test.concurrent` 标记并行运行的连续测试。它接收测试名称、包含要收集的测试的异步函数以及可选的超时（以毫秒为单位）。
 
-```ts
+```ts twoslash
 import { describe, test } from 'vitest'
 
 // The two tests marked with concurrent will be run in parallel
@@ -235,7 +255,10 @@ test.concurrent('test 2', async ({ expect }) => {
 
 `test.sequential` 标记一个测试为顺序测试。如果要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
-```ts
+```ts twoslash
+import { describe, test } from 'vitest'
+
+// ---cut---
 // with config option { sequence: { concurrent: true } }
 test('concurrent test 1', async () => {
   /* ... */
@@ -288,7 +311,7 @@ test.todo('unimplemented test')
 
 使用 `test.fails` 明确表示断言将失败。
 
-```ts
+```ts twoslash
 import { expect, test } from 'vitest'
 
 function myAsyncFunc() {
@@ -320,7 +343,10 @@ test.fails('fail test', async () => {
 - `%#`: index of the test case
 - `%%`: single percent sign ('%')
 
-```ts
+```ts  twoslash
+import { expect, test } from 'vitest'
+
+// ---cut---
 test.each([
   [1, 1, 2],
   [1, 2, 3],
@@ -354,7 +380,10 @@ test.each([
 
 如果使用对象作为参数，也可以使用 `.` 访问对象属性：
 
-```ts
+```ts  twoslash
+import { expect, test } from 'vitest'
+
+// ---cut---
 test.each`
   a             | b      | expected
   ${{ val: 1 }} | ${'b'} | ${'1b'}
@@ -407,7 +436,7 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 
 Vitest 使用了 [`tinybench`](https://github.com/tinylibs/tinybench)库，继承其所有可用作第三个参数的选项。
 
-```ts
+```ts twoslash
 import { bench } from 'vitest'
 
 bench(
@@ -476,7 +505,7 @@ export interface Options {
 
 可以使用 "bench.skip "语法跳过运行某些基准。
 
-```ts
+```ts twoslash
 import { bench } from 'vitest'
 
 bench.skip('normal sorting', () => {
@@ -493,7 +522,7 @@ bench.skip('normal sorting', () => {
 
 使用 `bench.only` 仅运行给定测试套件中的某些基准。这在调试时非常有用。
 
-```ts
+```ts twoslash
 import { bench } from 'vitest'
 
 bench.only('normal sorting', () => {
@@ -510,7 +539,7 @@ bench.only('normal sorting', () => {
 
 使用 `bench.todo` 来存根基准，以便以后实施。
 
-```ts
+```ts twoslash
 import { bench } from 'vitest'
 
 bench.todo('unimplemented test')
@@ -520,7 +549,7 @@ bench.todo('unimplemented test')
 
 当在文件的顶层使用 `test` 或 `bench` 时，它们会作为隐式套件的一部分被收集起来。使用 `describe` 可以在当前上下文中定义一个新的测试套件，作为一组相关测试或基准以及其他嵌套测试套件。测试套件可让组织测试和基准，使报告更加清晰。
 
-```ts
+```ts twoslash
 // basic.spec.ts
 // organizing tests
 
@@ -546,7 +575,7 @@ describe('person', () => {
 })
 ```
 
-```ts
+```ts twoslash
 // basic.bench.ts
 // organizing benchmarks
 
@@ -571,10 +600,10 @@ describe('sort', () => {
 
 如果测试或基准具有层次结构，还可以嵌套描述块：
 
-```ts
+```ts twoslash
 import { describe, expect, test } from 'vitest'
 
-function numberToCurrency(value) {
+function numberToCurrency(value: number | string) {
   if (typeof value !== 'number')
     throw new Error('Value must be a number')
 
@@ -605,7 +634,7 @@ describe('numberToCurrency', () => {
 
 在套件中使用 `describe.skip` 可避免运行特定的 describe 块。
 
-```ts
+```ts twoslash
 import { assert, describe, test } from 'vitest'
 
 describe.skip('skipped suite', () => {
@@ -622,7 +651,7 @@ describe.skip('skipped suite', () => {
 
 在某些情况下，可能会在不同的环境下多次运行套件，其中一些测试套件可能是特定于环境的。可以使用 `describe.skipIf` 来跳过条件为真时的套件，而不是使用 `if` 来封装套件。
 
-```ts
+```ts twoslash
 import { describe, test } from 'vitest'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -642,8 +671,8 @@ describe.skipIf(isDev)('prod only test suite', () => {
 
 与 [describe.skipIf](#describe-skipif) 相反。
 
-```ts
-import { assert, test } from 'vitest'
+```ts twoslash
+import { assert, describe, test } from 'vitest'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -662,7 +691,9 @@ describe.runIf(isDev)('dev only test suite', () => {
 
 使用 `describe.only` 只运行某些测试套件
 
-```ts
+```ts twoslash
+import { assert, describe, test } from 'vitest'
+// ---cut---
 // Only this suite (and others marked with only) are run
 describe.only('suite', () => {
   test('sqrt', () => {
@@ -691,7 +722,9 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试
 
-```ts
+```ts twoslash
+import { describe, test } from 'vitest'
+// ---cut---
 // All tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
   test('concurrent test 1', async () => {
@@ -738,7 +771,9 @@ describe.concurrent('suite', () => {
 
 测试套件中的 `describe.sequential` 会将每个测试标记为顺序测试。如果需要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
-```ts
+```ts twoslash
+import { describe, test } from 'vitest'
+// ---cut---
 describe.concurrent('suite', () => {
   test('concurrent test 1', async () => {
     /* ... */
@@ -764,7 +799,9 @@ describe.concurrent('suite', () => {
 
 Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
 
-```ts
+```ts twoslash
+import { describe, test } from 'vitest'
+// ---cut---
 describe.shuffle('suite', () => {
   test('random test 1', async () => {
     /* ... */
@@ -802,7 +839,9 @@ describe.todo('unimplemented suite')
 
 如果有多个测试依赖于相同的数据，请使用 `describe.each` 。
 
-```ts
+```ts twoslash
+import { describe, expect, test } from 'vitest'
+// ---cut---
 describe.each([
   { a: 1, b: 1, expected: 2 },
   { a: 1, b: 2, expected: 3 },
@@ -827,7 +866,9 @@ describe.each([
 - 第一行应为列名，用 `|` 分隔；
 - 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
 
-```ts
+```ts twoslash
+import { describe, expect, test } from 'vitest'
+// ---cut---
 describe.each`
   a             | b      | expected
   ${1}          | ${1}   | ${2}
