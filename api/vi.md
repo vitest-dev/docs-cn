@@ -36,15 +36,10 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 
 与 `jest` 不同，factory 可以是异步的。可以使用 [`vi.importActual`](#vi-importactual)，或者将 factory 作为第一个参数传递的助手，并在其中获取原始模块。
 
-<<<<<<< HEAD
-```js
-// 使用 JavaScript 时
-=======
 ```js twoslash
 import { vi } from 'vitest'
 // ---cut---
-// when using JavaScript
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
+// 使用 JavaScript 时
 
 vi.mock('./path/to/module.js', async (importOriginal) => {
   const mod = await importOriginal()
@@ -844,7 +839,6 @@ test('Element exists in a DOM', async () => {
   // start populating DOM
   populateDOMAsync()
 
-<<<<<<< HEAD
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
@@ -853,38 +847,6 @@ test('Element exists in a DOM', async () => {
       expect(element.dataset.initialized).toBeTruthy()
       return element
     },
-=======
-  const element = await vi.waitFor(async () => {
-    // try to get the element until it exists
-    const element = await getDOMElementAsync() as HTMLElement | null
-    expect(element).toBeTruthy()
-    expect(element.dataset.initialized).toBeTruthy()
-    return element
-  }, {
-    timeout: 500, // default is 1000
-    interval: 20, // default is 50
-  })
-  expect(element).toBeInstanceOf(HTMLElement)
-})
-```
-
-If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
-
-### vi.waitUntil <Badge type="info">0.34.5+</Badge> {#vi-waituntil}
-
-- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
-
-This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
-
-Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
-
-```ts twoslash
-import { expect, test, vi } from 'vitest'
-
-test('Element render correctly', async () => {
-  const element = await vi.waitUntil(
-    () => document.querySelector('.element'),
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50

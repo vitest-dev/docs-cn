@@ -365,12 +365,8 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 
 ### 配置
 
-<<<<<<< HEAD
-```js
-=======
-You can use it like below in your [setup file](/config/#setupfiles)
+您可以像下面一样在您的 [setup file](/config/#setupfiles)
 ```js twoslash
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { HttpResponse, graphql, http } from 'msw'
