@@ -35,30 +35,27 @@ interface TestOptions {
 当测试函数返回承诺时，运行程序将等待它被解析以收集异步期望。 如果承诺被拒绝，测试就会失败。
 
 ::: tip
-<<<<<<< HEAD
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
-=======
-In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](/guide/migration#done-callback).
+
 :::
 
-Since Vitest 1.3.0 most options support both dot-syntax and object-syntax allowing you to use whatever style you prefer.
+自 Vitest 1.3.0 以来，大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
 
 :::code-group
 ```ts [dot-syntax] twoslash
 import { test } from 'vitest'
 
 test.skip('skipped test', () => {
-  // some logic that fails right now
+  // 一些现在失败的逻辑
 })
 ```
 ```ts [object-syntax <Badge type="info">1.3.0+</Badge>] twoslash
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
-  // some logic that fails right now
+  // 一些现在失败的逻辑
 })
 ```
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
 :::
 
 ## test

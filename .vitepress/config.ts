@@ -1,12 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
-<<<<<<< HEAD
-import { version } from '../package.json'
-
-=======
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import { version } from '../../package.json'
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
+import { version } from '../package.json'
 import {
   contributing,
   discord,
@@ -40,7 +35,6 @@ export default withPwa(
         link: 'https://vitest.dev/',
       },
     },
-<<<<<<< HEAD
     head: [
       ['meta', { name: 'theme-color', content: '#729b1a' }],
       ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
@@ -59,67 +53,6 @@ export default withPwa(
       ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
       ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
       ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
-=======
-    zh: {
-      label: '简体中文',
-      lang: 'zh',
-      link: 'https://cn.vitest.dev/',
-    },
-  },
-  head: [
-    ['meta', { name: 'theme-color', content: '#729b1a' }],
-    ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
-    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-    ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
-    ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, marko, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, node' }],
-    ['meta', { property: 'og:title', content: vitestName }],
-    ['meta', { property: 'og:description', content: vitestDescription }],
-    ['meta', { property: 'og:url', content: ogUrl }],
-    ['meta', { property: 'og:image', content: ogImage }],
-    ['meta', { name: 'twitter:title', content: vitestName }],
-    ['meta', { name: 'twitter:description', content: vitestDescription }],
-    ['meta', { name: 'twitter:image', content: ogImage }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
-    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
-    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
-    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
-  ],
-  lastUpdated: true,
-  markdown: {
-    theme: {
-      light: 'github-light',
-      dark: 'github-dark',
-    },
-    codeTransformers: [transformerTwoslash()],
-  },
-  themeConfig: {
-    logo: '/logo.svg',
-
-    editLink: {
-      pattern: 'https://github.com/vitest-dev/vitest/edit/main/docs/:path',
-      text: 'Suggest changes to this page',
-    },
-
-    search: {
-      provider: 'local',
-      /* provider: 'algolia',
-      options: {
-        appId: 'ZTF29HGJ69',
-        apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
-        indexName: 'vitest',
-        // searchParameters: {
-        //   facetFilters: ['tags:en'],
-        // },
-      }, */
-    },
-
-    socialLinks: [
-      { icon: 'mastodon', link: mastodon },
-      { icon: 'x', link: twitter },
-      { icon: 'discord', link: discord },
-      { icon: 'github', link: github },
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
     ],
     lastUpdated: true,
     markdown: {
@@ -129,6 +62,7 @@ export default withPwa(
       },
     },
     ignoreDeadLinks: true,
+    codeTransformers: [transformerTwoslash()],
     themeConfig: {
       logo: '/logo.svg',
 
@@ -191,17 +125,8 @@ export default withPwa(
             text: '高级 API',
             items: [
               {
-<<<<<<< HEAD
                 text: 'Vitest Node API',
                 link: '/advanced/api',
-=======
-                text: 'Mastodon',
-                link: mastodon,
-              },
-              {
-                text: 'X (formerly Twitter)',
-                link: twitter,
->>>>>>> c190a5515aa45424b0d3b2912ce4fa90ba5ec185
               },
               {
                 text: 'Runner API',
