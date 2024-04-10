@@ -5,7 +5,6 @@ outline: deep
 # 管理 Vitest 配置文件
 
 如果你正在使用 Vite，并且有一个 `vite.config` 文件，Vitest 会读取它并以插件匹配，并将其设置为你的 Vite 应用程序。如果你想使用不同的配置进行测试，或者你的主应用程序不特别依赖 Vite，你可以：
-If you are using Vite and have a `vite.config` file, Vitest will read it to match with the plugins and setup as your Vite app. If you want to have a different configuration for testing or your main app doesn't rely on Vite specifically, you could either:
 
 - 创建 `vitest.config.ts`，它将具有更高的优先级，并**覆盖** `vite.config.ts` 中的配置（Vitest 支持所有传统的 JS 和 TS 扩展，但不支持 `json`）-这意味着 `vite.config` 中的所有选项都将被**忽略**
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`
