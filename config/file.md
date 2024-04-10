@@ -2,17 +2,18 @@
 outline: deep
 ---
 
-# Managing Vitest config file
+# 管理 Vitest 配置文件
 
+如果你正在使用 Vite，并且有一个 `vite.config` 文件，Vitest 会读取它并以插件匹配，并将其设置为你的 Vite 应用程序。如果你想使用不同的配置进行测试，或者你的主应用程序不特别依赖 Vite，你可以：
 If you are using Vite and have a `vite.config` file, Vitest will read it to match with the plugins and setup as your Vite app. If you want to have a different configuration for testing or your main app doesn't rely on Vite specifically, you could either:
 
-- Create `vitest.config.ts`, which will have the higher priority and will **override** the configuration from `vite.config.ts` (Vitest supports all conventional JS and TS extensions, but doesn't support `json`) - it means all options in your `vite.config` will be **ignored**
-- Pass `--config` option to CLI, e.g. `vitest --config ./path/to/vitest.config.ts`
-- Use `process.env.VITEST` or `mode` property on `defineConfig` (will be set to `test`/`benchmark` if not overridden with `--mode`) to conditionally apply different configuration in `vite.config.ts`
+- 创建 `vitest.config.ts`，它将具有更高的优先级，并**覆盖** `vite.config.ts` 中的配置（Vitest 支持所有传统的 JS 和 TS 扩展，但不支持 `json`）-这意味着 `vite.config` 中的所有选项都将被**忽略**
+- 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`
+- 使用`process.env.VITEST` 或者 `defineConfig` 上的 `mode` 属性（如果未被`mode`覆盖，则将设置为`test`/`benchmark`），以有条件地应用 `vite.config.ts` 中的不同配置
 
-To configure `vitest` itself, add `test` property in your Vite config. You'll also need to add a reference to Vitest types using a [triple slash command](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) at the top of your config file, if you are importing `defineConfig` from `vite` itself.
+要配置 `vitest` 本身，请在 Vite 配置中添加 `test` 属性。如果你要从 `vite` 本身导入`defineConfig`，你还需要使用[三斜杠命令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-)添加对 Vitest 类型的引用。
 
-Using `defineConfig` from `vite` you should follow this:
+使用 `vite` 中的 `defineConfig`，你应该如下配置：
 
 ```ts twoslash
 /// <reference types="vitest" />
@@ -25,7 +26,7 @@ export default defineConfig({
 })
 ```
 
-Using `defineConfig` from `vitest/config` you should follow this:
+使用 `vitest/config` 中的 `defineConfig`，你应该如下配置：
 
 ```ts twoslash
 import { defineConfig } from 'vitest/config'
@@ -37,7 +38,7 @@ export default defineConfig({
 })
 ```
 
-You can retrieve Vitest's default options to expand them if needed:
+如果需要，你可以检索 Vitest 的默认选项以展开它们：
 
 ```ts
 import { configDefaults, defineConfig } from 'vitest/config'
@@ -49,31 +50,36 @@ export default defineConfig({
 })
 ```
 
-When using a separate `vitest.config.js`, you can also extend Vite's options from another config file if needed:
+当使用单独的 `vitest.config.js` 时，如果需要，你还可以从另一个配置文件扩展 Vite 的选项：
 
 ```ts
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
-export default mergeConfig(viteConfig, defineConfig({
-  test: {
-    exclude: ['packages/template/*'],
-  },
-}))
-```
-
-If your Vite config is defined as a function, you can define the config like this:
-
-```ts
-import { defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config'
-
-export default defineConfig(configEnv => mergeConfig(
-  viteConfig(configEnv),
+export default mergeConfig(
+  viteConfig,
   defineConfig({
     test: {
       exclude: ['packages/template/*'],
     },
   })
-))
+)
+```
+
+如果你的 Vite 配置被定义为一个函数，可以这样定义配置：
+
+```ts
+import { defineConfig, mergeConfig } from 'vitest/config'
+import viteConfig from './vite.config'
+
+export default defineConfig(configEnv =>
+  mergeConfig(
+    viteConfig(configEnv),
+    defineConfig({
+      test: {
+        exclude: ['packages/template/*'],
+      },
+    })
+  )
+)
 ```
