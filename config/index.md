@@ -1073,32 +1073,18 @@ export default function setup({ provide }: GlobalSetupContext) {
   provide('wsPort', 3000)
 }
 
-<<<<<<< HEAD
-inject('wsPort') === 3000
-```
-
-如果你使用的是 TypeScript，则可以扩展 `ProvidedContext` 类型，以便对 `provide/inject` 方法进行类型安全访问：
-
-```ts
-=======
-// You can also extend `ProvidedContext` type
-// to have type safe access to `provide/inject` methods:
->>>>>>> c64f27b34b0595f885a1981e9805a2f8cdc832b5
+// 你还可以可以扩展 `ProvidedContext` 类型，以便对 `provide/inject` 方法进行类型安全访问：
 declare module 'vitest' {
   export interface ProvidedContext {
     wsPort: number
   }
 }
 ```
-<<<<<<< HEAD
-
-=======
 ```ts [example.test.js]
 import { inject } from 'vitest'
 
 inject('wsPort') === 3000
 ```
->>>>>>> c64f27b34b0595f885a1981e9805a2f8cdc832b5
 :::
 
 ### watchExclude<NonProjectOption />
