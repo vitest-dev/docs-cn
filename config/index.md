@@ -1060,30 +1060,31 @@ globalThis.resetBeforeEachTest = true
 
 请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 `provide` 方法将可序列化数据传递给测试：
 
-```ts
-// globalSetup.js
+:::code-group
+```js [globalSetup.js]
 export default function setup({ provide }) {
   provide('wsPort', 3000)
 }
 ```
+```ts [globalSetup.ts]
+import type { GlobalSetupContext } from 'vitest/node'
 
-```ts
-// example.test.js
-import { inject } from 'vitest'
+export default function setup({ provide }: GlobalSetupContext) {
+  provide('wsPort', 3000)
+}
 
-inject('wsPort') === 3000
-```
-
-如果你使用的是 TypeScript，则可以扩展 `ProvidedContext` 类型，以便对 `provide/inject` 方法进行类型安全访问：
-
-```ts
+// 你还可以可以扩展 `ProvidedContext` 类型，以便对 `provide/inject` 方法进行类型安全访问：
 declare module 'vitest' {
   export interface ProvidedContext {
     wsPort: number
   }
 }
 ```
+```ts [example.test.js]
+import { inject } from 'vitest'
 
+inject('wsPort') === 3000
+```
 :::
 
 ### watchExclude<NonProjectOption />
