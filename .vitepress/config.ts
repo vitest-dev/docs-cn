@@ -19,13 +19,19 @@ import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
 import { teamMembers } from './contributors'
 
+<<<<<<< HEAD
 export default withPwa(
   defineConfig({
+=======
+export default ({ mode }: { mode: string }) => {
+  return withPwa(defineConfig({
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
     lang: 'en-US',
     title: vitestName,
     description: vitestDescription,
     locales: {
       root: {
+<<<<<<< HEAD
         label: '简体中文',
         lang: 'zh',
       },
@@ -33,6 +39,15 @@ export default withPwa(
         label: 'English',
         lang: 'en',
         link: 'https://vitest.dev/',
+=======
+        label: 'English',
+        lang: 'en-US',
+      },
+      zh: {
+        label: '简体中文',
+        lang: 'zh',
+        link: 'https://cn.vitest.dev/',
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
       },
     },
     head: [
@@ -57,6 +72,7 @@ export default withPwa(
     lastUpdated: true,
     markdown: {
       theme: {
+<<<<<<< HEAD
         light: 'vitesse-light',
         dark: 'vitesse-dark',
       },
@@ -120,6 +136,92 @@ export default withPwa(
       ],
 
       sidebar: {
+=======
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      codeTransformers: mode === 'development' ? [] : [transformerTwoslash()],
+    },
+    themeConfig: {
+      logo: '/logo.svg',
+
+      editLink: {
+        pattern: 'https://github.com/vitest-dev/vitest/edit/main/docs/:path',
+        text: 'Suggest changes to this page',
+      },
+
+      search: {
+        provider: 'local',
+      /* provider: 'algolia',
+      options: {
+        appId: 'ZTF29HGJ69',
+        apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
+        indexName: 'vitest',
+        // searchParameters: {
+        //   facetFilters: ['tags:en'],
+        // },
+      }, */
+      },
+
+      socialLinks: [
+        { icon: 'mastodon', link: mastodon },
+        { icon: 'x', link: twitter },
+        { icon: 'discord', link: discord },
+        { icon: 'github', link: github },
+      ],
+
+      footer: {
+        message: 'Released under the MIT License.',
+        copyright: 'Copyright © 2021-PRESENT Anthony Fu, Matías Capeletto and Vitest contributors',
+      },
+
+      nav: [
+        { text: 'Guide', link: '/guide/', activeMatch: '^/guide/' },
+        { text: 'API', link: '/api/', activeMatch: '^/api/' },
+        { text: 'Config', link: '/config/', activeMatch: '^/config/' },
+        { text: 'Advanced', link: '/advanced/api', activeMatch: '^/advanced/' },
+        {
+          text: 'Resources',
+          items: [
+            {
+              text: 'Team',
+              link: '/team',
+            },
+            {
+              items: [
+                {
+                  text: 'Mastodon',
+                  link: mastodon,
+                },
+                {
+                  text: 'X (formerly Twitter)',
+                  link: twitter,
+                },
+                {
+                  text: 'Discord Chat',
+                  link: discord,
+                },
+                {
+                  text: 'Releases ',
+                  link: releases,
+                },
+                {
+                  text: 'Contributing ',
+                  link: contributing,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          text: `v${version}`,
+          link: `https://github.com/vitest-dev/vitest/releases/tag/v${version}`,
+        },
+      ],
+
+      sidebar: {
+      // TODO: bring sidebar of apis and config back
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
         '/advanced': [
           {
             text: '高级 API',
@@ -147,6 +249,7 @@ export default withPwa(
             ],
           },
         ],
+<<<<<<< HEAD
         '/': [
           {
             text: '指南',
@@ -192,6 +295,53 @@ export default withPwa(
               },
               {
                 text: '类型测试',
+=======
+        '/guide/': [
+          {
+            items: [
+              {
+                text: 'Why Vitest',
+                link: '/guide/why',
+              },
+              {
+                text: 'Getting Started',
+                link: '/guide/',
+              },
+              {
+                text: 'Features',
+                link: '/guide/features',
+              },
+              {
+                text: 'Workspace',
+                link: '/guide/workspace',
+              },
+              {
+                text: 'CLI',
+                link: '/guide/cli',
+              },
+              {
+                text: 'Test Filtering',
+                link: '/guide/filtering',
+              },
+              {
+                text: 'Reporters',
+                link: '/guide/reporters',
+              },
+              {
+                text: 'Coverage',
+                link: '/guide/coverage',
+              },
+              {
+                text: 'Snapshot',
+                link: '/guide/snapshot',
+              },
+              {
+                text: 'Mocking',
+                link: '/guide/mocking',
+              },
+              {
+                text: 'Testing Types',
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
                 link: '/guide/testing-types',
               },
               {
@@ -199,6 +349,7 @@ export default withPwa(
                 link: '/guide/ui',
               },
               {
+<<<<<<< HEAD
                 text: '浏览器模式',
                 link: '/guide/browser',
               },
@@ -240,12 +391,61 @@ export default withPwa(
               },
               {
                 text: '性能优化',
+=======
+                text: 'Browser Mode',
+                link: '/guide/browser',
+              },
+              {
+                text: 'In-Source Testing',
+                link: '/guide/in-source',
+              },
+              {
+                text: 'Test Context',
+                link: '/guide/test-context',
+              },
+              {
+                text: 'Environment',
+                link: '/guide/environment',
+              },
+              {
+                text: 'Extending Matchers',
+                link: '/guide/extending-matchers',
+              },
+              {
+                text: 'IDE Integration',
+                link: '/guide/ide',
+              },
+              {
+                text: 'Debugging',
+                link: '/guide/debugging',
+              },
+              {
+                text: 'Comparisons',
+                link: '/guide/comparisons',
+              },
+              {
+                text: 'Migration Guide',
+                link: '/guide/migration',
+              },
+              {
+                text: 'Common Errors',
+                link: '/guide/common-errors',
+              },
+              {
+                text: 'Improving Performance',
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
                 link: '/guide/improving-performance',
               },
             ],
           },
+<<<<<<< HEAD
           {
             text: 'API',
+=======
+        ],
+        '/api/': [
+          {
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
             items: [
               {
                 text: 'Test API Reference',
@@ -277,6 +477,7 @@ export default withPwa(
               },
             ],
           },
+<<<<<<< HEAD
           {
             text: '配置',
             items: [
@@ -286,6 +487,18 @@ export default withPwa(
               },
               {
                 text: '配置索引',
+=======
+        ],
+        '/config/': [
+          {
+            items: [
+              {
+                text: 'Config File',
+                link: '/config/file',
+              },
+              {
+                text: 'Config Reference',
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
                 link: '/config/',
               },
             ],
@@ -295,5 +508,10 @@ export default withPwa(
     },
     pwa,
     transformHead,
+<<<<<<< HEAD
   }),
 )
+=======
+  }))
+}
+>>>>>>> e09eb3c4eb5173c7ab4f8135e65e7da00435847a
