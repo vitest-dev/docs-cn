@@ -19,8 +19,9 @@ import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
 import { teamMembers } from './contributors'
 
-export default withPwa(
-  defineConfig({
+
+export default ({ mode }: { mode: string }) => {
+  return withPwa(defineConfig({
     lang: 'en-US',
     title: vitestName,
     description: vitestDescription,
@@ -60,6 +61,7 @@ export default withPwa(
         light: 'vitesse-light',
         dark: 'vitesse-dark',
       },
+      codeTransformers: mode === 'development' ? [] : [transformerTwoslash()],
     },
     ignoreDeadLinks: true,
     codeTransformers: [transformerTwoslash()],
@@ -295,5 +297,5 @@ export default withPwa(
     },
     pwa,
     transformHead,
-  }),
-)
+  }))
+}

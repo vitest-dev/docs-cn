@@ -49,7 +49,7 @@ test.skip('skipped test', () => {
   // 一些现在失败的逻辑
 })
 ```
-```ts [object-syntax <Badge type="info">1.3.0+</Badge>] twoslash
+```ts [object-syntax <Version>1.3.0</Version>] twoslash
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
@@ -75,7 +75,7 @@ test('should work as expected', () => {
 })
 ```
 
-### test.extend <Badge type="info">0.32.3+</Badge> {#test-extended}
+### test.extend <Version>0.32.3</Version> {#test-extended}
 
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
@@ -1014,7 +1014,7 @@ Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些钩
 如果在测试体之外调用这些 hooks ，则会出错。
 :::
 
-### onTestFinished <Badge type="info">1.3.0+</Badge> {#ontestfinished}
+### onTestFinished <Version>1.3.0</Version> {#ontestfinished}
 
 这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
 
