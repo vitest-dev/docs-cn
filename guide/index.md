@@ -230,6 +230,7 @@ export default defineWorkspace([
 
 ## 示例
 
+<<<<<<< HEAD
 | 示例                    | 源代码                                                                                  | 演练场                                                                                                                              |
 | ----------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `basic`                 | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic)                 | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__)                 |
@@ -250,6 +251,9 @@ export default defineWorkspace([
 | `vitesse`               | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vitesse)               | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vitesse?initialPath=__vitest__)               |
 | `vue-jsx`               | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue-jsx)               | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue-jsx?initialPath=__vitest__)               |
 | `vue`                   | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/vue)                   | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/vue?initialPath=__vitest__)                   |
+=======
+<!--@include: ../../../examples/README.md-->
+>>>>>>> 3af84b227bb6b4cb3c5d20cc66fb54c1dedd745b
 
 ## 使用 Vitest 的项目
 

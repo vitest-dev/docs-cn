@@ -1993,6 +1993,10 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - `list` 将按照定义的顺序对所有钩子进行排序
 - `parallel` 将并行运行单个组中的钩子（父套件中的钩子仍将在当前套件的钩子之前运行）
 
+::: tip
+This option doesn't affect [`onTestFinished`](/api/#ontestfinished). It is always called in reverse order.
+:::
+
 #### sequence.setupFiles <Badge type="info">0.29.3+</Badge> {#sequence-setupfiles}
 
 - **类型**: `'list' | 'parallel'`

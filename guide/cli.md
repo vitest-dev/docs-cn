@@ -58,6 +58,7 @@ export default {
 
 ## 选项
 
+<<<<<<< HEAD
 | 选项                                 |                                                                                                                                             |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-v, --version`                      | 显示版本号                                                                                                                                  |
@@ -110,6 +111,9 @@ export default {
 | `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
 | `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`。也可以使用通配符过滤项目，如 `--project=packages*`                                           |
 | `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
+=======
+<!--@include: ./cli-table.md-->
+>>>>>>> 3af84b227bb6b4cb3c5d20cc66fb54c1dedd745b
 
 ::: tip
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
