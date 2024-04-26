@@ -1065,7 +1065,7 @@ test('performs an organization query', async () => {
 ```
 
 ::: tip
-This hook is always called in reverse order and is not affected by [`sequence.hooks`](/config/#sequence-hooks) option.
+该钩子总是以相反顺序调用，不受 [`sequence.hooks`](/config/#sequence-hooks) 选项的影响。
 :::
 
 ### onTestFailed
