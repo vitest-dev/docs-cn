@@ -86,7 +86,7 @@ expectTypeOf(getResponsiveProp(cssProperties))
 
 你可以使用 `.exclude` 从联合中删除类型以进行进一步测试。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }

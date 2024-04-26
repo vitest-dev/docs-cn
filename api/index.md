@@ -1064,6 +1064,10 @@ test('performs an organization query', async () => {
 })
 ```
 
+::: tip
+该钩子总是以相反顺序调用，不受 [`sequence.hooks`](/config/#sequence-hooks) 选项的影响。
+:::
+
 ### onTestFailed
 
 只有在测试失败后才会调用这个 hook 。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它将接收一个包含当前测试结果的 `TaskResult` 。这个 hook 对调试非常有用。
