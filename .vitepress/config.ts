@@ -58,13 +58,14 @@ export default ({ mode }: { mode: string }) => {
     lastUpdated: true,
     markdown: {
       theme: {
-        light: 'vitesse-light',
-        dark: 'vitesse-dark',
+        light: 'github-light',
+        dark: 'github-dark',
       },
-      codeTransformers: mode === 'development' ? [] : [transformerTwoslash()],
+      codeTransformers: [
+        transformerTwoslash()
+      ]
     },
     ignoreDeadLinks: true,
-    codeTransformers: [transformerTwoslash()],
     themeConfig: {
       logo: '/logo.svg',
 
