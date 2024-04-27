@@ -58,58 +58,7 @@ export default {
 
 ## 选项
 
-| 选项                                 |                                                                                                                                             |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-v, --version`                      | 显示版本号                                                                                                                                  |
-| `-r, --root <path>`                  | 指定项目根目录                                                                                                                              |
-| `-c, --config <path>`                | 指定配置文件路径                                                                                                                            |
-| `-u, --update`                       | 更新快照                                                                                                                                    |
-| `-w, --watch`                        | 智能即时浏览模式                                                                                                                            |
-| `-t, --testNamePattern <pattern>`    | 使用与模式匹配的全名运行测试                                                                                                                |
-| `--dir <path>`                       | 指定扫描测试文件的基本目录                                                                                                                  |
-| `--ui`                               | 启用 UI                                                                                                                                     |
-| `--open`                             | 如果启用，则自动打开 UI (默认值: `true`)                                                                                                    |
-| `--api [api]`                        | 服务端 API，可用选项：`--api.port <port>`、`--api.host [host]` 和 `--api.strictPort`                                                        |
-| `--pool <pool>`                      | 指定池（如果未在浏览器中运行） (默认值: `threads`)                                                                                          |
-| `--poolOptions <options>`            | 指定池选项                                                                                                                                  |
-| `--poolOptions.threads.isolate`      | 隔离线程池中的测试 (默认值: `true`)                                                                                                         |
-| `--poolOptions.forks.isolate`        | 隔离分叉池中的测试 (默认值: `true`)                                                                                                         |
-| `--fileParallelism`                  | 所有测试文件应该并行运行。使用--no parallelism 以禁用（默认值：true）                                                                       |
-| `--maxWorkers <workers>`                       | 运行测试时设置的最大工作线程数                                                                                                           |
-| `--minWorkers <workers>`                       | 运行测试时设置的最小工作线程数                                                                                                            |
-| `--silent`                           | 控制台输出测试结果                                                                                                                          |
-| `--reporter <name>`                  | 选择报告器：`default`、`verbose`、`dot`、`junit`、`json` 或自定义报告器的路径                                                               |
-| `--outputFile <filename/-s>`         | 当指定了 `--reporter=json` 或 `--reporter=junit` 选项时，将测试结果写入文件 <br /> 通过 [cac's dot notation] 可以为多个报告器指定单独的输出 |
-| `--coverage`                         | 启用输出覆盖率报告                                                                                                                          |
-| `--run`                              | 不使用监听模式运行测试                                                                                                                      |
-| `--isolate`                          | 独立地运行每个测试文件。要禁用隔离，请使用 `--no-isolate`(默认值: `true`)                                                                   |
-| `--mode <name>`                      | 覆盖 Vite 模式 (默认值: `test`)                                                                                                             |
-| `--workspace <path>`                 | 工作区配置文件的路径                                                                                                                        |
-| `--globals`                          | 注入全局 API                                                                                                                                |
-| `--dom`                              | 使用 happy-dom 模拟浏览器                                                                                                                   |
-| `--browser [options]`                | 在 [浏览器模式](/guide/browser) 中运行测试 (默认值：`false`)                                                                                |
-| `--environment <env>`                | 运行环境 (默认值: `node`)                                                                                                                   |
-| `--passWithNoTests`                  | 未找到测试时通过                                                                                                                            |
-| `--logHeapUsage`                     | 显示每个测试的堆大小 test                                                                                                                   |
-| `--allowOnly`                        | 允许标记为 `only` 的测试和套件 (默认值: 在 CI 中 false, 否则为 true)                                                                        |
-| `--dangerouslyIgnoreUnhandledErrors` | 忽略发生的任何未处理的错误                                                                                                                  |
-| `--changed [since]`                  | 运行受更改文件影响的测试 (默认值: false)，更多内容请查看 [文档](#changed)                                                                   |
-| `--shard <shard>`                    | 按照指定分片执行测试                                                                                                                        |
-| `--sequence`                         | 定义运行测试的顺序，使用 [cac's dot notation] 来指定选项（例如，使用 `--sequence.suffle` 以随机顺序运行测试）                               |
-| `--no-color`                         | 控制台输出中禁用颜色                                                                                                                        |
-| `--inspect [[host:]port]`                          | 启用 Node.js 检查器（默认值：127.0.0.1:9229）                                                                                                                         |
-| `--inspect-brk [[host:]port]`                      | 启用 Node.js 检查器并在测试开始前中断                                                                                                             |
-| `--bail <number>`                    | 当给定数量的测试失败时停止测试执行                                                                                                          |
-| `--retry <times>`                    | 当测试失败时，指定重试的次数                                                                                                                |
-| `--exclude <glob>`                   | 要从测试中排除的其他文件 globs                                                                                                              |
-| `--expand-snapshot-diff`             | 快照失败时显示完整差异                                                                                                                      |
-| `--disable-console-intercept`        | 禁用自动拦截控制台日志（默认：`false` ）                                                                                                    |
-| `--clearScreen` | 在观察模式下重新运行测试时清除终端屏幕（默认：`true`）。 |
-| `--typecheck [options]`              | 类型检查池的自定义选项。如果传递时没有选项，则启用类型检查                                                                                  |
-| `--typecheck.enabled`                | 在测试的同时启用类型检查 (默认值: `false`)                                                                                                  |
-| `--typecheck.only`                   | 仅运行类型检查测试。这会自动启用类型检查 (默认值: `false`)                                                                                  |
-| `--project`                          | 如果使用 Vitest 工作区功能，则为要运行的项目名称。多个项目可重复此操作：`--project=1 --project=2`。也可以使用通配符过滤项目，如 `--project=packages*`                                           |
-| `-h, --help`                         | 显示可用的命令行选项                                                                                                                        |
+<!--@include: ./cli-table.md-->
 
 ::: tip
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
