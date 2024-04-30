@@ -1196,7 +1196,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   'cypress/**',
   'test?(s)/**',
   'test?(-*).?(c|m)[jt]s?(x)',
-  '**/*{.,-}{test,spec}.?(c|m)[jt]s?(x)',
+  '**/*{.,-}{test,spec}?(-d).?(c|m)[jt]s?(x)',
   '**/__tests__/**',
   '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
   '**/vitest.{workspace,projects}.[jt]s?(on)',
