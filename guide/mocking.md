@@ -366,6 +366,7 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 ### 配置
 
 您可以像下面一样在您的 [setup file](/config/#setupfiles)
+
 ```js twoslash
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
@@ -474,23 +475,15 @@ describe('delayed execution', () => {
 
 我想…
 
-<<<<<<< HEAD
-- 监听一个 `method`
-=======
-### Spy on a `method`
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+### 监听一个 `method`
 
 ```ts
 const instance = new SomeClass()
 vi.spyOn(instance, 'method')
 ```
 
-<<<<<<< HEAD
-- 模拟导出变量
+### 模拟导出变量
 
-=======
-### Mock exported variables
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
 ```js
 // some-path.js
 export const getter = 'variable'
@@ -503,8 +496,7 @@ import * as exports from './some-path.js'
 vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
-<<<<<<< HEAD
-- 监听模块导出 setter/getter
+### 监听模块导出 setter/getter
 
 ```ts
 import * as exports from 'some-path'
@@ -512,17 +504,13 @@ vi.spyOn(exports, 'getter', 'get')
 vi.spyOn(exports, 'setter', 'set')
 ```
 
-- 模拟模块导出 function
-  `vi.mock` 的示例：
-=======
-### Mock an exported function
+### 模拟模块导出函数
 
-1. Example with `vi.mock`:
+1. `vi.mock` 的示例：
 
 ::: warning
-Don't forget that a `vi.mock` call is hoisted to top of the file. It will always be executed before all imports.
+不要忘记将 `vi.mock` 调用提升到文件顶部。它将始终在所有导入之前执行。
 :::
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
 
 ```ts
 // ./some-path.js
@@ -536,31 +524,17 @@ vi.mock('./some-path.js', () => ({
 }))
 ```
 
-<<<<<<< HEAD
-::: warning
-不要忘记将 `vi.mock` 调用提升到文件顶部。 **不要**将 `vi.mock` 调用放在 `beforeEach` 中，只有其中一个会实际模拟模块。
-:::
+2. `vi.spyOn` 的示例：
 
-`vi.spyOn` 的示例：
-
-=======
-2. Example with `vi.spyOn`:
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
 ```ts
 import * as exports from './some-path.js'
 vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
-<<<<<<< HEAD
-- 模拟模块导出 class implementation
+### 模拟模块导出类实现
 
-`vi.mock` 和 prototype 的示例:
+1. `vi.mock` 和 `.prototype` 的示例:
 
-=======
-### Mock an exported class implementation
-
-1. Example with `vi.mock` and `.prototype`:
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
 ```ts
 // some-path.ts
 export class SomeClass {}
@@ -577,12 +551,8 @@ vi.mock('./some-path.js', () => {
 // SomeClass.mock.instances 上将会有 someMethod 方法
 ```
 
-<<<<<<< HEAD
-`vi.mock` 和返回值配合的示例:
+2. `vi.mock` 和返回值配合的示例:
 
-=======
-2. Example with `vi.mock` and a return value:
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
 ```ts
 import { SomeClass } from './some-path.js'
 
@@ -595,11 +565,7 @@ vi.mock('./some-path.js', () => {
 // SomeClass.mock.returns 将会返回对象
 ```
 
-<<<<<<< HEAD
-`vi.spyOn` 的示例:
-=======
-3. Example with `vi.spyOn`:
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+3. `vi.spyOn` 的示例:
 
 ```ts
 import * as exports from './some-path.js'
@@ -609,15 +575,9 @@ vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
 })
 ```
 
-<<<<<<< HEAD
-- 监听一个函数是否返回了一个对象
+### 监听一个函数是否返回了一个对象
 
-使用 cache 的示例:
-=======
-### Spy on an object returned from a function
-
-1. Example using cache:
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+1. 使用 cache 的示例:
 
 ```ts
 // some-path.ts
@@ -658,11 +618,7 @@ const obj = useObject()
 expect(obj.method).toHaveBeenCalled()
 ```
 
-<<<<<<< HEAD
-- 模拟部分 module
-=======
-### Mock part of a module
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+### 模拟部分 module
 
 ```ts
 import { mocked, original } from './some-path.js'
@@ -678,11 +634,7 @@ original() // 有原始的行为
 mocked() // 是一个 spy 函数
 ```
 
-<<<<<<< HEAD
-- 模拟当前日期
-=======
-### Mock the current date
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+### 模拟当前日期
 
 要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
 
@@ -697,11 +649,7 @@ expect(now.valueOf()).toBe(mockDate.valueOf())
 vi.useRealTimers()
 ```
 
-<<<<<<< HEAD
-- 模拟全局变量
-=======
-### Mock a global variable
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+### 模拟全局变量
 
 你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会**在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/#unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals)。
 
@@ -710,19 +658,13 @@ vi.stubGlobal('__VERSION__', '1.0.0')
 expect(__VERSION__).toBe('1.0.0')
 ```
 
-<<<<<<< HEAD
-- 模拟 `import.meta.env`
+### 模拟 `import.meta.env`
 
-要更改环境变量，你只需为其分配一个新值即可。 该值将**不会**在不同的测试之间自动重置。
-=======
-### Mock `import.meta.env`
-
-1. To change environmental variable, you can just assign a new value to it.
+1. 要更改环境变量，你只需为其分配一个新值即可。 该值将**不会**在不同的测试之间自动重置。
 
 ::: warning
-The environmental variable value will **_not_** automatically reset between different tests.
+环境变量值将在不同的测试之间**不不会**自动重置。
 :::
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
 
 ```ts
 import { beforeEach, expect, it } from 'vitest'
@@ -740,11 +682,7 @@ it('changes value', () => {
 })
 ```
 
-<<<<<<< HEAD
-如果你想自动重置值，可以使用启用了 [`unstubEnvs`](/config/#unstubEnvs) 配置选项的 `vi.stubEnv` 助手（或调用 [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) 在 `beforeEach` 钩子中手动执行）：
-=======
-2. If you want to automatically reset the value(s), you can use the `vi.stubEnv` helper with the [`unstubEnvs`](/config/#unstubenvs) config option enabled (or call [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) manually in a `beforeEach` hook):
->>>>>>> 2037c07e02ea6432f2ca84745667a91757d1cbc6
+2. 如果你想自动重置值，可以使用启用了 [`unstubEnvs`](/config/#unstubEnvs) 配置选项的 `vi.stubEnv` 助手（或调用 [`vi.unstubAllEnvs`](/api/vi#vi-unstuballenvs) 在 `beforeEach` 钩子中手动执行）：
 
 ```ts
 import { expect, it, vi } from 'vitest'
