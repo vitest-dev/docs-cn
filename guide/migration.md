@@ -189,19 +189,15 @@ const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
 const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 ```
 
-<<<<<<< HEAD
-**Jasmine API**
-=======
-### Extends mocking to external libraries
+### 将模拟扩展到外部库
 
-Where Jest does it by default, when mocking a module and wanting this mocking to be extended to other external libraries that use the same module, you should explicitly tell which 3rd-party library you want to be mocked, so the external library would be part of your source code, by using [server.deps.inline](https://vitest.dev/config/#server-deps-inline).
+在 Jest 的默认情况下，当模拟一个模块并希望将此模拟扩展到使用相同模块的其他外部库时，您应该明确告知您希望模拟哪个第三方库，这样外部库就会成为您源代码的一部分，方法是使用  [server.deps.inline](https://vitest.dev/config/#server-deps-inline).
 
 ```
 server.deps.inline: ["lib-name"]
 ```
 
-### Accessing the Return Values of a Mocked Promise
->>>>>>> c9b5f365efdd30d1ca4b51db8652adce0e0a797a
+**Jasmine API**
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
 
