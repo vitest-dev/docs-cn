@@ -393,6 +393,32 @@ export default defineConfig({
 
 通过 CLI 命令提供对象，请使用以下语法: `--outputFile.json=./path --outputFile.junit=./other-path`.
 
+#### benchmark.outputJson <Version>1.6.0</Version> {#benchmark-outputJson}
+
+- **Type:** `string | undefined`
+- **Default:** `undefined`
+
+A file path to store the benchmark result, which can be used for `--compare` option later.
+
+For example:
+
+```sh
+# save main branch's result
+git checkout main
+vitest bench --outputJson main.json
+
+# change a branch and compare against main
+git checkout feature
+vitest bench --compare main.json
+```
+
+#### benchmark.compare <Version>1.6.0</Version> {#benchmark-compare}
+
+- **Type:** `string | undefined`
+- **Default:** `undefined`
+
+A file path to a previous benchmark result to compare against current runs.
+
 ### alias
 
 - **类型:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
@@ -1730,6 +1756,55 @@ export default defineConfig({
 
 在浏览器中运行时，默认情况下会启用此选项。如果你依赖于使用 `vi.spyOn` 监视 ES 模块，则可以启用此实验功能来监视模块导出。
 
+#### browser.indexScripts <Version>1.6.0</Version> {#browser-indexscripts}
+
+- **Type:** `BrowserScript[]`
+- **Default:** `[]`
+
+Custom scripts that should be injected into the index HTML before test iframes are initiated. This HTML document only sets up iframes and doesn't actually import your code.
+
+The script `src` and `content` will be processed by Vite plugins. Script should be provided in the following shape:
+
+```ts
+export interface BrowserScript {
+  /**
+   * If "content" is provided and type is "module", this will be its identifier.
+   *
+   * If you are using TypeScript, you can add `.ts` extension here for example.
+   * @default `injected-${index}.js`
+   */
+  id?: string
+  /**
+   * JavaScript content to be injected. This string is processed by Vite plugins if type is "module".
+   *
+   * You can use `id` to give Vite a hint about the file extension.
+   */
+  content?: string
+  /**
+   * Path to the script. This value is resolved by Vite so it can be a node module or a file path.
+   */
+  src?: string
+  /**
+   * If the script should be loaded asynchronously.
+   */
+  async?: boolean
+  /**
+   * Script type.
+   * @default 'module'
+   */
+  type?: string
+}
+```
+
+#### browser.testerScripts <Version>1.6.0</Version> {#browser-testerscripts}
+
+- **Type:** `BrowserScript[]`
+- **Default:** `[]`
+
+Custom scripts that should be injected into the tester HTML before the tests environment is initiated. This is useful to inject polyfills required for Vitest browser implementation. It is recommended to use [`setupFiles`](#setupfiles) in almost all cases instead of this.
+
+The script `src` and `content` will be processed by Vite plugins.
+
 ### clearMocks
 
 - **类型:** `boolean`
@@ -2338,4 +2413,32 @@ Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`locatio
 
 ::: tip
 如果不使用依赖于该选项的自定义代码，该选项将不起作用。
+:::
+
+### snapshotEnvironment <Version>1.6.0</Version> {#snapshotEnvironment}
+
+- **Type:** `string`
+
+Path to a custom snapshot environment implementation. This is useful if you are running your tests in an environment that doesn't support Node.js APIs. This option doesn't have any effect on a browser runner.
+
+This object should have the shape of `SnapshotEnvironment` and is used to resolve and read/write snapshot files:
+
+```ts
+export interface SnapshotEnvironment {
+  getVersion: () => string
+  getHeader: () => string
+  resolvePath: (filepath: string) => Promise<string>
+  resolveRawPath: (testPath: string, rawPath: string) => Promise<string>
+  saveSnapshotFile: (filepath: string, snapshot: string) => Promise<void>
+  readSnapshotFile: (filepath: string) => Promise<string | null>
+  removeSnapshotFile: (filepath: string) => Promise<void>
+}
+```
+
+You can extend default `VitestSnapshotEnvironment` from `vitest/snapshot` entry point if you need to overwrite only a part of the API.
+
+::: warning
+This is a low-level option and should be used only for advanced cases where you don't have access to default Node.js APIs.
+
+If you just need to configure snapshots feature, use [`snapshotFormat`](#snapshotformat) or [`resolveSnapshotPath`](#resolvesnapshotpath) options.
 :::
