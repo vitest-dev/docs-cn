@@ -25,9 +25,9 @@
 | `--coverage.cleanOnRerun` | 重新运行监视时清理覆盖率报告（默认值：true） |
 | `--coverage.reportsDirectory <path>` | 将覆盖率报告写入的目录（默认值： ./coverage） |
 | `--coverage.reporter <name>` | 使用的报告。更多信息请访问 [`coverage.reporter`](https://vitest.dev/config/#coverage-reporter)。 (默认值: `["text", "html", "clover", "json"]`) |
-| `--coverage.reportOnFailure` | 即使测试失败也能生成覆盖率报告 (默认值: false) |
-| `--coverage.allowExternal` | 收集项目根目录外文件的覆盖范围（默认值：false） |
-| `--coverage.skipFull` | 不显示语句、分支和函数覆盖率为 100% 的文件（默认值：false） |
+| `--coverage.reportOnFailure` | 即使测试失败也能生成覆盖率报告 (默认值: `false`) |
+| `--coverage.allowExternal` | 收集项目根目录外文件的覆盖范围（默认值：`false`） |
+| `--coverage.skipFull` | 不显示语句、分支和函数覆盖率为 100% 的文件（默认值：`false`） |
 | `--coverage.thresholds.100` |  将所有覆盖率阈值设置为 100 的快捷方式（默认值：`false`） |
 | `--coverage.thresholds.perFile` | 检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`） |
 | `--coverage.thresholds.autoUpdate` | 更新阈值： 当当前覆盖率高于配置的阈值时，将 "lines"、"functions"、"branches"和 "statements"更新到配置文件（默认值：`false`） |
@@ -118,3 +118,4 @@
 | `--segfaultRetry <times>` | 如果测试套件因 segfault 而崩溃，则重试测试套件（默认值：`true`）。 |
 | `--no-color` | 删除控制台输出中的颜色 |
 | `--clearScreen` | 在wathc模式下重新运行测试时清除终端屏幕（默认值：`true`）。 |
+| `--standalone` | 启动 Vitest 而不运行测试。文件过滤器将被忽略，只有在发生变化时才会运行测试。(默认值: `false`) |
