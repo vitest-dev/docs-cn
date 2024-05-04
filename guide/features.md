@@ -225,14 +225,10 @@ describe('sort', () => {
 })
 ```
 
-<<<<<<< HEAD
-## 类型测试 <Badge type="warning">Experimental</Badge> {#type-testing}
-=======
 <img alt="Benchmark report" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/6f0383ea-38ba-4f14-8a05-ab243afea01d">
 <img alt="Benchmark report" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/efbcb427-ecf1-4882-88de-210cd73415f6">
 
-## Type Testing <Badge type="warning">Experimental</Badge> {#type-testing}
->>>>>>> 6e88e38aea5fd0bd36822defbf10d1d6ceb37f9a
+## 类型测试 <Badge type="warning">Experimental</Badge> {#type-testing}
 
 从 Vitest 0.25.0 开始，你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 

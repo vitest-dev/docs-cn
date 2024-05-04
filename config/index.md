@@ -395,12 +395,12 @@ export default defineConfig({
 
 #### benchmark.outputJson <Version>1.6.0</Version> {#benchmark-outputJson}
 
-- **Type:** `string | undefined`
-- **Default:** `undefined`
+- **类型:** `string | undefined`
+- **默认值:** `undefined`
 
-A file path to store the benchmark result, which can be used for `--compare` option later.
+存储基准测试结果的文件路径，可用于稍后的 `--compare` 选项。
 
-For example:
+例如:
 
 ```sh
 # save main branch's result
@@ -414,10 +414,10 @@ vitest bench --compare main.json
 
 #### benchmark.compare <Version>1.6.0</Version> {#benchmark-compare}
 
-- **Type:** `string | undefined`
-- **Default:** `undefined`
+- **类型:** `string | undefined`
+- **默认值:** `undefined`
 
-A file path to a previous benchmark result to compare against current runs.
+与当前运行结果进行比较的以前基准结果的文件路径。
 
 ### alias
 
@@ -1758,34 +1758,34 @@ export default defineConfig({
 
 #### browser.indexScripts <Version>1.6.0</Version> {#browser-indexscripts}
 
-- **Type:** `BrowserScript[]`
-- **Default:** `[]`
+- **类型:** `BrowserScript[]`
+- **默认值:** `[]`
 
-Custom scripts that should be injected into the index HTML before test iframes are initiated. This HTML document only sets up iframes and doesn't actually import your code.
+在启动测试 iframe 之前，应注入索引 HTML 中的自定义脚本。此 HTML 文档仅设置 iframe，并不实际导入您的代码。
 
-The script `src` and `content` will be processed by Vite plugins. Script should be provided in the following shape:
+脚本 `src` 和 `content` 将由 Vite 插件处理。脚本应以以下格式提供：
 
 ```ts
 export interface BrowserScript {
   /**
-   * If "content" is provided and type is "module", this will be its identifier.
+   * 如果提供了 "content"，且类型为 "module"，则这将是其标识符。
    *
-   * If you are using TypeScript, you can add `.ts` extension here for example.
+   * 如果使用的是 TypeScript，可以在此处添加 `.ts` 扩展名，例如
    * @default `injected-${index}.js`
    */
   id?: string
   /**
-   * JavaScript content to be injected. This string is processed by Vite plugins if type is "module".
+   * 要注入的 JavaScript 内容。如果类型为 “module”，Vite 插件将处理此字符串。
    *
-   * You can use `id` to give Vite a hint about the file extension.
+   * 你可以使用 `id` 给 Vite 有关文件扩展名的提示。
    */
   content?: string
   /**
-   * Path to the script. This value is resolved by Vite so it can be a node module or a file path.
+   * 脚本的路径。该值由 Vite 解析，因此可以是节点模块或文件路径。
    */
   src?: string
   /**
-   * If the script should be loaded asynchronously.
+   * 如果要异步加载脚本
    */
   async?: boolean
   /**
@@ -1798,12 +1798,12 @@ export interface BrowserScript {
 
 #### browser.testerScripts <Version>1.6.0</Version> {#browser-testerscripts}
 
-- **Type:** `BrowserScript[]`
-- **Default:** `[]`
+- **类型:** `BrowserScript[]`
+- **默认值:** `[]`
 
-Custom scripts that should be injected into the tester HTML before the tests environment is initiated. This is useful to inject polyfills required for Vitest browser implementation. It is recommended to use [`setupFiles`](#setupfiles) in almost all cases instead of this.
+应在测试环境启动前注入测试器 HTML 的自定义脚本。这对注入 Vitest 浏览器实现所需的 polyfills 非常有用。建议在几乎所有情况下使用 [`setupFiles`](#setupfiles)，而不要使用此脚本。
 
-The script `src` and `content` will be processed by Vite plugins.
+脚本 `src` 和 `content` 将由 Vite 插件处理。
 
 ### clearMocks
 
@@ -2417,11 +2417,11 @@ Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`locatio
 
 ### snapshotEnvironment <Version>1.6.0</Version> {#snapshotEnvironment}
 
-- **Type:** `string`
+- **类型:** `string`
 
-Path to a custom snapshot environment implementation. This is useful if you are running your tests in an environment that doesn't support Node.js APIs. This option doesn't have any effect on a browser runner.
+自定义快照环境实现的路径。如果在不支持 Node.js API 的环境中运行测试，该选项将非常有用。此选项对浏览器运行程序没有任何影响。
 
-This object should have the shape of `SnapshotEnvironment` and is used to resolve and read/write snapshot files:
+该对象应具有 `SnapshotEnvironment` 的形状，用于解析和读/写快照文件：
 
 ```ts
 export interface SnapshotEnvironment {
@@ -2435,10 +2435,10 @@ export interface SnapshotEnvironment {
 }
 ```
 
-You can extend default `VitestSnapshotEnvironment` from `vitest/snapshot` entry point if you need to overwrite only a part of the API.
+如果只需覆盖部分 API，可从 `vitest/snapshot` 入口扩展默认的 `VitestSnapshotEnvironment` 。
 
 ::: warning
-This is a low-level option and should be used only for advanced cases where you don't have access to default Node.js APIs.
+这是一个低级选项，仅适用于无法访问默认 Node.js API 的高级情况。
 
-If you just need to configure snapshots feature, use [`snapshotFormat`](#snapshotformat) or [`resolveSnapshotPath`](#resolvesnapshotpath) options.
+如果只需要配置快照功能，请使用 [`snapshotFormat`](#snapshotformat)或 [`resolveSnapshotPath`](#resolvesnapshotpath)选项。
 :::
