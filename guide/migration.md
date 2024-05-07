@@ -5,19 +5,15 @@ outline: deep
 
 # 迁移指南
 
-<<<<<<< HEAD
-## 从 Vitest 0.34.6 迁移
-=======
-## Migrating to Vitest 2.0
+## 从 Vitest 2.0 迁移
 
-### Hooks are running in a stack
+### 钩子函数在堆栈中运行
 
-Before Vitest 2.0, all hooks were running in parallel. In 2.0, all hooks run serially. In addition to this, `afterAll`/`afterEach` are running in a reverse order.
+在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
-You can revert to the previous behaviour by changing [`sequence.hooks`](/config/#sequence-hooks) to `'parallel'`.
+您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
 
 ## Migrating to Vitest 1.0
->>>>>>> ab800ca48b1f5422fd102e7701051a4da2dd9edd
 
 <!-- introduction -->
 
