@@ -1486,10 +1486,17 @@ statements 的全局阈值。
 
 #### coverage.ignoreEmptyLines
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.ignoreEmptyLines=<boolean>`
+=======
+- **Type:** `boolean`
+- **Default:** `true` (`false` in v1)
+- **Available for providers:** `'v8'`
+- **CLI:** `--coverage.ignoreEmptyLines=<boolean>`
+>>>>>>> 6623b2c9195424eccf1f337374a47ac33ef62ec7
 
 忽略空行、注释和其他非运行时代码，如 Typescript 类型。
 
