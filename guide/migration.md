@@ -5,7 +5,15 @@ outline: deep
 
 # 迁移指南
 
-## 从 Vitest 0.34.6 迁移
+## 迁移到 Vitest 2.0
+
+### 钩子函数在堆栈中运行
+
+在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
+
+您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
+
+## 迁移到 Vitest 1.0
 
 <!-- introduction -->
 
