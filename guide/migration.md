@@ -5,7 +5,7 @@ outline: deep
 
 # 迁移指南
 
-## 从 Vitest 2.0 迁移
+## 迁移到 Vitest 2.0
 
 ### 钩子函数在堆栈中运行
 
@@ -13,7 +13,7 @@ outline: deep
 
 您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
 
-## Migrating to Vitest 1.0
+## 迁移到 Vitest 1.0
 
 <!-- introduction -->
 
