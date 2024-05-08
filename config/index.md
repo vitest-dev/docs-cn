@@ -431,7 +431,7 @@ Vitest 使用 Vite SSR 基元来运行测试，这有[一定的缺陷](https://v
 1. 别名只影响由[inlined](#server-deps-inline)模块直接用`import`关键字导入的模块（默认情况下所有源代码都是内联的）。
 2. Vitest 不支持对 `require` 调用进行别名。
 3. 如果您要别名外部依赖（例如，`react` -> `preact`），您可能需要别名实际的 `node_modules` 包，以使其适用于外部依赖。[Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) 和 [pnpm](https://pnpm.io/aliases/) 都支持通过 `npm:` 前缀进行别名。
-:::
+   :::
 
 ::: warning
 Vitest uses Vite SSR primitives to run tests which has [certain pitfalls](https://vitejs.dev/guide/ssr.html#ssr-externals).
@@ -439,7 +439,7 @@ Vitest uses Vite SSR primitives to run tests which has [certain pitfalls](https:
 1. Aliases affect only modules imported directly with an `import` keyword by an [inlined](#server-deps-inline) module (all source code is inlined by default).
 2. Vitest does not support aliasing `require` calls.
 3. If you are aliasing an external dependency (e.g., `react` -> `preact`), you may want to alias the actual `node_modules` packages instead to make it work for externalized dependencies. Both [Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) and [pnpm](https://pnpm.io/aliases/) support aliasing via the `npm:` prefix.
-:::
+   :::
 
 ### globals
 
@@ -1103,11 +1103,13 @@ globalThis.resetBeforeEachTest = true
 请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 `provide` 方法将可序列化数据传递给测试：
 
 :::code-group
+
 ```js [globalSetup.js]
 export default function setup({ provide }) {
   provide('wsPort', 3000)
 }
 ```
+
 ```ts [globalSetup.ts]
 import type { GlobalSetupContext } from 'vitest/node'
 
@@ -1122,11 +1124,13 @@ declare module 'vitest' {
   }
 }
 ```
+
 ```ts [example.test.js]
 import { inject } from 'vitest'
 
 inject('wsPort') === 3000
 ```
+
 :::
 
 ### watchExclude<NonProjectOption />
@@ -1243,7 +1247,7 @@ import { coverageConfigDefaults, defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     coverage: {
-      exclude: ['**/custom-pattern/**', ...coverageConfigDefaults.exclude]
+      exclude: ['**/custom-pattern/**', ...coverageConfigDefaults.exclude],
     },
   },
 })
@@ -1486,17 +1490,10 @@ statements 的全局阈值。
 
 #### coverage.ignoreEmptyLines
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `false`
+- **默认值:** `true` (`false` in v1)
 - **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.ignoreEmptyLines=<boolean>`
-=======
-- **Type:** `boolean`
-- **Default:** `true` (`false` in v1)
-- **Available for providers:** `'v8'`
-- **CLI:** `--coverage.ignoreEmptyLines=<boolean>`
->>>>>>> 6623b2c9195424eccf1f337374a47ac33ef62ec7
 
 忽略空行、注释和其他非运行时代码，如 Typescript 类型。
 
@@ -1705,7 +1702,7 @@ export interface BrowserProvider {
   getSupportedBrowsers: () => readonly string[]
   initialize: (
     ctx: Vitest,
-    options: { browser: string; options?: BrowserProviderOptions }
+    options: { browser: string, options?: BrowserProviderOptions }
   ) => Awaitable<void>
   openPage: (url: string) => Awaitable<void>
   close: () => Awaitable<void>
@@ -2353,7 +2350,6 @@ export default defineConfig({
 - **默认值:** `['setTimeout', 'clearTimeout', 'setImmediate', 'clearImmediate', 'setInterval', 'clearInterval', 'Date']`
 
 包含要伪造的全局方法和 API 名称的数组。
-
 
 要只模拟 `setTimeout()` 和 `nextTick()` ，请将此属性指定为 `['setTimeout','nextTick']`。
 
