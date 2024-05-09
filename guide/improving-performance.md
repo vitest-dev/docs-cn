@@ -2,7 +2,13 @@
 title: 性能优化 | 指南
 ---
 
+<<<<<<< HEAD
 # 性能优化
+=======
+## Test isolation
+
+By default Vitest runs every test file in an isolated environment based on the [pool](/config/#pool):
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
@@ -58,4 +64,25 @@ export default defineConfig({
 })
 ```
 
+:::
+
+## Pool
+
+By default Vitest runs tests in `pool: 'forks'`. While `'forks'` pool is better for compatibility issues ([hanging process](/guide/common-errors.html#failed-to-terminate-worker) and [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)), it may be slightly slower than `pool: 'threads'` in larger projects.
+
+You can try to improve test run time by switching `pool` option in configuration:
+
+::: code-group
+```bash [CLI]
+vitest --pool=threads
+```
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    pool: 'threads',
+  },
+})
+```
 :::

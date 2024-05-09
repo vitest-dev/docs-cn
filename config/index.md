@@ -680,9 +680,15 @@ export default defineConfig({
 
 ### pool<NonProjectOption /> <Badge type="info">1.0.0+</Badge> {#pool}
 
+<<<<<<< HEAD
 - **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
 - **默认值:** `'threads'`
 - **命令行终端:** `--pool=threads`
+=======
+- **Type:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
+- **Default:** `'forks'` (in v1 `'threads'`)
+- **CLI:** `--pool=threads`
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
 
 用于运行测试的线程池。
 
@@ -1133,6 +1139,7 @@ inject('wsPort') === 3000
 
 :::
 
+<<<<<<< HEAD
 ### watchExclude<NonProjectOption />
 
 - **类型:** `string[]`
@@ -1140,6 +1147,8 @@ inject('wsPort') === 3000
 
 触发监视重新运行时要忽略的文件路径的全局 glob 模式。
 
+=======
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
 ### forceRerunTriggers<NonProjectOption />
 
 - **类型**: `string[]`
@@ -1156,8 +1165,13 @@ test('execute a script', async () => {
 })
 ```
 
+<<<<<<< HEAD
 :::tip 提醒
 确保你的的文件未被 `watchExclude` 排除。
+=======
+::: tip
+Make sure that your files are not excluded by [`server.watch.ignored`](https://vitejs.dev/config/server-options.html#server-watch).
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
 :::
 
 ### coverage<NonProjectOption />

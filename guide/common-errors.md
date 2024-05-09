@@ -64,9 +64,14 @@ vi.resetModules()
 
 作为解决方法，我们可以切换到 [`pool: 'forks'`](/config/#forks) 或 [`pool: 'vmForks'`](/config/#vmforks)。
 
+<<<<<<< HEAD
 在配置文件中指定 `pool` ：
 
 ```ts
+=======
+::: code-group
+```ts [vitest.config.js]
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -75,6 +80,7 @@ export default defineConfig({
   },
 })
 ```
+<<<<<<< HEAD
 
 或者可以在我们的 `package.json` 中增加 script ：
 
@@ -83,4 +89,35 @@ scripts: {
 -  "test": "vitest"
 +  "test": "vitest --pool=forks"
 }
+=======
+```bash [CLI]
+vitest --pool=forks
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
 ```
+:::
+
+## Segfaults and native code errors
+
+Running [native NodeJS modules](https://nodejs.org/api/addons.html) in `pool: 'threads'` can run into cryptic errors coming from the native code.
+
+- `Segmentation fault (core dumped)`
+- `thread '<unnamed>' panicked at 'assertion failed`
+- `Abort trap: 6`
+- `internal error: entered unreachable code`
+
+In these cases the native module is likely not built to be multi-thread safe. As work-around, you can switch to `pool: 'forks'` which runs the test cases in multiple `node:child_process` instead of multiple `node:worker_threads`.
+
+::: code-group
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    pool: 'forks',
+  },
+})
+```
+```bash [CLI]
+vitest --pool=forks
+```
+:::

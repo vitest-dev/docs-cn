@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.9.0",
+<<<<<<< HEAD
     "vue": "^3.4.25"
   },
   "devDependencies": {
@@ -38,9 +39,22 @@
     "@vitest/ui": "^1.5.2",
     "eslint": "^9.1.1",
     "esno": "^4.7.0",
+=======
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.1.32",
+    "@iconify-json/logos": "^1.1.42",
+    "@shikijs/vitepress-twoslash": "^1.5.1",
+    "@unocss/reset": "^0.60.0",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vite-pwa/vitepress": "^0.5.0",
+    "@vitejs/plugin-vue": "latest",
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "https-localhost": "^4.7.1",
+<<<<<<< HEAD
     "ofetch": "^1.3.4",
     "ohmyfetch": "^0.4.21",
     "pathe": "^1.1.2",
@@ -53,6 +67,13 @@
     "vite-plugin-pwa": "^0.19.8",
     "vitepress": "^1.1.3",
     "vitest": "^1.5.2",
+=======
+    "unocss": "^0.60.0",
+    "unplugin-vue-components": "^0.27.0",
+    "vite": "^5.2.8",
+    "vite-plugin-pwa": "^0.20.0",
+    "vitepress": "^1.1.4",
+>>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
     "workbox-window": "^7.1.0"
   }
 }
