@@ -15,11 +15,11 @@ title: 测试快照 | 指南
 要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
 
 ```ts twoslash
+// ---cut---
+import { expect, it } from 'vitest'
 function toUpperCase(str: string) {
   return str
 }
-// ---cut---
-import { expect, it } from 'vitest'
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -46,11 +46,11 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
 ```ts twoslash
+// ---cut---
+import { expect, it } from 'vitest'
 function toUpperCase(str: string) {
   return str
 }
-// ---cut---
-import { expect, it } from 'vitest'
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -61,11 +61,11 @@ it('toUpperCase', () => {
 Vitest 不会创建快照文件，而是直接修改测试文件，将快照作为字符串更新到文件中：
 
 ```ts  twoslash
+// ---cut---
+import { expect, it } from 'vitest'
 function toUpperCase(str: string) {
   return str
 }
-// ---cut---
-import { expect, it } from 'vitest'
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')

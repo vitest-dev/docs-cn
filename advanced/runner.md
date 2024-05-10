@@ -31,7 +31,7 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
+  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -40,7 +40,7 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
+  onAfterTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。

@@ -291,10 +291,10 @@ fn('arg1', 'arg2')
 fn('arg3')
 
 fn.mock.calls
-  === [
-    ['arg1', 'arg2'], // first call
-    ['arg3'], // second call
-  ]
+=== [
+  ['arg1', 'arg2'], // first call
+  ['arg3'], // second call
+]
 ```
 
 ## mock.lastCall
@@ -326,18 +326,18 @@ try {
 catch {}
 
 fn.mock.results
-  === [
-    // first result
-    {
-      type: 'return',
-      value: 'result',
-    },
-    // last result
-    {
-      type: 'throw',
-      value: Error,
-    },
-  ]
+=== [
+  // first result
+  {
+    type: 'return',
+    value: 'result',
+  },
+  // last result
+  {
+    type: 'throw',
+    value: Error,
+  },
+]
 ```
 
 ## mock.invocationCallOrder

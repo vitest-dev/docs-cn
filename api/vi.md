@@ -16,12 +16,8 @@ import { vi } from 'vitest'
 
 ### vi.mock
 
-<<<<<<< HEAD
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-=======
-- **Type**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-- **Type**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void` <Version>2.0.0+</Version>
->>>>>>> a07b26d99c22c51b1005f9e990cc1baadd762630
+- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void` <Version>2.0.0+</Version>
 
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
 
@@ -69,7 +65,7 @@ vi.mock('./path/to/module.js', async (importOriginal) => {
 })
 ```
 
-Since 2.0.0, Vitest supports a module promise instead of a string in `vi.mock` method for better IDE support (when file is moved, path will be updated, `importOriginal` also inherits the type automatically).
+从 2.0.0 开始，Vitest 支持模块 promise，而不是 `vi.mock` 方法中的字符串，以获得更好的 IDE 支持（当文件被移动时，路径将被更新，`importOriginal` 也会自动继承类型）。
 
 ```ts
 vi.mock(import('./path/to/module.js'), async (importOriginal) => {
@@ -82,7 +78,7 @@ vi.mock(import('./path/to/module.js'), async (importOriginal) => {
 })
 ```
 
-Under the hood, Vitest still operates on a string and not a module object.
+在此钩子下，Vitest 仍然对字符串而不是模块对象进行操作。
 
 ::: warning
 `vi.mock` 被提升（换句话说，_移动_）到**文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。

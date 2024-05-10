@@ -19,8 +19,7 @@ import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
 import { teamMembers } from './contributors'
 
-
-export default ({ mode }: { mode: string }) => {
+export default () => {
   return withPwa(defineConfig({
     lang: 'en-US',
     title: vitestName,
@@ -62,8 +61,8 @@ export default ({ mode }: { mode: string }) => {
         dark: 'github-dark',
       },
       codeTransformers: [
-        transformerTwoslash()
-      ]
+        transformerTwoslash(),
+      ],
     },
     ignoreDeadLinks: true,
     themeConfig: {
@@ -173,7 +172,8 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: '命令行界面',
                 link: '/guide/cli',
-              }, {
+              },
+              {
                 text: '测试筛选',
                 link: '/guide/filtering',
               },

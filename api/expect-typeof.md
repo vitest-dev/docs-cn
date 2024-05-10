@@ -50,7 +50,7 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 ```ts twoslash
 import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
+type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
 
 interface CSSProperties {
   margin?: string

@@ -1,27 +1,28 @@
-[build.environment]
-  NODE_VERSION = "20"
-
 [build]
-  publish = ".vitepress/dist"
-  command = "npx pnpm i --ignore-scripts && pnpm run build"
+publish = ".vitepress/dist"
+command = "npx pnpm i --ignore-scripts && pnpm run build"
+
+[build.environment]
+NODE_VERSION = "20"
 
 [[redirects]]
-  from = "https://cn-vitest.netlify.app/*"
-  to = "https://cn.vitest.dev/:splat"
-  status = 301
-  force = true
+from = "https://cn-vitest.netlify.app/*"
+to = "https://cn.vitest.dev/:splat"
+status = 301
+force = true
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+to = "/index.html"
+status = 200
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
 
 [[headers]]
-  for = "/manifest.webmanifest"
-  [headers.values]
-    Content-Type = "application/manifest+json"
+for = "/manifest.webmanifest"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[headers.values]
+Content-Type = "application/manifest+json"

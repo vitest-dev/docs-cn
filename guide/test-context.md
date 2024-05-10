@@ -162,13 +162,13 @@ myTest('', ({ todos }) => {})
 在固定装置中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问固定装置函数和测试函数中的上下文。
 :::
 
-#### Automatic fixture
+#### 自动化装置
 
 ::: warning
-This feature is available since Vitest 1.3.0.
+此功能自 Vitest 1.3.0 开始可用。
 :::
 
-Vitest also supports the tuple syntax for fixtures, allowing you to pass options for each fixture. For example, you can use it to explicitly initialize a fixture, even if it's not being used in tests.
+Vitest 还支持 fixture 的元组语法，允许你传递每个 fixture 的选项。例如，你可以使用它来显式初始化固定装置，即使它没有在测试中使用。
 
 ```ts
 import { test as base } from 'vitest'
@@ -181,7 +181,7 @@ const test = base.extend({
       await use()
       teardown()
     },
-    { auto: true } // Mark as an automatic fixture
+    { auto: true }, // Mark as an automatic fixture
   ],
 })
 
