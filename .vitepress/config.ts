@@ -110,12 +110,28 @@ export default () => {
           text: `v${version}`,
           items: [
             {
-              text: '版本发布',
-              link: releases,
+              items: [
+                {
+                  text: `v${version}`,
+                  link: `https://github.com/vitest-dev/vitest/releases/tag/v${version}`,
+                },
+                {
+                  text: '版本发布',
+                  link: releases,
+                },
+                {
+                  text: '社区指南',
+                  link: contributing,
+                },
+              ]
             },
             {
-              text: '社区指南',
-              link: contributing,
+              items: [
+                {
+                  text: 'v0.x',
+                  link: 'https://v0.vitest.dev/',
+                },
+              ],
             },
           ],
         },
