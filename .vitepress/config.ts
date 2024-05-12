@@ -104,64 +104,26 @@ export default () => {
       nav: [
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
         { text: 'API', link: '/api/', activeMatch: '^/api/' },
-<<<<<<< HEAD
         { text: '配置', link: '/config/', activeMatch: '^/config/' },
         { text: '高级 API', link: '/advanced/api', activeMatch: '^/advanced/' },
-=======
-        { text: 'Config', link: '/config/', activeMatch: '^/config/' },
-        { text: 'Advanced', link: '/advanced/api', activeMatch: '^/advanced/' },
-        {
-          text: 'Resources',
-          items: [
-            {
-              text: 'Team',
-              link: '/team',
-            },
-            {
-              items: [
-                {
-                  text: 'Mastodon',
-                  link: mastodon,
-                },
-                {
-                  text: 'X (formerly Twitter)',
-                  link: twitter,
-                },
-                {
-                  text: 'Discord Chat',
-                  link: discord,
-                },
-              ],
-            },
-          ],
-        },
->>>>>>> 61d158b87403fd5e4b0dad2c7db4cad41bb30c0e
         {
           text: `v${version}`,
           items: [
             {
-<<<<<<< HEAD
-              text: '版本发布',
-              link: releases,
-            },
-            {
-              text: '社区指南',
-              link: contributing,
-=======
               items: [
                 {
                   text: `v${version}`,
                   link: `https://github.com/vitest-dev/vitest/releases/tag/v${version}`,
                 },
                 {
-                  text: 'Releases Notes',
+                  text: '版本发布',
                   link: releases,
                 },
                 {
-                  text: 'Contributing ',
+                  text: '社区指南',
                   link: contributing,
                 },
-              ],
+              ]
             },
             {
               items: [
@@ -170,7 +132,6 @@ export default () => {
                   link: 'https://v0.vitest.dev/',
                 },
               ],
->>>>>>> 61d158b87403fd5e4b0dad2c7db4cad41bb30c0e
             },
           ],
         },
