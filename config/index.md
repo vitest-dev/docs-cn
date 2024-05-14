@@ -1802,6 +1802,13 @@ export interface BrowserScript {
 
 脚本 `src` 和 `content` 将由 Vite 插件处理。
 
+#### browser.commands <Version>2.0.0</Version> {#browser-commands}
+
+- **Type:** `Record<string, BrowserCommand>`
+- **Default:** `{ readFile, writeFile, ... }`
+
+Custom [commands](/guide/browser#commands) that can be import during browser tests from `@vitest/browser/commands`.
+
 ### clearMocks
 
 - **类型:** `boolean`

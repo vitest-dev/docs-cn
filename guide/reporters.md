@@ -485,7 +485,31 @@ export default defineConfig({
 <img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
 
+<<<<<<< HEAD
 ## 自定义报告器
+=======
+### Blob Reporter
+
+Stores test results on the machine so they can be later merged using [`--merge-reports`](/guide/cli#merge-reports) command.
+By default, stores all results in `.vitest-reports` folder, but can be overriden with `--outputFile` or `--outputFile.blob` flags.
+
+```bash
+npx vitest --reporter=blob --outputFile=reports/blob-1.json
+```
+
+We recommend using this reporter if you are running Vitest on different machines with the [`--shard`](/guide/cli#shard) flag.
+All blob reports can be merged into any report by using `--merge-reports` command at the end of your CI pipeline:
+
+```bash
+npx vitest --merge-reports=reports --reporter=json --reporter=default
+```
+
+::: tip
+Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
+:::
+
+## Custom Reporters
+>>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
 
 你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
 

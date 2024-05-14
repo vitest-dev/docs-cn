@@ -720,13 +720,18 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
+<<<<<<< HEAD
 测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试
+=======
+`describe.concurrent` runs all inner suites and tests in parallel
+>>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
 
 ```ts twoslash
 import { describe, test } from 'vitest'
 // ---cut---
-// All tests within this suite will be run in parallel
+// All suites and tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
+<<<<<<< HEAD
   test('concurrent test 1', async () => {
     /* ... */
   })
@@ -736,6 +741,14 @@ describe.concurrent('suite', () => {
   test.concurrent('concurrent test 3', async () => {
     /* ... */
   })
+=======
+  test('concurrent test 1', async () => { /* ... */ })
+  describe('concurrent suite 2', async () => {
+    test('concurrent test inner 1', async () => { /* ... */ })
+    test('concurrent test inner 2', async () => { /* ... */ })
+  })
+  test.concurrent('concurrent test 3', async () => { /* ... */ })
+>>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
 })
 ```
 

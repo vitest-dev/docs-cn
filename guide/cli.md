@@ -116,3 +116,22 @@ vitest --api=false
 :::warning 警告
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
 :::
+<<<<<<< HEAD
+=======
+
+::: tip
+If `--reporter=blob` is used without an output file, the default path will include the current shard config to avoid collisions with other Vitest processes.
+:::
+
+### merge-reports
+
+- **Type:** `boolean | string`
+
+Merges every blob report located in the specified folder (`.vitest-reports` by default). You can use any reporters with this command (except [`blob`](/guide/reporters#blob-reporter)):
+
+```sh
+vitest --merge-reports --reporter=junit
+```
+
+[cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options
+>>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
