@@ -245,10 +245,9 @@ test('my types work properly', () => {
 })
 ```
 
-## Sharding
+## 分片
 
-Run tests on different machines using [`--shard`](/guide/cli#shard) and [`--reporter=blob`](/guide/reporters#blob-reporter) flags.
-All test results can be merged at the end of your CI pipeline using `--merge-reports` command:
+使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter)标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
 
 ```bash
 vitest --shard=1/2 --reporter=blob

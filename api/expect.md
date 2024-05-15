@@ -61,19 +61,19 @@ test('expect.soft test', () => {
 
 ## poll
 
-- **Type:** `ExpectStatic & (actual: () => any, options: { interval, timeout, message }) => Assertions`
+- **类型:** `ExpectStatic & (actual: () => any, options: { interval, timeout, message }) => Assertions`
 
-`expect.poll` reruns the _assertion_ until it is succeeded. You can configure how many times Vitest should rerun the `expect.poll` callback by setting `interval` and `timeout` options.
+`expect.poll` 重新运行断言，直到成功为止。你可以通过设置 `interval` 和 `timeout` 选项来配置 Vitest 应重新运行 `expect.poll` 回调的次数。
 
-If an error is thrown inside the `expect.poll` callback, Vitest will retry again until the timeout runs out.
+如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
 
 ```ts twoslash
+// ---cut---
+import { expect, test } from 'vitest'
+
 function asyncInjectElement() {
   // example function
 }
-
-// ---cut---
-import { expect, test } from 'vitest'
 
 test('element exists', async () => {
   asyncInjectElement()
@@ -83,11 +83,11 @@ test('element exists', async () => {
 ```
 
 ::: warning
-`expect.poll` makes every assertion asynchronous, so do not forget to await it otherwise you might get unhandled promise rejections.
+`expect.poll` 使每个断言都异步，所以不要忘记等待它，否则可能会收到未经处理的 promise 拒绝。
 
-`expect.poll` doesn't work with several matchers:
+`expect.poll` 不适用于多个匹配器：
 
-- Snapshot matchers are not supported because they will always succeed. If your condition is flaky, consider using [`vi.waitFor`](/api/vi#vi-waitfor) instead to resolve it first:
+- 快照匹配器不受支持，因为它们总是成功的。如果你的情况不稳定，请考虑首先使用 [`vi.waitFor`](/api/vi#vi-waitfor) 解决：
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -96,9 +96,9 @@ const flakyValue = await vi.waitFor(() => getFlakyValue())
 expect(flakyValue).toMatchSnapshot()
 ```
 
-- `.resolves` and `.rejects` are not supported. `expect.poll` already awaits the condition if it's asynchronous.
-- `toThrow` and its aliases are not supported because the `expect.poll` condition is always resolved before the matcher gets the value
-:::
+- `.resolves` 和 `.rejects` 不支持。 如果它是异步的，`expect.poll` 已经在等待。
+- `toThrow` 及其别名不受支持，因为 `expect.poll` 条件总是在匹配器获取值之前解析。
+  :::
 
 ## not
 

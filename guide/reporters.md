@@ -485,20 +485,17 @@ export default defineConfig({
 <img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
 
-<<<<<<< HEAD
-## 自定义报告器
-=======
 ### Blob Reporter
 
-Stores test results on the machine so they can be later merged using [`--merge-reports`](/guide/cli#merge-reports) command.
-By default, stores all results in `.vitest-reports` folder, but can be overriden with `--outputFile` or `--outputFile.blob` flags.
+将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
+默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
 
 ```bash
 npx vitest --reporter=blob --outputFile=reports/blob-1.json
 ```
 
-We recommend using this reporter if you are running Vitest on different machines with the [`--shard`](/guide/cli#shard) flag.
-All blob reports can be merged into any report by using `--merge-reports` command at the end of your CI pipeline:
+如果你在带有 [`--shard`](/guide/cli#shard) 标志的不同机器上运行 Vitest，我们建议你使用此报告程序。
+使用 CI 管道末尾的 `--merge-reports` 命令，可以将所有 blob 报告合并到任何报告中：
 
 ```bash
 npx vitest --merge-reports=reports --reporter=json --reporter=default
@@ -508,8 +505,7 @@ npx vitest --merge-reports=reports --reporter=json --reporter=default
 Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
 :::
 
-## Custom Reporters
->>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
+## 自定义报告器
 
 你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
 

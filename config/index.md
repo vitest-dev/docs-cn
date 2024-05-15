@@ -1804,10 +1804,10 @@ export interface BrowserScript {
 
 #### browser.commands <Version>2.0.0</Version> {#browser-commands}
 
-- **Type:** `Record<string, BrowserCommand>`
-- **Default:** `{ readFile, writeFile, ... }`
+- **类型:** `Record<string, BrowserCommand>`
+- **默认值:** `{ readFile, writeFile, ... }`
 
-Custom [commands](/guide/browser#commands) that can be import during browser tests from `@vitest/browser/commands`.
+自定义[命令](/guide/browser#commands)，可在浏览器测试期间从 `@vitest/browser/commands` 导入。
 
 ### clearMocks
 

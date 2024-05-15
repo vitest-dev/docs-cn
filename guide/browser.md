@@ -119,12 +119,9 @@ npx vitest --browser.name=chrome --browser.headless
 
 在这种情况下，Vitest 将使用 Chrome 浏览器以 headless 模式运行。
 
-<<<<<<< HEAD
-## 限制
-=======
-## Context <Version>2.0.0</Version> {#context}
+## 上下文 <Version>2.0.0</Version> {#context}
 
-Vitest exposes a context module via `@vitest/browser/context` entry point. As of 2.0, it exposes a small set of utilities that might be useful to you in tests.
+Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
 ```ts
 export const server: {
@@ -160,20 +157,20 @@ export const page: {
 }
 ```
 
-## Commands <Version>2.0.0</Version> {#commands}
+## 命令 <Version>2.0.0</Version> {#commands}
 
-Command is a function that invokes another function on the server and passes down the result back to the browser. Vitest exposes several built-in commands you can use in your browser tests.
+命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 
-## Built-in Commands
+## 内置命令
 
-### Files Handling
+### 文件处理
 
-You can use `readFile`, `writeFile` and `removeFile` API to handle files inside your browser tests. All paths are resolved relative to the test file even if they are called in a helper function located in another file.
+你可以使用 `readFile` 、`writeFile` 和 `removeFile` API 来处理浏览器测试中的文件。所有路径都是相对于测试文件解析的，即使它们是在位于另一个文件中的辅助函数中调用的。
 
-By default, Vitest uses `utf-8` encoding but you can override it with options.
+默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
 
 ::: tip
-This API follows [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) limitations for security reasons.
+此 API 遵循 [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) 出于安全原因的限制。
 :::
 
 ```ts
@@ -193,43 +190,52 @@ it('handles files', async () => {
 })
 ```
 
-### Keyboard Interactions
+### 键盘交互
 
-Vitest also implements Web Test Runner's [`sendKeys` API](https://modern-web.dev/docs/test-runner/commands/#send-keys). It accepts an object with a single property:
+Vitest 还实现 Web 测试运行器的 [`sendKeys` API](https://modern-web.dev/docs/test-runner/commands/#send-keys)。它接受具有单个属性的对象：
 
-- `type` - types a sequence of characters, this API _is not_ affected by modifier keys, so having `Shift` won't make letters uppercase
-- `press` - presses a single key, this API _is_ affected by modifier keys, so having `Shift` will make subsequent characters uppercase
-- `up` - holds down a key (supported only with `playwright` provider)
-- `down` - releases a key (supported only with `playwright` provider)
+- `type` - 键入字符序列，此 API _不受_ 修饰符键的影响，因此使用 `Shift` 不会使字母变为大写
+- `press` - 按单个键，此 API _不受_ 修饰符键的影响，因此使用 `Shift` 不会使字母变为大写
+- `up` - 按住方向上键（仅由 `playwright` 提供商支持）
+- `down` - 按住方向下键（仅由 `playwright` 提供商支持）
 
 ```ts
-interface TypePayload { type: string }
-interface PressPayload { press: string }
-interface DownPayload { down: string }
-interface UpPayload { up: string }
+interface TypePayload {
+  type: string
+}
+interface PressPayload {
+  press: string
+}
+interface DownPayload {
+  down: string
+}
+interface UpPayload {
+  up: string
+}
 
 type SendKeysPayload = TypePayload | PressPayload | DownPayload | UpPayload
 
 declare function sendKeys(payload: SendKeysPayload): Promise<void>
 ```
 
-This is just a simple wrapper around providers APIs. Please refer to their respective documentations for details:
+这只是一个简单的提供者 API 包装器。有关详细信息，请参阅各自的文件：
 
 - [Playwright Keyboard API](https://playwright.dev/docs/api/class-keyboard)
 - [Webdriver Keyboard API](https://webdriver.io/docs/api/browser/keys/)
 
-## Custom Commands
+## 自定义命令
 
-You can also add your own commands via [`browser.commands`](/config/#browser-commands) config option. If you develop a library, you can provide them via a `config` hook inside a plugin:
+你也可以通过 [`browser.commands`](/config/#browser-commands) 配置选项添加自己的命令。如果你开发了一个库，你可以通过插件内的 `config` 钩子来提供它们：
 
 ```ts
 import type { Plugin } from 'vitest/config'
 import type { BrowserCommand } from 'vitest/node'
 
-const myCustomCommand: BrowserCommand<[arg1: string, arg2: string]> = ({
-  testPath,
-  provider
-}, arg1, arg2) => {
+const myCustomCommand: BrowserCommand<[arg1: string, arg2: string]> = (
+  { testPath, provider },
+  arg1,
+  arg2
+) => {
   if (provider.name === 'playwright') {
     console.log(testPath, arg1, arg2)
     return { someValue: true }
@@ -247,16 +253,16 @@ export default function BrowserCommands(): Plugin {
           browser: {
             commands: {
               myCustomCommand,
-            }
-          }
-        }
+            },
+          },
+        },
       }
-    }
+    },
   }
 }
 ```
 
-Then you can call it inside your test by importing it from `@vitest/browser/context`:
+然后，你可以通过从 `@vitest/brower/context` 导入它，在测试中调用它：
 
 ```ts
 import { commands } from '@vitest/browser/context'
@@ -270,7 +276,10 @@ test('custom command works correctly', async () => {
 // if you are using TypeScript, you can augment the module
 declare module '@vitest/browser/context' {
   interface BrowserCommands {
-    myCustomCommand: (arg1: string, arg2: string) => Promise<{
+    myCustomCommand: (
+      arg1: string,
+      arg2: string
+    ) => Promise<{
       someValue: true
     }>
   }
@@ -278,11 +287,10 @@ declare module '@vitest/browser/context' {
 ```
 
 ::: warning
-Custom functions will override built-in ones if they have the same name.
+如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-## Limitations
->>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
+## 限制
 
 ### 线程阻塞对话框
 

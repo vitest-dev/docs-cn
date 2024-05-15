@@ -42,6 +42,7 @@ interface TestOptions {
 自 Vitest 1.3.0 以来，大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
 
 :::code-group
+
 ```ts [dot-syntax] twoslash
 import { test } from 'vitest'
 
@@ -49,6 +50,7 @@ test.skip('skipped test', () => {
   // 一些现在失败的逻辑
 })
 ```
+
 ```ts [object-syntax <Version>1.3.0</Version>] twoslash
 import { test } from 'vitest'
 
@@ -56,6 +58,7 @@ test('skipped test', { skip: true }, () => {
   // 一些现在失败的逻辑
 })
 ```
+
 :::
 
 ## test
@@ -343,7 +346,7 @@ test.fails('fail test', async () => {
 - `%#`: index of the test case
 - `%%`: single percent sign ('%')
 
-```ts  twoslash
+```ts twoslash
 import { expect, test } from 'vitest'
 
 // ---cut---
@@ -380,7 +383,7 @@ test.each([
 
 如果使用对象作为参数，也可以使用 `.` 访问对象属性：
 
-```ts  twoslash
+```ts twoslash
 import { expect, test } from 'vitest'
 
 // ---cut---
@@ -720,35 +723,27 @@ In order to do that run `vitest` with specific file containing the tests in ques
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 
-<<<<<<< HEAD
 测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试
-=======
-`describe.concurrent` runs all inner suites and tests in parallel
->>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
 
 ```ts twoslash
 import { describe, test } from 'vitest'
 // ---cut---
 // All suites and tests within this suite will be run in parallel
 describe.concurrent('suite', () => {
-<<<<<<< HEAD
   test('concurrent test 1', async () => {
     /* ... */
   })
-  test('concurrent test 2', async () => {
-    /* ... */
+  describe('concurrent suite 2', async () => {
+    test('concurrent test inner 1', async () => {
+      /* ... */
+    })
+    test('concurrent test inner 2', async () => {
+      /* ... */
+    })
   })
   test.concurrent('concurrent test 3', async () => {
     /* ... */
   })
-=======
-  test('concurrent test 1', async () => { /* ... */ })
-  describe('concurrent suite 2', async () => {
-    test('concurrent test inner 1', async () => { /* ... */ })
-    test('concurrent test inner 2', async () => { /* ... */ })
-  })
-  test.concurrent('concurrent test 3', async () => { /* ... */ })
->>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
 })
 ```
 

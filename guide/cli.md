@@ -116,22 +116,19 @@ vitest --api=false
 :::warning 警告
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
 :::
-<<<<<<< HEAD
-=======
 
 ::: tip
-If `--reporter=blob` is used without an output file, the default path will include the current shard config to avoid collisions with other Vitest processes.
+如果在没有输出文件的情况下使用 `--reporter=blob`，则默认路径将包括当前碎片配置，以避免与其他 Vitest 进程发生冲突。
 :::
 
 ### merge-reports
 
-- **Type:** `boolean | string`
+- **类型:** `boolean | string`
 
-Merges every blob report located in the specified folder (`.vitest-reports` by default). You can use any reporters with this command (except [`blob`](/guide/reporters#blob-reporter)):
+合并位于指定文件夹中的每个 blob 报告（默认情况下为`.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
 
 ```sh
 vitest --merge-reports --reporter=junit
 ```
 
 [cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options
->>>>>>> 2b032211e13521ef35634504a68d5340b2d10425
