@@ -98,7 +98,8 @@ expect(flakyValue).toMatchSnapshot()
 
 - `.resolves` 和 `.rejects` 不支持。 如果它是异步的，`expect.poll` 已经在等待。
 - `toThrow` 及其别名不受支持，因为 `expect.poll` 条件总是在匹配器获取值之前解析。
-  :::
+
+:::
 
 ## not
 
