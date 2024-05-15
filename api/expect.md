@@ -67,21 +67,6 @@ test('expect.soft test', () => {
 
 如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
 
-```ts twoslash
-// ---cut---
-import { expect, test } from 'vitest'
-
-function asyncInjectElement() {
-  // example function
-}
-
-test('element exists', async () => {
-  asyncInjectElement()
-
-  await expect.poll(() => document.querySelector('.element')).toBeTruthy()
-})
-```
-
 ::: warning
 `expect.poll` 使每个断言都异步，所以不要忘记等待它，否则可能会收到未经处理的 promise 拒绝。
 
