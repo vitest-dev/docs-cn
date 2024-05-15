@@ -28,10 +28,13 @@ export default defineConfig({
 
 某些报告器可以通过传递附加选项进行自定义。具体选项将在下面的章节中介绍。
 
+<<<<<<< HEAD
 :::tip
 从 Vitest v1.3.0 开始支持
 :::
 
+=======
+>>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 ```ts
 export default defineConfig({
   test: {
@@ -467,7 +470,7 @@ export default defineConfig({
 
 :::
 
-### Github Actions Reporter <Badge type="info">1.3.0+</Badge> {#github-actions-reporter}
+### Github Actions Reporter {#github-actions-reporter}
 
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。

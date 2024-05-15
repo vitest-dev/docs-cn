@@ -31,7 +31,11 @@ test('test', () => {
 
 ## 自定义环境
 
+<<<<<<< HEAD
 从 0.23.0 版本开始，你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径（自 0.34.0 版本起支持）。该包应该导出一个形状为 `Environment` 的对象。
+=======
+You can create your own package to extend Vitest environment. To do so, create package with the name `vitest-environment-${name}` or specify a path to a valid JS/TS file. That package should export an object with the shape of `Environment`:
+>>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 ```ts twoslash
 import type { Environment } from 'vitest'
@@ -64,7 +68,11 @@ export default <Environment>{
 ```
 
 ::: warning
+<<<<<<< HEAD
 从 0.34.0 开始，Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `ssr` 或 `web`。该值决定插件如何转换源代码。如果设置为 `ssr`，则插件挂钩在转换或解析文件时将收到 `ssr: true`。 否则，`ssr` 被设置为 `false`。
+=======
+Vitest requires `transformMode` option on environment object. It should be equal to `ssr` or `web`. This value determines how plugins will transform source code. If it's set to `ssr`, plugin hooks will receive `ssr: true` when transforming or resolving files. Otherwise, `ssr` is set to `false`.
+>>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 :::
 
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
