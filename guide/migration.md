@@ -7,7 +7,7 @@ outline: deep
 
 ## 迁移到 Vitest 2.0
 
-### 钩子函数在堆栈中运行
+
 ### 默认数据池为 `forks`
 
 为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。您可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047)中阅读完整的动机。
@@ -29,7 +29,7 @@ export default defineConfig({
 })
 ```
 
-### Hooks are running in a stack
+### 钩子函数在堆栈中运行
 
 在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
