@@ -554,7 +554,7 @@ export default <Environment>{
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
 
 ::: tip
-jsdom environment exposes `jsdom` global variable equal to the current [JSDOM](https://github.com/jsdom/jsdom) instance. If you want TypeScript to recognize it, you can add `vitest/jsdom` to your `tsconfig.json` when you use this environment:
+jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom) 的 `jsdom` 全局变量实例。如果你想让 TypeScript 识别它，可以在使用此环境时将 `vitest/jsdom`添加到 `tsconfig.json` 中：
 
 ```json
 {
