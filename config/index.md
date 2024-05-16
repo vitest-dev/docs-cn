@@ -1341,7 +1341,7 @@ export default defineConfig({
 }
 ```
 
-You can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
+我们可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI Coverage](/guide/coverage#vitest-ui) 了解更多详情。
 
 #### coverage.reportOnFailure {#coverage-reportonfailure}
 
