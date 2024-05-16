@@ -8,15 +8,8 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 
 ## 测试覆盖率提供者
 
-<<<<<<< HEAD
-:::tip 提醒
-从 Vitest v0.22.0 开始支持
-:::
 
 `v8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `v8`。
-=======
-Both `v8` and `istanbul` support are optional. By default, `v8` will be used.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 你可以通过将 `test.coverage.provider` 设置为 `v8` 或 `istanbul` 来选择覆盖工具：
 
@@ -230,11 +223,7 @@ if (condition) {
 
 ## Vitest UI
 
-<<<<<<< HEAD
-从 Vitest 0.31.0 开始，你可以在 [Vitest UI](guide/ui) 中查看你的覆盖率报告。
-=======
-You can check your coverage report in [Vitest UI](/guide/ui).
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+你可以在 [Vitest UI](guide/ui) 中查看你的覆盖率报告。
 
 Vitest UI 将在显式启用覆盖率报告且存在 html 覆盖率报告器的情况下启用覆盖率报告，否则将不可用：
 

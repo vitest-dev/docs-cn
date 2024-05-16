@@ -70,19 +70,10 @@ Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
 ### `test.extend`
 
-<<<<<<< HEAD
 与 [Playwright](https://playwright.dev/docs/api/class-test#test-extend) 一样，你可以使用此方法通过自定义装置定义你自己的 `test` API，并在任何地方重复使用它。
 
-::: warning
-该 API 从 Vitest 0.32.3 开始可以使用。
-:::
 
 例如，我们首先使用两个固定装置创建 `myTest`，`todos` 和 `archive`。
-=======
-Like [Playwright](https://playwright.dev/docs/api/class-test#test-extend), you can use this method to define your own `test` API with custom fixtures and reuse it anywhere.
-
-For example, we first create `myTest` with two fixtures, `todos` and `archive`.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 ```ts
 // my-test.ts
@@ -170,15 +161,7 @@ myTest('', ({ todos }) => {})
 
 #### 自动化装置
 
-<<<<<<< HEAD
-::: warning
-此功能自 Vitest 1.3.0 开始可用。
-:::
-
 Vitest 还支持 fixture 的元组语法，允许你传递每个 fixture 的选项。例如，你可以使用它来显式初始化固定装置，即使它没有在测试中使用。
-=======
-Vitest also supports the tuple syntax for fixtures, allowing you to pass options for each fixture. For example, you can use it to explicitly initialize a fixture, even if it's not being used in tests.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 ```ts
 import { test as base } from 'vitest'

@@ -16,13 +16,8 @@ import { vi } from 'vitest'
 
 ### vi.mock
 
-<<<<<<< HEAD
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void` <Version>2.0.0+</Version>
-=======
-- **Type**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-- **Type**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void`
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void`
 
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
 
@@ -70,11 +65,7 @@ vi.mock('./path/to/module.js', async (importOriginal) => {
 })
 ```
 
-<<<<<<< HEAD
-从 2.0.0 开始，Vitest 支持模块 promise，而不是 `vi.mock` 方法中的字符串，以获得更好的 IDE 支持（当文件被移动时，路径将被更新，`importOriginal` 也会自动继承类型）。
-=======
-Vitest supports a module promise instead of a string in `vi.mock` method for better IDE support (when file is moved, path will be updated, `importOriginal` also inherits the type automatically).
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+Vitest 支持模块 promise，而不是 `vi.mock` 方法中的字符串，以获得更好的 IDE 支持（当文件被移动时，路径将被更新，`importOriginal` 也会自动继承类型）。
 
 ```ts
 vi.mock(import('./path/to/module.js'), async (importOriginal) => {
@@ -801,13 +792,8 @@ vi.useRealTimers()
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
 
 ::: tip
-<<<<<<< HEAD
-从版本 `0.35.0` 开始，`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
+`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
-=======
-`vi.useFakeTimers()` does not automatically mock `process.nextTick`.
-But you can enable it by specifying the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick'] })`.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 :::
 
 ### vi.isFakeTimers {#vi-isfaketimers}
@@ -869,7 +855,6 @@ test('Element exists in a DOM', async () => {
   // start populating DOM
   populateDOMAsync()
 
-<<<<<<< HEAD
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
@@ -878,38 +863,6 @@ test('Element exists in a DOM', async () => {
       expect(element.dataset.initialized).toBeTruthy()
       return element
     },
-=======
-  const element = await vi.waitFor(async () => {
-    // try to get the element until it exists
-    const element = await getDOMElementAsync() as HTMLElement | null
-    expect(element).toBeTruthy()
-    expect(element.dataset.initialized).toBeTruthy()
-    return element
-  }, {
-    timeout: 500, // default is 1000
-    interval: 20, // default is 50
-  })
-  expect(element).toBeInstanceOf(HTMLElement)
-})
-```
-
-If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
-
-### vi.waitUntil {#vi-waituntil}
-
-- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
-
-This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
-
-Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
-
-```ts twoslash
-import { expect, test, vi } from 'vitest'
-
-test('Element render correctly', async () => {
-  const element = await vi.waitUntil(
-    () => document.querySelector('.element'),
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50
@@ -921,7 +874,7 @@ test('Element render correctly', async () => {
 
 如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
 
-### vi.waitUntil <Badge type="info">0.34.5+</Badge> {#vi-waituntil}
+### vi.waitUntil
 
 - **类型:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
 

@@ -119,11 +119,7 @@ npx vitest --browser.name=chrome --browser.headless
 
 在这种情况下，Vitest 将使用 Chrome 浏览器以 headless 模式运行。
 
-<<<<<<< HEAD
-## 上下文 <Version>2.0.0</Version> {#context}
-=======
-## Context
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+## 上下文
 
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
@@ -161,11 +157,7 @@ export const page: {
 }
 ```
 
-<<<<<<< HEAD
-## 命令 <Version>2.0.0</Version> {#commands}
-=======
-## Commands
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+## 命令
 
 命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 

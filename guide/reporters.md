@@ -28,13 +28,7 @@ export default defineConfig({
 
 某些报告器可以通过传递附加选项进行自定义。具体选项将在下面的章节中介绍。
 
-<<<<<<< HEAD
-:::tip
-从 Vitest v1.3.0 开始支持
-:::
 
-=======
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 ```ts
 export default defineConfig({
   test: {

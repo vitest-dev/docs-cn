@@ -23,11 +23,7 @@ expect.extend({
 })
 ```
 
-<<<<<<< HEAD
-如果你使用 TypeScript，自 Vitest 0.31.0 起，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
-=======
-If you are using TypeScript, you can extend default `Assertion` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+如果你使用 TypeScript，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
 
 ```ts
 import type { Assertion, AsymmetricMatchersContaining } from 'vitest'
