@@ -220,11 +220,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 - **类型:** `{ ssr?, web? }`
 - **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
 
-<<<<<<< HEAD
-启用依赖优化。如果你有很多测试，这可能会提高它们的性能。在 Vitest 0.34.0 之前, 它被命名为 `deps.experimentalOptimizer`。
-=======
-Enable dependency optimization. If you have a lot of tests, this might improve their performance.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
 当 Vitest 遇到 `include` 中列出的外部库时，它将使用 esbuild 打包到单个文件中，并作为整个模块导入。这很好，原因如下：
 
@@ -243,25 +239,17 @@ Enable dependency optimization. If you have a lot of tests, this might improve t
 
 #### deps.optimizer.{mode}.enabled
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `true` if using >= Vite 4.3.2, `false` otherwise
-=======
-- **Type:** `boolean`
-- **Default:** `false`
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+- **默认值:** `false`
 
 启用依赖优化。
 
-<<<<<<< HEAD
 ::: warning
 此选项仅适用于 Vite 4.3.2 及更高版本。
 :::
 
-#### deps.web <Badge type="info">0.34.2+</Badge> {#deps-web}
-=======
-#### deps.web  {#deps-web}
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+#### deps.web <Badge type="info">0.34.2+</Badge>
+#### deps.web
 
 - **类型:** `{ transformAssets?, ... }`
 
@@ -446,13 +434,6 @@ Vitest 使用 Vite SSR 基元来运行测试，这有[一定的缺陷](https://v
 3. 如果您要别名外部依赖（例如，`react` -> `preact`），您可能需要别名实际的 `node_modules` 包，以使其适用于外部依赖。[Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) 和 [pnpm](https://pnpm.io/aliases/) 都支持通过 `npm:` 前缀进行别名。
    :::
 
-::: warning
-Vitest uses Vite SSR primitives to run tests which has [certain pitfalls](https://vitejs.dev/guide/ssr.html#ssr-externals).
-
-1. Aliases affect only modules imported directly with an `import` keyword by an [inlined](#server-deps-inline) module (all source code is inlined by default).
-2. Vitest does not support aliasing `require` calls.
-3. If you are aliasing an external dependency (e.g., `react` -> `preact`), you may want to alias the actual `node_modules` packages instead to make it work for externalized dependencies. Both [Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) and [pnpm](https://pnpm.io/aliases/) support aliasing via the `npm:` prefix.
-   :::
 
 ### globals
 
@@ -573,11 +554,7 @@ export default <Environment>{
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
 
 ::: tip
-<<<<<<< HEAD
-从 Vitest 1.3.0 开始，jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom) 的 `jsdom` 全局变量实例。如果你想让 TypeScript 识别它，可以在使用此环境时将 `vitest/jsdom`添加到 `tsconfig.json` 中：
-=======
 jsdom environment exposes `jsdom` global variable equal to the current [JSDOM](https://github.com/jsdom/jsdom) instance. If you want TypeScript to recognize it, you can add `vitest/jsdom` to your `tsconfig.json` when you use this environment:
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 ```json
 {
@@ -697,15 +674,9 @@ export default defineConfig({
 
 ### pool<NonProjectOption /> {#pool}
 
-<<<<<<< HEAD
 - **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
-- **默认值:** `'forks'` (in v1 `'threads'`)
+- **默认值:** `'forks'`
 - **命令行终端:** `--pool=threads`
-=======
-- **Type:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
-- **Default:** `'forks'`
-- **CLI:** `--pool=threads`
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 用于运行测试的线程池。
 
@@ -1121,15 +1092,9 @@ globalThis.resetBeforeEachTest = true
 :::
 
 ::: warning
-<<<<<<< HEAD
-由于 Vitest 1.0.0-beta，全局设置只有在至少有一个正在运行的测试时才运行。这意味着在测试文件更改后，全局安装程序可能会在监视模式下开始运行（测试文件将等待全局安装程序完成后再运行）。
+全局设置只有在至少有一个正在运行的测试时才运行。这意味着在测试文件更改后，全局安装程序可能会在监视模式下开始运行（测试文件将等待全局安装程序完成后再运行）。
 
 请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 `provide` 方法将可序列化数据传递给测试：
-=======
-Global setup runs only if there is at least one running test. This means that global setup might start running during watch mode after test file is changed (the test file will wait for global setup to finish before running).
-
-Beware that the global setup is running in a different global scope, so your tests don't have access to variables defined here. However, you can pass down serializable data to tests via `provide` method:
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 :::code-group
 
@@ -1277,17 +1242,10 @@ export default defineConfig({
 
 #### coverage.all
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `true` (since Vitest `1.0.0`)
+- **默认值:** `true`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.all`, `--coverage.all=false`
-=======
-- **Type:** `boolean`
-- **Default:** `true`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.all`, `--coverage.all=false`
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 是否将所有文件（包括未测试的文件）包括在报告中。
 
@@ -1365,11 +1323,7 @@ export default defineConfig({
   }
   ```
 
-<<<<<<< HEAD
-从 Vitest 1.2.0 起，我们还可以传递自定义覆盖报告器。查看[自定义覆盖报告器](/guide/coverage#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A6%86%E7%9B%96%E7%8E%87%E6%8F%90%E4%BE%9B%E8%80%85)了解更多详情。
-=======
-You can also pass custom coverage reporters. See [Guide - Custom Coverage Reporter](/guide/coverage#custom-coverage-reporter) for more information.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+我们还可以传递自定义覆盖报告器。查看[自定义覆盖报告器](/guide/coverage#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A6%86%E7%9B%96%E7%8E%87%E6%8F%90%E4%BE%9B%E8%80%85)了解更多详情。
 
 <!-- eslint-skip -->
 
@@ -1387,25 +1341,14 @@ You can also pass custom coverage reporters. See [Guide - Custom Coverage Report
 }
 ```
 
-<<<<<<< HEAD
-从 Vitest 0.31.0 起，我们可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI Coverage](/guide/coverage#vitest-ui) 了解更多详情。
-=======
 You can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 #### coverage.reportOnFailure {#coverage-reportonfailure}
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `false` (since Vitest `0.34.0`)
+- **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 即使测试失败也会生成覆盖率报告。
 

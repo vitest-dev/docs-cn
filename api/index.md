@@ -39,11 +39,7 @@ interface TestOptions {
 
 :::
 
-<<<<<<< HEAD
-自 Vitest 1.3.0 以来，大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
-=======
-Most options support both dot-syntax and object-syntax allowing you to use whatever style you prefer.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
 
 :::code-group
 
@@ -54,12 +50,8 @@ test.skip('skipped test', () => {
   // 一些现在失败的逻辑
 })
 ```
-<<<<<<< HEAD
 
-```ts [object-syntax <Version>1.3.0</Version>] twoslash
-=======
 ```ts [object-syntax] twoslash
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
@@ -929,11 +921,7 @@ beforeEach(async () => {
 
 这里， `beforeEach` 确保每次测试都会添加用户。
 
-<<<<<<< HEAD
-自 Vitest v0.10.0 起，`beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
-=======
-`beforeEach` also accepts an optional cleanup function (equivalent to `afterEach`).
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+`beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -991,11 +979,7 @@ beforeAll(async () => {
 
 这里的 `beforeAll` 确保在测试运行前设置好模拟数据。
 
-<<<<<<< HEAD
-自 Vitest v0.10.0 起，`beforeAll` 还接受一个可选的清理函数（相当于 `afterAll`）。
-=======
-`beforeAll` also accepts an optional cleanup function (equivalent to `afterAll`).
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+`beforeAll` 还接受一个可选的清理函数（相当于 `afterAll`）。
 
 ```ts
 import { beforeAll } from 'vitest'

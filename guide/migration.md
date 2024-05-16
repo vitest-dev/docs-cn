@@ -7,14 +7,12 @@ outline: deep
 
 ## 迁移到 Vitest 2.0
 
-<<<<<<< HEAD
 ### 钩子函数在堆栈中运行
-=======
-### Default pool is `forks`
+### 默认数据池为 `forks`
 
-Vitest 2.0 changes the default configuration for `pool` to `'forks'` for better stability. You can read the full motivation in [PR](https://github.com/vitest-dev/vitest/pull/5047).
+为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。您可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047)中阅读完整的动机。
 
-If you've used `poolOptions` without specifying a `pool`, you might need to update the configuration:
+如果使用了 `poolOptions` 而未指定一个 `pool`，则可能需要更新配置：
 
 ```ts
 export default defineConfig({
@@ -32,14 +30,10 @@ export default defineConfig({
 ```
 
 ### Hooks are running in a stack
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
 
 在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
-<<<<<<< HEAD
 您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
-=======
-You can revert to the previous behaviour by changing [`sequence.hooks`](/config/#sequence-hooks) to `'parallel'`:
 
 ```ts
 export default defineConfig({
@@ -51,17 +45,17 @@ export default defineConfig({
 })
 ```
 
-### `suite.concurrent` runs all its tests concurrently
+### `suite.concurrent` 同时运行所有测试
 
-Previously, specifying `concurrent` on a suite would still group concurrent tests by suites and run them together one by one. Now, it follows jest's behaviour and runs all of them at once (still limited by [`maxConcurrency`](/config/#maxConcurrency))
+以前，在套件上指定 `concurrent` 时，并发测试仍会按套件分组并逐个运行。现在，它会遵循 jest 的行为，一次运行所有测试（仍受 [`maxConcurrency`](/config/#maxConcurrency)限制）。
 
-### enable V8 coverage's `coverage.ignoreEmptyLines` by default
+### 默认启用 V8 覆盖的 `coverage.ignoreEmptyLines`
 
-Changes default value of `coverage.ignoreEmptyLines` to `true`. This change will have major impact on users' code coverage reports. It is likely that projects using coverage thresholds need to adjust those values after this. This change affects only the default `coverage.provider: 'v8'`.
+将 `coverage.ignoreEmptyLines` 的默认值改为 `true`。此更改将对用户的代码覆盖率报告产生重大影响。使用覆盖率阈值的项目很可能需要在此之后调整这些值。此更改仅影响默认的 `coverage.provider.'v8'`： 'v8'`.
 
-### No more `watchExclude` option
+### 不再有`watchExclude`选项
 
-Vitest uses Vite's watcher. You can add your excludes to `server.watch.ignored` instead:
+Vitest 使用 Vite 的监视器。您可以将排除项添加到 `server.watch.ignored`：
 
 ```ts
 export default defineConfig({
@@ -73,18 +67,17 @@ export default defineConfig({
 })
 ```
 
-### `--segfault-retry` removed
+### `--segfault-retry` 删除
 
-With the changes to default pool, this option is no longer needed. If you experience segfault errors, try switching to `'forks'` pool. If the problem persists, please open a new issue with a reproduction.
+默认程序池更改后，不再需要此选项。如果遇到分离故障错误，请尝试切换到`'forks'`池。如果问题仍然存在，请重现问题并打开一个新问题。
+### 删除套件任务中的空任务
 
-### Empty task in suite tasks removed
 
-This is the change to the advanced [task API](/advanced/runner#your-task-function). Previously, traversing `.suite` would eventually lead to the empty internal suite that was used instead of a file task.
+这是对高级[task API](/advanced/runner#your-task-function)的更改。以前，遍历 `.suite`最终会导致使用空的内部套件，而不是文件任务。
 
-This makes `.suite` optional; if the task is defined at the top level, it will not have a suite. You can fallback to the `.file` property that is now present on all tasks (including the file task itself, so be careful not to fall into the endless recursion).
+这使得 `.suite`成为可选项；如果任务是在顶层定义的，则不会有 suite。您可以回退到 `.file`属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
 
-This change also removes the file from `expect.getState().currentTestName` and makes `expect.getState().testPath` required.
->>>>>>> 75a5c60412a668e90095003241df1e96dbbcd8f5
+这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
 
 ## 迁移到 Vitest 1.0
 
