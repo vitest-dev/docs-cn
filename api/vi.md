@@ -17,7 +17,7 @@ import { vi } from 'vitest'
 ### vi.mock
 
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void` <Version>2.0.0+</Version>
+- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void`
 
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
 
@@ -65,7 +65,7 @@ vi.mock('./path/to/module.js', async (importOriginal) => {
 })
 ```
 
-从 2.0.0 开始，Vitest 支持模块 promise，而不是 `vi.mock` 方法中的字符串，以获得更好的 IDE 支持（当文件被移动时，路径将被更新，`importOriginal` 也会自动继承类型）。
+Vitest 支持模块 promise，而不是 `vi.mock` 方法中的字符串，以获得更好的 IDE 支持（当文件被移动时，路径将被更新，`importOriginal` 也会自动继承类型）。
 
 ```ts
 vi.mock(import('./path/to/module.js'), async (importOriginal) => {
@@ -448,7 +448,7 @@ console.log(cart.getApples()) // still 42!
 
 :::
 
-### vi.stubEnv <Badge type="info">0.26.0+</Badge> {#vi-stubenv}
+### vi.stubEnv {#vi-stubenv}
 
 - **类型:** `(name: string, value: string) => Vitest`
 
@@ -477,7 +477,7 @@ import.meta.env.MODE = 'test'
 
 :::
 
-### vi.unstubAllEnvs <Badge type="info">0.26.0+</Badge> {#vi-unstuballenvs}
+### vi.unstubAllEnvs {#vi-unstuballenvs}
 
 - **类型:** `() => Vitest`
 
@@ -536,7 +536,7 @@ window.innerWidth = 100
 
 :::
 
-### vi.unstubAllGlobals <Badge type="info">0.26.0+</Badge> {#vi-unstuballglobals}
+### vi.unstubAllGlobals {#vi-unstuballglobals}
 
 - **类型:** `() => Vitest`
 
@@ -792,11 +792,11 @@ vi.useRealTimers()
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
 
 ::: tip
-从版本 `0.35.0` 开始，`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
+`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
 :::
 
-### vi.isFakeTimers <Badge type="info">0.34.5+</Badge> {#vi-isfaketimers}
+### vi.isFakeTimers {#vi-isfaketimers}
 
 - **类型:** `() => boolean`
 
@@ -812,7 +812,7 @@ vi.useRealTimers()
 
 Vitest 提供的一组有用的辅助函数。
 
-### vi.waitFor <Badge type="info">0.34.5+</Badge> {#vi-waitfor}
+### vi.waitFor {#vi-waitfor}
 
 - **类型:** `<T>(callback: WaitForCallback<T>, options?: number | WaitForOptions) => Promise<T>`
 
@@ -874,7 +874,7 @@ test('Element exists in a DOM', async () => {
 
 如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
 
-### vi.waitUntil <Badge type="info">0.34.5+</Badge> {#vi-waituntil}
+### vi.waitUntil
 
 - **类型:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
 
@@ -896,7 +896,7 @@ test('Element render correctly', async () => {
 })
 ```
 
-### vi.hoisted <Badge type="info">0.31.0+</Badge> {#vi-hoisted}
+### vi.hoisted {#vi-hoisted}
 
 - **类型**: `<T>(factory: () => T) => T`
 

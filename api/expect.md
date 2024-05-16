@@ -754,7 +754,7 @@ test('matches snapshot', () => {
 })
 ```
 
-## toMatchFileSnapshot <Badge type="info">0.30.0+</Badge> {#tomatchfilesnapshot}
+## toMatchFileSnapshot {#tomatchfilesnapshot}
 
 - **类型:** `<T>(filepath: string, message?: string) => Promise<void>`
 
@@ -1231,7 +1231,7 @@ test('"id" is a number', () => {
 })
 ```
 
-## expect.closeTo <Badge type="info">1.0.0+</Badge> {#expect-closeto}
+## expect.closeTo {#expect-closeto}
 
 - **类型:** `(expected: any, precision?: number) => any`
 
@@ -1423,7 +1423,7 @@ declare module 'vitest' {
 如果想了解更多信息，请查看 [扩展断言 (Matchers) 指南](/guide/extending-matchers)。
 :::
 
-## expect.addEqualityTesters <Badge type="info">1.2.0+</Badge> {#expect-addequalitytesters}
+## expect.addEqualityTesters {#expect-addequalitytesters}
 
 - **类型:** `(tester: Array<Tester>) => void`
 

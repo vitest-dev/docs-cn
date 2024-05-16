@@ -118,7 +118,7 @@ assertType<string>(answr) //
 
 ## 运行类型检查
 
-从 Vitest 1.0 开始要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
+要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
 
 ```json
 {

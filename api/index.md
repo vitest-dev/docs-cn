@@ -39,7 +39,7 @@ interface TestOptions {
 
 :::
 
-自 Vitest 1.3.0 以来，大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
+大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
 
 :::code-group
 
@@ -51,7 +51,7 @@ test.skip('skipped test', () => {
 })
 ```
 
-```ts [object-syntax <Version>1.3.0</Version>] twoslash
+```ts [object-syntax] twoslash
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
@@ -78,7 +78,7 @@ test('should work as expected', () => {
 })
 ```
 
-### test.extend <Version>0.32.3</Version> {#test-extended}
+### test.extend {#test-extended}
 
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
@@ -921,7 +921,7 @@ beforeEach(async () => {
 
 这里， `beforeEach` 确保每次测试都会添加用户。
 
-自 Vitest v0.10.0 起，`beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
+`beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -979,7 +979,7 @@ beforeAll(async () => {
 
 这里的 `beforeAll` 确保在测试运行前设置好模拟数据。
 
-自 Vitest v0.10.0 起，`beforeAll` 还接受一个可选的清理函数（相当于 `afterAll`）。
+`beforeAll` 还接受一个可选的清理函数（相当于 `afterAll`）。
 
 ```ts
 import { beforeAll } from 'vitest'
@@ -1022,7 +1022,7 @@ Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些钩
 如果在测试体之外调用这些 hooks ，则会出错。
 :::
 
-### onTestFinished <Version>1.3.0</Version> {#ontestfinished}
+### onTestFinished {#ontestfinished}
 
 这个 hook 总是在测试运行结束后调用。它在 `afterEach` 之后被调用，因为它们会影响测试结果。它接收一个包含当前测试结果的 `TaskResult` 。
 

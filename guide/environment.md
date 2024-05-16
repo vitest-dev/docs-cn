@@ -31,7 +31,7 @@ test('test', () => {
 
 ## 自定义环境
 
-从 0.23.0 版本开始，你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径（自 0.34.0 版本起支持）。该包应该导出一个形状为 `Environment` 的对象。
+你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
 
 ```ts twoslash
 import type { Environment } from 'vitest'
@@ -64,7 +64,7 @@ export default <Environment>{
 ```
 
 ::: warning
-从 0.34.0 开始，Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `ssr` 或 `web`。该值决定插件如何转换源代码。如果设置为 `ssr`，则插件挂钩在转换或解析文件时将收到 `ssr: true`。 否则，`ssr` 被设置为 `false`。
+Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `ssr` 或 `web`。该值决定插件如何转换源代码。如果设置为 `ssr`，则插件挂钩在转换或解析文件时将收到 `ssr: true`。 否则，`ssr` 被设置为 `false`。
 :::
 
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：

@@ -203,7 +203,7 @@ if (import.meta.vitest) {
 
 ## 基准测试 <Badge type="warning">Experimental</Badge> {#benchmarking}
 
-从 Vitest 0.23.0 开始，你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
+你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
 ```ts twoslash
 import { bench, describe } from 'vitest'
@@ -230,7 +230,7 @@ describe('sort', () => {
 
 ## 类型测试 <Badge type="warning">Experimental</Badge> {#type-testing}
 
-从 Vitest 0.25.0 开始，你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
+你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 
 ```ts
 import { assertType, expectTypeOf } from 'vitest'

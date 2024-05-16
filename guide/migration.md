@@ -7,11 +7,77 @@ outline: deep
 
 ## 迁移到 Vitest 2.0
 
+
+### 默认数据池为 `forks`
+
+为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。您可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047)中阅读完整的动机。
+
+如果使用了 `poolOptions` 而未指定一个 `pool`，则可能需要更新配置：
+
+```ts
+export default defineConfig({
+  test: {
+    poolOptions: {
+      threads: { // [!code --]
+        singleThread: true, // [!code --]
+      }, // [!code --]
+      forks: { // [!code ++]
+        singleFork: true, // [!code ++]
+      }, // [!code ++]
+    }
+  }
+})
+```
+
 ### 钩子函数在堆栈中运行
 
 在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
 您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
+
+```ts
+export default defineConfig({
+  test: {
+    sequence: { // [!code ++]
+      hooks: 'parallel', // [!code ++]
+    }, // [!code ++]
+  },
+})
+```
+
+### `suite.concurrent` 同时运行所有测试
+
+以前，在套件上指定 `concurrent` 时，并发测试仍会按套件分组并逐个运行。现在，它会遵循 jest 的行为，一次运行所有测试（仍受 [`maxConcurrency`](/config/#maxConcurrency)限制）。
+
+### 默认启用 V8 覆盖的 `coverage.ignoreEmptyLines`
+
+将 `coverage.ignoreEmptyLines` 的默认值改为 `true`。此更改将对用户的代码覆盖率报告产生重大影响。使用覆盖率阈值的项目很可能需要在此之后调整这些值。此更改仅影响默认的 `coverage.provider.'v8'`： 'v8'`.
+
+### 不再有`watchExclude`选项
+
+Vitest 使用 Vite 的监视器。您可以将排除项添加到 `server.watch.ignored`：
+
+```ts
+export default defineConfig({
+  server: { // [!code ++]
+    watch: { // [!code ++]
+      ignored: ['!node_modules/examplejs'] // [!code ++]
+    } // [!code ++]
+  } // [!code ++]
+})
+```
+
+### `--segfault-retry` 删除
+
+默认程序池更改后，不再需要此选项。如果遇到分离故障错误，请尝试切换到`'forks'`池。如果问题仍然存在，请重现问题并打开一个新问题。
+### 删除套件任务中的空任务
+
+
+这是对高级[task API](/advanced/runner#your-task-function)的更改。以前，遍历 `.suite`最终会导致使用空的内部套件，而不是文件任务。
+
+这使得 `.suite`成为可选项；如果任务是在顶层定义的，则不会有 suite。您可以回退到 `.file`属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
+
+这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
 
 ## 迁移到 Vitest 1.0
 
