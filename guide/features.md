@@ -201,7 +201,7 @@ if (import.meta.vitest) {
 
 了解更多信息 [源码内联测试](/guide/in-source)
 
-## 基准测试 <Badge type="warning">Experimental</Badge> {#benchmarking}
+## 基准测试 <Badge type="warning">实验性</Badge> {#benchmarking}
 
 你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
@@ -228,7 +228,7 @@ describe('sort', () => {
 <img alt="Benchmark report" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/6f0383ea-38ba-4f14-8a05-ab243afea01d">
 <img alt="Benchmark report" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/efbcb427-ecf1-4882-88de-210cd73415f6">
 
-## 类型测试 <Badge type="warning">Experimental</Badge> {#type-testing}
+## 类型测试 <Badge type="warning">实验性</Badge> {#type-testing}
 
 你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 
