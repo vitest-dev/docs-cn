@@ -226,7 +226,7 @@ export default defineWorkspace([
 
 [从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
 
-了解更多有关 [IDE 插件](guide/ide.md) 的更多信息
+了解更多有关 [IDE 插件](/guide/ide) 的更多信息
 
 ## 示例
 
