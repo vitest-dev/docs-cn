@@ -122,8 +122,6 @@ test('image snapshot', () => {
 })
 ```
 
-你可以在 [`examples/image-snapshot`](https://github.com/vitest-dev/vitest/blob/main/examples/image-snapshot) 中学习更多案例。
-
 ## 自定义序列化程序
 
 你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 为内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
