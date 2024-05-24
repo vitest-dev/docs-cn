@@ -410,16 +410,8 @@ afterEach(() => server.resetHandlers())
 
 > 使用 `onUnhandleRequest: 'error'` 配置服务器可以确保即使某个请求没有相应的请求处理程序，也会抛出错误。
 
-<<<<<<< HEAD
-### 示例
-
-我们有一个使用 MSW 的完整工作示例：[React Testing with MSW](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib-msw)。
 
 ### 了解更多
-=======
-### More
-There is much more to MSW. You can access cookies and query parameters, define mock error responses, and much more! To see all you can do with MSW, read [their documentation](https://mswjs.io/docs).
->>>>>>> 29e7598c8a2503ae079a3c4443ee03d0b0e99664
 
 MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看你可以使用 MSW 做什么，请阅读 [their documentation](https://mswjs.io/docs).
 
