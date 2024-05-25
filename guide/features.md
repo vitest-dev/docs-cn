@@ -247,10 +247,17 @@ test('my types work properly', () => {
 
 ## 分片
 
+<<<<<<< HEAD
 使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter)标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
+=======
+Run tests on different machines using [`--shard`](/guide/cli#shard) and [`--reporter=blob`](/guide/reporters#blob-reporter) flags.
+All test and coverage results can be merged at the end of your CI pipeline using `--merge-reports` command:
+>>>>>>> 6d8f5db48f0b71948ed551f8b3001ef1fe5cae99
 
 ```bash
 vitest --shard=1/2 --reporter=blob
 vitest --shard=2/2 --reporter=blob
-vitest --merge-reports --reporter=junit
+vitest --merge-reports --reporter=junit --coverage.reporter=text
 ```
+
+See [`Improving Performance | Sharding`](/guide/improving-performance#sharding) for more information.

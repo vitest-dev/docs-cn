@@ -1747,6 +1747,14 @@ export default defineConfig({
 
 在浏览器中运行时，默认情况下会启用此选项。如果你依赖于使用 `vi.spyOn` 监视 ES 模块，则可以启用此实验功能来监视模块导出。
 
+#### browser.ui {#browser-ui}
+
+- **Type:** `boolean`
+- **Default:** `!isCI`
+- **CLI:** `--browser.ui=false`
+
+Should Vitest UI be injected into the page. By default, injects UI iframe during development.
+
 #### browser.indexScripts {#browser-indexscripts}
 
 - **类型:** `BrowserScript[]`
