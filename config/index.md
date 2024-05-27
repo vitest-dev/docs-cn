@@ -249,6 +249,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 :::
 
 #### deps.web <Badge type="info">0.34.2+</Badge>
+
 #### deps.web
 
 - **类型:** `{ transformAssets?, ... }`
@@ -433,7 +434,6 @@ Vitest 使用 Vite SSR 基元来运行测试，这有[一定的缺陷](https://v
 2. Vitest 不支持对 `require` 调用进行别名。
 3. 如果您要别名外部依赖（例如，`react` -> `preact`），您可能需要别名实际的 `node_modules` 包，以使其适用于外部依赖。[Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) 和 [pnpm](https://pnpm.io/aliases/) 都支持通过 `npm:` 前缀进行别名。
    :::
-
 
 ### globals
 
@@ -1749,11 +1749,11 @@ export default defineConfig({
 
 #### browser.ui {#browser-ui}
 
-- **Type:** `boolean`
-- **Default:** `!isCI`
-- **CLI:** `--browser.ui=false`
+- **类型:** `boolean`
+- **默认值:** `!isCI`
+- **命令行终端:** `--browser.ui=false`
 
-Should Vitest UI be injected into the page. By default, injects UI iframe during development.
+是否应该将 Vitest UI 注入到页面中。默认情况下，在开发过程中注入 UI iframe。
 
 #### browser.indexScripts {#browser-indexscripts}
 
