@@ -88,9 +88,9 @@ export default defineConfig({
 
 ## Sharding
 
-Test sharding means running a small subset of test cases at a time. It can be useful when you have multiple machines that could be used to run tests simultaneously.
+测试分片意味着一次运行一小部分测试用例。当你有多台可用于同时运行测试的机器时，它会很有用。
 
-To split Vitest tests on multiple different runs, use [`--shard`](/guide/cli#shard) option with [`--reporter=blob`](/guide/reporters#blob-reporter) option:
+要在多个不同的运行中拆分 Vitest 测试，请将 [`--shard`](/guide/cli#shard) 选项与 [`--reporter=blob`](/guide/reporters#blob-reporter) 选项一起使用：
 
 ```sh
 vitest run --reporter=blob --shard=1/3 # 1st machine
@@ -98,7 +98,7 @@ vitest run --reporter=blob --shard=2/3 # 2nd machine
 vitest run --reporter=blob --shard=3/3 # 3rd machine
 ```
 
-Collect the results stored in `.vitest-reports` directory from each machine and merge them with [`--merge-reports`](/guide/cli#merge-reports) option:
+从每台计算机收集存储在 `.vitest-reports` 目录中的结果，并使用 [`--merge-reports`](/guide/cli#merge-reports) 选项将其合并：
 
 ```sh
 vitest --merge-reports
@@ -177,12 +177,12 @@ jobs:
 </details>
 
 :::tip
-Test sharding can also become useful on high CPU-count machines.
+测试分片在多 CPU 数量的机器上也很有用。
 
-Vitest will run only a single Vite server in its main thread. Rest of the threads are used to run test files.
-In a high CPU-count machine the main thread can become a bottleneck as it cannot handle all the requests coming from the threads. For example in 32 CPU machine the main thread is responsible to handle load coming from 31 test threads.
+Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用于运行测试文件。
+在高 CPU 计数的机器中，主线程可能会成为瓶颈，因为它无法处理来自线程的所有请求。例如，在 32 CPU 机器中，主线程负责处理来自 31 个测试线程的负载。
 
-To reduce the load from main thread's Vite server you can use test sharding. The load can be balanced on multiple Vite server.
+为了减少主线程的 Vite 服务器的负载，可以使用测试分片。负载可以在多个 Vite 服务器上进行平衡。
 
 ```sh
 # Example for splitting tests on 32 CPU to 4 shards.
