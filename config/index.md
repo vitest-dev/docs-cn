@@ -1653,6 +1653,7 @@ test('doNotRun', () => {
 
 在单独的 iframe 中运行每个测试。
 
+<<<<<<< HEAD
 ### browser.fileParallelism {#browser-fileparallelism}
 
 - **类型:** `boolean`
@@ -1667,6 +1668,8 @@ test('doNotRun', () => {
 如果通过 [`browser.isolate=false`](#browserisolate) 禁用了隔离，由于测试运行器的特性，测试文件仍会一个接一个地运行。
 :::
 
+=======
+>>>>>>> 6e293dcdac5182d574d8ae9b1426f6ee4b75d852
 #### browser.api
 
 - **类型:** `number | { port?, strictPort?, host? }`
@@ -2447,3 +2450,9 @@ export interface SnapshotEnvironment {
 
 如果只需要配置快照功能，请使用 [`snapshotFormat`](#snapshotformat)或 [`resolveSnapshotPath`](#resolvesnapshotpath)选项。
 :::
+
+### env {#env}
+
+- **Type:** `Partial<NodeJS.ProcessEnv>`
+
+Environment variables available on `process.env` and `import.meta.env` during tests. These variables will not be available in the main process (in `globalSetup`, for example).
