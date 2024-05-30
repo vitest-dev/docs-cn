@@ -1653,20 +1653,6 @@ test('doNotRun', () => {
 
 在单独的 iframe 中运行每个测试。
 
-### browser.fileParallelism {#browser-fileparallelism}
-
-- **类型:** `boolean`
-- **默认值:** 与 [`fileParallelism`]（#fileparallelism-110）相同
-- **命令行终端:** `--browser.fileParallelism=false`
-
-同时创建所有测试 iframe，使它们并行运行。
-
-这样就无法使用交互式 API（如点击或悬停），因为屏幕上会同时出现多个 iframe，但如果在测试中不依赖于这些 API，那么同时运行所有 iframe 可能会快很多。
-
-::: tip
-如果通过 [`browser.isolate=false`](#browserisolate) 禁用了隔离，由于测试运行器的特性，测试文件仍会一个接一个地运行。
-:::
-
 #### browser.api
 
 - **类型:** `number | { port?, strictPort?, host? }`
@@ -2447,3 +2433,9 @@ export interface SnapshotEnvironment {
 
 如果只需要配置快照功能，请使用 [`snapshotFormat`](#snapshotformat)或 [`resolveSnapshotPath`](#resolvesnapshotpath)选项。
 :::
+
+### env {#env}
+
+- **类型:** `Partial<NodeJS.ProcessEnv>`
+
+测试期间在 `process.env` 和 `import.meta.env` 中可用的环境变量。这些变量在主进程中不可用（例如在 `globalSetup` 中）。
