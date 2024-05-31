@@ -1604,9 +1604,15 @@ test('doNotRun', () => {
 
 ### browser {#browser}
 
+<<<<<<< HEAD
 - **类型:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
 - **默认值:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
 - **命令行终端:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
+=======
+- **Type:** `{ enabled?, name?, provider?, headless?, api? }`
+- **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
+- **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](#browser-provider) 选项进行配置。
 
@@ -1722,6 +1728,7 @@ export default defineConfig({
 
 :::
 
+<<<<<<< HEAD
 #### browser.slowHijackESM {#browser-slowhijackesm}
 
 - **类型:** `boolean`
@@ -1733,6 +1740,8 @@ export default defineConfig({
 
 在浏览器中运行时，默认情况下会启用此选项。如果你依赖于使用 `vi.spyOn` 监视 ES 模块，则可以启用此实验功能来监视模块导出。
 
+=======
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 #### browser.ui {#browser-ui}
 
 - **类型:** `boolean`
@@ -2438,4 +2447,50 @@ export interface SnapshotEnvironment {
 
 - **类型:** `Partial<NodeJS.ProcessEnv>`
 
+<<<<<<< HEAD
 测试期间在 `process.env` 和 `import.meta.env` 中可用的环境变量。这些变量在主进程中不可用（例如在 `globalSetup` 中）。
+=======
+Environment variables available on `process.env` and `import.meta.env` during tests. These variables will not be available in the main process (in `globalSetup`, for example).
+
+### expect
+
+- **Type:** `ExpectOptions`
+
+#### expect.requireAssertions
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+The same as calling [`expect.hasAssertions()`](/api/expect#expect-hasassertions) at the start of every test. This makes sure that no test will pass accidentally.
+
+::: tip
+This only works with Vitest's `expect`. If you use `assert` ot `.should` assertions, they will not count, and your test will fail due to the lack of expect assertions.
+
+You can change the value of this by calling `vi.setConfig({ expect: { requireAssertions: false } })`. The config will be applied to every subsequent `expect` call until the `vi.resetConfig` is called manually.
+:::
+
+#### expect.poll
+
+Global configuration options for [`expect.poll`](/api/expect#poll). These are the same options you can pass down to `expect.poll(condition, options)`.
+
+##### expect.poll.interval
+
+- **Type:** `number`
+- **Default:** `50`
+
+Polling interval in milliseconds
+
+##### expect.poll.timeout
+
+- **Type:** `number`
+- **Default:** `1000`
+
+Polling timeout in milliseconds
+
+### printConsoleTrace
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Always print console traces when calling any `console` method. This is useful for debugging.
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a

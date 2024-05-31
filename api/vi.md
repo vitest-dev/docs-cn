@@ -29,11 +29,15 @@ import { vi } from 'vitest'
 Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules) ，在运行测试文件前清除所有模块缓存。
 :::
 
+<<<<<<< HEAD
 ::: warning
 [浏览器模式](/guide/browser)目前不支持模拟模块。可以在这个 <a href="https://github.com/vitest-dev/vitest/issues/3046">issue</a> 中持续关注此功能。
 :::
 
 如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
+=======
+If `factory` is defined, all imports will return its result. Vitest calls factory only once and caches results for all subsequent imports until [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock) is called.
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 与 `jest` 不同，factory 可以是异步的。可以使用 [`vi.importActual`](#vi-importactual)，或者将 factory 作为第一个参数传递的助手，并在其中获取原始模块。
 

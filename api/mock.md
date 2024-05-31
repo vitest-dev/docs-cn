@@ -308,7 +308,11 @@ fn.mock.calls
 - `'return'` - 函数返回时没有抛出。
 - `'throw'` - 函数抛出了一个值。
 
+<<<<<<< HEAD
 `value` 属性包含返回值或抛出的错误。如果函数返回一个 Promise，`value` 将是 _resolved_ 值，而不是实际的 `Promise`，除非它从未被解析。
+=======
+The `value` property contains the returned value or thrown error. If the function returned a `Promise`, then `result` will always be `'return'` even if the promise was rejected.
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 ```js
 const fn = vi
@@ -336,6 +340,29 @@ fn.mock.results
   {
     type: 'throw',
     value: Error,
+  },
+]
+```
+
+## mock.settledResults
+
+An array containing all values that were `resolved` or `rejected` from the function.
+
+This array will be empty if the function was never resolved or rejected.
+
+```js
+const fn = vi.fn().mockResolvedValueOnce('result')
+
+const result = fn()
+
+fn.mock.settledResults === []
+
+await result
+
+fn.mock.settledResults === [
+  {
+    type: 'fulfilled',
+    value: 'result',
   },
 ]
 ```

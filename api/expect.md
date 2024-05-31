@@ -941,7 +941,11 @@ test('spy function returned a value', () => {
 
 - **类型**: `(amount: number) => Awaitable<void>`
 
+<<<<<<< HEAD
 这个断言检查函数是否成功返回了确切次数的值（即没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
+=======
+This assertion checks if a function has successfully returned a value an exact amount of times (i.e., did not throw an error). Requires a spy function to be passed to `expect`.
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -978,7 +982,11 @@ test('spy function returns a product', () => {
 
 - **类型**: `(returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 我们可以调用此断言来检查函数是否在最后一次调用时成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully returned a certain value when it was last invoked. Requires a spy function to be passed to `expect`.
+>>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -1009,6 +1017,121 @@ test('spy function returns bananas on second call', () => {
   sell('bananas')
 
   expect(sell).toHaveNthReturnedWith(2, { product: 'bananas' })
+})
+```
+
+## toHaveResolved
+
+- **Type**: `() => Awaitable<void>`
+
+This assertion checks if a function has successfully resolved a value at least once (i.e., did not reject). Requires a spy function to be passed to `expect`.
+
+If the function returned a promise, but it was not resolved yet, this will fail.
+
+```ts twoslash
+// @filename: db/apples.js
+/** @type {any} */
+const db = {}
+export default db
+// @filename: test.ts
+// ---cut---
+import { expect, test, vi } from 'vitest'
+import db from './db/apples.js'
+
+async function getApplesPrice(amount: number) {
+  return amount * await db.get('price')
+}
+
+test('spy function resolved a value', async () => {
+  const getPriceSpy = vi.fn(getApplesPrice)
+
+  const price = await getPriceSpy(10)
+
+  expect(price).toBe(100)
+  expect(getPriceSpy).toHaveResolved()
+})
+```
+
+## toHaveResolvedTimes
+
+- **Type**: `(amount: number) => Awaitable<void>`
+
+This assertion checks if a function has successfully resolved a value an exact amount of times (i.e., did not reject). Requires a spy function to be passed to `expect`.
+
+This will only count resolved promises. If the function returned a promise, but it was not resolved yet, it will not be counted.
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function resolved a value two times', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+  await sell('bananas')
+
+  expect(sell).toHaveResolvedTimes(2)
+})
+```
+
+## toHaveResolvedWith
+
+- **Type**: `(returnValue: any) => Awaitable<void>`
+
+You can call this assertion to check if a function has successfully resolved a certain value at least once. Requires a spy function to be passed to `expect`.
+
+If the function returned a promise, but it was not resolved yet, this will fail.
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function resolved a product', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+
+  expect(sell).toHaveResolvedWith({ product: 'apples' })
+})
+```
+
+## toHaveLastResolvedWith
+
+- **Type**: `(returnValue: any) => Awaitable<void>`
+
+You can call this assertion to check if a function has successfully resolved a certain value when it was last invoked. Requires a spy function to be passed to `expect`.
+
+If the function returned a promise, but it was not resolved yet, this will fail.
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function resolves bananas on a last call', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+  await sell('bananas')
+
+  expect(sell).toHaveLastResolvedWith({ product: 'bananas' })
+})
+```
+
+## toHaveNthResolvedWith
+
+- **Type**: `(time: number, returnValue: any) => Awaitable<void>`
+
+You can call this assertion to check if a function has successfully resolved a certain value on a specific invokation. Requires a spy function to be passed to `expect`.
+
+If the function returned a promise, but it was not resolved yet, this will fail.
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function returns bananas on second call', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+  await sell('bananas')
+
+  expect(sell).toHaveNthResolvedWith(2, { product: 'bananas' })
 })
 ```
 
