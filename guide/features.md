@@ -40,11 +40,7 @@ Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的�
 
 ## 测试可过滤
 
-<<<<<<< HEAD
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
-=======
-Vitest provides many ways to narrow down the tests to run in order to speed up testing so you can focus on development.
->>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 了解更多信息 [测试筛选](guide/filtering)
 
