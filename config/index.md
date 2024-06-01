@@ -1604,15 +1604,9 @@ test('doNotRun', () => {
 
 ### browser {#browser}
 
-<<<<<<< HEAD
-- **类型:** `{ enabled?, name?, provider?, headless?, api?, slowHijackESM? }`
+- **类型:** `{ enabled?, name?, provider?, headless?, api? }`
 - **默认值:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
 - **命令行终端:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
-=======
-- **Type:** `{ enabled?, name?, provider?, headless?, api? }`
-- **Default:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
-- **CLI:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
->>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](#browser-provider) 选项进行配置。
 
@@ -1728,20 +1722,6 @@ export default defineConfig({
 
 :::
 
-<<<<<<< HEAD
-#### browser.slowHijackESM {#browser-slowhijackesm}
-
-- **类型:** `boolean`
-- **默认值:** `false`
-
-在 Node.js 中运行测试时，Vitest 可以使用自己的模块解析来轻松地使用 `vi.mock` 语法模拟模块。但是，在浏览器中复制 ES 模块解析并不容易，因此我们需要在浏览器可以使用它之前转换你的源文件。
-
-此选项对在 Node.js 中运行的测试没有影响。
-
-在浏览器中运行时，默认情况下会启用此选项。如果你依赖于使用 `vi.spyOn` 监视 ES 模块，则可以启用此实验功能来监视模块导出。
-
-=======
->>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 #### browser.ui {#browser-ui}
 
 - **类型:** `boolean`
@@ -2447,50 +2427,47 @@ export interface SnapshotEnvironment {
 
 - **类型:** `Partial<NodeJS.ProcessEnv>`
 
-<<<<<<< HEAD
 测试期间在 `process.env` 和 `import.meta.env` 中可用的环境变量。这些变量在主进程中不可用（例如在 `globalSetup` 中）。
-=======
-Environment variables available on `process.env` and `import.meta.env` during tests. These variables will not be available in the main process (in `globalSetup`, for example).
 
 ### expect
 
-- **Type:** `ExpectOptions`
+- **类型:** `ExpectOptions`
 
 #### expect.requireAssertions
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-The same as calling [`expect.hasAssertions()`](/api/expect#expect-hasassertions) at the start of every test. This makes sure that no test will pass accidentally.
+与每次测试开始时调用 [`expect.hasAssertions()`](/api/expect#expect-hasassertions) 相同。这可确保不会意外通过任何测试。
 
 ::: tip
-This only works with Vitest's `expect`. If you use `assert` ot `.should` assertions, they will not count, and your test will fail due to the lack of expect assertions.
+这仅适用于 Vitest 的`expect`。如果您使用`assert`或`.should`断言，它们将不计算在内，并且您的测试将因缺少 expect 断言而失败。
 
-You can change the value of this by calling `vi.setConfig({ expect: { requireAssertions: false } })`. The config will be applied to every subsequent `expect` call until the `vi.resetConfig` is called manually.
+您可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
 :::
 
 #### expect.poll
 
-Global configuration options for [`expect.poll`](/api/expect#poll). These are the same options you can pass down to `expect.poll(condition, options)`.
+[`expect.poll`](/api/expect#poll) 的全局配置选项。这些选项与您可以传递给 `expect.poll(condition, options)` 的选项相同。
 
 ##### expect.poll.interval
 
-- **Type:** `number`
-- **Default:** `50`
+- **类型:** `number`
+- **默认值:** `50`
 
-Polling interval in milliseconds
+轮询间隔（以毫秒为单位）
 
 ##### expect.poll.timeout
 
-- **Type:** `number`
-- **Default:** `1000`
+- **类型:** `number`
+- **默认值:** `1000`
 
-Polling timeout in milliseconds
+轮询超时时间（以毫秒为单位）
 
 ### printConsoleTrace
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Always print console traces when calling any `console` method. This is useful for debugging.
->>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
+调用任何`console`方法时始终打印控制台跟踪。这对于调试很有用。
+

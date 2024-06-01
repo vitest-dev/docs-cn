@@ -941,11 +941,7 @@ test('spy function returned a value', () => {
 
 - **类型**: `(amount: number) => Awaitable<void>`
 
-<<<<<<< HEAD
 这个断言检查函数是否成功返回了确切次数的值（即没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
-=======
-This assertion checks if a function has successfully returned a value an exact amount of times (i.e., did not throw an error). Requires a spy function to be passed to `expect`.
->>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -982,11 +978,7 @@ test('spy function returns a product', () => {
 
 - **类型**: `(returnValue: any) => Awaitable<void>`
 
-<<<<<<< HEAD
 我们可以调用此断言来检查函数是否在最后一次调用时成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
-=======
-You can call this assertion to check if a function has successfully returned a certain value when it was last invoked. Requires a spy function to be passed to `expect`.
->>>>>>> 274e617a87d0302538f28f8defc40840e286bf7a
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -1022,11 +1014,12 @@ test('spy function returns bananas on second call', () => {
 
 ## toHaveResolved
 
-- **Type**: `() => Awaitable<void>`
+- **类型**: `() => Awaitable<void>`
 
-This assertion checks if a function has successfully resolved a value at least once (i.e., did not reject). Requires a spy function to be passed to `expect`.
 
-If the function returned a promise, but it was not resolved yet, this will fail.
+此断言检查函数是否至少成功解析过一次值（即未reject）。需要将 spy 函数传递给 `expect`。
+
+如果函数返回了一个promise，但尚未resolved，则将会失败。
 
 ```ts twoslash
 // @filename: db/apples.js
@@ -1054,11 +1047,12 @@ test('spy function resolved a value', async () => {
 
 ## toHaveResolvedTimes
 
-- **Type**: `(amount: number) => Awaitable<void>`
+- **类型**: `(amount: number) => Awaitable<void>`
 
-This assertion checks if a function has successfully resolved a value an exact amount of times (i.e., did not reject). Requires a spy function to be passed to `expect`.
+此断言检查函数是否已成功解析值精确次数（即未reject）。需要将 spy 函数传递给`expect`。
 
-This will only count resolved promises. If the function returned a promise, but it was not resolved yet, it will not be counted.
+这只会计算已resolved的promises。如果函数返回了一个promise，但尚未resolved，则不会计算在内。
+
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -1075,11 +1069,14 @@ test('spy function resolved a value two times', async () => {
 
 ## toHaveResolvedWith
 
-- **Type**: `(returnValue: any) => Awaitable<void>`
+- **类型**: `(returnValue: any) => Awaitable<void>`
 
-You can call this assertion to check if a function has successfully resolved a certain value at least once. Requires a spy function to be passed to `expect`.
 
-If the function returned a promise, but it was not resolved yet, this will fail.
+
+您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
+
+如果函数返回了一个promise，但尚未resolved，则将会失败。
+
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -1097,9 +1094,9 @@ test('spy function resolved a product', async () => {
 
 - **Type**: `(returnValue: any) => Awaitable<void>`
 
-You can call this assertion to check if a function has successfully resolved a certain value when it was last invoked. Requires a spy function to be passed to `expect`.
+您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
-If the function returned a promise, but it was not resolved yet, this will fail.
+如果函数返回了一个promise，但尚未resolved，则将会失败。
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
@@ -1118,9 +1115,9 @@ test('spy function resolves bananas on a last call', async () => {
 
 - **Type**: `(time: number, returnValue: any) => Awaitable<void>`
 
-You can call this assertion to check if a function has successfully resolved a certain value on a specific invokation. Requires a spy function to be passed to `expect`.
+您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
-If the function returned a promise, but it was not resolved yet, this will fail.
+如果函数返回了一个promise，但尚未resolved，则将会失败。
 
 ```ts twoslash
 import { expect, test, vi } from 'vitest'
