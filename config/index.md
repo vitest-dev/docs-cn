@@ -1730,6 +1730,13 @@ export default defineConfig({
 
 是否应该将 Vitest UI 注入到页面中。默认情况下，在开发过程中注入 UI iframe。
 
+#### browser.viewport {#browser-viewport}
+
+- **Type:** `{ width, height }`
+- **Default:** `414x896`
+
+Default iframe's viewport.
+
 #### browser.indexScripts {#browser-indexscripts}
 
 - **类型:** `BrowserScript[]`
