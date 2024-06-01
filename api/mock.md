@@ -308,7 +308,8 @@ fn.mock.calls
 - `'return'` - 函数返回时没有抛出。
 - `'throw'` - 函数抛出了一个值。
 
-`value` 属性包含返回值或抛出的错误。如果函数返回一个 Promise，`value` 将是 _resolved_ 值，而不是实际的 `Promise`，除非它从未被解析。
+
+`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
 
 ```js
 const fn = vi
@@ -336,6 +337,29 @@ fn.mock.results
   {
     type: 'throw',
     value: Error,
+  },
+]
+```
+
+## mock.settledResults
+
+包含函数中`resolved` 或 `rejected` 的所有值的数组。
+
+如果函数从未`resolved` 或 `rejected` ，则此数组将为空。
+
+```js
+const fn = vi.fn().mockResolvedValueOnce('result')
+
+const result = fn()
+
+fn.mock.settledResults === []
+
+await result
+
+fn.mock.settledResults === [
+  {
+    type: 'fulfilled',
+    value: 'result',
   },
 ]
 ```

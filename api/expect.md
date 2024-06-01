@@ -1012,6 +1012,126 @@ test('spy function returns bananas on second call', () => {
 })
 ```
 
+## toHaveResolved
+
+- **类型**: `() => Awaitable<void>`
+
+
+此断言检查函数是否至少成功解析过一次值（即未reject）。需要将 spy 函数传递给 `expect`。
+
+如果函数返回了一个promise，但尚未resolved，则将会失败。
+
+```ts twoslash
+// @filename: db/apples.js
+/** @type {any} */
+const db = {}
+export default db
+// @filename: test.ts
+// ---cut---
+import { expect, test, vi } from 'vitest'
+import db from './db/apples.js'
+
+async function getApplesPrice(amount: number) {
+  return amount * await db.get('price')
+}
+
+test('spy function resolved a value', async () => {
+  const getPriceSpy = vi.fn(getApplesPrice)
+
+  const price = await getPriceSpy(10)
+
+  expect(price).toBe(100)
+  expect(getPriceSpy).toHaveResolved()
+})
+```
+
+## toHaveResolvedTimes
+
+- **类型**: `(amount: number) => Awaitable<void>`
+
+此断言检查函数是否已成功解析值精确次数（即未reject）。需要将 spy 函数传递给`expect`。
+
+这只会计算已resolved的promises。如果函数返回了一个promise，但尚未resolved，则不会计算在内。
+
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function resolved a value two times', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+  await sell('bananas')
+
+  expect(sell).toHaveResolvedTimes(2)
+})
+```
+
+## toHaveResolvedWith
+
+- **类型**: `(returnValue: any) => Awaitable<void>`
+
+
+
+您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
+
+如果函数返回了一个promise，但尚未resolved，则将会失败。
+
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function resolved a product', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+
+  expect(sell).toHaveResolvedWith({ product: 'apples' })
+})
+```
+
+## toHaveLastResolvedWith
+
+- **Type**: `(returnValue: any) => Awaitable<void>`
+
+您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
+
+如果函数返回了一个promise，但尚未resolved，则将会失败。
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function resolves bananas on a last call', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+  await sell('bananas')
+
+  expect(sell).toHaveLastResolvedWith({ product: 'bananas' })
+})
+```
+
+## toHaveNthResolvedWith
+
+- **Type**: `(time: number, returnValue: any) => Awaitable<void>`
+
+您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
+
+如果函数返回了一个promise，但尚未resolved，则将会失败。
+
+```ts twoslash
+import { expect, test, vi } from 'vitest'
+
+test('spy function returns bananas on second call', async () => {
+  const sell = vi.fn((product: string) => Promise.resolve({ product }))
+
+  await sell('apples')
+  await sell('bananas')
+
+  expect(sell).toHaveNthResolvedWith(2, { product: 'bananas' })
+})
+```
+
 ## toSatisfy
 
 - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
