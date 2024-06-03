@@ -48,7 +48,11 @@ Vitest 使用不同的方法与 Node.js 进程进行通信。
 - 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
 - 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
 
+<<<<<<< HEAD
 一般经验法则是，你几乎可以发送任何内容，除了函数、Promises、regexp（`v8.stringify` 无法序列化它，但你可以发送字符串版本并自己在 Node.js 进程中解析它），以及其他不可序列化的数据，但内部可以有循环引用。
+=======
+This property is also present on every test in the `json` reporter, so make sure that data can be serialized into JSON.
+>>>>>>> 9c84cbbf2d2146bbe531b3eedee56fd34df65822
 
 另外，请确保在设置[错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types)之前序列化它们。
 :::
