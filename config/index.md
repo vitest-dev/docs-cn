@@ -1737,12 +1737,16 @@ export default defineConfig({
 
 Default iframe's viewport.
 
-#### browser.indexScripts {#browser-indexscripts}
+#### browser.orchestratorScripts {#browser-orchestratorscripts}
 
 - **类型:** `BrowserScript[]`
 - **默认值:** `[]`
 
+<<<<<<< HEAD
 在启动测试 iframe 之前，应注入索引 HTML 中的自定义脚本。此 HTML 文档仅设置 iframe，并不实际导入您的代码。
+=======
+Custom scripts that should be injected into the orchestrator HTML before test iframes are initiated. This HTML document only sets up iframes and doesn't actually import your code.
+>>>>>>> 1082ed8205187147bccb55a1a5810b3cbc2fbf54
 
 脚本 `src` 和 `content` 将由 Vite 插件处理。脚本应以以下格式提供：
 
