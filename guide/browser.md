@@ -6,12 +6,10 @@ title: 浏览器模式 | 指南
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
-<<<<<<< HEAD
-## 浏览器兼容性
-=======
-## Installation
 
-By default, Browser Mode doesn't require any additional E2E provider to run tests locally because it reuses your existing browser.
+## 安装
+
+默认情况下，浏览器模式不需要任何额外的 E2E 提供商就能在本地运行测试，因为它复用了你现有的浏览器。
 
 ::: code-group
 ```bash [npm]
@@ -29,10 +27,10 @@ bun add -D vitest @vitest/browser
 :::
 
 ::: warning
-However, to run tests in CI you need to install either [`playwright`](https://npmjs.com/package/playwright) or [`webdriverio`](https://www.npmjs.com/package/webdriverio). We also recommend switching to either one of them for testing locally instead of using the default `preview` provider since it relies on simulating events instead of using Chrome DevTools Protocol.
+不过，要在 CI 中运行测试，您需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 :::
 
-### Using Playwright
+### 使用 Playwright
 
 ::: code-group
 ```bash [npm]
@@ -49,7 +47,7 @@ bun add -D vitest @vitest/browser playwright
 ```
 :::
 
-### Using Webdriverio
+### 使用 Webdriverio
 
 ::: code-group
 ```bash [npm]
@@ -66,9 +64,9 @@ bun add -D vitest @vitest/browser webdriverio
 ```
 :::
 
-## Configuration
+## 配置
 
-To activate browser mode in your Vitest configuration, you can use the `--browser` flag or set the `browser.enabled` field to `true` in your Vitest configuration file. Here is an example configuration using the browser field:
+要在 Vitest 配置中激活浏览器模式，可以使用 `--browser` 标志，或在 Vitest 配置文件中将 `browser.enabled` 字段设为 `true`。下面是一个使用浏览器字段的配置示例：
 
 ```ts
 export default defineConfig({
@@ -82,22 +80,20 @@ export default defineConfig({
 })
 ```
 
-## Browser Option Types
+## 浏览器选项类型
 
-The browser option in Vitest depends on the provider. Vitest will fail, if you pass `--browser` and don't specify its name in the config file. Available options:
-
-- `webdriverio` supports these browsers:
+Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
+- `webdriverio` 支持这些浏览器:
   - `firefox`
   - `chrome`
   - `edge`
   - `safari`
-- `playwright` supports these browsers:
+- `playwright` 支持这些浏览器:
   - `firefox`
   - `webkit`
   - `chromium`
 
-## Browser Compatibility
->>>>>>> 9c84cbbf2d2146bbe531b3eedee56fd34df65822
+## 浏览器兼容性
 
 Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行您的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
 
@@ -134,40 +130,8 @@ Vitest 的浏览器模式功能目前仍处于早期开发阶段，因此可能�
 
 Vitest 浏览器在初始化过程中需要启动提供程序和浏览器，这可能需要一些时间。与其他测试模式相比，这可能导致更长的初始化时间。
 
-<<<<<<< HEAD
-## 配置
-
-要在 Vitest 配置中激活浏览器模式，你可以使用 `--browser` 标志或在你的 Vitest 配置文件中将 `browser.enabled` 字段设置为 `true`。这是使用浏览器字段的示例配置：
-
-```ts
-export default defineConfig({
-  test: {
-    browser: {
-      enabled: true,
-      name: 'chrome', // browser name is required
-    },
-  },
-})
-```
-
-## 浏览器选项类型
-
-Vitest 中的浏览器选项取决于提供者。如果你传递 `--browser` 并且未在配置文件中指定其名称，Vitest 将失败。可用选项：
-
-- `webdriverio` (默认) 支持以下浏览器:
-  - `firefox`
-  - `chrome`
-  - `edge`
-  - `safari`
-- `playwright` 支持以下浏览器:
-  - `firefox`
-  - `webkit`
-  - `chromium`
 
 ## 跨浏览器测试
-=======
-## Cross-Browser Testing
->>>>>>> 9c84cbbf2d2146bbe531b3eedee56fd34df65822
 
 当你在浏览器选项中指定浏览器名称时，Vitest 将默认尝试使用 [WebdriverIO](https://webdriver.io/) 运行指定的浏览器，然后在那里运行测试。此功能使跨浏览器测试易于在 CI 等环境中使用和配置。如果不想使用 WebdriverIO，可以使用 `browser.provider` 选项配置自定义浏览器提供程序。
 
@@ -183,15 +147,6 @@ npx vitest --browser=chrome
 npx vitest --browser.name=chrome --browser.headless
 ```
 
-<<<<<<< HEAD
-::: tip NOTE
-当使用带有 WebdriverIO 的 Safari 浏览器选项时，需要通过在你的设备上运行 `sudo safaridriver --enable` 来激活`safaridriver`。
-
-此外，在运行测试时，Vitest 将尝试安装一些驱动程序用于兼容 `safaridriver`。
-:::
-
-=======
->>>>>>> 9c84cbbf2d2146bbe531b3eedee56fd34df65822
 ## Headless
 
 headless 模式是浏览器模式下可用的另一个选项。在 headless 模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用 headless 模式。
@@ -218,15 +173,11 @@ npx vitest --browser.name=chrome --browser.headless
 
 在这种情况下，Vitest 将使用 Chrome 浏览器以 headless 模式运行。
 
-<<<<<<< HEAD
-## 上下文
-=======
 ::: warning
-Headless mode is not available by default. You need to use either [`playwright`](https://npmjs.com/package/playwright) or [`webdriverio`](https://www.npmjs.com/package/webdriverio) providers to enable this feature.
+默认情况下Headless模式不可用。您需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
 :::
 
-## Context
->>>>>>> 9c84cbbf2d2146bbe531b3eedee56fd34df65822
+## 上下文
 
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
@@ -257,8 +208,8 @@ export const server: {
 }
 
 /**
- * Handler for user interactions. The support is provided by the browser provider (`playwright` or `webdriverio`).
- * If used with `preview` provider, fallbacks to simulated events via `@testing-library/user-event`.
+ * 用户交互处理程序。由浏览器 provider（`playwright` 或 `webdriverio`）提供支持。
+ * 如果与 `preview` 提供程序一起使用，则通过 `@testing-library/user-event`回退到模拟事件。
  * @experimental
  */
 export const userEvent: {
