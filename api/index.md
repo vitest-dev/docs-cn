@@ -334,8 +334,18 @@ test.fails('fail test', async () => {
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
 
+<<<<<<< HEAD
 当需要使用不同变量运行同一测试时，请使用 `test.each`。
 我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
+=======
+::: tip
+While `test.each` is provided for Jest compatibility,
+Vitest also has [`test.for`](#test-for) with an additional feature to integrate [`TestContext`](/guide/test-context).
+:::
+
+Use `test.each` when you need to run the same test with different variables.
+You can inject parameters with [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) in the test name in the order of the test function parameters.
+>>>>>>> 1f8c8e2917df9defdb8d465754d6c35d311046f3
 
 - `%s`: string
 - `%d`: number
@@ -421,8 +431,11 @@ test.each`
 })
 ```
 
+<<<<<<< HEAD
 如果你想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
 
+=======
+>>>>>>> 1f8c8e2917df9defdb8d465754d6c35d311046f3
 ::: tip
 Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
 :::
@@ -430,6 +443,47 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 ::: warning
 在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
 :::
+
+### test.for
+
+- **Alias:** `it.for`
+
+Alternative of `test.each` to provide [`TestContext`](/guide/test-context).
+
+The difference from `test.each` is how array case is provided in the arguments.
+Other non array case (including template string usage) works exactly same.
+
+```ts
+// `each` spreads array case
+test.each([
+  [1, 1, 2],
+  [1, 2, 3],
+  [2, 1, 3],
+])('add(%i, %i) -> %i', (a, b, expected) => { // [!code --]
+  expect(a + b).toBe(expected)
+})
+
+// `for` doesn't spread array case
+test.for([
+  [1, 1, 2],
+  [1, 2, 3],
+  [2, 1, 3],
+])('add(%i, %i) -> %i', ([a, b, expected]) => { // [!code ++]
+  expect(a + b).toBe(expected)
+})
+```
+
+2nd argument is [`TestContext`](/guide/test-context) and it can be used for concurrent snapshot, for example,
+
+```ts
+test.concurrent.for([
+  [1, 1],
+  [1, 2],
+  [2, 1],
+])('add(%i, %i)', ([a, b], { expect }) => {
+  expect(a + b).matchSnapshot()
+})
+```
 
 ## bench
 

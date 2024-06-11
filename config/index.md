@@ -1993,6 +1993,26 @@ export default defineConfig({
 
 如果要禁用缓存功能，请使用此选项。目前，Vitest 会对测试结果进行缓存，优先运行时间较长和失败的测试。
 
+The cache directory is controlled by the Vite's [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) option:
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  cacheDir: 'custom-folder/.vitest'
+})
+```
+
+You can limit the directory only for Vitest by using `process.env.VITEST`:
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  cacheDir: process.env.VITEST ? 'custom-folder/.vitest' : undefined
+})
+```
+
 ### sequence
 
 - **类型**: `{ sequencer?, shuffle?, seed?, hooks?, setupFiles? }`
