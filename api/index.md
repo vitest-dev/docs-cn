@@ -334,18 +334,12 @@ test.fails('fail test', async () => {
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
 
-<<<<<<< HEAD
-当需要使用不同变量运行同一测试时，请使用 `test.each`。
-我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
-=======
 ::: tip
-While `test.each` is provided for Jest compatibility,
-Vitest also has [`test.for`](#test-for) with an additional feature to integrate [`TestContext`](/guide/test-context).
+ `test.each` 是为了与 Jest 兼容而提供的，Vitest 还提供了 [`test.for`](#test-for)，并集成了 [`TestContext`](/guide/test-context)。
 :::
 
-Use `test.each` when you need to run the same test with different variables.
-You can inject parameters with [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) in the test name in the order of the test function parameters.
->>>>>>> 1f8c8e2917df9defdb8d465754d6c35d311046f3
+当需要使用不同变量运行同一测试时，请使用 `test.each`。
+我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
 
 - `%s`: string
 - `%d`: number
@@ -431,11 +425,6 @@ test.each`
 })
 ```
 
-<<<<<<< HEAD
-如果你想访问 `TestContext` ，请在单个测试中使用 `describe.each` 。
-
-=======
->>>>>>> 1f8c8e2917df9defdb8d465754d6c35d311046f3
 ::: tip
 Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
 :::
@@ -448,10 +437,10 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 
 - **Alias:** `it.for`
 
-Alternative of `test.each` to provide [`TestContext`](/guide/test-context).
+作为 `test.each` 的替代，提供 [`TestContext`](/guide/test-context)。
 
-The difference from `test.each` is how array case is provided in the arguments.
-Other non array case (including template string usage) works exactly same.
+与 `test.each` 的区别在于如何在参数中提供数组情况。
+其他非数组情况（包括模板字符串的使用）完全相同。
 
 ```ts
 // `each` spreads array case
@@ -473,7 +462,7 @@ test.for([
 })
 ```
 
-2nd argument is [`TestContext`](/guide/test-context) and it can be used for concurrent snapshot, for example,
+第二个参数是 [`TestContext`](/guide/test-context)，可用于并发快照等
 
 ```ts
 test.concurrent.for([

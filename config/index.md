@@ -1993,7 +1993,7 @@ export default defineConfig({
 
 如果要禁用缓存功能，请使用此选项。目前，Vitest 会对测试结果进行缓存，优先运行时间较长和失败的测试。
 
-The cache directory is controlled by the Vite's [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) option:
+缓存目录由 Vite 的 [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) 选项控制：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -2003,7 +2003,7 @@ export default defineConfig({
 })
 ```
 
-You can limit the directory only for Vitest by using `process.env.VITEST`:
+您可以使用 `process.env.VITEST` 来限制目录，使其仅用于 Vitest：
 
 ```ts
 import { defineConfig } from 'vitest/config'
