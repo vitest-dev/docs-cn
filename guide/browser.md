@@ -237,6 +237,11 @@ export const page: {
    * Change the size of iframe's viewport.
    */
   viewport: (width: number | string, height: number | string) => Promise<void>
+  /**
+   * Make a screenshot of the test iframe or a specific element.
+   * @returns Path to the screenshot file.
+   */
+  screenshot: (options?: ScreenshotOptions) => Promise<string>
 }
 ```
 
@@ -371,6 +376,62 @@ declare module '@vitest/browser/context' {
 
 ::: warning
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
+:::
+
+### 自定义命令 `playwright`
+
+Vitest 在命令上下文中公开了几个`playwright`特定属性。
+
+- `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
+- `tester` 是 iframe 定位器。这里的应用程序接口非常有限，但您可以进一步链接它以访问您的 HTML 元素。
+- `body` 是 iframe 的 `body` 定位器，可提供更多 Playwright API。
+
+```ts
+import { defineCommand } from '@vitest/browser'
+export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
+  if (ctx.provider.name === 'playwright') {
+    const element = await ctx.tester.findByRole('alert')
+    const screenshot = await element.screenshot()
+    // do something with the screenshot
+    return difference
+  }
+})
+```
+
+::: tip
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/playwright` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以获得自动完成功能：
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ]
+  }
+}
+```
+:::
+
+### 自定义命令 `webdriverio`
+
+Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
+
+- `browser` 是 `WebdriverIO.Browser` API.
+
+Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriver` 上下文切换到测试 iframe，因此 `$` 和 `$` 方法将引用 iframe 内的元素，而不是 orchestrator 中的元素，但非 Webdriver API 仍将引用 parent frame 上下文。
+
+::: tip
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/webdriverio` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以获得自动完成功能：
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/webdriverio"
+    ]
+  }
+}
+```
 :::
 
 ## 限制
