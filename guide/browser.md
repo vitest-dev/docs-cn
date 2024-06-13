@@ -378,20 +378,16 @@ declare module '@vitest/browser/context' {
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-<<<<<<< HEAD
-## 限制
-=======
-### Custom `playwright` commands
+### 自定义命令 `playwright`
 
-Vitest exposes several `playwright` specific properties on the command context.
+Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
-- `page` references the full page that contains the test iframe. This is the orchestrator HTML and you most likely shouldn't touch it to not break things.
-- `tester` is the iframe locator. The API is pretty limited here, but you can chain it further to access your HTML elements.
-- `body` is the iframe's `body` locator that exposes more Playwright APIs.
+- `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
+- `tester` 是 iframe 定位器。这里的应用程序接口非常有限，但您可以进一步链接它以访问您的 HTML 元素。
+- `body` 是 iframe 的 `body` 定位器，可提供更多 Playwright API。
 
 ```ts
 import { defineCommand } from '@vitest/browser'
-
 export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
   if (ctx.provider.name === 'playwright') {
     const element = await ctx.tester.findByRole('alert')
@@ -403,7 +399,7 @@ export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
 ```
 
 ::: tip
-If you are using TypeScript, don't forget to add `@vitest/browser/providers/playwright` to your `tsconfig` "compilerOptions.types" field to get autocompletion:
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/playwright` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以获得自动完成功能：
 
 ```json
 {
@@ -416,16 +412,16 @@ If you are using TypeScript, don't forget to add `@vitest/browser/providers/play
 ```
 :::
 
-### Custom `webdriverio` commands
+### 自定义命令 `webdriverio`
 
-Vitest exposes some `webdriverio` specific properties on the context object.
+Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
 
-- `browser` is the `WebdriverIO.Browser` API.
+- `browser` 是 `WebdriverIO.Browser` API.
 
-Vitest automatically switches the `webdriver` context to the test iframe by calling `browser.switchToFrame` before the command is called, so `$` and `$$` methods refer to the elements inside the iframe, not in the orchestrator, but non-webdriver APIs will still refer to the parent frame context.
+Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriver` 上下文切换到测试 iframe，因此 `$` 和 `$` 方法将引用 iframe 内的元素，而不是 orchestrator 中的元素，但非 Webdriver API 仍将引用 parent frame 上下文。
 
 ::: tip
-If you are using TypeScript, don't forget to add `@vitest/browser/providers/webdriverio` to your `tsconfig` "compilerOptions.types" field to get autocompletion:
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/webdriverio` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以获得自动完成功能：
 
 ```json
 {
@@ -438,8 +434,7 @@ If you are using TypeScript, don't forget to add `@vitest/browser/providers/webd
 ```
 :::
 
-## Limitations
->>>>>>> 9729f22a61957f326cbd85ca3415cd08b3cefa0f
+## 限制
 
 ### 线程阻塞对话框
 
