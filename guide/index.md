@@ -266,6 +266,7 @@ export default defineWorkspace([
 - [iconify](https://github.com/iconify/iconify)
 - [tdesign-vue-next](https://github.com/Tencent/tdesign-vue-next)
 - [cz-git](https://github.com/Zhengqbbb/cz-git)
+- [element-plus](https://github.com/element-plus/element-plus)
 
 <!--
 For contributors:
