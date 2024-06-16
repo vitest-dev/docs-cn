@@ -29,21 +29,28 @@ export const contributors = (contributorNames).reduce<Contributor[]>((acc, name)
 
 function createLinks(tm: CoreTeam): CoreTeam {
   tm.links = [{ icon: 'github', link: `https://github.com/${tm.github}` }]
-  if (tm.mastodon)
+  if (tm.mastodon) {
     tm.links.push({ icon: 'mastodon', link: tm.mastodon })
+  }
 
-  if (tm.discord)
+  if (tm.discord) {
     tm.links.push({ icon: 'discord', link: tm.discord })
+  }
 
   if (tm.youtube) {
+<<<<<<< HEAD
     tm.links.push({
       icon: 'youtube',
       link: `https://www.youtube.com/@${tm.youtube}`,
     })
+=======
+    tm.links.push({ icon: 'youtube', link: `https://www.youtube.com/@${tm.youtube}` })
+>>>>>>> 552d43c0052c5941007d735eb6a7e735dbc5a53a
   }
 
-  if (tm.twitter)
+  if (tm.twitter) {
     tm.links.push({ icon: 'x', link: `https://twitter.com/${tm.twitter}` })
+  }
 
   return tm
 }

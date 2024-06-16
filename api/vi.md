@@ -681,8 +681,9 @@ let i = 0
 setTimeout(() => console.log(++i))
 const interval = setInterval(() => {
   console.log(++i)
-  if (i === 3)
+  if (i === 3) {
     clearInterval(interval)
+  }
 }, 50)
 
 vi.runAllTimers()
@@ -826,8 +827,9 @@ test('Server started successfully', async () => {
 
   await vi.waitFor(
     () => {
-      if (!server.isReady)
+      if (!server.isReady) {
         throw new Error('Server not started')
+      }
 
       console.log('Server started')
     },

@@ -274,8 +274,9 @@ expectTypeOf(isString).guards.toBeString()
 import { expectTypeOf } from 'vitest'
 
 function assertNumber(v: any): asserts v is number {
-  if (typeof v !== 'number')
+  if (typeof v !== 'number') {
     throw new TypeError('Nope !')
+  }
 }
 
 expectTypeOf(assertNumber).asserts.toBeNumber()
