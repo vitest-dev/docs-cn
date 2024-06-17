@@ -38,14 +38,10 @@ function createLinks(tm: CoreTeam): CoreTeam {
   }
 
   if (tm.youtube) {
-<<<<<<< HEAD
     tm.links.push({
       icon: 'youtube',
       link: `https://www.youtube.com/@${tm.youtube}`,
     })
-=======
-    tm.links.push({ icon: 'youtube', link: `https://www.youtube.com/@${tm.youtube}` })
->>>>>>> 552d43c0052c5941007d735eb6a7e735dbc5a53a
   }
 
   if (tm.twitter) {

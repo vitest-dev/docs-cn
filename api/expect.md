@@ -1586,11 +1586,6 @@ function areAnagramsEqual(a: unknown, b: unknown): boolean | undefined {
 
   if (isAAnagramComparator && isBAnagramComparator) {
     return a.equals(b)
-<<<<<<< HEAD
-  else if (isAAnagramComparator === isBAnagramComparator)
-    return undefined
-  else return false
-=======
   }
   else if (isAAnagramComparator === isBAnagramComparator) {
     return undefined
@@ -1598,7 +1593,6 @@ function areAnagramsEqual(a: unknown, b: unknown): boolean | undefined {
   else {
     return false
   }
->>>>>>> 552d43c0052c5941007d735eb6a7e735dbc5a53a
 }
 
 expect.addEqualityTesters([areAnagramsEqual])
