@@ -81,3 +81,46 @@ Vitest 实例需要当前的测试模式。它可以是以下之一：
 ### start
 
 你可以使用 `start` 方法运行测试或者基准测试。你还可以传递一个字符串数组以筛选测试文件。
+
+
+### `provide`
+
+Vitest 暴露了`provide`方法，它是`vitest.getCoreWorkspaceProject().provide`的简写。使用该方法，您可以从主线程向测试传递值。所有值在存储前都会通过 `structuredClone`进行检查，但值本身不会被克隆。
+
+要在测试中接收值，需要从 `vitest` entrypont 导入 `inject` 方法：
+
+```ts
+import { inject } from 'vitest'
+const port = inject('wsPort') // 3000
+```
+
+为了提高类型安全性，我们鼓励您增强 `ProvidedContext` 的类型：
+
+```ts
+import { createVitest } from 'vitest/node'
+
+const vitest = await createVitest('test', {
+  watch: false,
+})
+vitest.provide('wsPort', 3000)
+
+declare module 'vitest' {
+  export interface ProvidedContext {
+    wsPort: number
+  }
+}
+```
+
+::: warning
+从技术上讲，`provide`是`WorkspaceProject`的一个方法，因此仅限于特定的项目。不过，所有项目都继承了核心项目的值，这使得 `vitest.provide` 成为向测试传递值的通用方法。
+:::
+
+::: tip
+在不想使用公共 API 的情况下，[全局设置文件](/config/#globalsetup) 也可以使用此方法：
+
+```js
+export default function setup({ provide }) {
+  provide('wsPort', 3000)
+}
+```
+:::

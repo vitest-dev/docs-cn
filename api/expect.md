@@ -178,8 +178,9 @@ test('function returned something', () => {
 import { expect, test } from 'vitest'
 
 function getApplesFromStock(stock: string) {
-  if (stock === 'Bill')
+  if (stock === 'Bill') {
     return 13
+  }
 }
 
 test('mary doesn\'t have a stock', () => {
@@ -200,8 +201,9 @@ import { Stocks } from './stocks.js'
 
 const stocks = new Stocks()
 stocks.sync('Bill')
-if (stocks.getInfo('Bill'))
+if (stocks.getInfo('Bill')) {
   stocks.sell('apples', 'Bill')
+}
 ```
 
 因此，如果要测试 `stocks.getInfo` 是否真实，可以这样写：
@@ -233,8 +235,9 @@ import { Stocks } from './stocks.js'
 
 const stocks = new Stocks()
 stocks.sync('Bill')
-if (!stocks.stockFailed('Bill'))
+if (!stocks.stockFailed('Bill')) {
   stocks.sell('apples', 'Bill')
+}
 ```
 
 因此，如果要测试`stocks.stockFailed`是否是虚假的，可以这样写：
@@ -646,8 +649,9 @@ test('the number of elements must match exactly', () => {
 import { expect, test } from 'vitest'
 
 function getFruitStock(type: string) {
-  if (type === 'pineapples')
+  if (type === 'pineapples') {
     throw new Error('Pineapples are not in stock')
+  }
 
   // Do some other stuff
 }
@@ -1195,8 +1199,9 @@ test('buyApples returns new stock id', async () => {
 import { expect, test } from 'vitest'
 
 async function buyApples(id) {
-  if (!id)
+  if (!id) {
     throw new Error('no id')
+  }
 }
 
 test('buyApples throws an error when no id provided', async () => {
@@ -1290,8 +1295,9 @@ test('callback was called', async () => {
 import { expect, test } from 'vitest'
 
 async function build(dir) {
-  if (dir.includes('no-src'))
+  if (dir.includes('no-src')) {
     throw new Error(`${dir}/src does not exist`)
+  }
 }
 
 const errorDirs = [
@@ -1578,11 +1584,15 @@ function areAnagramsEqual(a: unknown, b: unknown): boolean | undefined {
   const isAAnagramComparator = isAnagramComparator(a)
   const isBAnagramComparator = isAnagramComparator(b)
 
-  if (isAAnagramComparator && isBAnagramComparator)
+  if (isAAnagramComparator && isBAnagramComparator) {
     return a.equals(b)
-  else if (isAAnagramComparator === isBAnagramComparator)
+  }
+  else if (isAAnagramComparator === isBAnagramComparator) {
     return undefined
-  else return false
+  }
+  else {
+    return false
+  }
 }
 
 expect.addEqualityTesters([areAnagramsEqual])

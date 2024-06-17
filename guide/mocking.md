@@ -27,8 +27,9 @@ function purchase() {
   const currentHour = new Date().getHours()
   const [open, close] = businessHours
 
-  if (currentHour > open && currentHour < close)
+  if (currentHour > open && currentHour < close) {
     return { message: 'Success' }
+  }
 
   return { message: 'Error' }
 }
@@ -195,7 +196,7 @@ export default {
     {
       name: 'virtual-modules',
       resolveId(id) {
-        if (id === '$app/forms')
+        if (id === '$app/forms') {
           return 'virtual:$app/forms'
       },
     },
