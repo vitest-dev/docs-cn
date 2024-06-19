@@ -339,14 +339,11 @@ export const page: {
 }
 ```
 
-<<<<<<< HEAD
-## 命令
-=======
 ## Interactivity API
 
-Vitest implements a subset of [`@testing-library/user-event`](https://testing-library.com/docs/user-event) APIs using [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) or [webdriver](https://www.w3.org/TR/webdriver/) APIs instead of faking events which makes the browser behaviour more reliable and consistent.
+Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) API 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event)应用程序接口的子集，而不是伪造事件，这使得浏览器行为更加可靠和一致。
 
-Almost every `userEvent` method inherits its provider options. To see all available options in your IDE, add `webdriver` or `playwright` types to your `tsconfig.json` file:
+几乎每个 `userEvent` 方法都继承了其provider选项。要在集成开发环境中查看所有可用选项，请在 `tsconfig.json` 文件中添加 `webdriver` 或 `playwright` 类型：
 
 ::: code-group
 ```json [playwright]
@@ -373,7 +370,7 @@ Almost every `userEvent` method inherits its provider options. To see all availa
 
 - **Type:** `(element: Element, options?: UserEventClickOptions) => Promise<void>`
 
-Clicks on an element. Inherits provider's options. Please refer to your provider's documentation for detailed explanaition about how this method works.
+点击元素。继承 provider 的选项。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -396,9 +393,9 @@ References:
 
 - **Type:** `(element: Element, options?: UserEventDoubleClickOptions) => Promise<void>`
 
-Triggers a double click event on an element
+触发元素的双击事件
 
-Please refer to your provider's documentation for detailed explanaition about how this method works.
+请参阅你的 provider 的文档以获取有关此方法如何工作的详细说明。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -421,7 +418,7 @@ References:
 
 - **Type:** `(element: Element, text: string) => Promise<void>`
 
-Fills an input/textarea/conteneditable element with text. This will remove any existing text in the input before typing the new value.
+用文本填充 input/textarea/conteneditable。这将在输入新值之前移除输入框中的任何现有文本。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -437,9 +434,9 @@ test('update input', () => {
 ```
 
 ::: tip
-This API is faster than using [`userEvent.type`](#userevent-type) or [`userEvent.keyboard`](#userevent-keyboard), but it **doesn't support** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) (e.g., `{Shift}{selectall}`).
+该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
 
-We recommend using this API over [`userEvent.type`](#userevent-type) in situations when you don't need to enter special characters.
+在不需要输入特殊字符的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::
 
 References:
@@ -452,9 +449,9 @@ References:
 
 - **Type:** `(text: string) => Promise<void>`
 
-The `userEvent.keyboard` allows you to trigger keyboard strokes. If any input has a focus, it will type characters into that input. Otherwise, it will trigger keyboard events on the currently focused element (`document.body` if there are no focused elements).
+通过 `userEvent.keyboard` 可以触发键盘输入。如果任何输入有焦点，它就会在该输入中键入字符。否则，它将触发当前焦点元素（如果没有焦点元素，则为 `document.body`）上的键盘事件。
 
-This API supports [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard).
+此 API 支持 [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -479,7 +476,7 @@ References:
 
 - **Type:** `(options?: UserEventTabOptions) => Promise<void>`
 
-Sends a `Tab` key event. This is a shorthand for `userEvent.keyboard('{tab}')`.
+发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -512,14 +509,14 @@ References:
 - **Type:** `(element: Element, text: string, options?: UserEventTypeOptions) => Promise<void>`
 
 ::: warning
-If you don't rely on [special characters](https://testing-library.com/docs/user-event/keyboard) (e.g., `{shift}` or `{selectall}`), it is recommended to use [`userEvent.fill`](#userevent-fill) instead.
+如果不依赖 [special characters](https://testing-library.com/docs/user-event/keyboard)（例如，`{shift}` 或 `{selectall}`），建议使用 [`userEvent.fill`](#userevent-fill)。
 :::
 
-The `type` method implements `@testing-library/user-event`'s [`type`](https://testing-library.com/docs/user-event/utility/#type) utility built on top of [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API.
+`type` 方法在 [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API 的基础上实现了 `@testing-library/user-event` 的 [`type`](https://testing-library.com/docs/user-event/utility/#type) 工具。
 
-This function allows you to type characters into an input/textarea/conteneditable element. It supports [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard).
+该函数允许您在 input/textarea/conteneditable 中键入字符。它支持 [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)。
 
-If you just need to press characters without an input, use [`userEvent.keyboard`](#userevent-keyboard) API.
+如果只需按下字符而无需输入，请使用 [`userEvent.keyboard`](#userevent-keyboard) API。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -544,7 +541,7 @@ References:
 
 - **Type:** `(element: Element) => Promise<void>`
 
-This method clear the input element content.
+此方法会清除输入元素的内容。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -572,12 +569,12 @@ References:
 
 - **Type:** `(element: Element, values: HTMLElement | HTMLElement[] | string | string[], options?: UserEventSelectOptions) => Promise<void>`
 
-The `userEvent.selectOptions` allows selecting a value in a `<select>` element.
+`userEvent.selectOptions`允许在 `<select>`元素中选择一个值。
 
 ::: warning
-If select element doesn't have [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple) attribute, Vitest will select only the first element in the array.
+如果 select 元素没有 [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple) 属性，Vitest 将只选择数组中的第一个元素。
 
-Unlike `@testing-library`, Vitest doesn't support [listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role) at the moment, but we plan to add support for it in the future.
+与 `@testing-library` 不同，Vitest 目前不支持 [listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role)，但我们计划在将来添加对它的支持。
 :::
 
 ```ts
@@ -603,7 +600,7 @@ test('clears input', () => {
 ```
 
 ::: warning
-`webdriverio` provider doesn't support selecting multiple elements because it doesn't provide API to do so.
+`webdriverio` provider 不支持选择多个元素，因为它不提供选择多个元素的 API。
 :::
 
 References:
@@ -616,12 +613,12 @@ References:
 
 - **Type:** `(element: Element, options?: UserEventHoverOptions) => Promise<void>`
 
-This method moves the cursor position to selected element. Please refer to your provider's documentation for detailed explanaition about how this method works.
+该方法将光标位置移动到所选元素上。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
 ::: warning
-If you are using `webdriverio` provider, the cursor will move to the center of the element by default.
+如果使用的是 `webdriverio` provider，光标默认会移动到元素的中心。
 
-If you are using `playwright` provider, the cursor moves to "some" visible point of the element.
+如果使用的是 `playwright` provider，光标会移动到元素的某个可见点。
 :::
 
 ```ts
@@ -645,10 +642,10 @@ References:
 
 - **Type:** `(element: Element, options?: UserEventHoverOptions) => Promise<void>`
 
-This works the same as [`userEvent.hover`](#userevent-hover), but moves the cursor to the `document.body` element instead.
+其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
-By default, the cursor position is in the center (in `webdriverio` provider) or in "some" visible place (in `playwright` provider) of the body element, so if the currently hovered element is already in the same position, this method will have no effect.
+默认情况下，光标位置位于主体元素的中心（在 `webdriverio` provider 中）或某个可见位置（在 `playwright` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
 :::
 
 ```ts
@@ -672,7 +669,7 @@ References:
 
 - **Type:** `(source: Element, target: Element, options?: UserEventDragAndDropOptions) => Promise<void>`
 
-Drags the source element on top of the target element. Don't forget that the `source` element has to have the `draggable` attribute set to `true`.
+将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -690,7 +687,7 @@ test('drag and drop works', async () => {
 ```
 
 ::: warning
-This API is not supported by the `preview` provider.
+ `preview` provider不支持此 API。
 :::
 
 References:
@@ -699,7 +696,6 @@ References:
 - [WebdriverIO `element.dragAndDrop` API](https://webdriver.io/docs/api/element/dragAndDrop/)
 
 ## Commands
->>>>>>> 1e199ebb44971d924042887b257b944f8f524757
 
 命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 
@@ -732,44 +728,7 @@ it('handles files', async () => {
 })
 ```
 
-<<<<<<< HEAD
-### 键盘交互
-
-Vitest 还实现 Web 测试运行器的 [`sendKeys` API](https://modern-web.dev/docs/test-runner/commands/#send-keys)。它接受具有单个属性的对象：
-
-- `type` - 键入字符序列，此 API _不受_ 修饰符键的影响，因此使用 `Shift` 不会使字母变为大写
-- `press` - 按单个键，此 API _不受_ 修饰符键的影响，因此使用 `Shift` 不会使字母变为大写
-- `up` - 按住方向上键（仅由 `playwright` 提供商支持）
-- `down` - 按住方向下键（仅由 `playwright` 提供商支持）
-
-```ts
-interface TypePayload {
-  type: string
-}
-interface PressPayload {
-  press: string
-}
-interface DownPayload {
-  down: string
-}
-interface UpPayload {
-  up: string
-}
-
-type SendKeysPayload = TypePayload | PressPayload | DownPayload | UpPayload
-
-declare function sendKeys(payload: SendKeysPayload): Promise<void>
-```
-
-这只是一个简单的提供者 API 包装器。有关详细信息，请参阅各自的文件：
-
-- [Playwright Keyboard API](https://playwright.dev/docs/api/class-keyboard)
-- [Webdriver Keyboard API](https://webdriver.io/docs/api/browser/keys/)
-
-## 自定义命令
-=======
 ## Custom Commands
->>>>>>> 1e199ebb44971d924042887b257b944f8f524757
 
 你也可以通过 [`browser.commands`](/config/#browser-commands) 配置选项添加自己的命令。如果你开发了一个库，你可以通过插件内的 `config` 钩子来提供它们：
 
@@ -840,15 +799,9 @@ declare module '@vitest/browser/context' {
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
-<<<<<<< HEAD
 - `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
-- `tester` 是 iframe 定位器。这里的应用程序接口非常有限，但您可以进一步链接它以访问您的 HTML 元素。
-- `body` 是 iframe 的 `body` 定位器，可提供更多 Playwright API。
-=======
-- `page` references the full page that contains the test iframe. This is the orchestrator HTML and you most likely shouldn't touch it to not break things.
-- `frame` is the tester [iframe instance](https://playwright.dev/docs/api/class-frame). It has a simillar API to the page, but it doesn't support certain methods.
-- `context` refers to the unique [BrowserContext](https://playwright.dev/docs/api/class-browsercontext).
->>>>>>> 1e199ebb44971d924042887b257b944f8f524757
+- `frame`是测试器 [iframe 实例](https://playwright.dev/docs/api/class-frame)。它的 API 与页面类似，但不支持某些方法。
+- `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
 
 ```ts
 import { defineCommand } from '@vitest/browser'
@@ -863,11 +816,7 @@ export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
 ```
 
 ::: tip
-<<<<<<< HEAD
-如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/playwright` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以获得自动完成功能：
-=======
-If you are using TypeScript, don't forget to add `@vitest/browser/providers/playwright` to your `tsconfig` "compilerOptions.types" field to get autocompletion in the config and on `userEvent` and `page` options:
->>>>>>> 1e199ebb44971d924042887b257b944f8f524757
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/playwright` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以便在配置中以及 `userEvent` 和 `page` 选项中获得自动完成功：
 
 ```json
 {

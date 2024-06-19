@@ -1014,29 +1014,17 @@ export default defineConfig({
 
 ### testTimeout
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **默认值:** `5000`
+- **默认值:** `5_000` in Node.js, `15_000` if `browser.enabled` is `true`
 - **命令行终端:** `--test-timeout=5000`, `--testTimeout=5000`
-=======
-- **Type:** `number`
-- **Default:** `5_000` in Node.js, `15_000` if `browser.enabled` is `true`
-- **CLI:** `--test-timeout=5000`, `--testTimeout=5000`
->>>>>>> 1e199ebb44971d924042887b257b944f8f524757
 
 测试的默认超时时间（以毫秒为单位）。
 
 ### hookTimeout
 
-<<<<<<< HEAD
 - **类型:** `number`
-- **默认值:** `10000`
+- **默认值:** `10_000` in Node.js, `30_000` if `browser.enabled` is `true`
 - **命令行终端:** `--hook-timeout=10000`, `--hookTimeout=10000`
-=======
-- **Type:** `number`
-- **Default:** `10_000` in Node.js, `30_000` if `browser.enabled` is `true`
-- **CLI:** `--hook-timeout=10000`, `--hookTimeout=10000`
->>>>>>> 1e199ebb44971d924042887b257b944f8f524757
 
 钩子(hook)的默认超时时间（以毫秒为单位）。
 
