@@ -491,7 +491,16 @@ export default defineConfig({
 Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用，你可以使用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
 如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
 
+<<<<<<< HEAD
 你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
+=======
+::: tip
+You can also use [Browser Mode](/guide/browser) to run integration or unit tests in the browser without mocking the environment.
+:::
+
+By adding a `@vitest-environment` docblock or comment at the top of the file,
+you can specify another environment to be used for all tests in that file:
+>>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
 
 文档块格式:
 
@@ -988,7 +997,7 @@ export default defineConfig({
 使用时要小心，因为某些选项（如 `--prof` 、`--title`）可能会导致 worker 崩溃。查看 https://github.com/nodejs/node/issues/41103 了解更多详情。
 :::
 
-### fileParallelism {#fileparallelism}
+### fileParallelism<NonProjectOption /> {#fileparallelism}
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -1000,13 +1009,13 @@ export default defineConfig({
 此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
 :::
 
-### maxWorkers {#maxworkers}
+### maxWorkers<NonProjectOption /> {#maxworkers}
 
 - **类型:** `number`
 
 运行测试时设置的最大工作线程数。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
-### minWorkers {#minworkers}
+### minWorkers<NonProjectOption /> {#minworkers}
 
 - **类型:** `number`
 

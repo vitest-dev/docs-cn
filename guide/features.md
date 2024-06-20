@@ -26,7 +26,13 @@ $ vitest
 
 `vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 
+<<<<<<< HEAD
 ## 开箱即用的常见 Web 支持
+=======
+Start Vitest with the `--standalone` flag to keep it running in the background. It won't run any tests until they change. Vitest will not run tests if the source code is changed until the test that imports the source has been run
+
+## Common Web Idioms Out-Of-The-Box
+>>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
 
 开箱即用的 ES Module / TypeScript / JSX support / PostCSS
 
