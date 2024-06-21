@@ -80,6 +80,112 @@ export default defineConfig({
 })
 ```
 
+如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
+
+::: code-group
+```ts [vue]
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()],
+  test: {
+    browser: {
+      enabled: true,
+      provider: 'playwright',
+      name: 'chrome',
+    }
+  }
+})
+```
+```ts [svelte]
+import { defineConfig } from 'vitest/config'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+
+export default defineConfig({
+  plugins: [svelte()],
+  test: {
+    browser: {
+      enabled: true,
+      provider: 'playwright',
+      name: 'chrome',
+    }
+  }
+})
+```
+```ts [solid]
+import { defineConfig } from 'vitest/config'
+import solidPlugin from 'vite-plugin-solid'
+
+export default defineConfig({
+  plugins: [solidPlugin()],
+  test: {
+    browser: {
+      enabled: true,
+      provider: 'playwright',
+      name: 'chrome',
+    }
+  }
+})
+```
+```ts [marko]
+import { defineConfig } from 'vitest/config'
+import marko from '@marko/vite'
+
+export default defineConfig({
+  plugins: [marko()],
+  test: {
+    browser: {
+      enabled: true,
+      provider: 'playwright',
+      name: 'chrome',
+    }
+  }
+})
+```
+:::
+
+::: tip
+`react` 不需要插件就能工作，但 `preact` 需要 [extra configuration](https://preactjs.com/guide/v10/getting-started/#create-a-vite-powered-preact-app) 才能使用别名
+:::
+
+如果需要使用基于 Node 的运行程序运行某些测试，可以定义一个 [workspace](/guide/workspace) 文件，为不同的测试策略分别配置：
+
+```ts
+// vitest.workspace.ts
+import { defineWorkspace } from 'vitest/config'
+
+export default defineWorkspace([
+  {
+    test: {
+      // an example of file based convention,
+      // you don't have to follow it
+      include: [
+        'tests/unit/**/*.{test,spec}.ts',
+        'tests/**/*.unit.{test,spec}.ts',
+      ],
+      name: 'unit',
+      environment: 'node',
+    },
+  },
+  {
+    test: {
+      // an example of file based convention,
+      // you don't have to follow it
+      include: [
+        'tests/browser/**/*.{test,spec}.ts',
+        'tests/**/*.browser.{test,spec}.ts',
+      ],
+      name: 'browser',
+      browser: {
+        enabled: true,
+        name: 'chrome',
+      },
+    },
+  },
+])
+```
+
 ## 浏览器选项类型
 
 Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
@@ -177,6 +283,104 @@ npx vitest --browser.name=chrome --browser.headless
 默认情况下Headless模式不可用。您需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
 :::
 
+
+## Assertion API
+
+Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，以提供各种开箱即用的 DOM 断言。有关详细文档，请阅读 `jest-dom` readme：
+
+- [`toBeDisabled`](https://github.com/testing-library/jest-dom#toBeDisabled)
+- [`toBeEnabled`](https://github.com/testing-library/jest-dom#toBeEnabled)
+- [`toBeEmptyDOMElement`](https://github.com/testing-library/jest-dom#toBeEmptyDOMElement)
+- [`toBeInTheDocument`](https://github.com/testing-library/jest-dom#toBeInTheDocument)
+- [`toBeInvalid`](https://github.com/testing-library/jest-dom#toBeInvalid)
+- [`toBeRequired`](https://github.com/testing-library/jest-dom#toBeRequired)
+- [`toBeValid`](https://github.com/testing-library/jest-dom#toBeValid)
+- [`toBeVisible`](https://github.com/testing-library/jest-dom#toBeVisible)
+- [`toContainElement`](https://github.com/testing-library/jest-dom#toContainElement)
+- [`toContainHTML`](https://github.com/testing-library/jest-dom#toContainHTML)
+- [`toHaveAccessibleDescription`](https://github.com/testing-library/jest-dom#toHaveAccessibleDescription)
+- [`toHaveAccessibleErrorMessage`](https://github.com/testing-library/jest-dom#toHaveAccessibleErrorMessage)
+- [`toHaveAccessibleName`](https://github.com/testing-library/jest-dom#toHaveAccessibleName)
+- [`toHaveAttribute`](https://github.com/testing-library/jest-dom#toHaveAttribute)
+- [`toHaveClass`](https://github.com/testing-library/jest-dom#toHaveClass)
+- [`toHaveFocus`](https://github.com/testing-library/jest-dom#toHaveFocus)
+- [`toHaveFormValues`](https://github.com/testing-library/jest-dom#toHaveFormValues)
+- [`toHaveStyle`](https://github.com/testing-library/jest-dom#toHaveStyle)
+- [`toHaveTextContent`](https://github.com/testing-library/jest-dom#toHaveTextContent)
+- [`toHaveValue`](https://github.com/testing-library/jest-dom#toHaveValue)
+- [`toHaveDisplayValue`](https://github.com/testing-library/jest-dom#toHaveDisplayValue)
+- [`toBeChecked`](https://github.com/testing-library/jest-dom#toBeChecked)
+- [`toBePartiallyChecked`](https://github.com/testing-library/jest-dom#toBePartiallyChecked)
+- [`toHaveRole`](https://github.com/testing-library/jest-dom#toHaveRole)
+- [`toHaveErrorMessage`](https://github.com/testing-library/jest-dom#toHaveErrorMessage)
+
+如果使用 TypeScript 或希望在 `expect` 中获得正确的类型提示，请确保根据使用的提供程序，在 `tsconfig` 中指定了 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio`。如果使用默认的 `preview` 提供程序，则可指定 `@vitest/browser/matchers` 代替。
+
+::: code-group
+```json [preview]
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/matchers"
+    ]
+  }
+}
+```
+```json [playwright]
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ]
+  }
+}
+```
+```json [webdriverio]
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/webdriverio"
+    ]
+  }
+}
+```
+:::
+
+## Retry-ability
+
+浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll)和 `expect.element` API 提供了可重试的断言：
+
+```ts
+import { expect, test } from 'vitest'
+import { screen } from '@testing-library/dom'
+
+test('error banner is rendered', async () => {
+  triggerError()
+
+  // @testing-library provides queries with built-in retry-ability
+  // It will try to find the banner until it's rendered
+  const banner = await screen.findByRole('alert', {
+    name: /error/i,
+  })
+
+  // Vitest provides `expect.element` with built-in retry-ability
+  // It will check `element.textContent` until it's equal to "Error!"
+  await expect.element(banner).toHaveTextContent('Error!')
+})
+```
+
+::: tip
+`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
+
+`toHaveTextContent` 和所有其他 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)断言在没有内置重试机制的常规`expect`中仍然可用：
+
+
+```ts
+// will fail immediately if .textContent is not `'Error!'`
+expect(banner).toHaveTextContent('Error!')
+```
+:::
+
 ## 上下文
 
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
@@ -214,105 +418,20 @@ export const server: {
  */
 export const userEvent: {
   setup: () => UserEvent
-  /**
-   * Click on an element. Uses provider's API under the hood and supports all its options.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-click} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/click/} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/convenience/#click} testing-library API
-   */
   click: (element: Element, options?: UserEventClickOptions) => Promise<void>
-  /**
-   * Triggers a double click event on an element. Uses provider's API under the hood.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-dblclick} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/doubleClick/} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/convenience/#dblClick} testing-library API
-   */
   dblClick: (element: Element, options?: UserEventDoubleClickOptions) => Promise<void>
-  /**
-   * Choose one or more values from a select element. Uses provider's API under the hood.
-   * If select doesn't have `multiple` attribute, only the first value will be selected.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-select-option} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/doubleClick/} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/utility/#-selectoptions-deselectoptions} testing-library API
-   */
   selectOptions: (
     element: Element,
     values: HTMLElement | HTMLElement[] | string | string[],
     options?: UserEventSelectOptions,
   ) => Promise<void>
-  /**
-   * Type text on the keyboard. If any input is focused, it will receive the text,
-   * otherwise it will be typed on the document. Uses provider's API under the hood.
-   * **Supports** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) (e.g., `{Shift}`) even with `playwright` and `webdriverio` providers.
-   * @example
-   * await userEvent.keyboard('foo') // translates to: f, o, o
-   * await userEvent.keyboard('{{a[[') // translates to: {, a, [
-   * await userEvent.keyboard('{Shift}{f}{o}{o}') // translates to: Shift, f, o, o
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-press} Playwright API
-   * @see {@link https://webdriver.io/docs/api/browser/action#key-input-source} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/keyboard} testing-library API
-   */
   keyboard: (text: string) => Promise<void>
-  /**
-   * Types text into an element. Uses provider's API under the hood.
-   * **Supports** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) (e.g., `{Shift}`) even with `playwright` and `webdriverio` providers.
-   * @example
-   * await userEvent.type(input, 'foo') // translates to: f, o, o
-   * await userEvent.type(input, '{{a[[') // translates to: {, a, [
-   * await userEvent.type(input, '{Shift}{f}{o}{o}') // translates to: Shift, f, o, o
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-press} Playwright API
-   * @see {@link https://webdriver.io/docs/api/browser/action#key-input-source} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/utility/#type} testing-library API
-   */
   type: (element: Element, text: string, options?: UserEventTypeOptions) => Promise<void>
-  /**
-   * Removes all text from an element. Uses provider's API under the hood.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-clear} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/clearValue} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/utility/#clear} testing-library API
-   */
   clear: (element: Element) => Promise<void>
-  /**
-   * Sends a `Tab` key event. Uses provider's API under the hood.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-press} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/keys} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/convenience/#tab} testing-library API
-   */
   tab: (options?: UserEventTabOptions) => Promise<void>
-  /**
-   * Hovers over an element. Uses provider's API under the hood.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-hover} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/moveTo/} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/convenience/#hover} testing-library API
-   */
   hover: (element: Element, options?: UserEventHoverOptions) => Promise<void>
-  /**
-   * Moves cursor position to the body element. Uses provider's API under the hood.
-   * By default, the cursor position is in the center (in webdriverio) or in some visible place (in playwright)
-   * of the body element, so if the current element is already there, this will have no effect.
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-hover} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/moveTo/} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/convenience/#hover} testing-library API
-   */
   unhover: (element: Element, options?: UserEventHoverOptions) => Promise<void>
-  /**
-   * Fills an input element with text. This will remove any existing text in the input before typing the new value.
-   * Uses provider's API under the hood.
-   * This API is faster than using `userEvent.type` or `userEvent.keyboard`, but it **doesn't support** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) (e.g., `{Shift}`).
-   * @example
-   * await userEvent.fill(input, 'foo') // translates to: f, o, o
-   * await userEvent.fill(input, '{{a[[') // translates to: {, {, a, [, [
-   * await userEvent.fill(input, '{Shift}') // translates to: {, S, h, i, f, t, }
-   * @see {@link https://playwright.dev/docs/api/class-locator#locator-fill} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/setValue} WebdriverIO API
-   * @see {@link https://testing-library.com/docs/user-event/utility/#type} testing-library API
-   */
   fill: (element: Element, text: string, options?: UserEventFillOptions) => Promise<void>
-  /**
-   * Drags a source element on top of the target element. This API is not supported by "preview" provider.
-   * @see {@link https://playwright.dev/docs/api/class-frame#frame-drag-and-drop} Playwright API
-   * @see {@link https://webdriver.io/docs/api/element/dragAndDrop/} WebdriverIO API
-   */
   dragAndDrop: (source: Element, target: Element, options?: UserEventDragAndDropOptions) => Promise<void>
 }
 
@@ -337,6 +456,8 @@ export const page: {
    */
   screenshot: (options?: ScreenshotOptions) => Promise<string>
 }
+
+export const cdp: () => CDPSession
 ```
 
 ## Interactivity API
@@ -481,9 +602,8 @@ References:
 ```ts
 import { userEvent } from '@vitest/browser/context'
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom' // adds support for "toHaveFocus"
 
-test('tab works', () => {
+test('tab works', async () => {
   const [input1, input2] = screen.getAllByRole('input')
 
   expect(input1).toHaveFocus()
@@ -546,7 +666,6 @@ References:
 ```ts
 import { userEvent } from '@vitest/browser/context'
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom' // adds support for "toHaveValue"
 
 test('clears input', () => {
   const input = screen.getByRole('input')
@@ -580,7 +699,6 @@ References:
 ```ts
 import { userEvent } from '@vitest/browser/context'
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom' // adds support for "toHaveValue"
 
 test('clears input', () => {
   const select = screen.getByRole('select')
@@ -728,6 +846,29 @@ it('handles files', async () => {
 })
 ```
 
+## CDP Session
+
+Vitest 通过 `@vitest/browser/context` 中导出的 `cdp` 方法访问原始 Chrome Devtools 协议。它主要用于库作者在其基础上构建工具。
+
+```ts
+import { cdp } from '@vitest/browser/context'
+
+const input = document.createElement('input')
+document.body.appendChild(input)
+input.focus()
+
+await cdp().send('Input.dispatchKeyEvent', {
+  type: 'keyDown',
+  text: 'a',
+})
+
+expect(input).toHaveValue('a')
+```
+
+::: warning
+CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+:::
+
 ## Custom Commands
 
 你也可以通过 [`browser.commands`](/config/#browser-commands) 配置选项添加自己的命令。如果你开发了一个库，你可以通过插件内的 `config` 钩子来提供它们：
@@ -848,6 +989,161 @@ Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriv
     ]
   }
 }
+```
+:::
+
+## Examples
+
+浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，你应该可以使用框架的测试工具包。
+
+我们建议根据您的框架使用  `testing-library` packages：
+
+- [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) if you don't use a framework
+- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) to render [vue](https://vuejs.org) components
+- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) to render [svelte](https://svelte.dev) components
+- [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) to render [react](https://react.dev) components
+- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) to render [preact](https://preactjs.com) components
+- [`@testing-library/solid`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
+
+::: warning
+`testing-library` 提供了一个包`@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+:::
+
+::: code-group
+```ts [vue]
+// based on @testing-library/vue example
+// https://testing-library.com/docs/vue-testing-library/examples
+
+import { userEvent } from '@vitest/browser/context'
+import { render, screen } from '@testing-library/vue'
+import Component from './Component.vue'
+
+test('properly handles v-model', async () => {
+  render(Component)
+
+  // Asserts initial state.
+  expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
+
+  // Get the input DOM node by querying the associated label.
+  const usernameInput = await screen.findByLabelText(/username/i)
+
+  // Type the name into the input. This already validates that the input
+  // is filled correctly, no need to check the value manually.
+  await userEvent.fill(usernameInput, 'Bob')
+
+  expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
+})
+```
+```ts [svelte]
+// based on @testing-library/svelte
+// https://testing-library.com/docs/svelte-testing-library/example
+
+import { render, screen } from '@testing-library/svelte'
+import { userEvent } from '@vitest/browser/context'
+import { expect, test } from 'vitest'
+
+import Greeter from './greeter.svelte'
+
+test('greeting appears on click', async () => {
+  const user = userEvent.setup()
+  render(Greeter, { name: 'World' })
+
+  const button = screen.getByRole('button')
+  await user.click(button)
+  const greeting = await screen.findByText(/hello world/iu)
+
+  expect(greeting).toBeInTheDocument()
+})
+```
+```tsx [react]
+// based on @testing-library/react example
+// https://testing-library.com/docs/react-testing-library/example-intro
+
+import { userEvent } from '@vitest/browser/context'
+import { render, screen } from '@testing-library/react'
+import Fetch from './fetch'
+
+test('loads and displays greeting', async () => {
+  // Render a React element into the DOM
+  render(<Fetch url="/greeting" />)
+
+  await userEvent.click(screen.getByText('Load Greeting'))
+  // wait before throwing an error if it cannot find an element
+  const heading = await screen.findByRole('heading')
+
+  // assert that the alert message is correct
+  expect(heading).toHaveTextContent('hello there')
+  expect(screen.getByRole('button')).toBeDisabled()
+})
+```
+```tsx [preact]
+// based on @testing-library/preact example
+// https://testing-library.com/docs/preact-testing-library/example
+
+import { h } from 'preact'
+import { userEvent } from '@vitest/browser/context'
+import { render } from '@testing-library/preact'
+
+import HiddenMessage from '../hidden-message'
+
+test('shows the children when the checkbox is checked', async () => {
+  const testMessage = 'Test Message'
+
+  const { queryByText, getByLabelText, getByText } = render(
+    <HiddenMessage>{testMessage}</HiddenMessage>,
+  )
+
+  // query* functions will return the element or null if it cannot be found.
+  // get* functions will return the element or throw an error if it cannot be found.
+  expect(queryByText(testMessage)).not.toBeInTheDocument()
+
+  // The queries can accept a regex to make your selectors more
+  // resilient to content tweaks and changes.
+  await userEvent.click(getByLabelText(/show/i))
+
+  expect(getByText(testMessage)).toBeInTheDocument()
+})
+```
+```tsx [solid]
+// baed on @testing-library/solid API
+// https://testing-library.com/docs/solid-testing-library/api
+
+import { render } from '@testing-library/solid'
+
+it('uses params', async () => {
+  const App = () => (
+    <>
+      <Route
+        path="/ids/:id"
+        component={() => (
+          <p>
+            Id:
+            {useParams()?.id}
+          </p>
+        )}
+      />
+      <Route path="/" component={() => <p>Start</p>} />
+    </>
+  )
+  const { findByText } = render(() => <App />, { location: 'ids/1234' })
+  expect(await findByText('Id: 1234')).toBeInTheDocument()
+})
+```
+```ts [marko]
+// baed on @testing-library/marko API
+// https://testing-library.com/docs/marko-testing-library/api
+
+import { render, screen } from '@marko/testing-library'
+import Greeting from './greeting.marko'
+
+test('renders a message', async () => {
+  const { container } = await render(Greeting, { name: 'Marko' })
+  expect(screen.getByText(/Marko/)).toBeInTheDocument()
+  expect(container.firstChild).toMatchInlineSnapshot(`
+    <h1>Hello, Marko!</h1>
+  `)
+})
 ```
 :::
 
