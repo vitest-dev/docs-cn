@@ -491,16 +491,12 @@ export default defineConfig({
 Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用，你可以使用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
 如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
 
-<<<<<<< HEAD
-你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
-=======
 ::: tip
-You can also use [Browser Mode](/guide/browser) to run integration or unit tests in the browser without mocking the environment.
+你还可以使用 [浏览器模式](/guide/browser) 在浏览器中运行集成或单元测试，而无需模拟环境。
 :::
 
-By adding a `@vitest-environment` docblock or comment at the top of the file,
-you can specify another environment to be used for all tests in that file:
->>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
+你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
+
 
 文档块格式:
 

@@ -80,10 +80,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-## 浏览器选项类型
-=======
-If you have not used Vite before, make sure you have your framework's plugin installed and specified in the config. Some frameworks might require extra configuration to work - check their Vite related documentation to be sure.
+如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
 
 ::: code-group
 ```ts [vue]
@@ -149,10 +146,10 @@ export default defineConfig({
 :::
 
 ::: tip
-`react` doesn't require a plugin to work, but `preact` requires [extra configuration](https://preactjs.com/guide/v10/getting-started/#create-a-vite-powered-preact-app) to make aliases work.
+`react` 不需要插件就能工作，但 `preact` 需要 [extra configuration](https://preactjs.com/guide/v10/getting-started/#create-a-vite-powered-preact-app) 才能使用别名
 :::
 
-If you need to run some tests using Node-based runner, you can define a [workspace](/guide/workspace) file with separate configurations for different testing strategies:
+如果需要使用基于 Node 的运行程序运行某些测试，可以定义一个 [workspace](/guide/workspace) 文件，为不同的测试策略分别配置：
 
 ```ts
 // vitest.workspace.ts
@@ -189,8 +186,7 @@ export default defineWorkspace([
 ])
 ```
 
-## Browser Option Types
->>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
+## 浏览器选项类型
 
 Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
 - `webdriverio` 支持这些浏览器:
@@ -287,12 +283,10 @@ npx vitest --browser.name=chrome --browser.headless
 默认情况下Headless模式不可用。您需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
 :::
 
-<<<<<<< HEAD
-## 上下文
-=======
+
 ## Assertion API
 
-Vitest bundles [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) library to provide a wide range of DOM assertions out of the box. For detailed documentation, you can read the `jest-dom` readme:
+Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，以提供各种开箱即用的 DOM 断言。有关详细文档，请阅读 `jest-dom` readme：
 
 - [`toBeDisabled`](https://github.com/testing-library/jest-dom#toBeDisabled)
 - [`toBeEnabled`](https://github.com/testing-library/jest-dom#toBeEnabled)
@@ -320,7 +314,7 @@ Vitest bundles [`@testing-library/jest-dom`](https://github.com/testing-library/
 - [`toHaveRole`](https://github.com/testing-library/jest-dom#toHaveRole)
 - [`toHaveErrorMessage`](https://github.com/testing-library/jest-dom#toHaveErrorMessage)
 
-If you are using TypeScript or want to have correct type hints in `expect`, make sure you have either `@vitest/browser/providers/playwright` or `@vitest/browser/providers/webdriverio` specified in your `tsconfig` depending on the provider you use. If you use the default `preview` provider, you can specify `@vitest/browser/matchers` instead.
+如果使用 TypeScript 或希望在 `expect` 中获得正确的类型提示，请确保根据使用的提供程序，在 `tsconfig` 中指定了 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio`。如果使用默认的 `preview` 提供程序，则可指定 `@vitest/browser/matchers` 代替。
 
 ::: code-group
 ```json [preview]
@@ -354,7 +348,7 @@ If you are using TypeScript or want to have correct type hints in `expect`, make
 
 ## Retry-ability
 
-Tests in the browser might fail inconsistently due to their asynchronous nature. Because of this, it is important to have a way to guarantee that assertions succeed even if the condition is delayed (by a timeout, network request, or animation, for example). For this purpose, Vitest provides retriable assertions out of the box via the [`expect.poll`](/api/expect#poll) and `expect.element` APIs:
+浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll)和 `expect.element` API 提供了可重试的断言：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -376,9 +370,10 @@ test('error banner is rendered', async () => {
 ```
 
 ::: tip
-`expect.element` is a shorthand for `expect.poll(() => element)` and works in exactly the same way.
+`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
 
-`toHaveTextContent` and all other [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) assertions are still available on a regular `expect` without a built-in retry-ability mechanism:
+`toHaveTextContent` 和所有其他 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)断言在没有内置重试机制的常规`expect`中仍然可用：
+
 
 ```ts
 // will fail immediately if .textContent is not `'Error!'`
@@ -386,8 +381,7 @@ expect(banner).toHaveTextContent('Error!')
 ```
 :::
 
-## Context
->>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
+## 上下文
 
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
@@ -418,13 +412,8 @@ export const server: {
 }
 
 /**
-<<<<<<< HEAD
  * 用户交互处理程序。由浏览器 provider（`playwright` 或 `webdriverio`）提供支持。
  * 如果与 `preview` 提供程序一起使用，则通过 `@testing-library/user-event`回退到模拟事件。
-=======
- * Handler for user interactions. The support is implemented by the browser provider (`playwright` or `webdriverio`).
- * If used with `preview` provider, fallbacks to simulated events via `@testing-library/user-event`.
->>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
  * @experimental
  */
 export const userEvent: {
@@ -859,7 +848,7 @@ it('handles files', async () => {
 
 ## CDP Session
 
-Vitest exposes access to raw Chrome Devtools Protocol via the `cdp` method exported from `@vitest/browser/context`. It is mostly useful to library authors to build tools on top of it.
+Vitest 通过 `@vitest/browser/context` 中导出的 `cdp` 方法访问原始 Chrome Devtools 协议。它主要用于库作者在其基础上构建工具。
 
 ```ts
 import { cdp } from '@vitest/browser/context'
@@ -877,7 +866,7 @@ expect(input).toHaveValue('a')
 ```
 
 ::: warning
-CDP session works only with `playwright` provider and only when using `chromium` browser. You can read more about it in playwright's [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) documentation.
+CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
 :::
 
 ## Custom Commands
@@ -1003,14 +992,11 @@ Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriv
 ```
 :::
 
-<<<<<<< HEAD
-## 限制
-=======
 ## Examples
 
-Browser Mode is framework agnostic so it doesn't provide any method to render your components. However, you should be able to use your framework's test utils packages.
+浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，你应该可以使用框架的测试工具包。
 
-We recommend using `testing-library` packages depending on your framework:
+我们建议根据您的框架使用  `testing-library` packages：
 
 - [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) if you don't use a framework
 - [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) to render [vue](https://vuejs.org) components
@@ -1021,7 +1007,7 @@ We recommend using `testing-library` packages depending on your framework:
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
 
 ::: warning
-`testing-library` provides a package `@testing-library/user-event`. We do not recommend using it directly because it simulates events instead of actually triggering them - instead, use [`userEvent`](#interactivity-api) imported from `@vitest/browser/context` that uses Chrome DevTools Protocol or Webdriver (depending on the provider) under the hood.
+`testing-library` 提供了一个包`@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
 :::
 
 ::: code-group
@@ -1161,8 +1147,7 @@ test('renders a message', async () => {
 ```
 :::
 
-## Limitations
->>>>>>> 011fb55a3b9fb66703a789df25bece3b6d4cd10f
+## 限制
 
 ### 线程阻塞对话框
 
