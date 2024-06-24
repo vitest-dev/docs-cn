@@ -366,7 +366,11 @@ fn.mock.settledResults === [
 
 ## mock.invocationCallOrder
 
+<<<<<<< HEAD
 模拟的执行顺序。这将返回一个数字数组，所有已定义的 mock 都共享该数组。
+=======
+This property returns the order of the mock function's execution. It is an array of numbers that are shared between all defined mocks.
+>>>>>>> cc0510f479ae7c61ee53b82c667a654c96b32eef
 
 ```js
 const fn1 = vi.fn()
@@ -380,9 +384,28 @@ fn1.mock.invocationCallOrder === [1, 3]
 fn2.mock.invocationCallOrder === [2]
 ```
 
+## mock.contexts
+
+This property is an array of `this` values used during each call to the mock function.
+
+```js
+const fn = vi.fn()
+const context = {}
+
+fn.apply(context)
+fn.call(context)
+
+fn.mock.contexts[0] === context
+fn.mock.contexts[1] === context
+```
+
 ## mock.instances
 
+<<<<<<< HEAD
 这是一个数组，包含使用 `new` 关键字调用 mock 时实例化的所有实例。请注意，这是函数的实际上下文（`this`），而不是返回值。
+=======
+This property is an array containing all instances that were created when the mock was called with the `new` keyword. Note that this is an actual context (`this`) of the function, not a return value.
+>>>>>>> cc0510f479ae7c61ee53b82c667a654c96b32eef
 
 ::: warning
 如果使用 `new MyClass()` 对 mock 进行实例化，那么 `mock.instances` 将是一个只有一个值的数组：
