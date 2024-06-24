@@ -79,6 +79,24 @@ export default defineConfig({
 
 这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
 
+### 简化的模拟函数通用类型 (e.g. `vi.fn<T>`, `Mock<T>`)
+
+以前 `vi.fn<TArgs, TReturn>` 分别接受参数和返回值的两个泛型。现在改为直接接受一个函数类型 `vi.fn<T>` 以简化用法。
+
+```ts
+import { type Mock, vi } from 'vitest'
+
+const add = (x: number, y: number): number => x + y
+
+// using vi.fn<T>
+const mockAdd = vi.fn<Parameters<typeof add>, ReturnType<typeof add>>() // [!code --]
+const mockAdd = vi.fn<typeof add>() // [!code ++]
+
+// using Mock<T>
+const mockAdd: Mock<Parameters<typeof add>, ReturnType<typeof add>> = vi.fn() // [!code --]
+const mockAdd: Mock<typeof add> = vi.fn() // [!code ++]
+```
+
 ## 迁移到 Vitest 1.0
 
 <!-- introduction -->
@@ -324,11 +342,10 @@ Vitest 没有等效于 `jest` 的命名空间，因此你需要直接从 `Vitest
 
 ```ts
 // [!code --]
-import type { Mock } from 'vitest' let fn: jest.Mock<string, [string]> // [!code ++]
-let fn: Mock<[string], string> // [!code ++]
+let fn: jest.Mock<(name: string) => number> // [!code --]
+import type { Mock } from 'vitest' // [!code ++]
+let fn: Mock<(name: string) => number> // [!code ++]
 ```
-
-此外，Vitest 将 `Args` 类型作为第一个参数，而不是 `Returns`，正如你在 diff 中看到的那样。
 
 ### 定时器
 
