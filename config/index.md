@@ -576,7 +576,7 @@ jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom
 - **类型:** `Record<'jsdom' | string, unknown>`
 - **默认值:** `{}`
 
-这些选项被传递给当前 [`environment`](/#environment) 的 `setup` 方法。 默认情况下，如果你将其用作测试环境，则只能配置 JSDOM 选项。
+这些选项被传递给当前 [`environment`](#environment) 的 `setup` 方法。 默认情况下，如果你将其用作测试环境，则只能配置 JSDOM 选项。
 
 ### environmentMatchGlobs
 
