@@ -366,7 +366,7 @@ fn.mock.settledResults === [
 
 ## mock.invocationCallOrder
 
-模拟的执行顺序。这将返回一个数字数组，所有已定义的 mock 都共享该数组。
+此属性返回 mock 函数的执行顺序。它是一个数字数组，由所有定义的 mock 共享。
 
 ```js
 const fn1 = vi.fn()
@@ -380,9 +380,24 @@ fn1.mock.invocationCallOrder === [1, 3]
 fn2.mock.invocationCallOrder === [2]
 ```
 
+## mock.contexts
+
+此属性是每次调用模拟函数时使用的 `this` 值的数组。
+
+```js
+const fn = vi.fn()
+const context = {}
+
+fn.apply(context)
+fn.call(context)
+
+fn.mock.contexts[0] === context
+fn.mock.contexts[1] === context
+```
+
 ## mock.instances
 
-这是一个数组，包含使用 `new` 关键字调用 mock 时实例化的所有实例。请注意，这是函数的实际上下文（`this`），而不是返回值。
+此属性是一个数组，其中包含使用 `new` 关键字调用模拟时创建的所有实例。请注意，这是函数的实际上下文（`this`），而不是返回值。
 
 ::: warning
 如果使用 `new MyClass()` 对 mock 进行实例化，那么 `mock.instances` 将是一个只有一个值的数组：
