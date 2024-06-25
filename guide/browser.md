@@ -7,9 +7,32 @@ title: 浏览器模式 | 指南
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
 
+<<<<<<< HEAD
 ## 安装
 
 默认情况下，浏览器模式不需要任何额外的 E2E 提供商就能在本地运行测试，因为它复用了你现有的浏览器。
+=======
+For easier setup, you can use `vitest init browser` command to install required dependencies and create browser configuration.
+
+::: code-group
+```bash [npm]
+npx vitest init browser
+```
+```bash [yarn]
+yarn exec vitest init browser
+```
+```bash [pnpm]
+pnpx vitest init browser
+```
+```bash [bun]
+bunx vitest init browser
+```
+:::
+
+### Manual Installation
+
+You can also install packages manually. By default, Browser Mode doesn't require any additional E2E provider to run tests locally because it reuses your existing browser.
+>>>>>>> 1e495a7562e69ff4701a953fd25ccfb2ea0a9a38
 
 ::: code-group
 ```bash [npm]
@@ -940,15 +963,22 @@ declare module '@vitest/browser/context' {
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
+<<<<<<< HEAD
 - `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
 - `frame`是测试器 [iframe 实例](https://playwright.dev/docs/api/class-frame)。它的 API 与页面类似，但不支持某些方法。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
+=======
+- `page` references the full page that contains the test iframe. This is the orchestrator HTML and you most likely shouldn't touch it to not break things.
+- `frame` is an async method that will resolve tester [`Frame`](https://playwright.dev/docs/api/class-frame). It has a simillar API to the `page`, but it doesn't support certain methods. If you need to query an element, you should prefer using `context.iframe` instead because it is more stable and faster.
+- `iframe` is a [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator) that should be used to query other elements on the page.
+- `context` refers to the unique [BrowserContext](https://playwright.dev/docs/api/class-browsercontext).
+>>>>>>> 1e495a7562e69ff4701a953fd25ccfb2ea0a9a38
 
 ```ts
 import { defineCommand } from '@vitest/browser'
 export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
   if (ctx.provider.name === 'playwright') {
-    const element = await ctx.frame.findByRole('alert')
+    const element = await ctx.iframe.findByRole('alert')
     const screenshot = await element.screenshot()
     // do something with the screenshot
     return difference
@@ -1003,7 +1033,7 @@ Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriv
 - [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) to render [svelte](https://svelte.dev) components
 - [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) to render [react](https://react.dev) components
 - [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) to render [preact](https://preactjs.com) components
-- [`@testing-library/solid`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
+- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
 
 ::: warning
