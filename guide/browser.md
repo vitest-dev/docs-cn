@@ -9,7 +9,26 @@ title: 浏览器模式 | 指南
 
 ## 安装
 
-默认情况下，浏览器模式不需要任何额外的 E2E 提供商就能在本地运行测试，因为它复用了你现有的浏览器。
+为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
+
+::: code-group
+```bash [npm]
+npx vitest init browser
+```
+```bash [yarn]
+yarn exec vitest init browser
+```
+```bash [pnpm]
+pnpx vitest init browser
+```
+```bash [bun]
+bunx vitest init browser
+```
+:::
+
+### 手动安装
+
+您也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的 E2E provider 就能在本地运行测试，因为它会复用你现有的浏览器。
 
 ::: code-group
 ```bash [npm]
@@ -941,14 +960,15 @@ declare module '@vitest/browser/context' {
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
 - `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
-- `frame`是测试器 [iframe 实例](https://playwright.dev/docs/api/class-frame)。它的 API 与页面类似，但不支持某些方法。
+- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
+- `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
 
 ```ts
 import { defineCommand } from '@vitest/browser'
 export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
   if (ctx.provider.name === 'playwright') {
-    const element = await ctx.frame.findByRole('alert')
+    const element = await ctx.iframe.findByRole('alert')
     const screenshot = await element.screenshot()
     // do something with the screenshot
     return difference
@@ -1003,7 +1023,7 @@ Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriv
 - [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) to render [svelte](https://svelte.dev) components
 - [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) to render [react](https://react.dev) components
 - [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) to render [preact](https://preactjs.com) components
-- [`@testing-library/solid`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
+- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
 
 ::: warning
