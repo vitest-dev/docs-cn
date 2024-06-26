@@ -1740,21 +1740,21 @@ export default defineConfig({
 - **Type:** `{ width, height }`
 - **Default:** `414x896`
 
-Default iframe's viewport.
+默认 iframe 的viewport。
 
 #### browser.screenshotDirectory {#browser-screenshotdirectory}
 
 - **Type:** `string`
 - **Default:** `__snapshots__` in the test file directory
 
-Path to the snapshots directory relative to the `root`.
+相对于 `root` 的快照目录路径。
 
 #### browser.screenshotFailures {#browser-screenshotfailures}
 
 - **Type:** `boolean`
 - **Default:** `!browser.ui`
 
-Should Vitest take screenshots if the test fails.
+如果测试失败，Vitest 是否应截图。
 
 #### browser.orchestratorScripts {#browser-orchestratorscripts}
 

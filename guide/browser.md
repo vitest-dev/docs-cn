@@ -7,12 +7,9 @@ title: 浏览器模式 | 指南
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
 
-<<<<<<< HEAD
 ## 安装
 
-默认情况下，浏览器模式不需要任何额外的 E2E 提供商就能在本地运行测试，因为它复用了你现有的浏览器。
-=======
-For easier setup, you can use `vitest init browser` command to install required dependencies and create browser configuration.
+为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
 
 ::: code-group
 ```bash [npm]
@@ -29,10 +26,9 @@ bunx vitest init browser
 ```
 :::
 
-### Manual Installation
+### 手动安装
 
-You can also install packages manually. By default, Browser Mode doesn't require any additional E2E provider to run tests locally because it reuses your existing browser.
->>>>>>> 1e495a7562e69ff4701a953fd25ccfb2ea0a9a38
+您也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的 E2E provider 就能在本地运行测试，因为它会复用你现有的浏览器。
 
 ::: code-group
 ```bash [npm]
@@ -963,16 +959,10 @@ declare module '@vitest/browser/context' {
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
-<<<<<<< HEAD
 - `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
-- `frame`是测试器 [iframe 实例](https://playwright.dev/docs/api/class-frame)。它的 API 与页面类似，但不支持某些方法。
+- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
+- `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
-=======
-- `page` references the full page that contains the test iframe. This is the orchestrator HTML and you most likely shouldn't touch it to not break things.
-- `frame` is an async method that will resolve tester [`Frame`](https://playwright.dev/docs/api/class-frame). It has a simillar API to the `page`, but it doesn't support certain methods. If you need to query an element, you should prefer using `context.iframe` instead because it is more stable and faster.
-- `iframe` is a [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator) that should be used to query other elements on the page.
-- `context` refers to the unique [BrowserContext](https://playwright.dev/docs/api/class-browsercontext).
->>>>>>> 1e495a7562e69ff4701a953fd25ccfb2ea0a9a38
 
 ```ts
 import { defineCommand } from '@vitest/browser'
