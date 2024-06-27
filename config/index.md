@@ -2439,6 +2439,11 @@ Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`locatio
 
 `location` 属性的 `列` 和 `行` 值与原始文件中的 `test` 或 `describe` 位置相对应。
 
+This option will be auto-enabled if you don't disable it explicitly, and you are running Vitest with:
+- [Vitest UI](/guide/ui)
+- or using the [Browser Mode](/guide/browser) without [headless](/guide/browser#headless) mode
+- or using [HTML Reporter](/guide/reporters#html-reporter)
+
 ::: tip
 如果不使用依赖于该选项的自定义代码，该选项将不起作用。
 :::
