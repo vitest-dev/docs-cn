@@ -7,6 +7,10 @@ outline: deep
 
 ## 迁移到 Vitest 2.0
 
+<<<<<<< HEAD
+=======
+### Default Pool is `forks`
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 ### 默认数据池为 `forks`
 
@@ -29,11 +33,19 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ### 钩子函数在堆栈中运行
 
 在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
 您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
+=======
+### Hooks are Running in a Stack
+
+Before Vitest 2.0, all hooks ran in parallel. In 2.0, all hooks run serially. Additionally, `afterAll`/`afterEach` hooks run in reverse order.
+
+To revert to the parallel execution of hooks, change [`sequence.hooks`](/config/#sequence-hooks) to `'parallel'`:
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 ```ts
 export default defineConfig({
@@ -45,6 +57,7 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ### `suite.concurrent` 同时运行所有测试
 
 以前，在套件上指定 `concurrent` 时，并发测试仍会按套件分组并逐个运行。现在，它会遵循 jest 的行为，一次运行所有测试（仍受 [`maxConcurrency`](/config/#maxConcurrency)限制）。
@@ -56,6 +69,19 @@ export default defineConfig({
 ### 不再有`watchExclude`选项
 
 Vitest 使用 Vite 的监视器。您可以将排除项添加到 `server.watch.ignored`：
+=======
+### `suite.concurrent` Runs All Tests Concurrently
+
+Previously, specifying `concurrent` on a suite would group concurrent tests by suites, running them sequentially. Now, following Jest's behavior, all tests run concurrently (subject to [`maxConcurrency`](/config/#maxconcurrency) limits).
+
+### V8 Coverage's `coverage.ignoreEmptyLines` is Enabled by Default
+
+The default value of `coverage.ignoreEmptyLines` is now true. This significant change may affect code coverage reports, requiring adjustments to coverage thresholds for some projects. This adjustment only affects the default setting when `coverage.provider` is `'v8'`.
+
+### Removal of the `watchExclude` Option
+
+Vitest uses Vite's watcher. Exclude files or directories by adding them to `server.watch.ignored`:
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 ```ts
 export default defineConfig({
@@ -67,11 +93,19 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ### `--segfault-retry` 删除
+=======
+### `--segfault-retry` Removed
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 默认程序池更改后，不再需要此选项。如果遇到分离故障错误，请尝试切换到`'forks'`池。如果问题仍然存在，请重现问题并打开一个新问题。
 ### 删除套件任务中的空任务
 
+<<<<<<< HEAD
+=======
+### Empty Task In Suite Tasks Removed
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 这是对高级[task API](/advanced/runner#your-task-function)的更改。以前，遍历 `.suite`最终会导致使用空的内部套件，而不是文件任务。
 
@@ -79,9 +113,19 @@ export default defineConfig({
 
 这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
 
+<<<<<<< HEAD
 ### 简化的模拟函数通用类型 (e.g. `vi.fn<T>`, `Mock<T>`)
 
 以前 `vi.fn<TArgs, TReturn>` 分别接受参数和返回值的两个泛型。现在改为直接接受一个函数类型 `vi.fn<T>` 以简化用法。
+=======
+### `task.meta` is Added to the JSON Reporter
+
+JSON reporter now prints `task.meta` for every assertion result.
+
+### Simplified Generic Types of Mock Functions (e.g. `vi.fn<T>`, `Mock<T>`)
+
+Previously `vi.fn<TArgs, TReturn>` accepted two generic types separately for arguments and return value. This is changed to directly accept a function type `vi.fn<T>` to simplify the usage.
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 ```ts
 import { type Mock, vi } from 'vitest'
@@ -97,9 +141,54 @@ const mockAdd: Mock<Parameters<typeof add>, ReturnType<typeof add>> = vi.fn() //
 const mockAdd: Mock<typeof add> = vi.fn() // [!code ++]
 ```
 
+<<<<<<< HEAD
 ## 迁移到 Vitest 1.0
+=======
+### Accessing Resolved `mock.results`
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
-<!-- introduction -->
+Previously Vitest resolved `mock.results` values if the function returned a Promise. Now there is a separate [`mock.settledResults`](/api/mock#mock-settledresults) property that populates only when the returned Promise is resolved or rejected.
+
+```ts
+const fn = vi.fn().mockResolvedValueOnce('result')
+await fn()
+
+const result = fn.mock.results[0] // 'result' // [!code --]
+const result = fn.mock.results[0] // 'Promise<result>' // [!code ++]
+
+const settledResult = fn.mock.settledResults[0] // 'result'
+```
+
+With this change, we also introduce new [`toHaveResolved*`](/api/expect#tohaveresolved) matchers similar to `toHaveReturned` to make migration easier if you used `toHaveReturned` before:
+
+```ts
+const fn = vi.fn().mockResolvedValueOnce('result')
+await fn()
+
+expect(fn).toHaveReturned('result') // [!code --]
+expect(fn).toHaveResolved('result') // [!code ++]
+```
+
+### Browser Mode
+
+Vitest Browser Mode had a lot of changes during the beta cycle. You can read about our philosophy on the Browser Mode in the [GitHub discussion page](https://github.com/vitest-dev/vitest/discussions/5828).
+
+Most of the changes were additive, but there were some small breaking changes:
+
+- `none` provider was renamed to `preview` [#5842](https://github.com/vitest-dev/vitest/pull/5826)
+- `preview` provider is now a default [#5842](https://github.com/vitest-dev/vitest/pull/5826)
+- `indexScripts` is renamed to `orchestratorScripts` [#5842](https://github.com/vitest-dev/vitest/pull/5842)
+
+### Deprecated Options Removed
+
+Some deprecated options were removed:
+
+- `vitest typecheck` command - use `vitest --typecheck` instead
+- `VITEST_JUNIT_CLASSNAME` and `VITEST_JUNIT_SUITE_NAME` env variables (use reporter options instead)
+- check for `c8` coverage (use coverage-v8 instead)
+- export of `SnapshotEnvironment` from `vitest` - import it from `vitest/snapshot` instead
+
+## Migrating to Vitest 1.0
 
 ### 最低要求
 
@@ -239,8 +328,13 @@ export default defineConfig({
 
 ### Timer mocks [#3925](https://github.com/vitest-dev/vitest/pull/3925)
 
+<<<<<<< HEAD
 `vi.useFakeTimers()` 不再自动模拟 [`process.nextTick`](https://nodejs.org/api/process.html#processnexttickcallback-args) 。
 仍然可以通过使用 `vi.useFakeTimers({ toFake: ['nextTick'] })` 明确指定来模拟 `process.nextTick`。
+=======
+`vi.useFakeTimers()` no longer automatically mocks [`process.nextTick`](https://nodejs.org/api/process.html#processnexttickcallback-args).
+It is still possible to mock `process.nextTick` by explicitly specifying it by using `vi.useFakeTimers({ toFake: ['nextTick'] })`.
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 但是，在使用 `--pool=forks` 时，无法模拟 `process.nextTick` 。如果需要模拟 `process.nextTick` ，请使用不同的 `--pool` 选项。
 
@@ -289,6 +383,7 @@ const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 server.deps.inline: ["lib-name"]
 ```
 
+<<<<<<< HEAD
 **Jasmine API**
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
@@ -296,6 +391,9 @@ Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `ja
 ### 测试环境
 
 如果之前没有设置，Vitest 会像 Jest 一样，把 `NODE_ENV` 设置为 `test`。 Vitest 也有一个 `JEST_WORKER_ID` 的对应项，是 `VITEST_WORKER_ID`，所以如果你依赖它，不要忘记重命名它。
+=======
+### Envs
+>>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
 
 ### 属性替换
 
