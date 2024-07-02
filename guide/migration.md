@@ -124,24 +124,25 @@ expect(fn).toHaveReturned('result') // [!code --]
 expect(fn).toHaveResolved('result') // [!code ++]
 ```
 
-### Browser Mode
+### 浏览器模式
 
-Vitest Browser Mode had a lot of changes during the beta cycle. You can read about our philosophy on the Browser Mode in the [GitHub discussion page](https://github.com/vitest-dev/vitest/discussions/5828).
+Vitest 浏览器模式在测试周期内发生了很多变化。您可以在[GitHub discussion](https://github.com/vitest-dev/vitest/discussions/5828)上阅读我们关于浏览器模式的理念。
 
-Most of the changes were additive, but there were some small breaking changes:
+大多数改动都是附加的，但也有一些小的突破性改动：
 
-- `none` provider was renamed to `preview` [#5842](https://github.com/vitest-dev/vitest/pull/5826)
-- `preview` provider is now a default [#5842](https://github.com/vitest-dev/vitest/pull/5826)
-- `indexScripts` is renamed to `orchestratorScripts` [#5842](https://github.com/vitest-dev/vitest/pull/5842)
+- `none` provider 更名为 `preview` [#5842](https://github.com/vitest-dev/vitest/pull/5826)
+- `preview` provider 现在是默认的 [#5842](https://github.com/vitest-dev/vitest/pull/5826)
+- `indexScripts` 更名为 `orchestratorScripts` [#5842](https://github.com/vitest-dev/vitest/pull/5842)
 
-### Deprecated Options Removed
+### 删除过时的选项
 
-Some deprecated options were removed:
+删除了一些过时的选项：
 
-- `vitest typecheck` command - use `vitest --typecheck` instead
-- `VITEST_JUNIT_CLASSNAME` and `VITEST_JUNIT_SUITE_NAME` env variables (use reporter options instead)
-- check for `c8` coverage (use coverage-v8 instead)
-- export of `SnapshotEnvironment` from `vitest` - import it from `vitest/snapshot` instead
+- `vitest typecheck` 命令 - 使用 `vitest --typecheck` 代替
+- `VITEST_JUNIT_CLASSNAME` 和 `VITEST_JUNIT_SUITE_NAME` 环境变量（改用 reporter 选项）
+- 检查 `c8` 覆盖率（使用 coverage-v8 代替）
+- 从 `vitest` 导出 `SnapshotEnvironment` - 改为从 `vitest/snapshot` 导入
+
 
 ## 迁移到 Vitest 1.0
 
