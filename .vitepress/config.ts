@@ -222,11 +222,7 @@ export default () => {
                 link: '/guide/ui',
               },
               {
-<<<<<<< HEAD
                 text: '浏览器模式',
-                link: '/guide/browser',
-=======
-                text: 'Browser Mode',
                 link: '/guide/browser/',
                 collapsed: true,
                 items: [{
@@ -254,7 +250,6 @@ export default () => {
                   link: '/guide/browser/examples',
                   docFooterText: 'Examples | Browser Mode',
                 }],
->>>>>>> 74066684a28cece06be748476b8e9a57b0b695b5
               },
               {
                 text: '源码内联测试',
