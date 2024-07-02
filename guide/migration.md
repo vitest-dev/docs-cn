@@ -33,7 +33,7 @@ export default defineConfig({
 
 在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
-您可以通过将 [`sequence.hooks`](/config/#sequence-hooks) 更改为 `'parallel'` 来恢复到以前的行为。
+要恢复钩子的并行执行，请将 [`sequence.hooks`](/config/#sequence-hooks) 改为 `'parallel'`：
 
 ```ts
 export default defineConfig({
@@ -72,12 +72,15 @@ export default defineConfig({
 默认程序池更改后，不再需要此选项。如果遇到分离故障错误，请尝试切换到`'forks'`池。如果问题仍然存在，请重现问题并打开一个新问题。
 ### 删除套件任务中的空任务
 
-
 这是对高级[task API](/advanced/runner#your-task-function)的更改。以前，遍历 `.suite`最终会导致使用空的内部套件，而不是文件任务。
 
 这使得 `.suite`成为可选项；如果任务是在顶层定义的，则不会有 suite。您可以回退到 `.file`属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
 
 这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
+
+### `task.meta` 已添加到 JSON 报告器中
+
+JSON 报告器现在会为每个断言结果打印 `task.meta` 。
 
 ### 简化的模拟函数通用类型 (e.g. `vi.fn<T>`, `Mock<T>`)
 
@@ -97,9 +100,51 @@ const mockAdd: Mock<Parameters<typeof add>, ReturnType<typeof add>> = vi.fn() //
 const mockAdd: Mock<typeof add> = vi.fn() // [!code ++]
 ```
 
-## 迁移到 Vitest 1.0
+### Accessing Resolved `mock.results`
 
-<!-- introduction -->
+Previously Vitest resolved `mock.results` values if the function returned a Promise. Now there is a separate [`mock.settledResults`](/api/mock#mock-settledresults) property that populates only when the returned Promise is resolved or rejected.
+
+```ts
+const fn = vi.fn().mockResolvedValueOnce('result')
+await fn()
+
+const result = fn.mock.results[0] // 'result' // [!code --]
+const result = fn.mock.results[0] // 'Promise<result>' // [!code ++]
+
+const settledResult = fn.mock.settledResults[0] // 'result'
+```
+
+With this change, we also introduce new [`toHaveResolved*`](/api/expect#tohaveresolved) matchers similar to `toHaveReturned` to make migration easier if you used `toHaveReturned` before:
+
+```ts
+const fn = vi.fn().mockResolvedValueOnce('result')
+await fn()
+
+expect(fn).toHaveReturned('result') // [!code --]
+expect(fn).toHaveResolved('result') // [!code ++]
+```
+
+### 浏览器模式
+
+Vitest 浏览器模式在测试周期内发生了很多变化。您可以在[GitHub discussion](https://github.com/vitest-dev/vitest/discussions/5828)上阅读我们关于浏览器模式的理念。
+
+大多数改动都是附加的，但也有一些小的突破性改动：
+
+- `none` provider 更名为 `preview` [#5842](https://github.com/vitest-dev/vitest/pull/5826)
+- `preview` provider 现在是默认的 [#5842](https://github.com/vitest-dev/vitest/pull/5826)
+- `indexScripts` 更名为 `orchestratorScripts` [#5842](https://github.com/vitest-dev/vitest/pull/5842)
+
+### 删除过时的选项
+
+删除了一些过时的选项：
+
+- `vitest typecheck` 命令 - 使用 `vitest --typecheck` 代替
+- `VITEST_JUNIT_CLASSNAME` 和 `VITEST_JUNIT_SUITE_NAME` 环境变量（改用 reporter 选项）
+- 检查 `c8` 覆盖率（使用 coverage-v8 代替）
+- 从 `vitest` 导出 `SnapshotEnvironment` - 改为从 `vitest/snapshot` 导入
+
+
+## 迁移到 Vitest 1.0
 
 ### 最低要求
 

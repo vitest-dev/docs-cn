@@ -223,7 +223,33 @@ export default () => {
               },
               {
                 text: '浏览器模式',
-                link: '/guide/browser',
+                link: '/guide/browser/',
+                collapsed: true,
+                items: [{
+                  text: 'Assertion API',
+                  link: '/guide/browser/assertion-api',
+                  docFooterText: 'Assertion API | Browser Mode',
+                }, {
+                  text: 'Retry-ability',
+                  link: '/guide/browser/retry-ability',
+                  docFooterText: 'Retry-ability | Browser Mode',
+                }, {
+                  text: 'Context',
+                  link: '/guide/browser/context',
+                  docFooterText: 'Context | Browser Mode',
+                }, {
+                  text: 'Interactivity API',
+                  link: '/guide/browser/interactivity-api',
+                  docFooterText: 'Interactivity API | Browser Mode',
+                }, {
+                  text: 'Commands',
+                  link: '/guide/browser/commands',
+                  docFooterText: 'Commands | Browser Mode',
+                }, {
+                  text: 'Examples',
+                  link: '/guide/browser/examples',
+                  docFooterText: 'Examples | Browser Mode',
+                }],
               },
               {
                 text: '源码内联测试',

@@ -119,6 +119,10 @@ export default defineConfig({
 
 匹配包含测试文件的 glob 规则。
 
+::: tip NOTE
+使用 coverage 时，Vitest 会自动将测试文件的 `include` 模式添加到 coverage 的默认 `exclude` 模式中。请参见 [`coverage.exclude`](#coverage-exclude)。
+:::
+
 ### exclude
 
 - **类型:** `string[]`
@@ -492,7 +496,7 @@ Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 
 如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
 
 ::: tip
-你还可以使用 [浏览器模式](/guide/browser) 在浏览器中运行集成或单元测试，而无需模拟环境。
+你还可以使用 [浏览器模式](/guide/browser/) 在浏览器中运行集成或单元测试，而无需模拟环境。
 :::
 
 你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
@@ -748,17 +752,17 @@ export default defineConfig({
 
 ##### poolOptions.threads.maxThreads<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最大线程数。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
+最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
 ##### poolOptions.threads.minThreads<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最小线程数。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
+最小线程数或百分比。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
 
 ##### poolOptions.threads.singleThread
 
@@ -820,17 +824,17 @@ export default defineConfig({
 
 ##### poolOptions.forks.maxForks<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最大分支数量。
+最大分支数量或百分比。
 
 ##### poolOptions.forks.minForks<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最小分支数量。
+最小分支数量或百分比。
 
 ##### poolOptions.forks.isolate
 
@@ -883,17 +887,17 @@ export default defineConfig({
 
 ##### poolOptions.vmThreads.maxThreads<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认:** _available CPUs_
 
-最大线程数。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
+最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
 ##### poolOptions.vmThreads.minThreads<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最小线程数。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
+最小线程数或百分比。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
 
 ##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
 
@@ -963,17 +967,17 @@ export default defineConfig({
 
 ##### poolOptions.vmForks.maxForks<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最大线程数。也可以使用 `VITEST_MAX_FORKS` 环境变量。
+最大线程数或百分比。也可以使用 `VITEST_MAX_FORKS` 环境变量。
 
 ##### poolOptions.vmForks.minForks<NonProjectOption />
 
-- **类型:** `number`
+- **类型:** `number | string`
 - **默认值:** _available CPUs_
 
-最小线程数。也可以使用 `VITEST_MIN_FORKS` 环境变量。
+最小线程数或百分比。也可以使用 `VITEST_MIN_FORKS` 环境变量。
 
 ##### poolOptions.vmForks.memoryLimit<NonProjectOption />
 
@@ -1007,15 +1011,15 @@ export default defineConfig({
 
 ### maxWorkers<NonProjectOption /> {#maxworkers}
 
-- **类型:** `number`
+- **类型:** `number | string`
 
-运行测试时设置的最大工作线程数。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
+运行测试时设置的最大工作线程数或百分比。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
 ### minWorkers<NonProjectOption /> {#minworkers}
 
-- **类型:** `number`
+- **类型:** `number | string`
 
-运行测试时设置的最小工作线程数。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
+运行测试时设置的最小工作线程数或百分比。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
 
 ### testTimeout
 
@@ -1209,6 +1213,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 [
   'coverage/**',
   'dist/**',
+  '**/node_modules/**',
   '**/[.]**',
   'packages/*/test?(s)/**',
   '**/*.d.ts',
@@ -1218,9 +1223,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   'cypress/**',
   'test?(s)/**',
   'test?(-*).?(c|m)[jt]s?(x)',
-  '**/*{.,-}{test,spec}?(-d).?(c|m)[jt]s?(x)',
+  '**/*{.,-}{test,spec,bench,benchmark}?(-d).?(c|m)[jt]s?(x)',
   '**/__tests__/**',
-  '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+  '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*',
   '**/vitest.{workspace,projects}.[jt]s?(on)',
   '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
 ]
@@ -1244,6 +1249,10 @@ export default defineConfig({
   },
 })
 ```
+
+::: tip NOTE
+Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 的默认值中。
+:::
 
 #### coverage.all
 
@@ -1616,7 +1625,7 @@ test('doNotRun', () => {
 在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](#browser-provider) 选项进行配置。
 
 ::: tip NOTE
-在 [指南页面](/guide/browser) 中阅读有关在真实浏览器中进行测试的更多信息。
+在 [指南页面](/guide/browser/) 中阅读有关在真实浏览器中进行测试的更多信息。
 :::
 
 ::: warning
@@ -1810,7 +1819,7 @@ export interface BrowserScript {
 - **类型:** `Record<string, BrowserCommand>`
 - **默认值:** `{ readFile, writeFile, ... }`
 
-自定义[命令](/guide/browser#commands)，可在浏览器测试期间从 `@vitest/browser/commands` 导入。
+自定义[命令](/guide/browser/commands)，可在浏览器测试期间从 `@vitest/browser/commands` 导入。
 
 ### clearMocks
 
@@ -2439,10 +2448,10 @@ Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`locatio
 
 `location` 属性的 `列` 和 `行` 值与原始文件中的 `test` 或 `describe` 位置相对应。
 
-This option will be auto-enabled if you don't disable it explicitly, and you are running Vitest with:
+如果您没有明确禁用该选项，并且在运行 Vitest 时使用了该选项，则该选项将自动启用：
 - [Vitest UI](/guide/ui)
-- or using the [Browser Mode](/guide/browser) without [headless](/guide/browser#headless) mode
-- or using [HTML Reporter](/guide/reporters#html-reporter)
+- 或使用不带 [headless](/guide/browser/#headless) 模式的 [浏览器模式](/guide/browser/)
+- 或使用[HTML 报告器](/guide/reporters#html-reporter)
 
 ::: tip
 如果不使用依赖于该选项的自定义代码，该选项将不起作用。
