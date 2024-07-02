@@ -4,7 +4,7 @@ title: Assertion API | Browser Mode
 
 # Assertion API
 
-Vitest bundles [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) library to provide a wide range of DOM assertions out of the box. For detailed documentation, you can read the `jest-dom` readme:
+Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，以提供各种开箱即用的 DOM 断言。有关详细文档，请阅读 `jest-dom` readme：
 
 - [`toBeDisabled`](https://github.com/testing-library/jest-dom#toBeDisabled)
 - [`toBeEnabled`](https://github.com/testing-library/jest-dom#toBeEnabled)
@@ -32,7 +32,7 @@ Vitest bundles [`@testing-library/jest-dom`](https://github.com/testing-library/
 - [`toHaveRole`](https://github.com/testing-library/jest-dom#toHaveRole)
 - [`toHaveErrorMessage`](https://github.com/testing-library/jest-dom#toHaveErrorMessage)
 
-If you are using TypeScript or want to have correct type hints in `expect`, make sure you have either `@vitest/browser/providers/playwright` or `@vitest/browser/providers/webdriverio` specified in your `tsconfig` depending on the provider you use. If you use the default `preview` provider, you can specify `@vitest/browser/matchers` instead.
+如果使用 TypeScript 或希望在 `expect` 中获得正确的类型提示，请确保根据使用的提供程序，在 `tsconfig` 中指定了 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio`。如果使用默认的 `preview` 提供程序，则可指定 `@vitest/browser/matchers` 代替。
 
 ::: code-group
 ```json [preview]

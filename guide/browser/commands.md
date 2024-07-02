@@ -5,18 +5,18 @@ outline: deep
 
 # Commands
 
-Command is a function that invokes another function on the server and passes down the result back to the browser. Vitest exposes several built-in commands you can use in your browser tests.
+命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 
-## Built-in Commands
+## 内置命令
 
-### Files Handling
+### 文件处理
 
-You can use `readFile`, `writeFile` and `removeFile` API to handle files inside your browser tests. All paths are resolved relative to the test file even if they are called in a helper function located in another file.
+你可以使用 `readFile` 、`writeFile` 和 `removeFile` API 来处理浏览器测试中的文件。所有路径都是相对于测试文件解析的，即使它们是在位于另一个文件中的辅助函数中调用的。
 
-By default, Vitest uses `utf-8` encoding but you can override it with options.
+默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
 
 ::: tip
-This API follows [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) limitations for security reasons.
+此 API 遵循 [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) 出于安全原因的限制。
 :::
 
 ```ts
@@ -38,7 +38,7 @@ it('handles files', async () => {
 
 ## CDP Session
 
-Vitest exposes access to raw Chrome Devtools Protocol via the `cdp` method exported from `@vitest/browser/context`. It is mostly useful to library authors to build tools on top of it.
+Vitest 通过 `@vitest/browser/context` 中导出的 `cdp` 方法访问原始 Chrome Devtools 协议。它主要用于库作者在其基础上构建工具。
 
 ```ts
 import { cdp } from '@vitest/browser/context'
@@ -56,12 +56,12 @@ expect(input).toHaveValue('a')
 ```
 
 ::: warning
-CDP session works only with `playwright` provider and only when using `chromium` browser. You can read more about it in playwright's [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) documentation.
+CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
 :::
 
 ## Custom Commands
 
-You can also add your own commands via [`browser.commands`](/config/#browser-commands) config option. If you develop a library, you can provide them via a `config` hook inside a plugin:
+你也可以通过 [`browser.commands`](/config/#browser-commands) 配置选项添加自己的命令。如果你开发了一个库，你可以通过插件内的 `config` 钩子来提供它们：
 
 ```ts
 import type { Plugin } from 'vitest/config'
@@ -97,7 +97,7 @@ export default function BrowserCommands(): Plugin {
 }
 ```
 
-Then you can call it inside your test by importing it from `@vitest/browser/context`:
+然后，你可以通过从 `@vitest/brower/context` 导入它，在测试中调用它：
 
 ```ts
 import { commands } from '@vitest/browser/context'
@@ -119,17 +119,17 @@ declare module '@vitest/browser/context' {
 ```
 
 ::: warning
-Custom functions will override built-in ones if they have the same name.
+如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-### Custom `playwright` commands
+### 自定义命令 `playwright`
 
-Vitest exposes several `playwright` specific properties on the command context.
+Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
-- `page` references the full page that contains the test iframe. This is the orchestrator HTML and you most likely shouldn't touch it to not break things.
-- `frame` is an async method that will resolve tester [`Frame`](https://playwright.dev/docs/api/class-frame). It has a simillar API to the `page`, but it doesn't support certain methods. If you need to query an element, you should prefer using `context.iframe` instead because it is more stable and faster.
-- `iframe` is a [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator) that should be used to query other elements on the page.
-- `context` refers to the unique [BrowserContext](https://playwright.dev/docs/api/class-browsercontext).
+- `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
+- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
+- `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
+- `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
 
 ```ts
 import { defineCommand } from '@vitest/browser'
@@ -145,7 +145,7 @@ export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
 ```
 
 ::: tip
-If you are using TypeScript, don't forget to add `@vitest/browser/providers/playwright` to your `tsconfig` "compilerOptions.types" field to get autocompletion in the config and on `userEvent` and `page` options:
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/playwright` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以便在配置中以及 `userEvent` 和 `page` 选项中获得自动完成功能：
 
 ```json
 {
@@ -158,16 +158,16 @@ If you are using TypeScript, don't forget to add `@vitest/browser/providers/play
 ```
 :::
 
-### Custom `webdriverio` commands
+### 自定义命令 `webdriverio`
 
-Vitest exposes some `webdriverio` specific properties on the context object.
+Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
 
-- `browser` is the `WebdriverIO.Browser` API.
+- `browser` 是 `WebdriverIO.Browser` API.
 
-Vitest automatically switches the `webdriver` context to the test iframe by calling `browser.switchToFrame` before the command is called, so `$` and `$$` methods refer to the elements inside the iframe, not in the orchestrator, but non-webdriver APIs will still refer to the parent frame context.
+Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriver` 上下文切换到测试 iframe，因此 `$` 和 `$` 方法将引用 iframe 内的元素，而不是 orchestrator 中的元素，但非 Webdriver API 仍将引用 parent frame 上下文。
 
 ::: tip
-If you are using TypeScript, don't forget to add `@vitest/browser/providers/webdriverio` to your `tsconfig` "compilerOptions.types" field to get autocompletion:
+如果您使用的是 TypeScript，请不要忘记将 `@vitest/browser/providers/webdriverio` 添加到您的 `tsconfig` "compilerOptions.types" 字段，以获得自动完成功能：
 
 ```json
 {

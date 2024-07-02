@@ -4,9 +4,9 @@ title: Examples | Browser Mode
 
 # Examples
 
-Browser Mode is framework agnostic so it doesn't provide any method to render your components. However, you should be able to use your framework's test utils packages.
+浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，你应该可以使用框架的测试工具包。
 
-We recommend using `testing-library` packages depending on your framework:
+我们建议根据您的框架使用  `testing-library` packages：
 
 - [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) if you don't use a framework
 - [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) to render [vue](https://vuejs.org) components
@@ -17,7 +17,7 @@ We recommend using `testing-library` packages depending on your framework:
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
 
 ::: warning
-`testing-library` provides a package `@testing-library/user-event`. We do not recommend using it directly because it simulates events instead of actually triggering them - instead, use [`userEvent`](#interactivity-api) imported from `@vitest/browser/context` that uses Chrome DevTools Protocol or Webdriver (depending on the provider) under the hood.
+`testing-library` 提供了一个包`@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
 :::
 
 ::: code-group
