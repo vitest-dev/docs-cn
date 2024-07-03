@@ -354,18 +354,15 @@ describe('get a list of todo items', () => {
 })
 ```
 
-<<<<<<< HEAD
-## 请求
-=======
-## File System
+## 文件系统
 
-Mocking the file system ensures that the tests do not depend on the actual file system, making the tests more reliable and predictable. This isolation helps in avoiding side effects from previous tests. It allows for testing error conditions and edge cases that might be difficult or impossible to replicate with an actual file system, such as permission issues, disk full scenarios, or read/write errors.
+文件系统模拟文件系统可确保测试不依赖于实际文件系统，从而使测试更可靠、更可预测。这种隔离有助于避免先前测试的副作用。它允许测试可能难以或无法用实际文件系统复制的错误条件和边缘情况，如权限问题、磁盘满的情况或读/写错误。
 
-Vitest doesn't provide any file system mocking API out of the box. You can use `vi.mock` to mock the `fs` module manually, but it's hard to maintain. Instead, we recommend using [`memfs`](https://www.npmjs.com/package/memfs) to do that for you. `memfs` creates an in-memory file system, which simulates file system operations without touching the actual disk. This approach is fast and safe, avoiding any potential side effects on the real file system.
+Vitest 并不提供任何文件系统模拟 API。您可以使用 `vi.mock` 手动模拟 `fs` 模块，但这很难维护。相反，我们建议使用 [`memfs`](https://www.npmjs.com/package/memfs) 来为你做这件事。`memfs` 创建了一个内存文件系统，可以在不接触实际磁盘的情况下模拟文件系统操作。这种方法既快速又安全，可以避免对真实文件系统产生任何潜在的副作用。
 
-### Example
+### 例子
 
-To automatially redirect every `fs` call to `memfs`, you can create `__mocks__/fs.cjs` and `__mocks__/fs/promises.cjs` files at the root of your project:
+要自动将每个 `fs` 调用重定向到 `memfs`，可以在项目根目录下创建 `__mocks__/fs.cjs` 和 `__mocks__/fs/promises.cjs` 文件：
 
 ::: code-group
 ```ts [__mocks__/fs.cjs]
@@ -434,8 +431,7 @@ it('can return a value multiple times', () => {
 })
 ```
 
-## Requests
->>>>>>> 4cc0b90592dde7ec7963a258e3822e91421d4281
+## 请求
 
 因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `REST` 和 `GraphQL` 网络请求，并且与框架无关。
 
