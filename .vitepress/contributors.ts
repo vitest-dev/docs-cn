@@ -83,10 +83,10 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@AriPerkkio',
     twitter: 'ari_perkkio',
     sponsor: 'https://github.com/sponsors/AriPerkkio',
-    title: '全栈开发者, 工作于',
+    title: '开源开发者, 工作于',
     desc: 'Vitest 核心团队成员',
-    org: 'Cloudamite',
-    orgLink: 'https://cloudamite.com/',
+    org: 'StackBlitz',
+    orgLink: 'https://stackblitz.com/',
   },
   {
     avatar: contributorsAvatars['patak-dev'],

@@ -354,6 +354,83 @@ describe('get a list of todo items', () => {
 })
 ```
 
+## 文件系统
+
+文件系统模拟文件系统可确保测试不依赖于实际文件系统，从而使测试更可靠、更可预测。这种隔离有助于避免先前测试的副作用。它允许测试可能难以或无法用实际文件系统复制的错误条件和边缘情况，如权限问题、磁盘满的情况或读/写错误。
+
+Vitest 并不提供任何文件系统模拟 API。您可以使用 `vi.mock` 手动模拟 `fs` 模块，但这很难维护。相反，我们建议使用 [`memfs`](https://www.npmjs.com/package/memfs) 来为你做这件事。`memfs` 创建了一个内存文件系统，可以在不接触实际磁盘的情况下模拟文件系统操作。这种方法既快速又安全，可以避免对真实文件系统产生任何潜在的副作用。
+
+### 例子
+
+要自动将每个 `fs` 调用重定向到 `memfs`，可以在项目根目录下创建 `__mocks__/fs.cjs` 和 `__mocks__/fs/promises.cjs` 文件：
+
+::: code-group
+```ts [__mocks__/fs.cjs]
+// we can also use `import`, but then
+// every export should be explicitly defined
+
+const { fs } = require('memfs')
+module.exports = fs
+```
+
+```ts [__mocks__/fs/promises.cjs]
+// we can also use `import`, but then
+// every export should be explicitly defined
+
+const { fs } = require('memfs')
+module.exports = fs.promises
+```
+:::
+
+```ts
+// hello-world.js
+import { readFileSync } from 'node:fs'
+
+export function readHelloWorld(path) {
+  return readFileSync('./hello-world.txt')
+}
+```
+
+```ts
+// hello-world.test.js
+import { beforeEach, expect, it, vi } from 'vitest'
+import { fs, vol } from 'memfs'
+import { readHelloWorld } from './hello-world.js'
+
+// tell vitest to use fs mock from __mocks__ folder
+// this can be done in a setup file if fs should always be mocked
+vi.mock('node:fs')
+vi.mock('node:fs/promises')
+
+beforeEach(() => {
+  // reset the state of in-memory fs
+  vol.reset()
+})
+
+it('should return correct text', () => {
+  const path = './hello-world.txt'
+  fs.writeFileSync(path, 'hello world')
+
+  const text = readHelloWorld(path)
+  expect(text).toBe('hello world')
+})
+
+it('can return a value multiple times', () => {
+  // you can use vol.fromJSON to define several files
+  vol.fromJSON(
+    {
+      './dir1/hw.txt': 'hello dir1',
+      './dir2/hw.txt': 'hello dir2',
+    },
+    // default cwd
+    '/tmp'
+  )
+
+  expect(readHelloWorld('/tmp/dir1/hw.txt')).toBe('hello dir1')
+  expect(readHelloWorld('/tmp/dir2/hw.txt')).toBe('hello dir2')
+})
+```
+
 ## 请求
 
 因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `REST` 和 `GraphQL` 网络请求，并且与框架无关。
