@@ -56,12 +56,9 @@ export default {
 
 仅运行 [基准](https://vitest.dev/guide/features.html#benchmarking-experimental) 测试，比较性能结果。
 
-<<<<<<< HEAD
-## 选项
-=======
 ### `vitest init`
 
-`vitest init <name>` can be used to setup project configuration. At the moment, it only supports [`browser`](/guide/browser) value:
+`vitest-init<name>` 可以用于设置项目配置。目前，它只支持 [`browser`](/guide/browser) 值：
 
 ```bash
 vitest init browser
@@ -69,7 +66,7 @@ vitest init browser
 
 ### `vitest list`
 
-`vitest list` command inherits all `vitest` options to print the list of all matching tests. This command ignores `reporters` option. By default, it will print the names of all tests that matched the file filter and name pattern:
+`vitest list` 命令继承所有的 `vitest` 选项以打印所有匹配测试的列表。此命令忽略 `reporters` 选项。默认情况下，它将打印与文件过滤器和名称模式匹配的所有测试的名称：
 
 ```shell
 vitest list filename.spec.ts -t="some-test"
@@ -81,16 +78,15 @@ describe > some-test > test 1
 describe > some-test > test 2
 ```
 
-You can pass down `--json` flag to print tests in JSON format or save it in a separate file:
+你可以传递 `--json` 标志以 JSON 格式打印测试，也可以将其保存在单独的文件中：
 
 ```bash
 vitest list filename.spec.ts -t="some-test" --json=./file.json
 ```
 
-If `--json` flag doesn't receive a value, it will output the JSON into stdout.
+如果 `--json` 标志没有接收到值，它将把 JSON 输出到 stdout 中。
 
-## Options
->>>>>>> 2cd6e26affcdc7ec474fedb7d0ea7622c4cc8fc6
+## 选项
 
 <!--@include: ./cli-table.md-->
 

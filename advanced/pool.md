@@ -42,15 +42,14 @@ import { ProcessPool, WorkspaceProject } from 'vitest/node'
 
 export interface ProcessPool {
   name: string
-<<<<<<< HEAD
   runTests: (
     files: [project: WorkspaceProject, testFile: string][],
     invalidates?: string[]
   ) => Promise<void>
-=======
-  runTests: (files: [project: WorkspaceProject, testFile: string][], invalidates?: string[]) => Promise<void>
-  collectTests: (files: [project: WorkspaceProject, testFile: string][], invalidates?: string[]) => Promise<void>
->>>>>>> 2cd6e26affcdc7ec474fedb7d0ea7622c4cc8fc6
+  collectTests: (
+    files: [project: WorkspaceProject, testFile: string][],
+    invalidates?: string[]
+  ) => Promise<void>
   close?: () => Promise<void>
 }
 ```
@@ -63,13 +62,9 @@ Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTe
 
 如果你正在使用自定义池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
 
-<<<<<<< HEAD
-要在不同进程之间进行通信，可以使用 `vitest/node` 中的 `createMethodsRPC` 创建方法对象，并使用你喜欢的任何通信形式。例如，要使用 `birpc` 的 websockets，可以编写类似以下的内容：
-=======
-Vitest will call `collectTests` if `vitest.collect` is called or `vitest list` is invoked via a CLI command. It works the same way as `runTests`, but you don't have to run test callbacks, only report their tasks by calling `vitest.state.collectFiles(files)`.
+如果通过 CLI 命令调用 `vitest.collect` 或 `vitest list`，则 Vitest 将调用 `collectTests`。它的工作方式与 `runTests` 相同，但你不必运行测试回调，只需通过调用 `vitest.state.collectFiles(files)` 来报告它们的任务。
 
-To communicate between different processes, you can create methods object using `createMethodsRPC` from `vitest/node`, and use any form of communication that you prefer. For example, to use WebSockets with `birpc` you can write something like this:
->>>>>>> 2cd6e26affcdc7ec474fedb7d0ea7622c4cc8fc6
+要在不同的进程之间进行通信，可以使用 `vitest/node` 中的 `createMethodsRPC` 创建方法对象，并使用你喜欢的任何形式的通信。例如，要将 WebSockets 与 `birpc` 一起使用，你可以编写以下内容：
 
 ```ts
 import { createBirpc } from 'birpc'
