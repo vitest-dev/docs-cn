@@ -58,7 +58,11 @@ export default {
 
 ### `vitest init`
 
+<<<<<<< HEAD
 `vitest-init<name>` 可以用于设置项目配置。目前，它只支持 [`browser`](/guide/browser) 值：
+=======
+`vitest init <name>` can be used to setup project configuration. At the moment, it only supports [`browser`](/guide/browser/) value:
+>>>>>>> 78418601dad1c75befabcc7948c76ac2b5fa7b41
 
 ```bash
 vitest init browser
