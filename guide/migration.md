@@ -138,10 +138,18 @@ Vitest 浏览器模式在测试周期内发生了很多变化。您可以在[Git
 
 删除了一些过时的选项：
 
+<<<<<<< HEAD
 - `vitest typecheck` 命令 - 使用 `vitest --typecheck` 代替
 - `VITEST_JUNIT_CLASSNAME` 和 `VITEST_JUNIT_SUITE_NAME` 环境变量（改用 reporter 选项）
 - 检查 `c8` 覆盖率（使用 coverage-v8 代替）
 - 从 `vitest` 导出 `SnapshotEnvironment` - 改为从 `vitest/snapshot` 导入
+=======
+- `vitest typecheck` command - use `vitest --typecheck` instead
+- `VITEST_JUNIT_CLASSNAME` and `VITEST_JUNIT_SUITE_NAME` env variables (use reporter options instead)
+- check for `c8` coverage (use coverage-v8 instead)
+- export of `SnapshotEnvironment` from `vitest` - import it from `vitest/snapshot` instead
+- `SpyInstance` is removed in favor of `MockInstance`
+>>>>>>> 362dfacb01618c14d164c59ecbfa304716306096
 
 
 ## 迁移到 Vitest 1.0

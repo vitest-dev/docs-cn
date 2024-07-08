@@ -37,8 +37,8 @@ export default () => {
     },
     head: [
       ['meta', { name: 'theme-color', content: '#729b1a' }],
-      ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
-      ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+      ['link', { rel: 'icon', href: '/favicon.ico', sizes: '48x48' }],
+      ['link', { rel: 'icon', href: '/logo.svg', sizes: 'any', type: 'image/svg+xml' }],
       ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
       ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, marko, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, node' }],
       ['meta', { property: 'og:title', content: vitestName }],
@@ -120,7 +120,11 @@ export default () => {
                   link: releases,
                 },
                 {
+<<<<<<< HEAD
                   text: '社区指南',
+=======
+                  text: 'Contributing',
+>>>>>>> 362dfacb01618c14d164c59ecbfa304716306096
                   link: contributing,
                 },
               ]
@@ -134,6 +138,10 @@ export default () => {
                 {
                   text: 'v0.x',
                   link: 'https://v0.vitest.dev/',
+                },
+                {
+                  text: 'v1.x',
+                  link: 'https://v1.vitest.dev/',
                 },
               ],
             },
