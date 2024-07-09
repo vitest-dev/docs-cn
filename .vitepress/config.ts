@@ -120,11 +120,7 @@ export default () => {
                   link: releases,
                 },
                 {
-<<<<<<< HEAD
                   text: '社区指南',
-=======
-                  text: 'Contributing',
->>>>>>> 362dfacb01618c14d164c59ecbfa304716306096
                   link: contributing,
                 },
               ]
