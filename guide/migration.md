@@ -142,6 +142,7 @@ Vitest 浏览器模式在测试周期内发生了很多变化。您可以在[Git
 - `VITEST_JUNIT_CLASSNAME` 和 `VITEST_JUNIT_SUITE_NAME` 环境变量（改用 reporter 选项）
 - 检查 `c8` 覆盖率（使用 coverage-v8 代替）
 - 从 `vitest` 导出 `SnapshotEnvironment` - 改为从 `vitest/snapshot` 导入
+- 删除 `SpyInstance` 改用 `MockInstance`
 
 
 ## 迁移到 Vitest 1.0
