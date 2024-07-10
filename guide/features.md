@@ -122,7 +122,9 @@ const fn = vi.fn()
 fn('hello', 1)
 expect(vi.isMockFunction(fn)).toBe(true)
 expect(fn.mock.calls[0]).toEqual(['hello', 1])
-fn.mockImplementation(arg => arg)
+
+fn.mockImplementation((arg: string) => arg)
+
 fn('world', 2)
 expect(fn.mock.results[1].value).toBe('world')
 ```
@@ -258,3 +260,19 @@ vitest --merge-reports --reporter=junit --coverage.reporter=text
 ```
 
 了解更多信息 [`性能优化 | 分片`](/guide/improving-performance#sharding)
+
+
+## 环境变量
+
+Vitest 只从 `.env` 文件中自动加载以 `VITE_` 为前缀的环境变量，以保持与前端相关测试的兼容性，并遵守 [Vite 的既定惯例](https://vitejs.dev/guide/env-and-mode.html#env-files)。要从 `.env` 文件加载所有环境变量，可以使用从 `vite` 导入的 `loadEnv` 方法：
+
+```ts twoslash
+import { loadEnv } from 'vite'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig(({ mode }) => ({
+  test: {
+    // mode defines what ".env.{mode}" file to choose if exists
+    env: loadEnv(mode, process.cwd(), ''),
+  },
+}))

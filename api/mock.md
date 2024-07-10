@@ -59,7 +59,7 @@ getApplesSpy.mock.calls.length === 1
 ```ts twoslash
 import { vi } from 'vitest'
 // ---cut---
-const mockFn = vi.fn().mockImplementation(apples => apples + 1)
+const mockFn = vi.fn().mockImplementation((apples: number) => apples + 1)
 // or: vi.fn(apples => apples + 1);
 
 const NelliesBucket = mockFn(0)
