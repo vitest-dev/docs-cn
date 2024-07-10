@@ -122,13 +122,9 @@ const fn = vi.fn()
 fn('hello', 1)
 expect(vi.isMockFunction(fn)).toBe(true)
 expect(fn.mock.calls[0]).toEqual(['hello', 1])
-<<<<<<< HEAD
-fn.mockImplementation(arg => arg)
-=======
 
 fn.mockImplementation((arg: string) => arg)
 
->>>>>>> e3841544219c20396f8e65ba90d0910c44e7c6e1
 fn('world', 2)
 expect(fn.mock.results[1].value).toBe('world')
 ```
@@ -263,14 +259,12 @@ vitest --shard=2/2 --reporter=blob
 vitest --merge-reports --reporter=junit --coverage.reporter=text
 ```
 
-<<<<<<< HEAD
 了解更多信息 [`性能优化 | 分片`](/guide/improving-performance#sharding)
-=======
-See [`Improving Performance | Sharding`](/guide/improving-performance#sharding) for more information.
 
-## Environment Variables
 
-Vitest exclusively autoloads environment variables prefixed with `VITE_` from `.env` files to maintain compatibility with frontend-related tests, adhering to [Vite's established convention](https://vitejs.dev/guide/env-and-mode.html#env-files). To load every environmental variable from `.env` files anyway, you can use `loadEnv` method imported from `vite`:
+## 环境变量
+
+Vitest 只从 `.env` 文件中自动加载以 `VITE_` 为前缀的环境变量，以保持与前端相关测试的兼容性，并遵守 [Vite 的既定惯例](https://vitejs.dev/guide/env-and-mode.html#env-files)。要从 `.env` 文件加载所有环境变量，可以使用从 `vite` 导入的 `loadEnv` 方法：
 
 ```ts twoslash
 import { loadEnv } from 'vite'
@@ -282,4 +276,3 @@ export default defineConfig(({ mode }) => ({
     env: loadEnv(mode, process.cwd(), ''),
   },
 }))
->>>>>>> e3841544219c20396f8e65ba90d0910c44e7c6e1
