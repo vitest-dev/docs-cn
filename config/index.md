@@ -2322,7 +2322,7 @@ export default defineConfig({
 
 ```ts [vitest.diff.ts]
 import type { DiffOptions } from 'vitest'
-import c from 'picocolors'
+import c from 'tinyrainbow'
 
 export default {
   aIndicator: c.bold('--'),
