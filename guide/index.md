@@ -42,7 +42,7 @@ bun add -D vitest
 Vitest 1.0 需要 Vite >=v5.0.0 和 Node >=v18.0.0
 :::
 
-如果在 `package.json` 中安装一份 `vitest` 的副本，使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 随 npm 和 Node.js 一起安装的）。
+如果在 `package.json` 中安装一份 `vitest` 的副本，使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 是会随着 npm 和 Node.js 一起被安装）。
 
 `npx` 工具将执行指定的命令。在默认情况下，`npx` 首先会检查命令是否存在于本地项目的二进制文件中。如果没有找到，`npx` 将在系统的 $PATH 中查找并执行它。如果两个位置都没有找到命令，`npx` 将在执行前安装它。
 
