@@ -42,9 +42,15 @@ bun add -D vitest
 Vitest 1.0 需要 Vite >=v5.0.0 和 Node >=v18.0.0
 :::
 
+<<<<<<< HEAD
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 是会随着 npm 和 Node.js 一起被安装）。
 
 `npx` 将执行指定的命令。在默认情况下，`npx` 首先会检查命令是否存在于本地项目的 `node_modules/.bin` 中。如果没有找到，`npx` 将在系统的 $PATH 中查找并执行它。如果两个位置都没有找到命令，`npx` 将在执行前安装它。
+=======
+It is recommended that you install a copy of `vitest` in your `package.json`, using one of the methods listed above. However, if you would prefer to run `vitest` directly, you can use `npx vitest` (the `npx` tool comes with npm and Node.js).
+
+The `npx` tool will execute the specified command. By default, `npx` will first check if the command exists in the local project's binaries. If it is not found there, `npx` will look in the system's $PATH and execute it if found. If the command is not found in either location, `npx` will install it in a temporary location prior to execution.
+>>>>>>> d3af0a95c152f1e647017affe12f851146e57834
 
 ## 编写测试
 
