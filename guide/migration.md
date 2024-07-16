@@ -335,7 +335,20 @@ const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 server.deps.inline: ["lib-name"]
 ```
 
+<<<<<<< HEAD
 **Jasmine API**
+=======
+### expect.getState().currentTestName
+
+Vitest's `test` names are joined with a `>` symbol to make it easier to distinguish tests from suites, while Jest uses an empty space (` `).
+
+```
+- `${describeTitle} ${testTitle}`
++ `${describeTitle} > ${testTitle}`
+```
+
+### Envs
+>>>>>>> df0a691efd3928adda6f2f56d8b9d464076d50de
 
 Jest 导出各种 [`jasmine`](https://jasmine.github.io/) 全局 API (例如 `jasmine.any()` )。任何此类实例都需要迁移成 [Vitest 的对应 API ](/api/)。
 
