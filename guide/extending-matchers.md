@@ -26,7 +26,7 @@ expect.extend({
 如果你使用 TypeScript，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
 
 ```ts
-import type { Assertion, AsymmetricMatchersContaining } from 'vitest'
+import 'vitest'
 
 interface CustomMatchers<R = unknown> {
   toBeFoo: () => R
@@ -45,7 +45,7 @@ declare module 'vitest' {
 断言的返回值应该兼容如下接口：
 
 ```ts
-interface MatcherResult {
+interface ExpectationResult {
   pass: boolean
   message: () => string
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
