@@ -132,16 +132,20 @@ Vitest 在命令上下文中公开了几个`playwright`特定属性。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
 
 ```ts
-import { defineCommand } from '@vitest/browser'
+import { BrowserCommand } from 'vitest/node'
 
-export const myCommand = defineCommand(async (ctx, arg1, arg2) => {
+export const myCommand: BrowserCommand<[string, number]> = async (
+  ctx,
+  arg1: string,
+  arg2: number
+) => {
   if (ctx.provider.name === 'playwright') {
     const element = await ctx.iframe.findByRole('alert')
     const screenshot = await element.screenshot()
     // do something with the screenshot
     return difference
   }
-})
+}
 ```
 
 ::: tip
