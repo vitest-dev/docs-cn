@@ -256,7 +256,13 @@ Vitest 浏览器在初始化过程中需要启动提供程序和浏览器，这�
 
 当你在浏览器选项中指定浏览器名称时，Vitest 将默认尝试使用 [WebdriverIO](https://webdriver.io/) 运行指定的浏览器，然后在那里运行测试。此功能使跨浏览器测试易于在 CI 等环境中使用和配置。如果不想使用 WebdriverIO，可以使用 `browser.provider` 选项配置自定义浏览器提供程序。
 
+<<<<<<< HEAD
 要使用 CLI 指定浏览器，请使用 `--browser` 标志后跟浏览器名称，如下所示：
+=======
+When you specify a browser name in the browser option, Vitest will try to run the specified browser using `preview` by default, and then run the tests there. If you don't want to use `preview`, you can configure the custom browser provider by using `browser.provider` option.
+
+To specify a browser using the CLI, use the `--browser` flag followed by the browser name, like this:
+>>>>>>> d3d50bd6ab7e8b863c1a7ab0caa95344612d9c17
 
 ```sh
 npx vitest --browser=chrome
