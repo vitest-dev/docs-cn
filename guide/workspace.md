@@ -51,7 +51,7 @@ export default ['packages/*/vitest.config.{e2e,unit}.ts']
 你还可以使用内联配置定义项目。工作区文件支持同时使用这两种语法。
 
 :::code-group
-```ts [vitest.workspace.ts] twoslash
+```ts [vitest.workspace.ts]
 import { defineWorkspace } from 'vitest/config'
 
 // defineWorkspace 会提供一个很好的类型提示开发体验
@@ -97,6 +97,7 @@ export default defineWorkspace([
 
 :::code-group
 ```ts [packages/a/vitest.config.ts] twoslash
+// @errors: 2769
 import { defineProject } from 'vitest/config'
 
 export default defineProject({
@@ -164,8 +165,12 @@ npm run test --project e2e --project unit
 
 没有任何配置选项从根级别的配置文件继承。你可以创建一个共享的配置文件，并将其与项目配置文件合并：
 
+<<<<<<< HEAD
 :::code-group
 
+=======
+::: code-group
+>>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
 import configShared from '../vitest.shared.js'
@@ -182,7 +187,35 @@ export default mergeConfig(
 
 :::
 
+<<<<<<< HEAD
 此外，某些配置选项不允许在项目配置中使用。其中最明显的是：
+=======
+At the `defineWorkspace` level you can also use the `extends` option instead to inherit from your root-level config.
+::: code-group
+```ts [packages/a/vitest.config.ts]
+import { defineWorkspace } from 'vitest/config'
+
+export default defineWorkspace([
+  {
+    extends: './vitest.config.ts',
+    test: {
+      name: 'unit',
+      include: ['**/*.unit.test.ts'],
+    },
+  },
+  {
+    extends: './vitest.config.ts',
+    test: {
+      name: 'integration',
+      include: ['**/*.integration.test.ts'],
+    },
+  },
+])
+```
+:::
+
+Also, some of the configuration options are not allowed in a project config. Most notably:
+>>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 - `coverage`: 覆盖率是针对整个工作区进行的。
 - `reporters`: 仅支持根级别的报告器。

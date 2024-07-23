@@ -18,7 +18,7 @@
 
   该匹配器将检查类型是否完全相同。如果两个对象具有不同的值但类型相同，则此匹配器不会失败。但是，如果对象缺少属性，它将失败。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
@@ -33,7 +33,7 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 
 此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf({ a: 1, b: 1 }).toMatchTypeOf({ a: 1 })
@@ -47,7 +47,7 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 
 你可以使用 `.extract` 来缩小类型以进行进一步测试。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
@@ -116,7 +116,7 @@ expectTypeOf(getResponsiveProp(cssProperties))
 
 你可以使用 `.returns` 来提取函数类型的返回值。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(() => {}).returns.toBeVoid()
@@ -133,7 +133,7 @@ expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2])
 
 你可以使用 `.parameters` 提取函数参数以对其值执行断言。参数以数组形式返回。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 type NoParam = () => void
@@ -157,7 +157,7 @@ expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
 
 你可以使用 `.parameter(number)` 调用提取某个函数参数，以对其执行其他断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 function foo(a: number, b: string) {
@@ -178,7 +178,7 @@ expectTypeOf(foo).parameter(1).toBeString()
 
 你可以将构造函数参数提取为数组元素，并使用此方法对它们执行断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(Date).constructorParameters.toEqualTypeOf<
@@ -200,7 +200,7 @@ expectTypeOf(Date).constructorParameters.toEqualTypeOf<
 
 此属性允许访问可以在所提供类的实例上执行匹配器。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(Date).instance.toHaveProperty('toISOString')
@@ -216,7 +216,7 @@ expectTypeOf(Date).instance.toHaveProperty('toISOString')
 
 你可以使用 `.items` 获取数组项类型以执行进一步的断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf([1, 2, 3]).items.toEqualTypeOf<number>()
@@ -229,7 +229,7 @@ expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>()
 
 此匹配器提取 `Promise` 的已解析值，因此你可以对其执行其他断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 async function asyncFunc() {
@@ -250,7 +250,7 @@ expectTypeOf(Promise.resolve('string')).resolves.toBeString()
 
 此匹配器提取保护值（例如，`v is number`），因此你可以对其执行断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 function isString(v: any): v is string {
@@ -270,7 +270,7 @@ expectTypeOf(isString).guards.toBeString()
 
 此匹配器提取断言值（例如，`assert v is number`），因此你可以对其执行断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 function assertNumber(v: any): asserts v is number {
@@ -292,7 +292,7 @@ expectTypeOf(assertNumber).asserts.toBeNumber()
 
 使用此匹配器，你可以检查提供的类型是否为 `any` 类型。如果类型太具体，测试将失败。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf<any>().toBeAny()
@@ -306,7 +306,7 @@ expectTypeOf('string').not.toBeAny()
 
 此匹配器检查提供的类型是否为 `unknown` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf().toBeUnknown()
@@ -346,7 +346,7 @@ expectTypeOf((): never => {}).toBeFunction()
 
 此匹配器检查提供的类型是否为 `object` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(42).not.toBeObject()
@@ -359,7 +359,7 @@ expectTypeOf({}).toBeObject()
 
 此匹配器检查提供的类型是否为 `Array<T>` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(42).not.toBeArray()
@@ -374,7 +374,7 @@ expectTypeOf([{}, 42]).toBeArray()
 
 此匹配器检查提供的类型是否为 `string` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(42).not.toBeString()
@@ -388,7 +388,7 @@ expectTypeOf('a').toBeString()
 
 此匹配器检查提供的类型是否为 `boolean` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(42).not.toBeBoolean()
@@ -402,7 +402,7 @@ expectTypeOf<boolean>().toBeBoolean()
 
 此匹配器检查提供的类型是否为 `void` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(() => {}).returns.toBeVoid()
@@ -415,7 +415,7 @@ expectTypeOf<void>().toBeVoid()
 
 此匹配器检查提供的类型是否为 `symbol` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(Symbol(1)).toBeSymbol()
@@ -428,7 +428,7 @@ expectTypeOf<symbol>().toBeSymbol()
 
 此匹配器检查提供的类型是否为 `null` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(null).toBeNull()
@@ -442,7 +442,7 @@ expectTypeOf(undefined).not.toBeNull()
 
 此匹配器检查提供的类型是否为 `undefined` 类型。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(undefined).toBeUndefined()
@@ -456,12 +456,12 @@ expectTypeOf(null).not.toBeUndefined()
 
 此匹配器会检查你是否可以对提供的类型使用 `null` 或 `undefined`。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
-expectTypeOf<1 | undefined>().toBeNullable()
-expectTypeOf<1 | null>().toBeNullable()
-expectTypeOf<1 | undefined | null>().toBeNullable()
+expectTypeOf<undefined | 1>().toBeNullable()
+expectTypeOf<null | 1>().toBeNullable()
+expectTypeOf<undefined | null | 1>().toBeNullable()
 ```
 
 ## toBeCallableWith
@@ -470,7 +470,7 @@ expectTypeOf<1 | undefined | null>().toBeNullable()
 
 此匹配器确保你可以使用一组参数作为参数来调用函数。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 type NoParam = () => void
@@ -490,7 +490,7 @@ expectTypeOf<HasParam>().toBeCallableWith('some string')
 
 此匹配器确保你可以使用一组构造函数作为参数创建一个新实例。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 expectTypeOf(Date).toBeConstructibleWith(new Date())
@@ -507,7 +507,7 @@ expectTypeOf(Date).toBeConstructibleWith('01-01-2000')
 
 此匹配器检查提供的对象上是否存在属性。如果它存在，它还会为该属性的类型返回同一组匹配器，因此你可以一个接一个地链接断言。
 
-```ts twoslash
+```ts
 import { expectTypeOf } from 'vitest'
 
 const obj = { a: 1, b: '' }

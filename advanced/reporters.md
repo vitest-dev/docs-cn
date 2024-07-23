@@ -6,7 +6,7 @@
 
 一般来说，你不需要从头开始创建报告器。`vitest` 附带了几个可以扩展的默认报告程序。
 
-```ts twoslash
+```ts
 import { DefaultReporter } from 'vitest/reporters'
 
 export default class MyDefaultReporter extends DefaultReporter {

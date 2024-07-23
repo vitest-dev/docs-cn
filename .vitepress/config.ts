@@ -60,9 +60,22 @@ export default () => {
         light: 'github-light',
         dark: 'github-dark',
       },
+<<<<<<< HEAD
       codeTransformers: [
         transformerTwoslash(),
       ],
+=======
+      codeTransformers: mode === 'development'
+        ? []
+        : [transformerTwoslash({
+            processHoverInfo: (info) => {
+              if (info.includes(process.cwd())) {
+                return info.replace(new RegExp(process.cwd(), 'g'), '')
+              }
+              return info
+            },
+          })],
+>>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
     },
     ignoreDeadLinks: true,
     themeConfig: {

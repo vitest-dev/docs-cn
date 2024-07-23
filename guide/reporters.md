@@ -15,7 +15,7 @@ npx vitest --reporter=verbose
 
 通过配置文件 [`vitest.config.ts`](/config/) 使用报告器:
 
-```ts twoslash
+```ts
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 
@@ -83,10 +83,12 @@ export default defineConfig({
 
 ```ts
 export default defineConfig({
-  reporters: ['junit', 'json', 'verbose'],
-  outputFile: {
-    junit: './junit-report.xml',
-    json: './json-report.json',
+  test: {
+    reporters: ['junit', 'json', 'verbose'],
+    outputFile: {
+      junit: './junit-report.xml',
+      json: './json-report.json',
+    },
   },
 })
 ```
@@ -325,7 +327,8 @@ JSON 报告示例:
           "location": {
             "line": 20,
             "column": 28
-          }
+          },
+          "meta": {}
         }
       ],
       "startTime": 1697737019787,
