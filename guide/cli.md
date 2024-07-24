@@ -1,10 +1,6 @@
 ---
-<<<<<<< HEAD
 title: 命令行界面 | 指南
-=======
-title: Command Line Interface | Guide
 outline: deep
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 ---
 
 # 命令行界面
@@ -120,7 +116,6 @@ vitest --api=false
 - **类型**: `boolean | string`
 - **默认值**: false
 
-<<<<<<< HEAD
   设置为 true 时，仅对已更改的文件运行测试。默认情况下，将考虑所有未提交的更改（包括已暂存和未暂存的文件）。
 
   要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
@@ -130,36 +125,18 @@ vitest --api=false
   与代码覆盖一起使用时，报告将只包含与更改相关的文件。
 
   如果与 [`forceRerunTriggers`](/config/#forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
-=======
-Run tests only against changed files. If no value is provided, it will run tests against uncommitted changes (including staged and unstaged).
-
-To run tests against changes made in the last commit, you can use `--changed HEAD~1`. You can also pass commit hash (e.g. `--changed 09a9920`) or branch name (e.g. `--changed origin/develop`).
-
-When used with code coverage the report will contain only the files that were related to the changes.
-
-If paired with the [`forceRerunTriggers`](/config/#forcereruntriggers) config option it will run the whole test suite if at least one of the files listed in the `forceRerunTriggers` list changes. By default, changes to the Vitest config file and `package.json` will always rerun the whole suite.
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ### shard
 
 - **类型**: `string`
 - **默认值**: disabled
 
-<<<<<<< HEAD
   测试套件分片，格式为 `<index>/<count>`，其中
 
   - `count` 是正整数，表示分割的部分数
   - `index` 是正整数，表示当前分片的索引
 
   该命令将将所有测试分成 `count` 个相等的部分，并只运行位于 `index` 部分的测试。例如，要将测试套件分成三个部分，请使用以下命令：
-=======
-Test suite shard to execute in a format of `<index>`/`<count>`, where
-
-- `count` is a positive integer, count of divided parts
-- `index` is a positive integer, index of divided part
-
-This command will divide all tests into `count` equal parts, and will run only those that happen to be in an `index` part. For example, to split your tests suite into three parts, use this:
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ```sh
 vitest run --shard=1/3

@@ -30,13 +30,9 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 :::
 
 
-<<<<<<< HEAD
 如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
 
-与 `jest` 不同，factory 可以是异步的。可以使用 [`vi.importActual`](#vi-importactual)，或者将 factory 作为第一个参数传递的助手，并在其中获取原始模块。
-=======
-Unlike in `jest`, the factory can be asynchronous. You can use [`vi.importActual`](#vi-importactual) or a helper with the factory passed in as the first argument, and get the original module inside. Vitest also supports a module promise instead of a string in `vi.mock` method for better IDE support (when file is moved, path will be updated, `importOriginal` also inherits the type automatically).
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
+与 `jest` 不同, factory可以是异步的。可以使用 [`vi.importActual`](#vi-importactual)，或者使用以工厂作为第一个参数传递的辅助器，并在其中获取原始模块。Vitest 还支持在 `vi.mock` 方法中使用module promise代替字符串，以获得更好的集成开发环境支持（文件移动时，路径会更新，`importOriginal` 也会自动继承类型）。
 
 ```ts twoslash
 // @filename: ./path/to/module.js
@@ -44,37 +40,6 @@ export declare function total(...numbers: number[]): number
 // @filename: test.js
 import { vi } from 'vitest'
 // ---cut---
-<<<<<<< HEAD
-// 使用 JavaScript 时
-
-vi.mock('./path/to/module.js', async (importOriginal) => {
-  const mod = await importOriginal()
-  return {
-    ...mod,
-    // 替换一些导出
-    namedExport: vi.fn(),
-  }
-})
-```
-
-```ts
-// 使用 TypeScript 时
-
-vi.mock('./path/to/module.js', async (importOriginal) => {
-  const mod = await importOriginal<typeof import('./path/to/module.js')>()
-  return {
-    ...mod,
-    // 替换一些导出
-    namedExport: vi.fn(),
-  }
-})
-```
-
-Vitest 支持模块 promise，而不是 `vi.mock` 方法中的字符串，以获得更好的 IDE 支持（当文件被移动时，路径将被更新，`importOriginal` 也会自动继承类型）。
-
-```ts
-=======
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 vi.mock(import('./path/to/module.js'), async (importOriginal) => {
   const mod = await importOriginal() // type is inferred
   //    ^?
@@ -843,7 +808,6 @@ test('Element exists in a DOM', async () => {
   // start populating DOM
   populateDOMAsync()
 
-<<<<<<< HEAD
   const element = await vi.waitFor(
     async () => {
       // try to get the element until it exists
@@ -852,38 +816,6 @@ test('Element exists in a DOM', async () => {
       expect(element.dataset.initialized).toBeTruthy()
       return element
     },
-=======
-  const element = await vi.waitFor(async () => {
-    // try to get the element until it exists
-    const element = await getDOMElementAsync() as HTMLElement | null
-    expect(element).toBeTruthy()
-    expect(element.dataset.initialized).toBeTruthy()
-    return element
-  }, {
-    timeout: 500, // default is 1000
-    interval: 20, // default is 50
-  })
-  expect(element).toBeInstanceOf(HTMLElement)
-})
-```
-
-If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
-
-### vi.waitUntil {#vi-waituntil}
-
-- **Type:** `<T>(callback: WaitUntilCallback<T>, options?: number | WaitUntilOptions) => Promise<T>`
-
-This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
-
-Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
-
-```ts
-import { expect, test, vi } from 'vitest'
-
-test('Element render correctly', async () => {
-  const element = await vi.waitUntil(
-    () => document.querySelector('.element'),
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
     {
       timeout: 500, // default is 1000
       interval: 20, // default is 50
