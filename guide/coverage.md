@@ -13,7 +13,7 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 
 你可以通过将 `test.coverage.provider` 设置为 `v8` 或 `istanbul` 来选择覆盖工具：
 
-```ts twoslash
+```ts
 // vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
@@ -59,7 +59,7 @@ npm i -D @vitest/coverage-istanbul
 
 要对其进行配置，需要在配置文件中设置 `test.coverage` 选项：
 
-```ts twoslash
+```ts
 // vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
@@ -96,7 +96,7 @@ export default defineConfig({
 
 自定义报告器由 Istanbul 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
 
-```js twoslash
+```js
 // custom-reporter.cjs
 const { ReportBase } = require('istanbul-lib-report')
 
@@ -124,7 +124,7 @@ module.exports = class CustomReporter extends ReportBase {
 
 也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
-```ts twoslash
+```ts
 // vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
@@ -146,7 +146,7 @@ import type {
   CoverageProvider,
   CoverageProviderModule,
   ResolvedCoverageOptions,
-  Vitest,
+  Vitest
 } from 'vitest'
 
 const CustomCoverageProviderModule: CoverageProviderModule = {
@@ -177,7 +177,7 @@ export default CustomCoverageProviderModule
 
 运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
 
-```js twoslash
+```js
 import { defineConfig } from 'vite'
 
 export default defineConfig({

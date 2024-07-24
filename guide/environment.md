@@ -23,7 +23,7 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 
 如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 
-```ts twoslash
+```ts
 // @vitest-environment jsdom
 
 import { expect, test } from 'vitest'
@@ -39,7 +39,7 @@ test('test', () => {
 
 你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
 
-```ts twoslash
+```ts
 import type { Environment } from 'vitest'
 
 export default <Environment>{
@@ -75,7 +75,7 @@ Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `
 
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
 
-```ts twoslash
+```ts
 import { builtinEnvironments, populateGlobal } from 'vitest/environments'
 
 console.log(builtinEnvironments) // { jsdom, happy-dom, node, edge-runtime }

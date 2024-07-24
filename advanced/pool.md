@@ -14,9 +14,9 @@ Vitest 在默认情况下以多种方式运行测试：
 
 你可以通过指定文件路径来提供自己的池：
 
-```ts twoslash
+```ts
 import { defineConfig } from 'vitest/config'
-// ---cut---
+
 export default defineConfig({
   test: {
     // 默认情况下，将使用自定义池运行每个文件

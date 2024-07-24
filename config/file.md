@@ -14,7 +14,7 @@ outline: deep
 
 使用 `vite` 中的 `defineConfig`，你应该如下配置：
 
-```ts twoslash
+```ts
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 
@@ -27,7 +27,7 @@ export default defineConfig({
 
 使用 `vitest/config` 中的 `defineConfig`，你应该如下配置：
 
-```ts twoslash
+```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({

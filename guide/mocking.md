@@ -18,7 +18,7 @@ title: 模拟对象 | 指南
 
 ### 示例
 
-```js twoslash
+```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const businessHours = [9, 17]
@@ -77,7 +77,7 @@ describe('purchasing flow', () => {
 
 ### 示例
 
-```js twoslash
+```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const messages = {
@@ -138,7 +138,7 @@ describe('reading messages', () => {
 
 你可以通过使用 [`vi.stubGlobal`](/api/vi#stubglobal) 来模拟 `jsdom` 或 `node` 中不存在的全局变量。它将把全局变量的值放入 `globalThis` 对象。
 
-```ts twoslash
+```ts
 import { vi } from 'vitest'
 
 const IntersectionObserverMock = vi.fn(() => ({
@@ -383,11 +383,11 @@ module.exports = fs.promises
 :::
 
 ```ts
-// hello-world.js
+// read-hello-world.js
 import { readFileSync } from 'node:fs'
 
 export function readHelloWorld(path) {
-  return readFileSync('./hello-world.txt')
+  return readFileSync(path)
 }
 ```
 
@@ -395,7 +395,7 @@ export function readHelloWorld(path) {
 // hello-world.test.js
 import { beforeEach, expect, it, vi } from 'vitest'
 import { fs, vol } from 'memfs'
-import { readHelloWorld } from './hello-world.js'
+import { readHelloWorld } from './read-hello-world.js'
 
 // tell vitest to use fs mock from __mocks__ folder
 // this can be done in a setup file if fs should always be mocked
@@ -408,7 +408,7 @@ beforeEach(() => {
 })
 
 it('should return correct text', () => {
-  const path = './hello-world.txt'
+  const path = '/hello-world.txt'
   fs.writeFileSync(path, 'hello world')
 
   const text = readHelloWorld(path)
@@ -423,7 +423,7 @@ it('can return a value multiple times', () => {
       './dir2/hw.txt': 'hello dir2',
     },
     // default cwd
-    '/tmp'
+    '/tmp',
   )
 
   expect(readHelloWorld('/tmp/dir1/hw.txt')).toBe('hello dir1')
@@ -441,7 +441,7 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 
 您可以像下面一样在您的 [setup file](/config/#setupfiles)
 
-```js twoslash
+```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { HttpResponse, graphql, http } from 'msw'
@@ -497,7 +497,7 @@ MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模�
 
 ### 示例
 
-```js twoslash
+```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 function executeAfterTwoHours(func) {
@@ -773,9 +773,9 @@ it('the value is restored before running an other test', () => {
 
 ```ts
 // vitest.config.ts
-export default {
+export default defineConfig({
   test: {
     unstubAllEnvs: true,
   },
-}
+})
 ```

@@ -339,7 +339,7 @@ server.deps.inline: ["lib-name"]
 
 Vitest 的 `test` 名称用 `>` 符号连接，以便于区分测试和套件，而 Jest 则使用空格 (` `)。
 
-```
+```diff
 - `${describeTitle} ${testTitle}`
 + `${describeTitle} > ${testTitle}`
 ```
@@ -415,9 +415,8 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
-`vite.config.js`
-
-```js twoslash
+:::code-group
+```js [vite.config.js]
 import { defineConfig } from 'vite'
 export default defineConfig({
   test: {
@@ -425,12 +424,10 @@ export default defineConfig({
   },
 })
 ```
-
-`tests/unit/setup.js`
-
-```js
+```js [tests/unit/setup.js]
 import vueSnapshotSerializer from 'jest-serializer-vue'
 expect.addSnapshotSerializer(vueSnapshotSerializer)
 ```
+:::
 
 否则你的快照将出现大量的 `"` 字符。

@@ -1,5 +1,6 @@
 ---
 title: 命令行界面 | 指南
+outline: deep
 ---
 
 # 命令行界面
@@ -88,8 +89,6 @@ vitest list filename.spec.ts -t="some-test" --json=./file.json
 
 ## 选项
 
-<!--@include: ./cli-table.md-->
-
 ::: tip
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
 
@@ -109,6 +108,8 @@ vitest --api=false
 ```
 
 :::
+
+<!--@include: ./cli-generated.md-->
 
 ### changed
 
@@ -137,11 +138,11 @@ vitest --api=false
 
   该命令将将所有测试分成 `count` 个相等的部分，并只运行位于 `index` 部分的测试。例如，要将测试套件分成三个部分，请使用以下命令：
 
-  ```sh
-  vitest run --shard=1/3
-  vitest run --shard=2/3
-  vitest run --shard=3/3
-  ```
+```sh
+vitest run --shard=1/3
+vitest run --shard=2/3
+vitest run --shard=3/3
+```
 
 :::warning 警告
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。

@@ -29,6 +29,29 @@ Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtoo
 ```
 :::
 
+## userEvent.setup
+
+- **Type:** `() => UserEvent`
+
+创建一个新的用户事件实例。如果需要保持键盘状态，以便正确按下和释放按钮，这将非常有用。
+
+::: warning
+与 `@testing-library/user-event` 不同，来自 `@vitest/browser/context` 的默认 `userEvent` 实例只创建一次，而不是每次调用其方法时都创建一次！您可以从本代码段中看到其工作方式的不同之处：
+
+```ts
+import { userEvent as vitestUserEvent } from '@vitest/browser/context'
+import { userEvent as originalUserEvent } from '@testing-library/user-event'
+
+await vitestUserEvent.keyboard('{Shift}') // press shift without releasing
+await vitestUserEvent.keyboard('{/Shift}') // releases shift
+
+await originalUserEvent.keyboard('{Shift}') // press shift without releasing
+await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because the state is different
+```
+
+这种行为更有用，因为我们并没有模拟键盘，而是实际按下了 Shift 键，所以保留原来的行为会在字段中键入时造成意想不到的问题。
+:::
+
 ## userEvent.click
 
 - **Type:** `(element: Element, options?: UserEventClickOptions) => Promise<void>`
@@ -163,7 +186,7 @@ test('trigger keystrokes', async () => {
 
 References:
 
-- [Playwright `locator.press` API](https://playwright.dev/docs/api/class-locator#locator-press)
+- [Playwright `Keyboard` API](https://playwright.dev/docs/api/class-keyboard)
 - [WebdriverIO `action('key')` API](https://webdriver.io/docs/api/browser/action#key-input-source)
 - [testing-library `type` API](https://testing-library.com/docs/user-event/utility/#type)
 
@@ -194,7 +217,7 @@ test('tab works', async () => {
 
 References:
 
-- [Playwright `locator.press` API](https://playwright.dev/docs/api/class-locator#locator-press)
+- [Playwright `Keyboard` API](https://playwright.dev/docs/api/class-keyboard)
 - [WebdriverIO `action('key')` API](https://webdriver.io/docs/api/browser/action#key-input-source)
 - [testing-library `tab` API](https://testing-library.com/docs/user-event/convenience/#tab)
 

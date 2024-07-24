@@ -19,7 +19,7 @@ import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
 import { teamMembers } from './contributors'
 
-export default () => {
+export default ({ mode }: { mode: string }) => {
   return withPwa(defineConfig({
     lang: 'en-US',
     title: vitestName,
@@ -60,9 +60,16 @@ export default () => {
         light: 'github-light',
         dark: 'github-dark',
       },
-      codeTransformers: [
-        transformerTwoslash(),
-      ],
+      codeTransformers: mode === 'development'
+        ? []
+        : [transformerTwoslash({
+            processHoverInfo: (info) => {
+              if (info.includes(process.cwd())) {
+                return info.replace(new RegExp(process.cwd(), 'g'), '')
+              }
+              return info
+            },
+          })],
     },
     ignoreDeadLinks: true,
     themeConfig: {

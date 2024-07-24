@@ -39,7 +39,7 @@ bun add -D vitest
 :::
 
 :::tip
-Vitest 1.0 需要 Vite >=v5.0.0 和 Node >=v18.0.0
+Vitest 需要 Vite >=v5.0.0 和 Node >=v18.0.0
 :::
 
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 是会随着 npm 和 Node.js 一起被安装）。
@@ -60,7 +60,7 @@ export function sum(a, b) {
 ```js
 // sum.test.js
 import { expect, test } from 'vitest'
-import { sum } from './sum'
+import { sum } from './sum.js'
 
 test('adds 1 + 2 to equal 3', () => {
   expect(sum(1, 2)).toBe(3)
@@ -88,10 +88,14 @@ test('adds 1 + 2 to equal 3', () => {
   ✓ adds 1 + 2 to equal 3
 
 Test Files  1 passed (1)
-    Tests  1 passed (1)
+     Tests  1 passed (1)
   Start at  02:15:44
   Duration  311ms
 ```
+
+::: warning
+如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
+:::
 
 了解更多关于 Vitest 的使用，请参考 [API 索引](https://cn.vitest.dev/api/) 部分。
 
@@ -107,7 +111,7 @@ Vitest 支持与 Vite 相同的配置文件扩展名：`.js`、`.mjs`、`.cjs`�
 
 如果你不使用 Vite 作为构建工具，你可以使用配置文件中的 `test` 属性来配置 Vitest：
 
-```ts twoslash
+```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -145,14 +149,11 @@ export default defineConfig({
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config.mjs'
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      // ...
-    },
-  })
-)
+export default mergeConfig(viteConfig, defineConfig({
+  test: {
+    // ...
+  },
+}))
 ```
 
 ```ts [vite.config.mjs]
@@ -171,7 +172,7 @@ export default defineConfig({
 
 使用 [Vitest Workspaces](/guide/workspace) 在同一项目中运行不同的项目配置。你可以在`vitest.workspace`文件中定义工作区的文件和文件夹列表。该文件支持 `js` / `ts` / `json` 扩展名。此功能非常适合配合 monorepo 使用。
 
-```ts twoslash
+```ts
 import { defineWorkspace } from 'vitest/config'
 
 export default defineWorkspace([

@@ -110,7 +110,7 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 
 你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.task` 方法添加到当前套件中：
 
-```js twoslash
+```js
 // ./utils/custom.js
 import { createTaskCollector, getCurrentSuite, setFn } from 'vitest/suite'
 
@@ -131,7 +131,7 @@ export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
 })
 ```
 
-```js twoslash
+```js
 // ./garden/tasks.test.js
 import { afterAll, beforeAll, describe, myCustomTask } from '../custom.js'
 import { gardener } from './gardener.js'

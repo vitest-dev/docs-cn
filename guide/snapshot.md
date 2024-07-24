@@ -14,12 +14,8 @@ title: 测试快照 | 指南
 
 要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
 
-```ts twoslash
-// ---cut---
+```ts
 import { expect, it } from 'vitest'
-function toUpperCase(str: string) {
-  return str
-}
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -45,12 +41,8 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
-```ts twoslash
-// ---cut---
+```ts
 import { expect, it } from 'vitest'
-function toUpperCase(str: string) {
-  return str
-}
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -60,12 +52,8 @@ it('toUpperCase', () => {
 
 Vitest 不会创建快照文件，而是直接修改测试文件，将快照作为字符串更新到文件中：
 
-```ts  twoslash
-// ---cut---
+```ts
 import { expect, it } from 'vitest'
-function toUpperCase(str: string) {
-  return str
-}
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -209,7 +197,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 Jest 和 Vitest 的快照都是由 [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format) 支持的。在 Vitest 中，我们将 `printBasicPrototype` 的默认值设置为 `false` 以提供更清晰的快照输出，在 Jest 版本 < 29.0.0 中默认为 `true`。
 
-```ts twoslash
+```ts
 import { expect, test } from 'vitest'
 
 test('snapshot', () => {
@@ -280,29 +268,18 @@ exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 
 #### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同
 
-```js twoslash
+```js
 import { expect, test } from 'vitest'
-// ---cut---
+
 test('snapshot', () => {
-  //
-  // in Jest
-  //
+  // in Jest and Vitest
+  expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
 
-  expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
-
-  // Jest 在 `Error` 实例上记录 `Error.message` 快照
+  // Jest snapshots `Error.message` for `Error` instance
+  // Vitest prints the same value as toMatchInlineSnapshot
   expect(() => {
     throw new Error('error')
-  }).toThrowErrorMatchingInlineSnapshot('"error"')
-
-  //
-  // in Vitest
-  //
-
-  expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
-
-  expect(() => {
-    throw new Error('error')
-  }).toThrowErrorMatchingInlineSnapshot('[Error: error]')
+  }).toThrowErrorMatchingInlineSnapshot(`"error"`) // [!code --]
+  }).toThrowErrorMatchingInlineSnapshot(`[Error: error]`) // [!code ++]
 })
 ```
