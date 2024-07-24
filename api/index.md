@@ -42,24 +42,14 @@ interface TestOptions {
 大多数选项都支持点语法和对象语法，允许您使用您喜欢的任何样式。
 
 :::code-group
-<<<<<<< HEAD
-
-```ts [dot-syntax] twoslash
-=======
 ```ts [dot-syntax]
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 import { test } from 'vitest'
 
 test.skip('skipped test', () => {
   // 一些现在失败的逻辑
 })
 ```
-<<<<<<< HEAD
-
-```ts [object-syntax] twoslash
-=======
 ```ts [object-syntax]
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
@@ -357,11 +347,7 @@ test.fails('fail test', async () => {
 - `%#`: index of the test case
 - `%%`: single percent sign ('%')
 
-<<<<<<< HEAD
-```ts twoslash
-=======
 ```ts
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 import { expect, test } from 'vitest'
 
 test.each([
@@ -397,32 +383,7 @@ test.each([
 
 如果使用对象作为参数，也可以使用 `.` 访问对象属性：
 
-<<<<<<< HEAD
-```ts twoslash
-=======
-  ```ts
-  test.each`
-  a               | b      | expected
-  ${{ val: 1 }}   | ${'b'} | ${'1b'}
-  ${{ val: 2 }}   | ${'b'} | ${'2b'}
-  ${{ val: 3 }}   | ${'b'} | ${'3b'}
-  `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
-    expect(a.val + b).toBe(expected)
-  })
-
-  // this will return
-  // ✓ add(1, b) -> 1b
-  // ✓ add(2, b) -> 2b
-  // ✓ add(3, b) -> 3b
-  ```
-
-Starting from Vitest 0.25.3, you can also use template string table.
-
-* First row should be column names, separated by `|`;
-* One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
-
 ```ts
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 import { expect, test } from 'vitest'
 
 test.each`

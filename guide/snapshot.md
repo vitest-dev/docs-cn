@@ -14,17 +14,8 @@ title: 测试快照 | 指南
 
 要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
 
-<<<<<<< HEAD
-```ts twoslash
-// ---cut---
-import { expect, it } from 'vitest'
-function toUpperCase(str: string) {
-  return str
-}
-=======
 ```ts
 import { expect, it } from 'vitest'
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -50,17 +41,8 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 
 如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
-<<<<<<< HEAD
-```ts twoslash
-// ---cut---
-import { expect, it } from 'vitest'
-function toUpperCase(str: string) {
-  return str
-}
-=======
 ```ts
 import { expect, it } from 'vitest'
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -70,17 +52,8 @@ it('toUpperCase', () => {
 
 Vitest 不会创建快照文件，而是直接修改测试文件，将快照作为字符串更新到文件中：
 
-<<<<<<< HEAD
-```ts  twoslash
-// ---cut---
-import { expect, it } from 'vitest'
-function toUpperCase(str: string) {
-  return str
-}
-=======
 ```ts
 import { expect, it } from 'vitest'
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 it('toUpperCase', () => {
   const result = toUpperCase('foobar')
@@ -298,24 +271,6 @@ exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 ```js
 import { expect, test } from 'vitest'
 
-<<<<<<< HEAD
-  expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
-
-  // Jest 在 `Error` 实例上记录 `Error.message` 快照
-  expect(() => {
-    throw new Error('error')
-  }).toThrowErrorMatchingInlineSnapshot('"error"')
-
-  //
-  // in Vitest
-  //
-
-  expect(new Error('error')).toMatchInlineSnapshot('[Error: error]')
-
-  expect(() => {
-    throw new Error('error')
-  }).toThrowErrorMatchingInlineSnapshot('[Error: error]')
-=======
 test('snapshot', () => {
   // in Jest and Vitest
   expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
@@ -326,6 +281,5 @@ test('snapshot', () => {
     throw new Error('error')
   }).toThrowErrorMatchingInlineSnapshot(`"error"`) // [!code --]
   }).toThrowErrorMatchingInlineSnapshot(`[Error: error]`) // [!code ++]
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 })
 ```

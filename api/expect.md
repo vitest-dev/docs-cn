@@ -65,10 +65,7 @@ test('expect.soft test', () => {
 
 `expect.poll` 重新运行断言，直到成功为止。你可以通过设置 `interval` 和 `timeout` 选项来配置 Vitest 应重新运行 `expect.poll` 回调的次数。
 
-<<<<<<< HEAD
 如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
-=======
-If an error is thrown inside the `expect.poll` callback, Vitest will retry again until the timeout runs out.
 
 ```ts
 import { expect, test } from 'vitest'
@@ -79,7 +76,6 @@ test('element exists', async () => {
   await expect.poll(() => document.querySelector('.element')).toBeTruthy()
 })
 ```
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ::: warning
 `expect.poll` 使每个断言都异步，所以不要忘记等待它，否则可能会收到未经处理的 promise 拒绝。
