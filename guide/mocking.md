@@ -441,12 +441,7 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 
 您可以像下面一样在您的 [setup file](/config/#setupfiles)
 
-<<<<<<< HEAD
-```js twoslash
-=======
-You can use it like below in your [setup file](/config/#setupfiles)
 ```js
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { HttpResponse, graphql, http } from 'msw'
@@ -781,11 +776,6 @@ it('the value is restored before running an other test', () => {
 export default defineConfig({
   test: {
     unstubAllEnvs: true,
-<<<<<<< HEAD
   },
-}
-=======
-  }
 })
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 ```

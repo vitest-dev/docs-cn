@@ -19,7 +19,7 @@ import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
 import { teamMembers } from './contributors'
 
-export default () => {
+export default ({ mode }: { mode: string }) => {
   return withPwa(defineConfig({
     lang: 'en-US',
     title: vitestName,
@@ -60,11 +60,6 @@ export default () => {
         light: 'github-light',
         dark: 'github-dark',
       },
-<<<<<<< HEAD
-      codeTransformers: [
-        transformerTwoslash(),
-      ],
-=======
       codeTransformers: mode === 'development'
         ? []
         : [transformerTwoslash({
@@ -75,7 +70,6 @@ export default () => {
               return info
             },
           })],
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
     },
     ignoreDeadLinks: true,
     themeConfig: {

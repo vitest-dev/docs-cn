@@ -165,12 +165,7 @@ npm run test --project e2e --project unit
 
 没有任何配置选项从根级别的配置文件继承。你可以创建一个共享的配置文件，并将其与项目配置文件合并：
 
-<<<<<<< HEAD
-:::code-group
-
-=======
 ::: code-group
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
 import configShared from '../vitest.shared.js'
@@ -187,10 +182,8 @@ export default mergeConfig(
 
 :::
 
-<<<<<<< HEAD
-此外，某些配置选项不允许在项目配置中使用。其中最明显的是：
-=======
 At the `defineWorkspace` level you can also use the `extends` option instead to inherit from your root-level config.
+在 `defineWorkspace`级别，你也可以使用 `extends`选项来继承根级别配置。
 ::: code-group
 ```ts [packages/a/vitest.config.ts]
 import { defineWorkspace } from 'vitest/config'
@@ -214,8 +207,7 @@ export default defineWorkspace([
 ```
 :::
 
-Also, some of the configuration options are not allowed in a project config. Most notably:
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
+此外，某些配置选项不允许在项目配置中使用。其中最明显的是：
 
 - `coverage`: 覆盖率是针对整个工作区进行的。
 - `reporters`: 仅支持根级别的报告器。

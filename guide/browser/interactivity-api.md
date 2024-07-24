@@ -33,10 +33,10 @@ Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtoo
 
 - **Type:** `() => UserEvent`
 
-Creates a new user event instance. This is useful if you need to keep the state of keyboard to press and release buttons correctly.
+创建一个新的用户事件实例。如果需要保持键盘状态，以便正确按下和释放按钮，这将非常有用。
 
 ::: warning
-Unlike `@testing-library/user-event`, the default `userEvent` instance from `@vitest/browser/context` is created once, not every time its methods are called! You can see the difference in how it works in this snippet:
+与 `@testing-library/user-event` 不同，来自 `@vitest/browser/context` 的默认 `userEvent` 实例只创建一次，而不是每次调用其方法时都创建一次！您可以从本代码段中看到其工作方式的不同之处：
 
 ```ts
 import { userEvent as vitestUserEvent } from '@vitest/browser/context'
@@ -49,7 +49,7 @@ await originalUserEvent.keyboard('{Shift}') // press shift without releasing
 await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because the state is different
 ```
 
-This behaviour is more useful because we do not emulate the keyboard, we actually press the Shift, so keeping the original behaviour would cause unexpected issues when typing in the field.
+这种行为更有用，因为我们并没有模拟键盘，而是实际按下了 Shift 键，所以保留原来的行为会在字段中键入时造成意想不到的问题。
 :::
 
 ## userEvent.click
