@@ -223,7 +223,7 @@ if (condition) {
 
 ## Vitest UI
 
-你可以在 [Vitest UI](guide/ui) 中查看你的覆盖率报告。
+你可以在 [Vitest UI](/guide/ui) 中查看你的覆盖率报告。
 
 Vitest UI 将在显式启用覆盖率报告且存在 html 覆盖率报告器的情况下启用覆盖率报告，否则将不可用：
 
