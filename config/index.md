@@ -658,11 +658,11 @@ export default defineConfig({
 
 ### dir
 
-- **Type:** `string`
-- **CLI:** `--dir=<path>`
-- **Default:** same as `root`
+- **类型:** `string`
+- **命令行终端:** `--dir=<path>`
+- **默认值:** same as `root`
 
-Base directory to scan for the test files. You can specify this option to speed up test discovery if your root covers the whole project
+扫描测试文件的基本目录。如果您的根目录覆盖整个项目，您可以指定此选项以加快测试发现速度
 
 ### reporters<NonProjectOption />
 

@@ -39,11 +39,7 @@ bun add -D vitest
 :::
 
 :::tip
-<<<<<<< HEAD
-Vitest 1.0 需要 Vite >=v5.0.0 和 Node >=v18.0.0
-=======
-Vitest requires Vite >=v5.0.0 and Node >=v18.0.0
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
+Vitest 需要 Vite >=v5.0.0 和 Node >=v18.0.0
 :::
 
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 是会随着 npm 和 Node.js 一起被安装）。
@@ -85,11 +81,7 @@ test('adds 1 + 2 to equal 3', () => {
 }
 ```
 
-<<<<<<< HEAD
 最后，运行 `npm run test`、`yarn test` 或 `pnpm test`，具体取决于你的包管理器，Vitest 将打印此消息：
-=======
-Finally, run `npm run test`, `yarn test` or `pnpm test`, depending on your package manager, and Vitest will print this message:
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ```txt
 ✓ sum.test.js (1)
@@ -101,15 +93,11 @@ Test Files  1 passed (1)
   Duration  311ms
 ```
 
-<<<<<<< HEAD
-了解更多关于 Vitest 的使用，请参考 [API 索引](https://cn.vitest.dev/api/) 部分。
-=======
 ::: warning
-If you are using Bun as your package manager, make sure to use `bun run test` command instead of `bun test`, otherwise Bun will run its own test runner.
+如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
 :::
 
-Learn more about the usage of Vitest, see the [API](https://vitest.dev/api/) section.
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
+了解更多关于 Vitest 的使用，请参考 [API 索引](https://cn.vitest.dev/api/) 部分。
 
 ## 配置 Vitest
 
@@ -161,22 +149,11 @@ export default defineConfig({
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config.mjs'
 
-<<<<<<< HEAD
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      // ...
-    },
-  })
-)
-=======
 export default mergeConfig(viteConfig, defineConfig({
   test: {
     // ...
   },
 }))
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 ```
 
 ```ts [vite.config.mjs]
@@ -188,11 +165,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 但我们建议 Vite 和 Vitest 使用相同的文件，而不是创建两个单独的文件。
-=======
-However, we recommend using the same file for both Vite and Vitest, instead of creating two separate files.
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 :::
 
 ## 支持工作空间

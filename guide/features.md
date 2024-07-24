@@ -34,11 +34,7 @@ $ vitest
 
 ## 多线程
 
-<<<<<<< HEAD
-默认的情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool) 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 在多个线程中运行 [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支，允许测试同时运行。 如果我们的测试运行的代码与多线程不兼容，我们可以切换到 [`--pool=forks`](/config/#pool)，它会通过 Tinypool [`在多个进程中运行测试节点：child_process`](https://nodejs.org/api/child_process.html) 。
-=======
-By default Vitest runs test files in multiple processes using [`node:child_process`](https://nodejs.org/api/child_process.html) via [Tinypool](https://github.com/tinylibs/tinypool) (a lightweight fork of [Piscina](https://github.com/piscinajs/piscina)), allowing tests to run simultaneously. If you want to speed up your test suite even further, consider enabling `--pool=threads` to run tests using [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) (beware that some packages might not work with this setup).
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
+默认情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分叉）使用 [`node:child_process`](https://nodejs.org/api/child_process.html)，在多个进程中运行测试文件，允许测试同时运行。如果想进一步加快测试套件的速度，可以考虑启用 `--pool=threads`，使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html)来运行测试（注意，某些软件包可能无法使用此设置）。
 
 要在单个线程或进程中运行测试，查看 [`poolOptions`](/config/#pooloptions) 了解更多消息。
 
@@ -52,20 +48,12 @@ Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加�
 
 ## 同时运行多个测试
 
-<<<<<<< HEAD
 在连续的测试中使用 `.concurrent` 来并行运行它们。
-=======
-Use `.concurrent` in consecutive tests to start them in parallel.
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ```ts
 import { describe, it } from 'vitest'
-<<<<<<< HEAD
-// The two tests marked with concurrent will be run in parallel
-=======
 
 // The two tests marked with concurrent will be started in parallel
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 describe('suite', () => {
   it('serial test', async () => {
     /* ... */
@@ -79,20 +67,12 @@ describe('suite', () => {
 })
 ```
 
-<<<<<<< HEAD
 如果在测试套件中使用 `.concurrent`，则其中的每个测试用例都将并发运行。
-=======
-If you use `.concurrent` on a suite, every test in it will be started in parallel.
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ```ts
 import { describe, it } from 'vitest'
-<<<<<<< HEAD
-// All tests within this suite will be run in parallel
-=======
 
 // All tests within this suite will be started in parallel
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 describe.concurrent('suite', () => {
   it('concurrent test 1', async ({ expect }) => {
     /* ... */
@@ -130,15 +110,9 @@ it('renders correctly', () => {
 
 ## Chai 和 Jest 的 `expect` 语法兼容
 
-<<<<<<< HEAD
 内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 APIs
 
-注意，如果你正在使用添加匹配器的第三方库，将 `test.globals` 设置为 `true` 将提供更好的兼容性。
-=======
-[Chai](https://www.chaijs.com/) is built-in for assertions with [Jest `expect`](https://jestjs.io/docs/expect)-compatible APIs.
-
-Notice that if you are using third-party libraries that add matchers, setting [`test.globals`](/config/#globals) to `true` will provide better compatibility.
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
+注意，如果你正在使用添加匹配器的第三方库，将 [`test.globals`](/config/#globals) 设置为 `true` 将提供更好的兼容性。
 
 ## 对象模拟(Mocking)
 
@@ -157,11 +131,7 @@ fn('world', 2)
 expect(fn.mock.results[1].value).toBe('world')
 ```
 
-<<<<<<< HEAD
 Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以你可能需要安装：
-=======
-Vitest supports both [happy-dom](https://github.com/capricorn86/happy-dom) or [jsdom](https://github.com/jsdom/jsdom) for mocking DOM and browser APIs. They don't come with Vitest, you will need to install them separately:
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 
 ```bash
 $ npm i -D happy-dom

@@ -146,11 +146,7 @@ import type {
   CoverageProvider,
   CoverageProviderModule,
   ResolvedCoverageOptions,
-<<<<<<< HEAD
-  Vitest,
-=======
   Vitest
->>>>>>> 0d1cf9e0db9e7494d29049c15f634e06e3689caa
 } from 'vitest'
 
 const CustomCoverageProviderModule: CoverageProviderModule = {

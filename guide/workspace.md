@@ -182,7 +182,6 @@ export default mergeConfig(
 
 :::
 
-At the `defineWorkspace` level you can also use the `extends` option instead to inherit from your root-level config.
 在 `defineWorkspace`级别，你也可以使用 `extends`选项来继承根级别配置。
 ::: code-group
 ```ts [packages/a/vitest.config.ts]
