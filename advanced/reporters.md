@@ -56,15 +56,12 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-## 导出报告器 (Exported Reporters)
-=======
-## Reported Tasks
+## 报告的任务(Reported Tasks)
 
 ::: warning
-This is an experimental API. Breaking changes might not follow SemVer. Please pin Vitest's version when using it.
+这是一个试验性 API。破坏性更改可能不会跟进 SemVer。使用时请使用 Vitest 的版本。
 
-You can get access to this API by calling `vitest.state.getReportedEntity(runnerTask)`:
+你可以通过调用 `vitest.state.getReportedEntity(runnerTask)` 访问此 API：
 
 ```ts twoslash
 import type { Vitest } from 'vitest/node'
@@ -90,71 +87,71 @@ class MyReporter implements Reporter {
 }
 ```
 
-We are planning to stabilize this API in Vitest 2.1.
+我们计划在 Vitest 2.1 中稳定该应用程序接口。
 :::
 
 ### TestCase
 
-`TestCase` represents a single test.
+`TestCase` 代表一次测试.
 
 ```ts
 declare class TestCase {
   readonly type = 'test' | 'custom'
   /**
    * Task instance.
-   * @experimental Public task API is experimental and does not follow semver.
+   * @experimental Public task API 是试验性的，并不遵循 semver。
    */
   readonly task: RunnerTestCase | RunnerCustomCase
   /**
-   * The project associated with the test.
+   * 与测试相关的项目。
    */
   readonly project: TestProject
   /**
-   * Direct reference to the test file where the test is defined.
+   * 直接引用定义测试的测试文件。
    */
   readonly file: TestFile
   /**
-   * Name of the test.
+   * 测试名称。
    */
   readonly name: string
   /**
-   * Full name of the test including all parent suites separated with `>`.
+   * 测试的全名，包括用 `>` 分隔的所有父套件
    */
   readonly fullName: string
   /**
-   * Unique identifier.
-   * This ID is deterministic and will be the same for the same test across multiple runs.
-   * The ID is based on the project name, file path and test position.
+   * 唯一标识符。
+   * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
+   * ID 基于项目名称、文件路径和测试位置。
    */
   readonly id: string
   /**
-   * Location in the file where the test was defined.
-   * Locations are collected only if `includeTaskLocation` is enabled in the config.
+   * 文件中定义测试的位置。
+   * 只有在配置中启用  `includeTaskLocation` 时，才会收集位置信息。
    */
   readonly location: { line: number; column: number } | undefined
   /**
-   * Parent suite. If the test was called directly inside the file, the parent will be the file.
+   * 如果测试是在文件中直接调用的，则父套件将是文件。
    */
   readonly parent: TestSuite | TestFile
   /**
-   * Options that test was initiated with.
+   * 启动测试时使用的选项。
    */
   readonly options: TaskOptions
   /**
-   * Checks if the test did not fail the suite.
-   * If the test is not finished yet or was skipped, it will return `true`.
+   * 检查测试是否没有失败。
+   * 如果测试尚未完成或被跳过，则返回 `true`。
    */
   ok(): boolean
   /**
-   * Custom metadata that was attached to the test during its execution.
+   * 执行测试时附加到测试中的自定义元数据。
    */
   meta(): TaskMeta
   /**
-   * Test results. Will be `undefined` if test is not finished yet or was just collected.
+   * 测试结果。如果测试尚未完成或刚刚收集，则将为`undefined`。
    */
   result(): TestResult | undefined
   /**
-   * Useful information about the test like duration, memory usage, etc.
+   * 有关测试的有用信息，如持续时间、内存使用情况等。
    */
   diagnostic(): TestDiagnostic | undefined
 }
@@ -163,65 +160,65 @@ export type TestResult = TestResultPassed | TestResultFailed | TestResultSkipped
 
 export interface TestResultPassed {
   /**
-   * The test passed successfully.
+   * 测试已成功通过。
    */
   state: 'passed'
   /**
-   * Errors that were thrown during the test execution.
+   * 测试执行过程中出现的错误。
    *
-   * **Note**: If test was retried successfully, errors will still be reported.
+   * **Note**: 如果测试重试成功，仍会报告错误。
    */
   errors: TestError[] | undefined
 }
 
 export interface TestResultFailed {
   /**
-   * The test failed to execute.
+   * 测试执行失败。
    */
   state: 'failed'
   /**
-   * Errors that were thrown during the test execution.
+   * 测试执行过程中出现的错误。
    */
   errors: TestError[]
 }
 
 export interface TestResultSkipped {
   /**
-   * The test was skipped with `only`, `skip` or `todo` flag.
-   * You can see which one was used in the `mode` option.
+   * 使用`only`、`skip`或`todo`标志跳过测试。点击并应用。
+   * 你可以在 `mode` 选项中看到使用的是哪一种。
    */
   state: 'skipped'
   /**
-   * Skipped tests have no errors.
+   * 跳过的测试没有错误。
    */
   errors: undefined
 }
 
 export interface TestDiagnostic {
   /**
-   * The amount of memory used by the test in bytes.
-   * This value is only available if the test was executed with `logHeapUsage` flag.
+   * 测试使用的内存量（字节）。
+   * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
    */
   heap: number | undefined
   /**
-   * The time it takes to execute the test in ms.
+   * 执行测试所需的时间（毫秒）。
    */
   duration: number
   /**
-   * The time in ms when the test started.
+   * 测试开始的时间（毫秒）。
    */
   startTime: number
   /**
-   * The amount of times the test was retried.
+   * 测试重试的次数。
    */
   retryCount: number
   /**
-   * The amount of times the test was repeated as configured by `repeats` option.
-   * This value can be lower if the test failed during the repeat and no `retry` is configured.
+   * 重复测试的次数，由 `repeats` 选项设置。
+   * 如果测试在重复过程中失败，且未配置 `retry`，则该值可以更小。
    */
   repeatCount: number
   /**
-   * If test passed on a second retry.
+   * 如果第二次重试时测试通过。
    */
   flaky: boolean
 }
@@ -229,22 +226,22 @@ export interface TestDiagnostic {
 
 ### TestSuite
 
-`TestSuite` represents a single suite that contains tests and other suites.
+`TestSuite` 表示包含测试和其他套件的单一套件。
 
 ```ts
 declare class TestSuite {
   readonly type = 'suite'
   /**
    * Task instance.
-   * @experimental Public task API is experimental and does not follow semver.
+   * @experimental Public task API 是实验性的，并不遵循 semver。
    */
   readonly task: RunnerTestSuite
   /**
-   * The project associated with the test.
+   * 与测试相关的项目。
    */
   readonly project: TestProject
   /**
-   * Direct reference to the test file where the suite is defined.
+   * 直接引用定义套件的测试文件。
    */
   readonly file: TestFile
   /**
@@ -252,26 +249,26 @@ declare class TestSuite {
    */
   readonly name: string
   /**
-   * Full name of the suite including all parent suites separated with `>`.
+   * 套件的全名，包括用 `>` 分隔的所有父套件。
    */
   readonly fullName: string
   /**
-   * Unique identifier.
-   * This ID is deterministic and will be the same for the same test across multiple runs.
-   * The ID is based on the project name, file path and test position.
+   * 唯一标识符。
+   * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
+   * ID 基于项目名称、文件路径和测试位置。
    */
   readonly id: string
   /**
-   * Location in the file where the suite was defined.
-   * Locations are collected only if `includeTaskLocation` is enabled in the config.
+   * 文件中定义套件的位置。
+   * 只有在配置中启用 `includeTaskLocation` 时，才会收集位置信息。
    */
   readonly location: { line: number; column: number } | undefined
   /**
-   * Collection of suites and tests that are part of this suite.
+   * 套件和属于该套件的测试的集合。
    */
   readonly children: TaskCollection
   /**
-   * Options that the suite was initiated with.
+   * 启动套件时使用的选项。
    */
   readonly options: TaskOptions
 }
@@ -279,53 +276,53 @@ declare class TestSuite {
 
 ### TestFile
 
-`TestFile` represents a single file that contains suites and tests.
+`TestFile` 表示包含套件和测试的单个文件。
 
 ```ts
 declare class TestFile extends SuiteImplementation {
   readonly type = 'file'
   /**
    * Task instance.
-   * @experimental Public task API is experimental and does not follow semver.
+   * @experimental Public task API 是实验性的，并不遵循 semver。
    */
   readonly task: RunnerTestFile
   /**
-   * Collection of suites and tests that are part of this file.
+   * 属于该文件的套件和测试集合。
    */
   readonly children: TestCollection
   /**
-   * This is usually an absolute Unix file path.
-   * It can be a virtual id if the file is not on the disk.
-   * This value corresponds to Vite's `ModuleGraph` id.
+   * 这通常是一个绝对的 Unix 文件路径。
+   * 如果文件不在磁盘上，它可以是一个虚拟 ID。
+   * 该值对应于 Vite 的 `ModuleGraph` id。
    */
   readonly moduleId: string
   /**
-   * Useful information about the file like duration, memory usage, etc.
-   * If the file was not executed yet, all diagnostic values will return `0`.
+   * 有关文件的有用信息，如持续时间、内存使用情况等。
+   * 如果文件尚未执行，所有诊断值都将返回 `0`。
    */
   diagnostic(): FileDiagnostic
 }
 
 export interface FileDiagnostic {
   /**
-   * The time it takes to import and initiate an environment.
+   * 导入和启动环境所需的时间。
    */
   environmentSetupDuration: number
   /**
-   * The time it takes Vitest to setup test harness (runner, mocks, etc.).
+   * Vitest 设置测试工具（运行程序、模拟等）所需的时间。
    */
   prepareDuration: number
   /**
-   * The time it takes to import the test file.
-   * This includes importing everything in the file and executing suite callbacks.
+   * 导入测试文件所需的时间。
+   * 这包括导入文件中的所有内容和执行套件回调。
    */
   collectDuration: number
   /**
-   * The time it takes to import the setup file.
+   * 导入设置文件所需的时间。
    */
   setupDuration: number
   /**
-   * Accumulated duration of all tests and hooks in the file.
+   * 文件中所有测试和钩子的累计持续时间。
    */
   duration: number
 }
@@ -333,43 +330,43 @@ export interface FileDiagnostic {
 
 ### TestCollection
 
-`TestCollection` represents a collection of suites and tests. It also provides useful methods to iterate over itself.
+`TestCollection` 表示套件和测试的集合。它还提供了迭代自身的有用方法。
 
 ```ts
 declare class TestCollection {
   /**
-   * Returns the test or suite at a specific index in the array.
+   * 返回数组中特定索引处的测试或套件。
    */
   at(index: number): TestCase | TestSuite | undefined
   /**
-   * The number of tests and suites in the collection.
+   * 集合中测试和套件的数量。
    */
   size: number
   /**
-   * Returns the collection in array form for easier manipulation.
+   * 以数组形式返回集合，以便于操作。
    */
   array(): (TestCase | TestSuite)[]
   /**
-   * Filters all suites that are part of this collection and its children.
+   * 过滤属于此集合及其子集合的所有套件。
    */
   allSuites(): IterableIterator<TestSuite>
   /**
-   * Filters all tests that are part of this collection and its children.
+   * 过滤属于此集合及其子集合的所有测试。
    */
   allTests(state?: TestResult['state'] | 'running'): IterableIterator<TestCase>
   /**
-   * Filters only the tests that are part of this collection.
+   * 只筛选属于该集合的测试。
    */
   tests(state?: TestResult['state'] | 'running'): IterableIterator<TestCase>
   /**
-   * Filters only the suites that are part of this collection.
+   * 仅筛选属于该系列的套件。
    */
   suites(): IterableIterator<TestSuite>;
   [Symbol.iterator](): IterableIterator<TestSuite | TestCase>
 }
 ```
 
-For example, you can iterate over all tests inside a file by calling `testFile.children.allTests()`:
+例如，你可以通过调用 `testFile.children.allTests()` 遍历文件中的所有测试：
 
 ```ts
 function onFileCollected(testFile: TestFile): void {
@@ -384,51 +381,50 @@ function onFileCollected(testFile: TestFile): void {
 
 ### TestProject
 
-`TestProject` is a project assosiated with the file. Every test and suite inside that file will reference the same project.
+`TestProject` 是与文件相关联的项目。该文件中的每个测试和套件都将引用同一个项目。
 
-Project is useful to get the configuration or provided context.
+项目可用于获取配置或提供的上下文。
 
 ```ts
 declare class TestProject {
   /**
    * The global vitest instance.
-   * @experimental The public Vitest API is experimental and does not follow semver.
+   * @experimental The public Vitest API 是实验性的，并不遵循 semver。
    */
   readonly vitest: Vitest
   /**
-   * The workspace project this test project is associated with.
-   * @experimental The public Vitest API is experimental and does not follow semver.
+   * 与该测试项目相关联的工作区项目。
+   * @experimental The public Vitest API 是实验性的，并不遵循 semver。
    */
   readonly workspaceProject: WorkspaceProject
   /**
-   * Resolved project configuration.
+   * 已解决项目配置问题。
    */
   readonly config: ResolvedProjectConfig
   /**
-   * Resolved global configuration. If there are no workspace projects, this will be the same as `config`.
+   * 已解决的全局配置问题。如果没有工作区项目，则与 `config`相同。
    */
   readonly globalConfig: ResolvedConfig
   /**
-   * Serialized project configuration. This is the config that tests receive.
+   * 序列化的项目配置。这就是测试会收到的配置。
    */
   get serializedConfig(): SerializedConfig
   /**
-   * The name of the project or an empty string if not set.
+   * 项目名称，如果未设置，则为空字符串。
    */
   name(): string
   /**
-   * Custom context provided to the project.
+   * 为项目提供的自定义上下文。
    */
   context(): ProvidedContext
   /**
-   * Provide a custom serializable context to the project. This context will be available for tests once they run.
+   * 为项目提供自定义的可序列化上下文。测试运行后，该上下文将可供测试使用。
    */
   provide<T extends keyof ProvidedContext & string>(key: T, value: ProvidedContext[T]): void
 }
 ```
 
-## Exported Reporters
->>>>>>> e38442739b23c71e21cf2eccfe035e5a6b39ba24
+## 导出报告器 (Exported Reporters)
 
 `vitest` 附带了一些[内置报告器](/guide/reporters)，你可以开箱即用。
 
