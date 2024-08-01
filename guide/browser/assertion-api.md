@@ -73,14 +73,14 @@ import { screen } from '@testing-library/dom'
 test('error banner is rendered', async () => {
   triggerError()
 
-  // @testing-library provides queries with built-in retry-ability
-  // It will try to find the banner until it's rendered
+  // @testing-library 提供内置重试功能的查询
+  // 它会尝试找到 banner，直到它渲染出来
   const banner = await screen.findByRole('alert', {
     name: /error/i,
   })
 
-  // Vitest provides `expect.element` with built-in retry-ability
-  // It will check `element.textContent` until it's equal to "Error!"
+  // Vitest 提供内置重试功能的 `expect.element`
+  // 它会检查 `element.textContent` 直到等于 “Error!”。
   await expect.element(banner).toHaveTextContent('Error!')
 })
 ```
@@ -91,7 +91,7 @@ test('error banner is rendered', async () => {
 `toHaveTextContent` 和所有其他 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)断言在没有内置重试机制的常规`expect`中仍然可用：
 
 ```ts
-// will fail immediately if .textContent is not `'Error!'`
+// 如果 .textContent 不是 `'Error!'`，则会立即失败。
 expect(banner).toHaveTextContent('Error!')
 ```
 :::

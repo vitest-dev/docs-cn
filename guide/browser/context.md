@@ -55,7 +55,6 @@ export const commands: BrowserCommands
 
 ## `page`
 
-The `page` export provides utilities to interact with the current `page`.
 页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
@@ -99,29 +98,29 @@ export const cdp: () => CDPSession
 ```ts
 export const server: {
   /**
-   * Platform the Vitest server is running on.
-   * The same as calling `process.platform` on the server.
+   * Vitest 服务运行的平台。
+   * 与在服务上调用 `process.platform` 相同。
    */
   platform: Platform
   /**
-   * Runtime version of the Vitest server.
-   * The same as calling `process.version` on the server.
+   * Vitest 服务的运行版本。
+   * 与在服务上调用 `process.version` 相同。
    */
   version: string
   /**
-   * Name of the browser provider.
+   *  browser provider 的名字.
    */
   provider: string
   /**
-   * Name of the current browser.
+   * 当前浏览器的名字。
    */
   browser: string
   /**
-   * Available commands for the browser.
+   * 浏览器的可用命令。
    */
   commands: BrowserCommands
   /**
-   * Serialized test config.
+   * 序列化测试配置。
    */
   config: SerializedConfig
 }
