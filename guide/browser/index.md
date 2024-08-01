@@ -46,18 +46,14 @@ bun add -D vitest @vitest/browser
 :::
 
 ::: warning
-<<<<<<< HEAD
 不过，要在 CI 中运行测试，您需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
-=======
-However, to run tests in CI you need to install either [`playwright`](https://npmjs.com/package/playwright) or [`webdriverio`](https://www.npmjs.com/package/webdriverio). We also recommend switching to either one of them for testing locally instead of using the default `preview` provider since it relies on simulating events instead of using Chrome DevTools Protocol.
 
-If you don't already use one of these tools, we recommend starting with Playwright because it supports parallel execution, which makes your tests run faster. Additionally, the Chrome DevTools Protocol that Playwright uses is generally faster than WebDriver.
->>>>>>> 08b14f0dc894db4bc976a1424dfa8e27bade0217
+如果你还没有使用这些工具中的一种，我们建议您从 Playwright 开始，因为它支持并行执行，这将使您的测试运行得更快。此外，Playwright 使用的 Chrome DevTools 协议通常比 WebDriver 更快。
 :::
 
 ### 使用 Playwright
 
-[Playwright](https://npmjs.com/package/playwright) is a framework for Web Testing and Automation.
+[Playwright](https://npmjs.com/package/playwright) 是一个用于网络测试和自动化的框架。
 
 ::: code-group
 ```bash [npm]
@@ -76,7 +72,7 @@ bun add -D vitest @vitest/browser playwright
 
 ### Using Webdriverio
 
-[WebdriverIO](https://www.npmjs.com/package/webdriverio) allows you to run tests locally using the WebDriver protocol.
+[WebdriverIO](https://www.npmjs.com/package/webdriverio) 允许您使用 WebDriver 协议在本地运行测试。
 
 ::: code-group
 ```bash [npm]

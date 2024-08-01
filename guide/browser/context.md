@@ -9,7 +9,7 @@ Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0
 ## `userEvent`
 
 ::: tip
-The `userEvent` API is explained in detail at [Interactivity API](/guide/browser/interactivity-api).
+`userEvent` API 的详细说明见[Interactivity API](/guide/browser/interactivity-api).
 :::
 
 ```ts
@@ -42,7 +42,7 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
-Commands API is explained in detail at [Commands](/guide/browser/commands).
+Commands API 的详细说明见[Commands](/guide/browser/commands).
 :::
 
 ```ts
@@ -56,9 +56,10 @@ export const commands: BrowserCommands
 ## `page`
 
 The `page` export provides utilities to interact with the current `page`.
+页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
-While it exposes some utilities from Playwright's `page`, it is not the same object. Since the browser context is evaluated in the browser, your tests don't have access to Playwright's `page` because it runs on the server.
+虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
 :::
 
 ```ts
@@ -81,10 +82,10 @@ export const page: {
 
 ## `cdp`
 
-The `cdp` export returns the current Chrome DevTools Protocol session. It is mostly useful to library authors to build tools on top of it.
+`cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
 ::: warning
-CDP session works only with `playwright` provider and only when using `chromium` browser. You can read more about it in playwright's [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) documentation.
+CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
 :::
 
 ```ts
@@ -93,7 +94,7 @@ export const cdp: () => CDPSession
 
 ## `server`
 
-The `server` export represents the Node.js environment where the Vitest server is running. It is mostly useful for debugging.
+`server` 导出表示运行 Vitest 服务器的 Node.js 环境。它主要用于调试。
 
 ```ts
 export const server: {
