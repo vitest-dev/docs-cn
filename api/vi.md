@@ -142,6 +142,7 @@ axios.get(`/apples/${increment(1)}`)
 ### vi.doMock
 
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
+- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void`
 
 与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
 
@@ -231,13 +232,13 @@ vi.mock('./example.js', async () => {
 
 ### vi.unmock
 
-- **类型**: `(path: string) => void`
+- **类型**: `(path: string | Promise<Module>) => void`
 
 从模拟注册表中删除模块。所有导入调用都将返回原始模块，即使该模块之前已被模拟。该调用会被移动到文件顶端，因此只会解除在 `setupFiles` 中定义的模块。
 
 ### vi.doUnmock
 
-- **类型**: `(path: string) => void`
+- **类型**: `(path: string | Promise<Module>) => void`
 
 与 [`vi.unmock`](#vi-unmock) 相同，但不会移动到文件顶端。下一次导入模块时，将导入原始模块而非 mock。这不会解除先前导入的模块。
 

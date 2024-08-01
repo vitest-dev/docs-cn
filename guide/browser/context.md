@@ -6,32 +6,13 @@ title: Context | Browser Mode
 
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
-```ts
-export const server: {
-  /**
-   * Platform the Vitest server is running on.
-   * The same as calling `process.platform` on the server.
-   */
-  platform: Platform
-  /**
-   * Runtime version of the Vitest server.
-   * The same as calling `process.version` on the server.
-   */
-  version: string
-  /**
-   * Name of the browser provider.
-   */
-  provider: string
-  /**
-   * Name of the current browser.
-   */
-  browser: string
-  /**
-   * Available commands for the browser.
-   */
-  commands: BrowserCommands
-}
+## `userEvent`
 
+::: tip
+`userEvent` API 的详细说明见[Interactivity API](/guide/browser/interactivity-api).
+:::
+
+```ts
 /**
  * Handler for user interactions. The support is implemented by the browser provider (`playwright` or `webdriverio`).
  * If used with `preview` provider, fallbacks to simulated events via `@testing-library/user-event`.
@@ -56,18 +37,32 @@ export const userEvent: {
   fill: (element: Element, text: string, options?: UserEventFillOptions) => Promise<void>
   dragAndDrop: (source: Element, target: Element, options?: UserEventDragAndDropOptions) => Promise<void>
 }
+```
 
+## `commands`
+
+::: tip
+Commands API 的详细说明见[Commands](/guide/browser/commands).
+:::
+
+```ts
 /**
  * Available commands for the browser.
  * A shortcut to `server.commands`.
  */
 export const commands: BrowserCommands
+```
 
+## `page`
+
+页面导出提供了与当前页面交互的实用程序。
+
+::: warning
+虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
+:::
+
+```ts
 export const page: {
-  /**
-   * Serialized test config.
-   */
-  config: SerializedConfig
   /**
    * Change the size of iframe's viewport.
    */
@@ -82,6 +77,51 @@ export const page: {
   }>
   screenshot(options?: ScreenshotOptions): Promise<string>
 }
+```
 
+## `cdp`
+
+`cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
+
+::: warning
+CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+:::
+
+```ts
 export const cdp: () => CDPSession
+```
+
+## `server`
+
+`server` 导出表示运行 Vitest 服务器的 Node.js 环境。它主要用于调试。
+
+```ts
+export const server: {
+  /**
+   * Vitest 服务运行的平台。
+   * 与在服务上调用 `process.platform` 相同。
+   */
+  platform: Platform
+  /**
+   * Vitest 服务的运行版本。
+   * 与在服务上调用 `process.version` 相同。
+   */
+  version: string
+  /**
+   *  browser provider 的名字.
+   */
+  provider: string
+  /**
+   * 当前浏览器的名字。
+   */
+  browser: string
+  /**
+   * 浏览器的可用命令。
+   */
+  commands: BrowserCommands
+  /**
+   * 序列化测试配置。
+   */
+  config: SerializedConfig
+}
 ```
