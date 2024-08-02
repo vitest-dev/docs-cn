@@ -1367,7 +1367,7 @@ test('"id" is a number', () => {
 
 在比较对象属性或数组项中的浮点数时，`expect.closeTo` 非常有用。 如果需要比较数字，请改用 `.toBeCloseTo` 。
 
-可选的 `numDigits` 参数限制要检查小数点**后**的位数。 对于默认值 `2` ，测试标准为 `Math.abs(expected - received) < 0.005 (that is, 10 ** -2 / 2)` 。
+可选的 `precision` 参数限制要检查小数点**后**的位数。 对于默认值 `2` ，测试标准为 `Math.abs(expected - received) < 0.005 (that is, 10 ** -2 / 2)` 。
 
 例如，此测试以 5 位精度通过：
 
