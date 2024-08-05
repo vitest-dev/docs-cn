@@ -1,7 +1,12 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+<<<<<<< HEAD
 import { version } from '../package.json'
+=======
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
+import { version } from '../../package.json'
+>>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
 import {
   contributing,
   discord,
@@ -56,20 +61,25 @@ export default ({ mode }: { mode: string }) => {
     ],
     lastUpdated: true,
     markdown: {
+      config(md) {
+        md.use(tabsMarkdownPlugin)
+      },
       theme: {
         light: 'github-light',
         dark: 'github-dark',
       },
       codeTransformers: mode === 'development'
         ? []
-        : [transformerTwoslash({
-            processHoverInfo: (info) => {
-              if (info.includes(process.cwd())) {
-                return info.replace(new RegExp(process.cwd(), 'g'), '')
-              }
-              return info
-            },
-          })],
+        : [
+            transformerTwoslash({
+              processHoverInfo: (info) => {
+                if (info.includes(process.cwd())) {
+                  return info.replace(new RegExp(process.cwd(), 'g'), '')
+                }
+                return info
+              },
+            }),
+          ],
     },
     ignoreDeadLinks: true,
     themeConfig: {
@@ -109,10 +119,31 @@ export default ({ mode }: { mode: string }) => {
       },
 
       nav: [
+<<<<<<< HEAD
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
         { text: 'API', link: '/api/', activeMatch: '^/api/' },
         { text: '配置', link: '/config/', activeMatch: '^/config/' },
         { text: '高级 API', link: '/advanced/api', activeMatch: '^/advanced/' },
+=======
+        { text: 'Guide', link: '/guide/', activeMatch: '^/guide/(?!browser)' },
+        { text: 'API', link: '/api/', activeMatch: '^/api/' },
+        { text: 'Config', link: '/config/', activeMatch: '^/config/' },
+        { text: 'Browser Mode', link: '/guide/browser', activeMatch: '^/guide/browser/' },
+        {
+          text: 'Resources',
+          items: [
+            {
+              text: 'Advanced',
+              link: '/advanced/api',
+              activeMatch: '^/advanced/',
+            },
+            {
+              text: 'Team',
+              link: '/team',
+            },
+          ],
+        },
+>>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
         {
           text: `v${version}`,
           items: [
@@ -153,6 +184,37 @@ export default ({ mode }: { mode: string }) => {
       ],
 
       sidebar: {
+<<<<<<< HEAD
+=======
+        '/guide/browser': [
+          {
+            text: 'Why Browser Mode?',
+            link: '/guide/browser/why',
+            docFooterText: 'Why Browser Mode? | Browser Mode',
+          },
+          {
+            text: 'Context API',
+            link: '/guide/browser/context',
+            docFooterText: 'Context API | Browser Mode',
+          },
+          {
+            text: 'Interactivity API',
+            link: '/guide/browser/interactivity-api',
+            docFooterText: 'Interactivity API | Browser Mode',
+          },
+          {
+            text: 'Assertion API',
+            link: '/guide/browser/assertion-api',
+            docFooterText: 'Assertion API | Browser Mode',
+          },
+          {
+            text: 'Commands API',
+            link: '/guide/browser/commands',
+            docFooterText: 'Commands | Browser Mode',
+          },
+        ],
+        // TODO: bring sidebar of apis and config back
+>>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
         '/advanced': [
           {
             text: '高级 API',
@@ -233,6 +295,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/ui',
               },
               {
+<<<<<<< HEAD
                 text: '浏览器模式',
                 link: '/guide/browser/',
                 collapsed: false,
@@ -266,6 +329,9 @@ export default ({ mode }: { mode: string }) => {
               },
               {
                 text: '源码内联测试',
+=======
+                text: 'In-Source Testing',
+>>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
                 link: '/guide/in-source',
               },
               {
