@@ -4,12 +4,7 @@ title: Interactivity API | Browser Mode
 
 # Interactivity API
 
-<<<<<<< HEAD
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) API 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event)应用程序接口的子集，而不是伪造事件，这使得浏览器行为更加可靠和一致。
-
-几乎每个 `userEvent` 方法都继承了其provider选项。要在集成开发环境中查看所有可用选项，请在 `tsconfig.json` 文件中添加 `webdriver` 或 `playwright` 类型：
-=======
-Vitest implements a subset of [`@testing-library/user-event`](https://testing-library.com/docs/user-event) APIs using [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) or [webdriver](https://www.w3.org/TR/webdriver/) instead of faking events which makes the browser behaviour more reliable and consistent with how users interact with a page.
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -17,8 +12,7 @@ import { userEvent } from '@vitest/browser/context'
 await userEvent.click(document.querySelector('.button'))
 ```
 
-Almost every `userEvent` method inherits its provider options. To see all available options in your IDE, add `webdriver` or `playwright` types (depending on your provider) to your `tsconfig.json` file:
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+几乎每个 `userEvent` 方法都继承了其provider选项。要在集成开发环境中查看所有可用选项，请在 `tsconfig.json` 文件中添加 `webdriver` 或 `playwright` 类型：
 
 ::: code-group
 ```json [playwright]
@@ -42,7 +36,7 @@ Almost every `userEvent` method inherits its provider options. To see all availa
 :::
 
 ::: warning
-This page uses `@testing-library/dom` in examples to query elements. If you are using a framework like Vue, React or any other, use `@testing-library/{framework-name}` instead. Simple examples are available on the [Browser Mode page](/guide/browser/#examples).
+本页面在示例中使用 `@testing-library/dom` 来查询元素。如果您使用的是 Vue、React 或其他框架，请使用 `@testing-library/{framework-name}` 代替。[Browser Mode page](/guide/browser/#examples)上提供了简单的示例。
 :::
 
 ## userEvent.setup
@@ -152,11 +146,7 @@ References:
 
 - **Type:** `(element: Element, text: string) => Promise<void>`
 
-<<<<<<< HEAD
-用文本填充 input/textarea/conteneditable。这将在输入新值之前移除输入框中的任何现有文本。
-=======
-Set a value to the `input/textarea/conteneditable` field. This will remove any existing text in the input before setting the new value.
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+为 `input/textarea/conteneditable` 字段设置值。这将在设置新值前移除输入中的任何现有文本。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -171,16 +161,12 @@ test('update input', async () => {
 })
 ```
 
-This methods focuses the element, fills it and triggers an `input` event after filling. You can use an empty string to clear the field.
+该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
 
 ::: tip
 该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
 
-<<<<<<< HEAD
-在不需要输入特殊字符的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
-=======
-We recommend using this API over [`userEvent.type`](#userevent-type) in situations when you don't need to enter special characters or have granular control over keypress events.
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::
 
 References:
@@ -385,11 +371,7 @@ References:
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
-<<<<<<< HEAD
-默认情况下，光标位置位于主体元素的中心（在 `webdriverio` provider 中）或某个可见位置（在 `playwright` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
-=======
-By default, the cursor position is in "some" visible place (in `playwright` provider) or in the center (in `webdriverio` provider) of the body element, so if the currently hovered element is already in the same position, this method will have no effect.
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider中）或中心位置（在 `webdriverio` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
 :::
 
 ```ts

@@ -130,11 +130,7 @@ export default {
 }
 ```
 
-<<<<<<< HEAD
-完整的示例请参考 [`test/import-meta`](https://github.com/vitest-dev/vitest/tree/main/test/import-meta)。
-=======
-Reference to [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test) for the full example.
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+完整的示例请参考 [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test)。
 
 ## 说明
 
