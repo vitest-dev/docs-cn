@@ -19,17 +19,13 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 自 Vitest 2.0.4 起，外部依赖关系中 CSS 和 assets 的 `require` 会自动解析。
 :::
 
-<<<<<<< HEAD
-## 特定文件的环境
-=======
 ::: warning
-"Environments" exist only when running tests in Node.js.
+"环境" 仅在 Node.js 中运行测试时存在。
 
-`browser` is not considered an environment in Vitest. If you wish to run part of your tests using [Browser Mode](/guide/browser/), you can create a [workspace project](/guide/browser/#workspace-config).
+在 Vitest 中，`浏览器` 不被视为一个环境。如果希望使用[浏览器模式](/guide/browser/)运行部分测试，可以创建一个[workspace project](/guide/browser/#workspace-config)。
 :::
 
-## Environments for Specific Files
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+## 特定文件的环境
 
 如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 

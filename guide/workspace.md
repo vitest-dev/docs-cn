@@ -170,9 +170,6 @@ CLI 选项 `--project` 可多次使用，以筛选出多个项目：
 ```bash [npm]
 npm run test --project e2e --project unit
 ```
-<<<<<<< HEAD
-
-=======
 ```bash [yarn]
 yarn test --project e2e --project unit
 ```
@@ -182,7 +179,6 @@ pnpm run test --project e2e --project unit
 ```bash [bun]
 bun test --project e2e --project unit
 ```
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
 :::
 
 ## 配置

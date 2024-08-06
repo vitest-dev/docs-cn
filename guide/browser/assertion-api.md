@@ -4,11 +4,7 @@ title: Assertion API | Browser Mode
 
 # Assertion API
 
-<<<<<<< HEAD
 Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，以提供各种开箱即用的 DOM 断言。有关详细文档，请阅读 `jest-dom` readme：
-=======
-Vitest bundles the [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) library to provide a wide range of DOM assertions out of the box. For detailed documentation, you can read the `jest-dom` readme:
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
 
 - [`toBeDisabled`](https://github.com/testing-library/jest-dom#toBeDisabled)
 - [`toBeEnabled`](https://github.com/testing-library/jest-dom#toBeEnabled)

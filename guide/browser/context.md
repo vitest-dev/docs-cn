@@ -2,11 +2,7 @@
 title: Context API | Browser Mode
 ---
 
-<<<<<<< HEAD
 # 上下文
-=======
-# Context API
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
 
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
@@ -46,11 +42,7 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
-<<<<<<< HEAD
-Commands API 的详细说明见[Commands](/guide/browser/commands).
-=======
-This API is explained in detail at [Commands API](/guide/browser/commands).
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+Commands API 的详细说明见[Commands API](/guide/browser/commands).
 :::
 
 ```ts
@@ -66,15 +58,10 @@ export const commands: BrowserCommands
 页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
-<<<<<<< HEAD
 虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
-=======
-While it exposes some utilities from Playwright's `page`, it is not the same object. Since the browser context is evaluated in the browser, your tests don't have access to Playwright's `page` because it runs on the server.
-
-Use [Commands API](/guide/browser/commands) if you need to have access to Playwright's `page` object.
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
 :::
 
+使用 [Commands API](/guide/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
 ```ts
 export const page: {
   /**
@@ -107,11 +94,7 @@ export const cdp: () => CDPSession
 
 ## `server`
 
-<<<<<<< HEAD
-`server` 导出表示运行 Vitest 服务器的 Node.js 环境。它主要用于调试。
-=======
-The `server` export represents the Node.js environment where the Vitest server is running. It is mostly useful for debugging or limiting your tests based on the environment.
->>>>>>> 4b261920de5ff022df2119711eaa3ce050dc8045
+`server` 导出表示运行 Vitest 服务器的 Node.js 环境。它主要用于调试或根据环境限制测试。
 
 ```ts
 export const server: {
