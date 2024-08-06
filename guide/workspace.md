@@ -148,17 +148,37 @@ bun test
 
 如果只需在单个项目内运行测试，使用 `--project` CLI 选项：
 
-```bash
+::: code-group
+```bash [npm]
 npm run test --project e2e
 ```
+```bash [yarn]
+yarn test --project e2e
+```
+```bash [pnpm]
+pnpm run test --project e2e
+```
+```bash [bun]
+bun test --project e2e
+```
+:::
 
 ::: tip
 CLI 选项 `--project` 可多次使用，以筛选出多个项目：
 
-```bash
+::: code-group
+```bash [npm]
 npm run test --project e2e --project unit
 ```
-
+```bash [yarn]
+yarn test --project e2e --project unit
+```
+```bash [pnpm]
+pnpm run test --project e2e --project unit
+```
+```bash [bun]
+bun test --project e2e --project unit
+```
 :::
 
 ## 配置

@@ -59,6 +59,7 @@
       <a target="_blank" href="https://github.com/capricorn86/happy-dom">happy-dom</a>
       用于 DOM 模拟
     </ListItem>
+    <ListItem><a href="https://vitest.dev/guide/browser/" rel="noopener noreferrer">浏览器模式</a> 用于在浏览器中运行组件测试</ListItem>
     <ListItem>
       通过
       <a

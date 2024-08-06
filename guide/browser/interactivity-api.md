@@ -6,6 +6,12 @@ title: Interactivity API | Browser Mode
 
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) API 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event)应用程序接口的子集，而不是伪造事件，这使得浏览器行为更加可靠和一致。
 
+```ts
+import { userEvent } from '@vitest/browser/context'
+
+await userEvent.click(document.querySelector('.button'))
+```
+
 几乎每个 `userEvent` 方法都继承了其provider选项。要在集成开发环境中查看所有可用选项，请在 `tsconfig.json` 文件中添加 `webdriver` 或 `playwright` 类型：
 
 ::: code-group
@@ -27,6 +33,10 @@ Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtoo
   }
 }
 ```
+:::
+
+::: warning
+本页面在示例中使用 `@testing-library/dom` 来查询元素。如果您使用的是 Vue、React 或其他框架，请使用 `@testing-library/{framework-name}` 代替。[Browser Mode page](/guide/browser/#examples)上提供了简单的示例。
 :::
 
 ## userEvent.setup
@@ -136,7 +146,7 @@ References:
 
 - **Type:** `(element: Element, text: string) => Promise<void>`
 
-用文本填充 input/textarea/conteneditable。这将在输入新值之前移除输入框中的任何现有文本。
+为 `input/textarea/conteneditable` 字段设置值。这将在设置新值前移除输入中的任何现有文本。
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
@@ -151,10 +161,12 @@ test('update input', async () => {
 })
 ```
 
+该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
+
 ::: tip
 该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
 
-在不需要输入特殊字符的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
+在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::
 
 References:
@@ -173,7 +185,6 @@ This API supports [user-event `keyboard` syntax](https://testing-library.com/doc
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
 
 test('trigger keystrokes', async () => {
   await userEvent.keyboard('foo') // translates to: f, o, o
@@ -360,7 +371,7 @@ References:
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
-默认情况下，光标位置位于主体元素的中心（在 `webdriverio` provider 中）或某个可见位置（在 `playwright` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
+默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider中）或中心位置（在 `webdriverio` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
 :::
 
 ```ts
@@ -389,7 +400,6 @@ References:
 ```ts
 import { userEvent } from '@vitest/browser/context'
 import { screen } from '@testing-library/dom'
-import '@testing-library/jest-dom' // adds support for "toHaveTextContent"
 
 test('drag and drop works', async () => {
   const source = screen.getByRole('img', { name: /logo/ })
@@ -397,7 +407,7 @@ test('drag and drop works', async () => {
 
   await userEvent.dragAndDrop(source, target)
 
-  expect(target).toHaveTextContent('Logo is processed')
+  await expect.element(target).toHaveTextContent('Logo is processed')
 })
 ```
 

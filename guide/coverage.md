@@ -233,5 +233,5 @@ Vitest UI 将在显式启用覆盖率报告且存在 html 覆盖率报告器的�
 <img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
 <img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
 
-<img alt="html coverage in Vitest UI" img-light src="/vitest-ui-coverage-light.png">
-<img alt="html coverage in Vitest UI" img-dark src="/vitest-ui-coverage-dark.png">
+<img alt="html coverage in Vitest UI" img-light src="/ui-coverage-1-light.png">
+<img alt="html coverage in Vitest UI" img-dark src="/ui-coverage-1-dark.png">

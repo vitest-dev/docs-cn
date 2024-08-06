@@ -1,5 +1,5 @@
 ---
-title: Context | Browser Mode
+title: Context API | Browser Mode
 ---
 
 # 上下文
@@ -42,7 +42,7 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
-Commands API 的详细说明见[Commands](/guide/browser/commands).
+Commands API 的详细说明见[Commands API](/guide/browser/commands).
 :::
 
 ```ts
@@ -61,6 +61,7 @@ export const commands: BrowserCommands
 虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
 :::
 
+使用 [Commands API](/guide/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
 ```ts
 export const page: {
   /**
@@ -93,7 +94,7 @@ export const cdp: () => CDPSession
 
 ## `server`
 
-`server` 导出表示运行 Vitest 服务器的 Node.js 环境。它主要用于调试。
+`server` 导出表示运行 Vitest 服务器的 Node.js 环境。它主要用于调试或根据环境限制测试。
 
 ```ts
 export const server: {

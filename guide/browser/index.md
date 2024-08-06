@@ -7,6 +7,9 @@ outline: deep
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
+<img alt="Vitest UI" img-light src="/ui-browser-1-light.png">
+<img alt="Vitest UI" img-dark src="/ui-browser-1-dark.png">
+
 ## 安装
 
 为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
@@ -51,8 +54,8 @@ bun add -D vitest @vitest/browser
 如果你还没有使用这些工具中的一种，我们建议您从 Playwright 开始，因为它支持并行执行，这将使您的测试运行得更快。此外，Playwright 使用的 Chrome DevTools 协议通常比 WebDriver 更快。
 :::
 
-### 使用 Playwright
-
+::: tabs key:provider
+== Playwright
 [Playwright](https://npmjs.com/package/playwright) 是一个用于网络测试和自动化的框架。
 
 ::: code-group
@@ -68,9 +71,7 @@ pnpm add -D vitest @vitest/browser playwright
 ```bash [bun]
 bun add -D vitest @vitest/browser playwright
 ```
-:::
-
-### Using Webdriverio
+== WebdriverIO
 
 [WebdriverIO](https://www.npmjs.com/package/webdriverio) 允许您使用 WebDriver 协议在本地运行测试。
 
@@ -176,6 +177,8 @@ export default defineConfig({
 
 如果需要使用基于 Node 的运行程序运行某些测试，可以定义一个 [workspace](/guide/workspace) 文件，为不同的测试策略分别配置：
 
+{#workspace-config}
+
 ```ts
 // vitest.workspace.ts
 import { defineWorkspace } from 'vitest/config'
@@ -211,6 +214,58 @@ export default defineWorkspace([
 ])
 ```
 
+### Provider 配置
+
+:::tabs key:provider
+== Playwright
+你可以通过 [`providerOptions`](/config/#browser-provideroptions)字段配置 Vitest 如何 [启动浏览器](https://playwright.dev/docs/api/class-browsertype#browser-type-launch) 和创建 [页面上下文](https://playwright.dev/docs/api/class-browsercontext)：
+
+```ts
+export default defineConfig({
+  test: {
+    browser: {
+      providerOptions: {
+        launch: {
+          devtools: true,
+        },
+        context: {
+          geolocation: {
+            latitude: 45,
+            longitude: -30,
+          },
+          reducedMotion: 'reduce',
+        },
+      },
+    },
+  },
+})
+```
+
+要获得类型提示，请在 `tsconfig.json` 文件的 `compilerOptions.types` 中添加 `@vitest/browser/providers/playwright`。
+== WebdriverIO
+
+你可以通过 [`providerOptions`](/config/#browser-provideroptions)字段配置 Vitest 在启动浏览器时应使用哪些 [options](https://webdriver.io/docs/configuration#webdriverio)：
+
+```ts
+export default defineConfig({
+  test: {
+    browser: {
+      browser: 'chrome',
+      providerOptions: {
+        region: 'eu',
+        capabilities: {
+          browserVersion: '27.0',
+          platformName: 'Windows 10',
+        },
+      },
+    },
+  },
+})
+```
+
+要获得类型提示，请在 `tsconfig.json` 文件的 `compilerOptions.types` 中添加 `@vitest/browser/providers/webdriverio`。
+:::
+
 ## 浏览器选项类型
 
 Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
@@ -235,32 +290,7 @@ Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) �
 - Safari >=15.4
 - Edge >=88
 
-## 动机
-
-我们开发了 Vitest 浏览器模式功能，以帮助改进测试工作流程并实现更准确、可靠的测试结果。这个实验性的测试 API 增加了在本地浏览器环境中运行测试的功能。在本节中，我们将探讨这个功能背后的动机以及它对测试的好处。
-
-
-### 不同的测试方式
-
-有不同的方法来测试 JavaScript 代码。一些测试框架在 Node.js 中模拟浏览器环境，而其他框架则在真实浏览器中运行测试。在这种情况下，[jsdom](https://www.npmjs.com/package/jsdom) 是一个模拟浏览器环境的规范实现，可以与 Jest 或 Vitest 等测试运行器一起使用，而其他测试工具，如 [WebdriverIO](https://webdriver.io/) 或 [Cypress](https://www.cypress.io/) 则允许开发者在真实浏览器中测试他们的应用，或者在 [Playwright](https://playwright.dev/) 的情况下提供一个浏览器引擎。
-
-### 模拟警告
-
-在模拟环境（如 jsdom 或 happy-dom）中测试 JavaScript 程序简化了测试设置并提供了易于使用的 API，使它们适用于许多项目并增加了对测试结果的信心。然而，需要牢记的是，这些工具仅模拟浏览器环境而不是实际浏览器，这可能导致模拟环境和真实环境之间存在一些差异。因此，测试结果可能会出现误报或漏报。
-
-为了在测试中获得最高的水平，测试在真实浏览器环境中进行非常重要。这就是为什么我们开发了 Vitest 的浏览器模式功能，允许开发者在浏览器中本地运行测试，并获得更准确、可靠的测试结果。通过浏览器级别的测试，开发者可以更加自信地确保他们的应用在真实场景中能够按照预期工作。
-
-## 缺点
-
-使用 Vitest 浏览器时，重要的是要考虑以下缺点：
-
-### 更长的初始化时间
-
-Vitest 浏览器在初始化过程中需要启动提供程序和浏览器，这可能需要一些时间。与其他测试模式相比，这可能导致更长的初始化时间。
-
-## 跨浏览器测试
-
-在浏览器选项中指定浏览器名称时，Vitest 默认会尝试使用 `preview`运行指定的浏览器，然后在那里运行测试。如果不想使用 `preview`，可以使用`browser.provider`选项配置自定义浏览器提供程序。
+## Running Tests
 
 要使用 CLI 指定浏览器，请使用 `--browser` 标志后跟浏览器名称，如下所示：
 
@@ -274,12 +304,15 @@ npx vitest --browser=chrome
 npx vitest --browser.name=chrome --browser.headless
 ```
 
+默认情况下，Vitest 会自动打开浏览器用户界面进行开发。您的测试将在中间的 iframe 中运行。您可以通过选择首选尺寸、在测试中调用 `page.viewport` 或在 [the config](/config/#browser-viewport) 中设置默认值来配置视口。
+
 ## Headless
 
 headless 模式是浏览器模式下可用的另一个选项。在 headless 模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用 headless 模式。
 
-这是启用 headless 模式的示例配置：
+使用 headless 模式时，Vitest 不会自动打开用户界面。如果想继续使用用户界面，但又想 headless 运行测试，可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行 Vitest 时传递 --ui 标志。
 
+这是启用 headless 模式的示例配置：
 
 ```ts
 export default defineConfig({
@@ -303,6 +336,176 @@ npx vitest --browser.name=chrome --browser.headless
 
 ::: warning
 默认情况下Headless模式不可用。您需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
+:::
+
+## Examples
+
+浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，您应该可以使用框架的测试工具包。
+
+我们建议根据你的框架使用 `testing-library` package：
+
+- [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) 如果不使用框架
+- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) 渲染 [vue](https://vuejs.org) 组件
+- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) 渲染 [svelte](https://svelte.dev) 组件
+- [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) 渲染 [react](https://react.dev) 组件
+- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) 渲染 [preact](https://preactjs.com) 组件
+- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
+
+除了使用 `@testing-library/your-framework` 渲染组件和查询元素外，你还需要进行断言。Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，可提供各种开箱即用的 DOM 断言。更多信息请参阅 [Assertions API](/guide/browser/assertion-api)。
+
+```ts
+import { expect } from 'vitest'
+// element is rendered correctly
+await expect.element(screen.getByText('Hello World')).toBeInTheDocument()
+```
+Vitest 公开了一个[Context API](/guide/browser/context)，其中包含一小套在测试中可能有用的实用程序。例如，如果您需要进行交互，如点击元素或在输入框中输入文本，您可以使用 `@vitest/browser/context` 中的 `userEvent`。更多信息请参阅 [Interactivity API](/guide/browser/interactivity-api)。
+
+
+```ts
+import { userEvent } from '@vitest/browser/context'
+await userEvent.type(screen.getByLabelText(/username/i), 'Alice')
+```
+
+::: warning
+`testing-library`提供了一个包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它在 hood 下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+:::
+
+::: code-group
+```ts [vue]
+// based on @testing-library/vue example
+// https://testing-library.com/docs/vue-testing-library/examples
+
+import { userEvent } from '@vitest/browser/context'
+import { render, screen } from '@testing-library/vue'
+import Component from './Component.vue'
+
+test('properly handles v-model', async () => {
+  render(Component)
+
+  // Asserts initial state.
+  expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
+
+  // Get the input DOM node by querying the associated label.
+  const usernameInput = await screen.findByLabelText(/username/i)
+
+  // Type the name into the input. This already validates that the input
+  // is filled correctly, no need to check the value manually.
+  await userEvent.fill(usernameInput, 'Bob')
+
+  expect(screen.getByText('Hi, my name is Bob')).toBeInTheDocument()
+})
+```
+```ts [svelte]
+// based on @testing-library/svelte
+// https://testing-library.com/docs/svelte-testing-library/example
+
+import { render, screen } from '@testing-library/svelte'
+import { userEvent } from '@vitest/browser/context'
+import { expect, test } from 'vitest'
+
+import Greeter from './greeter.svelte'
+
+test('greeting appears on click', async () => {
+  const user = userEvent.setup()
+  render(Greeter, { name: 'World' })
+
+  const button = screen.getByRole('button')
+  await user.click(button)
+  const greeting = await screen.findByText(/hello world/iu)
+
+  expect(greeting).toBeInTheDocument()
+})
+```
+```tsx [react]
+// based on @testing-library/react example
+// https://testing-library.com/docs/react-testing-library/example-intro
+
+import { userEvent } from '@vitest/browser/context'
+import { render, screen } from '@testing-library/react'
+import Fetch from './fetch'
+
+test('loads and displays greeting', async () => {
+  // Render a React element into the DOM
+  render(<Fetch url="/greeting" />)
+
+  await userEvent.click(screen.getByText('Load Greeting'))
+  // wait before throwing an error if it cannot find an element
+  const heading = await screen.findByRole('heading')
+
+  // assert that the alert message is correct
+  expect(heading).toHaveTextContent('hello there')
+  expect(screen.getByRole('button')).toBeDisabled()
+})
+```
+```tsx [preact]
+// based on @testing-library/preact example
+// https://testing-library.com/docs/preact-testing-library/example
+
+import { h } from 'preact'
+import { userEvent } from '@vitest/browser/context'
+import { render } from '@testing-library/preact'
+
+import HiddenMessage from '../hidden-message'
+
+test('shows the children when the checkbox is checked', async () => {
+  const testMessage = 'Test Message'
+
+  const { queryByText, getByLabelText, getByText } = render(
+    <HiddenMessage>{testMessage}</HiddenMessage>,
+  )
+
+  // query* functions will return the element or null if it cannot be found.
+  // get* functions will return the element or throw an error if it cannot be found.
+  expect(queryByText(testMessage)).not.toBeInTheDocument()
+
+  // The queries can accept a regex to make your selectors more
+  // resilient to content tweaks and changes.
+  await userEvent.click(getByLabelText(/show/i))
+
+  expect(getByText(testMessage)).toBeInTheDocument()
+})
+```
+```tsx [solid]
+// baed on @testing-library/solid API
+// https://testing-library.com/docs/solid-testing-library/api
+
+import { render } from '@testing-library/solid'
+
+it('uses params', async () => {
+  const App = () => (
+    <>
+      <Route
+        path="/ids/:id"
+        component={() => (
+          <p>
+            Id:
+            {useParams()?.id}
+          </p>
+        )}
+      />
+      <Route path="/" component={() => <p>Start</p>} />
+    </>
+  )
+  const { findByText } = render(() => <App />, { location: 'ids/1234' })
+  expect(await findByText('Id: 1234')).toBeInTheDocument()
+})
+```
+```ts [marko]
+// baed on @testing-library/marko API
+// https://testing-library.com/docs/marko-testing-library/api
+
+import { render, screen } from '@marko/testing-library'
+import Greeting from './greeting.marko'
+
+test('renders a message', async () => {
+  const { container } = await render(Greeting, { name: 'Marko' })
+  expect(screen.getByText(/Marko/)).toBeInTheDocument()
+  expect(container.firstChild).toMatchInlineSnapshot(`
+    <h1>Hello, Marko!</h1>
+  `)
+})
+```
 :::
 
 ## 限制
