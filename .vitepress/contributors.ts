@@ -129,6 +129,14 @@ const plainTeamMembers: CoreTeam[] = [
 
 const plainTeamEmeritiMembers: CoreTeam[] = [
   {
+    avatar: contributorsAvatars.Dunqing,
+    name: 'Dunqing',
+    github: 'Dunqing',
+    twitter: '@Dunqingg',
+    title: 'A passionate enthusiast of open source contributions',
+    desc: 'Team member of oxc & UnoCSS',
+  },
+  {
     avatar: contributorsAvatars.Aslemammad,
     name: 'Mohammad Bagher',
     github: 'Aslemammad',
