@@ -1030,7 +1030,6 @@ test('spy function returns bananas on second call', () => {
 
 - **类型**: `() => Awaitable<void>`
 
-
 此断言检查函数是否至少成功解析过一次值（即未reject）。需要将 spy 函数传递给 `expect`。
 
 如果函数返回了一个promise，但尚未resolved，则将会失败。
@@ -1061,7 +1060,6 @@ test('spy function resolved a value', async () => {
 
 这只会计算已resolved的promises。如果函数返回了一个promise，但尚未resolved，则不会计算在内。
 
-
 ```ts
 import { expect, test, vi } from 'vitest'
 
@@ -1079,12 +1077,9 @@ test('spy function resolved a value two times', async () => {
 
 - **类型**: `(returnValue: any) => Awaitable<void>`
 
-
-
 您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
 
 如果函数返回了一个promise，但尚未resolved，则将会失败。
-
 
 ```ts
 import { expect, test, vi } from 'vitest'
