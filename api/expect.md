@@ -6,11 +6,7 @@
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
-<<<<<<< HEAD
-`expect` 用于创建断言。 在这种情况下， `assertions` 是可以调用来断言语句的函数。 Vitest 默认提供 `chai` 断言，并且还在 `chai` 之上构建了与 `Jest` 兼容的断言。
-=======
-`expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions built on top of `chai`.
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff
+`expect` 用于创建断言。在这种情况下， `assertions` 是可以调用来断言语句的函数。 Vitest 默认提供 `chai` 断言，并且还在 `chai` 之上构建了与 `Jest` 兼容的断言。
 
 例如，此代码断言 `input` 值等于 `2`。 如果不是，assertions 将抛出错误，并且测试将失败。
 
@@ -709,9 +705,10 @@ test('throws on pineapples', async () => {
 <<<<<<< HEAD
 当快照不匹配导致测试失败时，如果这种不匹配是预期的，我们可以按 `u` 键一次性更新快照。或者可以传递 `-u` 或 `--update` 命令行选项，使 Vitest 始终更新测试。
 =======
-  When a snapshot mismatches and causes the test to fail, if the mismatch is expected, you can press `u` key to update the snapshot once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff
-:::
+When a snapshot mismatches and causes the test to fail, if the mismatch is expected, you can press `u` key to update the snapshot once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
+
+> > > > > > > 2f00e8320845df6799e92cccf2f28422d582beff
+> > > > > > > :::
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1038,17 +1035,16 @@ test('spy function returns bananas on second call', () => {
 
 - **类型**: `() => Awaitable<void>`
 
+此断言检查函数是否至少成功解析过一次值（即未 reject）。需要将 spy 函数传递给 `expect`。
 
-此断言检查函数是否至少成功解析过一次值（即未reject）。需要将 spy 函数传递给 `expect`。
-
-如果函数返回了一个promise，但尚未resolved，则将会失败。
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
 import db from './db/apples.js'
 
 async function getApplesPrice(amount: number) {
-  return amount * await db.get('price')
+  return amount * (await db.get('price'))
 }
 
 test('spy function resolved a value', async () => {
@@ -1065,10 +1061,9 @@ test('spy function resolved a value', async () => {
 
 - **类型**: `(amount: number) => Awaitable<void>`
 
-此断言检查函数是否已成功解析值精确次数（即未reject）。需要将 spy 函数传递给`expect`。
+此断言检查函数是否已成功解析值精确次数（即未 reject）。需要将 spy 函数传递给`expect`。
 
-这只会计算已resolved的promises。如果函数返回了一个promise，但尚未resolved，则不会计算在内。
-
+这只会计算已 resolved 的 promises。如果函数返回了一个 promise，但尚未 resolved，则不会计算在内。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1087,12 +1082,9 @@ test('spy function resolved a value two times', async () => {
 
 - **类型**: `(returnValue: any) => Awaitable<void>`
 
-
-
 您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
 
-如果函数返回了一个promise，但尚未resolved，则将会失败。
-
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1112,7 +1104,7 @@ test('spy function resolved a product', async () => {
 
 您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
-如果函数返回了一个promise，但尚未resolved，则将会失败。
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1133,7 +1125,7 @@ test('spy function resolves bananas on a last call', async () => {
 
 您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
-如果函数返回了一个promise，但尚未resolved，则将会失败。
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1299,11 +1291,7 @@ test('callback was called', async () => {
 
 - **类型:** `(message?: string) => never`
 
-<<<<<<< HEAD
 这种方法用于断言某一行永远不会被执行。
-=======
-This method is used to assert that a line should never be reached.
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff
 
 例如，如果我们想要测试 `build()` 因为接收到没有 `src` 文件夹的目录而抛出异常，并且还要分别处理每个错误，我们可以这样做：
 

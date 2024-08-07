@@ -4,11 +4,7 @@
 这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
 :::
 
-<<<<<<< HEAD
-你可以在你的配置文件中使用 runner 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
-=======
-You can specify a path to your test runner with the `runner` option in your configuration file. This file should have a default export with a class constructor implementing these methods:
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff
+你可以在你的配置文件中使用 `runner` 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
 
 ```ts
 export interface VitestRunner {
@@ -35,7 +31,10 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
+  onBeforeTryTask?: (
+    test: TaskPopulated,
+    options: { retry: number, repeats: number }
+  ) => unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -44,7 +43,10 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
+  onAfterTryTask?: (
+    test: TaskPopulated,
+    options: { retry: number, repeats: number }
+  ) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -86,7 +88,9 @@ export interface VitestRunner {
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
    * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
-  extendTaskContext?: <T extends Test | Custom>(context: TaskContext<T>) => TaskContext<T>
+  extendTaskContext?: <T extends Test | Custom>(
+    context: TaskContext<T>
+  ) => TaskContext<T>
   /**
    * 当导入某些文件时被调用。在收集测试和导入设置文件时都可能会被调用。.
    */
@@ -110,151 +114,9 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。它还暴露了 `BenchmarkNodeRunner`，如果你想扩展基准测试功能的话也可以继承它。
 :::
 
-<<<<<<< HEAD
 ## 你的任务函数
 
 你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.task` 方法添加到当前套件中：
-=======
-## Tasks
-
-Suites and tests are called `tasks` internally. Vitest runner initiates a `File` task before collecting any tests - this is a superset of `Suite` with a few additional properties. It is available on every task (including `File`) as a `file` property.
-
-```ts
-interface File extends Suite {
-  /**
-   * The name of the pool that the file belongs to.
-   * @default 'forks'
-   */
-  pool?: string
-  /**
-   * The path to the file in UNIX format.
-   */
-  filepath: string
-  /**
-   * The name of the workspace project the file belongs to.
-   */
-  projectName: string | undefined
-  /**
-   * The time it took to collect all tests in the file.
-   * This time also includes importing all the file dependencies.
-   */
-  collectDuration?: number
-  /**
-   * The time it took to import the setup file.
-   */
-  setupDuration?: number
-  /**
-   * Whether the file is initiated without running any tests.
-   * This is done to populate state on the server side by Vitest.
-   */
-  local?: boolean
-}
-```
-
-Every suite has a `tasks` property that is populated during collection phase. It is useful to traverse the task tree from the top down.
-
-```ts
-interface Suite extends TaskBase {
-  type: 'suite'
-  /**
-   * File task. It's the root task of the file.
-   */
-  file: File
-  /**
-   * An array of tasks that are part of the suite.
-   */
-  tasks: Task[]
-}
-```
-
-Every task has a `suite` property that references a suite it is located in. If `test` or `describe` are initiated at the top level, they will not have a `suite` property (it will **not** be equal to `file`!). `File` also never has a `suite` property. It is useful to travers the tasks from the bottom up.
-
-```ts
-interface Test<ExtraContext = object> extends TaskBase {
-  type: 'test'
-  /**
-   * Test context that will be passed to the test function.
-   */
-  context: TaskContext<Test> & ExtraContext & TestContext
-  /**
-   * File task. It's the root task of the file.
-   */
-  file: File
-  /**
-   * Whether the task was skipped by calling `t.skip()`.
-   */
-  pending?: boolean
-  /**
-   * Whether the task should succeed if it fails. If the task fails, it will be marked as passed.
-   */
-  fails?: boolean
-  /**
-   * Hooks that will run if the task fails. The order depends on the `sequence.hooks` option.
-   */
-  onFailed?: OnTestFailedHandler[]
-  /**
-   * Hooks that will run after the task finishes. The order depends on the `sequence.hooks` option.
-   */
-  onFinished?: OnTestFinishedHandler[]
-  /**
-   * Store promises (from async expects) to wait for them before finishing the test
-   */
-  promises?: Promise<any>[]
-}
-```
-
-Every task can have a `result` field. Suites can only have this field if an error thrown within a suite callback or `beforeAll`/`afterAll` callbacks prevents them from collecting tests. Tests always have this field after their callbacks are called - the `state` and `errors` fields are present depending on the outcome. If an error was thrown in `beforeEach` or `afterEach` callbacks, the thrown error will be present in `task.result.errors`.
-
-```ts
-export interface TaskResult {
-  /**
-   * State of the task. Inherits the `task.mode` during collection.
-   * When the task has finished, it will be changed to `pass` or `fail`.
-   * - **pass**: task ran successfully
-   * - **fail**: task failed
-   */
-  state: TaskState
-  /**
-   * Errors that occurred during the task execution. It is possible to have several errors
-   * if `expect.soft()` failed multiple times.
-   */
-  errors?: ErrorWithDiff[]
-  /**
-   * How long in milliseconds the task took to run.
-   */
-  duration?: number
-  /**
-   * Time in milliseconds when the task started running.
-   */
-  startTime?: number
-  /**
-   * Heap size in bytes after the task finished.
-   * Only available if `logHeapUsage` option is set and `process.memoryUsage` is defined.
-   */
-  heap?: number
-  /**
-   * State of related to this task hooks. Useful during reporting.
-   */
-  hooks?: Partial<Record<'afterAll' | 'beforeAll' | 'beforeEach' | 'afterEach', TaskState>>
-  /**
-   * The amount of times the task was retried. The task is retried only if it
-   * failed and `retry` option is set.
-   */
-  retryCount?: number
-  /**
-   * The amount of times the task was repeated. The task is repeated only if
-   * `repeats` option is set. This number also contains `retryCount`.
-   */
-  repeatCount?: number
-}
-```
-
-## Your Task Function
-
-Vitest exposes a `Custom` task type that allows users to reuse built-int reporters. It is virtually the same as `Test`, but has a type of `'custom'`.
-
-A task is an object that is part of a suite. It is automatically added to the current suite with a `suite.task` method:
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff
 
 ```js
 // ./utils/custom.js
@@ -310,10 +172,7 @@ vitest ./garden/tasks.test.js
 ::: warning 注意
 如果你没有定义自定义运行器，也没有定义 `runTest` 方法，Vitest 将会尝试自动获取任务。如果你没有使用 `setFn` 添加一个函数，这个过程会失败。
 :::
-<<<<<<< HEAD
 
 ::: tip 提示
 自定义任务系统支持钩子和上下文。如果你想支持属性链式调用（如 `only`、`skip` 和你自己的定制属性），你可以从 `vitest/suite` 导入 `createChainable` 并用它包装你的函数。如果你决定这样做，你需要将 `custom` 作为 `custom.call(this)` 来调用。
 :::
-=======
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff

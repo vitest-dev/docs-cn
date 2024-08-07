@@ -110,17 +110,6 @@ const plainTeamMembers: CoreTeam[] = [
     desc: 'Vite 的狂热追随者',
   },
   {
-<<<<<<< HEAD
-    avatar: contributorsAvatars.Dunqing,
-    name: 'Dunqing',
-    github: 'Dunqing',
-    twitter: '@Dunqingg',
-    title: '热衷于开源贡献者',
-    desc: 'Vitest 和 UnoCSS 团队成员',
-  },
-  {
-=======
->>>>>>> 2f00e8320845df6799e92cccf2f28422d582beff
     avatar: contributorsAvatars['hi-ogawa'],
     name: 'Hiroshi Ogawa',
     github: 'hi-ogawa',
