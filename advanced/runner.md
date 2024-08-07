@@ -4,6 +4,7 @@
 这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
 :::
 
+你可以在你的配置文件中使用 `runner` 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
 你可以在你的配置文件中使用 runner 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
 
 ```ts
@@ -31,7 +32,10 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
+  onBeforeTryTask?: (
+    test: TaskPopulated,
+    options: { retry: number, repeats: number }
+  ) => unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -40,7 +44,10 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
+  onAfterTryTask?: (
+    test: TaskPopulated,
+    options: { retry: number, repeats: number }
+  ) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。

@@ -1030,16 +1030,14 @@ test('spy function returns bananas on second call', () => {
 
 - **类型**: `() => Awaitable<void>`
 
-此断言检查函数是否至少成功解析过一次值（即未reject）。需要将 spy 函数传递给 `expect`。
-
-如果函数返回了一个promise，但尚未resolved，则将会失败。
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
 import db from './db/apples.js'
 
 async function getApplesPrice(amount: number) {
-  return amount * await db.get('price')
+  return amount * (await db.get('price'))
 }
 
 test('spy function resolved a value', async () => {
@@ -1056,7 +1054,7 @@ test('spy function resolved a value', async () => {
 
 - **类型**: `(amount: number) => Awaitable<void>`
 
-此断言检查函数是否已成功解析值精确次数（即未reject）。需要将 spy 函数传递给`expect`。
+此断言检查函数是否已成功解析值精确次数（即未 reject）。需要将 spy 函数传递给`expect`。
 
 这只会计算已resolved的promises。如果函数返回了一个promise，但尚未resolved，则不会计算在内。
 
@@ -1099,7 +1097,7 @@ test('spy function resolved a product', async () => {
 
 您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
-如果函数返回了一个promise，但尚未resolved，则将会失败。
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1120,7 +1118,7 @@ test('spy function resolves bananas on a last call', async () => {
 
 您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
-如果函数返回了一个promise，但尚未resolved，则将会失败。
+如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
 ```ts
 import { expect, test, vi } from 'vitest'
