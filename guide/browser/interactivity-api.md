@@ -64,7 +64,7 @@ await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because th
 
 ## userEvent.click
 
-- **Type:** `(element: Element, options?: UserEventClickOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, options?: UserEventClickOptions) => Promise<void>`
 
 点击元素。继承 provider 的选项。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
@@ -87,7 +87,7 @@ References:
 
 ## userEvent.dblClick
 
-- **Type:** `(element: Element, options?: UserEventDoubleClickOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, options?: UserEventDoubleClickOptions) => Promise<void>`
 
 触发元素的双击事件
 
@@ -112,7 +112,7 @@ References:
 
 ## userEvent.tripleClick
 
-- **Type:** `(element: Element, options?: UserEventTripleClickOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, options?: UserEventTripleClickOptions) => Promise<void>`
 
 Triggers a triple click event on an element. Since there is no `tripleclick` in browser api, this method will fire three click events in a row, and so you must check [click event detail](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event#usage_notes) to filter the event: `evt.detail === 3`.
 
@@ -144,7 +144,7 @@ References:
 
 ## userEvent.fill
 
-- **Type:** `(element: Element, text: string) => Promise<void>`
+- **Type:** `(element: Element | Locator, text: string) => Promise<void>`
 
 为 `input/textarea/conteneditable` 字段设置值。这将在设置新值前移除输入中的任何现有文本。
 
@@ -234,7 +234,7 @@ References:
 
 ## userEvent.type
 
-- **Type:** `(element: Element, text: string, options?: UserEventTypeOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, text: string, options?: UserEventTypeOptions) => Promise<void>`
 
 ::: warning
 如果不依赖 [special characters](https://testing-library.com/docs/user-event/keyboard)（例如，`{shift}` 或 `{selectall}`），建议使用 [`userEvent.fill`](#userevent-fill)。
@@ -267,7 +267,7 @@ References:
 
 ## userEvent.clear
 
-- **Type:** `(element: Element) => Promise<void>`
+- **Type:** `(element: Element | Locator) => Promise<void>`
 
 此方法会清除输入元素的内容。
 
@@ -294,7 +294,7 @@ References:
 
 ## userEvent.selectOptions
 
-- **Type:** `(element: Element, values: HTMLElement | HTMLElement[] | string | string[], options?: UserEventSelectOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, values: HTMLElement | HTMLElement[] | Locator | Locator[] | string | string[], options?: UserEventSelectOptions) => Promise<void>`
 
 The `userEvent.selectOptions` allows selecting a value in a `<select>` element.
 
@@ -337,7 +337,7 @@ References:
 
 ## userEvent.hover
 
-- **Type:** `(element: Element, options?: UserEventHoverOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, options?: UserEventHoverOptions) => Promise<void>`
 
 该方法将光标位置移动到所选元素上。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
@@ -366,7 +366,7 @@ References:
 
 ## userEvent.unhover
 
-- **Type:** `(element: Element, options?: UserEventHoverOptions) => Promise<void>`
+- **Type:** `(element: Element | Locator, options?: UserEventHoverOptions) => Promise<void>`
 
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
@@ -393,7 +393,7 @@ References:
 
 ## userEvent.dragAndDrop
 
-- **Type:** `(source: Element, target: Element, options?: UserEventDragAndDropOptions) => Promise<void>`
+- **Type:** `(source: Element | Locator, target: Element | Locator, options?: UserEventDragAndDropOptions) => Promise<void>`
 
 将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
 

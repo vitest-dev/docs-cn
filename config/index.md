@@ -1773,6 +1773,17 @@ export default defineConfig({
 
 默认 iframe 的viewport。
 
+#### browser.locators {#browser-locators}
+
+Options for built-in [browser locators](/guide/browser/locators).
+
+##### browser.locators.testIdAttribute
+
+- **Type:** `string`
+- **Default:** `data-testid`
+
+Attribute used to find elements with `getByTestId` locator.
+
 #### browser.screenshotDirectory {#browser-screenshotdirectory}
 
 - **Type:** `string`
