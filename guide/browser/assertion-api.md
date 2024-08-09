@@ -68,14 +68,20 @@ Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-librar
 
 ```ts
 import { expect, test } from 'vitest'
-import { screen } from '@testing-library/dom'
+import { page } from '@vitest/browser/context'
 
 test('error banner is rendered', async () => {
   triggerError()
 
+<<<<<<< HEAD
   // @testing-library 提供内置重试功能的查询
   // 它会尝试找到 banner，直到它渲染出来
   const banner = await screen.findByRole('alert', {
+=======
+  // @testing-library provides queries with built-in retry-ability
+  // It will try to find the banner until it's rendered
+  const banner = page.getByRole('alert', {
+>>>>>>> f338653c35afbb1bee88b47e7a7ad499fa510d46
     name: /error/i,
   })
 
