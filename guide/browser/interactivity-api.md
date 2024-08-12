@@ -35,13 +35,6 @@ await userEvent.click(document.querySelector('.button'))
 ```
 :::
 
-<<<<<<< HEAD
-::: warning
-本页面在示例中使用 `@testing-library/dom` 来查询元素。如果您使用的是 Vue、React 或其他框架，请使用 `@testing-library/{framework-name}` 代替。[Browser Mode page](/guide/browser/#examples)上提供了简单的示例。
-:::
-
-=======
->>>>>>> f338653c35afbb1bee88b47e7a7ad499fa510d46
 ## userEvent.setup
 
 - **Type:** `() => UserEvent`
