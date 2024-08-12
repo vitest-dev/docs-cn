@@ -53,9 +53,9 @@ vi.mock(import('./path/to/module.js'), async (importOriginal) => {
 
 在此钩子下，Vitest 仍然对字符串而不是模块对象进行操作。
 
-If you are using TypeScript with `paths` aliases configured in `tsconfig.json` however, the compiler won't be able to correctly resolve import types.
-In order to make it work, make sure to replace all aliased imports, with their corresponding relative paths.
-Eg. use `import('./path/to/module.js')` instead of `import('@/module')`.
+如果你使用的 TypeScript 在 `tsconfig.json` 中配置了 `paths` 别名，编译器将无法正确解析导入类型。
+为了使其正常工作，请确保将所有别名导入替换为相应的相对路径。
+例如，使用 `import('./path/to/module.js')`，而不是 `import('@/module')`。
 
 ::: warning
 `vi.mock` 被提升（换句话说，_移动_）到**文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。

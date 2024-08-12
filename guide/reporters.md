@@ -531,8 +531,4 @@ export default defineConfig({
 npx vitest --reporter=./path/to/reporter.ts
 ```
 
-<<<<<<< HEAD
-自定义报告器应实现[报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts)。
-=======
-Custom reporters should implement the [Reporter interface](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts).
->>>>>>> f338653c35afbb1bee88b47e7a7ad499fa510d46
+自定义报告器应实现[报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)。
