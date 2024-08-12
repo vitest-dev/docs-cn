@@ -16,8 +16,13 @@ import { vi } from 'vitest'
 
 ### vi.mock
 
+<<<<<<< HEAD
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 - **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void`
+=======
+- **Type**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
+- **Type**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => T | Promise<T>) => void`
+>>>>>>> 4dce19b2add6ec18c7e6e561d116f4c3777642e6
 
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
 
@@ -30,9 +35,15 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 :::
 
 
+<<<<<<< HEAD
 如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
 
 与 `jest` 不同, factory可以是异步的。可以使用 [`vi.importActual`](#vi-importactual)，或者使用以工厂作为第一个参数传递的辅助器，并在其中获取原始模块。Vitest 还支持在 `vi.mock` 方法中使用module promise代替字符串，以获得更好的集成开发环境支持（文件移动时，路径会更新，`importOriginal` 也会自动继承类型）。
+=======
+Unlike in `jest`, the factory can be asynchronous. You can use [`vi.importActual`](#vi-importactual) or a helper with the factory passed in as the first argument, and get the original module inside.
+
+Vitest also supports a module promise instead of a string in the `vi.mock` and `vi.doMock` methods for better IDE support. When the file is moved, the path will be updated, and `importOriginal` also inherits the type automatically. Using this signature will also enforce factory return type to be compatible with the original module (but every export is optional).
+>>>>>>> 4dce19b2add6ec18c7e6e561d116f4c3777642e6
 
 ```ts twoslash
 // @filename: ./path/to/module.js
@@ -145,8 +156,13 @@ axios.get(`/apples/${increment(1)}`)
 
 ### vi.doMock
 
+<<<<<<< HEAD
 - **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
 - **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => unknown) => void`
+=======
+- **Type**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
+- **Type**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => T | Promise<T>) => void`
+>>>>>>> 4dce19b2add6ec18c7e6e561d116f4c3777642e6
 
 与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
 

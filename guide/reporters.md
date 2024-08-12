@@ -16,8 +16,7 @@ npx vitest --reporter=verbose
 通过配置文件 [`vitest.config.ts`](/config/) 使用报告器:
 
 ```ts
-/// <reference types="vitest" />
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
