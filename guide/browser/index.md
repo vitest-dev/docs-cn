@@ -340,31 +340,15 @@ npx vitest --browser.name=chrome --browser.headless
 
 ## Examples
 
-<<<<<<< HEAD
-浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，您应该可以使用框架的测试工具包。
+Vitest 提供的软件包可为多个流行框架呈现开箱即用的组件：
 
-我们建议根据你的框架使用 `testing-library` package：
+- [`vitest-browser-vue`](https://github.com/vitest-dev/vitest-browser-vue) 渲染 [vue](https://vuejs.org) 组件
+- [`vitest-browser-svelte`](https://github.com/vitest-dev/vitest-browser-svelte) 渲染 [svelte](https://svelte.dev) 组件
+- [`vitest-browser-react`](https://github.com/vitest-dev/vitest-browser-react) 渲染 [react](https://react.dev) 组件
 
-- [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) 如果不使用框架
-- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) 渲染 [vue](https://vuejs.org) 组件
-- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) 渲染 [svelte](https://svelte.dev) 组件
-- [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) 渲染 [react](https://react.dev) 组件
-- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) 渲染 [preact](https://preactjs.com) 组件
-- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
-- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
+如果您的框架没有包含此功能，请随意创建自己的软件包--它是框架渲染器和 `page.elementLocator` API 的简单封装。我们将在本页添加指向它的链接。请确保它的名称以 `vitest-browser-` 开头。
 
 除了使用 `@testing-library/your-framework` 渲染组件和查询元素外，你还需要进行断言。Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，可提供各种开箱即用的 DOM 断言。更多信息请参阅 [Assertions API](/guide/browser/assertion-api)。
-=======
-Vitest provides packages to render components for several popular frameworks out of the box:
-
-- [`vitest-browser-vue`](https://github.com/vitest-dev/vitest-browser-vue) to render [vue](https://vuejs.org) components
-- [`vitest-browser-svelte`](https://github.com/vitest-dev/vitest-browser-svelte) to render [svelte](https://svelte.dev) components
-- [`vitest-browser-react`](https://github.com/vitest-dev/vitest-browser-react) to render [react](https://react.dev) components
-
-If your framework is not represented, feel free to create your own package - it is a simple wrapper around the framework renderer and `page.elementLocator` API. We will add a link to it on this page. Make sure it has a name starting with `vitest-browser-`.
-
-Besides rendering components and locating elements, you will also need to make assertions. Vitest bundles the [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) library to provide a wide range of DOM assertions out of the box. Read more at the [Assertions API](/guide/browser/assertion-api).
->>>>>>> f338653c35afbb1bee88b47e7a7ad499fa510d46
 
 ```ts
 import { expect } from 'vitest'
@@ -382,13 +366,6 @@ await userEvent.fill(page.getByLabelText(/username/i), 'Alice')
 await page.getByLabelText(/username/i).fill('Alice')
 ```
 
-<<<<<<< HEAD
-::: warning
-`testing-library`提供了一个包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它在 hood 下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
-:::
-
-=======
->>>>>>> f338653c35afbb1bee88b47e7a7ad499fa510d46
 ::: code-group
 ```ts [vue]
 import { render } from 'vitest-browser-vue'

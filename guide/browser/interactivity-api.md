@@ -267,7 +267,7 @@ test('update input', async () => {
 ```
 
 ::: info
-Vitest doesn't expose `.type` method on the locator like `input.type` because it exists only for compatiblity with the `userEvent` library. Consider using `.fill` instead as it is faster.
+Vitest 没有像 `input.type` 那样在定位器上公开 `.type` 方法，因为它的存在只是为了与 `userEvent` 库兼容。请考虑使用 `.fill`，因为它更快。
 :::
 
 References:
