@@ -35,10 +35,6 @@ await userEvent.click(document.querySelector('.button'))
 ```
 :::
 
-::: warning
-本页面在示例中使用 `@testing-library/dom` 来查询元素。如果您使用的是 Vue、React 或其他框架，请使用 `@testing-library/{framework-name}` 代替。[Browser Mode page](/guide/browser/#examples)上提供了简单的示例。
-:::
-
 ## userEvent.setup
 
 - **Type:** `() => UserEvent`
@@ -69,13 +65,14 @@ await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because th
 点击元素。继承 provider 的选项。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('clicks on an element', async () => {
-  const logo = screen.getByRole('img', { name: /logo/ })
+  const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.click(logo)
+  // or you can access it directly on the locator
+  await logo.click()
 })
 ```
 
@@ -94,13 +91,14 @@ References:
 请参阅你的 provider 的文档以获取有关此方法如何工作的详细说明。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('triggers a double click on an element', async () => {
-  const logo = screen.getByRole('img', { name: /logo/ })
+  const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.dblClick(logo)
+  // or you can access it directly on the locator
+  await logo.dblClick()
 })
 ```
 
@@ -119,11 +117,10 @@ Triggers a triple click event on an element. Since there is no `tripleclick` in 
 Please refer to your provider's documentation for detailed explanation about how this method works.
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('triggers a triple click on an element', async () => {
-  const logo = screen.getByRole('img', { name: /logo/ })
+  const logo = page.getByRole('img', { name: /logo/ })
   let tripleClickFired = false
   logo.addEventListener('click', (evt) => {
     if (evt.detail === 3) {
@@ -132,6 +129,9 @@ test('triggers a triple click on an element', async () => {
   })
 
   await userEvent.tripleClick(logo)
+  // or you can access it directly on the locator
+  await logo.tripleClick()
+
   expect(tripleClickFired).toBe(true)
 })
 ```
@@ -149,15 +149,17 @@ References:
 为 `input/textarea/conteneditable` 字段设置值。这将在设置新值前移除输入中的任何现有文本。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('update input', async () => {
-  const input = screen.getByRole('input')
+  const input = page.getByRole('input')
 
   await userEvent.fill(input, 'foo') // input.value == foo
   await userEvent.fill(input, '{{a[[') // input.value == {{a[[
   await userEvent.fill(input, '{Shift}') // input.value == {Shift}
+
+  // or you can access it directly on the locator
+  await input.fill('foo') // input.value == foo
 })
 ```
 
@@ -208,11 +210,10 @@ References:
 发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('tab works', async () => {
-  const [input1, input2] = screen.getAllByRole('input')
+  const [input1, input2] = page.getByRole('input').elements()
 
   expect(input1).toHaveFocus()
 
@@ -247,17 +248,20 @@ References:
 如果只需按下字符而无需输入，请使用 [`userEvent.keyboard`](#userevent-keyboard) API。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('update input', async () => {
-  const input = screen.getByRole('input')
+  const input = page.getByRole('input')
 
   await userEvent.type(input, 'foo') // input.value == foo
   await userEvent.type(input, '{{a[[') // input.value == foo{a[
   await userEvent.type(input, '{Shift}') // input.value == foo{a[
 })
 ```
+
+::: info
+Vitest 没有像 `input.type` 那样在定位器上公开 `.type` 方法，因为它的存在只是为了与 `userEvent` 库兼容。请考虑使用 `.fill`，因为它更快。
+:::
 
 References:
 
@@ -272,16 +276,18 @@ References:
 此方法会清除输入元素的内容。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('clears input', async () => {
-  const input = screen.getByRole('input')
+  const input = page.getByRole('input')
 
   await userEvent.fill(input, 'foo')
   expect(input).toHaveValue('foo')
 
   await userEvent.clear(input)
+  // or you can access it directly on the locator
+  await input.clear()
+
   expect(input).toHaveValue('')
 })
 ```
@@ -305,21 +311,23 @@ The `userEvent.selectOptions` allows selecting a value in a `<select>` element.
 :::
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('clears input', async () => {
-  const select = screen.getByRole('select')
+  const select = page.getByRole('select')
 
   await userEvent.selectOptions(select, 'Option 1')
+  // or you can access it directly on the locator
+  await select.selectOptions('Option 1')
+
   expect(select).toHaveValue('option-1')
 
   await userEvent.selectOptions(select, 'option-1')
   expect(select).toHaveValue('option-1')
 
   await userEvent.selectOptions(select, [
-    screen.getByRole('option', { name: 'Option 1' }),
-    screen.getByRole('option', { name: 'Option 2' }),
+    page.getByRole('option', { name: 'Option 1' }),
+    page.getByRole('option', { name: 'Option 2' }),
   ])
   expect(select).toHaveValue(['option-1', 'option-2'])
 })
@@ -348,13 +356,14 @@ References:
 :::
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('hovers logo element', async () => {
-  const logo = screen.getByRole('img', { name: /logo/ })
+  const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.hover(logo)
+  // or you can access it directly on the locator
+  await page.hover()
 })
 ```
 
@@ -375,13 +384,14 @@ References:
 :::
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('unhover logo element', async () => {
-  const logo = screen.getByRole('img', { name: /logo/ })
+  const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.unhover(logo)
+  // or you can access it directly on the locator
+  await page.unhover()
 })
 ```
 
@@ -398,14 +408,15 @@ References:
 将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-import { screen } from '@testing-library/dom'
+import { page, userEvent } from '@vitest/browser/context'
 
 test('drag and drop works', async () => {
-  const source = screen.getByRole('img', { name: /logo/ })
-  const target = screen.getByTestId('logo-target')
+  const source = page.getByRole('img', { name: /logo/ })
+  const target = page.getByTestId('logo-target')
 
   await userEvent.dragAndDrop(source, target)
+  // or you can access it directly on the locator
+  await source.dropTo(target)
 
   await expect.element(target).toHaveTextContent('Logo is processed')
 })

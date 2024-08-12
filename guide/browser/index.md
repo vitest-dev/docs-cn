@@ -340,110 +340,107 @@ npx vitest --browser.name=chrome --browser.headless
 
 ## Examples
 
-浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，您应该可以使用框架的测试工具包。
+Vitest 提供的软件包可为多个流行框架呈现开箱即用的组件：
 
-我们建议根据你的框架使用 `testing-library` package：
+- [`vitest-browser-vue`](https://github.com/vitest-dev/vitest-browser-vue) 渲染 [vue](https://vuejs.org) 组件
+- [`vitest-browser-svelte`](https://github.com/vitest-dev/vitest-browser-svelte) 渲染 [svelte](https://svelte.dev) 组件
+- [`vitest-browser-react`](https://github.com/vitest-dev/vitest-browser-react) 渲染 [react](https://react.dev) 组件
 
-- [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) 如果不使用框架
-- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) 渲染 [vue](https://vuejs.org) 组件
-- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) 渲染 [svelte](https://svelte.dev) 组件
-- [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) 渲染 [react](https://react.dev) 组件
-- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) 渲染 [preact](https://preactjs.com) 组件
-- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
-- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
+如果您的框架没有包含此功能，请随意创建自己的软件包--它是框架渲染器和 `page.elementLocator` API 的简单封装。我们将在本页添加指向它的链接。请确保它的名称以 `vitest-browser-` 开头。
 
 除了使用 `@testing-library/your-framework` 渲染组件和查询元素外，你还需要进行断言。Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，可提供各种开箱即用的 DOM 断言。更多信息请参阅 [Assertions API](/guide/browser/assertion-api)。
 
 ```ts
 import { expect } from 'vitest'
+import { page } from '@vitest/browser/context'
 // element is rendered correctly
-await expect.element(screen.getByText('Hello World')).toBeInTheDocument()
+await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 Vitest 公开了一个[Context API](/guide/browser/context)，其中包含一小套在测试中可能有用的实用程序。例如，如果您需要进行交互，如点击元素或在输入框中输入文本，您可以使用 `@vitest/browser/context` 中的 `userEvent`。更多信息请参阅 [Interactivity API](/guide/browser/interactivity-api)。
 
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
-await userEvent.type(screen.getByLabelText(/username/i), 'Alice')
+import { page, userEvent } from '@vitest/browser/context'
+await userEvent.fill(page.getByLabelText(/username/i), 'Alice')
+// or just locator.fill
+await page.getByLabelText(/username/i).fill('Alice')
 ```
-
-::: warning
-`testing-library`提供了一个包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它在 hood 下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
-:::
 
 ::: code-group
 ```ts [vue]
-// based on @testing-library/vue example
-// https://testing-library.com/docs/vue-testing-library/examples
-
-import { userEvent } from '@vitest/browser/context'
-import { render, screen } from '@testing-library/vue'
+import { render } from 'vitest-browser-vue'
 import Component from './Component.vue'
 
 test('properly handles v-model', async () => {
-  render(Component)
+  const screen = render(Component)
 
   // Asserts initial state.
-  expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
+  await expect.element(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 
   // Get the input DOM node by querying the associated label.
-  const usernameInput = await screen.findByLabelText(/username/i)
+  const usernameInput = screen.getByLabelText(/username/i)
 
   // Type the name into the input. This already validates that the input
   // is filled correctly, no need to check the value manually.
-  await userEvent.fill(usernameInput, 'Bob')
+  await usernameInput.fill('Bob')
 
-  expect(screen.getByText('Hi, my name is Bob')).toBeInTheDocument()
+  await expect.element(screen.getByText('Hi, my name is Bob')).toBeInTheDocument()
 })
 ```
 ```ts [svelte]
-// based on @testing-library/svelte
-// https://testing-library.com/docs/svelte-testing-library/example
-
-import { render, screen } from '@testing-library/svelte'
-import { userEvent } from '@vitest/browser/context'
+import { render } from 'vitest-browser-svelte'
 import { expect, test } from 'vitest'
 
 import Greeter from './greeter.svelte'
 
 test('greeting appears on click', async () => {
-  const user = userEvent.setup()
-  render(Greeter, { name: 'World' })
+  const screen = render(Greeter, { name: 'World' })
 
   const button = screen.getByRole('button')
-  await user.click(button)
-  const greeting = await screen.findByText(/hello world/iu)
+  await button.click()
+  const greeting = screen.getByText(/hello world/iu)
 
-  expect(greeting).toBeInTheDocument()
+  await expect.element(greeting).toBeInTheDocument()
 })
 ```
 ```tsx [react]
-// based on @testing-library/react example
-// https://testing-library.com/docs/react-testing-library/example-intro
-
-import { userEvent } from '@vitest/browser/context'
-import { render, screen } from '@testing-library/react'
+import { render } from 'vitest-browser-react'
 import Fetch from './fetch'
 
 test('loads and displays greeting', async () => {
   // Render a React element into the DOM
-  render(<Fetch url="/greeting" />)
+  const screen = render(<Fetch url="/greeting" />)
 
-  await userEvent.click(screen.getByText('Load Greeting'))
+  await screen.getByText('Load Greeting').click()
   // wait before throwing an error if it cannot find an element
-  const heading = await screen.findByRole('heading')
+  const heading = screen.getByRole('heading')
 
   // assert that the alert message is correct
-  expect(heading).toHaveTextContent('hello there')
-  expect(screen.getByRole('button')).toBeDisabled()
+  await expect.element(heading).toHaveTextContent('hello there')
+  await expect.element(screen.getByRole('button')).toBeDisabled()
 })
 ```
+:::
+
+Vitest 并不支持所有开箱即用的框架，但您可以使用外部工具来运行这些框架的测试。我们还鼓励社区创建他们自己的 `vitest-browser` 封装程序，如果您有这样的封装程序，请随时将其添加到上述示例中。
+
+对于不支持的框架，我们建议使用 `testing-library` 软件包：
+
+- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) 渲染 [preact](https://preactjs.com) 组件
+- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
+
+::: warning
+`testing-library` 提供了一个软件包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](/guide/browser/interactivity-api)，它在引擎盖下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+:::
+
+::: code-group
 ```tsx [preact]
 // based on @testing-library/preact example
 // https://testing-library.com/docs/preact-testing-library/example
 
 import { h } from 'preact'
-import { userEvent } from '@vitest/browser/context'
+import { page } from '@vitest/browser/context'
 import { render } from '@testing-library/preact'
 
 import HiddenMessage from '../hidden-message'
@@ -451,19 +448,21 @@ import HiddenMessage from '../hidden-message'
 test('shows the children when the checkbox is checked', async () => {
   const testMessage = 'Test Message'
 
-  const { queryByText, getByLabelText, getByText } = render(
+  const { baseElement } = render(
     <HiddenMessage>{testMessage}</HiddenMessage>,
   )
 
-  // query* functions will return the element or null if it cannot be found.
-  // get* functions will return the element or throw an error if it cannot be found.
-  expect(queryByText(testMessage)).not.toBeInTheDocument()
+  const screen = page.elementLocator(baseElement)
+
+  // .query() will return the element or null if it cannot be found.
+  // .element() will return the element or throw an error if it cannot be found.
+  expect(screen.getByText(testMessage).query()).not.toBeInTheDocument()
 
   // The queries can accept a regex to make your selectors more
   // resilient to content tweaks and changes.
-  await userEvent.click(getByLabelText(/show/i))
+  await screen.getByLabelText(/show/i).click()
 
-  expect(getByText(testMessage)).toBeInTheDocument()
+  await expect.element(screen.getByText(testMessage)).toBeInTheDocument()
 })
 ```
 ```tsx [solid]
@@ -487,8 +486,10 @@ it('uses params', async () => {
       <Route path="/" component={() => <p>Start</p>} />
     </>
   )
-  const { findByText } = render(() => <App />, { location: 'ids/1234' })
-  expect(await findByText('Id: 1234')).toBeInTheDocument()
+  const { baseElement } = render(() => <App />, { location: 'ids/1234' })
+  const screen = page.elementLocator(baseElement)
+
+  await expect.screen(screen.getByText('Id: 1234')).toBeInTheDocument()
 })
 ```
 ```ts [marko]
@@ -499,9 +500,10 @@ import { render, screen } from '@marko/testing-library'
 import Greeting from './greeting.marko'
 
 test('renders a message', async () => {
-  const { container } = await render(Greeting, { name: 'Marko' })
-  expect(screen.getByText(/Marko/)).toBeInTheDocument()
-  expect(container.firstChild).toMatchInlineSnapshot(`
+  const { baseElement } = await render(Greeting, { name: 'Marko' })
+  const screen = page.elementLocator(baseElement)
+  await expect.element(screen.getByText(/Marko/)).toBeInTheDocument()
+  await expect.element(container.firstChild).toMatchInlineSnapshot(`
     <h1>Hello, Marko!</h1>
   `)
 })
