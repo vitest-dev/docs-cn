@@ -1414,6 +1414,18 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 收集 [项目`root`](#root) 之外文件的覆盖率。
 
+#### coverage.excludeAfterRemap <Version>2.1.0</Version> {#coverage-exclude-after-remap}
+
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
+
+在覆盖范围重新映射到原始源后再次应用排除。
+当你的源文件被转译并且可能包含非源文件的源映射时，这很有用。
+
+当你看到报告中显示的文件与你的 `coverage.exclude` 模式匹配时，请使用此选项。
+
 #### coverage.skipFull
 
 - **类型:** `boolean`
@@ -1533,7 +1545,7 @@ This is different from Jest behavior.
 }
 ```
 
-##### coverage.thresholds[glob-pattern].100
+##### coverage.thresholds[glob-pattern].100 <Version>2.1.0</Version> {#coverage-thresholds-glob-pattern-100}
 
 - **Type:** `boolean`
 - **Default:** `false`
