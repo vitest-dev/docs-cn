@@ -138,10 +138,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-可以参阅 [配置索引](../config/) 中的配置选项列表
-=======
-The `<reference types="vitest" />` will stop working in Vitest 3, but you can start migrating to `vitest/config` in Vitest 2.1:
+The `<reference types="vitest" />` 将在 Vitest 3 中停止工作，但您可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
 
 ```ts
 /// <reference types="vitest/config" />
@@ -154,8 +151,7 @@ export default defineConfig({
 })
 ```
 
-See the list of config options in the [Config Reference](../config/)
->>>>>>> 4dce19b2add6ec18c7e6e561d116f4c3777642e6
+可以参阅 [配置索引](../config/) 中的配置选项列表
 
 ::: warning
 如果你决定为 Vite 和 Vitest 使用两个单独的配置文件，请确保在 Vitest 配置文件中定义相同的 Vite 选项，因为它将覆盖你的 Vite 文件，而不是扩展它。你还可以使用 `vite` 或`vitest/config` 条目中的 `mergeConfig` 方法将 Vite 配置与 Vitest 配置合并：
