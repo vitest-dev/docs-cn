@@ -25,10 +25,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-使用 `vitest/config` 中的 `defineConfig`，你应该如下配置：
-=======
-The `<reference types="vitest" />` will stop working in Vitest 3, but you can start migrating to `vitest/config` in Vitest 2.1:
+`<reference types="vitest" />`  将在 Vitest 3 中停止工作，但您可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
 
 ```ts
 /// <reference types="vitest/config" />
@@ -41,8 +38,7 @@ export default defineConfig({
 })
 ```
 
-Using `defineConfig` from `vitest/config` you should follow this:
->>>>>>> 4dce19b2add6ec18c7e6e561d116f4c3777642e6
+使用 `vitest/config` 中的 `defineConfig`，你应该如下配置：
 
 ```ts
 import { defineConfig } from 'vitest/config'

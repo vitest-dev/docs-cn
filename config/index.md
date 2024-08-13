@@ -1416,15 +1416,15 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 #### coverage.excludeAfterRemap <Version>2.1.0</Version> {#coverage-exclude-after-remap}
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
 
-Apply exclusions again after coverage has been remapped to original sources.
-This is useful when your source files are transpiled and may contain source maps of non-source files.
+在覆盖范围重新映射到原始源后再次应用排除。
+当你的源文件被转译并且可能包含非源文件的源映射时，这很有用。
 
-Use this option when you are seeing files that show up in report even if they match your `coverage.exclude` patterns.
+当你看到报告中显示的文件与你的 `coverage.exclude` 模式匹配时，请使用此选项。
 
 #### coverage.skipFull
 
