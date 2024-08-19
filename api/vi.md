@@ -30,7 +30,7 @@ Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因�
 :::
 
 
-如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vii-unmock) 或 [`vi.doUnmock`](#vii-dounmock) 被调用。
+如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
 
 与 `jest` 不同，工厂可以是异步的。你可以使用 [`vi.importActual`](#vi-importactual)，或将工厂作为第一个参数传递的助手，并在其中获取原始模块。
 
@@ -388,7 +388,7 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 
 - **类型:** `<T, K extends keyof T>(object: T, method: K, accessType?: 'get' | 'set') => MockInstance`
 
-创建与 [`vi.fn()`](/#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
+创建与 [`vi.fn()`](#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
 
 ```ts
 let apples = 0
