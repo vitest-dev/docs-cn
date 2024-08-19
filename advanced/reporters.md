@@ -66,7 +66,7 @@ export default defineConfig({
 ```ts twoslash
 import type { Vitest } from 'vitest/node'
 import type { RunnerTestFile } from 'vitest'
-import type { Reporter, TestFile } from 'vitest/reporters'
+import type { Reporter, TestModule } from 'vitest/reporters'
 
 class MyReporter implements Reporter {
   ctx!: Vitest
@@ -77,9 +77,10 @@ class MyReporter implements Reporter {
 
   onFinished(files: RunnerTestFile[]) {
     for (const fileTask of files) {
-      const testFile = this.ctx.state.getReportedEntity(fileTask) as TestFile
-      for (const task of testFile.children) {
-        //                         ^?
+      // note that the old task implementation uses "file" instead of "module"
+      const testModule = this.ctx.state.getReportedEntity(fileTask) as TestModule
+      for (const task of testModule.children) {
+        //                          ^?
         console.log('finished', task.type, task.fullName)
       }
     }
@@ -107,9 +108,13 @@ declare class TestCase {
    */
   readonly project: TestProject
   /**
+<<<<<<< HEAD
    * 直接引用定义测试的测试文件。
+=======
+   * Direct reference to the test module where the test is defined.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
-  readonly file: TestFile
+  readonly module: TestModule
   /**
    * 测试名称。
    */
@@ -119,6 +124,7 @@ declare class TestCase {
    */
   readonly fullName: string
   /**
+<<<<<<< HEAD
    * 唯一标识符。
    * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
    * ID 基于项目名称、文件路径和测试位置。
@@ -131,8 +137,22 @@ declare class TestCase {
   readonly location: { line: number; column: number } | undefined
   /**
    * 如果测试是在文件中直接调用的，则父套件将是文件。
+=======
+   * Unique identifier.
+   * This ID is deterministic and will be the same for the same test across multiple runs.
+   * The ID is based on the project name, module id and test position.
    */
-  readonly parent: TestSuite | TestFile
+  readonly id: string
+  /**
+   * Location in the module where the test was defined.
+   * Locations are collected only if `includeTaskLocation` is enabled in the config.
+   */
+  readonly location: { line: number; column: number } | undefined
+  /**
+   * Parent suite. If the test was called directly inside the module, the parent will be the module itself.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
+   */
+  readonly parent: TestSuite | TestModule
   /**
    * 启动测试时使用的选项。
    */
@@ -241,9 +261,13 @@ declare class TestSuite {
    */
   readonly project: TestProject
   /**
+<<<<<<< HEAD
    * 直接引用定义套件的测试文件。
+=======
+   * Direct reference to the test module where the suite is defined.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
-  readonly file: TestFile
+  readonly module: TestModule
   /**
    * Name of the suite.
    */
@@ -253,6 +277,7 @@ declare class TestSuite {
    */
   readonly fullName: string
   /**
+<<<<<<< HEAD
    * 唯一标识符。
    * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
    * ID 基于项目名称、文件路径和测试位置。
@@ -261,6 +286,16 @@ declare class TestSuite {
   /**
    * 文件中定义套件的位置。
    * 只有在配置中启用 `includeTaskLocation` 时，才会收集位置信息。
+=======
+   * Unique identifier.
+   * This ID is deterministic and will be the same for the same test across multiple runs.
+   * The ID is based on the project name, module id and test position.
+   */
+  readonly id: string
+  /**
+   * Location in the module where the suite was defined.
+   * Locations are collected only if `includeTaskLocation` is enabled in the config.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   readonly location: { line: number; column: number } | undefined
   /**
@@ -274,20 +309,28 @@ declare class TestSuite {
 }
 ```
 
-### TestFile
+### TestModule
 
+<<<<<<< HEAD
 `TestFile` 表示包含套件和测试的单个文件。
+=======
+`TestModule` represents a single file that contains suites and tests.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
 
 ```ts
-declare class TestFile extends SuiteImplementation {
-  readonly type = 'file'
+declare class TestModule extends SuiteImplementation {
+  readonly type = 'module'
   /**
    * Task instance.
    * @experimental Public task API 是实验性的，并不遵循 semver。
    */
   readonly task: RunnerTestFile
   /**
+<<<<<<< HEAD
    * 属于该文件的套件和测试集合。
+=======
+   * Collection of suites and tests that are part of this module.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   readonly children: TestCollection
   /**
@@ -297,13 +340,18 @@ declare class TestFile extends SuiteImplementation {
    */
   readonly moduleId: string
   /**
+<<<<<<< HEAD
    * 有关文件的有用信息，如持续时间、内存使用情况等。
    * 如果文件尚未执行，所有诊断值都将返回 `0`。
+=======
+   * Useful information about the module like duration, memory usage, etc.
+   * If the module was not executed yet, all diagnostic values will return `0`.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
-  diagnostic(): FileDiagnostic
+  diagnostic(): ModuleDiagnostic
 }
 
-export interface FileDiagnostic {
+export interface ModuleDiagnostic {
   /**
    * 导入和启动环境所需的时间。
    */
@@ -313,6 +361,7 @@ export interface FileDiagnostic {
    */
   prepareDuration: number
   /**
+<<<<<<< HEAD
    * 导入测试文件所需的时间。
    * 这包括导入文件中的所有内容和执行套件回调。
    */
@@ -323,6 +372,18 @@ export interface FileDiagnostic {
   setupDuration: number
   /**
    * 文件中所有测试和钩子的累计持续时间。
+=======
+   * The time it takes to import the test module.
+   * This includes importing everything in the module and executing suite callbacks.
+   */
+  collectDuration: number
+  /**
+   * The time it takes to import the setup module.
+   */
+  setupDuration: number
+  /**
+   * Accumulated duration of all tests and hooks in the module.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   duration: number
 }
@@ -366,14 +427,18 @@ declare class TestCollection {
 }
 ```
 
+<<<<<<< HEAD
 例如，你可以通过调用 `testFile.children.allTests()` 遍历文件中的所有测试：
+=======
+For example, you can iterate over all tests inside a module by calling `testModule.children.allTests()`:
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
 
 ```ts
-function onFileCollected(testFile: TestFile): void {
-  console.log('collecting tests in', testFile.moduleId)
+function onFileCollected(testModule: TestModule): void {
+  console.log('collecting tests in', testModule.moduleId)
 
-  // iterate over all tests and suites in the file
-  for (const task of testFile.children.allTests()) {
+  // iterate over all tests and suites in the module
+  for (const task of testModule.children.allTests()) {
     console.log('collected', task.type, task.fullName)
   }
 }
@@ -381,7 +446,11 @@ function onFileCollected(testFile: TestFile): void {
 
 ### TestProject
 
+<<<<<<< HEAD
 `TestProject` 是与文件相关联的项目。该文件中的每个测试和套件都将引用同一个项目。
+=======
+`TestProject` is a project assosiated with the module. Every test and suite inside that module will reference the same project.
+>>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
 
 项目可用于获取配置或提供的上下文。
 
