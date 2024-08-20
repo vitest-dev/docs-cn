@@ -108,11 +108,7 @@ declare class TestCase {
    */
   readonly project: TestProject
   /**
-<<<<<<< HEAD
    * 直接引用定义测试的测试文件。
-=======
-   * Direct reference to the test module where the test is defined.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   readonly module: TestModule
   /**
@@ -124,7 +120,6 @@ declare class TestCase {
    */
   readonly fullName: string
   /**
-<<<<<<< HEAD
    * 唯一标识符。
    * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
    * ID 基于项目名称、文件路径和测试位置。
@@ -134,23 +129,9 @@ declare class TestCase {
    * 文件中定义测试的位置。
    * 只有在配置中启用  `includeTaskLocation` 时，才会收集位置信息。
    */
-  readonly location: { line: number; column: number } | undefined
+  readonly location: { line: number, column: number } | undefined
   /**
    * 如果测试是在文件中直接调用的，则父套件将是文件。
-=======
-   * Unique identifier.
-   * This ID is deterministic and will be the same for the same test across multiple runs.
-   * The ID is based on the project name, module id and test position.
-   */
-  readonly id: string
-  /**
-   * Location in the module where the test was defined.
-   * Locations are collected only if `includeTaskLocation` is enabled in the config.
-   */
-  readonly location: { line: number; column: number } | undefined
-  /**
-   * Parent suite. If the test was called directly inside the module, the parent will be the module itself.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   readonly parent: TestSuite | TestModule
   /**
@@ -261,11 +242,7 @@ declare class TestSuite {
    */
   readonly project: TestProject
   /**
-<<<<<<< HEAD
    * 直接引用定义套件的测试文件。
-=======
-   * Direct reference to the test module where the suite is defined.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   readonly module: TestModule
   /**
@@ -277,7 +254,6 @@ declare class TestSuite {
    */
   readonly fullName: string
   /**
-<<<<<<< HEAD
    * 唯一标识符。
    * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
    * ID 基于项目名称、文件路径和测试位置。
@@ -286,18 +262,8 @@ declare class TestSuite {
   /**
    * 文件中定义套件的位置。
    * 只有在配置中启用 `includeTaskLocation` 时，才会收集位置信息。
-=======
-   * Unique identifier.
-   * This ID is deterministic and will be the same for the same test across multiple runs.
-   * The ID is based on the project name, module id and test position.
    */
-  readonly id: string
-  /**
-   * Location in the module where the suite was defined.
-   * Locations are collected only if `includeTaskLocation` is enabled in the config.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
-   */
-  readonly location: { line: number; column: number } | undefined
+  readonly location: { line: number, column: number } | undefined
   /**
    * 套件和属于该套件的测试的集合。
    */
@@ -311,11 +277,7 @@ declare class TestSuite {
 
 ### TestModule
 
-<<<<<<< HEAD
-`TestFile` 表示包含套件和测试的单个文件。
-=======
-`TestModule` represents a single file that contains suites and tests.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
+`TestModule` 表示包含套件和测试的单个文件。
 
 ```ts
 declare class TestModule extends SuiteImplementation {
@@ -326,11 +288,7 @@ declare class TestModule extends SuiteImplementation {
    */
   readonly task: RunnerTestFile
   /**
-<<<<<<< HEAD
    * 属于该文件的套件和测试集合。
-=======
-   * Collection of suites and tests that are part of this module.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   readonly children: TestCollection
   /**
@@ -340,13 +298,8 @@ declare class TestModule extends SuiteImplementation {
    */
   readonly moduleId: string
   /**
-<<<<<<< HEAD
    * 有关文件的有用信息，如持续时间、内存使用情况等。
    * 如果文件尚未执行，所有诊断值都将返回 `0`。
-=======
-   * Useful information about the module like duration, memory usage, etc.
-   * If the module was not executed yet, all diagnostic values will return `0`.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   diagnostic(): ModuleDiagnostic
 }
@@ -361,7 +314,6 @@ export interface ModuleDiagnostic {
    */
   prepareDuration: number
   /**
-<<<<<<< HEAD
    * 导入测试文件所需的时间。
    * 这包括导入文件中的所有内容和执行套件回调。
    */
@@ -372,18 +324,6 @@ export interface ModuleDiagnostic {
   setupDuration: number
   /**
    * 文件中所有测试和钩子的累计持续时间。
-=======
-   * The time it takes to import the test module.
-   * This includes importing everything in the module and executing suite callbacks.
-   */
-  collectDuration: number
-  /**
-   * The time it takes to import the setup module.
-   */
-  setupDuration: number
-  /**
-   * Accumulated duration of all tests and hooks in the module.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
    */
   duration: number
 }
@@ -427,11 +367,7 @@ declare class TestCollection {
 }
 ```
 
-<<<<<<< HEAD
 例如，你可以通过调用 `testFile.children.allTests()` 遍历文件中的所有测试：
-=======
-For example, you can iterate over all tests inside a module by calling `testModule.children.allTests()`:
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
 
 ```ts
 function onFileCollected(testModule: TestModule): void {
@@ -446,11 +382,7 @@ function onFileCollected(testModule: TestModule): void {
 
 ### TestProject
 
-<<<<<<< HEAD
 `TestProject` 是与文件相关联的项目。该文件中的每个测试和套件都将引用同一个项目。
-=======
-`TestProject` is a project assosiated with the module. Every test and suite inside that module will reference the same project.
->>>>>>> 3ebc78c81a0ca128697f40d69eb4b01e235a4444
 
 项目可用于获取配置或提供的上下文。
 
