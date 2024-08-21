@@ -239,10 +239,4 @@ export default defineWorkspace([
 
 ## 覆盖率
 
-<<<<<<< HEAD
-工作区项目的覆盖率可以直接使用。但是，如果你启用了 [`all`](/config/#coverage-all) 选项并且在某些项目中使用了非常规扩展名，则需要在根配置文件中使用处理此扩展名的插件。
-
-例如，如果你有一个使用 Vue 文件的包，并且它有自己的配置文件，但是某些文件没有在测试中导入，覆盖率分析将会失败，因为它依赖于根配置而不是项目配置，试图分析未使用文件的使用情况。
-=======
-Coverage for workspace projects works out of the box.
->>>>>>> 1d300243f691c6cb7a08396fb89bc8daed5bbef8
+工作区项目的覆盖范围开箱即用。
