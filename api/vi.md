@@ -16,13 +16,8 @@ import { vi } from 'vitest'
 
 ### vi.mock
 
-<<<<<<< HEAD
-- **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => T | Promise<T>) => void`
-=======
-- **Type**: `(path: string, factory?: MockOptions | ((importOriginal: () => unknown) => unknown)) => void`
-- **Type**: `<T>(path: Promise<T>, factory?: MockOptions | ((importOriginal: () => T) => T | Promise<T>)) => void`
->>>>>>> 939aa8a1628f88a4bb6acfa04cfb01843f109bd8
+- **类型**: `(path: string, factory?: MockOptions | ((importOriginal: () => unknown) => unknown)) => void`
+- **类型**: `<T>(path: Promise<T>, factory?: MockOptions | ((importOriginal: () => T) => T | Promise<T>)) => void`
 
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
 
@@ -34,19 +29,12 @@ import { vi } from 'vitest'
 Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules) ，在运行测试文件前清除所有模块缓存。
 :::
 
-<<<<<<< HEAD
-=======
-If the `factory` function is defined, all imports will return its result. Vitest calls factory only once and caches results for all subsequent imports until [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock) is called.
->>>>>>> 939aa8a1628f88a4bb6acfa04cfb01843f109bd8
 
-如果定义了 `factory`，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
+如果定义了 `factory` 函数，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
 
-<<<<<<< HEAD
 与 `jest` 不同，工厂可以是异步的。你可以使用 [`vi.importActual`](#vi-importactual)，或将工厂作为第一个参数传递的助手，并在其中获取原始模块。
 
-Vitest 还在 `vi.mock` 和 `vi.doMock` 方法中支持 module promise 而非字符串，以获得更好的集成开发环境支持。当文件被移动时，路径会被更新，`importOriginal` 也会自动继承类型。使用此签名还将强制工厂返回类型与原始模块兼容（但每次导出都是可选的）。
-=======
-Since Vitest 2.1, you can also provide an object with a `spy` property instead of a factory function. If `spy` is `true`, then Vitest will automock the module as usual, but it won't override the implementation of exports. This is useful if you just want to assert that the exported method was called correctly by another method.
+自 Vitest 2.1 起，您也可以用 `spy` 属性代替工厂函数来提供对象。如果 `spy` 属性为 `true`，Vitest 会像往常一样自动锁定模块，但不会覆盖导出的实现。如果您只想断言导出的方法被另一个方法正确调用，这将非常有用。
 
 ```ts
 import { calculator } from './src/calculator.ts'
@@ -61,9 +49,7 @@ expect(result).toBe(3)
 expect(calculator).toHaveBeenCalledWith(1, 2)
 expect(calculator).toHaveReturned(3)
 ```
-
-Vitest also supports a module promise instead of a string in the `vi.mock` and `vi.doMock` methods for better IDE support. When the file is moved, the path will be updated, and `importOriginal` inherits the type automatically. Using this signature will also enforce factory return type to be compatible with the original module (keeping exports optional).
->>>>>>> 939aa8a1628f88a4bb6acfa04cfb01843f109bd8
+Vitest 还在 `vi.mock` 和 `vi.doMock` 方法中支持 module promise 而非字符串，以获得更好的集成开发环境支持。当文件被移动时，路径会被更新，`importOriginal` 也会自动继承类型。使用此签名还将强制工厂返回类型与原始模块兼容（但每次导出都是可选的）。
 
 ```ts twoslash
 // @filename: ./path/to/module.js
@@ -134,15 +120,9 @@ vi.mock('./path/to/module.js', () => {
 ```
 
 :::
-如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/#root)（默认为 `process.cwd()` ）中找到 `__mocks__` 文件夹。我们可以通过 [deps.moduleDirectories](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
+如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/#root)（默认为 `process.cwd()` ）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
 
-<<<<<<< HEAD
 例如，我们有这样的文件结构：
-=======
-If there is a `__mocks__` folder alongside a file that you are mocking, and the factory is not provided, Vitest will try to find a file with the same name in the `__mocks__` subfolder and use it as an actual module. If you are mocking a dependency, Vitest will try to find a `__mocks__` folder in the [root](/config/#root) of the project (default is `process.cwd()`). You can tell Vitest where the dependencies are located through the [`deps.moduleDirectories`](/config/#deps-moduledirectories) config option.
-
-For example, you have this file structure:
->>>>>>> 939aa8a1628f88a4bb6acfa04cfb01843f109bd8
 
 ```
 - __mocks__
@@ -155,11 +135,7 @@ For example, you have this file structure:
   - increment.test.js
 ```
 
-<<<<<<< HEAD
-如果在没有提供工厂的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
-=======
-If you call `vi.mock` in a test file without a factory or options provided, it will find a file in the `__mocks__` folder to use as a module:
->>>>>>> 939aa8a1628f88a4bb6acfa04cfb01843f109bd8
+如果在没有提供工厂或选项的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
 
 ```ts
 // increment.test.js
@@ -186,13 +162,8 @@ axios.get(`/apples/${increment(1)}`)
 
 ### vi.doMock
 
-<<<<<<< HEAD
-- **类型**: `(path: string, factory?: (importOriginal: () => unknown) => unknown) => void`
-- **类型**: `<T>(path: Promise<T>, factory?: (importOriginal: () => T) => T | Promise<T>) => void`
-=======
-- **Type**: `(path: string, factory?: MockOptions | ((importOriginal: () => unknown) => unknown)) => void`
-- **Type**: `<T>(path: Promise<T>, factory?: MockOptions | ((importOriginal: () => T) => T | Promise<T>)) => void`
->>>>>>> 939aa8a1628f88a4bb6acfa04cfb01843f109bd8
+- **类型**: `(path: string, factory?: MockOptions | ((importOriginal: () => unknown) => unknown)) => void`
+- **类型**: `<T>(path: Promise<T>, factory?: MockOptions | ((importOriginal: () => T) => T | Promise<T>)) => void`
 
 与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
 
