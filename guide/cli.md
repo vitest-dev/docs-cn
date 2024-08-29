@@ -87,7 +87,22 @@ vitest list filename.spec.ts -t="some-test" --json=./file.json
 
 如果 `--json` 标志没有接收到值，它将把 JSON 输出到 stdout 中。
 
+<<<<<<< HEAD
 ## 选项
+=======
+You also can pass down `--filesOnly` flag to print the test files only:
+
+```bash
+vitest list --filesOnly
+```
+
+```txt
+tests/test1.test.ts
+tests/test2.test.ts
+```
+
+## Options
+>>>>>>> 33b9f9b96d8bdd110c572076df8f4bf36c3a2e1e
 
 ::: tip
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
