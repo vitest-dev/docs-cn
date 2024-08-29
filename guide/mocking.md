@@ -362,11 +362,7 @@ Vitest 并不提供任何文件系统模拟 API。您可以使用 `vi.mock` 手�
 
 ### 例子
 
-<<<<<<< HEAD
 要自动将每个 `fs` 调用重定向到 `memfs`，可以在项目根目录下创建 `__mocks__/fs.cjs` 和 `__mocks__/fs/promises.cjs` 文件：
-=======
-To automatically redirect every `fs` call to `memfs`, you can create `__mocks__/fs.cjs` and `__mocks__/fs/promises.cjs` files at the root of your project:
->>>>>>> 174fae8b8ab248052e7e8268de4693ef9af44630
 
 ::: code-group
 ```ts [__mocks__/fs.cjs]
