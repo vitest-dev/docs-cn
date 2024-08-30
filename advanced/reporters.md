@@ -64,6 +64,7 @@ export default defineConfig({
 你可以通过调用 `vitest.state.getReportedEntity(runnerTask)` 访问此 API：
 
 ```ts twoslash
+// @noErrors
 import type { Vitest } from 'vitest/node'
 import type { RunnerTestFile } from 'vitest'
 import type { Reporter, TestModule } from 'vitest/reporters'

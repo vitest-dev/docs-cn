@@ -128,6 +128,35 @@ export default ({ mode }: { mode: string }) => {
         { text: '浏览器模式', link: '/guide/browser', activeMatch: '^/guide/browser/' },
         { text: '高级 API', link: '/advanced/api', activeMatch: '^/advanced/' },
         {
+          text: '相关连接',
+          items: [
+            {
+              items: [
+                {
+                  text: '团队',
+                  link: '/team',
+                },
+              ],
+            },
+            {
+              items: [
+                {
+                  text: 'Mastodon',
+                  link: mastodon,
+                },
+                {
+                  text: 'Twitter',
+                  link: twitter,
+                },
+                {
+                  text: 'Discord 聊天室',
+                  link: discord,
+                },
+              ],
+            },
+          ],
+        },
+        {
           text: `v${version}`,
           items: [
             {
@@ -232,7 +261,7 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
         ],
-        '/': [
+        '/guide/': [
           {
             text: '指南',
             items: [
