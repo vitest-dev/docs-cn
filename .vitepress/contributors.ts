@@ -38,10 +38,7 @@ function createLinks(tm: CoreTeam): CoreTeam {
   }
 
   if (tm.youtube) {
-    tm.links.push({
-      icon: 'youtube',
-      link: `https://www.youtube.com/@${tm.youtube}`,
-    })
+    tm.links.push({ icon: 'youtube', link: `https://www.youtube.com/@${tm.youtube}` })
   }
 
   if (tm.twitter) {
@@ -59,8 +56,8 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@sheremet_va',
     twitter: 'sheremet_va',
     sponsor: 'https://github.com/sponsors/sheremet-va',
-    title: '全栈开源开发者',
-    desc: 'Vitest 的核心团队成员',
+    title: 'An open source fullstack developer',
+    desc: 'Core team member of Vitest & Vite',
   },
   {
     avatar: contributorsAvatars.antfu,
@@ -71,10 +68,10 @@ const plainTeamMembers: CoreTeam[] = [
     discord: 'https://chat.antfu.me',
     youtube: 'antfu',
     sponsor: 'https://github.com/sponsors/antfu',
-    title: '狂热的开源者，工作于',
+    title: 'A fanatical open sourceror, working',
     org: 'NuxtLabs',
     orgLink: 'https://nuxtlabs.com/',
-    desc: 'Vite 和 Vue 的核心团队成员',
+    desc: 'Core team member of Vite & Vue',
   },
   {
     avatar: contributorsAvatars.AriPerkkio,
@@ -83,8 +80,8 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@AriPerkkio',
     twitter: 'ari_perkkio',
     sponsor: 'https://github.com/sponsors/AriPerkkio',
-    title: '开源开发者, 工作于',
-    desc: 'Vitest 核心团队成员',
+    title: 'Open source engineer, working',
+    desc: 'Core team member of Vitest',
     org: 'StackBlitz',
     orgLink: 'https://stackblitz.com/',
   },
@@ -95,10 +92,10 @@ const plainTeamMembers: CoreTeam[] = [
     mastodon: 'https://elk.zone/m.webtoo.ls/@patak',
     twitter: 'patak_dev',
     sponsor: 'https://github.com/sponsors/patak-dev',
-    title: '二当家，工作于',
+    title: 'A collaborative being, working',
     org: 'StackBlitz',
     orgLink: 'https://stackblitz.com/',
-    desc: 'Vite 和 Vue 的核心团队成员',
+    desc: 'Core team member of Vite & Vue',
   },
   {
     avatar: contributorsAvatars.userquin,
@@ -106,16 +103,16 @@ const plainTeamMembers: CoreTeam[] = [
     github: 'userquin',
     mastodon: 'https://elk.zone/m.webtoo.ls/@userquin',
     twitter: 'userquin',
-    title: '全栈和安卓开发者',
-    desc: 'Vite 的狂热追随者',
+    title: 'A fullstack and android developer',
+    desc: 'Vite\'s fanatical follower',
   },
   {
     avatar: contributorsAvatars['hi-ogawa'],
     name: 'Hiroshi Ogawa',
     github: 'hi-ogawa',
     twitter: 'hiroshi_18181',
-    title: '开源爱好者',
-    desc: 'Vitest 团队成员',
+    title: 'Open source enthusiast',
+    desc: 'Team member of Vitest',
   },
 ]
 
@@ -134,25 +131,24 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     github: 'Aslemammad',
     mastodon: 'https://elk.zone/m.webtoo.ls/@aslemammad',
     twitter: 'asleMammadam',
-    title: '开源开发者',
-    desc: 'Poimandres 和 Vike 的团队成员',
+    title: 'An open source developer',
+    desc: 'Team member of Poimandres & Vike',
   },
   {
     avatar: contributorsAvatars.Demivan,
     name: 'Ivan Demchuk',
     github: 'Demivan',
     mastodon: 'https://elk.zone/fosstodon.org/@demivan',
-    twitter: 'IvanDemchuk',
-    title: '技术负责人，全栈开发者',
-    desc: 'fluent-vue 的作者',
+    title: 'A tech lead, fullstack developer',
+    desc: 'Author of fluent-vue',
   },
   {
     avatar: contributorsAvatars.poyoho,
     name: 'Yoho Po',
     github: 'poyoho',
     twitter: '@yoho_po',
-    title: '我写的代码在我电脑上绝对没问题',
-    desc: 'Vite 核心团队成员 和 Vitest 团队成员',
+    title: 'It\'s no problem in my locall',
+    desc: 'Core team member of Vite & Team member of Vitest',
   },
   {
     avatar: contributorsAvatars.zxch3n,
@@ -160,8 +156,8 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     github: 'zxch3n',
     mastodon: 'https://elk.zone/hachyderm.io/@zx',
     twitter: 'zxch3n',
-    title: '全栈开发者',
-    desc: '开发 CRDT 和本地优先软件',
+    title: 'A fullstack developer',
+    desc: 'Working on CRDTs & local-first software',
   },
 ]
 
