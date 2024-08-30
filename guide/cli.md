@@ -87,6 +87,17 @@ vitest list filename.spec.ts -t="some-test" --json=./file.json
 
 如果 `--json` 标志没有接收到值，它将把 JSON 输出到 stdout 中。
 
+你还可以传递 `--filesOnly` 标志来仅打印测试文件：
+
+```bash
+vitest list --filesOnly
+```
+
+```txt
+tests/test1.test.ts
+tests/test2.test.ts
+```
+
 ## 选项
 
 ::: tip
