@@ -816,9 +816,10 @@ test('spy function returns bananas on second call', async () => {
 
 ```ts
 import { describe, expect, it } from 'vitest'
-describe('toSatisfy()', () => {
-  const isOdd = (value: number) => value % 2 !== 0
 
+const isOdd = (value: number) => value % 2 !== 0
+
+describe('toSatisfy()', () => {
   it('pass with 0', () => {
     expect(1).toSatisfy(isOdd)
   })
