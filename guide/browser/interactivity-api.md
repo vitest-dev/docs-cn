@@ -37,7 +37,9 @@ await userEvent.click(document.querySelector('.button'))
 
 ## userEvent.setup
 
-- **Type:** `() => UserEvent`
+```ts
+function setup(): UserEvent
+```
 
 创建一个新的用户事件实例。如果需要保持键盘状态，以便正确按下和释放按钮，这将非常有用。
 
@@ -60,7 +62,12 @@ await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because th
 
 ## userEvent.click
 
-- **Type:** `(element: Element | Locator, options?: UserEventClickOptions) => Promise<void>`
+```ts
+function click(
+  element: Element | Locator,
+  options?: UserEventClickOptions,
+): Promise<void>
+```
 
 点击元素。继承 provider 的选项。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
@@ -84,7 +91,12 @@ References:
 
 ## userEvent.dblClick
 
-- **Type:** `(element: Element | Locator, options?: UserEventDoubleClickOptions) => Promise<void>`
+```ts
+function dblClick(
+  element: Element | Locator,
+  options?: UserEventDoubleClickOptions,
+): Promise<void>
+```
 
 触发元素的双击事件
 
@@ -110,7 +122,12 @@ References:
 
 ## userEvent.tripleClick
 
-- **Type:** `(element: Element | Locator, options?: UserEventTripleClickOptions) => Promise<void>`
+```ts
+function tripleClick(
+  element: Element | Locator,
+  options?: UserEventTripleClickOptions,
+): Promise<void>
+```
 
 Triggers a triple click event on an element. Since there is no `tripleclick` in browser api, this method will fire three click events in a row, and so you must check [click event detail](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event#usage_notes) to filter the event: `evt.detail === 3`.
 
@@ -144,7 +161,12 @@ References:
 
 ## userEvent.fill
 
-- **Type:** `(element: Element | Locator, text: string) => Promise<void>`
+```ts
+function fill(
+  element: Element | Locator,
+  text: string,
+): Promise<void>
+```
 
 为 `input/textarea/conteneditable` 字段设置值。这将在设置新值前移除输入中的任何现有文本。
 
@@ -179,7 +201,9 @@ References:
 
 ## userEvent.keyboard
 
-- **Type:** `(text: string) => Promise<void>`
+```ts
+function keyboard(text: string): Promise<void>
+```
 
 通过 `userEvent.keyboard` 可以触发键盘输入。如果任何输入有焦点，它就会在该输入中键入字符。否则，它将触发当前焦点元素（如果没有焦点元素，则为 `document.body`）上的键盘事件。
 
@@ -205,7 +229,9 @@ References:
 
 ## userEvent.tab
 
-- **Type:** `(options?: UserEventTabOptions) => Promise<void>`
+```ts
+function tab(options?: UserEventTabOptions): Promise<void>
+```
 
 发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
 
@@ -235,7 +261,13 @@ References:
 
 ## userEvent.type
 
-- **Type:** `(element: Element | Locator, text: string, options?: UserEventTypeOptions) => Promise<void>`
+```ts
+function type(
+  element: Element | Locator,
+  text: string,
+  options?: UserEventTypeOptions,
+): Promise<void>
+```
 
 ::: warning
 如果不依赖 [special characters](https://testing-library.com/docs/user-event/keyboard)（例如，`{shift}` 或 `{selectall}`），建议使用 [`userEvent.fill`](#userevent-fill)。
@@ -271,7 +303,9 @@ References:
 
 ## userEvent.clear
 
-- **Type:** `(element: Element | Locator) => Promise<void>`
+```ts
+function clear(element: Element | Locator): Promise<void>
+```
 
 此方法会清除输入元素的内容。
 
@@ -300,7 +334,19 @@ References:
 
 ## userEvent.selectOptions
 
-- **Type:** `(element: Element | Locator, values: HTMLElement | HTMLElement[] | Locator | Locator[] | string | string[], options?: UserEventSelectOptions) => Promise<void>`
+```ts
+function selectOptions(
+  element: Element | Locator,
+  values:
+    | HTMLElement
+    | HTMLElement[]
+    | Locator
+    | Locator[]
+    | string
+    | string[],
+  options?: UserEventSelectOptions,
+): Promise<void>
+```
 
 The `userEvent.selectOptions` allows selecting a value in a `<select>` element.
 
@@ -345,7 +391,12 @@ References:
 
 ## userEvent.hover
 
-- **Type:** `(element: Element | Locator, options?: UserEventHoverOptions) => Promise<void>`
+```ts
+function hover(
+  element: Element | Locator,
+  options?: UserEventHoverOptions,
+): Promise<void>
+```
 
 该方法将光标位置移动到所选元素上。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
@@ -363,7 +414,7 @@ test('hovers logo element', async () => {
 
   await userEvent.hover(logo)
   // or you can access it directly on the locator
-  await page.hover()
+  await logo.hover()
 })
 ```
 
@@ -375,7 +426,12 @@ References:
 
 ## userEvent.unhover
 
-- **Type:** `(element: Element | Locator, options?: UserEventHoverOptions) => Promise<void>`
+```ts
+function unhover(
+  element: Element | Locator,
+  options?: UserEventHoverOptions,
+): Promise<void>
+```
 
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
@@ -391,7 +447,7 @@ test('unhover logo element', async () => {
 
   await userEvent.unhover(logo)
   // or you can access it directly on the locator
-  await page.unhover()
+  await logo.unhover()
 })
 ```
 
@@ -401,9 +457,53 @@ References:
 - [WebdriverIO `element.moveTo` API](https://webdriver.io/docs/api/element/moveTo/)
 - [testing-library `hover` API](https://testing-library.com/docs/user-event/convenience/#hover)
 
+## userEvent.upload
+
+```ts
+function upload(
+  element: Element | Locator,
+  files: string[] | string | File[] | File,
+): Promise<void>
+```
+
+更改文件输入元素，使其包含指定文件。
+
+```ts
+import { page, userEvent } from '@vitest/browser/context'
+
+test('can upload a file', async () => {
+  const input = page.getByRole('button', { name: /Upload files/ })
+
+  const file = new File(['file'], 'file.png', { type: 'image/png' })
+
+  await userEvent.upload(input, file)
+  // or you can access it directly on the locator
+  await input.upload(file)
+
+  // you can also use file paths relative to the test file
+  await userEvent.upload(input, '../fixtures/file.png')
+})
+```
+
+::: warning
+`webdriverio` provider 仅在 `chrome` 和 `edge` 浏览器中支持该命令。目前也只支持字符串类型。
+:::
+
+References:
+
+- [Playwright `locator.setInputFiles` API](https://playwright.dev/docs/api/class-locator#locator-set-input-files)
+- [WebdriverIO `browser.uploadFile` API](https://webdriver.io/docs/api/browser/uploadFile)
+- [testing-library `upload` API](https://testing-library.com/docs/user-event/utility/#upload)
+
 ## userEvent.dragAndDrop
 
-- **Type:** `(source: Element | Locator, target: Element | Locator, options?: UserEventDragAndDropOptions) => Promise<void>`
+```ts
+function dragAndDrop(
+  source: Element | Locator,
+  target: Element | Locator,
+  options?: UserEventDragAndDropOptions,
+): Promise<void>
+```
 
 将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
 
