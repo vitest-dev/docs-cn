@@ -270,11 +270,7 @@ function type(
 ```
 
 ::: warning
-<<<<<<< HEAD
 如果不依赖 [special characters](https://testing-library.com/docs/user-event/keyboard)（例如，`{shift}` 或 `{selectall}`），建议使用 [`userEvent.fill`](#userevent-fill)。
-=======
-If you don't rely on [special characters](https://testing-library.com/docs/user-event/keyboard) (e.g., `{shift}` or `{selectall}`), it is recommended to use [`userEvent.fill`](#userevent-fill) instead for better performance.
->>>>>>> b0ad65ee8812337103a4174c9645a09c36562b68
 :::
 
 `type` 方法在 [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API 的基础上实现了 `@testing-library/user-event` 的 [`type`](https://testing-library.com/docs/user-event/utility/#type) 工具。
@@ -470,7 +466,7 @@ function upload(
 ): Promise<void>
 ```
 
-Change a file input element to have the specified files.
+更改文件输入元素，使其包含指定文件。
 
 ```ts
 import { page, userEvent } from '@vitest/browser/context'
@@ -490,7 +486,7 @@ test('can upload a file', async () => {
 ```
 
 ::: warning
-`webdriverio` provider supports this command only in `chrome` and `edge` browsers. It also only supports string types at the moment.
+`webdriverio` provider 仅在 `chrome` 和 `edge` 浏览器中支持该命令。目前也只支持字符串类型。
 :::
 
 References:
