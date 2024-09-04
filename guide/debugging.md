@@ -53,9 +53,9 @@ ndb npm run test
 
 然后在调试选项卡中确保选择 'Debug Current Test File'，然后你可以打开要调试的测试文件并按 F5 开始调试。
 
-### Browser mode
+### 浏览器模式
 
-To debug [Vitest Browser Mode](/guide/browser/index.md), pass `--inspect` in CLI or define it in your Vitest configuration:
+要调试 [Vitest 浏览器模式](/guide/browser/index.md)，请在 CLI 中传递 `--inspect`，或在 Vitest 配置中定义它：
 
 ::: code-group
 ```bash [CLI]
@@ -76,13 +76,13 @@ export default defineConfig({
 ```
 :::
 
-By default Vitest will use port `9229` as debugging port. You can overwrite it with by passing value in `inspect`:
+默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `inspect` 中传递值来覆盖它：
 
 ```bash
 vitest --inspect=127.0.0.1:3000 --browser
 ```
 
-Use following [VSCode Compound configuration](https://code.visualstudio.com/docs/editor/debugging#_compound-launch-configurations) for launching Vitest and attaching debugger in the browser:
+使用以下 [VSCode 复合配置](https://code.visualstudio.com/docs/editor/debugging#_compound-launch-configurations) 在浏览器中启动 Vitest 并附加调试器：
 
 ```json
 {
