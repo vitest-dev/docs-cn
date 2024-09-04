@@ -458,7 +458,7 @@ expect(calculator).toHaveReturned(3)
 
 ### vi.stubEnv {#vi-stubenv}
 
-- **类型:** `(name: string, value: string) => Vitest`
+- **类型:** `<T extends string>(name: T, value: T extends "PROD" | "DEV" | "SSR" ? boolean : string | undefined) => Vitest`
 
 更改 `process.env` 和 `import.meta.env` 中环境变量的值。我们可以调用 `vi.unstubAllEnvs` 恢复其值。
 
@@ -472,6 +472,12 @@ vi.stubEnv('NODE_ENV', 'production')
 
 process.env.NODE_ENV === 'production'
 import.meta.env.NODE_ENV === 'production'
+
+vi.stubEnv('NODE_ENV', undefined)
+
+process.env.NODE_ENV === undefined
+import.meta.env.NODE_ENV === undefined
+
 // doesn't change other envs
 import.meta.env.MODE === 'development'
 ```
