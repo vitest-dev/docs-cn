@@ -32,6 +32,7 @@
     "@vite-pwa/assets-generator": "^0.2.4",
     "@vite-pwa/vitepress": "^0.5.0",
     "@vitejs/plugin-vue": "^5.1.2",
+<<<<<<< HEAD
     "@vitest/browser": "^2.0.5",
     "@vitest/coverage-istanbul": "^2.0.5",
     "@vitest/coverage-v8": "^2.0.5",
@@ -46,6 +47,10 @@
     "pnpm": "^9.7.1",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
+=======
+    "https-localhost": "^4.7.1",
+    "tinyglobby": "^0.2.5",
+>>>>>>> 1a512fa3e5720ddda4b9ed2590aed6c30871dd41
     "unocss": "^0.62.0",
     "unplugin-vue-components": "^0.27.4",
     "vite": "^5.4.1",
