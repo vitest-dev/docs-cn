@@ -55,18 +55,23 @@ ndb npm run test
 
 ### 浏览器模式
 
+<<<<<<< HEAD
 要调试 [Vitest 浏览器模式](/guide/browser/index.md)，请在 CLI 中传递 `--inspect`，或在 Vitest 配置中定义它：
+=======
+To debug [Vitest Browser Mode](/guide/browser/index.md), pass `--inspect` or `--inspect-brk` in CLI or define it in your Vitest configuration:
+>>>>>>> 37e7e887151f55311a9e6c0dd12f4f54c0f29162
 
 ::: code-group
 ```bash [CLI]
-vitest --inspect --browser
+vitest --inspect-brk --browser --no-file-parallelism
 ```
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    inspect: true,
+    inspectBrk: true,
+    fileParallelism: false,
     browser: {
       name: 'chromium',
       provider: 'playwright',
@@ -76,10 +81,14 @@ export default defineConfig({
 ```
 :::
 
+<<<<<<< HEAD
 默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `inspect` 中传递值来覆盖它：
+=======
+By default Vitest will use port `9229` as debugging port. You can overwrite it with by passing value in `--inspect-brk`:
+>>>>>>> 37e7e887151f55311a9e6c0dd12f4f54c0f29162
 
 ```bash
-vitest --inspect=127.0.0.1:3000 --browser
+vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 ```
 
 使用以下 [VSCode 复合配置](https://code.visualstudio.com/docs/editor/debugging#_compound-launch-configurations) 在浏览器中启动 Vitest 并附加调试器：
@@ -94,7 +103,7 @@ vitest --inspect=127.0.0.1:3000 --browser
       "name": "Run Vitest Browser",
       "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
       "console": "integratedTerminal",
-      "args": ["--inspect", "--browser"]
+      "args": ["--inspect-brk", "--browser", "--no-file-parallelism"]
     },
     {
       "type": "chrome",
@@ -135,6 +144,9 @@ vitest --inspect-brk --pool threads --poolOptions.threads.singleThread
 
 # To run in a single child process
 vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
+
+# To run in browser mode
+vitest --inspect-brk --browser --no-file-parallelism
 ```
 
 如果你使用的是 Vitest 1.1 或更高版本，你也可以仅提供 `--no-parallelism` 标志：
