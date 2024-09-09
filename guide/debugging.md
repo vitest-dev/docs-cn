@@ -55,11 +55,7 @@ ndb npm run test
 
 ### 浏览器模式
 
-<<<<<<< HEAD
-要调试 [Vitest 浏览器模式](/guide/browser/index.md)，请在 CLI 中传递 `--inspect`，或在 Vitest 配置中定义它：
-=======
-To debug [Vitest Browser Mode](/guide/browser/index.md), pass `--inspect` or `--inspect-brk` in CLI or define it in your Vitest configuration:
->>>>>>> 37e7e887151f55311a9e6c0dd12f4f54c0f29162
+要调试 [Vitest 浏览器模式](/guide/browser/index.md)，请在 CLI 中传递 `--inspect` 或 `--inspect-brk`，或在 Vitest 配置中定义它：
 
 ::: code-group
 ```bash [CLI]
@@ -81,11 +77,7 @@ export default defineConfig({
 ```
 :::
 
-<<<<<<< HEAD
-默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `inspect` 中传递值来覆盖它：
-=======
-By default Vitest will use port `9229` as debugging port. You can overwrite it with by passing value in `--inspect-brk`:
->>>>>>> 37e7e887151f55311a9e6c0dd12f4f54c0f29162
+默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `--inspect-brk`中传递值来覆盖它：
 
 ```bash
 vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
