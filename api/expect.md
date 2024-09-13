@@ -61,15 +61,11 @@ test('expect.soft test', () => {
 
 ## poll
 
-<<<<<<< HEAD
-- **类型:** `ExpectStatic & (actual: () => any, options: { interval, timeout, message }) => Assertions`
-=======
 ```ts
 interface ExpectPoll extends ExpectStatic {
   (actual: () => T, options: { interval; timeout; message }): Promise<Assertions<T>>
 }
 ```
->>>>>>> b90431510689dcabe1072640294c271459bf1077
 
 `expect.poll` 重新运行断言，直到成功为止。你可以通过设置 `interval` 和 `timeout` 选项来配置 Vitest 应重新运行 `expect.poll` 回调的次数。
 
