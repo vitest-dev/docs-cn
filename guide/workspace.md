@@ -26,7 +26,7 @@ export default ['packages/*']
 
 :::
 
-即使某个文件夹中没有配置文件，Vitest 也会将 `packages` 文件夹中的每个文件夹视为单独的项目。
+即使某个文件夹中没有配置文件，Vitest 也会将 `packages` 文件夹中的每个文件夹视为单独的项目。自 Vitest 2.1 起，如果此 glob 模式匹配到任何文件，即使文件名中没有 `vitest` 也会被视为 Vitest 配置文件。
 
 ::: warning
 除非在此配置文件中指定，否则 Vitest 不会将根配置文件视为工作区项目（因此它不会运行在 `include` 中指定的测试）。
@@ -44,10 +44,6 @@ export default ['packages/*/vitest.config.{e2e,unit}.ts']
 
 该模式仅包括具有包含 `e2e` 和 `unit` 的 `vitest.config` 文件的项目。这些关键字需要在文件扩展名之前出现。
 
-::: warning
-如果你正在使用 glob 模式引用文件名，请确保你的配置文件以 `vite.config` 或 `vitest.config` 开头。否则，Vitest 将跳过它。
-:::
-
 你还可以使用内联配置定义项目。工作区文件支持同时使用这两种语法。
 
 :::code-group
@@ -56,6 +52,7 @@ import { defineWorkspace } from 'vitest/config'
 
 // defineWorkspace 会提供一个很好的类型提示开发体验
 export default defineWorkspace([
+  // matches every folder and file inside the `packages` folder
   'packages/*',
   {
     // 添加 "extends" 将两个配置合并到一起
