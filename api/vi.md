@@ -440,7 +440,7 @@ console.log(cart.getApples()) // still 42!
 :::
 
 ::: tip
-在[浏览器模式](/guide/browser/)下，无法监视特定的导出方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
+在[浏览器模式](/guide/browser/)下，无法监视导出的方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
 
 ```ts
 import { calculator } from './src/calculator.ts'
