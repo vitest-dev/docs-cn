@@ -2595,7 +2595,11 @@ export interface SnapshotEnvironment {
 与每次测试开始时调用 [`expect.hasAssertions()`](/api/expect#expect-hasassertions) 相同。这可确保不会意外通过任何测试。
 
 ::: tip
+<<<<<<< HEAD
 这仅适用于 Vitest 的`expect`。如果您使用`assert`或`.should`断言，它们将不计算在内，并且您的测试将因缺少 expect 断言而失败。
+=======
+This only works with Vitest's `expect`. If you use `assert` or `.should` assertions, they will not count, and your test will fail due to the lack of expect assertions.
+>>>>>>> f3fb9f4ce3ad6ab3f5c2dbb5b0760d8d986ff08b
 
 您可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
 :::
