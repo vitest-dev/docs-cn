@@ -1254,17 +1254,10 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.extension
 
-<<<<<<< HEAD
 - **类型:** `string | string[]`
-- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.tsx', '.jsx', '.vue', '.svelte', '.marko']`
+- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.tsx', '.jsx', '.vue', '.svelte', '.marko', '.astro']`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
-=======
-- **Type:** `string | string[]`
-- **Default:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.tsx', '.jsx', '.vue', '.svelte', '.marko', '.astro']`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
->>>>>>> f6a97c57ddd069fcb979a66c83ebb871de9d1367
 
 #### coverage.exclude
 
