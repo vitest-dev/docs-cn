@@ -427,7 +427,7 @@ Vitest 并不支持所有开箱即用的框架，但您可以使用外部工具�
 对于不支持的框架，我们建议使用 `testing-library` 软件包：
 
 - [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) 渲染 [preact](https://preactjs.com) 组件
-- [`solid-testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
+- [`@solidjs/testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
 
 ::: warning
