@@ -775,12 +775,7 @@ it('the value is restored before running an other test', () => {
 // vitest.config.ts
 export default defineConfig({
   test: {
-<<<<<<< HEAD
-    unstubAllEnvs: true,
-  },
-=======
     unstubEnvs: true,
   }
->>>>>>> f017e40492024f87f025b9272358417252c1036d
 })
 ```
