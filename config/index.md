@@ -392,12 +392,16 @@ export default defineConfig({
 
 #### benchmark.outputFile
 
+<<<<<<< HEAD
 - **类型:** `string | Record<string, string>`
 
 当指定了 `--reporter=json` 选项时，可以将基准测试结果写入文件。
 通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
 通过 CLI 命令提供对象，请使用以下语法: `--outputFile.json=./path --outputFile.junit=./other-path`.
+=======
+Deprecated in favor of `benchmark.outputJson`.
+>>>>>>> 018061d5311277b7c4d6e24988add4280b054332
 
 #### benchmark.outputJson {#benchmark-outputJson}
 
