@@ -392,16 +392,7 @@ export default defineConfig({
 
 #### benchmark.outputFile
 
-<<<<<<< HEAD
-- **类型:** `string | Record<string, string>`
-
-当指定了 `--reporter=json` 选项时，可以将基准测试结果写入文件。
-通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
-
-通过 CLI 命令提供对象，请使用以下语法: `--outputFile.json=./path --outputFile.junit=./other-path`.
-=======
-Deprecated in favor of `benchmark.outputJson`.
->>>>>>> 018061d5311277b7c4d6e24988add4280b054332
+已弃用，尝试使用 `benchmark.outputJson`。
 
 #### benchmark.outputJson {#benchmark-outputJson}
 
@@ -504,7 +495,6 @@ Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 
 :::
 
 你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
-
 
 文档块格式:
 
@@ -2628,4 +2618,3 @@ export interface SnapshotEnvironment {
 - **默认值:** `false`
 
 调用任何`console`方法时始终打印控制台跟踪。这对于调试很有用。
-
