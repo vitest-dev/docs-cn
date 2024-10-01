@@ -350,6 +350,10 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/common-errors',
               },
               {
+                text: '性能测试分析',
+                link: '/guide/profiling-test-performance',
+              },
+              {
                 text: '性能优化',
                 link: '/guide/improving-performance',
               },
