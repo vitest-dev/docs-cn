@@ -291,7 +291,13 @@ Thanks for choosing Vitest!
 
 ## 使用未发布的功能
 
+<<<<<<< HEAD
 如果你迫不及待想要体验最新的功能，可以自行克隆 [vitest 仓库](https://github.com/vitest-dev/vitest) 到本地机器上然后自行将其链接（将需要 [pnpm](https://pnpm.io/zh/)）：
+=======
+Each commit on main branch and a PR with a `cr-tracked` label are published to [pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new). You can install it by `npm i https://pkg.pr.new/vitest@{commit}`.
+
+If you want to test your own modification locally, you can build and link it yourself ([pnpm](https://pnpm.io/) is required):
+>>>>>>> 03633720dc1d3dd4cfb5d933220ab9c1193873b3
 
 ```bash
 git clone https://github.com/vitest-dev/vitest.git

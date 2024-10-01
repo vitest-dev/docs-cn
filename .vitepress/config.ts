@@ -350,11 +350,19 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/common-errors',
               },
               {
+<<<<<<< HEAD
                 text: '性能测试分析',
                 link: '/guide/profiling-test-performance',
               },
               {
                 text: '性能优化',
+=======
+                text: 'Profiling Test Performance',
+                link: '/guide/profiling-test-performance',
+              },
+              {
+                text: 'Improving Performance',
+>>>>>>> 03633720dc1d3dd4cfb5d933220ab9c1193873b3
                 link: '/guide/improving-performance',
               },
             ],

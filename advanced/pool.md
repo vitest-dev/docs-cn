@@ -1,7 +1,11 @@
 # Custom Pool
 
 ::: warning
+<<<<<<< HEAD
 这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
+=======
+This is advanced API. If you just want to [run tests](/guide/), you probably don't need this. It is primarily used by library authors.
+>>>>>>> 03633720dc1d3dd4cfb5d933220ab9c1193873b3
 :::
 
 Vitest 在默认情况下以多种方式运行测试：

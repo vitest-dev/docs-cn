@@ -1,7 +1,12 @@
 # 运行器 API
 
+<<<<<<< HEAD
 ::: warning 注意
 这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
+=======
+::: warning
+This is advanced API. If you just want to [run tests](/guide/), you probably don't need this. It is primarily used by library authors.
+>>>>>>> 03633720dc1d3dd4cfb5d933220ab9c1193873b3
 :::
 
 你可以在你的配置文件中使用 `runner` 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：

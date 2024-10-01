@@ -392,7 +392,11 @@ export default defineConfig({
 
 #### benchmark.outputFile
 
+<<<<<<< HEAD
 已弃用，尝试使用 `benchmark.outputJson`。
+=======
+Deprecated in favor of `benchmark.outputJson`.
+>>>>>>> 03633720dc1d3dd4cfb5d933220ab9c1193873b3
 
 #### benchmark.outputJson {#benchmark-outputJson}
 
