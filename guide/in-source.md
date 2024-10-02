@@ -4,11 +4,23 @@ title: 源码内联测试 | 指南
 
 # 源码内联测试
 
+<<<<<<< HEAD
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，就像是 [Rust 语言的模块测试一样](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
+=======
+Vitest provides a way to run tests within your source code along side the implementation, similar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
+>>>>>>> 4ab3be2cde9f3b3c2ce8f29c276068f0b7e30214
 
 这允许测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
 
+<<<<<<< HEAD
 ## 指引
+=======
+::: warning
+This guide explains how to write tests inside your source code. If you need to write tests in separate test files, follow the ["Writing Tests" guide](/guide/#writing-tests).
+:::
+
+## Setup
+>>>>>>> 4ab3be2cde9f3b3c2ce8f29c276068f0b7e30214
 
 首先，在 `if (import.meta.vitest)` 代码块内写一些测试代码并放在文件的末尾，例如:
 

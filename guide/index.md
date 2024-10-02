@@ -234,7 +234,15 @@ export default defineWorkspace([
 
 了解更多有关 [命令行界面](/guide/cli) 的更多信息
 
+<<<<<<< HEAD
 ## IDE 集成
+=======
+## Automatic Dependency Installation
+
+Vitest will prompt you to install certain dependencies if they are not already installed. You can disable this behavior by setting the `VITEST_SKIP_INSTALL_CHECKS=1` environment variable.
+
+## IDE Integrations
+>>>>>>> 4ab3be2cde9f3b3c2ce8f29c276068f0b7e30214
 
 我们还提供了 Visual Studio Code 的官方扩展，以增强你使用 Vitest 的测试体验。
 
@@ -291,7 +299,13 @@ Thanks for choosing Vitest!
 
 ## 使用未发布的功能
 
+<<<<<<< HEAD
 如果你迫不及待想要体验最新的功能，可以自行克隆 [vitest 仓库](https://github.com/vitest-dev/vitest) 到本地机器上然后自行将其链接（将需要 [pnpm](https://pnpm.io/zh/)）：
+=======
+Each commit on main branch and a PR with a `cr-tracked` label are published to [pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new). You can install it by `npm i https://pkg.pr.new/vitest@{commit}`.
+
+If you want to test your own modification locally, you can build and link it yourself ([pnpm](https://pnpm.io/) is required):
+>>>>>>> 4ab3be2cde9f3b3c2ce8f29c276068f0b7e30214
 
 ```bash
 git clone https://github.com/vitest-dev/vitest.git
