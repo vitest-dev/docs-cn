@@ -785,6 +785,8 @@ await vi.runOnlyPendingTimersAsync()
 
 如果我们需要测试任何依赖于当前日期的内容 -- 例如在代码中调用 [luxon](https://github.com/moment/luxon/) --则非常有用。
 
+Accepts the same string and number arguments as the `Date`.
+
 ```ts
 const date = new Date(1998, 11, 19)
 

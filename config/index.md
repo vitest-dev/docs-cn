@@ -392,7 +392,11 @@ export default defineConfig({
 
 #### benchmark.outputFile
 
+<<<<<<< HEAD
 已弃用，尝试使用 `benchmark.outputJson`。
+=======
+Deprecated in favor of `benchmark.outputJson`.
+>>>>>>> ac306dd6d53c1074e839fdc7d2280a898c9a8a94
 
 #### benchmark.outputJson {#benchmark-outputJson}
 
@@ -1328,7 +1332,11 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
 
+<<<<<<< HEAD
 监视重新运行时是否清除覆盖率报告
+=======
+Clean coverage report on watch rerun. Set to `false` to preserve coverage results from previous run in watch mode.
+>>>>>>> ac306dd6d53c1074e839fdc7d2280a898c9a8a94
 
 #### coverage.reportsDirectory
 
