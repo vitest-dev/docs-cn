@@ -26,11 +26,7 @@ basic/foo.test.ts
 
 ## 指定超时阈值
 
-<<<<<<< HEAD
-你可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试。默认值为 5 秒。
-=======
-You can optionally pass a timeout in milliseconds as a third argument to tests. The default is [5 seconds](/config/#testtimeout).
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
+你可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试。默认值为 [5 秒](/config/#testtimeout)。
 
 ```ts
 import { test } from 'vitest'
