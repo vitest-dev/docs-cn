@@ -234,15 +234,11 @@ export default defineWorkspace([
 
 了解更多有关 [命令行界面](/guide/cli) 的更多信息
 
-<<<<<<< HEAD
+## 自动安装依赖项
+
+如果某些依赖项尚未安装，Vitest 会提示您安装。您可以通过设置 `VITEST_SKIP_INSTALL_CHECKS=1` 环境变量来禁用此行为。
+
 ## IDE 集成
-=======
-## Automatic Dependency Installation
-
-Vitest will prompt you to install certain dependencies if they are not already installed. You can disable this behavior by setting the `VITEST_SKIP_INSTALL_CHECKS=1` environment variable.
-
-## IDE Integrations
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
 
 我们还提供了 Visual Studio Code 的官方扩展，以增强你使用 Vitest 的测试体验。
 
@@ -301,13 +297,9 @@ Thanks for choosing Vitest!
 
 ## 使用未发布的功能
 
-<<<<<<< HEAD
-如果你迫不及待想要体验最新的功能，可以自行克隆 [vitest 仓库](https://github.com/vitest-dev/vitest) 到本地机器上然后自行将其链接（将需要 [pnpm](https://pnpm.io/zh/)）：
-=======
-Each commit on main branch and a PR with a `cr-tracked` label are published to [pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new). You can install it by `npm i https://pkg.pr.new/vitest@{commit}`.
+主分支上的每个提交和带有 `cr-tracked` 标签的 PR 都会发布到 [pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new)。你可以通过 `npm i https://pkg.pr.new/vitest@{commit}` 来安装它。
 
-If you want to test your own modification locally, you can build and link it yourself ([pnpm](https://pnpm.io/) is required):
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
+如果想在本地测试自己的修改，可以自行构建和链接（需要使用 [pnpm](https://pnpm.io/zh)）：
 
 ```bash
 git clone https://github.com/vitest-dev/vitest.git
