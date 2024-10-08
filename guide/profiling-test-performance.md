@@ -128,9 +128,6 @@ $ DEBUG=vite-node:* vitest --run
 ...
 ```
 
-This profiling strategy is a good way to identify unnecessary transforms caused by [barrel files](https://vitejs.dev/guide/performance.html#avoid-barrel-files).
-If these logs contain files that should not be loaded when your test is run, you might have barrel files that are importing files unnecessarily.
-
 这种分析策略是识别由[「 桶文件 / barrel files 」](https://cn.vitejs.dev/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。

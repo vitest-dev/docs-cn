@@ -34,6 +34,23 @@ await vitest?.close()
 
 或者，你可以将完整的 Vite 配置作为第四个参数传递进去，这将优先于任何其他用户定义的选项。
 
+运行测试后，您可以从 `state.getFiles` API 获取结果：
+
+```ts
+const vitest = await startVitest('test')
+
+console.log(vitest.state.getFiles()) // [{ type: 'file', ... }]
+```
+
+自 Vitest 2.1 起，建议使用["Reported Tasks" API](/advanced/reporters#reported-tasks) 和 `state.getFiles`。今后，Vitest 将直接返回这些对象：
+
+```ts
+const vitest = await startVitest('test')
+
+const [fileTask] = vitest.state.getFiles()
+const testFile = vitest.state.getReportedEntity(fileTask)
+```
+
 ## 创建 Vitest
 
 你可以使用 `createVitest` 函数创建自己的 Vitest 实例. 它返回与 `startVitest` 相同的 `Vitest` 实例, 但不会启动测试，也不会验证已安装的包。
