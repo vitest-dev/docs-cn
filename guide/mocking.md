@@ -538,12 +538,9 @@ describe('delayed execution', () => {
 })
 ```
 
-<<<<<<< HEAD
-## 备忘单
-=======
 ## Classes
 
-You can mock an entire class with a single `vi.fn` call - since all classes are also functions, this works out of the box. Beware that currently Vitest doesn't respect the `new` keyword so the `new.target` is always `undefined` in the body of a function.
+您只需调用一次 `vi.fn` 就能模拟整个类，因为所有的类也都是函数，所以这种方法开箱即用。请注意，目前 Vitest 并不尊重 `new` 关键字，因此在函数的主体中，`new.target` 总是 `undefined`。
 
 ```ts
 class Dog {
@@ -566,7 +563,7 @@ class Dog {
 }
 ```
 
-We can re-create this class with ES5 functions:
+我们可以使用 ES5 函数重新创建这个类：
 
 ```ts
 const Dog = vi.fn(function (name) {
@@ -584,7 +581,7 @@ Dog.prototype.feed = vi.fn()
 ```
 
 ::: tip WHEN TO USE?
-Generally speaking, you would re-create a class like this inside the module factory if the class is re-exported from another module:
+一般来说，如果类是从另一个模块重新导出的，你会在模块工厂内重新创建这样的类：
 
 ```ts
 import { Dog } from './dog.js'
@@ -597,7 +594,7 @@ vi.mock(import('./dog.js'), () => {
 })
 ```
 
-This method can also be used to pass an instance of a class to a function that accepts the same interface:
+该方法也可用于将一个类的实例传递给接受相同接口的函数：
 
 ```ts
 // ./src/feed.ts
@@ -623,7 +620,7 @@ test('can feed dogs', () => {
 ```
 :::
 
-Now, when we create a new instance of the `Dog` class its `speak` method (alongside `feed`) is already mocked:
+现在，当我们创建一个新的 `Dog` 类实例时，它的 `speak` 方法（与 `feed` 并列）已经被模拟：
 
 ```ts
 const dog = new Dog('Cooper')
@@ -633,7 +630,7 @@ dog.speak() // loud bark!
 expect(dog.speak).toHaveBeenCalled()
 ```
 
-We can reassign the return value for a specific instance:
+我们可以为特定实例重新分配返回值：
 
 ```ts
 const dog = new Dog('Cooper')
@@ -647,7 +644,7 @@ vi.mocked(dog.speak).mockReturnValue('woof woof')
 dog.speak() // woof woof
 ```
 
-To mock the property, we can use the `vi.spyOn(dog, 'name', 'get')` method. This makes it possible to use spy assertions on the mocked property:
+要模拟属性，我们可以使用 `vi.spyOn(dog, 'name', 'get')` 方法。这样就可以在被模拟的属性上使用 spy 断言：
 
 ```ts
 const dog = new Dog('Cooper')
@@ -659,11 +656,10 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 ```
 
 ::: tip
-You can also spy on getters and setters using the same method.
+您还可以使用相同的方法监视获取器和设置器。
 :::
 
-## Cheat Sheet
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
+## 备忘单
 
 ::: info 提示
 下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [config](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。
@@ -671,19 +667,7 @@ You can also spy on getters and setters using the same method.
 
 我想…
 
-<<<<<<< HEAD
-### 监听一个 `method`
-
-```ts
-const instance = new SomeClass()
-vi.spyOn(instance, 'method')
-```
-
 ### 模拟导出变量
-
-=======
-### Mock exported variables
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
 ```js
 // some-path.js
 export const getter = 'variable'
@@ -751,39 +735,15 @@ vi.mock(import('./some-path.js'), () => {
 // SomeClass.mock.instances 上将会有 someMethod 方法
 ```
 
-<<<<<<< HEAD
-2. `vi.mock` 和返回值配合的示例:
-
-```ts
-import { SomeClass } from './some-path.js'
-
-vi.mock('./some-path.js', () => {
-  const SomeClass = vi.fn(() => ({
-    someMethod: vi.fn(),
-  }))
-  return { SomeClass }
-})
-// SomeClass.mock.returns 将会返回对象
-```
-
-3. `vi.spyOn` 的示例:
-=======
-2. Example with `vi.spyOn`:
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
+2. `vi.spyOn` 的示例:
 
 ```ts
 import * as mod from './some-path.js'
 
-<<<<<<< HEAD
-vi.spyOn(exports, 'SomeClass').mockImplementation(() => {
-  // 前两个例子中有非常适合你的
-})
-=======
 const SomeClass = vi.fn()
 SomeClass.prototype.someMethod = vi.fn()
 
 vi.spyOn(mod, 'SomeClass').mockImplementation(SomeClass)
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
 ```
 
 ### 监听一个函数是否返回了一个对象
@@ -845,15 +805,11 @@ original() // 有原始的行为
 mocked() // 是一个 spy 函数
 ```
 
-<<<<<<< HEAD
-### 模拟当前日期
-=======
 ::: warning
-Don't forget that this only [mocks _external_ access](#mocking-pitfalls). In this example, if `original` calls `mocked` internally, it will always call the function defined in the module, not in the mock factory.
+别忘了，这只是 [mocks _external_ access](#mocking-pitfalls)。在本例中，如果 `original` 在内部调用 `mocked`，它将始终调用模块中定义的函数，而不是 mock 工厂中的函数。
 :::
 
-### Mock the current date
->>>>>>> 321c60c6154b766d91ce298905740705b12ec38c
+### 模拟当前日期
 
 要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
 
