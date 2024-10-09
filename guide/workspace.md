@@ -14,9 +14,13 @@ Vitest 通过工作空间配置文件提供了对 monorepos 的内置支持。�
 
 ## 定义工作空间
 
-一个工作区应该在其根目录下（如果你有配置文件，则与其位于同一文件夹中）有一个名为 `vitest.workspace` 或 `vitest.projects` 的文件。Vitest 支持 `ts`/`js`/`json` 扩展名的文件。
+工作区必须在其根目录（与根配置文件位于同一文件夹，如适用）中包含一个 `vitest.workspace` 或 `vitest.projects` 文件。Vitest 支持该文件的 `ts`、`js` 和 `json` 扩展名。
 
-工作区配置文件应该有一个默认导出，其中包含一个文件列表或 glob 模式，引用你的项目。例如，如果你有一个名为 `packages` 的项目文件夹，你可以使用以下配置文件定义一个工作区：
+::: tip NAMING
+请注意，该功能的名称是`workspace`，而不是 `workspaces`（后面没有 “s”）。
+:::
+
+工作区配置文件必须有一个默认导出，其中包含引用项目的文件列表或 glob 模式。例如，如果你有一个名为 `packages` 的文件夹，其中包含你的项目，你就可以用这个配置文件定义一个工作区：
 
 :::code-group
 
@@ -29,7 +33,7 @@ export default ['packages/*']
 即使某个文件夹中没有配置文件，Vitest 也会将 `packages` 文件夹中的每个文件夹视为单独的项目。自 Vitest 2.1 起，如果此 glob 模式匹配到任何文件，即使文件名中没有 `vitest` 也会被视为 Vitest 配置文件。
 
 ::: warning
-除非在此配置文件中指定，否则 Vitest 不会将根配置文件视为工作区项目（因此它不会运行在 `include` 中指定的测试）。
+除非在工作区配置中明确指定，否则 Vitest 不会将根配置文件 `vitest.config` 视为工作区项目。因此，根配置只会影响全局选项，如 `reporters` 和 `coverage`。
 :::
 
 你还可以使用项目的配置文件引用项目：
@@ -42,9 +46,9 @@ export default ['packages/*/vitest.config.{e2e,unit}.ts']
 
 :::
 
-该模式仅包括具有包含 `e2e` 和 `unit` 的 `vitest.config` 文件的项目。这些关键字需要在文件扩展名之前出现。
+该模式仅包括具有包含 `e2e` 或 `unit` 的 `vitest.config` 文件的项目。这些关键字需要在文件扩展名之前出现。
 
-你还可以使用内联配置定义项目。工作区文件支持同时使用这两种语法。
+你也可以使用内联配置定义项目。工作区文件同时支持这两种语法。
 
 :::code-group
 ```ts [vitest.workspace.ts]
@@ -77,7 +81,7 @@ export default defineWorkspace([
 :::
 
 ::: warning
-所有项目应该具有唯一的名称。否则，Vitest 会抛出错误。如果你没有在内联配置中提供名称，Vitest 将分配一个数字。如果你没有在使用 glob 语法定义的项目配置中提供名称，Vitest 将默认使用目录名称。
+所有项目都必须有唯一的名称，否则 Vitest 会出错。如果内联配置中没有提供名称，Vitest 将分配一个数字。对于使用 glob 语法定义的项目配置，Vitest 将默认使用最近的 `package.json` 文件中的 "name" 属性，如果不存在此类文件，则使用文件夹名称。
 :::
 
 如果你不依赖内联配置，你可以在根目录中创建一个小的 JSON 文件：
@@ -90,7 +94,7 @@ export default defineWorkspace([
 
 :::
 
-工作区项目不支持所有配置属性。为了获得更好的类型安全性，请在项目配置文件中使用 `defineProject` 方法而不是 `defineConfig` 方法：
+工作区项目不支持所有配置属性。为了提高类型安全性，请在项目配置文件中使用 `defineProject` 方法而不是 `defineConfig` 方法：
 
 :::code-group
 ```ts [packages/a/vitest.config.ts] twoslash
@@ -199,9 +203,10 @@ export default mergeConfig(
 
 :::
 
-在 `defineWorkspace`级别，你也可以使用 `extends`选项来继承根级别配置。
+在 `defineWorkspace`级别，你也可以使用 `extends`选项来继承根级别配置。所有选项都将合并。
+
 ::: code-group
-```ts [packages/a/vitest.config.ts]
+```ts [vitest.workspace.ts]
 import { defineWorkspace } from 'vitest/config'
 
 export default defineWorkspace([
@@ -223,7 +228,7 @@ export default defineWorkspace([
 ```
 :::
 
-此外，某些配置选项不允许在项目配置中使用。其中最明显的是：
+某些配置选项不允许在项目配置中使用。其中最明显的是：
 
 - `coverage`: 覆盖率是针对整个工作区进行的。
 - `reporters`: 仅支持根级别的报告器。
@@ -231,9 +236,7 @@ export default defineWorkspace([
 - 所有其他不影响测试运行器的选项。
 
 ::: tip
-所有不支持在项目配置中使用的配置选项，在 ["Config"](/config/) 页面上都有一个 <NonProjectOption /> 标记。
+所有不支持在项目配置中使用的配置选项，在 ["Config"](/config/) 指南中以 <NonProjectOption /> 标记。
 :::
 
-## 覆盖率
 
-工作区项目的覆盖范围开箱即用。
