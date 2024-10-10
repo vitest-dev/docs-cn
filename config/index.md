@@ -1752,19 +1752,11 @@ test('doNotRun', () => {
 
 #### browser.provider
 
-<<<<<<< HEAD
-- **类型:** `'webdriverio' | 'playwright' | string`
-- **默认值:** `'webdriverio'`
+- **类型:** `'webdriverio' | 'playwright' | 'preview' | string`
+- **默认值:** `'preview'`
 - **命令行终端:** `--browser.provider=playwright`
 
-设置运行浏览器测试时浏览器的路径。Vitest 提供了两个浏览器驱动选项: `webdriverio`(默认) 和 `playwright`。自定义提供商应该使用 `default` 进行导出，并具有如下类型签名:
-=======
-- **Type:** `'webdriverio' | 'playwright' | 'preview' | string`
-- **Default:** `'preview'`
-- **CLI:** `--browser.provider=playwright`
-
-Path to a provider that will be used when running browser tests. Vitest provides three providers which are `preview` (default), `webdriverio` and `playwright`. Custom providers should be exported using `default` export and have this shape:
->>>>>>> f1eb5b078ff99274f0e0f0fdbb3af6ad40e3b6c5
+设置运行浏览器测试时浏览器的路径。Vitest 提供了三个浏览器驱动选项: `preview`（默认）、`webdriverio` 和 `playwright` 。自定义提供程序应使用 `default` 导出，并具有如下类型签名:
 
 ```ts
 export interface BrowserProvider {
