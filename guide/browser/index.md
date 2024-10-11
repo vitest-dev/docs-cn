@@ -106,7 +106,15 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
+=======
+::: info
+Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel. You can change that with the [`browser.api`](/config/#browser-api) option.
+:::
+
+If you have not used Vite before, make sure you have your framework's plugin installed and specified in the config. Some frameworks might require extra configuration to work - check their Vite related documentation to be sure.
+>>>>>>> 404662cda2294762e8faacb0e7a6238a41979fc7
 
 ::: code-group
 ```ts [vue]
