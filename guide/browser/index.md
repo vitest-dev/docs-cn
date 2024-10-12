@@ -106,6 +106,10 @@ export default defineConfig({
 })
 ```
 
+::: info
+Vitest 分配的端口为 `63315`，以避免与开发服务器冲突，从而允许同时运行两个服务器。你可以使用 [`browser.api`](/config/#browser-api) 选项来更改。
+:::
+
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
 
 ::: code-group

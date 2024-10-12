@@ -1748,7 +1748,7 @@ test('doNotRun', () => {
 - **默认值:** `63315`
 - **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
-为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](#api) 选项。
+为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](#api) 选项。默认情况下，Vitest 会分配端口 `63315`，以避免与开发服务器冲突，从而允许同时运行这两个端口。
 
 #### browser.provider
 
