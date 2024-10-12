@@ -1748,11 +1748,7 @@ test('doNotRun', () => {
 - **默认值:** `63315`
 - **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
-<<<<<<< HEAD
-为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](#api) 选项。
-=======
-Configure options for Vite server that serves code in the browser. Does not affect [`test.api`](#api) option. By default, Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel.
->>>>>>> 404662cda2294762e8faacb0e7a6238a41979fc7
+为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](#api) 选项。默认情况下，Vitest 会分配端口 `63315`，以避免与开发服务器冲突，从而允许同时运行这两个端口。
 
 #### browser.provider
 
