@@ -517,7 +517,16 @@ export interface Options {
   signal?: AbortSignal
 
   /**
+<<<<<<< HEAD
    * 预热时间（毫秒）
+=======
+   * Throw if a task fails (events will not work if true)
+   */
+  throws?: boolean
+
+  /**
+   * warmup time (milliseconds)
+>>>>>>> f4bac058ac5686e2d4a59c18937b281610a84ea4
    * @default 100ms
    */
   warmupTime?: number
