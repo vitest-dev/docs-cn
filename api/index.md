@@ -517,16 +517,12 @@ export interface Options {
   signal?: AbortSignal
 
   /**
-<<<<<<< HEAD
-   * 预热时间（毫秒）
-=======
-   * Throw if a task fails (events will not work if true)
+   * 任务失败时抛出（如果为 true，事件将不起作用）
    */
   throws?: boolean
 
   /**
-   * warmup time (milliseconds)
->>>>>>> f4bac058ac5686e2d4a59c18937b281610a84ea4
+   * 预热时间（毫秒）
    * @default 100ms
    */
   warmupTime?: number
