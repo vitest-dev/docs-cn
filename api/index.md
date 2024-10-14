@@ -517,6 +517,11 @@ export interface Options {
   signal?: AbortSignal
 
   /**
+   * 任务失败时抛出（如果为 true，事件将不起作用）
+   */
+  throws?: boolean
+
+  /**
    * 预热时间（毫秒）
    * @default 100ms
    */

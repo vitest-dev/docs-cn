@@ -664,7 +664,7 @@ export default defineConfig({
 - **默认值:** `'default'`
 - **命令行终端:** `--reporter=<name>`, `--reporter=<name1> --reporter=<name2>`
 
-用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
+用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts) 或选择内置的 reporters 字符串：
 
 - `'default'` - 当他们经过测试套件
 - `'basic'` - 给定一个类似于 CI 中的默认报告实例
