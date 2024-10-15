@@ -116,21 +116,11 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 
 ## IntelliJ IDEA
 
-<<<<<<< HEAD
-创建一个 'Node.js' 运行配置。使用以下配置在调试模式下运行所有测试：
+创建一个 [vitest](https://www.jetbrains.com/help/idea/vitest.html#createRunConfigVitest) 运行配置。使用以下配置在调试模式下运行所有测试：
 
 | Setting                | Value                              |
 | ---------------------- | ---------------------------------- |
 | Working directory      | `/path/to/your-project-root`       |
-| JavaScript file        | `./node_modules/vitest/vitest.mjs` |
-| Application parameters | `run --pool forks`                 |
-=======
-Create a [vitest](https://www.jetbrains.com/help/idea/vitest.html#createRunConfigVitest) run configuration. Use the following settings to run all tests in debug mode:
-
-Setting | Value
- --- | ---
-Working directory | `/path/to/your-project-root`
->>>>>>> 3fbf5a0b9f47ace588e360ea9c6461abf956c842
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 
