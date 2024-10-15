@@ -198,8 +198,17 @@ export interface TestResultSkipped {
 
 export interface TestDiagnostic {
   /**
+<<<<<<< HEAD
    * 测试使用的内存量（字节）。
    * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
+=======
+   * If the duration of the test is above `slowTestThreshold`.
+   */
+  slow: boolean
+  /**
+   * The amount of memory used by the test in bytes.
+   * This value is only available if the test was executed with `logHeapUsage` flag.
+>>>>>>> 4ea45f4601e73fa63c0af822508aba24c614a373
    */
   heap: number | undefined
   /**

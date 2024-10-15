@@ -2298,7 +2298,11 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **默认值**: `300`
 - **命令行终端:**:`--slow-test-threshold=<number>`, `--slowTestThreshold=<number>`
 
+<<<<<<< HEAD
 如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
+=======
+The number of milliseconds after which a test or suite is considered slow and reported as such in the results.
+>>>>>>> 4ea45f4601e73fa63c0af822508aba24c614a373
 
 ### chaiConfig {#chaiconfig}
 
