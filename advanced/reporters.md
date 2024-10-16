@@ -198,6 +198,10 @@ export interface TestResultSkipped {
 
 export interface TestDiagnostic {
   /**
+   * If the duration of the test is above `slowTestThreshold`.
+   */
+  slow: boolean
+  /**
    * 测试使用的内存量（字节）。
    * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
    */
