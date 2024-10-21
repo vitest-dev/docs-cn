@@ -440,11 +440,7 @@ console.log(cart.getApples()) // still 42!
 :::
 
 ::: tip
-<<<<<<< HEAD
 在[浏览器模式](/guide/browser/)下，无法监视导出的方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
-=======
-It is not possible to spy on exported methods in [Browser Mode](/guide/browser/). Instead, you can spy on every exported method by calling `vi.mock("./file-path.js", { spy: true })`. This will mock every export but keep its implementation intact, allowing you to assert if the method was called correctly.
->>>>>>> be352622d184afb9444e338851810fc93c60ade3
 
 ```ts
 import { calculator } from './src/calculator.ts'
