@@ -4,7 +4,11 @@ title: Interactivity API | Browser Mode
 
 # Interactivity API
 
+<<<<<<< HEAD
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) API 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event)应用程序接口的子集，而不是伪造事件，这使得浏览器行为更加可靠和一致。
+=======
+Vitest implements a subset of [`@testing-library/user-event`](https://testing-library.com/docs/user-event/intro) APIs using [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) or [webdriver](https://www.w3.org/TR/webdriver/) instead of faking events which makes the browser behaviour more reliable and consistent with how users interact with a page.
+>>>>>>> a7d562fd5ba555a69348cfaf14633927ab798419
 
 ```ts
 import { userEvent } from '@vitest/browser/context'
