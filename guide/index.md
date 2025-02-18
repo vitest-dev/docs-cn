@@ -238,7 +238,11 @@ export default defineWorkspace([
 
 ## IDE 集成
 
+<<<<<<< HEAD
 我们还提供了 Visual Studio Code 的官方扩展，以增强你使用 Vitest 的测试体验。
+=======
+We also provided an official extension for Visual Studio Code to enhance your testing experience with Vitest.
+>>>>>>> 9fc6f871a9f6586827ce3e328084dc32cbf2bc4e
 
 [从 VS Code 插件市场进行安装](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
 

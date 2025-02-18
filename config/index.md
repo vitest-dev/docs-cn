@@ -2372,8 +2372,13 @@ Print basic prototype `Object` and `Array` in diff output
 
 #### fakeTimers.toFake
 
+<<<<<<< HEAD
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
 - **默认值:** everything available globally except `nextTick`
+=======
+- **Type:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
+- **Default:** everything available globally except `nextTick` and `queueMicrotask`
+>>>>>>> 9fc6f871a9f6586827ce3e328084dc32cbf2bc4e
 
 包含要伪造的全局方法和 API 名称的数组。
 

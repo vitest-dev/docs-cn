@@ -816,8 +816,13 @@ vi.useRealTimers()
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
 
 ::: tip
+<<<<<<< HEAD
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick'] })` 。
+=======
+`vi.useFakeTimers()` does not automatically mock `process.nextTick` and `queueMicrotask`.
+But you can enable it by specifying the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })`.
+>>>>>>> 9fc6f871a9f6586827ce3e328084dc32cbf2bc4e
 :::
 
 ### vi.isFakeTimers {#vi-isfaketimers}
