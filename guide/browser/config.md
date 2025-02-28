@@ -243,8 +243,13 @@ export default defineConfig({
 
 ## browser.screenshotDirectory
 
+<<<<<<< HEAD
 - **类型:** `string`
 - **默认值:** 测试文件目录中的 `__snapshots__`
+=======
+- **Type:** `string`
+- **Default:** `__screenshots__` in the test file directory
+>>>>>>> ae5c67a2e1b8d3eb17f8d1ffadcb071356a5c645
 
 相对于 `root` 的屏幕截图目录路径。
 

@@ -874,14 +874,22 @@ export default defineConfig({
 - **类型:** `number | string`
 - **默认值:** _available CPUs_
 
+<<<<<<< HEAD
 最大分支数量或百分比。
+=======
+Maximum number or percentage of forks. You can also use `VITEST_MAX_FORKS` environment variable.
+>>>>>>> ae5c67a2e1b8d3eb17f8d1ffadcb071356a5c645
 
 ##### poolOptions.forks.minForks<NonProjectOption />
 
 - **类型:** `number | string`
 - **默认值:** _available CPUs_
 
+<<<<<<< HEAD
 最小分支数量或百分比。
+=======
+Minimum number or percentage of forks. You can also use `VITEST_MIN_FORKS` environment variable.
+>>>>>>> ae5c67a2e1b8d3eb17f8d1ffadcb071356a5c645
 
 ##### poolOptions.forks.isolate
 
@@ -1017,14 +1025,22 @@ export default defineConfig({
 - **类型:** `number | string`
 - **默认值:** _available CPUs_
 
+<<<<<<< HEAD
 最大线程数或百分比。也可以使用 `VITEST_MAX_FORKS` 环境变量。
+=======
+Maximum number or percentage of forks. You can also use `VITEST_MAX_FORKS` environment variable.
+>>>>>>> ae5c67a2e1b8d3eb17f8d1ffadcb071356a5c645
 
 ##### poolOptions.vmForks.minForks<NonProjectOption />
 
 - **类型:** `number | string`
 - **默认值:** _available CPUs_
 
+<<<<<<< HEAD
 最小线程数或百分比。也可以使用 `VITEST_MIN_FORKS` 环境变量。
+=======
+Minimum number or percentage of forks. You can also use `VITEST_MIN_FORKS` environment variable.
+>>>>>>> ae5c67a2e1b8d3eb17f8d1ffadcb071356a5c645
 
 ##### poolOptions.vmForks.memoryLimit<NonProjectOption />
 
