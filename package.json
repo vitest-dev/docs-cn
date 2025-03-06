@@ -23,10 +23,15 @@
   "devDependencies": {
     "@iconify-json/carbon": "^1.2.7",
     "@iconify-json/logos": "^1.2.4",
+<<<<<<< HEAD
     "@shikijs/transformers": "^1.29.2",
     "@shikijs/vitepress-twoslash": "^1.29.2",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.10.7",
+=======
+    "@shikijs/transformers": "^3.0.0",
+    "@shikijs/vitepress-twoslash": "^3.0.0",
+>>>>>>> 32a4d0127630fd9f5cc647c1c9fbb0b51272499d
     "@unocss/reset": "^0.65.4",
     "@vite-pwa/assets-generator": "^0.2.6",
     "@vite-pwa/vitepress": "^0.5.3",
@@ -44,7 +49,7 @@
     "unplugin-vue-components": "^0.28.0",
     "vite": "^5.2.8",
     "vite-plugin-pwa": "^0.21.1",
-    "vitepress": "^1.6.3",
+    "vitepress": "2.0.0-alpha.3",
     "vitepress-plugin-group-icons": "^1.3.6",
     "vitepress-plugin-tabs": "^0.6.0",
     "vitest": "^3.0.2",
