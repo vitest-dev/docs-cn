@@ -292,7 +292,7 @@ Vitest 没有像 `input.type` 那样在定位器上公开 `.type` 方法，因�
 ## userEvent.clear
 
 ```ts
-function clear(element: Element | Locator): Promise<void>
+function clear(element: Element | Locator, options?: UserEventClearOptions): Promise<void>
 ```
 
 此方法会清除输入元素的内容。
@@ -451,6 +451,7 @@ test('unhover logo element', async () => {
 function upload(
   element: Element | Locator,
   files: string[] | string | File[] | File,
+  options?: UserEventUploadOptions,
 ): Promise<void>
 ```
 

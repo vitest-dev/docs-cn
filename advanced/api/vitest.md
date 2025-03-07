@@ -155,7 +155,11 @@ declare module 'vitest' {
 ```
 
 ::: warning
+<<<<<<< HEAD
 从技术上讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的方法，因此它仅限于特定项目。然而，所有项目都继承自核心项目的值，这使得 `vitest.provide` 成为传递值到测试的通用方式。
+=======
+Technically, `provide` is a method of [`TestProject`](/advanced/api/test-project), so it is limited to the specific project. However, all projects inherit the values from the root project which makes `vitest.provide` universal way of passing down values to tests.
+>>>>>>> 4cfb5054fc38b6b192b7ae1ed0baded2ce5df9ca
 :::
 
 ## getProvidedContext
