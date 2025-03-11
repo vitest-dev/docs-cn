@@ -155,7 +155,22 @@ myTest('', ({ todos }) => {})
 ```
 
 ::: warning
+<<<<<<< HEAD
 在固定装置中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问固定装置函数和测试函数中的上下文。
+=======
+When using `test.extend()` with fixtures, you should always use the object destructuring pattern `{ todos }` to access context both in fixture function and test function.
+
+```ts
+myTest('context must be destructured', (context) => { // [!code --]
+  expect(context.todos.length).toBe(2)
+})
+
+myTest('context must be destructured', ({ todos }) => { // [!code ++]
+  expect(todos.length).toBe(2)
+})
+```
+
+>>>>>>> a0f963bc4c1e781df5050f735e4a17e2eb6e0453
 :::
 
 #### 自动化装置
@@ -247,9 +262,9 @@ const myTest = test.extend<MyFixtures>({
   archive: [],
 })
 
-myTest('types are defined correctly', (context) => {
-  expectTypeOf(context.todos).toEqualTypeOf<number[]>()
-  expectTypeOf(context.archive).toEqualTypeOf<number[]>()
+myTest('types are defined correctly', ({ todos, archive }) => {
+  expectTypeOf(todos).toEqualTypeOf<number[]>()
+  expectTypeOf(archive).toEqualTypeOf<number[]>()
 })
 ```
 

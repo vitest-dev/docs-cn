@@ -3,7 +3,11 @@ title: Locators | Browser Mode
 outline: [2, 3]
 ---
 
+<<<<<<< HEAD
 # 定位 <Version>2.1.0</Version>
+=======
+# Locators
+>>>>>>> a0f963bc4c1e781df5050f735e4a17e2eb6e0453
 
 定位器是元素或多个元素的表示。每个定位器由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
@@ -505,7 +509,7 @@ await page.getByRole('img', { name: 'Rose' }).tripleClick()
 ### clear
 
 ```ts
-function clear(): Promise<void>
+function clear(options?: UserEventClearOptions): Promise<void>
 ```
 
 清除输入元素的内容。
