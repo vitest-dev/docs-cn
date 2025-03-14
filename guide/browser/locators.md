@@ -3,7 +3,11 @@ title: Locators | Browser Mode
 outline: [2, 3]
 ---
 
+<<<<<<< HEAD
 # 定位 <Version>2.1.0</Version>
+=======
+# Locators
+>>>>>>> 059ee9d72b38d138ad1fa9399bbab07a94d8003d
 
 定位器是元素或多个元素的表示。每个定位器由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
@@ -381,7 +385,11 @@ page.getByTestId('non-existing-element') // ❌
 
 - `exact: boolean`
 
+<<<<<<< HEAD
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+=======
+  Whether the `text` is matched exactly: case-sensitive and whole-string. Disabled by default. This option is ignored if `text` is a regular expression. Note that exact match still trims whitespace.
+>>>>>>> 059ee9d72b38d138ad1fa9399bbab07a94d8003d
 
 #### See also
 
@@ -505,7 +513,7 @@ await page.getByRole('img', { name: 'Rose' }).tripleClick()
 ### clear
 
 ```ts
-function clear(): Promise<void>
+function clear(options?: UserEventClearOptions): Promise<void>
 ```
 
 清除输入元素的内容。

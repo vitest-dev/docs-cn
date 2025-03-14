@@ -124,7 +124,11 @@ const value = inject('key')
 ```
 :::
 
+<<<<<<< HEAD
 这些值可以动态提供。测试中提供的值将在下次运行时更新。
+=======
+The values can be provided dynamically. Provided value in tests will be updated on their next run.
+>>>>>>> 059ee9d72b38d138ad1fa9399bbab07a94d8003d
 
 ::: tip
 此方法也可用于 [全局设置文件](/config/#globalsetup)，以便在无法使用公共 API 的情况下使用：

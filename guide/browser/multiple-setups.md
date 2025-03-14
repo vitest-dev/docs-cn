@@ -2,7 +2,11 @@
 
 自 Vitest 3 起，你可以使用新的 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
 
+<<<<<<< HEAD
 使用 `browser.instances` 的主要优势在于改进了缓存。每个项目将使用同一个 Vite 服务器，这意味着文件转换和[依赖预打包](https://vite.dev/guide/dep-pre-bundling.html)只需要进行一次。
+=======
+The main advantage of using the `browser.instances` over the [workspace](/guide/workspace) is improved caching. Every project will use the same Vite server meaning the file transform and [dependency pre-bundling](https://vite.dev/guide/dep-pre-bundling.html) has to happen only once.
+>>>>>>> 059ee9d72b38d138ad1fa9399bbab07a94d8003d
 
 ## 多个浏览器
 
@@ -128,7 +132,11 @@ start tests with --browser=name or --project=name flag. › - Use arrow-keys. Re
     firefox
 ```
 
+<<<<<<< HEAD
 如果你在 CI 中有多个非无头模式的项目（即在配置中手动设置了 `headless: false` 且未在 CI 环境中覆盖），Vitest 将会终止运行并且不会启动任何测试。
+=======
+If you have several non-headless projects in CI (i.e. the `headless: false` is set manually in the config and not overridden in  CI env), Vitest will fail the run and won't start any tests.
+>>>>>>> 059ee9d72b38d138ad1fa9399bbab07a94d8003d
 
 这一限制不影响在无头模式下运行测试的能力。只要实例没有设置 `headless: false`，你仍然可以并行运行所有实例。
 :::
