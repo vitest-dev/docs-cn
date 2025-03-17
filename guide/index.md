@@ -136,7 +136,11 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 The `<reference types="vitest" />` 将在 Vitest 3 中停止工作，但您可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
+=======
+The `<reference types="vitest" />` will stop working in the next major update, but you can start migrating to `vitest/config` in Vitest 2.1:
+>>>>>>> 413a2c8e7e7d70eb42cdd76c90f3122376f1c4c9
 
 ```ts [vite.config.ts]
 /// <reference types="vitest/config" />

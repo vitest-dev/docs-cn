@@ -134,6 +134,18 @@ test('skipped test', (context) => {
 })
 ```
 
+Since Vitest 3.1, if the condition is unknonwn, you can provide it to the `skip` method as the first arguments:
+
+```ts
+import { assert, test } from 'vitest'
+
+test('skipped test', (context) => {
+  context.skip(Math.random() < 0.5, 'optional message')
+  // Test skipped, no error
+  assert.equal(Math.sqrt(4), 3)
+})
+```
+
 ### test.skipIf
 
 - **类型:** `(condition: any) => Test`
@@ -344,7 +356,8 @@ test.fails('fail test', async () => {
 - `%f`: floating point value
 - `%j`: json
 - `%o`: object
-- `%#`: index of the test case
+- `%#`: 0-based index of the test case
+- `%$`: 1-based index of the test case
 - `%%`: single percent sign ('%')
 
 ```ts
@@ -364,7 +377,11 @@ test.each([
 // ✓ add(2, 1) -> 3
 ```
 
+<<<<<<< HEAD
 如果使用对象作为参数，也可以使用前缀 `$` 访问对象属性：
+=======
+You can also access object properties and array elements with `$` prefix:
+>>>>>>> 413a2c8e7e7d70eb42cdd76c90f3122376f1c4c9
 
 ```ts
 test.each([
@@ -374,6 +391,22 @@ test.each([
 ])('add($a, $b) -> $expected', ({ a, b, expected }) => {
   expect(a + b).toBe(expected)
 })
+<<<<<<< HEAD
+=======
+
+// this will return
+// ✓ add(1, 1) -> 2
+// ✓ add(1, 2) -> 3
+// ✓ add(2, 1) -> 3
+
+test.each([
+  [1, 1, 2],
+  [1, 2, 3],
+  [2, 1, 3],
+])('add($0, $1) -> $2', (a, b, expected) => {
+  expect(a + b).toBe(expected)
+})
+>>>>>>> 413a2c8e7e7d70eb42cdd76c90f3122376f1c4c9
 
 // 这将返回
 // ✓ add(1, 1) -> 2

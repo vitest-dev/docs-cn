@@ -71,7 +71,11 @@ finally {
 }
 ```
 
+<<<<<<< HEAD
 如果你打算保留 `Vitest` 实例，请确保至少调用 [`init`](/advanced/api/vitest#init)。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使你不打算使用 Vitest 监视器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖于这个标志，以确保某些功能在持续过程中正常工作。
+=======
+If you intend to keep the `Vitest` instance, make sure to at least call [`init`](/advanced/api/vitest#init). This will initialise reporters and the coverage provider, but won't run any tests. It is also recommended to enable the `watch` mode even if you don't intend to use the Vitest watcher, but want to keep the instance running. Vitest relies on this flag for some of its features to work correctly in a continuous process.
+>>>>>>> 413a2c8e7e7d70eb42cdd76c90f3122376f1c4c9
 
 报告器初始化后，如果需要手动运行测试，可以使用 [`runTestSpecifications`](/advanced/api/vitest#runtestspecifications) 或 [`rerunTestSpecifications`](/advanced/api/vitest#reruntestspecifications) 来运行测试。
 
@@ -88,7 +92,11 @@ watcher.on('change', async (file) => {
 ```
 
 ::: warning
+<<<<<<< HEAD
 上述示例展示了如果你禁用默认监视器行为的一个潜在用例。默认情况下，Vitest 在文件发生变化时已经会重新运行测试。
+=======
+The example above shows a potential use-case if you disable the default watcher behaviour. By default, Vitest already reruns tests if files change.
+>>>>>>> 413a2c8e7e7d70eb42cdd76c90f3122376f1c4c9
 
 另外请注意，`getModuleSpecifications` 不会解析测试文件，除非这些文件已经通过 `globTestSpecifications` 处理过。如果文件刚刚创建，应使用 `project.matchesGlobPattern`：
 
