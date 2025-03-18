@@ -33,7 +33,7 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 ## testModule
 
-Instance of [`TestModule`](/advanced/api/test-module) assosiated with the specification. If test wasn't queued yet, this will be `undefined`.
+Instance of [`TestModule`](/advanced/api/test-module) associated with the specification. If test wasn't queued yet, this will be `undefined`.
 
 ## pool <Badge type="warning">experimental</Badge> {#pool}
 

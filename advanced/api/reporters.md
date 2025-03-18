@@ -52,7 +52,11 @@ function onInit(vitest: Vitest): Awaitable<void>
 当 [Vitest](/advanced/api/vitest) 初始化或启动时，但在测试被过滤之前，会调用此方法。
 
 ::: info
+<<<<<<< HEAD
 在内部，此方法在 [`vitest.start`](/advanced/api/vitest#start)、[`vitest.init`](/advanced/api/vitest#init) 或 [`vitest.mergeReports`](/advanced/api/vitest#mergereports) 中调用。如果我们使用的是编程式 API，请确保根据需要在调用 [`vitest.runTestSpecifications`](/advanced/api/vitest#runtestspecifications) 之前调用其中之一。内置的 CLI 将始终按正确顺序运行方法。
+=======
+Internally this method is called inside [`vitest.start`](/advanced/api/vitest#start), [`vitest.init`](/advanced/api/vitest#init) or [`vitest.mergeReports`](/advanced/api/vitest#mergereports). If you are using programmatic API, make sure to call either one depending on your needs before calling [`vitest.runTestSpecifications`](/advanced/api/vitest#runtestspecifications), for example. Built-in CLI will always run methods in correct order.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 :::
 
 请注意，我们还可以通过 [`project`](/advanced/api/test-project) 属性从测试用例、套件和测试模块中访问 `vitest` 实例，但在此方法中存储对 `vitest` 的引用也可能有用。
@@ -137,9 +141,15 @@ function onTestRunEnd(
 
 第三个参数指示测试运行结束的原因：
 
+<<<<<<< HEAD
 - `passed`：测试运行正常结束，没有错误
 - `failed`：测试运行至少有一个错误（由于收集期间的语法错误或测试执行期间的实际错误）
 - `interrupted`：测试被 [`vitest.cancelCurrentRun`](/advanced/api/vitest#cancelcurrentrun) 调用中断，或者在终端中按下了 `Ctrl+C`（请注意，在这种情况下仍可能有失败的测试）
+=======
+- `passed`: test run was finished normally and there are no errors
+- `failed`: test run has at least one error (due to a syntax error during collection or an actual error during test execution)
+- `interrupted`: test was interrupted by [`vitest.cancelCurrentRun`](/advanced/api/vitest#cancelcurrentrun) call or `Ctrl+C` was pressed in the terminal (note that it's still possible to have failed tests in this case)
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 如果 Vitest 没有找到任何要运行的测试文件，此事件将以空的模块和错误数组调用，状态将取决于 [`config.passWithNoTests`](/config/#passwithnotests) 的值。
 

@@ -73,10 +73,14 @@
 
 ### silent
 
-- **CLI:** `--silent`
+- **CLI:** `--silent [value]`
 - **Config:** [silent](/config/#silent)
 
+<<<<<<< HEAD
 测试中的静默控制台输出
+=======
+Silent console output from tests. Use `'passed-only'` to see logs from failing tests only.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ### hideSkippedTests
 

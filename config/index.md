@@ -1094,11 +1094,21 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 ### silent<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--silent`, `--silent=false`
 
 静默模式下启动测试。
+=======
+- **Type:** `boolean | 'passed-only'`
+- **Default:** `false`
+- **CLI:** `--silent`, `--silent=false`
+
+Silent console output from tests.
+
+Use `'passed-only'` to see logs from failing tests only. Logs from failing tests are printed after a test has finished.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ### setupFiles
 
@@ -2356,6 +2366,13 @@ Expand all common lines.
 - **Default**: `false`
 
 Print basic prototype `Object` and `Array` in diff output
+
+#### diff.maxDepth
+
+- **Type**: `number`
+- **Default**: `20` (or `8` when comparing different types)
+
+Limit the depth to recurse when printing nested objects
 
 ### fakeTimers
 

@@ -74,7 +74,11 @@ Vitest 通过调用 [`browser.newContext()`](https://playwright.dev/docs/api/cla
 :::
 
 ::: warning
+<<<<<<< HEAD
 Vitest 始终将 `ignoreHTTPSErrors` 设置为 `true`，以防我们的服务器通过 HTTPS 提供服务，并将 `serviceWorkers` 设置为 `'allow'` 以支持通过 [MSW](https://mswjs.io) 进行模块模拟。
+=======
+Vitest always sets `ignoreHTTPSErrors` to `true` in case your server is served via HTTPS and `serviceWorkers` to `'allow'` to support module mocking via [MSW](https://mswjs.io).
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 建议使用 [`test.browser.viewport`](/guide/browser/config#browser-headless) 而不是在此处指定它，因为在无头模式下运行测试时会丢失该设置。
 :::

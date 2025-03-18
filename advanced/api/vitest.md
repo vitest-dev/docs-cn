@@ -93,7 +93,11 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 全局快照管理器。Vitest 使用 `snapshot.add` 方法跟踪所有快照。
 
+<<<<<<< HEAD
 我们可以通过 `vitest.snapshot.summay` 属性获取快照的最新摘要。
+=======
+You can get the latest summary of snapshots via the `vitest.snapshot.summary` property.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ## cache
 
@@ -130,7 +134,11 @@ function provide<T extends keyof ProvidedContext & string>(
 
 Vitest 公开了 `provide` 方法，它是 `vitest.getRootProject().provide` 的简写。通过此方法，我们可以从主线程传递值到测试中。所有值在存储之前都通过 `structuredClone` 进行检查，但值本身不会被克隆。
 
+<<<<<<< HEAD
 要在测试中接收这些值，我们需要从 `vitest` 入口点导入 `inject` 方法：
+=======
+To receive the values in the test, you need to import `inject` method from `vitest` entrypoint:
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ```ts
 import { inject } from 'vitest'
@@ -155,7 +163,11 @@ declare module 'vitest' {
 ```
 
 ::: warning
+<<<<<<< HEAD
 从技术上讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的方法，因此它仅限于特定项目。然而，所有项目都继承自核心项目的值，这使得 `vitest.provide` 成为传递值到测试的通用方式。
+=======
+Technically, `provide` is a method of [`TestProject`](/advanced/api/test-project), so it is limited to the specific project. However, all projects inherit the values from the root project which makes `vitest.provide` universal way of passing down values to tests.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 :::
 
 ## getProvidedContext
@@ -172,7 +184,11 @@ function getProvidedContext(): ProvidedContext
 function getProjectByName(name: string): TestProject
 ```
 
+<<<<<<< HEAD
 此方法通过名称返回项目。类似于调用 `vitest.projects.find`。
+=======
+This method returns the project by its name. Similar to calling `vitest.projects.find`.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ::: warning
 如果项目不存在，此方法将返回根项目 - 请确保再次检查返回的项目是否是我们要找的项目。
@@ -297,7 +313,11 @@ function getModuleSpecifications(moduleId: string): TestSpecification[]
 function clearSpecificationsCache(moduleId?: string): void
 ```
 
+<<<<<<< HEAD
 当调用 [`globTestSpecifications`](#globtestspecifications) 或 [`runTestSpecifications`](#runtestspecifications) 时，Vitest 会自动缓存每个文件的测试规范。此方法清除给定文件的缓存或整个缓存，具体取决于第一个参数。
+=======
+Vitest automatically caches test specifications for each file when [`globTestSpecifications`](#globtestspecifications) or [`runTestSpecifications`](#runtestspecifications) is called. This method clears the cache for the given file or the whole cache altogether depending on the first argument.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ## runTestSpecifications
 
@@ -452,7 +472,11 @@ function exit(force = false): Promise<void>
 
 关闭所有项目并退出进程。如果 `force` 设置为 `true`，则进程将在关闭项目后立即退出。
 
+<<<<<<< HEAD
 如果进程在 [`config.teardownTimeout`](/config/#teardowntimeout) 毫秒后仍然处于活动状态，此方法还将强制调用 `process.exit()`。
+=======
+This method will also forcefully call `process.exit()` if the process is still active after [`config.teardownTimeout`](/config/#teardowntimeout) milliseconds.
+>>>>>>> e0072b31e7ce4f89469ea41670f94d7155167502
 
 ## shouldKeepServer
 
