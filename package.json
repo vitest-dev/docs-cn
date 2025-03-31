@@ -31,7 +31,7 @@
     "@types/node": "^22.10.7",
     "@unocss/reset": "latest",
     "@vite-pwa/assets-generator": "^0.2.6",
-    "@vite-pwa/vitepress": "^0.5.3",
+    "@vite-pwa/vitepress": "^0.5.4",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitest/browser": "^3.0.2",
     "@vitest/coverage-istanbul": "^3.0.2",
