@@ -264,8 +264,8 @@ JSON 报告器现在会为每个断言结果打印 `task.meta` 。
 以前 `vi.fn<TArgs, TReturn>` 分别接受参数和返回值的两个泛型。现在改为直接接受一个函数类型 `vi.fn<T>` 以简化用法。
 
 ```ts
-import { vi } from 'vitest'
 import type { Mock } from 'vitest'
+import { vi } from 'vitest'
 
 const add = (x: number, y: number): number => x + y
 

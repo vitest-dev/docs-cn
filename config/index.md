@@ -469,8 +469,8 @@ export default defineConfig({
 如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import)，你也可以直接用它来自动导入这些 API。
 
 ```ts [vitest.config.js]
-import { defineConfig } from 'vitest/config'
 import AutoImport from 'unplugin-auto-import/vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
@@ -2281,8 +2281,8 @@ export default defineConfig({
 例如，作为一个配置对象：
 
 ```ts
-import { defineConfig } from 'vitest/config'
 import c from 'picocolors'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {

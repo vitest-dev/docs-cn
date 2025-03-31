@@ -68,35 +68,34 @@ export const page: {
   /**
    * 更改 iframe 视口的大小。
    */
-  viewport(width: number, height: number): Promise<void>
+  viewport: (width: number, height: number) => Promise<void>
   /**
    * 对测试 iframe 或特定元素进行截图。
    * @returns 截图文件的路径或路径和 base64 编码。
    */
-  screenshot(options: Omit<ScreenshotOptions, 'base64'> & { base64: true }): Promise<{
+  screenshot: ((options: Omit<ScreenshotOptions, 'base64'> & { base64: true }) => Promise<{
     path: string
     base64: string
-  }>
-  screenshot(options?: ScreenshotOptions): Promise<string>
+  }>) & ((options?: ScreenshotOptions) => Promise<string>)
   /**
    * 使用自定义方法扩展默认的 `page` 对象。
    */
-  extend(methods: Partial<BrowserPage>): BrowserPage
+  extend: (methods: Partial<BrowserPage>) => BrowserPage
   /**
    * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素。
    */
-  elementLocator(element: Element): Locator
+  elementLocator: (element: Element) => Locator
 
   /**
    * Locator API。更多详细信息请参见其文档。
    */
-  getByRole(role: ARIARole | string, options?: LocatorByRoleOptions): Locator
-  getByLabelText(text: string | RegExp, options?: LocatorOptions): Locator
-  getByTestId(text: string | RegExp): Locator
-  getByAltText(text: string | RegExp, options?: LocatorOptions): Locator
-  getByPlaceholder(text: string | RegExp, options?: LocatorOptions): Locator
-  getByText(text: string | RegExp, options?: LocatorOptions): Locator
-  getByTitle(text: string | RegExp, options?: LocatorOptions): Locator
+  getByRole: (role: ARIARole | string, options?: LocatorByRoleOptions) => Locator
+  getByLabelText: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByTestId: (text: string | RegExp) => Locator
+  getByAltText: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByPlaceholder: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByText: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByTitle: (text: string | RegExp, options?: LocatorOptions) => Locator
 }
 ```
 

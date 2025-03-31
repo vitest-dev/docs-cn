@@ -129,10 +129,10 @@ vi.mock('./path/to/module.js', () => {
 如果在没有提供工厂或选项的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
 
 ```ts [increment.test.js]
-import { vi } from 'vitest'
-
 // axios is a default export from `__mocks__/axios.js`
 import axios from 'axios'
+
+import { vi } from 'vitest'
 
 // increment is a named export from `src/__mocks__/increment.js`
 import { increment } from '../increment.js'

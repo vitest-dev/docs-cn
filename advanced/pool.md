@@ -82,7 +82,7 @@ Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTe
 ```ts
 import { createBirpc } from 'birpc'
 import { parse, stringify } from 'flatted'
-import { TestProject, createMethodsRPC } from 'vitest/node'
+import { createMethodsRPC, TestProject } from 'vitest/node'
 
 function createRpc(project: TestProject, wss: WebSocketServer) {
   return createBirpc(

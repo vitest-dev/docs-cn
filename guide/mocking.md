@@ -177,8 +177,8 @@ Vitest 支持模拟 Vite [虚拟模块](https://cn.vitejs.dev/guide/api-plugin#v
 1. 提供别名
 
 ```ts [vitest.config.js]
-import { defineConfig } from 'vitest/config'
 import { resolve } from 'node:path'
+import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     alias: {
@@ -265,8 +265,8 @@ export function foobar(injectedFoo) {
 ### 示例
 
 ```js
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Client } from 'pg'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { failure, success } from './handlers.js'
 
 // get todos
@@ -391,8 +391,8 @@ export function readHelloWorld(path) {
 ```
 
 ```ts [hello-world.test.js]
-import { beforeEach, expect, it, vi } from 'vitest'
 import { fs, vol } from 'memfs'
+import { beforeEach, expect, it, vi } from 'vitest'
 import { readHelloWorld } from './read-hello-world.js'
 
 // tell vitest to use fs mock from __mocks__ folder
@@ -442,9 +442,9 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 ::: code-group
 
 ```js [HTTP Setup]
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 const posts = [
   {
@@ -475,9 +475,9 @@ afterEach(() => server.resetHandlers())
 ```
 
 ```js [GraphQL Setup]
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { graphql, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 const posts = [
   {
@@ -510,9 +510,9 @@ afterEach(() => server.resetHandlers())
 ```
 
 ```js [WebSocket Setup]
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { ws } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 const chat = ws.link('wss://chat.example.com')
 

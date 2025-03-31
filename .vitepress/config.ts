@@ -1,13 +1,13 @@
-import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import { transformerNotationWordHighlight } from '@shikijs/transformers'
-import { withPwa } from '@vite-pwa/vitepress'
 import type { DefaultTheme } from 'vitepress'
+import { transformerNotationWordHighlight } from '@shikijs/transformers'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { withPwa } from '@vite-pwa/vitepress'
 import { defineConfig } from 'vitepress'
-import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import { version } from '../package.json'
 import { teamMembers } from './contributors'
 import {

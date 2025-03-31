@@ -5,8 +5,8 @@
 `TestCase` 实例始终有一个值为 `test` 的 `type` 属性。您可以使用它来区分不同的任务类型：
 
 ```ts
-if (task.type === 'test') {
-  task // TestCase
+if (task.type === "test") {
+  task; // TestCase
 }
 ```
 
@@ -23,12 +23,12 @@ if (task.type === 'test') {
 这是传递给 `test` 函数的测试名称。
 
 ```ts
-import { test } from 'vitest'
+import { test } from "vitest";
 
 // [!code word:'the validation works correctly']
-test('the validation works correctly', () => {
+test("the validation works correctly", () => {
   // ...
-})
+});
 ```
 
 ## fullName
@@ -36,15 +36,15 @@ test('the validation works correctly', () => {
 包括所有父套件并用 `>` 符号分隔的测试名称。此测试的完整名称为 "the validation logic > the validation works correctly"：
 
 ```ts
-import { describe, test } from 'vitest'
+import { describe, test } from "vitest";
 
 // [!code word:'the validation works correctly']
 // [!code word:'the validation logic']
-describe('the validation logic', () => {
-  test('the validation works correctly', () => {
+describe("the validation logic", () => {
+  test("the validation works correctly", () => {
     // ...
-  })
-})
+  });
+});
 ```
 
 ## id
@@ -64,13 +64,14 @@ ID 的格式如下：
 你可以使用 `vitest/node` 中的 `generateFileHash` 函数来生成文件哈希，该函数自 Vitest 3 起可用：
 
 ```ts
-import { generateFileHash } from 'vitest/node'
+import { generateFileHash } from "vitest/node";
 
 const hash = generateFileHash(
-  '/file/path.js', // relative path
-  undefined, // the project name or `undefined` is not set
-)
+  "/file/path.js", // relative path
+  undefined // the project name or `undefined` is not set
+);
 ```
+
 :::
 
 ::: danger
@@ -99,13 +100,13 @@ test('the validation works correctly', () => {
 
 ```ts
 interface TaskOptions {
-  readonly each: boolean | undefined
-  readonly fails: boolean | undefined
-  readonly concurrent: boolean | undefined
-  readonly shuffle: boolean | undefined
-  readonly retry: number | undefined
-  readonly repeats: number | undefined
-  readonly mode: 'run' | 'only' | 'skip' | 'todo'
+  readonly each: boolean | undefined;
+  readonly fails: boolean | undefined;
+  readonly concurrent: boolean | undefined;
+  readonly shuffle: boolean | undefined;
+  readonly retry: number | undefined;
+  readonly repeats: number | undefined;
+  readonly mode: "run" | "only" | "skip" | "todo";
 }
 ```
 
@@ -114,7 +115,7 @@ interface TaskOptions {
 ## ok
 
 ```ts
-function ok(): boolean
+function ok(): boolean;
 ```
 
 检查测试是否未使套件失败。如果测试尚未完成或被跳过，它将返回 `true`。
@@ -122,19 +123,19 @@ function ok(): boolean
 ## meta
 
 ```ts
-function meta(): TaskMeta
+function meta(): TaskMeta;
 ```
 
-在测试执行期间附加的自定义元数据。可以通过在测试运行期间将属性赋值给 `ctx.task.meta` 对象来附加元数据：
+在测试执行期间附加到测试的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过为 `ctx.task.meta` 对象分配一个属性来附加元数据：
 
 ```ts {3,6}
-import { test } from 'vitest'
+import { test } from "vitest";
 
-test('the validation works correctly', ({ task }) => {
+test("the validation works correctly", ({ task }) => {
   // ...
 
-  task.meta.decorated = false
-})
+  task.meta.decorated = false;
+});
 ```
 
 如果测试尚未完成运行，元数据将是一个空对象。
@@ -142,7 +143,7 @@ test('the validation works correctly', ({ task }) => {
 ## result
 
 ```ts
-function result(): TestResult
+function result(): TestResult;
 ```
 
 测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending` ：
@@ -152,11 +153,11 @@ export interface TestResultPending {
   /**
    * The test was collected, but didn't finish running yet.
    */
-  readonly state: 'pending'
+  readonly state: "pending";
   /**
    * Pending tests have no errors.
    */
-  readonly errors: undefined
+  readonly errors: undefined;
 }
 ```
 
@@ -168,15 +169,15 @@ interface TestResultSkipped {
    * The test was skipped with `skip` or `todo` flag.
    * You can see which one was used in the `options.mode` option.
    */
-  readonly state: 'skipped'
+  readonly state: "skipped";
   /**
    * Skipped tests have no errors.
    */
-  readonly errors: undefined
+  readonly errors: undefined;
   /**
    * A custom note passed down to `ctx.skip(note)`.
    */
-  readonly note: string | undefined
+  readonly note: string | undefined;
 }
 ```
 
@@ -191,11 +192,11 @@ interface TestResultFailed {
   /**
    * The test failed to execute.
    */
-  readonly state: 'failed'
+  readonly state: "failed";
   /**
    * Errors that were thrown during the test execution.
    */
-  readonly errors: ReadonlyArray<TestError>
+  readonly errors: ReadonlyArray<TestError>;
 }
 ```
 
@@ -206,11 +207,11 @@ interface TestResultPassed {
   /**
    * The test passed successfully.
    */
-  readonly state: 'passed'
+  readonly state: "passed";
   /**
    * Errors that were thrown during the test execution.
    */
-  readonly errors: ReadonlyArray<TestError> | undefined
+  readonly errors: ReadonlyArray<TestError> | undefined;
 }
 ```
 
@@ -221,7 +222,7 @@ interface TestResultPassed {
 ## diagnostic
 
 ```ts
-function diagnostic(): TestDiagnostic | undefined
+function diagnostic(): TestDiagnostic | undefined;
 ```
 
 有关测试的有用信息，例如持续时间、内存使用等：
@@ -231,33 +232,33 @@ interface TestDiagnostic {
   /**
    * If the duration of the test is above `slowTestThreshold`.
    */
-  readonly slow: boolean
+  readonly slow: boolean;
   /**
    * The amount of memory used by the test in bytes.
    * This value is only available if the test was executed with `logHeapUsage` flag.
    */
-  readonly heap: number | undefined
+  readonly heap: number | undefined;
   /**
    * The time it takes to execute the test in ms.
    */
-  readonly duration: number
+  readonly duration: number;
   /**
    * The time in ms when the test started.
    */
-  readonly startTime: number
+  readonly startTime: number;
   /**
    * The amount of times the test was retried.
    */
-  readonly retryCount: number
+  readonly retryCount: number;
   /**
    * The amount of times the test was repeated as configured by `repeats` option.
    * This value can be lower if the test failed during the repeat and no `retry` is configured.
    */
-  readonly repeatCount: number
+  readonly repeatCount: number;
   /**
    * If test passed on a second retry.
    */
-  readonly flaky: boolean
+  readonly flaky: boolean;
 }
 ```
 
