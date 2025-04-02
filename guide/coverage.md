@@ -29,12 +29,15 @@ export default defineConfig({
 或者，如果你更喜欢手动安装它们：
 
 ::: code-group
+
 ```bash [v8]
 npm i -D @vitest/coverage-v8
 ```
+
 ```bash [istanbul]
 npm i -D @vitest/coverage-istanbul
 ```
+
 :::
 
 ## 覆盖率配置
@@ -141,7 +144,7 @@ import type {
   CoverageProvider,
   CoverageProviderModule,
   ResolvedCoverageOptions,
-  Vitest
+  Vitest,
 } from 'vitest'
 
 const CustomCoverageProviderModule: CoverageProviderModule = {
