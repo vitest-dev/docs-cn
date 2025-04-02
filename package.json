@@ -31,6 +31,7 @@
     "@types/node": "^22.10.7",
     "@unocss/reset": "latest",
     "@vite-pwa/assets-generator": "^0.2.6",
+<<<<<<< HEAD
     "@vite-pwa/vitepress": "^0.5.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitest/browser": "^3.0.2",
@@ -40,6 +41,10 @@
     "eslint": "^9.18.0",
     "esno": "^4.8.0",
     "fs-extra": "^11.3.0",
+=======
+    "@vite-pwa/vitepress": "^0.5.4",
+    "@vitejs/plugin-vue": "catalog:",
+>>>>>>> e9826e05f335ac4f13cda25471d2c5d67185bdeb
     "https-localhost": "^4.7.1",
     "ofetch": "^1.4.1",
     "pathe": "^2.0.3",
