@@ -39,25 +39,67 @@ interface TestOptions {
 
 :::
 
-大多数选项都支持点语法和对象语法，允许我们使用我们喜欢的任何样式。
+你可以通过链接函数的属性来定义选项：
 
-:::code-group
-```ts [dot-syntax]
+```ts
 import { test } from 'vitest'
 
 test.skip('skipped test', () => {
   // 一些现在失败的逻辑
 })
+
+test.concurrent.skip('skipped concurrent test', () => {
+  // 一些现在失败的逻辑
+})
 ```
-```ts [object-syntax]
+
+但你也可以提供一个对象作为第二个参数：
+
+```ts
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
   // 一些现在失败的逻辑
 })
+
+test('skipped concurrent test', { skip: true, concurrent: true }, () => {
+  // some logic that fails right now
+})
 ```
 
-:::
+两者的工作方式完全相同。使用其中任何一种纯粹是个人风格选择。
+
+请注意，如果你将超时设置为最后一个参数，则不能再使用选项：
+
+```ts
+import { test } from 'vitest'
+
+// ✅ this works
+test.skip('heavy test', () => {
+  // ...
+}, 10_000)
+
+// ❌ this doesn't work
+test(
+  'heavy test',
+  { skip: true },
+  () => {
+    // ...
+  },
+  10_000
+)
+```
+
+但是，你可以在对象内提供超时：
+
+```ts
+import { test } from 'vitest'
+
+// ✅ this works
+test('heavy test', { skip: true, timeout: 10_000 }, () => {
+  // ...
+})
+```
 
 ## test
 
@@ -344,7 +386,7 @@ test.fails('fail test', async () => {
 - **别名:** `it.each`
 
 ::: tip
- `test.each` 是为了与 Jest 兼容而提供的，Vitest 还提供了 [`test.for`](#test-for)，并集成了 [`TestContext`](/guide/test-context)。
+`test.each` 是为了与 Jest 兼容而提供的，Vitest 还提供了 [`test.for`](#test-for)，并集成了 [`TestContext`](/guide/test-context)。
 :::
 
 当需要使用不同变量运行同一测试时，请使用 `test.each`。
@@ -464,7 +506,8 @@ test.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', (a, b, expected) => { // [!code --]
+])('add(%i, %i) -> %i', (a, b, expected) => {
+  // [!code --]
   expect(a + b).toBe(expected)
 })
 
@@ -473,7 +516,8 @@ test.for([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', ([a, b, expected]) => { // [!code ++]
+])('add(%i, %i) -> %i', ([a, b, expected]) => {
+  // [!code ++]
   expect(a + b).toBe(expected)
 })
 ```
@@ -565,12 +609,14 @@ export interface Options {
   teardown?: Hook
 }
 ```
+
 测试用例运行后，输出结构信息如下：
 
 ```
   name                      hz     min     max    mean     p75     p99    p995    p999     rme  samples
 · normal sorting  6,526,368.12  0.0001  0.3638  0.0002  0.0002  0.0002  0.0002  0.0004  ±1.41%   652638
 ```
+
 ```ts
 export interface TaskResult {
   /*
@@ -990,20 +1036,34 @@ import { describe, test } from 'vitest'
 
 // 或 `describe('suite', { shuffle: true }, ...)`
 describe.shuffle('suite', () => {
-  test('random test 1', async () => { /* ... */ })
-  test('random test 2', async () => { /* ... */ })
-  test('random test 3', async () => { /* ... */ })
+  test('random test 1', async () => {
+    /* ... */
+  })
+  test('random test 2', async () => {
+    /* ... */
+  })
+  test('random test 3', async () => {
+    /* ... */
+  })
 
   // `shuffle` 是继承的
   describe('still random', () => {
-    test('random 4.1', async () => { /* ... */ })
-    test('random 4.2', async () => { /* ... */ })
+    test('random 4.1', async () => {
+      /* ... */
+    })
+    test('random 4.2', async () => {
+      /* ... */
+    })
   })
 
   // 禁用内部的 shuffle
   describe('not random', { shuffle: false }, () => {
-    test('in order 5.1', async () => { /* ... */ })
-    test('in order 5.2', async () => { /* ... */ })
+    test('in order 5.1', async () => {
+      /* ... */
+    })
+    test('in order 5.2', async () => {
+      /* ... */
+    })
   })
 })
 // 顺序取决于配置中的 `sequence.seed` 选项（默认为 `Date.now()`）
@@ -1098,7 +1158,8 @@ describe.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', (a, b, expected) => { // [!code --]
+])('add(%i, %i) -> %i', (a, b, expected) => {
+  // [!code --]
   test('test', () => {
     expect(a + b).toBe(expected)
   })
@@ -1109,7 +1170,8 @@ describe.for([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', ([a, b, expected]) => { // [!code ++]
+])('add(%i, %i) -> %i', ([a, b, expected]) => {
+  // [!code ++]
   test('test', () => {
     expect(a + b).toBe(expected)
   })
@@ -1297,6 +1359,7 @@ test('performs an organization query', async () => {
 此 hook 始终以相反的顺序调用，并且不受 [`sequence.hooks`](/config/#sequence-hooks) 选项的影响。
 
 <!-- TODO: should it be called? https://github.com/vitest-dev/vitest/pull/7069 -->
+
 请注意，如果测试是通过动态 `ctx.skip()` 调用跳过的，则不会调用此钩子。:
 
 ```ts{2}
@@ -1305,6 +1368,7 @@ test('skipped dynamically', (t) => {
   t.skip()
 })
 ```
+
 :::
 
 ### onTestFailed
