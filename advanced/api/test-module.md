@@ -38,7 +38,7 @@ function state(): TestModuleState
 function meta(): TaskMeta
 ```
 
-Custom [metadata](/advanced/metadata) that was attached to the module during its execution or collection. The meta can be attached by assigning a property to the `task.meta` object during a test run:
+在模块执行或收集过程中附加到模块的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
 
 ```ts {5,10}
 import { test } from 'vitest'
@@ -56,7 +56,7 @@ describe('the validation works correctly', (task) => {
 ```
 
 :::tip
-If metadata was attached during collection (outside of the `test` function), then it will be available in [`onTestModuleCollected`](./reporters#ontestmodulecollected) hook in the custom reporter.
+如果元数据是在收集过程中附加的（在 `test` 函数之外），那么它将在自定义报告器中的['onTestModuleCollectd']（./reporters#onTestModuleCollected）挂钩中可用。
 :::
 
 ## diagnostic

@@ -1,7 +1,7 @@
 {
   "name": "docs-cn",
   "type": "module",
-  "version": "3.0.9",
+  "version": "3.1.1",
   "private": true,
   "packageManager": "pnpm@9.7.1",
   "scripts": {
@@ -32,7 +32,7 @@
     "@unocss/reset": "latest",
     "@vite-pwa/assets-generator": "^0.2.6",
     "@vite-pwa/vitepress": "^0.5.4",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue": "latest",
     "@vitest/browser": "^3.0.2",
     "@vitest/coverage-istanbul": "^3.0.2",
     "@vitest/coverage-v8": "^3.0.2",

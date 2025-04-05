@@ -69,9 +69,10 @@ import { generateFileHash } from 'vitest/node'
 
 const hash = generateFileHash(
   '/file/path.js', // relative path
-  undefined, // the project name or `undefined` is not set
+  undefined // the project name or `undefined` is not set
 )
 ```
+
 :::
 
 ::: danger
@@ -144,6 +145,7 @@ function visit(collection: TestCollection) {
   }
 }
 ```
+
 :::
 
 ## ok
@@ -197,7 +199,7 @@ describe('collection failed', () => {
 function meta(): TaskMeta
 ```
 
-Custom [metadata](/advanced/metadata) that was attached to the suite during its execution or collection. The meta can be attached by assigning a property to the `task.meta` object during a test run:
+在执行或收集过程中附加到套件的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
 
 ```ts {5,10}
 import { test } from 'vitest'

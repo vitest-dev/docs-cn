@@ -46,11 +46,11 @@ importers:
         specifier: ^0.2.6
         version: 0.2.6
       '@vite-pwa/vitepress':
-        specifier: ^0.5.3
-        version: 0.5.3(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.21.2(@vite-pwa/assets-generator@0.2.6)(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.1.0)(workbox-window@7.3.0))
+        specifier: ^0.5.4
+        version: 0.5.4(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.21.2(@vite-pwa/assets-generator@0.2.6)(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.1.0)(workbox-window@7.3.0))
       '@vitejs/plugin-vue':
-        specifier: ^5.2.1
-        version: 5.2.1(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(vue@3.5.13(typescript@5.8.2))
+        specifier: latest
+        version: 5.2.3(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(vue@3.5.13(typescript@5.8.2))
       '@vitest/browser':
         specifier: ^3.0.2
         version: 3.0.2(@types/node@22.10.7)(typescript@5.8.2)(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(vitest@3.0.2)
@@ -1753,17 +1753,17 @@ packages:
     engines: {node: '>=16.14.0'}
     hasBin: true
 
-  '@vite-pwa/vitepress@0.5.3':
-    resolution: {integrity: sha512-ZNtBxZhS5Enp66z01gKuovTQzSorIpc6o9FEVwOk7kNivzuc4Q5RB04fcbBI1qqHE67rDmm+XqVQw0nj801gmw==}
+  '@vite-pwa/vitepress@0.5.4':
+    resolution: {integrity: sha512-g57qwG983WTyQNLnOcDVPQEIeN+QDgK/HdqghmygiUFp3a/MzVvmLXC/EVnPAXxWa8W2g9pZ9lE3EiDGs2HjsA==}
     peerDependencies:
       '@vite-pwa/assets-generator': ^0.2.6
-      vite-plugin-pwa: '>=0.20.5 <1'
+      vite-plugin-pwa: '>=0.21.2 <1'
     peerDependenciesMeta:
       '@vite-pwa/assets-generator':
         optional: true
 
-  '@vitejs/plugin-vue@5.2.1':
-    resolution: {integrity: sha512-cxh314tzaWwOLqVes2gnnCtvBDcM1UMdn+iFR+UjAn411dPT3tOmqrJjbMd7koZpMAmBM/GqeV4n9ge7JSiJJQ==}
+  '@vitejs/plugin-vue@5.2.3':
+    resolution: {integrity: sha512-IYSLEQj4LgZZuoVpdSUCw3dIynTWQgPlaRP6iAvMle4My0HdYwr5g5wQAfwOeHQBmYwEkqF70nRpSilr6PoUDg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0
@@ -6778,18 +6778,18 @@ snapshots:
     transitivePeerDependencies:
       - bare-buffer
 
-  '@vite-pwa/vitepress@0.5.3(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.21.2(@vite-pwa/assets-generator@0.2.6)(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.1.0)(workbox-window@7.3.0))':
+  '@vite-pwa/vitepress@0.5.4(@vite-pwa/assets-generator@0.2.6)(vite-plugin-pwa@0.21.2(@vite-pwa/assets-generator@0.2.6)(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.1.0)(workbox-window@7.3.0))':
     dependencies:
       vite-plugin-pwa: 0.21.2(@vite-pwa/assets-generator@0.2.6)(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(workbox-build@7.1.0)(workbox-window@7.3.0)
     optionalDependencies:
       '@vite-pwa/assets-generator': 0.2.6
 
-  '@vitejs/plugin-vue@5.2.1(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(vue@3.5.13(typescript@5.8.2))':
+  '@vitejs/plugin-vue@5.2.3(vite@5.4.14(@types/node@22.10.7)(terser@5.37.0))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       vite: 5.4.14(@types/node@22.10.7)(terser@5.37.0)
       vue: 3.5.13(typescript@5.8.2)
 
-  '@vitejs/plugin-vue@5.2.1(vite@6.2.2(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))':
+  '@vitejs/plugin-vue@5.2.3(vite@6.2.2(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       vite: 6.2.2(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.7.0)
       vue: 3.5.13(typescript@5.8.2)
@@ -10350,7 +10350,7 @@ snapshots:
       '@shikijs/core': 3.2.1
       '@shikijs/transformers': 3.2.1
       '@shikijs/types': 3.2.1
-      '@vitejs/plugin-vue': 5.2.1(vite@6.2.2(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
+      '@vitejs/plugin-vue': 5.2.3(vite@6.2.2(@types/node@22.10.7)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       '@vue/devtools-api': 7.7.2
       '@vue/shared': 3.5.13
       '@vueuse/core': 12.8.2(typescript@5.8.2)
