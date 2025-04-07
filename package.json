@@ -32,6 +32,7 @@
     "@unocss/reset": "latest",
     "@vite-pwa/assets-generator": "^0.2.6",
     "@vite-pwa/vitepress": "^0.5.4",
+<<<<<<< HEAD
     "@vitejs/plugin-vue": "latest",
     "@vitest/browser": "^3.0.2",
     "@vitest/coverage-istanbul": "^3.0.2",
@@ -40,6 +41,9 @@
     "eslint": "^9.18.0",
     "esno": "^4.8.0",
     "fs-extra": "^11.3.0",
+=======
+    "@vitejs/plugin-vue": "catalog:",
+>>>>>>> b9659df4002942e90944cdc259c8667019e3b5c8
     "https-localhost": "^4.7.1",
     "ofetch": "^1.4.1",
     "pathe": "^2.0.3",
@@ -52,8 +56,12 @@
     "vite-plugin-pwa": "^0.21.2",
     "vitepress": "2.0.0-alpha.4",
     "vitepress-plugin-group-icons": "^1.3.8",
+<<<<<<< HEAD
     "vitepress-plugin-tabs": "^0.6.0",
     "vitest": "^3.0.2",
+=======
+    "vitepress-plugin-tabs": "^0.7.0",
+>>>>>>> b9659df4002942e90944cdc259c8667019e3b5c8
     "workbox-window": "^7.3.0"
   }
 }

@@ -126,7 +126,11 @@ function ok(): boolean
 function meta(): TaskMeta
 ```
 
+<<<<<<< HEAD
 在测试执行期间附加到测试的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过为 `ctx.task.meta` 对象分配一个属性来附加元数据：
+=======
+Custom [metadata](/advanced/metadata) that was attached to the test during its execution. The meta can be attached by assigning a property to the `ctx.task.meta` object during a test run:
+>>>>>>> b9659df4002942e90944cdc259c8667019e3b5c8
 
 ```ts {3,6}
 import { test } from 'vitest'
