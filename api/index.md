@@ -39,7 +39,11 @@ interface TestOptions {
 
 :::
 
+<<<<<<< HEAD
 你可以通过链接函数的属性来定义选项：
+=======
+You can define options by chaining properties on a function:
+>>>>>>> 214874aec2cf8b62ef976b4898e8cc329b984dbf
 
 ```ts
 import { test } from 'vitest'
@@ -51,9 +55,17 @@ test.skip('skipped test', () => {
 test.concurrent.skip('skipped concurrent test', () => {
   // 一些现在失败的逻辑
 })
+
+test.concurrent.skip('skipped concurrent test', () => {
+  // some logic that fails right now
+})
 ```
 
+<<<<<<< HEAD
 但你也可以提供一个对象作为第二个参数：
+=======
+But you can also provide an object as a second argument instead:
+>>>>>>> 214874aec2cf8b62ef976b4898e8cc329b984dbf
 
 ```ts
 import { test } from 'vitest'
@@ -65,7 +77,41 @@ test('skipped test', { skip: true }, () => {
 test('skipped concurrent test', { skip: true, concurrent: true }, () => {
   // some logic that fails right now
 })
+
+test('skipped concurrent test', { skip: true, concurrent: true }, () => {
+  // some logic that fails right now
+})
 ```
+
+They both work in exactly the same way. To use either one is purely a stylistic choice.
+
+Note that if you are providing timeout as the last argument, you cannot use options anymore:
+
+```ts
+import { test } from 'vitest'
+
+// ✅ this works
+test.skip('heavy test', () => {
+  // ...
+}, 10_000)
+
+// ❌ this doesn't work
+test('heavy test', { skip: true }, () => {
+  // ...
+}, 10_000)
+```
+
+However, you can provide a timeout inside the object:
+
+```ts
+import { test } from 'vitest'
+
+// ✅ this works
+test('heavy test', { skip: true, timeout: 10_000 }, () => {
+  // ...
+})
+```
+<<<<<<< HEAD
 
 两者的工作方式完全相同。使用其中任何一种纯粹是个人风格选择。
 
@@ -100,6 +146,8 @@ test('heavy test', { skip: true, timeout: 10_000 }, () => {
   // ...
 })
 ```
+=======
+>>>>>>> 214874aec2cf8b62ef976b4898e8cc329b984dbf
 
 ## test
 
