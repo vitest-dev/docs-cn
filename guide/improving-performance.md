@@ -97,7 +97,7 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 从每台计算机收集存储在 `.vitest-reports` 目录中的结果，并使用 [`--merge-reports`](/guide/cli#merge-reports) 选项将其合并：
 
 ```sh
-vitest --merge-reports
+vitest run --merge-reports
 ```
 
 ::: details Github action example
@@ -189,7 +189,7 @@ VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=3/4 & \
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=4/4 & \
 wait # https://man7.org/linux/man-pages/man2/waitpid.2.html
 
-vitest --merge-reports
+vitest run --merge-reports
 ```
 
 :::
