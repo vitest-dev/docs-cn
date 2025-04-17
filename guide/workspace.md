@@ -14,9 +14,25 @@ Vitest 提供了在单个 Vitest 进程中定义多个项目配置的方法。�
 
 ## 定义工作空间
 
+<<<<<<< HEAD
 工作区必须在其根目录中包含一个 `vitest.workspace` 或 `vitest.projects` 文件（位于与我们的根配置文件相同的文件夹中，或者如果不存在，则位于工作目录中）。请注意，`projects` 只是一个别名，不会改变此功能的行为或语义。Vitest 支持此文件的 `ts`、`js` 和 `json` 扩展名。
 
 自Vitest 3起，我们也可以在根配置文件中定义工作区。在这种情况下，如果存在，Vitest将忽略根目录下的 `vitest.workspace` 文件。
+=======
+Since Vitest 3, you can define a workspace in your root [config](/config/). In this case, Vitest will ignore the `vitest.workspace` file in the root, if one exists.
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    workspace: ['packages/*'],
+  },
+})
+```
+
+If you are using an older version, a workspace must include `vitest.workspace` or `vitest.projects` file in its root directory (located in the same folder as your root configuration file or working directory if it doesn't exist). Note that `projects` is just an alias and does not change the behavior or semantics of this feature. Vitest supports `ts`, `js`, and `json` extensions for this file.
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 
 ::: tip NAMING
 :::
@@ -24,10 +40,13 @@ Vitest 提供了在单个 Vitest 进程中定义多个项目配置的方法。�
 工作区是一系列内联配置、文件或引用我们项目的全局模式的列表。例如，如果我们有一个名为 `packages` 的文件夹，其中包含了我们的项目，我们可以直接创建一个工作区文件，或者在根配置中定义一个数组：
 
 :::code-group
+<<<<<<< HEAD
 
 ```ts [vitest.workspace.ts]
 export default ['packages/*']
 ```
+=======
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 ```ts [vitest.config.ts <Version>3.0.0</Version>]
 import { defineConfig } from 'vitest/config'
 
@@ -36,6 +55,11 @@ export default defineConfig({
     workspace: ['packages/*'],
   },
 })
+```
+```ts [vitest.workspace.ts]
+export default [
+  'packages/*'
+]
 ```
 :::
 
@@ -48,10 +72,13 @@ Vitest 不会将根目录下的 `vitest.config` 文件视为工作区项目，�
 你还可以使用项目的配置文件引用项目：
 
 :::code-group
+<<<<<<< HEAD
 
 ```ts [vitest.workspace.ts]
 export default ['packages/*/vitest.config.{e2e,unit}.ts']
 ```
+=======
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 ```ts [vitest.config.ts <Version>3.0.0</Version>]
 import { defineConfig } from 'vitest/config'
 
@@ -61,10 +88,16 @@ export default defineConfig({
   },
 })
 ```
+```ts [vitest.workspace.ts]
+export default [
+  'packages/*/vitest.config.{e2e,unit}.ts'
+]
+```
 :::
 
 该模式仅包括具有包含 `e2e` 或 `unit` 的 `vitest.config` 文件的项目。这些关键字需要在文件扩展名之前出现。
 
+<<<<<<< HEAD
 你也可以使用内联配置定义项目。工作区文件同时支持这两种语法。
 
 :::code-group
@@ -94,6 +127,11 @@ export default defineWorkspace([
   },
 ])
 ```
+=======
+You can also define projects using inline configuration. The workspace configuration supports both syntaxes simultaneously.
+
+:::code-group
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 ```ts [vitest.config.ts <Version>3.0.0</Version>]
 import { defineConfig } from 'vitest/config'
 
@@ -123,6 +161,32 @@ export default defineConfig({
   }
 })
 ```
+```ts [vitest.workspace.ts]
+import { defineWorkspace } from 'vitest/config'
+
+// defineWorkspace provides a nice type hinting DX
+export default defineWorkspace([
+  // matches every folder and file inside the `packages` folder
+  'packages/*',
+  {
+    // add "extends" to merge two configs together
+    extends: './vite.config.js',
+    test: {
+      include: ['tests/**/*.{browser}.test.{ts,js}'],
+      // it is recommended to define a name when using inline configs
+      name: 'happy-dom',
+      environment: 'happy-dom',
+    }
+  },
+  {
+    test: {
+      include: ['tests/**/*.{node}.test.{ts,js}'],
+      name: 'node',
+      environment: 'node',
+    }
+  }
+])
+```
 :::
 
 ::: warning
@@ -131,11 +195,15 @@ export default defineConfig({
 
 如果我们不使用内联配置，我们可以在根目录创建一个小的 JSON 文件，或者仅仅在根配置中指定它：
 
+<<<<<<< HEAD
 :::code-group
 
+=======
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 ```json [vitest.workspace.json]
 ["packages/*"]
 ```
+<<<<<<< HEAD
 ```ts [vitest.config.ts <Version>3.0.0</Version>]
 import { defineConfig } from 'vitest/config'
 
@@ -147,6 +215,8 @@ export default defineConfig({
 ```
 
 :::
+=======
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 
 工作区项目不支持所有配置属性。为了提高类型安全性，请在项目配置文件中使用 `defineProject` 方法而不是 `defineConfig` 方法：
 
@@ -193,7 +263,7 @@ pnpm run test
 ```
 
 ```bash [bun]
-bun test
+bun run test
 ```
 
 :::
@@ -211,7 +281,7 @@ yarn test --project e2e
 pnpm run test --project e2e
 ```
 ```bash [bun]
-bun test --project e2e
+bun run test --project e2e
 ```
 :::
 
@@ -229,7 +299,7 @@ yarn test --project e2e --project unit
 pnpm run test --project e2e --project unit
 ```
 ```bash [bun]
-bun test --project e2e --project unit
+bun run test --project e2e --project unit
 ```
 :::
 
@@ -254,26 +324,6 @@ export default mergeConfig(
 此外，在 `defineWorkspace` 层级，我们可以使用 `extends` 选项来继承根级别的配置。所有选项将被合并。
 
 ::: code-group
-```ts [vitest.workspace.ts]
-import { defineWorkspace } from 'vitest/config'
-
-export default defineWorkspace([
-  {
-    extends: './vitest.config.ts',
-    test: {
-      name: 'unit',
-      include: ['**/*.unit.test.ts'],
-    },
-  },
-  {
-    extends: './vitest.config.ts',
-    test: {
-      name: 'integration',
-      include: ['**/*.integration.test.ts'],
-    },
-  },
-])
-```
 ```ts [vitest.config.ts <Version>3.0.0</Version>]
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
@@ -304,15 +354,44 @@ export default defineConfig({
   },
 })
 ```
+```ts [vitest.workspace.ts]
+import { defineWorkspace } from 'vitest/config'
+
+export default defineWorkspace([
+  {
+    extends: './vitest.config.ts',
+    test: {
+      name: 'unit',
+      include: ['**/*.unit.test.ts'],
+    },
+  },
+  {
+    extends: './vitest.config.ts',
+    test: {
+      name: 'integration',
+      include: ['**/*.integration.test.ts'],
+    },
+  },
+])
+```
 :::
 
+<<<<<<< HEAD
 某些配置选项不允许在项目配置中使用。其中最明显的是：
+=======
+::: danger Unsupported Options
+Some of the configuration options are not allowed in a project config. Most notably:
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 
 - `coverage`: 覆盖率是针对整个工作区进行的。
 - `reporters`: 仅支持根级别的报告器。
 - `resolveSnapshotPath`: 仅支持根级别的解析器。
 - 所有其他不影响测试运行器的选项。
 
+<<<<<<< HEAD
 ::: tip
 所有不支持在项目配置中使用的配置选项，在 ["Config"](/config/) 指南中以 <NonProjectOption /> 标记。
+=======
+All configuration options that are not supported inside a project configuration are marked with a <NonProjectOption /> sign in the ["Config"](/config/) guide. They have to be defined once in the root config file.
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 :::

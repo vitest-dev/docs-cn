@@ -9,7 +9,11 @@ outline: deep
 
 ### `vitest`
 
+<<<<<<< HEAD
 在当前目录中启动 Vitest。在开发环境会自动进入监听(`watch`)模式，在 CI 环境会自动进入运行(`run`)模式。
+=======
+Start Vitest in the current directory. Will enter the watch mode in development environment and run mode in CI (or non-interactive terminal) automatically.
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 
 你可以通过添加参数作为过滤器来运行测试文件，比如：
 
@@ -50,7 +54,11 @@ $ vitest basic/foo.test.ts:10-25 # ❌
 
 ### `vitest watch`
 
+<<<<<<< HEAD
 运行所有测试套件，监听变化并在变化时重新运行测试。与没有参数的情况下调用 `vitest` 一样。在 CI 环境中，此命令将回退到 `vitest run`。
+=======
+Run all test suites but watch for changes and rerun tests when they change. Same as calling `vitest` without an argument. Will fallback to `vitest run` in CI or when stdin is not a TTY (non-interactive environment).
+>>>>>>> 247b6126db448b18059627101f2e5be036b96754
 
 ### `vitest dev`
 
