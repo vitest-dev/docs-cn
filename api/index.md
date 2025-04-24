@@ -179,7 +179,11 @@ test('skipped test', (context) => {
 })
 ```
 
+<<<<<<< HEAD
 自 Vitest 3.1 起，如果条件未知，我们可以将其作为第一个参数提供给 `skip` 方法：
+=======
+Since Vitest 3.1, if the condition is unknown, you can provide it to the `skip` method as the first arguments:
+>>>>>>> 2905288f8f2b37e0300d71b736c56baca466592e
 
 ```ts
 import { assert, test } from 'vitest'
