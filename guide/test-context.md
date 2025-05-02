@@ -14,19 +14,25 @@ outline: deep
 ```ts
 import { it } from 'vitest'
 
+<<<<<<< HEAD
 it('should work', (ctx) => {
   // 打印测试的名称
   console.log(ctx.task.name)
+=======
+it('should work', ({ task }) => {
+  // prints name of the test
+  console.log(task.name)
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 })
 ```
 
 ## 内置测试上下文
 
-#### `context.task`
+#### `task`
 
 包含关于测试的元数据的只读对象。
 
-#### `context.expect`
+#### `expect`
 
 绑定到当前测试的 `expect` API:
 
@@ -52,7 +58,12 @@ it.concurrent('math is hard', ({ expect }) => {
 })
 ```
 
-#### `context.skip`
+#### `skip`
+
+```ts
+function skip(note?: string): never
+function skip(condition: boolean, note?: string): void
+```
 
 跳过后续测试执行并将测试标记为已跳过：
 
@@ -65,7 +76,28 @@ it('math is hard', ({ skip }) => {
 })
 ```
 
+<<<<<<< HEAD
 ## 扩展测试上下文
+=======
+Since Vitest 3.1, it accepts a boolean parameter to skip the test conditionally:
+
+```ts
+it('math is hard', ({ skip, mind }) => {
+  skip(mind === 'foggy')
+  expect(2 + 2).toBe(5)
+})
+```
+
+#### `onTestFailed`
+
+The [`onTestFailed`](/api/#ontestfailed) hook bound to the current test. This API is useful if you are running tests concurrently and need to have a special handling only for this specific test.
+
+#### `onTestFinished`
+
+The [`onTestFinished`](/api/#ontestfailed) hook bound to the current test. This API is useful if you are running tests concurrently and need to have a special handling only for this specific test.
+
+## Extend Test Context
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 
 Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
@@ -73,16 +105,24 @@ Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
 与 [Playwright](https://playwright.dev/docs/api/class-test#test-extend) 一样，你可以使用此方法通过自定义装置定义你自己的 `test` API，并在任何地方重复使用它。
 
+<<<<<<< HEAD
 例如，我们首先使用两个固定装置创建 `myTest`，`todos` 和 `archive`。
+=======
+For example, we first create the `test` collector with two fixtures: `todos` and `archive`.
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 
 ```ts [my-test.ts]
-import { test } from 'vitest'
+import { test as baseTest } from 'vitest'
 
 const todos = []
 const archive = []
 
+<<<<<<< HEAD
 export const myTest = test.extend({
 
+=======
+export const test = baseTest.extend({
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
   todos: async ({}, use) => {
     // 在每次测试函数运行之前设置固定装置
     todos.push(1, 2, 3)
@@ -101,16 +141,16 @@ export const myTest = test.extend({
 
 ```ts [my-test.test.ts]
 import { expect } from 'vitest'
-import { myTest } from './my-test.js'
+import { test } from './my-test.js'
 
-myTest('add items to todos', ({ todos }) => {
+test('add items to todos', ({ todos }) => {
   expect(todos.length).toBe(3)
 
   todos.push(4)
   expect(todos.length).toBe(4)
 })
 
-myTest('move items from todos to archive', ({ todos, archive }) => {
+test('move items from todos to archive', ({ todos, archive }) => {
   expect(todos.length).toBe(3)
   expect(archive.length).toBe(0)
 
@@ -120,10 +160,16 @@ myTest('move items from todos to archive', ({ todos, archive }) => {
 })
 ```
 
+<<<<<<< HEAD
 我们还可以通过扩展 `myTest` 添加更多的固定装置或覆盖现有的固定装置。
+=======
+We can also add more fixtures or override existing fixtures by extending our `test`.
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 
 ```ts
-export const myTest2 = myTest.extend({
+import { test as todosTest } from './my-test.js'
+
+export const test = todosTest.extend({
   settings: {
     // ...
   },
@@ -135,8 +181,9 @@ export const myTest2 = myTest.extend({
 Vitest 运行器将智能地初始化你的固定装置并根据使用情况将它们注入到测试上下文中。
 
 ```ts
-import { test } from 'vitest'
+import { test as baseTest } from 'vitest'
 
+<<<<<<< HEAD
 async function todosFn({ task }, use) {
   await use([1, 2, 3])
 }
@@ -152,17 +199,35 @@ myTest('', ({ archive }) => {})
 
 // todosFn 会运行
 myTest('', ({ todos }) => {})
+=======
+const test = baseTest.extend<{
+  todos: number[]
+  archive: number[]
+}>({
+  todos: async ({ task }, use) => {
+    await use([1, 2, 3])
+  },
+  archive: []
+})
+
+// todos will not run
+test('skip', () => {})
+test('skip', ({ archive }) => {})
+
+// todos will run
+test('run', ({ todos }) => {})
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 ```
 
 ::: warning
 在固定装置中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问固定装置函数和测试函数中的上下文。
 
 ```ts
-myTest('context must be destructured', (context) => { // [!code --]
+test('context must be destructured', (context) => { // [!code --]
   expect(context.todos.length).toBe(2)
 })
 
-myTest('context must be destructured', ({ todos }) => { // [!code ++]
+test('context must be destructured', ({ todos }) => { // [!code ++]
   expect(todos.length).toBe(2)
 })
 ```
@@ -317,20 +382,51 @@ interface MyFixtures {
   archive: number[]
 }
 
-const myTest = test.extend<MyFixtures>({
+const test = baseTest.extend<MyFixtures>({
   todos: [],
   archive: [],
 })
 
-myTest('types are defined correctly', ({ todos, archive }) => {
+test('types are defined correctly', ({ todos, archive }) => {
   expectTypeOf(todos).toEqualTypeOf<number[]>()
   expectTypeOf(archive).toEqualTypeOf<number[]>()
 })
 ```
 
+::: info Type Infering
+Note that Vitest doesn't support infering the types when the `use` function is called. It is always preferable to pass down the whole context type as the generic type when `test.extend` is called:
+
+```ts
+import { test as baseTest } from 'vitest'
+
+const test = baseTest.extend<{
+  todos: number[]
+  schema: string
+}>({
+  todos: ({ schema }, use) => use([]),
+  schema: 'test'
+})
+
+test('types are correct', ({
+  todos, // number[]
+  schema, // string
+}) => {
+  // ...
+})
+```
+:::
+
 ### `beforeEach` and `afterEach`
 
+<<<<<<< HEAD
 每个测试的上下文都不同。 你可以在 `beforeEach` 和 `afterEach` hooks 中访问和扩展它们。
+=======
+::: danger Deprecated
+This is an outdated way of extending context and it will not work when the `test` is extended with `test.extend`.
+:::
+
+The contexts are different for each test. You can access and extend them within the `beforeEach` and `afterEach` hooks.
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 
 ```ts
 import { beforeEach, it } from 'vitest'
@@ -347,7 +443,11 @@ it('should work', ({ foo }) => {
 
 #### TypeScript
 
+<<<<<<< HEAD
 你可以通过添加聚合(aggregate)类型 `TestContext`, 为你的自定义上下文属性提供类型支持。
+=======
+To provide property types for all your custom contexts, you can augment the `TestContext` type by adding
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
 
 ```ts
 declare module 'vitest' {

@@ -218,7 +218,11 @@ interface Test<ExtraContext = object> extends TaskBase {
    */
   file: File
   /**
+<<<<<<< HEAD
    * 任务是否通过调用 `t.skip()` 被跳过。
+=======
+   * Whether the task was skipped by calling `context.skip()`.
+>>>>>>> 43966ff8cad5638e0705efdd4841ffceadf53bbb
    */
   pending?: boolean
   /**
