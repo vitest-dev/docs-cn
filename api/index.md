@@ -179,7 +179,11 @@ test('skipped test', (context) => {
 })
 ```
 
+<<<<<<< HEAD
 自 Vitest 3.1 起，如果条件未知，我们可以将其作为第一个参数提供给 `skip` 方法：
+=======
+Since Vitest 3.1, if the condition is unknown, you can provide it to the `skip` method as the first arguments:
+>>>>>>> e906203e1d3e1d29225b5dec3a750300e619a966
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1359,6 +1363,7 @@ test('performs an organization query', async () => {
 ```
 
 ::: tip
+<<<<<<< HEAD
 此 hook 始终以相反的顺序调用，并且不受 [`sequence.hooks`](/config/#sequence-hooks) 选项的影响。
 
 <!-- TODO: should it be called? https://github.com/vitest-dev/vitest/pull/7069 -->
@@ -1372,6 +1377,9 @@ test('skipped dynamically', (t) => {
 })
 ```
 
+=======
+This hook is always called in reverse order and is not affected by [`sequence.hooks`](/config/#sequence-hooks) option.
+>>>>>>> e906203e1d3e1d29225b5dec3a750300e619a966
 :::
 
 ### onTestFailed

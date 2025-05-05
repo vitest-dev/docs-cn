@@ -291,7 +291,11 @@ High and low watermarks for functions in the format of `<high>,<low>`
 - **CLI:** `--workspace <path>`
 - **Config:** [workspace](/config/#workspace)
 
+<<<<<<< HEAD
 工作区配置文件的路径
+=======
+[deprecated] Path to a workspace configuration file
+>>>>>>> e906203e1d3e1d29225b5dec3a750300e619a966
 
 ### isolate
 
@@ -360,7 +364,11 @@ High and low watermarks for functions in the format of `<high>,<low>`
 - **CLI:** `--browser.provider <name>`
 - **Config:** [browser.provider](/guide/browser/config#browser-provider)
 
+<<<<<<< HEAD
 用于运行浏览器测试的 Provider。某些浏览器只适用于特定的提供 Provider，可以是"webdriverio", "playwright", "preview"，或自定义 provider. 通过 [`browser.provider`](https://vitest.dev/config/#browser-provider) 查看更多信息 (默认值: `"preview"`)
+=======
+Provider used to run browser tests. Some browsers are only available for specific providers. Can be "webdriverio", "playwright", "preview", or the path to a custom provider. Visit [`browser.provider`](https://vitest.dev/guide/browser/config.html#browser-provider) for more information (default: `"preview"`)
+>>>>>>> e906203e1d3e1d29225b5dec3a750300e619a966
 
 ### browser.providerOptions
 
@@ -760,6 +768,13 @@ Omit annotation lines from the output (default: `false`)
 - **Config:** [diff.printBasicPrototype](/config/#diff-printbasicprototype)
 
 Print basic prototype Object and Array (default: `true`)
+
+### diff.maxDepth
+
+- **CLI:** `--diff.maxDepth <maxDepth>`
+- **Config:** [diff.maxDepth](/config/#diff-maxdepth)
+
+Limit the depth to recurse when printing nested objects (default: `20`)
 
 ### diff.truncateThreshold
 
