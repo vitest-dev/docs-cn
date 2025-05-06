@@ -469,8 +469,13 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/filtering',
     },
     {
+<<<<<<< HEAD
       text: '工作空间',
       link: '/guide/workspace',
+=======
+      text: 'Test Projects',
+      link: '/guide/projects',
+>>>>>>> 8f0fb8c9ddb50f0d831434335a31432689f601cc
     },
     {
       text: '报告器「Reporters」',
