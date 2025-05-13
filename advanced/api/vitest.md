@@ -64,7 +64,11 @@ Vitest 3 在稳定公共 API 方面迈出了一步。为了实现这一点，我
 
 ## config
 
+<<<<<<< HEAD
 根（或全局）配置。如果启用了工作区功能，项目将引用此配置作为 `globalConfig`。
+=======
+The root (or global) config. If projects are defined, they will reference this as `globalConfig`.
+>>>>>>> 7eae51ccf951498de39ec8f8bc8ef2202e8cbe84
 
 ::: warning
 这是 Vitest 配置，它不扩展 _Vite_ 配置。它仅包含从 `test` 属性解析的值。
@@ -101,9 +105,15 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 ## projects
 
+<<<<<<< HEAD
 属于用户工作区的 [测试项目](/advanced/api/test-project) 数组。如果用户未指定自定义工作区，则工作区将仅包含一个 [根项目](#getrootproject)。
 
 Vitest 将确保工作区中始终至少有一个项目。如果用户指定了不存在的 `--project` 名称，Vitest 将抛出错误。
+=======
+An array of [test projects](/advanced/api/test-project) that belong to user's projects. If the user did not specify a them, this array will only contain a [root project](#getrootproject).
+
+Vitest will ensure that there is always at least one project in this array. If the user specifies a non-existent `--project` name, Vitest will throw an error before this array is defined.
+>>>>>>> 7eae51ccf951498de39ec8f8bc8ef2202e8cbe84
 
 ## getRootProject
 
@@ -111,7 +121,11 @@ Vitest 将确保工作区中始终至少有一个项目。如果用户指定了�
 function getRootProject(): TestProject
 ```
 
+<<<<<<< HEAD
 返回根测试项目。根项目通常不运行任何测试，并且除非用户明确在其工作区中包含根配置，或者根本没有定义工作区，否则不会包含在 `vitest.projects` 中。
+=======
+This returns the root test project. The root project generally doesn't run any tests and is not included in `vitest.projects` unless the user explicitly includes the root config in their configuration, or projects are not defined at all.
+>>>>>>> 7eae51ccf951498de39ec8f8bc8ef2202e8cbe84
 
 根项目的主要目标是设置全局配置。实际上，`rootProject.config` 直接引用 `rootProject.globalConfig` 和 `vitest.config`：
 
@@ -433,7 +447,11 @@ dynamicExample !== staticExample // ✅
 :::
 
 ::: info
+<<<<<<< HEAD
 在内部，Vitest 使用此方法导入全局设置、自定义覆盖率提供者、工作区文件和自定义报告器，这意味着只要它们属于同一个 Vite 服务器，它们就共享相同的模块图。
+=======
+Internally, Vitest uses this method to import global setups, custom coverage providers, and custom reporters, meaning all of them share the same module graph as long as they belong to the same Vite server.
+>>>>>>> 7eae51ccf951498de39ec8f8bc8ef2202e8cbe84
 :::
 
 ## close
