@@ -106,7 +106,11 @@ export default defineConfig({
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
+<<<<<<< HEAD
 不支持在[工作区](/guide/workspace)项目配置中的配置选项旁边会有 <NonProjectOption /> 标志。这意味着这些选项只能在根 Vitest 配置中设置。
+=======
+Configuration options that are not supported inside a [project](/guide/projects) config have <NonProjectOption /> sign next to them. This means they can only be set in the root Vitest config.
+>>>>>>> 1381b9a4ce115a4476647b0f2ef5a4aecb10aead
 :::
 
 ### include
@@ -139,9 +143,15 @@ export default defineConfig({
 
 ### name
 
-- **Type:** `string`
+- **Type:** `string | { label: string, color?: LabelColor }`
 
+<<<<<<< HEAD
 为测试项目或 Vitest 进程分配一个自定义名称。该名称将在 CLI 中可见，并且可以通过 Node.js API 中的 [`project.name`](/advanced/api/test-project#name) 获取。
+=======
+Assign a custom name to the test project or Vitest process. The name will be visible in the CLI and UI, and available in the Node.js API via [`project.name`](/advanced/api/test-project#name).
+
+Color used by CLI and UI can be changed by providing an object with `color` property.
+>>>>>>> 1381b9a4ce115a4476647b0f2ef5a4aecb10aead
 
 ### server {#server}
 
@@ -583,7 +593,11 @@ jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom
 - **默认值:** `[]`
 
 ::: danger DEPRECATED
+<<<<<<< HEAD
 此 API 在 Vitest 3 中已弃用。请使用 [workspace](/guide/workspace) 来定义不同的配置。
+=======
+This API was deprecated in Vitest 3. Use [projects](/guide/projects) to define different configurations instead.
+>>>>>>> 1381b9a4ce115a4476647b0f2ef5a4aecb10aead
 
 ```ts
 export default defineConfig({
@@ -591,7 +605,7 @@ export default defineConfig({
     environmentMatchGlobs: [ // [!code --]
       ['./*.jsdom.test.ts', 'jsdom'], // [!code --]
     ], // [!code --]
-    workspace: [ // [!code ++]
+    projects: [ // [!code ++]
       { // [!code ++]
         extends: true, // [!code ++]
         test: { // [!code ++]
@@ -630,7 +644,11 @@ export default defineConfig({
 - **默认值:** `[]`
 
 ::: danger DEPRECATED
+<<<<<<< HEAD
 此 API 在 Vitest 3 中已被弃用。请使用 [workspace](/guide/workspace) 来定义不同的配置：
+=======
+This API was deprecated in Vitest 3. Use [projects](/guide/projects) to define different configurations instead:
+>>>>>>> 1381b9a4ce115a4476647b0f2ef5a4aecb10aead
 
 ```ts
 export default defineConfig({
@@ -638,7 +656,7 @@ export default defineConfig({
     poolMatchGlobs: [ // [!code --]
       ['./*.threads.test.ts', 'threads'], // [!code --]
     ], // [!code --]
-    workspace: [ // [!code ++]
+    projects: [ // [!code ++]
       { // [!code ++]
         test: { // [!code ++]
           extends: true, // [!code ++]
@@ -691,6 +709,36 @@ export default defineConfig({
 In interactive environments, this is the default, unless `--run` is specified explicitly.
 
 In CI, or when run from a non-interactive shell, "watch" mode is not the default, but can be enabled explicitly with this flag.
+
+### watchTriggerPatterns <Version>3.2.0</Version><NonProjectOption /> {#watchtriggerpatterns}
+
+- **Type:** `WatcherTriggerPattern[]`
+
+Vitest reruns tests based on the module graph which is populated by static and dynamic `import` statements. However, if you are reading from the file system or fetching from a proxy, then Vitest cannot detect those dependencies.
+
+To correctly rerun those tests, you can define a regex pattern and a function that retuns a list of test files to run.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    watchTriggerPatterns: [
+      {
+        pattern: /^src\/(mailers|templates)\/(.*)\.(ts|html|txt)$/,
+        testToRun: (id, match) => {
+          // relative to the root value
+          return `./api/tests/mailers/${match[2]}.test.ts`
+        },
+      },
+    ],
+  },
+})
+```
+
+::: warning
+Returned files should be either absolute or relative to the root. Note that this is a global option, and it cannot be used inside of [project](/guide/projects) configs.
+:::
 
 ### root
 
@@ -1651,7 +1699,11 @@ Sets thresholds to 100 for files matching the glob pattern.
 - **可用的测试提供者:** `'v8'`
 - **命令行终端:** `--coverage.ignoreEmptyLines=<boolean>`
 
+<<<<<<< HEAD
 忽略空行、注释和其他非运行时代码，如 Typescript 类型。
+=======
+Ignore empty lines, comments and other non-runtime code, e.g. Typescript types. Requires `experimentalAstAwareRemapping: false`.
+>>>>>>> 1381b9a4ce115a4476647b0f2ef5a4aecb10aead
 
 该选项只有在使用的编译器删除了转译代码中的注释和其他非运行时代码时才有效。
 默认情况下，Vite 使用 ESBuild，它会删除 `.ts`、`.tsx` 和 `.jsx` 文件中的注释和 Typescript 类型。
@@ -1675,6 +1727,14 @@ export default defineConfig({
   },
 })
 ```
+#### coverage.experimentalAstAwareRemapping
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8'`
+- **CLI:** `--coverage.experimentalAstAwareRemapping=<boolean>`
+
+Remap coverage with experimental AST based analysis. Provides more accurate results compared to default mode.
 
 #### coverage.ignoreClassMethods
 
@@ -2424,13 +2484,32 @@ Limit the depth to recurse when printing nested objects
 
 ### workspace<NonProjectOption /> {#workspace}
 
+<<<<<<< HEAD
 - **类型:** `string | TestProjectConfiguration`
 - **命令行终端:** `--workspace=./file.js`
 - **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
 
 相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
+=======
+::: danger DEPRECATED
+This options is deprecated and will be removed in the next major. Please, use [`projects`](#projects) instead.
+:::
+
+- **Type:** `string | TestProjectConfiguration[]`
+- **CLI:** `--workspace=./file.js`
+- **Default:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
+
+Path to a [workspace](/guide/projects) config file relative to [root](#root).
+>>>>>>> 1381b9a4ce115a4476647b0f2ef5a4aecb10aead
 
 Since Vitest 3, you can also define the workspace array in the root config. If the `workspace` is defined in the config manually, Vitest will ignore the `vitest.workspace` file in the root.
+
+### projects<NonProjectOption /> {#projects}
+
+- **Type:** `TestProjectConfiguration[]`
+- **Default:** `[]`
+
+An array of [projects](/guide/projects).
 
 ### isolate
 
