@@ -8,7 +8,11 @@ outline: deep
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
 ::: tip
+<<<<<<< HEAD
 如果你正在寻找关于 `expect`、`vi` 或任何通用 API（如工作区或类型测试）的文档，请参阅 ["入门指南"](/guide/)。
+=======
+If you are looking for documentation for `expect`, `vi` or any general API like test projects or type testing, refer to the ["Getting Started" guide](/guide/).
+>>>>>>> 614835c03193e42bd55bced8f9e225e11f608113
 :::
 
 <img alt="Vitest UI" img-light src="/ui-browser-1-light.png">
@@ -209,13 +213,18 @@ export default defineConfig({
 ```
 :::
 
+<<<<<<< HEAD
 如果我们需要使用基于 Node 的运行器来运行一些测试，可以定义一个 [工作区](/guide/workspace) 文件，其中包含不同测试策略的独立配置：
+=======
+If you need to run some tests using Node-based runner, you can define a [`projects`](/guide/projects) option with separate configurations for different testing strategies:
+>>>>>>> 614835c03193e42bd55bced8f9e225e11f608113
 
-{#workspace-config}
+{#projects-config}
 
-```ts [vitest.workspace.ts]
-import { defineWorkspace } from 'vitest/config'
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
 
+<<<<<<< HEAD
 export default defineWorkspace([
   {
     test: {
@@ -243,10 +252,43 @@ export default defineWorkspace([
         instances: [
           { browser: 'chromium' },
         ],
+=======
+export default defineConfig({
+  test: {
+    projects: [
+      {
+        test: {
+          // an example of file based convention,
+          // you don't have to follow it
+          include: [
+            'tests/unit/**/*.{test,spec}.ts',
+            'tests/**/*.unit.{test,spec}.ts',
+          ],
+          name: 'unit',
+          environment: 'node',
+        },
+>>>>>>> 614835c03193e42bd55bced8f9e225e11f608113
       },
-    },
+      {
+        test: {
+          // an example of file based convention,
+          // you don't have to follow it
+          include: [
+            'tests/browser/**/*.{test,spec}.ts',
+            'tests/**/*.browser.{test,spec}.ts',
+          ],
+          name: 'browser',
+          browser: {
+            enabled: true,
+            instances: [
+              { browser: 'chromium' },
+            ],
+          },
+        },
+      },
+    ],
   },
-])
+})
 ```
 
 ## Browser Option Types
@@ -536,7 +578,7 @@ test('shows the children when the checkbox is checked', async () => {
 })
 ```
 ```tsx [solid]
-// baed on @testing-library/solid API
+// based on @testing-library/solid API
 // https://testing-library.com/docs/solid-testing-library/api
 
 import { render } from '@testing-library/solid'
@@ -563,7 +605,7 @@ it('uses params', async () => {
 })
 ```
 ```ts [marko]
-// baed on @testing-library/marko API
+// based on @testing-library/marko API
 // https://testing-library.com/docs/marko-testing-library/api
 
 import { render, screen } from '@marko/testing-library'
