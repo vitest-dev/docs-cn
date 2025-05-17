@@ -72,7 +72,11 @@ _January 17, 2025_
 
 ## 内联工作区（Inline Workspace）
 
+<<<<<<< HEAD
 让我们欢呼一下，芜湖！不再需要单独的文件来定义你的[工作区](/guide/workspace) - 你可以使用 vitest.config 文件中的 `workspace` 字段指定项目数组：
+=======
+Rejoice! No more separate files to define your [workspace](/guide/projects) - specify an array of projects using the `workspace` field in your `vitest.config` file:
+>>>>>>> f9275a5794ecb3d1414b58472c60147b4d1e3b67
 
 ```jsx
 import { defineConfig } from 'vitest/config'
