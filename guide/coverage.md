@@ -193,25 +193,35 @@ export default defineConfig({
 
 - [`v8`](https://github.com/istanbuljs/v8-to-istanbul#ignoring-uncovered-lines)
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
+- `v8` with [`experimentalAstAwareRemapping: true`](https://vitest.dev/config/#coverage-experimentalAstAwareRemapping) see [ast-v8-to-istanbul | Ignoring code](https://github.com/AriPerkkio/ast-v8-to-istanbul?tab=readme-ov-file#ignoring-code)
 
 使用 TypeScript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
 被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
 
+<<<<<<< HEAD
 对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
 请注意，这些忽略提示现在也可能包含在最终的产品构建中。
+=======
+You can include a `@preserve` keyword in the ignore hint.
+Beware that these ignore hints may now be included in final production build as well.
+>>>>>>> ab271bb63a22c69f728d28a0c8815390c9a07f4c
 
 ```diff
 -/* istanbul ignore if */
 +/* istanbul ignore if -- @preserve */
 if (condition) {
-```
 
+<<<<<<< HEAD
 不幸的是，目前这在 `v8` 中不起作用。你通常可以在 TypeScript 使用 `v8 ignore` 注释：
 
 <!-- eslint-skip -->
 
 ```ts
 /* v8 ignore next 3 */
+=======
+-/* v8 ignore if */
++/* v8 ignore if -- @preserve */
+>>>>>>> ab271bb63a22c69f728d28a0c8815390c9a07f4c
 if (condition) {
 ```
 

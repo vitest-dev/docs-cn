@@ -385,6 +385,33 @@ expect(res).toBe(5)
 expect(getApples).toHaveNthReturnedWith(2, 5)
 ```
 
+### vi.mockObject <Version>3.2.0</Version>
+
+- **Type:** `<T>(value: T) => MaybeMockedDeep<T>`
+
+Deeply mocks properties and methods of a given object in the same way as `vi.mock()` mocks module exports. See [automocking](/guide/mocking.html#automocking-algorithm) for the detail.
+
+```ts
+const original = {
+  simple: () => 'value',
+  nested: {
+    method: () => 'real'
+  },
+  prop: 'foo',
+}
+
+const mocked = vi.mockObject(original)
+expect(mocked.simple()).toBe(undefined)
+expect(mocked.nested.method()).toBe(undefined)
+expect(mocked.prop).toBe('foo')
+
+mocked.simple.mockReturnValue('mocked')
+mocked.nested.method.mockReturnValue('mocked nested')
+
+expect(mocked.simple()).toBe('mocked')
+expect(mocked.nested.method()).toBe('mocked nested')
+```
+
 ### vi.isMockFunction
 
 - **类型:** `(fn: Function) => boolean`
@@ -428,7 +455,24 @@ expect(spy).toHaveReturnedWith(1)
 ```
 
 ::: tip
+<<<<<<< HEAD
 你可以在 [`afterEach`](/api/#aftereach)（或启用 [`test.restoreMocks`](/config/#restoreMocks) ）中调用 [`vi.restoreAllMocks`](#vi-restoreallmocks) ，将所有方法还原为原始实现。这将还原原始的 [object descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) ，因此无法更改方法的实现：
+=======
+In environments that support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management), you can use `using` instead of `const` to automatically call `mockRestore` on any mocked function when the containing block is exited. This is especially useful for spied methods:
+
+```ts
+it('calls console.log', () => {
+  using spy = vi.spyOn(console, 'log').mockImplementation(() => {})
+  debug('message')
+  expect(spy).toHaveBeenCalled()
+})
+// console.log is restored here
+```
+:::
+
+::: tip
+You can call [`vi.restoreAllMocks`](#vi-restoreallmocks) inside [`afterEach`](/api/#aftereach) (or enable [`test.restoreMocks`](/config/#restoreMocks)) to restore all methods to their original implementations. This will restore the original [object descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), so you won't be able to change method's implementation:
+>>>>>>> ab271bb63a22c69f728d28a0c8815390c9a07f4c
 
 ```ts
 const cart = {
