@@ -103,6 +103,11 @@ export const page: {
 `getBy*` API 在 [Locators API](/guide/browser/locators) 中有详细说明。
 :::
 
+::: warning WARNING <Version>3.2.0</Version>
+Note that `screenshot` will always return a base64 string if `save` is set to `false`.
+The `path` is also ignored in that case.
+:::
+
 ## `cdp`
 
 `cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。

@@ -469,8 +469,13 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/filtering',
     },
     {
+<<<<<<< HEAD
       text: '工作空间',
       link: '/guide/workspace',
+=======
+      text: 'Test Projects',
+      link: '/guide/projects',
+>>>>>>> e105a94261ac0c8ac3c84248eb73c73ce458c458
     },
     {
       text: '报告器「Reporters」',
@@ -489,7 +494,15 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/mocking',
     },
     {
+<<<<<<< HEAD
       text: '类型测试',
+=======
+      text: 'Parallelism',
+      link: '/guide/parallelism',
+    },
+    {
+      text: 'Testing Types',
+>>>>>>> e105a94261ac0c8ac3c84248eb73c73ce458c458
       link: '/guide/testing-types',
     },
     {
