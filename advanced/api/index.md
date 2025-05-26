@@ -119,7 +119,11 @@ const { vitestConfig, viteConfig } = await resolveConfig({
 :::
 
 ::: warning
+<<<<<<< HEAD
 `resolveConfig` 不会解析 `workspace`。要解析工作区配置，Vitest 需要一个已建立的 Vite 服务器。
+=======
+The `resolveConfig` doesn't resolve `projects`. To resolve projects configs, Vitest needs an established Vite server.
+>>>>>>> f87bb8ef3299ee7534fc57b579a8e9d62d353f6d
 
 另外请注意，`viteConfig.test` 不会被完全解析。如果你需要 Vitest 配置，请使用 `vitestConfig` 代替。
 :::
