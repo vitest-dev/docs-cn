@@ -2,7 +2,11 @@
 
 自 Vitest 3 起，你可以使用新的 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
 
+<<<<<<< HEAD
 使用 `browser.instances` 而不是 [workspace](/guide/workspace) 的主要优势是改进了缓存。每个项目都将使用相同的 Vite 服务器，这意味着文件转换和 [依赖项预捆绑](https://vite.dev/guide/dep-pre-bundling.html) 只需进行一次。
+=======
+The main advantage of using the `browser.instances` over the [test projects](/guide/projects) is improved caching. Every project will use the same Vite server meaning the file transform and [dependency pre-bundling](https://vite.dev/guide/dep-pre-bundling.html) has to happen only once.
+>>>>>>> 45ff01e6b0f6d0da77d934ebda0f3a417a17e325
 
 ## 多个浏览器
 
