@@ -15,6 +15,7 @@ Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告�
       - [`onHookStart(beforeAll)`](#onhookstart)
       - [`onHookEnd(beforeAll)`](#onhookend)
         - [`onTestCaseReady`](#ontestcaseready)
+          - [`onTestAnnotate`](#ontestannotate) <Version>3.2.0</Version>
           - [`onHookStart(beforeEach)`](#onhookstart)
           - [`onHookEnd(beforeEach)`](#onhookend)
           - [`onHookStart(afterEach)`](#onhookstart)
@@ -316,4 +317,21 @@ function onTestCaseResult(testCase: TestCase): Awaitable<void>
 
 当测试完成运行或刚刚被跳过时调用此方法。请注意，如果有 `afterEach` 钩子，这将在 `afterEach` 钩子完成后调用。
 
+<<<<<<< HEAD
 此时，[`testCase.result()`](/advanced/api/test-case#result) 将具有非挂起状态。
+=======
+At this point, [`testCase.result()`](/advanced/api/test-case#result) will have non-pending state.
+
+## onTestAnnotate <Version>3.2.0</Version> {#ontestannotate}
+
+```ts
+function onTestAnnotate(
+  testCase: TestCase,
+  annotation: TestAnnotation,
+): Awaitable<void>
+```
+
+The `onTestAnnotate` hook is associated with the [`context.annotate`](/guide/test-context#annotate) method. When `annotate` is invoked, Vitest serialises it and sends the same attachment to the main thread where reporter can interact with it.
+
+If the path is specified, Vitest stores it in a separate directory (configured by [`attachmentsDir`](/config/#attachmentsdir)) and modifies the `path` property to reference it.
+>>>>>>> 0f23235444471f7bac50b853c5904a6f77119b34
