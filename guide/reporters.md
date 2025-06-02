@@ -517,7 +517,14 @@ export default defineConfig({
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
 
+<<<<<<< HEAD
 如果配置了非默认报告器，则需要显式添加 `github-actions`。
+=======
+<img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
+<img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
+
+If you configure non-default reporters, you need to explicitly add `github-actions`.
+>>>>>>> 343dabb28998fedc115492f624031bb5b7f779a7
 
 ```ts
 export default defineConfig({
@@ -527,8 +534,22 @@ export default defineConfig({
 })
 ```
 
-<img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
-<img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
+You can customize the file paths that are printed in [GitHub's annotation command format](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) by using the `onWritePath` option. This is useful when running Vitest in a containerized environment, such as Docker, where the file paths may not match the paths in the GitHub Actions environment.
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: process.env.GITHUB_ACTIONS
+      ? [
+          'default',
+          ['github-actions', { onWritePath(path) {
+            return path.replace(/^\/app\//, `${process.env.GITHUB_WORKSPACE}/`)
+          } }],
+        ]
+      : ['default'],
+  },
+})
+```
 
 ### Blob Reporter
 
