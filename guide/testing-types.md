@@ -97,7 +97,7 @@ expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 const one = valueFromFunctionOne({ some: { complex: inputs } })
 const two = valueFromFunctionTwo({ some: { other: inputs } })
 
-expectTypeOf(one).toEqualTypeof<typeof two>()
+expectTypeOf(one).toEqualTypeOf<typeof two>()
 ```
 
 如果你发现很难使用 `expectTypeOf` API 并找出错误，你始终可以使用更简单的 `assertType` API：
