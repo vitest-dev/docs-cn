@@ -31,11 +31,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-如果我们在不同 pools 中运行测试，可以使用 [workspace](/guide/workspace) 功能:
-=======
-If you need to run tests in different pools, use the [`projects`](/guide/projects) feature:
->>>>>>> 66a9b6b6b1842fb5487d24c3e913f0ebfd55103b
+如果我们在不同 pools 中运行测试，可以使用 [`projects`](/guide/projects) 功能:
 
 ```ts [vitest.config.ts]
 export default defineConfig({
@@ -52,13 +48,6 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-::: info
-`workspace` 字段是在 Vitest 3 中引入的。在 [Vitest 2](https://v2.vitest.dev/) 中定义工作区，需要创建一个单独的 `vitest.workspace.ts` 文件。
-:::
-
-=======
->>>>>>> 66a9b6b6b1842fb5487d24c3e913f0ebfd55103b
 ## API
 
 在 `pool` 选项中指定的文件应该导出一个函数（可以是异步的），该函数接受 `Vitest` 接口作为其第一个选项。这个函数需要返回一个与 `ProcessPool` 接口匹配的对象：
@@ -76,11 +65,7 @@ export interface ProcessPool {
 
 这个函数只会被调用一次（除非服务器配置被更新），通常最好在这个函数内初始化测试所需的一切，并在调用 `runTests` 时重复使用它。
 
-<<<<<<< HEAD
-Vitest 在安排运行新测试时调用 `runTest`。如果 `files` 为空，将不会调用它。第一个参数是一个 [TestSpecifications](/advanced/api/test-specification) 数组。在调用 `runTests` 之前，文件将使用 [`sequencer`](/config/#sequence-sequencer) 进行排序。可能（但不太可能）会有相同的文件出现两次，但它们将始终属于不同的项目 - 这是通过 [`vitest.workspace.ts`](/guide/workspace) 配置实现的。
-=======
-Vitest calls `runTest` when new tests are scheduled to run. It will not call it if `files` is empty. The first argument is an array of [TestSpecifications](/advanced/api/test-specification). Files are sorted using [`sequencer`](/config/#sequence-sequencer) before `runTests` is called. It's possible (but unlikely) to have the same file twice, but it will always have a different project - this is implemented via [`projects`](/guide/projects) configuration.
->>>>>>> 66a9b6b6b1842fb5487d24c3e913f0ebfd55103b
+当运行新测试时， Vitest 会调用 `runTest` 。如果 `files` 为空，则不会调用它。第一个参数是一个数组 [TestSpecifications](/advanced/api/test-specification) 。在调用 `runTests` 之前，使用 [`sequencer`](/config/#sequence-sequencer) 对文件进行排序。有可能（但不太可能）有两个相同的文件，但它总是有一个不同的项目-这是通过 [`projects`](/guide/projects) 配置实现的。
 
 Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTests` 解决后才会触发 [`onFinished`](/advanced/reporters)）。
 
