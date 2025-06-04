@@ -53,11 +53,7 @@ Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我
 ```
 :::
 
-<<<<<<< HEAD
-与 [`reporter.onInit`](/advanced/api/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/guide/workspace) 操作全局配置。
-=======
-Unlike [`reporter.onInit`](/advanced/api/reporters#oninit), this hooks runs early in Vitest lifecycle allowing you to make changes to configuration like `coverage` and `reporters`. A more notable change is that you can manipulate the global config from a [test project](/guide/projects) if your plugin is defined in the project and not in the global config.
->>>>>>> 66a9b6b6b1842fb5487d24c3e913f0ebfd55103b
+与 [`reporter.onInit`](/advanced/api/ reporter#oninit) 不同，这个 hook 在 Vitest 生命周期的早期运行，允许我们对`coverage`和`reporters`等配置进行更改。一个更值得注意的变化是，如果我们的插件是在项目中定义的而不是在全局配置中，我们可以从 [test project](/guide/projects) 中操作全局配置。
 
 ## Context
 
