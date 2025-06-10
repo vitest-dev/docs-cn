@@ -22,7 +22,11 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 ::: warning
 "环境" 仅在 Node.js 中运行测试时存在。
 
+<<<<<<< HEAD
 在 Vitest 中，`浏览器` 不被视为一个环境。如果希望使用[浏览器模式](/guide/browser/)运行部分测试，可以创建一个[workspace project](/guide/browser/#workspace-config)。
+=======
+`browser` is not considered an environment in Vitest. If you wish to run part of your tests using [Browser Mode](/guide/browser/), you can create a [test project](/guide/browser/#projects-config).
+>>>>>>> d773ae87de2b17a365d6e315c90cb32627a8a8f7
 :::
 
 ## 特定文件的环境
