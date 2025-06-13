@@ -53,7 +53,11 @@ Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我
 ```
 :::
 
+<<<<<<< HEAD
 与 [`reporter.onInit`](/advanced/api/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/guide/workspace) 操作全局配置。
+=======
+Unlike [`reporter.onInit`](/advanced/api/reporters#oninit), this hooks runs early in Vitest lifecycle allowing you to make changes to configuration like `coverage` and `reporters`. A more notable change is that you can manipulate the global config from a [test project](/guide/projects) if your plugin is defined in the project and not in the global config.
+>>>>>>> 5a7939506e3edd85f9c39e0bdfd9fbdf1c5ed017
 
 ## Context
 
@@ -93,10 +97,10 @@ function injectTestProjects(
 ```ts
 // inject a single project with a custom alias
 const newProjects = await injectTestProjects({
-  // you can inherit the current project config by referencing `configFile`
+  // you can inherit the current project config by referencing `extends`
   // note that you cannot have a project with the name that already exists,
   // so it's a good practice to define a custom name
-  configFile: project.vite.config.configFile,
+  extends: project.vite.config.configFile,
   test: {
     name: 'my-custom-alias',
     alias: {
@@ -107,7 +111,11 @@ const newProjects = await injectTestProjects({
 ```
 
 ::: warning Projects are Filtered
+<<<<<<< HEAD
 Vitest 在配置解析期间过滤项目，因此如果用户定义了过滤器，则注入的项目可能无法解析，除非它 [与 filter 匹配](./vitest#matchesprojectfilter)。我们可以通过 `vitest.config.project` 选项更新过滤器，以始终包含我们的工作区项目：
+=======
+Vitest filters projects during the config resolution, so if the user defined a filter, injected project might not be resolved unless it [matches the filter](./vitest#matchesprojectfilter). You can update the filter via the `vitest.config.project` option to always include your test project:
+>>>>>>> 5a7939506e3edd85f9c39e0bdfd9fbdf1c5ed017
 
 ```ts
 vitest.config.project.push('my-project-name')
@@ -117,7 +125,11 @@ vitest.config.project.push('my-project-name')
 :::
 
 ::: tip Referencing the Current Config
+<<<<<<< HEAD
 如果我们想保留用户配置，可以指定 `configFile` 属性。所有其他属性都将与用户定义的配置合并。
+=======
+If you want to keep the user configuration, you can specify the `extends` property. All other properties will be merged with the user defined config.
+>>>>>>> 5a7939506e3edd85f9c39e0bdfd9fbdf1c5ed017
 
 项目的 `configFile` 可以在 Vite 的配置中访问：`project.vite.config.configFile`。
 
