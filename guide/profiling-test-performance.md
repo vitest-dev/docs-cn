@@ -15,12 +15,21 @@
 >   # Time metrics ^^
 > ```
 
+<<<<<<< HEAD
 - 「 转换 / Transform 」：转换文件所花费的时间。参见[文件转换](#file-transform)。
 - Setup：运行 [`setupFiles`](/config/#setupfiles) 文件所花费的时间。
 - 「 收集 / Collect 」：收集测试文件中所有测试所花费的时间。这包括导入所有文件依赖项所花费的时间。
 - 「 测试 / Tests 」：实际运行测试用例所花费的时间。
 - 「 环境 / Environment 」：设置测试[`环境`](/config/#environment)所花费的时间，例如 JSDOM 。
 - 「 准备 / Prepare 」：Vitest 用于准备 测试运行器 的时间。
+=======
+- Transform: How much time was spent transforming the files. See [File Transform](#file-transform).
+- Setup: Time spent for running the [`setupFiles`](/config/#setupfiles) files.
+- Collect: Time spent for collecting all tests in the test files. This includes the time it took to import all file dependencies.
+- Tests: Time spent for actually running the test cases.
+- Environment: Time spent for setting up the test [`environment`](/config/#environment), for example JSDOM.
+- Prepare: Time Vitest uses to prepare the test runner. When running tests in Node, this is the time to import and execute all internal utilities inside the worker. When running tests in the browser, this also includes the time to initiate the iframe.
+>>>>>>> b341e57f49da7aaa0296c9ba1774d52bb4b1c220
 
 ## Test runner
 
