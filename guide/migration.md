@@ -56,7 +56,11 @@ export default defineConfig({
 
 ### `spy.mockReset` Now Restores the Original Implementation
 
+<<<<<<< HEAD
 之前没有好的方法在不重新应用 spy 的情况下将其重置为原始实现。现在，`spy.mockReset` 会将实现函数重置为原始函数，而不是假的 noop（空操作）。
+=======
+There was no good way to reset the spy to the original implementation without reapplying the spy. Now, `spy.mockReset` will reset the implementation function to the original one instead of a fake noop.
+>>>>>>> 0ef1dfcb78bb2e19d1872157a87782b078c62f0f
 
 ```ts
 const foo = {

@@ -42,6 +42,7 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ## Cannot mock "./mocked-file.js" because it is already loaded
 
 当对已加载的模块调用 `vi.mock` 方法时，会发生此错误。Vitest 抛出此错误，因为此调用没有效果，因为首选缓存模块。
@@ -57,6 +58,8 @@ sideEffect()
 vi.resetModules()
 ```
 
+=======
+>>>>>>> 0ef1dfcb78bb2e19d1872157a87782b078c62f0f
 ## Failed to terminate worker
 
 当 NodeJS 的 fetch 与默认的 [`pool: 'threads'`](/config/#threads) 一起使用时，可能会发生此错误。问题可以在 [issue#3077](https://github.com/vitest-dev/vitest/issues/3077) 上进行持续更新。
