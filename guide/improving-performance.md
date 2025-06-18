@@ -84,7 +84,11 @@ export default defineConfig({
 
 ## Sharding
 
+<<<<<<< HEAD
 测试分片意味着一次运行一小部分测试用例。当你有多台可用于同时运行测试的机器时，它会很有用。
+=======
+Test sharding is a process of splitting your test suite into groups, or shards. This can be useful when you have a large test suite and multiple matchines that could run subsets of that suite simultaneously.
+>>>>>>> d01fd81957cbffe9b0f97ed21e77073a22660d0c
 
 要在多个不同的运行中拆分 Vitest 测试，请将 [`--shard`](/guide/cli#shard) 选项与 [`--reporter=blob`](/guide/reporters#blob-reporter) 选项一起使用：
 
@@ -94,7 +98,13 @@ vitest run --reporter=blob --shard=2/3 # 2nd machine
 vitest run --reporter=blob --shard=3/3 # 3rd machine
 ```
 
+<<<<<<< HEAD
 从每台计算机收集存储在 `.vitest-reports` 目录中的结果，并使用 [`--merge-reports`](/guide/cli#merge-reports) 选项将其合并：
+=======
+> Vitest splits your _test files_, not your test cases, into shards. If you've got 1000 test files, the `--shard=1/4` option will run 250 test files, no matter how many test cases individual files have.
+
+Collect the results stored in `.vitest-reports` directory from each machine and merge them with [`--merge-reports`](/guide/cli#merge-reports) option:
+>>>>>>> d01fd81957cbffe9b0f97ed21e77073a22660d0c
 
 ```sh
 vitest run --merge-reports

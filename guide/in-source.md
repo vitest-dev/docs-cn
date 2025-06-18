@@ -54,8 +54,10 @@ $ npx vitest
 
 对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
 
-```ts [vitest.config.ts]
-import { defineConfig } from 'vitest/config'
+```ts [vite.config.ts]
+/// <reference types="vitest/config" />
+
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
