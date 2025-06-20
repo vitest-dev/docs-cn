@@ -93,7 +93,6 @@ class MyReporter implements Reporter {
 
 ### 内置报告器:
 
-1. `BasicReporter`
 1. `DefaultReporter`
 1. `DotReporter`
 1. `JsonReporter`
