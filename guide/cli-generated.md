@@ -89,7 +89,11 @@
 - **CLI:** `--reporter <name>`
 - **Config:** [reporters](/config/#reporters)
 
+<<<<<<< HEAD
 指定 reporters
+=======
+Specify reporters (default, blob, verbose, dot, json, tap, tap-flat, junit, hanging-process, github-actions)
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 
 ### outputFile
 
@@ -98,6 +102,7 @@
 
 如果还指定了支持报告程序，则将测试结果写入文件，使用 cac 的点符号表示多个报告程序的单个输出结果 (比如: --outputFile.tap=./tap.txt)
 
+<<<<<<< HEAD
 ### coverage.all
 
 - **CLI:** `--coverage.all`
@@ -105,6 +110,8 @@
 
 是否在报告中包含所有文件，包括未测试的文件
 
+=======
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 ### coverage.provider
 
 - **CLI:** `--coverage.provider <name>`
@@ -133,6 +140,7 @@
 
 覆盖范围中要排除的文件。使用多个扩展名时，可指定多次（默认情况下： 访问 [`coverage.exclude`](https://vitest.dev/config/#coverage-exclude)
 
+<<<<<<< HEAD
 ### coverage.extension
 
 - **CLI:** `--coverage.extension <extension>`
@@ -140,6 +148,8 @@
 
 包含在覆盖范围内的扩展名。使用多个扩展名时，可指定多次 (默认: `[".js", ".cjs", ".mjs", ".ts", ".mts", ".tsx", ".jsx", ".vue", ".svelte"]`)
 
+=======
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 ### coverage.clean
 
 - **CLI:** `--coverage.clean`
@@ -291,7 +301,11 @@ High and low watermarks for functions in the format of `<high>,<low>`
 - **CLI:** `--workspace <path>`
 - **Config:** [workspace](/config/#workspace)
 
+<<<<<<< HEAD
 工作区配置文件的路径
+=======
+[deprecated] Path to a workspace configuration file
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 
 ### isolate
 
@@ -360,7 +374,11 @@ High and low watermarks for functions in the format of `<high>,<low>`
 - **CLI:** `--browser.provider <name>`
 - **Config:** [browser.provider](/guide/browser/config#browser-provider)
 
+<<<<<<< HEAD
 用于运行浏览器测试的 Provider。某些浏览器只适用于特定的提供 Provider，可以是"webdriverio", "playwright", "preview"，或自定义 provider. 通过 [`browser.provider`](https://vitest.dev/config/#browser-provider) 查看更多信息 (默认值: `"preview"`)
+=======
+Provider used to run browser tests. Some browsers are only available for specific providers. Can be "webdriverio", "playwright", "preview", or the path to a custom provider. Visit [`browser.provider`](https://vitest.dev/guide/browser/config.html#browser-provider) for more information (default: `"preview"`)
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 
 ### browser.providerOptions
 
@@ -761,6 +779,13 @@ Omit annotation lines from the output (default: `false`)
 
 Print basic prototype Object and Array (default: `true`)
 
+### diff.maxDepth
+
+- **CLI:** `--diff.maxDepth <maxDepth>`
+- **Config:** [diff.maxDepth](/config/#diff-maxdepth)
+
+Limit the depth to recurse when printing nested objects (default: `20`)
+
 ### diff.truncateThreshold
 
 - **CLI:** `--diff.truncateThreshold <threshold>`
@@ -838,6 +863,13 @@ Annotation for truncated lines (default: `... Diff result is truncated`)
 
 自定义 tsconfig 文件的路径
 
+### typecheck.spawnTimeout
+
+- **CLI:** `--typecheck.spawnTimeout <time>`
+- **Config:** [typecheck.spawnTimeout](/config/#typecheck-spawntimeout)
+
+Minimum time in milliseconds it takes to spawn the typechecker
+
 ### project
 
 - **CLI:** `--project <name>`
@@ -900,6 +932,13 @@ Annotation for truncated lines (default: `... Diff result is truncated`)
 - **Config:** [includeTaskLocation](/config/#includetasklocation)
 
 Collect test and suite locations in the `location` property
+
+### attachmentsDir
+
+- **CLI:** `--attachmentsDir <dir>`
+- **Config:** [attachmentsDir](/config/#attachmentsdir)
+
+The directory where attachments from `context.annotate` are stored in (default: `.vitest-attachments`)
 
 ### run
 

@@ -142,6 +142,7 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
+<<<<<<< HEAD
 ### 基础报告器
 
 `basic` 报告器等同于没有 `summary` 的 `default` 报告器。
@@ -175,6 +176,9 @@ export default defineConfig({
 ```
 
 ### 详细报告器
+=======
+### Verbose Reporter
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 
 详细报告器与 `default` 报告器相同，但它还会在测试套件完成后显示每个单独的测试。它还会显示当前正在运行且耗时超过 [`slowTestThreshold`](/config/#slowtestthreshold) 的测试。与 `default` 报告器类似，我们可以通过配置报告器来禁用摘要。
 
@@ -234,7 +238,11 @@ export default defineConfig({
 
 ### Dot 报告器
 
+<<<<<<< HEAD
 为每个已完成的测试打印一个点，以提供最少的输出，并显示所有已运行的测试。只提供失败测试的详细信息，以及套件的基本报告摘要。
+=======
+Prints a single dot for each completed test to provide minimal output while still showing all tests that have run. Details are only provided for failed tests, along with the summary for the suite.
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 
 :::code-group
 
@@ -517,7 +525,14 @@ export default defineConfig({
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
 
+<<<<<<< HEAD
 如果配置了非默认报告器，则需要显式添加 `github-actions`。
+=======
+<img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
+<img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
+
+If you configure non-default reporters, you need to explicitly add `github-actions`.
+>>>>>>> 66f40a9d040cbdb2676bf2187d55f275af8a55fa
 
 ```ts
 export default defineConfig({
@@ -527,8 +542,22 @@ export default defineConfig({
 })
 ```
 
-<img alt="Github Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
-<img alt="Github Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
+You can customize the file paths that are printed in [GitHub's annotation command format](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) by using the `onWritePath` option. This is useful when running Vitest in a containerized environment, such as Docker, where the file paths may not match the paths in the GitHub Actions environment.
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: process.env.GITHUB_ACTIONS
+      ? [
+          'default',
+          ['github-actions', { onWritePath(path) {
+            return path.replace(/^\/app\//, `${process.env.GITHUB_WORKSPACE}/`)
+          } }],
+        ]
+      : ['default'],
+  },
+})
+```
 
 ### Blob Reporter
 
