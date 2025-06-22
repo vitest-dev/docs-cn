@@ -4,10 +4,15 @@ title: TestProject
 
 # TestProject <Version>3.0.0</Version> {#testproject}
 
+<<<<<<< HEAD
 - **别名**：在 3.0.0 之前称为 `WorkspaceProject`
 
 ::: warning
 本指南描述了高级的 Node.js API。如果我们只是想创建一个工作区，请遵循 [Workspace](/guide/workspace) 指南。
+=======
+::: warning
+This guide describes the advanced Node.js API. If you just want to define projects, follow the ["Test Projects"](/guide/projects) guide.
+>>>>>>> 81ce0086045097396a0366f16fe0c7fb5d43ab77
 :::
 
 ## name
@@ -26,6 +31,7 @@ vitest.projects.map(p => p.name) === [
   'custom'
 ]
 ```
+<<<<<<< HEAD
 ```ts [vitest.workspace.js]
 export default [
   './packages/server', // 有 package.json，名称为 "@pkg/server"
@@ -43,11 +49,40 @@ export default [
     },
   },
 ]
+=======
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    projects: [
+      './packages/server', // has package.json with "@pkg/server"
+      './utils', // doesn't have a package.json file
+      {
+        // doesn't customize the name
+        test: {
+          pool: 'threads',
+        },
+      },
+      {
+        // customized the name
+        test: {
+          name: 'custom',
+        },
+      },
+    ],
+  },
+})
+>>>>>>> 81ce0086045097396a0366f16fe0c7fb5d43ab77
 ```
 :::
 
 ::: info
+<<<<<<< HEAD
 如果 [根项目](/advanced/api/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
+=======
+If the [root project](/advanced/api/vitest#getroottestproject) is not part of user projects, its `name` will not be resolved.
+>>>>>>> 81ce0086045097396a0366f16fe0c7fb5d43ab77
 :::
 
 ## vitest
@@ -85,6 +120,12 @@ vitest.config === vitest.projects[0].globalConfig
 ## config
 
 这是项目的已解析测试配置。
+
+## hash <Version>3.2.0</Version> {#hash}
+
+The unique hash of this project. This value is consistent between the reruns.
+
+It is based on the root of the project and its name. Note that the root path is not consistent between different OS, so the hash will also be different.
 
 ## vite
 
@@ -279,7 +320,11 @@ dynamicExample !== staticExample // ✅
 :::
 
 ::: info
+<<<<<<< HEAD
 在内部，Vitest 使用此方法导入全局设置、自定义覆盖率提供者、工作区文件和自定义报告器，这意味着只要它们属于同一个 Vite 服务器，它们就共享相同的模块图。
+=======
+Internally, Vitest uses this method to import global setups, custom coverage providers and custom reporters, meaning all of them share the same module graph as long as they belong to the same Vite server.
+>>>>>>> 81ce0086045097396a0366f16fe0c7fb5d43ab77
 :::
 
 ## onTestsRerun
