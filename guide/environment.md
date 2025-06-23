@@ -22,7 +22,11 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 ::: warning
 "环境" 仅在 Node.js 中运行测试时存在。
 
+<<<<<<< HEAD
 在 Vitest 中，`浏览器` 不被视为一个环境。如果希望使用[浏览器模式](/guide/browser/)运行部分测试，可以创建一个[workspace project](/guide/browser/#workspace-config)。
+=======
+`browser` is not considered an environment in Vitest. If you wish to run part of your tests using [Browser Mode](/guide/browser/), you can create a [test project](/guide/browser/#projects-config).
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 :::
 
 ## 特定文件的环境
@@ -39,9 +43,13 @@ test('test', () => {
 })
 ```
 
+<<<<<<< HEAD
 或者你也可以设置 [`environmentMatchGlobs`](https://vitest.dev/config/#environmentmatchglobs) 选项，根据 glob 模式指定环境。
 
 ## 自定义环境
+=======
+## Custom Environment
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 
 你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
 

@@ -773,7 +773,11 @@ test('throws on pineapples', async () => {
 
 ## toMatchSnapshot
 
+<<<<<<< HEAD
 - **类型:** `<T>(shape?: Partial<T> | string, message?: string) => void`
+=======
+- **Type:** `<T>(shape?: Partial<T> | string, hint?: string) => void`
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 
 这样可以确保一个值与最近的快照匹配。
 
@@ -805,7 +809,11 @@ test('matches snapshot', () => {
 
 ## toMatchInlineSnapshot
 
+<<<<<<< HEAD
 - **类型:** `<T>(shape?: Partial<T> | string, snapshot?: string, message?: string) => void`
+=======
+- **Type:** `<T>(shape?: Partial<T> | string, snapshot?: string, hint?: string) => void`
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 
 这确保了一个值与最近的快照相匹配。
 
@@ -848,7 +856,11 @@ test('matches snapshot', () => {
 
 ## toMatchFileSnapshot {#tomatchfilesnapshot}
 
+<<<<<<< HEAD
 - **类型:** `<T>(filepath: string, message?: string) => Promise<void>`
+=======
+- **Type:** `<T>(filepath: string, hint?: string) => Promise<void>`
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 
 指定文件内容与快照进行比较或更新（而非使用 `.snap` 文件）。
 
@@ -865,13 +877,21 @@ it('render basic', async () => {
 
 ## toThrowErrorMatchingSnapshot
 
+<<<<<<< HEAD
 - **类型:** `(message?: string) => void`
+=======
+- **Type:** `(hint?: string) => void`
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 
 与 [`toMatchSnapshot`](#tomatchsnapshot) 相同，但期望的值与 [`toThrowError`](#tothrowerror) 相同。
 
 ## toThrowErrorMatchingInlineSnapshot
 
+<<<<<<< HEAD
 - **类型:** `(snapshot?: string, message?: string) => void`
+=======
+- **Type:** `(snapshot?: string, hint?: string) => void`
+>>>>>>> 7258882dec4ec6cc31b3bfcc2df8988f7a825c02
 
 与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 类似，但期望的值与 [`toThrowError`](#tothrowerror) 相同。
 
