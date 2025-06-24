@@ -766,7 +766,15 @@ import * as exports from './example.js'
 vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
+<<<<<<< HEAD
 ### 监听模块导出 setter/getter
+=======
+::: warning
+This will not work in the Browser Mode. For a workaround, see [Limitations](/guide/browser/#spying-on-module-exports).
+:::
+
+### Mock an exported function
+>>>>>>> 31965526eb844aa6e8c0ef1599fc88991450e441
 
 ```ts
 import * as exports from 'some-path'
@@ -802,11 +810,35 @@ import * as exports from './example.js'
 vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
+<<<<<<< HEAD
 ### 模拟模块导出类实现
 
 1. `vi.mock` 和 `.prototype` 的示例:
+=======
+::: warning
+`vi.spyOn` example will not work in the Browser Mode. For a workaround, see [Limitations](/guide/browser/#spying-on-module-exports).
+:::
 
-1. Example with `vi.mock` and `.prototype`:
+### Mock an exported class implementation
+>>>>>>> 31965526eb844aa6e8c0ef1599fc88991450e441
+
+1. Example with a fake `class`:
+```ts [example.js]
+export class SomeClass {}
+```
+```ts
+import { SomeClass } from './example.js'
+
+vi.mock(import('./example.js'), () => {
+  const SomeClass = vi.fn(class FakeClass {
+    someMethod = vi.fn()
+  })
+  return { SomeClass }
+})
+// SomeClass.mock.instances will have SomeClass
+```
+
+2. Example with `vi.mock` and `.prototype`:
 ```ts [example.js]
 export class SomeClass {}
 ```
@@ -822,7 +854,11 @@ vi.mock(import('./example.js'), () => {
 // SomeClass.mock.instances 上将会有 someMethod 方法
 ```
 
+<<<<<<< HEAD
 2. `vi.spyOn` 的示例:
+=======
+3. Example with `vi.spyOn`:
+>>>>>>> 31965526eb844aa6e8c0ef1599fc88991450e441
 
 ```ts
 import * as mod from './example.js'
@@ -833,7 +869,15 @@ SomeClass.prototype.someMethod = vi.fn()
 vi.spyOn(mod, 'SomeClass').mockImplementation(SomeClass)
 ```
 
+<<<<<<< HEAD
 ### 监听一个函数是否返回了一个对象
+=======
+::: warning
+`vi.spyOn` example will not work in the Browser Mode. For a workaround, see [Limitations](/guide/browser/#spying-on-module-exports).
+:::
+
+### Spy on an object returned from a function
+>>>>>>> 31965526eb844aa6e8c0ef1599fc88991450e441
 
 1. 使用 cache 的示例:
 
