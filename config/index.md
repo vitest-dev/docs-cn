@@ -106,7 +106,11 @@ export default defineConfig({
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
+<<<<<<< HEAD
 不支持在[工作区](/guide/workspace)项目配置中的配置选项旁边会有 <NonProjectOption /> 标志。这意味着这些选项只能在根 Vitest 配置中设置。
+=======
+Configuration options that are not supported inside a [project](/guide/projects) config have <NonProjectOption /> sign next to them. This means they can only be set in the root Vitest config.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 :::
 
 ### include
@@ -122,9 +126,15 @@ export default defineConfig({
 
 ### exclude
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*']`
 - **命令行终端:** `vitest --exclude "**/excluded-file"`
+=======
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/.git/**']`
+- **CLI:** `vitest --exclude "**/excluded-file" --exclude "*/other-files/*.js"`
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 匹配排除测试文件的 glob 规则。
 
@@ -139,9 +149,15 @@ export default defineConfig({
 
 ### name
 
-- **Type:** `string`
+- **Type:** `string | { label: string, color?: LabelColor }`
 
+<<<<<<< HEAD
 为测试项目或 Vitest 进程分配一个自定义名称。该名称将在 CLI 中可见，并且可以通过 Node.js API 中的 [`project.name`](/advanced/api/test-project#name) 获取。
+=======
+Assign a custom name to the test project or Vitest process. The name will be visible in the CLI and UI, and available in the Node.js API via [`project.name`](/advanced/api/test-project#name).
+
+Color used by CLI and UI can be changed by providing an object with `color` property.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 ### server {#server}
 
@@ -466,7 +482,22 @@ export default defineConfig({
 }
 ```
 
+<<<<<<< HEAD
 如果你已经在项目中使用 [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import)，你也可以直接用它来自动导入这些 API。
+=======
+If you have redefined your [`typeRoots`](https://www.typescriptlang.org/tsconfig/#typeRoots) to include more types in your compilation, you will have to add back the `node_modules` to make `vitest/globals` discoverable.
+
+```json [tsconfig.json]
+{
+  "compilerOptions": {
+    "typeRoots": ["./types", "./node_modules/@types", "./node_modules"],
+    "types": ["vitest/globals"]
+  }
+}
+```
+
+If you are already using [`unplugin-auto-import`](https://github.com/antfu/unplugin-auto-import) in your project, you can also use it directly for auto importing those APIs.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 ```ts [vitest.config.js]
 import AutoImport from 'unplugin-auto-import/vite'
@@ -577,6 +608,7 @@ jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom
 
 这些选项被传递给当前 [`environment`](#environment) 的 `setup` 方法。 默认情况下，如果你将其用作测试环境，则只能配置 JSDOM 选项。
 
+<<<<<<< HEAD
 ### environmentMatchGlobs
 
 - **类型:** `[string, EnvironmentName][]`
@@ -672,6 +704,8 @@ export default defineConfig({
 })
 ```
 
+=======
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 ### update<NonProjectOption />
 
 - **类型:** `boolean`
@@ -691,6 +725,36 @@ export default defineConfig({
 In interactive environments, this is the default, unless `--run` is specified explicitly.
 
 In CI, or when run from a non-interactive shell, "watch" mode is not the default, but can be enabled explicitly with this flag.
+
+### watchTriggerPatterns <Version>3.2.0</Version><NonProjectOption /> {#watchtriggerpatterns}
+
+- **Type:** `WatcherTriggerPattern[]`
+
+Vitest reruns tests based on the module graph which is populated by static and dynamic `import` statements. However, if you are reading from the file system or fetching from a proxy, then Vitest cannot detect those dependencies.
+
+To correctly rerun those tests, you can define a regex pattern and a function that retuns a list of test files to run.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    watchTriggerPatterns: [
+      {
+        pattern: /^src\/(mailers|templates)\/(.*)\.(ts|html|txt)$/,
+        testsToRun: (id, match) => {
+          // relative to the root value
+          return `./api/tests/mailers/${match[2]}.test.ts`
+        },
+      },
+    ],
+  },
+})
+```
+
+::: warning
+Returned files should be either absolute or relative to the root. Note that this is a global option, and it cannot be used inside of [project](/guide/projects) configs.
+:::
 
 ### root
 
@@ -1271,13 +1335,17 @@ test('execute a script', async () => {
 
 ### coverage<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型:** `CoverageC8Options | CoverageIstanbulOptions`
 - **默认值:** `undefined`
+=======
+You can use [`v8`](/guide/coverage.html#v8-provider), [`istanbul`](/guide/coverage.html#istanbul-provider) or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 你可以使用点符号向 CLI 提供覆盖选项：
 
 ```sh
-npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
+npx vitest --coverage.enabled --coverage.provider=istanbul
 ```
 
 ::: warning
@@ -1303,15 +1371,25 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 
 #### coverage.include
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**']`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.include=<path>`, `--coverage.include=<path1> --coverage.include=<path2>`
 
 匹配包含测试覆盖率的 glob 规则
+=======
+- **Type:** `string[]`
+- **Default:** Files that were imported during test run
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
 
-#### coverage.extension
+List of files included in coverage as glob patterns. By default only files covered by tests are included.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
+It is recommended to pass file extensions in the pattern.
+
+<<<<<<< HEAD
 - **类型:** `string | string[]`
 - **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.tsx', '.jsx', '.vue', '.svelte', '.marko', '.astro']`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
@@ -1343,10 +1421,21 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
   '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
 ]
 ```
+=======
+See [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples.
+
+#### coverage.exclude
+
+- **Type:** `string[]`
+- **Default:** : `[]`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
+<<<<<<< HEAD
 使用全局模式排除在覆盖范围之外的文件列表。
 
 该选项覆盖所有默认选项。添加新的忽略模式时，扩展默认选项：
@@ -1376,6 +1465,9 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 - **命令行终端:** `--coverage.all`, `--coverage.all=false`
 
 是否将所有文件（包括未测试的文件）包括在报告中。
+=======
+See [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 #### coverage.clean
 
@@ -1644,6 +1736,7 @@ Sets thresholds to 100 for files matching the glob pattern.
 }
 ```
 
+<<<<<<< HEAD
 #### coverage.ignoreEmptyLines
 
 - **类型:** `boolean`
@@ -1682,6 +1775,14 @@ export default defineConfig({
 - **默认值:** `[]`
 - **可用的测试提供者:** `'istanbul'`
 - **命令行终端:** `--coverage.ignoreClassMethods=<method>`
+=======
+#### coverage.ignoreClassMethods
+
+- **Type:** `string[]`
+- **Default:** `[]`
+- **Available for providers:** `'v8' | 'istanbul'`
+- **CLI:** `--coverage.ignoreClassMethods=<method>`
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 设置为要忽略覆盖率的类方法名称数组。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
 
@@ -2007,7 +2108,11 @@ export default defineConfig({
 
 ### sequence
 
+<<<<<<< HEAD
 - **类型**: `{ sequencer?, shuffle?, seed?, hooks?, setupFiles? }`
+=======
+- **Type**: `{ sequencer?, shuffle?, seed?, hooks?, setupFiles?, groupOrder }`
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 配置测试运行顺序的选项。
 
@@ -2025,6 +2130,71 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 定义分片和排序的自定义类。你可以从 `vitest/node` 扩展 `BaseSequencer`，如果你只需要重新定义 `sort` 和 `shard` 方法之一，但两者都应该存在。
 
 分片是在排序之前进行的，并且只有提供了 `--shard` 选项的情况下才会生效。
+
+If [`sequencer.groupOrder`](#grouporder) is specified, the sequencer will be called once for each group and pool.
+
+#### groupOrder <Version>3.2.0</Version> {#grouporder}
+
+- **Type:** `number`
+- **Default:** `0`
+
+Controls the order in which this project runs its tests when using multiple [projects](/guide/projects).
+
+- Projects with the same group order number will run together, and groups are run from lowest to highest.
+- If you don’t set this option, all projects run in parallel.
+- If several projects use the same group order, they will run at the same time.
+
+This setting only affects the order in which projects run, not the order of tests within a project.
+To control test isolation or the order of tests inside a project, use the [`isolate`](#isolate) and [`sequence.sequencer`](#sequence-sequencer) options.
+
+::: details Example
+Consider this example:
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    projects: [
+      {
+        test: {
+          name: 'slow',
+          sequence: {
+            groupOrder: 0,
+          },
+        },
+      },
+      {
+        test: {
+          name: 'fast',
+          sequence: {
+            groupOrder: 0,
+          },
+        },
+      },
+      {
+        test: {
+          name: 'flaky',
+          sequence: {
+            groupOrder: 1,
+          },
+        },
+      },
+    ],
+  },
+})
+```
+
+Tests in these projects will run in this order:
+
+```
+ 0. slow  |
+          |> running together
+ 0. fast  |
+
+ 1. flaky |> runs after slow and fast alone
+```
+:::
 
 #### sequence.shuffle
 
@@ -2170,6 +2340,13 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 自定义 tsconfig 的路径，相对于项目根目录。
 
+#### typecheck.spawnTimeout
+
+- **Type**: `number`
+- **Default**: `10_000`
+
+Minimum time in milliseconds it takes to spawn the typechecker.
+
 ### slowTestThreshold<NonProjectOption />
 
 - **类型**: `number`
@@ -2228,9 +2405,21 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### onConsoleLog<NonProjectOption />
 
+<<<<<<< HEAD
 - **类型**: `(log: string, type: 'stdout' | 'stderr') => boolean | void`
 
 在测试自定义 `console.log` 的处理程序。如果返回 `false`，Vitest 将不会将日志打印到控制台上。
+=======
+```ts
+function onConsoleLog(
+  log: string,
+  type: 'stdout' | 'stderr',
+  entity: TestModule | TestSuite | TestCase | undefined,
+): boolean | void
+```
+
+Custom handler for `console` methods in tests. If you return `false`, Vitest will not print the log to the console. Note that Vitest ignores all other falsy values.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 这在过滤掉来自第三方库的日志时会非常有用。
 
@@ -2268,6 +2457,30 @@ export default defineConfig({
 
       // Reject all frames from third party libraries.
       if (file.includes('node_modules')) {
+        return false
+      }
+    },
+  },
+})
+```
+
+### onUnhandledError<NonProjectOption /> {#onunhandlederror}
+
+- **Type:** `(error: (TestError | Error) & { type: string }) => boolean | void`
+
+A custom handler to filter out unhandled errors that should not be reported. If an error is filtered out, it will no longer affect the test results.
+
+If you want unhandled errors to be reported without impacting the test outcome, consider using the [`dangerouslyIgnoreUnhandledErrors`](#dangerouslyIgnoreUnhandledErrors) option
+
+```ts
+import type { ParsedStack } from 'vitest'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    onUnhandledError(error): boolean | void {
+      // Ignore all errors with the name "MySpecialError".
+      if (error.name === 'MySpecialError') {
         return false
       }
     },
@@ -2422,8 +2635,9 @@ Limit the depth to recurse when printing nested objects
 
 通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。禁用时，如果计时器在启动假计时器会话之前已经存在，则可能导致意外行为。
 
-### workspace<NonProjectOption /> {#workspace}
+### projects<NonProjectOption /> {#projects}
 
+<<<<<<< HEAD
 - **类型:** `string | TestProjectConfiguration`
 - **命令行终端:** `--workspace=./file.js`
 - **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
@@ -2431,6 +2645,12 @@ Limit the depth to recurse when printing nested objects
 相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
 
 Since Vitest 3, you can also define the workspace array in the root config. If the `workspace` is defined in the config manually, Vitest will ignore the `vitest.workspace` file in the root.
+=======
+- **Type:** `TestProjectConfiguration[]`
+- **Default:** `[]`
+
+An array of [projects](/guide/projects).
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 ### isolate
 
@@ -2538,4 +2758,15 @@ export interface SnapshotEnvironment {
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 调用任何`console`方法时始终打印控制台跟踪。这对于调试很有用。
+=======
+Always print console traces when calling any `console` method. This is useful for debugging.
+
+### attachmentsDir <Version>3.2.0</Version>
+
+- **Type:** `string`
+- **Default:** `'.vitest-attachments'`
+
+Directory path for storing attachments created by [`context.annotate`](/guide/test-context#annotate) relative to the project root.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7

@@ -5,10 +5,15 @@ outline: deep
 
 # 迁移指南
 
+<<<<<<< HEAD
 ## 迁移到 Vitest 3.0 {#vitest-3}
+=======
+## Migrating to Vitest 4.0 {#vitest-4}
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
-### Test Options as a Third Argument
+### Removed `reporters: 'basic'`
 
+<<<<<<< HEAD
 Vitest 3.0 如果我们将一个对象作为第三个参数传递给 `test` 或 `describe` 函数，会打印一条警告：
 
 ```ts
@@ -32,10 +37,14 @@ test('validation works', () => {
 ### `browser.name` 和 `browser.providerOptions` 已弃用
 
 [`browser.name`](/guide/browser/config#browser-name) 和 [`browser.providerOptions`](/guide/browser/config#browser-provideroptions) 都将在 Vitest 4 中删除。请使用新的 [`browser.instances`](/guide/browser/config#browser-instances) 选项来代替它们：
+=======
+Basic reporter is removed as it is equal to:
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 ```ts
 export default defineConfig({
   test: {
+<<<<<<< HEAD
     browser: {
       name: 'chromium', // [!code --]
       providerOptions: { // [!code --]
@@ -202,26 +211,39 @@ export default defineConfig({
         singleFork: true, // [!code ++]
       }, // [!code ++]
     }
+=======
+    reporters: [
+      ['default', { summary: false }]
+    ]
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
   }
 })
 ```
 
+<<<<<<< HEAD
 ### 钩子函数在堆栈中运行
 
 在 Vitest 2.0 之前，所有钩子函数都是并行运行的。 在 2.0 中，所有钩子都是串行运行的。 除此之外，`afterAll`/`afterEach` 以相反的顺序运行。
 
 要恢复钩子的并行执行，请将 [`sequence.hooks`](/config/#sequence-hooks) 改为 `'parallel'`：
+=======
+### V8 Code Coverage Major Changes
 
-```ts
-export default defineConfig({
-  test: {
-    sequence: { // [!code ++]
-      hooks: 'parallel', // [!code ++]
-    }, // [!code ++]
-  },
-})
-```
+Vitest's V8 code coverage provider is now using more accurate coverage result remapping logic.
+It is expected for users to see changes in their coverage reports when updating from Vitest v3.
 
+In the past Vitest used [`v8-to-istanbul`](https://github.com/istanbuljs/v8-to-istanbul) for remapping V8 coverage results into your source files.
+This method wasn't very accurate and provided plenty of false positives in the coverage reports.
+We've now developed a new package that utilizes AST based analysis for the V8 coverage.
+This allows V8 reports to be as accurate as `@vitest/coverage-istanbul` reports.
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
+
+- Coverage ignore hints have updated. See [Coverage | Ignoring Code](/guide/coverage.html#ignoring-code).
+- `coverage.ignoreEmptyLines` is removed. Lines without runtime code are no longer included in reports.
+- `coverage.experimentalAstAwareRemapping` is removed. This option is now enabled by default, and is the only supported remapping method.
+- `coverage.ignoreClassMethods` is now supported by V8 provider too.
+
+<<<<<<< HEAD
 ### `suite.concurrent` 同时运行所有测试
 
 以前，在套件上指定 `concurrent` 时，并发测试仍会按套件分组并逐个运行。现在，它会遵循 jest 的行为，一次运行所有测试（仍受 [`maxConcurrency`](/config/#maxConcurrency)限制）。
@@ -421,30 +443,39 @@ expect({ foo: 'bar' }).toMatchInlineSnapshot(`
 更改了覆盖阈值 API 的形状，现在它支持使用 glob 模式为特定文件指定阈值：
 
 ```diff
+=======
+### Removed options `coverage.all` and `coverage.extensions`
+
+In previous versions Vitest included all uncovered files in coverage report by default.
+This was due to `coverage.all` defaulting to `true`, and `coverage.include` defaulting to `**`.
+These default values were chosen for a good reason - it is impossible for testing tools to guess where users are storing their source files.
+
+This ended up having Vitest's coverage providers processing unexpected files, like minified Javascript, leading to slow/stuck coverage report generations.
+In Vitest v4 we have removed `coverage.all` completely and <ins>**defaulted to include only covered files in the report**</ins>.
+
+When upgrading to v4 it is recommended to define `coverage.include` in your configuration, and then start applying simple `coverage.exclusion` patterns if needed.
+
+```ts [vitest.config.ts]
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 export default defineConfig({
   test: {
     coverage: {
--      perFile: true,
--      thresholdAutoUpdate: true,
--      100: true,
--      lines: 100,
--      functions: 100,
--      branches: 100,
--      statements: 100,
-+      thresholds: {
-+        perFile: true,
-+        autoUpdate: true,
-+        100: true,
-+        lines: 100,
-+        functions: 100,
-+        branches: 100,
-+        statements: 100,
-+      }
+      // Include covered and uncovered files matching this pattern:
+      include: ['packages/**/src/**.{js,jsx,ts,tsx}'], // [!code ++]
+
+      // Exclusion is applied for the files that match include pattern above
+      // No need to define root level *.config.ts files or node_modules, as we didn't add those in include
+      exclude: ['**/some-pattern/**'], // [!code ++]
+
+      // These options are removed now
+      all: true, // [!code --]
+      extensions: ['js', 'ts'], // [!code --]
     }
   }
 })
 ```
 
+<<<<<<< HEAD
 ### Mock 类型 [#4400](https://github.com/vitest-dev/vitest/pull/4400)
 
 删除了一些类型，改用 Jest 风格的 "Mock "命名。
@@ -457,13 +488,74 @@ export default defineConfig({
 ::: warning
 `SpyInstance` 已被弃用，取而代之的是 `MockInstance` ，并会在下一个主要版本中移除。
 :::
+=======
+If `coverage.include` is not defined, coverage report will include only files that were loaded during test run:
+```ts [vitest.config.ts]
+export default defineConfig({
+  test: {
+    coverage: {
+      // Include not set, include only files that are loaded during test run
+      include: undefined, // [!code ++]
 
-### Timer mocks [#3925](https://github.com/vitest-dev/vitest/pull/3925)
+      // Loaded files that match this pattern will be excluded:
+      exclude: ['**/some-pattern/**'], // [!code ++]
+    }
+  }
+})
+```
 
+See also new guides:
+- [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples
+- [Profiling Test Performance | Code coverage](/guide/profiling-test-performance.html#code-coverage) for tips about debugging coverage generation
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
+
+### `spyOn` Supports Constructors
+
+<<<<<<< HEAD
 `vi.useFakeTimers()` 不再自动模拟 [`process.nextTick`](https://nodejs.org/api/process.html#processnexttickcallback-args) 。
 仍然可以通过使用 `vi.useFakeTimers({ toFake: ['nextTick'] })` 明确指定来模拟 `process.nextTick`。
 
 但是，在使用 `--pool=forks` 时，无法模拟 `process.nextTick` 。如果需要模拟 `process.nextTick` ，请使用不同的 `--pool` 选项。
+=======
+Previously, if you tried to spy on a constructor with `vi.spyOn`, you would get an error like `Constructor <name> requires 'new'`. Since Vitest 4, all mocks called with a `new` keyword construct the instance instead of callying `mock.apply`. This means that the mock implementation has to use either the `function` or the `class` keyword in these cases:
+
+```ts {12-14,16-20}
+const cart = {
+  Apples: class Apples {
+    getApples() {
+      return 42
+    }
+  }
+}
+
+const Spy = vi.spyOn(cart, 'Apples')
+  .mockImplementation(() => ({ getApples: () => 0 })) // [!code --]
+  // with a function keyword
+  .mockImplementation(function () {
+    this.getApples = () => 0
+  })
+  // with a custom class
+  .mockImplementation(class MockApples {
+    getApples() {
+      return 0
+    }
+  })
+
+const mock = new Spy()
+```
+
+Note that now if you provide an arrow function, you will get [`<anonymous> is not a constructor` error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor) when the mock is called.
+
+### Deprecated APIs are Removed
+
+Vitest 4.0 removes some deprecated APIs, including:
+
+- `poolMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `environmentMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `workspace` config option. Use [`projects`](/guide/projects) instead.
+
+This release also removes all deprecated types. This finally fixes an issue where Vitest accidentally pulled in `node` types (see [#5481](https://github.com/vitest-dev/vitest/issues/5481) and [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
+>>>>>>> 30ec83cf040a8adfe9d346698dedd9e8e2fa7aa7
 
 ## 从 Jest 迁移 {#jest}
 
