@@ -7,8 +7,13 @@ import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
+<<<<<<< HEAD
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import { version } from '../package.json'
+=======
+import llmstxt from 'vitepress-plugin-llms'
+import { version } from '../../package.json'
+>>>>>>> c62ef0f548755866177d35b4928353aede76147f
 import { teamMembers } from './contributors'
 import {
   bluesky,
@@ -79,6 +84,7 @@ export default ({ mode }: { mode: string }) => {
             'qwik': 'logos:qwik-icon',
           },
         }),
+        llmstxt(),
       ],
     },
     markdown: {
@@ -282,6 +288,11 @@ export default ({ mode }: { mode: string }) => {
                 text: '多种设置',
                 link: '/guide/browser/multiple-setups',
                 docFooterText: 'Multiple Setups | Browser Mode',
+              },
+              {
+                text: 'Visual Regression Testing',
+                link: '/guide/browser/visual-regression-testing',
+                docFooterText: 'Visual Regression Testing | Browser Mode',
               },
             ],
           },
