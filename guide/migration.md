@@ -138,15 +138,43 @@ $ pnpm run test:dev math.test.ts
 ```
 :::
 
+<<<<<<< HEAD
 ### 移除废弃的 API
+=======
+### Replacing `vite-node` with [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
+
+Module Runner is a successor to `vite-node` implemented directly in Vite. Vitest now uses it directly instead of having a wrapper around Vite SSR handler. This means that certain features are no longer available:
+
+- `VITE_NODE_DEPS_MODULE_DIRECTORIES` environment variable was replaced with `VITEST_MODULE_DIRECTORIES`
+- Vitest no longer injects `__vitest_executor` into every [test runner](/advanced/runner). Instead, it injects `moduleRunner` which is an instance of [`ModuleRunner`](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
+- `vitest/execute` entry point was removed. It was always meant to be internal
+- [Custom environments](/guide/environment) no longer need to provide a `transformMode` property. Instead, provide `viteEnvironment`. If it is not provided, Vitest will use the environment name to transform files on the server (see [`server.environments`](https://vite.dev/guide/api-environment-instances.html))
+- `vite-node` is no longer a dependency of Vitest
+- `deps.optimizer.web` was renamed to [`deps.optimizer.client`](/config/#deps-optimizer-client). You can also use any custom names to apply optimizer configs when using other server environments
+
+Vite has its own externalization mechanism, but we decided to keep using the old one to reduce the amount of breaking changes. You can keep using [`server.deps`](/config/#server-deps) to inline or externalize packages.
+
+This update should not be noticeable unless you rely on advanced features mentioned above.
+
+### Deprecated APIs are Removed
+>>>>>>> 6e177f41d730f908b84847fb174596f38ae0b7ad
 
 Vitest 4.0 移除了以下废弃的配置项：
 
+<<<<<<< HEAD
 - `poolMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - `environmentMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - `workspace` 配置项，请使用 [`projects`](/guide/projects) 代替。
 
 此次发布还移除了所有废弃类型，这也解决了 Vitest 错误引入 `node` 类型的问题（详见 [#5481](https://github.com/vitest-dev/vitest/issues/5481) 和 [#6141](https://github.com/vitest-dev/vitest/issues/6141)）。
+=======
+- `poolMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `environmentMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `workspace` config option. Use [`projects`](/guide/projects) instead.
+- `deps.external`, `deps.inline`, `deps.fallbackCJS` config options. Use `server.deps.external`, `server.deps.inline`, or `server.deps.fallbackCJS` instead.
+
+This release also removes all deprecated types. This finally fixes an issue where Vitest accidentally pulled in `@types/node` (see [#5481](https://github.com/vitest-dev/vitest/issues/5481) and [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
+>>>>>>> 6e177f41d730f908b84847fb174596f38ae0b7ad
 
 ## 从 Jest 迁移 {#jest}
 

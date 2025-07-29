@@ -49,9 +49,16 @@
     "unocss": "latest",
     "unplugin-vue-components": "latest",
     "vite": "^6.3.5",
+<<<<<<< HEAD
     "vite-plugin-pwa": "^1.0.0",
     "vitepress": "2.0.0-alpha.6",
     "vitepress-plugin-group-icons": "^1.6.0",
+=======
+    "vite-plugin-pwa": "^0.21.2",
+    "vitepress": "2.0.0-alpha.9",
+    "vitepress-plugin-group-icons": "^1.6.1",
+    "vitepress-plugin-llms": "^1.7.2",
+>>>>>>> 6e177f41d730f908b84847fb174596f38ae0b7ad
     "vitepress-plugin-tabs": "^0.7.1",
     "vitest": "^4.0.0-beta.2",
     "workbox-window": "^7.3.0"

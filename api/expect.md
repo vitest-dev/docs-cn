@@ -1501,7 +1501,11 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
 
 - **类型:** `() => any`
 
+<<<<<<< HEAD
 该非对称匹配器与相等检查一起使用时，将始终返回 `true`。如果只想确定属性是否存在，那么它就很有用。
+=======
+This asymmetric matcher matches anything except `null` or `undefined`. Useful if you just want to be sure that a property exists with any value that's not either `null` or `undefined`.
+>>>>>>> 6e177f41d730f908b84847fb174596f38ae0b7ad
 
 ```ts
 import { expect, test } from 'vitest'

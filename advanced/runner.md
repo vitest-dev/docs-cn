@@ -130,14 +130,20 @@ export default CustomRunner
 ```
 
 ::: warning
+<<<<<<< HEAD
 Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注入。你可以使用它来处理 `importFile` 方法中的文件（这是 `TestRunner` 和 `BenchmarkRunner` 的默认行为）。
 
 `ViteNodeRunner` 暴露了 `executeId` 方法，该方法用于在友好的 Vite 环境中导入测试文件。这意味着它会在运行时解析导入并转换文件内容，以便 Node 能够理解。
+=======
+Vitest also injects an instance of `ModuleRunner` from `vite/module-runner` as `moduleRunner` property. You can use it to process files in `importFile` method (this is default behavior of `TestRunner` and `BenchmarkRunner`).
+
+`ModuleRunner` exposes `import` method, which is used to import test files in a Vite-friendly environment. Meaning, it will resolve imports and transform file content at runtime so that Node can understand it:
+>>>>>>> 6e177f41d730f908b84847fb174596f38ae0b7ad
 
 ```ts
 export default class Runner {
   async importFile(filepath: string) {
-    await this.__vitest_executor.executeId(filepath)
+    await this.moduleRunner.import(filepath)
   }
 }
 ```
