@@ -7,8 +7,13 @@ import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
+<<<<<<< HEAD
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import { version } from '../package.json'
+=======
+import llmstxt from 'vitepress-plugin-llms'
+import { version } from '../../package.json'
+>>>>>>> 666ac87ab1a915e59288a0db12a0c6cb76f55843
 import { teamMembers } from './contributors'
 import {
   bluesky,
@@ -79,6 +84,7 @@ export default ({ mode }: { mode: string }) => {
             'qwik': 'logos:qwik-icon',
           },
         }),
+        llmstxt(),
       ],
     },
     markdown: {
@@ -131,7 +137,7 @@ export default ({ mode }: { mode: string }) => {
 
       footer: {
         message: 'Released under the MIT License.',
-        copyright: 'Copyright © 2021-PRESENT Anthony Fu, Matías Capeletto and Vitest contributors',
+        copyright: 'Copyright © 2021-PRESENT VoidZero Inc. and Vitest contributors',
       },
 
       nav: [
@@ -282,6 +288,11 @@ export default ({ mode }: { mode: string }) => {
                 text: '多种设置',
                 link: '/guide/browser/multiple-setups',
                 docFooterText: 'Multiple Setups | Browser Mode',
+              },
+              {
+                text: 'Visual Regression Testing',
+                link: '/guide/browser/visual-regression-testing',
+                docFooterText: 'Visual Regression Testing | Browser Mode',
               },
             ],
           },

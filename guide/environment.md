@@ -48,7 +48,7 @@ import type { Environment } from 'vitest/environments'
 
 export default <Environment>{
   name: 'custom',
-  transformMode: 'ssr',
+  viteEnvironment: 'ssr',
   // optional - only if you support "experimental-vm" pool
   async setupVM() {
     const vm = await import('node:vm')
@@ -74,7 +74,11 @@ export default <Environment>{
 ```
 
 ::: warning
+<<<<<<< HEAD
 Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `ssr` 或 `web`。该值决定插件如何转换源代码。如果设置为 `ssr`，则插件挂钩在转换或解析文件时将收到 `ssr: true`。 否则，`ssr` 被设置为 `false`。
+=======
+Vitest requires `viteEnvironment` option on environment object (fallbacks to the Vitest environment name by default). It should be equal to `ssr`, `client` or any custom [Vite environment](https://vite.dev/guide/api-environment) name. This value determines which environment is used to process file.
+>>>>>>> 666ac87ab1a915e59288a0db12a0c6cb76f55843
 :::
 
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
