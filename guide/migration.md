@@ -109,7 +109,44 @@ const mock = new Spy()
 
 请注意，如果此时使用箭头函数，调用 mock 时会报 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
 
+<<<<<<< HEAD
 ### 带文件名过滤器的独立模式
+=======
+### Changes to Mocking
+
+Alongside new features like supporting constructors, Vitest 4 creates mocks differently to address several module mocking issues that we received over the years. This release attemts to make module spies less confusing, especially when working with classes.
+
+- `vi.fn().getMockName()` now returns `vi.fn()` by default instead of `spy`. This can affect snapshots with mocks - the name will be changed from `[MockFunction spy]` to `[MockFunction]`. Spies created with `vi.spyOn` will keep using the original name by default for better debugging experience
+- `vi.restoreAllMocks` no longer resets the state of spies and only restores spies created manually with `vi.spyOn`, automocks are no longer affected by this function (this also affects the config option [`restoreMocks`](/config/#restoremocks)). Note that `.mockRestore` will still reset the mock implementation and clear the state
+- Calling `vi.spyOn` on a mock now returns the same mock
+- Automocked instance methods are now properly isolated, but share a state with the prototype. Overriding the prototype implementation will always affect instance methods unless the methods have a custom mock implementation of their own. Calling `.mockReset` on the mock also no longer breaks that inheritance.
+```ts
+import { AutoMockedClass } from './example.js'
+const instance1 = new AutoMockedClass()
+const instance2 = new AutoMockedClass()
+
+instance1.method.mockReturnValue(42)
+
+expect(instance1.method()).toBe(42)
+expect(instance2.method()).toBe(undefined)
+
+expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(2)
+
+instance1.method.mockReset()
+AutoMockedClass.prototype.method.mockReturnValue(100)
+
+expect(instance1.method()).toBe(100)
+expect(instance2.method()).toBe(100)
+
+expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(4)
+```
+- Automocked methods can no longer be restored, even with a manual `.mockRestore`. Automocked modules with `spy: true` will keep working as before
+- Automocked getters no longer call the original getter. By default, automocked getters now return `undefined`. You can keep using `vi.spyOn(object, name, 'get')` to spy on a getter and change its implementation
+- The mock `vi.fn(implementation).mockReset()` now correctly returns the mock implementation in `.getMockImplementation()`
+- `vi.fn().mock.invocationCallOrder` now starts with `1`, like Jest does, instead of `0`
+
+### Standalone mode with filename filter
+>>>>>>> 5ec3e67e475163353b3d16604f33f20f58922b98
 
 为了提升用户体验，当 [`--standalone`](/guide/cli#standalone) 与文件名过滤器一起使用时，Vitest 现在会直接开始运行匹配到的文件。
 
@@ -138,15 +175,44 @@ $ pnpm run test:dev math.test.ts
 ```
 :::
 
+<<<<<<< HEAD
 ### 移除废弃的 API
+=======
+### Replacing `vite-node` with [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
+
+Module Runner is a successor to `vite-node` implemented directly in Vite. Vitest now uses it directly instead of having a wrapper around Vite SSR handler. This means that certain features are no longer available:
+
+- `VITE_NODE_DEPS_MODULE_DIRECTORIES` environment variable was replaced with `VITEST_MODULE_DIRECTORIES`
+- Vitest no longer injects `__vitest_executor` into every [test runner](/advanced/runner). Instead, it injects `moduleRunner` which is an instance of [`ModuleRunner`](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
+- `vitest/execute` entry point was removed. It was always meant to be internal
+- [Custom environments](/guide/environment) no longer need to provide a `transformMode` property. Instead, provide `viteEnvironment`. If it is not provided, Vitest will use the environment name to transform files on the server (see [`server.environments`](https://vite.dev/guide/api-environment-instances.html))
+- `vite-node` is no longer a dependency of Vitest
+- `deps.optimizer.web` was renamed to [`deps.optimizer.client`](/config/#deps-optimizer-client). You can also use any custom names to apply optimizer configs when using other server environments
+
+Vite has its own externalization mechanism, but we decided to keep using the old one to reduce the amount of breaking changes. You can keep using [`server.deps`](/config/#server-deps) to inline or externalize packages.
+
+This update should not be noticeable unless you rely on advanced features mentioned above.
+
+### Deprecated APIs are Removed
+>>>>>>> 5ec3e67e475163353b3d16604f33f20f58922b98
 
 Vitest 4.0 移除了以下废弃的配置项：
 
+<<<<<<< HEAD
 - `poolMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - `environmentMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - `workspace` 配置项，请使用 [`projects`](/guide/projects) 代替。
 
 此次发布还移除了所有废弃类型，这也解决了 Vitest 错误引入 `node` 类型的问题（详见 [#5481](https://github.com/vitest-dev/vitest/issues/5481) 和 [#6141](https://github.com/vitest-dev/vitest/issues/6141)）。
+=======
+- `poolMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `environmentMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `workspace` config option. Use [`projects`](/guide/projects) instead.
+- Reporter APIs `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` and `onFinished`. See [`Reporters API`](/advanced/api/reporters) for new alternatives. These APIs were introduced in Vitest `v3.0.0`.
+- `deps.external`, `deps.inline`, `deps.fallbackCJS` config options. Use `server.deps.external`, `server.deps.inline`, or `server.deps.fallbackCJS` instead.
+
+This release also removes all deprecated types. This finally fixes an issue where Vitest accidentally pulled in `@types/node` (see [#5481](https://github.com/vitest-dev/vitest/issues/5481) and [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
+>>>>>>> 5ec3e67e475163353b3d16604f33f20f58922b98
 
 ## 从 Jest 迁移 {#jest}
 
@@ -158,13 +224,29 @@ Jest 默认启用其 [globals API](https://jestjs.io/docs/api)。Vitest 默认�
 
 如果选择不启用全局变量，注意常用库如 [`testing-library`](https://testing-library.com/) 将不会自动执行 DOM 的 [清理](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
-### `spy.mockReset`
+### `mock.mockReset`
 
 Jest 的 [`mockReset`](https://jestjs.io/docs/mock-function-api#mockfnmockreset) 会将 mock 实现替换为空函数，返回 `undefined`。
 
 Vitest 的 [`mockReset`](/api/mock#mockreset) 会将 mock 实现重置为最初的实现。也就是说，使用 `vi.fn(impl)` 创建的 mock，`mockReset` 会将实现重置为 `impl`。
 
+<<<<<<< HEAD
 ### 模块 Mock
+=======
+### `mock.mock` is Persistent
+
+Jest will recreate the mock state when `.mockClear` is called, meaning you always need to access it as a getter. Vitest, on the other hand, holds a persistent reference to the state, meaning you can reuse it:
+
+```ts
+const mock = vi.fn()
+const state = mock.mock
+mock.mockClear()
+
+expect(state).toBe(mock.mock) // fails in Jest
+```
+
+### Module Mocks
+>>>>>>> 5ec3e67e475163353b3d16604f33f20f58922b98
 
 在 Jest 中，mock 模块时工厂函数返回值即为默认导出。在 Vitest 中，工厂函数需返回包含所有导出的对象。例如，以下 Jest 代码需要改写为：
 
