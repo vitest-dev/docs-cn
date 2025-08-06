@@ -155,6 +155,7 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 ## 模块
 
+<<<<<<< HEAD
 模拟模块监听在其他代码中调用的第三方库，允许你测试参数、输出甚至重新声明其实现。
 
 ### 自动模拟算法(Automocking algorithm)
@@ -353,6 +354,9 @@ describe('get a list of todo items', () => {
   })
 })
 ```
+=======
+See ["Mocking Modules" guide](/guide/mocking-modules).
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ## 文件系统
 
@@ -596,7 +600,11 @@ describe('delayed execution', () => {
 
 ## Classes
 
+<<<<<<< HEAD
 您只需调用一次 `vi.fn` 就能模拟整个类，因为所有的类也都是函数，所以这种方法开箱即用。请注意，目前 Vitest 并不尊重 `new` 关键字，因此在函数的主体中，`new.target` 总是 `undefined`。
+=======
+You can mock an entire class with a single `vi.fn` call.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ```ts
 class Dog {
@@ -623,23 +631,24 @@ class Dog {
 }
 ```
 
+<<<<<<< HEAD
 我们可以使用 ES5 函数重新创建这个类：
+=======
+We can re-create this class with `vi.fn` (or `vi.spyOn().mockImplementation()`):
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ```ts
-const Dog = vi.fn(function (name) {
-  this.name = name
-  // mock instance methods in the constructor, each instance will have its own spy
-  this.greet = vi.fn(() => `Hi! My name is ${this.name}!`)
+const Dog = vi.fn(class {
+  static getType = vi.fn(() => 'mocked animal')
+
+  constructor(name) {
+    this.name = name
+  }
+
+  greet = vi.fn(() => `Hi! My name is ${this.name}!`)
+  speak = vi.fn(() => 'loud bark!')
+  feed = vi.fn()
 })
-
-// notice that static methods are mocked directly on the function,
-// not on the instance of the class
-Dog.getType = vi.fn(() => 'mocked animal')
-
-// mock the "speak" and "feed" methods on every instance of a class
-// all `new Dog()` instances will inherit and share these spies
-Dog.prototype.speak = vi.fn(() => 'loud bark!')
-Dog.prototype.feed = vi.fn()
 ```
 
 ::: warning
@@ -660,6 +669,8 @@ const Newt = new IncorrectDogClass('Newt')
 Marti instanceof CorrectDogClass // ✅ true
 Newt instanceof IncorrectDogClass // ❌ false!
 ```
+
+If you are mocking classes, prefer the class syntax over the function.
 :::
 
 ::: tip WHEN TO USE?
@@ -669,9 +680,10 @@ Newt instanceof IncorrectDogClass // ❌ false!
 import { Dog } from './dog.js'
 
 vi.mock(import('./dog.js'), () => {
-  const Dog = vi.fn()
-  Dog.prototype.feed = vi.fn()
-  // ... other mocks
+  const Dog = vi.fn(class {
+    feed = vi.fn()
+    // ... other mocks
+  })
   return { Dog }
 })
 ```
@@ -687,8 +699,9 @@ function feed(dog: Dog) {
 import { expect, test, vi } from 'vitest'
 import { feed } from '../src/feed.js'
 
-const Dog = vi.fn()
-Dog.prototype.feed = vi.fn()
+const Dog = vi.fn(class {
+  feed = vi.fn()
+})
 
 test('can feed dogs', () => {
   const dogMax = new Dog('Max')
@@ -714,8 +727,8 @@ expect(Cooper.greet).toHaveBeenCalled()
 
 const Max = new Dog('Max')
 
-// methods assigned to the prototype are shared between instances
-expect(Max.speak).toHaveBeenCalled()
+// methods are not shared between instances if you assigned them directly
+expect(Max.speak).not.toHaveBeenCalled()
 expect(Max.greet).not.toHaveBeenCalled()
 ```
 
@@ -726,7 +739,7 @@ const dog = new Dog('Cooper')
 
 // "vi.mocked" is a type helper, since
 // TypeScript doesn't know that Dog is a mocked class,
-// it wraps any function in a MockInstance<T> type
+// it wraps any function in a Mock<T> type
 // without validating if the function is a mock
 vi.mocked(dog.speak).mockReturnValue('woof woof')
 
@@ -748,7 +761,15 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 您还可以使用相同的方法监视获取器和设置器。
 :::
 
+<<<<<<< HEAD
 ## 备忘单
+=======
+::: danger
+Using classes with `vi.fn()` was introduced in Vitest 4. Previously, you had to use `function` and `prototype` inheritence directly. See [v3 guide](https://v3.vitest.dev/guide/mocking.html#classes).
+:::
+
+## Cheat Sheet
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ::: info 提示
 下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [config](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。

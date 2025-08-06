@@ -227,8 +227,13 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 #### deps.optimizer {#deps-optimizer}
 
+<<<<<<< HEAD
 - **类型:** `{ ssr?, web? }`
 - **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
+=======
+- **Type:** `{ ssr?, client? }`
+- **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
@@ -239,7 +244,11 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 - 你的 `alias` 配置现在在捆绑包中得到处理
 - 测试中的代码更接近于它在浏览器中的运行方式
 
+<<<<<<< HEAD
 请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://cn.vitejs.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` 和 `happy-dom`, 在 `node` 和 `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
+=======
+Be aware that only packages in `deps.optimizer?.[mode].include` option are bundled (some plugins populate this automatically, like Svelte). You can read more about available options in [Vite](https://vitejs.dev/config/dep-optimization-options.html) docs (Vitest doesn't support `disable` and `noDiscovery` options). By default, Vitest uses `optimizer.client` for `jsdom` and `happy-dom` environments, and `optimizer.ssr` for `node` and `edge` environments.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
@@ -254,13 +263,21 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 启用依赖优化。
 
+<<<<<<< HEAD
 ::: warning
 此选项仅适用于 Vite 4.3.2 及更高版本。
 :::
+=======
+#### deps.client  {#deps-client}
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 #### deps.web <Badge type="info">0.34.2+</Badge>
 
+<<<<<<< HEAD
 #### deps.web
+=======
+Options that are applied to external files when the environment is set to `client`. By default, `jsdom` and `happy-dom` use `client` environment, while `node` and `edge` environments use `ssr`, so these options will have no affect on files inside those environments.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 - **类型:** `{ transformAssets?, ... }`
 
@@ -268,7 +285,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 通常，`node_modules` 内的文件是外部化的，但这些选项也会影响 [`server.deps.external`](#server-deps-external) 中的文件。
 
-#### deps.web.transformAssets
+#### deps.client.transformAssets
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -281,7 +298,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.png、.sv
 目前，此选项适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
-#### deps.web.transformCss
+#### deps.client.transformCss
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -294,7 +311,7 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.css, .scs
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
 :::
 
-#### deps.web.transformGlobPattern
+#### deps.client.transformGlobPattern
 
 - **类型:** `RegExp | RegExp[]`
 - **默认值:** `[]`
@@ -556,7 +573,7 @@ import type { Environment } from 'vitest'
 
 export default <Environment>{
   name: 'custom',
-  transformMode: 'ssr',
+  viteEnvironment: 'ssr',
   setup() {
     // custom setup
     return {
@@ -616,7 +633,7 @@ In CI, or when run from a non-interactive shell, "watch" mode is not the default
 
 Vitest reruns tests based on the module graph which is populated by static and dynamic `import` statements. However, if you are reading from the file system or fetching from a proxy, then Vitest cannot detect those dependencies.
 
-To correctly rerun those tests, you can define a regex pattern and a function that retuns a list of test files to run.
+To correctly rerun those tests, you can define a regex pattern and a function that returns a list of test files to run.
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -1648,24 +1665,40 @@ test('doNotRun', () => {
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 每次测试前，都会对所有 spies 调用 [`.mockClear()`](/api/mock#mockclear)。
 这将清除模拟历史记录，而不会影响模拟实现。
+=======
+Will call [`vi.clearAllMocks()`](/api/vi#vi-clearallmocks) before each test.
+This will clear mock history without affecting mock implementations.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ### mockReset
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 每次测试前，都会对所有 spies 调用 [`.mockReset()`](/api/mock#mockreset)。
 这将清除模拟历史记录，并将每个实现重置为原始状态。
+=======
+Will call [`vi.resetAllMocks()`](/api/vi#vi-resetallmocks) before each test.
+This will clear mock history and reset each implementation.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ### restoreMocks
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
+<<<<<<< HEAD
 每次测试前，都会对所有 spies 调用 [`.mockRestore()`](/api/mock#mockrestore)。
 这将清除模拟历史记录，将每个实现恢复为原始实现，并恢复被监视对象的原始描述符。
+=======
+Will call [`vi.restoreAllMocks()`](/api/vi#vi-restoreallmocks) before each test.
+
+This restores all original implementations on spies created with [`vi.spyOn`](#vi-spyon).
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ### unstubEnvs {#unstubenvs}
 
@@ -1681,6 +1714,7 @@ test('doNotRun', () => {
 
 将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
+<<<<<<< HEAD
 ### testTransformMode {#testtransformmode}
 
 - **类型:** `{ web?, ssr? }`
@@ -1717,6 +1751,8 @@ export default defineConfig({
 })
 ```
 
+=======
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 ### snapshotFormat<NonProjectOption />
 
 - **类型:** `PrettyFormatOptions`

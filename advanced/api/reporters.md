@@ -25,6 +25,7 @@ Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告�
       - [`onHookEnd(afterAll)`](#onhookend)
     - [`onTestSuiteResult`](#ontestsuiteresult)
   - [`onTestModuleEnd`](#ontestmoduleend)
+  - [`onCoverage`](#oncoverage)
 - [`onTestRunEnd`](#ontestrunend)
 
 除非被跳过，否则单个模块中的测试和 reporters 将按顺序报告。所有跳过的测试将在 reporters /模块的末尾报告。

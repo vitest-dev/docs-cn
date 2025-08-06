@@ -67,7 +67,11 @@ export interface ProcessPool {
 
 Vitest 会在安排新的测试任务时调用 runTest 方法；如果 files 为空，则不会调用。该方法的第一个参数是 [TestSpecifications](/advanced/api/test-specification) 组成的数组。在执行 runTests 前，这些文件会先经过 [sequencer](/config/#sequence-sequencer) 排序。虽然比较少见，但同一个文件可能会被多次包含在列表里，不过它们总是归属于不同的项目——这是通过 [projects](/guide/projects) 配置机制实现的。
 
+<<<<<<< HEAD
 Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTests` 解决后才会触发 [`onFinished`](/advanced/reporters)）。
+=======
+Vitest will wait until `runTests` is executed before finishing a run (i.e., it will emit [`onTestRunEnd`](/advanced/reporters) only after `runTests` is resolved).
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 如果你正在使用自定义池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
 

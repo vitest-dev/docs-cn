@@ -678,7 +678,11 @@ test('top fruits', () => {
 
 `toMatchObject` 断言对象是否匹配另一个对象的部分属性。
 
+<<<<<<< HEAD
 我们还可以传递一个对象数组。如果想要检查两个数组在元素数量上是否匹配，这将非常有用，与`arrayContaining`不同，后者允许接收到的数组中有额外的元素。
+=======
+You can also pass an array of objects. This is useful if you want to check that two arrays match in their number and order of elements, as opposed to `arrayContaining`, which allows for extra elements in the received array.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1501,7 +1505,11 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
 
 - **类型:** `() => any`
 
+<<<<<<< HEAD
 该非对称匹配器与相等检查一起使用时，将始终返回 `true`。如果只想确定属性是否存在，那么它就很有用。
+=======
+This asymmetric matcher matches anything except `null` or `undefined`. Useful if you just want to be sure that a property exists with any value that's not either `null` or `undefined`.
+>>>>>>> 003513b09d4163673b6d316c4a530d2d949de36e
 
 ```ts
 import { expect, test } from 'vitest'
