@@ -553,6 +553,24 @@ function createCoverageProvider(): Promise<CoverageProvider | null>
 若未将 [`coverage.clean`](/config/#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。
 :::
 
+## enableCoverage <Version>4.0.0</Version> {#enablecoverage}
+
+```ts
+function enableCoverage(): Promise<void>
+```
+
+This method enables coverage for tests that run after this call. `enableCoverage` doesn't run any tests; it only sets up Vitest to collect coverage.
+
+It creates a new coverage provider if one doesn't already exist.
+
+## disableCoverage <Version>4.0.0</Version> {#disablecoverage}
+
+```ts
+function disableCoverage(): void
+```
+
+This method disables coverage collection for tests that run afterwards.
+
 ## experimental_parseSpecification <Version>4.0.0</Version> <Badge type="warning">experimental</Badge> {#parsespecification}
 
 ```ts
