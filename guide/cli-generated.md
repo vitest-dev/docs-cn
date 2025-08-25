@@ -411,6 +411,7 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最大线程数或百分比
 
+<<<<<<< HEAD
 ### poolOptions.threads.minThreads
 
 - **CLI:** `--poolOptions.threads.minThreads <workers>`
@@ -418,6 +419,8 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最小线程数或百分比
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ### poolOptions.threads.useAtomics
 
 - **CLI:** `--poolOptions.threads.useAtomics`
@@ -446,6 +449,7 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
  运行测试的最大线程数或百分比
 
+<<<<<<< HEAD
 ### poolOptions.vmThreads.minThreads
 
 - **CLI:** `--poolOptions.vmThreads.minThreads <workers>`
@@ -453,6 +457,8 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最小线程数或百分比
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ### poolOptions.vmThreads.useAtomics
 
 - **CLI:** `--poolOptions.vmThreads.useAtomics`
@@ -488,6 +494,7 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最大进程数
 
+<<<<<<< HEAD
 ### poolOptions.forks.minForks
 
 - **CLI:** `--poolOptions.forks.minForks <workers>`
@@ -495,6 +502,8 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最小进程数
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ### poolOptions.vmForks.isolate
 
 - **CLI:** `--poolOptions.vmForks.isolate`
@@ -516,6 +525,7 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最大进程数
 
+<<<<<<< HEAD
 ### poolOptions.vmForks.minForks
 
 - **CLI:** `--poolOptions.vmForks.minForks <workers>`
@@ -523,6 +533,8 @@ If connection to the browser takes longer, the test suite will fail (default: `6
 
 运行测试的最小进程数
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ### poolOptions.vmForks.memoryLimit
 
 - **CLI:** `--poolOptions.vmForks.memoryLimit <limit>`
@@ -544,6 +556,7 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 
 同时并发执行测试任务的最大线程数或百分比
 
+<<<<<<< HEAD
 ### minWorkers
 
 - **CLI:** `--minWorkers <workers>`
@@ -551,6 +564,8 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 
 同时并发执行测试任务的最小线程数或百分比
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ### environment
 
 - **CLI:** `--environment <name>`

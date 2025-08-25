@@ -295,6 +295,7 @@ export interface BrowserScript {
 }
 ```
 
+<<<<<<< HEAD
 ## browser.testerScripts
 
 - **类型:** `BrowserScript[]`
@@ -308,6 +309,8 @@ export interface BrowserScript {
 
 脚本的 `src` 和 `content` 将由 Vite 插件处理。
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ## browser.commands
 
 - **类型:** `Record<string, BrowserCommand>`

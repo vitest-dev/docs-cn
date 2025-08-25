@@ -768,6 +768,7 @@ export default defineConfig({
 
 最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
+<<<<<<< HEAD
 ##### poolOptions.threads.minThreads<NonProjectOption />
 
 - **类型:** `number | string`
@@ -775,6 +776,8 @@ export default defineConfig({
 
 最小线程数或百分比。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ##### poolOptions.threads.singleThread
 
 - **类型:** `boolean`
@@ -840,6 +843,7 @@ export default defineConfig({
 
 最大分支数量或百分比。你也可以使用 `VITEST_MAX_FORKS` 环境变量。
 
+<<<<<<< HEAD
 ##### poolOptions.forks.minForks<NonProjectOption />
 
 - **类型:** `number | string`
@@ -847,6 +851,8 @@ export default defineConfig({
 
 最小分支数量或百分比。你也可以使用 `VITEST_MIN_FORKS` 环境变量。
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ##### poolOptions.forks.isolate
 
 - **类型:** `boolean`
@@ -903,6 +909,7 @@ export default defineConfig({
 
 最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
+<<<<<<< HEAD
 ##### poolOptions.vmThreads.minThreads<NonProjectOption />
 
 - **类型:** `number | string`
@@ -910,6 +917,8 @@ export default defineConfig({
 
 最小线程数或百分比。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
@@ -983,6 +992,7 @@ export default defineConfig({
 
 最大线程数或百分比。你也可以使用 `VITEST_MAX_FORKS` 环境变量。
 
+<<<<<<< HEAD
 ##### poolOptions.vmForks.minForks<NonProjectOption />
 
 - **类型:** `number | string`
@@ -990,6 +1000,8 @@ export default defineConfig({
 
 最小线程数或百分比。你也可以使用 `VITEST_MIN_FORKS` 环境变量。
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ##### poolOptions.vmForks.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
@@ -1014,7 +1026,11 @@ export default defineConfig({
 - **默认值:** `true`
 - **命令行终端:** `--no-file-parallelism`, `--fileParallelism=false`
 
+<<<<<<< HEAD
 所有测试文件应该并行运行。将其设置为 `false` 将覆盖 `maxWorkers` 和 `minWorkers` 选项为 `1`。
+=======
+Should all test files run in parallel. Setting this to `false` will override `maxWorkers` option to `1`.
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 
 ::: tip
 此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
@@ -1026,12 +1042,15 @@ export default defineConfig({
 
 运行测试时设置的最大工作线程数或百分比。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
+<<<<<<< HEAD
 ### minWorkers<NonProjectOption /> {#minworkers}
 
 - **类型:** `number | string`
 
 运行测试时设置的最小工作线程数或百分比。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
 
+=======
+>>>>>>> 5f8c10979cb7646799dd822077966bda1d2aac42
 ### testTimeout
 
 - **类型:** `number`
