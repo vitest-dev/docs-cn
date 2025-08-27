@@ -99,10 +99,12 @@ bun add -D vitest @vitest/browser webdriverio
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+
 export default defineConfig({
   test: {
     browser: {
-      provider: 'playwright', // or 'webdriverio'
+      provider: playwright(),
       enabled: true,
       // at least one instance is required
       instances: [
@@ -124,14 +126,18 @@ Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许�
 ::: code-group
 ```ts [react]
 import react from '@vitejs/plugin-react'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 export default defineConfig({
   plugins: [react()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -140,6 +146,11 @@ export default defineConfig({
 })
 ```
 ```ts [vue]
+<<<<<<< HEAD
+=======
+import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 
@@ -148,7 +159,7 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -158,14 +169,18 @@ export default defineConfig({
 ```
 ```ts [svelte]
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 export default defineConfig({
   plugins: [svelte()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -175,14 +190,18 @@ export default defineConfig({
 ```
 ```ts [solid]
 import solidPlugin from 'vite-plugin-solid'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 export default defineConfig({
   plugins: [solidPlugin()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -192,14 +211,18 @@ export default defineConfig({
 ```
 ```ts [marko]
 import marko from '@marko/vite'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 export default defineConfig({
   plugins: [marko()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -209,6 +232,11 @@ export default defineConfig({
 ```
 ```ts [qwik]
 import { qwikVite } from '@builder.io/qwik/optimizer'
+<<<<<<< HEAD
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 // optional, run the tests in SSR mode
 import { testSSR } from 'vitest-browser-qwik/ssr-plugin'
 
@@ -219,7 +247,7 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [{ browser: 'chromium' }]
     },
   },
@@ -367,10 +395,12 @@ headless 模式是浏览器模式下可用的另一个选项。在 headless 模�
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+
 export default defineConfig({
   test: {
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       enabled: true,
       headless: true,
     },

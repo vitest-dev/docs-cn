@@ -78,7 +78,11 @@ export default defineConfig({
 - [覆盖率报告中的文件包含与排除](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
 - [性能分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage) 了解调试覆盖率生成的方法
 
+<<<<<<< HEAD
 ### `spyOn` 支持构造函数
+=======
+### `spyOn` and `fn` Support Constructors
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 在之前版本中，如果你对构造函数使用 `vi.spyOn`，会收到类似 `Constructor <name> requires 'new'` 的错误。从 Vitest 4 开始，所有用 `new` 调用的 mock 都会正确创建实例，而不是调用 `mock.apply`。这意味着 mock 实现必须使用 `function` 或 `class` 关键字，例如：
 
@@ -187,15 +191,95 @@ Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`s
 
 未使用上述高级功能者，升级无感知。
 
+<<<<<<< HEAD
 ### 移除废弃的 API
+=======
+### `workspace` is Replaced with `projects`
+
+The `workspace` configuration option was renamed to [`projects`](/guide/projects) in Vitest 3.2. They are functionally the same, except you cannot specify another file as the source of your workspace (previously you could specify a file that would export an array of projects). Migrating to `projects` is easy, just move the code from `vitest.workspace.js` to `vitest.config.ts`:
+
+::: code-group
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    workspace: './vitest.workspace.js', // [!code --]
+    projects: [ // [!code ++]
+      './packages/*', // [!code ++]
+      { // [!code ++]
+        test: { // [!code ++]
+          name: 'unit', // [!code ++]
+        }, // [!code ++]
+      }, // [!code ++]
+    ] // [!code ++]
+  }
+})
+```
+```ts [vitest.workspace.js]
+import { defineWorkspace } from 'vitest/config' // [!code --]
+
+export default defineWorkspace([ // [!code --]
+  './packages/*', // [!code --]
+  { // [!code --]
+    test: { // [!code --]
+      name: 'unit', // [!code --]
+    }, // [!code --]
+  } // [!code --]
+]) // [!code --]
+```
+:::
+
+### Browser Provider Accepts an Object
+
+In Vitest 4.0, the browser provider now accepts an object instead of a string (`'playwright'`, `'webdriverio'`). This makes it simpler to work with custom options and doesn't require adding `/// <reference` comments anymore.
+
+```ts
+import { playwright } from '@vitest/browser/providers/playwright' // [!code ++]
+
+export default defineConfig({
+  test: {
+    browser: {
+      provider: 'playwright', // [!code --]
+      provider: playwright({ // [!code ++]
+        launchOptions: { // [!code ++]
+          slowMo: 100, // [!code ++]
+        }, // [!code ++]
+      }), // [!code ++]
+      instances: [
+        {
+          browser: 'chromium',
+          launch: { // [!code --]
+            slowMo: 100, // [!code --]
+          }, // [!code --]
+        },
+      ],
+    },
+  },
+})
+```
+
+The naming of properties in `playwright` factory now also aligns with [Playwright documentation](https://playwright.dev/docs/api/class-testoptions#test-options-launch-options) making it easier to find.
+
+### Deprecated APIs are Removed
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 Vitest 4.0 移除了以下废弃的配置项：
 
+<<<<<<< HEAD
 - `poolMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - `environmentMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - `workspace` 配置项，请使用 [`projects`](/guide/projects) 代替。
 - Reporter 的 API 例如 `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` 及 `onFinished` 。查看 [`Reporters API`](/advanced/api/reporters) 了解替代方案。这些 API 在 Vitest v3.0.0 中引入。
 - 配置项 `deps.external`, `deps.inline`, `deps.fallbackCJS`。请改用 `server.deps.external`, `server.deps.inline` 或 `server.deps.fallbackCJS`。
+=======
+- `poolMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- `environmentMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
+- Reporter APIs `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` and `onFinished`. See [`Reporters API`](/advanced/api/reporters) for new alternatives. These APIs were introduced in Vitest `v3.0.0`.
+- `deps.external`, `deps.inline`, `deps.fallbackCJS` config options. Use `server.deps.external`, `server.deps.inline`, or `server.deps.fallbackCJS` instead.
+- `browser.testerScripts` config option. Use [`browser.testerHtmlPath`](/guide/browser/config#browser-testerhtmlpath) instead.
+- `minWorkers` config option. Only `maxWorkers` has any effect on how tests are running, so we are removing this public option.
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 同时，所有弃用类型被一次性清理，彻底解决误引 `@types/node` 的问题（[#5481](https://github.com/vitest-dev/vitest/issues/5481)、[#6141](https://github.com/vitest-dev/vitest/issues/6141)）。
 
@@ -280,7 +364,11 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 
 ### Done 回调
 
+<<<<<<< HEAD
 从 Vitest v0.10.0 开始，回调式测试声明被弃用。你可以改写为使用 `async`/`await`，或用 Promise 模拟回调风格。
+=======
+Vitest does not support the callback style of declaring tests. You can rewrite them to use `async`/`await` functions, or use Promise to mimic the callback style.
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 <!--@include: ./examples/promise-done.md-->
 
@@ -293,7 +381,11 @@ beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
 beforeEach(() => { setActivePinia(createTestingPinia()) }) // [!code ++]
 ```
 
+<<<<<<< HEAD
 Jest 中钩子顺序执行（逐个执行），Vitest 默认并行执行。若想使用 Jest 行为，可配置 [`sequence.hooks`](/config/#sequence-hooks)：
+=======
+In Jest hooks are called sequentially (one after another). By default, Vitest runs hooks in a stack. To use Jest's behavior, update [`sequence.hooks`](/config/#sequence-hooks) option:
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
 ```ts
 export default defineConfig({
@@ -330,23 +422,20 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 
 ### Vue 快照
 
+<<<<<<< HEAD
 这不是 Jest 特有功能，但如果之前使用 Jest 的 vue-cli preset，需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，并在 [setupFiles](/config/#setupfiles) 中使用：
+=======
+This is not a Jest-specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and specify it in [`snapshotSerializers`](/config/#snapshotserializers):
+>>>>>>> af78e180889cb387702b9adaa80e8c1f2a443e12
 
-:::code-group
-```js [vite.config.js]
-import { defineConfig } from 'vite'
+```js [vitest.config.js]
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    setupFiles: ['./tests/unit/setup.js']
+    snapshotSerializers: ['jest-serializer-vue']
   }
 })
 ```
-```js [tests/unit/setup.js]
-import vueSnapshotSerializer from 'jest-serializer-vue'
-
-expect.addSnapshotSerializer(vueSnapshotSerializer)
-```
-:::
 
 否则快照中会出现大量转义的 `"` 字符。

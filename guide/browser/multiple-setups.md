@@ -10,11 +10,13 @@
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+
 export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       headless: true,
       instances: [
         { browser: 'chromium' },
@@ -33,11 +35,13 @@ export default defineConfig({
 ::: code-group
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+
 export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       headless: true,
       instances: [
         {
