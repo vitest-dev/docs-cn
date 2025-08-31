@@ -1,5 +1,10 @@
 ---
+<<<<<<< HEAD
 title: 模拟对象 | 指南
+=======
+title: Mocking | Guide
+outline: false
+>>>>>>> 15dc5ece6fbc556b5ca1466a164abc5236cf32c5
 ---
 
 # 模拟对象
@@ -12,6 +17,7 @@ title: 模拟对象 | 指南
 
 如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看[API部分](/api/vi)。
 
+<<<<<<< HEAD
 ## 日期
 
 有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 库来操作计时器以及系统日期。可以在 [此处](/api/vi#vi-setsystemtime) 找到有关特定 API 的更多详细信息。
@@ -555,14 +561,32 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 ::: danger
 从 Vitest 4 开始，才支持用类语法配合 `vi.fn()` 进行模拟；此前必须显式使用 `function` 并手动维护 `prototype` 继承。旧版实现方式可参考 [v3 指南](https://v3.vitest.dev/guide/mocking.html#classes)。
 :::
+=======
+Vitest has a comprehensive list of guides regarding mocking:
+
+- [Mocking Classes](/guide/mocking/classes.md)
+- [Mocking Dates](/guide/mocking/dates.md)
+- [Mocking the File System](/guide/mocking/file-system.md)
+- [Mocking Functions](/guide/mocking/functions.md)
+- [Mocking Globals](/guide/mocking/globals.md)
+- [Mocking Modules](/guide/mocking/modules.md)
+- [Mocking Requests](/guide/mocking/requests.md)
+- [Mocking Timers](/guide/mocking/timers.md)
+
+For a simpler and quicker way to get started with mocking, you can check the Cheat Sheet below.
+>>>>>>> 15dc5ece6fbc556b5ca1466a164abc5236cf32c5
 
 ## 备忘单
 
+<<<<<<< HEAD
 ::: info 提示
 下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [config](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。
 :::
 
 我想…
+=======
+I want to…
+>>>>>>> 15dc5ece6fbc556b5ca1466a164abc5236cf32c5
 
 ### Mock exported variables
 ```js [example.js]
@@ -633,9 +657,9 @@ vi.mock(import('./example.js'), () => {
   })
   return { SomeClass }
 })
-// SomeClass.mock.instances will have SomeClass
 ```
 
+<<<<<<< HEAD
 2. Example with `vi.mock` and `.prototype`:
 ```ts [example.js]
 export class SomeClass {}
@@ -653,14 +677,16 @@ vi.mock(import('./example.js'), () => {
 ```
 
 3. `vi.spyOn` 的示例:
+=======
+2. Example with `vi.spyOn`:
+>>>>>>> 15dc5ece6fbc556b5ca1466a164abc5236cf32c5
 
 ```ts
 import * as mod from './example.js'
 
-const SomeClass = vi.fn()
-SomeClass.prototype.someMethod = vi.fn()
-
-vi.spyOn(mod, 'SomeClass').mockImplementation(SomeClass)
+vi.spyOn(mod, 'SomeClass').mockImplementation(class FakeClass {
+  someMethod = vi.fn()
+})
 ```
 
 ::: warning
