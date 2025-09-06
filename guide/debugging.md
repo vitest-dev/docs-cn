@@ -66,13 +66,14 @@ vitest --inspect-brk --browser --no-file-parallelism
 ```
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
 
 export default defineConfig({
   test: {
     inspectBrk: true,
     fileParallelism: false,
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       instances: [{ browser: 'chromium' }]
     },
   },
