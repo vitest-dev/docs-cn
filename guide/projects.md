@@ -42,7 +42,58 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 Vitest 会将 `packages` 中的每个文件夹视为独立项目，即使其中没有配置文件。如果该 glob 模式匹配到 _任意文件_，它将被视为 Vitest 配置，即使文件名中没有包含 `vitest` 或文件扩展名不常见。
+=======
+Vitest will treat every folder in `packages` as a separate project even if it doesn't have a config file inside. If the glob pattern matches a file, it will validate that the name starts with `vitest.config`/`vite.config` or matches `(vite|vitest).*.config.*` pattern to ensure it's a Vitest configuration file. For example, these config files are valid:
+
+- `vitest.config.ts`
+- `vite.config.js`
+- `vitest.unit.config.ts`
+- `vite.e2e.config.js`
+- `vitest.config.unit.js`
+- `vite.config.e2e.js`
+
+To exclude folders and files, you can use the negation pattern:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    // include all folders inside "packages" except "excluded"
+    projects: [
+      'packages/*',
+      '!packages/excluded'
+    ],
+  },
+})
+```
+
+If you have a nested structure where some folders need to be projects, but other folders have their own subfolders, you have to use brackets to avoid matching the parent folder:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+// For example, this will create projects:
+// packages/a
+// packages/b
+// packages/business/c
+// packages/business/d
+// Notice that "packages/business" is not a project itself
+
+export default defineConfig({
+  test: {
+    projects: [
+      // matches every folder inside "packages" except "business"
+      'packages/!(business)',
+      // matches every folder inside "packages/business"
+      'packages/business/*',
+    ],
+  },
+})
+```
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 ::: warning
 Vitest 不会将根目录的 `vitest.config` 文件视为项目，除非在配置中显式指定。因此，根配置只会影响全局选项，如 `reporters` 和 `coverage`。但 Vitest 总会执行根配置文件中指定的某些插件钩子，如 `apply`、`config`、`configResolved` 或 `configureServer`。Vitest 也会使用相同的插件执行全局设置和自定义覆盖提供者。

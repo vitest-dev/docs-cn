@@ -12,7 +12,11 @@ import { vi } from 'vitest'
 
 ## Mock Modules
 
+<<<<<<< HEAD
 本节介绍在 [模拟模块](/guide/mocking#modules) 时可以使用的 API。请注意，Vitest 不支持模拟使用 `require()` 导入的模块。
+=======
+This section describes the API that you can use when [mocking a module](/guide/mocking/modules). Beware that Vitest doesn't support mocking modules imported using `require()`.
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 ### vi.mock
 
@@ -164,7 +168,11 @@ axios.get(`/apples/${increment(1)}`)
 请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/#setupfiles) 中为每个所需的模块调用 `vi.mock` 。
 :::
 
+<<<<<<< HEAD
 如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有输出。有关应用的规则，请参阅[模块](/guide/mocking#%E6%A8%A1%E5%9D%97)。
+=======
+If there is no `__mocks__` folder or a factory provided, Vitest will import the original module and auto-mock all its exports. For the rules applied, see [algorithm](/guide/mocking/modules#automocking-algorithm).
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 ### vi.doMock
 
@@ -290,7 +298,11 @@ vi.mock('./example.js', async () => {
 function importMock<T>(path: string): Promise<MaybeMockedDeep<T>>
 ```
 
+<<<<<<< HEAD
 导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅[模块](/guide/mocking#%E6%A8%A1%E5%9D%97)。
+=======
+Imports a module with all of its properties (including nested properties) mocked. Follows the same rules that [`vi.mock`](#vi-mock) does. For the rules applied, see [algorithm](/guide/mocking/modules#automocking-algorithm).
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 ### vi.unmock
 
@@ -415,8 +427,13 @@ test('operations are resolved', async () => {
 function fn(fn?: Procedure | Constructable): Mock
 ```
 
+<<<<<<< HEAD
 创建函数的监视程序，但也可以不创建监视程序。每次调用函数时，它都会存储调用参数、返回值和实例。此外，我们还可以使用 [methods](/api/mock) 操纵它的行为。
 如果没有给出函数，调用 mock 时将返回 `undefined`。
+=======
+Creates a spy on a function, but can also be initiated without one. Every time a function is invoked, it stores its call arguments, returns, and instances. Additionally, you can manipulate its behavior with [methods](/api/mock).
+If no function is given, mock will return `undefined` when invoked.
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 ```ts
 const getApples = vi.fn(() => 0)
@@ -519,7 +536,11 @@ function restoreAllMocks(): Vitest
 一旦完成还原，即可重新对其进行监视。
 
 ::: warning
+<<<<<<< HEAD
 该方法同样不会触及 [automocking](/guide/mocking-modules#mocking-a-module) 期间生成的任何 mock。
+=======
+This method also does not affect mocks created during [automocking](/guide/mocking/modules#mocking-a-module).
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 注意：与 [`mock.mockRestore`](/api/mock#mockrestore) 不同，`vi.restoreAllMocks` 既不会清空调用历史，也不会重置 mock 的实现。
 :::
@@ -766,7 +787,11 @@ IntersectionObserver === undefined
 
 ## Fake Timers
 
+<<<<<<< HEAD
 本节介绍如何使用 [fake timers](/guide/mocking#%E8%AE%A1%E6%97%B6%E5%99%A8) 。
+=======
+This sections describes how to work with [fake timers](/guide/mocking/timers).
+>>>>>>> 606ca746598b36b48f626c7f12d102a1279192c1
 
 ### vi.advanceTimersByTime
 
