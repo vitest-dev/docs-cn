@@ -21,6 +21,7 @@
     "vue": "latest"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@antfu/eslint-config": "^4.10.1",
     "@antfu/ni": "^24.3.0",
     "@iconify-json/carbon": "latest",
@@ -31,6 +32,14 @@
     "@types/node": "latest",
     "@unocss/reset": "latest",
     "@vite-pwa/assets-generator": "^1.0.0",
+=======
+    "@iconify-json/carbon": "catalog:",
+    "@iconify-json/logos": "catalog:",
+    "@shikijs/transformers": "^3.12.2",
+    "@shikijs/vitepress-twoslash": "^3.12.2",
+    "@unocss/reset": "catalog:",
+    "@vite-pwa/assets-generator": "^1.0.1",
+>>>>>>> 525a702d52a9e33510e1460fd252a127e3564282
     "@vite-pwa/vitepress": "^1.0.0",
     "@vitejs/plugin-vue": "latest",
     "@vitest/browser": "^4.0.0-beta.7",
@@ -49,10 +58,17 @@
     "unocss": "latest",
     "unplugin-vue-components": "latest",
     "vite": "^6.3.5",
+<<<<<<< HEAD
     "vite-plugin-pwa": "^1.0.0",
     "vitepress": "2.0.0-alpha.9",
     "vitepress-plugin-group-icons": "^1.6.1",
     "vitepress-plugin-llms": "^1.7.2",
+=======
+    "vite-plugin-pwa": "^0.21.2",
+    "vitepress": "2.0.0-alpha.12",
+    "vitepress-plugin-group-icons": "^1.6.3",
+    "vitepress-plugin-llms": "^1.7.4",
+>>>>>>> 525a702d52a9e33510e1460fd252a127e3564282
     "vitepress-plugin-tabs": "^0.7.1",
     "vitest": "^4.0.0-beta.7",
     "workbox-window": "^7.3.0"
