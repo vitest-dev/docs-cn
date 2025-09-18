@@ -99,10 +99,12 @@ bun add -D vitest @vitest/browser webdriverio
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+
 export default defineConfig({
   test: {
     browser: {
-      provider: 'playwright', // or 'webdriverio'
+      provider: playwright(),
       enabled: true,
       // at least one instance is required
       instances: [
@@ -124,14 +126,18 @@ Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许�
 ::: code-group
 ```ts [react]
 import react from '@vitejs/plugin-react'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 
 export default defineConfig({
   plugins: [react()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -140,6 +146,11 @@ export default defineConfig({
 })
 ```
 ```ts [vue]
+<<<<<<< HEAD
+=======
+import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 
@@ -148,7 +159,7 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -158,14 +169,18 @@ export default defineConfig({
 ```
 ```ts [svelte]
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 
 export default defineConfig({
   plugins: [svelte()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -175,14 +190,18 @@ export default defineConfig({
 ```
 ```ts [solid]
 import solidPlugin from 'vite-plugin-solid'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 
 export default defineConfig({
   plugins: [solidPlugin()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -192,14 +211,18 @@ export default defineConfig({
 ```
 ```ts [marko]
 import marko from '@marko/vite'
+<<<<<<< HEAD
 import { defineConfig } from 'vitest/config'
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 
 export default defineConfig({
   plugins: [marko()],
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
@@ -209,6 +232,11 @@ export default defineConfig({
 ```
 ```ts [qwik]
 import { qwikVite } from '@builder.io/qwik/optimizer'
+<<<<<<< HEAD
+=======
+import { playwright } from '@vitest/browser/providers/playwright'
+
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 // optional, run the tests in SSR mode
 import { testSSR } from 'vitest-browser-qwik/ssr-plugin'
 
@@ -219,7 +247,7 @@ export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [{ browser: 'chromium' }]
     },
   },
@@ -233,6 +261,7 @@ export default defineConfig({
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
 
 export default defineConfig({
   test: {
@@ -260,6 +289,7 @@ export default defineConfig({
           name: 'browser',
           browser: {
             enabled: true,
+            provider: playwright(),
             instances: [
               { browser: 'chromium' },
             ],
@@ -284,6 +314,7 @@ Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `
   - `webkit`
   - `chromium`
 
+<<<<<<< HEAD
 ## TypeScript
 
 默认情况下，TypeScript 无法识别 providers 选项和额外的 `expect` 属性。如果我们不使用任何 providers ，请确保在测试、[设置文件](/config/#setupfiles) 或 [配置文件](/config/) 中引用 `@vitest/browser/matchers`，以获取额外的 `expect` 定义。如果我们使用自定义 providers ，请确保在同一文件中添加 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio`，以便 TypeScript 可以获取自定义选项的定义：
@@ -327,6 +358,9 @@ Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `
 :::
 
 ## 浏览器兼容性
+=======
+## Browser Compatibility
+>>>>>>> e88800c49ae7219128e2c6847e100fba3be27cc4
 
 Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行我们的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
 
@@ -367,10 +401,12 @@ headless 模式是浏览器模式下可用的另一个选项。在 headless 模�
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
+
 export default defineConfig({
   test: {
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       enabled: true,
       headless: true,
     },

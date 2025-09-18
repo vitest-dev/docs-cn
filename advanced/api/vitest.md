@@ -375,6 +375,14 @@ function setGlobalTestNamePattern(pattern: string | RegExp): void
 此方法不会开始运行任何测试。要使用更新后的模式运行测试，请调用 [`runTestSpecifications`](#runtestspecifications)。
 :::
 
+## getGlobalTestNamePattern
+
+```ts
+function getGlobalTestNamePattern(): RegExp | undefined
+```
+
+Returns the regexp used for the global test name pattern.
+
 ## resetGlobalTestNamePattern
 
 ```ts
@@ -552,6 +560,32 @@ function createCoverageProvider(): Promise<CoverageProvider | null>
 ::: warning
 若未将 [`coverage.clean`](/config/#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。
 :::
+
+## enableCoverage <Version>4.0.0</Version> {#enablecoverage}
+
+```ts
+function enableCoverage(): Promise<void>
+```
+
+This method enables coverage for tests that run after this call. `enableCoverage` doesn't run any tests; it only sets up Vitest to collect coverage.
+
+It creates a new coverage provider if one doesn't already exist.
+
+## disableCoverage <Version>4.0.0</Version> {#disablecoverage}
+
+```ts
+function disableCoverage(): void
+```
+
+This method disables coverage collection for tests that run afterwards.
+
+## getSeed <Version>4.0.0</Version> {#getseed}
+
+```ts
+function getSeed(): number | null
+```
+
+Returns the seed, if tests are running in a random order.
 
 ## experimental_parseSpecification <Version>4.0.0</Version> <Badge type="warning">experimental</Badge> {#parsespecification}
 
