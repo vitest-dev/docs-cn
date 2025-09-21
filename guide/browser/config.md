@@ -54,20 +54,7 @@ export default defineConfig({
 - [配置 Playwright](/guide/browser/playwright)
 - [配置 WebdriverIO](/guide/browser/webdriverio)
 
-<<<<<<< HEAD
-::: tip
-为了在使用内置提供者时获得更好的类型安全性，我们应该在 [配置文件](/config/) 中引用以下类型之一（针对我们使用的提供者）：
-
-```ts
-/// <reference types="@vitest/browser/providers/playwright" />
-/// <reference types="@vitest/browser/providers/webdriverio" />
-```
-:::
-
-除此之外，我们还可以指定大多数 [项目选项](/config/)（未标记为 <NonProjectOption /> 图标的选项）和一些 `browser` 选项，例如 `browser.testerHtmlPath`。
-=======
-In addition to that, you can also specify most of the [project options](/config/) (not marked with a <NonProjectOption /> icon) and some of the `browser` options like `browser.testerHtmlPath`.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+除此之外，你还可以指定大多数[项目选项](/config/)(未标记为<NonProjectOption />图标的选项)和一些 `browser` 选项，例如`browser.testerHtmlPath`。
 
 ::: warning
 每个浏览器配置都从根配置继承选项：
@@ -111,24 +98,6 @@ export default defineConfig({
 
 在底层，Vitest 将这些实例转换为共享单个 Vite 服务器的单独 [测试项目](/advanced/api/test-project)，以获得更好的缓存性能。
 
-<<<<<<< HEAD
-## browser&#46;name <Badge type="danger">已弃用</Badge> {#browser-name}
-
-- **类型:** `string`
-- **CLI:** `--browser=safari`
-
-::: danger DEPRECATED
-此 API 已弃用，并将在 Vitest 4 中移除。请改用 [`browser.instances`](#browser-instances) 选项。
-:::
-
-在特定浏览器中运行所有测试。不同提供者中的可能选项：
-
-- `webdriverio`: `firefox`, `chrome`, `edge`, `safari`
-- `playwright`: `firefox`, `webkit`, `chromium`
-- 自定义：任何将传递给提供者的字符串
-
-=======
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 ## browser.headless
 
 - **类型:** `boolean`
@@ -161,59 +130,16 @@ HTML 入口点的路径。可以是相对于项目根目录的路径。此文件
 
 ## browser.provider <Badge type="danger">advanced</Badge> {#browser-provider}
 
-<<<<<<< HEAD
-- **类型:** `'webdriverio' | 'playwright' | 'preview' | string`
+- **类型:** `BrowserProviderOption`
 - **默认值:** `'preview'`
 - **CLI:** `--browser.provider=playwright`
 
-在运行浏览器测试时使用的提供者路径。Vitest 提供了三个提供者，分别是 `preview`（默认）、`webdriverio` 和 `playwright`。自定义提供者应使用 `default` 导出，并具有以下形状：
-
-```ts
-export interface BrowserProvider {
-  name: string
-  supportsParallelism: boolean
-  getSupportedBrowsers: () => readonly string[]
-  beforeCommand?: (command: string, args: unknown[]) => Awaitable<void>
-  afterCommand?: (command: string, args: unknown[]) => Awaitable<void>
-  getCommandsContext: (sessionId: string) => Record<string, unknown>
-  openPage: (sessionId: string, url: string, beforeNavigate?: () => Promise<void>) => Promise<void>
-  getCDPSession?: (sessionId: string) => Promise<CDPSession>
-  close: () => Awaitable<void>
-  initialize: (
-    ctx: TestProject,
-    options: BrowserProviderInitializationOptions
-  ) => Awaitable<void>
-}
-```
-
-::: danger ADVANCED API
-自定义提供者 API 高度实验性，并且可能在补丁版本之间发生变化。如果你只需要在浏览器中运行测试，请改用 [`browser.instances`](#browser-instances) 选项。
-:::
-
-## browser.providerOptions <Badge type="danger">已弃用</Badge> {#browser-provideroptions}
-
-- **类型:** `BrowserProviderOptions`
-
-::: danger DEPRECATED
-此 API 已弃用，并将在 Vitest 4 中移除。请改用 [`browser.instances`](#browser-instances) 选项。
-:::
-
-调用 `provider.initialize` 时传递给提供者的选项。
-
-```ts
-import { defineConfig } from 'vitest/config'
-=======
-- **Type:** `BrowserProviderOption`
-- **Default:** `'preview'`
-- **CLI:** `--browser.provider=playwright`
-
-The return value of the provider factory. You can import the factory from `@vitest/browser/providers/<provider-name>` or make your own provider:
+提供者工厂的返回值。你可以从 `@vitest/browser/providers/<provider-name>` 导入工厂函数，或者创建自己的提供者：
 
 ```ts{8-10}
 import { playwright } from '@vitest/browser/providers/playwright'
 import { webdriverio } from '@vitest/browser/providers/webdriverio'
 import { preview } from '@vitest/browser/providers/preview'
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 export default defineConfig({
   test: {
@@ -226,11 +152,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-::: tip
-为了在使用内置提供者时获得更好的类型安全性，我们应该在 [配置文件](/config/) 中引用以下类型之一（针对我们使用的提供者）：
-=======
-To configure how provider initializes the browser, you can pass down options to the factory function:
+要配置提供者如何初始化浏览器，你可以将选项传递给工厂函数：
 
 ```ts{7-15,22-27}
 import { playwright } from '@vitest/browser/providers/playwright'
@@ -266,12 +188,11 @@ export default defineConfig({
 })
 ```
 
-### Custom Provider
+### 自定义提供者
 
 ::: danger ADVANCED API
-The custom provider API is highly experimental and can change between patches. If you just need to run tests in a browser, use the [`browser.instances`](#browser-instances) option instead.
+自定义提供者 API 高度实验性，并且可能在补丁版本之间发生变化。如果你只需要在浏览器中运行测试，请改用 [`browser.instances`](#browser-instances) 选项。
 :::
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 ```ts
 export interface BrowserProvider {
@@ -368,22 +289,6 @@ export interface BrowserScript {
 }
 ```
 
-<<<<<<< HEAD
-## browser.testerScripts
-
-- **类型:** `BrowserScript[]`
-- **默认值:** `[]`
-
-::: danger DEPRECATED
-此 API 已弃用，并将在 Vitest 4 中移除。请改用 [`browser.testerHtmlPath`](#browser-testerhtmlpath) 字段。
-:::
-
-在测试环境初始化之前应注入到测试器 HTML 中的自定义脚本。这对于注入 Vitest 浏览器实现所需的 polyfill 非常有用。在几乎所有情况下，建议使用 [`setupFiles`](#setupfiles) 代替此选项。
-
-脚本的 `src` 和 `content` 将由 Vite 插件处理。
-
-=======
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 ## browser.commands
 
 - **类型:** `Record<string, BrowserCommand>`
@@ -534,15 +439,3 @@ resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>
 resolveDiffPath: ({ arg, attachmentsDir, browserName, ext, root, testFileName }) =>
   `${root}/${attachmentsDir}/screenshot-diffs/${testFileName}/${arg}-${browserName}${ext}`
 ```
-<<<<<<< HEAD
-
-::: tip
-为了在使用内置提供程序时获得更好的类型安全性，应在你的 [配置文件](/config/) 中引用这些类型之一（针对你正在使用的提供程序）。
-
-```ts
-/// <reference types="@vitest/browser/providers/playwright" />
-/// <reference types="@vitest/browser/providers/webdriverio" />
-```
-:::
-=======
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab

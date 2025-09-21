@@ -84,9 +84,6 @@ export const page: {
   /**
    * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素。
    */
-<<<<<<< HEAD
-  elementLocator: (element: Element) => Locator
-=======
   elementLocator(element: Element): Locator
   /**
    * The iframe locator. This is a document locator that enters the iframe body
@@ -94,7 +91,6 @@ export const page: {
    * **Warning:** At the moment, this is supported only by the `playwright` provider.
    */
   frameLocator(iframeElement: Locator): FrameLocator
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
   /**
    * Locator API。更多详细信息请参见其文档。
@@ -114,8 +110,8 @@ export const page: {
 :::
 
 ::: warning WARNING <Version>3.2.0</Version>
-Note that `screenshot` will always return a base64 string if `save` is set to `false`.
-The `path` is also ignored in that case.
+请注意，如果 `save` 设置为 `false`，`screenshot` 将始终返回 base64 字符串。
+在这种情况下，`path` 也会被忽略。
 :::
 
 ### frameLocator
@@ -124,9 +120,9 @@ The `path` is also ignored in that case.
 function frameLocator(iframeElement: Locator): FrameLocator
 ```
 
-The `frameLocator` method returns a `FrameLocator` instance that can be used to find elements inside the iframe.
+`frameLocator` 方法返回一个 `FrameLocator` 实例，可用于查找 iframe 内的元素。
 
-The frame locator is similar to `page`. It does not refer to the Iframe HTML element, but to the iframe's document.
+frame locator 类似于 `page`。它不指向 Iframe HTML 元素，而是指向 iframe 的文档。
 
 ```ts
 const frame = page.frameLocator(
@@ -138,22 +134,18 @@ await frame.click() // ❌ Not available
 ```
 
 ::: danger IMPORTANT
-At the moment, the `frameLocator` method is only supported by the `playwright` provider.
+目前，`frameLocator` 方法仅支持 `playwright` 提供者。
 
-The interactive methods (like `click` or `fill`) are always available on elements within the iframe, but assertions with `expect.element` require the iframe to have the [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
+交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
 :::
 
 ## `cdp`
 
-<<<<<<< HEAD
-`cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
-=======
 ```ts
 function cdp(): CDPSession
 ```
 
-The `cdp` export returns the current Chrome DevTools Protocol session. It is mostly useful to library authors to build tools on top of it.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+`cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
 ::: warning
 CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。

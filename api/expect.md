@@ -527,15 +527,9 @@ expect(new Error('hi')).toEqual(new Error('hi', { cause: 'x' }))
 
 与 [`.toEqual`](#toequal) 的区别：
 
-<<<<<<< HEAD
 - 检查具有 `undefined` 属性的键。 例如 使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不匹配。
 - 检查数组稀疏性。 例如 使用 `.toStrictEqual` 时， `[, 1]` 与 `[undefined, 1]` 不匹配。
 - 检查对象类型是否相等。 例如 具有字段 `a` 和 ` b` 的类实例不等于具有字段 `a` 和 ` b` 的文字对象。
-=======
--  Keys with `undefined` properties are checked. e.g. `{a: undefined, b: 2}` does not match `{b: 2}` when using `.toStrictEqual`.
--  Array sparseness is checked. e.g. `[, 1]` does not match `[undefined, 1]` when using `.toStrictEqual`.
--  Object types are checked to be equal. e.g. A class instance with fields `a` and `b` will not equal a literal object with fields `a` and `b`.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 ```ts
 import { expect, test } from 'vitest'

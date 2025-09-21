@@ -177,23 +177,14 @@ vi.mock(import('./example.js'))
 如果文件 `./__mocks__/example.js` 存在， Vitest 会优先加载该文件来替代原模块。
 若不存在该文件， Vitest 会加载原模块，并递归替换其中的所有内容，规则如下：
 
-<<<<<<< HEAD:guide/mocking-modules.md
-- 所有数组将被替换为空数组；
-- 所有原始类型（ primitives ）保持原值；
-- 所有 getter 会返回 `undefined`
-- 所有方法会返回 `undefined`
-- 所有对象会被深度克隆；
-- 所有类的实例及其原型会被克隆。
-=======
 {#automocking-algorithm}
 
-- All arrays will be empty
-- All primitives will stay untouched
-- All getters will return `undefined`
-- All methods will return `undefined`
-- All objects will be deeply cloned
-- All instances of classes and their prototypes will be cloned
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab:guide/mocking/modules.md
+- 所有数组将被替换为空数组
+- 所有原始类型保持不变
+- 所有 getter 将返回 `undefined`
+- 所有方法将返回 `undefined`
+- 所有对象将被深度克隆
+- 所有类的实例及其原型将被克隆
 
 如需禁用该默认行为，可以在调用时将 `{ spy: true }` 作为第二个参数传入，例如：
 

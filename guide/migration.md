@@ -7,25 +7,7 @@ outline: deep
 
 ## 迁移到 Vitest 4.0 {#vitest-4}
 
-<<<<<<< HEAD
-### 移除 `reporters: 'basic'`
-
-Basic 报告器已被移除，它等价于以下配置：
-
-```ts
-export default defineConfig({
-  test: {
-    reporters: [
-      ['default', { summary: false }]
-    ]
-  }
-})
-```
-
-### V8 代码覆盖率重大变更
-=======
 ### V8 Code Coverage Major Changes
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 Vitest 的 V8 覆盖率提供器现在使用了更精准的结果映射逻辑，从 Vitest v3 升级后，你可能会看到覆盖率报告的内容有变化。
 
@@ -82,11 +64,7 @@ export default defineConfig({
 - [覆盖率报告中的文件包含与排除](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
 - [性能分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage) 了解调试覆盖率生成的方法
 
-<<<<<<< HEAD
-### `spyOn` 支持构造函数
-=======
-### `spyOn` and `fn` Support Constructors
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+### `spyOn` and `fn` 支持构造函数
 
 在之前版本中，如果你对构造函数使用 `vi.spyOn`，会收到类似 `Constructor <name> requires 'new'` 的错误。从 Vitest 4 开始，所有用 `new` 调用的 mock 都会正确创建实例，而不是调用 `mock.apply`。这意味着 mock 实现必须使用 `function` 或 `class` 关键字，例如：
 
@@ -195,9 +173,6 @@ Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`s
 
 未使用上述高级功能者，升级无感知。
 
-<<<<<<< HEAD
-### 移除废弃的 API
-=======
 ### `workspace` is Replaced with `projects`
 
 The `workspace` configuration option was renamed to [`projects`](/guide/projects) in Vitest 3.2. They are functionally the same, except you cannot specify another file as the source of your workspace (previously you could specify a file that would export an array of projects). Migrating to `projects` is easy, just move the code from `vitest.workspace.js` to `vitest.config.ts`:
@@ -326,29 +301,20 @@ exports[`custom element with shadow root 1`] = `
 ```
 
 ### Deprecated APIs are Removed
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 Vitest 4.0 移除了以下废弃的配置项：
 
-<<<<<<< HEAD
-- `poolMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
-- `environmentMatchGlobs` 配置项，请使用 [`projects`](/guide/projects) 代替。
-- `workspace` 配置项，请使用 [`projects`](/guide/projects) 代替。
-- Reporter 的 API 例如 `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` 及 `onFinished` 。查看 [`Reporters API`](/advanced/api/reporters) 了解替代方案。这些 API 在 Vitest v3.0.0 中引入。
-- 配置项 `deps.external`, `deps.inline`, `deps.fallbackCJS`。请改用 `server.deps.external`, `server.deps.inline` 或 `server.deps.fallbackCJS`。
-=======
-- `poolMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
-- `environmentMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
-- `deps.external`, `deps.inline`, `deps.fallbackCJS` config options. Use `server.deps.external`, `server.deps.inline`, or `server.deps.fallbackCJS` instead.
-- `browser.testerScripts` config option. Use [`browser.testerHtmlPath`](/guide/browser/config#browser-testerhtmlpath) instead.
-- `minWorkers` config option. Only `maxWorkers` has any effect on how tests are running, so we are removing this public option.
-- Vitest no longer supports providing test options as a third argument to `test` and `describe`. Use the second argument instead:
+- `poolMatchGlobs` 配置项。请使用 [`projects`](/guide/projects) 代替。
+- `environmentMatchGlobs` 配置项。请使用 [`projects`](/guide/projects) 代替。
+- `deps.external`、`deps.inline`、`deps.fallbackCJS` 配置项。请改用 `server.deps.external`、`server.deps.inline` 或 `server.deps.fallbackCJS`。
+- `browser.testerScripts` 配置项。请使用 [`browser.testerHtmlPath`](/guide/browser/config#browser-testerhtmlpath) 代替。
+- `minWorkers` 配置项。只有 `maxWorkers` 会对测试运行方式产生影响，因此我们正在移除这个公共选项。
+- Vitest 不再支持将测试选项作为第三个参数提供给 `test` 和 `describe`。请改用第二个参数。
 
 ```ts
 test('example', () => { /* ... */ }, { retry: 2 }) // [!code --]
 test('example', { retry: 2 }, () => { /* ... */ }) // [!code ++]
 ```
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 同时，所有弃用类型被一次性清理，彻底解决误引 `@types/node` 的问题（[#5481](https://github.com/vitest-dev/vitest/issues/5481)、[#6141](https://github.com/vitest-dev/vitest/issues/6141)）。
 
@@ -433,11 +399,7 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 
 ### Done 回调
 
-<<<<<<< HEAD
-从 Vitest v0.10.0 开始，回调式测试声明被弃用。你可以改写为使用 `async`/`await`，或用 Promise 模拟回调风格。
-=======
-Vitest does not support the callback style of declaring tests. You can rewrite them to use `async`/`await` functions, or use Promise to mimic the callback style.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+Vitest 不支持回调式测试声明。你可以改写为使用 `async`/`await` 函数，或使用 Promise 来模拟回调风格。
 
 <!--@include: ./examples/promise-done.md-->
 
@@ -450,11 +412,7 @@ beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
 beforeEach(() => { setActivePinia(createTestingPinia()) }) // [!code ++]
 ```
 
-<<<<<<< HEAD
-Jest 中钩子顺序执行（逐个执行），Vitest 默认并行执行。若想使用 Jest 行为，可配置 [`sequence.hooks`](/config/#sequence-hooks)：
-=======
-In Jest hooks are called sequentially (one after another). By default, Vitest runs hooks in a stack. To use Jest's behavior, update [`sequence.hooks`](/config/#sequence-hooks) option:
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+在 Jest 中钩子是顺序执行的（一个接一个）。默认情况下，Vitest 在栈中运行钩子。要使用 Jest 的行为，请更新 [`sequence.hooks`](/config/#sequence-hooks) 选项：
 
 ```ts
 export default defineConfig({
@@ -491,11 +449,7 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 
 ### Vue 快照
 
-<<<<<<< HEAD
-这不是 Jest 特有功能，但如果之前使用 Jest 的 vue-cli preset，需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，并在 [setupFiles](/config/#setupfiles) 中使用：
-=======
-This is not a Jest-specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and specify it in [`snapshotSerializers`](/config/#snapshotserializers):
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+这不是 Jest 特有的功能，但如果你之前在 vue-cli 预设中使用 Jest，你需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，并在 [`snapshotSerializers`](/config/#snapshotserializers) 中指定它：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'

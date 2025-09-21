@@ -94,11 +94,7 @@ function annotate(
 ): Promise<TestAnnotation>
 ```
 
-<<<<<<< HEAD
-添加一个 [测试标注](/guide/test-annotations) ，该标注会在 [报告器](/config/#reporter) 输出中展示。
-=======
-Add a [test annotation](/guide/test-annotations) that will be displayed by your [reporter](/config/#reporters).
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+添加一个[测试注解](/guide/test-annotations)，它将由你的[报告器](/config/#reporters)显示。
 
 ```ts
 test('annotations API', async ({ annotate }) => {
@@ -439,7 +435,7 @@ test('types are defined correctly', ({ todos, archive }) => {
 ```
 
 ::: info Type Inferring
-Note that Vitest doesn't support infering the types when the `use` function is called. It is always preferable to pass down the whole context type as the generic type when `test.extend` is called:
+请注意，Vitest 不支持在调用 `use` 函数时推断类型。在调用 `test.extend` 时，最好将整个上下文类型作为泛型类型传递：
 
 ```ts
 import { test as baseTest } from 'vitest'
@@ -460,57 +456,3 @@ test('types are correct', ({
 })
 ```
 :::
-<<<<<<< HEAD
-
-### `beforeEach` and `afterEach`
-
-::: danger Deprecated
-这种扩展上下文的方法已不再推荐使用，并且在你使用 `test.extend` 扩展 `test` 时，它将无法生效。
-:::
-
-每个测试用例都有独立的上下文，你可以在 `beforeEach` 和 `afterEach` 钩子里对其进行访问或扩展。
-
-```ts
-import { beforeEach, it } from 'vitest'
-
-beforeEach(async (context) => {
-  // 扩展上下文
-  context.foo = 'bar'
-})
-
-it('should work', ({ foo }) => {
-  console.log(foo) // 'bar'
-})
-```
-
-#### TypeScript
-
-如果你想为自定义的上下文属性提供类型支持，可以通过扩展 `TestContext` 类型来实现：
-
-```ts
-declare module 'vitest' {
-  export interface TestContext {
-    foo?: string
-  }
-}
-```
-
-如果你只想为特定的 `beforeEach`、`afterEach`、`it` 或 `test` hooks 提供属性类型，则可以将类型作为泛型(generic)传递。
-
-```ts
-interface LocalTestContext {
-  foo: string
-}
-
-beforeEach<LocalTestContext>(async (context) => {
-  // 上下文的类型是 'TestContext & LocalTestContext'
-  context.foo = 'bar'
-})
-
-it<LocalTestContext>('should work', ({ foo }) => {
-  // foo 的类型是 'string'
-  console.log(foo) // 'bar'
-})
-```
-=======
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab

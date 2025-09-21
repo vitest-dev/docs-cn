@@ -142,11 +142,6 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-<<<<<<< HEAD
-### 详细报告器
-
-详细报告器与 `default` 报告器相同，但它还会在测试套件完成后显示每个单独的测试。它还会显示当前正在运行且耗时超过 [`slowTestThreshold`](/config/#slowtestthreshold) 的测试。与 `default` 报告器类似，我们可以通过配置报告器来禁用摘要。
-=======
 If there is only one test file running, Vitest will output the full test tree of that file, simillar to the [`tree`](#tree-reporter) reporter. The default reporter will also print the test tree if there is at least one failed test in the file.
 
 ```bash
@@ -161,14 +156,13 @@ If there is only one test file running, Vitest will output the full test tree of
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Verbose Reporter
+### 详细报告器
 
-The verbose reporter prints every test case once it is finished. It does not report suites or files separately. If `--includeTaskLocation` is enabled, it will also include the location of each test in the output. Similar to `default` reporter, you can disable the summary by configuring the reporter.
+详细报告器会在每个测试用例完成后打印出来。它不会单独报告套件或文件。如果启用了 `--includeTaskLocation`，它还会在输出中包含每个测试的位置。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
 
-In addition to this, the `verbose` reporter prints test error messages right away. The full test error is reported when the test run is finished.
+除此之外，`verbose` 报告器会立即打印测试错误消息。完整的测试错误会在测试运行结束时报告。
 
-This is the only terminal reporter that reports [annotations](/guide/test-annotations) when the test doesn't fail.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+这是唯一一个在测试未失败时报告[注解](/guide/test-annotations)的终端报告器。
 
 :::code-group
 
@@ -188,9 +182,6 @@ export default defineConfig({
 
 :::
 
-<<<<<<< HEAD
-使用默认 `slowTestThreshold: 300` 的情况下，测试进行中的示例输出：
-=======
 Example output:
 
 ```bash
@@ -219,9 +210,9 @@ An example with `--includeTaskLocation`:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Tree Reporter
+### 树状报告器
 
-The tree reporter is same as `default` reporter, but it also displays each individual test after the suite has finished. Similar to `default` reporter, you can disable the summary by configuring the reporter.
+树状报告器与 `default` 报告器相同，但它还会在套件完成后显示每个单独的测试。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
 
 :::code-group
 ```bash [CLI]
@@ -239,8 +230,7 @@ export default defineConfig({
 ```
 :::
 
-Example output for tests in progress with default `slowTestThreshold: 300`:
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+使用默认 `slowTestThreshold: 300` 的情况下，测试进行中的示例输出：
 
 ```bash
  ✓ __tests__/example-1.test.ts (2) 725ms
@@ -574,7 +564,7 @@ export default defineConfig({
 })
 ```
 
-You can customize the file paths that are printed in [GitHub's annotation command format](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) by using the `onWritePath` option. This is useful when running Vitest in a containerized environment, such as Docker, where the file paths may not match the paths in the GitHub Actions environment.
+你可以使用 `onWritePath` 选项自定义以 [GitHub 注解命令格式](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 打印的文件路径。这在容器化环境（如 Docker）中运行 Vitest 时非常有用，因为在这些环境中文件路径可能与 GitHub Actions 环境中的路径不匹配。
 
 ```ts
 export default defineConfig({

@@ -45,11 +45,7 @@ test('my types work properly', () => {
 
 如果使用的是 `expectTypeOf` API，请参阅 [expect-type 关于其错误信息的文档](https://github.com/mmkal/expect-type#error-messages)。
 
-<<<<<<< HEAD
-当类型不匹配时，`.toEqualTypeOf` 和 `.toMatchTypeOf`会使用一种特殊的辅助类型来生成尽可能可操作的错误信息。但要理解它们还有一些细微差别。由于断言是 "流畅地 "编写的，所以失败应该发生在 "预期 "类型上，而不是 "实际 "类型上（`expect<Actual>().toEqualTypeOf<Expected>()`）。这意味着类型错误可能有点令人困惑，因此该库生成了一个 `MismatchInfo` 类型，试图明确说明期望是什么。例如
-=======
-When types don't match, `.toEqualTypeOf` and `.toExtend` use a special helper type to produce error messages that are as actionable as possible. But there's a bit of an nuance to understanding them. Since the assertions are written "fluently", the failure should be on the "expected" type, not the "actual" type (`expect<Actual>().toEqualTypeOf<Expected>()`). This means that type errors can be a little confusing - so this library produces a `MismatchInfo` type to try to make explicit what the expectation is. For example:
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+当类型不匹配时，`.toEqualTypeOf` 和 `.toExtend` 会使用一种特殊的辅助类型来生成尽可能可操作的错误信息。但要理解它们有一些细微差别。由于断言是"流畅地"编写的，所以失败应该发生在"期望"类型上，而不是"实际"类型上（`expect<Actual>().toEqualTypeOf<Expected>()`）。这意味着类型错误可能有点令人困惑，因此该库会生成一个 `MismatchInfo` 类型来明确说明期望是什么。例如：
 
 ```ts
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
@@ -95,11 +91,7 @@ expectTypeOf({ a: 1 }).toEqualTypeOf({ a: '' })
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
-<<<<<<< HEAD
-这是因为 TypeScript 编译器需要推断 `.toEqualTypeOf({a: ''})` 样式的类型参数，并且该库只能通过将其与通用的 `Mismatch` 类型进行比较来标记它为失败。因此，在可能的情况下，使用类型参数而不是具体类型来使用 `.toEqualTypeOf` 和 `toMatchTypeOf`。如果使用两个具体类型进行比较更加方便，可以使用 `typeof`：
-=======
-This is because the TypeScript compiler needs to infer the typearg for the `.toEqualTypeOf({a: ''})` style, and this library can only mark it as a failure by comparing it against a generic `Mismatch` type. So, where possible, use a typearg rather than a concrete type for `.toEqualTypeOf` and `.toExtend`. If it's much more convenient to compare two concrete types, you can use `typeof`:
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+这是因为 TypeScript 编译器需要推断 `.toEqualTypeOf({a: ''})` 样式的类型参数，而这个库只能通过将其与通用的 `Mismatch` 类型进行比较来标记它为失败。因此，在可能的情况下，对于 `.toEqualTypeOf` 和 `.toExtend`，使用类型参数而不是具体类型。如果比较两个具体类型更加方便，你可以使用 `typeof`：
 
 ```ts
 const one = valueFromFunctionOne({ some: { complex: inputs } })

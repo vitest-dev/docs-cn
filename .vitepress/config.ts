@@ -289,16 +289,12 @@ export default ({ mode }: { mode: string }) => {
                 docFooterText: 'Multiple Setups | Browser Mode',
               },
               {
-<<<<<<< HEAD
-                text: '可视化回归测试',
-=======
-                text: 'Component Testing',
+                text: '组件测试',
                 link: '/guide/browser/component-testing',
-                docFooterText: 'Component Testing | Browser Mode',
+                docFooterText: '组件测试 | Browser Mode',
               },
               {
-                text: 'Visual Regression Testing',
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+                text: '可视化回归测试',
                 link: '/guide/browser/visual-regression-testing',
                 docFooterText: '可视化回归测试 | Browser Mode',
               },

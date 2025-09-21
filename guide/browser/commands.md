@@ -148,34 +148,10 @@ export const myCommand: BrowserCommand<[string, number]> = async (
 }
 ```
 
-<<<<<<< HEAD
-::: tip
-如果我们使用的是 TypeScript ，请不要忘记在我们的 [setup 文件](/config/#setupfile)或 [config 文件](/config/) 中引用 `@vitest/browser/providers/playwright` ，以便在配置以及 `userEvent` 和 `page` 选项中获得自动补全功能。
-
-```ts
-/// <reference types="@vitest/browser/providers/playwright" />
-```
-:::
-
-### 自定义命令 `webdriverio`
-=======
 ### Custom `webdriverio` commands
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
 
 - `browser` 是 `WebdriverIO.Browser` API.
 
-<<<<<<< HEAD
 Vitest 会在每条命令执行前自动调用 `browser.switchFrame`，将 `webdriver` 上下文切换至测试 iframe ，因此 `$` 与 `$$` 获取的是 iframe 内的元素，而非 orchestrator 中的元素；非 webdriver API 则仍作用于父级 frame。
-
-::: tip
-如果我们使用的是 TypeScript，请记得在您的 [setup 文件](/config/#setupfile)或 [config 文件](/config/)中引用 `@vitest/browser/providers/webdriverio` ，以便获得自动补全功能。
-
-```ts
-/// <reference types="@vitest/browser/providers/webdriverio" />
-```
-:::
-=======
-Vitest automatically switches the `webdriver` context to the test iframe by calling `browser.switchFrame` before the command is called, so `$` and `$$` methods refer to the elements inside the iframe, not in the orchestrator, but non-webdriver APIs will still refer to the parent frame context.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab

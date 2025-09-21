@@ -126,11 +126,7 @@ Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许�
 ::: code-group
 ```ts [react]
 import react from '@vitejs/plugin-react'
-<<<<<<< HEAD
-import { defineConfig } from 'vitest/config'
-=======
 import { playwright } from '@vitest/browser/providers/playwright'
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 export default defineConfig({
   plugins: [react()],
@@ -146,11 +142,8 @@ export default defineConfig({
 })
 ```
 ```ts [vue]
-<<<<<<< HEAD
-=======
 import { defineConfig } from 'vitest/config'
 import { playwright } from '@vitest/browser/providers/playwright'
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 
@@ -169,11 +162,7 @@ export default defineConfig({
 ```
 ```ts [svelte]
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-<<<<<<< HEAD
-import { defineConfig } from 'vitest/config'
-=======
 import { playwright } from '@vitest/browser/providers/playwright'
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 export default defineConfig({
   plugins: [svelte()],
@@ -190,11 +179,7 @@ export default defineConfig({
 ```
 ```ts [solid]
 import solidPlugin from 'vite-plugin-solid'
-<<<<<<< HEAD
-import { defineConfig } from 'vitest/config'
-=======
 import { playwright } from '@vitest/browser/providers/playwright'
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 export default defineConfig({
   plugins: [solidPlugin()],
@@ -211,11 +196,7 @@ export default defineConfig({
 ```
 ```ts [marko]
 import marko from '@marko/vite'
-<<<<<<< HEAD
-import { defineConfig } from 'vitest/config'
-=======
 import { playwright } from '@vitest/browser/providers/playwright'
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 export default defineConfig({
   plugins: [marko()],
@@ -232,11 +213,8 @@ export default defineConfig({
 ```
 ```ts [qwik]
 import { qwikVite } from '@builder.io/qwik/optimizer'
-<<<<<<< HEAD
-=======
 import { playwright } from '@vitest/browser/providers/playwright'
 
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 // optional, run the tests in SSR mode
 import { testSSR } from 'vitest-browser-qwik/ssr-plugin'
 
@@ -314,53 +292,7 @@ Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `
   - `webkit`
   - `chromium`
 
-<<<<<<< HEAD
-## TypeScript
-
-默认情况下，TypeScript 无法识别 providers 选项和额外的 `expect` 属性。如果我们不使用任何 providers ，请确保在测试、[设置文件](/config/#setupfiles) 或 [配置文件](/config/) 中引用 `@vitest/browser/matchers`，以获取额外的 `expect` 定义。如果我们使用自定义 providers ，请确保在同一文件中添加 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio`，以便 TypeScript 可以获取自定义选项的定义：
-
-::: code-group
-```ts [default]
-/// <reference types="@vitest/browser/matchers" />
-```
-```ts [playwright]
-/// <reference types="@vitest/browser/providers/playwright" />
-```
-```ts [webdriverio]
-/// <reference types="@vitest/browser/providers/webdriverio" />
-```
-:::
-
-或者，我们也可以将它们添加到 `tsconfig.json` 文件中的 `compilerOptions.types` 字段。请注意，在此字段中指定任何内容将禁用 `@types/*` 包的[自动加载](https://www.typescriptlang.org/tsconfig/#types)功能。
-
-::: code-group
-```json [default]
-{
-  "compilerOptions": {
-    "types": ["@vitest/browser/matchers"]
-  }
-}
-```
-```json [playwright]
-{
-  "compilerOptions": {
-    "types": ["@vitest/browser/providers/playwright"]
-  }
-}
-```
-```json [webdriverio]
-{
-  "compilerOptions": {
-    "types": ["@vitest/browser/providers/webdriverio"]
-  }
-}
-```
-:::
-
-## 浏览器兼容性
-=======
 ## Browser Compatibility
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
 
 Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行我们的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
 

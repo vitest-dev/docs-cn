@@ -31,14 +31,10 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 
 - **类型:** `<T>(expected: T) => void`
 
-<<<<<<< HEAD
-此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
-=======
-::: warning DEPRECATED
-This matcher has been deprecated since expect-type v1.2.0. Use [`toExtend`](#toextend) instead.
+::: warning 弃用
+自 expect-type v1.2.0 版本起，此匹配器已被弃用。请改用 [`toExtend`](#toextend)。
 :::
-This matcher checks if expect type extends provided type. It is different from `toEqual` and is more similar to [expect's](/api/expect) `toMatchObject()`. With this matcher, you can check if an object “matches” a type.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
 
 ```ts
 import { expectTypeOf } from 'vitest'

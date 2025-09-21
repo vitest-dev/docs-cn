@@ -12,11 +12,7 @@ Vitest 默认会并行执行 _测试文件_ 。具体使用哪种并行机制取
 - `forks`（默认）和 `vmForks` 会在不同的 [child processes](https://nodejs.org/api/child_process.html) 中执行测试
 - `threads` 和 `vmThreads` 则会在不同的 [worker threads](https://nodejs.org/api/worker_threads.html) 中运行
 
-<<<<<<< HEAD
-在文档中，“子进程”和“工作线程”统称为“工作者”。你可以通过 [`minWorkers`](/config/#minworkers) 和 [`maxWorkers`](/config/#maxworkers) 参数来控制并行工作的数量，也可以通过 [`poolOptions`](/config/#pooloptions) 进行更详细的配置。
-=======
-Both "child processes" and "worker threads" are refered to as "workers". You can configure the number of running workers with [`maxWorkers`](/config/#maxworkers) option. Or more granually with [`poolOptions`](/config/#pooloptions) configuration.
->>>>>>> 69c635a1a53ecff24a51ddd216ee10873372efab
+"子进程"和"工作线程"都被称为"工作者"。你可以通过 [`maxWorkers`](/config/#maxworkers) 选项配置运行的工作者数量，或者通过 [`poolOptions`](/config/#pooloptions) 配置进行更精细的控制。
 
 如果项目包含大量测试文件，通常并行执行会大幅提升速度。但具体效果还要看项目本身、运行环境以及是否启用了 [隔离](/config/#isolate)。若需要关闭文件级并行化，可以将 [`fileParallelism`](/config/#fileparallelism) 设为 `false` 。更多性能优化技巧，请参考 [性能指南](/guide/improving-performance) 。
 
