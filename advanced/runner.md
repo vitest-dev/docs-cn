@@ -26,27 +26,40 @@ export interface VitestRunner {
   /**
    * 在运行单个测试之前调用。此时还没有“result”。
    */
-  onBeforeRunTask?: (test: TaskPopulated) => unknown
+  onBeforeRunTask?: (test: Test) => unknown
   /**
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
+<<<<<<< HEAD
   onBeforeTryTask?: (
     test: TaskPopulated,
     options: { retry: number, repeats: number }
   ) => unknown
+=======
+  onBeforeTryTask?: (test: Test, options: { retry: number; repeats: number }) => unknown
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
-  onAfterRunTask?: (test: TaskPopulated) => unknown
+  onAfterRunTask?: (test: Test) => unknown
   /**
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
+<<<<<<< HEAD
   onAfterTryTask?: (
     test: TaskPopulated,
     options: { retry: number, repeats: number }
   ) => unknown
+=======
+  onAfterTryTask?: (test: Test, options: { retry: number; repeats: number }) => unknown
+  /**
+   * Called after the retry resolution happend. Unlike `onAfterTryTask`, the test now has a new state.
+   * All `after` hooks were also called by this point.
+   */
+  onAfterRetryTask?: (test: Test, options: { retry: number; repeats: number }) => unknown
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。

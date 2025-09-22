@@ -4,12 +4,13 @@
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
 
 export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         {
           browser: 'chromium',
@@ -53,6 +54,7 @@ export default defineConfig({
 - [配置 Playwright](/guide/browser/playwright)
 - [配置 WebdriverIO](/guide/browser/webdriverio)
 
+<<<<<<< HEAD
 ::: tip
 为了在使用内置提供者时获得更好的类型安全性，我们应该在 [配置文件](/config/) 中引用以下类型之一（针对我们使用的提供者）：
 
@@ -63,6 +65,9 @@ export default defineConfig({
 :::
 
 除此之外，我们还可以指定大多数 [项目选项](/config/)（未标记为 <NonProjectOption /> 图标的选项）和一些 `browser` 选项，例如 `browser.testerHtmlPath`。
+=======
+In addition to that, you can also specify most of the [project options](/config/) (not marked with a <NonProjectOption /> icon) and some of the `browser` options like `browser.testerHtmlPath`.
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 
 ::: warning
 每个浏览器配置都从根配置继承选项：
@@ -100,11 +105,13 @@ export default defineConfig({
 - [`browser.testerHtmlPath`](#browser-testerhtmlpath)
 - [`browser.screenshotDirectory`](#browser-screenshotdirectory)
 - [`browser.screenshotFailures`](#browser-screenshotfailures)
+- [`browser.provider`](#browser-provider)
 
 默认情况下，Vitest 创建一个包含单个元素的数组，该元素使用 [`browser.name`](#browser-name) 字段作为 `browser`。请注意，此行为将在 Vitest 4 中移除。
 
 在底层，Vitest 将这些实例转换为共享单个 Vite 服务器的单独 [测试项目](/advanced/api/test-project)，以获得更好的缓存性能。
 
+<<<<<<< HEAD
 ## browser&#46;name <Badge type="danger">已弃用</Badge> {#browser-name}
 
 - **类型:** `string`
@@ -120,6 +127,8 @@ export default defineConfig({
 - `playwright`: `firefox`, `webkit`, `chromium`
 - 自定义：任何将传递给提供者的字符串
 
+=======
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 ## browser.headless
 
 - **类型:** `boolean`
@@ -152,6 +161,7 @@ HTML 入口点的路径。可以是相对于项目根目录的路径。此文件
 
 ## browser.provider {#browser-provider}
 
+<<<<<<< HEAD
 - **类型:** `'webdriverio' | 'playwright' | 'preview' | string`
 - **默认值:** `'preview'`
 - **CLI:** `--browser.provider=playwright`
@@ -192,28 +202,91 @@ export interface BrowserProvider {
 
 ```ts
 import { defineConfig } from 'vitest/config'
+=======
+- **Type:** `BrowserProviderOption`
+- **Default:** `'preview'`
+- **CLI:** `--browser.provider=playwright`
+
+The return value of the provider factory. You can import the factory from `@vitest/browser/providers/<provider-name>` or make your own provider:
+
+```ts{8-10}
+import { playwright } from '@vitest/browser/providers/playwright'
+import { webdriverio } from '@vitest/browser/providers/webdriverio'
+import { preview } from '@vitest/browser/providers/preview'
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 
 export default defineConfig({
   test: {
     browser: {
-      providerOptions: {
-        launch: {
-          devtools: true,
-        },
-      },
+      provider: playwright(),
+      provider: webdriverio(),
+      provider: preview(), // default
     },
   },
 })
 ```
 
+<<<<<<< HEAD
 ::: tip
 为了在使用内置提供者时获得更好的类型安全性，我们应该在 [配置文件](/config/) 中引用以下类型之一（针对我们使用的提供者）：
+=======
+To configure how provider initializes the browser, you can pass down options to the factory function:
+
+```ts{7-13,20-26}
+import { playwright } from '@vitest/browser/providers/playwright'
+
+export default defineConfig({
+  test: {
+    browser: {
+      // shared provider options between all instances
+      provider: playwright({
+        launchOptions: {
+          slowMo: 50,
+          channel: 'chrome-beta',
+        },
+        actionTimeout: 5_000,
+      }),
+      instances: [
+        { browser: 'chromium' },
+        {
+          browser: 'firefox',
+          // overriding options only for a single instance
+          // this will NOT merge options with the parent one
+          provider: playwright({
+            launchOptions: {
+              firefoxUserPrefs: {
+                'browser.startup.homepage': 'https://example.com',
+              },
+            },
+          })
+        }
+      ],
+    },
+  },
+})
+```
+
+### Custom Provider <Badge type="danger">advanced</Badge>
+
+::: danger ADVANCED API
+The custom provider API is highly experimental and can change between patches. If you just need to run tests in a browser, use the [`browser.instances`](#browser-instances) option instead.
+:::
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 
 ```ts
-/// <reference types="@vitest/browser/providers/playwright" />
-/// <reference types="@vitest/browser/providers/webdriverio" />
+export interface BrowserProvider {
+  name: string
+  mocker?: BrowserModuleMocker
+  /**
+   * @experimental opt-in into file parallelisation
+   */
+  supportsParallelism: boolean
+  getCommandsContext: (sessionId: string) => Record<string, unknown>
+  openPage: (sessionId: string, url: string) => Promise<void>
+  getCDPSession?: (sessionId: string) => Promise<CDPSession>
+  close: () => Awaitable<void>
+}
 ```
-:::
 
 ## browser.ui
 
@@ -295,6 +368,7 @@ export interface BrowserScript {
 }
 ```
 
+<<<<<<< HEAD
 ## browser.testerScripts
 
 - **类型:** `BrowserScript[]`
@@ -308,6 +382,8 @@ export interface BrowserScript {
 
 脚本的 `src` 和 `content` 将由 Vite 插件处理。
 
+=======
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 ## browser.commands
 
 - **类型:** `Record<string, BrowserCommand>`
@@ -324,6 +400,50 @@ export interface BrowserScript {
 
 ::: info
 这是浏览器与 Vitest 服务器建立 WebSocket 连接所需的时间。在正常情况下，此超时不应被触发。
+:::
+
+## browser.trace
+
+- **Type:** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
+- **CLI:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
+- **Default:** `'off'`
+
+Capture a trace of your browser test runs. You can preview traces with [Playwright Trace Viewer](https://trace.playwright.dev/).
+
+This options supports the following values:
+
+- `'on'` - capture trace for all tests. (not recommended as it's performance heavy)
+- `'off'` - do not capture traces.
+- `'on-first-retry'` - capture trace only when retrying the test for the first time.
+- `'on-all-retries'` - capture trace on every retry of the test.
+- `'retain-on-failure'` - capture trace only for tests that fail. This will automatically delete traces for tests that pass.
+- `object` - an object with the following shape:
+
+```ts
+interface TraceOptions {
+  mode: 'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure'
+  /**
+   * The directory where all traces will be stored. By default, Vitest
+   * stores all traces in `__traces__` folder close to the test file.
+   */
+  tracesDir?: string
+  /**
+   * Whether to capture screenshots during tracing. Screenshots are used to build a timeline preview.
+   * @default true
+   */
+  screenshots?: boolean
+  /**
+   * If this option is true tracing will
+   * - capture DOM snapshot on every action
+   * - record network activity
+   * @default true
+   */
+  snapshots?: boolean
+}
+```
+
+::: danger WARNING
+This option is supported only by the [**playwright**](/guide/browser/playwright) provider.
 :::
 
 ## browser.trackUnhandledErrors
@@ -458,6 +578,7 @@ resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>
 resolveDiffPath: ({ arg, attachmentsDir, browserName, ext, root, testFileName }) =>
   `${root}/${attachmentsDir}/screenshot-diffs/${testFileName}/${arg}-${browserName}${ext}`
 ```
+<<<<<<< HEAD
 
 ::: tip
 为了在使用内置提供程序时获得更好的类型安全性，应在你的 [配置文件](/config/) 中引用这些类型之一（针对你正在使用的提供程序）。
@@ -467,3 +588,5 @@ resolveDiffPath: ({ arg, attachmentsDir, browserName, ext, root, testFileName })
 /// <reference types="@vitest/browser/providers/webdriverio" />
 ```
 :::
+=======
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520

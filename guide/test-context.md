@@ -94,7 +94,11 @@ function annotate(
 ): Promise<TestAnnotation>
 ```
 
+<<<<<<< HEAD
 添加一个 [测试标注](/guide/test-annotations) ，该标注会在 [报告器](/config/#reporter) 输出中展示。
+=======
+Add a [test annotation](/guide/test-annotations) that will be displayed by your [reporter](/config/#reporters).
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
 
 ```ts
 test('annotations API', async ({ annotate }) => {
@@ -382,11 +386,11 @@ import { test as baseTest } from 'vitest'
 
 export const test = baseTest.extend({
   perFile: [
-    ({}, { use }) => use([]),
+    ({}, use) => use([]),
     { scope: 'file' },
   ],
   perWorker: [
-    ({}, { use }) => use([]),
+    ({}, use) => use([]),
     { scope: 'worker' },
   ],
 })
@@ -397,7 +401,7 @@ The value is initialised the first time any test has accessed it, unless the fix
 ```ts
 const test = baseTest.extend({
   perFile: [
-    ({}, { use }) => use([]),
+    ({}, use) => use([]),
     {
       scope: 'file',
       // always run this hook before any test
@@ -456,6 +460,7 @@ test('types are correct', ({
 })
 ```
 :::
+<<<<<<< HEAD
 
 ### `beforeEach` and `afterEach`
 
@@ -507,3 +512,5 @@ it<LocalTestContext>('should work', ({ foo }) => {
   console.log(foo) // 'bar'
 })
 ```
+=======
+>>>>>>> eca6e60b250e3992aaf9ff6acb858a6c0281e520
