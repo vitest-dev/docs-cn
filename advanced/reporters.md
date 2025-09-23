@@ -86,6 +86,7 @@ class MyReporter implements Reporter {
 ### 内置报告器:
 
 1. `DefaultReporter`
+<<<<<<< HEAD
 1. `DotReporter`
 1. `JsonReporter`
 1. `VerboseReporter`
@@ -93,6 +94,16 @@ class MyReporter implements Reporter {
 1. `JUnitReporter`
 1. `TapFlatReporter`
 1. `HangingProcessReporter`
+=======
+2. `DotReporter`
+3. `JsonReporter`
+4. `VerboseReporter`
+5. `TapReporter`
+6. `JUnitReporter`
+7. `TapFlatReporter`
+8. `HangingProcessReporter`
+9. `TreeReporter`
+>>>>>>> adbdd857ee967040052804961e624d9f97853eb3
 
 ### 基础抽象报告器:
 
