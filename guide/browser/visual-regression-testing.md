@@ -33,7 +33,14 @@ Vitest 原生支持可视化回归测试。它会自动截取 UI 组件或页面
 
 因此，Vitest 会在截图文件名中添加浏览器和平台信息（如 `button-chromium-darwin.png`），避免不同环境的截图互相覆盖。
 
+<<<<<<< HEAD
 要获得稳定结果，应使用相同的测试环境。**推荐**采用云端服务（如 [Microsoft Playwright Testing](https://azure.microsoft.com/en-us/products/playwright-testing)）或基于 [Docker containers](https://playwright.dev/docs/docker) 的环境。
+=======
+For stable tests, use the same environment everywhere. We **strongly recommend**
+cloud services like
+[Azure App Testing](https://azure.microsoft.com/en-us/products/app-testing/)
+or [Docker containers](https://playwright.dev/docs/docker).
+>>>>>>> f05b5467f1d19e09921504ff88d158168513c999
 :::
 
 在 Vitest 中，可通过 [`toMatchScreenshot` assertion](/guide/browser/assertion-api.html#tomatchscreenshot) 断言运行可视化回归测试：
@@ -213,11 +220,14 @@ await page.viewport(1280, 720)
 ```
 
 ```ts [vitest.config.ts]
+import { playwright } from '@vitest/browser/providers/playwright'
+import { defineConfig } from 'vitest/config'
+
 export default defineConfig({
   test: {
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         {
           browser: 'chromium',
@@ -318,9 +328,17 @@ Diff image:
 
 在团队协作中，常见的三种方案是：
 
+<<<<<<< HEAD
 1. **自托管运行器**：部署过程复杂，日常维护工作量大；
 2. **GitHub Actions**：对开源项目免费，可与任何测试框架或服务集成；
 3. **云服务**：如 [Microsoft Playwright Testing](https://azure.microsoft.com/en-us/products/playwright-testing)，专为解决视觉测试环境一致性问题而构建。
+=======
+1. **Self-hosted runners**, complex to set up, painful to maintain
+1. **GitHub Actions**, free (for open source), works with any provider
+1. **Cloud services**, like
+[Azure App Testing](https://azure.microsoft.com/en-us/products/app-testing/),
+built for this exact problem
+>>>>>>> f05b5467f1d19e09921504ff88d158168513c999
 
 我们将重点介绍第 2 和第 3 种方案，因为它们能最快投入使用。
 
@@ -541,7 +559,7 @@ jobs:
           fi
 ```
 
-=== Microsoft Playwright Testing
+=== Azure App Testing
 
 你的测试依旧在本地运行，只是将浏览器托管到云端执行。
 这基于 Playwright 的远程浏览器功能，但所有云端基础设施均由 Microsoft 负责维护与管理。
@@ -553,9 +571,11 @@ jobs:
 
 最为简洁高效的做法，是使用 [Test Projects](/guide/projects) 功能来隔离这些测试。
 
+<!-- eslint-disable style/quote-props -->
 ```ts [vitest.config.ts]
 import { env } from 'node:process'
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser/providers/playwright'
 
 export default defineConfig({
   // ...global Vite config
@@ -578,22 +598,23 @@ export default defineConfig({
           include: ['visual-regression-tests/**/*.test.ts?(x)'],
           browser: {
             enabled: true,
-            provider: 'playwright',
+            provider: playwright(),
             headless: true,
             instances: [
               {
                 browser: 'chromium',
                 viewport: { width: 2560, height: 1440 },
                 connect: {
-                  wsEndpoint: `${env.PLAYWRIGHT_SERVICE_URL}?cap=${JSON.stringify({
+                  wsEndpoint: `${env.PLAYWRIGHT_SERVICE_URL}?${new URLSearchParams({
+                    'api-version': '2025-09-01',
                     os: 'linux', // always use Linux for consistency
                     // helps identifying runs in the service's dashboard
-                    runId: `Vitest ${env.CI ? 'CI' : 'local'} run @${new Date().toISOString()}`,
+                    runName: `Vitest ${env.CI ? 'CI' : 'local'} run @${new Date().toISOString()}`,
                   })}`,
                   options: {
                     exposeNetwork: '<loopback>',
                     headers: {
-                      'x-mpt-access-key': env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN,
+                      Authorization: `Bearer ${env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN}`,
                     },
                     timeout: 30_000,
                   },
@@ -607,11 +628,21 @@ export default defineConfig({
   },
 })
 ```
+<!-- eslint-enable style/quote-props -->
 
+<<<<<<< HEAD
 该服务会提供两个关键环境变量：
 
 - `PLAYWRIGHT_SERVICE_URL`：指示 Playwright 连接的服务器地址
 - `PLAYWRIGHT_SERVICE_ACCESS_TOKEN`：你的身份验证令牌
+=======
+Follow the [official guide to create a Playwright Workspace](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#create-a-workspace).
+
+Once your workspace is created, configure Vitest to use it:
+
+1. **Set the endpoint URL**: following the [official guide](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#configure-the-browser-endpoint), retrieve the URL and set it as the `PLAYWRIGHT_SERVICE_URL` environment variable.
+1. **Enable token authentication**: [enable access tokens](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-authentication?pivots=playwright-test-runner#enable-authentication-using-access-tokens) for your workspace, then [generate a token](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-access-tokens#generate-a-workspace-access-token) and set it as the `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` environment variable.
+>>>>>>> f05b5467f1d19e09921504ff88d158168513c999
 
 ::: danger 令牌务必保密！
 切勿将 `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` 提交到代码仓库。
@@ -671,8 +702,18 @@ env:
 
 缺点在于：当有人在本地生成的截图与 CI 环境的基准不一致时，就会出现那句熟悉的“在我机器上没问题”。
 
+<<<<<<< HEAD
 如果团队需要在本地执行视觉回归测试，那么云服务或许更适合。
 这种方式特别适合有设计师参与审核，或开发者希望在推送代码前发现并修复问题的团队，
 能够跳过“推送—等待—检查—修改—再推送”的繁琐循环。
 
 如果依然犹豫，不妨先从 GitHub Actions 开始；等到本地测试成为痛点时，再引入云服务也不迟。
+=======
+A cloud service makes sense if developers need to run visual tests locally.
+
+Some teams have designers checking their work or developers who prefer catching
+issues before pushing. It allows skipping the push-wait-check-fix-push cycle.
+
+Still on the fence? Start with GitHub Actions. You can always add a cloud
+service later if local testing becomes a pain point.
+>>>>>>> f05b5467f1d19e09921504ff88d158168513c999

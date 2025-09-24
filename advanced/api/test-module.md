@@ -24,6 +24,16 @@ if (task.type === 'module') {
 'C:\\Users\\Documents\\project\\example.test.ts' // ❌
 ```
 
+## relativeModuleId
+
+Module id relative to the project. This is the same as `task.name` in the deprecated API.
+
+```ts
+'project/example.test.ts' // ✅
+'example.test.ts' // ✅
+'project\\example.test.ts' // ❌
+```
+
 ## state
 
 ```ts

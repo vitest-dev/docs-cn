@@ -39,7 +39,11 @@ bun add -D vitest
 :::
 
 :::tip
+<<<<<<< HEAD
 Vitest 需要 Vite >=v5.0.0 和 Node >=v18.0.0
+=======
+Vitest requires Vite >=v6.0.0 and Node >=v20.0.0
+>>>>>>> f05b5467f1d19e09921504ff88d158168513c999
 :::
 
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 是会随着 npm 和 Node.js 一起被安装）。
@@ -101,9 +105,15 @@ Test Files  1 passed (1)
 
 Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
 
+<<<<<<< HEAD
 - 创建 `vitest.config.ts`，优先级将会最高。
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`。
 - 在 `defineConfig` 上使用 `process.env.VITEST` 或 `mode` 属性（如果没有被覆盖，将设置为 `test`）有条件地在 `vite.config.ts` 中应用不同的配置。
+=======
+- Create `vitest.config.ts`, which will have the higher priority
+- Pass `--config` option to CLI, e.g. `vitest --config ./path/to/vitest.config.ts`
+- Use `process.env.VITEST` or `mode` property on `defineConfig` (will be set to `test` if not overridden) to conditionally apply different configuration in `vite.config.ts`. Note that like any other environment variable, `VITEST` is also exposed on `import.meta.env` in your tests
+>>>>>>> f05b5467f1d19e09921504ff88d158168513c999
 
 Vitest 支持与 Vite 相同的配置文件扩展名：`.js`、`.mjs`、`.cjs`、`.ts`、`.cts`、`.mts`。 Vitest 不支持 `.json` 扩展名。
 
