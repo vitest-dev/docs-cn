@@ -4,7 +4,11 @@ title: Context API | Browser Mode
 
 # 上下文
 
+<<<<<<< HEAD
 Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
+=======
+Vitest exposes a context module via `vitest/browser` entry point. As of 2.0, it exposes a small set of utilities that might be useful to you in tests.
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a
 
 ## `userEvent`
 

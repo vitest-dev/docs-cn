@@ -1,6 +1,10 @@
 # 多种设置
 
+<<<<<<< HEAD
 自 Vitest 3 起，你可以使用新的 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
+=======
+You can specify several different browser setups using the [`browser.instances`](/guide/browser/config#browser-instances) option.
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a
 
 与 [测试项目](/guide/projects) 相比，使用 `browser.instances` 的最大好处在于缓存效率更高。所有项目会共享同一个 Vite 服务器，因此文件转换和 [依赖的预打包](https://vite.dev/guide/dep-pre-bundling.html) 只需进行一次即可。
 
@@ -10,7 +14,7 @@
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   test: {
@@ -35,7 +39,7 @@ export default defineConfig({
 ::: code-group
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   test: {
@@ -50,14 +54,14 @@ export default defineConfig({
           setupFiles: ['./ratio-setup.ts'],
           provide: {
             ratio: 1,
-          }
+          },
         },
         {
           browser: 'chromium',
           name: 'chromium-2',
           provide: {
             ratio: 2,
-          }
+          },
         },
       ],
     },
@@ -119,6 +123,7 @@ export default defineConfig({
 })
 ```
 :::
+<<<<<<< HEAD
 
 ::: warning
 Vitest 无法运行多个将 `headless` 模式设置为 `false`（默认行为）的实例。在开发过程中，你可以在终端中选择要运行的项目：
@@ -136,3 +141,5 @@ start tests with --browser=name or --project=name flag. › - Use arrow-keys. Re
 
 这一限制不影响在无头模式下运行测试的能力。只要实例没有设置 `headless: false`，你仍然可以并行运行所有实例。
 :::
+=======
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a

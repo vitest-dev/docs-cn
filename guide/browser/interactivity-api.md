@@ -7,7 +7,7 @@ title: Interactivity API | Browser Mode
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event/intro) 库的子集 API，而不是伪造事件，这使得浏览器行为更加可靠和一致，符合用户与页面交互的方式。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
+import { userEvent } from 'vitest/browser'
 
 await userEvent.click(document.querySelector('.button'))
 ```
@@ -23,9 +23,16 @@ function setup(): UserEvent
 创建一个新的用户事件实例。如果需要保持键盘状态，以便正确按下和释放按钮，这将非常有用。
 
 ::: warning
+<<<<<<< HEAD
 与 `@testing-library/user-event` 不同，来自 `@vitest/browser/context` 的默认 `userEvent` 实例只创建一次，而不是每次调用其方法时都创建一次！您可以从本代码段中看到其工作方式的不同之处：
 
 ```ts
+=======
+Unlike `@testing-library/user-event`, the default `userEvent` instance from `vitest/browser` is created once, not every time its methods are called! You can see the difference in how it works in this snippet:
+
+```ts
+import { userEvent as vitestUserEvent } from 'vitest/browser'
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a
 import { userEvent as originalUserEvent } from '@testing-library/user-event'
 import { userEvent as vitestUserEvent } from '@vitest/browser/context'
 
@@ -51,7 +58,7 @@ function click(
 点击元素。继承 provider 的选项。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('clicks on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
@@ -82,7 +89,7 @@ function dblClick(
 请参阅你的 provider 的文档以获取有关此方法如何工作的详细说明。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('triggers a double click on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
@@ -113,7 +120,7 @@ function tripleClick(
 请参阅你的提供商文档以获取有关此方法工作原理的详细说明。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('triggers a triple click on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
@@ -150,7 +157,7 @@ function fill(
 为 `input` `、textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('update input', async () => {
   const input = page.getByRole('input')
@@ -189,7 +196,7 @@ function keyboard(text: string): Promise<void>
 此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。
 
 ```ts
-import { userEvent } from '@vitest/browser/context'
+import { userEvent } from 'vitest/browser'
 
 test('trigger keystrokes', async () => {
   await userEvent.keyboard('foo') // translates to: f, o, o
@@ -215,7 +222,7 @@ function tab(options?: UserEventTabOptions): Promise<void>
 发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('tab works', async () => {
   const [input1, input2] = page.getByRole('input').elements()
@@ -259,7 +266,7 @@ function type(
 如果只需按下字符而无需输入，请使用 [`userEvent.keyboard`](#userevent-keyboard) API。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('update input', async () => {
   const input = page.getByRole('input')
@@ -289,7 +296,7 @@ function clear(element: Element | Locator, options?: UserEventClearOptions): Pro
 此方法会清除输入元素的内容。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('clears input', async () => {
   const input = page.getByRole('input')
@@ -336,7 +343,7 @@ The `userEvent.selectOptions` allows selecting a value in a `<select>` element.
 :::
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('clears input', async () => {
   const select = page.getByRole('select')
@@ -386,7 +393,7 @@ function hover(
 :::
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('hovers logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
@@ -419,7 +426,7 @@ function unhover(
 :::
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('unhover logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
@@ -449,7 +456,7 @@ function upload(
 更改文件输入元素，使其包含指定文件。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('can upload a file', async () => {
   const input = page.getByRole('button', { name: /Upload files/ })
@@ -488,7 +495,7 @@ function dragAndDrop(
 将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('drag and drop works', async () => {
   const source = page.getByRole('img', { name: /logo/ })
@@ -520,7 +527,7 @@ function copy(): Promise<void>
 将选中的文本复制到剪贴板。
 
 ```js
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('copy and paste', async () => {
   // write to 'source'
@@ -553,7 +560,7 @@ function cut(): Promise<void>
 将选中的文本剪切到剪贴板。
 
 ```js
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 
 test('copy and paste', async () => {
   // write to 'source'

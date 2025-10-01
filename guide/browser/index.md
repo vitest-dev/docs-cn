@@ -99,7 +99,7 @@ bun add -D vitest @vitest/browser webdriverio
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   test: {
@@ -126,7 +126,7 @@ Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许�
 ::: code-group
 ```ts [react]
 import react from '@vitejs/plugin-react'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   plugins: [react()],
@@ -143,7 +143,7 @@ export default defineConfig({
 ```
 ```ts [vue]
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 
@@ -162,7 +162,7 @@ export default defineConfig({
 ```
 ```ts [svelte]
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   plugins: [svelte()],
@@ -179,7 +179,7 @@ export default defineConfig({
 ```
 ```ts [solid]
 import solidPlugin from 'vite-plugin-solid'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   plugins: [solidPlugin()],
@@ -196,7 +196,7 @@ export default defineConfig({
 ```
 ```ts [marko]
 import marko from '@marko/vite'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   plugins: [marko()],
@@ -213,7 +213,7 @@ export default defineConfig({
 ```
 ```ts [qwik]
 import { qwikVite } from '@builder.io/qwik/optimizer'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 // optional, run the tests in SSR mode
 import { testSSR } from 'vitest-browser-qwik/ssr-plugin'
@@ -239,7 +239,7 @@ export default defineConfig({
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   test: {
@@ -333,7 +333,7 @@ headless 模式是浏览器模式下可用的另一个选项。在 headless 模�
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   test: {
@@ -363,8 +363,13 @@ npx vitest --browser.headless
 一般情况下，我们不需要任何依赖来使用浏览器模式：
 
 ```js [example.test.js]
+<<<<<<< HEAD
 import { page } from '@vitest/browser/context'
 import { expect, test } from 'vitest'
+=======
+import { expect, test } from 'vitest'
+import { page } from 'vitest/browser'
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a
 import { render } from './my-render-function.js'
 
 test('properly handles form inputs', async () => {
@@ -401,15 +406,25 @@ test('properly handles form inputs', async () => {
 除了渲染组件和定位元素外，你还需要进行断言。Vitest 基于 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库提供了一整套开箱即用的 DOM 断言。更多信息请参阅 [Assertions API](/guide/browser/assertion-api)。
 
 ```ts
+<<<<<<< HEAD
 import { page } from '@vitest/browser/context'
 import { expect } from 'vitest'
 // element is rendered correctly
 await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 Vitest 公开了一个[Context API](/guide/browser/context)，其中包含一小套在测试中可能有用的实用程序。例如，如果我们需要进行交互，如点击元素或在输入框中输入文本，我们可以使用 `@vitest/browser/context` 中的 `userEvent`。更多信息请参阅 [Interactivity API](/guide/browser/interactivity-api)。
+=======
+import { expect } from 'vitest'
+import { page } from 'vitest/browser'
+// element is rendered correctly
+await expect.element(page.getByText('Hello World')).toBeInTheDocument()
+```
+
+Vitest exposes a [Context API](/guide/browser/context) with a small set of utilities that might be useful to you in tests. For example, if you need to make an interaction, like clicking an element or typing text into an input, you can use `userEvent` from `vitest/browser`. Read more at the [Interactivity API](/guide/browser/interactivity-api).
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a
 
 ```ts
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 await userEvent.fill(page.getByLabelText(/username/i), 'Alice')
 // or just locator.fill
 await page.getByLabelText(/username/i).fill('Alice')
@@ -526,7 +541,11 @@ Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工�
 我们还可以在 [`browser-examples`](https://github.com/vitest-tests/browser-examples) 中查看更多的案例。
 
 ::: warning
+<<<<<<< HEAD
 `testing-library` 提供了一个软件包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](/guide/browser/interactivity-api)，它在引擎盖下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+=======
+`testing-library` provides a package `@testing-library/user-event`. We do not recommend using it directly because it simulates events instead of actually triggering them - instead, use [`userEvent`](/guide/browser/interactivity-api) imported from `vitest/browser` that uses Chrome DevTools Protocol or Webdriver (depending on the provider) under the hood.
+>>>>>>> 19c97cda6761cd60ffae67ea0d917be9f960dd1a
 :::
 
 ::: code-group
