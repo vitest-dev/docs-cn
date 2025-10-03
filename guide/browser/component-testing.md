@@ -138,7 +138,7 @@ test('ProductList filters and displays products correctly', async () => {
 ```jsx
 // For Solid.js components
 import { render } from '@testing-library/solid'
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 test('Solid component handles user interaction', async () => {
   // Use Testing Library to render the component
@@ -563,9 +563,15 @@ import { render } from 'vitest-browser-react' // [!code ++]
 
 ### 主要差异
 
+<<<<<<< HEAD
 - 使用 `await expect.element()` 而不是 `expect()` 进行 DOM 断言
 - 使用 `@vitest/browser/context` 进行用户交互而不是 `@testing-library/user-event`
 - 浏览器模式提供真实的浏览器环境以进行准确的测试
+=======
+- Use `await expect.element()` instead of `expect()` for DOM assertions
+- Use `vitest/browser` for user interactions instead of `@testing-library/user-event`
+- Browser Mode provides real browser environment for accurate testing
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 ## 了解更多
 

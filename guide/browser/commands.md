@@ -20,7 +20,7 @@ outline: deep
 :::
 
 ```ts
-import { server } from '@vitest/browser/context'
+import { server } from 'vitest/browser'
 
 const { readFile, writeFile, removeFile } = server.commands
 
@@ -38,10 +38,14 @@ it('handles files', async () => {
 
 ## CDP Session
 
+<<<<<<< HEAD
 Vitest 通过 `@vitest/browser/context` 中导出的 `cdp` 方法访问原始 Chrome Devtools 协议。它主要用于库作者在其基础上构建工具。
+=======
+Vitest exposes access to raw Chrome Devtools Protocol via the `cdp` method exported from `vitest/browser`. It is mostly useful to library authors to build tools on top of it.
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 ```ts
-import { cdp } from '@vitest/browser/context'
+import { cdp } from 'vitest/browser'
 
 const input = document.createElement('input')
 document.body.appendChild(input)
@@ -97,10 +101,14 @@ export default function BrowserCommands(): Plugin {
 }
 ```
 
+<<<<<<< HEAD
 然后，你可以通过从 `@vitest/brower/context` 导入它，在测试中调用它：
+=======
+Then you can call it inside your test by importing it from `vitest/browser`:
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 ```ts
-import { commands } from '@vitest/browser/context'
+import { commands } from 'vitest/browser'
 import { expect, test } from 'vitest'
 
 test('custom command works correctly', async () => {
@@ -108,8 +116,13 @@ test('custom command works correctly', async () => {
   expect(result).toEqual({ someValue: true })
 })
 
+<<<<<<< HEAD
 // 如果你使用 TypeScript，你可以扩展模块。
 declare module '@vitest/browser/context' {
+=======
+// if you are using TypeScript, you can augment the module
+declare module 'vitest/browser' {
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
   interface BrowserCommands {
     myCustomCommand: (arg1: string, arg2: string) => Promise<{
       someValue: true

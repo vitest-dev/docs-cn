@@ -609,7 +609,7 @@ function click(options?: UserEventClickOptions): Promise<void>
 点击一个元素。你可以使用选项来设置光标位置。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('img', { name: 'Rose' }).click()
 ```
@@ -625,7 +625,7 @@ function dblClick(options?: UserEventDoubleClickOptions): Promise<void>
 在元素上触发双击事件。你可以使用选项来设置光标位置。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('img', { name: 'Rose' }).dblClick()
 ```
@@ -641,7 +641,7 @@ function tripleClick(options?: UserEventTripleClickOptions): Promise<void>
 在元素上触发三连击事件。由于浏览器 API 中没有 `tripleclick`，此方法会连续触发三次点击事件。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('img', { name: 'Rose' }).tripleClick()
 ```
@@ -657,7 +657,7 @@ function clear(options?: UserEventClearOptions): Promise<void>
 清除输入元素的内容。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('textbox', { name: 'Full Name' }).clear()
 ```
@@ -673,7 +673,7 @@ function hover(options?: UserEventHoverOptions): Promise<void>
 将光标位置移动到选中的元素。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('img', { name: 'Rose' }).hover()
 ```
@@ -689,7 +689,7 @@ function unhover(options?: UserEventHoverOptions): Promise<void>
 这与 [`locator.hover`](#hover) 的工作方式相同，但将光标移动到 `document.body` 元素。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('img', { name: 'Rose' }).unhover()
 ```
@@ -705,7 +705,7 @@ function fill(text: string, options?: UserEventFillOptions): Promise<void>
 为当前的 `input` 、`textarea` 或 `contenteditable` 元素赋值。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 await page.getByRole('input', { name: 'Full Name' }).fill('Mr. Bean')
 ```
@@ -724,7 +724,7 @@ function dropTo(
 将当前元素拖动到目标位置。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 const paris = page.getByText('Paris')
 const france = page.getByText('France')
@@ -752,7 +752,7 @@ function selectOptions(
 从 `<select>` 元素中选择一个或多个值。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 const languages = page.getByRole('select', { name: 'Languages' })
 
@@ -784,7 +784,7 @@ function screenshot(options?: LocatorScreenshotOptions & { base64?: false }): Pr
 如果你还需要屏幕截图的内容，可以指定 `base64: true` 以返回屏幕截图的 base64 编码内容以及保存路径。
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 const button = page.getByRole('button', { name: 'Click Me!' })
 
@@ -945,8 +945,13 @@ const test: BrowserCommand<string> = function test(context, selector) {
 ```
 
 ```ts [example.test.ts]
+<<<<<<< HEAD
 import { commands, page } from '@vitest/browser/context'
 import { test } from 'vitest'
+=======
+import { test } from 'vitest'
+import { commands, page } from 'vitest/browser'
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 test('works correctly', async () => {
   await commands.test(page.getByText('Hello').selector) // ✅
@@ -988,7 +993,7 @@ The selector syntax is identical to Playwright locators. Please, read [their gui
 :::
 
 ```ts
-import { locators } from '@vitest/browser/context'
+import { locators } from 'vitest/browser'
 
 locators.extend({
   getByArticleTitle(title) {
@@ -1010,7 +1015,7 @@ locators.extend({
 
 // if you are using typescript, you can extend LocatorSelectors interface
 // to have the autocompletion in locators.extend, page.* and locator.* methods
-declare module '@vitest/browser/context' {
+declare module 'vitest/browser' {
   interface LocatorSelectors {
     // if the custom method returns a string, it will be converted into a locator
     // if it returns anything else, then it will be returned as usual

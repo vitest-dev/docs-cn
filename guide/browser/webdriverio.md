@@ -4,10 +4,14 @@
 如果我们的项目尚未使用 WebdriverIO，我们建议从 [Playwright](/guide/browser/playwright) 开始，因为它更易于配置且 API 更灵活。
 :::
 
+<<<<<<< HEAD
 要使用 WebdriverIO 运行测试，你需要在配置中的 `test.browser.provider` 属性中指定它：
+=======
+To run tests using WebdriverIO, you need to install the [`@vitest/browser-webdriverio`](https://www.npmjs.com/package/@vitest/browser-webdriverio) npm package and specify its `webdriverio` export in the `test.browser.provider` property of your config:
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 ```ts [vitest.config.js]
-import { webdriverio } from '@vitest/browser/providers/webdriverio'
+import { webdriverio } from '@vitest/browser-webdriverio'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -20,10 +24,14 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 Vitest 打开一个页面以在同一文件中运行所有测试。你可以配置 [`remote`](https://webdriver.io/docs/api/modules/#remoteoptions-modifier) 函数接受的所有参数：
+=======
+You can configure all the parameters that [`remote`](https://webdriver.io/docs/api/modules/#remoteoptions-modifier) function accepts:
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
-```ts{8-12,19-23} [vitest.config.js]
-import { webdriverio } from '@vitest/browser/providers/webdriverio'
+```ts{8-12,19-25} [vitest.config.js]
+import { webdriverio } from '@vitest/browser-webdriverio'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -42,11 +50,13 @@ export default defineConfig({
           // overriding options only for a single instance
           // this will NOT merge options with the parent one
           provider: webdriverio({
-            'moz:firefoxOptions': {
-              args: ['--disable-gpu'],
+            capabilities: {
+              'moz:firefoxOptions': {
+                args: ['--disable-gpu'],
+              },
             },
           })
-        }
+        },
       ],
     },
   },
@@ -58,5 +68,9 @@ export default defineConfig({
 ::: tip
 最有用的选项位于 `capabilities` 对象上。WebdriverIO 允许嵌套功能，但 Vitest 将忽略这些选项，因为我们依赖于不同的机制来生成多个浏览器。
 
+<<<<<<< HEAD
 请注意，Vitest 将忽略 `capabilities.browserName`。请改用 [`test.browser.instances.browser`](/guide/browser/config#browser-capabilities-name)。
+=======
+Note that Vitest will ignore `capabilities.browserName` — use [`test.browser.instances.browser`](/guide/browser/config#browser-capabilities-name) instead.
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 :::

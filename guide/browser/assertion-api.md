@@ -7,18 +7,27 @@ title: Assertion API | Browser Mode
 Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库，并增加了对定位器的支持以及内置的重试能力。
 
 ::: tip TypeScript Support
+<<<<<<< HEAD
 如果您使用 [TypeScript](/guide/browser/#typescript) 或希望在 `expect` 中获得正确的类型提示，请确保在某个地方引用了 `@vitest/browser/context`。如果您从未从该模块导入过，可以在 `tsconfig.json` 覆盖范围内的任何文件中添加一个 `reference` 注释：
+=======
+If you are using [TypeScript](/guide/browser/#typescript) or want to have correct type hints in `expect`, make sure you have `vitest/browser` referenced somewhere. If you never imported from there, you can add a `reference` comment in any file that's covered by your `tsconfig.json`:
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 ```ts
-/// <reference types="@vitest/browser/context" />
+/// <reference types="vitest/browser" />
 ```
 :::
 
 浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll)和 `expect.element` API 提供了可重试的断言：
 
 ```ts
+<<<<<<< HEAD
 import { page } from '@vitest/browser/context'
 import { expect, test } from 'vitest'
+=======
+import { expect, test } from 'vitest'
+import { page } from 'vitest/browser'
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 test('error banner is rendered', async () => {
   triggerError()

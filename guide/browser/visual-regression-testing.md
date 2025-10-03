@@ -39,8 +39,13 @@ Vitest 原生支持可视化回归测试。它会自动截取 UI 组件或页面
 在 Vitest 中，可通过 [`toMatchScreenshot` assertion](/guide/browser/assertion-api.html#tomatchscreenshot) 断言运行可视化回归测试：
 
 ```ts
+<<<<<<< HEAD
 import { page } from '@vitest/browser/context'
 import { expect, test } from 'vitest'
+=======
+import { expect, test } from 'vitest'
+import { page } from 'vitest/browser'
+>>>>>>> 88cd1d0d0260aec90109911aac0e87e46e0e070c
 
 test('hero section looks correct', async () => {
   // ...the rest of the test
@@ -213,7 +218,7 @@ await page.viewport(1280, 720)
 ```
 
 ```ts [vitest.config.ts]
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -560,7 +565,7 @@ jobs:
 ```ts [vitest.config.ts]
 import { env } from 'node:process'
 import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser/providers/playwright'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   // ...global Vite config
