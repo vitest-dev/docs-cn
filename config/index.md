@@ -1627,17 +1627,20 @@ test('doNotRun', () => {
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
-### browser <Badge type="warning">experimental</Badge> {#browser}
+### browser {#browser}
 
 - **默认值:** `{ enabled: false }`
 - **命令行终端:** `--browser=<name>`, `--browser.name=chrome --browser.headless`
 
 运行浏览器测试的配置。请参阅[“浏览器配置参考”](/guide/browser/config)。
 
+<<<<<<< HEAD
 ::: warning
 这是一项实验性功能。重大更改可能不会遵循 semver，请在使用时锁定 Vitest 的版本。
 :::
 
+=======
+>>>>>>> dcb91075ef7d2f822191d727b12faceb561369fa
 ### clearMocks
 
 - **类型:** `boolean`
