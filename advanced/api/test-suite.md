@@ -198,14 +198,21 @@ describe('collection failed', () => {
 ```ts
 function meta(): TaskMeta
 ```
+<<<<<<< HEAD
 在执行或收集过程中附加到套件的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
+=======
 
-```ts {5,10}
+Custom [metadata](/advanced/metadata) that was attached to the suite during its execution or collection. The meta can be attached by assigning a property to the `suite.meta` object during a test run:
+>>>>>>> 1aadf05fdcd054edc44ca0e105c2b856e6a0d6b2
+
+```ts {7,12}
 import { test } from 'vitest'
+import { getCurrentSuite } from 'vitest/suite'
 
-describe('the validation works correctly', (task) => {
+describe('the validation works correctly', () => {
   // assign "decorated" during collection
-  task.meta.decorated = false
+  const { suite } = getCurrentSuite()
+  suite!.meta.decorated = true
 
   test('some test', ({ task }) => {
     // assign "decorated" during test run, it will be available

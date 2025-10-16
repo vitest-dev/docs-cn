@@ -1627,17 +1627,20 @@ test('doNotRun', () => {
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
-### browser <Badge type="warning">experimental</Badge> {#browser}
+### browser {#browser}
 
 - **默认值:** `{ enabled: false }`
 - **命令行终端:** `--browser=<name>`, `--browser.name=chrome --browser.headless`
 
 运行浏览器测试的配置。请参阅[“浏览器配置参考”](/guide/browser/config)。
 
+<<<<<<< HEAD
 ::: warning
 这是一项实验性功能。重大更改可能不会遵循 semver，请在使用时锁定 Vitest 的版本。
 :::
 
+=======
+>>>>>>> 1aadf05fdcd054edc44ca0e105c2b856e6a0d6b2
 ### clearMocks
 
 - **类型:** `boolean`
@@ -1945,6 +1948,10 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **命令行终端**: `--sequence.concurrent`, `--sequence.concurrent=false`
 
 如果你希望测试并行运行，可以使用此选项或 CLI 参数 [`--sequence.concurrent`](/guide/cli) 启用它。
+
+::: warning
+When you run tests with `sequence.concurrent` and `expect.requireAssertions` set to `true`, you should use [local expect](/guide/test-context.html#expect) instead of the global one. Otherwise, this may cause false negatives in [some situations (#8469)](https://github.com/vitest-dev/vitest/issues/8469).
+:::
 
 #### sequence.seed<NonProjectOption />
 
@@ -2429,6 +2436,10 @@ export interface SnapshotEnvironment {
 这仅适用于 Vitest 的`expect`。如果我们使用`assert`或`.should`断言，它们将不计算在内，并且我们的测试将因缺少 expect 断言而失败。
 
 我们可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
+:::
+
+::: warning
+When you run tests with `sequence.concurrent` and `expect.requireAssertions` set to `true`, you should use [local expect](/guide/test-context.html#expect) instead of the global one. Otherwise, this may cause false negatives in [some situations (#8469)](https://github.com/vitest-dev/vitest/issues/8469).
 :::
 
 #### expect.poll
