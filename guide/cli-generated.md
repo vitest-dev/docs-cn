@@ -390,18 +390,23 @@ Enable trace view mode. Supported: "on", "off", "on-first-retry", "on-all-retrie
 
 如果未在浏览器中运行，则指定 pool (默认值: `threads`)
 
-### poolOptions.threads.isolate
+### execArgv
 
-- **CLI:** `--poolOptions.threads.isolate`
-- **Config:** [poolOptions.threads.isolate](/config/#pooloptions-threads-isolate)
+- **CLI:** `--execArgv <option>`
+- **Config:** [execArgv](/config/#execargv)
 
+<<<<<<< HEAD
 在线程池中隔离测试 (默认值: `true`)
+=======
+Pass additional arguments to `node` process when spawning `worker_threads` or `child_process`.
+>>>>>>> 833eac06863e4091131b637e3bed3e2742f9539b
 
-### poolOptions.threads.singleThread
+### vmMemoryLimit
 
-- **CLI:** `--poolOptions.threads.singleThread`
-- **Config:** [poolOptions.threads.singleThread](/config/#pooloptions-threads-singlethread)
+- **CLI:** `--vmMemoryLimit <limit>`
+- **Config:** [vmMemoryLimit](/config/#vmmemorylimit)
 
+<<<<<<< HEAD
 在单线程内运行测试 (默认值: `false`)
 
 ### poolOptions.threads.maxThreads
@@ -501,6 +506,9 @@ Enable trace view mode. Supported: "on", "off", "on-first-retry", "on-all-retrie
 - **Config:** [poolOptions.vmForks.memoryLimit](/config/#pooloptions-vmforks-memorylimit)
 
 VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝试调整这个值。
+=======
+Memory limit for VM pools. If you see memory leaks, try to tinker this value.
+>>>>>>> 833eac06863e4091131b637e3bed3e2742f9539b
 
 ### fileParallelism
 

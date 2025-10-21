@@ -1,9 +1,14 @@
 # Running Tests
 
+<<<<<<< HEAD
 ::: warning 注意
 本指南介绍如何使用高级 API 通过 Node.js 脚本运行测试。如果您只想[运行测试](/guide/)，则可能不需要这个。它主要被库的作者使用。
 
 破坏性变更可能不会遵循 SemVer，请在使用实验性 API 时固定 Vitest 的版本。
+=======
+::: warning
+This guide explains how to use the advanced API to run tests via a Node.js script. If you just want to [run tests](/guide/), you probably don't need this. It is primarily used by library authors.
+>>>>>>> 833eac06863e4091131b637e3bed3e2742f9539b
 :::
 
 Vitest 公开了两种启动 Vitest 的方法：

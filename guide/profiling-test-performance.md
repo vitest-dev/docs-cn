@@ -34,14 +34,18 @@
 由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
+<<<<<<< HEAD
 要将这些选项传递给 Vitest ，可以在 Vitest 的配置中定义 `poolOptions.<pool>.execArgv`：
+=======
+To pass these options to Vitest's test runner, define `execArgv` in your Vitest configuration:
+>>>>>>> 833eac06863e4091131b637e3bed3e2742f9539b
 
-::: code-group
-```ts [Forks]
+```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
+<<<<<<< HEAD
     pool: 'forks',
     poolOptions: {
       forks: {
@@ -82,6 +86,18 @@ export default defineConfig({
 })
 ```
 :::
+=======
+    fileParallelism: false,
+    execArgv: [
+      '--cpu-prof',
+      '--cpu-prof-dir=test-runner-profile',
+      '--heap-prof',
+      '--heap-prof-dir=test-runner-profile'
+    ],
+  },
+})
+```
+>>>>>>> 833eac06863e4091131b637e3bed3e2742f9539b
 
 测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看[「 检查分析记录 / Inspecting profiling records 」](#inspecting-profiling-records)。
 
