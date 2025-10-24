@@ -150,7 +150,11 @@ export default defineConfig({
 - **类型:** `{ sourcemap?, deps?, ... }`
 - **版本:** Since Vitest 0.34.0
 
+<<<<<<< HEAD
 Vite-Node 服务端选项。
+=======
+Moudle runner options.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 #### server.sourcemap
 
@@ -163,7 +167,11 @@ Vite-Node 服务端选项。
 
 - **类型:** `{ dumpModules?, loadDumppedModules? }`
 
+<<<<<<< HEAD
 Vite-Node 调试器选项。
+=======
+Module runner debugger options.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 #### server.debug.dumpModules
 
@@ -692,7 +700,7 @@ Returned files should be either absolute or relative to the root. Note that this
 
 当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
-### pool<NonProjectOption /> {#pool}
+### pool
 
 - **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
 - **默认值:** `'forks'`
@@ -700,19 +708,31 @@ Returned files should be either absolute or relative to the root. Note that this
 
 用于运行测试的线程池。
 
-#### threads<NonProjectOption />
+#### threads
 
+<<<<<<< HEAD
 使用 [tinypool](https://github.com/tinylibs/tinypool)（一个轻量级的 [Piscina](https://github.com/piscinajs/piscina) 分支）来启用多线程。当使用线程时，你无法使用与进程相关的 API，如 `process.chdir()` 。一些使用原生语言编写的库，如 Prisma 、`bcrypt` 和 `canvas` ，在多线程环境下可能会遇到问题并导致段错误。在这些情况下，建议使用 `forks` 线程池。
+=======
+Enable multi-threading. When using threads you are unable to use process related APIs such as `process.chdir()`. Some libraries written in native languages, such as Prisma, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is advised to use `forks` pool instead.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
-#### forks<NonProjectOption />
+#### forks
 
+<<<<<<< HEAD
 与 `threads` 线程池类似，但是使用 `child_process` 而不是 `worker_threads` ，通过 [tinypool](https://github.com/tinylibs/tinypool) 实现。与 `threads` 线程池相比，测试与主进程之间的通信速度不够快。在 `forks` 线程池中，可以使用与进程相关的 API ，如 `process.chdir()` 。
+=======
+Similar as `threads` pool but uses `child_process` instead of `worker_threads`. Communication between tests and main process is not as fast as with `threads` pool. Process related APIs such as `process.chdir()` are available in `forks` pool.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
-#### vmThreads<NonProjectOption />
+#### vmThreads
 
 在 `threads` 线程池中使用[ VM 上下文](https://nodejs.org/api/vm.html)（在受限环境中）运行测试。
 
+<<<<<<< HEAD
 这样可以加快测试速度，但是当运行[ ESM 代码](https://github.com/nodejs/node/issues/37648)时，VM 模块可能不稳定。你的测试可能会[泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
+=======
+This makes tests run faster, but the VM module is unstable when running [ESM code](https://github.com/nodejs/node/issues/37648). Your tests will [leak memory](https://github.com/nodejs/node/issues/33439) - to battle that, consider manually editing [`vmMemoryLimit`](#vmMemorylimit) value.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 ::: warning
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
@@ -734,8 +754,9 @@ catch (err) {
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
 
-#### vmForks<NonProjectOption />
+#### vmForks
 
+<<<<<<< HEAD
 与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不使用 `worker_threads`。测试与主进程之间的通信速度虽然不如 `vmThreads` 快。但进程相关的 API（如 `process.chdir()` ）在 `vmForks` 中却可以使用。请注意，这个与 `vmThreads` 中列出的池具有相同的缺陷。
 
 ### poolOptions<NonProjectOption /> {#pooloptions}
@@ -798,16 +819,26 @@ export default defineConfig({
 隔离每个测试文件的环境。
 
 ##### poolOptions.threads.execArgv<NonProjectOption />
+=======
+Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads`. Communication between tests and the main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`.
+
+### execArgv
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 - **类型:** `string[]`
 - **默认值:** `[]`
 
+<<<<<<< HEAD
 在线程中向 `node` 传递附加参数。更多信息，具体可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 。
+=======
+Pass additional arguments to `node` in the runner worker. See [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) for more information.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 ::: warning
 使用时要小心，因为某些选项（如--prof、--title）可能会导致 worker 崩溃。具体信息可以浏览 https://github.com/nodejs/node/issues/41103。
 :::
 
+<<<<<<< HEAD
 #### poolOptions.forks
 
 `forks` 池的选项。
@@ -890,11 +921,20 @@ export default defineConfig({
 最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
 ##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
+=======
+### vmMemoryLimit
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 - **类型:** `string | number`
 - **命令行终端:** `1 / CPU Cores`
 
+<<<<<<< HEAD
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
+=======
+This option affects only `vmForks` and `vmThreads` pools.
+
+Specifies the memory limit for workers before they are recycled. This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 ::: tip
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
@@ -917,6 +957,7 @@ export default defineConfig({
 由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
 
+<<<<<<< HEAD
 ##### poolOptions.vmThreads.useAtomics<NonProjectOption />
 
 - **类型:** `boolean`
@@ -981,6 +1022,9 @@ export default defineConfig({
 :::
 
 ### fileParallelism<NonProjectOption /> {#fileparallelism}
+=======
+### fileParallelism
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -992,11 +1036,15 @@ export default defineConfig({
 此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
 :::
 
-### maxWorkers<NonProjectOption /> {#maxworkers}
+### maxWorkers
 
 - **类型:** `number | string`
 
+<<<<<<< HEAD
 运行测试时设置的最大工作线程数或百分比。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
+=======
+Maximum number or percentage of workers to run tests in.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 
 ### testTimeout
 
@@ -1627,17 +1675,20 @@ test('doNotRun', () => {
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
-### browser <Badge type="warning">experimental</Badge> {#browser}
+### browser {#browser}
 
 - **默认值:** `{ enabled: false }`
 - **命令行终端:** `--browser=<name>`, `--browser.name=chrome --browser.headless`
 
 运行浏览器测试的配置。请参阅[“浏览器配置参考”](/guide/browser/config)。
 
+<<<<<<< HEAD
 ::: warning
 这是一项实验性功能。重大更改可能不会遵循 semver，请在使用时锁定 Vitest 的版本。
 :::
 
+=======
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 ### clearMocks
 
 - **类型:** `boolean`
@@ -1945,6 +1996,10 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **命令行终端**: `--sequence.concurrent`, `--sequence.concurrent=false`
 
 如果你希望测试并行运行，可以使用此选项或 CLI 参数 [`--sequence.concurrent`](/guide/cli) 启用它。
+
+::: warning
+When you run tests with `sequence.concurrent` and `expect.requireAssertions` set to `true`, you should use [local expect](/guide/test-context.html#expect) instead of the global one. Otherwise, this may cause false negatives in [some situations (#8469)](https://github.com/vitest-dev/vitest/issues/8469).
+:::
 
 #### sequence.seed<NonProjectOption />
 
@@ -2359,7 +2414,11 @@ Limit the depth to recurse when printing nested objects
 如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会[改进性能](/guide/improving-performance)。
 
 ::: tip
+<<<<<<< HEAD
 你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
+=======
+You can disable isolation for specific test files by using Vitest workspaces and disabling isolation per project.
+>>>>>>> b7f9a6dfe5023e584dfb90097838736994339037
 :::
 
 ### includeTaskLocation {#includeTaskLocation}
@@ -2429,6 +2488,10 @@ export interface SnapshotEnvironment {
 这仅适用于 Vitest 的`expect`。如果我们使用`assert`或`.should`断言，它们将不计算在内，并且我们的测试将因缺少 expect 断言而失败。
 
 我们可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
+:::
+
+::: warning
+When you run tests with `sequence.concurrent` and `expect.requireAssertions` set to `true`, you should use [local expect](/guide/test-context.html#expect) instead of the global one. Otherwise, this may cause false negatives in [some situations (#8469)](https://github.com/vitest-dev/vitest/issues/8469).
 :::
 
 #### expect.poll
