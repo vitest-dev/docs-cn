@@ -34,14 +34,18 @@
 由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
+<<<<<<< HEAD
 要将这些选项传递给 Vitest ，可以在 Vitest 的配置中定义 `poolOptions.<pool>.execArgv`：
+=======
+To pass these options to Vitest's test runner, define `execArgv` in your Vitest configuration:
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
-::: code-group
-```ts [Forks]
+```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
+<<<<<<< HEAD
     pool: 'forks',
     poolOptions: {
       forks: {
@@ -82,6 +86,18 @@ export default defineConfig({
 })
 ```
 :::
+=======
+    fileParallelism: false,
+    execArgv: [
+      '--cpu-prof',
+      '--cpu-prof-dir=test-runner-profile',
+      '--heap-prof',
+      '--heap-prof-dir=test-runner-profile'
+    ],
+  },
+})
+```
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
 测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看[「 检查分析记录 / Inspecting profiling records 」](#inspecting-profiling-records)。
 
@@ -110,6 +126,7 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 
 ## File transform
 
+<<<<<<< HEAD
 当测试转换和收集的时间较长时，可以使用环境变量 `DEBUG=vite-node:*` 来查看哪些文件正在被 `vite-node` 转换和执行。
 
 ```bash
@@ -129,6 +146,10 @@ $ DEBUG=vite-node:* vitest --run
 ```
 
 这种分析策略是识别由[「 桶文件 / barrel files 」](https://cn.vitejs.dev/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
+=======
+This profiling strategy is a good way to identify unnecessary transforms caused by [barrel files](https://vitejs.dev/guide/performance.html#avoid-barrel-files).
+If these logs contain files that should not be loaded when your test is run, you might have barrel files that are importing files unnecessarily.
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
 下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。
@@ -161,17 +182,19 @@ test('formatter works', () => {
 
 <img src="/module-graph-barrel-file.png" alt="Vitest UI demonstrating barrel file issues" />
 
+<<<<<<< HEAD
 要查看文件是如何转换的，可以使用 `VITE_NODE_DEBUG_DUMP` 环境变量将转换后的文件写入文件系统：
+=======
+To see how files are transformed, you can use `VITEST_DEBUG_DUMP` environment variable to write transformed files in the file system:
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
 ```bash
-$ VITE_NODE_DEBUG_DUMP=true vitest --run
-
-[vite-node] [debug] dump modules to /x/examples/profiling/.vite-node/dump
+$ VITEST_DEBUG_DUMP=true vitest --run
 
  RUN  v2.1.1 /x/vitest/examples/profiling
 ...
 
-$ ls .vite-node/dump/
+$ ls .vitest-dump/
 _x_examples_profiling_global-setup_ts-1292904907.js
 _x_examples_profiling_test_prime-number_test_ts-1413378098.js
 _src_prime-number_ts-525172412.js

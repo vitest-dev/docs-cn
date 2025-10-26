@@ -348,7 +348,7 @@ function setGlobalTestNamePattern(pattern: string | RegExp): void
 此方法不会开始运行任何测试。要使用更新后的模式运行测试，请调用 [`runTestSpecifications`](#runtestspecifications)。
 :::
 
-## getGlobalTestNamePattern
+## getGlobalTestNamePattern <Version>4.0.0</Version> {#getglobaltestnamepattern}
 
 ```ts
 function getGlobalTestNamePattern(): RegExp | undefined

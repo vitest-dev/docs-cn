@@ -3,9 +3,15 @@ title: Browser Mode | Guide
 outline: deep
 ---
 
+<<<<<<< HEAD
 # 浏览器模式 <Badge type="warning">实验性</Badge> {#browser-mode}
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
+=======
+# Browser Mode {#browser-mode}
+
+This page provides information about the browser mode feature in the Vitest API, which allows you to run your tests in the browser natively, providing access to browser globals like window and document.
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
 ::: tip
 如果你需要 `expect` 、`vi` ，或者像测试项目、类型测试等通用 API 的文档，请查看 [「快速上手」指南](/guide/)。
@@ -35,27 +41,37 @@ bunx vitest init browser
 
 ### 手动安装
 
+<<<<<<< HEAD
 我们也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的 E2E provider 就能在本地运行测试，因为它会复用你现有的浏览器。
+=======
+You can also install packages manually. Vitest always requires a provider to be defined. You can chose either [`preview`](/guide/browser/preview), [`playwright`](/guide/browser/playwright) or [`webdriverio`](/guide/browser/webdriverio).
+
+If you want to just preview how your tests look, you can use the `preview` provider:
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser
+npm install -D vitest @vitest/browser-preview
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser
+yarn add -D vitest @vitest/browser-preview
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser
+pnpm add -D vitest @vitest/browser-preview
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser
+bun add -D vitest @vitest/browser-preview
 ```
 :::
 
 ::: warning
 不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 
+<<<<<<< HEAD
 如果我们尚未使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，这可以使我们的测试运行得更快。此外，Playwright 使用的是 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) ，通常比 WebDriver 更快。
+=======
+If you don't already use one of these tools, we recommend starting with Playwright because it supports parallel execution, which makes your tests run faster.
+>>>>>>> d579ed0a46e66c5717883ec43351c90787fcdbff
 
 ::: tabs key:provider
 == Playwright
@@ -63,16 +79,16 @@ bun add -D vitest @vitest/browser
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser playwright
+npm install -D vitest @vitest/browser-playwright
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser playwright
+yarn add -D vitest @vitest/browser-playwright
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser playwright
+pnpm add -D vitest @vitest/browser-playwright
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser playwright
+bun add -D vitest @vitest/browser-playwright
 ```
 == WebdriverIO
 
@@ -80,16 +96,16 @@ bun add -D vitest @vitest/browser playwright
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser webdriverio
+npm install -D vitest @vitest/browser-webdriverio
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser webdriverio
+yarn add -D vitest @vitest/browser-webdriverio
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser webdriverio
+pnpm add -D vitest @vitest/browser-webdriverio
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser webdriverio
+bun add -D vitest @vitest/browser-webdriverio
 ```
 :::
 
