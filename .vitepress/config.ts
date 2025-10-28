@@ -113,13 +113,30 @@ export default ({ mode }: { mode: string }) => {
     themeConfig: {
       logo: '/logo.svg',
 
+      outline: {
+        label: '页面导航',
+      },
+
       editLink: {
-        pattern: 'https://github.com/vitest-dev/vitest/edit/main/docs/:path',
-        text: 'Suggest changes to this page',
+        pattern: 'https://github.com/vitest-dev/docs-cn/edit/dev/:path',
+        text: '在 GitHub 上编辑此页面',
+      },
+
+      lastUpdated: {
+        text: '最后更新于',
+        formatOptions: {
+          dateStyle: 'full',
+          timeStyle: 'medium',
+        },
       },
 
       search: {
         provider: 'local',
+      },
+
+      docFooter: {
+        prev: '上一页',
+        next: '下一页',
       },
 
       carbonAds: {
@@ -386,7 +403,7 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
-            text: 'Guides',
+            text: '指南',
             collapsed: false,
             items: [
               {
@@ -411,7 +428,7 @@ export default ({ mode }: { mode: string }) => {
         '/blog': [],
         '/': [
           {
-            text: 'Introduction',
+            text: '简介',
             collapsed: false,
             items: introduction(),
           },
@@ -421,7 +438,7 @@ export default ({ mode }: { mode: string }) => {
             items: api(),
           },
           {
-            text: 'Guides',
+            text: '指南',
             collapsed: false,
             items: guide(),
           },
@@ -465,7 +482,7 @@ function footer(): DefaultTheme.SidebarItem[] {
 function introduction(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: '简介',
+      text: '什么是vitest？',
       link: '/guide/why',
     },
     {
@@ -498,7 +515,7 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/projects',
     },
     {
-      text: '报告器「Reporters」',
+      text: '报告器',
       link: '/guide/reporters',
     },
     {
@@ -573,7 +590,7 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/environment',
     },
     {
-      text: '扩展断言(Matchers)',
+      text: '扩展断言',
       link: '/guide/extending-matchers',
     },
     {
@@ -623,7 +640,7 @@ function guide(): DefaultTheme.SidebarItem[] {
 function api(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: 'Test API 索引',
+      text: 'Test API',
       link: '/api/',
     },
     {
