@@ -83,7 +83,11 @@ export default new MyReporter()
 ```
 :::
 
+<<<<<<< HEAD
 ## onBrowserInit <Badge type="warning">实验性</Badge> {#onbrowserinit}
+=======
+## onBrowserInit {#onbrowserinit}
+>>>>>>> a9a4f10c585c51db0a012545f316a4b21c4c9f3c
 
 ```ts
 function onBrowserInit(project: TestProject): Awaitable<void>

@@ -1,10 +1,14 @@
 # 任务元数据
 
+<<<<<<< HEAD
 ::: warning
 Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。
 :::
 
 如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。
+=======
+If you are developing a custom reporter or using Vitest Node.js API, you might find it useful to pass data from tests that are being executed in various contexts to your reporter or custom Vitest handler.
+>>>>>>> a9a4f10c585c51db0a012545f316a4b21c4c9f3c
 
 要实现此目的，依靠 [测试上下文](/guide/test-context) 是不可行的，因为它无法序列化。但是，使用 Vitest 时，你可以利用每个任务（套件或测试）上可用的 `meta` 属性在测试和 Node.js 进程之间共享数据。值得注意的是，这种通信只是单向的，因为 `meta` 属性只能在测试上下文中修改。Node.js 上下文中所做的任何更改在你的测试中都将不可见。
 
