@@ -14,7 +14,7 @@ Vitest（发音为 _"veetest"_） 是由 Vite 驱动的下一代测试框架。
 
 你可以在 [StackBlitz](https://vitest.new) 上在线尝试 Vitest 。它直接在浏览器中运行 Vitest，它几乎与本地设置相同，但不需要在你的计算机上安装任何东西。
 
-## 将 Vitest 安装到项目 {#/#adding-vitest-to-your-project}
+## 将 Vitest 安装到项目 {#adding-vitest-to-your-project}
 
 <CourseLink href="https://vueschool.io/lessons/how-to-install-vitest?friend=vueuse">通过视频了解如何安装</CourseLink>
 
