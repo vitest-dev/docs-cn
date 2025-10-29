@@ -3,11 +3,11 @@ title: 命令行界面 | 指南
 outline: deep
 ---
 
-# 命令行界面
+# 命令行界面 {#command-line-interface}
 
-## 命令
+## 命令 {#commands}
 
-### `vitest`
+### `vitest` {#vitest}
 
 在当前目录启动 Vitest。在开发环境中会自动进入监听模式，而在 CI 环境（或非交互式终端）中会自动运行测试模式。
 
@@ -122,7 +122,7 @@ tests/test1.test.ts
 tests/test2.test.ts
 ```
 
-## 选项
+## 选项 {#options}
 
 ::: tip
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
