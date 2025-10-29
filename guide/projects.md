@@ -1,8 +1,8 @@
 ---
-title: 测试项目 | 指南 {#test-projects}
+title: 测试项目 | 指南
 ---
 
-# 测试项目
+# 测试项目 {#test-projects}
 
 ::: tip 示例项目
 
