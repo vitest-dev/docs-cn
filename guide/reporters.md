@@ -3,7 +3,7 @@ title: 报告器 | 指南
 outline: deep
 ---
 
-# 报告器
+# 报告器 {#reporters}
 
 Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile`[配置选项](https://vitest.dev/config/#reporters) 中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
 
@@ -35,7 +35,7 @@ export default defineConfig({
 })
 ```
 
-## 报告器输出
+## 报告器输出 {#reporter-output}
 
 默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
 
@@ -56,7 +56,7 @@ export default defineConfig({
 
 :::
 
-## 组合报告器
+## 组合报告器 {#combining-reporters}
 
 你可以同时使用多个报告器，并以不同格式打印测试结果。
 
@@ -93,9 +93,9 @@ export default defineConfig({
 
 这个示例将编写单独的 JSON 和 XML 报告，并将详细报告打印到终端。
 
-## 内置报告器
+## 内置报告器 {#built-in-reporters}
 
-### 默认报告器
+### 默认报告器 {#default-reporter}
 
 默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
 
@@ -156,7 +156,7 @@ If there is only one test file running, Vitest will output the full test tree of
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### 详细报告器
+### 详细报告器 {#verbose-reporter}
 
 详细报告器会在每个测试用例完成后打印出来。它不会单独报告套件或文件。如果启用了 `--includeTaskLocation`，它还会在输出中包含每个测试的位置。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
 
@@ -210,7 +210,7 @@ An example with `--includeTaskLocation`:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### 树状报告器
+### 树状报告器 {#tree-reporter}
 
 树状报告器与 `default` 报告器相同，但它还会在套件完成后显示每个单独的测试。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
 
@@ -266,7 +266,7 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Dot 报告器
+### Dot 报告器 {#dot-reporter}
 
 每当一个测试完成时，就会打印一个点，以最小化输出量，同时让你看到所有执行过的测试。只有当测试失败时才会显示详细信息，并在最后提供套件的汇总。
 
@@ -297,7 +297,7 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### JUnit 报告器
+### JUnit 报告器 {#junit-reporter}
 
 以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入 XML 文件。
 
@@ -353,7 +353,7 @@ export default defineConfig({
 
 输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
 
-### JSON 报告器
+### JSON 报告器 {#json-reporter}
 
 以与 Jest 的 `--json` 选项兼容的 JSON 格式生成测试结果报告。可以打印到终端，也可以使用 [`outputFile`](/config/#outputfile) 配置选项写入文件。
 
@@ -420,7 +420,7 @@ JSON 报告示例:
 自Vitest 3起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
 :::
 
-### HTML 报告器
+### HTML 报告器 {#html-reporter}
 
 生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
 
@@ -446,7 +446,7 @@ export default defineConfig({
 该报告器需要安装 [`@vitest/ui`](/guide/ui) 。
 :::
 
-### TAP 报告器
+### TAP 报告器 {#tap-reporter}
 
 按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
 
@@ -489,7 +489,7 @@ not ok 1 - __tests__/test-file-1.test.ts # time=14.00ms {
 }
 ```
 
-### TAP 扁平报告器
+### TAP 扁平报告器 {#tap-flat-reporter}
 
 输出 TAP 扁平报告。与 `TAP Reporter` 一样，测试结果的格式遵循 TAP 标准，但测试套件的格式是扁平列表，而不是嵌套层次结构。
 
@@ -526,7 +526,7 @@ not ok 1 - __tests__/test-file-1.test.ts > first test file > 2 + 2 should equal 
 ok 2 - __tests__/test-file-1.test.ts > first test file > 4 - 2 should equal 2 # time=0.00ms
 ```
 
-### Hanging process 报告器
+### Hanging process 报告器 {#hanging-process-reporter}
 
 展示任何妨碍 Vitest 安全退出的 hanging processes ，`hanging-process` 报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
 
@@ -581,7 +581,7 @@ export default defineConfig({
 })
 ```
 
-### Blob Reporter
+### Blob Reporter {#blob-reporter}
 
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
 默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
@@ -601,7 +601,7 @@ npx vitest --merge-reports=reports --reporter=json --reporter=default
 Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
 :::
 
-## 自定义报告器
+## 自定义报告器 {#custom-reporters}
 
 你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
 
