@@ -908,7 +908,7 @@ function elements(): Element[]
 page.getByText('Hello World').elements() // ✅ [HTMLElement]
 page.getByText('World').elements() // ✅ [HTMLElement]
 page.getByText('Hello', { exact: true }).elements() // ✅ [HTMLElement]
-page.getByText('Hello').element() // ✅ [HTMLElement, HTMLElement]
+page.getByText('Hello').elements() // ✅ [HTMLElement, HTMLElement]
 page.getByText('Hello USA').elements() // ✅ []
 ```
 
