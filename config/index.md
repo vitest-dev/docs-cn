@@ -21,7 +21,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // ... 在此指定选项。
   },
 })
 ```
@@ -34,7 +34,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // ... 在此指定选项。
   },
 })
 ```
@@ -46,7 +46,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // ... 在此指定选项。
   },
 })
 ```
@@ -501,7 +501,7 @@ export default defineConfig({
   plugins: [
     AutoImport({
       imports: ['vitest'],
-      dts: true, // generate TypeScript declaration
+      dts: true, // 生成 TypeScript 声明
     }),
   ],
 })
@@ -570,7 +570,7 @@ export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
   setup() {
-    // custom setup
+    // 自定义设置
     return {
       teardown() {
         // 在所有使用此环境的测试运行完毕后调用。
@@ -639,7 +639,7 @@ export default defineConfig({
       {
         pattern: /^src\/(mailers|templates)\/(.*)\.(ts|html|txt)$/,
         testsToRun: (id, match) => {
-          // relative to the root value
+          // 相对于 root 值
           return `./api/tests/mailers/${match[2]}.test.ts`
         },
       },
@@ -649,7 +649,7 @@ export default defineConfig({
 ```
 
 ::: warning
-Returned files should be either absolute or relative to the root. Note that this is a global option, and it cannot be used inside of [project](/guide/projects) configs.
+返回的文件应该是绝对的或相对于 root 的。 请注意，这是一个全局选项，不能在 [project](/guide/projects) 配置内部使用。
 :::
 
 ### root
@@ -754,7 +754,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       threads: {
-        // Threads related options here
+        // 此处是与线程相关的选项
       },
     },
   },
@@ -819,7 +819,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       forks: {
-        // Forks related options here
+        // 此处是 Fork 相关的选项
       },
     },
   },
@@ -875,7 +875,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       vmThreads: {
-        // VM threads related options here
+        // 此处是与虚拟线程相关的选项
       },
     },
   },
@@ -948,7 +948,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       vmForks: {
-        // VM forks related options here
+        // 此处是虚拟 Fork 相关的选项
       },
     },
   },
@@ -1059,7 +1059,7 @@ if (!globalThis.defined) {
   globalThis.defined = true
 }
 
-// hooks are reset before each suite
+// Hook 在每个套件之前重置
 afterEach(() => {
   cleanup()
 })
@@ -1108,7 +1108,7 @@ declare module 'vitest' {
   }
 }
 
-// mark this file as a module so augmentation works correctly
+// 将此文件标记为模块，以便增强正常工作
 export {}
 ```
 :::
@@ -1186,7 +1186,7 @@ export default function setup(project: TestProject) {
 
 ```ts
 test('execute a script', async () => {
-  // Vitest cannot rerun this test, if content of `dist/index.js` changes
+  // 如果 `dist/index.js` 的内容发生变化，Vitest 无法重新运行此测试
   await execa('node', ['dist/index.js'])
 })
 ```
@@ -1313,11 +1313,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 ```ts
 {
   reporter: [
-    // Specify reporter using name of the NPM package
+    // 使用 NPM 包的名称指定 Reporter
     "@vitest/custom-coverage-reporter",
     ["@vitest/custom-coverage-reporter", { someOption: true }],
 
-    // Specify reporter using local path
+    // 使用本地路径指定 Reporter
     "/absolute/path/to/custom-reporter.cjs",
     ["/absolute/path/to/custom-reporter.cjs", { someOption: true }],
   ];
@@ -1378,10 +1378,10 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 {
   coverage: {
     thresholds: {
-      // Requires 90% function coverage
+      // 需要 90% 的功能覆盖率
       functions: 90,
 
-      // Require that no more than 10 lines are uncovered
+      // 要求不超过10行被覆盖
       lines: -10,
     }
   }
@@ -1439,14 +1439,14 @@ statements 的全局阈值。
 如果当前覆盖率优于配置的阈值时，将所有阈值 `lines`、`functions`、`branches` 和 `statements` 更新到配置文件中。
 此选项有助于在覆盖率提高时保持阈值不变。
 
-You can also pass a function for formatting the updated threshold values:
+你还可以传递一个函数来格式化更新的阈值：
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // Update thresholds without decimals
+      // 更新不带小数的阈值
       autoUpdate: (newThreshold) => Math.floor(newThreshold),
 
       // 95.85 -> 95
@@ -1485,11 +1485,11 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
 {
   coverage: {
     thresholds: {
-      // Thresholds for all files
+      // 所有文件的阈值 
       functions: 95,
       branches: 70,
 
-      // Thresholds for matching glob pattern
+      // 匹配全局模式的阈值
       'src/utils/**.ts': {
         statements: 95,
         functions: 90,
@@ -1497,8 +1497,8 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
         lines: 80,
       },
 
-      // Files matching this pattern will only have lines thresholds set.
-      // Global thresholds are not inherited.
+      // 匹配此模式的文件将仅设置行阈值。
+      // 全局阈值不会被继承。
       '**/math.ts': {
         lines: 100,
       }
@@ -1513,18 +1513,18 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
 - **Default:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
 
-Sets thresholds to 100 for files matching the glob pattern.
+将匹配全局模式的文件的阈值设置为 100。
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // Thresholds for all files
+      // 所有文件的阈值
       functions: 95,
       branches: 70,
 
-      // Thresholds for matching glob pattern
+      // 匹配全局模式的阈值
       'src/utils/**.ts': { 100: true },
       '**/math.ts': { 100: true }
     }
@@ -1600,12 +1600,12 @@ Sets thresholds to 100 for files matching the glob pattern.
 ```js
 import { expect, test } from 'vitest'
 
-// run
+// 运行
 test('OnlyRunThis', () => {
   expect(true).toBe(true)
 })
 
-// skipped
+// 跳过
 test('doNotRun', () => {
   expect(true).toBe(true)
 })
@@ -1843,24 +1843,24 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 分片是在排序之前进行的，并且只有提供了 `--shard` 选项的情况下才会生效。
 
-If [`sequencer.groupOrder`](#grouporder) is specified, the sequencer will be called once for each group and pool.
+如果指定了 [`sequencer.groupOrder`](#grouporder)，则将为每个组和池调用一次定序器。
 
 #### groupOrder <Version>3.2.0</Version> {#grouporder}
 
 - **Type:** `number`
 - **Default:** `0`
 
-Controls the order in which this project runs its tests when using multiple [projects](/guide/projects).
+控制使用多个[项目](/guide/projects) 时该项目运行测试的顺序。
 
-- Projects with the same group order number will run together, and groups are run from lowest to highest.
-- If you don’t set this option, all projects run in parallel.
-- If several projects use the same group order, they will run at the same time.
+- 具有相同组序号的项目将一起运行，并且组从低到高运行。
+- 如果不设置此选项，所有项目将并行运行。
+- 如果多个项目使用相同的组序，它们将同时运行。
 
-This setting only affects the order in which projects run, not the order of tests within a project.
-To control test isolation or the order of tests inside a project, use the [`isolate`](#isolate) and [`sequence.sequencer`](#sequence-sequencer) options.
+此设置仅影响项目运行的顺序，而不影响项目中测试的顺序。
+要控制项目内的测试隔离或测试顺序，请使用 [`isolate`](#isolate) 和 [`sequence.sequencer`](#sequence-sequencer) 选项。
 
-::: details Example
-Consider this example:
+::: 详细信息示例
+考虑这个例子：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -1897,14 +1897,14 @@ export default defineConfig({
 })
 ```
 
-Tests in these projects will run in this order:
+这些项目中的测试将按以下顺序运行：
 
 ```
  0. slow  |
-          |> running together
+          |> 一起运行
  0. fast  |
 
- 1. flaky |> runs after slow and fast alone
+ 1. flaky |> 在 slow 和 fast 之后单独运行
 ```
 :::
 
@@ -2057,7 +2057,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **Type**: `number`
 - **Default**: `10_000`
 
-Minimum time in milliseconds it takes to spawn the typechecker.
+生成类型检查器所需的最短时间（以毫秒为单位）。
 
 ### slowTestThreshold<NonProjectOption />
 
@@ -2156,12 +2156,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     onStackTrace(error: Error, { file }: ParsedStack): boolean | void {
-      // If we've encountered a ReferenceError, show the whole stack.
+      // 如果我们遇到引用错误，显示整个堆栈。
       if (error.name === 'ReferenceError') {
         return
       }
 
-      // Reject all frames from third party libraries.
+      // 拒绝来自第三方库的所有框架。
       if (file.includes('node_modules')) {
         return false
       }
@@ -2174,9 +2174,9 @@ export default defineConfig({
 
 - **Type:** `(error: (TestError | Error) & { type: string }) => boolean | void`
 
-A custom handler to filter out unhandled errors that should not be reported. If an error is filtered out, it will no longer affect the test results.
+自定义处理程序，用于过滤掉不应报告的未处理错误。 如果过滤掉错误，则不会再影响测试结果。
 
-If you want unhandled errors to be reported without impacting the test outcome, consider using the [`dangerouslyIgnoreUnhandledErrors`](#dangerouslyIgnoreUnhandledErrors) option
+如果你希望报告未处理的错误而不影响测试结果，可以考虑使用 [`dangerouslyIgnoreUnhandledErrors`](#dangerouslyIgnoreUnhandledErrors) 选项
 
 ```ts
 import type { ParsedStack } from 'vitest'
@@ -2185,7 +2185,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     onUnhandledError(error): boolean | void {
-      // Ignore all errors with the name "MySpecialError".
+      // 忽略名为 “MySpecialError” 的所有错误。
       if (error.name === 'MySpecialError') {
         return false
       }
@@ -2277,17 +2277,17 @@ Expand all common lines.
 
 #### diff.printBasicPrototype
 
-- **Type**: `boolean`
-- **Default**: `false`
+- **类型**: `boolean`
+- **默认值**: `false`
 
-Print basic prototype `Object` and `Array` in diff output
+在差异输出中打印基本原型 `Object` 和 `Array`
 
 #### diff.maxDepth
 
-- **Type**: `number`
-- **Default**: `20` (or `8` when comparing different types)
+- **类型**: `number`
+- **默认值**: `20`（当比较不同类型时或 `8` ）
 
-Limit the depth to recurse when printing nested objects
+打印嵌套对象时限制递归深度
 
 ### fakeTimers
 
