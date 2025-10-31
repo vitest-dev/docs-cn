@@ -63,7 +63,7 @@ test("skipped test", { skip: true }, () => {
 });
 
 test("skipped concurrent test", { skip: true, concurrent: true }, () => {
-  // some logic that fails right now
+  // 一些现在失败的逻辑
 });
 ```
 
@@ -74,12 +74,12 @@ test("skipped concurrent test", { skip: true, concurrent: true }, () => {
 ```ts
 import { test } from "vitest";
 
-// ✅ this works
+// ✅ 这起作用
 test.skip("heavy test", () => {
   // ...
 }, 10_000);
 
-// ❌ this doesn't work
+// ❌ 这不起作用
 test(
   "heavy test",
   { skip: true },
@@ -95,7 +95,7 @@ test(
 ```ts
 import { test } from "vitest";
 
-// ✅ this works
+// ✅ 这起作用
 test("heavy test", { skip: true, timeout: 10_000 }, () => {
   // ...
 });
@@ -183,7 +183,7 @@ import { assert, test } from "vitest";
 
 test("skipped test", (context) => {
   context.skip(Math.random() < 0.5, "optional message");
-  // Test skipped, no error
+  // 测试被跳过，没有错误
   assert.equal(Math.sqrt(4), 3);
 });
 ```
@@ -776,7 +776,7 @@ bench.todo("unimplemented test");
 
 ```ts
 // basic.spec.ts
-// organizing tests
+// 组织测试
 
 import { describe, expect, test } from "vitest";
 
@@ -802,7 +802,7 @@ describe("person", () => {
 
 ```ts
 // basic.bench.ts
-// organizing benchmarks
+// 组织基准
 
 import { bench, describe } from "vitest";
 
@@ -865,7 +865,7 @@ import { assert, describe, test } from "vitest";
 
 describe.skip("skipped suite", () => {
   test("sqrt", () => {
-    // Suite skipped, no error
+    // 套件跳过，没有错误
     assert.equal(Math.sqrt(4), 3);
   });
 });
@@ -883,7 +883,7 @@ import { describe, test } from "vitest";
 const isDev = process.env.NODE_ENV === "development";
 
 describe.skipIf(isDev)("prod only test suite", () => {
-  // this test suite only runs in production
+  // 此测试套件仅在生产环境中运行
 });
 ```
 
