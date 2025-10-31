@@ -176,13 +176,13 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     projects: [
-      // you can use a list of glob patterns to define your projects
-      // Vitest expects a list of config files
-      // or directories where there is a config file
+      // 你可以使用全局模式的列表来定义你的项目 
+      // Vitest 需要一个配置文件列表
+      // 或有配置文件的目录
       'packages/*',
       'tests/*/vitest.config.{e2e,unit}.ts',
-      // you can even run the same tests,
-      // but with different configs in the same "vitest" process
+      // 你甚至可以运行相同的测试，
+      // 但在同一个 "vitest" 进程中有不同的配置
       {
         test: {
           name: 'happy-dom',
