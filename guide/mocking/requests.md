@@ -1,19 +1,19 @@
-# Mocking Requests
+# 模拟请求 {#mocking-requests}
 
 由于 Vitest 运行在 Node 环境中，模拟网络请求很棘手；Web API 不可用，所以我们需要一些能够模拟网络行为的工具。我们推荐使用 [Mock Service Worker](https://mswjs.io/) 来实现这一点。它允许你模拟 `http`、`WebSocket` 和 `GraphQL` 网络请求，并且与框架无关。
 
 Mock Service Worker (MSW) 通过拦截你的测试发出的请求来工作，允许你在不更改任何应用程序代码的情况下使用它。在浏览器中，这使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解更多关于 MSW 的信息，请阅读他们的[介绍](https://mswjs.io/docs/)。
 
-## Configuration
+## 配置 {#configuration}
 
 You can use it like below in your [setup file](/config/#setupfiles)
 
 ::: code-group
 
 ```js [HTTP Setup]
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 const posts = [
   {
@@ -44,9 +44,9 @@ afterEach(() => server.resetHandlers())
 ```
 
 ```js [GraphQL Setup]
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { graphql, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 const posts = [
   {
@@ -79,9 +79,9 @@ afterEach(() => server.resetHandlers())
 ```
 
 ```js [WebSocket Setup]
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { ws } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 const chat = ws.link('wss://chat.example.com')
 
@@ -110,5 +110,5 @@ afterEach(() => server.resetHandlers())
 
 > Configuring the server with `onUnhandledRequest: 'error'` ensures that an error is thrown whenever there is a request that does not have a corresponding request handler.
 
-## More
+## 更多信息 {#more}
 There is much more to MSW. You can access cookies and query parameters, define mock error responses, and much more! To see all you can do with MSW, read [their documentation](https://mswjs.io/docs).

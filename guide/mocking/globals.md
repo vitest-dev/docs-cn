@@ -1,4 +1,4 @@
-# Mocking Globals
+# 模拟全局对象 {#mocking-globals}
 
 你可以使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来模拟 `jsdom` 或 `node` 中不存在的全局变量。它会将全局变量的值放入 `globalThis` 对象中。
 

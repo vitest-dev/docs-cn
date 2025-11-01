@@ -1,4 +1,4 @@
-# Mocking Classes
+# 模拟类 {#mocking-classes}
 
 你可以通过一次 [`vi.fn`](/api/vi#fn) 调用来模拟整个类。
 
