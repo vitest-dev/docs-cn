@@ -21,8 +21,8 @@
     "vue": "latest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.10.1",
-    "@antfu/ni": "^24.3.0",
+    "@antfu/eslint-config": "^5.4.1",
+    "@antfu/ni": "^26.1.0",
     "@iconify-json/carbon": "latest",
     "@iconify-json/logos": "latest",
     "@shikijs/transformers": "latest",
@@ -48,12 +48,12 @@
     "typescript": "^5.8.2",
     "unocss": "latest",
     "unplugin-vue-components": "latest",
-    "vite": "^6.3.5",
+    "vite": "^7.1.5",
     "vite-plugin-pwa": "^1.0.0",
     "vitepress": "2.0.0-alpha.12",
-    "vitepress-plugin-group-icons": "^1.6.1",
+    "vitepress-plugin-group-icons": "^1.6.3",
     "vitepress-plugin-tabs": "^0.7.3",
-    "vitest": "^4.0.0-beta.7",
+    "vitest": "^4.0.6",
     "workbox-window": "^7.3.0"
   }
 }
