@@ -191,7 +191,7 @@ export const test = todosTest.extend({
 })
 ```
 
-#### 固定装置初始化
+#### 固定装置初始化 {#fixture-initialization}
 
 Vitest 运行器将智能地初始化你的固定装置并根据使用情况将它们注入到测试上下文中。
 
