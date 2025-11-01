@@ -2,7 +2,7 @@
 title: 常见错误 | 指南
 ---
 
-# 常见错误
+# 常见错误 {#common-errors}
 
 ## Cannot find module './relative-path'
 
