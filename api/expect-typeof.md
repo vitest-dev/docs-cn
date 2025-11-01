@@ -91,7 +91,7 @@ This matcher only works with plain object types. It will fail for union types an
 ```ts
 import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
+type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 
 interface CSSProperties {
   margin?: string
@@ -107,10 +107,10 @@ const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<{ xs?: any }>() // extracts the last type from a union
   .toEqualTypeOf<{
-  xs?: CSSProperties
-  sm?: CSSProperties
-  md?: CSSProperties
-}>()
+    xs?: CSSProperties
+    sm?: CSSProperties
+    md?: CSSProperties
+  }>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<unknown[]>() // extracts an array from a union

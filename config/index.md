@@ -1485,7 +1485,7 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
 {
   coverage: {
     thresholds: {
-      // 所有文件的阈值 
+      // 所有文件的阈值
       functions: 95,
       branches: 70,
 

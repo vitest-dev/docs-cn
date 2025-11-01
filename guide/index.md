@@ -176,7 +176,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     projects: [
-      // 你可以使用全局模式的列表来定义你的项目 
+      // 你可以使用全局模式的列表来定义你的项目
       // Vitest 需要一个配置文件列表
       // 或有配置文件的目录
       'packages/*',

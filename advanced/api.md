@@ -306,7 +306,7 @@ interface GlobReturn {
    */
   testFiles: string[]
   /**
-   * 与筛选器匹配的类型检查测试文件。除非 `typecheck.enabled` 为 `true`，否则将为空。 
+   * 与筛选器匹配的类型检查测试文件。除非 `typecheck.enabled` 为 `true`，否则将为空。
    */
   typecheckTestFiles: string[]
 }
