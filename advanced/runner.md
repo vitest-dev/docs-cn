@@ -193,11 +193,11 @@ interface File extends Suite {
 interface Suite extends TaskBase {
   type: 'suite'
   /**
-   * File task. It's the root task of the file.
+   * 文件任务。它是文件的 root 任务。
    */
   file: File
   /**
-   * An array of tasks that are part of the suite.
+   * 套件中的一系列任务。
    */
   tasks: Task[]
 }
@@ -291,7 +291,7 @@ export { afterAll, beforeAll, describe } from 'vitest'
 // 要支持自定义任务，你只需要调用 "getCurrentSuite().task()"
 export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
   getCurrentSuite().task(name, {
-    ...this, // so "todo"/"skip" is tracked correctly
+    ...this, // 正确跟踪 "todo"/"skip" 事项
     meta: {
       customPropertyToDifferentiateTask: true,
     },
