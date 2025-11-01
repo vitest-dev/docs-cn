@@ -2,7 +2,7 @@
 title: IDE 插件 | 指南
 ---
 
-# IDE 插件
+# IDE 插件 {#ide-integrations}
 
 ## VS Code <Badge>Official</Badge> {#vs-code}
 
