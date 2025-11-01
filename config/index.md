@@ -1313,11 +1313,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 ```ts
 {
   reporter: [
-    // 使用 NPM 包的名称指定 Reporter
+    // 使用 NPM 包的名称指定报告器
     "@vitest/custom-coverage-reporter",
     ["@vitest/custom-coverage-reporter", { someOption: true }],
 
-    // 使用本地路径指定 Reporter
+    // 使用本地路径指定报告器
     "/absolute/path/to/custom-reporter.cjs",
     ["/absolute/path/to/custom-reporter.cjs", { someOption: true }],
   ];
