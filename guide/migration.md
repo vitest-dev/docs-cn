@@ -454,8 +454,8 @@ export default defineConfig({
 Vitest 没有 Jest 的 `jest` 命名空间，需直接从 `vitest` 导入类型：
 
 ```ts
-// [!code --]
-import type { Mock } from 'vitest' let fn: jest.Mock<(name: string) => number> // [!code ++]
+let fn: jest.Mock<(name: string) => number> // [!code --]
+import type { Mock } from 'vitest' // [!code ++]
 let fn: Mock<(name: string) => number> // [!code ++]
 ```
 
