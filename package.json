@@ -52,7 +52,6 @@
     "vite-plugin-pwa": "^1.0.0",
     "vitepress": "2.0.0-alpha.12",
     "vitepress-plugin-group-icons": "^1.6.1",
-    "vitepress-plugin-llms": "^1.7.5",
     "vitepress-plugin-tabs": "^0.7.3",
     "vitest": "^4.0.0-beta.7",
     "workbox-window": "^7.3.0"
