@@ -15,7 +15,7 @@ outline: deep
 import { it } from 'vitest'
 
 it('should work', ({ task }) => {
-  // prints name of the test
+  // prints name of the testusage
   console.log(task.name)
 })
 ```
@@ -125,7 +125,7 @@ it('stop request when test times out', async ({ signal }) => {
 
 [`onTestFinished`](/api/#ontestfailed) 与当前测试用例绑定。当你并发执行多个测试并希望只对某个特定测试进行特殊处理时，这个 API 会非常有帮助。
 
-## 扩展测试上下文 {#extending-test-context}
+## 扩展测试上下文 {#extend-test-context}
 
 Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
