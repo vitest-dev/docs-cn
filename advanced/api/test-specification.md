@@ -7,7 +7,7 @@
 ```ts
 const specification = project.createSpecification(
   resolve('./example.test.ts'),
-  [20, 40], // optional test lines
+  [20, 40], // 可选测试行
 )
 ```
 
@@ -15,7 +15,7 @@ const specification = project.createSpecification(
 
 ## taskId
 
-[Test module's](/advanced/api/test-suite#id) identifier.
+[测试模块的](/advanced/api/test-suite#id) 标识符。
 
 ## project
 
@@ -33,7 +33,7 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 ## testModule
 
-Instance of [`TestModule`](/advanced/api/test-module) associated with the specification. If test wasn't queued yet, this will be `undefined`.
+与规范相关联的 [`TestModule`](/advanced/api/test-module) 实例。如果测试尚未排队，则将是 `undefined`。
 
 ## pool <Badge type="warning">experimental</Badge> {#pool}
 
