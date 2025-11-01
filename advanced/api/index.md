@@ -142,8 +142,8 @@ const result = parseCLI('vitest ./files.ts --coverage --browser=chrome')
 
 result.options
 // {
-//   coverage：{ enabled: true },
-//   browser：{ name: 'chrome', enabled: true }
+//   coverage: { enabled: true },
+//   browser: { name: 'chrome', enabled: true }
 // }
 
 result.filter
