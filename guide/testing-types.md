@@ -2,7 +2,7 @@
 title: 类型测试 | 指南
 ---
 
-# 类型测试
+# 类型测试 {#testing-types}
 
 ::: tip Sample Project
 
@@ -41,7 +41,7 @@ test('my types work properly', () => {
 
 你可以在 [API 部分](/api/#expecttypeof) 中查看可能的匹配器列表。
 
-## 读取错误
+## 读取错误 {#reading-errors}
 
 如果使用的是 `expectTypeOf` API，请参阅 [expect-type 关于其错误信息的文档](https://github.com/mmkal/expect-type#error-messages)。
 
@@ -77,7 +77,7 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
 
-#### 具体的 "expected " 对象与类型参数
+#### 具体的 "expected " 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
 
 像这样的断言的错误消息：
 
@@ -122,7 +122,7 @@ assertType<string>(answr)
 
 :::
 
-## 运行类型检查
+## 运行类型检查 {#run-typechecking}
 
 要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
 
