@@ -225,10 +225,7 @@ test('importing the next module imports mocked one', async () => {
 ### vi.mocked
 
 ```ts
-function mocked<T>(
-  object: T,
-  deep?: boolean
-): MaybeMockedDeep<T>
+function mocked<T>(object: T, deep?: boolean): MaybeMockedDeep<T>
 function mocked<T>(
   object: T,
   options?: { partial?: boolean, deep?: boolean }

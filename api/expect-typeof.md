@@ -91,7 +91,7 @@ This matcher only works with plain object types. It will fail for union types an
 ```ts
 import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
+type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
 
 interface CSSProperties { margin?: string, padding?: string }
 
