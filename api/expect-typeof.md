@@ -93,10 +93,7 @@ import { expectTypeOf } from 'vitest'
 
 type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 
-interface CSSProperties {
-  margin?: string
-  padding?: string
-}
+interface CSSProperties { margin?: string, padding?: string }
 
 function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
   return {}
@@ -106,11 +103,7 @@ const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<{ xs?: any }>() // extracts the last type from a union
-  .toEqualTypeOf<{
-    xs?: CSSProperties
-    sm?: CSSProperties
-    md?: CSSProperties
-  }>()
+  .toEqualTypeOf<{ xs?: CSSProperties, sm?: CSSProperties, md?: CSSProperties }>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .extract<unknown[]>() // extracts an array from a union
