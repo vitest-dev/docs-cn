@@ -91,11 +91,11 @@ function injectTestProjects(
 此方法接受配置 glob 模式、配置的文件路径或内联配置。它返回已解析的 [测试项目](./test-project) 数组。
 
 ```ts
-// inject a single project with a custom alias
+// 为单个项目注入自定义别名
 const newProjects = await injectTestProjects({
-  // you can inherit the current project config by referencing `extends`
-  // note that you cannot have a project with the name that already exists,
-  // so it's a good practice to define a custom name
+  // 您可以通过引用 `extends` 来继承当前项目配置
+  // 注意，不能使用已经存在的项目名称，
+  // 所以定义自定义名称是一个好实践。
   extends: project.vite.config.configFile,
   test: {
     name: 'my-custom-alias',
