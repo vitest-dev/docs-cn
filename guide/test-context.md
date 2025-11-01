@@ -253,7 +253,7 @@ const test = base.extend({
 test('works correctly')
 ```
 
-#### 默认的装置 {#Default fixture}
+#### 默认的装置 {#default-fixture}
 
 Since Vitest 3, you can provide different values in different [projects](/guide/projects). To enable this feature, pass down `{ injected: true }` to the options. If the key is not specified in the [project configuration](/config/#provide), then the default value will be used.
 
