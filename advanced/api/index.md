@@ -98,7 +98,7 @@ function resolveConfig(
 ```ts
 import { resolveConfig } from 'vitest/node'
 
-// vitestConfig only has resolved "test" properties
+// vitestConfig 只解析了 “测试” 属性
 const { vitestConfig, viteConfig } = await resolveConfig({
   mode: 'custom',
   configFile: false,
@@ -142,8 +142,8 @@ const result = parseCLI('vitest ./files.ts --coverage --browser=chrome')
 
 result.options
 // {
-//   coverage: { enabled: true },
-//   browser: { name: 'chrome', enabled: true }
+//   覆盖率：{ enabled: true },
+//   浏览器：{ name: 'chrome', enabled: true }
 // }
 
 result.filter
