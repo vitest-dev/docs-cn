@@ -33,7 +33,7 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 ## testModule
 
-与规范相关联的 [`TestModule`](/advanced/api/test-module) 实例。如果测试尚未排队，则将是 `undefined`。
+与规范相关联的 [`TestModule`](/advanced/api/test-module) 实例。如果测试还未加入队列，则将是 `undefined`。
 
 ## pool <Badge type="warning">experimental</Badge> {#pool}
 
