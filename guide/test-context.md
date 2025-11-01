@@ -3,11 +3,11 @@ title: 测试上下文 | 指南
 outline: deep
 ---
 
-# 测试上下文
+# 测试上下文 {#test-context}
 
 受 [Playwright Fixtures](https://playwright.dev/docs/test-fixtures) 的启发，Vitest 的测试上下文允许你定义可在测试中使用的工具(utils)、状态(states)和固定装置(fixtures)。
 
-## 用法
+## 用法 {#usage}
 
 第一个参数或每个测试回调是一个测试上下文。
 
@@ -20,7 +20,7 @@ it('should work', ({ task }) => {
 })
 ```
 
-## 内置测试上下文
+## 内置测试上下文 {#built-in-test-context}
 
 #### `task`
 
@@ -125,7 +125,7 @@ it('stop request when test times out', async ({ signal }) => {
 
 [`onTestFinished`](/api/#ontestfailed) 与当前测试用例绑定。当你并发执行多个测试并希望只对某个特定测试进行特殊处理时，这个 API 会非常有帮助。
 
-## 扩展测试上下文
+## 扩展测试上下文 {#extend-test-context}
 
 Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
@@ -191,7 +191,7 @@ export const test = todosTest.extend({
 })
 ```
 
-#### 固定装置初始化
+#### 固定装置初始化 {#fixture-initialization}
 
 Vitest 运行器将智能地初始化你的固定装置并根据使用情况将它们注入到测试上下文中。
 
@@ -231,7 +231,7 @@ test('context must be destructured', ({ todos }) => { // [!code ++]
 
 :::
 
-#### 自动化装置
+#### 自动化装置 {#automatic-fixture}
 
 Vitest 还支持 fixture 的元组语法，允许你传递每个 fixture 的选项。例如，你可以使用它来显式初始化固定装置，即使它没有在测试中使用。
 
