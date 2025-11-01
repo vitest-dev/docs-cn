@@ -67,8 +67,8 @@ ID 的格式如下：
 import { generateFileHash } from 'vitest/node'
 
 const hash = generateFileHash(
-  '/file/path.js', // relative path
-  undefined // the project name or `undefined` is not set
+  '/file/path.js', // 相对路径
+  undefined // 未设置项目名称或 `undefined`
 )
 ```
 
@@ -151,11 +151,11 @@ function result(): TestResult
 ```ts
 export interface TestResultPending {
   /**
-   * The test was collected, but didn't finish running yet.
+   * 测试已收集，但尚未完成运行。
    */
   readonly state: 'pending'
   /**
-   * Pending tests have no errors.
+   * 待定测试没有错误。
    */
   readonly errors: undefined
 }
@@ -166,16 +166,16 @@ export interface TestResultPending {
 ```ts
 interface TestResultSkipped {
   /**
-   * The test was skipped with `skip` or `todo` flag.
-   * You can see which one was used in the `options.mode` option.
+   * 使用 `skip` 或 `todo` 标志跳过测试。
+   * 你可以在 `options.mode` 选项中查看使用的是哪种模式。
    */
   readonly state: 'skipped'
   /**
-   * Skipped tests have no errors.
+   * 跳过的测试没有错误。
    */
   readonly errors: undefined
   /**
-   * A custom note passed down to `ctx.skip(note)`.
+   * 传给 `ctx.skip(note)` 的自定义注释。
    */
   readonly note: string | undefined
 }
@@ -190,11 +190,11 @@ interface TestResultSkipped {
 ```ts
 interface TestResultFailed {
   /**
-   * The test failed to execute.
+   * 测试执行失败。
    */
   readonly state: 'failed'
   /**
-   * Errors that were thrown during the test execution.
+   * 测试执行过程中出现的错误。
    */
   readonly errors: ReadonlyArray<TestError>
 }
@@ -205,11 +205,11 @@ interface TestResultFailed {
 ```ts
 interface TestResultPassed {
   /**
-   * The test passed successfully.
+   * 测试成功通过。
    */
   readonly state: 'passed'
   /**
-   * Errors that were thrown during the test execution.
+   * 测试执行过程中出现的错误。
    */
   readonly errors: ReadonlyArray<TestError> | undefined
 }
@@ -230,33 +230,33 @@ function diagnostic(): TestDiagnostic | undefined
 ```ts
 interface TestDiagnostic {
   /**
-   * If the duration of the test is above `slowTestThreshold`.
+   * 如果测试持续时间超过 `slowTestThreshold`。
    */
   readonly slow: boolean
   /**
-   * The amount of memory used by the test in bytes.
-   * This value is only available if the test was executed with `logHeapUsage` flag.
+   * 测试使用的内存量（字节）。
+   * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
    */
   readonly heap: number | undefined
   /**
-   * The time it takes to execute the test in ms.
+   * 执行测试所需的时间（毫秒）。
    */
   readonly duration: number
   /**
-   * The time in ms when the test started.
+   * 测试开始的时间（毫秒）。
    */
   readonly startTime: number
   /**
-   * The amount of times the test was retried.
+   * 测试重试的次数。
    */
   readonly retryCount: number
   /**
-   * The amount of times the test was repeated as configured by `repeats` option.
-   * This value can be lower if the test failed during the repeat and no `retry` is configured.
+   * 重复测试的次数，由 `repeats` 选项设置。
+   * 如果测试在重复过程中失败，且未配置 `retry`，则该值可以更小。
    */
   readonly repeatCount: number
   /**
-   * If test passed on a second retry.
+   * 如果第二次重试时测试通过。
    */
   readonly flaky: boolean
 }
