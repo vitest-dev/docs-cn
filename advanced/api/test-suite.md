@@ -123,7 +123,7 @@ for (const task of suite.children) {
     console.log('test', task.fullName)
   }
   else {
-    // task is TaskSuite
+    // 任务是 TaskSuite
     console.log('suite', task.name)
   }
 }
@@ -136,11 +136,11 @@ for (const task of suite.children) {
 function visit(collection: TestCollection) {
   for (const task of collection) {
     if (task.type === 'suite') {
-      // report a suite
+      // 报告套件
       visit(task.children)
     }
     else {
-      // report a test
+      // 报告测试
     }
   }
 }
@@ -204,12 +204,12 @@ function meta(): TaskMeta
 import { test } from 'vitest'
 
 describe('the validation works correctly', (task) => {
-  // assign "decorated" during collection
+  // 在收集过程中指定 “decorated”
   task.meta.decorated = false
 
   test('some test', ({ task }) => {
-    // assign "decorated" during test run, it will be available
-    // only in onTestCaseReady hook
+    // 在试运行期间指定 “decorated”，它将可用
+    // 仅在 onTestCaseReady hook
     task.suite.meta.decorated = false
   })
 })
