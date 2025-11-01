@@ -167,16 +167,16 @@ vitest.projects.map(p => p.name) === [
 ```
 ```ts [vitest.workspace.js]
 export default [
-  './packages/server', // has package.json with "@pkg/server"
-  './utils', // doesn't have a package.json file
+  './packages/server', // package.json 中包含 "@pkg/server"
+  './utils', // 没有 package.json 文件
   {
-    // doesn't customize the name
+    // 不要自定义名称
     test: {
       pool: 'threads',
     },
   },
   {
-    // customized the name
+    // 自定义名称
     test: {
       name: 'custom',
     },
@@ -278,7 +278,7 @@ const vitest = await createVitest('test')
 const project = vitest.projects[0]
 const specification = project.createSpecification(
   resolve('./basic.test.ts'),
-  'threads', // optional override
+  'threads', // 可选覆盖
 )
 await vitest.runFiles([specification], true)
 ```
@@ -302,11 +302,11 @@ await vitest.runFiles([specification], true)
 ```ts
 interface GlobReturn {
   /**
-   * Test files that match the filters.
+   * 测试符合筛选条件的文件。
    */
   testFiles: string[]
   /**
-   * Typecheck test files that match the filters. This will be empty unless `typecheck.enabled` is `true`.
+   * 与筛选器匹配的类型检查测试文件。除非 `typecheck.enabled` 为 `true`，否则将为空。 
    */
   typecheckTestFiles: string[]
 }
@@ -341,7 +341,7 @@ project.matchesTestGlob(resolve('./basic.ts'), `
 if (import.meta.vitest) {
   // ...
 }
-`) // true if `includeSource` is set
+`) // 如果设置了 `includeSource` 则为 true
 ```
 
 ### close
