@@ -482,7 +482,7 @@ function footer(): DefaultTheme.SidebarItem[] {
 function introduction(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: '什么是vitest？',
+      text: '为什么是vitest？',
       link: '/guide/why',
     },
     {
