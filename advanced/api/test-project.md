@@ -92,9 +92,9 @@ vitest.config === vitest.projects[0].globalConfig
 
 ## hash <Version>3.2.0</Version> {#hash}
 
-The unique hash of this project. This value is consistent between the reruns.
+此项目的唯一哈希值。该值在重运行时保持一致。
 
-It is based on the root of the project and its name. Note that the root path is not consistent between different OS, so the hash will also be different.
+它基于项目的 root 路径和名称。请注意，不同操作系统的根路径并不一致，因此哈希值也会不同。
 
 ## vite
 
