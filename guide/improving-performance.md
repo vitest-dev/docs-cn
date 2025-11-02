@@ -2,9 +2,9 @@
 title: 性能优化 | 指南
 ---
 
-# 性能优化
+# 性能优化 {#improving-performance}
 
-## 测试隔离
+## 测试隔离 {#test-isolation}
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
