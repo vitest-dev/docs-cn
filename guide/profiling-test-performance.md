@@ -1,4 +1,4 @@
-# 性能测试分析
+# 性能测试分析 {#profiling-test-performance}
 
 当你运行 Vitest 时，会显示你的多个时间指标：
 

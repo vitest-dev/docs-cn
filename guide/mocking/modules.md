@@ -1,6 +1,6 @@
-# 模拟模块（Mocking Modules）
+# 模拟模块 {#mocking-modules}
 
-## 模块的定义
+## 模块的定义 {#defining-a-module}
 
 在进行模块模拟之前，先要明确“模块”的含义。在 Vitest 中，模块指的是一个导出内容的文件。
 通过 [插件](https://vite.dev/guide/api-plugin.html)，几乎任何文件都可以转换为 JavaScript 模块。
@@ -33,7 +33,7 @@ import { answer, variable } from './example.js'
 
 `exampleObject` 只能在 `example` 模块之外被引用，例如在测试代码中使用。
 
-## 模拟模块 （ Mocking a Module ）
+## 模拟模块 {#mocking-a-module}
 
 在讲解实现方式之前，先明确几个相关概念：
 
@@ -253,7 +253,7 @@ test('instance inherits the state', () => {
 
 这种技巧在需要跟踪那些从未对外暴露的实例方法调用时尤其有用。
 
-## 模拟不存在的模块
+## 模拟不存在的模块 {#mocking-non-existing-module}
 
 Vitest 支持对“虚拟模块”进行模拟（mock）。
 这类模块并不存在于文件系统中，但代码中依然会导入它们。
@@ -316,7 +316,7 @@ vi.mock(import('vscode'), () => {
 })
 ```
 
-## 工作原理
+## 工作原理 {#how-it-works}
 
 Vitest 会根据运行环境的不同，采用不同的模块模拟机制，但它们的共同点是都使用了插件转换器（ plugin transformer ）。
 
@@ -352,7 +352,7 @@ console.log(__vitest_module_0__.answer())
 Vitest 所使用的模块模拟插件，
 可以在 [`@vitest/mocker` 包](https://github.com/vitest-dev/vitest/tree/main/packages/mocker) 中找到。
 
-### JSDOM, happy-dom, Node
+### JSDOM, happy-dom, Node {#jsdom-happy-dom-node}
 
 当你在模拟（ emulated ）环境中运行测试时， Vitest 会创建一个可执行 Vite 转译代码的 [module runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)。
 
@@ -361,7 +361,7 @@ Vitest 所使用的模块模拟插件，
 换句话说， Vitest 会在一个“ 类 ESM ”环境中运行测试代码，但并不直接依赖原生 ESM 机制。
 这使得测试运行器能够打破 ES Modules 的不可变性规则，让你可以在看似 ES Module 的模块上调用 `vi.spyOn`。
 
-### 浏览器模式
+### 浏览器模式 {#browser-mode}
 
 在浏览器模式（ Browser Mode ）中，
 Vitest 依赖原生 ESM ，这意味着无法像在 Node 环境中那样直接替换模块。
@@ -419,7 +419,7 @@ ${resolvedFactoryKeys.map(key => `export const ${key} = __private_module__["${ke
 该模块此时已经可以回传并在浏览器中加载。
 在运行测试时，你可以通过浏览器的开发者工具（ DevTools ）来查看它的代码。
 
-## 模块模拟的常见陷阱
+## 模块模拟的常见陷阱 {#mocking-modules-pitfalls}
 
 需要注意的是，如果一个方法是在同一文件内由另一个方法调用的，那么它无法通过外部进行 mock。
 例如，以下代码中就存在这种情况：

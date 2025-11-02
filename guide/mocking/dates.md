@@ -1,8 +1,8 @@
-# Mocking Dates
+# 模拟日期 {#mocking-dates}
 
 有时你需要控制日期以确保测试时的一致性。Vitest 使用 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 包来操作计时器和系统日期。你可以在[这里](/api/vi#vi-setsystemtime)找到有关特定 API 的详细信息。
 
-## Example
+## 示例 {#example}
 
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'

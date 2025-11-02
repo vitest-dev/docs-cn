@@ -2,9 +2,9 @@
 title: 调试 | 指南
 ---
 
-# 调试
+# 调试 {#debugging}
 
-## Terminal
+## 终端 {#terminal}
 
 在非集成开发环境下，为了调试一个测试文件，你可以使用 [`ndb`](https://github.com/GoogleChromeLabs/ndb)。仅仅在你的代码的任何位置添加一个 `debugger` 语句，然后运行 `ndb`：
 
@@ -56,7 +56,7 @@ ndb npm run test
 
 然后在调试选项卡中确保选择 'Debug Current Test File'，然后你可以打开要调试的测试文件并按 F5 开始调试。
 
-### 浏览器模式
+### 浏览器模式 {#browser-mode}
 
 要调试 [Vitest 浏览器模式](/guide/browser/index.md)，请在 CLI 中传递 `--inspect` 或 `--inspect-brk`，或在 Vitest 配置中定义它：
 
@@ -65,8 +65,8 @@ ndb npm run test
 vitest --inspect-brk --browser --no-file-parallelism
 ```
 ```ts [vitest.config.js]
-import { defineConfig } from 'vitest/config'
 import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {

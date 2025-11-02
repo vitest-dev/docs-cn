@@ -2,7 +2,7 @@
 title: 测试项目 | 指南
 ---
 
-# 测试项目
+# 测试项目 {#test-projects}
 
 ::: tip 示例项目
 
@@ -16,7 +16,7 @@ title: 测试项目 | 指南
 
 Vitest 提供了一种在单个 Vitest 进程中定义多个项目配置的方法。此功能特别适用于 monorepo 结构，也可以用于使用不同配置运行测试，例如 `resolve.alias`、`plugins`、`test.browser` 等。
 
-## 定义项目
+## 定义项目 {#defining-projects}
 
 你可以在根目录的 [配置文件](/config/) 中定义项目：
 
@@ -162,7 +162,7 @@ export default defineProject({
 })
 ```
 
-## 运行测试
+## 运行测试 {#running-tests}
 
 在根目录的 `package.json` 中定义脚本：
 
@@ -226,7 +226,7 @@ bun run test --project e2e --project unit
 ```
 :::
 
-## 配置说明
+## 配置说明 {#configuration}
 
 项目配置不会继承根配置文件中的选项。你可以创建共享配置文件，并在项目配置中手动合并：
 

@@ -77,7 +77,7 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
 
-#### 具体的 "expected " 对象与类型参数
+#### 具体的 "expected " 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
 
 像这样的断言的错误消息：
 

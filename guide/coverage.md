@@ -2,11 +2,11 @@
 title: 测试覆盖率 | 指南
 ---
 
-# 测试覆盖率
+# 测试覆盖率 {#coverage}
 
 Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
-## 测试覆盖率提供者
+## 测试覆盖率提供者 {#coverage-providers}
 
 `v8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `v8`。
 
@@ -40,7 +40,7 @@ npm i -D @vitest/coverage-istanbul
 
 :::
 
-## V8 Provider
+## V8 Provider {#v8-provider}
 
 ::: info
 以下对 V8 覆盖率的说明仅适用于 Vitest，并不适用于其他测试工具。
@@ -77,7 +77,7 @@ Vitest 默认采用 'v8' 作为覆盖率提供器。
   <Box>Coverage report</Box>
 </div>
 
-## Istanbul 覆盖率提供方案。
+## Istanbul 覆盖率提供方案 {#istanbul-provider}
 
 [Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。
 这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。
@@ -133,7 +133,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
   <Box>Coverage report</Box>
 </div>
 
-## 覆盖率配置指南。
+## 覆盖率配置指南 {#coverage-setup}
 
 ::: tip
 你可以在 [覆盖率配置参考](/config/#coverage) 中查看所有可用的覆盖率选项。
@@ -163,7 +163,7 @@ export default defineConfig({
 ```
 :::
 
-## 在覆盖率报告中设置需要统计或忽略的文件。
+## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
 
 你可以通过设置 [`coverage.include`](/config/#coverage-include) 和 [`coverage.exclude`](/config/#coverage-exclude) 来决定覆盖率报告中展示哪些文件。
 
@@ -236,7 +236,7 @@ export default defineConfig({
 ```
 :::
 
-## 自定义覆盖率的报告器
+## 自定义覆盖率的报告器 {#custom-coverage-reporter}
 
 我们可以通过在 `test.coverage.reporter` 中传递软件包名称或绝对路径来使用自定义覆盖报告器：
 
@@ -283,7 +283,7 @@ module.exports = class CustomReporter extends ReportBase {
 }
 ```
 
-## 自定义覆盖率的提供者
+## 自定义覆盖率的提供者 {#custom-coverage-provider}
 
 也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
@@ -334,7 +334,7 @@ export default CustomCoverageProviderModule
 
 请参阅类型定义查看有关详细信息。
 
-## 代码忽略
+## 代码忽略 {#ignoring-code}
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
@@ -357,7 +357,7 @@ if (condition) {
 if (condition) {
 ```
 
-### Examples
+### 示例
 
 ::: code-group
 
@@ -462,11 +462,11 @@ export function ignored() { // [!code error]
 ```
 :::
 
-## Coverage Performance
+## Coverage Performance {#coverage-performance}
 
 If code coverage generation is slow on your project, see [Profiling Test Performance | Code coverage](/guide/profiling-test-performance.html#code-coverage).
 
-## Vitest UI
+## Vitest UI {#vitest-ui}
 
 我们可以在 [Vitest UI](/guide/ui) 中查看你的覆盖率报告。
 

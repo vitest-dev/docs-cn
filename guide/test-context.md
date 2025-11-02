@@ -231,7 +231,7 @@ test('context must be destructured', ({ todos }) => { // [!code ++]
 
 :::
 
-#### 自动化装置 {#automated-fixture}
+#### 自动化装置 {#automatic-fixture}
 
 Vitest 还支持 fixture 的元组语法，允许你传递每个 fixture 的选项。例如，你可以使用它来显式初始化固定装置，即使它没有在测试中使用。
 

@@ -3,9 +3,9 @@ title: 并行性 | Guide
 outline: deep
 ---
 
-# 并行性
+# 并行性 {#parallelism}
 
-## 文件级并行
+## 文件级并行 {#file-parallelism}
 
 Vitest 默认会并行执行 _测试文件_ 。具体使用哪种并行机制取决于配置的 `pool` 类型：
 
@@ -16,7 +16,7 @@ Vitest 默认会并行执行 _测试文件_ 。具体使用哪种并行机制取
 
 如果项目包含大量测试文件，通常并行执行会大幅提升速度。但具体效果还要看项目本身、运行环境以及是否启用了 [隔离](/config/#isolate)。若需要关闭文件级并行化，可以将 [`fileParallelism`](/config/#fileparallelism) 设为 `false` 。更多性能优化技巧，请参考 [性能指南](/guide/improving-performance) 。
 
-## 测试用例并行
+## 测试用例并行 {#test-parallelism}
 
 与 _测试文件_ 不同， Vitest 在同一个文件中会顺序执行 _测试用例_ 。也就是说，同一个文件里的测试会按定义顺序一个接一个地执行。
 

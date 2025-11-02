@@ -2,11 +2,11 @@
 title: 测试筛选 | 指南
 ---
 
-# 测试筛选
+# 测试筛选 {#test-filtering}
 
 用于测试套件(suite)和测试的筛选(filtering)、超时(timeouts)、并发(concurrent)。
 
-## CLI
+## CLI {#cli}
 
 你可以使用 CLI 按名称筛选测试文件：
 
@@ -49,7 +49,7 @@ $ vitest basic/foo.test.ts:10-25 # ❌
 ```
 :::
 
-## 指定超时阈值
+## 指定超时阈值 {#specifying-a-timeout}
 
 你可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试。默认值为 [5 秒](/config/#testtimeout)。
 
@@ -71,7 +71,7 @@ beforeAll(async () => {
 }, 1000)
 ```
 
-## 跳过测试套件和测试
+## 跳过测试套件和测试 {#skipping-suites-and-tests}
 
 使用 `.skip` 以避免运行某些测试套件或测试
 
@@ -93,7 +93,7 @@ describe('suite', () => {
 })
 ```
 
-## 选择要运行的测试套件和测试
+## 选择要运行的测试套件和测试 {#selecting-suites-and-tests-to-run}
 
 使用 `.only` 仅运行某些测试套件或测试
 
@@ -120,7 +120,7 @@ describe('another suite', () => {
 })
 ```
 
-## 未实现的测试套件和测试
+## 未实现的测试套件和测试 {#unimplemented-suites-and-tests}
 
 使用 `.todo` 留存将要实施的测试套件和测试的待办事项
 
