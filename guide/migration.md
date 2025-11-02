@@ -366,7 +366,7 @@ Jest 调用 `.mockClear` 后会重建 mock 状态，只能以 getter 方式访�
 ```ts
 const mock = vi.fn()
 const state = mock.mock
-mock.mockClear()
+mock.mockClear()$$
 
 expect(state).toBe(mock.mock) // fails in Jest
 ```
