@@ -369,7 +369,7 @@ export default ({ mode }: { mode: string }) => {
                 },
                 {
                   text: '跟踪查看器',
-                  link: '/guide/browser/trace-viewer',
+                  link: '/guide/browser/trace-view',
                   docFooterText: 'Trace Viewer | Browser Mode',
                 },
               ],
