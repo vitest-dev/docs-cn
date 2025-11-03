@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Test API 索引
+# Test API 索引 {#test-api-reference}
 
 下面的类型签名中使用了以下类型：
 

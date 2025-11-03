@@ -186,7 +186,7 @@ Pretty foo: Object {
 
 Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
-#### 1. 快照文件中的注释标头不同
+#### 1. 快照文件中的注释标头不同 {#_1-comment-header-in-the-snapshot-file-is-different}
 
 ```diff
 - // Jest Snapshot v1, https://goo.gl/fbAQLP
@@ -195,7 +195,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 这实际上不会影响功能，但在从 Jest 迁移时可能会影响提交差异。
 
-#### 2. `printBasicPrototype` 默认为 `false`
+#### 2. `printBasicPrototype` 默认为 `false` {#_2-printbasicprototype-is-default-to-false}
 
 Jest 和 Vitest 的快照都是由 [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format) 支持的。在 Vitest 中，我们将 `printBasicPrototype` 的默认值设置为 `false` 以提供更清晰的快照输出，在 Jest 版本 < 29.0.0 中默认为 `true`。
 
@@ -243,7 +243,7 @@ export default defineConfig({
 })
 ```
 
-#### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符
+#### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符 {#_3-chevron-is-used-as-a-separator-instead-of-colon-for-custom-messages}
 
 当创建快照文件期间传递自定义消息时，Vitest 使用 V 形 `>` 作为分隔符而不是冒号 `:` 以提高自定义消息可读性。
 
@@ -269,7 +269,7 @@ exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 ```
 
-#### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同
+#### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同 {#_4-default-error-snapshot-is-different-for-tothrowerrormatchingsnapshot-and-tothrowerrormatchinginlinesnapshot}
 
 ```js
 import { expect, test } from 'vitest'

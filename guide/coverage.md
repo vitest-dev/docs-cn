@@ -357,7 +357,7 @@ if (condition) {
 if (condition) {
 ```
 
-### 示例
+### 示例 {#examples}
 
 ::: code-group
 

@@ -3,7 +3,7 @@ title: 模拟对象 | 指南
 outline: false
 ---
 
-# 模拟对象
+# 模拟对象 {#mocking}
 
 在编写测试时，迟早会需要创建一个内部或外部服务的 "fake" 版本。这通常被称为**mocking**。Vitest 通过其 `vi` 辅助工具提供了实用函数来帮助您。我们可以从 `vitest` 中导入它，或者如果启用了 [`global` 配置](/config/#globals)，也可以全局访问它。
 
@@ -26,7 +26,7 @@ Vitest has a comprehensive list of guides regarding mocking:
 
 为了更简单快捷地开始使用模拟，你可以查看下面的备忘单。
 
-## 备忘单
+## 备忘单 {#cheat-sheet}
 
 I want to…
 
@@ -44,7 +44,7 @@ vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 此方法在浏览器模式中无法使用。如需替代方案，请查看 [限制部分](/guide/browser/#spying-on-module-exports)。
 :::
 
-### 对模块中导出的函数进行 mock。
+### 对模块中导出的函数进行 mock。{#mock-an-exported-function}
 
 ```ts
 import * as exports from 'some-path'
@@ -52,7 +52,7 @@ vi.spyOn(exports, 'getter', 'get')
 vi.spyOn(exports, 'setter', 'set')
 ```
 
-### 模拟模块导出函数
+### 模拟模块导出函数 {#mock-an-exported-class-implementation}
 
 1. `vi.mock` 的示例：
 
@@ -115,7 +115,7 @@ vi.spyOn(mod, 'SomeClass').mockImplementation(class FakeClass {
 vi.spyOn 的示例无法在浏览器模式中正常使用。如需替代方案，请查看 [限制部分](/guide/browser/#spying-on-module-exports)。
 :::
 
-### 监听一个函数是否返回了一个对象
+### 监听一个函数是否返回了一个对象 {#spy-on-an-object-returned-from-a-function}
 
 1. 使用 cache 的示例:
 
@@ -155,7 +155,7 @@ const obj = useObject()
 expect(obj.method).toHaveBeenCalled()
 ```
 
-### 模拟部分 module
+### 模拟部分 module {#mock-part-of-a-module}
 
 ```ts
 import { mocked, original } from './some-path.js'
@@ -175,7 +175,7 @@ mocked() // 是一个 spy 函数
 别忘了，这只是 [mocks _external_ access](#mocking-pitfalls)。在本例中，如果 `original` 在内部调用 `mocked`，它将始终调用模块中定义的函数，而不是 mock 工厂中的函数。
 :::
 
-### 模拟当前日期
+### 模拟当前日期 {#mock-the-current-date}
 
 要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
 
@@ -190,7 +190,7 @@ expect(now.valueOf()).toBe(mockDate.valueOf())
 vi.useRealTimers()
 ```
 
-### 模拟全局变量
+### 模拟全局变量 {#mock-a-global-variable}
 
 你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会**在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/#unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals)。
 
@@ -199,7 +199,7 @@ vi.stubGlobal('__VERSION__', '1.0.0')
 expect(__VERSION__).toBe('1.0.0')
 ```
 
-### 模拟 `import.meta.env`
+### 模拟 `import.meta.env` {#mock-import-meta-env}
 
 1. 要更改环境变量，你只需为其分配一个新值即可。 该值将**不会**在不同的测试之间自动重置。
 
