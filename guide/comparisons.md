@@ -2,7 +2,7 @@
 title: 与其他测试框架对比 | 指南
 ---
 
-# 与其他测试框架对比
+# 与其他测试框架对比 {#comparisons-with-other-test-runners}
 
 ## Jest
 
