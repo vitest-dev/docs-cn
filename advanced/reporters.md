@@ -1,4 +1,4 @@
-# 扩展默认报告器 (Extending Reporters)
+# 扩展默认报告器 {#extending-reporters}
 
 ::: warning
 这是一个高级 API。如果我们只是想配置内置报告器，请阅读 [Reporters](/guide/reporters) 指南。
@@ -6,7 +6,7 @@
 
 我们可以从 `vitest/reporters` 导入报告器并扩展它们来创建自定义报告器。
 
-## 扩展内置报告器 (Extending Built-in Reporters)
+## 扩展内置报告器 {#extending-built-in-reporters}
 
 一般来说，我们不需要从头开始创建报告器。`vitest` 附带了几个可以扩展的默认报告程序。
 
@@ -58,7 +58,7 @@ export default defineConfig({
 })
 ```
 
-## 报告的任务(Reported Tasks)
+## 报告的任务 {#reported-tasks}
 
 建议使用 Reported Tasks API，而不是使用报告器接收到的任务。
 
@@ -79,11 +79,11 @@ class MyReporter implements Reporter {
 }
 ```
 
-## 导出报告器 (Exported Reporters)
+## 导出报告器 {#exported-reporters}
 
 `vitest` 附带了一些[内置报告器](/guide/reporters)，我们可以开箱即用。
 
-### 内置报告器:
+### 内置报告器: {#built-in-reporters}
 
 1. `DefaultReporter`
 2. `DotReporter`
@@ -95,10 +95,10 @@ class MyReporter implements Reporter {
 8. `HangingProcessReporter`
 9. `TreeReporter`
 
-### 基础抽象报告器:
+### 基础抽象报告器: {#base-abstract-reporters}
 
 1. `BaseReporter`
 
-### 接口报告器:
+### 接口报告器: {#interface-reporters}
 
 1. `Reporter`

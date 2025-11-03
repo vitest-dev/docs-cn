@@ -31,7 +31,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 
 测试模式只会调用 `test` 或 `it` 中的函数，并在遇到 `bench` 时抛出错误。此模式使用配置中的 `include` 和 `exclude` 选项来查找测试文件。
 
-### benchmark <Badge type="warning">实验性</Badge>
+### benchmark <Badge type="warning">实验性</Badge> {#benchmark-experimental}
 
 基准测试模式调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项来查找基准测试文件。
 
@@ -47,7 +47,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 
 这是全局的 [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver)。
 
-## state <Badge type="warning">实验性</Badge>
+## state <Badge type="warning">实验性</Badge> {#state-experimental}
 
 ::: warning
 公共 `state` 是一个实验性 API（除了 `vitest.state.getReportedEntity`）。破坏性更改可能不遵循 SemVer，请在使用时固定 Vitest 的版本。

@@ -1,4 +1,4 @@
-# 任务元数据
+# 任务元数据 {#task-metadata}
 
 ::: warning
 Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。

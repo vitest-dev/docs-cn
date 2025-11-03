@@ -2,7 +2,7 @@
 title: Advanced API
 ---
 
-# 快速起步
+# 快速起步 {#getting-started}
 
 ::: warning
 本指南列出了通过 Node.js 脚本运行测试的高级 API。如果你只是想[运行测试](/guide/)，你可能不需要这些内容。这些 API 主要用于库作者。

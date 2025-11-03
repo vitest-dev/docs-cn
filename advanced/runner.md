@@ -1,4 +1,4 @@
-# 运行器 API
+# 运行器 API {#runner-api}
 
 ::: warning 注意
 这是高级 API。如果你只需要[运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
@@ -150,7 +150,7 @@ export default class Runner {
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。如果你想扩展基准测试功能，它还提供了 `NodeBenchmarkRunner`。
 :::
 
-## 你的任务函数
+## Tasks {#tasks}
 
 ::: warning
 “Runner Tasks API” 是实验性的，主要应在测试运行时使用。Vitest 还暴露了 [“Reported Tasks API”](/advanced/api/test-module)，在主线程中工作时（例如在报告器内部）应优先使用。
@@ -275,7 +275,7 @@ export interface TaskResult {
 }
 ```
 
-## 你的任务函数
+## 你的任务函数 {#your-task-function}
 
 Vitest 提供了 `createTaskCollector` 工具来创建您自己的 `test` 方法。它的行为与测试相同，但在收集期间会调用自定义方法。
 
