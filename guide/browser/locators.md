@@ -3,7 +3,7 @@ title: Locators | Browser Mode
 outline: [2, 3]
 ---
 
-# 定位
+# 定位 {#locators}
 
 定位器是表示一个或多个元素的方式。每个定位器都由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 

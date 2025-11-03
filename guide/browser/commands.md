@@ -7,9 +7,9 @@ outline: deep
 
 命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 
-## 内置命令
+## 内置命令 {#built-in-commands}
 
-### 文件处理
+### 文件处理 {#files-handling}
 
 在浏览器测试中，可借助 `readFile`、`writeFile` 与 `removeFile` 三个 API 完成文件操作。自 Vitest 3.2 起，所有路径均以 [project](/guide/projects) 根目录为基准解析（根目录默认为 `process.cwd()`，可手动重写）；旧版本则以当前测试文件所在目录为基准。
 
@@ -122,7 +122,7 @@ declare module 'vitest/browser' {
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-### 自定义命令 `playwright`
+### 自定义命令 `playwright` {#custom-playwright-commands}
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
