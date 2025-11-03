@@ -1,10 +1,10 @@
-# 多种设置
+# 多种设置 {#multiple-setups}
 
 你可以使用 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
 
 与 [测试项目](/guide/projects) 相比，使用 `browser.instances` 的最大好处在于缓存效率更高。所有项目会共享同一个 Vite 服务器，因此文件转换和 [依赖的预打包](https://vite.dev/guide/dep-pre-bundling.html) 只需进行一次即可。
 
-## 多个浏览器
+## 多个浏览器 {#several-browsers}
 
 你可以使用 `browser.instances` 字段来为不同的浏览器指定选项。例如，如果你想在不同的浏览器中运行相同的测试，最小配置将如下所示：
 
@@ -28,7 +28,7 @@ export default defineConfig({
 })
 ```
 
-## 不同的设置
+## 不同的设置 {#different-setups}
 
 你还可以独立于浏览器指定不同的配置选项（尽管，实例也可以有 `browser` 字段）：
 
@@ -80,7 +80,7 @@ test('ratio works', () => {
 请注意，如果你使用相同的浏览器名称，则需要定义自定义的 `name` 值，因为否则 Vitest 会将 `browser` 作为项目名称。
 :::
 
-## 过滤
+## 过滤 {#filtering}
 
 你可以使用 [`--project` 标志](/guide/cli#project) 来过滤要运行的项目。如果未手动分配项目名称，Vitest 会自动将浏览器名称作为项目名称。如果根配置已经有一个名称，Vitest 会将它们合并：`custom` -> `custom (browser)`。
 
