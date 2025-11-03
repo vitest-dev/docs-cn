@@ -6,25 +6,27 @@
 
 Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告器的方法来表示：
 
-- [报告器 {#reporters}](#报告器-reporters)
-  - [onInit](#oninit)
-  - [onBrowserInit 实验性 {#onbrowserinit}](#onbrowserinit-实验性-onbrowserinit)
-  - [onTestRunStart](#ontestrunstart)
-  - [onTestRunEnd](#ontestrunend)
-  - [onCoverage](#oncoverage)
-  - [onTestModuleQueued](#ontestmodulequeued)
-  - [onTestModuleCollected](#ontestmodulecollected)
-  - [onTestModuleStart](#ontestmodulestart)
-  - [onTestModuleEnd](#ontestmoduleend)
-  - [onHookStart](#onhookstart)
-  - [onHookEnd](#onhookend)
-  - [onTestSuiteReady](#ontestsuiteready)
-  - [onTestSuiteResult](#ontestsuiteresult)
-  - [onTestCaseReady](#ontestcaseready)
-  - [onTestCaseResult](#ontestcaseresult)
-  - [onTestAnnotate 3.2.0 {#ontestannotate}](#ontestannotate-320-ontestannotate)
-
-除非被跳过，否则单个模块中的测试和 reporters 将按顺序报告。所有跳过的测试将在 reporters /模块的末尾报告。
+- [`onInit`](#oninit)
+- [`onTestRunStart`](#ontestrunstart)
+  - [`onTestModuleQueued`](#ontestmodulequeued)
+  - [`onTestModuleCollected`](#ontestmodulecollected)
+  - [`onTestModuleStart`](#ontestmodulestart)
+    - [`onTestSuiteReady`](#ontestsuiteready)
+      - [`onHookStart(beforeAll)`](#onhookstart)
+      - [`onHookEnd(beforeAll)`](#onhookend)
+        - [`onTestCaseReady`](#ontestcaseready)
+          - [`onTestAnnotate`](#ontestannotate) <Version>3.2.0</Version>
+          - [`onHookStart(beforeEach)`](#onhookstart)
+          - [`onHookEnd(beforeEach)`](#onhookend)
+          - [`onHookStart(afterEach)`](#onhookstart)
+          - [`onHookEnd(afterEach)`](#onhookend)
+        - [`onTestCaseResult`](#ontestcaseresult)
+      - [`onHookStart(afterAll)`](#onhookstart)
+      - [`onHookEnd(afterAll)`](#onhookend)
+    - [`onTestSuiteResult`](#ontestsuiteresult)
+  - [`onTestModuleEnd`](#ontestmoduleend)
+  - [`onCoverage`](#oncoverage)
+- [`onTestRunEnd`](#ontestrunend)
 
 请注意，由于测试模块可以并行运行，Vitest 将并行报告它们。
 
