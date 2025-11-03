@@ -3,13 +3,13 @@ title: 可视化回归测试
 outline: [2, 3]
 ---
 
-# 可视化回归测试
+# 可视化回归测试 {#visual-regression-testing}
 
 Vitest 原生支持可视化回归测试。它会自动截取 UI 组件或页面的截图，并与基准图像对比，以捕捉那些非预期的视觉变化。
 
 与只验证功能逻辑的功能测试不同，可视化测试能发现样式异常、布局偏移和渲染错误——这些问题如果没有细致的人工检查，往往会被忽略。
 
-## 为什么需要可视化回归测试？
+## 为什么需要可视化回归测试？ {#why-visual-regression-testing}
 
 视觉 bug 不会报错，但它们的外观已经改变。这正是可视化测试的意义所在：
 
@@ -20,7 +20,7 @@ Vitest 原生支持可视化回归测试。它会自动截取 UI 组件或页面
 
 可视化回归测试是 UI 的安全网，确保这些变化在进入生产环境之前就被自动发现并处理。
 
-## 快速入门
+## 快速入门 {#getting-started}
 
 ::: warning 浏览器渲染差异
 可视化回归测试对运行环境非常敏感，不同机器生成的截图可能存在差异，常见原因包括：
@@ -50,7 +50,7 @@ test('hero section looks correct', async () => {
 })
 ```
 
-### 创建基准截图
+### 创建基准截图 {#creating-references}
 
 首次运行可视化测试时， Vitest 会生成一张基准（ baseline ）截图，并提示如下错误信息使测试失败：
 
@@ -70,7 +70,7 @@ Reference screenshot:
 **请务必提交到版本库**。
 :::
 
-### 截图组织方式
+### 截图组织方式 {#screenshot-organization}
 
 Vitest 默认将截图按以下结构保存：
 
@@ -91,7 +91,7 @@ Vitest 默认将截图按以下结构保存：
 
 这种命名方式可避免不同环境生成的截图互相覆盖。
 
-### 更新基准截图
+### 更新基准截图 {#updating-references}
 
 当你有意修改 UI 时，需要更新基准截图：
 
@@ -101,9 +101,9 @@ $ vitest --update
 
 提交前务必核对更新后的截图，确保改动符合预期。
 
-## 配置可视化测试
+## 配置可视化测试 {#configuring-visual-tests}
 
-### 全局配置
+### 全局配置 {#global-configuration}
 
 可在 [Vitest 配置文件](/guide/browser/config#browser-expect-tomatchscreenshot) 中设定可视化回归测试的默认规则：
 
@@ -129,7 +129,7 @@ export default defineConfig({
 })
 ```
 
-### 单测试配置
+### 单测试配置 {#per-test-configuration}
 
 若某个测试需要不同的比较标准，可在调用时覆盖全局设置：
 
@@ -143,9 +143,9 @@ await expect(element).toMatchScreenshot('button-hover', {
 })
 ```
 
-## Best Practices
+## 最佳实践 {#best-practices}
 
-### 聚焦测试目标元素
+### 聚焦测试目标元素 {#test-specific-elements}
 
 除非确实需要测试整个页面，否则应优先只对目标组件截图，这能显著减少因页面其他部分变化而造成的误报。
 
@@ -157,7 +157,7 @@ await expect(page).toMatchScreenshot()
 await expect(page.getByTestId('product-card')).toMatchScreenshot()
 ```
 
-### 处理动态内容
+### 处理动态内容 {#handle-dynamic-content}
 
 测试中，如果页面包含诸如时间戳、用户信息或随机值等动态内容，往往会导致结果不一致而造成测试失败。
 解决方法有两种：一是模拟这些动态数据的生成源；
@@ -173,7 +173,7 @@ await expect(page.getByTestId('profile')).toMatchScreenshot({
 })
 ```
 
-### 禁用所有动画
+### 禁用所有动画 {#disable-animations}
 
 动画效果往往会导致测试结果出现波动。为避免这种情况，
 可以在测试执行过程中注入一段自定义的 CSS 样式代码，用于禁用所有动画，从而提升测试的稳定性。
@@ -192,7 +192,7 @@ await expect(page.getByTestId('profile')).toMatchScreenshot({
 具体而言，`screenshotOptions` 配置中的 `animations` 选项会默认设为 `"disabled"`，从而确保截图与测试结果的稳定一致。
 :::
 
-### 设置合理的阈值
+### 设置合理的阈值 {#set-appropriate-thresholds}
 
 在视觉回归测试中，阈值调整是一项需要权衡的工作——它取决于页面内容、测试环境、
 应用所能容忍的差异范围，且可能因具体测试而有所不同。
@@ -203,7 +203,7 @@ Vitest 并未为像素差异设定默认阈值，这需要由用户根据实际�
 当 `allowedMismatchedPixelRatio` 与 `allowedMismatchedPixels` 同时设置时，
 Vitest 会优先采用二者中限制更严格的那一个，以确保测试结果的准确性与一致性。
 
-### 保持统一的视口大小
+### 保持统一的视口大小 {#set-consistent-viewport-sizes}
 
 浏览器实例的默认窗口尺寸可能存在差异，这会影响视觉回归测试的稳定性。为避免由于尺寸不一致而产生的截图偏差，
 建议在测试脚本或浏览器实例配置中显式指定一个固定的视口大小，从而确保测试结果的可重复性与一致性。
@@ -232,13 +232,13 @@ export default defineConfig({
 })
 ```
 
-### 使用 Git LFS 管理基准截图
+### 使用 Git LFS 管理基准截图 {#use-git-lfs}
 
 对于规模较大的视觉回归测试套件，建议将基准截图文件存储在
 [Git LFS](https://github.com/git-lfs/git-lfs?tab=readme-ov-file) 中。
 这样既能避免仓库体积膨胀，又能高效管理和传输这些大尺寸文件，提升团队协作效率。
 
-## 调试视觉测试失败
+## 调试视觉测试失败 {#debugging-failed-tests}
 
 当视觉回归测试未能通过时， Vitest 会生成三张关键截图，帮助你分析问题所在：
 
@@ -264,7 +264,7 @@ Diff image:
   tests/.vitest-attachments/button.test.ts/button-chromium-darwin-diff.png
 ```
 
-### 如何解读差异图
+### 如何解读差异图 {#understanding-the-diff-image}
 
 - **红色像素**：表示参考截图与实际截图之间存在显著差异的区域
 - **黄色像素**：由抗锯齿处理带来的细微差异（仅在未忽略抗锯齿时可见）
@@ -275,9 +275,9 @@ Diff image:
 若只是文字边缘零星出现少量红点，可能只是渲染细节差异，此时适当提高阈值即可解决。
 :::
 
-## 常见问题与解决方案
+## 常见问题与解决方案 {#common-issues-and-solutions}
 
-### 字体渲染引发的误报
+### 字体渲染引发的误报 {#false-positives-from-font-rendering}
 
 由于不同操作系统在字体可用性与渲染方式上差异明显，视觉回归测试中可能会出现“误报”现象。为降低这种风险，可以考虑以下做法：
 
@@ -304,7 +304,7 @@ Diff image:
 
 - 使用云端服务或容器化测试环境，确保字体渲染效果在各次测试中保持一致，从而减少系统差异带来的影响；
 
-### 测试不稳定或截图尺寸不一致
+### 测试不稳定或截图尺寸不一致 {#flaky-tests-or-different-screenshot-sizes}
 
 如果测试结果出现随机通过或失败，或者在不同运行中生成的截图尺寸不一致，可以采取以下措施：
 
@@ -315,7 +315,7 @@ Diff image:
 - 对体积较大的截图适当延长测试的超时时间；
 - 使用云端服务或容器化环境，确保字体渲染、浏览器配置等保持一致。
 
-## 团队版视觉回归测试方案
+## 团队版视觉回归测试方案 {#visual-regression-testing-for-teams}
 
 视觉回归测试对环境的稳定性要求极高，而本地开发机并不适合担当这一角色。
 
@@ -338,7 +338,7 @@ Diff image:
 要点在于，将视觉回归测试与常规测试分离运行。
 否则，你可能会因截图差异引发的失败日志而浪费数小时进行排查。
 
-#### 测试组织建议
+#### 测试组织建议 {#organizing-your-tests}
 
 首先，应将视觉回归测试与其他测试隔离管理。
 建议单独建立一个 `visual` 文件夹（或根据项目结构选择更合适的目录名称）来存放这些测试用例，以便维护与执行。
@@ -362,7 +362,7 @@ Diff image:
 - `vitest --project visual`
 :::
 
-#### 持续集成（ CI ）环境配置
+#### 持续集成（ CI ）环境配置 {#ci-setup}
 
 在 CI 环境中运行视觉回归测试时，需要确保浏览器已正确安装。至于如何安装，则取决于你所使用的 CI 服务提供商及其运行环境。
 
@@ -402,7 +402,7 @@ Diff image:
   run: npm run test:visual
 ```
 
-#### 更新工作流程
+#### 更新工作流程 {#the-update-workflow}
 
 关键点来了——切勿在每一次 Pull Request 中都自动更新截图，
 <small>*(那只会带来混乱)*</small>。更稳妥的方式，是建立一个手动触发的工作流程，
@@ -676,7 +676,7 @@ env:
 
 ::::
 
-### 该选哪一个？
+### 该选哪一个？ {#so-which-one}
 
 两种方案都可行，关键在于团队最在意的痛点是什么。
 
