@@ -1,4 +1,4 @@
-# 浏览器配置参考
+# 浏览器配置参考 {#browser-config-reference}
 
 我们可以通过更新 [配置文件](/config/) 中的 `test.browser` 字段来更改浏览器配置。一个简单的配置文件示例如下：
 
