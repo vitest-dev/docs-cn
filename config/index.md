@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# 配置索引
+# 配置索引 {#configuring-vitest}
 
 如果我们正在使用 Vite 并且拥有一个 `vite.config` 文件，Vitest 会读取它来匹配我们的 Vite 应用的插件和设置。如果我们想要为测试配置不同的设置，或者我们的并不特别依赖于 Vite，我们我们可以选择：
 
