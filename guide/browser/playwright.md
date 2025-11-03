@@ -1,4 +1,4 @@
-# 配置 Playwright
+# 配置 Playwright {#configuring-playwright}
 
 要使用 playwright 运行测试，你需要安装 [`@vitest/browser-playwright`](https://www.npmjs.com/package/@vitest/browser-playwright) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `playwright` 导出：
 
