@@ -14,7 +14,7 @@ outline: deep
 <img alt="Vitest UI" img-light src="/ui-browser-1-light.png">
 <img alt="Vitest UI" img-dark src="/ui-browser-1-dark.png">
 
-## 安装
+## 安装 {#installation}
 
 为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
 
@@ -33,7 +33,7 @@ bunx vitest init browser
 ```
 :::
 
-### 手动安装
+### 手动安装 {#manual-installation}
 
 我们也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的 E2E provider 就能在本地运行测试，因为它会复用你现有的浏览器。
 
@@ -93,7 +93,7 @@ bun add -D vitest @vitest/browser webdriverio
 ```
 :::
 
-## 配置
+## 配置 {#configuration}
 
 想要在 Vitest 中启用浏览器模式，只需在配置文件中将 `browser.enabled` 设置为 true。下面是一个使用 browser 配置的示例：
 
@@ -575,15 +575,15 @@ test('renders a message', async () => {
 ```
 :::
 
-## 限制
+## 限制 {#limitations}
 
-### 线程阻塞对话框
+### 线程阻塞对话框 {#thread-blocking-dialogs}
 
 使用 Vitest 浏览器时，需要注意的是像 `alert` 或 `confirm` 这样的线程阻塞对话框不能在本地使用。这是因为它们阻塞了网页，这意味着 Vitest 无法继续与该页面通信，导致执行挂起。
 
 在这类情况下，Vitest 会为相关 API 提供带有默认返回值的内置 mock，从而避免用户不小心使用同步弹窗等 Web API 时导致程序卡死。不过，仍然强烈建议用户自行对这些 Web API 进行 mock，以获得更稳定、可控的测试体验。更多内容可参考 [模拟](/guide/mocking) 章节。
 
-### 对模块的导出内容进行监听（Spy）。
+### 对模块的导出内容进行监听（Spy）。 {#spying-on-module-exports}
 
 在浏览器模式下，Vitest 依赖浏览器自身对 ESM 模块的原生支持来加载模块。此时，模块的命名空间对象是不可修改的，这与 Node.js 测试中 Vitest 能够对模块执行打补丁不同。因此，你不能对通过 import 导入的对象使用 `vi.spyOn` ：
 
