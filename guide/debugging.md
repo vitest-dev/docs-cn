@@ -122,7 +122,7 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 
 创建一个 [vitest](https://www.jetbrains.com/help/idea/vitest.html#createRunConfigVitest) 运行配置。使用以下配置在调试模式下运行所有测试：
 
-| Setting                | Value                              |
+| 配置参数                 | 设置值                              |
 | ---------------------- | ---------------------------------- |
 | Working directory      | `/path/to/your-project-root`       |
 
