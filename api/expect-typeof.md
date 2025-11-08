@@ -70,7 +70,7 @@ import { expectTypeOf } from 'vitest'
 expectTypeOf({ a: 1, b: 2 }).toMatchObjectType<{ a: number }>() // preferred
 expectTypeOf({ a: 1, b: 2 }).toExtend<{ a: number }>() // works but less strict
 
-// Supports nested object checking
+// 支持嵌套对象检查
 const user = {
   name: 'John',
   address: { city: 'New York', zip: '10001' }
@@ -102,11 +102,11 @@ function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<{ xs?: any }>() // extracts the last type from a union
+  .extract<{ xs?: any }>() // 从联合类型中提取最后一个类型
   .toEqualTypeOf<{ xs?: CSSProperties, sm?: CSSProperties, md?: CSSProperties }>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<unknown[]>() // extracts an array from a union
+  .extract<unknown[]>() // 从联合类型中提取数组
   .toEqualTypeOf<CSSProperties[]>()
 ```
 
@@ -135,7 +135,7 @@ const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .exclude<unknown[]>()
-  .exclude<{ xs?: unknown }>() // or just .exclude<unknown[] | { xs?: unknown }>()
+  .exclude<{ xs?: unknown }>() // 或直接使用 .exclude<unknown[] | { xs?: unknown }>()
   .toEqualTypeOf<CSSProperties>()
 ```
 
