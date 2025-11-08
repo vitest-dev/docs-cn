@@ -41,11 +41,11 @@ expect(input).toBe(2) // jest API
 
 ## assert
 
-- **Type:** `Chai.AssertStatic`
+- **类型:** `Chai.AssertStatic`
 
-Vitest reexports chai's [`assert` API](https://www.chaijs.com/api/assert/) as `expect.assert` for convenience. You can see the supported methods on the [Assert API page](/api/assert).
+Vitest 将 Chai 的 [`assert` API](https://www.chaijs.com/api/assert/) 以 `expect.assert` 的形式重新导出。你可以在  [Assert API page](/api/assert) 页面查看支持的方法。
 
-This is especially useful if you need to narrow down the type, since `expect.to*` methods do not support that:
+如果你需要缩小类型范围时，这将特别有用，因为 `expect.to*` 方法不支持此功能：
 
 ```ts
 interface Cat {
@@ -61,12 +61,12 @@ type Animal = Cat | Dog
 const animal: Animal = { __type: 'Dog', bark: () => {} }
 
 expect.assert(animal.__type === 'Dog')
-// does not show a type error!
+// 不显示类型错误！
 expect(animal.bark()).toBeUndefined()
 ```
 
 ::: tip
-Note that `expect.assert` also supports other type-narrowing methods (like `assert.isDefined`, `assert.exists` and so on).
+注意，`expect.assert` 还支持其他缩小类型的方法（如：`assert.isDefined`，`assert.exists`等）。
 :::
 
 ## soft
@@ -79,10 +79,10 @@ Note that `expect.assert` also supports other type-narrowing methods (like `asse
 import { expect, test } from 'vitest'
 
 test('expect.soft test', () => {
-  expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
-  expect.soft(1 + 2).toBe(4) // mark the test as fail and continue
+  expect.soft(1 + 1).toBe(3) // 将期望标记为失败并继续
+  expect.soft(1 + 2).toBe(4) // 将期望标记为失败并继续
 })
-// reporter will report both errors at the end of the run
+// 在执行结束后，报告器会报告这两个错误。
 ```
 
 它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
@@ -91,9 +91,9 @@ test('expect.soft test', () => {
 import { expect, test } from 'vitest'
 
 test('expect.soft test', () => {
-  expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
-  expect(1 + 2).toBe(4) // failed and terminate the test, all previous errors will be output
-  expect.soft(1 + 3).toBe(5) // do not run
+  expect.soft(1 + 1).toBe(3) // 将期望标记为失败并继续
+  expect(1 + 2).toBe(4) // 测试失败并终止执行，所有先前错误将被输出
+  expect.soft(1 + 3).toBe(5) // 不再执行
 })
 ```
 
@@ -195,13 +195,13 @@ test('stocks are the same', () => {
 import { expect, test } from 'vitest'
 
 test.fails('decimals are not equal in javascript', () => {
-  expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 is 0.30000000000000004
+  expect(0.2 + 0.1).toBe(0.3) // 0.2 + 0.1 = 0.30000000000000004
 })
 
 test('decimals are rounded to 5 after the point', () => {
-  // 0.2 + 0.1 is 0.30000 | "000000000004" removed
+  // 0.2 + 0.1 等于 0.30000 | "000000000004" 被移除
   expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
-  // nothing from 0.30000000000000004 is removed
+  // 没有从 0.30000000000000004 移除任何内容
   expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50)
 })
 ```
@@ -590,9 +590,9 @@ test('the fruit list contains orange', () => {
   expect(getAllFruits()).toContain('orange')
 
   const element = document.querySelector('#el')
-  // element has a class
+  // element 有 class 属性 flex
   expect(element.classList).toContain('flex')
-  // element is inside another one
+  // element 是 #wrapper 的子元素
   expect(document.querySelector('#wrapper')).toContain(element)
 })
 ```
@@ -664,25 +664,25 @@ const invoice = {
 }
 
 test('John Doe Invoice', () => {
-  expect(invoice).toHaveProperty('isActive') // assert that the key exists
-  expect(invoice).toHaveProperty('total_amount', 5000) // assert that the key exists and the value is equal
+  expect(invoice).toHaveProperty('isActive') // 断言对应的key存在
+  expect(invoice).toHaveProperty('total_amount', 5000) // 断言对应的key存在，并且值相等
 
-  expect(invoice).not.toHaveProperty('account') // assert that this key does not exist
+  expect(invoice).not.toHaveProperty('account') // 断言对应的key不存在
 
-  // Deep referencing using dot notation
+  // 使用点号进行深层引用
   expect(invoice).toHaveProperty('customer.first_name')
   expect(invoice).toHaveProperty('customer.last_name', 'Doe')
   expect(invoice).not.toHaveProperty('customer.location', 'India')
 
-  // Deep referencing using an array containing the key
+  // 使用含键名的数组进行深层引用
   expect(invoice).toHaveProperty('items[0].type', 'apples')
-  expect(invoice).toHaveProperty('items.0.type', 'apples') // dot notation also works
+  expect(invoice).toHaveProperty('items.0.type', 'apples') // 也可以使用点号
 
-  // Deep referencing using an array containing the keyPath
+  // 通过包含键路径的数组实现深层引用
   expect(invoice).toHaveProperty(['items', 0, 'type'], 'apples')
-  expect(invoice).toHaveProperty(['items', '0', 'type'], 'apples') // string notation also works
+  expect(invoice).toHaveProperty(['items', '0', 'type'], 'apples') // 字符串表示法同样适用
 
-  // Wrap your key in an array to avoid the key from being parsed as a deep reference
+  // 将键名包裹在数组中，避免其被解析为深层引用
   expect(invoice).toHaveProperty(['P.O'], '12345')
 })
 ```
@@ -790,15 +790,15 @@ function getFruitStock(type: string) {
     throw new Error('Pineapples are not in stock')
   }
 
-  // Do some other stuff
+  // 做一些其他的东西
 }
 
 test('throws on pineapples', () => {
-  // Test that the error message says "stock" somewhere: these are equivalent
+  // 测试错误信息包含 “stock”，这两种写法是等效的
   expect(() => getFruitStock('pineapples')).toThrowError(/stock/)
   expect(() => getFruitStock('pineapples')).toThrowError('stock')
 
-  // Test the exact error message
+  // 测试确切的错误信息
   expect(() => getFruitStock('pineapples')).toThrowError(
     /^Pineapples are not in stock$/
   )
@@ -872,7 +872,7 @@ import { expect, test } from 'vitest'
 
 test('matches inline snapshot', () => {
   const data = { foo: new Set(['bar', 'snapshot']) }
-  // Vitest will update following content when updating the snapshot
+  // Vitest 将在更新快照的同时更新以下内容
   expect(data).toMatchInlineSnapshot(`
     {
       "foo": Set {
@@ -1371,7 +1371,7 @@ async function buyApples() {
 }
 
 test('buyApples returns new stock id', async () => {
-  // toEqual returns a promise now, so you HAVE to await it
+  // toEqual 现在返回一个 Promise，调用时需添加 await
   await expect(buyApples()).resolves.toEqual({ id: 1 }) // jest API
   await expect(buyApples()).resolves.to.equal({ id: 1 }) // chai API
 })
@@ -1403,7 +1403,7 @@ async function buyApples(id) {
 }
 
 test('buyApples throws an error when no id provided', async () => {
-  // toThrow returns a promise now, so you HAVE to await it
+  // toThrow 现在返回一个 Promise，调用时需添加 await
   await expect(buyApples()).rejects.toThrow('no id')
 })
 ```
@@ -1464,7 +1464,7 @@ function onSelect(cb) {
   cbs.push(cb)
 }
 
-// after selecting from db, we call all callbacks
+// 在数据库查询操作之后，立即执行全部回调函数
 function select(id) {
   return db.select({ id }).then((data) => {
     return Promise.all(cbs.map(cb => cb(data)))
@@ -1474,11 +1474,11 @@ function select(id) {
 test('callback was called', async () => {
   expect.hasAssertions()
   onSelect((data) => {
-    // should be called on select
+    // 必须在 select 操作时调用
     expect(data).toBeTruthy()
   })
-  // if not awaited, test will fail
-  // if you don't have expect.hasAssertions(), test will pass
+  // 若没有添加 await 测试将会失败
+  // 若缺少 expect.hasAssertions(), 测试仍会通过
   await select(3)
 })
 ```
@@ -1519,7 +1519,7 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
         expect(err.message).toBe(`${dir}/src does not exist`)
         break
       default:
-        // to exhaust all error tests
+        // 必须覆盖所有错误测试场景
         expect.unreachable('All error test must be handled')
         break
     }
