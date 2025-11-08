@@ -354,7 +354,7 @@ function setGlobalTestNamePattern(pattern: string | RegExp): void
 function getGlobalTestNamePattern(): RegExp | undefined
 ```
 
-Returns the regexp used for the global test name pattern.
+返回用于全局测试名称模式的正则表达式。
 
 ## resetGlobalTestNamePattern
 
