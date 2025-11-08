@@ -454,15 +454,15 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: 'Running Tests',
+                  text: '运行测试',
                   link: '/advanced/guide/tests',
                 },
                 {
-                  text: 'Extending Reporters',
+                  text: '扩展报告器',
                   link: '/advanced/reporters',
                 },
                 {
-                  text: 'Custom Pool',
+                  text: '自定义运行池',
                   link: '/advanced/pool',
                 },
               ],
