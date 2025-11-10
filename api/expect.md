@@ -41,7 +41,7 @@ expect(input).toBe(2) // jest API
 
 ## assert
 
-- **Type:** `Chai.AssertStatic`
+- **类型：** `Chai.AssertStatic`
 
 Vitest reexports chai's [`assert` API](https://www.chaijs.com/api/assert/) as `expect.assert` for convenience. You can see the supported methods on the [Assert API page](/api/assert).
 
@@ -332,7 +332,7 @@ test('we don\'t have apples', () => {
 
 ## toBeNullable
 
-- **Type:** `() => Awaitable<void>`
+- **类型：** `() => Awaitable<void>`
 
 `toBeNullable` simply asserts if something is nullable (`null` or `undefined`).
 

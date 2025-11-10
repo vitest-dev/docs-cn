@@ -139,7 +139,7 @@ export default defineConfig({
 
 ### name
 
-- **Type:** `string | { label: string, color?: LabelColor }`
+- **类型：** `string | { label: string, color?: LabelColor }`
 
 你可以为测试项目或 Vitest 进程指定一个自定义名称，这个名称会在命令行界面（CLI）和用户界面（UI）中显示，同时也能通过 Node.js API 中的 [`project.name`](/advanced/api/test-project#name) 获取。
 
@@ -624,7 +624,7 @@ jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom
 
 ### watchTriggerPatterns <Version>3.2.0</Version><NonProjectOption /> {#watchtriggerpatterns}
 
-- **Type:** `WatcherTriggerPattern[]`
+- **类型：** `WatcherTriggerPattern[]`
 
 Vitest 依据静态与动态 `import` 语句生成的模块图来决定重新执行哪些测试。但若测试读取文件系统或向代理拉取数据，这些依赖便无法被自动探测。
 
@@ -1069,7 +1069,7 @@ globalThis.resetBeforeEachTest = true
 
 ### provide <Version>2.1.0</Version> {#provide}
 
-- **Type:** `Partial<ProvidedContext>`
+- **类型：** `Partial<ProvidedContext>`
 
 使用 `inject` 方法定义可在测试中访问的值。
 
@@ -1509,7 +1509,7 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
 
 ##### coverage.thresholds[glob-pattern].100 <Version>2.1.0</Version> {#coverage-thresholds-glob-pattern-100}
 
-- **Type:** `boolean`
+- **类型：** `boolean`
 - **Default:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
 
@@ -1847,7 +1847,7 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 #### groupOrder <Version>3.2.0</Version> {#grouporder}
 
-- **Type:** `number`
+- **类型：** `number`
 - **Default:** `0`
 
 控制使用多个[项目](/guide/projects) 时该项目运行测试的顺序。
@@ -2172,7 +2172,7 @@ export default defineConfig({
 
 ### onUnhandledError<NonProjectOption /> {#onunhandlederror}
 
-- **Type:** `(error: (TestError | Error) & { type: string }) => boolean | void`
+- **类型：** `(error: (TestError | Error) & { type: string }) => boolean | void`
 
 自定义处理程序，用于过滤掉不应报告的未处理错误。 如果过滤掉错误，则不会再影响测试结果。
 

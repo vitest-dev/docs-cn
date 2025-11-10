@@ -302,7 +302,7 @@ export interface BrowserScript {
 
 ## browser.trace
 
-- **Type:** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
+- **类型：** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
 - **CLI:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
 - **Default:** `'off'`
 
@@ -346,7 +346,7 @@ This option is supported only by the [**playwright**](/guide/browser/playwright)
 
 ## browser.trackUnhandledErrors
 
-- **Type:** `boolean`
+- **类型：** `boolean`
 - **Default:** `true`
 
 启用对未捕获错误和异常的跟踪，以便 Vitest 报告。
@@ -357,7 +357,7 @@ This option is supported only by the [**playwright**](/guide/browser/playwright)
 
 ## browser.expect
 
-- **Type:** `ExpectOptions`
+- **类型：** `ExpectOptions`
 
 ### browser.expect.toMatchScreenshot
 
@@ -395,7 +395,7 @@ export default defineConfig({
 
 #### browser.expect.toMatchScreenshot.resolveScreenshotPath
 
-- **Type:** `(data: PathResolveData) => string`
+- **类型：** `(data: PathResolveData) => string`
 - **Default output:** `` `${root}/${testFileDirectory}/${screenshotDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
 
 一个用于自定义参考截图存储位置的函数。该函数接收一个包含以下属性的对象：
@@ -465,7 +465,7 @@ resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>
 
 #### browser.expect.toMatchScreenshot.resolveDiffPath
 
-- **Type:** `(data: PathResolveData) => string`
+- **类型：** `(data: PathResolveData) => string`
 - **Default output:** `` `${root}/${attachmentsDir}/${testFileDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
 
 一个用于自定义截图比较失败时差异图像存储位置的函数。它接收与 [`resolveScreenshotPath`](#browser-expect-tomatchscreenshot-resolvescreenshotpath) 相同的数据对象。

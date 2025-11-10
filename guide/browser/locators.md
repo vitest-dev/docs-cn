@@ -499,7 +499,7 @@ This methods narrows down the locator according to the options, such as filterin
 
 ### has
 
-- **Type:** `Locator`
+- **类型：** `Locator`
 
 This options narrows down the selector to match elements that contain other elements matching provided locator. For example, with this HTML:
 
@@ -542,7 +542,7 @@ page.getByRole('article')
 
 ### hasNot
 
-- **Type:** `Locator`
+- **类型：** `Locator`
 
 This option narrows down the selector to match elements that do not contain other elements matching provided locator. For example, with this HTML:
 
@@ -570,7 +570,7 @@ Note that provided locator is queried against the parent, not the document root,
 
 ### hasText
 
-- **Type:** `string | RegExp`
+- **类型：** `string | RegExp`
 
 This options narrows down the selector to only match elements that contain provided text somewhere inside. When the `string` is passed, matching is case-insensitive and searches for a substring.
 
@@ -592,7 +592,7 @@ page.getByRole('article').filter({ hasText: 'Vite' }) // ✅
 
 ### hasNotText
 
-- **Type:** `string | RegExp`
+- **类型：** `string | RegExp`
 
 This options narrows down the selector to only match elements that do not contain provided text somewhere inside. When the `string` is passed, matching is case-insensitive and searches for a substring.
 

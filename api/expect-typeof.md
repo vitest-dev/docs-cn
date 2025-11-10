@@ -46,7 +46,7 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 
 ## toExtend
 
-- **Type:** `<T>(expected: T) => void`
+- **类型：** `<T>(expected: T) => void`
 
 这个匹配器用于检查期望类型是否扩展了提供的类型。它与 `toEqual` 不同，更类似于 [expect](/api/expect) 的 `toMatchObject()`。使用这个匹配器，你可以检查一个对象是否"匹配"某个类型。
 
@@ -60,7 +60,7 @@ expectTypeOf<string | number>().not.toExtend<number>()
 
 ## toMatchObjectType
 
-- **Type:** `() => void`
+- **类型：** `() => void`
 
 这个匹配器对对象类型执行严格检查，确保期望的类型与提供的对象类型相匹配。它比 [`toExtend`](#toextend) 更严格，是在处理对象类型时的推荐选择，因为它更有可能捕获到像只读属性这样的问题。
 
