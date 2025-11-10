@@ -282,12 +282,12 @@ export default ({ mode }: { mode: string }) => {
                 {
                   text: '什么是浏览器模式',
                   link: '/guide/browser/why',
-                  docFooterText: 'Why Browser Mode | Browser Mode',
+                  docFooterText: '什么是浏览器模式 | 浏览器模式',
                 },
                 {
                   text: '快速起步',
                   link: '/guide/browser/',
-                  docFooterText: 'Getting Started | Browser Mode',
+                  docFooterText: '快速起步 | 浏览器模式',
                 },
               ],
             },
@@ -298,22 +298,22 @@ export default ({ mode }: { mode: string }) => {
                 {
                   text: '浏览器模式配置',
                   link: '/guide/browser/config',
-                  docFooterText: 'Browser Config Reference | Browser Mode',
+                  docFooterText: '浏览器模式配置 | 浏览器模式',
                 },
                 {
                   text: '配置 Playwright',
                   link: '/guide/browser/playwright',
-                  docFooterText: 'Configuring Playwright | Browser Mode',
+                  docFooterText: '配置 Playwright | 浏览器模式',
                 },
                 {
                   text: '配置 WebdriverIO',
                   link: '/guide/browser/webdriverio',
-                  docFooterText: 'Configuring WebdriverIO | Browser Mode',
+                  docFooterText: '配置 WebdriverIO | 浏览器模式',
                 },
                 {
                   text: 'Configuring Preview',
                   link: '/guide/browser/preview',
-                  docFooterText: 'Configuring Preview | Browser Mode',
+                  docFooterText: 'Configuring Preview | 浏览器模式',
                 },
               ],
             },
@@ -322,29 +322,29 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: '上下文「Context」 API',
+                  text: 'Context API',
                   link: '/guide/browser/context',
-                  docFooterText: 'Context API | Browser Mode',
+                  docFooterText: 'Context API | 浏览器模式',
                 },
                 {
-                  text: '交互「Interactivity」 API',
+                  text: 'Interactivity API',
                   link: '/guide/browser/interactivity-api',
-                  docFooterText: 'Interactivity API | Browser Mode',
+                  docFooterText: 'Interactivity API | 浏览器模式',
                 },
                 {
-                  text: '定位「Locators」',
+                  text: 'Locators',
                   link: '/guide/browser/locators',
-                  docFooterText: 'Locators | Browser Mode',
+                  docFooterText: 'Locators | 浏览器模式',
                 },
                 {
                   text: 'Assertion API',
                   link: '/guide/browser/assertion-api',
-                  docFooterText: 'Assertion API | Browser Mode',
+                  docFooterText: 'Assertion API | 浏览器模式',
                 },
                 {
                   text: 'Commands API',
                   link: '/guide/browser/commands',
-                  docFooterText: 'Commands | Browser Mode',
+                  docFooterText: 'Commands API | 浏览器模式',
                 },
               ],
             },
@@ -355,22 +355,22 @@ export default ({ mode }: { mode: string }) => {
                 {
                   text: '多种设置',
                   link: '/guide/browser/multiple-setups',
-                  docFooterText: 'Multiple Setups | Browser Mode',
+                  docFooterText: '多种设置 | 浏览器模式',
                 },
                 {
                   text: '组件测试',
                   link: '/guide/browser/component-testing',
-                  docFooterText: '组件测试 | Browser Mode',
+                  docFooterText: '组件测试 | 浏览器模式',
                 },
                 {
                   text: '可视化回归测试',
                   link: '/guide/browser/visual-regression-testing',
-                  docFooterText: '可视化回归测试 | Browser Mode',
+                  docFooterText: '可视化回归测试 | 浏览器模式',
                 },
                 {
                   text: '跟踪查看器',
                   link: '/guide/browser/trace-view',
-                  docFooterText: 'Trace Viewer | Browser Mode',
+                  docFooterText: '跟踪查看器 | 浏览器模式',
                 },
               ],
             },
@@ -378,7 +378,7 @@ export default ({ mode }: { mode: string }) => {
               items: [
                 ...footer(),
                 {
-                  text: 'Node API 索引',
+                  text: 'Node API',
                   link: '/advanced/api/',
                 },
               ],
@@ -436,15 +436,15 @@ export default ({ mode }: { mode: string }) => {
                   link: '/advanced/api/plugin',
                 },
                 {
-                  text: '运行器「Runner」 API',
+                  text: '运行器 API',
                   link: '/advanced/runner',
                 },
                 {
-                  text: 'Reporters API',
+                  text: '报告器 API',
                   link: '/advanced/api/reporters',
                 },
                 {
-                  text: 'Task Metadata',
+                  text: '任务元数据',
                   link: '/advanced/metadata',
                 },
               ],
@@ -454,15 +454,15 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: 'Running Tests',
+                  text: '运行测试',
                   link: '/advanced/guide/tests',
                 },
                 {
-                  text: 'Extending Reporters',
+                  text: '扩展报告器',
                   link: '/advanced/reporters',
                 },
                 {
-                  text: 'Custom Pool',
+                  text: '自定义运行池',
                   link: '/advanced/pool',
                 },
               ],
@@ -496,7 +496,7 @@ export default ({ mode }: { mode: string }) => {
                   link: '/guide/browser',
                 },
                 {
-                  text: 'Node API 索引',
+                  text: 'Node API',
                   link: '/advanced/api',
                 },
                 {
@@ -521,7 +521,7 @@ function footer(): DefaultTheme.SidebarItem[] {
       link: '/config/',
     },
     {
-      text: 'Test API 索引',
+      text: 'Test API',
       link: '/api/',
     },
   ]
