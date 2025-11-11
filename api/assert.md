@@ -4,7 +4,7 @@ Vitest 从 [`chai`](https://www.chaijs.com/api/assert/) 重新导出了 `assert`
 
 ## assert
 
-- **类型：** `(expression: any, message?: string) => asserts expression`
+- **类型:** `(expression: any, message?: string) => asserts expression`
 
 断言给定的 `expression` 是 true，否则断言失败。
 
@@ -18,7 +18,7 @@ test('assert', () => {
 
 ## fail
 
-- **类型：**
+- **类型:**
   - `(message?: string) => never`
   - `<T>(actual: T, expected: T, message?: string, operator?: string) => never`
 
@@ -35,7 +35,7 @@ test('assert.fail', () => {
 
 ## isOk
 
-- **类型：** `<T>(value: T, message?: string) => asserts value`
+- **类型:** `<T>(value: T, message?: string) => asserts value`
 - **Alias** `ok`
 
 断言给定的 `value` 是 true。
@@ -51,7 +51,7 @@ test('assert.isOk', () => {
 
 ## isNotOk
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 - **Alias** `notOk`
 
 断言给定的 `value` 是 false。
@@ -67,7 +67,7 @@ test('assert.isNotOk', () => {
 
 ## equal
 
-- **类型：** `<T>(actual: T, expected: T, message?: string) => void`
+- **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
 断言 `actual` 和 `expected` 非严格相等 (==)。
 
@@ -81,7 +81,7 @@ test('assert.equal', () => {
 
 ## notEqual
 
-- **类型：** `<T>(actual: T, expected: T, message?: string) => void`
+- **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
 断言 `actual` 和 `expected` 非严格不等(!=).
 
@@ -95,7 +95,7 @@ test('assert.equal', () => {
 
 ## strictEqual
 
-- **类型：** `<T>(actual: T, expected: T, message?: string) => void`
+- **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
 断言 `actual` 和 `expected` 严格相等 (===)。
 
@@ -109,7 +109,7 @@ test('assert.strictEqual', () => {
 
 ## deepEqual
 
-- **类型：** `<T>(actual: T, expected: T, message?: string) => void`
+- **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
 断言 `actual` 深度等于 `expected` 。
 
@@ -123,7 +123,7 @@ test('assert.deepEqual', () => {
 
 ## notDeepEqual
 
-- **类型：** `<T>(actual: T, expected: T, message?: string) => void`
+- **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
 断言 `actual` 不深度等于 `expected` 。
 
@@ -137,7 +137,7 @@ test('assert.notDeepEqual', () => {
 
 ## isAbove
 
-- **类型：** `(valueToCheck: number, valueToBeAbove: number, message?: string) => void`
+- **类型:** `(valueToCheck: number, valueToBeAbove: number, message?: string) => void`
 
 断言 `valueToCheck` 严格大于 (>)  `valueToBeAbove`。
 
@@ -151,7 +151,7 @@ test('assert.isAbove', () => {
 
 ## isAtLeast
 
-- **类型：** `(valueToCheck: number, valueToBeAtLeast: number, message?: string) => void`
+- **类型:** `(valueToCheck: number, valueToBeAtLeast: number, message?: string) => void`
 
 断言 `valueToCheck` 大于或等于 (>=) `valueToBeAtLeast`。
 
@@ -166,7 +166,7 @@ test('assert.isAtLeast', () => {
 
 ## isBelow
 
-- **类型：** `(valueToCheck: number, valueToBeBelow: number, message?: string) => void`
+- **类型:** `(valueToCheck: number, valueToBeBelow: number, message?: string) => void`
 
 断言 `valueToCheck` 严格小于 (<) `valueToBeBelow`。
 
@@ -180,7 +180,7 @@ test('assert.isBelow', () => {
 
 ## isAtMost
 
-- **类型：** `(valueToCheck: number, valueToBeAtMost: number, message?: string) => void`
+- **类型:** `(valueToCheck: number, valueToBeAtMost: number, message?: string) => void`
 
 断言 `valueToCheck` 小于或等于 (<=) `valueToBeAtMost`。
 
@@ -195,7 +195,7 @@ test('assert.isAtMost', () => {
 
 ## isTrue
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is true`
+- **类型:** `<T>(value: T, message?: string) => asserts value is true`
 
 断言 `value` 是 true。
 
@@ -211,7 +211,7 @@ test('assert.isTrue', () => {
 
 ## isNotTrue
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is Exclude<T, true>`
+- **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, true>`
 
 断言 `value` 不是 true。
 
@@ -227,7 +227,7 @@ test('assert.isNotTrue', () => {
 
 ## isFalse
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is false`
+- **类型:** `<T>(value: T, message?: string) => asserts value is false`
 
 断言 `value` 是 false。
 
@@ -243,7 +243,7 @@ test('assert.isFalse', () => {
 
 ## isNotFalse
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is Exclude<T, false>`
+- **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, false>`
 
 断言 `value` 不是 false。
 
@@ -259,7 +259,7 @@ test('assert.isNotFalse', () => {
 
 ## isNull
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is null`
+- **类型:** `<T>(value: T, message?: string) => asserts value is null`
 
 断言 `value` 是 null。
 
@@ -275,7 +275,7 @@ test('assert.isNull', () => {
 
 ## isNotNull
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is Exclude<T, null>`
+- **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, null>`
 
 断言 `value` 不是 null。
 
@@ -291,7 +291,7 @@ test('assert.isNotNull', () => {
 
 ## isNaN
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是 NaN。
 
@@ -307,7 +307,7 @@ test('assert.isNaN', () => {
 
 ## isNotNaN
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 不是 NaN。
 
@@ -323,7 +323,7 @@ test('assert.isNotNaN', () => {
 
 ## exists
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is NonNullable<T>`
+- **类型:** `<T>(value: T, message?: string) => asserts value is NonNullable<T>`
 
 断言 `value` 既不是 null 也不是 undefined。
 
@@ -339,7 +339,7 @@ test('assert.exists', () => {
 
 ## notExists
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is null | undefined`
+- **类型:** `<T>(value: T, message?: string) => asserts value is null | undefined`
 
 断言 `value` 是 null 或 undefined。
 
@@ -357,7 +357,7 @@ test('assert.notExists', () => {
 
 ## isUndefined
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is undefined`
+- **类型:** `<T>(value: T, message?: string) => asserts value is undefined`
 
 断言 `value` 是 undefined。
 
@@ -373,7 +373,7 @@ test('assert.isUndefined', () => {
 
 ## isDefined
 
-- **类型：** `<T>(value: T, message?: string) => asserts value is Exclude<T, undefined>`
+- **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, undefined>`
 
 断言 `value` 不是 undefined。
 
@@ -389,8 +389,8 @@ test('assert.isDefined', () => {
 
 ## isFunction
 
-- **类型：** `<T>(value: T, message?: string) => void`
-- **别名：** `isCallable`
+- **类型:** `<T>(value: T, message?: string) => void`
+- **别名:** `isCallable`
   断言 `value` 是一个函数。
 
 ```ts
@@ -407,8 +407,8 @@ test('assert.isFunction', () => {
 
 ## isNotFunction
 
-- **类型：** `<T>(value: T, message?: string) => void`
-- **别名：** `isNotCallable`
+- **类型:** `<T>(value: T, message?: string) => void`
+- **别名:** `isNotCallable`
 
 断言 `value` 不是一个函数。
 
@@ -424,7 +424,7 @@ test('assert.isNotFunction', () => {
 
 ## isObject
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是一个类型为 'Object' 的对象 (由 Object.prototype.toString 确定)。 此断言不匹配子类对象。
 
@@ -440,7 +440,7 @@ test('assert.isObject', () => {
 
 ## isNotObject
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 不是一个类型为 'Object' 的对象 (如 Object.prototype.toString 确定)。 该断言不匹配子类对象。
 
@@ -456,7 +456,7 @@ test('assert.isNotObject', () => {
 
 ## isArray
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是一个数组。
 
@@ -472,7 +472,7 @@ test('assert.isArray', () => {
 
 ## isNotArray
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 不是一个数组。
 
@@ -488,7 +488,7 @@ test('assert.isNotArray', () => {
 
 ## isString
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是一个字符串。
 
@@ -504,7 +504,7 @@ test('assert.isString', () => {
 
 ## isNotString
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 不是一个字符串。
 
@@ -520,7 +520,7 @@ test('assert.isNotString', () => {
 
 ## isNumber
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是一个数字。
 
@@ -536,7 +536,7 @@ test('assert.isNumber', () => {
 
 ## isNotNumber
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 不是一个数字。
 
@@ -552,7 +552,7 @@ test('assert.isNotNumber', () => {
 
 ## isFinite
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是一个有限数字。(不是 NaN, Infinity)。
 
@@ -568,7 +568,7 @@ test('assert.isFinite', () => {
 
 ## isBoolean
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 是一个布尔值。
 
@@ -584,7 +584,7 @@ test('assert.isBoolean', () => {
 
 ## isNotBoolean
 
-- **类型：** `<T>(value: T, message?: string) => void`
+- **类型:** `<T>(value: T, message?: string) => void`
 
 断言 `value` 不是一个布尔值。
 
@@ -600,7 +600,7 @@ test('assert.isBoolean', () => {
 
 ## typeOf
 
-- **类型：** `<T>(value: T, name: string, message?: string) => void`
+- **类型:** `<T>(value: T, name: string, message?: string) => void`
 
 断言 `value` 的类型是 `name`， 由 Object.prototype.toString 确定。
 
@@ -619,7 +619,7 @@ test('assert.typeOf', () => {
 
 ## notTypeOf
 
-- **类型：** `<T>(value: T, name: string, message?: string) => void`
+- **类型:** `<T>(value: T, name: string, message?: string) => void`
 
 断言 `value` 的类型不是 `name`，由 Object.prototype.toString 确定。
 
@@ -633,7 +633,7 @@ test('assert.notTypeOf', () => {
 
 ## instanceOf
 
-- **类型：** `<T>(value: T, constructor: Function, message?: string) => asserts value is T`
+- **类型:** `<T>(value: T, constructor: Function, message?: string) => asserts value is T`
 
 断言 `value` 是 `constructor` 的实例。
 
@@ -660,7 +660,7 @@ test('assert.instanceOf', () => {
 
 ## notInstanceOf
 
-- **类型：** `<T>(value: T, constructor: Function, message?: string) => asserts value is Exclude<T, U>`
+- **类型:** `<T>(value: T, constructor: Function, message?: string) => asserts value is Exclude<T, U>`
 
 断言 `value` 不是 `constructor` 的实例。
 
@@ -686,7 +686,7 @@ test('assert.instanceOf', () => {
 
 ## include
 
-- **类型：**
+- **类型:**
   - `(haystack: string, needle: string, message?: string) => void`
   - `<T>(haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string) => void`
   - `<T extends object>(haystack: WeakSet<T>, needle: T, message?: string) => void`
@@ -710,7 +710,7 @@ test('assert.include', () => {
 
 ## notInclude
 
-- **类型：**
+- **类型:**
   - `(haystack: string, needle: string, message?: string) => void`
   - `<T>(haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string) => void`
   - `<T extends object>(haystack: WeakSet<T>, needle: T, message?: string) => void`
@@ -734,7 +734,7 @@ test('assert.notInclude', () => {
 
 ## deepInclude
 
-- **类型：**
+- **类型:**
 - `(haystack: string, needle: string, message?: string) => void`
 - `<T>(haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string) => void`
 - `<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string) => void`
@@ -755,7 +755,7 @@ test('assert.deepInclude', () => {
 
 ## notDeepInclude
 
-- **类型：**
+- **类型:**
   - `(haystack: string, needle: string, message?: string) => void`
   - `<T>(haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string) => void`
   - `<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string) => void`
@@ -776,7 +776,7 @@ test('assert.notDeepInclude', () => {
 
 ## nestedInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 包含 `needle`。 可以用来断言对象中是否包含一组属性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
@@ -791,7 +791,7 @@ test('assert.nestedInclude', () => {
 
 ## notNestedInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 不包含 `needle`。可以用来断言对象中是否不包含一组属性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
@@ -806,7 +806,7 @@ test('assert.nestedInclude', () => {
 
 ## deepNestedInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 包含 `needle`可以用来断言对象中是否包含一组属性，同时检查深度相等性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
@@ -824,7 +824,7 @@ test('assert.deepNestedInclude', () => {
 
 ## notDeepNestedInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 不包含 `needle`。可以用来断言对象中是否不包含一组属性，同时检查深度相等性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
@@ -842,7 +842,7 @@ test('assert.notDeepNestedInclude', () => {
 
 ## ownInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 包含 `needle`。可以用来断言对象中是否包含一组属性，同时忽略继承的属性。
 
@@ -856,7 +856,7 @@ test('assert.ownInclude', () => {
 
 ## notOwnInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 包含 `needle`。可以用来断言对象中是否不包含一组属性，同时忽略继承的属性
 
@@ -877,7 +877,7 @@ test('assert.notOwnInclude', () => {
 
 ## deepOwnInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 包含 `needle`。可以用来断言对象中是否包含一组属性，同时忽略继承的属性并检查深度相等性。
 
@@ -891,7 +891,7 @@ test('assert.deepOwnInclude', () => {
 
 ## notDeepOwnInclude
 
-- **类型：** `(haystack: any, needle: any, message?: string) => void`
+- **类型:** `(haystack: any, needle: any, message?: string) => void`
 
 断言 `haystack` 包含 `needle`。可以用来断言对象中是否不包含一组属性，同时忽略继承的属性并检查深度相等性。
 
@@ -905,7 +905,7 @@ test('assert.notDeepOwnInclude', () => {
 
 ## match
 
-- **类型：** `(value: string, regexp: RegExp, message?: string) => void`
+- **类型:** `(value: string, regexp: RegExp, message?: string) => void`
 
 断言 `value` 匹配正则表达式 `regexp`。
 
@@ -919,7 +919,7 @@ test('assert.match', () => {
 
 ## notMatch
 
-- **类型：** `(value: string, regexp: RegExp, message?: string) => void`
+- **类型:** `(value: string, regexp: RegExp, message?: string) => void`
 
 断言 `value` 不匹配正则表达式 `regexp`。
 
@@ -933,7 +933,7 @@ test('assert.notMatch', () => {
 
 ## property
 
-- **类型：** `<T>(object: T, property: string, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, message?: string) => void`
 
 断言 `object` 具有由 `property` 指定的直接或继承属性。
 
@@ -948,7 +948,7 @@ test('assert.property', () => {
 
 ## notProperty
 
-- **类型：** `<T>(object: T, property: string, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, message?: string) => void`
 
 断言 `object` 没有由 `property` 指定的直接或继承属性。
 
@@ -962,7 +962,7 @@ test('assert.notProperty', () => {
 
 ## propertyVal
 
-- **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
+- **类型:** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
 断言 `object` 具有由 `property` 指定的直接或继承属性，其值为 `value`。使用严格相等检查（===）。
 
@@ -976,7 +976,7 @@ test('assert.notPropertyVal', () => {
 
 ## notPropertyVal
 
-- **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
+- **类型:** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
 断言 `object` 没有由 `property` 指定的直接或继承属性，其值为 `value`。使用严格相等检查（===）。
 
@@ -991,7 +991,7 @@ test('assert.notPropertyVal', () => {
 
 ## deepPropertyVal
 
-- **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
+- **类型:** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
 断言 `object` 具有由 `property` 指定的直接或继承属性，其值为 `value`。使用深度相等检查。
 
@@ -1007,7 +1007,7 @@ test('assert.deepPropertyVal', () => {
 
 ## notDeepPropertyVal
 
-- **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
+- **类型:** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
 断言 `object` 没有由 `property` 指定的直接或继承属性，其值为 `value`。使用深度相等检查。
 
@@ -1029,7 +1029,7 @@ test('assert.deepPropertyVal', () => {
 
 ## nestedProperty
 
-- **类型：** `<T>(object: T, property: string, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, message?: string) => void`
 
 断言 `object` 具有由 `property` 指定的直接或继承属性，它可以是一个字符串，使用点和括号表示法来引用嵌套的引用。
 
@@ -1043,7 +1043,7 @@ test('assert.deepPropertyVal', () => {
 
 ## notNestedProperty
 
-- **类型：** `<T>(object: T, property: string, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, message?: string) => void`
 
 断言 `object` 没有由 `property` 指定的属性，它可以是一个字符串，使用点和括号表示法来引用嵌套的引用。该属性不能存在于对象上，也不能存在于其原型链中的任何地方。
 
@@ -1057,7 +1057,7 @@ test('assert.deepPropertyVal', () => {
 
 ## nestedPropertyVal
 
-- **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, value: any, message?: string) => void`
 
 断言 `object` 具有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用严格相等检查 (===)。
 
@@ -1071,7 +1071,7 @@ test('assert.nestedPropertyVal', () => {
 
 ## notNestedPropertyVal
 
-- **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, value: any, message?: string) => void`
 
 断言 `object` 没有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用严格相等检查 (===)。
 
@@ -1094,7 +1094,7 @@ test('assert.notNestedPropertyVal', () => {
 
 ## deepNestedPropertyVal
 
-- **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, value: any, message?: string) => void`
 
 断言 `object` 具有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用深度相等检查。
 
@@ -1117,7 +1117,7 @@ test('assert.notNestedPropertyVal', () => {
 
 ## notDeepNestedPropertyVal
 
-- **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
+- **类型:** `<T>(object: T, property: string, value: any, message?: string) => void`
 
 断言 `object` 没有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用深度相等检查。
 
@@ -1145,7 +1145,7 @@ test('assert.notDeepNestedPropertyVal', () => {
 
 ## lengthOf
 
-- **类型：** `<T extends { readonly length?: number | undefined } | { readonly size?: number | undefined }>(object: T, length: number, message?: string) => void`
+- **类型:** `<T extends { readonly length?: number | undefined } | { readonly size?: number | undefined }>(object: T, length: number, message?: string) => void`
 
 断言 `object` 具有预期的 `length` 或 `size` 值。
 
@@ -1170,7 +1170,7 @@ test('assert.lengthOf', () => {
 
 ## hasAnyKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 至少拥有一个提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1199,7 +1199,7 @@ test('assert.hasAnyKeys', () => {
 
 ## hasAllKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 拥有且仅拥有所有提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1227,7 +1227,7 @@ test('assert.hasAllKeys', () => {
 
 ## containsAllKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 拥有所有提供的 `keys`，但可能还有更多未列出的键。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1267,7 +1267,7 @@ test('assert.containsAllKeys', () => {
 
 ## doesNotHaveAnyKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 不拥有任何提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1299,7 +1299,7 @@ test('assert.doesNotHaveAnyKeys', () => {
 
 ## doesNotHaveAllKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 至少不拥有一个提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1332,7 +1332,7 @@ test('assert.hasAnyKeys', () => {
 
 ## hasAnyDeepKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 至少拥有一个提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 keys 数组，它的键将被用作预期的键集。
 
@@ -1377,7 +1377,7 @@ test('assert.hasAnyDeepKeys', () => {
 
 ## hasAllDeepKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 拥有且仅拥有所有提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 keys 数组，它的键将被用作预期的键集。
 
@@ -1405,7 +1405,7 @@ test('assert.hasAnyDeepKeys', () => {
 
 ## containsAllDeepKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 包含所有提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1439,7 +1439,7 @@ test('assert.containsAllDeepKeys', () => {
 
 ## doesNotHaveAnyDeepKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 不拥有任何提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1473,7 +1473,7 @@ test('assert.doesNotHaveAnyDeepKeys', () => {
 
 ## doesNotHaveAllDeepKeys
 
-- **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
+- **类型:** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
 断言 `object` 至少不拥有一个提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
@@ -1507,10 +1507,10 @@ test('assert.doesNotHaveAllDeepKeys', () => {
 
 ## throws
 
-- **类型：**
+- **类型:**
   - `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
   - `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
-- **别名：**
+- **别名:**
   - `throw`
   - `Throw`
 
@@ -1549,8 +1549,8 @@ test('assert.throws', () => {
 
 ## doesNotThrow
 
-- **类型：** `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
-- **类型：** `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
+- **类型:** `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
+- **类型:** `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
 
 如果 `errorLike` 是一个 Error 构造函数，则断言 `fn` 不会 抛出一个 errorLike 实例的错误。如果 `errorLike` 是一个 Error 实例，则断言抛出的错误不是 与 errorLike 是同一个实例。如果提供了 `errMsgMatcher`，它还断言抛出的错误不会 具有与 `errMsgMatcher` 相匹配的消息。
 
@@ -1571,7 +1571,7 @@ test('assert.doesNotThrow', () => {
 
 ## operator
 
-- **类型：** `(val1: OperatorComparable, operator: Operator, val2: OperatorComparable, message?: string) => void`
+- **类型:** `(val1: OperatorComparable, operator: Operator, val2: OperatorComparable, message?: string) => void`
 
 使用 `operator` 比较 `val1` 和 `val2`。
 
@@ -1585,8 +1585,8 @@ test('assert.operator', () => {
 
 ## closeTo
 
-- **类型：** `(actual: number, expected: number, delta: number, message?: string) => void`
-- **别名：** `approximately`
+- **类型:** `(actual: number, expected: number, delta: number, message?: string) => void`
+- **别名:** `approximately`
 
 断言 `actual` 导出 `expected`，误差范围控制在 +/- `delta` 内。
 
@@ -1600,7 +1600,7 @@ test('assert.closeTo', () => {
 
 ## sameMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 具有相同的成员，但顺序可以不同。使用严格相等检查 (===)。
 
@@ -1614,7 +1614,7 @@ test('assert.sameMembers', () => {
 
 ## notSameMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 不具有相同的成员，但顺序可以不同。使用严格相等检查 (===)。
 
@@ -1628,7 +1628,7 @@ test('assert.sameMembers', () => {
 
 ## sameDeepMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 具有相同的成员，但顺序可以不同。使用深度相等检查。
 
@@ -1646,7 +1646,7 @@ test('assert.sameDeepMembers', () => {
 
 ## notSameDeepMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 不具有相同的成员，但顺序可以不同。使用深度相等检查。
 
@@ -1664,7 +1664,7 @@ test('assert.sameDeepMembers', () => {
 
 ## sameOrderedMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 具有相同的成员，并且顺序也相同。使用严格相等检查 (===)。
 
@@ -1678,7 +1678,7 @@ test('assert.sameOrderedMembers', () => {
 
 ## notSameOrderedMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 的成员不相同或顺序不同。使用严格相等比较 (===)。
 
@@ -1696,7 +1696,7 @@ test('assert.notSameOrderedMembers', () => {
 
 ## sameDeepOrderedMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 的成员相同且顺序相同。使用深度相等比较。
 
@@ -1714,7 +1714,7 @@ test('assert.sameDeepOrderedMembers', () => {
 
 ## notSameDeepOrderedMembers
 
-- **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
+- **类型:** `<T>(set1: T[], set2: T[], message?: string) => void`
 
 断言 `set1` 和 `set2` 的成员不相同或顺序不同。使用深度相等比较。
 
@@ -1737,7 +1737,7 @@ test('assert.notSameDeepOrderedMembers', () => {
 
 ## includeMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 被包含在 `superset` 中，顺序可以不同。使用严格相等比较 (===)。忽略重复项。
 
@@ -1751,7 +1751,7 @@ test('assert.includeMembers', () => {
 
 ## notIncludeMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 未被包含在 `superset` 中，顺序可以不同。使用严格相等比较 (===)。忽略重复项。
 
@@ -1765,7 +1765,7 @@ test('assert.notIncludeMembers', () => {
 
 ## includeDeepMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 被包含在 `superset` 中，顺序可以不同。使用深度相等比较。忽略重复项。
 
@@ -1783,7 +1783,7 @@ test('assert.includeDeepMembers', () => {
 
 ## notIncludeDeepMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 未被包含在 `superset` 中，顺序可以不同。使用深度相等比较。忽略重复项。
 
@@ -1801,7 +1801,7 @@ test('assert.notIncludeDeepMembers', () => {
 
 ## includeOrderedMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用严格相等比较 (===)。
 
@@ -1815,7 +1815,7 @@ test('assert.includeOrderedMembers', () => {
 
 ## notIncludeOrderedMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 未被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用严格相等比较 (===)。
 
@@ -1838,7 +1838,7 @@ test('assert.notIncludeOrderedMembers', () => {
 
 ## includeDeepOrderedMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用深度相等比较。
 
@@ -1856,7 +1856,7 @@ test('assert.includeDeepOrderedMembers', () => {
 
 ## notIncludeDeepOrderedMembers
 
-- **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
+- **类型:** `<T>(superset: T[], subset: T[], message?: string) => void`
 
 断言 `subset` 未被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用深度相等比较。
 
@@ -1884,7 +1884,7 @@ test('assert.includeDeepOrderedMembers', () => {
 
 ## oneOf
 
-- **类型：** `<T>(inList: T, list: T[], message?: string) => void`
+- **类型:** `<T>(inList: T, list: T[], message?: string) => void`
 
 断言非对象、非数组值 `inList` 出现在扁平数组 list 中。
 
@@ -1898,7 +1898,7 @@ test('assert.oneOf', () => {
 
 ## changes
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
 断言 `函数` 用于修改 `property` 所属 `object`。
 
@@ -1916,7 +1916,7 @@ test('assert.changes', () => {
 
 ## changesBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
 断言 `函数` 通过 `change` 修改 `property` 所属的 `object`。
 
@@ -1934,7 +1934,7 @@ test('assert.changesBy', () => {
 
 ## doesNotChange
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
 断言 `函数` 不会通过 `change` 修改 `property` 或 `函数` 返回值的 `object`。
 
@@ -1952,7 +1952,7 @@ test('assert.doesNotChange', () => {
 
 ## changesButNotBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change:number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change:number, message?: string) => void`
 
 断言 `函数` 不会通过 `change` 修改 `property` 或 `函数` 返回值的所属对象。
 
@@ -1970,7 +1970,7 @@ test('assert.changesButNotBy', () => {
 
 ## increases
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
 断言 `函数` 会增加数值类型对象属性。
 
@@ -1988,7 +1988,7 @@ test('assert.increases', () => {
 
 ## increasesBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
 断言 `函数` 会通过 `change` 增加数值类型对象属性或 `函数` 返回值的数值。
 
@@ -2004,7 +2004,7 @@ test('assert.increasesBy', () => {
 
 ## doesNotIncrease
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
 断言 `函数` 不会增加数值类型对象属性。
 
@@ -2022,7 +2022,7 @@ test('assert.doesNotIncrease', () => {
 
 ## increasesButNotBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
 断言 `函数` 不会通过 `change` 增加数值类型对象属性或 `函数` 返回值的数值。
 
@@ -2040,7 +2040,7 @@ test('assert.increasesButNotBy', () => {
 
 ## decreases
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
 断言 `函数` 不会通过 `change` 增加数值类型对象属性或 `函数` 返回值的数值。
 
@@ -2058,7 +2058,7 @@ test('assert.decreases', () => {
 
 ## decreasesBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
 断言 `函数` 会通过 `change` 减少数值类型对象属性或 `函数` 返回值的数值。
 
@@ -2076,7 +2076,7 @@ test('assert.decreasesBy', () => {
 
 ## doesNotDecrease
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
 断言 `函数` 不会减少数值类型对象属性。
 
@@ -2094,7 +2094,7 @@ test('assert.doesNotDecrease', () => {
 
 ## doesNotDecreaseBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
 断言 `函数` 不会通过 `change` 减少数值类型对象属性或 `函数`返回值的数值。
 
@@ -2112,7 +2112,7 @@ test('assert.doesNotDecreaseBy', () => {
 
 ## decreasesButNotBy
 
-- **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
+- **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
 断言 `函数` 不会通过 change 减少数值类型对象属性或 `函数` 返回值的数值。
 
@@ -2130,7 +2130,7 @@ test('assert.decreasesButNotBy', () => {
 
 ## ifError
 
-- **类型：** `<T>(object: T, message?: string) => void`
+- **类型:** `<T>(object: T, message?: string) => void`
 
 断言 `object` 是否为假值，如果它是真值则抛出错误。这是为了允许 chai 作为 Node 的 assert 类的一个直接替代品。
 
@@ -2145,8 +2145,8 @@ test('assert.ifError', () => {
 
 ## isExtensible
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `extensible`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `extensible`
 
 断言 `object` 是可扩展的（可以向其添加新的属性）。
 
@@ -2160,8 +2160,8 @@ test('assert.isExtensible', () => {
 
 ## isNotExtensible
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `notExtensible`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `notExtensible`
 
 断言 `object` 是不可扩展的 （不能添加新属性）。
 
@@ -2181,8 +2181,8 @@ test('assert.isNotExtensible', () => {
 
 ## isSealed
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `sealed`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `sealed`
 
 断言 `object` 是密封的（不能向其添加新的属性，也不能删除其现有属性）。
 
@@ -2200,8 +2200,8 @@ test('assert.isSealed', () => {
 
 ## isNotSealed
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `notSealed`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `notSealed`
 
 断言 `object` 未被密封（可以添加新属性，并且可以删除其现有属性）。
 
@@ -2215,8 +2215,8 @@ test('assert.isNotSealed', () => {
 
 ## isFrozen
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `frozen`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `frozen`
 
 断言 `object` 是冻结的（不能向其添加新的属性，也不能修改其现有属性）。
 
@@ -2231,8 +2231,8 @@ test('assert.isFrozen', () => {
 
 ## isNotFrozen
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `notFrozen`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `notFrozen`
 
 断言 `object` 未被冻结（可以向其添加新属性，并且可以修改其现有属性）。
 
@@ -2246,8 +2246,8 @@ test('assert.isNotFrozen', () => {
 
 ## isEmpty
 
-- **类型：** `<T>(target: T, message?: string) => void`
-- **别名：** `empty`
+- **类型:** `<T>(target: T, message?: string) => void`
+- **别名:** `empty`
 
 断言 `target` 不包含任何值。对于数组和字符串，它检查 length 属性。对于 Map 和 Set 实例，它检查 size 属性。对于非函数对象，它获取自身可枚举字符串键的数量。
 
@@ -2264,8 +2264,8 @@ test('assert.isEmpty', () => {
 
 ## isNotEmpty
 
-- **类型：** `<T>(object: T, message?: string) => void`
-- **别名：** `notEmpty`
+- **类型:** `<T>(object: T, message?: string) => void`
+- **别名:** `notEmpty`
 
 断言 `target` 包含值。对于数组和字符串，它检查 length 属性。对于 Map 和 Set 实例，它检查 size 属性。对于非函数对象，它获取自身可枚举字符串键的数量。
 
