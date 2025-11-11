@@ -111,7 +111,7 @@ test('assert.strictEqual', () => {
 
 - **类型：** `<T>(actual: T, expected: T, message?: string) => void`
 
-断言 `actual` 和 `expected` 深度相等。
+断言 `actual` 深度等于 `expected` 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -125,7 +125,7 @@ test('assert.deepEqual', () => {
 
 - **类型：** `<T>(actual: T, expected: T, message?: string) => void`
 
-断言 `actual` 和 `expected` 不深度相等。
+断言 `actual` 不深度等于 `expected` 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -153,7 +153,7 @@ test('assert.isAbove', () => {
 
 - **类型：** `(valueToCheck: number, valueToBeAtLeast: number, message?: string) => void`
 
-断言 `valueToCheck` 大于等于 (>=) `valueToBeAtLeast`。
+断言 `valueToCheck` 大于或等于 (>=) `valueToBeAtLeast`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -182,7 +182,7 @@ test('assert.isBelow', () => {
 
 - **类型：** `(valueToCheck: number, valueToBeAtMost: number, message?: string) => void`
 
-断言 `valueToCheck` 小于等于 (<=) `valueToBeAtMost`。
+断言 `valueToCheck` 小于或等于 (<=) `valueToBeAtMost`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -325,7 +325,7 @@ test('assert.isNotNaN', () => {
 
 - **类型：** `<T>(value: T, message?: string) => asserts value is NonNullable<T>`
 
-断言 `value` 既不是 null 也不是 undefined.
+断言 `value` 既不是 null 也不是 undefined。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -341,7 +341,7 @@ test('assert.exists', () => {
 
 - **类型：** `<T>(value: T, message?: string) => asserts value is null | undefined`
 
-断言 `value` 要么是 null 要么是 undefined.
+断言 `value` 是 null 或 undefined。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -359,7 +359,7 @@ test('assert.notExists', () => {
 
 - **类型：** `<T>(value: T, message?: string) => asserts value is undefined`
 
-断言 `value` 是 undefined.
+断言 `value` 是 undefined。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -375,7 +375,7 @@ test('assert.isUndefined', () => {
 
 - **类型：** `<T>(value: T, message?: string) => asserts value is Exclude<T, undefined>`
 
-断言 `value` 不是 undefined.
+断言 `value` 不是 undefined。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -390,8 +390,8 @@ test('assert.isDefined', () => {
 ## isFunction
 
 - **类型：** `<T>(value: T, message?: string) => void`
-- **Alias:** `isCallable`
-  断言 `value` 是一个 function.
+- **别名：** `isCallable`
+  断言 `value` 是一个函数。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -408,9 +408,9 @@ test('assert.isFunction', () => {
 ## isNotFunction
 
 - **类型：** `<T>(value: T, message?: string) => void`
-- **Alias:** `isNotCallable`
+- **别名：** `isNotCallable`
 
-断言 `value` 不是一个 function.
+断言 `value` 不是一个函数。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -426,7 +426,7 @@ test('assert.isNotFunction', () => {
 
 - **类型：** `<T>(value: T, message?: string) => void`
 
-断言 `value` 是一个类型为 Object (如 Object.prototype.toString)。 该断言不匹配子类对象。
+断言 `value` 是一个类型为 'Object' 的对象 (由 Object.prototype.toString 确定)。 此断言不匹配子类对象。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -442,7 +442,7 @@ test('assert.isObject', () => {
 
 - **类型：** `<T>(value: T, message?: string) => void`
 
-断言 `value` 不是一个 (如 Object.prototype.toString)。 该断言不匹配子类对象。
+断言 `value` 不是一个类型为 'Object' 的对象 (如 Object.prototype.toString 确定)。 该断言不匹配子类对象。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -522,7 +522,7 @@ test('assert.isNotString', () => {
 
 - **类型：** `<T>(value: T, message?: string) => void`
 
-断言 `value` 是一个数值。
+断言 `value` 是一个数字。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -538,7 +538,7 @@ test('assert.isNumber', () => {
 
 - **类型：** `<T>(value: T, message?: string) => void`
 
-断言 `value` 不是一个数值。
+断言 `value` 不是一个数字。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -554,7 +554,7 @@ test('assert.isNotNumber', () => {
 
 - **类型：** `<T>(value: T, message?: string) => void`
 
-断言 `value` 是一个有限数值 (不是 NaN, Infinity)。
+断言 `value` 是一个有限数字。(不是 NaN, Infinity)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -692,7 +692,7 @@ test('assert.instanceOf', () => {
   - `<T extends object>(haystack: WeakSet<T>, needle: T, message?: string) => void`
   - `<T>(haystack: T, needle: Partial<T>, message?: string) => void`
 
-断言 `haystack` 包含 `needle`。可用于以下场景：数组中包含某个值、字符串中包含某些字符串、对象中包含属性子集。
+断言 `haystack` 包含 `needle`。可以用来断言数组中是否包含一个值、字符串中是否包含一个子字符串、或者对象中是否包含一组属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -716,7 +716,7 @@ test('assert.include', () => {
   - `<T extends object>(haystack: WeakSet<T>, needle: T, message?: string) => void`
   - `<T>(haystack: T, needle: Partial<T>, message?: string) => void`
 
-断言 `haystack` 不包含 `needle`。可用于以下场景：数组中包含某个值、字符串中包含某些字符串、对象中包含属性子集。
+断言 `haystack` 不包含 `needle`。可以用来断言数组中是否不包含一个值、字符串中是否不包含一个子字符串、或者对象中是否不包含一组属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -739,7 +739,7 @@ test('assert.notInclude', () => {
 - `<T>(haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string) => void`
 - `<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string) => void`
 
-断言 `haystack` includes `needle`。 可用于断言数组是否包含某个值，或对象是否包含属性子集。可用于深度比较。
+断言 `haystack`  包含 `needle`。可以用来断言数组中是否包含一个值或对象中是否包含一组属性。使用深度相等。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -760,7 +760,7 @@ test('assert.deepInclude', () => {
   - `<T>(haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string) => void`
   - `<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string) => void`
 
-断言 `haystack` 不包含 `needle`。可用于断言数组是否包含某个值，或对象是否包含属性子集。可用于深度比较。
+断言 `haystack` 不包含 `needle`。可以用来断言数组中是否不包含一个值或对象中是否不包含一组属性。使用深度相等。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -778,7 +778,7 @@ test('assert.notDeepInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` includes `needle`. Can be used to assert the inclusion of a subset of properties in an object. Enables the use of dot- and bracket-notation for referencing nested properties. ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+断言 `haystack` 包含 `needle`。 可以用来断言对象中是否包含一组属性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -793,7 +793,7 @@ test('assert.nestedInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` does not include `needle`. Can be used to assert the inclusion of a subset of properties in an object. Enables the use of dot- and bracket-notation for referencing nested properties. ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+断言 `haystack` 不包含 `needle`。可以用来断言对象中是否不包含一组属性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -808,7 +808,7 @@ test('assert.nestedInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` includes `needle`. Can be used to assert the inclusion of a subset of properties in an object while checking for deep equality. Enables the use of dot- and bracket-notation for referencing nested properties. ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+断言 `haystack` 包含 `needle`可以用来断言对象中是否包含一组属性，同时检查深度相等性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -826,7 +826,7 @@ test('assert.deepNestedInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` not includes `needle`. Can be used to assert the absence of a subset of properties in an object while checking for deep equality. Enables the use of dot- and bracket-notation for referencing nested properties. ‘[]’ and ‘.’ in property names can be escaped using double backslashes.
+断言 `haystack` 不包含 `needle`。可以用来断言对象中是否不包含一组属性，同时检查深度相等性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -844,7 +844,7 @@ test('assert.notDeepNestedInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` includes `needle`. Can be used to assert the inclusion of a subset of properties in an object while ignoring inherited properties.
+断言 `haystack` 包含 `needle`。可以用来断言对象中是否包含一组属性，同时忽略继承的属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -858,7 +858,7 @@ test('assert.ownInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` includes `needle`. Can be used to assert the absence of a subset of properties in an object while ignoring inherited properties.
+断言 `haystack` 包含 `needle`。可以用来断言对象中是否不包含一组属性，同时忽略继承的属性
 
 ```ts
 import { assert, test } from 'vitest'
@@ -879,7 +879,7 @@ test('assert.notOwnInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` includes `needle`. Can be used to assert the inclusion of a subset of properties in an object while ignoring inherited properties and checking for deep equality.
+断言 `haystack` 包含 `needle`。可以用来断言对象中是否包含一组属性，同时忽略继承的属性并检查深度相等性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -893,7 +893,7 @@ test('assert.deepOwnInclude', () => {
 
 - **类型：** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` not includes `needle`. Can be used to assert the absence of a subset of properties in an object while ignoring inherited properties and checking for deep equality.
+断言 `haystack` 包含 `needle`。可以用来断言对象中是否不包含一组属性，同时忽略继承的属性并检查深度相等性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -907,7 +907,7 @@ test('assert.notDeepOwnInclude', () => {
 
 - **类型：** `(value: string, regexp: RegExp, message?: string) => void`
 
-断言 `value` matches the regular expression `regexp`.
+断言 `value` 匹配正则表达式 `regexp`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -921,7 +921,7 @@ test('assert.match', () => {
 
 - **类型：** `(value: string, regexp: RegExp, message?: string) => void`
 
-断言 `value` does not matches the regular expression `regexp`.
+断言 `value` 不匹配正则表达式 `regexp`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -935,7 +935,7 @@ test('assert.notMatch', () => {
 
 - **类型：** `<T>(object: T, property: string, message?: string) => void`
 
-断言 `object` has a direct or inherited property named by `property`
+断言 `object` 具有由 `property` 指定的直接或继承属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -950,7 +950,7 @@ test('assert.property', () => {
 
 - **类型：** `<T>(object: T, property: string, message?: string) => void`
 
-断言 `object` does not have a direct or inherited property named by `property`
+断言 `object` 没有由 `property` 指定的直接或继承属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -964,7 +964,7 @@ test('assert.notProperty', () => {
 
 - **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
-断言 `object` has a direct or inherited property named by `property` with a value given by `value`. Uses a strict equality check (===).
+断言 `object` 具有由 `property` 指定的直接或继承属性，其值为 `value`。使用严格相等检查（===）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -978,7 +978,7 @@ test('assert.notPropertyVal', () => {
 
 - **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
-断言 `object` does not have a direct or inherited property named by `property` with a value given by `value`. Uses a strict equality check (===).
+断言 `object` 没有由 `property` 指定的直接或继承属性，其值为 `value`。使用严格相等检查（===）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -993,7 +993,7 @@ test('assert.notPropertyVal', () => {
 
 - **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
-断言 `object` has a direct or inherited property named by `property` with a value given by `value`. Uses a deep equality check.
+断言 `object` 具有由 `property` 指定的直接或继承属性，其值为 `value`。使用深度相等检查。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1009,7 +1009,7 @@ test('assert.deepPropertyVal', () => {
 
 - **类型：** `<T, V>(object: T, property: string, value: V, message?: string) => void`
 
-断言 `object` does not have a direct or inherited property named by `property` with a value given by `value`. Uses a deep equality check.
+断言 `object` 没有由 `property` 指定的直接或继承属性，其值为 `value`。使用深度相等检查。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1031,7 +1031,7 @@ test('assert.deepPropertyVal', () => {
 
 - **类型：** `<T>(object: T, property: string, message?: string) => void`
 
-断言 `object` has a direct or inherited property named by `property`, which can be a string using dot- and bracket-notation for nested reference.
+断言 `object` 具有由 `property` 指定的直接或继承属性，它可以是一个字符串，使用点和括号表示法来引用嵌套的引用。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1045,7 +1045,7 @@ test('assert.deepPropertyVal', () => {
 
 - **类型：** `<T>(object: T, property: string, message?: string) => void`
 
-断言 `object` does not have a direct or inherited property named by `property`, which can be a string using dot- and bracket-notation for nested reference.
+断言 `object` 没有由 `property` 指定的属性，它可以是一个字符串，使用点和括号表示法来引用嵌套的引用。该属性不能存在于对象上，也不能存在于其原型链中的任何地方。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1059,7 +1059,7 @@ test('assert.deepPropertyVal', () => {
 
 - **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
 
-断言 `object` has a property named by `property` with value given by `value`. `property` can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+断言 `object` 具有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用严格相等检查 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1073,7 +1073,7 @@ test('assert.nestedPropertyVal', () => {
 
 - **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
 
-断言 `object` does not have a property named by `property` with value given by `value`. `property` can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+断言 `object` 没有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用严格相等检查 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1096,7 +1096,7 @@ test('assert.notNestedPropertyVal', () => {
 
 - **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
 
-断言 `object` has a property named by `property` with a value given by `value`. `property` can use dot- and bracket-notation for nested reference. Uses a deep equality check (===).
+断言 `object` 具有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用深度相等检查。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1119,7 +1119,7 @@ test('assert.notNestedPropertyVal', () => {
 
 - **类型：** `<T>(object: T, property: string, value: any, message?: string) => void`
 
-断言 `object` does not have a property named by `property` with value given by `value`. `property` can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+断言 `object` 没有由 `property` 指定的属性，其值为 `value` 给出。 `property` 可以使用点和方括号表示法进行嵌套引用。使用深度相等检查。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1147,7 +1147,7 @@ test('assert.notDeepNestedPropertyVal', () => {
 
 - **类型：** `<T extends { readonly length?: number | undefined } | { readonly size?: number | undefined }>(object: T, length: number, message?: string) => void`
 
-断言 `object` has a `length` or `size` with the expected value.
+断言 `object` 具有预期的 `length` 或 `size` 值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1172,7 +1172,7 @@ test('assert.lengthOf', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has at least one of the `keys` provided. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 至少拥有一个提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1201,7 +1201,7 @@ test('assert.hasAnyKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has all and only all of the `keys` provided. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 拥有且仅拥有所有提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1229,7 +1229,7 @@ test('assert.hasAllKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has all of the `keys` provided but may have more keys not listed. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 拥有所有提供的 `keys`，但可能还有更多未列出的键。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1269,7 +1269,7 @@ test('assert.containsAllKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has none of the `keys` provided. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 不拥有任何提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1301,7 +1301,7 @@ test('assert.doesNotHaveAnyKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` does not have at least one of the `keys` provided. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 至少不拥有一个提供的 `keys`。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1334,7 +1334,7 @@ test('assert.hasAnyKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has at least one of the `keys` provided. Since Sets and Maps can have objects as keys you can use this assertion to perform a deep comparison. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 至少拥有一个提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 keys 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1379,7 +1379,7 @@ test('assert.hasAnyDeepKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has all and only all of the `keys` provided. Since Sets and Maps can have objects as keys you can use this assertion to perform a deep comparison. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 拥有且仅拥有所有提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 keys 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1407,7 +1407,7 @@ test('assert.hasAnyDeepKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` contains all of the `keys` provided. Since Sets and Maps can have objects as keys you can use this assertion to perform a deep comparison. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 包含所有提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1441,7 +1441,7 @@ test('assert.containsAllDeepKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` has none of the `keys` provided. Since Sets and Maps can have objects as keys you can use this assertion to perform a deep comparison. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 不拥有任何提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1475,7 +1475,7 @@ test('assert.doesNotHaveAnyDeepKeys', () => {
 
 - **类型：** `<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string) => void`
 
-断言 `object` does not have at least one of the `keys` provided. Since Sets and Maps can have objects as keys you can use this assertion to perform a deep comparison. You can also provide a single object instead of a keys array and its keys will be used as the expected set of keys.
+断言 `object` 至少不拥有一个提供的 `keys`。由于 Set 和 Map 可以拥有对象作为键，你可以使用这个断言来进行深度比较。你也可以提供一个单独的对象而不是一个 `keys` 数组，它的键将被用作预期的键集。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1510,11 +1510,11 @@ test('assert.doesNotHaveAllDeepKeys', () => {
 - **类型：**
   - `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
   - `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
-- **Alias:**
+- **别名：**
   - `throw`
   - `Throw`
 
-If `errorLike` is an Error constructor, 断言 `fn` will throw an error that is an instance of `errorLike`. If errorLike is an Error instance, 断言 the error thrown is the same instance as `errorLike`. If `errMsgMatcher` is provided, it also 断言 the error thrown will have a message matching `errMsgMatcher`.
+如果 `errorLike` 是一个 Error 构造函数，则断言 `fn` 将抛出一个 errorLike 实例的错误。如果 `errorLike` 是一个 Error 实例，则断言抛出的错误与 `errorLike` 是同一个实例。如果提供了 `errMsgMatcher`，它还断言抛出的错误将具有与 `errMsgMatcher` 相匹配的消息。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1552,7 +1552,7 @@ test('assert.throws', () => {
 - **类型：** `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
 - **类型：** `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
 
-If `errorLike` is an Error constructor, 断言 `fn` will not throw an error that is an instance of `errorLike`. If errorLike is an Error instance, 断言 the error thrown is not the same instance as `errorLike`. If `errMsgMatcher` is provided, it also 断言 the error thrown will not have a message matching `errMsgMatcher`.
+如果 `errorLike` 是一个 Error 构造函数，则断言 `fn` 不会 抛出一个 errorLike 实例的错误。如果 `errorLike` 是一个 Error 实例，则断言抛出的错误不是 与 errorLike 是同一个实例。如果提供了 `errMsgMatcher`，它还断言抛出的错误不会 具有与 `errMsgMatcher` 相匹配的消息。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1573,7 +1573,7 @@ test('assert.doesNotThrow', () => {
 
 - **类型：** `(val1: OperatorComparable, operator: Operator, val2: OperatorComparable, message?: string) => void`
 
-Compare `val1` and `val2` using `operator`.
+使用 `operator` 比较 `val1` 和 `val2`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1586,9 +1586,9 @@ test('assert.operator', () => {
 ## closeTo
 
 - **类型：** `(actual: number, expected: number, delta: number, message?: string) => void`
-- **Alias:** `approximately`
+- **别名：** `approximately`
 
-断言 the `actual` is equal `expected`, to within a +/- `delta` range.
+断言 `actual` 导出 `expected`，误差范围控制在 +/- `delta` 内。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1602,7 +1602,7 @@ test('assert.closeTo', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` have the same members in any order. Uses a strict equality check (===).
+断言 `set1` 和 `set2` 具有相同的成员，但顺序可以不同。使用严格相等检查 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1616,7 +1616,7 @@ test('assert.sameMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` don't have the same members in any order. Uses a strict equality check (===).
+断言 `set1` 和 `set2` 不具有相同的成员，但顺序可以不同。使用严格相等检查 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1630,7 +1630,7 @@ test('assert.sameMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` have the same members in any order. Uses a deep equality check.
+断言 `set1` 和 `set2` 具有相同的成员，但顺序可以不同。使用深度相等检查。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1648,7 +1648,7 @@ test('assert.sameDeepMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` don’t have the same members in any order. Uses a deep equality check.
+断言 `set1` 和 `set2` 不具有相同的成员，但顺序可以不同。使用深度相等检查。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1666,7 +1666,7 @@ test('assert.sameDeepMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` have the same members in the same order. Uses a strict equality check (===).
+断言 `set1` 和 `set2` 具有相同的成员，并且顺序也相同。使用严格相等检查 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1680,7 +1680,7 @@ test('assert.sameOrderedMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` have the same members in the same order. Uses a strict equality check (===).
+断言 `set1` 和 `set2` 的成员不相同或顺序不同。使用严格相等比较 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1698,7 +1698,7 @@ test('assert.notSameOrderedMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` have the same members in the same order. Uses a deep equality check.
+断言 `set1` 和 `set2` 的成员相同且顺序相同。使用深度相等比较。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1716,7 +1716,7 @@ test('assert.sameDeepOrderedMembers', () => {
 
 - **类型：** `<T>(set1: T[], set2: T[], message?: string) => void`
 
-断言 `set1` and `set2` don’t have the same members in the same order. Uses a deep equality check.
+断言 `set1` 和 `set2` 的成员不相同或顺序不同。使用深度相等比较。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1739,7 +1739,7 @@ test('assert.notSameDeepOrderedMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` is included in `superset` in any order. Uses a strict equality check (===). Duplicates are ignored.
+断言 `subset` 被包含在 `superset` 中，顺序可以不同。使用严格相等比较 (===)。忽略重复项。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1753,7 +1753,7 @@ test('assert.includeMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` isn't included in `superset` in any order. Uses a strict equality check (===). Duplicates are ignored.
+断言 `subset` 未被包含在 `superset` 中，顺序可以不同。使用严格相等比较 (===)。忽略重复项。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1767,7 +1767,7 @@ test('assert.notIncludeMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` is included in `superset` in any order. Uses a deep equality check. Duplicates are ignored.
+断言 `subset` 被包含在 `superset` 中，顺序可以不同。使用深度相等比较。忽略重复项。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1785,7 +1785,7 @@ test('assert.includeDeepMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` isn’t included in `superset` in any order. Uses a deep equality check. Duplicates are ignored.
+断言 `subset` 未被包含在 `superset` 中，顺序可以不同。使用深度相等比较。忽略重复项。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1803,7 +1803,7 @@ test('assert.notIncludeDeepMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` is included in `superset` in the same order beginning with the first element in `superset`. Uses a strict equality check (===).
+断言 `subset` 被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用严格相等比较 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1817,7 +1817,7 @@ test('assert.includeOrderedMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` isn't included in `superset` in the same order beginning with the first element in `superset`. Uses a strict equality check (===).
+断言 `subset` 未被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用严格相等比较 (===)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1840,7 +1840,7 @@ test('assert.notIncludeOrderedMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` is included in `superset` in the same order beginning with the first element in `superset`. Uses a deep equality check.
+断言 `subset` 被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用深度相等比较。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1858,7 +1858,7 @@ test('assert.includeDeepOrderedMembers', () => {
 
 - **类型：** `<T>(superset: T[], subset: T[], message?: string) => void`
 
-断言 `subset` isn’t included in `superset` in the same order beginning with the first element in superset. Uses a deep equality check.
+断言 `subset` 未被包含在 `superset` 中，顺序相同，从 `superset` 中的第一个元素开始。使用深度相等比较。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1886,7 +1886,7 @@ test('assert.includeDeepOrderedMembers', () => {
 
 - **类型：** `<T>(inList: T, list: T[], message?: string) => void`
 
-断言 non-object, non-array value `inList` appears in the flat array `list`.
+断言非对象、非数组值 `inList` 出现在扁平数组 list 中。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1900,7 +1900,7 @@ test('assert.oneOf', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
-断言 a `modifier` changes the `object` of a `property`.
+断言 `函数` 用于修改 `property` 所属 `object`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1918,7 +1918,7 @@ test('assert.changes', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 a `modifier` changes the `object` of a `property` by a `change`.
+断言 `函数` 通过 `change` 修改 `property` 所属的 `object`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1936,7 +1936,7 @@ test('assert.changesBy', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
-断言 a `modifier` does not changes the `object` of a `property`.
+断言 `函数` 不会通过 `change` 修改 `property` 或 `函数` 返回值的 `object`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1954,7 +1954,7 @@ test('assert.doesNotChange', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change:number, message?: string) => void`
 
-断言 a `modifier` does not change the `object` of a `property` or of a `modifier` return value by a `change`.
+断言 `函数` 不会通过 `change` 修改 `property` 或 `函数` 返回值的所属对象。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1972,7 +1972,7 @@ test('assert.changesButNotBy', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
-断言 a `modifier` increases a numeric `object`'s `property`.
+断言 `函数` 会增加数值类型对象属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1990,7 +1990,7 @@ test('assert.increases', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 a `modifier` increases a numeric `object`'s `property` or a `modifier` return value by an `change`.
+断言 `函数` 会通过 `change` 增加数值类型对象属性或 `函数` 返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2006,7 +2006,7 @@ test('assert.increasesBy', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
-断言 a `modifier` does not increases a numeric `object`'s `property`.
+断言 `函数` 不会增加数值类型对象属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2024,7 +2024,7 @@ test('assert.doesNotIncrease', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 a `modifier` does not increases a numeric `object`'s `property` or a `modifier` return value by an `change`.
+断言 `函数` 不会通过 `change` 增加数值类型对象属性或 `函数` 返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2042,7 +2042,7 @@ test('assert.increasesButNotBy', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
-断言 a `modifier` decreases a numeric `object`'s `property`.
+断言 `函数` 不会通过 `change` 增加数值类型对象属性或 `函数` 返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2060,7 +2060,7 @@ test('assert.decreases', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 a `modifier` decreases a numeric `object`'s `property` or a `modifier` return value by a `change`.
+断言 `函数` 会通过 `change` 减少数值类型对象属性或 `函数` 返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2078,7 +2078,7 @@ test('assert.decreasesBy', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, message?: string) => void`
 
-断言 a `modifier` dose not decrease a numeric `object`'s `property`.
+断言 `函数` 不会减少数值类型对象属性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2096,7 +2096,7 @@ test('assert.doesNotDecrease', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 a `modifier` does not decrease a numeric `object`'s `property` or a `modifier` return value by a `change`.
+断言 `函数` 不会通过 `change` 减少数值类型对象属性或 `函数`返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2114,7 +2114,7 @@ test('assert.doesNotDecreaseBy', () => {
 
 - **类型：** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 a `modifier` does not decrease a numeric `object`'s `property` or a `modifier` return value by a `change`.
+断言 `函数` 不会通过 change 减少数值类型对象属性或 `函数` 返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2132,23 +2132,23 @@ test('assert.decreasesButNotBy', () => {
 
 - **类型：** `<T>(object: T, message?: string) => void`
 
-Asserts if `object` is not a false value, and throws if it is a true value. This is added to allow for chai to be a drop-in replacement for Node’s assert class.
+断言 `object` 是否为假值，如果它是真值则抛出错误。这是为了允许 chai 作为 Node 的 assert 类的一个直接替代品。
 
 ```ts
 import { assert, test } from 'vitest'
 
 test('assert.ifError', () => {
   const err = new Error('I am a custom error')
-  assert.ifError(err) // Rethrows err!
+  assert.ifError(err) // 重新抛出错误！
 })
 ```
 
 ## isExtensible
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `extensible`
+- **别名：** `extensible`
 
-断言 `object` is extensible (can have new properties added to it).
+断言 `object` 是可扩展的（可以向其添加新的属性）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2161,9 +2161,9 @@ test('assert.isExtensible', () => {
 ## isNotExtensible
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `notExtensible`
+- **别名：** `notExtensible`
 
-断言 `object` is not extensible (can not have new properties added to it).
+断言 `object` 是不可扩展的 （不能添加新属性）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2182,9 +2182,9 @@ test('assert.isNotExtensible', () => {
 ## isSealed
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `sealed`
+- **别名：** `sealed`
 
-断言 `object` is sealed (cannot have new properties added to it and its existing properties cannot be removed).
+断言 `object` 是密封的（不能向其添加新的属性，也不能删除其现有属性）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2201,9 +2201,9 @@ test('assert.isSealed', () => {
 ## isNotSealed
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `notSealed`
+- **别名：** `notSealed`
 
-断言 `object` is not sealed (can have new properties added to it and its existing properties can be removed).
+断言 `object` 未被密封（可以添加新属性，并且可以删除其现有属性）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2216,9 +2216,9 @@ test('assert.isNotSealed', () => {
 ## isFrozen
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `frozen`
+- **别名：** `frozen`
 
-断言 object is frozen (cannot have new properties added to it and its existing properties cannot be modified).
+断言 `object` 是冻结的（不能向其添加新的属性，也不能修改其现有属性）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2232,9 +2232,9 @@ test('assert.isFrozen', () => {
 ## isNotFrozen
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `notFrozen`
+- **别名：** `notFrozen`
 
-断言 `object` is not frozen (can have new properties added to it and its existing properties can be modified).
+断言 `object` 未被冻结（可以向其添加新属性，并且可以修改其现有属性）。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2247,9 +2247,9 @@ test('assert.isNotFrozen', () => {
 ## isEmpty
 
 - **类型：** `<T>(target: T, message?: string) => void`
-- **Alias:** `empty`
+- **别名：** `empty`
 
-断言 the `target` does not contain any values. For arrays and strings, it checks the length property. For Map and Set instances, it checks the size property. For non-function objects, it gets the count of its own enumerable string keys.
+断言 `target` 不包含任何值。对于数组和字符串，它检查 length 属性。对于 Map 和 Set 实例，它检查 size 属性。对于非函数对象，它获取自身可枚举字符串键的数量。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2265,9 +2265,9 @@ test('assert.isEmpty', () => {
 ## isNotEmpty
 
 - **类型：** `<T>(object: T, message?: string) => void`
-- **Alias:** `notEmpty`
+- **别名：** `notEmpty`
 
-断言 the `target` contains values. For arrays and strings, it checks the length property. For Map and Set instances, it checks the size property. For non-function objects, it gets the count of its own enumerable string keys.
+断言 `target` 包含值。对于数组和字符串，它检查 length 属性。对于 Map 和 Set 实例，它检查 size 属性。对于非函数对象，它获取自身可枚举字符串键的数量。
 
 ```ts
 import { assert, test } from 'vitest'
