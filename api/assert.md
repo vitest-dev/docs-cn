@@ -83,7 +83,7 @@ test('assert.equal', () => {
 
 - **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
-断言 `actual` 和 `expected` 非严格不等(!=).
+断言 `actual` 和 `expected` 非严格不等(!=)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -153,7 +153,7 @@ test('assert.isAbove', () => {
 
 - **类型:** `(valueToCheck: number, valueToBeAtLeast: number, message?: string) => void`
 
-断言 `valueToCheck` 大于或等于 (>=) `valueToBeAtLeast`。
+断言 `valueToCheck` 大于等于 (>=) `valueToBeAtLeast`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -182,7 +182,7 @@ test('assert.isBelow', () => {
 
 - **类型:** `(valueToCheck: number, valueToBeAtMost: number, message?: string) => void`
 
-断言 `valueToCheck` 小于或等于 (<=) `valueToBeAtMost`。
+断言 `valueToCheck` 小于等于 (<=) `valueToBeAtMost`。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -808,7 +808,7 @@ test('assert.nestedInclude', () => {
 
 - **类型:** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` 包含 `needle`可以用来断言对象中是否包含一组属性，同时检查深度相等性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
+断言 `haystack` 包含 `needle`。可以用来断言对象中是否包含一组属性，同时检查深度相等性。允许使用点和括号表示法来引用嵌套属性。属性名中的 ‘[]’ 和 ‘.’ 可以使用双反斜杠转义。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -893,7 +893,7 @@ test('assert.deepOwnInclude', () => {
 
 - **类型:** `(haystack: any, needle: any, message?: string) => void`
 
-断言 `haystack` 包含 `needle`。可以用来断言对象中是否不包含一组属性，同时忽略继承的属性并检查深度相等性。
+断言 `haystack` 不包含 `needle`。可以用来断言对象中是否不包含一组属性，同时忽略继承的属性并检查深度相等性。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1552,7 +1552,7 @@ test('assert.throws', () => {
 - **类型:** `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
 - **类型:** `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
 
-如果 `errorLike` 是一个 Error 构造函数，则断言 `fn` 不会 抛出一个 errorLike 实例的错误。如果 `errorLike` 是一个 Error 实例，则断言抛出的错误不是 与 errorLike 是同一个实例。如果提供了 `errMsgMatcher`，它还断言抛出的错误不会 具有与 `errMsgMatcher` 相匹配的消息。
+如果 `errorLike` 是一个 Error 构造函数，则断言 `fn` 不会 抛出一个 errorLike 实例的错误。如果 `errorLike` 是一个 Error 实例，则断言抛出的错误不是与 errorLike 是同一个实例。如果提供了 `errMsgMatcher`，它还断言抛出的错误不会 具有与 `errMsgMatcher` 相匹配的消息。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -1588,7 +1588,7 @@ test('assert.operator', () => {
 - **类型:** `(actual: number, expected: number, delta: number, message?: string) => void`
 - **别名:** `approximately`
 
-断言 `actual` 导出 `expected`，误差范围控制在 +/- `delta` 内。
+断言 `actual` 等于 `expected`，误差范围控制在 +/- `delta` 内。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -2096,7 +2096,7 @@ test('assert.doesNotDecrease', () => {
 
 - **类型:** `<T>(modifier: Function, object: T, property: string, change: number, message?: string) => void`
 
-断言 `函数` 不会通过 `change` 减少数值类型对象属性或 `函数`返回值的数值。
+断言 `函数` 不会通过 `change` 减少数值类型对象属性或 `函数` 返回值的数值。
 
 ```ts
 import { assert, test } from 'vitest'
