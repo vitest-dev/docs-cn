@@ -426,7 +426,7 @@ test('assert.isNotFunction', () => {
 
 - **类型:** `<T>(value: T, message?: string) => void`
 
-断言 `value` 是一个类型为 'Object' 的对象 (由 Object.prototype.toString 确定)。 此断言不匹配子类对象。
+断言 `value` 是一个类型为 Object 的对象 (由 Object.prototype.toString 确定)。 此断言不匹配子类对象。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -442,7 +442,7 @@ test('assert.isObject', () => {
 
 - **类型:** `<T>(value: T, message?: string) => void`
 
-断言 `value` 不是一个类型为 'Object' 的对象 (如 Object.prototype.toString 确定)。 该断言不匹配子类对象。
+断言 `value` 不是一个类型为 Object 的对象 (如 Object.prototype.toString 确定)。 该断言不匹配子类对象。
 
 ```ts
 import { assert, test } from 'vitest'
