@@ -38,7 +38,7 @@ test('assert.fail', () => {
 - **类型:** `<T>(value: T, message?: string) => asserts value`
 - **Alias** `ok`
 
-断言给定的 `value` 是 true。
+断言给定的 `value` 是 true 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -54,7 +54,7 @@ test('assert.isOk', () => {
 - **类型:** `<T>(value: T, message?: string) => void`
 - **Alias** `notOk`
 
-断言给定的 `value` 是 false。
+断言给定的 `value` 是 false 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -197,7 +197,7 @@ test('assert.isAtMost', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is true`
 
-断言 `value` 是 true。
+断言 `value` 是 true 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -213,7 +213,7 @@ test('assert.isTrue', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, true>`
 
-断言 `value` 不是 true。
+断言 `value` 不是 true 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -229,7 +229,7 @@ test('assert.isNotTrue', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is false`
 
-断言 `value` 是 false。
+断言 `value` 是 false 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -245,7 +245,7 @@ test('assert.isFalse', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, false>`
 
-断言 `value` 不是 false。
+断言 `value` 不是 false 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -261,7 +261,7 @@ test('assert.isNotFalse', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is null`
 
-断言 `value` 是 null。
+断言 `value` 是 null 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -277,7 +277,7 @@ test('assert.isNull', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, null>`
 
-断言 `value` 不是 null。
+断言 `value` 不是 null 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -293,7 +293,7 @@ test('assert.isNotNull', () => {
 
 - **类型:** `<T>(value: T, message?: string) => void`
 
-断言 `value` 是 NaN。
+断言 `value` 是 NaN 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -309,7 +309,7 @@ test('assert.isNaN', () => {
 
 - **类型:** `<T>(value: T, message?: string) => void`
 
-断言 `value` 不是 NaN。
+断言 `value` 不是 NaN 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -325,7 +325,7 @@ test('assert.isNotNaN', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is NonNullable<T>`
 
-断言 `value` 既不是 null 也不是 undefined。
+断言 `value` 既不是 null 也不是 undefined 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -341,7 +341,7 @@ test('assert.exists', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is null | undefined`
 
-断言 `value` 是 null 或 undefined。
+断言 `value` 是 null 或 undefined 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -359,7 +359,7 @@ test('assert.notExists', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is undefined`
 
-断言 `value` 是 undefined。
+断言 `value` 是 undefined 。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -375,7 +375,7 @@ test('assert.isUndefined', () => {
 
 - **类型:** `<T>(value: T, message?: string) => asserts value is Exclude<T, undefined>`
 
-断言 `value` 不是 undefined。
+断言 `value` 不是 undefined 。
 
 ```ts
 import { assert, test } from 'vitest'
