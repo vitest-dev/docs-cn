@@ -83,7 +83,7 @@ test('assert.equal', () => {
 
 - **类型:** `<T>(actual: T, expected: T, message?: string) => void`
 
-断言 `actual` 和 `expected` 非严格不等(!=)。
+断言 `actual` 和 `expected` 非严格不等 (!=)。
 
 ```ts
 import { assert, test } from 'vitest'
@@ -139,7 +139,7 @@ test('assert.notDeepEqual', () => {
 
 - **类型:** `(valueToCheck: number, valueToBeAbove: number, message?: string) => void`
 
-断言 `valueToCheck` 严格大于 (>)  `valueToBeAbove` 。
+断言 `valueToCheck` 严格大于 (>) `valueToBeAbove` 。
 
 ```ts
 import { assert, test } from 'vitest'
