@@ -659,8 +659,8 @@ function guide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {
-          text: '迁移到 Vitest 4.0',
-          link: '/guide/migration#vitest-4',
+          text: '迁移到 Vitest 3.0',
+          link: '/guide/migration#vitest-3',
         },
         {
           text: '从 Jest 迁移',
