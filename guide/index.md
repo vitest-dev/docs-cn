@@ -66,7 +66,7 @@ test('adds 1 + 2 to equal 3', () => {
 ```
 
 ::: tip 提示
-一般情况下，执行测试的文件名中必须包含 ".test." 或 ".spec." 。
+一般情况下，执行测试的文件名中必须包含 `.test.` 或 `.spec.` 。
 :::
 
 接下来，为了执行测试，请将以下部分添加到你的 `package.json` 文件中：
@@ -120,7 +120,7 @@ export default defineConfig({
 ```
 
 ::: tip 提示
-即使你自己不使用 Vite，Vitest 的转换管道也严重依赖它。因此，你还可以配置[Vite 文档](https://cn.vitejs.dev/config/)中描述的任何属性。
+即使你自己不使用 Vite，Vitest 的转换管道也严重依赖它。因此，你还可以配置 [Vite 文档](https://cn.vitejs.dev/config/) 中描述的任何属性。
 :::
 
 如果你已经在使用 Vite，请在 Vite 配置中添加 `test` 属性。你还需要使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 在你的配置文件的顶部引用。
@@ -135,6 +135,8 @@ export default defineConfig({
   },
 })
 ```
+
+<reference types=“vitest” /> 将在下一次重大更新中弃用，但您可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
 
 可以参阅 [配置索引](../config/) 中的配置选项列表
 
@@ -168,7 +170,7 @@ export default defineConfig({
 
 ## 多项目支持 {#projects-support}
 
-通过 [测试项目](/guide/projects) 功能，你可以在同一个项目里运行多套不同的配置。只需在 vitest.config 文件中列出对应的文件和文件夹，即可定义各个项目。
+通过 [测试项目](/guide/projects) 功能，你可以在同一个项目里运行多套不同的配置。只需在 `vitest.config` 文件中列出对应的文件和文件夹，即可定义各个项目。
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -221,7 +223,7 @@ export default defineConfig({
 要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
 你还可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 有关 CLI 选项的完整列表，可以在你的项目中运行 `npx vitest --help`。
 
-了解更多有关 [命令行界面](/guide/cli) 的更多信息
+了解更多有关 [命令行界面](/guide/cli) 的信息
 
 ## 自动安装依赖项 {#automatic-dependency-installation}
 
