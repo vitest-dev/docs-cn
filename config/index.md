@@ -12,7 +12,7 @@ outline: deep
 
 要配置 Vitest 本身，请在我们的 Vite 配置中添加 `test` 属性。如果我们是从 `vite` 本身导入 `defineConfig`，我们还需要在配置文件顶部使用[三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-)添加对 Vitest 类型引用。
 
-::: details Open Config Examples
+::: details 打开配置示例
 使用 `vite` 中的 `defineConfig` 时使用以下步骤：
 
 ```ts [vite.config.js]
