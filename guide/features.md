@@ -7,14 +7,15 @@ outline: deep
 
 <FeaturesList class="!gap-1 text-lg" />
 
+<CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">通过视频了解如何编写你的第一个测试</CourseLink>
+
 ## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
 
 <div h-2 />
-<CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">通过视频了解如何编写你的第一个测试</CourseLink>
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用中的相同配置来运行测试。
 
-了解更多信息 [配置 Vitest](/guide/#配置-vitest)
+了解更多信息 [配置 Vitest](/guide/#configuring-vitest) 。
 
 ## 监听模式(watch mode) {#watch-mode}
 
@@ -45,7 +46,7 @@ Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的�
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-了解更多信息 [测试筛选](/guide/filtering)
+了解更多信息 [测试筛选](/guide/filtering) 。
 
 ## 同时运行多个测试 {#running-tests-concurrently}
 
@@ -116,7 +117,7 @@ it('renders correctly', () => {
 
 注意，如果你正在使用添加匹配器的第三方库，将 [`test.globals`](/config/#globals) 设置为 `true` 将提供更好的兼容性。
 
-## 对象模拟(Mocking) {#mocking}
+## 对象模拟 (Mocking) {#mocking}
 
 内置 [Tinyspy](https://github.com/tinylibs/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
@@ -157,7 +158,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [模拟对象](/guide/mocking)
+了解更多信息 [模拟对象](/guide/mocking) 。
 
 ## 测试覆盖率 {#coverage}
 
@@ -187,11 +188,11 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [测试覆盖率](/guide/coverage)
+了解更多信息 [覆盖率](/guide/coverage) 。
 
 ## 源码内联测试 {#in-source-testing}
 
-Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，类似 [Rust's 模块测试](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
+Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，类似 [Rust 模块测试](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
 
 这使得测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
 
@@ -211,7 +212,7 @@ if (import.meta.vitest) {
 }
 ```
 
-了解更多信息 [源码内联测试](/guide/in-source)
+了解更多信息 [源码内联测试](/guide/in-source) 。
 
 ## 基准测试 <Badge type="warning">实验性</Badge> {#benchmarking}
 

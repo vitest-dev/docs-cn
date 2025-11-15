@@ -567,11 +567,11 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/reporters',
     },
     {
-      text: '测试覆盖率',
+      text: '覆盖率',
       link: '/guide/coverage',
     },
     {
-      text: '测试快照',
+      text: '快照',
       link: '/guide/snapshot',
     },
     {
