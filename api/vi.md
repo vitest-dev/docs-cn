@@ -363,7 +363,7 @@ test('operations are resolved', async () => {
 该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
 :::
 
-## 模拟函数和对象
+## 模拟函数和对象 {#mocking-functions-and-objects}
 
 本节介绍如何使用 [method mock](/api/mock) 替换环境变量和全局变量。
 
@@ -1059,12 +1059,12 @@ vi.setConfig({
   restoreMocks: true,
   fakeTimers: {
     now: new Date(2021, 11, 19),
-    // supports the whole object
+    // 支持完整对象
   },
   maxConcurrency: 10,
   sequence: {
     hooks: 'stack',
-    // supports only "sequence.hooks"
+    // 仅支持 "sequence.hooks"
   },
 })
 ```
