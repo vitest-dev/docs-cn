@@ -4,7 +4,7 @@ outline: deep
 
 # Vi
 
-Vitest 通过其 `vi` 辅助工具提供实用功能来帮助你。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
+Vitest 通过 `vi` 工具函数提供实用功能。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
 
 ```js
 import { vi } from 'vitest'
@@ -452,7 +452,7 @@ expect(Cart).toHaveBeenCalled()
 function mockObject<T>(value: T): MaybeMockedDeep<T>
 ```
 
-它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见[自动模拟](/guide/mocking.html#automocking-algorithm)。
+它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见 [自动模拟](/guide/mocking.html#automocking-algorithm)。
 
 ```ts
 const original = {
@@ -745,7 +745,7 @@ window.innerWidth = 100
 function unstubAllGlobals(): Vitest
 ```
 
-恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent `，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
+恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent`，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
 
 ```ts
 import { vi } from 'vitest'
@@ -1006,7 +1006,7 @@ function setSystemTime(date: string | number | Date): Vitest
 
 如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime` 、`performance.now` 或 `new Date()` ），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 调用。
 
-如果我们需要测试任何依赖于当前日期的内容 -- 例如在代码中调用 [luxon](https://github.com/moment/luxon/) --则非常有用。
+适用于需要测试依赖当前日期的场景，例如代码中的 [Luxon](https://github.com/moment/luxon/) 库调用。
 
 接受与 `Date` 相同的字符串和数字参数。
 
@@ -1044,7 +1044,7 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 function isFakeTimers(): boolean
 ```
 
-如果启用了假计时器，则返回 `true` 。
+如果启用了模拟计时器，则返回 `true` 。
 
 ### vi.useRealTimers
 
