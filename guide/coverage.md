@@ -49,7 +49,7 @@ npm i -D @vitest/coverage-istanbul
 这让用户在享受 V8 覆盖率高速执行的同时，也能获得 Istanbul 覆盖率的高准确度。
 :::
 
-Vitest 默认采用 'v8' 作为覆盖率提供器。
+Vitest 默认采用 `v8` 作为覆盖率提供器。
 此提供器依赖于基于 [V8 引擎](https://v8.dev/) 的 JavaScript 运行环境，比如 NodeJS、Deno，或者 Google Chrome 等 Chromium 内核的浏览器。
 
 覆盖率收集是在程序运行时完成的，通过 [`node:inspector`](https://nodejs.org/api/inspector.html) 模块以及浏览器中的 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 协议 与 V8 交互即可实现。这样，用户的源码可以直接被执行，而不需要事先进行插桩处理。
@@ -466,11 +466,11 @@ export function ignored() { // [!code error]
 
 如果你的项目中代码覆盖率生成较慢，请参阅[性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
 
-## Vitest UI {#vitest-ui}
+## UI 模式 {#vitest-ui}
 
-我们可以在 [Vitest UI](/guide/ui) 中查看你的覆盖率报告。
+我们可以在 [UI 模式](/guide/ui) 中查看你的覆盖率报告。
 
-Vitest UI 会在以下情况下启用覆盖率报告：
+UI 模式 会在以下情况下启用覆盖率报告：
 
 - 显式启用覆盖率报告：在配置文件中设置 `coverage.enabled=true` ，或运行 Vitest 时添加 `--coverage.enabled=true` 标志。
 - 添加 HTML 报告器：将 `html` 添加到 `coverage.reporter` 列表中，我们还可以启用 `subdir` 选项，将覆盖率报告放在子目录中。
