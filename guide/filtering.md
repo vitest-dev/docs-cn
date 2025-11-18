@@ -4,7 +4,7 @@ title: 测试筛选 | 指南
 
 # 测试筛选 {#test-filtering}
 
-用于测试套件(suite)和测试的筛选(filtering)、超时(timeouts)、并发(concurrent)。
+筛选、超时和测试套件的并发。
 
 ## CLI {#cli}
 
