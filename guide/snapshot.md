@@ -4,9 +4,9 @@ title: 测试快照 | 指南
 
 # 测试快照 {#snapshot}
 
-当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
-
 <CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
+
+当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
 
 使用快照时，Vitest 将获取给定值的快照，将其比较时将参考存储在测试旁边的快照文件。如果两个快照不匹配，则测试将失败：要么更改是意外的，要么参考快照需要更新到测试结果的新版本。
 
@@ -39,7 +39,7 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
 :::
 
-如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
+同样，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
 ```ts
 import { expect, it } from 'vitest'
@@ -63,11 +63,11 @@ it('toUpperCase', () => {
 
 这允许你直接查看期望输出，而无需跨不同的文件跳转。
 
-## 更新快照 {#updating-snapshots}
-
 ::: warning
-在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
+在异步并发测试中使用快照时，必须使用本地的 [Test Context](/guide/test-context) 中的 `expect`  方法，以确保正确检测到对应的测试。
 :::
+
+## 更新快照 {#updating-snapshots}
 
 当接收到的值与快照不匹配时，测试将失败，并显示它们之间的差异。当需要更改快照时，你可能希望从当前状态更新快照。
 
@@ -81,7 +81,7 @@ vitest -u
 
 ## 文件快照 {#file-snapshots}
 
-调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `\``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
+调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `` ` ``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
 
 为了改善这种情况，我们引入 [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) 以在文件中显式快照。这允许你为快照文件分配任何文件扩展名，并使它们更具可读性。
 
@@ -96,33 +96,38 @@ it('render basic', async () => {
 
 它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 标志写回。
 
-## 图像快照 {#visual-snapshots}
+## 图像快照 {#image-snapshots}
 
-对于 UI 组件和页面的视觉回归测试，Vitest 通过[浏览器模式](/guide/browser/)提供了内置支持，使用 [`toMatchScreenshot()`](/guide/browser/assertion-api#tomatchscreenshot-experimental) 断言：
+快照图像也可以使用 [`jest-image-snapshot`](https://github.com/americanexpress/jest-image-snapshot)。
+
+```bash
+npm i -D jest-image-snapshot
+```
 
 ```ts
-import { expect, test } from 'vitest'
-import { page } from 'vitest/browser'
-
-test('button looks correct', async () => {
-  const button = page.getByRole('button')
-  await expect(button).toMatchScreenshot('primary-button')
+test('image snapshot', () => {
+  expect(readFileSync('./test/stubs/input-image.png'))
+    .toMatchImageSnapshot()
 })
 ```
 
-它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在[视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
-
 ## 自定义序列化程序 {#custom-serializer}
 
-你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 为内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
+你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 默认有内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 
 可以使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 添加自定义序列器。
 
 ```ts
 expect.addSnapshotSerializer({
   serialize(val, config, indentation, depth, refs, printer) {
-    // `printer` is a function that serializes a value using existing plugins.
-    return `Pretty foo: ${printer(val.foo, config, indentation, depth, refs)}`
+    // `printer` 是一个通过现有插件对值进行序列化的函数。
+    return `Pretty foo: ${printer(
+      val.foo,
+      config,
+      indentation,
+      depth,
+      refs
+    )}`
   },
   test(val) {
     return val && Object.prototype.hasOwnProperty.call(val, 'foo')
@@ -130,7 +135,7 @@ expect.addSnapshotSerializer({
 })
 ```
 
-我们还支持 [snapshotSerializers](/config/#snapshotserializers) 选项来隐式添加自定义序列化器。
+我们还支持 [snapshotSerializers](/config/#snapshotserializers) 选项，可以隐式添加自定义序列化器。
 
 ```ts [path/to/custom-serializer.ts]
 import { SnapshotSerializer } from 'vitest'
@@ -156,7 +161,7 @@ export default defineConfig({
 })
 ```
 
-如下所示的测试添加后：
+添加类似的测试后：
 
 ```ts
 test('foo snapshot test', () => {
