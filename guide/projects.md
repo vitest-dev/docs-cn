@@ -30,7 +30,7 @@ export default defineConfig({
 })
 ```
 
-项目配置可以是内联配置、文件或指向项目的 glob 模式。例如，如果你有一个名为 `packages` 的文件夹包含多个项目，可以在根 Vitest 配置中定义一个数组：
+项目配置可以是内联配置、文件或指向项目的 glob 模式。例如，如果你有一个名为 `packages` 的文件夹包含多个项目，可以在 Vitest 配置文件中定义一个数组：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
