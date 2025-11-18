@@ -39,7 +39,7 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
 :::
 
-如同前文，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
+同样，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
 ```ts
 import { expect, it } from 'vitest'
@@ -81,7 +81,7 @@ vitest -u
 
 ## 文件快照 {#file-snapshots}
 
-调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `\``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
+调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `` ` ``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
 
 为了改善这种情况，我们引入 [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) 以在文件中显式快照。这允许你为快照文件分配任何文件扩展名，并使它们更具可读性。
 
@@ -114,23 +114,28 @@ test('button looks correct', async () => {
 
 ## 自定义序列化程序 {#custom-serializer}
 
-你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 为内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
+你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 默认有内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 
 可以使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 添加自定义序列器。
 
 ```ts
 expect.addSnapshotSerializer({
   serialize(val, config, indentation, depth, refs, printer) {
-    // `printer` is a function that serializes a value using existing plugins.
-    return `Pretty foo: ${printer(val.foo, config, indentation, depth, refs)}`
+    // `printer` 是一个通过现有插件对值进行序列化的函数。
+    return `Pretty foo: ${printer(
+      val.foo,
+      config,
+      indentation,
+      depth,
+      refs
+    )}`
   },
   test(val) {
     return val && Object.prototype.hasOwnProperty.call(val, 'foo')
   },
 })
 ```
-
-我们还支持 [snapshotSerializers](/config/#snapshotserializers) 选项来隐式添加自定义序列化器。
+我们还支持 [snapshotSerializers](/config/#snapshotserializers) 选项，可以隐式添加自定义序列化器。
 
 ```ts [path/to/custom-serializer.ts]
 import { SnapshotSerializer } from 'vitest'
@@ -156,7 +161,7 @@ export default defineConfig({
 })
 ```
 
-如下所示的测试添加后：
+添加类似的测试后：
 
 ```ts
 test('foo snapshot test', () => {
