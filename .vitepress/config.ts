@@ -622,7 +622,7 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/testing-types',
     },
     {
-      text: 'UI模式',
+      text: 'UI 模式',
       link: '/guide/ui',
     },
     {
