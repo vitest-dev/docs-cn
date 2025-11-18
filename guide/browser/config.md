@@ -40,7 +40,7 @@ export default defineConfig({
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **CLI:** `--browser`, `--browser.enabled=false`
+- **命令行终端:** `--browser`, `--browser.enabled=false`
 
 默认情况下在浏览器中运行所有测试。请注意，`--browser` 仅在我们至少有一个 [`browser.instances`](#browser-instances) 项时有效。
 
@@ -95,7 +95,7 @@ export default defineConfig({
 
 - **类型:** `boolean`
 - **默认值:** `process.env.CI`
-- **CLI:** `--browser.headless`, `--browser.headless=false`
+- **命令行终端:** `--browser.headless`, `--browser.headless=false`
 
 在 `headless` 模式下运行浏览器。如果我们在 CI 中运行 Vitest，则默认启用此模式。
 
@@ -103,7 +103,7 @@ export default defineConfig({
 
 - **类型:** `boolean`
 - **默认值:** `true`
-- **CLI:** `--browser.isolate`, `--browser.isolate=false`
+- **命令行终端:** `--browser.isolate`, `--browser.isolate=false`
 
 在单独的 iframe 中运行每个测试。
 
@@ -117,7 +117,7 @@ HTML 入口点的路径。可以是相对于项目根目录的路径。此文件
 
 - **类型:** `number | { port?, strictPort?, host? }`
 - **默认值:** `63315`
-- **CLI:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
+- **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
 配置为浏览器提供代码的 Vite 服务器的选项。不影响 [`test.api`](#api) 选项。默认情况下，Vitest 分配端口 `63315` 以避免与开发服务器冲突，允许我们同时运行两者。
 
@@ -125,7 +125,7 @@ HTML 入口点的路径。可以是相对于项目根目录的路径。此文件
 
 - **类型:** `BrowserProviderOption`
 - **默认值:** `'preview'`
-- **CLI:** `--browser.provider=playwright`
+- **命令行终端:** `--browser.provider=playwright`
 
 提供者工厂的返回值。你可以从 `@vitest/browser-<provider-name>` 导入工厂函数，或者创建自己的提供者：
 
@@ -206,7 +206,7 @@ export interface BrowserProvider {
 
 - **类型:** `boolean`
 - **默认值:** `!isCI`
-- **CLI:** `--browser.ui=false`
+- **命令行终端:** `--browser.ui=false`
 
 是否应将 Vitest UI 注入页面。默认情况下，在开发期间注入 UI iframe。
 
@@ -303,7 +303,7 @@ export interface BrowserScript {
 ## browser.trace
 
 - **类型：** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
-- **CLI:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
+- **命令行终端:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
 - **Default:** `'off'`
 
 Capture a trace of your browser test runs. You can preview traces with [Playwright Trace Viewer](https://trace.playwright.dev/).
