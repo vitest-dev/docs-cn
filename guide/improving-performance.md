@@ -8,7 +8,7 @@ title: 性能优化 | 指南
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
-这会大大增加测试时间，对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的）。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 标志，或者在配置文件中将 [`test.isolate`](/config/#isolate) 属性设置为 `false`。
+对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 标志，或者在配置文件中将 [`test.isolate`](/config/#isolate) 属性设置为 `false`。
 
 ::: code-group
 
@@ -106,7 +106,7 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 vitest run --merge-reports
 ```
 
-::: GitHub Actions 详细示例
+::: detail GitHub Actions 示例
 同样方案也应用于 https://github.com/vitest-tests/test-sharding 仓库。
 
 ```yaml
