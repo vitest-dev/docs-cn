@@ -575,43 +575,8 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/snapshot',
     },
     {
-      text: '模拟对象',
+      text: '模拟',
       link: '/guide/mocking',
-      collapsed: true,
-      items: [
-        {
-          text: '模拟日期',
-          link: '/guide/mocking/dates',
-        },
-        {
-          text: '模拟函数',
-          link: '/guide/mocking/functions',
-        },
-        {
-          text: '模拟全局对象',
-          link: '/guide/mocking/globals',
-        },
-        {
-          text: '模拟模块',
-          link: '/guide/mocking/modules',
-        },
-        {
-          text: '模拟文件系统',
-          link: '/guide/mocking/file-system',
-        },
-        {
-          text: '模拟请求',
-          link: '/guide/mocking/requests',
-        },
-        {
-          text: '模拟计时器',
-          link: '/guide/mocking/timers',
-        },
-        {
-          text: '模拟类',
-          link: '/guide/mocking/classes',
-        },
-      ],
     },
     {
       text: '并行执行',
