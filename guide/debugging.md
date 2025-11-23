@@ -4,28 +4,12 @@ title: 调试 | 指南
 
 # 调试 {#debugging}
 
-## 终端 {#terminal}
-
-在非集成开发环境下，为了调试一个测试文件，你可以使用 [`ndb`](https://github.com/GoogleChromeLabs/ndb)。仅仅在你的代码的任何位置添加一个 `debugger` 语句，然后运行 `ndb`：
-
-```sh
-# 全局安装 ndb
-npm install -g ndb
-
-# 或者使用 yarn
-yarn global add ndb
-
-# 在启用 debugger 的情况下运行测试
-ndb npm run test
-```
-
 :::tip
 在调试测试时，你可能需要使用以下选项：
 
 - [`--test-timeout=0`](/guide/cli#testtimeout) 以防止测试在断点处停止时超时
 - [`--no-file-parallelism`](/guide/cli#fileparallelism) 以防止测试文件并行运行
 :::
-
 ## VS Code
 
 在 VSCode 中快速调试测试的方法是通过 `JavaScript Debug Terminal` 。打开一个新的 `JavaScript Debug Terminal` 并直接运行 `npm run test` 或 `vitest` 。*这适用于在 Node 中运行的任何代码，因此将适用于大多数 JS 测试框架*。
@@ -128,7 +112,7 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 
-## Node 解释器, 例如 Chrome开发者工具
+## Node 解释器, 例如 Chrome开发者工具 {#node-inspector-e-g-chrome-devtools}
 
 Vitest 还支持在没有 IDE 的情况下调试测试。然而，这要求测试不是并行运行的。可以使用以下命令之一启动 Vitest。
 

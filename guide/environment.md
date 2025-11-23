@@ -49,7 +49,7 @@ import type { Environment } from 'vitest/environments'
 export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
-  // optional - only if you support "experimental-vm" pool
+  // 可选 - 仅在支持 "experimental-vm" 的情况下使用
   async setupVM() {
     const vm = await import('node:vm')
     const context = vm.createContext()
