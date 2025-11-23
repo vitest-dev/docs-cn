@@ -579,7 +579,7 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/mocking',
     },
     {
-      text: '并行执行',
+      text: '并行性',
       link: '/guide/parallelism',
     },
     {
