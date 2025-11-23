@@ -27,7 +27,7 @@ Vitest 并不将 `browser` 视作一种测试环境。如果你想让部分测�
 
 ## 特定文件的环境 {#environments-for-specific-files}
 
-如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
+如果在配置文件中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 
 ```ts
 // @vitest-environment jsdom
