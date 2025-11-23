@@ -87,7 +87,7 @@ HTML 报告器会以与 UI模式 相同的方式显示测试注释。您可以�
 
 ### github-actions
 
-`github-actions` 报告器默认会将 [通知消息](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-a-notice-message) 为通知消息打印。 你可以通过第二个参数配置消息的 `type` 为 `notice`, `warning` or `error`。 如果不是这三种类型，Vitest 默认使用消息类型 (notice)。
+`github-actions` 报告器默认会将 [通知消息](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-a-notice-message) 为通知消息打印。 你可以通过第二个参数配置消息的 `type` 为 `notice`, `warning` or `error`。 如果不是这三种类型，Vitest 默认使用通知消息 (notice)。
 
 <img alt="GitHub Actions" img-light src="/annotations-gha-light.png">
 <img alt="GitHub Actions" img-dark src="/annotations-gha-dark.png">
