@@ -4,20 +4,20 @@ title: 源码内联测试 | 指南
 
 # 源码内联测试 {#in-source-testing}
 
-Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，就像是 [Rust 语言的模块测试一样](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
+Vitest 还提供了一种在源代码中与实现一起运行测试的方式，就像是 [类似于 Rust 语言的模块测试](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
 
 这允许测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
 
 ## 指引 {#setup}
 
 ::: warning
-本指南介绍如何在源代码中编写测试。如果需要在单独的测试文件中编写测试，请参阅["编写测试"指南](/guide/#writing-tests)。
+本指南介绍如何在源代码中编写测试。如果需要在单独的测试文件中编写测试，请参阅 ["编写测试" 指南](/guide/#writing-tests)。
 :::
 
 首先，在 `if (import.meta.vitest)` 代码块内写一些测试代码并放在文件的末尾，例如:
 
 ```ts [src/index.ts]
-// the implementation
+// 具体实现
 export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0)
 }
@@ -82,11 +82,11 @@ export default defineBuildConfig({
     // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  // other options
+  // 其他选项
 })
 ```
 
-了解更多: [unbuild](https://github.com/unjs/unbuild)
+了解更多：[unbuild](https://github.com/unjs/unbuild)
 :::
 
 ::: details Rollup
@@ -100,7 +100,7 @@ export default {
       'import.meta.vitest': 'undefined', // [!code ++]
     }), // [!code ++]
   ],
-  // other options
+  // 其他选项
 }
 ```
 
