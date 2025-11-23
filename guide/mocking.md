@@ -1,6 +1,5 @@
 ---
 title: 模拟对象 | 指南
-outline: false
 ---
 
 # 模拟对象 {#mocking}
@@ -11,22 +10,751 @@ outline: false
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/mock.html#mockreset) 文档。
 :::
 
-如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看[API部分](/api/vi)。
+如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看 [API部分](/api/vi)。
 
-Vitest 提供了有关模拟的全部指南：
+## 日期 {#dates}
 
-- [模拟类](/guide/mocking/classes.md)
-- [模拟日期](/guide/mocking/dates.md)
-- [模拟文件系统](/guide/mocking/file-system.md)
-- [模拟函数](/guide/mocking/functions.md)
-- [模拟全局对象](/guide/mocking/globals.md)
-- [模拟模块](/guide/mocking/modules.md)
-- [模拟请求](/guide/mocking/requests.md)
-- [模拟计时器](/guide/mocking/timers.md)
+有些时候，你可能需要控制日期来确保测试时的一致性。Vitest 使用了 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 库来操作计时器以及系统日期。可以在 [此处](/api/vi#vi-setsystemtime) 找到有关特定 API 的更多详细信息。
 
-为了更简单快捷地开始使用模拟，你可以查看下面的备忘单。
+### 示例 {#example}
+
+```js
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+const businessHours = [9, 17]
+
+function purchase() {
+  const currentHour = new Date().getHours()
+  const [open, close] = businessHours
+
+  if (currentHour > open && currentHour < close) {
+    return { message: 'Success' }
+  }
+
+  return { message: 'Error' }
+}
+
+describe('purchasing flow', () => {
+  beforeEach(() => {
+    // 告诉 vitest 我们使用模拟时间
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    // 每次测试运行后恢复日期
+    vi.useRealTimers()
+  })
+
+  it('allows purchases within business hours', () => {
+    // 将时间设置在工作时间之内
+    const date = new Date(2000, 1, 1, 13)
+    vi.setSystemTime(date)
+
+    // 访问 Date.now() 将生成上面设置的日期
+    expect(purchase()).toEqual({ message: 'Success' })
+  })
+
+  it('disallows purchases outside of business hours', () => {
+    // 将时间设置在工作时间之外
+    const date = new Date(2000, 1, 1, 19)
+    vi.setSystemTime(date)
+
+    // 访问 Date.now() 将生成上面设置的日期
+    expect(purchase()).toEqual({ message: 'Error' })
+  })
+})
+```
+
+## 函数 {#functions}
+
+函数的模拟可以分为两个不同的类别：_对象监听(spying) 和 对象模拟_。
+
+有时你可能只需要验证是否调用了特定函数（以及可能传递了哪些参数）。在这种情况下，我们就需要使用一个对象监听，可以直接使用 `vi.spyOn()` ([在此处阅读更多信息](/api/vi#vi-spyon))。
+
+然而，对象监听只能帮助你 **监听** 函数，他们无法改变这些函数的实现。如果我们需要创建一个函数的假（或模拟）版本，可以使用它 `vi.fn()` ([在此处阅读更多信息](/api/vi#vi-fn))。
+
+我们使用 [Tinyspy](https://github.com/tinylibs/tinyspy) 作为模拟函数的基础，同时也有一套自己的封装来使其与 `Jest` 兼容。`vi.fn()` 和 `vi.spyOn()` 共享相同的方法，但是只有 `vi.fn()` 的返回结果是可调用的。
+
+### 示例 {#example-1}
+
+```js
+import { afterEach, describe, expect, it, vi } from 'vitest'
+
+const messages = {
+  items: [
+    { message: 'Simple test message', from: 'Testman' },
+    // ...
+  ],
+  getLatest, // 如果支持也可以是一个 `getter 或 setter`
+}
+
+function getLatest(index = messages.items.length - 1) {
+  return messages.items[index]
+}
+
+describe('reading messages', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('should get the latest message with a spy', () => {
+    const spy = vi.spyOn(messages, 'getLatest')
+    expect(spy.getMockName()).toEqual('getLatest')
+
+    expect(messages.getLatest()).toEqual(
+      messages.items[messages.items.length - 1]
+    )
+
+    expect(spy).toHaveBeenCalledTimes(1)
+
+    spy.mockImplementationOnce(() => 'access-restricted')
+    expect(messages.getLatest()).toEqual('access-restricted')
+
+    expect(spy).toHaveBeenCalledTimes(2)
+  })
+
+  it('should get with a mock', () => {
+    const mock = vi.fn().mockImplementation(getLatest)
+
+    expect(mock()).toEqual(messages.items[messages.items.length - 1])
+    expect(mock).toHaveBeenCalledTimes(1)
+
+    mock.mockImplementationOnce(() => 'access-restricted')
+    expect(mock()).toEqual('access-restricted')
+
+    expect(mock).toHaveBeenCalledTimes(2)
+
+    expect(mock()).toEqual(messages.items[messages.items.length - 1])
+    expect(mock).toHaveBeenCalledTimes(3)
+  })
+})
+```
+
+### 了解更多 {#more}
+
+- [Jest's Mock Functions](https://jestjs.io/docs/mock-function-api)
+
+## 全局 (Globals) {#globals}
+
+你可以通过使用 [`vi.stubGlobal`](/api/vi#stubglobal) 来模拟 `jsdom` 或 `node` 中不存在的全局变量。它将把全局变量的值放入 `globalThis` 对象。
+
+```ts
+import { vi } from 'vitest'
+
+const IntersectionObserverMock = vi.fn(() => ({
+  disconnect: vi.fn(),
+  observe: vi.fn(),
+  takeRecords: vi.fn(),
+  unobserve: vi.fn(),
+}))
+
+vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
+
+// 现在你可以通过 `IntersectionObserver` 或 `window.IntersectionObserver` 访问
+```
+
+## 模块 {#modules}
+
+模拟模块监听在其他代码中调用的第三方库，允许你测试参数、输出甚至重新声明其实现。
+
+参见 [`vi.mock()` API 部分](/api/vi#vi-mock) 以获得更深入详细 API 描述。
+
+### 自动模拟算法 {#automocking-algorithm}
+
+如果你的代码导入了模拟模块，并且没有任何与此模块相关联的 `__mocks__` 文件或 `factory`，Vitest 将通过调用模块并模拟每个导出来的模拟模块本身。
+
+以下原则适用
+
+- 所有的数组将被清空
+- 所有的基础类型和集合将保持不变
+- 所有的对象都将被深度克隆
+- 类的所有实例及其原型都将被深度克隆
+
+### 虚拟模块 {#virtual-modules}
+
+Vitest 支持模拟 Vite [虚拟模块](https://cn.vitejs.dev/guide/api-plugin#virtual-modules-convention)。它的工作方式与 Jest 中处理虚拟模块的方式不同。我们不需要将 `virtual: true` 传递给 `vi.mock` 函数，而是需要告诉 Vite 模块存在，否则它将在解析过程中失败。有几种方法可以做到这一点：
+
+1. 提供别名
+
+```ts [vitest.config.js]
+import { resolve } from 'node:path'
+import { defineConfig } from 'vitest/config'
+export default defineConfig({
+  test: {
+    alias: {
+      '$app/forms': resolve('./mocks/forms.js'),
+    },
+  },
+})
+```
+
+2. 提供解析虚拟模块的插件
+
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+export default defineConfig({
+  plugins: [
+    {
+      name: 'virtual-modules',
+      resolveId(id) {
+        if (id === '$app/forms') {
+          return 'virtual:$app/forms'
+        }
+      },
+    },
+  ],
+})
+```
+
+第二种方法的好处是可以动态创建不同的虚拟入口点。如果将多个虚拟模块重定向到一个文件中，那么所有这些模块都将受到 `vi.mock` 的影响，因此请确保使用唯一的标识符。
+
+### 模拟 Pitfalls {#mocking-pitfalls}
+
+请注意，对在同一文件的其他方法中调用的方法的模拟调用是不可能的。例如以下代码：
+
+```ts [foobar.js]
+export function foo() {
+  return 'foo'
+}
+
+export function foobar() {
+  return `${foo()}bar`
+}
+```
+
+不可能从外部模拟 `foo` 方法，因为它是直接引用的。因此，此代码对 `foobar` 内部的 `foo` 调用没有影响（但会影响其他模块中的 `foo` 调用）：
+
+```ts [foobar.test.ts]
+import { vi } from 'vitest'
+import * as mod from './foobar.js'
+
+// 这只会影响在原始模块之外的 "foo"
+vi.spyOn(mod, 'foo')
+vi.mock('./foobar.js', async (importOriginal) => {
+  return {
+    ...(await importOriginal<typeof import('./foobar.js')>()),
+    // 这只会影响在原始模块之外的 "foo"
+    foo: () => 'mocked',
+  }
+})
+```
+
+你可以通过直接向 `foobar` 方法提供实现来确认这种行为：
+
+```ts [foobar.test.js]
+import * as mod from './foobar.js'
+
+vi.spyOn(mod, 'foo')
+
+// 导出的 foo  引用模拟的方法
+mod.foobar(mod.foo)
+```
+
+```ts [foobar.js]
+export function foo() {
+  return 'foo'
+}
+
+export function foobar(injectedFoo) {
+  return injectedFoo === foo // false
+}
+```
+
+这就是预期行为。当以这种方式包含 mock 时，这通常是不良代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用体系结构。
+
+### 示例 {#example-2}
+
+```js
+import { Client } from 'pg'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { failure, success } from './handlers.js'
+
+// 原始实现
+export async function getTodos(event, context) {
+  const client = new Client({
+    // ...其他选项参数
+  })
+
+  await client.connect()
+
+  try {
+    const result = await client.query('SELECT * FROM todos;')
+
+    client.end()
+
+    return success({
+      message: `${result.rowCount} item(s) returned`,
+      data: result.rows,
+      status: true,
+    })
+  }
+  catch (e) {
+    console.error(e.stack)
+
+    client.end()
+
+    return failure({ message: e, status: false })
+  }
+}
+
+vi.mock('pg', () => {
+  const Client = vi.fn()
+  Client.prototype.connect = vi.fn()
+  Client.prototype.query = vi.fn()
+  Client.prototype.end = vi.fn()
+
+  return { Client }
+})
+
+vi.mock('./handlers.js', () => {
+  return {
+    success: vi.fn(),
+    failure: vi.fn(),
+  }
+})
+
+describe('get a list of todo items', () => {
+  let client
+
+  beforeEach(() => {
+    client = new Client()
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('should return items successfully', async () => {
+    client.query.mockResolvedValueOnce({ rows: [], rowCount: 0 })
+
+    await getTodos()
+
+    expect(client.connect).toBeCalledTimes(1)
+    expect(client.query).toBeCalledWith('SELECT * FROM todos;')
+    expect(client.end).toBeCalledTimes(1)
+
+    expect(success).toBeCalledWith({
+      message: '0 item(s) returned',
+      data: [],
+      status: true,
+    })
+  })
+
+  it('should throw an error', async () => {
+    const mError = new Error('Unable to retrieve rows')
+    client.query.mockRejectedValueOnce(mError)
+
+    await getTodos()
+
+    expect(client.connect).toBeCalledTimes(1)
+    expect(client.query).toBeCalledWith('SELECT * FROM todos;')
+    expect(client.end).toBeCalledTimes(1)
+    expect(failure).toBeCalledWith({ message: mError, status: false })
+  })
+})
+```
+
+## 文件系统 {#file-system}
+
+文件系统模拟文件系统可确保测试不依赖于实际文件系统，从而使测试更可靠、更可预测。这种隔离有助于避免先前测试的副作用。它允许测试可能难以或无法用实际文件系统复制的错误条件和边缘情况，如权限问题、磁盘满的情况或读/写错误。
+
+Vitest 并不提供任何文件系统模拟 API。您可以使用 `vi.mock` 手动模拟 `fs` 模块，但这很难维护。相反，我们建议使用 [`memfs`](https://www.npmjs.com/package/memfs) 来为你做这件事。`memfs` 创建了一个内存文件系统，可以在不接触实际磁盘的情况下模拟文件系统操作。这种方法既快速又安全，可以避免对真实文件系统产生任何潜在的副作用。
+
+### 示例 {#example-3}
+
+要自动将每个 `fs` 调用重定向到 `memfs`，可以在项目根目录下创建 `__mocks__/fs.cjs` 和 `__mocks__/fs/promises.cjs` 文件：
+
+::: code-group
+```ts [__mocks__/fs.cjs]
+// 也可以使用 import，但这样
+// 每个导出都需要显式定义
+
+const { fs } = require('memfs')
+module.exports = fs
+```
+
+```ts [__mocks__/fs/promises.cjs]
+// 也可以使用 import，但这样
+// 每个导出都需要显式定义
+
+const { fs } = require('memfs')
+module.exports = fs.promises
+```
+:::
+
+```ts [read-hello-world.js]
+import { readFileSync } from 'node:fs'
+
+export function readHelloWorld(path) {
+  return readFileSync(path, 'utf-8')
+}
+```
+
+```ts [hello-world.test.js]
+import { fs, vol } from 'memfs'
+import { beforeEach, expect, it, vi } from 'vitest'
+import { readHelloWorld } from './read-hello-world.js'
+
+// 告诉 Vitest 使用 __mocks__ 文件夹中的 fs 模拟模块
+// 如果始终需要模拟 fs，可以在 setup 文件中进行此配置
+vi.mock('node:fs')
+vi.mock('node:fs/promises')
+
+beforeEach(() => {
+  // 重置内存中 fs 的状态
+  vol.reset()
+})
+
+it('should return correct text', () => {
+  const path = '/hello-world.txt'
+  fs.writeFileSync(path, 'hello world')
+
+  const text = readHelloWorld(path)
+  expect(text).toBe('hello world')
+})
+
+it('can return a value multiple times', () => {
+  // 你可以使用 vol.fromJSON 来定义多个文件
+  vol.fromJSON(
+    {
+      './dir1/hw.txt': 'hello dir1',
+      './dir2/hw.txt': 'hello dir2',
+    },
+    // 默认当前目录
+    '/tmp',
+  )
+
+  expect(readHelloWorld('/tmp/dir1/hw.txt')).toBe('hello dir1')
+  expect(readHelloWorld('/tmp/dir2/hw.txt')).toBe('hello dir2')
+})
+```
+
+## 请求 {#requests}
+
+因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `http`、`WebSocket` 和 `GraphQL` 网络请求，并且与框架无关。
+
+Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [介绍部分](https://mswjs.io/docs/) 。
+
+### 配置 {#configuration}
+
+你可以像下面一样，将配置添加到 [setup file](/config/#setupfiles) 中
+
+::: code-group
+
+```js [HTTP Setup]
+import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
+
+const posts = [
+  {
+    userId: 1,
+    id: 1,
+    title: 'first post title',
+    body: 'first post body',
+  },
+  // ...
+]
+
+export const restHandlers = [
+  http.get('https://rest-endpoint.example/path/to/posts', () => {
+    return HttpResponse.json(posts)
+  }),
+]
+
+const server = setupServer(...restHandlers)
+
+// 在所有测试之前启动服务器
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+
+// 所有测试完成后关闭服务器
+afterAll(() => server.close())
+
+// 在每个测试后重置处理程序以实现测试隔离
+afterEach(() => server.resetHandlers())
+```
+
+```js [GraphQL Setup]
+import { graphql, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
+
+const posts = [
+  {
+    userId: 1,
+    id: 1,
+    title: 'first post title',
+    body: 'first post body',
+  },
+  // ...
+]
+
+const graphqlHandlers = [
+  graphql.query('ListPosts', () => {
+    return HttpResponse.json({
+      data: { posts },
+    })
+  }),
+]
+
+const server = setupServer(...graphqlHandlers)
+
+// 在所有测试之前启动服务器
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+
+// 所有测试完成后关闭服务器
+afterAll(() => server.close())
+
+// 在每个测试后重置处理程序以实现测试隔离
+afterEach(() => server.resetHandlers())
+```
+
+```js [WebSocket Setup]
+import { ws } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
+
+const chat = ws.link('wss://chat.example.com')
+
+const wsHandlers = [
+  chat.addEventListener('connection', ({ client }) => {
+    client.addEventListener('message', (event) => {
+      console.log('Received message from client:', event.data)
+      // Echo the received message back to the client
+      client.send(`Server received: ${event.data}`)
+    })
+  }),
+]
+
+const server = setupServer(...wsHandlers)
+
+// 在所有测试之前启动服务器
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+
+// 所有测试完成后关闭服务器
+afterAll(() => server.close())
+
+// 在每个测试后重置处理程序以实现测试隔离
+afterEach(() => server.resetHandlers())
+```
+:::
+
+> 将 server 配置为 `onUnhandledRequest: 'error'` 可确保在遇到没有对应请求处理程序的请求时抛出错误。
+
+### 了解更多 {#more-1}
+
+MSW 能做的还有很多。你可以访问 cookie 和查询参数、定义模拟错误响应等等！要查看你可以使用 MSW 做什么，请阅读 [他们的文档](https://mswjs.io/docs)。
+
+## 计时器 {#timers}
+
+每当测试代码涉及到 timeout 或者 interval 时，并不是让我们的测试程序进行等待或者超时。我们也可以通过模拟对 `setTimeout` 和 `setInterval` 的调用来使用 "fake" 计时器来加速测试。
+
+有关更深入的详细 API 描述，参阅 [`vi.usefaketimers` API 部分](/api/vi#vi-usefaketimers)。
+
+### 示例 {#example-4}
+
+```js
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+function executeAfterTwoHours(func) {
+  setTimeout(func, 1000 * 60 * 60 * 2) // 2小时
+}
+
+function executeEveryMinute(func) {
+  setInterval(func, 1000 * 60) // 1分钟
+}
+
+const mock = vi.fn(() => console.log('executed'))
+
+describe('delayed execution', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+  it('should execute the function', () => {
+    executeAfterTwoHours(mock)
+    vi.runAllTimers()
+    expect(mock).toHaveBeenCalledTimes(1)
+  })
+  it('should not execute the function', () => {
+    executeAfterTwoHours(mock)
+    // 前进2毫秒并不会触发方法
+    vi.advanceTimersByTime(2)
+    expect(mock).not.toHaveBeenCalled()
+  })
+  it('should execute every minute', () => {
+    executeEveryMinute(mock)
+    vi.advanceTimersToNextTimer()
+    expect(mock).toHaveBeenCalledTimes(1)
+    vi.advanceTimersToNextTimer()
+    expect(mock).toHaveBeenCalledTimes(2)
+  })
+})
+```
+
+## 模拟类 {#classes}
+
+你只需调用一次 `vi.fn` 就能模拟整个类，因为所有的类本质也都是函数，所以这种方法可以直接使用。需要注意的是，目前 Vitest 并不支持 `new` 关键字，因此在函数的主体中，`new.target` 总是 `undefined`。
+
+```ts
+class Dog {
+  name: string
+
+  constructor(name: string) {
+    this.name = name
+  }
+
+  static getType(): string {
+    return 'animal'
+  }
+
+  greet = (): string => {
+    return `Hi! My name is ${this.name}!`
+  }
+
+  speak(): string {
+    return 'bark!'
+  }
+
+  isHungry() {}
+  feed() {}
+}
+```
+
+我们可以使用 ES5 函数重新创建这个类：
+
+```ts
+const Dog = vi.fn(function (name) {
+  this.name = name
+  // 在构造函数中模拟示例包房，每个示例都会有自己模拟函数 (spy)
+  this.greet = vi.fn(() => `Hi! My name is ${this.name}!`)
+})
+
+// 注意静态方法是直接在函数上模拟的，
+// 并不在每个类的实例上
+Dog.getType = vi.fn(() => 'mocked animal')
+
+// 在每个类的实例上模拟 "speak" 和 "feed" 方法
+// 所有 `new Dog()` 实例都会继承并共享这些模拟函数 (spy)
+Dog.prototype.speak = vi.fn(() => 'loud bark!')
+Dog.prototype.feed = vi.fn()
+```
+
+::: warning
+如果构造函数返回一个非原始值，该值将成为 new 表达式的结果。在这种情况下，`[[Prototype]]` 可能无法正确绑定：
+
+```ts
+const CorrectDogClass = vi.fn(function (name) {
+  this.name = name
+})
+
+const IncorrectDogClass = vi.fn(name => ({
+  name
+}))
+
+const Marti = new CorrectDogClass('Marti')
+const Newt = new IncorrectDogClass('Newt')
+
+Marti instanceof CorrectDogClass // ✅ true
+Newt instanceof IncorrectDogClass // ❌ false!
+```
+:::
+
+::: tip 何时使用?
+一般来说，如果类是从另一个模块重新导出的，你会在模块工厂内重新创建这样的类：
+
+```ts
+import { Dog } from './dog.js'
+
+vi.mock(import('./dog.js'), () => {
+  const Dog = vi.fn()
+  Dog.prototype.feed = vi.fn()
+  // 一些其他的模拟...
+  return { Dog }
+})
+```
+
+该方法也可用于将一个类的实例传递给接受相同接口的函数：
+
+```ts [src/feed.ts]
+function feed(dog: Dog) {
+  // ...
+}
+```
+```ts [tests/dog.test.ts]
+import { expect, test, vi } from 'vitest'
+import { feed } from '../src/feed.js'
+
+const Dog = vi.fn()
+Dog.prototype.feed = vi.fn()
+
+test('can feed dogs', () => {
+  const dogMax = new Dog('Max')
+
+  feed(dogMax)
+
+  expect(dogMax.feed).toHaveBeenCalled()
+  expect(dogMax.isHungry()).toBe(false)
+})
+```
+:::
+
+现在，当我们创建一个新的 `Dog` 类实例时，它的 `speak` 方法（与 `feed` 并列）已经被模拟：
+
+```ts
+const Cooper = new Dog('Cooper')
+Cooper.speak() // loud bark!
+Cooper.greet() // Hi! My name is Cooper!
+
+// 你可以使用内置断言来检查调用的有效性
+expect(Cooper.speak).toHaveBeenCalled()
+expect(Cooper.greet).toHaveBeenCalled()
+
+const Max = new Dog('Max')
+
+// 如果你直接赋值方法，这些方法在实例之间不会共享
+expect(Max.speak).toHaveBeenCalled()
+expect(Max.greet).not.toHaveBeenCalled()
+```
+
+我们可以为特定实例重新分配返回值：
+
+```ts
+const dog = new Dog('Cooper')
+
+// "vi.mocked" 是一个类型辅助工具，因为
+// TypeScript 不知道 Dog 是一个被模拟的类，
+// 它将任何函数包装在 Mock<T> 类型中
+// 而不会验证该函数是否为模拟函数
+vi.mocked(dog.speak).mockReturnValue('woof woof')
+
+dog.speak() // woof woof
+```
+
+要模拟属性，我们可以使用 `vi.spyOn(dog, 'name', 'get')` 方法。这样就可以在被模拟的属性上使用 spy 断言：
+
+```ts
+const dog = new Dog('Cooper')
+
+const nameSpy = vi.spyOn(dog, 'name', 'get').mockReturnValue('Max')
+
+expect(dog.name).toBe('Max')
+expect(nameSpy).toHaveBeenCalledTimes(1)
+```
+
+::: tip
+你也可以使用相同的方法来监视 getter 和 setter。
+:::
 
 ## 速查表 {#cheat-sheet}
+
+::: info 提示
+下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [配置文件](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。
+:::
+
+我想……
 
 ### 模拟导出变量 {#mock-exported-variables}
 ```js [example.js]
