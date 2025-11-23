@@ -614,7 +614,7 @@ function guide(): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: '并行执行',
+      text: '并行性',
       link: '/guide/parallelism',
     },
     {
