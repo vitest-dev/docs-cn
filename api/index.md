@@ -496,7 +496,7 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 
 `test.each` 是一种能同时提供 [`TestContext`](/guide/test-context) 的替代用法。
 
-它和 `test.each` 的主要区别在于：当你需要传递数组参数时，二者的写法和处理方式不同。而对于非数组参数（包括模板字符串的用法），`test.each` 和 `test.each` 的使用方法是一致的。
+它和 `test.each` 的主要区别在于：当你需要传递数组参数时，二者的写法和处理方式不同。而对于非数组参数（包括模板字符串的用法），`test.for` 和 `test.each` 的使用方法是一致的。
 
 ```ts
 // `each` 展开数组用例
