@@ -58,12 +58,12 @@ test('clicks on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.click(logo)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await logo.click()
 })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.click` API](https://playwright.dev/docs/api/class-locator#locator-click)
 - [WebdriverIO `element.click` API](https://webdriver.io/docs/api/element/click/)
@@ -89,12 +89,12 @@ test('triggers a double click on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.dblClick(logo)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await logo.dblClick()
 })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.dblclick` API](https://playwright.dev/docs/api/class-locator#locator-dblclick)
 - [WebdriverIO `element.doubleClick` API](https://webdriver.io/docs/api/element/doubleClick/)
@@ -126,7 +126,7 @@ test('triggers a triple click on an element', async () => {
   })
 
   await userEvent.tripleClick(logo)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await logo.tripleClick()
 
   expect(tripleClickFired).toBe(true)
@@ -160,7 +160,7 @@ test('update input', async () => {
   await userEvent.fill(input, '{{a[[') // input.value == {{a[[
   await userEvent.fill(input, '{Shift}') // input.value == {Shift}
 
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await input.fill('foo') // input.value == foo
 })
 ```
@@ -299,7 +299,7 @@ test('clears input', async () => {
   expect(input).toHaveValue('foo')
 
   await userEvent.clear(input)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await input.clear()
 
   expect(input).toHaveValue('')
@@ -343,7 +343,7 @@ test('clears input', async () => {
   const select = page.getByRole('select')
 
   await userEvent.selectOptions(select, 'Option 1')
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await select.selectOptions('Option 1')
 
   expect(select).toHaveValue('option-1')
@@ -393,7 +393,7 @@ test('hovers logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.hover(logo)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await logo.hover()
 })
 ```
@@ -426,7 +426,7 @@ test('unhover logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.unhover(logo)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await logo.unhover()
 })
 ```
@@ -458,7 +458,7 @@ test('can upload a file', async () => {
   const file = new File(['file'], 'file.png', { type: 'image/png' })
 
   await userEvent.upload(input, file)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await input.upload(file)
 
   // 也可以使用相对于项目根目录的文件路径
@@ -496,7 +496,7 @@ test('drag and drop works', async () => {
   const target = page.getByTestId('logo-target')
 
   await userEvent.dragAndDrop(source, target)
-  // 或直接从定位器上访问
+  // 或者你可以直接从定位器上访问
   await source.dropTo(target)
 
   await expect.element(target).toHaveTextContent('Logo is processed')

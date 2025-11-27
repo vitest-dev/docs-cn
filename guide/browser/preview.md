@@ -4,7 +4,7 @@
 `preview` 提供程序的主要功能是在真实浏览器环境中显示测试。不过，它不支持高级浏览器自动化功能，如多个浏览器实例或无头模式。对于更复杂的场景，请考虑使用 [Playwright](/guide/browser/playwright) 或 [WebdriverIO](/guide/browser/webdriverio)。
 :::
 
-要查看测试在真实浏览器中的运行情况，需要安装 [`@vitest/browser-preview`](https://www.npmjs.com/package/@vitest/browser-preview) npm 软件包，并在配置的 `test.browser.provider` 属性中指定其 `preview` 导出：
+要让你的测试运行在真实浏览器中，需要安装 [`@vitest/browser-preview`](https://www.npmjs.com/package/@vitest/browser-preview) npm 软件包，并在配置的 `test.browser.provider` 属性中指定其 `preview` 导出：
 
 ```ts [vitest.config.js]
 import { preview } from '@vitest/browser-preview'

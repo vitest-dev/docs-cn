@@ -32,7 +32,7 @@ test('my types work properly', () => {
   expectTypeOf(mount).toBeFunction()
   expectTypeOf(mount).parameter(0).toExtend<{ name: string }>()
 
-  // @ts-expect-error 名称为字符串
+  // @ts-expect-error name 应是 string 类型
   assertType(mount({ name: 42 }))
 })
 ```
@@ -106,7 +106,7 @@ expectTypeOf(one).toEqualTypeOf<typeof two>()
 const answer = 42
 
 assertType<number>(answer)
-// @ts-expect-error 答案不是字符串
+// @ts-expect-error answer 不是 string 类型
 assertType<string>(answer)
 ```
 
@@ -116,7 +116,7 @@ assertType<string>(answer)
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：
 
 ```ts
-// @ts-expect-error 答案不是字符串
+// @ts-expect-error answer 不是 string 类型
 assertType<string>(answr)
 ```
 

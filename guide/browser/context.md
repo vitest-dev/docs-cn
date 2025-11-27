@@ -86,9 +86,9 @@ export const page: {
    */
   elementLocator(element: Element): Locator
   /**
-   * iframe 定位器。这是一个进入 iframe 主体的文档定位器
+   * iframe 定位器。这是一个进入 iframe body 的文档定位器
    * 其工作原理与 `page` 对象类似。
-   * **Warning:** 目前，只有 `playwright` 提供程序支持该功能。
+   * **Warning:** 目前，仅有 `playwright` 提供程序支持该功能。
    */
   frameLocator(iframeElement: Locator): FrameLocator
 

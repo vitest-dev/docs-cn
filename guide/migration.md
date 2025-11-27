@@ -134,7 +134,7 @@ expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(4)
 为了提升用户体验，当 [`--standalone`](/guide/cli#standalone) 与文件名过滤器一起使用时，Vitest 现在会直接开始运行匹配到的文件。
 
 ```sh
-# 在 Vitest v3 及以下版本中，该命令将忽略 "math.test.ts "文件名过滤器。
+# 在 Vitest v3 及以下版本中，该命令将忽略 "math.test.ts" 文件名过滤器。
 # 在 Vitest v4 中，math.test.ts 将自动运行。
 $ vitest --standalone math.test.ts
 ```
@@ -158,7 +158,7 @@ $ pnpm run test:dev math.test.ts
 ```
 :::
 
-### 更换 `vite-node` 和 [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) {#replacing-vite-node-with-module-runner}
+### `vite-node` 替换为 [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) {#replacing-vite-node-with-module-runner}
 
 Module Runner 已取代 `vite-node`，直接内嵌于 Vite, Vitest 亦移除 SSR 封装，直接调用。主要变更如下：
 
@@ -265,11 +265,11 @@ const { getElementError } = utils // [!code ++]
 在过渡期间，`@vitest/browser/context` 和 `@vitest/browser/utils` 都能在运行时工作，但它们将在未来的版本中移除。
 :::
 
-### 记录者更新 {#reporter-updates}
+### 报告器更新 {#reporter-updates}
 
-记录者 API `onCollected`，`onSpecsCollected`，`onPathsCollected`，`onTaskUpdate` 和 `onFinished` 被移除。参阅 [`Reporters API`](/advanced/api/reporters) 了解新的替代方案。新的 API 在 Vitest `v3.0.0`中引入。
+Reporter API `onCollected`，`onSpecsCollected`，`onPathsCollected`，`onTaskUpdate` 和 `onFinished` 被移除。参阅 [`Reporters API`](/advanced/api/reporters) 了解新的替代方案。新的 API 在 Vitest `v3.0.0` 中引入。
 
-删除了 `basic` 记录者，因为它等于：
+移除了 `basic` 报告器，因为它等价于：
 
 ```ts
 export default defineConfig({
@@ -325,7 +325,7 @@ exports[`custom element with shadow root 1`] = `
 `
 ```
 
-### 已废弃的 API {#deprecated-apis-are-removed}
+### 移除弃用的 API {#deprecated-apis-are-removed}
 
 Vitest 4.0 移除了以下废弃的配置项：
 
@@ -368,7 +368,7 @@ const mock = vi.fn()
 const state = mock.mock
 mock.mockClear()
 
-expect(state).toBe(mock.mock) // 在 Jest 是失败
+expect(state).toBe(mock.mock) // 在 Jest 中失败
 ```
 
 ### 模块 Mock {#module-mocks}
