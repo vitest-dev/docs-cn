@@ -31,7 +31,7 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
-从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[测试 API 参考](/api/)。
+从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[Test API](/api/)。
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
@@ -1335,7 +1335,7 @@ test('spy function returns bananas on second call', async () => {
 
 - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
 
-该断言检查一个值是否满足「某个谓词/certain predicate」。
+该断言检查一个值是否满足某个谓词（certain predicate）。
 
 ```ts
 import { describe, expect, it } from 'vitest'
@@ -1746,7 +1746,7 @@ declare module 'vitest' {
 :::
 
 :::tip
-如果想了解更多信息，请查看 [扩展断言 (Matchers) 指南](/guide/extending-matchers)。
+如果想了解更多信息，请查看 [扩展断言](/guide/extending-matchers)。
 :::
 
 ## expect.addEqualityTesters {#expect-addequalitytesters}
