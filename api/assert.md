@@ -724,11 +724,7 @@ import { assert, test } from 'vitest'
 test('assert.notInclude', () => {
   assert.notInclude([1, 2, 3], 4, 'array doesn\'t contain 4')
   assert.notInclude('foobar', 'baz', 'foobar doesn\'t contain baz')
-  assert.notInclude(
-    { foo: 'bar', hello: 'universe' },
-    { foo: 'baz' },
-    'object doesn\'t contain property'
-  )
+  assert.notInclude({ foo: 'bar', hello: 'universe' }, { foo: 'baz' }, 'object doesn\'t contain property')
 })
 ```
 
@@ -1079,16 +1075,8 @@ test('assert.nestedPropertyVal', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notNestedPropertyVal', () => {
-  assert.notNestedPropertyVal(
-    { tea: { green: 'matcha' } },
-    'tea.green',
-    'konacha'
-  )
-  assert.notNestedPropertyVal(
-    { tea: { green: 'matcha' } },
-    'coffee.green',
-    'matcha'
-  )
+  assert.notNestedPropertyVal({ tea: { green: 'matcha' } }, 'tea.green', 'konacha')
+  assert.notNestedPropertyVal({ tea: { green: 'matcha' } }, 'coffee.green', 'matcha')
 })
 ```
 
@@ -1102,16 +1090,8 @@ test('assert.notNestedPropertyVal', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notNestedPropertyVal', () => {
-  assert.notNestedPropertyVal(
-    { tea: { green: 'matcha' } },
-    'tea.green',
-    'konacha'
-  )
-  assert.notNestedPropertyVal(
-    { tea: { green: 'matcha' } },
-    'coffee.green',
-    'matcha'
-  )
+  assert.notNestedPropertyVal({ tea: { green: 'matcha' } }, 'tea.green', 'konacha')
+  assert.notNestedPropertyVal({ tea: { green: 'matcha' } }, 'coffee.green', 'matcha')
 })
 ```
 
@@ -1125,21 +1105,9 @@ test('assert.notNestedPropertyVal', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notDeepNestedPropertyVal', () => {
-  assert.notDeepNestedPropertyVal(
-    { tea: { green: { matcha: 'yum' } } },
-    'tea.green',
-    { oolong: 'yum' }
-  )
-  assert.notDeepNestedPropertyVal(
-    { tea: { green: { matcha: 'yum' } } },
-    'tea.green',
-    { matcha: 'yuck' }
-  )
-  assert.notDeepNestedPropertyVal(
-    { tea: { green: { matcha: 'yum' } } },
-    'tea.black',
-    { matcha: 'yum' }
-  )
+  assert.notDeepNestedPropertyVal({ tea: { green: { matcha: 'yum' } } }, 'tea.green', { oolong: 'yum' })
+  assert.notDeepNestedPropertyVal({ tea: { green: { matcha: 'yum' } } }, 'tea.green', { matcha: 'yuck' })
+  assert.notDeepNestedPropertyVal({ tea: { green: { matcha: 'yum' } } }, 'tea.black', { matcha: 'yum' })
 })
 ```
 
@@ -1156,15 +1124,7 @@ test('assert.lengthOf', () => {
   assert.lengthOf([1, 2, 3], 3, 'array has length of 3')
   assert.lengthOf('foobar', 6, 'string has length of 6')
   assert.lengthOf(new Set([1, 2, 3]), 3, 'set has size of 3')
-  assert.lengthOf(
-    new Map([
-      ['a', 1],
-      ['b', 2],
-      ['c', 3],
-    ]),
-    3,
-    'map has size of 3'
-  )
+  assert.lengthOf(new Map([['a', 1], ['b', 2], ['c', 3]]), 3, 'map has size of 3')
 })
 ```
 
@@ -1179,21 +1139,9 @@ import { assert, test } from 'vitest'
 
 test('assert.hasAnyKeys', () => {
   assert.hasAnyKeys({ foo: 1, bar: 2, baz: 3 }, ['foo', 'iDontExist', 'baz'])
-  assert.hasAnyKeys(
-    { foo: 1, bar: 2, baz: 3 },
-    { foo: 30, iDontExist: 99, baz: 1337 }
-  )
-  assert.hasAnyKeys(
-    new Map([
-      [{ foo: 1 }, 'bar'],
-      ['key', 'value'],
-    ]),
-    [{ foo: 1 }, 'key']
-  )
-  assert.hasAnyKeys(new Set([{ foo: 'bar' }, 'anotherKey']), [
-    { foo: 'bar' },
-    'anotherKey',
-  ])
+  assert.hasAnyKeys({ foo: 1, bar: 2, baz: 3 }, { foo: 30, iDontExist: 99, baz: 1337 })
+  assert.hasAnyKeys(new Map([[{ foo: 1 }, 'bar'], ['key', 'value'],]), [{ foo: 1 }, 'key'])
+  assert.hasAnyKeys(new Set([{ foo: 'bar' }, 'anotherKey']), [{ foo: 'bar' }, 'anotherKey'])
 })
 ```
 
@@ -1208,20 +1156,9 @@ import { assert, test } from 'vitest'
 
 test('assert.hasAllKeys', () => {
   assert.hasAllKeys({ foo: 1, bar: 2, baz: 3 }, ['foo', 'bar', 'baz'])
-  assert.hasAllKeys(
-    { foo: 1, bar: 2, baz: 3 },
-    { foo: 30, bar: 99, baz: 1337 }
-  )
-  assert.hasAllKeys(
-    new Map([
-      [{ foo: 1 }, 'bar'],
-      ['key', 'value'],
-    ]),
-    [{ foo: 1 }, 'key']
-  )
-  assert.hasAllKeys(
-    new Set([{ foo: 'bar' }, 'anotherKey'], [{ foo: 'bar' }, 'anotherKey'])
-  )
+  assert.hasAllKeys({ foo: 1, bar: 2, baz: 3 }, { foo: 30, bar: 99, baz: 1337 })
+  assert.hasAllKeys(new Map([[{ foo: 1 }, 'bar'], ['key', 'value'],]), [{ foo: 1 }, 'key'])
+  assert.hasAllKeys(new Set([{ foo: 'bar' }, 'anotherKey'], [{ foo: 'bar' }, 'anotherKey']))
 })
 ```
 
@@ -1238,30 +1175,11 @@ test('assert.containsAllKeys', () => {
   assert.containsAllKeys({ foo: 1, bar: 2, baz: 3 }, ['foo', 'baz'])
   assert.containsAllKeys({ foo: 1, bar: 2, baz: 3 }, ['foo', 'bar', 'baz'])
   assert.containsAllKeys({ foo: 1, bar: 2, baz: 3 }, { foo: 30, baz: 1337 })
-  assert.containsAllKeys(
-    { foo: 1, bar: 2, baz: 3 },
-    { foo: 30, bar: 99, baz: 1337 }
-  )
-  assert.containsAllKeys(
-    new Map([
-      [{ foo: 1 }, 'bar'],
-      ['key', 'value'],
-    ]),
-    [{ foo: 1 }]
-  )
-  assert.containsAllKeys(
-    new Map([
-      [{ foo: 1 }, 'bar'],
-      ['key', 'value'],
-    ]),
-    [{ foo: 1 }, 'key']
-  )
-  assert.containsAllKeys(
-    new Set([{ foo: 'bar' }, 'anotherKey'], [{ foo: 'bar' }])
-  )
-  assert.containsAllKeys(
-    new Set([{ foo: 'bar' }, 'anotherKey'], [{ foo: 'bar' }, 'anotherKey'])
-  )
+  assert.containsAllKeys({ foo: 1, bar: 2, baz: 3 }, { foo: 30, bar: 99, baz: 1337 })
+  assert.containsAllKeys(new Map([[{ foo: 1 }, 'bar'], ['key', 'value'],]), [{ foo: 1 }])
+  assert.containsAllKeys(new Map([[{ foo: 1 }, 'bar'], ['key', 'value'],]), [{ foo: 1 }, 'key'])
+  assert.containsAllKeys(new Set([{ foo: 'bar' }, 'anotherKey'], [{ foo: 'bar' }]))
+  assert.containsAllKeys(new Set([{ foo: 'bar' }, 'anotherKey'], [{ foo: 'bar' }, 'anotherKey']))
 })
 ```
 
@@ -1275,25 +1193,10 @@ test('assert.containsAllKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.doesNotHaveAnyKeys', () => {
-  assert.doesNotHaveAnyKeys({ foo: 1, bar: 2, baz: 3 }, [
-    'one',
-    'two',
-    'example',
-  ])
-  assert.doesNotHaveAnyKeys(
-    { foo: 1, bar: 2, baz: 3 },
-    { one: 1, two: 2, example: 'foo' }
-  )
-  assert.doesNotHaveAnyKeys(
-    new Map([
-      [{ foo: 1 }, 'bar'],
-      ['key', 'value'],
-    ]),
-    [{ one: 'two' }, 'example']
-  )
-  assert.doesNotHaveAnyKeys(
-    new Set([{ foo: 'bar' }, 'anotherKey'], [{ one: 'two' }, 'example'])
-  )
+  assert.doesNotHaveAnyKeys({ foo: 1, bar: 2, baz: 3 }, ['one', 'two', 'example',])
+  assert.doesNotHaveAnyKeys({ foo: 1, bar: 2, baz: 3 }, { one: 1, two: 2, example: 'foo' })
+  assert.doesNotHaveAnyKeys(new Map([[{ foo: 1 }, 'bar'], ['key', 'value'],]), [{ one: 'two' }, 'example'])
+  assert.doesNotHaveAnyKeys(new Set([{ foo: 'bar' }, 'anotherKey'], [{ one: 'two' }, 'example']))
 })
 ```
 
@@ -1307,26 +1210,10 @@ test('assert.doesNotHaveAnyKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.hasAnyKeys', () => {
-  assert.doesNotHaveAnyKeys({ foo: 1, bar: 2, baz: 3 }, [
-    'one',
-    'two',
-    'example',
-  ])
-  assert.doesNotHaveAnyKeys(
-    { foo: 1, bar: 2, baz: 3 },
-    { one: 1, two: 2, example: 'foo' }
-  )
-  assert.doesNotHaveAnyKeys(
-    new Map([
-      [{ foo: 1 }, 'bar'],
-      ['key', 'value'],
-    ]),
-    [{ one: 'two' }, 'example']
-  )
-  assert.doesNotHaveAnyKeys(new Set([{ foo: 'bar' }, 'anotherKey']), [
-    { one: 'two' },
-    'example',
-  ])
+  assert.doesNotHaveAnyKeys({ foo: 1, bar: 2, baz: 3 }, ['one', 'two', 'example',])
+  assert.doesNotHaveAnyKeys({ foo: 1, bar: 2, baz: 3 }, { one: 1, two: 2, example: 'foo' })
+  assert.doesNotHaveAnyKeys(new Map([[{ foo: 1 }, 'bar'], ['key', 'value'],]), [{ one: 'two' }, 'example'])
+  assert.doesNotHaveAnyKeys(new Set([{ foo: 'bar' }, 'anotherKey']), [{ one: 'two' }, 'example',])
 })
 ```
 
@@ -1340,38 +1227,12 @@ test('assert.hasAnyKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.hasAnyDeepKeys', () => {
-  assert.hasAnyDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [1, 2],
-    ]),
-    { one: 'one' }
-  )
-  assert.hasAnyDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [1, 2],
-    ]),
-    [{ one: 'one' }, { two: 'two' }]
-  )
-  assert.hasAnyDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [{ two: 'two' }, 'valueTwo'],
-    ]),
-    [{ one: 'one' }, { two: 'two' }]
-  )
-  assert.hasAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), {
-    one: 'one',
-  })
-  assert.hasAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [
-    { one: 'one' },
-    { three: 'three' },
-  ])
-  assert.hasAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [
-    { one: 'one' },
-    { two: 'two' },
-  ])
+  assert.hasAnyDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [1, 2],]), { one: 'one' })
+  assert.hasAnyDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [1, 2],]), [{ one: 'one' }, { two: 'two' }])
+  assert.hasAnyDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [{ two: 'two' }, 'valueTwo'],]), [{ one: 'one' }, { two: 'two' }])
+  assert.hasAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), { one: 'one', })
+  assert.hasAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [{ one: 'one' }, { three: 'three' },])
+  assert.hasAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [{ one: 'one' }, { two: 'two' },])
 })
 ```
 
@@ -1385,21 +1246,10 @@ test('assert.hasAnyDeepKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.hasAnyDeepKeys', () => {
-  assert.hasAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne']]), {
-    one: 'one',
-  })
-  assert.hasAllDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [{ two: 'two' }, 'valueTwo'],
-    ]),
-    [{ one: 'one' }, { two: 'two' }]
-  )
+  assert.hasAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne']]), { one: 'one', })
+  assert.hasAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [{ two: 'two' }, 'valueTwo'],]), [{ one: 'one' }, { two: 'two' }])
   assert.hasAllDeepKeys(new Set([{ one: 'one' }]), { one: 'one' })
-  assert.hasAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [
-    { one: 'one' },
-    { two: 'two' },
-  ])
+  assert.hasAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [{ one: 'one' }, { two: 'two' },])
 })
 ```
 
@@ -1413,27 +1263,10 @@ test('assert.hasAnyDeepKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.containsAllDeepKeys', () => {
-  assert.containsAllDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [1, 2],
-    ]),
-    { one: 'one' }
-  )
-  assert.containsAllDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [{ two: 'two' }, 'valueTwo'],
-    ]),
-    [{ one: 'one' }, { two: 'two' }]
-  )
-  assert.containsAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), {
-    one: 'one',
-  })
-  assert.containsAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [
-    { one: 'one' },
-    { two: 'two' },
-  ])
+  assert.containsAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [1, 2],]), { one: 'one' })
+  assert.containsAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [{ two: 'two' }, 'valueTwo'],]), [{ one: 'one' }, { two: 'two' }])
+  assert.containsAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), { one: 'one', })
+  assert.containsAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [{ one: 'one' }, { two: 'two' },])
 })
 ```
 
@@ -1447,27 +1280,10 @@ test('assert.containsAllDeepKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.doesNotHaveAnyDeepKeys', () => {
-  assert.doesNotHaveAnyDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [1, 2],
-    ]),
-    { thisDoesNot: 'exist' }
-  )
-  assert.doesNotHaveAnyDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [{ two: 'two' }, 'valueTwo'],
-    ]),
-    [{ twenty: 'twenty' }, { fifty: 'fifty' }]
-  )
-  assert.doesNotHaveAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), {
-    twenty: 'twenty',
-  })
-  assert.doesNotHaveAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [
-    { twenty: 'twenty' },
-    { fifty: 'fifty' },
-  ])
+  assert.doesNotHaveAnyDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [1, 2],]), { thisDoesNot: 'exist' })
+  assert.doesNotHaveAnyDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [{ two: 'two' }, 'valueTwo'],]), [{ twenty: 'twenty' }, { fifty: 'fifty' }])
+  assert.doesNotHaveAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), { twenty: 'twenty', })
+  assert.doesNotHaveAnyDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [{ twenty: 'twenty' }, { fifty: 'fifty' },])
 })
 ```
 
@@ -1481,27 +1297,10 @@ test('assert.doesNotHaveAnyDeepKeys', () => {
 import { assert, test } from 'vitest'
 
 test('assert.doesNotHaveAllDeepKeys', () => {
-  assert.doesNotHaveAllDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [1, 2],
-    ]),
-    { thisDoesNot: 'exist' }
-  )
-  assert.doesNotHaveAllDeepKeys(
-    new Map([
-      [{ one: 'one' }, 'valueOne'],
-      [{ two: 'two' }, 'valueTwo'],
-    ]),
-    [{ twenty: 'twenty' }, { one: 'one' }]
-  )
-  assert.doesNotHaveAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), {
-    twenty: 'twenty',
-  })
-  assert.doesNotHaveAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [
-    { one: 'one' },
-    { fifty: 'fifty' },
-  ])
+  assert.doesNotHaveAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [1, 2],]), { thisDoesNot: 'exist' })
+  assert.doesNotHaveAllDeepKeys(new Map([[{ one: 'one' }, 'valueOne'], [{ two: 'two' }, 'valueTwo'],]), [{ twenty: 'twenty' }, { one: 'one' }])
+  assert.doesNotHaveAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), { twenty: 'twenty', })
+  assert.doesNotHaveAllDeepKeys(new Set([{ one: 'one' }, { two: 'two' }]), [{ one: 'one' }, { fifty: 'fifty' },])
 })
 ```
 
@@ -1524,26 +1323,10 @@ test('assert.throws', () => {
   assert.throws(fn, /Error thrown must have a msg that matches this/)
   assert.throws(fn, ReferenceError)
   assert.throws(fn, errorInstance)
-  assert.throws(
-    fn,
-    ReferenceError,
-    'Error thrown must be a ReferenceError and have this msg'
-  )
-  assert.throws(
-    fn,
-    errorInstance,
-    'Error thrown must be the same errorInstance and have this msg'
-  )
-  assert.throws(
-    fn,
-    ReferenceError,
-    /Error thrown must be a ReferenceError and match this/
-  )
-  assert.throws(
-    fn,
-    errorInstance,
-    /Error thrown must be the same errorInstance and match this/
-  )
+  assert.throws(fn, ReferenceError, 'Error thrown must be a ReferenceError and have this msg')
+  assert.throws(fn, errorInstance, 'Error thrown must be the same errorInstance and have this msg')
+  assert.throws(fn, ReferenceError, /Error thrown must be a ReferenceError and match this/)
+  assert.throws(fn, errorInstance, /Error thrown must be the same errorInstance and match this/)
 })
 ```
 
@@ -1636,11 +1419,7 @@ test('assert.sameMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.sameDeepMembers', () => {
-  assert.sameDeepMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { a: 1 }, { c: 3 }],
-    'same deep members'
-  )
+  assert.sameDeepMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { a: 1 }, { c: 3 }], 'same deep members')
 })
 ```
 
@@ -1654,11 +1433,7 @@ test('assert.sameDeepMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.sameDeepMembers', () => {
-  assert.sameDeepMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { a: 1 }, { c: 3 }],
-    'same deep members'
-  )
+  assert.sameDeepMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { a: 1 }, { c: 3 }], 'same deep members')
 })
 ```
 
@@ -1686,11 +1461,7 @@ test('assert.sameOrderedMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notSameOrderedMembers', () => {
-  assert.notSameOrderedMembers(
-    [1, 2, 3],
-    [2, 1, 3],
-    'not same ordered members'
-  )
+  assert.notSameOrderedMembers([1, 2, 3], [2, 1, 3], 'not same ordered members')
 })
 ```
 
@@ -1704,11 +1475,7 @@ test('assert.notSameOrderedMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.sameDeepOrderedMembers', () => {
-  assert.sameDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    'same deep ordered members'
-  )
+  assert.sameDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ a: 1 }, { b: 2 }, { c: 3 }], 'same deep ordered members')
 })
 ```
 
@@ -1722,16 +1489,8 @@ test('assert.sameDeepOrderedMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notSameDeepOrderedMembers', () => {
-  assert.notSameDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ a: 1 }, { b: 2 }, { z: 5 }],
-    'not same deep ordered members'
-  )
-  assert.notSameDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { a: 1 }, { c: 3 }],
-    'not same deep ordered members'
-  )
+  assert.notSameDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ a: 1 }, { b: 2 }, { z: 5 }], 'not same deep ordered members')
+  assert.notSameDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { a: 1 }, { c: 3 }], 'not same deep ordered members')
 })
 ```
 
@@ -1773,11 +1532,7 @@ test('assert.notIncludeMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.includeDeepMembers', () => {
-  assert.includeDeepMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { a: 1 }, { b: 2 }],
-    'include deep members'
-  )
+  assert.includeDeepMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { a: 1 }, { b: 2 }], 'include deep members')
 })
 ```
 
@@ -1791,11 +1546,7 @@ test('assert.includeDeepMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notIncludeDeepMembers', () => {
-  assert.notIncludeDeepMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { f: 5 }],
-    'not include deep members'
-  )
+  assert.notIncludeDeepMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { f: 5 }], 'not include deep members')
 })
 ```
 
@@ -1823,16 +1574,8 @@ test('assert.includeOrderedMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.notIncludeOrderedMembers', () => {
-  assert.notIncludeOrderedMembers(
-    [1, 2, 3],
-    [2, 1],
-    'not include ordered members'
-  )
-  assert.notIncludeOrderedMembers(
-    [1, 2, 3],
-    [2, 3],
-    'not include ordered members'
-  )
+  assert.notIncludeOrderedMembers([1, 2, 3], [2, 1], 'not include ordered members')
+  assert.notIncludeOrderedMembers([1, 2, 3], [2, 3], 'not include ordered members')
 })
 ```
 
@@ -1846,11 +1589,7 @@ test('assert.notIncludeOrderedMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.includeDeepOrderedMembers', () => {
-  assert.includeDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ a: 1 }, { b: 2 }],
-    'include deep ordered members'
-  )
+  assert.includeDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ a: 1 }, { b: 2 }], 'include deep ordered members')
 })
 ```
 
@@ -1864,21 +1603,9 @@ test('assert.includeDeepOrderedMembers', () => {
 import { assert, test } from 'vitest'
 
 test('assert.includeDeepOrderedMembers', () => {
-  assert.notIncludeDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ a: 1 }, { f: 5 }],
-    'not include deep ordered members'
-  )
-  assert.notIncludeDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { a: 1 }],
-    'not include deep ordered members'
-  )
-  assert.notIncludeDeepOrderedMembers(
-    [{ a: 1 }, { b: 2 }, { c: 3 }],
-    [{ b: 2 }, { c: 3 }],
-    'not include deep ordered members'
-  )
+  assert.notIncludeDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ a: 1 }, { f: 5 }], 'not include deep ordered members')
+  assert.notIncludeDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { a: 1 }], 'not include deep ordered members')
+  assert.notIncludeDeepOrderedMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }, { c: 3 }], 'not include deep ordered members')
 })
 ```
 
@@ -1907,9 +1634,7 @@ import { assert, test } from 'vitest'
 
 test('assert.changes', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 22
-  }
+  function fn() { obj.val = 22 };
   assert.changes(fn, obj, 'val')
 })
 ```
@@ -1925,9 +1650,7 @@ import { assert, test } from 'vitest'
 
 test('assert.changesBy', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val += 2
-  }
+  function fn() { obj.val += 2 };
   assert.changesBy(fn, obj, 'val', 2)
 })
 ```
@@ -1943,9 +1666,7 @@ import { assert, test } from 'vitest'
 
 test('assert.doesNotChange', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val += 2
-  }
+  function fn() { obj.val += 2 };
   assert.doesNotChange(fn, obj, 'val', 2)
 })
 ```
@@ -1961,9 +1682,7 @@ import { assert, test } from 'vitest'
 
 test('assert.changesButNotBy', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val += 10
-  }
+  function fn() { obj.val += 10 };
   assert.changesButNotBy(fn, obj, 'val', 5)
 })
 ```
@@ -1979,9 +1698,7 @@ import { assert, test } from 'vitest'
 
 test('assert.increases', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 13
-  }
+  function fn() { obj.val = 13 };
   assert.increases(fn, obj, 'val')
 })
 ```
@@ -2013,9 +1730,7 @@ import { assert, test } from 'vitest'
 
 test('assert.doesNotIncrease', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 8
-  }
+  function fn() { obj.val = 8 }
   assert.doesNotIncrease(fn, obj, 'val')
 })
 ```
@@ -2031,9 +1746,7 @@ import { assert, test } from 'vitest'
 
 test('assert.increasesButNotBy', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val += 15
-  }
+  function fn() { obj.val += 15 };
   assert.increasesButNotBy(fn, obj, 'val', 10)
 })
 ```
@@ -2049,9 +1762,7 @@ import { assert, test } from 'vitest'
 
 test('assert.decreases', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 5
-  }
+  function fn() { obj.val = 5 };
   assert.decreases(fn, obj, 'val')
 })
 ```
@@ -2067,9 +1778,7 @@ import { assert, test } from 'vitest'
 
 test('assert.decreasesBy', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val -= 5
-  }
+  function fn() { obj.val -= 5 };
   assert.decreasesBy(fn, obj, 'val', 5)
 })
 ```
@@ -2085,9 +1794,7 @@ import { assert, test } from 'vitest'
 
 test('assert.doesNotDecrease', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 15
-  }
+  function fn() { obj.val = 15 }
   assert.doesNotDecrease(fn, obj, 'val')
 })
 ```
@@ -2103,9 +1810,7 @@ import { assert, test } from 'vitest'
 
 test('assert.doesNotDecreaseBy', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 5
-  }
+  function fn() { obj.val = 5 };
   assert.doesNotDecreaseBy(fn, obj, 'val', 1)
 })
 ```
@@ -2121,9 +1826,7 @@ import { assert, test } from 'vitest'
 
 test('assert.decreasesButNotBy', () => {
   const obj = { val: 10 }
-  function fn() {
-    obj.val = 5
-  }
+  function fn() { obj.val = 5 };
   assert.decreasesButNotBy(fn, obj, 'val', 1)
 })
 ```
