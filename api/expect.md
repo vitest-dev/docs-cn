@@ -31,42 +31,12 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
-从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[测试 API 参考](/api/)。
+从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读 [Test API](/api/)。
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
 如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
-:::
-
-## assert
-
-- **类型:** `Chai.AssertStatic`
-
-Vitest 将 Chai 的 [`assert` API](https://www.chaijs.com/api/assert/) 以 `expect.assert` 的形式重新导出。你可以在  [Assert API page](/api/assert) 页面查看支持的方法。
-
-如果你需要缩小类型范围时，这将特别有用，因为 `expect.to*` 方法不支持此功能：
-
-```ts
-interface Cat {
-  __type: 'Cat'
-  mew(): void
-}
-interface Dog {
-  __type: 'Dog'
-  bark(): void
-}
-type Animal = Cat | Dog
-
-const animal: Animal = { __type: 'Dog', bark: () => {} }
-
-expect.assert(animal.__type === 'Dog')
-// 不显示类型错误！
-expect(animal.bark()).toBeUndefined()
-```
-
-::: tip
-注意，`expect.assert` 还支持其他缩小类型的方法（如：`assert.isDefined`，`assert.exists`等）。
 :::
 
 ## soft
@@ -327,32 +297,6 @@ function apples() {
 
 test('we don\'t have apples', () => {
   expect(apples()).toBeNull()
-})
-```
-
-## toBeNullable
-
-- **类型:** `() => Awaitable<void>`
-
-`toBeNullable` simply asserts if something is nullable (`null` or `undefined`).
-
-```ts
-import { expect, test } from 'vitest'
-
-function apples() {
-  return null
-}
-
-function bananas() {
-  return null
-}
-
-test('we don\'t have apples', () => {
-  expect(apples()).toBeNullable()
-})
-
-test('we don\'t have bananas', () => {
-  expect(bananas()).toBeNullable()
 })
 ```
 
@@ -1335,7 +1279,7 @@ test('spy function returns bananas on second call', async () => {
 
 - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
 
-该断言检查一个值是否满足「某个谓词/certain predicate」。
+该断言检查一个值是否满足某个谓词（certain predicate）。
 
 ```ts
 import { describe, expect, it } from 'vitest'
@@ -1746,7 +1690,7 @@ declare module 'vitest' {
 :::
 
 :::tip
-如果想了解更多信息，请查看 [扩展断言 (Matchers) 指南](/guide/extending-matchers)。
+如果想了解更多信息，请查看 [扩展断言](/guide/extending-matchers)。
 :::
 
 ## expect.addEqualityTesters {#expect-addequalitytesters}
