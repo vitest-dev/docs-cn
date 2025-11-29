@@ -42,7 +42,7 @@ WebdriverIO 具有与 Cypress 相同的优点，允许你在真实的浏览器�
 
 [@web/test-runner](https://modern-web.dev/docs/test-runner/overview/) 在无头浏览器中运行测试，提供与 web 应用程序相同的执行环境，而无需模仿浏览器 API 或 DOM。这也使得使用 devtools 在真实的浏览器中进行调试成为可能，尽管它没有像 Cypress 那样展示一个指示测试进度的 UI。
 
-要在 Vite 项目中使用 @web/test-runner，请使用[@remcovaes/web-test-runner-Vite-plugin](https://github.com/remcovaes/web-test-runner-vite-plugin)。@web/testrunner 不包括断言或模拟对象库，所以你需要自行添加它们。
+要在 Vite 项目中使用 @web/test-runner，请使用 [@remcovaes/web-test-runner-Vite-plugin](https://github.com/remcovaes/web-test-runner-vite-plugin)。@web/testrunner 不包括断言或模拟对象库，所以你需要自行添加它们。
 
 ## uvu
 
