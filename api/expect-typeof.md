@@ -31,9 +31,6 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 
 - **类型:** `<T>(expected: T) => void`
 
-::: warning 弃用
-自 expect-type v1.2.0 版本起，此匹配器已被弃用。请改用 [`toExtend`](#toextend)。
-:::
 此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
 
 ```ts
@@ -43,44 +40,6 @@ expectTypeOf({ a: 1, b: 1 }).toMatchTypeOf({ a: 1 })
 expectTypeOf<number>().toMatchTypeOf<string | number>()
 expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 ```
-
-## toExtend
-
-- **类型：** `<T>(expected: T) => void`
-
-这个匹配器用于检查期望类型是否扩展了提供的类型。它与 `toEqual` 不同，更类似于 [expect](/api/expect) 的 `toMatchObject()`。使用这个匹配器，你可以检查一个对象是否"匹配"某个类型。
-
-```ts
-import { expectTypeOf } from 'vitest'
-
-expectTypeOf({ a: 1, b: 1 }).toExtend({ a: 1 })
-expectTypeOf<number>().toExtend<string | number>()
-expectTypeOf<string | number>().not.toExtend<number>()
-```
-
-## toMatchObjectType
-
-- **类型：** `() => void`
-
-这个匹配器对对象类型执行严格检查，确保期望的类型与提供的对象类型相匹配。它比 [`toExtend`](#toextend) 更严格，是在处理对象类型时的推荐选择，因为它更有可能捕获到像只读属性这样的问题。
-
-```ts
-import { expectTypeOf } from 'vitest'
-
-expectTypeOf({ a: 1, b: 2 }).toMatchObjectType<{ a: number }>() // preferred
-expectTypeOf({ a: 1, b: 2 }).toExtend<{ a: number }>() // works but less strict
-
-// 支持嵌套对象检查
-const user = {
-  name: 'John',
-  address: { city: 'New York', zip: '10001' }
-}
-expectTypeOf(user).toMatchObjectType<{ name: string, address: { city: string } }>()
-```
-
-::: warning
-这个匹配器只适用于普通对象类型。对于联合类型和其他复杂类型，它将会失败。对于这些情况，请改用 [`toExtend`](#toextend)。
-:::
 
 ## extract
 
