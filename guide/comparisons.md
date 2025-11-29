@@ -8,7 +8,7 @@ title: 与其他测试框架对比 | 指南
 
 [Jest](https://jestjs.io/) 在测试框架领域占据了主导地位，因为它为大多数 JavaScript 项目提供开箱即用的支持，具备舒适的 API（`it` 和 `expect`），且覆盖了大多数测试的需求（例如快照、模拟和覆盖率）。我们感谢 Jest 团队和社区创建了一个令人愉悦的测试 API，并引入了许多已成为 Web 生态系统标准的测试模式。
 
-在 Vite 项目中使用 Jest 是可能的。[@sodatea](https://bsky.app/profile/haoqun.dev) 开发了 [vite-jest](https://github.com/sodatea/vite-jest#readme) ，旨在为 [Jest](https://jestjs.io/) 提供一流的 Vite 集成。[Jest 中最后的阻碍](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest)已经解决。因此，在 Vite 项目的单元测试中，Jest 仍是一个可用选项。
+在 Vite 项目中使用 Jest 是可能的。[@sodatea](https://bsky.app/profile/haoqun.dev) 开发了 [vite-jest](https://github.com/sodatea/vite-jest#readme) ，旨在为 [Jest](https://jestjs.io/) 提供一流的 Vite 集成。[Jest 中最后的阻碍](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest) 已经解决。因此，在 Vite 项目的单元测试中，Jest 仍是一个可用选项。
 
 然而，在 [Vite](https://vitejs.dev) 已为最常见的 Web 工具（TypeScript、JSX、最流行的 UI 框架）提供了支持的情况下，引入 Jest 会增添不必要的复杂性。如果你的应用由 Vite 驱动，那么配置和维护两个不同的管道是不合理的。如果使用 Vitest，你可以在同一个管道中进行开发、构建和测试环境的配置，它们共享相同的插件和 `vite.config.js` 文件。
 
@@ -18,7 +18,7 @@ title: 与其他测试框架对比 | 指南
 
 [Cypress](https://www.cypress.io/) 是基于浏览器的测试工具，这对 Vitest 形成了补充。如果你想使用 Cypress，建议将 Vitest 用于测试项目中不依赖于浏览器的部分，而将 Cypress 用于测试依赖浏览器的部分。
 
-Cypress 作为端到端测试工具而广为人知，但他们[最新的组件测试运行器](https://on.cypress.io/component) 对 Vite 项目的组件测试提供了很好的支持，并且是测试任何依赖于浏览器逻辑的代码的理想选择。
+Cypress 作为端到端测试工具而广为人知，但他们 [最新的组件测试运行器](https://on.cypress.io/component) 对 Vite 项目的组件测试提供了很好的支持，并且是测试任何依赖于浏览器逻辑的代码的理想选择。
 
 基于浏览器的测试框架，例如 Cypress, WebdriverIO 和 Web Test Runner，能捕获到 Vitest 无法捕获的问题，因为他们使用了真实的浏览器和浏览器 API。
 
@@ -40,7 +40,7 @@ WebdriverIO 具有与 Cypress 相同的优点，允许你在真实的浏览器�
 
 ## Web Test Runner
 
-[@web/test-runner](https://modern-web.dev/docs/test-runner/overview/)在无头浏览器中运行测试，提供与 web 应用程序相同的执行环境，而无需模仿浏览器 API 或 DOM。这也使得使用 devtools 在真实的浏览器中进行调试成为可能，尽管它没有像 Cypress 那样展示一个指示测试进度的 UI。
+[@web/test-runner](https://modern-web.dev/docs/test-runner/overview/) 在无头浏览器中运行测试，提供与 web 应用程序相同的执行环境，而无需模仿浏览器 API 或 DOM。这也使得使用 devtools 在真实的浏览器中进行调试成为可能，尽管它没有像 Cypress 那样展示一个指示测试进度的 UI。
 
 要在 Vite 项目中使用 @web/test-runner，请使用[@remcovaes/web-test-runner-Vite-plugin](https://github.com/remcovaes/web-test-runner-vite-plugin)。@web/testrunner 不包括断言或模拟对象库，所以你需要自行添加它们。
 
