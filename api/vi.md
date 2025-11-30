@@ -150,7 +150,7 @@ axios.get(`/apples/${increment(1)}`)
 请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/#setupfiles) 中为每个所需的模块调用 `vi.mock` 。
 :::
 
-如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有输出。有关应用的规则，请参阅 [模块](/mocking.html#automocking-algorithm)。
+如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有输出。有关应用的规则，请参阅 [模块](/guide/mocking#automocking-algorithm)。
 
 ### vi.doMock
 
@@ -258,7 +258,7 @@ vi.mock('./example.js', async () => {
 
 - **类型**: `<T>(path: string) => Promise<MaybeMockedDeep<T>>`
 
-导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [模块](/mocking.html#automocking-algorithm)。
+导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [模块](/guide/mocking#automocking-algorithm)。
 
 ### vi.unmock
 
@@ -393,7 +393,7 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 
 - **Type:** `<T>(value: T) => MaybeMockedDeep<T>`
 
-它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见 [自动模拟](/guide/mocking.html#automocking-algorithm)。
+它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见 [自动模拟](/guide/mocking#automocking-algorithm)。
 
 ```ts
 const original = {
@@ -632,7 +632,7 @@ IntersectionObserver === undefined
 
 ## Fake Timers
 
-本节介绍如何使用 [模拟计时器](/guide/mocking.html#timers)。
+本节介绍如何使用 [模拟计时器](/guide/mocking#timers)。
 
 ### vi.advanceTimersByTime
 
