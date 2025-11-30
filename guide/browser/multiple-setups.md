@@ -1,4 +1,4 @@
-# 多种设置 {#multiple-setups}
+# 多环境配置 {#multiple-setups}
 
 你可以使用 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
 
@@ -28,7 +28,7 @@ export default defineConfig({
 })
 ```
 
-## 不同的设置 {#different-setups}
+## 不同的配置方案 {#different-setups}
 
 你还可以独立于浏览器指定不同的配置选项（尽管，实例也可以有 `browser` 字段）：
 

@@ -353,9 +353,9 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: '多种设置',
+                  text: '多环境配置',
                   link: '/guide/browser/multiple-setups',
-                  docFooterText: '多种设置 | 浏览器模式',
+                  docFooterText: '多环境配置 | 浏览器模式',
                 },
                 {
                   text: '组件测试',
