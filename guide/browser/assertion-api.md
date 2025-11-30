@@ -284,13 +284,13 @@ function toBeVisible(): Promise<void>
 若要检查列表中至少有一个元素是可见的，请使用 `locator.first()`。
 
 ```ts
-// A specific element is visible.
+// 检测指定元素可见
 await expect.element(page.getByText('Welcome')).toBeVisible()
 
-// At least one item in the list is visible.
+// 检测列表中至少有一项可见
 await expect.element(page.getByTestId('todo-item').first()).toBeVisible()
 
-// At least one of the two elements is visible, possibly both.
+// 检测两个元素中至少有一个可见（可能同时可见）
 await expect.element(
   page.getByRole('button', { name: 'Sign in' })
     .or(page.getByRole('button', { name: 'Sign up' }))
@@ -308,14 +308,16 @@ This allows you to check if an element is currently in viewport with [Intersecti
 
 You can pass `ratio` argument as option, which means the minimal ratio of the element should be in viewport. `ratio` should be in 0~1.
 
+该方法通过 IntersectionObserver API检测元素是否位于当前视口内。
+可通过 ratio参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
 ```ts
-// A specific element is in viewport.
+// 检测指定元素是否在视口中
 await expect.element(page.getByText('Welcome')).toBeInViewport()
 
-// 50% of a specific element should be in viewport
+// 检测指定元素在视窗范围内至少 50% 可见
 await expect.element(page.getByText('To')).toBeInViewport({ ratio: 0.5 })
 
-// Full of a specific element should be in viewport
+// 检测指定元素在视窗范围内完全可见
 await expect.element(page.getByText('Vitest')).toBeInViewport({ ratio: 1 })
 ```
 
@@ -379,9 +381,9 @@ await expect.element(getByTestId('parent')).toContainHTML('</span>')
 function toHaveAccessibleDescription(description?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问描述](https://w3c.github.io/accname/)。
+这允许你断言一个元素具有预期的 [可访问描述](https://w3c.github.io/accname/)。
 
-你可以传递预期的可访问描述的确切字符串，或者通过传递正则表达式来进行部分匹配，或者使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)。
+你可以传递预期的可访问描述的确切字符串，或者通过传递正则表达式来进行部分匹配，或者使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)。
 
 ```html
 <a
@@ -429,9 +431,9 @@ await expect.element(getByTestId('logo2')).toHaveAccessibleDescription(
 function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
+这允许你断言一个元素具有预期的 [可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
 
-你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
+你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
 
 ```html
 <input
@@ -450,7 +452,7 @@ function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 ```
 
 ```ts
-// Inputs with Valid Error Messages
+// 有效错误信息的输入项
 await expect.element(getByRole('textbox', { name: 'Has Error' })).toHaveAccessibleErrorMessage()
 await expect.element(getByRole('textbox', { name: 'Has Error' })).toHaveAccessibleErrorMessage(
   'This field is invalid',
@@ -462,7 +464,7 @@ await expect.element(
   getByRole('textbox', { name: 'Has Error' }),
 ).not.toHaveAccessibleErrorMessage('This field is absolutely correct!')
 
-// Inputs without Valid Error Messages
+// 没有效错误信息的输入项
 await expect.element(
   getByRole('textbox', { name: 'No Error Attributes' }),
 ).not.toHaveAccessibleErrorMessage()
@@ -480,7 +482,7 @@ function toHaveAccessibleName(name?: string | RegExp): Promise<void>
 
 这允许你断言一个元素具有预期的[可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
 
-你可以传递预期的可访问名称的确切字符串，或者通过传递正则表达式进行部分匹配，也可以使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)。
+你可以传递预期的可访问名称的确切字符串，或者通过传递正则表达式进行部分匹配，也可以使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)。
 
 ```html
 <img data-testid="img-alt" src="" alt="Test alt" />
@@ -510,7 +512,7 @@ await expect.element(getByTestId('input-title')).toHaveAccessibleName()
 function toHaveAttribute(attribute: string, value?: unknown): Promise<void>
 ```
 
-这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)进行部分匹配。
+这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)进行部分匹配。
 
 ```html
 <button data-testid="ok-button" type="submit" disabled>ok</button>
@@ -542,7 +544,7 @@ function toHaveClass(...classNames: (string | RegExp)[]): Promise<void>
 
 这允许你检查给定元素在其 `class` 属性中是否包含某些类。除非你断言该元素没有任何类，否则必须提供至少一个类。
 
-类名列表可以包括字符串和正则表达式。正则表达式会与目标元素中的每个单独类进行匹配，**而不是与其完整的 `class` 属性值整体匹配**。
+类名列表可以包括字符串和正则表达式。正则表达式会与目标元素中的每个单独类进行匹配，而不是与其完整的 `class` 属性值整体匹配。
 
 ::: warning
 请注意，当仅提供正则表达式时，不能使用 `exact: true` 选项。
@@ -566,14 +568,14 @@ await expect.element(deleteButton).toHaveClass('btn-danger', 'btn')
 await expect.element(deleteButton).not.toHaveClass('btn-link')
 await expect.element(deleteButton).not.toHaveClass(/link/)
 
-// ⚠️ regexp matches against individual classes, not the whole classList
+// ⚠️ 正则表达式仅匹配单个类名而非整个 classList
 await expect.element(deleteButton).not.toHaveClass(/btn extra/)
 
-// the element has EXACTLY a set of classes (in any order)
+// 精确匹配类集合（顺序无关）
 await expect.element(deleteButton).toHaveClass('btn-danger extra btn', {
   exact: true
 })
-// if it has more than expected it is going to fail
+// 若存在多余类则断言失败
 await expect.element(deleteButton).not.toHaveClass('btn-danger extra', {
   exact: true
 })
@@ -705,7 +707,7 @@ function toHaveTextContent(
 
 若要进行不区分大小写的匹配，可以使用带有 `/i` 修饰符的 `RegExp`。
 
-如果你想匹配整个内容，可以使用 `RegExp` 来实现。
+如果你想匹配整段内容，可以使用 `RegExp` 来实现。
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -715,9 +717,9 @@ function toHaveTextContent(
 const element = getByTestId('text-content')
 
 await expect.element(element).toHaveTextContent('Content')
-// to match the whole content
+// 匹配整段内容
 await expect.element(element).toHaveTextContent(/^Text Content$/)
-// to use case-insensitive match
+// 不区分大小写匹配
 await expect.element(element).toHaveTextContent(/content$/i)
 await expect.element(element).not.toHaveTextContent('content')
 ```
@@ -903,11 +905,11 @@ await expect.element(inputCheckboxIndeterminate).toBePartiallyChecked()
 function toHaveRole(role: ARIARole): Promise<void>
 ```
 
-这允许你断言某个元素具有预期的[角色](https://www.w3.org/TR/html-aria/#docconformance)。
+这允许你断言某个元素具有预期的 [角色](https://www.w3.org/TR/html-aria/#docconformance)。
 
 在你已经通过某种查询（而非角色本身）获取到某个元素，并希望对其可访问性进行更多断言时，这非常有用。
 
-角色可以匹配显式角色（通过 `role` 属性），也可以通过[隐式 ARIA 语义](https://www.w3.org/TR/html-aria/#docconformance)匹配隐式角色。
+角色可以匹配显式角色（通过 `role` 属性），也可以通过 [隐式 ARIA 语义](https://www.w3.org/TR/html-aria/#docconformance) 匹配隐式角色。
 
 ```html
 <button data-testid="button">Continue</button>
@@ -979,12 +981,12 @@ selection.removeAllRanges()
 selection.empty()
 selection.addRange(range)
 
-// selection of child applies to the parent as well
+// 子元素的选择同样适用于父元素
 range.selectNodeContents(getByTestId('child').element())
 await expect.element(getByTestId('child')).toHaveSelection('selected')
 await expect.element(getByTestId('parent')).toHaveSelection('selected')
 
-// selection that applies from prev all, parent text before child, and part child.
+// 选择范围包含：前序同级元素、父元素中子元素前的文本、以及子元素的部分内容
 range.setStart(getByTestId('prev').element(), 0)
 range.setEnd(getByTestId('child').element().childNodes[0], 3)
 await expect.element(queryByTestId('prev')).toHaveSelection('prev')
@@ -992,7 +994,7 @@ await expect.element(queryByTestId('child')).toHaveSelection('sel')
 await expect.element(queryByTestId('parent')).toHaveSelection('text sel')
 await expect.element(queryByTestId('next')).not.toHaveSelection()
 
-// selection that applies from part child, parent text after child and part next.
+// 选择范围包含：子元素的部分内容、父元素中子元素后的文本、以及后续同级元素的部分内容
 range.setStart(getByTestId('child').element().childNodes[0], 3)
 range.setEnd(getByTestId('next').element().childNodes[0], 2)
 await expect.element(queryByTestId('child')).toHaveSelection('ected')
