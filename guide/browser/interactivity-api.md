@@ -148,7 +148,7 @@ function fill(
 ): Promise<void>
 ```
 
-为 `input` `、textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
+为 `input` 、 `textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
