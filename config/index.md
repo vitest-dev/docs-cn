@@ -2528,15 +2528,11 @@ Expand all common lines.
 
 - **类型:** `string | TestProjectConfiguration`
 - **命令行终端:** `--workspace=./file.js`
-- **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
+- **默认值:** 配置文件或根目录附近的 `vitest.{workspace,projects}.{js,ts,json}`
 
 相对于[root](#root) 的 [workspace](/guide/projects) 配置文件的路径。
 
 自 Vitest 3 起，您也可以在根配置中直接定义 `workspace` 数组。若手动在配置中声明了 workspace 参数，Vitest 将忽略项目根目录下的 `vitest.workspace` 文件。
-
-相对于 [root](#root) 的 [workspace](/guide/projects) 配置文件路径。
-
-从 Vitest 3 起，您也可以在根配置中定义 workspace 数组。如果手动在配置中定义了 `workspace`，Vitest 将忽略根目录下的 `vitest.workspace` 文件。
 
 ### projects<NonProjectOption />
 
