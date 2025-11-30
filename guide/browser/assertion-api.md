@@ -284,39 +284,18 @@ function toBeVisible(): Promise<void>
 若要检查列表中至少有一个元素是可见的，请使用 `locator.first()`。
 
 ```ts
-// A specific element is visible.
+// 检测特定元素可见
 await expect.element(page.getByText('Welcome')).toBeVisible()
 
-// At least one item in the list is visible.
+// 检测列表中至少有一项可见
 await expect.element(page.getByTestId('todo-item').first()).toBeVisible()
 
-// At least one of the two elements is visible, possibly both.
+// 检测两个元素中至少有一个可见（可能同时可见）
 await expect.element(
   page.getByRole('button', { name: 'Sign in' })
     .or(page.getByRole('button', { name: 'Sign up' }))
     .first()
 ).toBeVisible()
-```
-
-## toBeInViewport
-
-```ts
-function toBeInViewport(options: { ratio?: number }): Promise<void>
-```
-
-This allows you to check if an element is currently in viewport with [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
-
-You can pass `ratio` argument as option, which means the minimal ratio of the element should be in viewport. `ratio` should be in 0~1.
-
-```ts
-// A specific element is in viewport.
-await expect.element(page.getByText('Welcome')).toBeInViewport()
-
-// 50% of a specific element should be in viewport
-await expect.element(page.getByText('To')).toBeInViewport({ ratio: 0.5 })
-
-// Full of a specific element should be in viewport
-await expect.element(page.getByText('Vitest')).toBeInViewport({ ratio: 1 })
 ```
 
 ## toContainElement
@@ -379,9 +358,9 @@ await expect.element(getByTestId('parent')).toContainHTML('</span>')
 function toHaveAccessibleDescription(description?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问描述](https://w3c.github.io/accname/)。
+这允许你断言一个元素具有预期的 [可访问描述](https://w3c.github.io/accname/)。
 
-你可以传递预期的可访问描述的确切字符串，或者通过传递正则表达式来进行部分匹配，或者使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)。
+你可以传递预期的可访问描述的确切字符串，或者通过传递正则表达式来进行部分匹配，或者使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)。
 
 ```html
 <a
@@ -429,9 +408,9 @@ await expect.element(getByTestId('logo2')).toHaveAccessibleDescription(
 function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
+这允许你断言一个元素具有预期的 [可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
 
-你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
+你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
 
 ```html
 <input
@@ -450,7 +429,7 @@ function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 ```
 
 ```ts
-// Inputs with Valid Error Messages
+// 有效错误信息的输入项
 await expect.element(getByRole('textbox', { name: 'Has Error' })).toHaveAccessibleErrorMessage()
 await expect.element(getByRole('textbox', { name: 'Has Error' })).toHaveAccessibleErrorMessage(
   'This field is invalid',
@@ -462,7 +441,7 @@ await expect.element(
   getByRole('textbox', { name: 'Has Error' }),
 ).not.toHaveAccessibleErrorMessage('This field is absolutely correct!')
 
-// Inputs without Valid Error Messages
+// 没有效错误信息的输入项
 await expect.element(
   getByRole('textbox', { name: 'No Error Attributes' }),
 ).not.toHaveAccessibleErrorMessage()
@@ -478,9 +457,9 @@ await expect.element(
 function toHaveAccessibleName(name?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
+这允许你断言一个元素具有预期的 [可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
 
-你可以传递预期的可访问名称的确切字符串，或者通过传递正则表达式进行部分匹配，也可以使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)。
+你可以传递预期的可访问名称的确切字符串，或者通过传递正则表达式进行部分匹配，也可以使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)。
 
 ```html
 <img data-testid="img-alt" src="" alt="Test alt" />
@@ -510,7 +489,7 @@ await expect.element(getByTestId('input-title')).toHaveAccessibleName()
 function toHaveAttribute(attribute: string, value?: unknown): Promise<void>
 ```
 
-这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用[`expect.stringContaining`](/api/expect#expect-stringcontaining)或[`expect.stringMatching`](/api/expect#expect-stringmatching)进行部分匹配。
+这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching) 进行部分匹配。
 
 ```html
 <button data-testid="ok-button" type="submit" disabled>ok</button>
@@ -542,7 +521,7 @@ function toHaveClass(...classNames: (string | RegExp)[]): Promise<void>
 
 这允许你检查给定元素在其 `class` 属性中是否包含某些类。除非你断言该元素没有任何类，否则必须提供至少一个类。
 
-类名列表可以包括字符串和正则表达式。正则表达式会与目标元素中的每个单独类进行匹配，**而不是与其完整的 `class` 属性值整体匹配**。
+类名列表可以包括字符串和正则表达式。正则表达式会与目标元素中的每个单独类进行匹配，而不是与其完整的 `class` 属性值整体匹配。
 
 ::: warning
 请注意，当仅提供正则表达式时，不能使用 `exact: true` 选项。
@@ -566,14 +545,14 @@ await expect.element(deleteButton).toHaveClass('btn-danger', 'btn')
 await expect.element(deleteButton).not.toHaveClass('btn-link')
 await expect.element(deleteButton).not.toHaveClass(/link/)
 
-// ⚠️ regexp matches against individual classes, not the whole classList
+// ⚠️ 正则表达式仅匹配单个类名而非整个 classList
 await expect.element(deleteButton).not.toHaveClass(/btn extra/)
 
-// the element has EXACTLY a set of classes (in any order)
+// 精确匹配类集合（顺序无关）
 await expect.element(deleteButton).toHaveClass('btn-danger extra btn', {
   exact: true
 })
-// if it has more than expected it is going to fail
+// 若存在多余类则断言失败
 await expect.element(deleteButton).not.toHaveClass('btn-danger extra', {
   exact: true
 })
@@ -705,7 +684,7 @@ function toHaveTextContent(
 
 若要进行不区分大小写的匹配，可以使用带有 `/i` 修饰符的 `RegExp`。
 
-如果你想匹配整个内容，可以使用 `RegExp` 来实现。
+如果你想匹配整段内容，可以使用 `RegExp` 来实现。
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -715,9 +694,9 @@ function toHaveTextContent(
 const element = getByTestId('text-content')
 
 await expect.element(element).toHaveTextContent('Content')
-// to match the whole content
+// 匹配整段内容
 await expect.element(element).toHaveTextContent(/^Text Content$/)
-// to use case-insensitive match
+// 不区分大小写匹配
 await expect.element(element).toHaveTextContent(/content$/i)
 await expect.element(element).not.toHaveTextContent('content')
 ```
@@ -903,11 +882,11 @@ await expect.element(inputCheckboxIndeterminate).toBePartiallyChecked()
 function toHaveRole(role: ARIARole): Promise<void>
 ```
 
-这允许你断言某个元素具有预期的[角色](https://www.w3.org/TR/html-aria/#docconformance)。
+这允许你断言某个元素具有预期的 [角色](https://www.w3.org/TR/html-aria/#docconformance)。
 
 在你已经通过某种查询（而非角色本身）获取到某个元素，并希望对其可访问性进行更多断言时，这非常有用。
 
-角色可以匹配显式角色（通过 `role` 属性），也可以通过[隐式 ARIA 语义](https://www.w3.org/TR/html-aria/#docconformance)匹配隐式角色。
+角色可以匹配显式角色（通过 `role` 属性），也可以通过 [隐式 ARIA 语义](https://www.w3.org/TR/html-aria/#docconformance) 匹配隐式角色。
 
 ```html
 <button data-testid="button">Continue</button>
@@ -979,12 +958,12 @@ selection.removeAllRanges()
 selection.empty()
 selection.addRange(range)
 
-// selection of child applies to the parent as well
+// 子元素的选择同样适用于父元素
 range.selectNodeContents(getByTestId('child').element())
 await expect.element(getByTestId('child')).toHaveSelection('selected')
 await expect.element(getByTestId('parent')).toHaveSelection('selected')
 
-// selection that applies from prev all, parent text before child, and part child.
+// 选择范围包含：前序同级元素、父元素中子元素前的文本、以及子元素的部分内容
 range.setStart(getByTestId('prev').element(), 0)
 range.setEnd(getByTestId('child').element().childNodes[0], 3)
 await expect.element(queryByTestId('prev')).toHaveSelection('prev')
@@ -992,7 +971,7 @@ await expect.element(queryByTestId('child')).toHaveSelection('sel')
 await expect.element(queryByTestId('parent')).toHaveSelection('text sel')
 await expect.element(queryByTestId('next')).not.toHaveSelection()
 
-// selection that applies from part child, parent text after child and part next.
+// 选择范围包含：子元素的部分内容、父元素中子元素后的文本、以及后续同级元素的部分内容
 range.setStart(getByTestId('child').element().childNodes[0], 3)
 range.setEnd(getByTestId('next').element().childNodes[0], 2)
 await expect.element(queryByTestId('child')).toHaveSelection('ected')
@@ -1000,185 +979,3 @@ await expect.element(queryByTestId('parent')).toHaveSelection('ected text')
 await expect.element(queryByTestId('prev')).not.toHaveSelection()
 await expect.element(queryByTestId('next')).toHaveSelection('ne')
 ```
-
-## toMatchScreenshot <Badge type="warning">实验性</Badge> {#tomatchscreenshot}
-
-```ts
-function toMatchScreenshot(
-  options?: ScreenshotMatcherOptions,
-): Promise<void>
-function toMatchScreenshot(
-  name?: string,
-  options?: ScreenshotMatcherOptions,
-): Promise<void>
-```
-
-::: tip
-`toMatchScreenshot` 断言可在 [Vitest 配置](/guide/browser/config#browser-expect-tomatchscreenshot) 中全局设定。
-:::
-
-该断言通过将元素或整页的截图与预先保存的基准图像进行比对，实现视觉回归测试。
-
-若差异超出设定阈值，测试即告失败。为便于定位变更，断言会自动生成：
-
-- 测试过程中的实际截图
-- 预期的基准截图
-- 差异高亮的对比图（如技术可行）
-
-::: warning 截图稳定性
-该断言会不断重试截图，直到连续两次结果完全一致，从而削弱动画、加载状态或其他动态内容带来的抖动。可通过 `timeout` 选项设定最长等待时间。
-
-但浏览器渲染易受多种变量影响：
-
-- 浏览器及其版本差异
-- 操作系统（Windows、macOS、Linux）
-- 屏幕分辨率与像素密度
-- GPU 驱动及硬件加速策略
-- 字体渲染与系统字体差异
-
-建议先阅读 [视觉回归测试指南](/guide/browser/visual-regression-testing)，再落地实施。
-:::
-
-::: tip
-若截图对比因**有意变更**而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 标志，以更新基准图。
-:::
-
-```html
-<button data-testid="button">Fancy Button</button>
-```
-
-```ts
-// basic usage, auto-generates screenshot name
-await expect.element(getByTestId('button')).toMatchScreenshot()
-
-// with custom name
-await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button')
-
-// with options
-await expect.element(getByTestId('button')).toMatchScreenshot({
-  comparatorName: 'pixelmatch',
-  comparatorOptions: {
-    allowedMismatchedPixelRatio: 0.01,
-  },
-})
-
-// with both name and options
-await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
-  comparatorName: 'pixelmatch',
-  comparatorOptions: {
-    allowedMismatchedPixelRatio: 0.01,
-  },
-})
-```
-
-### Options
-
-- `comparatorName: "pixelmatch" = "pixelmatch"`
-
-  用于比较图像的算法/库名称。
-
-  目前，仅支持 [“pixelmatch”](https://github.com/mapbox/pixelmatch)。
-
-- `comparatorOptions: object`
-
-  用于调整比较器行为的选项，可设置的属性取决于所选的比较算法。
-
-  Vitest 已内置默认值，但可以覆盖。
-
-  - [`"pixelmatch"` options](#pixelmatch-comparator-options)
-
-  ::: warning
-  **始终显式设置 `comparatorName`，以确保 `comparatorOptions` 的类型推断正确**。
-
-  否则，TypeScript 无法识别哪些选项是有效的。
-
-  ```ts
-  // ❌ TypeScript can't infer the correct options
-  await expect.element(button).toMatchScreenshot({
-    comparatorOptions: {
-      // might error when new comparators are added
-      allowedMismatchedPixelRatio: 0.01,
-    },
-  })
-
-  // ✅ TypeScript knows these are pixelmatch options
-  await expect.element(button).toMatchScreenshot({
-    comparatorName: 'pixelmatch',
-    comparatorOptions: {
-      allowedMismatchedPixelRatio: 0.01,
-    },
-  })
-  ```
-  :::
-
-- `screenshotOptions: object`
-
-  与 [`locator.screenshot()`](/guide/browser/locators.html#screenshot) 支持的选项一致，但以下情况除外：
-
-  - `'base64'`
-  - `'path'`
-  - `'save'`
-  - `'type'`
-
-- `timeout: number = 5_000`
-
-  等待获取稳定截图的时间。
-
-  设为 `0` 可禁用超时，但如果无法确定稳定截图，进程将不会结束。
-
-#### `"pixelmatch"` comparator options
-
-使用 `"pixelmatch"` 比较器时，以下选项可用：
-
-- `allowedMismatchedPixelRatio: number | undefined = undefined`
-
-  允许的捕获截图与参考图像之间不同的像素比例的最大值，范围为 `0` 到 `1`。
-
-  例如，`allowedMismatchedPixelRatio: 0.02` 表示最多允许 2% 的像素不同，否则测试失败。
-
-- `allowedMismatchedPixels: number | undefined = undefined`
-
-  允许的捕获截图与参考图像之间不同的像素的最大数量。
-
-  如果设置为 `undefined`，任何非零差异都将导致测试失败。
-
-  例如，`allowedMismatchedPixels: 10` 表示最多允许 10 个像素不同，否则测试失败。
-
-- `threshold: number = 0.1`
-
-  两张图像中相同像素的可接受颜色差异范围，值越小越敏感。
-
-  比较使用 [YIQ 色彩空间](https://en.wikipedia.org/wiki/YIQ)。
-
-- `includeAA: boolean = false`
-
-  如果为 `true`，则禁用抗锯齿像素的检测和忽略。
-
-- `alpha: number = 0.1`
-
-  差异图像中未改变像素的混合级别，范围为 `0`（白色）到 `1`（原始亮度）。
-
-- `aaColor: [r: number, g: number, b: number] = [255, 255, 0]`
-
-  差异图像中抗锯齿像素的颜色。
-
-- `diffColor: [r: number, g: number, b: number] = [255, 0, 0]`
-
-  差异图像中不同像素的颜色。
-
-- `diffColorAlt: [r: number, g: number, b: number] | undefined = undefined`
-
-  可选的替代颜色，用于区分深色和浅色背景下的差异，帮助区分添加和移除的内容。
-  如果未设置，则所有差异均使用 `diffColor`。
-
-- `diffMask: boolean = false`
-
-  如果为 `true`，则仅以透明背景上的遮罩形式显示差异，而不是将其叠加在原始图像上。
-
-  如果检测到抗锯齿像素，则不会显示。
-
-::: warning
-当 `allowedMismatchedPixels` 和 `allowedMismatchedPixelRatio` 同时设置时，将采用更严格的限制值。
-
-例如，如果你允许 100 个像素差异或 2% 的比例差异，且图像总像素为 10,000，那么实际限制将是 100 个像素，而不是 200 个。
-:::
