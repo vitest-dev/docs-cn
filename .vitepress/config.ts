@@ -296,9 +296,9 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: '浏览器模式配置',
+                  text: '浏览器配置',
                   link: '/guide/browser/config',
-                  docFooterText: '浏览器模式配置 | 浏览器模式',
+                  docFooterText: '浏览器配置 | 浏览器模式',
                 },
                 {
                   text: '配置 Playwright',
