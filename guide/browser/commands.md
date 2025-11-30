@@ -59,7 +59,7 @@ expect(input).toHaveValue('a')
 CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
 :::
 
-## Custom Commands
+## 自定义命令 {#custom-commands}
 
 我们也可以通过 [`browser.commands`](/guide/browser/config#browser-commands) 配置选项添加自己的命令。如果我们正在开发一个库，可以通过插件内的`config`钩子来提供它们：
 
@@ -108,7 +108,8 @@ test('custom command works correctly', async () => {
   expect(result).toEqual({ someValue: true })
 })
 
-// if you are using TypeScript, you can augment the module
+// 如果你正在使用 TypeScript，你可以扩展类型声明：
+
 declare module 'vitest/browser' {
   interface BrowserCommands {
     myCustomCommand: (arg1: string, arg2: string) => Promise<{
@@ -122,7 +123,7 @@ declare module 'vitest/browser' {
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-### 自定义命令 `playwright` {#custom-playwright-commands}
+### 自定义 `playwright` 命令  {#custom-playwright-commands}
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
@@ -148,7 +149,7 @@ export const myCommand: BrowserCommand<[string, number]> = async (
 }
 ```
 
-### Custom `webdriverio` commands
+### 自定义 `webdriverio` 命令 {#custom-webdriverio-commands}
 
 Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
 
