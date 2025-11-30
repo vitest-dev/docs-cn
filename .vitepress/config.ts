@@ -352,21 +352,6 @@ export default ({ mode }: { mode: string }) => {
                   link: '/guide/browser/multiple-setups',
                   docFooterText: '多环境配置 | 浏览器模式',
                 },
-                {
-                  text: '组件测试',
-                  link: '/guide/browser/component-testing',
-                  docFooterText: '组件测试 | 浏览器模式',
-                },
-                {
-                  text: '可视化回归测试',
-                  link: '/guide/browser/visual-regression-testing',
-                  docFooterText: '可视化回归测试 | 浏览器模式',
-                },
-                {
-                  text: '跟踪查看器',
-                  link: '/guide/browser/trace-view',
-                  docFooterText: '跟踪查看器 | 浏览器模式',
-                },
               ],
             },
             {
