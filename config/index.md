@@ -2532,7 +2532,7 @@ Expand all common lines.
 
 相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
 
-Since Vitest 3, you can also define the workspace array in the root config. If the `workspace` is defined in the config manually, Vitest will ignore the `vitest.workspace` file in the root.
+自 Vitest 3 起，您也可以在根配置中直接定义 `workspace` 数组。若手动在配置中声明了 workspace 参数，Vitest 将忽略项目根目录下的 `vitest.workspace` 文件。
 
 ### workspace<NonProjectOption />
 
@@ -2593,7 +2593,7 @@ Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含 `locati
 
 自定义快照环境实现的路径。如果在不支持 Node.js API 的环境中运行测试，该选项将非常有用。此选项对浏览器运行程序没有任何影响。
 
-该对象应具有 `SnapshotEnvironment` 的形状，用于解析和读/写快照文件：
+该对象应具有 `SnapshotEnvironment` 的接口规范，用于解析和读/写快照文件：
 
 ```ts
 export interface SnapshotEnvironment {

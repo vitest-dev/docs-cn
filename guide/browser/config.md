@@ -1,4 +1,4 @@
-# 浏览器配置参考 {#browser-config-reference}
+# 浏览器配置 {#browser-config-reference}
 
 我们可以通过更新 [配置文件](/config/) 中的 `test.browser` 字段来更改浏览器配置。一个简单的配置文件示例如下：
 
@@ -155,7 +155,7 @@ HTML 入口点的路径。可以是相对于项目根目录的路径。此文件
 - **默认值:** `'preview'`
 - **CLI:** `--browser.provider=playwright`
 
-在运行浏览器测试时使用的提供者路径。Vitest 提供了三个提供者，分别是 `preview`（默认）、`webdriverio` 和 `playwright`。自定义提供者应使用 `default` 导出，并具有以下类型：
+在运行浏览器测试时使用的提供者路径。Vitest 提供了三个提供者，分别是 `preview`（默认）、`webdriverio` 和 `playwright`。自定义提供者应使用 `default` 导出，并符合以下接口规范：
 
 ```ts
 export interface BrowserProvider {
@@ -261,7 +261,7 @@ export default defineConfig({
 
 在测试 iframe 初始化之前应注入到编排器 HTML 中的自定义脚本。此 HTML 文档仅设置 iframe，并不实际导入我们的代码。
 
-脚本的 `src` 和 `content` 将由 Vite 插件处理。脚本应提供以下形状：
+脚本的 `src` 和 `content` 将由 Vite 插件处理。脚本应符合以下接口规范：
 
 ```ts
 export interface BrowserScript {

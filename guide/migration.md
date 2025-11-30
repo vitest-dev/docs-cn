@@ -419,7 +419,7 @@ expect({ foo: 'bar' }).toMatchInlineSnapshot(`
 
 选项 `coverage.all` 现在默认启用。这意味着，所有符合 `coverage.include` 模式的项目文件都将被处理，即使它们未被执行。
 
-更改了覆盖阈值 API 的形状，现在它支持使用 glob 模式为特定文件指定阈值：
+更改了覆盖阈值 API 的接口规范，现在它支持使用 glob 模式为特定文件指定阈值：
 
 ```diff
 export default defineConfig({
