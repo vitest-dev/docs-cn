@@ -9,7 +9,7 @@ Vitest 通过 `vitest/browser` 入口点公开上下文模块。从 2.0 开始�
 ## `userEvent`
 
 ::: tip
-`userEvent` API 的详细说明见[Interactivity API](/guide/browser/interactivity-api).
+`userEvent` API 的详细说明见[Interactivity API](/guide/browser/interactivity-api)。
 :::
 
 ```ts
@@ -43,7 +43,7 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
-Commands API 的详细说明见[Commands API](/guide/browser/commands).
+Commands API 的详细说明见 [Commands API](/guide/browser/commands)。
 :::
 
 ```ts
@@ -140,10 +140,6 @@ await frame.click() // ❌ Not available
 :::
 
 ## `cdp`
-
-```ts
-function cdp(): CDPSession
-```
 
 `cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
