@@ -105,7 +105,7 @@ function provide<T extends keyof ProvidedContext & string>(
 ): void
 ```
 
-Vitest 公开了 `provide` 方法，它是 `vitest.getRootProject().provide` 的简写。通过此方法，我们可以从主线程传递值到测试中。所有值在存储之前都通过 `structuredClone` 进行检查，但值本身不会被克隆。
+Vitest 暴露了 `provide` 方法，它是 `vitest.getRootProject().provide` 的简写。通过此方法，我们可以从主线程传递值到测试中。所有值在存储之前都通过 `structuredClone` 进行检查，但值本身不会被克隆。
 
 为了接收测试中的值，我们需要从 `vitest` 入口点导入 `inject` 方法：
 
@@ -132,7 +132,7 @@ declare module 'vitest' {
 ```
 
 ::: warning
-从技术上讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的一种方法，因此它仅限于特定项目。但是，所有项目都会从根项目继承值，这使得 `vitest.provide` 成为将值传递给测试的通用方法。
+从技术角度讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的一种方法，因此它仅限于特定项目。但是，所有项目都会从根项目继承值，这使得 `vitest.provide` 成为将值传递给测试的通用方法。
 :::
 
 ## getProvidedContext
