@@ -1,7 +1,7 @@
 # 报告器 {#reporters}
 
 ::: warning
-这是一个高级 API。如果我们只想配置内置的报告器，请阅读 ["Reporters"](/guide/reporters) 指南。
+这是一个高级 API。如果我们只想配置内置的报告器，请阅读 ["报告器"](/guide/reporters) 指南。
 :::
 
 Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告器的方法来表示：
@@ -32,7 +32,7 @@ Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告�
 
 请注意，由于测试模块可以并行运行，Vitest 将并行报告它们。
 
-本指南列出了所有支持的报告器方法。不过，别忘了，与其创建自己的 报告器 ，我们可以[扩展现有的报告器](/advanced/reporters)：
+本指南列出了所有支持的报告器方法。不过，别忘了，与其创建自己的 报告器 ，我们可以 [扩展现有的报告器](/advanced/reporters)：
 
 ```ts [custom-reporter.js]
 import { BaseReporter } from 'vitest/reporters'
