@@ -1,6 +1,6 @@
 # TestModule
 
-`TestModule` 类表示项目中的单个模块。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“Runner API”](/advanced/runner#tasks)。
+`TestModule` 类表示项目中的单个模块。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/advanced/runner#tasks)。
 
 `TestModule` 实例始终具有一个 `type` 属性，其值为 `module`。你可以使用它来区分不同的任务类型：
 
@@ -48,7 +48,7 @@ function state(): TestModuleState
 function meta(): TaskMeta
 ```
 
-在模块执行或收集过程中附加到模块的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
+在模块执行或收集过程中附加到模块的自定义 [元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
 
 ```ts {5,10}
 import { test } from 'vitest'
