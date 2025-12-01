@@ -423,7 +423,12 @@ High and low watermarks for functions in the format of `<high>,<low>`
 - **命令行终端:** `--poolOptions.threads.maxThreads <workers>`
 - **配置:** [poolOptions.threads.maxThreads](/config/#pooloptions-threads-maxthreads)
 
-运行测试的最大线程数或百分比
+### poolOptions.threads.minThreads
+
+- **命令行终端:** `--poolOptions.threads.minThreads <workers>`
+- **配置:** [poolOptions.threads.minThreads](/config/#pooloptions-threads-minthreads)
+
+运行测试的最小线程数或百分比
 
 ### poolOptions.threads.useAtomics
 
@@ -450,8 +455,14 @@ High and low watermarks for functions in the format of `<high>,<low>`
 
 - **命令行终端:** `--poolOptions.vmThreads.maxThreads <workers>`
 - **配置:** [poolOptions.vmThreads.maxThreads](/config/#pooloptions-vmthreads-maxthreads)
+运行测试的最大线程数或百分比
 
- 运行测试的最大线程数或百分比
+### poolOptions.vmThreads.minThreads
+
+- **命令行终端:** `--poolOptions.vmThreads.minThreads <workers>`
+- **配置:** [poolOptions.vmThreads.minThreads](/config/#pooloptions-vmthreads-minthreads)
+
+运行测试的最小线程数或百分比
 
 ### poolOptions.vmThreads.useAtomics
 
@@ -488,6 +499,13 @@ High and low watermarks for functions in the format of `<high>,<low>`
 
 运行测试的最大进程数
 
+### poolOptions.forks.minForks
+
+- **命令行终端:** `--poolOptions.forks.minForks <workers>`
+- **配置:** [poolOptions.forks.minForks](/config/#pooloptions-forks-minforks)
+
+运行测试的最小进程数
+
 ### poolOptions.vmForks.isolate
 
 - **命令行终端:** `--poolOptions.vmForks.isolate`
@@ -506,6 +524,13 @@ High and low watermarks for functions in the format of `<high>,<low>`
 
 - **命令行终端:** `--poolOptions.vmForks.maxForks <workers>`
 - **配置:** [poolOptions.vmForks.maxForks](/config/#pooloptions-vmforks-maxforks)
+
+运行测试的最大进程数
+
+### poolOptions.vmForks.minForks
+
+- **命令行终端:** `--poolOptions.vmForks.minForks <workers>`
+- **配置:** [poolOptions.vmForks.minForks](/config/#pooloptions-vmforks-minforks)
 
 运行测试的最大进程数
 
@@ -529,6 +554,13 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 - **配置:** [maxWorkers](/config/#maxworkers)
 
 同时并发执行测试任务的最大线程数或百分比
+
+### minWorkers
+
+- **命令行终端:** `-- minWorkers <workers>`
+- **配置:** [minWorkers](/config/#minworkers)
+
+同时并发执行测试任务的最小线程数或百分比
 
 ### environment
 
