@@ -1,7 +1,7 @@
 # 运行器 API {#runner-api}
 
 ::: warning 注意
-这是高级 API。如果你只需要[运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
+这是高级 API。如果你只需要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
 :::
 
 你可以在你的配置文件中使用 `runner` 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
@@ -41,11 +41,6 @@ export interface VitestRunner {
    * 如果测试函数抛出异常，将不会调用此方法。
    */
   onAfterTryTask?: (test: Test, options: { retry: number, repeats: number }) => unknown
-  /**
-   * 在重试结果确定后调用。与 `onAfterTryTask` 不同，此时测试已进入新的状态，
-   * 并且所有的 `after` 钩子此时也已被执行。
-   */
-  onAfterRetryTask?: (test: Test, options: { retry: number, repeats: number }) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -129,9 +124,9 @@ export default CustomRunner
 ```
 
 ::: warning
-Vitest 会自动把 `vite/module-runner` 提供的 `ModuleRunner` 实例赋给 `moduleRunner` 属性。在 `importFile` 方法中，你可以直接调用它来处理待加载的文件——这也是 `TestRunner` 和 `BenchmarkRunner` 的默认做法。
+Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注入。你可以使用它来处理 `importFile` 方法中的文件（这是 `TestRunner` 和 `BenchmarkRunner` 的默认行为）。
 
-`ModuleRunner` 的核心是 `import` 方法：它会把测试文件先放在 Vite 的运行环境里跑一遍，动态解析所有 import 路径并即时编译文件，最终输出 Node 能够识别的代码。
+`ViteNodeRunner` 暴露了 `executeId` 方法，该方法用于在友好的 Vite 环境中导入测试文件。这意味着它会在运行时解析导入并转换文件内容，以便 Node 能够识别。
 
 ```ts
 export default class Runner {
