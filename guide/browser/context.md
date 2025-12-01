@@ -86,9 +86,9 @@ export const page: {
    */
   elementLocator(element: Element): Locator
   /**
-   * The iframe locator. This is a document locator that enters the iframe body
-   * and works similarly to the `page` object.
-   * **Warning:** At the moment, this is supported only by the `playwright` provider.
+   * iframe 定位器。这是一个进入 iframe body 的文档定位器
+   * 其工作原理与 `page` 对象类似。
+   * **Warning:** 目前，仅有 `playwright` 提供程序支持该功能。
    */
   frameLocator(iframeElement: Locator): FrameLocator
 
@@ -130,7 +130,7 @@ const frame = page.frameLocator(
 )
 
 await frame.getByText('Hello World').click() // ✅
-await frame.click() // ❌ Not available
+await frame.click() // ❌ 不可用
 ```
 
 ::: danger IMPORTANT

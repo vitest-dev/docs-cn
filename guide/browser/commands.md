@@ -1,9 +1,9 @@
 ---
-title: Commands | Browser Mode
+title: 命令 | 浏览器模式
 outline: deep
 ---
 
-# Commands
+# 命令
 
 命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 

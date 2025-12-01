@@ -3,7 +3,7 @@ title: Locators | Browser Mode
 outline: [2, 3]
 ---
 
-# 定位 {#locators}
+# 定位器 {#locators}
 
 定位器是表示一个或多个元素的方式。每个定位器都由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
@@ -189,7 +189,7 @@ await page.getByRole('button', { name: /submit/i }).click()
   page.getByRole('button', { selected: false }) // ❌
   ```
 
-##### See also
+##### 更多内容请参阅 {#see-also}
 
 - [MDN 上的 ARIA 角色列表](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
 - [w3.org 上的 ARIA 角色列表](https://www.w3.org/TR/wai-aria-1.2/#role_definitions)
@@ -219,7 +219,7 @@ page.getByAltText('non existing alt text') // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### See also
+#### 更多内容请参阅 {#see-also-1}
 
 - [testing-library's `ByAltText`](https://testing-library.com/docs/queries/byalttext/)
 
@@ -266,7 +266,7 @@ function getByLabelText(
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### See also
+#### 更多内容请参阅 {#see-also-2}
 
 - [testing-library's `ByLabelText`](https://testing-library.com/docs/queries/bylabeltext/)
 
@@ -298,7 +298,7 @@ page.getByPlaceholder('not found') // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### See also
+#### 更多内容请参阅 {#see-also-3}
 
 - [testing-library's `ByPlaceholderText`](https://testing-library.com/docs/queries/byplaceholdertext/)
 
@@ -330,7 +330,7 @@ page.getByText('about', { exact: true }) // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### See also
+#### 更多内容请参阅 {#see-also-4}
 
 - [testing-library's `ByText`](https://testing-library.com/docs/queries/bytext/)
 
@@ -358,7 +358,7 @@ page.getByTitle('Create') // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### See also
+#### 更多内容请参阅 {#see-also-5}
 
 - [testing-library's `ByTitle`](https://testing-library.com/docs/queries/bytitle/)
 
@@ -387,7 +387,7 @@ page.getByTestId('non-existing-element') // ❌
 
   `text` 是否精确匹配：区分大小写和整个字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空格。
 
-#### See also
+#### 更多内容请参阅 {#see-also-6}
 
 - [testing-library's `ByTestId`](https://testing-library.com/docs/queries/bytestid/)
 
@@ -460,7 +460,7 @@ page.getByRole('textbox').last() // ✅
 function and(locator: Locator): Locator
 ```
 
-This method creates a new locator that matches both the parent and provided locator. The following example finds a button with a specific title:
+此方法创建一个新定位器，需同时匹配父级和传入的定位器。以下示例用于查找具有特定标题的按钮：
 
 ```ts
 page.getByRole('button').and(page.getByTitle('Subscribe'))
@@ -472,10 +472,10 @@ page.getByRole('button').and(page.getByTitle('Subscribe'))
 function or(locator: Locator): Locator
 ```
 
-This method creates a new locator that matches either one or both locators.
+此方法创建一个新定位器，只需匹配其中一个或同时匹配两个定位器。
 
 ::: warning
-Note that if locator matches more than a single element, calling another method might throw an error if it expects a single element:
+注意：若定位器匹配到多个元素，调用预期单个元素的方法可能会报错：
 
 ```tsx
 <>
@@ -485,7 +485,7 @@ Note that if locator matches more than a single element, calling another method 
 
 page.getByRole('button')
   .or(page.getByRole('link'))
-  .click() // ❌ matches multiple elements
+  .click() // ❌ 匹配到多个元素
 ```
 :::
 
@@ -495,13 +495,13 @@ page.getByRole('button')
 function filter(options: LocatorOptions): Locator
 ```
 
-This methods narrows down the locator according to the options, such as filtering by text. It can be chained to apply multiple filters.
+此方法会根据选项（例如按文本过滤）缩小定位器范围。可通过链式调用应用多个过滤器。
 
 ### has
 
 - **类型：** `Locator`
 
-This options narrows down the selector to match elements that contain other elements matching provided locator. For example, with this HTML:
+此选项会限定选择器范围，仅匹配包含符合指定定位器元素的节点。例如对于以下 HTML 结构：
 
 ```html{1,3}
 <article>
@@ -512,26 +512,28 @@ This options narrows down the selector to match elements that contain other elem
 </article>
 ```
 
-We can narrow down the locator to only find the `article` with `Vitest` text inside:
+我们可以限定定位器范围，仅查找内含 `Vitest` 文本的 `article` 元素：
 
 ```ts
 page.getByRole('article').filter({ has: page.getByText('Vitest') }) // ✅
 ```
 
 ::: warning
-Provided locator (`page.getByText('Vitest')` in the example) must be relative to the parent locator (`page.getByRole('article')` in the example). It will be queried starting with the parent locator, not the document root.
 
-Meaning, you cannot pass down a locator that queries the element outside of the parent locator:
+传入的定位器（示例中的 `page.getByText('Vitest')`）必须相对于父级定位器（示例中的 `page.getByRole('article')`）。查询会从父级定位器开始，而非文档根节点。
+
+这意味着不能传入在父级定位器范围之外查询元素的定位器：
 
 ```ts
 page.getByText('Vitest').filter({ has: page.getByRole('article') }) // ❌
 ```
 
-This example will fail because the `article` element is outside the element with `Vitest` text.
+此示例会失败，因为 `article` 元素位于包含 `Vitest` 文本的元素之外。
+
 :::
 
 ::: tip
-This method can be chained to narrow down the element even further:
+此方法支持链式调用以进一步缩小元素定位范围：
 
 ```ts
 page.getByRole('article')
@@ -544,7 +546,7 @@ page.getByRole('article')
 
 - **类型：** `Locator`
 
-This option narrows down the selector to match elements that do not contain other elements matching provided locator. For example, with this HTML:
+此选项会限定选择器范围，仅匹配不包含指定定位器元素的节点。例如对于以下 HTML 结构：
 
 ```html{1,3}
 <article>
@@ -555,7 +557,7 @@ This option narrows down the selector to match elements that do not contain othe
 </article>
 ```
 
-We can narrow down the locator to only find the `article` that doesn't have `Rolldown` inside.
+我们可以限定定位器范围，仅查找内部不含 `Rolldown` 文本的 `article` 元素：
 
 ```ts
 page.getByRole('article')
@@ -565,14 +567,14 @@ page.getByRole('article')
 ```
 
 ::: warning
-Note that provided locator is queried against the parent, not the document root, just like [`has`](#has) option.
+注意：与 [`has`](#has) 选项相同，传入的定位器是针对父级元素而非文档根节点进行查询。
 :::
 
 ### hasText
 
 - **类型：** `string | RegExp`
 
-This options narrows down the selector to only match elements that contain provided text somewhere inside. When the `string` is passed, matching is case-insensitive and searches for a substring.
+此选项会限定选择器范围，仅匹配内部某处包含指定文本的元素。当传入 `string` 时，匹配不区分大小写且执行子字符串搜索。
 
 ```html{1,3}
 <article>
@@ -583,7 +585,7 @@ This options narrows down the selector to only match elements that contain provi
 </article>
 ```
 
-Both locators will find the same element because the search is case-insensitive:
+由于搜索不区分大小写，以下两个定位器将匹配到同一个元素：
 
 ```ts
 page.getByRole('article').filter({ hasText: 'Vitest' }) // ✅
@@ -594,7 +596,7 @@ page.getByRole('article').filter({ hasText: 'Vite' }) // ✅
 
 - **类型：** `string | RegExp`
 
-This options narrows down the selector to only match elements that do not contain provided text somewhere inside. When the `string` is passed, matching is case-insensitive and searches for a substring.
+此选项会限定选择器范围，仅匹配内部不包含指定文本的元素。当传入 `string` 时，匹配不区分大小写且执行子字符串搜索。
 
 ## Methods
 
@@ -799,8 +801,7 @@ const { path, base64 } = await button.screenshot({
 ```
 
 ::: warning WARNING <Version>3.2.0</Version>
-Note that `screenshot` will always return a base64 string if `save` is set to `false`.
-The `path` is also ignored in that case.
+注意，当 `save` 设置为 `false` 时，`screenshot` 将始终返回 base64 字符串。在此情况下，路径参数也会被忽略。
 :::
 
 ### query
@@ -832,7 +833,7 @@ page.getByText('Hello', { exact: true }).query() // ✅ HTMLSpanElement
 这些定位器将抛出错误：
 
 ```ts
-// returns multiple elements
+// 返回多个元素
 page.getByText('Hello').query() // ❌
 page.getByText(/^Hello/).query() // ❌
 ```
@@ -877,11 +878,11 @@ page.getByText('Hello', { exact: true }).element() // ✅
 这些定位器将抛出错误：
 
 ```ts
-// returns multiple elements
+// 返回多个元素
 page.getByText('Hello').element() // ❌
 page.getByText(/^Hello/).element() // ❌
 
-// returns no elements
+// 不返回任意元素
 page.getByText('Hello USA').element() // ❌
 ```
 
@@ -922,7 +923,7 @@ function all(): Locator[]
 
 在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/guide/browser/context#page) 包装每个元素。
 
-- [See `locator.elements()`](#elements)
+- [更多内容请参阅  `locator.elements()`](#elements)
 
 ## Properties
 
@@ -959,15 +960,16 @@ test('works correctly', async () => {
 ### length
 
 This getter returns a number of elements that this locator is matching. It is equivalent to calling `locator.elements().length`.
+此属性返回当前定位器匹配的元素数量，等效于调用 g `locator.elements().length`。
 
-Consider the following DOM structure:
+参考以下 DOM 结构：
 
 ```html
 <button>Click Me!</button>
 <button>Don't click me!</button>
 ```
 
-This property will always succeed:
+该属性始终会执行成功：
 
 ```ts
 page.getByRole('button').length // ✅ 2
@@ -975,16 +977,17 @@ page.getByRole('button', { title: 'Click Me!' }).length // ✅ 1
 page.getByRole('alert').length // ✅ 0
 ```
 
-## Custom Locators <Version>3.2.0</Version> <Badge type="danger">advanced</Badge> {#custom-locators}
+## 自定义定位器 <Version>3.2.0</Version> <Badge type="danger">advanced</Badge> {#custom-locators}
 
-You can extend built-in locators API by defining an object of locator factories. These methods will exist as methods on the `page` object and any created locator.
+您可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
 
-These locators can be useful if built-in locators are not enough. For example, when you use a custom framework for your UI.
+当内置定位器无法满足需求时（例如使用自定义 UI 框架时），这些定位器会非常有用。
 
-The locator factory needs to return a selector string or a locator itself.
+定位器工厂需要返回一个选择器字符串或定位器本身
 
 ::: tip
-The selector syntax is identical to Playwright locators. Please, read [their guide](https://playwright.dev/docs/other-locators) to better understand how to work with them.
+
+选择器语法与 Playwright 定位器完全一致。建议阅读 [Playwright 指南](https://playwright.dev/docs/other-locators) 以更好地理解其工作原理。
 :::
 
 ```ts
@@ -998,8 +1001,8 @@ locators.extend({
     return `.comments :text("${count} comments")`
   },
   async previewComments() {
-    // you have access to the current locator via "this"
-    // beware that if the method was called on `page`, `this` will be `page`,
+    // 可通过 "this" 访问当前定位器
+    // 注意：若方法在 `page` 上调用，`this` 将指向 `page` 而非定位器！
     // not the locator!
     if (this !== page) {
       await this.click()
@@ -1008,16 +1011,16 @@ locators.extend({
   }
 })
 
-// if you are using typescript, you can extend LocatorSelectors interface
-// to have the autocompletion in locators.extend, page.* and locator.* methods
+// 使用 TypeScript 时可扩展 LocatorSelectors 接口
+// 以在 locators.extend、page.* 和 locator.* 方法中获得自动补全
 declare module 'vitest/browser' {
   interface LocatorSelectors {
-    // if the custom method returns a string, it will be converted into a locator
-    // if it returns anything else, then it will be returned as usual
+    // 若自定义方法返回字符串，将被转换为定位器
+    // 若返回其他类型，则按原样返回
     getByArticleTitle(title: string): Locator
     getByArticleCommentsCount(count: number): Locator
 
-    // Vitest will return a promise and won't try to convert it into a locator
+    // Vitest 将返回 Promise 且不会尝试将其转换为定位器
     previewComments(this: Locator): Promise<void>
   }
 }

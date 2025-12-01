@@ -139,7 +139,7 @@ export default defineConfig({
     browser: {
       provider: playwright(),
       provider: webdriverio(),
-      provider: preview(), // default
+      provider: preview(), // 默认
     },
   },
 })
@@ -153,7 +153,7 @@ import { playwright } from '@vitest/browser-playwright'
 export default defineConfig({
   test: {
     browser: {
-      // shared provider options between all instances
+      // 所有实例之间共享提供者的选项
       provider: playwright({
         launchOptions: {
           slowMo: 50,
@@ -165,8 +165,8 @@ export default defineConfig({
         { browser: 'chromium' },
         {
           browser: 'firefox',
-          // overriding options only for a single instance
-          // this will NOT merge options with the parent one
+          // 仅为单个实例覆盖选项
+          // 这不会将选项与父选项合并
           provider: playwright({
             launchOptions: {
               firefoxUserPrefs: {
@@ -181,7 +181,7 @@ export default defineConfig({
 })
 ```
 
-### Custom Provider <Badge type="danger">advanced</Badge>
+### 自定义提供者 <Badge type="danger">高级</Badge>
 
 ::: danger ADVANCED API
 自定义提供者 API 高度实验性，并且可能在补丁版本之间发生变化。如果你只需要在浏览器中运行测试，请改用 [`browser.instances`](#browser-instances) 选项。
@@ -192,7 +192,7 @@ export interface BrowserProvider {
   name: string
   mocker?: BrowserModuleMocker
   /**
-   * @experimental opt-in into file parallelisation
+   * @experimental 选择进入文件并行化
    */
   supportsParallelism: boolean
   getCommandsContext: (sessionId: string) => Record<string, unknown>
@@ -304,36 +304,36 @@ export interface BrowserScript {
 
 - **类型：** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
 - **CLI:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
-- **Default:** `'off'`
+- **默认:** `'off'`
 
-Capture a trace of your browser test runs. You can preview traces with [Playwright Trace Viewer](https://trace.playwright.dev/).
+捕获浏览器测试运行的跟踪。您可以使用 [Playwright 跟踪查看器](https://trace.playwright.dev/) 预览跟踪。
 
-This options supports the following values:
+该选项支持以下值：
 
-- `'on'` - capture trace for all tests. (not recommended as it's performance heavy)
-- `'off'` - do not capture traces.
-- `'on-first-retry'` - capture trace only when retrying the test for the first time.
-- `'on-all-retries'` - capture trace on every retry of the test.
-- `'retain-on-failure'` - capture trace only for tests that fail. This will automatically delete traces for tests that pass.
-- `object` - an object with the following shape:
+- `'on'` - 捕捉所有测试的跟踪。(不建议使用，因为性能较差）
+- `'off'` - 不捕捉痕迹。
+- `'on-first-retry'` - 仅在第一次重试测试时捕捉跟踪。
+- `'on-all-retries'` - 在每次重试测试时捕捉跟踪。
+- `'retain-on-failure'` - 只捕捉失败测试的跟踪。这会自动删除通过的测试跟踪。
+- `object` - 一个具有以下样子的对象
 
 ```ts
 interface TraceOptions {
   mode: 'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure'
   /**
-   * The directory where all traces will be stored. By default, Vitest
-   * stores all traces in `__traces__` folder close to the test file.
+   * 存储所有痕迹的目录。默认情况下，Vitest
+   * 将所有跟踪记录存储在靠近测试文件的 `__traces__` 文件夹中。
    */
   tracesDir?: string
   /**
-   * Whether to capture screenshots during tracing. Screenshots are used to build a timeline preview.
+   * 是否在跟踪过程中截图。截图用于建立时间线预览。
    * @default true
    */
   screenshots?: boolean
   /**
-   * If this option is true tracing will
-   * - capture DOM snapshot on every action
-   * - record network activity
+   * 如果该选项为真，跟踪将
+   * - 捕捉每个操作的 DOM 快照
+   * - 记录网络活动
    * @default true
    */
   snapshots?: boolean
@@ -341,7 +341,7 @@ interface TraceOptions {
 ```
 
 ::: danger WARNING
-This option is supported only by the [**playwright**](/guide/browser/playwright) provider.
+只有 [**playwright**](/guide/browser/playwright) 提供者支持该选项。
 :::
 
 ## browser.trackUnhandledErrors
@@ -396,7 +396,7 @@ export default defineConfig({
 #### browser.expect.toMatchScreenshot.resolveScreenshotPath
 
 - **类型：** `(data: PathResolveData) => string`
-- **Default output:** `` `${root}/${testFileDirectory}/${screenshotDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
+- **默认输出：** `` `${root}/${testFileDirectory}/${screenshotDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
 
 一个用于自定义参考截图存储位置的函数。该函数接收一个包含以下属性的对象：
 
@@ -466,7 +466,7 @@ resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>
 #### browser.expect.toMatchScreenshot.resolveDiffPath
 
 - **类型：** `(data: PathResolveData) => string`
-- **Default output:** `` `${root}/${attachmentsDir}/${testFileDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
+- **默认输出：** `` `${root}/${attachmentsDir}/${testFileDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
 
 一个用于自定义截图比较失败时差异图像存储位置的函数。它接收与 [`resolveScreenshotPath`](#browser-expect-tomatchscreenshot-resolvescreenshotpath) 相同的数据对象。
 

@@ -214,7 +214,7 @@ export default defineConfig({
 import { qwikVite } from '@builder.io/qwik/optimizer'
 import { playwright } from '@vitest/browser-playwright'
 
-// optional, run the tests in SSR mode
+// 可选项，在 SSR 模式下运行测试
 import { testSSR } from 'vitest-browser-qwik/ssr-plugin'
 
 import { defineConfig } from 'vitest/config'
@@ -402,7 +402,7 @@ test('properly handles form inputs', async () => {
 ```ts
 import { expect } from 'vitest'
 import { page } from 'vitest/browser'
-// element is rendered correctly
+// 元素是正确渲染
 await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 
@@ -411,7 +411,7 @@ Vitest 暴露了一个 [上下文 API](/guide/browser/context)，其中包含一
 ```ts
 import { page, userEvent } from 'vitest/browser'
 await userEvent.fill(page.getByLabelText(/username/i), 'Alice')
-// or just locator.fill
+// 或只用 locator.fill
 await page.getByLabelText(/username/i).fill('Alice')
 ```
 
@@ -504,7 +504,7 @@ import { render } from 'vitest-browser-qwik'
 import Greeting from './greeting'
 
 test('greeting appears on click', async () => {
-  // renderSSR and renderHook are also available
+  // renderSSR 和 renderHook 也是可用
   const screen = render(<Greeting />)
 
   const button = screen.getByRole('button')
@@ -531,7 +531,7 @@ Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工�
 
 ::: code-group
 ```tsx [solid]
-// based on @testing-library/solid API
+// 基于 @testing-library/solid API
 // https://testing-library.com/docs/solid-testing-library/api
 
 import { render } from '@testing-library/solid'
@@ -558,7 +558,7 @@ it('uses params', async () => {
 })
 ```
 ```ts [marko]
-// based on @testing-library/marko API
+// 基于 @testing-library/marko API
 // https://testing-library.com/docs/marko-testing-library/api
 
 import { render, screen } from '@marko/testing-library'
@@ -591,7 +591,7 @@ test('renders a message', async () => {
 import { vi } from 'vitest'
 import * as module from './module.js'
 
-vi.spyOn(module, 'method') // ❌ throws an error
+vi.spyOn(module, 'method') // ❌ 抛出错误
 ```
 
 为了解决这个限制，Vitest 在 `vi.mock('./module.js')` 中提供了 `{ spy: true }` 选项。启用后，它会自动对模块里所有的导出进行监听，而不会像普通 mock 那样将它们替换成假的实现。

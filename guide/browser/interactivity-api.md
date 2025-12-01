@@ -1,8 +1,8 @@
 ---
-title: Interactivity API | Browser Mode
+title: 交互性 API | 浏览器模式
 ---
 
-# Interactivity API
+# 交互性 API
 
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event/intro) 库的子集 API，而不是伪造事件，这使得浏览器行为更加可靠和一致，符合用户与页面交互的方式。
 
@@ -30,11 +30,11 @@ import { userEvent as vitestUserEvent } from 'vitest/browser'
 import { userEvent as originalUserEvent } from '@testing-library/user-event'
 import { userEvent as vitestUserEvent } from '@vitest/browser/context'
 
-await vitestUserEvent.keyboard('{Shift}') // press shift without releasing
-await vitestUserEvent.keyboard('{/Shift}') // releases shift
+await vitestUserEvent.keyboard('{Shift}') // 按住 shift 键不放
+await vitestUserEvent.keyboard('{/Shift}') // 放开 shift 键不放
 
-await originalUserEvent.keyboard('{Shift}') // press shift without releasing
-await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because the state is different
+await originalUserEvent.keyboard('{Shift}') // 按住 shift 键不放
+await originalUserEvent.keyboard('{/Shift}') // 没有放开 shift 键，因为状态不同
 ```
 
 这种行为更有用，因为我们并没有模拟键盘，而是实际按下了 Shift 键，所以保留原来的行为会在字段中键入时造成意想不到的问题。
@@ -58,12 +58,12 @@ test('clicks on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.click(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.click()
 })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.click` API](https://playwright.dev/docs/api/class-locator#locator-click)
 - [WebdriverIO `element.click` API](https://webdriver.io/docs/api/element/click/)
@@ -89,12 +89,12 @@ test('triggers a double click on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.dblClick(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.dblClick()
 })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.dblclick` API](https://playwright.dev/docs/api/class-locator#locator-dblclick)
 - [WebdriverIO `element.doubleClick` API](https://webdriver.io/docs/api/element/doubleClick/)
@@ -126,7 +126,7 @@ test('triggers a triple click on an element', async () => {
   })
 
   await userEvent.tripleClick(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.tripleClick()
 
   expect(tripleClickFired).toBe(true)
@@ -160,7 +160,7 @@ test('update input', async () => {
   await userEvent.fill(input, '{{a[[') // input.value == {{a[[
   await userEvent.fill(input, '{Shift}') // input.value == {Shift}
 
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await input.fill('foo') // input.value == foo
 })
 ```
@@ -193,11 +193,11 @@ function keyboard(text: string): Promise<void>
 import { userEvent } from 'vitest/browser'
 
 test('trigger keystrokes', async () => {
-  await userEvent.keyboard('foo') // translates to: f, o, o
-  await userEvent.keyboard('{{a[[') // translates to: {, a, [
-  await userEvent.keyboard('{Shift}{f}{o}{o}') // translates to: Shift, f, o, o
-  await userEvent.keyboard('{a>5}') // press a without releasing it and trigger 5 keydown
-  await userEvent.keyboard('{a>5/}') // press a for 5 keydown and then release it
+  await userEvent.keyboard('foo') // 转化成：f, o, o
+  await userEvent.keyboard('{{a[[') // 转化成：{, a, [
+  await userEvent.keyboard('{Shift}{f}{o}{o}') // 转化成：Shift, f, o, o
+  await userEvent.keyboard('{a>5}') // 按 a 不松开，触发 5 次按键
+  await userEvent.keyboard('{a>5/}') // 按 a 键 5 次，然后松开
 })
 ```
 
@@ -299,7 +299,7 @@ test('clears input', async () => {
   expect(input).toHaveValue('foo')
 
   await userEvent.clear(input)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await input.clear()
 
   expect(input).toHaveValue('')
@@ -343,7 +343,7 @@ test('clears input', async () => {
   const select = page.getByRole('select')
 
   await userEvent.selectOptions(select, 'Option 1')
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await select.selectOptions('Option 1')
 
   expect(select).toHaveValue('option-1')
@@ -393,7 +393,7 @@ test('hovers logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.hover(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.hover()
 })
 ```
@@ -426,7 +426,7 @@ test('unhover logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.unhover(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.unhover()
 })
 ```
@@ -458,10 +458,10 @@ test('can upload a file', async () => {
   const file = new File(['file'], 'file.png', { type: 'image/png' })
 
   await userEvent.upload(input, file)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await input.upload(file)
 
-  // you can also use file paths relative to the root of the project
+  // 也可以使用相对于项目根目录的文件路径
   await userEvent.upload(input, './fixtures/file.png')
 })
 ```
@@ -496,7 +496,7 @@ test('drag and drop works', async () => {
   const target = page.getByTestId('logo-target')
 
   await userEvent.dragAndDrop(source, target)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await source.dropTo(target)
 
   await expect.element(target).toHaveTextContent('Logo is processed')
@@ -524,15 +524,15 @@ function copy(): Promise<void>
 import { page, userEvent } from 'vitest/browser'
 
 test('copy and paste', async () => {
-  // write to 'source'
+  // 写入 'source'
   await userEvent.click(page.getByPlaceholder('source'))
   await userEvent.keyboard('hello')
 
-  // select and copy 'source'
+  // 选择并复制 'source'
   await userEvent.dblClick(page.getByPlaceholder('source'))
   await userEvent.copy()
 
-  // paste to 'target'
+  // 粘贴到 'target'
   await userEvent.click(page.getByPlaceholder('target'))
   await userEvent.paste()
 
@@ -557,15 +557,15 @@ function cut(): Promise<void>
 import { page, userEvent } from 'vitest/browser'
 
 test('copy and paste', async () => {
-  // write to 'source'
+  // 写入 'source'
   await userEvent.click(page.getByPlaceholder('source'))
   await userEvent.keyboard('hello')
 
-  // select and cut 'source'
+  // 选择并剪切 'source'
   await userEvent.dblClick(page.getByPlaceholder('source'))
   await userEvent.cut()
 
-  // paste to 'target'
+  // 粘贴到 'target'
   await userEvent.click(page.getByPlaceholder('target'))
   await userEvent.paste()
 

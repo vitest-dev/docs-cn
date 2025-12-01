@@ -25,7 +25,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     browser: {
-      // shared provider options between all instances
+      // 所有实例之间共享提供者选项
       provider: playwright({
         launchOptions: {
           slowMo: 50,
@@ -37,8 +37,8 @@ export default defineConfig({
         { browser: 'chromium' },
         {
           browser: 'firefox',
-          // overriding options only for a single instance
-          // this will NOT merge options with the parent one
+          // 仅为单个实例覆盖选项
+          // 这不会将选项与父选项合并
           provider: playwright({
             launchOptions: {
               firefoxUserPrefs: {
@@ -54,7 +54,7 @@ export default defineConfig({
 ```
 
 ::: warning
-Unlike Playwright test runner, Vitest opens a _single_ page to run all tests that are defined in the same file. This means that isolation is restricted to a single test file, not to every individual test.
+与 Playwright 测试运行器不同，Vitest 打开一个_single_页面来运行同一文件中定义的所有测试。这意味着隔离仅限于单个测试文件，而不是每个测试。
 :::
 
 ## launchOptions
@@ -91,7 +91,7 @@ Vitest 通过调用 [`browser.newContext()`](https://playwright.dev/docs/api/cla
 
 ## `actionTimeout`
 
-- **Default:** no timeout
+- **默认:** 无超时
 
 此值配置 Playwright 等待所有可访问性检查通过并 [操作](/guide/browser/interactivity-api) 实际完成的默认超时时间。
 

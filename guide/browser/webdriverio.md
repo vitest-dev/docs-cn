@@ -29,7 +29,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     browser: {
-      // shared provider options between all instances
+      // 所有实例之间共享提供者选项
       provider: webdriverio({
         capabilities: {
           browserVersion: '82',
@@ -39,8 +39,8 @@ export default defineConfig({
         { browser: 'chrome' },
         {
           browser: 'firefox',
-          // overriding options only for a single instance
-          // this will NOT merge options with the parent one
+          // 仅为单个实例覆盖选项
+          // 这不会将选项与父选项合并
           provider: webdriverio({
             capabilities: {
               'moz:firefoxOptions': {

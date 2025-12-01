@@ -134,8 +134,8 @@ expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(4)
 为了提升用户体验，当 [`--standalone`](/guide/cli#standalone) 与文件名过滤器一起使用时，Vitest 现在会直接开始运行匹配到的文件。
 
 ```sh
-# In Vitest v3 and below this command would ignore "math.test.ts" filename filter.
-# In Vitest v4 the math.test.ts will run automatically.
+# 在 Vitest v3 及以下版本中，该命令将忽略 "math.test.ts" 文件名过滤器。
+# 在 Vitest v4 中，math.test.ts 将自动运行。
 $ vitest --standalone math.test.ts
 ```
 
@@ -150,15 +150,15 @@ $ vitest --standalone math.test.ts
 }
 ```
 ```bash [CLI]
-# Start Vitest in standalone mode, without running any files on start
+# 以独立模式启动 Vitest，启动时不运行任何文件
 $ pnpm run test:dev
 
-# Run math.test.ts immediately
+# 立即运行 math.test.ts
 $ pnpm run test:dev math.test.ts
 ```
 :::
 
-### Replacing `vite-node` with [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) {#replacing-vite-node-with-module-runner}
+### `vite-node` 替换为 [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) {#replacing-vite-node-with-module-runner}
 
 Module Runner 已取代 `vite-node`，直接内嵌于 Vite, Vitest 亦移除 SSR 封装，直接调用。主要变更如下：
 
@@ -173,9 +173,9 @@ Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`s
 
 未使用上述高级功能者，升级无感知。
 
-### `workspace` is Replaced with `projects` {#workspace-is-replaced-with-projects}
+### `workspace` 替换为 `projects` {#workspace-is-replaced-with-projects}
 
-The `workspace` configuration option was renamed to [`projects`](/guide/projects) in Vitest 3.2. They are functionally the same, except you cannot specify another file as the source of your workspace (previously you could specify a file that would export an array of projects). Migrating to `projects` is easy, just move the code from `vitest.workspace.js` to `vitest.config.ts`:
+在 Vitest 3.2 中，`workspace` 配置选项更名为 [`projects`](/guide/projects)。除了不能指定其他文件作为工作区的源文件（以前可以指定导出项目数组的文件）外，它们在功能上是相同的。迁移到 `projects` 非常简单，只需将代码从 `vitest.workspace.js` 移动到 `vitest.config.ts`：
 
 ::: code-group
 ```ts [vitest.config.js]
@@ -209,9 +209,9 @@ export default defineWorkspace([ // [!code --]
 ```
 :::
 
-### Browser Provider Rework {#browser-provider-rework}
+### 修改浏览器模式提供者 {#browser-provider-rework}
 
-In Vitest 4.0, the browser provider now accepts an object instead of a string (`'playwright'`, `'webdriverio'`). The `preview` is no longer a default. This makes it simpler to work with custom options and doesn't require adding `/// <reference` comments anymore.
+在 Vitest 4.0 中，浏览器提供者现在接受对象而非字符 (`'playwright'`, `'webdriverio'`)。 `preview` 不再是默认设置。这使得使用自定义选项变得更简单，而且不再需要添加 `/// <reference` 注释。
 
 ```ts
 import { playwright } from '@vitest/browser-playwright' // [!code ++]
@@ -238,9 +238,9 @@ export default defineConfig({
 })
 ```
 
-The naming of properties in `playwright` factory now also aligns with [Playwright documentation](https://playwright.dev/docs/api/class-testoptions#test-options-launch-options) making it easier to find.
+现在，`playwright` 工厂中的属性命名也与 [Playwright 文档](https://playwright.dev/docs/api/class-testoptions#test-options-launch-options) 一致，从而更容易查找。
 
-With this change, the `@vitest/browser` package is no longer needed, and you can remove it from your dependencies. To support the context import, you should update the `@vitest/browser/context` to `vitest/browser`:
+有了这一变更，就不再需要 `@vitest/browser` 软件包了，您可以将其从依赖关系中移除。要支持上下文导入，应将 `@vitest/browser/context` 更新为 `vitest/browser`：
 
 ```ts
 import { page } from '@vitest/browser/context' // [!code --]
@@ -251,9 +251,9 @@ test('example', async () => {
 })
 ```
 
-The modules are identical, so doing a simple "Find and Replace" should be sufficient.
+这些模块完全相同，因此只需进行简单的 “查找和替换” 即可。
 
-If you were using the `@vitest/browser/utils` module, you can now import those utilities from `vitest/browser` as well:
+如果使用 `@vitest/browser/utils` 模块，现在也可以从 `vitest/browser` 导入这些实用程序：
 
 ```ts
 import { getElementError } from '@vitest/browser/utils' // [!code --]
@@ -262,14 +262,14 @@ const { getElementError } = utils // [!code ++]
 ```
 
 ::: warning
-Both `@vitest/browser/context` and `@vitest/browser/utils` work at runtime during the transition period, but they will be removed in a future release.
+在过渡期间，`@vitest/browser/context` 和 `@vitest/browser/utils` 都能在运行时工作，但它们将在未来的版本中移除。
 :::
 
-### Reporter Updates {#reporter-updates}
+### 报告器更新 {#reporter-updates}
 
-Reporter APIs `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` and `onFinished` were removed. See [`Reporters API`](/advanced/api/reporters) for new alternatives. The new APIs were introduced in Vitest `v3.0.0`.
+Reporter API `onCollected`，`onSpecsCollected`，`onPathsCollected`，`onTaskUpdate` 和 `onFinished` 被移除。参阅 [`Reporters API`](/advanced/api/reporters) 了解新的替代方案。新的 API 在 Vitest `v3.0.0` 中引入。
 
-The `basic` reporter was removed as it is equal to:
+移除了 `basic` 报告器，因为它等价于：
 
 ```ts
 export default defineConfig({
@@ -281,7 +281,7 @@ export default defineConfig({
 })
 ```
 
-The [`verbose`](/guide/reporters#verbose-reporter) reporter now prints test cases as a flat list. To revert to the previous behaviour, use `--reporter=tree`:
+现在，[`verbose`](/guide/reporters#verbose-reporter) 报告器会以平面列表的形式打印测试用例。要恢复以前的行为，请使用 `--reporter=tree`:
 
 ```ts
 export default defineConfig({
@@ -292,9 +292,9 @@ export default defineConfig({
 })
 ```
 
-### Snapshots using custom elements print the shadow root {#snapshots-using-custom-elements-print-the-shadow-root}
+### 使用自定义元素打印阴影根的快照 {#snapshots-using-custom-elements-print-the-shadow-root}
 
-In Vitest 4.0 snapshots that include custom elements will print the shadow root contents. To restore the previous behavior, set the [`printShadowRoot` option](/config/#snapshotformat) to `false`.
+在 Vitest 4.0 中，包含自定义元素的快照将打印阴影根内容。要恢复以前的行为，请将 [`printShadowRoot` option](/config/#snapshotformat) 设为`false`。
 
 ```js{15-22}
 // before Vite 4.0
@@ -325,7 +325,7 @@ exports[`custom element with shadow root 1`] = `
 `
 ```
 
-### Deprecated APIs are Removed {#deprecated-apis-are-removed}
+### 移除弃用的 API {#deprecated-apis-are-removed}
 
 Vitest 4.0 移除了以下废弃的配置项：
 
@@ -368,7 +368,7 @@ const mock = vi.fn()
 const state = mock.mock
 mock.mockClear()
 
-expect(state).toBe(mock.mock) // fails in Jest
+expect(state).toBe(mock.mock) // 在 Jest 中失败
 ```
 
 ### 模块 Mock {#module-mocks}
