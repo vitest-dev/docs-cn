@@ -74,7 +74,7 @@ vitest.config.coverage.enabled = false
 vitest.config.reporters.push([['my-reporter', {}]])
 ```
 
-::: warning Config is Resolved
+::: warning 配置已解析完成
 请注意，Vitest 已经解析了配置，因此某些类型可能与通常的用户配置不同。这也意味着某些属性将不会再次解析，例如 `setupFile` 。如果我们要添加新文件，请确保先解析它。
 
 此时尚未创建记者，因此修改 `vitest.reporters` 将不起作用，因为它将被覆盖。如果我们需要注入自己的记者，请修改配置。
@@ -106,7 +106,7 @@ const newProjects = await injectTestProjects({
 })
 ```
 
-::: warning Projects are Filtered
+::: warning 项目筛选机制
 在解析配置时， Vitest 会对项目进行过滤，因此如果用户配置了过滤条件，某些被注入的项目可能不会被加载，除非它们 符合过滤规则。我们可以使用 vitest.config.project 选项来修改过滤器，从而确保始终包含我们的测试项目：
 
 ```ts
@@ -116,7 +116,7 @@ vitest.config.project.push('my-project-name')
 请注意，这只会影响使用 [`injectTestProjects`](#injecttestprojects) 方法注入的项目。
 :::
 
-::: tip Referencing the Current Config
+::: tip 引用当前配置
 若想在使用我们自己的配置时仍保留用户的原有配置，可以通过设置 extends 属性实现。这样，除了 extends 指定的内容外，其他配置项都会与我们配置合并。
 
 项目的 `configFile` 可以在 Vite 的配置中访问：`project.vite.config.configFile`。
