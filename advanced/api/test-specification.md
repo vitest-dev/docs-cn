@@ -76,4 +76,4 @@ describe('a group of tests', () => { // [!code error]
 function toJSON(): SerializedTestSpecification
 ```
 
-`toJSON` 生成一个 JSON 友好的对象，可以被 [浏览器模式](/guide/browser/) 或 [Vitest UI](/guide/ui) 消费。
+`toJSON` 生成一个 JSON 友好的对象，可以被 [浏览器模式](/guide/browser/) 或 [UI 模式](/guide/ui) 消费。
