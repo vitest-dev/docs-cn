@@ -1,7 +1,7 @@
 # 扩展默认报告器 {#extending-reporters}
 
 ::: warning
-这是一个高级 API。如果我们只是想配置内置报告器，请阅读 [Reporters](/guide/reporters) 指南。
+这是一个高级 API。如果我们只是想配置内置报告器，请阅读 [报告器](/guide/reporters) 指南。
 :::
 
 我们可以从 `vitest/reporters` 导入报告器并扩展它们来创建自定义报告器。
@@ -81,7 +81,7 @@ class MyReporter implements Reporter {
 
 ## 导出报告器 {#exported-reporters}
 
-`vitest` 附带了一些[内置报告器](/guide/reporters)，我们可以开箱即用。
+`vitest` 附带了一些 [内置报告器](/guide/reporters)，我们可以开箱即用。
 
 ### 内置报告器: {#built-in-reporters}
 
