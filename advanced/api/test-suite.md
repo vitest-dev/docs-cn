@@ -1,6 +1,6 @@
 # TestSuite
 
-`TestSuite` 类表示一个单一的套件。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“Runner API”](/advanced/runner#tasks)。
+`TestSuite` 类表示一个单一的套件。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/advanced/runner#tasks)。
 
 `TestSuite` 实例始终具有一个 `type` 属性，其值为 `suite`。你可以使用它来区分不同的任务类型：
 
