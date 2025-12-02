@@ -49,7 +49,7 @@ npm i -D @vitest/coverage-istanbul
 这让用户在享受 V8 覆盖率高速执行的同时，也能获得 Istanbul 覆盖率的高准确度。
 :::
 
-Vitest 默认采用 'v8' 作为覆盖率提供器。
+Vitest 默认采用 `v8` 作为覆盖率提供器。
 此提供器依赖于基于 [V8 引擎](https://v8.dev/) 的 JavaScript 运行环境，比如 NodeJS、Deno，或者 Google Chrome 等 Chromium 内核的浏览器。
 
 覆盖率收集是在程序运行时完成的，通过 [`node:inspector`](https://nodejs.org/api/inspector.html) 模块以及浏览器中的 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/tot/Profiler/) 协议 与 V8 交互即可实现。这样，用户的源码可以直接被执行，而不需要事先进行插桩处理。
@@ -135,14 +135,15 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 
 ## 覆盖率配置指南 {#coverage-setup}
 
-::: tip
-你可以在 [覆盖率配置参考](/config/#coverage) 中查看所有可用的覆盖率选项。
+:::tip
+建议始终在配置文件中定义 [`coverage.include`](/config/#coverage-include)。
+这有助于 Vitest 减少 [`coverage.all`](/config/#coverage-all) 选择的文件数量。
 :::
 
-如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true` ：
+要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
+默认情况下, 将使用 `['text', 'html', 'clover', 'json']` 作为测试报告器。
 
-::: code-group
-```json [package.json]
+```json
 {
   "scripts": {
     "test": "vitest",
@@ -150,91 +151,21 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
   }
 }
 ```
-```ts [vitest.config.ts]
+
+要对其进行配置，需要在配置文件中设置 `test.coverage` 选项：
+
+```ts
+// vitest.config.ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     coverage: {
-      enabled: true
+      reporter: ['text', 'json', 'html'],
     },
   },
 })
 ```
-:::
-
-## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
-
-你可以通过设置 [`coverage.include`](/config/#coverage-include) 和 [`coverage.exclude`](/config/#coverage-exclude) 来决定覆盖率报告中展示哪些文件。
-
-Vitest 默认只统计测试中实际导入的文件。如果希望报告里也包含那些未被测试覆盖到的文件，需要在 [`coverage.include`](/config/#coverage-include) 中配置一个能匹配你源代码文件的模式：
-
-::: code-group
-```ts [vitest.config.ts] {6}
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    coverage: {
-      include: ['src/**.{ts,tsx}']
-    },
-  },
-})
-```
-```sh [Covered Files]
-├── src
-│   ├── components
-│   │   └── counter.tsx   # [!code ++]
-│   ├── mock-data
-│   │   ├── products.json # [!code error]
-│   │   └── users.json    # [!code error]
-│   └── utils
-│       ├── formatters.ts # [!code ++]
-│       ├── time.ts       # [!code ++]
-│       └── users.ts      # [!code ++]
-├── test
-│   └── utils.test.ts     # [!code error]
-│
-├── package.json          # [!code error]
-├── tsup.config.ts        # [!code error]
-└── vitest.config.ts      # [!code error]
-```
-:::
-
-如果你想从覆盖率中排除已经被 `coverage.include` 匹配到的部分文件，可以通过额外配置 [`coverage.exclude`](/config/#coverage-exclude) 来实现：
-
-::: code-group
-```ts [vitest.config.ts] {7}
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    coverage: {
-      include: ['src/**.{ts,tsx}'],
-      exclude: ['**/utils/users.ts']
-    },
-  },
-})
-```
-```sh [Covered Files]
-├── src
-│   ├── components
-│   │   └── counter.tsx   # [!code ++]
-│   ├── mock-data
-│   │   ├── products.json # [!code error]
-│   │   └── users.json    # [!code error]
-│   └── utils
-│       ├── formatters.ts # [!code ++]
-│       ├── time.ts       # [!code ++]
-│       └── users.ts      # [!code error]
-├── test
-│   └── utils.test.ts     # [!code error]
-│
-├── package.json          # [!code error]
-├── tsup.config.ts        # [!code error]
-└── vitest.config.ts      # [!code error]
-```
-:::
 
 ## 自定义覆盖率的报告器 {#custom-coverage-reporter}
 
@@ -334,14 +265,31 @@ export default CustomCoverageProviderModule
 
 请参阅类型定义查看有关详细信息。
 
+## 更改默认覆盖率报告文件夹位置 {#changing-the-default-coverage-folder-location}
+
+运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
+
+```js
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      reportsDirectory: './tests/unit/coverage',
+    },
+  },
+})
+```
+
 ## 代码忽略 {#ignoring-code}
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
 - [`v8`](https://github.com/AriPerkkio/ast-v8-to-istanbul?tab=readme-ov-file#ignoring-code)
 - [`istanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
+- 启用 [`experimentalAstAwareRemapping: true`](/config/#coverage-experimentalAstAwareRemapping) `v8` 的覆盖率工具，详见 [ast-v8-to-istanbul | 代码忽略](https://github.com/AriPerkkio/ast-v8-to-istanbul?tab=readme-ov-file#ignoring-code)
 
-使用 TypeScript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
+使用 TypeScript 时，源码使用 `esbuild` 进行转译，这会从源码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
 被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
 
 你可以在忽略提示里加入 `@preserve` 关键字。
@@ -357,120 +305,19 @@ if (condition) {
 if (condition) {
 ```
 
-### 示例 {#examples}
+## 其他选项 {#other-options}
 
-::: code-group
-
-```ts [if else]
-/* v8 ignore if -- @preserve */
-if (parameter) { // [!code error]
-  console.log('Ignored') // [!code error]
-} // [!code error]
-else {
-  console.log('Included')
-}
-
-/* v8 ignore else -- @preserve */
-if (parameter) {
-  console.log('Included')
-}
-else { // [!code error]
-  console.log('Ignored') // [!code error]
-} // [!code error]
-```
-
-```ts [next node]
-/* v8 ignore next -- @preserve */
-console.log('Ignored') // [!code error]
-console.log('Included')
-
-/* v8 ignore next -- @preserve */
-function ignored() { // [!code error]
-  console.log('all') // [!code error]
-  // [!code error]
-  console.log('lines') // [!code error]
-  // [!code error]
-  console.log('are') // [!code error]
-  // [!code error]
-  console.log('ignored') // [!code error]
-} // [!code error]
-
-/* v8 ignore next -- @preserve */
-class Ignored { // [!code error]
-  ignored() {} // [!code error]
-  alsoIgnored() {} // [!code error]
-} // [!code error]
-
-/* v8 ignore next -- @preserve */
-condition // [!code error]
-  ? console.log('ignored') // [!code error]
-  : console.log('also ignored') // [!code error]
-```
-
-```ts [try catch]
-/* v8 ignore next -- @preserve */
-try { // [!code error]
-  console.log('Ignored') // [!code error]
-} // [!code error]
-catch (error) { // [!code error]
-  console.log('Ignored') // [!code error]
-} // [!code error]
-
-try {
-  console.log('Included')
-}
-catch (error) {
-  /* v8 ignore next -- @preserve */
-  console.log('Ignored') // [!code error]
-  /* v8 ignore next -- @preserve */
-  console.log('Ignored') // [!code error]
-}
-
-// 由于 esbuild 不支持，需要使用 rolldown-vite。
-// 参阅 https://vite.dev/guide/rolldown.html#how-to-try-rolldown
-try {
-  console.log('Included')
-}
-catch (error) /* v8 ignore next */ { // [!code error]
-  console.log('Ignored') // [!code error]
-} // [!code error]
-```
-
-```ts [switch case]
-switch (type) {
-  case 1:
-    return 'Included'
-
-  /* v8 ignore next -- @preserve */
-  case 2: // [!code error]
-    return 'Ignored' // [!code error]
-
-  case 3:
-    return 'Included'
-
-  /* v8 ignore next -- @preserve */
-  default: // [!code error]
-    return 'Ignored' // [!code error]
-}
-```
-
-```ts [whole file]
-/* v8 ignore file -- @preserve */
-export function ignored() { // [!code error]
-  return 'Whole file is ignored'// [!code error]
-}// [!code error]
-```
-:::
+要查看有关覆盖率的所有可配置选项，请参见 [覆盖率配置参考](https://cn.vitest.dev/config/#coverage)。
 
 ## 覆盖率性能 {#coverage-performance}
 
-如果你的项目中代码覆盖率生成较慢，请参阅[性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
+如果你的项目中代码覆盖率生成较慢，请参阅 [性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
 
-## Vitest UI {#vitest-ui}
+## UI 模式 {#vitest-ui}
 
-我们可以在 [Vitest UI](/guide/ui) 中查看你的覆盖率报告。
+我们可以在 [UI 模式](/guide/ui) 中查看你的覆盖率报告。
 
-Vitest UI 会在以下情况下启用覆盖率报告：
+UI 模式 会在以下情况下启用覆盖率报告：
 
 - 显式启用覆盖率报告：在配置文件中设置 `coverage.enabled=true` ，或运行 Vitest 时添加 `--coverage.enabled=true` 标志。
 - 添加 HTML 报告器：将 `html` 添加到 `coverage.reporter` 列表中，我们还可以启用 `subdir` 选项，将覆盖率报告放在子目录中。

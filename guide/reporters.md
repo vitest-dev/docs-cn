@@ -142,27 +142,41 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-如果只有一个测试文件在运行，Vitest 将输出该文件的完整测试树，类似于 [`tree`](#tree-reporter) 报告器。如果文件中至少有一个测试失败，default 报告器也会打印测试树。
+### 基础报告器 {#basic-reporter}
+
+`basic` 报告器等同于没有 `summary` 的 `default` 报告器。
+
+:::code-group
+
+```bash [CLI]
+npx vitest --reporter=basic
+```
+
+```ts [vitest.config.ts]
+export default defineConfig({
+  test: {
+    reporters: ['basic'],
+  },
+})
+```
+
+:::
+
+使用基础报告器的输出示例:
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
-   ✓ first test file (2) 725ms
-     ✓ 2 + 2 should equal 4
-     ✓ 4 - 2 should equal 2
+✓ __tests__/file2.test.ts (2) 746ms
 
- Test Files  1 passed (1)
-      Tests  2 passed (2)
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
    Start at  12:34:32
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
 ### 详细报告器 {#verbose-reporter}
 
-详细报告器会在每个测试用例完成后打印出来。它不会单独报告套件或文件。如果启用了 `--includeTaskLocation`，它还会在输出中包含每个测试的位置。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
-
-除此之外，`verbose` 报告器会立即打印测试错误消息。完整的测试错误会在测试运行结束时报告。
-
-这是唯一一个在测试未失败时报告[注解](/guide/test-annotations)的终端报告器。
+详细报告器与 `default` 报告器相同，但它还会在测试套件完成后显示每个单独的测试。它还会显示当前正在运行且耗时超过 [`slowTestThreshold`](/config/#slowtestthreshold) 的测试。与 `default` 报告器类似，我们可以通过配置报告器来禁用摘要。
 
 :::code-group
 
@@ -180,54 +194,6 @@ export default defineConfig({
 })
 ```
 
-:::
-
-Example output:
-
-```bash
-✓ __tests__/file1.test.ts > first test file > 2 + 2 should equal 4 1ms
-✓ __tests__/file1.test.ts > first test file > 4 - 2 should equal 2 1ms
-✓ __tests__/file2.test.ts > second test file > 1 + 1 should equal 2 1ms
-✓ __tests__/file2.test.ts > second test file > 2 - 1 should equal 1 1ms
-
- Test Files  2 passed (2)
-      Tests  4 passed (4)
-   Start at  12:34:32
-   Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
-```
-
-一个带有 `--includeTaskLocation` 参数的示例：
-
-```bash
-✓ __tests__/file1.test.ts:2:1 > first test file > 2 + 2 should equal 4 1ms
-✓ __tests__/file1.test.ts:3:1 > first test file > 4 - 2 should equal 2 1ms
-✓ __tests__/file2.test.ts:2:1 > second test file > 1 + 1 should equal 2 1ms
-✓ __tests__/file2.test.ts:3:1 > second test file > 2 - 1 should equal 1 1ms
-
- Test Files  2 passed (2)
-      Tests  4 passed (4)
-   Start at  12:34:32
-   Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
-```
-
-### 树状报告器 {#tree-reporter}
-
-树状报告器与 `default` 报告器相同，但它还会在套件完成后显示每个单独的测试。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
-
-:::code-group
-```bash [CLI]
-npx vitest --reporter=tree
-```
-
-```ts [vitest.config.ts]
-export default defineConfig({
-  test: {
-    reporters: [
-      ['tree', { summary: false }]
-    ]
-  },
-})
-```
 :::
 
 使用默认 `slowTestThreshold: 300` 的情况下，测试进行中的示例输出：
@@ -268,7 +234,7 @@ export default defineConfig({
 
 ### Dot 报告器 {#dot-reporter}
 
-每当一个测试完成时，就会打印一个点，以最小化输出量，同时让你看到所有执行过的测试。只有当测试失败时才会显示详细信息，并在最后提供套件的汇总。
+为每个已完成的测试打印一个点，以提供最少的输出，并显示所有已运行的测试。只提供失败测试的详细信息，以及套件的基本报告摘要。
 
 :::code-group
 
@@ -417,7 +383,7 @@ JSON 报告示例:
 ```
 
 ::: info
-自Vitest 3起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
+自 Vitest 3 起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
 :::
 
 ### HTML 报告器 {#html-reporter}
@@ -448,7 +414,7 @@ export default defineConfig({
 
 ### TAP 报告器 {#tap-reporter}
 
-按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
+按照 [Test Anything Protocol](https://testanything.org/) (TAP) 输出报告。
 
 :::code-group
 
@@ -491,7 +457,7 @@ not ok 1 - __tests__/test-file-1.test.ts # time=14.00ms {
 
 ### TAP 扁平报告器 {#tap-flat-reporter}
 
-输出 TAP 扁平报告。与 `TAP Reporter` 一样，测试结果的格式遵循 TAP 标准，但测试套件的格式是扁平列表，而不是嵌套层次结构。
+输出 TAP 扁平报告。与 `TAP` 报告器一样，测试结果的格式遵循 TAP 标准，但测试套件的格式是扁平列表，而不是嵌套层次结构。
 
 :::code-group
 

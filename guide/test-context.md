@@ -191,7 +191,7 @@ export const test = todosTest.extend({
 })
 ```
 
-#### 固定装置初始化 {#fixture-initialization}
+#### 初始化固定装置 {#fixture-initialization}
 
 Vitest 运行器将智能地初始化你的固定装置并根据使用情况将它们注入到测试上下文中。
 
@@ -255,7 +255,7 @@ test('works correctly')
 
 #### 默认的装置 {#default-fixture}
 
-从 Vitest 3 开始，你可以在不同的[项目](/guide/projects)中提供不同的值。要启用此功能，请在选项中传递 `{ injected: true }`。如果在[项目配置](/config/#provide)中未指定该键，则将使用默认值。
+从 Vitest 3 开始，你可以在不同的 [项目](/guide/projects) 中提供不同的值。要启用此功能，请在选项中传递 `{ injected: true }`。如果在 [项目配置](/config/#provide) 中未指定该键，则将使用默认值。
 
 :::code-group
 ```ts [fixtures.test.ts]
@@ -373,7 +373,7 @@ describe('another type of schema', () => {
 })
 ```
 
-#### 作用域上下文 <Version>3.2.0</Version>
+#### 作用域上下文 <Version>3.2.0</Version> {#per-scope-context-3-2-0}
 
 你可以定义每个文件或每个工作线程只初始化一次的上下文。它的初始化方式与带对象参数的常规夹具相同：
 
@@ -392,7 +392,7 @@ export const test = baseTest.extend({
 })
 ```
 
-该值在任何测试第一次访问它时初始化，除非夹具选项设置了 `auto: true` - 在这种情况下，该值在任何测试运行之前就已初始化。
+该值在任何测试第一次访问它时初始化，除非夹具选项设置了 `auto: true`， 在这种情况下，该值在任何测试运行之前就已初始化。
 
 ```ts
 const test = baseTest.extend({
@@ -476,5 +476,56 @@ test.beforeEach(({ todos }) => {
 
 test.afterEach(({ todos }) => {
   console.log(todos)
+})
+```
+
+### `beforeEach` and `afterEach`
+
+::: danger 弃用
+这种扩展上下文的方法已不再推荐使用，并且在你使用 `test.extend` 扩展 `test` 时，它将无法生效。
+:::
+
+每个测试用例都有独立的上下文，你可以在 `beforeEach` 和 `afterEach` 钩子里对其进行访问或扩展。
+
+```ts
+import { beforeEach, it } from 'vitest'
+
+beforeEach(async (context) => {
+  // 扩展上下文
+  context.foo = 'bar'
+})
+
+it('should work', ({ foo }) => {
+  console.log(foo) // 'bar'
+})
+```
+
+#### TypeScript
+
+如果你想为自定义的上下文属性提供类型支持，可以通过扩展 `TestContext` 类型来实现：
+
+```ts
+declare module 'vitest' {
+  export interface TestContext {
+    foo?: string
+  }
+}
+```
+
+如果你只想为特定的 `beforeEach`、`afterEach`、`it` 或 `test` hooks 提供属性类型，则可以将类型作为泛型(generic)传递。
+
+```ts
+interface LocalTestContext {
+  foo: string
+}
+
+beforeEach<LocalTestContext>(async (context) => {
+  // 上下文的类型是 'TestContext & LocalTestContext'
+  context.foo = 'bar'
+})
+
+it<LocalTestContext>('should work', ({ foo }) => {
+  // foo 的类型是 'string'
+  console.log(foo) // 'bar'
 })
 ```

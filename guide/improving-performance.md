@@ -8,7 +8,11 @@ title: 性能优化 | 指南
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
-这会大大增加测试时间，对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的）。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 标志，或者在配置文件中将 [`test.isolate`](/config/#isolate) 属性设置为 `false`。
+- `threads` 池在单独的 [`Worker`](https://nodejs.org/api/worker_threads.html#class-worker) 中运行每个测试文件
+- `forks` 池在单独的 [子进程](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) 中运行每个测试文件
+- `vmThreads` 池在单独的 [VM 上下文](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options) 中运行每个测试文件，但使用 workers 实现并行。
+
+对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 标志，或者在配置文件中将 [`test.isolate`](/config/#isolate) 属性设置为 `false`。
 
 ::: code-group
 
@@ -58,13 +62,9 @@ export default defineConfig({
 
 :::
 
-## 限制搜索目录 {#limiting-directory-search}
-
-你可以通过 [`test.dir`](/config/#test-dir) 选项限制 Vitest 搜索文件的工作目录。如果根目录中存在不相关的文件夹和文件，这将加快搜索速度。
-
 ## 运行池 {#pool}
 
-默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和[segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
+默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（ [hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 
@@ -106,7 +106,7 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 vitest run --merge-reports
 ```
 
-::: GitHub Actions 详细示例
+::: details GitHub Actions 示例
 同样方案也应用于 https://github.com/vitest-tests/test-sharding 仓库。
 
 ```yaml

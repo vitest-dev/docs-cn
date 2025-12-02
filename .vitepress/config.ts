@@ -296,7 +296,7 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: '浏览器模式配置',
+                  text: '浏览器配置',
                   link: '/guide/browser/config',
                   docFooterText: '浏览器模式配置 | 浏览器模式',
                 },
@@ -309,11 +309,6 @@ export default ({ mode }: { mode: string }) => {
                   text: '配置 WebdriverIO',
                   link: '/guide/browser/webdriverio',
                   docFooterText: '配置 WebdriverIO | 浏览器模式',
-                },
-                {
-                  text: 'Configuring Preview',
-                  link: '/guide/browser/preview',
-                  docFooterText: 'Configuring Preview | 浏览器模式',
                 },
               ],
             },
@@ -353,24 +348,9 @@ export default ({ mode }: { mode: string }) => {
               collapsed: false,
               items: [
                 {
-                  text: '多种设置',
+                  text: '多环境配置',
                   link: '/guide/browser/multiple-setups',
-                  docFooterText: '多种设置 | 浏览器模式',
-                },
-                {
-                  text: '组件测试',
-                  link: '/guide/browser/component-testing',
-                  docFooterText: '组件测试 | 浏览器模式',
-                },
-                {
-                  text: '可视化回归测试',
-                  link: '/guide/browser/visual-regression-testing',
-                  docFooterText: '可视化回归测试 | 浏览器模式',
-                },
-                {
-                  text: '跟踪查看器',
-                  link: '/guide/browser/trace-view',
-                  docFooterText: '跟踪查看器 | 浏览器模式',
+                  docFooterText: '多环境配置 | 浏览器模式',
                 },
               ],
             },
@@ -567,54 +547,19 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/reporters',
     },
     {
-      text: '测试覆盖率',
+      text: '覆盖率',
       link: '/guide/coverage',
     },
     {
-      text: '测试快照',
+      text: '快照',
       link: '/guide/snapshot',
     },
     {
-      text: '模拟对象',
+      text: '模拟',
       link: '/guide/mocking',
-      collapsed: true,
-      items: [
-        {
-          text: '模拟日期',
-          link: '/guide/mocking/dates',
-        },
-        {
-          text: '模拟函数',
-          link: '/guide/mocking/functions',
-        },
-        {
-          text: '模拟全局对象',
-          link: '/guide/mocking/globals',
-        },
-        {
-          text: '模拟模块',
-          link: '/guide/mocking/modules',
-        },
-        {
-          text: '模拟文件系统',
-          link: '/guide/mocking/file-system',
-        },
-        {
-          text: '模拟请求',
-          link: '/guide/mocking/requests',
-        },
-        {
-          text: '模拟计时器',
-          link: '/guide/mocking/timers',
-        },
-        {
-          text: '模拟类',
-          link: '/guide/mocking/classes',
-        },
-      ],
     },
     {
-      text: '并行执行',
+      text: '并行性',
       link: '/guide/parallelism',
     },
     {
@@ -622,7 +567,7 @@ function guide(): DefaultTheme.SidebarItem[] {
       link: '/guide/testing-types',
     },
     {
-      text: 'UI模式',
+      text: 'UI 模式',
       link: '/guide/ui',
     },
     {
@@ -632,6 +577,10 @@ function guide(): DefaultTheme.SidebarItem[] {
     {
       text: '测试上下文',
       link: '/guide/test-context',
+    },
+    {
+      text: '测试注释',
+      link: '/guide/test-annotations',
     },
     {
       text: '测试环境',
@@ -659,8 +608,8 @@ function guide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {
-          text: '迁移到 Vitest 4.0',
-          link: '/guide/migration#vitest-4',
+          text: '迁移到 Vitest 3.0',
+          link: '/guide/migration#vitest-3',
         },
         {
           text: '从 Jest 迁移',
@@ -692,7 +641,7 @@ function api(): DefaultTheme.SidebarItem[] {
       link: '/api/',
     },
     {
-      text: 'Mocks',
+      text: 'Mock Functions',
       link: '/api/mock',
     },
     {

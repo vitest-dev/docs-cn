@@ -1,4 +1,4 @@
-# 多种设置 {#multiple-setups}
+# 多环境配置 {#multiple-setups}
 
 你可以使用 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
 
@@ -28,7 +28,7 @@ export default defineConfig({
 })
 ```
 
-## 不同的设置 {#different-setups}
+## 不同的配置方案 {#different-setups}
 
 你还可以独立于浏览器指定不同的配置选项（尽管，实例也可以有 `browser` 字段）：
 
@@ -118,4 +118,21 @@ export default defineConfig({
   }
 })
 ```
+:::
+
+::: warning
+Vitest 无法运行多个将 `headless` 模式设置为 `false`（默认行为）的实例。在开发过程中，你可以在终端中选择要运行的项目：
+
+```shell
+? Found multiple projects that run browser tests in headed mode: "chromium", "firefox".
+Vitest cannot run multiple headed browsers at the same time. Select a single project
+to run or cancel and run tests with "headless: true" option. Note that you can also
+start tests with --browser=name or --project=name flag. › - Use arrow-keys. Return to submit.
+❯   chromium
+    firefox
+```
+
+如果我们在 CI 中有多个非 headless 项目（即在配置中手动设置了 `headless: false` 并且未在 CI 环境中覆盖），Vitest 将运行失败并且不会启动任何测试。
+
+这一限制不影响在无头模式下运行测试的能力。只要实例没有设置 `headless: false`，你仍然可以并行运行所有实例。
 :::

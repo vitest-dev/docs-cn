@@ -21,7 +21,7 @@
       支持基准测试
     </ListItem>
     <ListItem>支持套件和测试的过滤、超时、并发配置</ListItem>
-    <ListItem>支持 <a href="/guide/projects">Projects</a> / <a href="/guide/workspace">Workspace</a></ListItem>
+    <ListItem>支持 <a href="/guide/projects">Projects</a></ListItem>
     <ListItem>
       <a href="/guide/snapshot">Jest 快照功能</a>
     </ListItem>
@@ -37,8 +37,8 @@
     </ListItem>
     <ListItem>
       使用
-      <a target="_blank" href="https://github.com/jsdom/jsdom" rel="noopener noreferrer">jsdom</a> 或
-      <a target="_blank" href="https://github.com/capricorn86/happy-dom" rel="noopener noreferrer">happy-dom</a>
+      <a target="_blank" href="https://github.com/capricorn86/happy-dom" rel="noopener noreferrer">happy-dom</a> 或
+      <a target="_blank" href="https://github.com/jsdom/jsdom" rel="noopener noreferrer">jsdom</a>
       模拟 DOM
     </ListItem>
     <ListItem><a href="/guide/browser/" rel="noopener noreferrer">浏览器模式</a>：在浏览器中运行组件测试</ListItem>

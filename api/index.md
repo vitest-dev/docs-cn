@@ -35,7 +35,7 @@ interface TestOptions {
 当测试函数返回一个 promise 时，运行器会等待它解析结束收集异步的结果。如果 promise 被拒绝，测试就会失败。
 
 ::: tip
-在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅[迁移指南中的回调完成部分](/guide/migration#回调完成)。
+在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅 [迁移指南中的回调完成部分](/guide/migration.html#done-callback)。
 
 :::
 
@@ -108,7 +108,7 @@ test('heavy test', { skip: true, timeout: 10_000 }, () => {
 
 `test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
 
-或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为 5 秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置
+或者，我们可以提供超时（以毫秒为单位）来指定终止前等待的时间。 默认为 5 秒，可以通过 [testTimeout](/config/#testtimeout) 进行全局配置。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -123,7 +123,7 @@ test('should work as expected', () => {
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
 
-使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅[扩展测试上下文](/guide/test-context.html#test-extend)。
+使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅 [扩展测试上下文](/guide/test-context.html#test-extend)。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -176,7 +176,7 @@ test('skipped test', (context) => {
 })
 ```
 
-自 Vitest 3.1 起，如果你无法提前确定是否跳过，可以把条件直接作为第一个参数传给 `skip 方法：
+自 Vitest 3.1 起，如果你无法提前确定是否跳过，可以把条件直接作为第一个参数传给 `skip` 方法：
 
 ```ts
 import { assert, test } from 'vitest'
@@ -206,7 +206,7 @@ test.skipIf(isDev)('prod only test', () => {
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### test.runIf
@@ -227,7 +227,7 @@ test.runIf(isDev)('dev only test', () => {
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### test.only
@@ -248,7 +248,7 @@ test.only('test', () => {
 })
 ```
 
-有时，只运行某个文件中的 "测试"，而忽略整个 测试套件 中的所有其他测试是非常有用的，因为这些测试会污染输出。
+有时，只运行某个文件中的 "测试"，而忽略整个测试套件中的所有其他测试是非常有用的，因为这些测试会污染输出。
 
 为此，请使用包含相关测试的特定文件运行 `vitest`。
 
@@ -289,7 +289,7 @@ test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
 test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
 ```
 
-运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect`，以确保检测到正确的测试。
+运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context.md) 中的 `expect`，以确保检测到正确的测试。
 
 ```ts
 test.concurrent('test 1', async ({ expect }) => {
@@ -301,12 +301,13 @@ test.concurrent('test 2', async ({ expect }) => {
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### test.sequential
 
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
+- **别名:** `it.sequential`
 
 `test.sequential` 标记一个测试为顺序测试。如果要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
@@ -314,35 +315,19 @@ test.concurrent('test 2', async ({ expect }) => {
 import { describe, test } from 'vitest'
 
 // 使用配置选项 `{ sequence: { concurrent: true } }`
-test('concurrent test 1', async () => {
-  /* ... */
-})
-test('concurrent test 2', async () => {
-  /* ... */
-})
+test('concurrent test 1', async () => { /* ... */ })
+test('concurrent test 2', async () => { /* ... */ })
 
-test.sequential('sequential test 1', async () => {
-  /* ... */
-})
-test.sequential('sequential test 2', async () => {
-  /* ... */
-})
+test.sequential('sequential test 1', async () => { /* ... */ })
+test.sequential('sequential test 2', async () => { /* ... */ })
 
 // 在并发套件中
 describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => {
-    /* ... */
-  })
-  test('concurrent test 2', async () => {
-    /* ... */
-  })
+  test('concurrent test 1', async () => { /* ... */ })
+  test('concurrent test 2', async () => { /* ... */ })
 
-  test.sequential('sequential test 1', async () => {
-    /* ... */
-  })
-  test.sequential('sequential test 2', async () => {
-    /* ... */
-  })
+  test.sequential('sequential test 1', async () => { /* ... */ })
+  test.sequential('sequential test 2', async () => { /* ... */ })
 })
 ```
 
@@ -360,7 +345,6 @@ test.todo('unimplemented test')
 
 ### test.fails
 
-- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.fails`
 
 使用 `test.fails` 明确表示断言将失败。
@@ -377,7 +361,7 @@ test.fails('fail test', async () => {
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### test.each
@@ -487,7 +471,7 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 :::
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### test.for
@@ -504,8 +488,8 @@ test.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', (a, b, expected) => {
   // [!code --]
+])('add(%i, %i) -> %i', (a, b, expected) => {
   expect(a + b).toBe(expected)
 })
 
@@ -514,8 +498,8 @@ test.for([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])('add(%i, %i) -> %i', ([a, b, expected]) => {
   // [!code ++]
+])('add(%i, %i) -> %i', ([a, b, expected]) => {
   expect(a + b).toBe(expected)
 })
 ```
@@ -856,6 +840,7 @@ describe('numberToCurrency', () => {
 ### describe.skip
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **别名:** `suite.skip`
 
 在套件中使用 `describe.skip` 可避免运行特定的 describe 块。
 
@@ -873,6 +858,7 @@ describe.skip('skipped suite', () => {
 ### describe.skipIf
 
 - **类型:** `(condition: any) => void`
+- **别名:** `suite.skipIf`
 
 在某些情况下，可能会在不同的环境下多次运行套件，其中一些测试套件可能是特定于环境的。可以使用 `describe.skipIf` 来跳过条件为真时的套件，而不是使用 `if` 来封装套件。
 
@@ -893,6 +879,7 @@ describe.skipIf(isDev)('prod only test suite', () => {
 ### describe.runIf
 
 - **类型:** `(condition: any) => void`
+- **别名:** `suite.runIf`
 
 与 [describe.skipIf](#describe-skipif) 相反。
 
@@ -931,11 +918,9 @@ describe('other suite', () => {
 })
 ```
 
-为了做到这一点，请使用包含相关测试的特定文件来运行 `vitest`。
-
 有时，只运行某个文件中的测试套件，而忽略整个测试套件中的所有其他测试是非常有用的，因为这些测试会污染输出。
 
-要做到这一点，请在包含相关测试的特定文件中运行 `vitest`。
+为了做到这一点，请使用包含相关测试的特定文件来运行 `vitest`。
 
 ```
 # vitest interesting.test.ts
@@ -978,7 +963,7 @@ describe.only.concurrent(/* ... */) // 或 describe.concurrent.only(/* ... */)
 describe.todo.concurrent(/* ... */) // 或 describe.concurrent.todo(/* ... */)
 ```
 
-运行并发测试时，快照和断言必须使用本地[测试上下文](/guide/test-context.md)中的 `expect` ，以确保检测到正确的测试。
+运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context.md) 中的 `expect` ，以确保检测到正确的测试。
 
 ```ts
 describe.concurrent('suite', () => {
@@ -992,12 +977,13 @@ describe.concurrent('suite', () => {
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### describe.sequential
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **别名:** `suite.sequential`
 
 测试套件中的 `describe.sequential` 会将每个测试标记为顺序测试。如果需要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
 
@@ -1005,20 +991,12 @@ describe.concurrent('suite', () => {
 import { describe, test } from 'vitest'
 
 describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => {
-    /* ... */
-  })
-  test('concurrent test 2', async () => {
-    /* ... */
-  })
+  test('concurrent test 1', async () => { /* ... */ })
+  test('concurrent test 2', async () => { /* ... */ })
 
   describe.sequential('', () => {
-    test('sequential test 1', async () => {
-      /* ... */
-    })
-    test('sequential test 2', async () => {
-      /* ... */
-    })
+    test('sequential test 1', async () => { /* ... */ })
+    test('sequential test 2', async () => { /* ... */ })
   })
 })
 ```
@@ -1026,6 +1004,7 @@ describe.concurrent('suite', () => {
 ### describe.shuffle
 
 - **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
+- **别名:** `suite.shuffle`
 
 Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
 
@@ -1034,48 +1013,35 @@ import { describe, test } from 'vitest'
 
 // 或 `describe('suite', { shuffle: true }, ...)`
 describe.shuffle('suite', () => {
-  test('random test 1', async () => {
-    /* ... */
-  })
-  test('random test 2', async () => {
-    /* ... */
-  })
-  test('random test 3', async () => {
-    /* ... */
-  })
+  test('random test 1', async () => { /* ... */ })
+  test('random test 2', async () => { /* ... */ })
+  test('random test 3', async () => { /* ... */ })
 
   // `shuffle` 是继承的
   describe('still random', () => {
-    test('random 4.1', async () => {
-      /* ... */
-    })
-    test('random 4.2', async () => {
-      /* ... */
-    })
+    test('random 4.1', async () => { /* ... */ })
+    test('random 4.2', async () => { /* ... */ })
   })
 
   // 禁用内部的 shuffle
   describe('not random', { shuffle: false }, () => {
-    test('in order 5.1', async () => {
-      /* ... */
-    })
-    test('in order 5.2', async () => {
-      /* ... */
-    })
+    test('in order 5.1', async () => { /* ... */ })
+    test('in order 5.2', async () => { /* ... */ })
   })
 })
 // 顺序取决于配置中的 `sequence.seed` 选项（默认为 `Date.now()`）
 ```
 
-`.skip`、`.only`和`.todo`适用于随机测试套件。
+`.skip`、 `.only` 和 `.todo` 适用于随机测试套件。
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### describe.todo
 
 - **类型:** `(name: string | Function) => void`
+- **别名:** `suite.todo`
 
 使用 `describe.todo` 来暂存待以后实施的套件。测试报告中会显示一个条目，这样就能知道还有多少测试需要执行。
 
@@ -1087,6 +1053,7 @@ describe.todo('unimplemented suite')
 ### describe.each
 
 - **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
+- **别名:** `suite.each`
 
 ::: tip
 虽然 `describe.each` 是为了兼容 Jest 提供的，
@@ -1140,7 +1107,7 @@ describe.each`
 ```
 
 ::: warning
-在将 Vitest 用作[类型检查器](/guide/testing-types)时，不能使用此语法。
+在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
 :::
 
 ### describe.for

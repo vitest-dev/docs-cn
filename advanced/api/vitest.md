@@ -53,7 +53,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 公共 `state` 是一个实验性 API（除了 `vitest.state.getReportedEntity`）。破坏性更改可能不遵循 SemVer，请在使用时固定 Vitest 的版本。
 :::
 
-全局状态存储有关当前测试的信息。默认情况下，它使用与 `@vitest/runner` 相同的 API，但我们建议通过调用 `@vitest/runner` API 上的 `state.getReportedEntity()` 来使用 [报告任务 API](/advanced/reporters#reported-tasks)：
+全局状态存储有关当前测试的信息。默认情况下，它使用与 `@vitest/runner` 相同的 API，但我们建议通过调用 `@vitest/runner` API 上的 `state.getReportedEntity()` 来使用 [任务报告器 API](/advanced/reporters#reported-tasks)：
 
 ```ts
 const task = vitest.state.idMap.get(taskId) // 旧 API
@@ -71,10 +71,6 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 ## cache
 
 缓存管理器，存储有关最新测试结果和测试文件状态的信息。在 Vitest 中，这仅由默认的排序器用于排序测试。
-
-## watcher <Version>4.0.0</Version> {#watcher}
-
-这是 Vitest 的 watcher 实例，提供追踪文件变更并重新执行测试的便利方法。若关闭内置 watcher ，你仍可在自定义 watcher 中调用 `onFileChange`、`onFileDelete` 或 `onFileCreate` 完成相同任务。
 
 ## projects
 
@@ -105,7 +101,7 @@ function provide<T extends keyof ProvidedContext & string>(
 ): void
 ```
 
-Vitest 公开了 `provide` 方法，它是 `vitest.getRootProject().provide` 的简写。通过此方法，我们可以从主线程传递值到测试中。所有值在存储之前都通过 `structuredClone` 进行检查，但值本身不会被克隆。
+Vitest 暴露了 `provide` 方法，它是 `vitest.getRootProject().provide` 的简写。通过此方法，我们可以从主线程传递值到测试中。所有值在存储之前都通过 `structuredClone` 进行检查，但值本身不会被克隆。
 
 为了接收测试中的值，我们需要从 `vitest` 入口点导入 `inject` 方法：
 
@@ -132,7 +128,7 @@ declare module 'vitest' {
 ```
 
 ::: warning
-从技术上讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的一种方法，因此它仅限于特定项目。但是，所有项目都会从根项目继承值，这使得 `vitest.provide` 成为将值传递给测试的通用方法。
+从技术角度讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的一种方法，因此它仅限于特定项目。但是，所有项目都会从根项目继承值，这使得 `vitest.provide` 成为将值传递给测试的通用方法。
 :::
 
 ## getProvidedContext
@@ -285,7 +281,7 @@ function runTestSpecifications(
 ): Promise<TestRunResult>
 ```
 
-该方法会遍历并执行所有根据 [测试规格](/advanced/api/test-specification) 定义的测试用例。第二个参数 `allTestsRun` 则供覆盖率工具判断是否应在覆盖率报告中加入那些没有被任何测试覆盖到的文件。
+该方法会根据接收到的 [测试规范](/advanced/api/test-specification) 运行所有测试。 第二个参数 `allTestsRun` 由覆盖率提供程序使用，用于确定是否需要对根目录下的每个文件进行覆盖率插桩（仅在启用覆盖率且 `coverage.all` 设置为 `true`时生效）。
 
 ::: warning
 此方法不会触发 `onWatcherRerun`、`onWatcherStart` 和 `onTestsRerun` 回调。如果我们基于文件更改重新运行测试，请考虑使用 [`rerunTestSpecifications`](#reruntestspecifications) 代替。
@@ -347,14 +343,6 @@ function setGlobalTestNamePattern(pattern: string | RegExp): void
 ::: warning
 此方法不会开始运行任何测试。要使用更新后的模式运行测试，请调用 [`runTestSpecifications`](#runtestspecifications)。
 :::
-
-## getGlobalTestNamePattern
-
-```ts
-function getGlobalTestNamePattern(): RegExp | undefined
-```
-
-返回用于全局测试名称模式的正则表达式。
 
 ## resetGlobalTestNamePattern
 
@@ -513,101 +501,3 @@ function matchesProjectFilter(name: string): boolean
 检查名称是否与当前 [项目过滤器](/guide/cli#project) 匹配。如果没有项目过滤器，则始终返回 `true` 。
 
 无法通过编程方式更改 `--project` CLI 选项。
-
-## waitForTestRunEnd <Version>4.0.0</Version> {#waitfortestrunend}
-
-```ts
-function waitForTestRunEnd(): Promise<void>
-```
-
-若测试正在运行，则返回一个 Promise ，它会在测试运行完毕后兑现。
-
-## createCoverageProvider <Version>4.0.0</Version> {#createcoverageprovider}
-
-```ts
-function createCoverageProvider(): Promise<CoverageProvider | null>
-```
-
-当配置中启用了 `coverage` 时，创建覆盖率提供器。若使用 [`start`](#start) 或 [`init`](#init) 方法启动测试，这一步会自动完成。
-
-::: warning
-若未将 [`coverage.clean`](/config/#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。
-:::
-
-## enableCoverage <Version>4.0.0</Version> {#enablecoverage}
-
-```ts
-function enableCoverage(): Promise<void>
-```
-
-此方法为在此调用之后运行的测试启用覆盖率收集。`enableCoverage` 不会运行任何测试；它只是设置 Vitest 来收集覆盖率。
-
-如果尚不存在覆盖率提供者，它将创建一个新的覆盖率提供者。
-
-## disableCoverage <Version>4.0.0</Version> {#disablecoverage}
-
-```ts
-function disableCoverage(): void
-```
-
-此方法会禁用后续运行的测试的覆盖率收集功能。
-
-## getSeed <Version>4.0.0</Version> {#getseed}
-
-```ts
-function getSeed(): number | null
-```
-
-如果测试以随机顺序运行，则返回种子值。
-
-## experimental_parseSpecification <Version>4.0.0</Version> <Badge type="warning">experimental</Badge> {#parsespecification}
-
-```ts
-function experimental_parseSpecification(
-  specification: TestSpecification
-): Promise<TestModule>
-```
-
-该函数会收集文件内的所有测试，但不会执行它们。它借助 Vite 的 `ssrTransform` ，并在其之上使用 rollup 的 `parseAst` 进行静态分析，从而提取所有可识别的测试用例。
-
-::: warning
-如果 Vitest 无法解析测试的名称，它将在测试或套件中注入一个 `dynamic: true` 属性。`id` 也会带有 `-dynamic` 后缀，以避免破坏已正确收集的测试。
-
-Vitest 总是在带有 `for` 或 `each` 修饰符的测试，或者名称是动态生成的测试（如 `hello ${property}` 或 `'hello' + ${property}`）中注入此属性。Vitest 仍会为测试分配一个名称，但该名称不能用于过滤测试。
-
-Vitest 无法做到让动态测试可以被过滤，但你可以使用 `escapeTestName` 函数将带有 `for` 或 `each` 修饰符的测试转换为名称模式：
-
-若 Vitest 无法解析测试名称，它会在测试或套件中注入一个隐藏的 `dynamic: true` 属性，并在 `id` 后追加 `-dynamic` ，以免破坏已正确收集的测试。
-
-含 `for` 或 `each` 修饰符的测试，以及名称动态生成的测试（如 `hello ${property}` 或 `'hello' + ${property}` ） ， Vitest 一律会注入此属性。 Vitest 仍会为其分配名称，但该名称无法用于过滤测试。
-
-Vitest 无法让动态测试支持过滤，但你可以使用 `escapeTestName` 函数，将带 `for` 或 `each` 的测试转换成名称模式：
-
-```ts
-import { escapeTestName } from 'vitest/node'
-
-// 转换为 /hello, .+?/
-const escapedPattern = new RegExp(escapeTestName('hello, %s', true))
-```
-:::
-
-::: warning
-Vitest 只会收集当前文件内定义的测试，绝不会跟随导入去其他文件搜寻。
-
-无论是否从 `vitest` 入口点导入， Vitest 都会收集所有 `it` 、`test` 、`suite` 和 `describe` 的定义。
-:::
-
-## experimental_parseSpecifications <Version>4.0.0</Version> <Badge type="warning">实验</Badge> {#parsespecifications}
-
-```ts
-function experimental_parseSpecifications(
-  specifications: TestSpecification[],
-  options?: {
-    concurrency?: number
-  }
-): Promise<TestModule[]>
-```
-
-该方法会依据规格数组 [collect tests](#parsespecification)。
-
-默认情况下， Vitest 仅同时运行 `os.availableParallelism()` 个规格，以避免性能骤降。我们可以在第二个参数中指定其他并发数。

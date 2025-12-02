@@ -1,6 +1,6 @@
-# Mocks
+# Mock Functions
 
-用 `vi.fn` 即可创建 mock 函数或类，并全程记录其调用情况；若想监控已存在对象上的某个属性，则改用 `vi.spyOn`。
+我们可以使用 `vi.fn` 方法创建一个 mock 函数来跟踪其执行情况。如果要跟踪已创建对象上的方法，可以使用 `vi.spyOn` 方法：
 
 ```js
 import { vi } from 'vitest'
@@ -18,10 +18,10 @@ market.getApples()
 getApplesSpy.mock.calls.length === 1
 ```
 
-要验证 mock 的行为，请通过 [`expect`](/api/expect) 调用类似 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) 的断言方法；以下 API 参考汇总了所有可用来操控 mock 的属性和方法。
+我们应该在 [`expect`](/api/expect) 上使用 mock 断言（例如 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) ）来断言 mock 结果。在这里我们介绍了用于操作 mock 行为的可用属性和方法。
 
 ::: tip
-The custom function implementation in the types below is marked with a generic `<T>`.
+下列类型中的自定义函数实现通过泛型 `<T>` 标记。
 :::
 
 ## getMockImplementation
@@ -42,7 +42,7 @@ function getMockImplementation(): T | undefined
 function getMockName(): string
 ```
 
-此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`； `vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
+使用它来返回使用 `.mockName(name)` 方法分配给 mock 对象的名称。默认情况下，它将返回 `vi.fn()`。
 
 ## mockClear
 
@@ -215,7 +215,7 @@ await asyncMock() // 抛出 Error<'Async error'>
 function mockReset(): Mock<T>
 ```
 
-该方法会先执行与 [`mockClear`](#mockClear) 相同的清理，再重置 mock 的实现，并一并清除所有一次性（once）设定。
+执行与 `mockClear` 相同的操作，并将内部实现设置为空函数（调用时返回 undefined）。这也会重置所有 “once” 实现。它对于将 mock 完全重置为其默认状态很有用。
 
 注意：
 
@@ -378,37 +378,6 @@ fn.mock.calls
 ]
 ```
 
-:::warning 对象按引用存储。
-请注意，Vitest 在 `mock` 状态的所有属性中始终按引用保存对象。一旦你的代码修改了这些属性，诸如 [`.toHaveBeenCalledWith`](/api/expect#tohavebeencalledwith) 之类的断言便可能无法通过：
-
-```ts
-const argument = {
-  value: 0,
-}
-const fn = vi.fn()
-fn(argument) // { value: 0 }
-
-argument.value = 10
-
-expect(fn).toHaveBeenCalledWith({ value: 0 }) // [!code --]
-
-// 相等性检查是针对原始参数进行的，
-// 但是，该参数的属性在调用和断言之间发生了更改。
-expect(fn).toHaveBeenCalledWith({ value: 10 }) // [!code ++]
-```
-
-此时，可先自行克隆该参数：
-
-```ts{6}
-const calledArguments = []
-const fn = vi.fn((arg) => {
-  calledArguments.push(structuredClone(arg))
-})
-
-expect(calledArguments[0]).toEqual({ value: 0 })
-```
-:::
-
 ## mock.lastCall
 
 ```ts
@@ -491,11 +460,6 @@ fn.mock.results
 ## mock.settledResults
 
 ```ts
-interface MockSettledResultIncomplete {
-  type: 'incomplete'
-  value: undefined
-}
-
 interface MockSettledResultFulfilled<T> {
   type: 'fulfilled'
   value: T
@@ -509,16 +473,13 @@ interface MockSettledResultRejected {
 export type MockSettledResult<T>
   = | MockSettledResultFulfilled<T>
     | MockSettledResultRejected
-    | MockSettledResultIncomplete
 
 const settledResults: MockSettledResult<Awaited<ReturnType<T>>>[]
 ```
 
-该数组按顺序记录了函数每次被调用后最终兑现或拒绝的值。
+包含函数中 `resolved` 或 `rejected` 的所有值的数组。
 
-若函数返回的是非 Promise ，实际值会原封不动地保留，但状态仍被标记为 `fulfilled` 或 `rejected`。
-
-在结果出来前，对应的 `settledResult` 类型始终为 `incomplete`。
+如果函数从未 resolved 或 rejected ，则此数组将为空。
 
 ```js
 const fn = vi.fn().mockResolvedValueOnce('result')

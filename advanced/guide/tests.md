@@ -1,4 +1,4 @@
-# Running Tests
+# 运行测试 {#running-tests}
 
 ::: warning 注意
 本指南介绍如何使用高级 API 通过 Node.js 脚本运行测试。如果您只想[运行测试](/guide/)，则可能不需要这个。它主要被库的作者使用。
@@ -57,21 +57,21 @@ vitest.onClose(() => {})
 vitest.onTestsRerun((files) => {})
 
 try {
-  // this will set process.exitCode to 1 if tests failed,
-  // and won't close the process automatically
+  // 若测试失败，此操作会将 process.exitCode 设为 1
+  // 并且不会自动终止进程
   await vitest.start(['my-filter'])
 }
 catch (err) {
-  // this can throw
-  // "FilesNotFoundError" if no files were found
-  // "GitNotFoundError" with `--changed` and repository is not initialized
+  // 可能抛出以下错误：
+  // "FilesNotFoundError" 未找到匹配文件
+  // "GitNotFoundError" 使用 `--changed` 参数但未初始化 git 仓库
 }
 finally {
   await vitest.close()
 }
 ```
 
-如果我们打算保留“Vitest”实例，请确保至少调用 [`init`](/advanced/api/vitest#init) 。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使我们不打算使用 Vitest 观察器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖此标志使其某些功能在连续过程中正常工作。
+如果我们打算保留 `Vitest` 实例，请确保至少调用 [`init`](/advanced/api/vitest#init) 。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使我们不打算使用 Vitest 观察器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖此标志使其某些功能在连续过程中正常工作。
 
 报告器初始化后，如果需要手动运行测试，可以使用 [`runTestSpecifications`](/advanced/api/vitest#runtestspecifications) 或 [`rerunTestSpecifications`](/advanced/api/vitest#reruntestspecifications) 来运行测试。
 
@@ -80,8 +80,8 @@ watcher.on('change', async (file) => {
   const specifications = vitest.getModuleSpecifications(file)
   if (specifications.length) {
     vitest.invalidateFile(file)
-    // you can use runTestSpecifications if "reporter.onWatcher*" hooks
-    // should not be invoked
+    // 若需避免触发 "reporter.onWatcher*" 钩子，可使用 runTestSpecifications 方法
+    // 不应被调用
     await vitest.rerunTestSpecifications(specifications)
   }
 })

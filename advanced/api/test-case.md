@@ -1,6 +1,6 @@
 # TestCase
 
-`TestCase` 类表示单个测试。此类仅在主线程中可用。如果您正在处理运行时任务，请参阅[“Runner API”](/advanced/runner#tasks)。
+`TestCase` 类表示单个测试。此类仅在主线程中可用。如果您正在处理运行时任务，请参阅 [“运行器 API”](/advanced/runner#tasks)。
 
 `TestCase` 实例始终有一个值为 `test` 的 `type` 属性。您可以使用它来区分不同的任务类型：
 

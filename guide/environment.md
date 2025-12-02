@@ -27,7 +27,7 @@ Vitest 并不将 `browser` 视作一种测试环境。如果你想让部分测�
 
 ## 特定文件的环境 {#environments-for-specific-files}
 
-如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
+如果在配置文件中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 
 ```ts
 // @vitest-environment jsdom
@@ -41,7 +41,7 @@ test('test', () => {
 
 ## 自定义环境 {#custom-environment}
 
-你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
+你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个接口规范为 `Environment` 的对象。
 
 ```ts
 import type { Environment } from 'vitest/environments'
@@ -49,7 +49,7 @@ import type { Environment } from 'vitest/environments'
 export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
-  // optional - only if you support "experimental-vm" pool
+  // 可选 - 仅在支持 "experimental-vm" 的情况下使用
   async setupVM() {
     const vm = await import('node:vm')
     const context = vm.createContext()
@@ -74,7 +74,7 @@ export default <Environment>{
 ```
 
 ::: warning
-Vitest 要求环境对象显式提供 `viteEnvironment` 字段（若省略则取 Vitest 环境名）。该字段必须设为 `ssr`、`client` 或任意自定义 [Vite 环境](https://cn.vite.dev/guide/api-environment) 名称，用于指定处理测试文件的目标环境。
+Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `ssr` 或 `web`。该值决定插件如何转换源代码。如果设置为 `ssr`，则插件挂钩在转换或解析文件时将收到 `ssr: true`。 否则，`ssr` 被设置为 `false`。
 :::
 
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：

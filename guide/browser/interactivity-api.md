@@ -12,7 +12,16 @@ import { userEvent } from 'vitest/browser'
 await userEvent.click(document.querySelector('.button'))
 ```
 
-几乎所有的 `userEvent` 方法都继承了其提供者的选项。
+几乎所有的 `userEvent` 方法都继承了其提供者的选项。要在我们的 IDE 中查看所有可用选项，请根据我们的提供者，将 `webdriver` 或 `playwright` 类型添加到我们的 [setup 文件](/config/#setupfile) 或 [配置文件](/config/)中（取决于我们的 `tsconfig.json` 中 `included` 部分包含的内容）：
+
+::: code-group
+```ts [playwright]
+/// <reference types="@vitest/browser/providers/playwright" />
+```
+```ts [webdriverio]
+/// <reference types="@vitest/browser/providers/webdriverio" />
+```
+:::
 
 ## userEvent.setup
 
@@ -30,11 +39,11 @@ import { userEvent as vitestUserEvent } from 'vitest/browser'
 import { userEvent as originalUserEvent } from '@testing-library/user-event'
 import { userEvent as vitestUserEvent } from '@vitest/browser/context'
 
-await vitestUserEvent.keyboard('{Shift}') // press shift without releasing
-await vitestUserEvent.keyboard('{/Shift}') // releases shift
+await vitestUserEvent.keyboard('{Shift}') // 按住 shift 键不放
+await vitestUserEvent.keyboard('{/Shift}') // 放开 shift 键不放
 
-await originalUserEvent.keyboard('{Shift}') // press shift without releasing
-await originalUserEvent.keyboard('{/Shift}') // DID NOT release shift because the state is different
+await originalUserEvent.keyboard('{Shift}') // 按住 shift 键不放
+await originalUserEvent.keyboard('{/Shift}') // 没有放开 shift 键，因为状态不同
 ```
 
 这种行为更有用，因为我们并没有模拟键盘，而是实际按下了 Shift 键，所以保留原来的行为会在字段中键入时造成意想不到的问题。
@@ -58,12 +67,12 @@ test('clicks on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.click(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.click()
 })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.click` API](https://playwright.dev/docs/api/class-locator#locator-click)
 - [WebdriverIO `element.click` API](https://webdriver.io/docs/api/element/click/)
@@ -89,12 +98,12 @@ test('triggers a double click on an element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.dblClick(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.dblClick()
 })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.dblclick` API](https://playwright.dev/docs/api/class-locator#locator-dblclick)
 - [WebdriverIO `element.doubleClick` API](https://webdriver.io/docs/api/element/doubleClick/)
@@ -126,7 +135,7 @@ test('triggers a triple click on an element', async () => {
   })
 
   await userEvent.tripleClick(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.tripleClick()
 
   expect(tripleClickFired).toBe(true)
@@ -160,7 +169,7 @@ test('update input', async () => {
   await userEvent.fill(input, '{{a[[') // input.value == {{a[[
   await userEvent.fill(input, '{Shift}') // input.value == {Shift}
 
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await input.fill('foo') // input.value == foo
 })
 ```
@@ -255,7 +264,7 @@ function type(
 
 `type` 方法在 [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API 的基础上实现了 `@testing-library/user-event` 的 [`type`](https://testing-library.com/docs/user-event/utility/#type) 工具。
 
-你可以使用此函数向 `input` `、textarea` 或 `contenteditable` 元素中模拟键盘输入。[它兼容 user-event 提供的 keyboard 语法](https://testing-library.com/docs/user-event/keyboard)。
+你可以使用此函数向 `input` 、`textarea` 或 `contenteditable` 元素中模拟键盘输入。[它兼容 user-event 提供的 keyboard 语法](https://testing-library.com/docs/user-event/keyboard)。
 
 如果只需按下字符而无需输入，请使用 [`userEvent.keyboard`](#userevent-keyboard) API。
 
@@ -299,7 +308,7 @@ test('clears input', async () => {
   expect(input).toHaveValue('foo')
 
   await userEvent.clear(input)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await input.clear()
 
   expect(input).toHaveValue('')
@@ -343,7 +352,7 @@ test('clears input', async () => {
   const select = page.getByRole('select')
 
   await userEvent.selectOptions(select, 'Option 1')
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await select.selectOptions('Option 1')
 
   expect(select).toHaveValue('option-1')
@@ -393,7 +402,7 @@ test('hovers logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.hover(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.hover()
 })
 ```
@@ -426,7 +435,7 @@ test('unhover logo element', async () => {
   const logo = page.getByRole('img', { name: /logo/ })
 
   await userEvent.unhover(logo)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await logo.unhover()
 })
 ```
@@ -458,7 +467,7 @@ test('can upload a file', async () => {
   const file = new File(['file'], 'file.png', { type: 'image/png' })
 
   await userEvent.upload(input, file)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await input.upload(file)
 
   // you can also use file paths relative to the root of the project
@@ -496,7 +505,7 @@ test('drag and drop works', async () => {
   const target = page.getByTestId('logo-target')
 
   await userEvent.dragAndDrop(source, target)
-  // or you can access it directly on the locator
+  // 或者你可以直接从定位器上访问
   await source.dropTo(target)
 
   await expect.element(target).toHaveTextContent('Logo is processed')

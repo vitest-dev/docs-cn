@@ -5,6 +5,7 @@ import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import HomePage from '../components/HomePage.vue'
+import OldDocument from '../components/OldDocument.vue'
 import Version from '../components/Version.vue'
 import '../style/main.css'
 import '../style/vars.css'
@@ -21,6 +22,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => h(HomePage),
+      'layout-top': () => h(OldDocument),
     })
   },
   enhanceApp({ app }) {

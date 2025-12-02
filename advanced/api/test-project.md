@@ -10,7 +10,7 @@ title: TestProject
 
 ## name
 
-名称是由用户分配或由 Vitest 解释的唯一字符串。如果用户没有提供名称，Vitest 会尝试加载项目根目录中的 `package.json` 并从中获取 `name` 属性。如果没有 `package.json`，Vitest 默认使用文件夹的名称。内联项目使用数字作为名称（转换为字符串）。
+名称是由用户分配或由 Vitest 解析的唯一字符串。如果用户没有提供名称，Vitest 会尝试加载项目根目录中的 `package.json` 并从中获取 `name` 属性。如果没有 `package.json`，Vitest 默认使用文件夹的名称。内联项目使用数字作为名称（转换为字符串）。
 
 ::: code-group
 ```ts [node.js]
@@ -30,16 +30,16 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     projects: [
-      './packages/server', // has package.json with "@pkg/server"
-      './utils', // doesn't have a package.json file
+      './packages/server', // 包含 package.json 含 "@pkg/server"
+      './utils', // 无 package.json 文件
       {
-        // doesn't customize the name
+        // 未自定义名称的配置
         test: {
           pool: 'threads',
         },
       },
       {
-        // customized the name
+        // 自定义名称的配置
         test: {
           name: 'custom',
         },
