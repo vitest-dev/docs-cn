@@ -204,7 +204,7 @@ export default ({ mode }: { mode: string }) => {
           {
             text: '什么是浏览器模式',
             link: '/guide/browser/why',
-            docFooterText: 'Why Browser Mode? | 浏览器模式',
+            docFooterText: '什么是浏览器模式 | 浏览器模式',
           },
           {
             text: '快速起步',
@@ -234,7 +234,7 @@ export default ({ mode }: { mode: string }) => {
           {
             text: 'Commands API',
             link: '/guide/browser/commands',
-            docFooterText: 'Commands | 浏览器模式',
+            docFooterText: 'Commands API | 浏览器模式',
           },
         ],
         '/advanced': [
@@ -339,7 +339,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/debugging',
               },
               {
-                text: '测试框架对比',
+                text: '比较',
                 link: '/guide/comparisons',
               },
               {
