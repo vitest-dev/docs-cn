@@ -1,8 +1,8 @@
 import type { PwaOptions } from '@vite-pwa/vitepress'
 import {
   githubusercontentRegex,
-  pwaFontsRegex,
   pwaFontStylesRegex,
+  pwaFontsRegex,
   vitestDescription,
   vitestName,
   vitestShortName,
