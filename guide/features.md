@@ -3,20 +3,20 @@ title: 主要功能 | 指南
 outline: deep
 ---
 
-# 主要功能
+# 主要功能 {#features}
 
 <FeaturesList class="!gap-1 text-lg" />
 
-## 一套配置可以运用在多种环境
+## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
 
 <div h-2 />
 <CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">通过视频了解如何编写你的第一个测试</CourseLink>
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用中的相同配置来运行测试。
 
-了解更多信息 [配置 Vitest](/guide/#配置-vitest)
+了解更多信息 [配置 Vitest](/guide/#configuring-vitest)
 
-## 监听模式(watch mode)
+## 监听模式 (watch mode) {#watch-mode}
 
 ```bash
 $ vitest
@@ -28,11 +28,11 @@ $ vitest
 
 使用 `--standalone` 标志启动 Vitest，使其在后台运行。它不会运行任何测试，直到测试发生变化。如果源代码发生变化，Vitest 不会运行测试，直到运行了导入源代码的测试为止
 
-## 开箱即用的常见 Web 支持
+## 开箱即用的常见 Web 支持 {#common-web-idioms-out-of-the-box}
 
 开箱即用的 ES Module / TypeScript / JSX support / PostCSS
 
-## 多线程
+## 多线程 {#threads}
 
 默认情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool)（[Piscina](https://github.com/piscinajs/piscina) 的轻量级分叉）使用 [`node:child_process`](https://nodejs.org/api/child_process.html)，在多个进程中运行测试文件，允许测试同时运行。如果想进一步加快测试套件的速度，可以考虑启用 `--pool=threads`，使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html)来运行测试（注意，某些软件包可能无法使用此设置）。
 
@@ -40,20 +40,20 @@ $ vitest
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
-## 测试可过滤
+## 测试筛选 {#test-filtering}
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
 了解更多信息 [测试筛选](guide/filtering)
 
-## 同时运行多个测试
+## 同时运行多个测试 {#running-tests-concurrently}
 
 在连续的测试中使用 `.concurrent` 来并行运行它们。
 
 ```ts
 import { describe, it } from 'vitest'
 
-// The two tests marked with concurrent will be started in parallel
+// 标记为并发的两个测试将并行启动
 describe('suite', () => {
   it('serial test', async () => {
     /* ... */
@@ -72,7 +72,7 @@ describe('suite', () => {
 ```ts
 import { describe, it } from 'vitest'
 
-// All tests within this suite will be started in parallel
+// 此套件中的所有测试都将并行启动
 describe.concurrent('suite', () => {
   it('concurrent test 1', async ({ expect }) => {
     /* ... */
@@ -94,7 +94,7 @@ describe.concurrent('suite', () => {
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
 :::
 
-## 快照
+## 快照 {#snapshot}
 
 兼容 [Jest 快照测试](https://jestjs.io/zh-Hans/docs/snapshot-testing) 功能。
 
@@ -108,13 +108,13 @@ it('renders correctly', () => {
 
 了解更多信息 [快照](/guide/snapshot)
 
-## Chai 和 Jest 的 `expect` 语法兼容
+## Chai 和 Jest 的 `expect` 语法兼容 {#chai-and-jest-expect-compatibility}
 
 内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 APIs
 
 注意，如果你正在使用添加匹配器的第三方库，将 [`test.globals`](/config/#globals) 设置为 `true` 将提供更好的兼容性。
 
-## 对象模拟(Mocking)
+## 对象模拟 (Mocking) {#mocking}
 
 内置 [Tinyspy](https://github.com/tinylibs/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
@@ -155,7 +155,7 @@ export default defineConfig({
 
 了解更多信息 [模拟对象](/guide/mocking)
 
-## 测试覆盖率
+## 测试覆盖率 {#coverage}
 
 Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
@@ -184,7 +184,7 @@ export default defineConfig({
 
 了解更多信息 [测试覆盖率](/guide/coverage)
 
-## 源码内联测试
+## 源码内联测试 {#in-source-testing}
 
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，类似 [Rust's 模块测试](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
 
@@ -252,7 +252,7 @@ test('my types work properly', () => {
 })
 ```
 
-## 分片
+## 分片 {#sharding}
 
 使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter)标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
 
@@ -264,7 +264,7 @@ vitest --merge-reports --reporter=junit --coverage.reporter=text
 
 了解更多信息 [`性能优化 | 分片`](/guide/improving-performance#sharding)
 
-## 环境变量
+## 环境变量 {#environment-variables}
 
 Vitest 只从 `.env` 文件中自动加载以 `VITE_` 为前缀的环境变量，以保持与前端相关测试的兼容性，并遵守 [Vite 的既定惯例](https://vitejs.dev/guide/env-and-mode.html#env-files)。要从 `.env` 文件加载所有环境变量，可以使用从 `vite` 导入的 `loadEnv` 方法：
 
@@ -274,7 +274,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig(({ mode }) => ({
   test: {
-    // mode defines what ".env.{mode}" file to choose if exists
+    // 如果存在 mode 定义，则选择什么 “env.{mode}” 文件
     env: loadEnv(mode, process.cwd(), ''),
   },
 }))
