@@ -2,11 +2,11 @@
 title: 测试覆盖率 | 指南
 ---
 
-# 测试覆盖率
+# 测试覆盖率 {#coverage}
 
 Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
-## 测试覆盖率提供者
+## 测试覆盖率提供者 {#coverage-providers}
 
 `v8` 和 `istanbul` 的支持都是可选的。 默认情况下，启用 `v8`。
 
@@ -37,11 +37,11 @@ npm i -D @vitest/coverage-istanbul
 ```
 :::
 
-## 覆盖率配置
+## 覆盖率配置 {#coverage-setup}
 
 :::tip
-建议始终在配置文件中定义 [`coverage.include`](https://cn.vitest.dev/config/#coverage-include)。
-这有助于 Vitest 减少 [`coverage.all`](https://cn.vitest.dev/config/#coverage-all) 选择的文件数量。
+建议始终在配置文件中定义 [`coverage.include`](/config/#coverage-include)。
+这有助于 Vitest 减少 [`coverage.all`](/config/#coverage-all) 选择的文件数量。
 :::
 
 要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。
@@ -70,7 +70,7 @@ export default defineConfig({
 })
 ```
 
-## 自定义覆盖率的报告器
+## 自定义覆盖率的报告器 {#custom-coverage-reporter}
 
 我们可以通过在 `test.coverage.reporter` 中传递软件包名称或绝对路径来使用自定义覆盖报告器：
 
@@ -81,10 +81,10 @@ export default defineConfig({
   test: {
     coverage: {
       reporter: [
-        // Specify reporter using name of the NPM package
+        // 使用 NPM 包的名称指定报告器
         ['@vitest/custom-coverage-reporter', { someOption: true }],
 
-        // Specify reporter using local path
+        // 使用本地路径指定报告器
         '/absolute/path/to/custom-reporter.cjs',
       ],
     },
@@ -101,7 +101,7 @@ module.exports = class CustomReporter extends ReportBase {
   constructor(opts) {
     super()
 
-    // Options passed from configuration are available here
+    //  从配置中传递的选项在这里可用
     this.file = opts.file
   }
 
@@ -117,7 +117,7 @@ module.exports = class CustomReporter extends ReportBase {
 }
 ```
 
-## 自定义覆盖率的提供者
+## 自定义覆盖率的提供者 {#custom-coverage-provider}
 
 也可以通过将 `'custom'` 传递给 `test.coverage.provider` 来配置你的自定义覆盖率提供者：
 
@@ -149,7 +149,7 @@ const CustomCoverageProviderModule: CoverageProviderModule = {
     return new CustomCoverageProvider()
   },
 
-  // Implements rest of the CoverageProviderModule ...
+  // 实现 CoverageProviderModule 的其余部分...
 }
 
 class CustomCoverageProvider implements CoverageProvider {
@@ -160,7 +160,7 @@ class CustomCoverageProvider implements CoverageProvider {
     this.options = ctx.config.coverage
   }
 
-  // Implements rest of the CoverageProvider ...
+  // 实现 CoverageProvider 的其余部分...
 }
 
 export default CustomCoverageProviderModule
@@ -168,7 +168,7 @@ export default CustomCoverageProviderModule
 
 请参阅类型定义查看有关详细信息。
 
-## 更改默认覆盖文件夹位置
+## 更改默认覆盖文件夹位置 {#changing-the-default-coverage-folder-location}
 
 运行覆盖率报告时，会在项目的根目录中创建一个 `coverage` 文件夹。 如果你想将它移动到不同的目录，请使用 `vite.config.js` 文件中的 `test.coverage.reportsDirectory` 属性。
 
@@ -184,7 +184,7 @@ export default defineConfig({
 })
 ```
 
-## 代码忽略
+## 代码忽略 {#ignoring-code}
 
 两个覆盖率提供商都有自己的方法来忽略覆盖率报告中的代码：
 
@@ -192,7 +192,7 @@ export default defineConfig({
 - [`ìstanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
 使用 TypeScript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
-被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
+被视为 [合法注释](https://esbuild.github.io/api/#legal-comments) 的注释将被保留。
 
 对于 `istanbul` 测试提供者，你可以在忽略提示中包含 `@preserve` 关键字。
 请注意，这些忽略提示现在也可能包含在最终的产品构建中。
@@ -212,9 +212,9 @@ if (condition) {
 if (condition) {
 ```
 
-## 其他选项
+## 其他选项 {#other-options}
 
-要查看有关覆盖率的所有可配置选项，请参见 [覆盖率配置参考](https://cn.vitest.dev/config/#coverage)。
+要查看有关覆盖率的所有可配置选项，请参见 [覆盖率配置参考](/config/#coverage)。
 
 ## Vitest UI
 

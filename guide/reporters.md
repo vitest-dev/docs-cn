@@ -495,7 +495,7 @@ npx vitest --merge-reports=reports --reporter=json --reporter=default
 ```
 
 ::: tip
-Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
+`--reporter=blob` 和 `--merge-reports` 这两个选项在监听模式下均不可用。
 :::
 
 ## 自定义报告器 {#custom-reporters}
