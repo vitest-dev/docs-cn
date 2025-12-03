@@ -2,7 +2,7 @@
 title: 常见错误 | 指南
 ---
 
-# 常见错误
+# 常见错误 {#common-errors}
 
 ## Cannot find module './relative-path'
 
@@ -83,7 +83,7 @@ vitest --pool=forks
 
 ## Segfaults and native code errors
 
-运行 [原生 NodeJS 模块](https://nodejs.org/api/addons.html)在 `pool: 'threads'` 中，可能会遇到来自原生代码的神秘错误。
+运行 [原生 NodeJS 模块](https://nodejs.org/api/addons.html) 在 `pool: 'threads'` 中，可能会遇到来自原生代码的神秘错误。
 
 - `Segmentation fault (core dumped)`
 - `thread '<unnamed>' panicked at 'assertion failed`
