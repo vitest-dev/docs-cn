@@ -93,7 +93,7 @@ export default defineConfig({
 这也是 Vite 插件运行的地方。
 
 :::tip
-可以查看 [性能 | Vite](https://cn.vitejs.dev/guide/performance) 以获取更多关于 Vite 特定性能分析的提示。
+可以查看 [性能 | Vite](/guide/performance) 以获取更多关于 Vite 特定性能分析的提示。
 
 我们推荐使用 [`vite-plugin-inspect`](https://github.com/antfu-collective/vite-plugin-inspect) 来分析你的 Vite 插件性能。
 :::
@@ -128,7 +128,7 @@ $ DEBUG=vite-node:* vitest --run
 ...
 ```
 
-这种分析策略是识别由[「 桶文件 / barrel files 」](https://cn.vitejs.dev/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
+这种分析策略是识别由[「 桶文件 / barrel files 」](/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
 下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。

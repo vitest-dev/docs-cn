@@ -99,7 +99,7 @@ Test Files  1 passed (1)
 
 ## 配置 Vitest {#configuring-vitest}
 
-Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
+Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用。例如，你的 Vite 有 [resolve.alias](/config/#resolve-alias) 和 [plugins](/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
 
 - 创建 `vitest.config.ts`，优先级将会最高。
 - 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`。
@@ -120,7 +120,7 @@ export default defineConfig({
 ```
 
 ::: tip
-即使你自己不使用 Vite，Vitest 的转换管道也严重依赖它。因此，你还可以配置 [Vite 文档](https://cn.vitejs.dev/config/) 中描述的任何属性。
+即使你自己不使用 Vite，Vitest 的转换管道也严重依赖它。因此，你还可以配置 [Vite 文档](/config/) 中描述的任何属性。
 :::
 
 如果你已经在使用 Vite，请在 Vite 配置中添加 `test` 属性。你还需要使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 在你的配置文件的顶部引用。

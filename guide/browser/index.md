@@ -339,7 +339,7 @@ Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `
 
 ## 浏览器兼容性
 
-Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行您的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
+Vitest 使用 [Vite dev server](/guide/#browser-support) 来运行您的测试，因此我们只支持 [`esbuild.target`](/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
 
 默认情况下，Vite 的目标浏览器支持本地 [ES Modules](https://caniuse.com/es6-module)、本地 [ESM dynamic import](https://caniuse.com/es6-module-dynamic-import) 和 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel)在 iframe 之间进行通信：
 

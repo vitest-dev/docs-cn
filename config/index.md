@@ -192,7 +192,7 @@ Vite-Node 调试器选项。
 
 Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 的包（Node 无法处理）。
 
-如果设置为 `true`，则每个依赖项都将被内联。默认情况下，将内联 [`ssr.noExternal`](https://cn.vitejs.dev/guide/ssr.html#ssr-externals) 中指定的所有依赖项。
+如果设置为 `true`，则每个依赖项都将被内联。默认情况下，将内联 [`ssr.noExternal`](/guide/ssr.html#ssr-externals) 中指定的所有依赖项。
 
 #### server.deps.fallbackCJS
 
@@ -219,7 +219,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 #### deps.optimizer {#deps-optimizer}
 
 - **类型:** `{ ssr?, web? }`
-- **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
+- **参考:** [依赖优化选项](/config/dep-optimization-options.html)
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
@@ -1627,7 +1627,7 @@ Sets thresholds to 100 for files matching the glob pattern.
 该选项只有在使用的编译器删除了转译代码中的注释和其他非运行时代码时才有效。
 默认情况下，Vite 使用 ESBuild，它会删除 `.ts`、`.tsx` 和 `.jsx` 文件中的注释和 Typescript 类型。
 
-如果还想将 ESBuild 应用于其他文件，请在 [`esbuild` options](https://cn.vitejs.dev/config/shared-options.html#esbuild) 中定义它们：
+如果还想将 ESBuild 应用于其他文件，请在 [`esbuild` options](/config/shared-options.html#esbuild) 中定义它们：
 
 ```ts
 import { defineConfig } from 'vitest/config'
