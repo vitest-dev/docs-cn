@@ -14,6 +14,8 @@ export default antfu({
     '*.d.ts',
     'coverage',
     '!.vitepress',
+    // contains technically invalid code to display pretty diff
+    'guide/snapshot.md',
   ],
   rules: {
     'no-restricted-globals': 'off',
