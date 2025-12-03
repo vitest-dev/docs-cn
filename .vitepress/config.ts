@@ -339,7 +339,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/debugging',
               },
               {
-                text: '比较',
+                text: '测试框架对比',
                 link: '/guide/comparisons',
               },
               {

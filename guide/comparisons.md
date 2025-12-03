@@ -2,7 +2,7 @@
 title: 与其他测试框架对比 | 指南
 ---
 
-# 与其他测试框架对比
+# 与其他测试框架对比 {#comparisons-with-other-test-runners}
 
 ## Jest
 
@@ -18,7 +18,7 @@ title: 与其他测试框架对比 | 指南
 
 [Cypress](https://www.cypress.io/) 是基于浏览器的测试工具，这对 Vitest 形成了补充。如果你想使用 Cypress，建议将 Vitest 用于测试项目中不依赖于浏览器的部分，而将 Cypress 用于测试依赖浏览器的部分。
 
-Cypress 作为端到端测试工具而广为人知，但他们[最新的组件测试运行器](https://on.cypress.io/component) 对 Vite 项目的组件测试提供了很好的支持，并且是测试任何依赖于浏览器逻辑的代码的理想选择。
+Cypress 作为端到端测试工具而广为人知，但他们 [最新的组件测试运行器](https://on.cypress.io/component) 对 Vite 项目的组件测试提供了很好的支持，并且是测试任何依赖于浏览器逻辑的代码的理想选择。
 
 基于浏览器的测试框架，例如 Cypress, WebdriverIO 和 Web Test Runner，能捕获到 Vitest 无法捕获的问题，因为他们使用了真实的浏览器和浏览器 API。
 
@@ -40,7 +40,7 @@ WebdriverIO 具有与 Cypress 相同的优点，允许你在真实的浏览器�
 
 ## Web Test Runner
 
-[@web/test-runner](https://modern-web.dev/docs/test-runner/overview/)在无头浏览器中运行测试，提供与 web 应用程序相同的执行环境，而无需模仿浏览器 API 或 DOM。这也使得使用 devtools 在真实的浏览器中进行调试成为可能，尽管它没有像 Cypress 那样展示一个指示测试进度的 UI。
+[@web/test-runner](https://modern-web.dev/docs/test-runner/overview/) 在无头浏览器中运行测试，提供与 web 应用程序相同的执行环境，而无需模仿浏览器 API 或 DOM。这也使得使用 devtools 在真实的浏览器中进行调试成为可能，尽管它没有像 Cypress 那样展示一个指示测试进度的 UI。
 
 要在 Vite 项目中使用 @web/test-runner，请使用[@remcovaes/web-test-runner-Vite-plugin](https://github.com/remcovaes/web-test-runner-vite-plugin)。@web/testrunner 不包括断言或模拟对象库，所以你需要自行添加它们。
 
