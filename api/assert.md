@@ -390,7 +390,7 @@ test('assert.isDefined', () => {
 ## isFunction
 
 - **Type:** `<T>(value: T, message?: string) => void`
-- **Alias:** `isCallable`
+- **别名:** `isCallable`
   Asserts that `value` is a function.
 
 ```ts
@@ -408,7 +408,7 @@ test('assert.isFunction', () => {
 ## isNotFunction
 
 - **Type:** `<T>(value: T, message?: string) => void`
-- **Alias:** `isNotCallable`
+- **别名:** `isNotCallable`
 
 Asserts that `value` is not a function.
 
@@ -1510,7 +1510,7 @@ test('assert.doesNotHaveAllDeepKeys', () => {
 - **Type:**
   - `(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string) => void`
   - `(fn: () => void, errorLike?: ErrorConstructor | Error | null, errMsgMatcher?: RegExp | string | null, message?: string) => void`
-- **Alias:**
+- **别名:**
   - `throw`
   - `Throw`
 
@@ -1586,7 +1586,7 @@ test('assert.operator', () => {
 ## closeTo
 
 - **Type:** `(actual: number, expected: number, delta: number, message?: string) => void`
-- **Alias:** `approximately`
+- **别名:** `approximately`
 
 Asserts that the `actual` is equal `expected`, to within a +/- `delta` range.
 
@@ -2148,7 +2148,7 @@ test('assert.ifError', () => {
 ## isExtensible
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `extensible`
+- **别名:** `extensible`
 
 Asserts that `object` is extensible (can have new properties added to it).
 
@@ -2163,7 +2163,7 @@ test('assert.isExtensible', () => {
 ## isNotExtensible
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `notExtensible`
+- **别名:** `notExtensible`
 
 Asserts that `object` is not extensible (can not have new properties added to it).
 
@@ -2184,7 +2184,7 @@ test('assert.isNotExtensible', () => {
 ## isSealed
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `sealed`
+- **别名:** `sealed`
 
 Asserts that `object` is sealed (cannot have new properties added to it and its existing properties cannot be removed).
 
@@ -2203,7 +2203,7 @@ test('assert.isSealed', () => {
 ## isNotSealed
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `notSealed`
+- **别名:** `notSealed`
 
 Asserts that `object` is not sealed (can have new properties added to it and its existing properties can be removed).
 
@@ -2218,7 +2218,7 @@ test('assert.isNotSealed', () => {
 ## isFrozen
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `frozen`
+- **别名:** `frozen`
 
 Asserts that object is frozen (cannot have new properties added to it and its existing properties cannot be modified).
 
@@ -2234,7 +2234,7 @@ test('assert.isFrozen', () => {
 ## isNotFrozen
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `notFrozen`
+- **别名:** `notFrozen`
 
 Asserts that `object` is not frozen (can have new properties added to it and its existing properties can be modified).
 
@@ -2249,7 +2249,7 @@ test('assert.isNotFrozen', () => {
 ## isEmpty
 
 - **Type:** `<T>(target: T, message?: string) => void`
-- **Alias:** `empty`
+- **别名:** `empty`
 
 Asserts that the `target` does not contain any values. For arrays and strings, it checks the length property. For Map and Set instances, it checks the size property. For non-function objects, it gets the count of its own enumerable string keys.
 
@@ -2267,7 +2267,7 @@ test('assert.isEmpty', () => {
 ## isNotEmpty
 
 - **Type:** `<T>(object: T, message?: string) => void`
-- **Alias:** `notEmpty`
+- **别名:** `notEmpty`
 
 Asserts that the `target` contains values. For arrays and strings, it checks the length property. For Map and Set instances, it checks the size property. For non-function objects, it gets the count of its own enumerable string keys.
 
