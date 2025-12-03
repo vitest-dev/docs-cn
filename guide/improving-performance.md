@@ -2,9 +2,9 @@
 title: 性能优化 | 指南
 ---
 
-# 性能优化
+# 性能优化 {#improving-performance}
 
-## 测试隔离
+## 测试隔离 {#test-isolation}
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
@@ -58,7 +58,7 @@ export default defineConfig({
 
 :::
 
-## Pool
+## 运行池 {#pool}
 
 默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和[segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
@@ -82,7 +82,7 @@ export default defineConfig({
 
 :::
 
-## Sharding
+## 分片 {#sharding}
 
 测试分片意味着一次运行一小部分测试用例。当你有多台可用于同时运行测试的机器时，它会很有用。
 
@@ -100,11 +100,11 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 vitest --merge-reports
 ```
 
-::: details Github action example
+::: details GitHub Actions 示例
 This setup is also used at https://github.com/vitest-tests/test-sharding.
 
 ```yaml
-# Inspired from https://playwright.dev/docs/test-sharding
+# 灵感来至于 from https://playwright.dev/docs/test-sharding
 name: Tests
 on:
   push:
@@ -180,9 +180,9 @@ Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用�
 为了减少主线程的 Vite 服务器的负载，可以使用测试分片。负载可以在多个 Vite 服务器上进行平衡。
 
 ```sh
-# Example for splitting tests on 32 CPU to 4 shards.
-# As each process needs 1 main thread, there's 7 threads for test runners (1+7)*4 = 32
-# Use VITEST_MAX_THREADS or VITEST_MAX_FORKS depending on the pool:
+# 以32核心CPU拆分成4个分片为例。
+# 每个分片需要一个主线程，因此每个分片可以分配7个测试线程 (1+7) *4 =32
+# 使用 VITEST_MAX_THREADS 进行分配:
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=1/4 & \
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=2/4 & \
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=3/4 & \
