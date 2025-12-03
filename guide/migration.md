@@ -472,7 +472,7 @@ Vitest 设计了与 Jest 兼容的 API ，方便你从 Jest 的迁移尽可能�
 
 ### 全局变量作为默认值 {#globals-as-a-default}
 
-Jest 默认启用[全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vitest 没有。你既可以通过 [`globals` 配置选项](/config/#globals)启用全局 API，也可以通过更新你的代码以便使用来自 `vitest` 模块的导入。
+Jest 默认启用 [全局 API](https://jestjs.io/zh-Hans/docs/api) 。然而 Vitest 没有。你既可以通过 [`globals` 配置选项](/config/#globals) 启用全局 API，也可以通过更新你的代码以便使用来自 `vitest` 模块的导入。
 
 如果你决定禁用全局 API，请注意像 [`testing-library`](https://testing-library.com/) 这样的通用库不会自动运行 DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
@@ -489,13 +489,12 @@ Jest 的 [`mockReset`](https://jestjs.io/docs/mock-function-api#mockfnmockreset)
 
 ```ts
 jest.mock('./some-path', () => 'hello') // [!code --]
-vi.mock('./some-path', () => ({
-  // [!code ++]
+vi.mock('./some-path', () => ({ // [!code ++]
   default: 'hello', // [!code ++]
 })) // [!code ++]
 ```
 
-有关更深入的详细描述，请参阅 [`vi.mock` api section](/api/#vi-mock)。
+有关更深入的详细描述，请参阅 [`vi.mock` API 部分](/api/#vi-mock)。
 
 ### 自动模拟行为 {#auto-mocking-behaviour}
 
@@ -546,9 +545,7 @@ Vitest 的 `test` 名称用 `>` 符号连接，以便于区分测试和套件，
 
 ```ts
 beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
-beforeEach(() => {
-  setActivePinia(createTestingPinia())
-}) // [!code ++]
+beforeEach(() => { setActivePinia(createTestingPinia()) }) // [!code ++]
 ```
 
 在 Jest 中，钩子是按顺序调用的（一个接一个）。默认情况下，Vitest 并行运行钩子。要使用 Jest 的行为，请更新 [`sequence.hooks`](/config/#sequence-hooks) 选项：
@@ -569,10 +566,8 @@ export default defineConfig({
 Vitest 没有等效于 `jest` 的命名空间，因此你需要直接从 `Vitest` 导入类型：
 
 ```ts
-// [!code --]
-// [!code --]
-import type { Mock } from 'vitest'
-let fn: jest.Mock<(name: string) => number> // [!code ++]
+let fn: jest.Mock<(name: string) => number> // [!code --]
+import type { Mock } from 'vitest' // [!code ++]
 let fn: Mock<(name: string) => number> // [!code ++]
 ```
 
