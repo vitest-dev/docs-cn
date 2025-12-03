@@ -1,4 +1,4 @@
-# 性能测试分析
+# 性能测试分析 {#profiling-test-performance}
 
 当你运行 Vitest 时，会显示你的多个时间指标：
 
@@ -15,14 +15,14 @@
 >   # Time metrics ^^
 > ```
 
-- 「 转换 / Transform 」：转换文件所花费的时间。参见[文件转换](#file-transform)。
-- Setup：运行 [`setupFiles`](/config/#setupfiles) 文件所花费的时间。
-- 「 收集 / Collect 」：收集测试文件中所有测试所花费的时间。这包括导入所有文件依赖项所花费的时间。
-- 「 测试 / Tests 」：实际运行测试用例所花费的时间。
-- 「 环境 / Environment 」：设置测试[`环境`](/config/#environment)所花费的时间，例如 JSDOM 。
-- 「 准备 / Prepare 」：Vitest 用于准备 测试运行器 的时间。
+- Transform ：转换文件所用的时间。详见 [文件转换](#file-transform)。
+- Setup ：执行 [`setupFiles`](/config/#setupfiles) 配置文件所花的时间。
+- Collect ：收集测试文件中所有用例的时间，包括导入文件依赖的耗时。
+- Tests ：实际执行测试用例所用的时间。
+- Environment ： [配置测试](/config/#environment) 环境（比如 JSDOM ）所需的时间。
+- Prepare ： Vitest 用于准备测试运行环境的时间。在 Node 环境下，包括导入并执行内部工具；在浏览器中，还包含初始化 iframe 的时间。
 
-## Test runner
+## 测试运行器 {#test-runner}
 
 当测试执行时间较长的时候，可以生成测试运行器的性能分析报告。可以参考 NodeJS 文档来了解和使用这些选项：
 
@@ -83,17 +83,17 @@ export default defineConfig({
 ```
 :::
 
-测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看[「 检查分析记录 / Inspecting profiling records 」](#inspecting-profiling-records)。
+测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看 [性能记录分析](#inspecting-profiling-records)。
 
-也可以看看[性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling)。
+也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling)。
 
-## Main thread
+## 主线程 {#main-thread}
 
 对主线程进行性能分析有助于调试 Vitest 的 Vite 使用情况和 [`globalSetup`](/config/#globalsetup) 文件。
 这也是 Vite 插件运行的地方。
 
 :::tip
-可以查看 [性能 | Vite](/guide/performance) 以获取更多关于 Vite 特定性能分析的提示。
+可以查看 [性能 | Vite](https://cn.vite.dev/guide/performance) 以获取更多关于 Vite 特定性能分析的提示。
 
 我们推荐使用 [`vite-plugin-inspect`](https://github.com/antfu-collective/vite-plugin-inspect) 来分析你的 Vite 插件性能。
 :::
@@ -106,9 +106,9 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 #               NodeJS arguments                                           Vitest arguments
 ```
 
-测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看[检查分析记录](#inspecting-profiling-records)。
+测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看 [性能记录分析](#inspecting-profiling-records)。
 
-## File transform
+## 文件转换 {#file-transform}
 
 当测试转换和收集的时间较长时，可以使用环境变量 `DEBUG=vite-node:*` 来查看哪些文件正在被 `vite-node` 转换和执行。
 
@@ -128,9 +128,9 @@ $ DEBUG=vite-node:* vitest --run
 ...
 ```
 
-这种分析策略是识别由[「 桶文件 / barrel files 」](/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
+这种分析策略是识别由 [桶文件（barrel files）](https://cn.vite.dev/guide/performance#avoid-barrel-files) 引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
 
-也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
+也可以使用 [UI模式](/guide/ui) 来调试由打包文件引起的缓慢问题。
 下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。
 
 ::: code-group
@@ -177,7 +177,7 @@ _x_examples_profiling_test_prime-number_test_ts-1413378098.js
 _src_prime-number_ts-525172412.js
 ```
 
-## Inspecting profiling records
+## 性能记录分析 {#inspecting-profiling-records}
 
 可以使用各种工具检查 `*.cpuprofile` 和 `*.heapprofile` 的内容。下面是一些示例。
 
