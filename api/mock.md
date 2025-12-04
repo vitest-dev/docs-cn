@@ -21,7 +21,7 @@ getApplesSpy.mock.calls.length === 1
 要验证 mock 的行为，请通过 [`expect`](/api/expect) 调用类似 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) 的断言方法；以下 API 参考汇总了所有可用来操控 mock 的属性和方法。
 
 ::: tip
-The custom function implementation in the types below is marked with a generic `<T>`.
+以下类型中的自定义函数实现使用泛型 `<T>` 进行标记。
 :::
 
 ## getMockImplementation
