@@ -41,13 +41,13 @@ import { fs, vol } from 'memfs'
 import { beforeEach, expect, it, vi } from 'vitest'
 import { readHelloWorld } from './read-hello-world.js'
 
-// tell vitest to use fs mock from __mocks__ folder
-// this can be done in a setup file if fs should always be mocked
+// 让 Vitest 使用 mocks 文件夹中的 fs 模拟
+// 若需始终模拟 fs，可在配置文件中设置
 vi.mock('node:fs')
 vi.mock('node:fs/promises')
 
 beforeEach(() => {
-  // reset the state of in-memory fs
+  // 重置内存文件系统状态
   vol.reset()
 })
 
@@ -60,13 +60,13 @@ it('should return correct text', () => {
 })
 
 it('can return a value multiple times', () => {
-  // you can use vol.fromJSON to define several files
+  // 可使用 vol.fromJSON 定义多个文件
   vol.fromJSON(
     {
       './dir1/hw.txt': 'hello dir1',
       './dir2/hw.txt': 'hello dir2',
     },
-    // default cwd
+    // 默认当前工作目录
     '/tmp',
   )
 
