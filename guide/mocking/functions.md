@@ -1,4 +1,4 @@
-# Mocking Functions
+# 模拟函数 {#mocking-functions}
 
 模拟函数可以分为两个不同的类别：监视(spying)和模拟(mocking)。
 
@@ -8,7 +8,7 @@
 
 `vi.spyOn` 和 `vi.fn` 都共享相同的方法。
 
-## Example
+## Example {#example}
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
