@@ -8,7 +8,7 @@
 
 `vi.spyOn` 和 `vi.fn` 都共享相同的方法。
 
-## Example {#example}
+## 示例 {#example}
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
