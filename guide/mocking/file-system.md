@@ -41,7 +41,7 @@ import { fs, vol } from 'memfs'
 import { beforeEach, expect, it, vi } from 'vitest'
 import { readHelloWorld } from './read-hello-world.js'
 
-// 让 Vitest 使用 mocks 文件夹中的 fs 模拟
+// 让 Vitest 使用 __mocks__ 文件夹中的 fs 模拟
 // 若需始终模拟 fs，可在配置文件中设置
 vi.mock('node:fs')
 vi.mock('node:fs/promises')
