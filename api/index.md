@@ -849,7 +849,7 @@ import { assert, describe, test } from 'vitest'
 
 describe.skip('skipped suite', () => {
   test('sqrt', () => {
-    // 套件跳过，没有错误
+    // 跳过测试套件，不报错
     assert.equal(Math.sqrt(4), 3)
   })
 })
