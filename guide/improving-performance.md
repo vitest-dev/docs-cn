@@ -106,7 +106,7 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 vitest run --merge-reports
 ```
 
-::: detail GitHub Actions 示例
+::: details GitHub Actions 示例
 同样方案也应用于 https://github.com/vitest-tests/test-sharding 仓库。
 
 ```yaml
