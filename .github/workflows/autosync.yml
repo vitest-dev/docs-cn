@@ -17,7 +17,7 @@ jobs:
           username: github-actions
           email: "action@github.com"
 
-          upstream-repo: https://github.com/vitest-dev/docs-cn.git
+          upstream-repo: git@github.com:vitest-dev/vitest.git
           upstream-repo-branch: dev
 
           head-repo: https://github.com/vuejs/docs.git
