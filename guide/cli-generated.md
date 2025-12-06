@@ -703,7 +703,7 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 - **命令行终端:** `--diff.omitAnnotationLines`
 - **配置:** [diff.omitAnnotationLines](/config/#diff-omitannotationlines)
 
-注释行 (默认值: `false`)
+省略输出中的注释行 (默认值: `false`)
 
 ### diff.printBasicPrototype
 
