@@ -103,7 +103,7 @@
 - **命令行终端:** `--coverage.provider <name>`
 - **配置:** [coverage.provider](/config/#coverage-provider)
 
-选择覆盖范围采集工具， 可用值为: "v8", "istanbul" and "custom"
+选择覆盖范围采集工具，可用值为: "v8", "istanbul" and "custom"
 
 ### coverage.enabled
 
@@ -152,7 +152,7 @@
 - **命令行终端:** `--coverage.reporter <name>`
 - **配置:** [coverage.reporter](/config/#coverage-reporter)
 
-使用的报告。更多信息请访问 [`coverage.reporter`](https://vitest.dev/config/#coverage-reporter)。 (默认值: `["text", "html", "clover", "json"]`)
+使用的报告。更多信息请访问 [`coverage.reporter`](https://vitest.dev/config/#coverage-reporter)。(默认值: `["text", "html", "clover", "json"]`)
 
 ### coverage.reportOnFailure
 
@@ -668,35 +668,35 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 - **命令行终端:** `--diff.commonIndicator <indicator>`
 - **配置:** [diff.commonIndicator](/config/#diff-commonindicator)
 
-公共行标识(默认值: ` `)
+公共行标识 （默认值: ` `）
 
 ### diff.contextLines
 
 - **命令行终端:** `--diff.contextLines <lines>`
 - **配置:** [diff.contextLines](/config/#diff-contextlines)
 
-每次变更显示上下文行数 (默认值: `5`)
+每次变更显示上下文行数 （默认值: `5`）
 
 ### diff.emptyFirstOrLastLinePlaceholder
 
 - **命令行终端:** `--diff.emptyFirstOrLastLinePlaceholder <placeholder>`
 - **配置:** [diff.emptyFirstOrLastLinePlaceholder](/config/#diff-emptyfirstorlastlineplaceholder)
 
-空首行或空末行的占位符 (默认值: `""`)
+空首行或空末行的占位符 （默认值: `""`）
 
 ### diff.expand
 
 - **命令行终端:** `--diff.expand`
 - **配置:** [diff.expand](/config/#diff-expand)
 
-展开所有公共行 (默认值: `true`)
+展开所有公共行 （默认值: `true`）
 
 ### diff.includeChangeCounts
 
 - **命令行终端:** `--diff.includeChangeCounts`
 - **配置:** [diff.includeChangeCounts](/config/#diff-includechangecounts)
 
-在 diff 的输出中输出比较计数 (默认值: `false`)
+在 diff 的输出中输出比较计数 （默认值: `false`）
 
 ### diff.omitAnnotationLines
 
@@ -889,7 +889,7 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 
 - **命令行终端:** `--clearScreen`
 
-watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）。
+watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 ### configLoader
 
