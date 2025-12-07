@@ -21,7 +21,7 @@ getApplesSpy.mock.calls.length === 1
 我们应该在 [`expect`](/api/expect) 上使用 mock 断言（例如 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) ）来断言 mock 结果。在这里我们介绍了用于操作 mock 行为的可用属性和方法。
 
 ::: tip
-The custom function implementation in the types below is marked with a generic `<T>`.
+以下类型中的自定义函数实现使用泛型 `<T>` 进行标记。
 :::
 
 ## getMockImplementation
@@ -52,7 +52,7 @@ function mockClear(): MockInstance<T>
 
 清除所有关于每次调用的信息。调用此方法后，`.mock` 上的所有属性将恢复到初始状态。这个方法不会重置实现。它适用于在不同断言之间清理 mock 对象。
 
-要在每个测试之前自动调用此方法，请在配置中启用 [`clearMocks`](/config/#clearmocks) 设置。
+要在每个测试之前自动调用此方法，请在配置中启用 [`clearMocks`](/config/#clearmocks) 选项。
 
 ## mockName
 
@@ -72,7 +72,7 @@ function mockImplementation(fn: T): MockInstance<T>
 
 ```ts
 const mockFn = vi.fn().mockImplementation((apples: number) => apples + 1)
-// or: vi.fn(apples => apples + 1);
+// 或：vi.fn(apples => apples + 1);
 
 const NelliesBucket = mockFn(0)
 const BobsBucket = mockFn(1)
@@ -95,11 +95,11 @@ function mockImplementationOnce(fn: T): MockInstance<T>
 ```ts
 const myMockFn = vi
   .fn()
-  .mockImplementationOnce(() => true) // 1st call
-  .mockImplementationOnce(() => false) // 2nd call
+  .mockImplementationOnce(() => true) // 第一次调用
+  .mockImplementationOnce(() => false) // 第二次调用
 
-myMockFn() // 1st call: true
-myMockFn() // 2nd call: false
+myMockFn() // 第一次调用：true
+myMockFn() // 第二次调用：false
 ```
 
 当 mock 函数用完所有实现后，如果之前调用过 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)`，它将调用设置的默认实现：
@@ -148,7 +148,7 @@ myMockFn() // 'original'
 test('async callback', () => {
   const myMockFn = vi.fn(() => 'original')
 
-  // We await this call since the callback is async
+  // 由于回调是异步的，我们要等待这个调用
   await myMockFn.withImplementation(
     () => 'temp',
     async () => {
@@ -173,7 +173,7 @@ function mockRejectedValue(value: unknown): MockInstance<T>
 ```ts
 const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
 
-await asyncMock() // throws Error<'Async error'>
+await asyncMock() // 抛出 Error<'Async error'>
 ```
 
 ## mockRejectedValueOnce
@@ -191,7 +191,7 @@ const asyncMock = vi
   .mockRejectedValueOnce(new Error('Async error'))
 
 await asyncMock() // 'first call'
-await asyncMock() // throws Error<'Async error'>
+await asyncMock() // 抛出 Error<'Async error'>
 ```
 
 ## mockReset
@@ -199,17 +199,9 @@ await asyncMock() // throws Error<'Async error'>
 ```ts
 function mockReset(): MockInstance<T>
 ```
+执行与 `mockClear` 相同的操作，并将内容实现设置为空函数（调用时返回 undefined）。该操作同事会充值所有 "once" 实现，适用于将模拟对象完全重置为默认状态。如需在每次执行测试之前自动调用此方法，请在配置中启用 [`mockReset`](/config/#mockreset) 选项。
 
-执行 `mockClear` 的功能，并重置内部实现为原始函数。
-这也将重置所有“一次性”实现。
-
-需要注意一下，重置来自 `vi.fn()` 的模拟将把实现设置为返回 `undefined` 的空函数。
-重置来自 `vi.fn(impl)` 的模拟将把实现恢复为 `impl` 。
-
-这在我们想要将模拟重置为其原始状态时非常有用。
-
-要在每个测试之前自动调用此方法，请在配置中启用 [`mockReset`](/config/#mockreset) 设置。
-
+执行 `mockClear` 的功能，并重置内部实现为原始函数。这也将重置所有“一次性”实现。
 ## mockRestore
 
 ```ts
@@ -218,10 +210,10 @@ function mockRestore(): MockInstance<T>
 
 执行 `mockReset` 所做的操作，并恢复被 spied 对象的原始描述符。
 
-需要注意一下，从 `vi.fn()` 恢复的模拟将把实现设置为返回 `undefined` 的空函数。
-从 `vi.fn(impl)` 恢复的模拟将把实现恢复为 `impl` 。
+需注意，恢复通过 `vi.fn()` 创建的模拟对象时，会将把实现设置为返回 `undefined` 的空函数。
+恢复通过 `vi.fn(impl)` 创建的模拟对象时，会将实现恢复为 `impl` 函数。
 
-要在每个测试之前自动调用此方法，请在配置中启用 [`restoreMocks`](/config/#restoremocks) 设置。
+要在每个测试之前自动调用此方法，请在配置中启用 [`restoreMocks`](/config/#restoremocks) 选项。
 
 ## mockResolvedValue
 
@@ -344,8 +336,8 @@ const lastCall: Parameters<T> | undefined
 interface MockResultReturn<T> {
   type: 'return'
   /**
-   * The value that was returned from the function.
-   * If function returned a Promise, then this will be a resolved value.
+   * 函数返回的值。
+   * 如果函数返回的是一个 Promise，那么这将是一个已解析的值。
    */
   value: T
 }
@@ -358,7 +350,7 @@ interface MockResultIncomplete {
 interface MockResultThrow {
   type: 'throw'
   /**
-   * An error that was thrown during function execution.
+   * 函数执行过程中抛出的错误。
    */
   value: any
 }
@@ -373,8 +365,8 @@ const results: MockResult<ReturnType<T>>[]
 
 这是一个数组，包含了从函数中返回的所有值。数组中的每个项目是一个包含属性 `type` 和 `value` 的对象。可用的类型包括：
 
-- `'return'` - 函数返回时没有抛出。
-- `'throw'` - 函数抛出了一个值。
+- `'return'`：函数返回时没有抛出。
+- `'throw'`：函数抛出了一个值。
 
 `value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
 
@@ -386,21 +378,21 @@ const fn = vi
     throw new Error('thrown error')
   })
 
-const result = fn() // returned 'result'
+const result = fn() // 返回 'result'
 
 try {
-  fn() // threw Error
+  fn() // 抛出错误
 }
 catch {}
 
 fn.mock.results
 === [
-  // first result
+  // 首个结果
   {
     type: 'return',
     value: 'result',
   },
-  // last result
+  // 最后结果
   {
     type: 'throw',
     value: Error,
