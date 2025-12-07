@@ -21,7 +21,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... 在此指定选项。
+    // 在此配置选项...
   },
 })
 ```
@@ -34,7 +34,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... 在此指定选项。
+    // 在此配置选项...
   },
 })
 ```
@@ -46,7 +46,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    // ... 在此指定选项。
+    // 在此配置选项...
   },
 })
 ```
@@ -448,7 +448,7 @@ Vitest 使用 Vite SSR 基元来运行测试，这有 [一定的缺陷](https://
 
 默认情况下，`vitest` 不显式提供全局 API。如果你更倾向于使用类似 jest 中的全局 API，可以将 `--globals` 选项传递给 CLI 或在配置中添加 `globals: true`。
 
-```ts
+```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -675,10 +675,11 @@ export default defineConfig({
   test: {
     poolMatchGlobs: [
       // all tests in "worker-specific" directory will run inside a worker as if you enabled `--pool=threads` for them,
+      // "worker-specific" 目录下的所有测试将在 worker 中运行，等效于对这些测试启用 `--pool=threads`
       ['**/tests/worker-specific/**', 'threads'],
-      // run all tests in "browser" directory in an actual browser
+      // "browser" 目录下的所有测试将在真实浏览器中运行
       ['**/tests/browser/**', 'browser'],
-      // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
+      // 其余测试将根据 "browser.enabled" 和 "threads" 配置项决定运行环境（未指定其他 glob 规则时）
       // ...
     ],
   },
@@ -756,7 +757,7 @@ export default defineConfig({
 - **默认值:** `'default'`
 - **命令行终端:** `--reporter=<name>`, `--reporter=<name1> --reporter=<name2>`
 
-自定义 [报告器](/guide/reporters) 输出。报告器可以是 [Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)、用于选择内置报告器的字符串，或自定义实现的路径（例如 `./path/to/reporter.ts`、`@scope/reporter`）。
+自定义 [报告器](/guide/reporters) 输出。报告器可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)、用于选择内置报告器的字符串，或自定义实现的路径（例如 `./path/to/reporter.ts`、`@scope/reporter`）。
 
 ### outputFile<NonProjectOption />
 
@@ -986,7 +987,7 @@ export default defineConfig({
 ##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
-- **命令行终端:** `1 / CPU Cores`
+- **命令行终端:** `1 / CPU 核心`
 
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
 
@@ -1068,7 +1069,7 @@ export default defineConfig({
 ##### poolOptions.vmForks.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
-- **默认值:** `1 / CPU Cores`
+- **默认值:** `1 / CPU 核心`
 
 指定 Worker 被回收前的内存限制。该值在很大程度上取决于环境，因此最好手动指定，而不是依赖默认值。该值的计算方法查看 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit)
 

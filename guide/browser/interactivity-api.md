@@ -264,7 +264,7 @@ function type(
 
 `type` 方法在 [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API 的基础上实现了 `@testing-library/user-event` 的 [`type`](https://testing-library.com/docs/user-event/utility/#type) 工具。
 
-你可以使用此函数向 `input` 、`textarea` 或 `contenteditable` 元素中模拟键盘输入。[它兼容 user-event 提供的 keyboard 语法](https://testing-library.com/docs/user-event/keyboard)。
+你可以使用此函数向 `input` 、`textarea` 或 `contenteditable` 元素中模拟键盘输入。它兼容 [user-event 提供的 `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。
 
 如果只需按下字符而无需输入，请使用 [`userEvent.keyboard`](#userevent-keyboard) API。
 
@@ -337,7 +337,7 @@ function selectOptions(
 ): Promise<void>
 ```
 
-The `userEvent.selectOptions` allows selecting a value in a `<select>` element.
+`userEvent.selectOptions` 方法支持在 `<select>` 元素中选择指定值。
 
 ::: warning
 如果 select 元素没有 [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple) 属性，Vitest 将只选择数组中的第一个元素。
@@ -470,7 +470,7 @@ test('can upload a file', async () => {
   // 或者你可以直接从定位器上访问
   await input.upload(file)
 
-  // you can also use file paths relative to the root of the project
+  // 还可以使用相对于测试文件的文件路径
   await userEvent.upload(input, './fixtures/file.png')
 })
 ```
@@ -495,7 +495,7 @@ function dragAndDrop(
 ): Promise<void>
 ```
 
-将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
+将源元素拖到目标元素的顶部。不要忘记，源元素的 `draggable` 属性必须设置为 `true`。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -533,15 +533,15 @@ function copy(): Promise<void>
 import { page, userEvent } from 'vitest/browser'
 
 test('copy and paste', async () => {
-  // write to 'source'
+  // 在 'source' 输入 'hello'
   await userEvent.click(page.getByPlaceholder('source'))
   await userEvent.keyboard('hello')
 
-  // select and copy 'source'
+  // 选择并复制 'source'
   await userEvent.dblClick(page.getByPlaceholder('source'))
   await userEvent.copy()
 
-  // paste to 'target'
+  // 粘贴到 'target'
   await userEvent.click(page.getByPlaceholder('target'))
   await userEvent.paste()
 
@@ -566,15 +566,15 @@ function cut(): Promise<void>
 import { page, userEvent } from 'vitest/browser'
 
 test('copy and paste', async () => {
-  // write to 'source'
+  // 在 'source' 输入 'hello'
   await userEvent.click(page.getByPlaceholder('source'))
   await userEvent.keyboard('hello')
 
-  // select and cut 'source'
+  // 选择并剪切 'source'
   await userEvent.dblClick(page.getByPlaceholder('source'))
   await userEvent.cut()
 
-  // paste to 'target'
+  // 粘贴到 'target'
   await userEvent.click(page.getByPlaceholder('target'))
   await userEvent.paste()
 
