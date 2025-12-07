@@ -2,21 +2,21 @@
 title: 源码内联测试 | 指南
 ---
 
-# 源码内联测试
+# 源码内联测试 {#in-source-testing}
 
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，就像是 [Rust 语言的模块测试一样](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
 
 这允许测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
 
-## 指引
+## 指引 {#setup}
 ::: warning
-本指南介绍如何在源代码中编写测试。如果需要在单独的测试文件中编写测试，请参阅["编写测试"指南](/guide/#writing-tests)。
+本指南介绍如何在源代码中编写测试。如果需要在单独的测试文件中编写测试，请参阅 [“编写测试” 指南](/guide/#writing-tests)。
 :::
 
 首先，在 `if (import.meta.vitest)` 代码块内写一些测试代码并放在文件的末尾，例如:
 
 ```ts [src/index.ts]
-// the implementation
+// 具体实现
 export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0)
 }
@@ -50,7 +50,7 @@ export default defineConfig({
 $ npx vitest
 ```
 
-## 生产环境构建
+## 生产环境构建 {#production-build}
 
 对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
 
@@ -61,14 +61,13 @@ export default defineConfig({
   test: {
     includeSource: ['src/**/*.{js,ts}'],
   },
-  define: {
-    // [!code ++]
+  define: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
 })
 ```
 
-### 其他的打包器
+### 其他的打包器 {#other-bundlers}
 
 ::: details unbuild
 ```ts [build.config.ts]
@@ -79,7 +78,7 @@ export default defineBuildConfig({
     // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  // other options
+  // 其他选项
 })
 ```
 
@@ -97,7 +96,7 @@ export default {
       'import.meta.vitest': 'undefined', // [!code ++]
     }), // [!code ++]
   ],
-  // other options
+  // 其他选项
 }
 ```
 
@@ -121,7 +120,7 @@ export default {
 
 完整的示例请参考 [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test)。
 
-## 说明
+## 说明 {#notes}
 
 此功能可用于:
 

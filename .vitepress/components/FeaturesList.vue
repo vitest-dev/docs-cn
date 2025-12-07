@@ -37,7 +37,7 @@
       内置
       <a target="_blank" href="https://www.chaijs.com/" rel="nofollow">Chai</a>
       进行断言 + 与
-      <a href="https://jestjs.io/zh-Hans/docs/expect" rel="nofollow">Jest expect 语法</a>兼容的 API
+      <a href="https://jestjs.io/zh-Hans/docs/expect" rel="nofollow">Jest expect 语法</a> 兼容的 API
     </ListItem>
     <ListItem>
       内置用于对象模拟(Mock)的

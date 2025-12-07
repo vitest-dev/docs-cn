@@ -2,7 +2,7 @@
 title: Assertion API | Browser Mode
 ---
 
-# Assertion API
+# Assertion API {#assertion-api}
 
 Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom)库，以提供各种开箱即用的 DOM 断言。有关详细文档，请阅读 `jest-dom` readme：
 
@@ -35,14 +35,32 @@ Vitest 捆绑了 [`@testing-library/jest-dom`](https://github.com/testing-librar
 如果我们使用 [TypeScript](/guide/browser/#typescript) 或希望在 `expect` 中获得正确的类型提示，请确保我们的 [setup 文件](/config/#setupfile) 或 [config 文件](/config/) 中引用了 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio` ，具体取决于我们使用的 provider 。如果我们使用的是默认的`preview` provider ，我们可以改为指定 `@vitest/browser/matchers` 。
 
 ::: code-group
-```ts [preview]
-/// <reference types="@vitest/browser/matchers" />
+```json [preview]
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/matchers"
+    ]
+  }
+}
 ```
-```ts [playwright]
-/// <reference types="@vitest/browser/providers/playwright" />
+```json [playwright]
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ]
+  }
+}
 ```
-```ts [webdriverio]
-/// <reference types="@vitest/browser/providers/webdriverio" />
+```json [webdriverio]
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/webdriverio"
+    ]
+  }
+}
 ```
 :::
 

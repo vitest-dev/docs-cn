@@ -2,22 +2,7 @@
 title: 调试 | 指南
 ---
 
-# 调试
-
-## Terminal
-
-在非集成开发环境下，为了调试一个测试文件，你可以使用 [`ndb`](https://github.com/GoogleChromeLabs/ndb)。仅仅在你的代码的任何位置添加一个 `debugger` 语句，然后运行 `ndb`：
-
-```sh
-# 全局安装 ndb
-npm install -g ndb
-
-# 或者使用 yarn
-yarn global add ndb
-
-# 在启用 debugger 的情况下运行测试
-ndb npm run test
-```
+# 调试 {#debugging}
 
 :::tip
 在调试测试时，你可能使用 `--test-timeout` CLI 参数来防止测试在断点处停止时超时。
@@ -53,7 +38,7 @@ ndb npm run test
 
 然后在调试选项卡中确保选择 'Debug Current Test File'，然后你可以打开要调试的测试文件并按 F5 开始调试。
 
-### 浏览器模式
+### 浏览器模式 {#browser-mode}
 
 要调试 [Vitest 浏览器模式](/guide/browser/index.md)，请在 CLI 中传递 `--inspect` 或 `--inspect-brk`，或在 Vitest 配置中定义它：
 
@@ -118,7 +103,7 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 
 创建一个 [vitest](https://www.jetbrains.com/help/idea/vitest.html#createRunConfigVitest) 运行配置。使用以下配置在调试模式下运行所有测试：
 
-| Setting                | Value                              |
+| 配置参数                 | 设置值                              |
 | ---------------------- | ---------------------------------- |
 | Working directory      | `/path/to/your-project-root`       |
 
@@ -129,13 +114,13 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 Vitest 还支持在没有 IDE 的情况下调试测试。然而，这要求测试不是并行运行的。可以使用以下命令之一启动 Vitest。
 
 ```sh
-# To run in a single worker
+# 在单个线程内运行测试
 vitest --inspect-brk --pool threads --poolOptions.threads.singleThread
 
-# To run in a single child process
+# 在单个子进程内运行测试
 vitest --inspect-brk --pool forks --poolOptions.forks.singleFork
 
-# To run in browser mode
+# 使用浏览器模式运行测试
 vitest --inspect-brk --browser --no-file-parallelism
 ```
 

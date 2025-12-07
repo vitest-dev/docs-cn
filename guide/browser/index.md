@@ -7,14 +7,10 @@ outline: deep
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
-::: tip
-If you are looking for documentation for `expect`, `vi` or any general API like workspaces or type testing, refer to the ["Getting Started" guide](/guide/).
-:::
-
 <img alt="Vitest UI" img-light src="/ui-browser-1-light.png">
 <img alt="Vitest UI" img-dark src="/ui-browser-1-dark.png">
 
-## 安装
+## 安装 {#installation}
 
 为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
 
@@ -33,7 +29,7 @@ bunx vitest init browser
 ```
 :::
 
-### 手动安装
+### 手动安装 {#manual-installation}
 
 您也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的 E2E provider 就能在本地运行测试，因为它会复用你现有的浏览器。
 
@@ -93,7 +89,7 @@ bun add -D vitest @vitest/browser webdriverio
 ```
 :::
 
-## 配置
+## 配置 {#configuration}
 
 要在 Vitest 配置中激活浏览器模式，可以使用 `--browser` 标志，或在 Vitest 配置文件中将 `browser.enabled` 字段设为 `true`。下面是一个使用浏览器字段的配置示例：
 
@@ -102,9 +98,9 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     browser: {
-      provider: 'playwright', // or 'webdriverio'
+      provider: 'playwright', // 或 'webdriverio'
       enabled: true,
-      name: 'chromium', // browser name is required
+      name: 'chromium', // 浏览器名称是必填的
     },
   }
 })
@@ -206,8 +202,8 @@ import { defineWorkspace } from 'vitest/config'
 export default defineWorkspace([
   {
     test: {
-      // an example of file based convention,
-      // you don't have to follow it
+      // 基于文件命名约定的示例
+      // 非强制要求
       include: [
         'tests/unit/**/*.{test,spec}.ts',
         'tests/**/*.unit.{test,spec}.ts',
@@ -218,8 +214,8 @@ export default defineWorkspace([
   },
   {
     test: {
-      // an example of file based convention,
-      // you don't have to follow it
+      // 基于文件命名约定的示例
+      // 非强制要求
       include: [
         'tests/browser/**/*.{test,spec}.ts',
         'tests/**/*.browser.{test,spec}.ts',
@@ -234,7 +230,7 @@ export default defineWorkspace([
 ])
 ```
 
-### Provider 配置
+### Provider 配置 {#provider-configuration}
 
 :::tabs key:provider
 == Playwright
@@ -280,9 +276,10 @@ export default defineConfig({
   },
 })
 ```
+为获得类型提示，请将 `@vitest/browser/providers/webdriverio` 添加到 `tsconfig.json` 文件的 `compilerOptions.types` 字段中。
 :::
 
-## 浏览器选项类型
+## 浏览器选项类型 {#browser-option-types}
 
 Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
 - `webdriverio` 支持这些浏览器:
@@ -295,51 +292,9 @@ Vitest 中的浏览器选项取决于provider。如果在配置文件中传递 `
   - `webkit`
   - `chromium`
 
-## TypeScript
+## 浏览器兼容性 {#browser-compatibility}
 
-默认情况下，TypeScript 不识别 providers 选项和额外的 `expect` 属性。如果我们不使用任何 providers ，请确保在我们的测试、[setup 文件](/config/#setupfile) 或 [config 文件](/config/) 中的某处引用了 `@vitest/browser/matchers`，以获取额外的 `expect` 定义。如果我们使用自定义 providers ，请确保在同一文件中添加 `@vitest/browser/providers/playwright` 或 `@vitest/browser/providers/webdriverio`，以便 TypeScript 能够识别自定义选项的定义：
-
-::: code-group
-```ts [default]
-/// <reference types="@vitest/browser/matchers" />
-```
-```ts [playwright]
-/// <reference types="@vitest/browser/providers/playwright" />
-```
-```ts [webdriverio]
-/// <reference types="@vitest/browser/providers/webdriverio" />
-```
-:::
-
-或者，我们也可以将它们添加到 `tsconfig.json` 文件中的 `compilerOptions.types` 字段。请注意，在此字段中指定任何内容将禁用 `@types/*` 包的[自动加载](https://www.typescriptlang.org/tsconfig/#types)功能。
-
-::: code-group
-```json [default]
-{
-  "compilerOptions": {
-    "types": ["@vitest/browser/matchers"]
-  }
-}
-```
-```json [playwright]
-{
-  "compilerOptions": {
-    "types": ["@vitest/browser/providers/playwright"]
-  }
-}
-```
-```json [webdriverio]
-{
-  "compilerOptions": {
-    "types": ["@vitest/browser/providers/webdriverio"]
-  }
-}
-```
-:::
-
-## 浏览器兼容性
-
-Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行您的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
+Vitest 使用 [Vite dev server](/guide/#browser-support) 来运行您的测试，因此我们只支持 [`esbuild.target`](/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
 
 默认情况下，Vite 的目标浏览器支持本地 [ES Modules](https://caniuse.com/es6-module)、本地 [ESM dynamic import](https://caniuse.com/es6-module-dynamic-import) 和 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel)在 iframe 之间进行通信：
 
@@ -348,7 +303,7 @@ Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) �
 - Safari >=15.4
 - Edge >=88
 
-## Running Tests
+## 运行测试 {#running-tests}
 
 要使用 CLI 指定浏览器，请使用 `--browser` 标志后跟浏览器名称，如下所示：
 
@@ -364,20 +319,22 @@ npx vitest --browser.name=chrome --browser.headless
 
 默认情况下，Vitest 会自动打开浏览器用户界面进行开发。您的测试将在中间的 iframe 中运行。您可以通过选择首选尺寸、在测试中调用 `page.viewport` 或在 [the config](/config/#browser-viewport) 中设置默认值来配置视口。
 
-## Headless
+## 无头模式 {#headless}
 
-headless 模式是浏览器模式下可用的另一个选项。在 headless 模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用 headless 模式。
+无头模式是浏览器模式下可用的另一个选项。在无头模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用无头模式。
 
-在使用 headless 模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 headless 模式运行，我们可以安装`[@vitest/ui](/guide/ui)`包，并在运行Vitest时传递`--ui`标志。
+在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 标志。
 
-这是启用 headless 模式的示例配置：
+这是启用无头模式的示例配置：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser-playwright'
+
 export default defineConfig({
   test: {
     browser: {
-      provider: 'playwright',
+      provider: playwright(),
       enabled: true,
       headless: true,
     },
@@ -394,10 +351,10 @@ npx vitest --browser.name=chrome --browser.headless
 在这种情况下，Vitest 将使用 Chrome 浏览器以 headless 模式运行。
 
 ::: warning
-默认情况下Headless模式不可用。您需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
+默认情况下无头模式不可用。我们需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
 :::
 
-## Examples
+## 示例 {#examples}
 
 Vitest 提供的软件包可为多个流行框架呈现开箱即用的组件：
 
@@ -412,7 +369,7 @@ Vitest 提供的软件包可为多个流行框架呈现开箱即用的组件：
 ```ts
 import { expect } from 'vitest'
 import { page } from '@vitest/browser/context'
-// element is rendered correctly
+// 元素渲染正确
 await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 Vitest 公开了一个[Context API](/guide/browser/context)，其中包含一小套在测试中可能有用的实用程序。例如，如果您需要进行交互，如点击元素或在输入框中输入文本，您可以使用 `@vitest/browser/context` 中的 `userEvent`。更多信息请参阅 [Interactivity API](/guide/browser/interactivity-api)。
@@ -432,14 +389,14 @@ import Component from './Component.vue'
 test('properly handles v-model', async () => {
   const screen = render(Component)
 
-  // Asserts initial state.
+  // 断言初始状态。
   await expect.element(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 
-  // Get the input DOM node by querying the associated label.
+  // 通过查询关联的标签获取输入的 DOM 节点。
   const usernameInput = screen.getByLabelText(/username/i)
 
-  // Type the name into the input. This already validates that the input
-  // is filled correctly, no need to check the value manually.
+  // 将名称输入到输入框中。
+  // 这已经验证了输入框中的值是正确的，无需手动检查其值。
   await usernameInput.fill('Bob')
 
   await expect.element(screen.getByText('Hi, my name is Bob')).toBeInTheDocument()
@@ -568,10 +525,10 @@ test('renders a message', async () => {
 ```
 :::
 
-## 限制
+## 限制 {#limitations}
 
-### 线程阻塞对话框
+### 线程阻塞对话框 {#thread-blocking-dialogs}
 
 使用 Vitest 浏览器时，需要注意的是像 `alert` 或 `confirm` 这样的线程阻塞对话框不能在本地使用。这是因为它们阻塞了网页，这意味着 Vitest 无法继续与该页面通信，导致执行挂起。
 
-在这种情况下，Vitest 为这些 API 提供默认模拟和默认返回值。这确保如果用户不小心使用了同步弹出式 Web API，执行不会挂起。但是，仍然建议用户模拟这些 Web API 以获得更好的体验。在 [Mocking](/guide/mocking) 中阅读更多内容。
+在这种情况下，Vitest 为这些 API 提供默认模拟和默认返回值。这确保如果用户不小心使用了同步弹出式 Web API，执行不会挂起。但是，仍然建议用户模拟这些 Web API 以获得更好的体验。更多内容可参考 [模拟](/guide/mocking) 章节。

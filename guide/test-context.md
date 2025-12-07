@@ -2,11 +2,11 @@
 title: 测试上下文 | 指南
 ---
 
-# 测试上下文
+# 测试上下文 {#test-context}
 
 受 [Playwright Fixtures](https://playwright.dev/docs/test-fixtures) 的启发，Vitest 的测试上下文允许你定义可在测试中使用的工具(utils)、状态(states)和固定装置(fixtures)。
 
-## 用法
+## 用法 {#usage}
 
 第一个参数或每个测试回调是一个测试上下文。
 
@@ -19,7 +19,7 @@ it('should work', (ctx) => {
 })
 ```
 
-## 内置测试上下文
+## 内置测试上下文 {#built-in-test-context}
 
 #### `context.task`
 
@@ -64,14 +64,13 @@ it('math is hard', ({ skip }) => {
 })
 ```
 
-## 扩展测试上下文
+## 扩展测试上下文 {#extend-test-context}
 
 Vitest 提供了两种不同的方式来帮助你扩展测试上下文。
 
 ### `test.extend`
 
 与 [Playwright](https://playwright.dev/docs/api/class-test#test-extend) 一样，你可以使用此方法通过自定义装置定义你自己的 `test` API，并在任何地方重复使用它。
-
 
 例如，我们首先使用两个固定装置创建 `myTest`，`todos` 和 `archive`。
 
@@ -82,7 +81,7 @@ const todos = []
 const archive = []
 
 export const myTest = test.extend({
-  // eslint-disable-next-line no-empty-pattern
+
   todos: async ({}, use) => {
     // 在每次测试函数运行之前设置固定装置
     todos.push(1, 2, 3)
@@ -130,7 +129,7 @@ export const myTest2 = myTest.extend({
 })
 ```
 
-#### 固定装置初始化
+#### 固定装置初始化 {#fixture-initialization}
 
 Vitest 运行器将智能地初始化你的固定装置并根据使用情况将它们注入到测试上下文中。
 
@@ -158,7 +157,7 @@ myTest('', ({ todos }) => {})
 在固定装置中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问固定装置函数和测试函数中的上下文。
 :::
 
-#### 自动化装置
+#### 自动化装置 {#automatic-fixture}
 
 Vitest 还支持 fixture 的元组语法，允许你传递每个 fixture 的选项。例如，你可以使用它来显式初始化固定装置，即使它没有在测试中使用。
 
@@ -168,69 +167,17 @@ import { test as base } from 'vitest'
 const test = base.extend({
   fixture: [
     async ({}, use) => {
-      // this function will run
+      // 这个函数将会运行
       setup()
       await use()
       teardown()
     },
-    { auto: true }, // Mark as an automatic fixture
+    { auto: true }, // 标记为自动装置
   ],
 })
 
-test('works correctly')
+test('', () => {})
 ```
-
-#### Default fixture
-
-Since Vitest 3, you can provide different values in different [projects](/guide/workspace). To enable this feature, pass down `{ injected: true }` to the options. If the key is not specified in the [project configuration](/config/#provide), then the default value will be used.
-
-:::code-group
-```ts [fixtures.test.ts]
-import { test as base } from 'vitest'
-
-const test = base.extend({
-  url: [
-    // default value if "url" is not defined in the config
-    'default',
-    // mark the fixure as "injected" to allow the override
-    { injected: true },
-  ],
-})
-
-test('works correctly', ({ url }) => {
-  // url is "/default" in "project-new"
-  // url is "/full" in "project-full"
-  // url is "/empty" in "project-empty"
-})
-```
-```ts [vitest.workspace.ts]
-import { defineWorkspace } from 'vitest/config'
-
-export default defineWorkspace([
-  {
-    test: {
-      name: 'project-new',
-    },
-  },
-  {
-    test: {
-      name: 'project-full',
-      provide: {
-        url: '/full',
-      },
-    },
-  },
-  {
-    test: {
-      name: 'project-empty',
-      provide: {
-        url: '/empty',
-      },
-    },
-  },
-])
-```
-:::
 
 #### TypeScript
 
@@ -272,7 +219,7 @@ it('should work', ({ foo }) => {
 
 #### TypeScript
 
-你可以通过添加聚合(aggregate)类型 `TestContext`, 为你的自定义上下文属性提供类型支持。
+你可以通过添加聚合类型 `TestContext`, 为你的自定义上下文属性提供类型支持。
 
 ```ts
 declare module 'vitest' {

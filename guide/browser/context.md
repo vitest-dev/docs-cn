@@ -2,20 +2,20 @@
 title: Context API | Browser Mode
 ---
 
-# 上下文
+# 上下文 {#context-api}
 
-Vitest 通过 `@vitest/browser/context` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
+Vitest 通过 `vitest/browser` 入口点公开上下文模块。从 2.0 开始，它公开了一小部分实用程序，这些实用程序可能在测试中对你有用。
 
 ## `userEvent`
 
 ::: tip
-`userEvent` API 的详细说明见[Interactivity API](/guide/browser/interactivity-api).
+`userEvent` API 的详细说明见 [Interactivity API](/guide/browser/interactivity-api)。
 :::
 
 ```ts
 /**
- * Handler for user interactions. The support is implemented by the browser provider (`playwright` or `webdriverio`).
- * If used with `preview` provider, fallbacks to simulated events via `@testing-library/user-event`.
+ * 用于处理用户交互的处理器。支持由浏览器提供者（`playwright` 或 `webdriverio`）实现。
+ * 如果与 `preview` 提供者一起使用，则回退到通过 `@testing-library/user-event` 模拟的事件。
  * @experimental
  */
 export const userEvent: {
@@ -43,13 +43,13 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
-Commands API 的详细说明见[Commands API](/guide/browser/commands).
+Commands API 的详细说明见 [Commands API](/guide/browser/commands)。
 :::
 
 ```ts
 /**
- * Available commands for the browser.
- * A shortcut to `server.commands`.
+ * 可用的浏览器命令。
+ * `server.commands` 的快捷方式。
  */
 export const commands: BrowserCommands
 ```
@@ -59,19 +59,20 @@ export const commands: BrowserCommands
 页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
-虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
+虽然该工具暴露了部分 Playwright 的 `page` 对象实用方法，但两者并非同一对象。由于浏览器上下文在浏览器环境中执行，而 Playwright 的 `page` 对象运行在服务端，因此测试代码无法直接访问该对象。
+
+如需操作 Playwright 的 `page` 对象，请使用 [Commands API](/guide/browser/commands)。
 :::
 
-使用 [Commands API](/guide/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
 ```ts
 export const page: {
   /**
-   * Change the size of iframe's viewport.
+   * 更改 iframe 视口的大小。
    */
-  viewport(width: number, height: number): Promise<void>
+  viewport: (width: number, height: number) => Promise<void>
   /**
-   * Make a screenshot of the test iframe or a specific element.
-   * @returns Path to the screenshot file or path and base64.
+   * 对测试 iframe 或特定元素进行截图。
+   * @returns 截图文件的路径或路径和 base64 编码。
    */
   screenshot(options: Omit<ScreenshotOptions, 'base64'> & { base64: true }): Promise<{
     path: string
@@ -79,29 +80,34 @@ export const page: {
   }>
   screenshot(options?: ScreenshotOptions): Promise<string>
   /**
-   * Extend default `page` object with custom methods.
+   * 使用自定义方法扩展默认的 `page` 对象。
    */
-  extend(methods: Partial<BrowserPage>): BrowserPage
+  extend: (methods: Partial<BrowserPage>) => BrowserPage
   /**
-   * Wrap an HTML element in a `Locator`. When querying for elements, the search will always return this element.
+   * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素。
    */
   elementLocator(element: Element): Locator
 
   /**
-   * Locator APIs. See its documentation for more details.
+   * Locator API。更多详细信息请参见其文档。
    */
-  getByRole(role: ARIARole | string, options?: LocatorByRoleOptions): Locator
-  getByLabelText(text: string | RegExp, options?: LocatorOptions): Locator
-  getByTestId(text: string | RegExp): Locator
-  getByAltText(text: string | RegExp, options?: LocatorOptions): Locator
-  getByPlaceholder(text: string | RegExp, options?: LocatorOptions): Locator
-  getByText(text: string | RegExp, options?: LocatorOptions): Locator
-  getByTitle(text: string | RegExp, options?: LocatorOptions): Locator
+  getByRole: (role: ARIARole | string, options?: LocatorByRoleOptions) => Locator
+  getByLabelText: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByTestId: (text: string | RegExp) => Locator
+  getByAltText: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByPlaceholder: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByText: (text: string | RegExp, options?: LocatorOptions) => Locator
+  getByTitle: (text: string | RegExp, options?: LocatorOptions) => Locator
 }
 ```
 
 ::: tip
-The `getBy*` API is explained at [Locators API](/guide/browser/locators).
+`getBy*` API 在 [Locators API](/guide/browser/locators) 中有详细说明。
+:::
+
+::: warning WARNING <Version>3.2.0</Version>
+请注意，如果 `save` 设置为 `false`，`screenshot` 将始终返回 base64 字符串。
+在这种情况下，`path` 也会被忽略。
 :::
 
 ## `cdp`

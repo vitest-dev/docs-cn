@@ -1,8 +1,12 @@
-# 扩展默认报告器 (Extending Reporters)
+# 扩展默认报告器 {#extending-reporters}
+
+::: warning
+这是高级 API。如果你只想要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
+:::
 
 你可以从 `vitest/reporters` 导入报告器并扩展它们以创建你的自定义报告器。
 
-## 扩展内置报告器 (Extending Built-in Reporters)
+## 扩展内置报告器 {#extending-built-in-reporters}
 
 一般来说，你不需要从头开始创建报告器。`vitest` 附带了几个可以扩展的默认报告程序。
 
@@ -54,7 +58,7 @@ export default defineConfig({
 })
 ```
 
-## 报告的任务(Reported Tasks)
+## 报告的任务 {#reported-tasks}
 
 ::: warning
 这是一个试验性 API。破坏性更改可能不会跟进 SemVer。使用时请使用 Vitest 的版本。
@@ -76,10 +80,9 @@ class MyReporter implements Reporter {
 
   onFinished(files: RunnerTestFile[]) {
     for (const fileTask of files) {
-      // note that the old task implementation uses "file" instead of "module"
+      // 请注意，旧的任务实现使用 “文件” 而不是 “模块”
       const testModule = this.ctx.state.getReportedEntity(fileTask) as TestModule
       for (const task of testModule.children) {
-        //                          ^?
         console.log('finished', task.type, task.fullName)
       }
     }
@@ -97,15 +100,15 @@ declare class TestCase {
   readonly type = 'test' | 'custom'
   /**
    * Task instance.
-   * @experimental Public task API 是试验性的，并不遵循 semver。
+   * @experimental Public task API 是试验性的，并不遵循 semver
    */
   readonly task: RunnerTestCase | RunnerCustomCase
   /**
-   * 与测试相关的项目。
+   * 与测试相关的项目
    */
   readonly project: TestProject
   /**
-   * 直接引用定义测试的测试文件。
+   * 直接引用定义测试的测试文件
    */
   readonly module: TestModule
   /**
@@ -117,39 +120,39 @@ declare class TestCase {
    */
   readonly fullName: string
   /**
-   * 唯一标识符。
-   * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
-   * ID 基于项目名称、文件路径和测试位置。
+   * 唯一标识符
+   * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的
+   * ID 基于项目名称、文件路径和测试位置
    */
   readonly id: string
   /**
-   * 文件中定义测试的位置。
-   * 只有在配置中启用  `includeTaskLocation` 时，才会收集位置信息。
+   * 文件中定义测试的位置
+   * 只有在配置中启用  `includeTaskLocation` 时，才会收集位置信息
    */
   readonly location: { line: number, column: number } | undefined
   /**
-   * 如果测试是在文件中直接调用的，则父套件将是文件。
+   * 如果测试是在文件中直接调用的，则父套件将是文件
    */
   readonly parent: TestSuite | TestModule
   /**
-   * 启动测试时使用的选项。
+   * 启动测试时使用的选项
    */
   readonly options: TaskOptions
   /**
-   * 检查测试是否没有失败。
-   * 如果测试尚未完成或被跳过，则返回 `true`。
+   * 检查测试是否没有失败
+   * 如果测试尚未完成或被跳过，则返回 `true`
    */
   ok(): boolean
   /**
-   * 执行测试时附加到测试中的自定义元数据。
+   * 执行测试时附加到测试中的自定义元数据
    */
   meta(): TaskMeta
   /**
-   * 测试结果。如果测试尚未完成或刚刚收集，则将为`undefined`。
+   * 测试结果。如果测试尚未完成或刚刚收集，则将为`undefined`
    */
   result(): TestResult | undefined
   /**
-   * 有关测试的有用信息，如持续时间、内存使用情况等。
+   * 有关测试的有用信息，如持续时间、内存使用情况等
    */
   diagnostic(): TestDiagnostic | undefined
 }
@@ -162,65 +165,65 @@ export interface TestResultPassed {
    */
   state: 'passed'
   /**
-   * 测试执行过程中出现的错误。
+   * 测试执行过程中出现的错误
    *
-   * **Note**: 如果测试重试成功，仍会报告错误。
+   * **Note**: 如果测试重试成功，仍会报告错误
    */
   errors: TestError[] | undefined
 }
 
 export interface TestResultFailed {
   /**
-   * 测试执行失败。
+   * 测试执行失败
    */
   state: 'failed'
   /**
-   * 测试执行过程中出现的错误。
+   * 测试执行过程中出现的错误
    */
   errors: TestError[]
 }
 
 export interface TestResultSkipped {
   /**
-   * 使用`only`、`skip`或`todo`标志跳过测试。点击并应用。
-   * 你可以在 `mode` 选项中看到使用的是哪一种。
+   * 使用`only`、`skip` 或 `todo` 标志跳过测试
+   * 你可以在 `mode` 选项中看到使用的是哪一种
    */
   state: 'skipped'
   /**
-   * 跳过的测试没有错误。
+   * 跳过的测试没有错误
    */
   errors: undefined
 }
 
 export interface TestDiagnostic {
   /**
-   * If the duration of the test is above `slowTestThreshold`.
+   * 如果测试的持续时间高于 `slowTestThreshold`
    */
   slow: boolean
   /**
-   * 测试使用的内存量（字节）。
+   * 测试使用的内存量（字节）
    * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
    */
   heap: number | undefined
   /**
-   * 执行测试所需的时间（毫秒）。
+   * 执行测试所需的时间（毫秒）
    */
   duration: number
   /**
-   * 测试开始的时间（毫秒）。
+   * 测试开始的时间（毫秒）
    */
   startTime: number
   /**
-   * 测试重试的次数。
+   * 测试重试的次数
    */
   retryCount: number
   /**
-   * 重复测试的次数，由 `repeats` 选项设置。
-   * 如果测试在重复过程中失败，且未配置 `retry`，则该值可以更小。
+   * 重复测试的次数，由 `repeats` 选项设置
+   * 如果测试在重复过程中失败，且未配置 `retry`，则该值可以更小
    */
   repeatCount: number
   /**
-   * 如果第二次重试时测试通过。
+   * 如果第二次重试时测试通过
    */
   flaky: boolean
 }
@@ -234,20 +237,20 @@ export interface TestDiagnostic {
 declare class TestSuite {
   readonly type = 'suite'
   /**
-   * Task instance.
-   * @experimental Public task API 是实验性的，并不遵循 semver。
+   * 任务实例
+   * @experimental 公共任务 API 是实验性的，并不遵循 semver
    */
   readonly task: RunnerTestSuite
   /**
-   * 与测试相关的项目。
+   * 与测试相关的项目
    */
   readonly project: TestProject
   /**
-   * 直接引用定义套件的测试文件。
+   * 直接引用定义套件的测试文件
    */
   readonly module: TestModule
   /**
-   * Name of the suite.
+   * 测试套件名称
    */
   readonly name: string
   /**
@@ -255,22 +258,22 @@ declare class TestSuite {
    */
   readonly fullName: string
   /**
-   * 唯一标识符。
-   * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的。
-   * ID 基于项目名称、文件路径和测试位置。
+   * 唯一标识符
+   * 该 ID 是确定的，多次运行时同一测试的 ID 将是相同的
+   * ID 基于项目名称、文件路径和测试位置
    */
   readonly id: string
   /**
-   * 文件中定义套件的位置。
-   * 只有在配置中启用 `includeTaskLocation` 时，才会收集位置信息。
+   * 文件中定义套件的位置
+   * 只有在配置中启用 `includeTaskLocation` 时，才会收集位置信息
    */
   readonly location: { line: number, column: number } | undefined
   /**
-   * 套件和属于该套件的测试的集合。
+   * 套件和属于该套件的测试的集合
    */
   readonly children: TaskCollection
   /**
-   * 启动套件时使用的选项。
+   * 启动套件时使用的选项
    */
   readonly options: TaskOptions
 }
@@ -284,18 +287,18 @@ declare class TestSuite {
 declare class TestModule extends SuiteImplementation {
   readonly type = 'module'
   /**
-   * Task instance.
-   * @experimental Public task API 是实验性的，并不遵循 semver。
+   * 任务实例
+   * @experimental 公共任务 API 是实验性的，并不遵循 semver
    */
   readonly task: RunnerTestFile
   /**
-   * 属于该文件的套件和测试集合。
+   * 属于该文件的套件和测试集合
    */
   readonly children: TestCollection
   /**
    * 这通常是一个绝对的 Unix 文件路径。
-   * 如果文件不在磁盘上，它可以是一个虚拟 ID。
-   * 该值对应于 Vite 的 `ModuleGraph` id。
+   * 如果文件不在磁盘上，它可以是一个虚拟 ID
+   * 该值对应于 Vite 的 `ModuleGraph` id
    */
   readonly moduleId: string
   /**
@@ -307,24 +310,24 @@ declare class TestModule extends SuiteImplementation {
 
 export interface ModuleDiagnostic {
   /**
-   * 导入和启动环境所需的时间。
+   * 导入和启动环境所需的时间
    */
   environmentSetupDuration: number
   /**
-   * Vitest 设置测试工具（运行程序、模拟等）所需的时间。
+   * Vitest 设置测试工具（运行程序、模拟等）所需的时间
    */
   prepareDuration: number
   /**
-   * 导入测试文件所需的时间。
-   * 这包括导入文件中的所有内容和执行套件回调。
+   * 导入测试文件所需的时间
+   * 这包括导入文件中的所有内容和执行套件回调
    */
   collectDuration: number
   /**
-   * 导入设置文件所需的时间。
+   * 导入设置文件所需的时间
    */
   setupDuration: number
   /**
-   * 文件中所有测试和钩子的累计持续时间。
+   * 文件中所有测试和钩子的累计持续时间
    */
   duration: number
 }
@@ -337,31 +340,31 @@ export interface ModuleDiagnostic {
 ```ts
 declare class TestCollection {
   /**
-   * 返回数组中特定索引处的测试或套件。
+   * 返回数组中特定索引处的测试或套件
    */
   at(index: number): TestCase | TestSuite | undefined
   /**
-   * 集合中测试和套件的数量。
+   * 集合中测试和套件的数量
    */
   size: number
   /**
-   * 以数组形式返回集合，以便于操作。
+   * 以数组形式返回集合，以便于操作
    */
   array(): (TestCase | TestSuite)[]
   /**
-   * 过滤属于此集合及其子集合的所有套件。
+   * 过滤属于此集合及其子集合的所有套件
    */
   allSuites(): IterableIterator<TestSuite>
   /**
-   * 过滤属于此集合及其子集合的所有测试。
+   * 过滤属于此集合及其子集合的所有测试
    */
   allTests(state?: TestResult['state'] | 'running'): IterableIterator<TestCase>
   /**
-   * 只筛选属于该集合的测试。
+   * 只筛选属于该集合的测试
    */
   tests(state?: TestResult['state'] | 'running'): IterableIterator<TestCase>
   /**
-   * 仅筛选属于该系列的套件。
+   * 仅筛选属于该系列的套件
    */
   suites(): IterableIterator<TestSuite>;
   [Symbol.iterator](): IterableIterator<TestSuite | TestCase>
@@ -374,18 +377,65 @@ declare class TestCollection {
 function onFileCollected(testModule: TestModule): void {
   console.log('collecting tests in', testModule.moduleId)
 
-  // iterate over all tests and suites in the module
+  // 遍历模块中的所有测试用例和测试套件
   for (const task of testModule.children.allTests()) {
     console.log('collected', task.type, task.fullName)
   }
 }
 ```
 
-## 导出报告器 (Exported Reporters)
+### TestProject
+`TestProject` 是与模块关联的项目。该模块内的每个测试和测试套件都会引用同一个项目。
 
-`vitest` 附带了一些[内置报告器](/guide/reporters)，你可以开箱即用。
+项目可用于获取配置或提供的上下文。
+``` ts
+declare class TestProject {
+  /**
+   * 全局 vitest 实例
+   * @experimental Vitest 公共 API 目前处于实验阶段，并不遵循 semver
+   */
+  readonly vitest: Vitest
+  /**
+   * 该测试项目关联的工作区
+   * @experimental Vitest 公共 API 目前处于实验阶段，并不遵循 semver
+   */
+  readonly workspaceProject: WorkspaceProject
+  /**
+   * Vite 开发服务器实例。每个工作区都有其独立的开发服务器实例
+   */
+  readonly vite: ViteDevServer
+  /**
+   * 已解析的项目配置
+   */
+  readonly config: ResolvedProjectConfig
+  /**
+   * 已解析的全局配置。若不存在工作区项目，则该配置将与 `config` 相同
+   */
+  readonly globalConfig: ResolvedConfig
+  /**
+   * 序列化的项目配置。这是测试接收到的配置
+   */
+  get serializedConfig(): SerializedConfig
+  /**
+   * 项目名称，未设置时返回空字符串
+   */
+  name(): string
+  /**
+   * 提供给项目的自定义上下文
+   */
+  context(): ProvidedContext
+  /**
+   * 为项目提供可序列化的自定义上下文。该上下文将在测试运行时可用
+   */
+  provide<T extends keyof ProvidedContext & string>(key: T, value: ProvidedContext[T]): void
+}
+```
 
-### 内置报告器:
+## 导出报告器 {#exported-reporters}
+
+`vitest` 附带了一些 [内置报告器](/guide/reporters) ，可以开箱即用。
+
+### 内置报告器: {#built-in-reporters}
 
 1. `BasicReporter`
 1. `DefaultReporter`
@@ -397,10 +447,10 @@ function onFileCollected(testModule: TestModule): void {
 1. `TapFlatReporter`
 1. `HangingProcessReporter`
 
-### 基础抽象报告器:
+### 基础抽象报告器: {#base-abstract-reporters}
 
 1. `BaseReporter`
 
-### 接口报告器:
+### 报告器接口: #interface-reporters
 
 1. `Reporter`

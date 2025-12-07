@@ -8,6 +8,10 @@
   --vp-c-brand-3: #506e10;
   --vp-c-sponsor: #ca2971;
   --vitest-c-sponsor-hover: #c13071;
+
+  /* Old Document */
+  --vp-c-old-document-bg: #f4f8e0;
+  --vp-c-old-document-text: #2a3a1b;
 }
 
 .dark {
@@ -16,7 +20,12 @@
   --vp-c-brand-3: #acd268;
   --vp-c-sponsor: #ee4e95;
   --vitest-c-sponsor-hover: #e51370;
+
+  /* Old Document */
+  --vp-c-old-document-bg: #2d3b2e;
+  --vp-c-old-document-text: #c5d9b6;
 }
+
 
 /**
  * Component: Custom Block
@@ -25,7 +34,7 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
   --vp-custom-block-danger-code-bg: #a79fa029;
   --vitest-custom-block-tip-code-text: #4a680c;
-  --vitest-custom-block-info-code-text: #394f0c;
+  --vitest-custom-block-info-code-text: #394f0c
 }
 
 .dark {
@@ -46,7 +55,7 @@
  * Component: Home
  * -------------------------------------------------------------------------- */
 
-:root {
+ :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
@@ -72,6 +81,7 @@
     --vp-home-hero-image-filter: blur(72px);
   }
 }
+
 
 /**
  * Component: Algolia

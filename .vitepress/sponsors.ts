@@ -54,9 +54,4 @@ export const sponsors = [
     size: 'big',
     items: vitestSponsors.platinum,
   },
-  {
-    tier: 'Gold Sponsors',
-    size: 'medium',
-    items: vitestSponsors.gold,
-  },
 ]

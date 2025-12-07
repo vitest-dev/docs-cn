@@ -7,9 +7,9 @@ outline: deep
 
 命令是一个函数，它调用服务器上的另一个函数并将结果传递回浏览器。Vitest 公开了几个可以在浏览器测试中使用的内置命令。
 
-## 内置命令
+## 内置命令 {#built-in-commands}
 
-### 文件处理
+### 文件处理 {#files-handling}
 
 你可以使用 `readFile` 、`writeFile` 和 `removeFile` API 来处理浏览器测试中的文件。所有路径都是相对于测试文件解析的，即使它们是在位于另一个文件中的辅助函数中调用的。
 
@@ -59,7 +59,7 @@ expect(input).toHaveValue('a')
 CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
 :::
 
-## Custom Commands
+## 自定义命令 {#custom-commands}
 
 你也可以通过 [`browser.commands`](/config/#browser-commands) 配置选项添加自己的命令。如果你开发了一个库，你可以通过插件内的 `config` 钩子来提供它们：
 
@@ -108,7 +108,7 @@ test('custom command works correctly', async () => {
   expect(result).toEqual({ someValue: true })
 })
 
-// if you are using TypeScript, you can augment the module
+// 如果你正在使用 TypeScript，你可以扩展类型声明：
 declare module '@vitest/browser/context' {
   interface BrowserCommands {
     myCustomCommand: (arg1: string, arg2: string) => Promise<{
@@ -122,11 +122,11 @@ declare module '@vitest/browser/context' {
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-### 自定义命令 `playwright`
+### 自定义命令 `playwright` {#custom-playwright-commands}
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
-- `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
+- `page` 引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
 - `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
 - `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
@@ -149,14 +149,20 @@ export const myCommand: BrowserCommand<[string, number]> = async (
 ```
 
 ::: tip
-如果我们使用的是 TypeScript ，请不要忘记在我们的 [setup 文件](/config/#setupfile)或 [config 文件](/config/) 中引用 `@vitest/browser/providers/playwright` ，以便在配置以及 `userEvent` 和 `page` 选项中获得自动补全功能。
+若使用 TypeScript，请务必将 `@vitest/browser/providers/playwright` 添加到 `tsconfig.json` 的 "compilerOptions.types" 选项中，以在配置项及 `userEvent` 和 `page` 选项中启用自动补全功能：
 
-```ts
-/// <reference types="@vitest/browser/providers/playwright" />
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ]
+  }
+}
 ```
 :::
 
-### 自定义命令 `webdriverio`
+### 自定义命令 `webdriverio` {#custom-webdriverio-commands}
 
 Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
 
@@ -165,9 +171,15 @@ Vitest 在上下文对象上公开了一些 `webdriverio` 特有属性。
 Vitest 通过在调用命令前调用 `browser.switchToFrame` 自动将 `webdriver` 上下文切换到测试 iframe，因此 `$` 和 `$` 方法将引用 iframe 内的元素，而不是 orchestrator 中的元素，但非 Webdriver API 仍将引用 parent frame 上下文。
 
 ::: tip
-如果我们使用的是 TypeScript，请记得在您的 [setup 文件](/config/#setupfile)或 [config 文件](/config/)中引用 `@vitest/browser/providers/webdriverio` ，以便获得自动补全功能。
+若使用 TypeScript，请务必将 `@vitest/browser/providers/webdriverio` 添加到 `tsconfig.json` 的 "compilerOptions.types" 选项中，以在配置项及 `userEvent` 和 `page` 选项中启用自动补全功能：
 
-```ts
-/// <reference types="@vitest/browser/providers/webdriverio" />
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@vitest/browser/providers/webdriverio"
+    ]
+  }
+}
 ```
 :::

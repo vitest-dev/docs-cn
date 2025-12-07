@@ -2,7 +2,7 @@
 title: 测试环境 | 指南
 ---
 
-# 测试环境
+# 测试环境 {#test-environment}
 
 Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/#environmentoptions) 选项修改环境的行为方式。
 
@@ -16,16 +16,16 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 ::: info
 当使用 `jsdom` 或 `happy-dom` 环境时，Vitest 遵循与 Vite 在导入 [CSS](https://vitejs.dev/guide/features.html#css) 和 [assets](https://vitejs.dev/guide/features.html#static-assets) 时相同的规则。如果导入外部依赖时出现 `unknown extension .css`错误，则需要将所有软件包添加到 [`server.deps.external`](/config/#server-deps-external)，手动内联整个导入链。例如，如果错误发生在以下导入链中的`package-3`：`source code -> package-1 -> package-2 -> package-3`，则需要将所有三个软件包添加到 `server.deps.external`。
 
-外部依赖中的CSS和资源文件的 `require` 调用会自动解析。
+自 Vitest 2.0.4 起，外部依赖中的CSS和资源文件的 `require` 调用会自动解析。
 :::
 
 ::: warning
 "环境" 仅在 Node.js 中运行测试时存在。
 
-在 Vitest 中，`浏览器` 不被视为一个环境。如果希望使用[浏览器模式](/guide/browser/)运行部分测试，可以创建一个[workspace project](/guide/browser/#workspace-config)。
+在 Vitest 中，`浏览器` 不被视为一个环境。如果希望使用 [浏览器模式](/guide/browser/) 运行部分测试，可以创建一个 [工作空间](/guide/browser/#workspace-config)。
 :::
 
-## 特定文件的环境
+## 特定文件的环境 {#environments-for-specific-files}
 
 如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 
@@ -41,7 +41,7 @@ test('test', () => {
 
 或者你也可以设置 [`environmentMatchGlobs`](https://vitest.dev/config/#environmentmatchglobs) 选项，根据 glob 模式指定环境。
 
-## 自定义环境
+## 自定义环境 {#custom-environment}
 
 你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
 
@@ -51,7 +51,7 @@ import type { Environment } from 'vitest'
 export default <Environment>{
   name: 'custom',
   transformMode: 'ssr',
-  // optional - only if you support "experimental-vm" pool
+  // 可选 - 仅在支持 "experimental-vm" 的情况下使用
   async setupVM() {
     const vm = await import('node:vm')
     const context = vm.createContext()
@@ -60,15 +60,15 @@ export default <Environment>{
         return context
       },
       teardown() {
-        // called after all tests with this env have been run
+        // 在所有使用此环境的测试运行完毕后调用
       },
     }
   },
   setup() {
-    // custom setup
+    // 自定义设置
     return {
       teardown() {
-        // called after all tests with this env have been run
+        // 在所有使用此环境的测试运行完毕后调用
       },
     }
   },
@@ -91,15 +91,15 @@ Vitest 还提供了 `populateGlobal` 实用函数，可用于将属性从对象�
 
 ```ts
 interface PopulateOptions {
-  // should non-class functions be bind to the global namespace
+  // 非类函数是否应该绑定到全局命名空间
   bindFunctions?: boolean
 }
 
 interface PopulateResult {
-  // a list of all keys that were copied, even if value doesn't exist on original object
+  // 所有被复制的键的列表，即使原始对象上不存在该值
   keys: Set<string>
-  // a map of original object that might have been overridden with keys
-  // you can return these values inside `teardown` function
+  // 可能已被键覆盖的原始对象的映射
+  // 你可以在 `teardown` 函数中返回这些值
   originals: Map<string | symbol, any>
 }
 

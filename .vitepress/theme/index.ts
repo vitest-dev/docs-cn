@@ -6,11 +6,11 @@ import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 import { h } from 'vue'
 import HomePage from '../components/HomePage.vue'
 import Version from '../components/Version.vue'
+import OldDocument from '../components/OldDocument.vue'
 import '../style/main.css'
 import '../style/vars.css'
 import 'uno.css'
 import '@shikijs/vitepress-twoslash/style.css'
-import 'virtual:group-icons.css'
 
 if (inBrowser) {
   import('./pwa')
@@ -21,6 +21,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => h(HomePage),
+      'layout-top': () => h(OldDocument),
     })
   },
   enhanceApp({ app }) {
