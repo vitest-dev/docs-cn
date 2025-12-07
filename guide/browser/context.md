@@ -59,10 +59,11 @@ export const commands: BrowserCommands
 页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
-虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
+虽然该工具暴露了部分 Playwright 的 `page` 对象实用方法，但两者并非同一对象。由于浏览器上下文在浏览器环境中执行，而 Playwright 的 `page` 对象运行在服务端，因此测试代码无法直接访问该对象。
+
 :::
 
-使用 [Commands API](/guide/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
+如需操作 Playwright 的 `page` 对象，请使用 [Commands API](/guide/browser/commands)。
 ```ts
 export const page: {
   /**
