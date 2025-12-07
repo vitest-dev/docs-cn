@@ -378,7 +378,7 @@ npx vitest --browser.headless
 在这种情况下，Vitest 将使用 Chrome 浏览器以无头模式运行。
 
 ::: warning
-默认情况下Headless模式不可用。我们需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
+默认情况下无头模式不可用。我们需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
 :::
 
 ## 示例 {#examples}
@@ -426,7 +426,7 @@ test('properly handles form inputs', async () => {
 ```ts
 import { expect } from 'vitest'
 import { page } from 'vitest/browser'
-// element is rendered correctly
+// 元素渲染正确
 await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 
@@ -435,7 +435,7 @@ Vitest 暴露了一个 [上下文 API](/guide/browser/context)，其中包含一
 ```ts
 import { page, userEvent } from 'vitest/browser'
 await userEvent.fill(page.getByLabelText(/username/i), 'Alice')
-// or just locator.fill
+// 或使用 locator.fill
 await page.getByLabelText(/username/i).fill('Alice')
 ```
 
