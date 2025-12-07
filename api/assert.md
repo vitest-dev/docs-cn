@@ -640,9 +640,7 @@ test('assert.notTypeOf', () => {
 ```ts
 import { assert, test } from 'vitest'
 
-function Person(name) {
-  this.name = name
-}
+function Person(name) { this.name = name }
 const foo = new Person('foo')
 
 class Tea {
@@ -667,9 +665,7 @@ test('assert.instanceOf', () => {
 ```ts
 import { assert, test } from 'vitest'
 
-function Person(name) {
-  this.name = name
-}
+function Person(name) { this.name = name }
 const foo = new Person('foo')
 
 class Tea {
@@ -700,11 +696,7 @@ import { assert, test } from 'vitest'
 test('assert.include', () => {
   assert.include([1, 2, 3], 2, 'array contains value')
   assert.include('foobar', 'foo', 'string contains substring')
-  assert.include(
-    { foo: 'bar', hello: 'universe' },
-    { foo: 'bar' },
-    'object contains property'
-  )
+  assert.include({ foo: 'bar', hello: 'universe' }, { foo: 'bar' }, 'object contains property')
 })
 ```
 
@@ -811,10 +803,7 @@ import { assert, test } from 'vitest'
 
 test('assert.deepNestedInclude', () => {
   assert.deepNestedInclude({ a: { b: [{ x: 1 }] } }, { 'a.b[0]': { x: 1 } })
-  assert.deepNestedInclude(
-    { '.a': { '[b]': { x: 1 } } },
-    { '\\.a.\\[b\\]': { x: 1 } }
-  )
+  assert.deepNestedInclude({ '.a': { '[b]': { x: 1 } } }, { '\\.a.\\[b\\]': { x: 1 } })
 })
 ```
 
@@ -829,10 +818,7 @@ import { assert, test } from 'vitest'
 
 test('assert.notDeepNestedInclude', () => {
   assert.notDeepNestedInclude({ a: { b: [{ x: 1 }] } }, { 'a.b[0]': { y: 1 } })
-  assert.notDeepNestedInclude(
-    { '.a': { '[b]': { x: 1 } } },
-    { '\\.a.\\[b\\]': { y: 2 } }
-  )
+  assert.notDeepNestedInclude({ '.a': { '[b]': { x: 1 } } }, { '\\.a.\\[b\\]': { y: 2 } })
 })
 ```
 
