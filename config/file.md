@@ -20,7 +20,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // 在此配置选项...
   },
 })
 ```
@@ -33,7 +33,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // 在此配置选项...
   },
 })
 ```
@@ -45,7 +45,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // 在此配置选项...
   },
 })
 ```
