@@ -1,4 +1,4 @@
-# 运行器 API
+# 运行器 API {#test-runner}
 
 ::: warning 注意
 这是高级 API。如果你只需要[运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
@@ -31,10 +31,7 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?: (
-    test: TaskPopulated,
-    options: { retry: number, repeats: number }
-  ) => unknown
+  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -43,10 +40,7 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?: (
-    test: TaskPopulated,
-    options: { retry: number, repeats: number }
-  ) => unknown
+  onAfterTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -86,6 +80,7 @@ export interface VitestRunner {
   /**
    * 这个方法被用于 "test" 和 "custom" 处理程序。
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
+   *
    * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
    */
   extendTaskContext?: <T extends Test | Custom>(
@@ -114,7 +109,95 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。它还暴露了 `BenchmarkNodeRunner`，如果你想扩展基准测试功能的话也可以继承它。
 :::
 
-## 你的任务函数
+## Tasks
+
+在 Vitest 内部，测试套件（Suite）和测试用例（Test）统一称为`任务（tasks）`。测试运行器会在收集所有测试前初始化一个 `File` 任务，该任务是 `Suite` 的超集并包含额外属性。每个任务（包括 `File`）都可通过 `file` 属性访问其所属文件信息。
+
+```ts
+interface File extends Suite {
+  /**
+   * 所属线程池名称
+   * @default 'forks'
+   */
+  pool?: string
+  /**
+   * UNIX 格式文件路径
+   */
+  filepath: string
+  /**
+   * 所属工作区项目名
+   */
+  projectName: string | undefined
+  /**
+   * 测试收集耗时
+   * 耗时还包括导入所有文件依赖关系
+   */
+  collectDuration?: number
+  /**
+   * 导入 setup 文件耗时
+   */
+  setupDuration?: number
+  /**
+   * 仅初始化结构，不执行实际用例
+   * 用于 Vitest 服务端状态预加载
+   */
+  local?: boolean
+}
+```
+
+每个套件都有一个 `tasks` 属性，该属性在收集阶段填充。用于自上而下遍历任务树。
+
+```ts
+interface Suite extends TaskBase {
+  type: 'suite'
+  /**
+   * 文件任务。它是文件的根任务
+   */
+  file: File
+  /**
+   * 包含该测试套件中所有任务的数组
+   */
+  tasks: Task[]
+}
+```
+
+每个任务都有 `suite` 属性，指向其所在的测试套件。若 `test` 或 `describe` 在顶层初始化，则不会具有 `suite`属性（该属性 **不等于** `file`！）。`File` 任务也永不具有 `suite` 属性。此特性可用于自底向上遍历任务树。
+
+```ts
+interface Test<ExtraContext = object> extends TaskBase {
+  type: 'test'
+  /**
+   * 将被传递给测试函数的测试上下文
+   */
+  context: TaskContext<Test> & ExtraContext & TestContext
+  /**
+   * 文件任务。它是该文件的根任务
+   */
+  file: File
+  /**
+   * 该任务是否通过调用 `t.skip()` 被跳过
+   */
+  pending?: boolean
+  /**
+   * 该任务是否应在失败时仍视为成功。如果任务失败，它将被标记为通过
+   */
+  fails?: boolean
+  /**
+   * 任务失败时将运行的钩子函数。执行顺序取决于 `sequence.hooks` 选项
+   */
+  onFailed?: OnTestFailedHandler[]
+  /**
+   * 任务完成后将运行的钩子函数。执行顺序取决于 `sequence.hooks` 选项
+   */
+  onFinished?: OnTestFinishedHandler[]
+  /**
+   * 存储来自异步断言的 promises，确保测试完成前等待这些异步操作
+   */
+  promises?: Promise<any>[]
+}
+```
+
+## 你的任务函数 {#your-task-function}
 
 你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.task` 方法添加到当前套件中：
 
@@ -167,10 +250,6 @@ describe('take care of the garden', () => {
 vitest ./garden/tasks.test.js
 ```
 
-::: warning 注意
+::: warning
 如果你没有定义自定义运行器，也没有定义 `runTest` 方法，Vitest 将会尝试自动获取任务。如果你没有使用 `setFn` 添加一个函数，这个过程会失败。
-:::
-
-::: tip 提示
-自定义任务系统支持钩子和上下文。如果你想支持属性链式调用（如 `only`、`skip` 和你自己的定制属性），你可以从 `vitest/suite` 导入 `createChainable` 并用它包装你的函数。如果你决定这样做，你需要将 `custom` 作为 `custom.call(this)` 来调用。
 :::
