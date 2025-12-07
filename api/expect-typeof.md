@@ -52,10 +52,7 @@ import { expectTypeOf } from 'vitest'
 
 type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
 
-interface CSSProperties {
-  margin?: string
-  padding?: string
-}
+interface CSSProperties { margin?: string, padding?: string }
 
 function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
   return {}
@@ -64,15 +61,11 @@ function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<{ xs?: any }>() // extracts the last type from a union
-  .toEqualTypeOf<{
-  xs?: CSSProperties
-  sm?: CSSProperties
-  md?: CSSProperties
-}>()
+  .extract<{ xs?: any }>() // 从联合类型中提取最后一个类型
+  .toEqualTypeOf<{ xs?: CSSProperties, sm?: CSSProperties, md?: CSSProperties }>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<unknown[]>() // extracts an array from a union
+  .extract<unknown[]>() // 从联合类型中提取数组
   .toEqualTypeOf<CSSProperties[]>()
 ```
 
@@ -101,7 +94,7 @@ const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .exclude<unknown[]>()
-  .exclude<{ xs?: unknown }>() // or just .exclude<unknown[] | { xs?: unknown }>()
+  .exclude<{ xs?: unknown }>() // 或直接使用 .exclude<unknown[] | { xs?: unknown }>()
   .toEqualTypeOf<CSSProperties>()
 ```
 
@@ -180,9 +173,7 @@ expectTypeOf(foo).parameter(1).toBeString()
 ```ts
 import { expectTypeOf } from 'vitest'
 
-expectTypeOf(Date).constructorParameters.toEqualTypeOf<
-  [] | [string | number | Date]
->()
+expectTypeOf(Date).constructorParameters.toEqualTypeOf<[] | [string | number | Date]>()
 ```
 
 ::: warning
