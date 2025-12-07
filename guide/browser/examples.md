@@ -2,27 +2,27 @@
 title: Examples | Browser Mode
 ---
 
-# Examples
+# 示例 {#examples}
 
 浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，你应该可以使用框架的测试工具包。
 
-我们建议根据您的框架使用  `testing-library` packages：
+我们建议根据你的框架使用 `testing-library` packages：
 
-- [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) if you don't use a framework
-- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) to render [vue](https://vuejs.org) components
-- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) to render [svelte](https://svelte.dev) components
-- [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) to render [react](https://react.dev) components
-- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) to render [preact](https://preactjs.com) components
-- [`@solidjs/testing-library`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
-- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
+- [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) 如果你不使用框架
+- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) 渲染 [vue](https://vuejs.org) 组件
+- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) 渲染 [svelte](https://svelte.dev) 组件
+- [`@testing-library/react`](https://testing-library.com/docs/react-testing-library/intro) 渲染 [react](https://react.dev) 组件
+- [`@testing-library/preact`](https://testing-library.com/docs/preact-testing-library/intro) 渲染 [preact](https://preactjs.com) 组件
+- [`@solidjs/testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
 
 ::: warning
-`testing-library` 提供了一个包`@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+`testing-library` 提供了一个包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件——相反，请使用从 `@vitest/browser/context` 导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于 provider）。
 :::
 
 ::: code-group
 ```ts [vue]
-// based on @testing-library/vue example
+// 基于 @testing-library/vue 示例
 // https://testing-library.com/docs/vue-testing-library/examples
 
 import { render, screen } from '@testing-library/vue'
@@ -32,21 +32,21 @@ import Component from './Component.vue'
 test('properly handles v-model', async () => {
   render(Component)
 
-  // Asserts initial state.
+  // 断言初始状态。
   expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 
-  // Get the input DOM node by querying the associated label.
+  // 通过查询关联的标签获取输入的 DOM 节点。
   const usernameInput = await screen.findByLabelText(/username/i)
 
-  // Type the name into the input. This already validates that the input
-  // is filled correctly, no need to check the value manually.
+  // 将名称输入到输入框中。
+  // 这已经验证了输入框中的值是正确的，无需手动检查其值。
   await userEvent.fill(usernameInput, 'Bob')
 
   expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 })
 ```
 ```ts [svelte]
-// based on @testing-library/svelte
+// 基于 @testing-library/svelte 示例
 // https://testing-library.com/docs/svelte-testing-library/example
 
 import { render, screen } from '@testing-library/svelte'
@@ -67,7 +67,7 @@ test('greeting appears on click', async () => {
 })
 ```
 ```tsx [react]
-// based on @testing-library/react example
+// 基于 @testing-library/react 示例
 // https://testing-library.com/docs/react-testing-library/example-intro
 
 import { render, screen } from '@testing-library/react'
@@ -75,20 +75,20 @@ import { userEvent } from '@vitest/browser/context'
 import Fetch from './fetch'
 
 test('loads and displays greeting', async () => {
-  // Render a React element into the DOM
+  // 将 React 元素渲染到 DOM 中
   render(<Fetch url="/greeting" />)
 
   await userEvent.click(screen.getByText('Load Greeting'))
-  // wait before throwing an error if it cannot find an element
+  // 如果找不到元素，则等待一段时间后再抛出错误
   const heading = await screen.findByRole('heading')
 
-  // assert that the alert message is correct
+  // 断言警告消息是正确的
   expect(heading).toHaveTextContent('hello there')
   expect(screen.getByRole('button')).toBeDisabled()
 })
 ```
 ```tsx [preact]
-// based on @testing-library/preact example
+// 基于 @testing-library/preact 示例
 // https://testing-library.com/docs/preact-testing-library/example
 
 import { render } from '@testing-library/preact'
@@ -104,19 +104,19 @@ test('shows the children when the checkbox is checked', async () => {
     <HiddenMessage>{testMessage}</HiddenMessage>,
   )
 
-  // query* functions will return the element or null if it cannot be found.
-  // get* functions will return the element or throw an error if it cannot be found.
+  // query* 函数会返回元素，如果找不到则返回 null。
+  // get* 函数会返回元素，如果找不到则抛出错误。
   expect(queryByText(testMessage)).not.toBeInTheDocument()
 
-  // The queries can accept a regex to make your selectors more
-  // resilient to content tweaks and changes.
+  // 查询可以接受正则表达式，使选择器更能
+  // 适应内容的调整和变化。
   await userEvent.click(getByLabelText(/show/i))
 
   expect(getByText(testMessage)).toBeInTheDocument()
 })
 ```
 ```tsx [solid]
-// baed on @testing-library/solid API
+// 基于 @testing-library/solid API
 // https://testing-library.com/docs/solid-testing-library/api
 
 import { render } from '@testing-library/solid'
@@ -141,7 +141,7 @@ it('uses params', async () => {
 })
 ```
 ```ts [marko]
-// baed on @testing-library/marko API
+// 基于 @testing-library/marko API
 // https://testing-library.com/docs/marko-testing-library/api
 
 import { render, screen } from '@marko/testing-library'
