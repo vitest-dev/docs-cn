@@ -1,5 +1,9 @@
 # 扩展默认报告器 {#extending-reporters}
 
+::: warning
+这是高级 API。如果你只想要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
+:::
+
 你可以从 `vitest/reporters` 导入报告器并扩展它们以创建你的自定义报告器。
 
 ## 扩展内置报告器 {#extending-built-in-reporters}

@@ -1,7 +1,7 @@
-# Custom Pool
+# 自定义运行池 {#custom-pool}
 
 ::: warning
-这是高级 API。如果你只想要[运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
+这是高级 API。如果你只想要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
 :::
 
 Vitest 在默认情况下以多种方式运行测试：
@@ -31,27 +31,6 @@ export default defineConfig({
 })
 ```
 
-如果我们在不同 pools 中运行测试，可以使用 [workspace](/guide/workspace) 功能:
-
-```ts [vitest.config.ts]
-export default defineConfig({
-  test: {
-    workspace: [
-      {
-        extends: true,
-        test: {
-          pool: 'threads',
-        },
-      },
-    ],
-  },
-})
-```
-
-::: info
-workspace`字段是在 Vitest 3 中引入的。在 [Vitest 3 之前的版本](https://v2.vitest.dev/)中定义工作区，需要创建一个单独的 `vitest.workspace.ts` 文件。
-:::
-
 ## API
 
 在 `pool` 选项中指定的文件应该导出一个函数（可以是异步的），该函数接受 `Vitest` 接口作为其第一个选项。这个函数需要返回一个与 `ProcessPool` 接口匹配的对象：
@@ -75,7 +54,7 @@ Vitest 会等到 `runTests` 执行完毕后才结束运行（即只有在 `runTe
 
 如果你正在使用自定义池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
 
-如果通过 CLI 命令调用 `vitest.collect` 或 `vitest list`，则 Vitest 将调用 `collectTests`。它的工作方式与 `runTests` 相同，但你不必运行测试回调，只需通过调用 `vitest.state.collectFiles(files)` 来报告它们的任务。
+如果通过命令行命令调用 `vitest.collect` 或 `vitest list`，则 Vitest 将调用 `collectTests`。它的工作方式与 `runTests` 相同，但你不必运行测试回调，只需通过调用 `vitest.state.collectFiles(files)` 来报告它们的任务。
 
 要在不同的进程之间进行通信，可以使用 `vitest/node` 中的 `createMethodsRPC` 创建方法对象，并使用你喜欢的任何形式的通信。例如，要将 WebSockets 与 `birpc` 一起使用，你可以编写以下内容：
 
@@ -101,7 +80,7 @@ function createRpc(project: TestProject, wss: WebSocketServer) {
 
 ```ts
 async function runTests(project: TestProject, tests: string[]) {
-  // ... running tests, put into "files" and "tasks"
+  // 运行测试时，将结果存入 "files" 和 "tasks" 中 ...
   const methods = createMethodsRPC(project)
   await methods.onCollected(files)
   // 大多数报告都依赖于在 `onTaskUpdate` 中更新结果
