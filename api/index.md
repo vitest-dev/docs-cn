@@ -76,7 +76,7 @@ test('should work as expected', () => {
 })
 ```
 
-### test.extend
+### test.extend {#test-extended}
 
 - **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
@@ -147,7 +147,7 @@ import { assert, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 test.skipIf(isDev)('prod only test', () => {
-  // 此测试仅在生产环境中运行。
+  // 此测试仅在生产环境中运行
 })
 ```
 
@@ -168,7 +168,7 @@ import { assert, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 test.runIf(isDev)('dev only test', () => {
-  // 此测试仅在开发环境中运行。
+  // 此测试仅在开发环境中运行
 })
 ```
 
@@ -189,7 +189,7 @@ test.runIf(isDev)('dev only test', () => {
 import { assert, test } from 'vitest'
 
 test.only('test', () => {
-  // 只有此测试（以及其他标记为 `only` 的测试）会被运行。
+  // 只有此测试（以及其他标记为 `only` 的测试）会被运行
   assert.equal(Math.sqrt(4), 2)
 })
 ```
@@ -212,7 +212,7 @@ test.only('test', () => {
 ```ts
 import { describe, test } from 'vitest'
 
-// The two tests marked with concurrent will be run in parallel
+// 标记为 concurrent 的两个测试将并行运行
 describe('suite', () => {
   test('serial test', async () => { /* ... */ })
   test.concurrent('concurrent test 1', async () => { /* ... */ })
@@ -224,9 +224,9 @@ describe('suite', () => {
 
 ```ts
 test.concurrent(/* ... */)
-test.skip.concurrent(/* ... */) // or test.concurrent.skip(/* ... */)
-test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
-test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
+test.skip.concurrent(/* ... */) // 或 test.concurrent.skip(/* ... */)
+test.only.concurrent(/* ... */) // 或 test.concurrent.only(/* ... */)
+test.todo.concurrent(/* ... */) // 或 test.concurrent.todo(/* ... */)
 ```
 
 运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的 `expect`，以确保检测到正确的测试。
@@ -278,7 +278,7 @@ describe.concurrent('suite', () => {
 使用 `test.todo` 来存根测试，以便稍后实施。测试报告中将显示一个条目，以便知道还有多少测试需要执行。
 
 ```ts
-// 此测试将在报告中显示一个条目。
+// 此测试将在报告中显示一个条目
 test.todo('unimplemented test')
 ```
 
@@ -379,7 +379,7 @@ test.each`
 // ✓ add(3, b) -> 3b
 ```
 
-从 Vitest 0.25.3 开始，还可以使用模板字符串表。
+自 Vitest 0.25.3 起，还可以使用模板字符串表格功能。
 
 - 第一行应为列名，用 `|` 分隔；
 - 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
@@ -425,7 +425,7 @@ test.each([
   expect(a + b).toBe(expected)
 })
 
-// `for` 不会将数组拆开成独立的参数（请留意参数外层需要使用方括号）。
+// `for` 不会将数组拆开成独立的参数（请留意参数外层需要使用方括号）
 test.for([
   [1, 1, 2],
   [1, 2, 3],
@@ -686,9 +686,8 @@ bench.todo('unimplemented test')
 
 当在文件的顶层使用 `test` 或 `bench` 时，它们会作为隐式套件的一部分被收集起来。使用 `describe` 可以在当前上下文中定义一个新的测试套件，作为一组相关测试或基准以及其他嵌套测试套件。测试套件可让组织测试和基准，使报告更加清晰。
 
-```ts
-// basic.spec.ts
-// organizing tests
+```ts [basic.spec.ts]
+// 组织测试用例
 
 import { describe, expect, test } from 'vitest'
 
@@ -712,9 +711,8 @@ describe('person', () => {
 })
 ```
 
-```ts
-// basic.bench.ts
-// organizing benchmarks
+```ts [basic.bench.ts]
+// 组织基准测试
 
 import { bench, describe } from 'vitest'
 
@@ -795,7 +793,7 @@ import { describe, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 describe.skipIf(isDev)('prod only test suite', () => {
-  // 此测试套件仅在生产环境中运行
+  // 仅在生产环境中运行此测试套件
 })
 ```
 
@@ -815,7 +813,7 @@ import { assert, describe, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 describe.runIf(isDev)('dev only test suite', () => {
-  // 此测试套件仅在开发环境中运行。
+  // 仅在开发环境中运行此测试套件
 })
 ```
 
@@ -878,9 +876,9 @@ describe.concurrent('suite', () => {
 
 ```ts
 describe.concurrent(/* ... */)
-describe.skip.concurrent(/* ... */) // or describe.concurrent.skip(/* ... */)
-describe.only.concurrent(/* ... */) // or describe.concurrent.only(/* ... */)
-describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
+describe.skip.concurrent(/* ... */) // 或 describe.concurrent.skip(/* ... */)
+describe.only.concurrent(/* ... */) // 或 describe.concurrent.only(/* ... */)
+describe.todo.concurrent(/* ... */) // 或 describe.concurrent.todo(/* ... */)
 ```
 
 运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的 `expect` ，以确保检测到正确的测试。
@@ -933,7 +931,7 @@ Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`se
 ```ts
 import { describe, test } from 'vitest'
 
-// or describe('suite', { shuffle: true }, ...)
+// 或 describe('suite', { shuffle: true }, ...)
 describe.shuffle('suite', () => {
   test('random test 1', async () => { /* ... */ })
   test('random test 2', async () => { /* ... */ })
@@ -1047,10 +1045,10 @@ beforeEach(async () => {
 import { beforeEach } from 'vitest'
 
 beforeEach(async () => {
-  // 在每个测试运行之前调用一次。
+  // 在每个测试运行之前调用一次
   await prepareSomething()
 
-  // 清理函数，在每个测试运行之后调用一次。
+  // 清理函数，在每个测试运行之后调用一次
   return async () => {
     await resetSomething()
   }
@@ -1070,7 +1068,7 @@ beforeEach(async () => {
 import { afterEach } from 'vitest'
 
 afterEach(async () => {
-  await clearTestingData() // 在每个测试运行之后清除测试数据。
+  await clearTestingData() // 在每个测试运行之后清除测试数据
 })
 ```
 
@@ -1093,7 +1091,7 @@ Vitest 在 1.3.0 新增 [`onTestFinished`](#ontestfinished)。你可以在测试
 import { beforeAll } from 'vitest'
 
 beforeAll(async () => {
-  await startMocking() // 在所有测试运行之前调用一次。
+  await startMocking() // 在所有测试运行之前调用一次
 })
 ```
 
@@ -1105,10 +1103,10 @@ beforeAll(async () => {
 import { beforeAll } from 'vitest'
 
 beforeAll(async () => {
-  // 在所有测试运行之前调用一次。
+  // 在所有测试运行之前调用一次
   await startMocking()
 
-  // 清理函数，在所有测试运行之后调用一次。
+  // 清理函数，在所有测试运行之后调用一次
   return async () => {
     await stopMocking()
   }
@@ -1128,7 +1126,7 @@ beforeAll(async () => {
 import { afterAll } from 'vitest'
 
 afterAll(async () => {
-  await stopMocking() // 此方法在所有测试运行之后被调用。
+  await stopMocking() // 此方法在所有测试运行之后被调用
 })
 ```
 

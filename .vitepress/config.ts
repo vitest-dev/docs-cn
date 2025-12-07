@@ -37,7 +37,7 @@ export default ({ mode }: { mode: string }) => {
       en: {
         label: 'English',
         lang: 'en',
-        link: 'https://vitest.dev/',
+        link: 'https://v2.vitest.dev/',
       },
     },
     head: [
