@@ -94,7 +94,7 @@ test('element exists', async () => {
 ```
 
 ::: warning
-`expect.poll` 使每个断言变为异步，因此我们需要等待它。自 Vitest 3 起，如果我们忘记等待，测试将以警告失败，提示我们需要这样做。
+`expect.poll` 使每个断言变为异步，因此我们需要等待它。自 Vitest 3 起，如果我们忘记添加 await，测试将以警告失败，测试将失败并显示警告提示。
 
 `expect.poll` 不适用于多个匹配器：
 
@@ -483,10 +483,10 @@ test('stocks are not the same', () => {
 对于 `Error` 对象，非可枚举属性如 `name`、`message`、`cause` 和 `AggregateError.errors` 也会进行比较。对于 `Error.cause`，比较是不对称的：
 
 ```ts
-// success
+// 成功
 expect(new Error('hi', { cause: 'x' })).toEqual(new Error('hi'))
 
-// fail
+// 失败
 expect(new Error('hi')).toEqual(new Error('hi', { cause: 'x' }))
 ```
 
@@ -570,7 +570,7 @@ test('toHaveLength', () => {
   expect('abc').toHaveLength(3)
   expect([1, 2, 3]).toHaveLength(3)
 
-  expect('').not.toHaveLength(3) // doesn't have .length of 3
+  expect('').not.toHaveLength(3) // length 不等于3
   expect({ length: 3 }).toHaveLength(3)
 })
 ```
@@ -642,7 +642,7 @@ import { expect, test } from 'vitest'
 
 test('top fruits', () => {
   expect('top fruits include apple, orange and grape').toMatch(/apple/)
-  expect('applefruits').toMatch('fruit') // toMatch also accepts a string
+  expect('applefruits').toMatch('fruit') // toMatch 同样支持字符串匹配
 })
 ```
 
@@ -690,7 +690,7 @@ test('invoice has john personal details', () => {
 })
 
 test('the number of elements must match exactly', () => {
-  // Assert that an array of object matches
+  // 断言对象数组的匹配情况
   expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
     { foo: 'bar' },
     { baz: 1 },
@@ -1071,7 +1071,7 @@ test('first call of spy function called with right params', () => {
 
 - **类型**: `() => Awaitable<void>`
 
-这个断言检查函数是否至少成功返回了一次值（ i.e. ，没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
+这个断言检查函数是否至少成功返回了一次值（即没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1095,7 +1095,7 @@ test('spy function returned a value', () => {
 
 - **类型**: `(amount: number) => Awaitable<void>`
 
-这个断言检查函数是否在确切的次数内成功返回了值（ i.e. ，没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
+这个断言检查函数是否在确切的次数内成功返回了值（即没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1170,7 +1170,7 @@ test('spy function returns bananas on second call', () => {
 
 - **类型**: `() => Awaitable<void>`
 
-这个断言检查函数是否至少一次成功地解析了一个值（ i.e. ，没有被拒绝）。需要将一个 spy 函数传递给 `expect`。
+这个断言检查函数是否至少一次成功地解析了一个值（即没有被拒绝）。需要将一个 spy 函数传递给 `expect`。
 
 如果函数返回了一个 promise ，但它还没有被解决，这个断言将会失败。
 
