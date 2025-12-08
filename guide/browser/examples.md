@@ -32,10 +32,10 @@ import Component from './Component.vue'
 test('properly handles v-model', async () => {
   render(Component)
 
-  // 断言初始状态。
+  // 断言初始状态
   expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 
-  // 通过查询关联的标签获取输入的 DOM 节点。
+  // 通过查询关联的标签获取输入框的 DOM 节点。
   const usernameInput = await screen.findByLabelText(/username/i)
 
   // 将名称输入到输入框中。
