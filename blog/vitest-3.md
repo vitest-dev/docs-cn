@@ -1,7 +1,7 @@
 ---
 title: Vitest 3.0 发布了!
 author:
-  name: The Vitest Team
+  name: Vitest 团队
 date: 2025-01-17
 sidebar: false
 head:
@@ -13,13 +13,13 @@ head:
       content: Vitest 3.0 发布了!
   - - meta
     - property: og:image
-      content: https://vitest.dev/og-vitest-3.jpg
+      content: https://cn.vitest.dev/og-vitest-3.jpg
   - - meta
     - property: og:url
-      content: https://vitest.dev/blog/vitest-3
+      content: https://cn.vitest.dev/blog/vitest-3
   - - meta
     - property: og:description
-      content: Vitest 3.0 Release Announcement
+      content: Vitest 3.0 发布公告
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -27,9 +27,9 @@ head:
 
 # Vitest 3.0 发布了!
 
-_January 17, 2025_
+_2025 年 1 月 17 日_
 
-![Vitest 3 Announcement Cover Image](/og-vitest-3.jpg)
+![Vitest 3 公告封面图](/og-vitest-3.jpg)
 
 我们在半年前发布了 Vitest 2。我们见证了它被广泛采用，每周 npm 下载量从 480 万次增长到 770 万次。我们的生态系统也在快速发展。其中包括，Storybook 新的测试功能由我们的 VS Code 扩展和浏览器模式提供支持，以及 Matt Pocock 正在基于 Vitest 开发 Evalite，这是一个用于评估 AI 驱动应用的工具。
 

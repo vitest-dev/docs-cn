@@ -2,7 +2,7 @@
 import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
-    // "test.workspace" is now "test.projects"
+    // "test.workspace" 现已更名为 "test.projects"
     workspace: [ // [!code --]
     projects: [ // [!code ++]
       { test: { name: "Unit" } },

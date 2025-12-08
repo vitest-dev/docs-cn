@@ -25,7 +25,7 @@ vitest --browser.trace=on
 ```
 :::
 
-默认情况下，Vitest 会为每个测试生成一个追踪文件。你也可以通过将 `trace` 设置为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'` 来配置仅在测试失败时生成追踪。文件将保存在测试文件旁边的 `__traces__` 文件夹中。追踪文件的名称包括项目名称、测试名称、[`repeats` 次数和 `retry` 次数](/api/#test-api-reference)：
+默认情况下，Vitest 会为每个测试生成一个追踪文件。你也可以通过设置 `trace` 为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'` 来配置仅在测试失败时生成追踪。这些文件将保存在测试文件相邻的 `__traces__` 文件夹中。追踪文件的名称包括项目名称、测试名称、[`repeats` 次数和 `retry` 次数](/api/#test-api-reference)：
 
 ```
 chromium-my-test-0-0.trace.zip
@@ -35,7 +35,7 @@ chromium-my-test-0-0.trace.zip
                   ^ 重试次数
 ```
 
-要更改输出目录，可以在 `test.browser.trace` 配置中设置 `tracesDir` 选项。这样所有追踪文件将存储在同一目录中，按测试文件分组。
+要更改输出目录，可以在 `test.browser.trace` 配置中设置 `tracesDir` 选项。这样所有追踪文件将按测试文件分组存储在同一目录中。
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -47,7 +47,7 @@ export default defineConfig({
       provider: playwright(),
       trace: {
         mode: 'on',
-        // the path is relative to the root of the project
+        // 路径相对于项目根目录
         tracesDir: './playwright-traces',
       },
     },
@@ -55,7 +55,7 @@ export default defineConfig({
 })
 ```
 
-追踪文件在报告器中作为 [annotations](/guide/test-annotations) 提供。例如，在 HTML 报告器中，你可以在测试详情中找到追踪文件的链接。
+追踪文件在报告器中作为 [注释](/guide/test-annotations) 形式呈现。例如，在 HTML 报告器中，你可以在测试详情页中找到追踪文件的链接。
 
 ## 预览 {#preview}
 
