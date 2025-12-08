@@ -43,9 +43,9 @@ Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包
 
 <!--@include: ../guide/examples/projects-workspace.md-->
 
-## 注解 API {#annotation-api}
+## 注释 API {#annotation-api}
 
-新的[注解 API](/guide/test-annotations) 允许你为任何测试添加自定义消息和附件。这些注解在 UI、HTML、junit、tap 和 GitHub Actions 报告器中可见。如果测试失败，Vitest 还会在 CLI 中打印相关注解。
+新的 [注解 API](/guide/test-annotations) 允许你为任何测试添加自定义消息和附件。这些注解在 UI、HTML、junit、tap 和 GitHub Actions 报告器中可见。如果测试失败，Vitest 还会在 CLI 中打印相关注解。
 
 <img src="/annotation-api-cute-puppy-example.png" />
 
@@ -68,11 +68,11 @@ const test = baseTest.extend({
 
 `file` 固定装置类似于在文件顶层使用 `beforeAll` 和 `afterAll`，但如果没有任何测试使用该固定装置，它就不会被调用。
 
-`worker` 固定装置在每个 worker 中初始化一次，但请注意，默认情况下 Vitest 为每个测试创建一个 worker，因此你需要禁用 [isolation](/config/#isolate) 才能从中受益。
+`worker` 固定装置在每个工作线程中仅初始化一次。但请注意，需注意：默认情况下 Vitest 为每个测试创建独立工作线程，因此需要禁用 [隔离模式](/config/#isolate) 才能生效。
 
 ## 自定义项目名称颜色 {#custom-project-name-colors}
 
-使用 `projects` 时，你现在可以设置自定义[颜色](/config/#name)：
+使用 `projects` 时，你现在可以设置自定义 [颜色](/config/#name)：
 
 ::: details 配置示例
 ```ts{6-9,14-17}
@@ -110,7 +110,7 @@ export default defineConfig({
 
 ## 自定义浏览器定位器 API {#custom-browser-locators-api}
 
-内置定位器可能不足以表达你的应用需求。与其回退到 CSS 并失去 Vitest 通过其定位器 API 提供的重试保护，我们现在推荐使用新的 [`locators.extend` API](/guide/browser/locators#custom-locators) 来扩展定位器。
+当内置定位器无法满足应用需求时。与其降级使用 CSS 选择器，并牺牲 Vitest 定位器 API 提供的重试保护机制，不如推荐你使用 [`locators.extend` API](/guide/browser/locators#custom-locators) 扩展定位器。
 
 ```ts
 import { locators } from '@vitest/browser/context'
@@ -253,7 +253,7 @@ declare module 'vitest' {
 expect.extend({
   toBeFoo(actual, arg) {
     //            ^?
-    // ... 实现
+    // 具体实现...
     return {
       pass: true,
       message: () => '',
@@ -265,7 +265,7 @@ expect('foo').toBeFoo('foo')
 expect.toBeFoo('foo')
 ```
 
-## `sequence.groupOrder` {#sequence-grouporder}
+## `sequence.groupOrder`
 
 新的 [`sequence.groupOrder`](/config/#grouporder) 选项控制在使用多个 [projects](/guide/projects) 时项目运行测试的顺序。
 
