@@ -134,7 +134,7 @@ await expect.element(
 ).toBeVisible()
 ```
 
-如果此方法返回字符串，返回值将被转换为定位器，因此你可以继续链式调用：
+如果此方法返回字符串，返回值将被转换为定位器对象，因此你可以继续链式调用：
 
 ```ts
 page.getByRole('article', { name: 'Hello World' })
