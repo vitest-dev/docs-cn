@@ -308,8 +308,8 @@ function toBeInViewport(options: { ratio?: number }): Promise<void>
 
 你可以通过参数 `ratio`，将视口中元素的最小比例设置为 `ratio`。`ratio` 的取值范围为 0~1。
 
-该方法通过 IntersectionObserver API检测元素是否位于当前视口内。
-可通过 ratio参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
+该方法通过 IntersectionObserver API 检测元素是否位于当前视口内。
+可通过 ratio 参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
 ```ts
 // 检测指定元素是否在视口中
 await expect.element(page.getByText('Welcome')).toBeInViewport()
