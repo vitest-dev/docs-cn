@@ -176,7 +176,7 @@ await page.getByRole('textbox').clickAndFill('Hello World')
 
 ## `vi.spyOn` 和 `vi.fn` 中的显式资源管理 {#explicit-resource-management-in-vi-spyon-and-vi-fn}
 
-在支持[显式资源管理](https://github.com/tc39/proposal-explicit-resource-management)的环境中，你可以使用 `using` 而不是 `const`，以便在包含块退出时自动对任何模拟函数调用 `mockRestore`。这对于监听方法特别有用：
+在支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) 的环境中，你可以使用 `using` 而不是 `const`，以便在包含块退出时自动对任何模拟函数调用 `mockRestore`。这对于监听方法特别有用：
 
 ```ts
 it('calls console.log', () => {
