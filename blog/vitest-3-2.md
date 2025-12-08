@@ -1,7 +1,7 @@
 ---
-title: Vitest 3.2 is out!
+title: Vitest 3.2 发布了！
 author:
-  name: The Vitest Team
+  name: Vitest 团队
 date: 2025-06-02
 sidebar: false
 head:
@@ -10,48 +10,48 @@ head:
       content: website
   - - meta
     - property: og:title
-      content: Announcing Vitest 3.2
+      content: Vitest 3.2 发布了
   - - meta
     - property: og:image
-      content: https://vitest.dev/og-vitest-3-2.png
+      content: https://cn.vitest.dev/og-vitest-3-2.png
   - - meta
     - property: og:url
-      content: https://vitest.dev/blog/vitest-3-2
+      content: https://cn.vitest.dev/blog/vitest-3-2
   - - meta
     - property: og:description
-      content: Vitest 3.2 Release Announcement
+      content: Vitest 3.2 发布公告
   - - meta
     - name: twitter:card
       content: summary_large_image
 ---
 
-# Vitest 3.2 is out!
+# Vitest 3.2 发布了！
 
-_June 2, 2025_
+_2025 年 6 月 2 日_
 
-![Vitest 3.2 Announcement Cover Image](/og-vitest-3-2.png)
+![Vitest 3.2 公告封面图](/og-vitest-3-2.png)
 
-Vitest 3.2 focuses on improvements to Browser Mode and TypeScript support. This release also includes some new useful methods, config options and deprecates the `workspace` config in favour of `projects`.
+Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包含一些新的实用方法、配置选项，并弃用了 `workspace` 配置，转而推荐使用 `projects`。
 
-## `workspace` is Deprecated
+## `workspace` 已弃用 {#workspace-is-deprecated}
 
-In an effort to simplify the configuration, the team decided to deprecate the separate `vitest.workspace` file and recommend using only the `projects` option in the root config. This also simplifies how the global options are configured (because you don't need to guess how to add reporters when you have no root config).
+为了简化配置，团队决定弃用单独的 `vitest.workspace` 文件，推荐仅在根配置中使用 `projects` 选项。这也简化了全局选项的配置方式（因为当你没有根配置时，不需要再猜测如何添加报告器）。
 
-We also decided to deprecate the `workspace` name because it clashes with other tools like PNPM that provide monorepo support via this option. Vitest doesn't run these projects with separate `CWD` and treats them more like sub-Vitests. It also gives us more space to come up with a better solution for monorepos without breaking others.
+我们还决定弃用 `workspace` 这个名称，因为它与 PNPM 等工具通过该选项提供 monorepo 支持功能存在冲突。Vitest 不会为这些项目分配独立的 `工作目录（CWD）`，而是将其视为子 Vitest 实例。这也为我们提供了更多空间，以便在不破坏其他功能的情况下为 monorepo 提供更好的解决方案。
 
-This option will be removed completely in a future major, replaced by `projects`. Until then, Vitest will print a warning if workspace feature is used.
+此选项将在未来的主版本中完全移除，由 `projects` 取代。在此之前，如果使用了 workspace 功能，Vitest 将打印警告。
 
 <!--@include: ../guide/examples/projects-workspace.md-->
 
-## Annotation API
+## 注释 API {#annotation-api}
 
-The new [annotation API](/guide/test-annotations) allows you to annotate any test with a custom message and attachment. These annotations are visible in the UI, HTML, junit, tap and GitHub Actions reporters. Vitest will also print related annotation in the CLI if the test fails.
+新的 [注释 API](/guide/test-annotations) 允许你为任何测试添加自定义消息和附件。这些注释在 UI、HTML、junit、tap 和 GitHub Actions 报告器中可见。如果测试失败，Vitest 还会在 CLI 中打印相关注释。
 
 <img src="/annotation-api-cute-puppy-example.png" />
 
-## Scoped Fixtures
+## 作用域固定装置 {#scoped-fixtures}
 
-The `test.extend` fixtures can now specify the `scope` option: either `file` or `worker`.
+`test.extend` 固定装置现在可以指定 `scope` 选项：`file` 或 `worker`。
 
 ```ts
 const test = baseTest.extend({
@@ -66,15 +66,15 @@ const test = baseTest.extend({
 })
 ```
 
-The file fixture is similar to using `beforeAll` and `afterAll` at the top level of the file, but it won't be called if the fixture is not used in any test.
+`file` 固定装置类似于在文件顶层使用 `beforeAll` 和 `afterAll`，但如果没有任何测试使用该固定装置，它就不会被调用。
 
-The `worker` fixture is initiated once per worker, but note that by default Vitest creates one worker for every test, so you need to disable [isolation](/config/#isolate) to benefit from it.
+`worker` 固定装置在每个工作线程中仅初始化一次。但请注意，默认情况下 Vitest 为每个测试创建独立工作线程，因此需要禁用 [隔离模式](/config/#isolate) 才能生效。
 
-## Custom Project Name Colors
+## 自定义项目名称颜色 {#custom-project-name-colors}
 
-You can now set a custom [color](/config/#name) when using `projects`:
+使用 `projects` 时，你现在可以设置自定义 [颜色](/config/#name)：
 
-::: details Config Example
+::: details 配置示例
 ```ts{6-9,14-17}
 export default defineConfig({
   test: {
@@ -108,9 +108,9 @@ export default defineConfig({
 
 <img src="/v3-2-custom-colors.png" />
 
-## Custom Browser Locators API
+## 自定义浏览器定位器 API {#custom-browser-locators-api}
 
-Built-in locators might not be enough to express your application’s needs. Instead of falling back to CSS and losing the retry-ability protection that Vitest provides through its locator API, we now recommend extending locators using the new [`locators.extend` API](/guide/browser/locators#custom-locators).
+当内置定位器无法满足应用需求时。与其降级使用 CSS 选择器，并牺牲 Vitest 定位器 API 提供的重试保护机制，不如推荐你使用 [`locators.extend` API](/guide/browser/locators#custom-locators) 扩展定位器。
 
 ```ts
 import { locators } from '@vitest/browser/context'
@@ -122,9 +122,9 @@ locators.extend({
 })
 ```
 
-Return a Playwright [locator string](https://playwright.dev/docs/other-locators) to construct a new locator. Note that string returned from this method will be scoped to the parent locator, if there is one.
+返回 Playwright [定位器字符串](https://playwright.dev/docs/other-locators)来构造新的定位器。请注意，从此方法返回的字符串将用作于父定位器范围内（如果有的话）。
 
-Now you can call `getByCommentsCount` on the `page` or any other locator directly:
+现在你可以直接在 `page` 对象或任何其他定位器上调用 `getByCommentsCount`：
 
 ```ts
 await expect.element(page.getByCommentsCount(1)).toBeVisible()
@@ -134,7 +134,7 @@ await expect.element(
 ).toBeVisible()
 ```
 
-If this method returns a string, then the return value will be converted into a locator, so you can keep chaining it:
+如果此方法返回字符串，返回值将被转换为定位器对象，因此你可以继续链式调用：
 
 ```ts
 page.getByRole('article', { name: 'Hello World' })
@@ -142,7 +142,7 @@ page.getByRole('article', { name: 'Hello World' })
   .getByText('comments')
 ```
 
-This method has access to the current locator context, if there is one (if method is called on the `page`, then context will refer to `page`), so you can chain all locator methods inside:
+此方法可以访问当前的定位器上下文（如果有的话，在 `page` 对象上调用时，则上下文指向 `page`），因此你可以在内部链式调用所有定位器方法：
 
 ```ts
 import type { Locator } from '@vitest/browser/context'
@@ -156,7 +156,7 @@ locators.extend({
 })
 ```
 
-Having access to context also allows you to call regular methods of the locator to define a custom user event:
+通过访问上下文，你还可以调用定位器的常规方法来定义自定义用户事件：
 
 ```ts
 import type { Locator } from '@vitest/browser/context'
@@ -172,11 +172,11 @@ locators.extend({
 await page.getByRole('textbox').clickAndFill('Hello World')
 ```
 
-Please, refer to the [`locators.extend` API](/guide/browser/locators#custom-locators) for more information.
+请参阅 [`locators.extend` API](/guide/browser/locators#custom-locators) 获取更多信息。
 
-## Explicit Resource Management in `vi.spyOn` and `vi.fn`
+## `vi.spyOn` 和 `vi.fn` 中的显式资源管理 {#explicit-resource-management-in-vi-spyon-and-vi-fn}
 
-In environments that support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management), you can use `using` instead of `const` to automatically call `mockRestore` on any mocked function when the containing block is exited. This is especially useful for spied methods:
+在支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) 的环境中，你可以使用 `using` 代替 `const`，以便在包含块退出时自动对任何模拟函数调用 `mockRestore`。这对于监听方法特别有用：
 
 ```ts
 it('calls console.log', () => {
@@ -185,16 +185,16 @@ it('calls console.log', () => {
   expect(spy).toHaveBeenCalled()
 })
 
-// console.log is restored here
+// console.log 在此处还原
 ```
 
-## Test `signal` API
+## 测试 `signal` API {#test-signal-api}
 
-Vitest now provides an [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) object to the test body. You can use it to stop any resource that supports this Web API.
+Vitest 现在向测试主体提供一个 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) 对象。你可以使用它来停止任何支持此 Web API 的资源。
 
-The signal is aborted when test times out, another test fails and [`--bail` flag](/config/#bail) is set to a non-zero value, or the user presses Ctrl+C in the terminal.
+当测试超时、其他测试失败且 [`--bail` 标志](/config/#bail) 设置为非零值，或者用户在终端中按下 Ctrl+C 时，信号会被中止。
 
-For example, you can stop a `fetch` request when tests are interrupted:
+例如，你可以在测试中断时停止 `fetch` 请求：
 
 ```ts
 it('stop request when test times out', async ({ signal }) => {
@@ -202,17 +202,17 @@ it('stop request when test times out', async ({ signal }) => {
 }, 2000)
 ```
 
-## Coverage V8 AST-aware remapping
+## Coverage V8 AST 感知重映射 {#coverage-v8-ast-aware-remapping}
 
-Vitest now uses `ast-v8-to-istanbul` package developed by one of the Vitest maintainers, [AriPerkkio](https://github.com/AriPerkkio). This brings v8 coverage report in line with istanbul, but has a better performance! Enable this feature by setting [`coverage.experimentalAstAwareRemapping`](/config/#coverage-experimentalastawareremapping) to `true`.
+Vitest 现在使用由 Vitest 维护者之一 [AriPerkkio](https://github.com/AriPerkkio) 开发的 `ast-v8-to-istanbul` 包。这使 v8 覆盖率报告与 istanbul 保持一致，但性能更好！通过将 [`coverage.experimentalAstAwareRemapping`](/config/#coverage-experimentalastawareremapping) 设置为 `true` 来启用此功能。
 
-We are planning to make this the default remapping mode in the next major. The old `v8-to-istanbul` will be removed completely. Feel free to join discussion at https://github.com/vitest-dev/vitest/issues/7928.
+我们计划在下一个主版本中将此作为默认重映射模式。旧的 `v8-to-istanbul` 将被完全移除。欢迎在 https://github.com/vitest-dev/vitest/issues/7928 参与讨论。
 
-## `watchTriggerPatterns` Option
+## `watchTriggerPatterns` 选项 {#watchtriggerpatterns-option}
 
-When you edit a file, Vitest is smart enough to rerun only tests that import this file. Unfortunately, Vitest static analysis respects only static and dynamic `import` statement. If you are reading a file or starting a separate process, Vitest will ignore changes to related files.
+当你编辑文件时，Vitest 会智能地仅重新运行导入该文件的测试。遗憾的是，Vitest 的静态分析只支持静态和动态 `import` 语句。如果你通过文件读取或启动单独的进程，Vitest 将忽略相关文件的更改。
 
-With `watchTriggerPatterns` option you can configure which tests to rerun depending on the file that was changed. For example, to always rerun `mailers` tests when a template is changed, add a trigger pattern:
+使用 `watchTriggerPatterns` 选项，你可以配置根据更改的文件重新运行哪些测试。例如，如果想要在更改模板时始终重新运行 `mailers` 测试，可以添加一个触发模式：
 
 ```ts
 export default defineConfig({
@@ -229,15 +229,15 @@ export default defineConfig({
 })
 ```
 
-## The New Multi-Purpose `Matchers` Type
+## 新的多用途 `Matchers` 类型 {#the-new-multi-purpose-matchers-type}
 
-Vitest now has a `Matchers` type that you can extend to add type support for all your custom matchers in one place. This type affects all these use cases:
+Vitest 现在有一个 `Matchers` 类型，你可以扩展它来在一个地方为所有自定义匹配器添加类型支持。此类型影响以下所有用例：
 
 - `expect().to*`
 - `expect.to*`
 - `expect.extend({ to* })`
 
-For example, to have a type-safe `toBeFoo` matcher, you can write something like this:
+例如，要拥有一个类型安全的 `toBeFoo` 匹配器，你可以这样写：
 
 ```ts twoslash
 import { expect } from 'vitest'
@@ -253,7 +253,7 @@ declare module 'vitest' {
 expect.extend({
   toBeFoo(actual, arg) {
     //            ^?
-    // ... implementation
+    // 具体实现...
     return {
       pass: true,
       message: () => '',
@@ -267,14 +267,14 @@ expect.toBeFoo('foo')
 
 ## `sequence.groupOrder`
 
-The new [`sequence.groupOrder`](/config/#grouporder) option controls the order in which the project runs its tests when using multiple [projects](/guide/projects).
+新的 [`sequence.groupOrder`](/config/#grouporder) 选项控制在使用多个 [projects](/guide/projects) 时项目测试执行的顺序。
 
-- Projects with the same group order number will run together, and groups are run from lowest to highest.
-- If you don’t set this option, all projects run in parallel.
-- If several projects use the same group order, they will run at the same time.
+- 具有相同分组序号的测试项目将并行运行，各组按序号从低到高依次执行。
+- 若未设置此选项，所有项目将默认并行执行。
+- 当多个项目使用相同分组序号时，它们将同时执行。
 
-::: details Example
-Consider this example:
+::: details 示例
+考虑这个例子：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -311,17 +311,17 @@ export default defineConfig({
 })
 ```
 
-Tests in these projects will run in this order:
+这些项目中的测试将按以下顺序运行：
 
 ```
  0. slow  |
-          |> running together
+          |> 并行执行
  0. fast  |
 
- 1. flaky |> runs after slow and fast alone
+ 1. flaky |> 在 slow 和 fast 之后单独运行
 ```
 :::
 
 ----
 
-The complete list of changes is at the [Vitest 3.2 Changelog](https://github.com/vitest-dev/vitest/releases/tag/v3.2.0).
+完整的更改列表请查看 [Vitest 3.2 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.2.0)。
