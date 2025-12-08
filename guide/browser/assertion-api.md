@@ -304,9 +304,9 @@ await expect.element(
 function toBeInViewport(options: { ratio?: number }): Promise<void>
 ```
 
-允许你通过 [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) 检查元素是否在当前视口中
+允许你通过 [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) 检查元素是否在当前视口中。
 
-你可以通过参数 `ratio` ，将视口中元素的最小比例设置为 `ratio` 。`ratio` 的取值范围为 0~1
+你可以通过参数 `ratio`，将视口中元素的最小比例设置为 `ratio`。`ratio` 的取值范围为 0~1。
 
 该方法通过 IntersectionObserver API检测元素是否位于当前视口内。
 可通过 ratio参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
