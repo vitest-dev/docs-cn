@@ -3,20 +3,20 @@ title: Browser Mode | Guide
 outline: deep
 ---
 
-# 浏览器模式 <Badge type="warning">实验性</Badge> {#browser-mode}
+# Browser Mode {#browser-mode}
 
-此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
+This page provides information about the browser mode feature in the Vitest API, which allows you to run your tests in the browser natively, providing access to browser globals like window and document.
 
 ::: tip
-如果你需要 `expect` 、`vi` ，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
+If you are looking for documentation for `expect`, `vi` or any general API like test projects or type testing, refer to the ["Getting Started" guide](/guide/).
 :::
 
 <img alt="Vitest UI" img-light src="/ui-browser-1-light.png">
 <img alt="Vitest UI" img-dark src="/ui-browser-1-dark.png">
 
-## 安装 {#installation}
+## Installation
 
-为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
+For easier setup, you can use `vitest init browser` command to install required dependencies and create browser configuration.
 
 ::: code-group
 ```bash [npm]
@@ -33,69 +33,71 @@ bunx vitest init browser
 ```
 :::
 
-### 手动安装 {#manual-installation}
+### Manual Installation
 
-我们也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的端到端 provider 就能在本地运行测试，因为它会复用你现有的浏览器。
+You can also install packages manually. Vitest always requires a provider to be defined. You can chose either [`preview`](/config/browser/preview), [`playwright`](/config/browser/playwright) or [`webdriverio`](/config/browser/webdriverio).
+
+If you want to just preview how your tests look, you can use the `preview` provider:
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser
+npm install -D vitest @vitest/browser-preview
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser
+yarn add -D vitest @vitest/browser-preview
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser
+pnpm add -D vitest @vitest/browser-preview
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser
+bun add -D vitest @vitest/browser-preview
 ```
 :::
 
 ::: warning
-不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
+However, to run tests in CI you need to install either [`playwright`](https://npmjs.com/package/playwright) or [`webdriverio`](https://www.npmjs.com/package/webdriverio). We also recommend switching to either one of them for testing locally instead of using the default `preview` provider since it relies on simulating events instead of using Chrome DevTools Protocol.
 
-如果我们尚未使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，这可以使我们的测试运行得更快。此外，Playwright 使用的是 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) ，通常比 WebDriver 更快。
+If you don't already use one of these tools, we recommend starting with Playwright because it supports parallel execution, which makes your tests run faster.
 
 ::: tabs key:provider
 == Playwright
-[Playwright](https://npmjs.com/package/playwright) 是一个用于网络测试和自动化的框架。
+[Playwright](https://npmjs.com/package/playwright) is a framework for Web Testing and Automation.
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser playwright
+npm install -D vitest @vitest/browser-playwright
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser playwright
+yarn add -D vitest @vitest/browser-playwright
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser playwright
+pnpm add -D vitest @vitest/browser-playwright
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser playwright
+bun add -D vitest @vitest/browser-playwright
 ```
 == WebdriverIO
 
-[WebdriverIO](https://www.npmjs.com/package/webdriverio) 允许我们使用 WebDriver 协议在本地运行测试。
+[WebdriverIO](https://www.npmjs.com/package/webdriverio) allows you to run tests locally using the WebDriver protocol.
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser webdriverio
+npm install -D vitest @vitest/browser-webdriverio
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser webdriverio
+yarn add -D vitest @vitest/browser-webdriverio
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser webdriverio
+pnpm add -D vitest @vitest/browser-webdriverio
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser webdriverio
+bun add -D vitest @vitest/browser-webdriverio
 ```
 :::
 
-## 配置 {#configuration}
+## Configuration
 
-想要在 Vitest 中启用浏览器模式，只需在配置文件中将 `browser.enabled` 设置为 true。下面是一个使用 browser 配置的示例：
+To activate browser mode in your Vitest configuration, set the `browser.enabled` field to `true` in your Vitest configuration file. Here is an example configuration using the browser field:
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -106,7 +108,7 @@ export default defineConfig({
     browser: {
       provider: playwright(),
       enabled: true,
-      // 至少需要一个实例
+      // at least one instance is required
       instances: [
         { browser: 'chromium' },
       ],
@@ -116,15 +118,16 @@ export default defineConfig({
 ```
 
 ::: info
-Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`browser.api`](/config/#browser-api) 选项来更改这个端口号。
+Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel. You can change that with the [`browser.api`](/config/#browser-api) option.
 
-自 Vitest 2.1.5 版本起，命令行界面（CLI）不再自动打印 Vite 的 URL。当我们在观察模式下运行时，可以通过按 "b" 键来打印 URL。
+The CLI does not prints the Vite server URL automatically. You can press "b" to print the URL when running in watch mode.
 :::
 
-如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
+If you have not used Vite before, make sure you have your framework's plugin installed and specified in the config. Some frameworks might require extra configuration to work - check their Vite related documentation to be sure.
 
 ::: code-group
 ```ts [react]
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
 
@@ -160,6 +163,7 @@ export default defineConfig({
 })
 ```
 ```ts [svelte]
+import { defineConfig } from 'vitest/config'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { playwright } from '@vitest/browser-playwright'
 
@@ -177,6 +181,7 @@ export default defineConfig({
 })
 ```
 ```ts [solid]
+import { defineConfig } from 'vitest/config'
 import solidPlugin from 'vite-plugin-solid'
 import { playwright } from '@vitest/browser-playwright'
 
@@ -194,6 +199,7 @@ export default defineConfig({
 })
 ```
 ```ts [marko]
+import { defineConfig } from 'vitest/config'
 import marko from '@marko/vite'
 import { playwright } from '@vitest/browser-playwright'
 
@@ -211,13 +217,12 @@ export default defineConfig({
 })
 ```
 ```ts [qwik]
+import { defineConfig } from 'vitest/config'
 import { qwikVite } from '@builder.io/qwik/optimizer'
 import { playwright } from '@vitest/browser-playwright'
 
-// 可选项，在 SSR 模式下运行测试
+// optional, run the tests in SSR mode
 import { testSSR } from 'vitest-browser-qwik/ssr-plugin'
-
-import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [testSSR(), qwikVite()],
@@ -232,7 +237,7 @@ export default defineConfig({
 ```
 :::
 
-如果你想让部分测试通过基于 Node 的运行器执行，可以在配置中使用 [`projects`](/guide/projects) 选项，并为不同的测试策略提供独立的配置：
+If you need to run some tests using Node-based runner, you can define a [`projects`](/guide/projects) option with separate configurations for different testing strategies:
 
 {#projects-config}
 
@@ -245,8 +250,8 @@ export default defineConfig({
     projects: [
       {
         test: {
-          // 基于文件命名约定的示例
-          // 非强制要求
+          // an example of file based convention,
+          // you don't have to follow it
           include: [
             'tests/unit/**/*.{test,spec}.ts',
             'tests/**/*.unit.{test,spec}.ts',
@@ -257,8 +262,8 @@ export default defineConfig({
       },
       {
         test: {
-          // 基于文件命名约定的示例
-          // 非强制要求
+          // an example of file based convention,
+          // you don't have to follow it
           include: [
             'tests/browser/**/*.{test,spec}.ts',
             'tests/**/*.browser.{test,spec}.ts',
@@ -278,57 +283,60 @@ export default defineConfig({
 })
 ```
 
-## 浏览器选项类型 {#browser-option-types}
+## Browser Option Types
 
-Vitest 中的浏览器选项取决于 provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
-- `webdriverio` 支持这些浏览器:
+The browser option in Vitest depends on the provider. Vitest will fail, if you pass `--browser` and don't specify its name in the config file. Available options:
+
+- `webdriverio` supports these browsers:
   - `firefox`
   - `chrome`
   - `edge`
   - `safari`
-- `playwright` 支持这些浏览器:
+- `playwright` supports these browsers:
   - `firefox`
   - `webkit`
   - `chromium`
 
-## 浏览器兼容性 {#browser-compatibility}
+## Browser Compatibility
 
-Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行我们的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
+Vitest uses [Vite dev server](https://vitejs.dev/guide/#browser-support) to run your tests, so we only support features specified in the [`esbuild.target`](https://vitejs.dev/config/shared-options.html#esbuild) option (`esnext` by default).
 
-默认情况下，Vite 的目标浏览器支持原生 [ES Modules](https://caniuse.com/es6-module)、原生 [ESM 动态导入](https://caniuse.com/es6-module-dynamic-import) 和 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel)在 iframe 之间进行通信：
+By default, Vite targets browsers which support the native [ES Modules](https://caniuse.com/es6-module), native [ESM dynamic import](https://caniuse.com/es6-module-dynamic-import), and [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta). On top of that, we utilize [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel) to communicate between iframes:
 
 - Chrome >=87
 - Firefox >=78
 - Safari >=15.4
 - Edge >=88
 
-## 运行测试 {#running-tests}
+## Running Tests
 
-要使用 CLI 指定浏览器，请使用 `--browser` 标志后跟浏览器名称，如下所示：
+When you specify a browser name in the browser option, Vitest will try to run the specified browser using `preview` by default, and then run the tests there. If you don't want to use `preview`, you can configure the custom browser provider by using `browser.provider` option.
+
+To specify a browser using the CLI, use the `--browser` flag followed by the browser name, like this:
 
 ```sh
 npx vitest --browser=chromium
 ```
 
-或者你可以使用点符号向 CLI 提供浏览器选项：
+Or you can provide browser options to CLI with dot notation:
 
 ```sh
 npx vitest --browser.headless
 ```
 
 ::: warning
-自 Vitest 3.2 起，如果你在配置文件中没有设置 browser 选项，却在命令行中使用了 `--browser` 参数， Vitest 会直接报错，因为它无法确定当前配置是为浏览器测试准备的还是用于 Node.js 测试。
+Since Vitest 3.2, if you don't have the `browser` option in your config but specify the `--browser` flag, Vitest will fail because it can't assume that config is meant for the browser and not Node.js tests.
 :::
 
-Vitest 默认会在开发模式下自动打开浏览器界面，测试会在页面中央的 iframe 中执行。你可以通过选择界面中的预设尺寸、在测试中调用 `page.viewport` 方法，或者在 [配置文件](/config/#browser-viewport) 中设置默认值来调整视口大小。
+By default, Vitest will automatically open the browser UI for development. Your tests will run inside an iframe in the center. You can configure the viewport by selecting the preferred dimensions, calling `page.viewport` inside the test, or setting default values in [the config](/config/#browser-viewport).
 
-## 无头模式 {#headless}
+## Headless
 
-无头模式是浏览器模式下可用的另一个选项。在无头模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用无头模式。
+Headless mode is another option available in the browser mode. In headless mode, the browser runs in the background without a user interface, which makes it useful for running automated tests. The headless option in Vitest can be set to a boolean value to enable or disable headless mode.
 
-在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 标志。
+When using headless mode, Vitest won't open the UI automatically. If you want to continue using the UI but have tests run headlessly, you can install the [`@vitest/ui`](/guide/ui) package and pass the `--ui` flag when running Vitest.
 
-这是启用无头模式的示例配置：
+Here's an example configuration enabling headless mode:
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -345,21 +353,21 @@ export default defineConfig({
 })
 ```
 
-你还可以在 CLI 中使用 `--browser.headless` 标志设置无头模式，如下所示：
+You can also set headless mode using the `--browser.headless` flag in the CLI, like this:
 
 ```sh
 npx vitest --browser.headless
 ```
 
-在这种情况下，Vitest 将使用 Chrome 浏览器以无头模式运行。
+In this case, Vitest will run in headless mode using the Chrome browser.
 
 ::: warning
-默认情况下Headless模式不可用。我们需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
+Headless mode is not available by default. You need to use either [`playwright`](https://npmjs.com/package/playwright) or [`webdriverio`](https://www.npmjs.com/package/webdriverio) providers to enable this feature.
 :::
 
-## 示例 {#examples}
+## Examples
 
-一般情况下，我们不需要任何依赖来使用浏览器模式：
+By default, you don't need any external packages to work with the Browser Mode:
 
 ```js [example.test.js]
 import { expect, test } from 'vitest'
@@ -367,51 +375,51 @@ import { page } from 'vitest/browser'
 import { render } from './my-render-function.js'
 
 test('properly handles form inputs', async () => {
-  render() // 挂载 DOM 元素
+  render() // mount DOM elements
 
-  // 断言初始状态。
+  // Asserts initial state.
   await expect.element(page.getByText('Hi, my name is Alice')).toBeInTheDocument()
 
-  // 通过查询关联的标签获取输入的 DOM 节点。
+  // Get the input DOM node by querying the associated label.
   const usernameInput = page.getByLabelText(/username/i)
 
-  // 将名称输入到输入框中。
-  // 这已经验证了输入框中的值是正确的，无需手动检查其值。
+  // Type the name into the input. This already validates that the input
+  // is filled correctly, no need to check the value manually.
   await usernameInput.fill('Bob')
 
   await expect.element(page.getByText('Hi, my name is Bob')).toBeInTheDocument()
 })
 ```
 
-但是，Vitest 提供了用于渲染几个流行框架的组件的依赖包：
+However, Vitest also provides packages to render components for several popular frameworks out of the box:
 
-- [`vitest-browser-vue`](https://github.com/vitest-dev/vitest-browser-vue) 渲染 [vue](https://vuejs.org) 组件
-- [`vitest-browser-svelte`](https://github.com/vitest-dev/vitest-browser-svelte) 渲染 [svelte](https://svelte.dev) 组件
-- [`vitest-browser-react`](https://github.com/vitest-dev/vitest-browser-react) 渲染 [react](https://react.dev) 组件
+- [`vitest-browser-vue`](https://github.com/vitest-dev/vitest-browser-vue) to render [vue](https://vuejs.org) components
+- [`vitest-browser-svelte`](https://github.com/vitest-dev/vitest-browser-svelte) to render [svelte](https://svelte.dev) components
+- [`vitest-browser-react`](https://github.com/vitest-dev/vitest-browser-react) to render [react](https://react.dev) components
 
-其他框架也有社区提供的软件包：
+Community packages are available for other frameworks:
 
-- [`vitest-browser-lit`](https://github.com/EskiMojo14/vitest-browser-lit) 渲染 [lit](https://lit.dev) 组件
-- [`vitest-browser-preact`](https://github.com/JoviDeCroock/vitest-browser-preact) 渲染 [preact](https://preactjs.com) 组件
-- [`vitest-browser-qwik`](https://github.com/kunai-consulting/vitest-browser-qwik) 渲染 [qwik](https://qwik.dev) 组件
+- [`vitest-browser-lit`](https://github.com/EskiMojo14/vitest-browser-lit) to render [lit](https://lit.dev) components
+- [`vitest-browser-preact`](https://github.com/JoviDeCroock/vitest-browser-preact) to render [preact](https://preactjs.com) components
+- [`vitest-browser-qwik`](https://github.com/kunai-consulting/vitest-browser-qwik) to render [qwik](https://qwik.dev) components
 
-如果你的框架没有被包含在内，请随时创建你自己的软件包——它是一个简单的封装，围绕着框架渲染器和 `page.elementLocator` API。我们会在本页面添加指向它的链接。请确保其名称以 `vitest-browser-` 开头。
+If your framework is not represented, feel free to create your own package - it is a simple wrapper around the framework renderer and `page.elementLocator` API. We will add a link to it on this page. Make sure it has a name starting with `vitest-browser-`.
 
-除了渲染组件和定位元素外，你还需要进行断言。Vitest 基于 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库提供了一整套开箱即用的 DOM 断言。更多信息请参阅 [Assertions API](/guide/browser/assertion-api)。
+Besides rendering components and locating elements, you will also need to make assertions. Vitest forks the [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) library to provide a wide range of DOM assertions out of the box. Read more at the [Assertions API](/api/browser/assertions).
 
 ```ts
 import { expect } from 'vitest'
 import { page } from 'vitest/browser'
-// 元素是正确渲染
+// element is rendered correctly
 await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 
-Vitest 暴露了一个 [上下文 API](/guide/browser/context)，其中包含一组在测试中可能对你有用的实用程序。例如，如果你需要进行交互操作，比如点击元素或在输入框中输入文本，你可以使用来自 `vitest/browser` 的 `userEvent`。更多内容请参阅 [交互性 API](/guide/browser/interactivity-api)。
+Vitest exposes a [Context API](/api/browser/context) with a small set of utilities that might be useful to you in tests. For example, if you need to make an interaction, like clicking an element or typing text into an input, you can use `userEvent` from `vitest/browser`. Read more at the [Interactivity API](/api/browser/interactivity).
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
 await userEvent.fill(page.getByLabelText(/username/i), 'Alice')
-// 或只用 locator.fill
+// or just locator.fill
 await page.getByLabelText(/username/i).fill('Alice')
 ```
 
@@ -423,22 +431,22 @@ import Component from './Component.vue'
 test('properly handles v-model', async () => {
   const screen = render(Component)
 
-  // 断言初始状态。
+  // Asserts initial state.
   await expect.element(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 
-  // 通过查询关联的标签获取输入的 DOM 节点。
+  // Get the input DOM node by querying the associated label.
   const usernameInput = screen.getByLabelText(/username/i)
 
-  // 将名称输入到输入框中。
-  // 这已经验证了输入框中的值是正确的，无需手动检查其值。
+  // Type the name into the input. This already validates that the input
+  // is filled correctly, no need to check the value manually.
   await usernameInput.fill('Bob')
 
   await expect.element(screen.getByText('Hi, my name is Bob')).toBeInTheDocument()
 })
 ```
 ```ts [svelte]
-import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-svelte'
+import { expect, test } from 'vitest'
 
 import Greeter from './greeter.svelte'
 
@@ -457,21 +465,21 @@ import { render } from 'vitest-browser-react'
 import Fetch from './fetch'
 
 test('loads and displays greeting', async () => {
-  // 将一个 React 元素渲染到 DOM 中。
+  // Render a React element into the DOM
   const screen = render(<Fetch url="/greeting" />)
 
   await screen.getByText('Load Greeting').click()
-  // 如果找不到元素，则等待一段时间后再抛出错误。
+  // wait before throwing an error if it cannot find an element
   const heading = screen.getByRole('heading')
 
-  // 断言警告消息是正确的。
+  // assert that the alert message is correct
   await expect.element(heading).toHaveTextContent('hello there')
   await expect.element(screen.getByRole('button')).toBeDisabled()
 })
 ```
 ```ts [lit]
-import { html } from 'lit'
 import { render } from 'vitest-browser-lit'
+import { html } from 'lit'
 import './greeter-button'
 
 test('greeting appears on click', async () => {
@@ -485,9 +493,9 @@ test('greeting appears on click', async () => {
 })
 ```
 ```tsx [preact]
-import Greeting from '.Greeting'
-import { createElement } from 'preact'
 import { render } from 'vitest-browser-preact'
+import { createElement } from 'preact'
+import Greeting from '.Greeting'
 
 test('greeting appears on click', async () => {
   const screen = render(<Greeting />)
@@ -504,7 +512,7 @@ import { render } from 'vitest-browser-qwik'
 import Greeting from './greeting'
 
 test('greeting appears on click', async () => {
-  // renderSSR 和 renderHook 也是可用
+  // renderSSR and renderHook are also available
   const screen = render(<Greeting />)
 
   const button = screen.getByRole('button')
@@ -516,22 +524,22 @@ test('greeting appears on click', async () => {
 ```
 :::
 
-Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工具来运行这些框架的测试。我们还鼓励社区创建他们自己的 `vitest-browser` 封装程序，如果我们有这样的封装程序，请随时将其添加到上述示例中。
+Vitest doesn't support all frameworks out of the box, but you can use external tools to run tests with these frameworks. We also encourage the community to create their own `vitest-browser` wrappers - if you have one, feel free to add it to the examples above.
 
-对于不支持的框架，我们建议使用 `testing-library` 软件包：
+For unsupported frameworks, we recommend using `testing-library` packages:
 
-- [`@solidjs/testing-library`](https://testing-library.com/docs/solid-testing-library/intro) 渲染 [solid](https://www.solidjs.com) 组件
-- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) 渲染 [marko](https://markojs.com) 组件
+- [`@solidjs/testing-library`](https://testing-library.com/docs/solid-testing-library/intro) to render [solid](https://www.solidjs.com) components
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
 
-我们还可以在 [`browser-examples`](https://github.com/vitest-tests/browser-examples) 中查看更多的案例。
+You can also see more examples in [`browser-examples`](https://github.com/vitest-tests/browser-examples) repository.
 
 ::: warning
-`testing-library` 提供了一个软件包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `vitest/browser`导入的 [`userEvent`](/guide/browser/interactivity-api)，它在引擎盖下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+`testing-library` provides a package `@testing-library/user-event`. We do not recommend using it directly because it simulates events instead of actually triggering them - instead, use [`userEvent`](/api/browser/interactivity) imported from `vitest/browser` that uses Chrome DevTools Protocol or Webdriver (depending on the provider) under the hood.
 :::
 
 ::: code-group
 ```tsx [solid]
-// 基于 @testing-library/solid API
+// based on @testing-library/solid API
 // https://testing-library.com/docs/solid-testing-library/api
 
 import { render } from '@testing-library/solid'
@@ -558,7 +566,7 @@ it('uses params', async () => {
 })
 ```
 ```ts [marko]
-// 基于 @testing-library/marko API
+// based on @testing-library/marko API
 // https://testing-library.com/docs/marko-testing-library/api
 
 import { render, screen } from '@marko/testing-library'
@@ -575,26 +583,26 @@ test('renders a message', async () => {
 ```
 :::
 
-## 限制 {#limitations}
+## Limitations
 
-### 线程阻塞对话框 {#thread-blocking-dialogs}
+### Thread Blocking Dialogs
 
-使用 Vitest 浏览器时，需要注意的是像 `alert` 或 `confirm` 这样的线程阻塞对话框不能在本地使用。这是因为它们阻塞了网页，这意味着 Vitest 无法继续与该页面通信，导致执行挂起。
+When using Vitest Browser, it's important to note that thread blocking dialogs like `alert` or `confirm` cannot be used natively. This is because they block the web page, which means Vitest cannot continue communicating with the page, causing the execution to hang.
 
-在这类情况下，Vitest 会为相关 API 提供带有默认返回值的内置 mock，从而避免用户不小心使用同步弹窗等 Web API 时导致程序卡死。不过，仍然强烈建议用户自行对这些 Web API 进行 mock，以获得更稳定、可控的测试体验。更多内容可参考 [模拟](/guide/mocking) 章节。
+In such situations, Vitest provides default mocks with default returned values for these APIs. This ensures that if the user accidentally uses synchronous popup web APIs, the execution would not hang. However, it's still recommended for the user to mock these web APIs for better experience. Read more in [Mocking](/guide/mocking).
 
-### 对模块的导出内容进行监听（Spy） {#spying-on-module-exports}
+### Spying on Module Exports
 
-在浏览器模式下，Vitest 依赖浏览器自身对 ESM 模块的原生支持来加载模块。此时，模块的命名空间对象是不可修改的，这与 Node.js 测试中 Vitest 能够对模块执行打补丁不同。因此，你不能对通过 import 导入的对象使用 `vi.spyOn` ：
+Browser Mode uses the browser's native ESM support to serve modules. The module namespace object is sealed and can't be reconfigured, unlike in Node.js tests where Vitest can patch the Module Runner. This means you can't call `vi.spyOn` on an imported object:
 
 ```ts
 import { vi } from 'vitest'
 import * as module from './module.js'
 
-vi.spyOn(module, 'method') // ❌ 抛出错误
+vi.spyOn(module, 'method') // ❌ throws an error
 ```
 
-为了解决这个限制，Vitest 在 `vi.mock('./module.js')` 中提供了 `{ spy: true }` 选项。启用后，它会自动对模块里所有的导出进行监听，而不会像普通 mock 那样将它们替换成假的实现。
+To bypass this limitation, Vitest supports `{ spy: true }` option in `vi.mock('./module.js')`. This will automatically spy on every export in the module without replacing them with fake ones.
 
 ```ts
 import { vi } from 'vitest'
@@ -607,7 +615,7 @@ vi.mocked(module.method).mockImplementation(() => {
 })
 ```
 
-不过，如果你想模拟导出的 _变量_ ，唯一可行的方式是让模块额外导出一个能修改该变量内部值的方法：
+However, the only way to mock exported _variables_ is to export a method that will change the internal value:
 
 ::: code-group
 ```js [module.js]

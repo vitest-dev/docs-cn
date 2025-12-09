@@ -3,9 +3,9 @@ title: Test Annotations | Guide
 outline: deep
 ---
 
-# 测试注释 {#test-annotations}
+# Test Annotations
 
-Vitest 支持通过 [`context.annotate`](/guide/test-context#annotate) API 为测试添加自定义消息和文件注释。这些注释会附加到测试用例上，并通过 [`onTestAnnotate`](/advanced/api/reporters#ontestannotate) 钩子传递给报告器。
+Vitest supports annotating your tests with custom messages and files via the [`context.annotate`](/guide/test-context#annotate) API. These annotations will be attached to the test case and passed down to reporters in the [`onTestAnnotate`](/api/advanced/reporters#ontestannotate) hook.
 
 ```ts
 test('hello world', async ({ annotate }) => {
@@ -21,15 +21,15 @@ test('hello world', async ({ annotate }) => {
 ```
 
 ::: warning
-`annotate` 函数返回一个 Promise，因此如果你依赖它的结果需使用 await。不过，Vitest 也会在测试结束前自动等待任何未被 await 的注释完成。
+The `annotate` function returns a Promise, so it needs to be awaited if you rely on it somehow. However, Vitest will also automatically await any non-awaited annotation before the test finishes.
 :::
 
-根据你使用的报告器不同，注释的显示方式也会有所差异。
+Depending on your reporter, you will see these annotations differently.
 
-## 内置报告器 {#built-in-reporters}
+## Built-in Reporters
 ### default
 
-`default` 报告器仅在测试失败时打印注释：
+The `default` reporter prints annotations only if the test has failed:
 
 ```
   ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
@@ -53,7 +53,7 @@ Error: thrown error
 
 ### verbose
 
-`verbose` 报告器是唯一一个在测试通过时也会报告注释的终端报告器。
+The `verbose` reporter is the only terminal reporter that reports annotations when the test doesn't fail.
 
 ```
 ✓ example.test.js > an example of a test with annotation
@@ -67,14 +67,14 @@ Error: thrown error
 
 ### html
 
-HTML 报告器以与 UI 模式相同的方式显示注释。你可以在调用注释的那一行看到它。目前，如果注释不是在测试文件中调用的，你将无法在界面中看到它。我们计划支持单独的测试摘要视图来展示这些注释。
+The HTML reporter shows annotations the same way the UI does. You can see the annotation on the line where it was called. At the moment, if the annotation wasn't called in a test file, you cannot see it in the UI. We are planning to support a separate test summary view where it will be visible.
 
 <img alt="Vitest UI" img-light src="/annotations-html-light.png">
 <img alt="Vitest UI" img-dark src="/annotations-html-dark.png">
 
 ### junit
 
-`junit` 报告器将注释列在测试用例的 `properties` 标签内。JUnit 报告器会忽略所有附件，仅打印注释类型和消息内容。
+The `junit` reporter lists annotations inside the testcase's `properties` tag. The JUnit reporter will ignore all attachments and will print only the type and the message.
 
 ```xml
 <testcase classname="basic/example.test.js" name="an example of a test with annotation" time="0.14315">
@@ -87,14 +87,14 @@ HTML 报告器以与 UI 模式相同的方式显示注释。你可以在调用�
 
 ### github-actions
 
-`github-actions` 报告器默认将注释打印为 [notice 消息](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-a-notice-message)。你可以通过传递第二个参数来配置 `type`，可选值为 `notice`、`warning` 或 `error`。如果类型不是这些值之一，Vitest 将以 notice 形式显示消息。
+The `github-actions` reporter will print the annotation as a [notice message](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-a-notice-message) by default. You can configure the `type` by passing down the second argument as `notice`, `warning` or `error`. If type is none of these, Vitest will show the message as a notice.
 
 <img alt="GitHub Actions" img-light src="/annotations-gha-light.png">
 <img alt="GitHub Actions" img-dark src="/annotations-gha-dark.png">
 
 ### tap
 
-`tap` 和 `tap-flat` 报告器将注释打印为新行上以 `#` 符号开头的诊断消息。它们会忽略所有附件，只打印类型和消息：
+The `tap` and `tap-flat` reporters print annotations as diagnostic messages on a new line starting with a `#` symbol. They will ignore all attachments and will print only the type and message:
 
 ```
 ok 1 - an example of a test with annotation # time=143.15ms

@@ -1,22 +1,22 @@
 # expectTypeOf
 
-- **类型:** `<T>(a: unknown) => ExpectTypeOf`
-
 ::: warning
-在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
+During runtime this function doesn't do anything. To [enable typechecking](/guide/testing-types#run-typechecking), don't forget to pass down `--typecheck` flag.
 :::
+
+- **Type:** `<T>(a: unknown) => ExpectTypeOf`
 
 ## not
 
-- **类型:** `ExpectTypeOf`
+- **Type:** `ExpectTypeOf`
 
-  你可以使用 `.not` 属性否定所有断言。
+You can negate all assertions, using `.not` property.
 
 ## toEqualTypeOf
 
-- **类型:** `<T>(expected: T) => void`
+- **Type:** `<T>(expected: T) => void`
 
-  该匹配器将检查类型是否完全相同。如果两个对象具有不同的值但类型相同，则此匹配器不会失败。但是，如果对象缺少属性，它将失败。
+This matcher will check if the types are fully equal to each other. This matcher will not fail if two objects have different values, but the same type. It will fail however if an object is missing a property.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -29,12 +29,12 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 
 ## toMatchTypeOf
 
-- **类型:** `<T>(expected: T) => void`
+- **Type:** `<T>(expected: T) => void`
 
-::: warning 弃用
-自 expect-type v1.2.0 版本起，此匹配器已被弃用。请改用 [`toExtend`](#toextend)。
+::: warning DEPRECATED
+This matcher has been deprecated since expect-type v1.2.0. Use [`toExtend`](#toextend) instead.
 :::
-此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
+This matcher checks if expect type extends provided type. It is different from `toEqual` and is more similar to [expect's](/api/expect) `toMatchObject()`. With this matcher, you can check if an object “matches” a type.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -46,9 +46,9 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 
 ## toExtend
 
-- **类型：** `<T>(expected: T) => void`
+- **Type:** `<T>(expected: T) => void`
 
-这个匹配器用于检查期望类型是否扩展了提供的类型。它与 `toEqual` 不同，更类似于 [expect](/api/expect) 的 `toMatchObject()`。使用这个匹配器，你可以检查一个对象是否"匹配"某个类型。
+This matcher checks if expect type extends provided type. It is different from `toEqual` and is more similar to [expect's](/api/expect) `toMatchObject()`. With this matcher, you can check if an object "matches" a type.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -60,9 +60,9 @@ expectTypeOf<string | number>().not.toExtend<number>()
 
 ## toMatchObjectType
 
-- **类型：** `() => void`
+- **Type:** `() => void`
 
-这个匹配器对对象类型执行严格检查，确保期望的类型与提供的对象类型相匹配。它比 [`toExtend`](#toextend) 更严格，是在处理对象类型时的推荐选择，因为它更有可能捕获到像只读属性这样的问题。
+This matcher performs a strict check on object types, ensuring that the expected type matches the provided object type. It's stricter than [`toExtend`](#toextend) and is the recommended choice when working with object types as it's more likely to catch issues like readonly properties.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -70,30 +70,30 @@ import { expectTypeOf } from 'vitest'
 expectTypeOf({ a: 1, b: 2 }).toMatchObjectType<{ a: number }>() // preferred
 expectTypeOf({ a: 1, b: 2 }).toExtend<{ a: number }>() // works but less strict
 
-// 支持嵌套对象检查
+// Supports nested object checking
 const user = {
   name: 'John',
   address: { city: 'New York', zip: '10001' }
 }
-expectTypeOf(user).toMatchObjectType<{ name: string, address: { city: string } }>()
+expectTypeOf(user).toMatchObjectType<{ name: string; address: { city: string } }>()
 ```
 
 ::: warning
-这个匹配器只适用于普通对象类型。对于联合类型和其他复杂类型，它将会失败。对于这些情况，请改用 [`toExtend`](#toextend)。
+This matcher only works with plain object types. It will fail for union types and other complex types. For those cases, use [`toExtend`](#toextend) instead.
 :::
 
 ## extract
 
-- **类型:** `ExpectTypeOf<ExtractedUnion>`
+- **Type:** `ExpectTypeOf<ExtractedUnion>`
 
-你可以使用 `.extract` 来缩小类型以进行进一步测试。
+You can use `.extract` to narrow down types for further testing.
 
 ```ts
 import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
+type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 
-interface CSSProperties { margin?: string, padding?: string }
+interface CSSProperties { margin?: string; padding?: string }
 
 function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
   return {}
@@ -102,30 +102,30 @@ function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<{ xs?: any }>() // 从联合类型中提取最后一个类型
-  .toEqualTypeOf<{ xs?: CSSProperties, sm?: CSSProperties, md?: CSSProperties }>()
+  .extract<{ xs?: any }>() // extracts the last type from a union
+  .toEqualTypeOf<{ xs?: CSSProperties; sm?: CSSProperties; md?: CSSProperties }>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<unknown[]>() // 从联合类型中提取数组
+  .extract<unknown[]>() // extracts an array from a union
   .toEqualTypeOf<CSSProperties[]>()
 ```
 
 ::: warning
-如果在联合类型中找不到类型，`.extract` 将返回 `never`。
+If no type is found in the union, `.extract` will return `never`.
 :::
 
 ## exclude
 
-- **类型:** `ExpectTypeOf<NonExcludedUnion>`
+- **Type:** `ExpectTypeOf<NonExcludedUnion>`
 
-你可以使用 `.exclude` 从联合中删除类型以进行进一步测试。
+You can use `.exclude` to remove types from a union for further testing.
 
 ```ts
 import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
+type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 
-interface CSSProperties { margin?: string, padding?: string }
+interface CSSProperties { margin?: string; padding?: string }
 
 function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
   return {}
@@ -135,19 +135,19 @@ const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
   .exclude<unknown[]>()
-  .exclude<{ xs?: unknown }>() // 或直接使用 .exclude<unknown[] | { xs?: unknown }>()
+  .exclude<{ xs?: unknown }>() // or just .exclude<unknown[] | { xs?: unknown }>()
   .toEqualTypeOf<CSSProperties>()
 ```
 
 ::: warning
-如果在联合类型中找不到类型，`.extract` 将返回 `never`。
+If no type is found in the union, `.exclude` will return `never`.
 :::
 
 ## returns
 
-- **类型:** `ExpectTypeOf<ReturnValue>`
+- **Type:** `ExpectTypeOf<ReturnValue>`
 
-你可以使用 `.returns` 来提取函数类型的返回值。
+You can use `.returns` to extract return value of a function type.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -157,14 +157,14 @@ expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2])
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ## parameters
 
-- **类型:** `ExpectTypeOf<Parameters>`
+- **Type:** `ExpectTypeOf<Parameters>`
 
-你可以使用 `.parameters` 提取函数参数以对其值执行断言。参数以数组形式返回。
+You can extract function arguments with `.parameters` to perform assertions on its value. Parameters are returned as an array.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -177,18 +177,18 @@ expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ::: tip
-你还可以使用 [`.toBeCallableWith`](#tobecallablewith) 匹配器作为更具表现力的断言。
+You can also use [`.toBeCallableWith`](#tobecallablewith) matcher as a more expressive assertion.
 :::
 
 ## parameter
 
-- **类型:** `(nth: number) => ExpectTypeOf`
+- **Type:** `(nth: number) => ExpectTypeOf`
 
-你可以使用 `.parameter(number)` 调用提取某个函数参数，以对其执行其他断言。
+You can extract a certain function argument with `.parameter(number)` call to perform other assertions on it.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -202,36 +202,34 @@ expectTypeOf(foo).parameter(1).toBeString()
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ## constructorParameters
 
-- **类型:** `ExpectTypeOf<ConstructorParameters>`
+- **Type:** `ExpectTypeOf<ConstructorParameters>`
 
-你可以将构造函数参数提取为数组元素，并使用此方法对它们执行断言。
+You can extract constructor parameters as an array of values and perform assertions on them with this method.
 
 ```ts
 import { expectTypeOf } from 'vitest'
 
-expectTypeOf(Date).constructorParameters.toEqualTypeOf<
-  [] | [string | number | Date]
->()
+expectTypeOf(Date).constructorParameters.toEqualTypeOf<[] | [string | number | Date]>()
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ::: tip
-你还可以使用 [`.toBeConstructibleWith`](#tobeconstructiblewith) 匹配器作为更具表现力的断言。
+You can also use [`.toBeConstructibleWith`](#tobeconstructiblewith) matcher as a more expressive assertion.
 :::
 
 ## instance
 
-- **类型:** `ExpectTypeOf<ConstructableInstance>`
+- **Type:** `ExpectTypeOf<ConstructableInstance>`
 
-此属性允许访问可以在所提供类的实例上执行匹配器。
+This property gives access to matchers that can be performed on an instance of the provided class.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -240,14 +238,14 @@ expectTypeOf(Date).instance.toHaveProperty('toISOString')
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ## items
 
-- **类型:** `ExpectTypeOf<T>`
+- **Type:** `ExpectTypeOf<T>`
 
-你可以使用 `.items` 获取数组项类型以执行进一步的断言。
+You can get array item type with `.items` to perform further assertions.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -258,9 +256,9 @@ expectTypeOf([1, 2, 3]).items.not.toEqualTypeOf<string>()
 
 ## resolves
 
-- **类型:** `ExpectTypeOf<ResolvedPromise>`
+- **Type:** `ExpectTypeOf<ResolvedPromise>`
 
-此匹配器提取 `Promise` 的已解析值，因此你可以对其执行其他断言。
+This matcher extracts resolved value of a `Promise`, so you can perform other assertions on it.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -274,14 +272,14 @@ expectTypeOf(Promise.resolve('string')).resolves.toBeString()
 ```
 
 ::: warning
-如果用于非承诺类型，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-promise type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ## guards
 
-- **类型:** `ExpectTypeOf<Guard>`
+- **Type:** `ExpectTypeOf<Guard>`
 
-此匹配器提取保护值（例如，`v is number`），因此你可以对其执行断言。
+This matcher extracts guard value (e.g., `v is number`), so you can perform assertions on it.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -289,19 +287,18 @@ import { expectTypeOf } from 'vitest'
 function isString(v: any): v is string {
   return typeof v === 'string'
 }
-
 expectTypeOf(isString).guards.toBeString()
 ```
 
 ::: warning
-如果该值不是保护函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
+Returns `never`, if the value is not a guard function, so you won't be able to chain it with other matchers.
 :::
 
 ## asserts
 
-- **类型:** `ExpectTypeOf<Assert>`
+- **Type:** `ExpectTypeOf<Assert>`
 
-此匹配器提取断言值（例如，`assert v is number`），因此你可以对其执行断言。
+This matcher extracts assert value (e.g., `assert v is number`), so you can perform assertions on it.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -316,14 +313,14 @@ expectTypeOf(assertNumber).asserts.toBeNumber()
 ```
 
 ::: warning
-如果该值不是断言函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
+Returns `never`, if the value is not an assert function, so you won't be able to chain it with other matchers.
 :::
 
 ## toBeAny
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-使用此匹配器，你可以检查提供的类型是否为 `any` 类型。如果类型太具体，测试将失败。
+With this matcher you can check, if provided type is `any` type. If the type is too specific, the test will fail.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -335,9 +332,9 @@ expectTypeOf('string').not.toBeAny()
 
 ## toBeUnknown
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `unknown` 类型。
+This matcher checks, if provided type is `unknown` type.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -349,9 +346,9 @@ expectTypeOf('string').not.toBeUnknown()
 
 ## toBeNever
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `never` 类型。
+This matcher checks, if provided type is a `never` type.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -362,9 +359,9 @@ expectTypeOf((): never => {}).returns.toBeNever()
 
 ## toBeFunction
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `function` 类型。
+This matcher checks, if provided type is a `function`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -375,9 +372,9 @@ expectTypeOf((): never => {}).toBeFunction()
 
 ## toBeObject
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `object` 类型。
+This matcher checks, if provided type is an `object`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -388,9 +385,9 @@ expectTypeOf({}).toBeObject()
 
 ## toBeArray
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `Array<T>` 类型。
+This matcher checks, if provided type is `Array<T>`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -403,9 +400,9 @@ expectTypeOf([{}, 42]).toBeArray()
 
 ## toBeString
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `string` 类型。
+This matcher checks, if provided type is a `string`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -417,9 +414,9 @@ expectTypeOf('a').toBeString()
 
 ## toBeBoolean
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `boolean` 类型。
+This matcher checks, if provided type is `boolean`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -431,9 +428,9 @@ expectTypeOf<boolean>().toBeBoolean()
 
 ## toBeVoid
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `void` 类型。
+This matcher checks, if provided type is `void`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -444,9 +441,9 @@ expectTypeOf<void>().toBeVoid()
 
 ## toBeSymbol
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `symbol` 类型。
+This matcher checks, if provided type is a `symbol`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -457,9 +454,9 @@ expectTypeOf<symbol>().toBeSymbol()
 
 ## toBeNull
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `null` 类型。
+This matcher checks, if provided type is `null`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -471,9 +468,9 @@ expectTypeOf(undefined).not.toBeNull()
 
 ## toBeUndefined
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器检查提供的类型是否为 `undefined` 类型。
+This matcher checks, if provided type is `undefined`.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -485,9 +482,9 @@ expectTypeOf(null).not.toBeUndefined()
 
 ## toBeNullable
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器会检查你是否可以对提供的类型使用 `null` 或 `undefined`。
+This matcher checks, if you can use `null` or `undefined` with provided type.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -499,9 +496,9 @@ expectTypeOf<undefined | null | 1>().toBeNullable()
 
 ## toBeCallableWith
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器确保你可以使用一组参数作为参数来调用函数。
+This matcher ensures you can call provided function with a set of parameters.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -514,14 +511,14 @@ expectTypeOf<HasParam>().toBeCallableWith('some string')
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ## toBeConstructibleWith
 
-- **类型:** `() => void`
+- **Type:** `() => void`
 
-此匹配器确保你可以使用一组构造函数作为参数创建一个新实例。
+This matcher ensures you can create a new instance with a set of constructor parameters.
 
 ```ts
 import { expectTypeOf } from 'vitest'
@@ -531,14 +528,14 @@ expectTypeOf(Date).toBeConstructibleWith('01-01-2000')
 ```
 
 ::: warning
-如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+If used on a non-function type, it will return `never`, so you won't be able to chain it with other matchers.
 :::
 
 ## toHaveProperty
 
-- **类型:** `<K extends keyof T>(property: K) => ExpectTypeOf<T[K>`
+- **Type:** `<K extends keyof T>(property: K) => ExpectTypeOf<T[K>`
 
-此匹配器检查提供的对象上是否存在属性。如果它存在，它还会为该属性的类型返回同一组匹配器，因此你可以一个接一个地链接断言。
+This matcher checks if a property exists on the provided object. If it exists, it also returns the same set of matchers for the type of this property, so you can chain assertions one after another.
 
 ```ts
 import { expectTypeOf } from 'vitest'

@@ -1,6 +1,6 @@
-# 模拟类 {#mocking-classes}
+# Mocking Classes
 
-你可以通过一次 [`vi.fn`](/api/vi#fn) 调用来模拟整个类。
+You can mock an entire class with a single [`vi.fn`](/api/vi#fn) call.
 
 ```ts
 class Dog {
@@ -27,7 +27,7 @@ class Dog {
 }
 ```
 
-我们可以使用 `vi.fn`（或 `vi.spyOn().mockImplementation()`）来重新创建这个类：
+We can re-create this class with `vi.fn` (or `vi.spyOn().mockImplementation()`):
 
 ```ts
 const Dog = vi.fn(class {
@@ -44,7 +44,7 @@ const Dog = vi.fn(class {
 ```
 
 ::: warning
-如果构造函数返回一个非原始值，那么该值将成为 new 表达式的结果。在这种情况下，`[[Prototype]]` 可能无法正确绑定：
+If a non-primitive is returned from the constructor function, that value will become the result of the new expression. In this case the `[[Prototype]]` may not be correctly bound:
 
 ```ts
 const CorrectDogClass = vi.fn(function (name) {
@@ -62,11 +62,11 @@ Marti instanceof CorrectDogClass // ✅ true
 Newt instanceof IncorrectDogClass // ❌ false!
 ```
 
-如果你正在模拟类，建议优先使用类语法而不是函数语法。
+If you are mocking classes, prefer the class syntax over the function.
 :::
 
-::: tip 何时使用？
-一般来说，如果类是从另一个模块重新导出的，你会在模块工厂内部重新创建这样的类：
+::: tip WHEN TO USE?
+Generally speaking, you would re-create a class like this inside the module factory if the class is re-exported from another module:
 
 ```ts
 import { Dog } from './dog.js'
@@ -80,7 +80,7 @@ vi.mock(import('./dog.js'), () => {
 })
 ```
 
-这种方法也可以用于将类的实例传递给接受相同接口的函数：
+This method can also be used to pass an instance of a class to a function that accepts the same interface:
 
 ```ts [src/feed.ts]
 function feed(dog: Dog) {
@@ -106,39 +106,39 @@ test('can feed dogs', () => {
 ```
 :::
 
-现在，当我们创建 `Dog` 类的新实例时，它的 `speak` 方法（以及 `feed` 和 `greet` 方法）已经被模拟了：
+Now, when we create a new instance of the `Dog` class its `speak` method (alongside `feed` and `greet`) is already mocked:
 
 ```ts
 const Cooper = new Dog('Cooper')
 Cooper.speak() // loud bark!
 Cooper.greet() // Hi! My name is Cooper!
 
-// 你可以使用内置断言来检查调用的有效性
+// you can use built-in assertions to check the validity of the call
 expect(Cooper.speak).toHaveBeenCalled()
 expect(Cooper.greet).toHaveBeenCalled()
 
 const Max = new Dog('Max')
 
-// 如果你直接赋值方法，这些方法在实例之间不会共享
+// methods are not shared between instances if you assigned them directly
 expect(Max.speak).not.toHaveBeenCalled()
 expect(Max.greet).not.toHaveBeenCalled()
 ```
 
-我们可以为特定实例重新分配返回值：
+We can reassign the return value for a specific instance:
 
 ```ts
 const dog = new Dog('Cooper')
 
-// "vi.mocked" 是一个类型辅助工具，因为
-// TypeScript 不知道 Dog 是一个被模拟的类，
-// 它将任何函数包装在 Mock<T> 类型中
-// 而不会验证该函数是否为模拟函数
+// "vi.mocked" is a type helper, since
+// TypeScript doesn't know that Dog is a mocked class,
+// it wraps any function in a Mock<T> type
+// without validating if the function is a mock
 vi.mocked(dog.speak).mockReturnValue('woof woof')
 
 dog.speak() // woof woof
 ```
 
-要模拟属性，我们可以使用 `vi.spyOn(dog, 'name', 'get')` 方法。这样就可以在模拟属性上使用间谍断言：
+To mock the property, we can use the `vi.spyOn(dog, 'name', 'get')` method. This makes it possible to use spy assertions on the mocked property:
 
 ```ts
 const dog = new Dog('Cooper')
@@ -150,9 +150,9 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 ```
 
 ::: tip
-你也可以使用相同的方法来监视 getter 和 setter。
+You can also spy on getters and setters using the same method.
 :::
 
 ::: danger
-在 Vitest 4 中引入了使用 `vi.fn()` 模拟类的功能。在此之前，你必须直接使用 `function` 和 `prototype` 继承。参见 [v3 指南](https://v3.vitest.dev/guide/mocking.html#classes)。
+Using classes with `vi.fn()` was introduced in Vitest 4. Previously, you had to use `function` and `prototype` inheritence directly. See [v3 guide](https://v3.vitest.dev/guide/mocking.html#classes).
 :::

@@ -1,8 +1,8 @@
 ---
-title: IDE 插件 | 指南
+title: IDE Integrations | Guide
 ---
 
-# IDE 插件 {#ide-integrations}
+# IDE Integrations
 
 ## VS Code <Badge>Official</Badge> {#vs-code}
 
@@ -16,7 +16,7 @@ title: IDE 插件 | 指南
 
 ## JetBrains IDE
 
-WebStorm、PhpStorm、IntelliJ IDEA Ultimate 和其他 JetBrains IDE 内置了对 Vitest 的支持。
+WebStorm, PhpStorm, IntelliJ IDEA Ultimate, and other JetBrains IDEs come with built-in support for Vitest.
 
 <p text-center>
 <img src="https://raw.githubusercontent.com/kricact/WS-info/main/banners/vitest-jb.png" w-60>
@@ -28,9 +28,9 @@ WebStorm、PhpStorm、IntelliJ IDEA Ultimate 和其他 JetBrains IDE 内置了�
 
 ## Wallaby.js <Badge>Paid (free for OSS)</Badge>
 
-由 [The Wallaby Team](https://wallabyjs.com) 团队创建。
+Created by [The Wallaby Team](https://wallabyjs.com)
 
-[Wallaby.js](https://wallabyjs.com) 在你键入时立即运行 Vitest 测试，在代码旁边高亮显示 IDE 中的结果。
+[Wallaby.js](https://wallabyjs.com) runs your Vitest tests immediately as you type, highlighting results in your IDE right next to your code.
 
 <p text-left>
 <img src="https://wallabyjs.com/assets/img/vitest_cover.png" w-142 />
