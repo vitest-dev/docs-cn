@@ -1,6 +1,7 @@
 {
   "name": "docs",
   "type": "module",
+    "version": "4.0.15",
   "private": true,
   "scripts": {
     "dev": "vitepress --port 3333 --open",
@@ -11,25 +12,33 @@
     "preview-https": "pnpm run build && serve .vitepress/dist",
     "preview-https-no-prefetch": "pnpm run build-no-prefetch && serve .vitepress/dist",
     "prefetch": "tsx .vitepress/scripts/fetch-avatars.ts",
-    "generate-pwa-icons": "pwa-assets-generator"
+    "generate-pwa-icons": "pwa-assets-generator",
+    "lint": "eslint --cache .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "@vueuse/core": "catalog:",
-    "vue": "catalog:"
+    "@vueuse/core": "^12.8.2",
+    "vue": "^3.5.25"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "catalog:",
-    "@iconify-json/logos": "catalog:",
+    "@antfu/eslint-config": "^5.4.1",
+    "@antfu/ni": "^26.1.0",
+    "@iconify-json/carbon": "^1.2.14",
+    "@iconify-json/logos": "^1.2.10",
     "@shikijs/transformers": "^3.17.1",
     "@shikijs/vitepress-twoslash": "^3.17.1",
-    "@unocss/reset": "catalog:",
+    "@unocss/reset": "^66.5.9",
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vite-pwa/vitepress": "^1.1.0",
-    "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "eslint": "^9.38.0",
     "https-localhost": "^4.7.1",
-    "tinyglobby": "catalog:",
-    "unocss": "catalog:",
-    "unplugin-vue-components": "catalog:",
+    "lint-staged": "^16.2.7",
+    "simple-git-hooks": "^2.13.1",
+    "tinyglobby": "^0.2.15",
+    "unocss": "^66.5.9",
+    "unplugin-vue-components": "^0.28.0",
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^0.21.2",
     "vitepress": "2.0.0-alpha.15",
@@ -37,5 +46,11 @@
     "vitepress-plugin-llms": "^1.9.3",
     "vitepress-plugin-tabs": "^0.7.3",
     "workbox-window": "^7.4.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }
