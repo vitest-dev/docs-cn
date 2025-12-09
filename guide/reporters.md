@@ -1,46 +1,48 @@
 ---
-title: 报告器 | 指南
+title: Reporters | Guide
 outline: deep
 ---
 
-# 报告器 {#reporters}
+# Reporters
 
-Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile`[配置选项](https://vitest.dev/config/#reporters) 中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
+Vitest provides several built-in reporters to display test output in different formats, as well as the ability to use custom reporters. You can select different reporters either by using the `--reporter` command line option, or by including a `reporters` property in your [configuration file](/config/#reporters). If no reporter is specified, Vitest will use the `default` reporter as described below.
 
-通过命令行使用报告器:
+Using reporters via command line:
 
 ```bash
 npx vitest --reporter=verbose
 ```
 
-通过配置文件 [`vitest.config.ts`](/config/) 使用报告器:
+Using reporters via [`vitest.config.ts`](/config/):
 
 ```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    reporters: ['verbose'],
+    reporters: ['verbose']
   },
 })
 ```
 
-某些报告器可以通过传递附加选项进行自定义。具体选项将在下面的章节中介绍。
+Some reporters can be customized by passing additional options to them. Reporter specific options are described in sections below.
 
 ```ts
 export default defineConfig({
   test: {
-    reporters: ['default', ['junit', { suiteName: 'UI tests' }]],
+    reporters: [
+      'default',
+      ['junit', { suiteName: 'UI tests' }]
+    ],
   },
 })
 ```
 
-## 报告器输出 {#reporter-output}
+## Reporter Output
 
-默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
+By default, Vitest's reporters will print their output to the terminal. When using the `json`, `html` or `junit` reporters, you can instead write your tests' output to a file by including an `outputFile` [configuration option](/config/#outputfile) either in your Vite configuration file or via CLI.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=json --outputFile=./test-output.json
 ```
@@ -49,18 +51,15 @@ npx vitest --reporter=json --outputFile=./test-output.json
 export default defineConfig({
   test: {
     reporters: ['json'],
-    outputFile: './test-output.json',
+    outputFile: './test-output.json'
   },
 })
 ```
-
 :::
 
-## 组合报告器 {#combining-reporters}
+## Combining Reporters
 
-你可以同时使用多个报告器，并以不同格式打印测试结果。
-
-例如:
+You can use multiple reporters simultaneously to print your test results in different formats. For example:
 
 ```bash
 npx vitest --reporter=json --reporter=default
@@ -70,14 +69,14 @@ npx vitest --reporter=json --reporter=default
 export default defineConfig({
   test: {
     reporters: ['json', 'default'],
-    outputFile: './test-output.json',
+    outputFile: './test-output.json'
   },
 })
 ```
 
-上面的示例将同时把测试结果以默认样式打印到终端，和以 JSON 格式写入指定的输出文件。
+The above example will both print the test results to the terminal in the default style and write them as JSON to the designated output file.
 
-使用多个报告器时，还可以指定多个输出文件，如下所示:
+When using multiple reporters, it's also possible to designate multiple output files, as follows:
 
 ```ts
 export default defineConfig({
@@ -91,15 +90,15 @@ export default defineConfig({
 })
 ```
 
-这个示例将编写单独的 JSON 和 XML 报告，并将详细报告打印到终端。
+This example will write separate JSON and XML reports as well as printing a verbose report to the terminal.
 
-## 内置报告器 {#built-in-reporters}
+## Built-in Reporters
 
-### 默认报告器 {#default-reporter}
+### Default Reporter
 
-默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
+By default (i.e. if no reporter is specified), Vitest will display summary of running tests and their status at the bottom. Once a suite passes, its status will be reported on top of the summary.
 
-我们可以通过配置报告器来禁用摘要：
+You can disable the summary by configuring the reporter:
 
 :::code-group
 ```ts [vitest.config.ts]
@@ -113,7 +112,7 @@ export default defineConfig({
 ```
 :::
 
-项目中的测试输出示例:
+Example output for tests in progress:
 
 ```bash
  ✓ test/example-1.test.ts (5 tests | 1 skipped) 306ms
@@ -128,7 +127,7 @@ export default defineConfig({
    Duration 2.00s
 ```
 
-测试完成后的最终输出:
+Final output after tests have finished:
 
 ```bash
  ✓ test/example-1.test.ts (5 tests | 1 skipped) 306ms
@@ -142,7 +141,7 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-如果只有一个测试文件在运行，Vitest 将输出该文件的完整测试树，类似于 [`tree`](#tree-reporter) 报告器。如果文件中至少有一个测试失败，default 报告器也会打印测试树。
+If there is only one test file running, Vitest will output the full test tree of that file, similar to the [`tree`](#tree-reporter) reporter. The default reporter will also print the test tree if there is at least one failed test in the file.
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -156,16 +155,15 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### 详细报告器 {#verbose-reporter}
+### Verbose Reporter
 
-详细报告器会在每个测试用例完成后打印出来。它不会单独报告套件或文件。如果启用了 `--includeTaskLocation`，它还会在输出中包含每个测试的位置。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
+The verbose reporter prints every test case once it is finished. It does not report suites or files separately. If `--includeTaskLocation` is enabled, it will also include the location of each test in the output. Similar to `default` reporter, you can disable the summary by configuring the reporter.
 
-除此之外，`verbose` 报告器会立即打印测试错误消息。完整的测试错误会在测试运行结束时报告。
+In addition to this, the `verbose` reporter prints test error messages right away. The full test error is reported when the test run is finished.
 
-这是唯一一个在测试未失败时报告[注解](/guide/test-annotations)的终端报告器。
+This is the only terminal reporter that reports [annotations](/guide/test-annotations) when the test doesn't fail.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=verbose
 ```
@@ -179,7 +177,6 @@ export default defineConfig({
   },
 })
 ```
-
 :::
 
 Example output:
@@ -196,7 +193,7 @@ Example output:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-一个带有 `--includeTaskLocation` 参数的示例：
+An example with `--includeTaskLocation`:
 
 ```bash
 ✓ __tests__/file1.test.ts:2:1 > first test file > 2 + 2 should equal 4 1ms
@@ -210,9 +207,9 @@ Example output:
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### 树状报告器 {#tree-reporter}
+### Tree Reporter
 
-树状报告器与 `default` 报告器相同，但它还会在套件完成后显示每个单独的测试。与 `default` 报告器类似，你可以通过配置报告器来禁用摘要。
+The tree reporter is same as `default` reporter, but it also displays each individual test after the suite has finished. Similar to `default` reporter, you can disable the summary by configuring the reporter.
 
 :::code-group
 ```bash [CLI]
@@ -230,7 +227,7 @@ export default defineConfig({
 ```
 :::
 
-使用默认 `slowTestThreshold: 300` 的情况下，测试进行中的示例输出：
+Example output for tests in progress with default `slowTestThreshold: 300`:
 
 ```bash
  ✓ __tests__/example-1.test.ts (2) 725ms
@@ -248,7 +245,7 @@ export default defineConfig({
    Duration 2.00s
 ```
 
-测试套件通过后的终端最终输出示例:
+Example of final terminal output for a passing test suite:
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -266,12 +263,11 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### Dot 报告器 {#dot-reporter}
+### Dot Reporter
 
-每当一个测试完成时，就会打印一个点，以最小化输出量，同时让你看到所有执行过的测试。只有当测试失败时才会显示详细信息，并在最后提供套件的汇总。
+Prints a single dot for each completed test to provide minimal output while still showing all tests that have run. Details are only provided for failed tests, along with the summary for the suite.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=dot
 ```
@@ -279,14 +275,13 @@ npx vitest --reporter=dot
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['dot'],
+    reporters: ['dot']
   },
 })
 ```
-
 :::
 
-测试套件通过后的终端最终输出示例:
+Example terminal output for a passing test suite:
 
 ```bash
 ....
@@ -297,12 +292,11 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-### JUnit 报告器 {#junit-reporter}
+### JUnit Reporter
 
-以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入 XML 文件。
+Outputs a report of the test results in JUnit XML format. Can either be printed to the terminal or written to an XML file using the [`outputFile`](/config/#outputfile) configuration option.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=junit
 ```
@@ -310,15 +304,13 @@ npx vitest --reporter=junit
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['junit'],
+    reporters: ['junit']
   },
 })
 ```
-
 :::
 
-JUnit XML 报告示例:
-
+Example of a JUnit XML report:
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites name="vitest tests" tests="2" failures="1" errors="0" time="0.503">
@@ -335,9 +327,9 @@ AssertionError: expected 5 to be 4 // Object.is equality
 </testsuites>
 ```
 
-输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标签。这些也可以通过报告选项 `suiteName` 和 `classnameTemplate` 进行自定义。`classnameTemplate` 可以是一个模板字符串或者一个函数。
+The outputted XML contains nested `testsuites` and `testcase` tags. These can also be customized via reporter options `suiteName` and `classnameTemplate`. `classnameTemplate` can either be a template string or a function.
 
-`classnameTemplate` 选项支持的占位符有：
+The supported placeholders for the `classnameTemplate` option are:
 - filename
 - filepath
 
@@ -351,14 +343,11 @@ export default defineConfig({
 })
 ```
 
-输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
+### JSON Reporter
 
-### JSON 报告器 {#json-reporter}
-
-以与 Jest 的 `--json` 选项兼容的 JSON 格式生成测试结果报告。可以打印到终端，也可以使用 [`outputFile`](/config/#outputfile) 配置选项写入文件。
+Generates a report of the test results in a JSON format compatible with Jest's `--json` option. Can either be printed to the terminal or written to a file using the [`outputFile`](/config/#outputfile) configuration option.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=json
 ```
@@ -366,14 +355,13 @@ npx vitest --reporter=json
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['json'],
+    reporters: ['json']
   },
 })
 ```
-
 :::
 
-JSON 报告示例:
+Example of a JSON report:
 
 ```json
 {
@@ -392,12 +380,17 @@ JSON 报告示例:
     {
       "assertionResults": [
         {
-          "ancestorTitles": ["", "first test file"],
+          "ancestorTitles": [
+            "",
+            "first test file"
+          ],
           "fullName": " first test file 2 + 2 should equal 4",
           "status": "failed",
           "title": "2 + 2 should equal 4",
           "duration": 9,
-          "failureMessages": ["expected 5 to be 4 // Object.is equality"],
+          "failureMessages": [
+            "expected 5 to be 4 // Object.is equality"
+          ],
           "location": {
             "line": 20,
             "column": 28
@@ -417,17 +410,16 @@ JSON 报告示例:
 ```
 
 ::: info
-自Vitest 3起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
+Since Vitest 3, the JSON reporter includes coverage information in `coverageMap` if coverage is enabled.
 :::
 
-### HTML 报告器 {#html-reporter}
+### HTML Reporter
 
-生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
+Generates an HTML file to view test results through an interactive [GUI](/guide/ui). After the file has been generated, Vitest will keep a local development server running and provide a link to view the report in a browser.
 
-可使用 [`outputFile`](##报告器输出) 配置选项指定输出文件。如果没有提供 `outputFile` 选项，则会创建一个新的 HTML 文件。
+Output file can be specified using the [`outputFile`](/config/#outputfile) configuration option. If no `outputFile` option is provided, a new HTML file will be created.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=html
 ```
@@ -435,23 +427,21 @@ npx vitest --reporter=html
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['html'],
+    reporters: ['html']
   },
 })
 ```
-
 :::
 
 ::: tip
-该报告器需要安装 [`@vitest/ui`](/guide/ui) 。
+This reporter requires installed [`@vitest/ui`](/guide/ui) package.
 :::
 
-### TAP 报告器 {#tap-reporter}
+### TAP Reporter
 
-按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
+Outputs a report following [Test Anything Protocol](https://testanything.org/) (TAP).
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=tap
 ```
@@ -459,15 +449,13 @@ npx vitest --reporter=tap
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['tap'],
+    reporters: ['tap']
   },
 })
 ```
-
 :::
 
-TAP 报告示例:
-
+Example of a TAP report:
 ```bash
 TAP version 13
 1..1
@@ -489,12 +477,11 @@ not ok 1 - __tests__/test-file-1.test.ts # time=14.00ms {
 }
 ```
 
-### TAP 扁平报告器 {#tap-flat-reporter}
+### TAP Flat Reporter
 
-输出 TAP 扁平报告。与 `TAP Reporter` 一样，测试结果的格式遵循 TAP 标准，但测试套件的格式是扁平列表，而不是嵌套层次结构。
+Outputs a TAP flat report. Like the `tap` reporter, test results are formatted to follow TAP standards, but test suites are formatted as a flat list rather than a nested hierarchy.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=tap-flat
 ```
@@ -502,15 +489,13 @@ npx vitest --reporter=tap-flat
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['tap-flat'],
+    reporters: ['tap-flat']
   },
 })
 ```
-
 :::
 
-TAP 扁平报告示例:
-
+Example of a TAP flat report:
 ```bash
 TAP version 13
 1..2
@@ -526,12 +511,11 @@ not ok 1 - __tests__/test-file-1.test.ts > first test file > 2 + 2 should equal 
 ok 2 - __tests__/test-file-1.test.ts > first test file > 4 - 2 should equal 2 # time=0.00ms
 ```
 
-### Hanging process 报告器 {#hanging-process-reporter}
+### Hanging Process Reporter
 
-展示任何妨碍 Vitest 安全退出的 hanging processes ，`hanging-process` 报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
+Displays a list of hanging processes, if any are preventing Vitest from exiting safely. The `hanging-process` reporter does not itself display test results, but can be used in conjunction with another reporter to monitor processes while tests run. Using this reporter can be resource-intensive, so should generally be reserved for debugging purposes in situations where Vitest consistently cannot exit the process.
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=hanging-process
 ```
@@ -539,22 +523,21 @@ npx vitest --reporter=hanging-process
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['hanging-process'],
+    reporters: ['hanging-process']
   },
 })
 ```
-
 :::
 
 ### GitHub Actions Reporter {#github-actions-reporter}
 
-输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
-为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
+Output [workflow commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
+to provide annotations for test failures. This reporter is automatically enabled with a [`default`](#default-reporter) reporter when `process.env.GITHUB_ACTIONS === 'true'`.
 
 <img alt="GitHub Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="GitHub Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
 
-当你使用自定义报告器时，如果想在 GitHub Actions 中显示结果，需要手动把 `github-actions` 添加到报告器列表中。
+If you configure non-default reporters, you need to explicitly add `github-actions`.
 
 ```ts
 export default defineConfig({
@@ -564,7 +547,7 @@ export default defineConfig({
 })
 ```
 
-你可以使用 `onWritePath` 选项自定义以 [GitHub 注解命令格式](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 打印的文件路径。这在容器化环境（如 Docker）中运行 Vitest 时非常有用，因为在这些环境中文件路径可能与 GitHub Actions 环境中的路径不匹配。
+You can customize the file paths that are printed in [GitHub's annotation command format](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) by using the `onWritePath` option. This is useful when running Vitest in a containerized environment, such as Docker, where the file paths may not match the paths in the GitHub Actions environment.
 
 ```ts
 export default defineConfig({
@@ -581,17 +564,29 @@ export default defineConfig({
 })
 ```
 
-### Blob Reporter {#blob-reporter}
+If you are using [Annotations API](/guide/test-annotations), the reporter will automatically inline them in the GitHub UI. You can disable this by setting `displayAnnotations` option to `false`:
 
-将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
-默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['github-actions', { displayAnnotations: false }],
+    ],
+  },
+})
+```
+
+### Blob Reporter
+
+Stores test results on the machine so they can be later merged using [`--merge-reports`](/guide/cli#merge-reports) command.
+By default, stores all results in `.vitest-reports` folder, but can be overridden with `--outputFile` or `--outputFile.blob` flags.
 
 ```bash
 npx vitest --reporter=blob --outputFile=reports/blob-1.json
 ```
 
-如果你在带有 [`--shard`](/guide/cli#shard) 标志的不同机器上运行 Vitest，我们建议你使用此报告程序。
-使用 CI 管道末尾的 `--merge-reports` 命令，可以将所有 blob 报告合并到任何报告中：
+We recommend using this reporter if you are running Vitest on different machines with the [`--shard`](/guide/cli#shard) flag.
+All blob reports can be merged into any report by using `--merge-reports` command at the end of your CI pipeline:
 
 ```bash
 npx vitest --merge-reports=reports --reporter=json --reporter=default
@@ -601,12 +596,11 @@ npx vitest --merge-reports=reports --reporter=json --reporter=default
 Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
 :::
 
-## 自定义报告器 {#custom-reporters}
+## Custom Reporters
 
-你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
+You can use third-party custom reporters installed from NPM by specifying their package name in the reporters' option:
 
 :::code-group
-
 ```bash [CLI]
 npx vitest --reporter=some-published-vitest-reporter
 ```
@@ -614,17 +608,16 @@ npx vitest --reporter=some-published-vitest-reporter
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['some-published-vitest-reporter'],
+    reporters: ['some-published-vitest-reporter']
   },
 })
 ```
-
 :::
 
-此外，你还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
+Additionally, you can define your own [custom reporters](/guide/advanced/reporters) and use them by specifying their file path:
 
 ```bash
 npx vitest --reporter=./path/to/reporter.ts
 ```
 
-自定义报告器应实现[报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)。
+Custom reporters should implement the [Reporter interface](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts).

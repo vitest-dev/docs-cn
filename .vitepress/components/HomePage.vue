@@ -9,7 +9,7 @@ import { sponsors } from '../sponsors'
       <main class="main">
         <VPHomeSponsors
           v-if="sponsors"
-          message="Vitest 是优秀的开源软件，这得益于这些出色的赞助商。"
+          message="Vitest is free and open source, made possible by wonderful sponsors."
           :data="sponsors"
         />
         <div class="action">
@@ -19,18 +19,12 @@ import { sponsors } from '../sponsors'
             target="_blank"
             rel="noreferrer"
           >
-            赞助 Vitest
+            Sponsor Vitest
           </a>
         </div>
         <p flex flex-col items-center mt-10 class="text-center opacity-75">
           <a href="https://www.netlify.com" rel="noopener noreferrer">
-            <img
-              src="/netlify.svg"
-              alt="Deploys by Netlify"
-              width="114"
-              height="151"
-              decoding="async"
-            >
+            <img src="/netlify.svg" alt="Deploys by Netlify" width="114" height="151" decoding="async">
           </a>
         </p>
       </main>
@@ -53,7 +47,10 @@ import { sponsors } from '../sponsors'
   text-align: center;
   font-weight: 600;
   white-space: nowrap;
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+  transition:
+    color 0.25s,
+    border-color 0.25s,
+    background-color 0.25s;
   /* .VPButton.medium */
   border-radius: 20px;
   padding: 0 20px;

@@ -1,11 +1,9 @@
-import { Buffer } from 'node:buffer'
 import { existsSync, promises as fsp } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'pathe'
 import { teamEmeritiMembers, teamMembers } from '../contributors'
 
 const docsDir = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
-
 const dirAvatars = resolve(docsDir, 'public/user-avatars/')
 const dirSponsors = resolve(docsDir, 'public/sponsors/')
 
@@ -19,7 +17,7 @@ async function download(url: string, fileName: string) {
     const image = await (await fetch(url)).arrayBuffer()
     await fsp.writeFile(fileName, Buffer.from(image))
   }
-  catch { }
+  catch {}
 }
 
 async function fetchAvatars() {

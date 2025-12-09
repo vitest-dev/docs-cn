@@ -1,33 +1,34 @@
 ---
-title: 常见错误 | 指南
+title: Common Errors | Guide
 ---
 
-# 常见错误 {#common-errors}
+# Common Errors
 
 ## Cannot find module './relative-path'
 
-如果你收到一个 **module cannot be found** 的报错，则可能意味着几种不同情况：
+If you receive an error that module cannot be found, it might mean several different things:
 
-- 1.你拼错了路径。确保路径正确。
-- 2.你可能依赖于 `tsconfig.json` 中的 `baseUrl`。默认情况下，Vite 不考虑 `tsconfig.json`，因此如果你依赖此行为，你可能需要自己安装 [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths) 。
+- 1. You misspelled the path. Make sure the path is correct.
+
+- 2. It's possible that you rely on `baseUrl` in your `tsconfig.json`. Vite doesn't take into account `tsconfig.json` by default, so you might need to install [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths) yourself, if you rely on this behaviour.
 
 ```ts
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [tsconfigPaths()]
 })
 ```
 
-或者重写你的路径，使它不是相对于 root。
+Or rewrite your path to not be relative to root:
 
 ```diff
 - import helpers from 'src/helpers'
 + import helpers from '../src/helpers'
 ```
 
-- 3. 确保你没有使用相对路径的 [别名](/config/#alias)。Vite 将它们视为相对于导入所在的文件而不是根目录。
+- 3. Make sure you don't have relative [aliases](/config/#alias). Vite treats them as relative to the file where the import is instead of the root.
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -37,19 +38,18 @@ export default defineConfig({
     alias: {
       '@/': './src/', // [!code --]
       '@/': new URL('./src/', import.meta.url).pathname, // [!code ++]
-    },
-  },
+    }
+  }
 })
 ```
 
 ## Failed to terminate worker
 
-当 NodeJS 的 fetch 与默认的 [`pool: 'threads'`](/config/#threads) 一起使用时，可能会发生此错误。问题可以在 [issue#3077](https://github.com/vitest-dev/vitest/issues/3077) 上进行持续更新。
+This error can happen when NodeJS's `fetch` is used with default [`pool: 'threads'`](/config/#threads). This issue is tracked on issue [Timeout abort can leave process(es) running in the background #3077](https://github.com/vitest-dev/vitest/issues/3077).
 
-作为解决方法，我们可以切换到 [`pool: 'forks'`](/config/#forks) 或 [`pool: 'vmForks'`](/config/#vmforks)。
+As work-around you can switch to [`pool: 'forks'`](/config/#forks) or [`pool: 'vmForks'`](/config/#vmforks).
 
 ::: code-group
-
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -59,26 +59,23 @@ export default defineConfig({
   },
 })
 ```
-
 ```bash [CLI]
 vitest --pool=forks
 ```
-
 :::
 
 ## Segfaults and native code errors
 
-运行 [原生 NodeJS 模块](https://nodejs.org/api/addons.html) 在 `pool: 'threads'` 中，可能会遇到来自原生代码的神秘错误。
+Running [native NodeJS modules](https://nodejs.org/api/addons.html) in `pool: 'threads'` can run into cryptic errors coming from the native code.
 
 - `Segmentation fault (core dumped)`
 - `thread '<unnamed>' panicked at 'assertion failed`
 - `Abort trap: 6`
 - `internal error: entered unreachable code`
 
-在这些情况下，原生模块可能不是为多线程安全而构建的。在解决方案中，你可以切换到 `pool: 'forks'`，它在多个 `node:child_process` 而不是多个 `node:worker_threads` 中运行测试用例。
+In these cases the native module is likely not built to be multi-thread safe. As work-around, you can switch to `pool: 'forks'` which runs the test cases in multiple `node:child_process` instead of multiple `node:worker_threads`.
 
 ::: code-group
-
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -88,9 +85,7 @@ export default defineConfig({
   },
 })
 ```
-
 ```bash [CLI]
 vitest --pool=forks
 ```
-
 :::

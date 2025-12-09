@@ -11,34 +11,26 @@ import {
   VPTeamPageSection,
   VPTeamMembers
 } from 'vitepress/theme'
-import { teamMembers, teamEmeritiMembers, translationTeamMembers } from './.vitepress/contributors'
+import { teamMembers, teamEmeritiMembers } from './.vitepress/contributors'
 </script>
 
 <VPTeamPage>
   <VPTeamPageTitle>
-    <template #title>认识我们的团队</template>
+    <template #title>Meet the Team</template>
     <template #lead>
-      Vitest 目前由一个国际化的团队开发和维护，
-      下面是对一些团队成员的介绍。
+      The development of Vitest is guided by an international team, some of whom
+      have chosen to be featured below.
     </template>
   </VPTeamPageTitle>
   <VPTeamMembers :members="teamMembers" />
   <VPTeamPageSection>
-    <template #title>团队荣誉会员</template>
+    <template #title>Team Emeriti</template>
     <template #lead>
-      我们在此处向一些目前暂时不再活跃的团队成员致敬，他们在过去做出了宝贵的贡献。
+      Here we honor some no-longer-active team members who have made valuable
+      contributions in the past.
     </template>
     <template #members>
       <VPTeamMembers size="small" :members="teamEmeritiMembers" />
-    </template>
-  </VPTeamPageSection>
-  <VPTeamPageSection>
-    <template #title>中文文档维护者</template>
-    <template #lead>
-      官方中文文档由以下团队成员维护。
-    </template>
-    <template #members>
-      <VPTeamMembers size="small" :members="translationTeamMembers" />
     </template>
   </VPTeamPageSection>
 </VPTeamPage>

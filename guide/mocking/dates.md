@@ -1,8 +1,8 @@
-# 模拟日期 {#mocking-dates}
+# Mocking Dates
 
-有时你需要控制日期以确保测试时的一致性。Vitest 使用 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 包来操作计时器和系统日期。你可以在[这里](/api/vi#vi-setsystemtime)找到有关特定 API 的详细信息。
+Sometimes you need to be in control of the date to ensure consistency when testing. Vitest uses [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) package for manipulating timers, as well as system date. You can find more about the specific API in detail [here](/api/vi#vi-setsystemtime).
 
-## 示例 {#example}
+## Example
 
 ```js
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -22,30 +22,30 @@ function purchase() {
 
 describe('purchasing flow', () => {
   beforeEach(() => {
-    // 告诉 vitest 我们使用模拟时间
+    // tell vitest we use mocked time
     vi.useFakeTimers()
   })
 
   afterEach(() => {
-    // 在每次测试运行后恢复日期
+    // restoring date after each test run
     vi.useRealTimers()
   })
 
   it('allows purchases within business hours', () => {
-    // 设置在营业时间内的小时数
+    // set hour within business hours
     const date = new Date(2000, 1, 1, 13)
     vi.setSystemTime(date)
 
-    // 访问 `Date.now()` 将会返回上面设置的日期
+    // access Date.now() will result in the date set above
     expect(purchase()).toEqual({ message: 'Success' })
   })
 
   it('disallows purchases outside of business hours', () => {
-    // 设置在营业时间外的小时数
+    // set hour outside business hours
     const date = new Date(2000, 1, 1, 19)
     vi.setSystemTime(date)
 
-    // 访问 `Date.now()` 将会返回上面设置的日期
+    // access Date.now() will result in the date set above
     expect(purchase()).toEqual({ message: 'Error' })
   })
 })

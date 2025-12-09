@@ -1,9 +1,9 @@
 ---
-title: 使用插件 | 指南
+title: Using Plugins | Guide
 ---
 
-# 使用插件
+# Using Plugins
 
-Vitest 可以使用插件进行扩展，类似于 Vite 插件的工作方式。这允许你使用相同的 API 和 Vite 插件概念来增强和自定义 Vitest 的功能。
+Vitest can be extended using plugins, similar to how Vite plugins work. This allows you to enhance and customize Vitest's functionality by using the same API and concepts of Vite plugins.
 
-有关如何编写插件的详细指导，你可以参考 [Vite 插件文档](https://vitejs.dev/guide/api-plugin).
+For detailed guidance on how to write plugins, you can refer to the [Vite plugin documentation](https://vitejs.dev/guide/api-plugin).
