@@ -449,7 +449,7 @@ expect(Cart).toHaveBeenCalled()
 ### vi.mockObject <Version>3.2.0</Version>
 
 ```ts
-function mockObject<T>(value: T): MaybeMockedDeep<T>
+function mockObject<T>(value: T, options?: MockOptions): MaybeMockedDeep<T>
 ```
 
 它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见 [自动模拟](/guide/mocking.html#automocking-algorithm)。
