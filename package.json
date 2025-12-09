@@ -15,7 +15,8 @@
     "lint": "eslint --cache .",
     "lint:fix": "eslint . --fix",
     "generate-pwa-icons": "pwa-assets-generator",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "sync": "node scripts/sync-vitest-docs.mjs"
   },
   "dependencies": {
     "@vueuse/core": "latest",
@@ -45,6 +46,9 @@
     "lint-staged": "^16.2.6",
     "ofetch": "^1.4.1",
     "pathe": "^2.0.3",
+    "shelljs": "^0.8.5",
+    "@octokit/rest": "^21.0.2",
+    "colors": "^1.4.0",
     "simple-git-hooks": "^2.13.1",
     "tinyglobby": "latest",
     "tsx": "^4.19.3",

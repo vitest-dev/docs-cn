@@ -1,0 +1,38 @@
+name: Sync Vitest Docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docs-cn repository
+        uses: actions/checkout@v4
+        with:
+          repository: vitest-dev/docs-cn
+          ref: dev
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install shelljs @octokit/rest colors
+
+      - name: Run sync script
+        env:
+          GITHUB_USERNAME: elonehoo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_EMAIL: elonehoo@users.noreply.github.com
+        run: |
+          node scripts/sync-vitest-docs.mjs "$GITHUB_USERNAME" "$GITHUB_TOKEN" "$GITHUB_EMAIL"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -rf temp
