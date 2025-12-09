@@ -4,15 +4,15 @@ outline: deep
 
 # Vi
 
-Vitest 通过 `vi` 工具函数提供实用功能。可以全局访问它（当启用 [globals 配置](/config/#globals) 时），也可以直接从 `vitest` 中导入：
+Vitest provides utility functions to help you out through its `vi` helper. You can access it globally (when [globals configuration](/config/#globals) is enabled), or import it from `vitest` directly:
 
 ```js
 import { vi } from 'vitest'
 ```
 
-## 模拟模块 {#mock-modules}
+## Mock Modules
 
-本节介绍在 [模拟模块](/guide/mocking#modules) 时可以使用的 API。请注意，Vitest 不支持模拟使用 `require()` 导入的模块。
+This section describes the API that you can use when [mocking a module](/guide/mocking/modules). Beware that Vitest doesn't support mocking modules imported using `require()`.
 
 ### vi.mock
 
@@ -25,34 +25,39 @@ interface MockFactory<T> {
   (importOriginal: () => T): unknown
 }
 
-function mock(path: string, factory?: MockOptions | MockFactory<unknown>): void
+function mock(
+  path: string,
+  factory?: MockOptions | MockFactory<unknown>
+): void
 function mock<T>(
   module: Promise<T>,
   factory?: MockOptions | MockFactory<T>
 ): void
 ```
 
-用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
+Substitutes all imported modules from provided `path` with another module. You can use configured Vite aliases inside a path. The call to `vi.mock` is hoisted, so it doesn't matter where you call it. It will always be executed before all imports. If you need to reference some variables outside of its scope, you can define them inside [`vi.hoisted`](#vi-hoisted) and reference them inside `vi.mock`.
 
 ::: warning
-`vi.mock` 仅对使用 `import` 关键字导入的模块有效。它对 `require` 无效。
+`vi.mock` works only for modules that were imported with the `import` keyword. It doesn't work with `require`.
 
-为了提升 `vi.mock` ，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi` （例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/#globals) 配置选项。
+In order to hoist `vi.mock`, Vitest statically analyzes your files. It indicates that `vi` that was not directly imported from the `vitest` package (for example, from some utility file) cannot be used. Use `vi.mock` with `vi` imported from `vitest`, or enable [`globals`](/config/#globals) config option.
 
-Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules) ，在运行测试文件前清除所有模块缓存。
+Vitest will not mock modules that were imported inside a [setup file](/config/#setupfiles) because they are cached by the time a test file is running. You can call [`vi.resetModules()`](#vi-resetmodules) inside [`vi.hoisted`](#vi-hoisted) to clear all module caches before running a test file.
 :::
 
-如果定义了 `factory` 函数，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
+If the `factory` function is defined, all imports will return its result. Vitest calls factory only once and caches results for all subsequent imports until [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock) is called.
 
-我们还可以提供一个具有 `spy` 属性的对象，而不是工厂函数。如果 `spy` 为 `true`，则 Vitest 将照常自动模拟模块，但不会覆盖导出的实现。如果我们只想断言导出的方法已被另一种方法正确调用，这将非常有用。
+Unlike in `jest`, the factory can be asynchronous. You can use [`vi.importActual`](#vi-importactual) or a helper with the factory passed in as the first argument, and get the original module inside.
+
+You can also provide an object with a `spy` property instead of a factory function. If `spy` is `true`, then Vitest will automock the module as usual, but it won't override the implementation of exports. This is useful if you just want to assert that the exported method was called correctly by another method.
 
 ```ts
 import { calculator } from './src/calculator.ts'
 
 vi.mock('./src/calculator.ts', { spy: true })
 
-// 执行原始实现逻辑
-// 但支持后续的断言行为
+// calls the original implementation,
+// but allows asserting the behaviour later
 const result = calculator(1, 2)
 
 expect(result).toBe(3)
@@ -60,33 +65,39 @@ expect(calculator).toHaveBeenCalledWith(1, 2)
 expect(calculator).toHaveReturned(3)
 ```
 
-Vitest 还在 `vi.mock` 和 `vi.doMock` 方法中支持 module promise 而非字符串，以获得更好的集成开发环境支持。当文件被移动时，路径会被更新，`importOriginal` 也会自动继承类型。使用此签名还将强制工厂返回类型与原始模块兼容（但每次导出都是可选的）。
+Vitest also supports a module promise instead of a string in the `vi.mock` and `vi.doMock` methods for better IDE support. When the file is moved, the path will be updated, and `importOriginal` inherits the type automatically. Using this signature will also enforce factory return type to be compatible with the original module (keeping exports optional).
 
-```ts
+```ts twoslash
+// @filename: ./path/to/module.js
+export declare function total(...numbers: number[]): number
+// @filename: test.js
+import { vi } from 'vitest'
+// ---cut---
 vi.mock(import('./path/to/module.js'), async (importOriginal) => {
-  const mod = await importOriginal() // 自动推断类型
+  const mod = await importOriginal() // type is inferred
+  //    ^?
   return {
     ...mod,
-    // 替换部分导出内容
+    // replace some exports
     total: vi.fn(),
   }
 })
 ```
 
-在此钩子下，Vitest 仍然对字符串而不是模块对象进行操作。
+Under the hood, Vitest still operates on a string and not a module object.
 
-如果你使用的 TypeScript 在 `tsconfig.json` 中配置了 `paths` 别名，编译器将无法正确解析导入类型。
-为了使其正常工作，请确保将所有别名导入替换为相应的相对路径。
-例如，使用 `import('./path/to/module.js')`，而不是 `import('@/module')`。
+If you are using TypeScript with `paths` aliases configured in `tsconfig.json` however, the compiler won't be able to correctly resolve import types.
+In order to make it work, make sure to replace all aliased imports, with their corresponding relative paths.
+Eg. use `import('./path/to/module.js')` instead of `import('@/module')`.
 
 ::: warning
-`vi.mock` 被提升（换句话说，_移动_）到**文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
+`vi.mock` is hoisted (in other words, _moved_) to **top of the file**. It means that whenever you write it (be it inside `beforeEach` or `test`), it will actually be called before that.
 
-这也意味着不能在 factory 内部使用任何在 factory 外部定义的变量。
+This also means that you cannot use any variables inside the factory that are defined outside the factory.
 
-如果需要在 factory 内部使用变量，请尝试 [`vi.doMock`](#vi-domock) 。它以同样的方式工作，但不会被吊起。请注意，它只能模拟后续的导入。
+If you need to use variables inside the factory, try [`vi.doMock`](#vi-domock). It works the same way but isn't hoisted. Beware that it only mocks subsequent imports.
 
-如果在 `vi.mock` 之前声明了 `vi.hoisted` 方法，也可以引用该方法定义的变量：
+You can also reference variables defined by `vi.hoisted` method if it was declared before `vi.mock`:
 
 ```ts
 import { namedExport } from './path/to/module.js'
@@ -108,26 +119,25 @@ vi.mocked(namedExport).mockReturnValue(100)
 expect(namedExport()).toBe(100)
 expect(namedExport).toBe(mocks.namedExport)
 ```
-
 :::
 
 ::: warning
-如果我们模拟的模块有默认导出，则需要在返回的工厂函数对象中提供一个 `default` 键。这是 ES 模块特有的注意事项；因此，由于 `jest` 使用 CommonJS 模块，`jest` 文档可能会有所不同。例如：
+If you are mocking a module with default export, you will need to provide a `default` key within the returned factory function object. This is an ES module-specific caveat; therefore, `jest` documentation may differ as `jest` uses CommonJS modules. For example,
 
 ```ts
 vi.mock('./path/to/module.js', () => {
   return {
     default: { myDefaultKey: vi.fn() },
     namedExport: vi.fn(),
-    // ...
+    // etc...
   }
 })
 ```
-
 :::
-如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/#root)（默认为 `process.cwd()` ）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
 
-例如，我们有这样的文件结构：
+If there is a `__mocks__` folder alongside a file that you are mocking, and the factory is not provided, Vitest will try to find a file with the same name in the `__mocks__` subfolder and use it as an actual module. If you are mocking a dependency, Vitest will try to find a `__mocks__` folder in the [root](/config/#root) of the project (default is `process.cwd()`). You can tell Vitest where the dependencies are located through the [`deps.moduleDirectories`](/config/#deps-moduledirectories) config option.
+
+For example, you have this file structure:
 
 ```
 - __mocks__
@@ -140,15 +150,15 @@ vi.mock('./path/to/module.js', () => {
   - increment.test.js
 ```
 
-如果在没有提供工厂或选项的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
+If you call `vi.mock` in a test file without a factory or options provided, it will find a file in the `__mocks__` folder to use as a module:
 
 ```ts [increment.test.js]
-// axios 是 `__mocks__/axios.js` 默认导出项
-import axios from 'axios'
-
 import { vi } from 'vitest'
 
-// increment 是 `src/__mocks__/increment.js` 具名导出
+// axios is a default export from `__mocks__/axios.js`
+import axios from 'axios'
+
+// increment is a named export from `src/__mocks__/increment.js`
 import { increment } from '../increment.js'
 
 vi.mock('axios')
@@ -158,11 +168,10 @@ axios.get(`/apples/${increment(1)}`)
 ```
 
 ::: warning
-
-请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/#setupfiles) 中为每个所需的模块调用 `vi.mock` 。
+Beware that if you don't call `vi.mock`, modules **are not** mocked automatically. To replicate Jest's automocking behaviour, you can call `vi.mock` for each required module inside [`setupFiles`](/config/#setupfiles).
 :::
 
-如果没有提供 `__mocks__` 文件夹或未提供工厂函数，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅[算法](/guide/mocking/modules#automocking-algorithm)。
+If there is no `__mocks__` folder or a factory provided, Vitest will import the original module and auto-mock all its exports. For the rules applied, see [algorithm](/guide/mocking/modules#automocking-algorithm).
 
 ### vi.doMock
 
@@ -177,18 +186,16 @@ function doMock<T>(
 ): void
 ```
 
-与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [动态导入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
+The same as [`vi.mock`](#vi-mock), but it's not hoisted to the top of the file, so you can reference variables in the global file scope. The next [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) of the module will be mocked.
 
 ::: warning
-这将不会模拟在调用此调用之前导入的模块。不要忘记，ESM 中的所有静态导入都是 [hoaded](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting)，因此在静态导入前调用此调用不会强制在导入前调用：
+This will not mock modules that were imported before this was called. Don't forget that all static imports in ESM are always [hoisted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting), so putting this before static import will not force it to be called before the import:
 
 ```ts
-// 这将在 import 语句之后被调用
+vi.doMock('./increment.js') // this will be called _after_ the import statement
 
 import { increment } from './increment.js'
-vi.doMock('./increment.js')
 ```
-
 :::
 
 ```ts [increment.js]
@@ -201,21 +208,21 @@ export function increment(number) {
 import { beforeEach, test } from 'vitest'
 import { increment } from './increment.js'
 
-// 模块尚未模拟，是因为 vi.doMock没有调用
+// the module is not mocked, because vi.doMock is not called yet
 increment(1) === 2
 
 let mockedIncrement = 100
 
 beforeEach(() => {
-  // 你可以在工厂函数内部访问变量
+  // you can access variables inside a factory
   vi.doMock('./increment.js', () => ({ increment: () => ++mockedIncrement }))
 })
 
 test('importing the next module imports mocked one', async () => {
-  // 原始模块并未模拟，是因为 vi.doMock 是在导入语句之后执行的
+  // original import WAS NOT MOCKED, because vi.doMock is evaluated AFTER imports
   expect(increment(1)).toBe(2)
   const { increment: mockedIncrement } = await import('./increment.js')
-  // 新的动态导入，返回模拟模块
+  // new dynamic import returns mocked module
   expect(mockedIncrement(1)).toBe(101)
   expect(mockedIncrement(1)).toBe(102)
   expect(mockedIncrement(1)).toBe(103)
@@ -231,13 +238,13 @@ function mocked<T>(
 ): MaybeMockedDeep<T>
 function mocked<T>(
   object: T,
-  options?: { partial?: boolean, deep?: boolean }
+  options?: { partial?: boolean; deep?: boolean }
 ): MaybePartiallyMockedDeep<T>
 ```
 
-TypeScript 的类型助手。只返回传入的对象。
+Type helper for TypeScript. Just returns the object that was passed.
 
-当 `partial` 为 `true` 时，它将期望一个 `Partial<T>` 作为返回值。默认情况下，这只会让 TypeScript 认为第一层的值是模拟的。我们可以将 `{ deep: true }` 作为第二个参数传递给 TypeScript，告诉它整个对象都是模拟的（如果实际上是的话）。
+When `partial` is `true` it will expect a `Partial<T>` as a return value. By default, this will only make TypeScript believe that the first level values are mocked. You can pass down `{ deep: true }` as a second argument to tell TypeScript that the whole object is mocked, if it actually is.
 
 ```ts [example.ts]
 export function add(x: number, y: number): number {
@@ -261,10 +268,8 @@ test('1 + 1 equals 10', async () => {
 
 test('mock return value with only partially correct typing', async () => {
   vi.mocked(example.fetchSomething).mockResolvedValue(new Response('hello'))
-  vi.mocked(example.fetchSomething, { partial: true }).mockResolvedValue({
-    ok: false,
-  })
-  // vi.mocked(example.someFn).mockResolvedValue({ ok: false }) // 这是一个错误类型
+  vi.mocked(example.fetchSomething, { partial: true }).mockResolvedValue({ ok: false })
+  // vi.mocked(example.someFn).mockResolvedValue({ ok: false }) // this is a type error
 })
 ```
 
@@ -274,7 +279,7 @@ test('mock return value with only partially correct typing', async () => {
 function importActual<T>(path: string): Promise<T>
 ```
 
-导入模块，绕过模块是否应被模拟的所有检查。如果我们想部分模拟模块，这一点很有用。
+Imports module, bypassing all checks if it should be mocked. Can be useful if you want to mock module partially.
 
 ```ts
 vi.mock('./example.js', async () => {
@@ -290,7 +295,7 @@ vi.mock('./example.js', async () => {
 function importMock<T>(path: string): Promise<MaybeMockedDeep<T>>
 ```
 
-导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅[算法](/guide/mocking/modules#automocking-algorithm)。
+Imports a module with all of its properties (including nested properties) mocked. Follows the same rules that [`vi.mock`](#vi-mock) does. For the rules applied, see [algorithm](/guide/mocking/modules#automocking-algorithm).
 
 ### vi.unmock
 
@@ -298,7 +303,7 @@ function importMock<T>(path: string): Promise<MaybeMockedDeep<T>>
 function unmock(path: string | Promise<Module>): void
 ```
 
-从模拟注册表中删除模块。所有导入调用都将返回原始模块，即使该模块之前已被模拟。该调用会被移动到文件顶端，因此只会解除在 `setupFiles` 中定义的模块。
+Removes module from the mocked registry. All calls to import will return the original module even if it was mocked before. This call is hoisted to the top of the file, so it will only unmock modules that were defined in `setupFiles`, for example.
 
 ### vi.doUnmock
 
@@ -306,7 +311,7 @@ function unmock(path: string | Promise<Module>): void
 function doUnmock(path: string | Promise<Module>): void
 ```
 
-与 [`vi.unmock`](#vi-unmock) 相同，但不会移动到文件顶端。下一次导入模块时，将导入原始模块而非 mock。这不会解除先前导入的模块。
+The same as [`vi.unmock`](#vi-unmock), but is not hoisted to the top of the file. The next import of the module will import the original module instead of the mock. This will not unmock previously imported modules.
 
 ```ts [increment.js]
 export function increment(number) {
@@ -317,24 +322,24 @@ export function increment(number) {
 ```ts [increment.test.js]
 import { increment } from './increment.js'
 
-// increment 已被模拟, 因为 vi.mock 已导入声明提升
+// increment is already mocked, because vi.mock is hoisted
 increment(1) === 100
 
-// 此处存在函数提升，工厂函数会在第1行 import 之前被调用
+// this is hoisted, and factory is called before the import on line 1
 vi.mock('./increment.js', () => ({ increment: () => 100 }))
 
-// 所有调用均被模拟，并且 `increment` 始终返回100
+// all calls are mocked, and `increment` always returns 100
 increment(1) === 100
 increment(30) === 100
 
-// 此处不存在函数提升，因为其它导入操作返回未模拟的模块
+// this is not hoisted, so other import will return unmocked module
 vi.doUnmock('./increment.js')
 
-// 此处仍会返回100，因 `vi.doUnmock` 不会重新评估模块
+// this STILL returns 100, because `vi.doUnmock` doesn't reevaluate a module
 increment(1) === 100
 increment(30) === 100
 
-// 下一次导入时解除模拟，此时 `increment` 恢复为原始函数（返回 count + 1）
+// the next import is unmocked, now `increment` is the original function that returns count + 1
 const { increment: unmockedIncrement } = await import('./increment.js')
 
 unmockedIncrement(1) === 2
@@ -347,31 +352,31 @@ unmockedIncrement(30) === 31
 function resetModules(): Vitest
 ```
 
-通过清除所有模块的缓存来重置模块注册表。这样就可以在重新导入模块时对模块进行重新评估。顶层导入无法重新评估。这可能有助于隔离测试之间存在本地状态冲突的模块。
+Resets modules registry by clearing the cache of all modules. This allows modules to be reevaluated when reimported. Top-level imports cannot be re-evaluated. Might be useful to isolate modules where local state conflicts between tests.
 
 ```ts
 import { vi } from 'vitest'
 
-import { data } from './data.js' // 每次测试前不会重新评估
+import { data } from './data.js' // Will not get reevaluated beforeEach test
 
 beforeEach(() => {
   vi.resetModules()
 })
 
 test('change state', async () => {
-  const mod = await import('./some/path.js') // 将会重新评估
+  const mod = await import('./some/path.js') // Will get reevaluated
   mod.changeLocalState('new value')
   expect(mod.getLocalState()).toBe('new value')
 })
 
 test('module has old state', async () => {
-  const mod = await import('./some/path.js') // 将会重新评估
+  const mod = await import('./some/path.js') // Will get reevaluated
   expect(mod.getLocalState()).toBe('old value')
 })
 ```
 
 ::: warning
-不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 。
+Does not reset mocks registry. To clear mocks registry, use [`vi.unmock`](#vi-unmock) or [`vi.doUnmock`](#vi-dounmock).
 :::
 
 ### vi.dynamicImportSettled
@@ -380,12 +385,12 @@ test('module has old state', async () => {
 function dynamicImportSettled(): Promise<void>
 ```
 
-等待加载所有导入模块。如果有同步调用开始导入一个模块，而如果不这样做就无法等待，那么它就很有用。
+Wait for all imports to load. Useful, if you have a synchronous call that starts importing a module that you cannot wait otherwise.
 
 ```ts
 import { expect, test } from 'vitest'
 
-// 无法追踪导入操作，因未返回 Promise
+// cannot track import because Promise is not returned
 function renderComponent() {
   import('./component.js').then(({ render }) => {
     render()
@@ -400,14 +405,14 @@ test('operations are resolved', async () => {
 ```
 
 ::: tip
-如果在动态导入过程中又启动了另一个动态导入，则该方法将等待直到所有动态导入都解决为止。
+If during a dynamic import another dynamic import is initiated, this method will wait until all of them are resolved.
 
-该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
+This method will also wait for the next `setTimeout` tick after the import is resolved so all synchronous operations should be completed by the time it's resolved.
 :::
 
-## 模拟函数和对象
+## Mocking Functions and Objects
 
-本节介绍如何使用 [method mock](/api/mock) 替换环境变量和全局变量。
+This section describes how to work with [method mocks](/api/mock) and replace environmental and global variables.
 
 ### vi.fn
 
@@ -415,8 +420,8 @@ test('operations are resolved', async () => {
 function fn(fn?: Procedure | Constructable): Mock
 ```
 
-创建函数的监视程序，但也可以不创建监视程序。每次调用函数时，它都会存储调用参数、返回值和实例。此外，我们还可以使用 [methods](/api/mock) 操纵它的行为。
-如果没有给出函数，调用 mock 时将返回 `undefined`。
+Creates a spy on a function, but can also be initiated without one. Every time a function is invoked, it stores its call arguments, returns, and instances. Additionally, you can manipulate its behavior with [methods](/api/mock).
+If no function is given, mock will return `undefined` when invoked.
 
 ```ts
 const getApples = vi.fn(() => 0)
@@ -433,14 +438,12 @@ expect(res).toBe(5)
 expect(getApples).toHaveNthReturnedWith(2, 5)
 ```
 
-`vi.fn` 同样支持传入 class 作为参数：
+You can also pass down a class to `vi.fn`:
 
 ```ts
-const Cart = vi.fn(
-  class {
-    get = () => 0
-  }
-)
+const Cart = vi.fn(class {
+  get = () => 0
+})
 
 const cart = new Cart()
 expect(Cart).toHaveBeenCalled()
@@ -449,16 +452,16 @@ expect(Cart).toHaveBeenCalled()
 ### vi.mockObject <Version>3.2.0</Version>
 
 ```ts
-function mockObject<T>(value: T): MaybeMockedDeep<T>
+function mockObject<T>(value: T, options?: MockOptions): MaybeMockedDeep<T>
 ```
 
-它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见 [自动模拟](/guide/mocking.html#automocking-algorithm)。
+Deeply mocks properties and methods of a given object in the same way as `vi.mock()` mocks module exports. See [automocking](/guide/mocking.html#automocking-algorithm) for the detail.
 
 ```ts
 const original = {
   simple: () => 'value',
   nested: {
-    method: () => 'real',
+    method: () => 'real'
   },
   prop: 'foo',
 }
@@ -475,16 +478,13 @@ expect(mocked.simple()).toBe('mocked')
 expect(mocked.nested.method()).toBe('mocked nested')
 ```
 
-就像 `vi.mock()` 一样，可以传递 `{ spy: true }` 作为第二个参数，以保持函数实现：
+Just like `vi.mock()`, you can pass `{ spy: true }` as a second argument to keep function implementations:
 
 ```ts
 const spied = vi.mockObject(original, { spy: true })
 expect(spied.simple()).toBe('value')
 expect(spied.simple).toHaveBeenCalled()
-expect(spied.simple.mock.results[0]).toEqual({
-  type: 'return',
-  value: 'value',
-})
+expect(spied.simple.mock.results[0]).toEqual({ type: 'return', value: 'value' })
 ```
 
 ### vi.isMockFunction
@@ -493,7 +493,7 @@ expect(spied.simple.mock.results[0]).toEqual({
 function isMockFunction(fn: unknown): asserts fn is Mock
 ```
 
-检查给定参数是否为 mock 函数。如果使用的是 TypeScript ，它还会缩小参数类型的范围。
+Checks that a given parameter is a mock function. If you are using TypeScript, it will also narrow down its type.
 
 ### vi.clearAllMocks
 
@@ -501,8 +501,8 @@ function isMockFunction(fn: unknown): asserts fn is Mock
 function clearAllMocks(): Vitest
 ```
 
-对所有 spies 调用 [`.mockClear()`](/api/mock#mockclear)。
-这将清除模拟的历史记录，但不影响模拟的实现。
+Calls [`.mockClear()`](/api/mock#mockclear) on all spies.
+This will clear mock history without affecting mock implementations.
 
 ### vi.resetAllMocks
 
@@ -510,8 +510,8 @@ function clearAllMocks(): Vitest
 function resetAllMocks(): Vitest
 ```
 
-对所有 spies 调用 [`.mockReset()`](/api/mock#mockreset)。
-这将清除模拟的历史记录，并将每个模拟的实现重置为其原始状态。
+Calls [`.mockReset()`](/api/mock#mockreset) on all spies.
+This will clear mock history and reset each mock's implementation.
 
 ### vi.restoreAllMocks
 
@@ -519,14 +519,14 @@ function resetAllMocks(): Vitest
 function restoreAllMocks(): Vitest
 ```
 
-该方法会一次性恢复所有由 [`vi.spyOn`](#vi-spyon) 创建的 spy 的原始实现。
+This restores all original implementations on spies created with [`vi.spyOn`](#vi-spyon).
 
-一旦完成还原，即可重新对其进行监视。
+After the mock was restored, you can spy on it again.
 
 ::: warning
-该方法同样不会触及 [automocking](/guide/mocking/modules#mocking-a-module) 期间生成的任何 mock。
+This method also does not affect mocks created during [automocking](/guide/mocking/modules#mocking-a-module).
 
-注意：与 [`mock.mockRestore`](/api/mock#mockrestore) 不同，`vi.restoreAllMocks` 既不会清空调用历史，也不会重置 mock 的实现。
+Note that unlike [`mock.mockRestore`](/api/mock#mockrestore), `vi.restoreAllMocks` will not clear mock history or reset the mock implementation
 :::
 
 ### vi.spyOn
@@ -539,7 +539,7 @@ function spyOn<T, K extends keyof T>(
 ): Mock<T[K]>
 ```
 
-创建与 [`vi.fn()`](#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
+Creates a spy on a method or getter/setter of an object similar to [`vi.fn()`](#vi-fn). It returns a [mock function](/api/mock).
 
 ```ts
 let apples = 0
@@ -556,7 +556,7 @@ expect(spy).toHaveBeenCalled()
 expect(spy).toHaveReturnedWith(1)
 ```
 
-若被监视的方法为类定义，则 mock 实现必须使用 `function` 或 `class` 关键字。
+If the spying method is a class definition, the mock implementations have to use the `function` or the `class` keyword:
 
 ```ts {12-14,16-20}
 const cart = {
@@ -564,30 +564,27 @@ const cart = {
     getApples() {
       return 42
     }
-  },
+  }
 }
 
-const spy = vi
-  .spyOn(cart, 'Apples')
+const spy = vi.spyOn(cart, 'Apples')
   .mockImplementation(() => ({ getApples: () => 0 })) // [!code --]
-  // 使用函数关键字
+  // with a function keyword
   .mockImplementation(function () {
     this.getApples = () => 0
   })
-  // 使用自定义类
-  .mockImplementation(
-    class MockApples {
-      getApples() {
-        return 0
-      }
+  // with a custom class
+  .mockImplementation(class MockApples {
+    getApples() {
+      return 0
     }
-  )
+  })
 ```
 
-如果传入箭头函数， mock 被调用时将抛出 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
+If you provide an arrow function, you will get [`<anonymous> is not a constructor` error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor) when the mock is called.
 
 ::: tip
-若运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) ，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
+In environments that support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management), you can use `using` instead of `const` to automatically call `mockRestore` on any mocked function when the containing block is exited. This is especially useful for spied methods:
 
 ```ts
 it('calls console.log', () => {
@@ -595,13 +592,12 @@ it('calls console.log', () => {
   debug('message')
   expect(spy).toHaveBeenCalled()
 })
-// console.log 在此处还原
+// console.log is restored here
 ```
-
 :::
 
 ::: tip
-在每个测试后，于 [`afterEach`](/api/#aftereach) 中调用 [`vi.restoreAllMocks`](#vi-restoreallmocks) 或开启配置项 [`test.restoreMocks`](/config/#restoreMocks)，即可将所有方法还原为原始实现。此操作会恢复其 [对象描述符](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)，除非重新对其进行 spy ，否则无法再次修改方法实现。
+You can call [`vi.restoreAllMocks`](#vi-restoreallmocks) inside [`afterEach`](/api/#aftereach) (or enable [`test.restoreMocks`](/config/#restoreMocks)) to restore all methods to their original implementations after every test. This will restore the original [object descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty), so you won't be able to change method's implementation anymore, unless you spy again:
 
 ```ts
 const cart = {
@@ -614,13 +610,12 @@ console.log(cart.getApples()) // 10
 vi.restoreAllMocks()
 console.log(cart.getApples()) // 42
 spy.mockReturnValue(10)
-console.log(cart.getApples()) // 仍然为 42!
+console.log(cart.getApples()) // still 42!
 ```
-
 :::
 
 ::: tip
-在 [浏览器模式](/guide/browser/) 下，无法监视导出的方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
+It is not possible to spy on exported methods in [Browser Mode](/guide/browser/). Instead, you can spy on every exported method by calling `vi.mock("./file-path.js", { spy: true })`. This will mock every export but keep its implementation intact, allowing you to assert if the method was called correctly.
 
 ```ts
 import { calculator } from './src/calculator.ts'
@@ -633,7 +628,7 @@ expect(calculator).toHaveBeenCalledWith(1, 2)
 expect(calculator).toHaveReturned(3)
 ```
 
-虽然有可能在 `jsdom` 或其他 Node.js 环境中监视导出，但未来可能会发生变化。
+And while it is possible to spy on exports in `jsdom` or other Node.js environments, this might change in the future.
 :::
 
 ### vi.stubEnv {#vi-stubenv}
@@ -645,13 +640,13 @@ function stubEnv<T extends string>(
 ): Vitest
 ```
 
-更改 `process.env` 和 `import.meta.env` 中环境变量的值。我们可以调用 `vi.unstubAllEnvs` 恢复其值。
+Changes the value of environmental variable on `process.env` and `import.meta.env`. You can restore its value by calling `vi.unstubAllEnvs`.
 
 ```ts
 import { vi } from 'vitest'
 
-// `process.env.NODE_ENV` 和 `import.meta.env.NODE_ENV`
-// 在调用 "vi.stubEnv" 之前是 "development"
+// `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
+// are "development" before calling "vi.stubEnv"
 
 vi.stubEnv('NODE_ENV', 'production')
 
@@ -663,17 +658,16 @@ vi.stubEnv('NODE_ENV', undefined)
 process.env.NODE_ENV === undefined
 import.meta.env.NODE_ENV === undefined
 
-// 不会改变其他env
+// doesn't change other envs
 import.meta.env.MODE === 'development'
 ```
 
 :::tip
-我们也可以通过简单赋值来更改值，但无法使用 `vi.unstubAllEnvs` 恢复以前的值：
+You can also change the value by simply assigning it, but you won't be able to use `vi.unstubAllEnvs` to restore previous value:
 
 ```ts
 import.meta.env.MODE = 'test'
 ```
-
 :::
 
 ### vi.unstubAllEnvs {#vi-unstuballenvs}
@@ -682,13 +676,13 @@ import.meta.env.MODE = 'test'
 function unstubAllEnvs(): Vitest
 ```
 
-恢复通过 `vi.stubEnv` 更改的所有 `import.meta.env` 和 `process.env` 值。首次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllEnvs`。
+Restores all `import.meta.env` and `process.env` values that were changed with `vi.stubEnv`. When it's called for the first time, Vitest remembers the original value and will store it, until `unstubAllEnvs` is called again.
 
 ```ts
 import { vi } from 'vitest'
 
-// `process.env.NODE_ENV` 和 `import.meta.env.NODE_ENV`
-// 在调用 stubEnv 之前是 "development"
+// `process.env.NODE_ENV` and `import.meta.env.NODE_ENV`
+// are "development" before calling stubEnv
 
 vi.stubEnv('NODE_ENV', 'production')
 
@@ -702,7 +696,7 @@ import.meta.env.NODE_ENV === 'staging'
 
 vi.unstubAllEnvs()
 
-// 还原到在第一次 “stubEnv” 调用之前存储的值
+// restores to the value that were stored before the first "stubEnv" call
 process.env.NODE_ENV === 'development'
 import.meta.env.NODE_ENV === 'development'
 ```
@@ -710,33 +704,35 @@ import.meta.env.NODE_ENV === 'development'
 ### vi.stubGlobal
 
 ```ts
-function stubGlobal(name: string | number | symbol, value: unknown): Vitest
+function stubGlobal(
+  name: string | number | symbol,
+  value: unknown
+): Vitest
 ```
 
-更改全局变量的值。我们可以调用 `vi.unstubAllGlobals` 恢复其原始值。
+Changes the value of global variable. You can restore its original value by calling `vi.unstubAllGlobals`.
 
 ```ts
 import { vi } from 'vitest'
 
-// 在调用 stubGlobal 之前 `innerWidth` 是 "0"
+// `innerWidth` is "0" before calling stubGlobal
 
 vi.stubGlobal('innerWidth', 100)
 
 innerWidth === 100
 globalThis.innerWidth === 100
-// 如果你正在使用 jsdom 或 happy-dom
+// if you are using jsdom or happy-dom
 window.innerWidth === 100
 ```
 
 :::tip
-我们也可以通过简单地将其赋值给 `globalThis` 或 `window`（如果你正在使用 `jsdom` 或 `happy-dom` 环境）来更改该值，但无法使用 `vi.unstubAllGlobals` 恢复原始值：
+You can also change the value by simply assigning it to `globalThis` or `window` (if you are using `jsdom` or `happy-dom` environment), but you won't be able to use `vi.unstubAllGlobals` to restore original value:
 
 ```ts
 globalThis.innerWidth = 100
-// 如果你正在使用 jsdom 或 happy-dom
+// if you are using jsdom or happy-dom
 window.innerWidth = 100
 ```
-
 :::
 
 ### vi.unstubAllGlobals {#vi-unstuballglobals}
@@ -745,34 +741,34 @@ window.innerWidth = 100
 function unstubAllGlobals(): Vitest
 ```
 
-恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent`，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
+Restores all global values on `globalThis`/`global` (and `window`/`top`/`self`/`parent`, if you are using `jsdom` or `happy-dom` environment) that were changed with `vi.stubGlobal`. When it's called for the first time, Vitest remembers the original value and will store it, until `unstubAllGlobals` is called again.
 
 ```ts
 import { vi } from 'vitest'
 
 const Mock = vi.fn()
 
-// 在调用 "stubGlobal" 之前 IntersectionObserver 是 "undefined"
+// IntersectionObserver is "undefined" before calling "stubGlobal"
 
 vi.stubGlobal('IntersectionObserver', Mock)
 
 IntersectionObserver === Mock
 global.IntersectionObserver === Mock
 globalThis.IntersectionObserver === Mock
-// 如果你正在使用 jsdom 或 happy-dom
+// if you are using jsdom or happy-dom
 window.IntersectionObserver === Mock
 
 vi.unstubAllGlobals()
 
 globalThis.IntersectionObserver === undefined
 'IntersectionObserver' in globalThis === false
-// 抛出 ReferenceError，因为变量未定义
+// throws ReferenceError, because it's not defined
 IntersectionObserver === undefined
 ```
 
 ## Fake Timers
 
-本节介绍如何使用 [fake timers](/guide/mocking/timers) 。
+This sections describes how to work with [fake timers](/guide/mocking/timers).
 
 ### vi.advanceTimersByTime
 
@@ -780,7 +776,7 @@ IntersectionObserver === undefined
 function advanceTimersByTime(ms: number): Vitest
 ```
 
-该方法将调用每个启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。
+This method will invoke every initiated timer until the specified number of milliseconds is passed or the queue is empty - whatever comes first.
 
 ```ts
 let i = 0
@@ -788,9 +784,9 @@ setInterval(() => console.log(++i), 50)
 
 vi.advanceTimersByTime(150)
 
-// 输出: 1
-// 输出: 2
-// 输出: 3
+// log: 1
+// log: 2
+// log: 3
 ```
 
 ### vi.advanceTimersByTimeAsync
@@ -799,7 +795,7 @@ vi.advanceTimersByTime(150)
 function advanceTimersByTimeAsync(ms: number): Promise<Vitest>
 ```
 
-该方法将调用每个已启动的定时器，直到超过指定的毫秒数或队列为空（以先到者为准）。这将包括异步设置的计时器。
+This method will invoke every initiated timer until the specified number of milliseconds is passed or the queue is empty - whatever comes first. This will include asynchronously set timers.
 
 ```ts
 let i = 0
@@ -807,9 +803,9 @@ setInterval(() => Promise.resolve().then(() => console.log(++i)), 50)
 
 await vi.advanceTimersByTimeAsync(150)
 
-// 输出: 1
-// 输出: 2
-// 输出: 3
+// log: 1
+// log: 2
+// log: 3
 ```
 
 ### vi.advanceTimersToNextTimer
@@ -818,15 +814,15 @@ await vi.advanceTimersByTimeAsync(150)
 function advanceTimersToNextTimer(): Vitest
 ```
 
-将调用下一个可用的定时器。在每次调用定时器之间进行断言非常有用。我们可以调用它来管理自己的定时器。
+Will call next available timer. Useful to make assertions between each timer call. You can chain call it to manage timers by yourself.
 
 ```ts
 let i = 0
 setInterval(() => console.log(++i), 50)
 
-vi.advanceTimersToNextTimer() // 输出: 1
-  .advanceTimersToNextTimer() // 输出: 2
-  .advanceTimersToNextTimer() // 输出: 3
+vi.advanceTimersToNextTimer() // log: 1
+  .advanceTimersToNextTimer() // log: 2
+  .advanceTimersToNextTimer() // log: 3
 ```
 
 ### vi.advanceTimersToNextTimerAsync
@@ -835,7 +831,7 @@ vi.advanceTimersToNextTimer() // 输出: 1
 function advanceTimersToNextTimerAsync(): Promise<Vitest>
 ```
 
-如果定时器是异步设置的，则会调用下一个可用的定时器并等待解决。在每次调用定时器之间进行断言非常有用。
+Will call next available timer and wait until it's resolved if it was set asynchronously. Useful to make assertions between each timer call.
 
 ```ts
 let i = 0
@@ -848,13 +844,13 @@ await vi.advanceTimersToNextTimerAsync() // log: 2
 await vi.advanceTimersToNextTimerAsync() // log: 3
 ```
 
-### vi.advanceTimersToNextFrame
+### vi.advanceTimersToNextFrame {#vi-advancetimerstonextframe}
 
 ```ts
 function advanceTimersToNextFrame(): Vitest
 ```
 
-与 [`vi.advanceTimersByTime`](https://vitest.dev/api/vi#vi-advancetimersbytime) 类似，但会将计时器推进当前使用 `requestAnimationFrame` 安排的回调执行所需的毫秒数。
+Similar to [`vi.advanceTimersByTime`](/api/vi#vi-advancetimersbytime), but will advance timers by the milliseconds needed to execute callbacks currently scheduled with `requestAnimationFrame`.
 
 ```ts
 let frameRendered = false
@@ -874,7 +870,7 @@ expect(frameRendered).toBe(true)
 function getTimerCount(): number
 ```
 
-获取等待计时器的数量。
+Get the number of waiting timers.
 
 ### vi.clearAllTimers
 
@@ -882,7 +878,7 @@ function getTimerCount(): number
 function clearAllTimers(): void
 ```
 
-立即取消所有已排程的计时器，使其不再执行。
+Removes all timers that are scheduled to run. These timers will never run in the future.
 
 ### vi.getMockedSystemTime
 
@@ -890,7 +886,7 @@ function clearAllTimers(): void
 function getMockedSystemTime(): Date | null
 ```
 
-返回模拟的当前日期。如果没有模拟日期，该方法将返回 `null`。
+Returns mocked current date. If date is not mocked the method will return `null`.
 
 ### vi.getRealSystemTime
 
@@ -898,7 +894,7 @@ function getMockedSystemTime(): Date | null
 function getRealSystemTime(): number
 ```
 
-使用 `vi.useFakeTimers` 时，会模拟 `Date.now` 调用。如果需要以毫秒为单位获取实时时间，可以调用此函数。
+When using `vi.useFakeTimers`, `Date.now` calls are mocked. If you need to get real time in milliseconds, you can call this function.
 
 ### vi.runAllTicks
 
@@ -906,7 +902,7 @@ function getRealSystemTime(): number
 function runAllTicks(): Vitest
 ```
 
-调用由 `process.nextTick` 排在队列中的每个微任务。这也将运行所有自己安排的微任务。
+Calls every microtask that was queued by `process.nextTick`. This will also run all microtasks scheduled by themselves.
 
 ### vi.runAllTimers
 
@@ -914,7 +910,7 @@ function runAllTicks(): Vitest
 function runAllTimers(): Vitest
 ```
 
-该方法将调用每个已经启动的定时器，直到定时器队列为空。这意味着在 `runAllTimers` 期间调用的每个定时器都会被触发。如果时间间隔为无限，则会在尝试 10000 次后触发（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) 进行配置）。
+This method will invoke every initiated timer until the timer queue is empty. It means that every timer called during `runAllTimers` will be fired. If you have an infinite interval, it will throw after 10 000 tries (can be configured with [`fakeTimers.loopLimit`](/config/#faketimers-looplimit)).
 
 ```ts
 let i = 0
@@ -928,9 +924,9 @@ const interval = setInterval(() => {
 
 vi.runAllTimers()
 
-// 输出: 1
-// 输出: 2
-// 输出: 3
+// log: 1
+// log: 2
+// log: 3
 ```
 
 ### vi.runAllTimersAsync
@@ -939,8 +935,8 @@ vi.runAllTimers()
 function runAllTimersAsync(): Promise<Vitest>
 ```
 
-该方法将异步调用每个已启动的定时器，直到定时器队列为空。这意味着在 `runAllTimersAsync` 期间调用的每个定时器都会被触发，即使是异步定时器。如果我们有一个无限的时间间隔、
-会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/#faketimers-looplimit) ）。
+This method will asynchronously invoke every initiated timer until the timer queue is empty. It means that every timer called during `runAllTimersAsync` will be fired even asynchronous timers. If you have an infinite interval,
+it will throw after 10 000 tries (can be configured with [`fakeTimers.loopLimit`](/config/#faketimers-looplimit)).
 
 ```ts
 setTimeout(async () => {
@@ -949,7 +945,7 @@ setTimeout(async () => {
 
 await vi.runAllTimersAsync()
 
-// 输出: result
+// log: result
 ```
 
 ### vi.runOnlyPendingTimers
@@ -958,7 +954,7 @@ await vi.runAllTimersAsync()
 function runOnlyPendingTimers(): Vitest
 ```
 
-此方法将调用 [`vi.useFakeTimers`](#vii-usefaketimers) 调用后启动的所有计时器。它不会调用在调用期间启动的任何计时器。
+This method will call every timer that was initiated after [`vi.useFakeTimers`](#vi-usefaketimers) call. It will not fire any timer that was initiated during its call.
 
 ```ts
 let i = 0
@@ -966,7 +962,7 @@ setInterval(() => console.log(++i), 50)
 
 vi.runOnlyPendingTimers()
 
-// 输出: 1
+// log: 1
 ```
 
 ### vi.runOnlyPendingTimersAsync
@@ -975,7 +971,7 @@ vi.runOnlyPendingTimers()
 function runOnlyPendingTimersAsync(): Promise<Vitest>
 ```
 
-此方法将异步调用 [`vi.useFakeTimers`](#vi-usefaketimers) 调用后启动的每个定时器，即使是异步定时器。它不会触发任何在调用期间启动的定时器。
+This method will asynchronously call every timer that was initiated after [`vi.useFakeTimers`](#vi-usefaketimers) call, even asynchronous ones. It will not fire any timer that was initiated during its call.
 
 ```ts
 setTimeout(() => {
@@ -992,10 +988,10 @@ setTimeout(() => {
 
 await vi.runOnlyPendingTimersAsync()
 
-// 输出: 2
-// 输出: 3
-// 输出: 3
-// 输出: 1
+// log: 2
+// log: 3
+// log: 3
+// log: 1
 ```
 
 ### vi.setSystemTime
@@ -1004,11 +1000,11 @@ await vi.runOnlyPendingTimersAsync()
 function setSystemTime(date: string | number | Date): Vitest
 ```
 
-如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime` 、`performance.now` 或 `new Date()` ），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 调用。
+If fake timers are enabled, this method simulates a user changing the system clock (will affect date related API like `hrtime`, `performance.now` or `new Date()`) - however, it will not fire any timers. If fake timers are not enabled, this method will only mock `Date.*` calls.
 
-适用于需要测试依赖当前日期的场景，例如代码中的 [Luxon](https://github.com/moment/luxon/) 库调用。
+Useful if you need to test anything that depends on the current date - for example [Luxon](https://github.com/moment/luxon/) calls inside your code.
 
-接受与 `Date` 相同的字符串和数字参数。
+Accepts the same string and number arguments as the `Date`.
 
 ```ts
 const date = new Date(1998, 11, 19)
@@ -1027,15 +1023,15 @@ vi.useRealTimers()
 function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 ```
 
-要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
+To enable mocking timers, you need to call this method. It will wrap all further calls to timers (such as `setTimeout`, `setInterval`, `clearTimeout`, `clearInterval`, `setImmediate`, `clearImmediate`, and `Date`) until [`vi.useRealTimers()`](#vi-userealtimers) is called.
 
-在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick` 。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick` ，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
+Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--pool=threads`.
 
-内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
+The implementation is based internally on [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
 
 ::: tip
-`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
-仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })` 。
+`vi.useFakeTimers()` does not automatically mock `process.nextTick` and `queueMicrotask`.
+But you can enable it by specifying the option in `toFake` argument: `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })`.
 :::
 
 ### vi.isFakeTimers {#vi-isfaketimers}
@@ -1044,7 +1040,7 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 function isFakeTimers(): boolean
 ```
 
-如果启用了模拟计时器，则返回 `true` 。
+Returns `true` if fake timers are enabled.
 
 ### vi.useRealTimers
 
@@ -1052,11 +1048,11 @@ function isFakeTimers(): boolean
 function useRealTimers(): Vitest
 ```
 
-当定时器用完后，我们可以调用此方法将模拟的计时器返回到其原始实现。之前调度的计时器都将被丢弃。
+When timers have run out, you may call this method to return mocked timers to its original implementations. All timers that were scheduled before will be discarded.
 
-## 辅助函数{#miscellaneous}
+## Miscellaneous
 
-Vitest 提供的一组有用的辅助函数。
+A set of useful helper functions that Vitest provides.
 
 ### vi.waitFor {#vi-waitfor}
 
@@ -1067,11 +1063,11 @@ function waitFor<T>(
 ): Promise<T>
 ```
 
-等待回调成功执行。如果回调抛出错误或返回拒绝的承诺，它将继续等待，直到成功或超时。
+Wait for the callback to execute successfully. If the callback throws an error or returns a rejected promise it will continue to wait until it succeeds or times out.
 
-如果 `options` 设置为一个数字，其效果等同于设置 `{ timeout: options }`。
+If options is set to a number, the effect is equivalent to setting `{ timeout: options }`.
 
-这在需要等待某些异步操作完成时非常有用，例如，在启动服务器并需要等待其启动时。
+This is very useful when you need to wait for some asynchronous action to complete, for example, when you start a server and need to wait for it to start.
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1089,15 +1085,15 @@ test('Server started successfully', async () => {
       console.log('Server started')
     },
     {
-      timeout: 500, // 默认为 1000
-      interval: 20, // 默认为 50
+      timeout: 500, // default is 1000
+      interval: 20, // default is 50
     }
   )
   expect(server.isReady).toBe(true)
 })
 ```
 
-它也适用于异步回调。
+It also works for asynchronous callbacks
 
 ```ts
 // @vitest-environment jsdom
@@ -1106,27 +1102,24 @@ import { expect, test, vi } from 'vitest'
 import { getDOMElementAsync, populateDOMAsync } from './dom.js'
 
 test('Element exists in a DOM', async () => {
-  // 开始填充 DOM
+  // start populating DOM
   populateDOMAsync()
 
-  const element = await vi.waitFor(
-    async () => {
-      // 尝试获取元素直到其存在
-      const element = (await getDOMElementAsync()) as HTMLElement | null
-      expect(element).toBeTruthy()
-      expect(element.dataset.initialized).toBeTruthy()
-      return element
-    },
-    {
-      timeout: 500, // 默认为 1000
-      interval: 20, // 默认为 50
-    }
-  )
+  const element = await vi.waitFor(async () => {
+    // try to get the element until it exists
+    const element = await getDOMElementAsync() as HTMLElement | null
+    expect(element).toBeTruthy()
+    expect(element.dataset.initialized).toBeTruthy()
+    return element
+  }, {
+    timeout: 500, // default is 1000
+    interval: 20, // default is 50
+  })
   expect(element).toBeInstanceOf(HTMLElement)
 })
 ```
 
-一旦通过 `vi.useFakeTimers` 启用假计时器，`vi.waitFor` 将在每次轮询时自动调用 `vi.advanceTimersByTime(interval)` 推进时间。
+If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback.
 
 ### vi.waitUntil {#vi-waituntil}
 
@@ -1137,23 +1130,26 @@ function waitUntil<T>(
 ): Promise<T>
 ```
 
-与 `vi.waitFor` 类似，但若回调抛出错误会立即中断并给出报错；若回调返回假值，则持续轮询直至返回真值。适用于“先等某物出现再行动”的场景。
+This is similar to `vi.waitFor`, but if the callback throws any errors, execution is immediately interrupted and an error message is received. If the callback returns falsy value, the next check will continue until truthy value is returned. This is useful when you need to wait for something to exist before taking the next step.
 
-下面的示例，我们可以使用 `vi.waitUntil` 等待元素出现在页面上，然后再对该元素进行操作。
+Look at the example below. We can use `vi.waitUntil` to wait for the element to appear on the page, and then we can do something with the element.
 
 ```ts
 import { expect, test, vi } from 'vitest'
 
 test('Element render correctly', async () => {
-  const element = await vi.waitUntil(() => document.querySelector('.element'), {
-    timeout: 500, // 默认为 1000
-    interval: 20, // 默认为 50
-  })
-  expect(element).toBeInstanceOf(HTMLElement)
+  const element = await vi.waitUntil(
+    () => document.querySelector('.element'),
+    {
+      timeout: 500, // default is 1000
+      interval: 20, // default is 50
+    }
+  )
+
+  // do something with the element
+  expect(element.querySelector('.element-child')).toBeTruthy()
 })
 ```
-
-如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
 
 ### vi.hoisted {#vi-hoisted}
 
@@ -1161,11 +1157,11 @@ test('Element render correctly', async () => {
 function hoisted<T>(factory: () => T): T
 ```
 
-ES 模块中的所有静态 `import` 语句都被提升到文件顶部，因此在导入之前定义的任何代码都将在导入评估之后执行。
+All static `import` statements in ES modules are hoisted to the top of the file, so any code that is defined before the imports will actually be executed after imports are evaluated.
 
-不过，在导入模块之前，调用一些副作用（如模拟日期）可能会很有用。
+However, it can be useful to invoke some side effects like mocking dates before importing a module.
 
-要绕过这一限制，可以像这样将静态导入重写为动态导入：
+To bypass this limitation, you can rewrite static imports into dynamic ones like this:
 
 ```diff
 callFunctionWithSideEffect()
@@ -1173,7 +1169,7 @@ callFunctionWithSideEffect()
 + const { value } = await import('./some/module.js')
 ```
 
-在运行 `vitest` 时，可以使用 `vi.hoisted` 方法自动完成此操作。在内部，Vitest 会将静态导入转换为动态导入，并保留实时绑定。
+When running `vitest`, you can do this automatically by using `vi.hoisted` method. Under the hood, Vitest will convert static imports into dynamic ones with preserved live-bindings.
 
 ```diff
 - callFunctionWithSideEffect()
@@ -1181,24 +1177,22 @@ import { value } from './some/module.js'
 + vi.hoisted(() => callFunctionWithSideEffect())
 ```
 
-::: warning 导入不可用
-在导入之前运行代码意味着你无法访问导入的变量，因为它们尚未定义：
+::: warning IMPORTS ARE NOT AVAILABLE
+Running code before the imports means that you cannot access imported variables because they are not defined yet:
 
 ```ts
 import { value } from './some/module.js'
 
-vi.hoisted(() => {
-  value
-}) // 抛出一个错误 // [!code warning]
+vi.hoisted(() => { value }) // throws an error // [!code warning]
 ```
 
-此代码将产生错误：
+This code will produce an error:
 
 ```
 Cannot access '__vi_import_0__' before initialization
 ```
 
-如果你需要在 `vi.hoisted` 中访问另一个模块中的变量，请使用动态导入：
+If you need to access a variable from another module inside of `vi.hoisted`, use dynamic import:
 
 ```ts
 await vi.hoisted(async () => {
@@ -1206,10 +1200,10 @@ await vi.hoisted(async () => {
 })
 ```
 
-然而，不建议在 `vi.hoisted` 中导入任何内容，因为导入已经被提升。如果你需要在测试运行之前执行某些操作，只需在导入的模块本身中执行即可。
+However, it is discourage to import anything inside of `vi.hoisted` because imports are already hoisted - if you need to execute something before the tests are running, just execute it in the imported module itself.
 :::
 
-此方法返回工厂函数返回的值。如果你需要访问本地定义的变量，可以在你的 `vi.mock` 工厂中使用该值：
+This method returns the value that was returned from the factory. You can use that value in your `vi.mock` factories if you need easy access to locally defined variables:
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -1227,7 +1221,7 @@ mockedMethod.mockReturnValue(100)
 expect(originalMethod()).toBe(100)
 ```
 
-请注意，即使我们的环境不支持顶级等待，也可以异步调用此方法：
+Note that this method can also be called asynchronously even if your environment doesn't support top-level await:
 
 ```ts
 const json = await vi.hoisted(async () => {
@@ -1242,7 +1236,7 @@ const json = await vi.hoisted(async () => {
 function setConfig(config: RuntimeOptions): void
 ```
 
-更新当前测试文件的配置。此方法只会影响当前测试文件的配置选项：
+Updates config for the current test file. This method supports only config options that will affect the current test file:
 
 ```ts
 vi.setConfig({
@@ -1253,13 +1247,13 @@ vi.setConfig({
   restoreMocks: true,
   fakeTimers: {
     now: new Date(2021, 11, 19),
-    // 支持完整对象
+    // supports the whole object
   },
   maxConcurrency: 10,
   sequence: {
-    hooks: 'stack',
-    // 仅支持 "sequence.hooks"
-  },
+    hooks: 'stack'
+    // supports only "sequence.hooks"
+  }
 })
 ```
 
@@ -1269,4 +1263,4 @@ vi.setConfig({
 function resetConfig(): void
 ```
 
-如果之前调用过 [`vi.setConfig`](#vi-setconfig) ，则会将配置重置为原始状态。
+If [`vi.setConfig`](#vi-setconfig) was called before, this will reset config to the original state.

@@ -1,20 +1,20 @@
 ---
-title: 测试筛选 | 指南
+title: Test Filtering | Guide
 ---
 
-# 测试筛选 {#test-filtering}
+# Test Filtering
 
-筛选、超时和测试套件的并发。
+Filtering, timeouts, concurrent for suite and tests
 
-## CLI {#cli}
+## CLI
 
-你可以使用 CLI 按名称筛选测试文件：
+You can use CLI to filter test files by name:
 
 ```bash
 $ vitest basic
 ```
 
-将只执行包含 `basic` 的测试文件，例如：
+Will only execute test files that contain `basic`, e.g.
 
 ```
 basic.test.ts
@@ -22,16 +22,16 @@ basic-foo.test.ts
 basic/foo.test.ts
 ```
 
-你还可以使用 `-t, --testNamePattern <pattern>` 选项按全名过滤测试。当你想按文件内定义的名称而不是文件名本身进行过滤时，这将非常有用。
+You can also use the `-t, --testNamePattern <pattern>` option to filter tests by full name. This can be helpful when you want to filter by the name defined within a file rather than the filename itself.
 
-自 Vitest 3 起，也可以通过文件名和行号来指定测试：
+Since Vitest 3, you can also specify the test by filename and line number:
 
 ```bash
 $ vitest basic/foo.test.ts:10
 ```
 
 ::: warning
-请注意，Vitest 需要完整的文件名才能使此功能正常工作。文件名可以是相对于当前工作目录的路径，也可以是绝对文件路径。
+Note that Vitest requires the full filename for this feature to work. It can be relative to the current working directory or an absolute file path.
 
 ```bash
 $ vitest basic/foo.js:10 # ✅
@@ -41,7 +41,7 @@ $ vitest foo:10 # ❌
 $ vitest ./basic/foo:10 # ❌
 ```
 
-目前，Vitest 还不支持范围：
+At the moment Vitest also doesn't support ranges:
 
 ```bash
 $ vitest basic/foo.test.ts:10, basic/foo.test.ts:25 # ✅
@@ -49,58 +49,54 @@ $ vitest basic/foo.test.ts:10-25 # ❌
 ```
 :::
 
-## 指定超时阈值 {#specifying-a-timeout}
+## Specifying a Timeout
 
-你可以选择将超时阈值（以毫秒为单位）作为第三个参数传递给测试。默认值为 [5 秒](/config/#testtimeout)。
+You can optionally pass a timeout in milliseconds as a third argument to tests. The default is [5 seconds](/config/#testtimeout).
 
 ```ts
 import { test } from 'vitest'
 
-test('name', async () => {
-  /* ... */
-}, 1000)
+test('name', async () => { /* ... */ }, 1000)
 ```
 
-Hooks 也可以接收超时阈值，默认值为 5 秒。
+Hooks also can receive a timeout, with the same 5 seconds default.
 
 ```ts
 import { beforeAll } from 'vitest'
 
-beforeAll(async () => {
-  /* ... */
-}, 1000)
+beforeAll(async () => { /* ... */ }, 1000)
 ```
 
-## 跳过测试套件和测试 {#skipping-suites-and-tests}
+## Skipping Suites and Tests
 
-使用 `.skip` 以避免运行某些测试套件或测试
+Use `.skip` to avoid running certain suites or tests
 
 ```ts
 import { assert, describe, it } from 'vitest'
 
 describe.skip('skipped suite', () => {
   it('test', () => {
-    // 已跳过此测试套件，无错误
+    // Suite skipped, no error
     assert.equal(Math.sqrt(4), 3)
   })
 })
 
 describe('suite', () => {
   it.skip('skipped test', () => {
-    // 已跳过此测试，无错误
+    // Test skipped, no error
     assert.equal(Math.sqrt(4), 3)
   })
 })
 ```
 
-## 选择要运行的测试套件和测试 {#selecting-suites-and-tests-to-run}
+## Selecting Suites and Tests to Run
 
-使用 `.only` 仅运行某些测试套件或测试
+Use `.only` to only run certain suites or tests
 
 ```ts
 import { assert, describe, it } from 'vitest'
 
-// 仅运行此测试套件（以及标记为 Only 的其他测试套件）
+// Only this suite (and others marked with only) are run
 describe.only('suite', () => {
   it('test', () => {
     assert.equal(Math.sqrt(4), 3)
@@ -109,28 +105,28 @@ describe.only('suite', () => {
 
 describe('another suite', () => {
   it('skipped test', () => {
-    // 已跳过测试，因为测试在 Only 模式下运行
+    // Test skipped, as tests are running in Only mode
     assert.equal(Math.sqrt(4), 3)
   })
 
   it.only('test', () => {
-    // 仅运行此测试（以及标记为 Only 的其他测试）
+    // Only this test (and others marked with only) are run
     assert.equal(Math.sqrt(4), 2)
   })
 })
 ```
 
-## 未实现的测试套件和测试 {#unimplemented-suites-and-tests}
+## Unimplemented Suites and Tests
 
-使用 `.todo` 留存将要实施的测试套件和测试的待办事项
+Use `.todo` to stub suites and tests that should be implemented
 
 ```ts
 import { describe, it } from 'vitest'
 
-// 此测试套件的报告中将显示一个条目
+// An entry will be shown in the report for this suite
 describe.todo('unimplemented suite')
 
-// 此测试的报告中将显示一个条目
+// An entry will be shown in the report for this test
 describe('suite', () => {
   it.todo('unimplemented test')
 })

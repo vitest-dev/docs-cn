@@ -1,28 +1,28 @@
 ---
-title: 源码内联测试 | 指南
+title: In-Source Testing | Guide
 ---
 
-# 源码内联测试 {#in-source-testing}
+# In-Source Testing
 
-Vitest 还提供了一种在源代码中与实现一起运行测试的方式，就像是 [类似于 Rust 语言的模块测试](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest)。
+Vitest provides a way to run tests within your source code along side the implementation, similar to [Rust's module tests](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
 
-这允许测试与实现共享相同的闭包，并且能够在不导出的情况下针对私有状态进行测试。同时，它也使开发更加接近反馈循环。
-
-## 指引 {#setup}
+This makes the tests share the same closure as the implementations and able to test against private states without exporting. Meanwhile, it also brings a closer feedback loop for development.
 
 ::: warning
-本指南介绍如何在源代码中编写测试。如果需要在单独的测试文件中编写测试，请参阅 ["编写测试" 指南](/guide/#writing-tests)。
+This guide explains how to write tests inside your source code. If you need to write tests in separate test files, follow the ["Writing Tests" guide](/guide/#writing-tests).
 :::
 
-首先，在 `if (import.meta.vitest)` 代码块内写一些测试代码并放在文件的末尾，例如:
+## Setup
+
+To get started, put a `if (import.meta.vitest)` block at the end of your source file and write some tests inside it. For example:
 
 ```ts [src/index.ts]
-// 具体实现
+// the implementation
 export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0)
 }
 
-// 源码内的测试套件
+// in-source test suites
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest
   it('add', () => {
@@ -33,7 +33,7 @@ if (import.meta.vitest) {
 }
 ```
 
-更新 Vitest 配置文件内的 `includeSource` 以获取到 `src/` 下的文件：
+Update the `includeSource` config for Vitest to grab the files under `src/`:
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -45,15 +45,15 @@ export default defineConfig({
 })
 ```
 
-然后你就可以开始执行测试了!
+Then you can start to test!
 
 ```bash
 $ npx vitest
 ```
 
-## 生产环境构建 {#production-build}
+## Production Build
 
-对于生产环境的构建，你需要设置配置文件内的 `define` 选项，让打包器清除无用的代码。例如，在 Vite 中
+For the production build, you will need to set the `define` options in your config file, letting the bundler do the dead code elimination. For example, in Vite
 
 ```ts [vite.config.ts]
 /// <reference types="vitest/config" />
@@ -64,53 +64,81 @@ export default defineConfig({
   test: {
     includeSource: ['src/**/*.{js,ts}'],
   },
-  define: {
-    // [!code ++]
+  define: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
 })
 ```
 
-### 其他的打包器 {#other-bundlers}
+### Other Bundlers
 
-::: details unbuild
-```ts [build.config.ts]
-import { defineBuildConfig } from 'unbuild'
+::: details Rolldown
+```js [rolldown.config.js]
+import { defineConfig } from 'rolldown/config'
 
-export default defineBuildConfig({
-  replace: {
-    // [!code ++]
-    'import.meta.vitest': 'undefined', // [!code ++]
-  }, // [!code ++]
-  // 其他选项
+export default defineConfig({
+  transform: {
+    define: { // [!code ++]
+      'import.meta.vitest': 'undefined', // [!code ++]
+    }, // [!code ++]
+  },
 })
 ```
 
-了解更多：[unbuild](https://github.com/unjs/unbuild)
+Learn more: [Rolldown](https://rolldown.rs/)
 :::
 
 ::: details Rollup
-```ts [rollup.config.js]
+```js [rollup.config.js]
 import replace from '@rollup/plugin-replace' // [!code ++]
 
 export default {
   plugins: [
-    replace({
-      // [!code ++]
+    replace({ // [!code ++]
       'import.meta.vitest': 'undefined', // [!code ++]
-    }), // [!code ++]
+    }) // [!code ++]
   ],
-  // 其他选项
+  // other options
 }
 ```
 
-了解更多：[Rollup](https://rollupjs.org/)
+Learn more: [Rollup](https://rollupjs.org/)
+:::
 
+::: details unbuild
+```js [build.config.js]
+import { defineBuildConfig } from 'unbuild'
+
+export default defineBuildConfig({
+  replace: { // [!code ++]
+    'import.meta.vitest': 'undefined', // [!code ++]
+  }, // [!code ++]
+  // other options
+})
+```
+
+Learn more: [unbuild](https://github.com/unjs/unbuild)
+:::
+
+::: details webpack
+```js [webpack.config.js]
+const webpack = require('webpack')
+
+module.exports = {
+  plugins: [
+    new webpack.DefinePlugin({ // [!code ++]
+      'import.meta.vitest': 'undefined', // [!code ++]
+    })// [!code ++]
+  ],
+}
+```
+
+Learn more: [webpack](https://webpack.js.org/plugins/define-plugin/)
 :::
 
 ## TypeScript
 
-要获得对 `import.meta.vitest` 的 TypeScript 支持，添加 `vitest/importMeta` 到 `tsconfig.json`:
+To get TypeScript support for `import.meta.vitest`, add `vitest/importMeta` to your `tsconfig.json`:
 
 ```json [tsconfig.json]
 {
@@ -122,14 +150,14 @@ export default {
 }
 ```
 
-完整的示例请参考 [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test)。
+Reference to [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test) for the full example.
 
-## 说明 {#notes}
+## Notes
 
-此功能可用于:
+This feature could be useful for:
 
-- 小范围的功能或 utils 工具的单元测试
-- 原型设计
-- 内联断言
+- Unit testing for small-scoped functions or utilities
+- Prototyping
+- Inline Assertion
 
-对于更复杂的测试，比如组件测试或 E2E 测试，建议**使用单独的测试文件取而代之**。
+It's recommended to **use separate test files instead** for more complex tests like components or E2E testing.

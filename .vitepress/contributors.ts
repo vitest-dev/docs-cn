@@ -164,47 +164,7 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
   },
 ]
 
-const plainTranslationTeamMembers: CoreTeam[] = [
-  {
-    avatar: 'https://github.com/elonehoo.png',
-    name: 'Elone Hoo',
-    github: 'elonehoo',
-    desc: 'Vitest 中文文档发起者',
-  },
-  {
-    avatar: 'https://github.com/watonyweng.png',
-    name: 'Wáng Wěi Tāo',
-    github: 'watonyweng',
-  },
-  {
-    avatar: 'https://github.com/thinkasany.png',
-    name: 'thinkasany',
-    github: 'thinkasany',
-    desc: 'Vite & Vitest & antd 中文文档维护者',
-  },
-  {
-    avatar: 'https://github.com/XieZongChen.png',
-    name: 'XieZongChen',
-    github: 'XieZongChen',
-    desc: 'Vitest 中文文档维护者',
-  },
-  {
-    avatar: 'https://github.com/lxKylin.png',
-    name: 'Kylin',
-    github: 'lxKylin',
-    desc: 'Vite & Vitest 中文文档维护者',
-  },
-  {
-    avatar: 'https://github.com/NoiseFan.png',
-    name: 'NoiseFan',
-    github: 'NoiseFan',
-    title: '开源爱好者',
-    desc: 'Vitest 中文文档维护者',
-  },
-]
-
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))
 const teamEmeritiMembers = plainTeamEmeritiMembers.map(tm => createLinks(tm))
-const translationTeamMembers = plainTranslationTeamMembers.map(tm => createLinks(tm))
 
-export { teamEmeritiMembers, teamMembers, translationTeamMembers }
+export { teamEmeritiMembers, teamMembers }

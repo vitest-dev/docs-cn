@@ -1,14 +1,14 @@
-# 模拟函数 {#mocking-functions}
+# Mocking Functions
 
-模拟函数可以分为两个不同的类别：监视(spying)和模拟(mocking)。
+Mocking functions can be split up into two different categories: spying and mocking.
 
-如果你需要观察对象上方法的行为，你可以使用 [`vi.spyOn()`](/api/vi#vi-spyon) 来创建一个间谍，用于跟踪对该方法的调用。
+If you need to observe the behaviour of a method on an object, you can use [`vi.spyOn()`](/api/vi#vi-spyon) to create a spy that tracks calls to that method.
 
-如果你需要传递自定义函数实现作为参数或创建新的模拟实体，你可以使用 [`vi.fn()`](/api/vi#vi-fn) 来创建一个模拟函数。
+If you need to pass down a custom function implementation as an argument or create a new mocked entity, you can use [`vi.fn()`](/api/vi#vi-fn) to create a mock function.
 
-`vi.spyOn` 和 `vi.fn` 都共享相同的方法。
+Both `vi.spyOn` and `vi.fn` share the same methods.
 
-## 示例 {#example}
+## Example
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'

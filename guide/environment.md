@@ -1,33 +1,33 @@
 ---
-title: 测试环境 | 指南
+title: Test Environment | Guide
 ---
 
-# 测试环境 {#test-environment}
+# Test Environment
 
-Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/#environmentoptions) 选项修改环境的行为方式。
+Vitest provides [`environment`](/config/#environment) option to run code inside a specific environment. You can modify how environment behaves with [`environmentOptions`](/config/#environmentoptions) option.
 
-默认情况下，你可以使用这些环境：
+By default, you can use these environments:
 
-- `node` 为默认环境
-- `jsdom` 通过提供 Browser API 模拟浏览器环境，使用 [`jsdom`](https://github.com/jsdom/jsdom) 包
-- `happy-dom` 通过提供 Browser API 模拟浏览器环境，被认为比 jsdom 更快，但缺少一些 API，使用 [`happy-dom`](https://github.com/capricorn86/happy-dom) 包
-- `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
+- `node` is default environment
+- `jsdom` emulates browser environment by providing Browser API, uses [`jsdom`](https://github.com/jsdom/jsdom) package
+- `happy-dom` emulates browser environment by providing Browser API, and considered to be faster than jsdom, but lacks some API, uses [`happy-dom`](https://github.com/capricorn86/happy-dom) package
+- `edge-runtime` emulates Vercel's [edge-runtime](https://edge-runtime.vercel.app/), uses [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) package
 
 ::: info
-当使用 `jsdom` 或 `happy-dom` 环境时，Vitest 在导入 [CSS](https://vitejs.dev/guide/features.html#css) 和 [资源文件](https://vitejs.dev/guide/features.html#static-assets) 时遵循与 Vite 相同的规则。如果在导入外部依赖时出现 `unknown extension .css` 错误，则需要通过将所有相关包添加到 [`server.deps.inline`](/config/#server-deps-inline) 中，手动内联整个导入链。例如，在以下导入链中：`源代码 -> package-1 -> package-2 -> package-3`，如果错误发生在 `package-3`，你需要将这三个包都添加到 `server.deps.inline` 中。
+When using `jsdom` or `happy-dom` environments, Vitest follows the same rules that Vite does when importing [CSS](https://vitejs.dev/guide/features.html#css) and [assets](https://vitejs.dev/guide/features.html#static-assets). If importing external dependency fails with `unknown extension .css` error, you need to inline the whole import chain manually by adding all packages to [`server.deps.inline`](/config/#server-deps-inline). For example, if the error happens in `package-3` in this import chain: `source code -> package-1 -> package-2 -> package-3`, you need to add all three packages to `server.deps.inline`.
 
-外部依赖中的 CSS 和资源文件的 `require` 调用会自动解析。
+The `require` of CSS and assets inside the external dependencies are resolved automatically.
 :::
 
 ::: warning
-"环境" 仅在 Node.js 中运行测试时存在。
+"Environments" exist only when running tests in Node.js.
 
-Vitest 并不将 `browser` 视作一种测试环境。如果你想让部分测试在 [浏览器模式](/guide/browser/) 中执行，可以通过创建一个 [测试项目](/guide/browser/#projects-config) 来实现。
+`browser` is not considered an environment in Vitest. If you wish to run part of your tests using [Browser Mode](/guide/browser/), you can create a [test project](/guide/browser/#projects-config).
 :::
 
-## 特定文件的环境 {#environments-for-specific-files}
+## Environments for Specific Files
 
-如果在配置文件中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
+When setting `environment` option in your config, it will apply to all the test files in your project. To have more fine-grained control, you can use control comments to specify environment for specific files. Control comments are comments that start with `@vitest-environment` and are followed by the environment name:
 
 ```ts
 // @vitest-environment jsdom
@@ -39,9 +39,9 @@ test('test', () => {
 })
 ```
 
-## 自定义环境 {#custom-environment}
+## Custom Environment
 
-你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
+You can create your own package to extend Vitest environment. To do so, create package with the name `vitest-environment-${name}` or specify a path to a valid JS/TS file. That package should export an object with the shape of `Environment`:
 
 ```ts
 import type { Environment } from 'vitest/environments'
@@ -49,7 +49,7 @@ import type { Environment } from 'vitest/environments'
 export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
-  // 可选 - 仅在支持 "experimental-vm" 的情况下使用
+  // optional - only if you support "experimental-vm" pool
   async setupVM() {
     const vm = await import('node:vm')
     const context = vm.createContext()
@@ -58,26 +58,26 @@ export default <Environment>{
         return context
       },
       teardown() {
-        // 在所有使用此环境的测试运行完毕后调用
-      },
+        // called after all tests with this env have been run
+      }
     }
   },
   setup() {
-    // 自定义设置
+    // custom setup
     return {
       teardown() {
-        // 在所有使用此环境的测试运行完毕后调用
-      },
+        // called after all tests with this env have been run
+      }
     }
-  },
+  }
 }
 ```
 
 ::: warning
-Vitest 要求环境对象显式提供 `viteEnvironment` 字段（若省略则取 Vitest 环境名）。该字段必须设为 `ssr`、`client` 或任意自定义 [Vite 环境](https://cn.vite.dev/guide/api-environment) 名称，用于指定处理测试文件的目标环境。
+Vitest requires `viteEnvironment` option on environment object (fallbacks to the Vitest environment name by default). It should be equal to `ssr`, `client` or any custom [Vite environment](https://vite.dev/guide/api-environment) name. This value determines which environment is used to process file.
 :::
 
-你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
+You also have access to default Vitest environments through `vitest/environments` entry:
 
 ```ts
 import { builtinEnvironments, populateGlobal } from 'vitest/environments'
@@ -85,25 +85,21 @@ import { builtinEnvironments, populateGlobal } from 'vitest/environments'
 console.log(builtinEnvironments) // { jsdom, happy-dom, node, edge-runtime }
 ```
 
-Vitest 还提供了 `populateGlobal` 实用函数，可用于将属性从对象移动到全局命名空间：
+Vitest also provides `populateGlobal` utility function, which can be used to move properties from object into the global namespace:
 
 ```ts
 interface PopulateOptions {
-  // 非类函数是否应该绑定到全局命名空间
+  // should non-class functions be bind to the global namespace
   bindFunctions?: boolean
 }
 
 interface PopulateResult {
-  // 所有被复制的键的列表，即使原始对象上不存在该值
+  // a list of all keys that were copied, even if value doesn't exist on original object
   keys: Set<string>
-  // 可能已被键覆盖的原始对象的映射
-  // 你可以在 `teardown` 函数中返回这些值
+  // a map of original object that might have been overridden with keys
+  // you can return these values inside `teardown` function
   originals: Map<string | symbol, any>
 }
 
-export function populateGlobal(
-  global: any,
-  original: any,
-  options: PopulateOptions
-): PopulateResult
+export function populateGlobal(global: any, original: any, options: PopulateOptions): PopulateResult
 ```
