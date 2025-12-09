@@ -28,6 +28,7 @@
     "@iconify-json/logos": "^1.2.10",
     "@shikijs/transformers": "^3.17.1",
     "@shikijs/vitepress-twoslash": "^3.17.1",
+    "@types/node": "^24.10.2",
     "@unocss/reset": "^66.5.9",
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vite-pwa/vitepress": "^1.1.0",
