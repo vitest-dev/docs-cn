@@ -80,7 +80,7 @@ export default ({ mode }: { mode: string }) => {
             'qwik': 'logos:qwik-icon',
             'next': '',
           },
-        }),
+        }) as any,
         llmstxt(),
       ],
     },
