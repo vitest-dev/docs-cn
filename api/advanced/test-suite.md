@@ -1,10 +1,6 @@
 # TestSuite
 
-<<<<<<< HEAD:advanced/api/test-suite.md
-`TestSuite` 类表示一个单一的套件。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/advanced/runner#tasks)。
-=======
-The `TestSuite` class represents a single suite. This class is only available in the main thread. Refer to the ["Runner API"](/api/advanced/runner#tasks) if you are working with runtime tasks.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+`TestSuite` 类表示一个单一的套件。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/api/advanced/runner#tasks)。
 
 `TestSuite` 实例始终具有一个 `type` 属性，其值为 `suite`。你可以使用它来区分不同的任务类型：
 
@@ -16,19 +12,11 @@ if (task.type === 'suite') {
 
 ## project
 
-<<<<<<< HEAD:advanced/api/test-suite.md
-这引用了测试所属的 [`TestProject`](/advanced/api/test-project)。
+这引用了测试所属的 [`TestProject`](/api/advanced/test-project)。
 
 ## module
 
-这是对定义测试的 [`TestModule`](/advanced/api/test-module) 的直接引用。
-=======
-This references the [`TestProject`](/api/advanced/test-project) that the test belongs to.
-
-## module
-
-This is a direct reference to the [`TestModule`](/api/advanced/test-module) where the test is defined.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+这是对定义测试的 [`TestModule`](/api/advanced/test-module) 的直接引用。
 
 ## name
 
@@ -61,11 +49,7 @@ describe('the validation logic', () => {
 
 ## id
 
-<<<<<<< HEAD:advanced/api/test-suite.md
-这是套件的唯一标识符。此 ID 是确定性的，在多次运行中相同的套件将具有相同的 ID。ID 基于 [项目](/advanced/api/test-project) 名称、模块 ID 和套件顺序。
-=======
-This is suite's unique identifier. This ID is deterministic and will be the same for the same suite across multiple runs. The ID is based on the [project](/api/advanced/test-project) name, module ID and suite order.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+这是套件的唯一标识符。此 ID 是确定性的，在多次运行中相同的套件将具有相同的 ID。ID 基于 [项目](/api/advanced/test-project) 名称、模块 ID 和套件顺序。
 
 ID 的格式如下：
 
@@ -79,7 +63,7 @@ ID 的格式如下：
 
 ::: tip
 你可以使用 `vitest/node` 中的 `generateFileHash` 函数生成文件哈希，该函数自 Vitest 3 起可用：
-
+<!-- TODO: translation -->
 ```ts
 import { generateFileHash } from 'vitest/node'
 
@@ -111,11 +95,7 @@ describe('the validation works correctly', () => {
 
 ## parent
 
-<<<<<<< HEAD:advanced/api/test-suite.md
-父级套件。如果套件是在 [模块](/advanced/api/test-module) 内直接调用的，则父级将是模块本身。
-=======
-Parent suite. If the suite was called directly inside the [module](/api/advanced/test-module), the parent will be the module itself.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+父级套件。如果套件是在 [模块](/api/advanced/test-module) 内直接调用的，则父级将是模块本身。
 
 ## options
 
@@ -135,11 +115,7 @@ interface TaskOptions {
 
 ## children
 
-<<<<<<< HEAD:advanced/api/test-suite.md
-这是当前套件内所有套件和测试的 [集合](/advanced/api/test-collection)。
-=======
-This is a [collection](/api/advanced/test-collection) of all suites and tests inside the current suite.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+这是当前套件内所有套件和测试的 [集合](/api/advanced/test-collection)。
 
 ```ts
 for (const task of suite.children) {
@@ -154,11 +130,7 @@ for (const task of suite.children) {
 ```
 
 ::: warning
-<<<<<<< HEAD:advanced/api/test-suite.md
-请注意，`suite.children` 只会遍历第一层嵌套，不会深入嵌套层次。如果我们需要遍历所有测试或套件，请使用 [`children.allTests()`](/advanced/api/test-collection#alltests) 或 [`children.allSuites()`](/advanced/api/test-collection#allsuites)。如果我们需要遍历所有内容，请使用递归函数。
-=======
-Note that `suite.children` will only iterate the first level of nesting, it won't go deeper. If you need to iterate over all tests or suites, use [`children.allTests()`](/api/advanced/test-collection#alltests) or [`children.allSuites()`](/api/advanced/test-collection#allsuites). If you need to iterate over everything, use recursive function:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+请注意，`suite.children` 只会遍历第一层嵌套，不会深入嵌套层次。如果我们需要遍历所有测试或套件，请使用 [`children.allTests()`](/api/advanced/test-collection#alltests) 或 [`children.allSuites()`](/api/advanced/test-collection#allsuites)。如果我们需要遍历所有内容，请使用递归函数。
 
 ```ts
 function visit(collection: TestCollection) {
@@ -198,11 +170,7 @@ function state(): TestSuiteState
 - **skipped**：此套件在收集过程中被跳过。
 
 ::: warning
-<<<<<<< HEAD:advanced/api/test-suite.md
-请注意，[测试模块](/advanced/api/test-module) 也有一个 `state` 方法，返回相同的值，但如果模块尚未执行，它还可以返回一个额外的 `queued` 状态。
-=======
-Note that [test module](/api/advanced/test-module) also has a `state` method that returns the same values, but it can also return an additional `queued` state if the module wasn't executed yet.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
+请注意，[测试模块](/api/advanced/test-module) 也有一个 `state` 方法，返回相同的值，但如果模块尚未执行，它还可以返回一个额外的 `queued` 状态。
 :::
 
 ## errors
@@ -230,27 +198,16 @@ describe('collection failed', () => {
 ```ts
 function meta(): TaskMeta
 ```
-<<<<<<< HEAD:advanced/api/test-suite.md
-在执行或收集过程中附加到套件的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
-=======
-
-Custom [metadata](/api/advanced/metadata) that was attached to the suite during its execution or collection. The meta can be attached by assigning a property to the `suite.meta` object during a test run:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
-
+在执行或收集过程中附加到套件的自定义[元数据](/api/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
+<!-- TODO: translation -->
 ```ts {7,12}
 import { test } from 'vitest'
 import { getCurrentSuite } from 'vitest/suite'
 
-<<<<<<< HEAD:advanced/api/test-suite.md
-describe('the validation works correctly', (task) => {
-  // 在收集过程中指定 “decorated”
-  task.meta.decorated = false
-=======
 describe('the validation works correctly', () => {
   // assign "decorated" during collection
   const { suite } = getCurrentSuite()
   suite!.meta.decorated = true
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-suite.md
 
   test('some test', ({ task }) => {
     // 在试运行期间指定 “decorated”，它将可用

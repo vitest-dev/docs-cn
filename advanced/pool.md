@@ -65,9 +65,9 @@ export interface ProcessPool {
 
 这个函数只会被调用一次（除非服务器配置被更新），通常最好在这个函数内初始化测试所需的一切，并在调用 `runTests` 时重复使用它。
 
-Vitest 会在安排新的测试任务时调用 runTest 方法；如果 files 为空，则不会调用。该方法的第一个参数是 [TestSpecifications](/advanced/api/test-specification) 组成的数组。在执行 runTests 前，这些文件会先经过 [sequencer](/config/#sequence-sequencer) 排序。虽然比较少见，但同一个文件可能会被多次包含在列表里，不过它们总是归属于不同的项目——这是通过 [projects](/guide/projects) 配置机制实现的。
+Vitest 会在安排新的测试任务时调用 runTest 方法；如果 files 为空，则不会调用。该方法的第一个参数是 [TestSpecifications](/api/advanced/test-specification) 组成的数组。在执行 runTests 前，这些文件会先经过 [sequencer](/config/#sequence-sequencer) 排序。虽然比较少见，但同一个文件可能会被多次包含在列表里，不过它们总是归属于不同的项目——这是通过 [projects](/guide/projects) 配置机制实现的。
 
-在 `runTests` 函数执行完毕之前， Vitest 会一直“挂起”当前测试流程；只有当 `runTests` 成功返回， Vitest 才会把 [`onTestRunEnd`](/advanced/reporters) 事件发出来，宣告本轮测试正式结束。
+在 `runTests` 函数执行完毕之前， Vitest 会一直“挂起”当前测试流程；只有当 `runTests` 成功返回， Vitest 才会把 [`onTestRunEnd`](/api/advanced/reporters) 事件发出来，宣告本轮测试正式结束。
 
 如果你正在使用自定义运行池，需要自行提供测试文件及其结果 - 可以参考 [`vitest.state`](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/state.ts)（最重要的是 `collectFiles` 和 `updateTasks`）。Vitest 使用 `@vitest/runner` 包中的 `startTests` 函数来执行这些操作。
 

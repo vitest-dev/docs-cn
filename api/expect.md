@@ -105,7 +105,7 @@ test('expect.soft test', () => {
 
 ```ts
 interface ExpectPoll extends ExpectStatic {
-  (actual: () => T, options?: { interval?: number, timeout?: number, message?: string }): Promise<Assertions<T>>
+  (actual: () => T, options?: { interval?: number; timeout?: number; message?: string }): Promise<Assertions<T>>
 }
 ```
 
@@ -189,11 +189,8 @@ test('stocks are the same', () => {
 
 - **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
 
-<<<<<<< HEAD
-使用 `toBeCloseTo` 比较浮点数。可选的 `numDigits` 参数限制了小数点后要检查的位数。例如：
-=======
+<!-- TODO: translation -->
 Use `toBeCloseTo` to compare floating-point numbers. The optional `numDigits` argument limits the number of digits to check _after_ the decimal point. The default for `numDigits` is 2. For example:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts
 import { expect, test } from 'vitest'
@@ -383,12 +380,7 @@ test('getApplesCount has some unusual side effects...', () => {
 ```
 
 ## toBeOneOf
-
-<<<<<<< HEAD
-- **类型:** `(sample: Array<any>) => any`
-
-`toBeOneOf` 断言某个值是否与所提供数组中的任何值匹配。
-=======
+<!-- TODO: translation -->
 - **Type:** `(sample: Array<any> | Set<any>) => any`
 
 `toBeOneOf` asserts if a value matches any of the values in the provided array or set.
@@ -396,7 +388,6 @@ test('getApplesCount has some unusual side effects...', () => {
 ::: warning EXPERIMENTAL
 Providing a `Set` is an experimental feature and may change in a future release.
 :::
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts
 import { expect, test } from 'vitest'

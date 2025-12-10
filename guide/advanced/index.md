@@ -2,11 +2,7 @@
 title: Advanced API
 ---
 
-<<<<<<< HEAD:advanced/api/index.md
-# 快速起步 {#getting-started}
-=======
-# Getting Started <Badge type="danger">advanced</Badge> {#getting-started}
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/index.md
+# 快速起步 <Badge type="danger">advanced</Badge> {#getting-started}
 
 ::: warning
 本指南列出了通过 Node.js 脚本运行测试的高级 API。如果你只是想 [运行测试](/guide/)，你可能不需要这些内容。这些 API 主要用于库作者。
@@ -36,11 +32,7 @@ const vitest = await startVitest('test')
 await vitest.close()
 ```
 
-<<<<<<< HEAD:advanced/api/index.md
-`startVitest` 函数如果可以启动测试，将返回一个 [`Vitest`](/advanced/api/vitest) 实例。
-=======
-`startVitest` function returns [`Vitest`](/api/advanced/vitest) instance if tests can be started.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/index.md
+`startVitest` 函数如果可以启动测试，将返回一个 [`Vitest`](/api/advanced/vitest) 实例。
 
 如果未启用监视模式，Vitest 将自动调用 `close` 方法。
 
@@ -50,11 +42,7 @@ await vitest.close()
 
 此外，你可以使用第三个参数传递 CLI 参数，这些参数将覆盖任何测试配置选项。或者，你可以将完整的 Vite 配置作为第四个参数传递，这将优先于任何其他用户定义的选项。
 
-<<<<<<< HEAD:advanced/api/index.md
-运行测试后，你可以从 [`state.getTestModules`](/advanced/api/test-module) API 获取结果：
-=======
-After running the tests, you can get the results from the [`state.getTestModules`](/api/advanced/test-module) API:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/index.md
+运行测试后，你可以从 [`state.getTestModules`](/api/advanced/test-module) API 获取结果：
 
 ```ts
 import type { TestModule } from 'vitest/node'
@@ -65,11 +53,7 @@ console.log(vitest.state.getTestModules()) // [TestModule]
 ```
 
 ::: tip
-<<<<<<< HEAD:advanced/api/index.md
-[“运行测试”](/advanced/guide/tests#startvitest) 指南中有使用示例。
-=======
-The ["Running Tests"](/guide/advanced/tests#startvitest) guide has a usage example.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/index.md
+[“运行测试”](/guide/advanced/tests#startvitest) 指南中有使用示例。
 :::
 
 ## createVitest
@@ -83,11 +67,7 @@ function createVitest(
 ): Promise<Vitest>
 ```
 
-<<<<<<< HEAD:advanced/api/index.md
-你可以使用 `createVitest` 函数创建一个 Vitest 实例。它返回与 `startVitest` 相同的 [`Vitest`](/advanced/api/vitest) 实例，但不会启动测试也不会验证已安装的包。
-=======
-You can create Vitest instance by using `createVitest` function. It returns the same [`Vitest`](/api/advanced/vitest) instance as `startVitest`, but it doesn't start tests and doesn't validate installed packages.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/index.md
+你可以使用 `createVitest` 函数创建一个 Vitest 实例。它返回与 `startVitest` 相同的 [`Vitest`](/api/advanced/vitest) 实例，但不会启动测试也不会验证已安装的包。
 
 ```js
 import { createVitest } from 'vitest/node'
@@ -98,11 +78,7 @@ const vitest = await createVitest('test', {
 ```
 
 ::: tip
-<<<<<<< HEAD:advanced/api/index.md
-[“运行测试”](/advanced/guide/tests#createvitest) 指南中有使用示例。
-=======
-The ["Running Tests"](/guide/advanced/tests#createvitest) guide has a usage example.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/index.md
+[“运行测试”](/guide/advanced/tests#createvitest) 指南中有使用示例。
 :::
 
 ## resolveConfig

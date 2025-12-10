@@ -15,7 +15,7 @@ or [`happy-dom`](https://github.com/capricorn86/happy-dom) instead.
 If you are building edge functions, you can use [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) environment
 
 ::: tip
-You can also use [Browser Mode](/guide/browser/) to run integration or unit tests in the browser without mocking the environment.
+You can also use [Browser Mode](/api/browser/) to run integration or unit tests in the browser without mocking the environment.
 :::
 
 To define custom options for your environment, use [`environmentOptions`](/config/environmentoptions).

@@ -142,11 +142,8 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-<<<<<<< HEAD
-如果只有一个测试文件在运行，Vitest 将输出该文件的完整测试树，类似于 [`tree`](#tree-reporter) 报告器。如果文件中至少有一个测试失败，default 报告器也会打印测试树。
-=======
+<!-- TODO: translation reference history -->
 If there is only one test file running, Vitest will output the full test tree of that file, similar to the [`tree`](#tree-reporter) reporter. The default reporter will also print the test tree if there is at least one failed test in the file.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -642,7 +639,7 @@ export default defineConfig({
 :::
 
 <<<<<<< HEAD
-此外，你还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
+此外，你还可以定义自己的[自定义报告器](/api/advanced/reporters)，并通过指定文件路径来使用它们:
 =======
 Additionally, you can define your own [custom reporters](/guide/advanced/reporters) and use them by specifying their file path:
 >>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9

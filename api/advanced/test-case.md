@@ -1,10 +1,6 @@
 # TestCase
 
-<<<<<<< HEAD:advanced/api/test-case.md
-`TestCase` 类表示单个测试。此类仅在主线程中可用。如果您正在处理运行时任务，请参阅 [“运行器 API”](/advanced/runner#tasks)。
-=======
-The `TestCase` class represents a single test. This class is only available in the main thread. Refer to the ["Runner API"](/api/advanced/runner#tasks) if you are working with runtime tasks.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-case.md
+`TestCase` 类表示单个测试。此类仅在主线程中可用。如果您正在处理运行时任务，请参阅 [“运行器 API”](/api/advanced/runner#tasks)。
 
 `TestCase` 实例始终有一个值为 `test` 的 `type` 属性。您可以使用它来区分不同的任务类型：
 
@@ -16,19 +12,11 @@ if (task.type === 'test') {
 
 ## project
 
-<<<<<<< HEAD:advanced/api/test-case.md
-这引用了测试所属的 [`TestProject`](/advanced/api/test-project)。
+这引用了测试所属的 [`TestProject`](/api/advanced/test-project)。
 
 ## module
 
-这是对定义测试的 [`TestModule`](/advanced/api/test-module) 的直接引用。
-=======
-This references the [`TestProject`](/api/advanced/test-project) that the test belongs to.
-
-## module
-
-This is a direct reference to the [`TestModule`](/api/advanced/test-module) where the test is defined.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-case.md
+这是对定义测试的 [`TestModule`](/api/advanced/test-module) 的直接引用。
 
 ## name
 
@@ -61,11 +49,7 @@ describe('the validation logic', () => {
 
 ## id
 
-<<<<<<< HEAD:advanced/api/test-case.md
-这是测试的唯一标识符。此 ID 是确定性的，在多次运行中相同的测试将具有相同的 ID。ID 基于 [project](/advanced/api/test-project) 名称、模块 ID 和测试顺序。
-=======
-This is test's unique identifier. This ID is deterministic and will be the same for the same test across multiple runs. The ID is based on the [project](/api/advanced/test-project) name, module ID and test order.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-case.md
+这是测试的唯一标识符。此 ID 是确定性的，在多次运行中相同的测试将具有相同的 ID。ID 基于 [project](/api/advanced/test-project) 名称、模块 ID 和测试顺序。
 
 ID 的格式如下：
 
@@ -110,11 +94,7 @@ test('the validation works correctly', () => {
 
 ## parent
 
-<<<<<<< HEAD:advanced/api/test-case.md
-父级 [suite](/advanced/api/test-suite)。如果测试是直接在 [模块](/advanced/api/test-module) 内调用的，则父级将是模块本身。
-=======
-Parent [suite](/api/advanced/test-suite). If the test was called directly inside the [module](/api/advanced/test-module), the parent will be the module itself.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-case.md
+父级 [suite](/api/advanced/test-suite)。如果测试是直接在 [模块](/api/advanced/test-module) 内调用的，则父级将是模块本身。
 
 ## options
 
@@ -146,11 +126,7 @@ function ok(): boolean
 function meta(): TaskMeta
 ```
 
-<<<<<<< HEAD:advanced/api/test-case.md
-在测试执行期间附加到测试上的自定义[元数据](/advanced/metadata)。我们可以在测试运行期间通过给 `ctx.task.meta` 对象分配属性来附加元数据。
-=======
-Custom [metadata](/api/advanced/metadata) that was attached to the test during its execution. The meta can be attached by assigning a property to the `ctx.task.meta` object during a test run:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-case.md
+在测试执行期间附加到测试上的自定义[元数据](/api/advanced/metadata)。我们可以在测试运行期间通过给 `ctx.task.meta` 对象分配属性来附加元数据。
 
 ```ts {3,6}
 import { test } from 'vitest'
@@ -289,7 +265,7 @@ interface TestDiagnostic {
 ::: info
 如果测试尚未被安排运行，`diagnostic()` 将返回 `undefined`。
 :::
-
+<!-- TODO: translation -->
 ## annotations
 
 ```ts

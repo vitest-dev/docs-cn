@@ -7,11 +7,7 @@ outline: [2, 3]
 
 定位器是表示一个或多个元素的方式。每个定位器都由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
-<<<<<<< HEAD:guide/browser/locators.md
-定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/guide/browser/config.html#browser-provider)。
-=======
-The locator API uses a fork of [Playwright's locators](https://playwright.dev/docs/api/class-locator) called [Ivya](https://npmjs.com/ivya). However, Vitest provides this API to every [provider](/config/browser#browser-provider), not just playwright.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/config/browser#browser-provider)。
 
 ::: tip
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
@@ -372,11 +368,7 @@ page.getByTitle('Create') // ❌
 function getByTestId(text: string | RegExp): Locator
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-创建一个能够找到与指定测试 ID 属性匹配的元素的定位器。你可以通过 [`browser.locators.testIdAttribute`](/guide/browser/config#browser-locators-testidattribute) 配置属性名称。
-=======
-Creates a locator capable of finding an element that matches the specified test id attribute. You can configure the attribute name with [`browser.locators.testIdAttribute`](/config/browser/locators#testidattribute).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+创建一个能够找到与指定测试 ID 属性匹配的元素的定位器。你可以通过 [`browser.locators.testIdAttribute`](/config/browser/locators#testidattribute) 配置属性名称。
 
 ```tsx
 <div data-testid="custom-element" />
@@ -624,11 +616,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('img', { name: 'Rose' }).click()
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.click`](/guide/browser/interactivity-api#userevent-click)
-=======
-- [See more at `userEvent.click`](/api/browser/interactivity#userevent-click)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.click`](/api/browser/interactivity#userevent-click)
 
 ### dblClick
 
@@ -644,11 +632,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('img', { name: 'Rose' }).dblClick()
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.dblClick`](/guide/browser/interactivity-api#userevent-dblclick)
-=======
-- [See more at `userEvent.dblClick`](/api/browser/interactivity#userevent-dblclick)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.dblClick`](/api/browser/interactivity#userevent-dblclick)
 
 ### tripleClick
 
@@ -664,11 +648,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('img', { name: 'Rose' }).tripleClick()
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.tripleClick`](/guide/browser/interactivity-api#userevent-tripleclick)
-=======
-- [See more at `userEvent.tripleClick`](/api/browser/interactivity#userevent-tripleclick)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.tripleClick`](/api/browser/interactivity#userevent-tripleclick)
 
 ### clear
 
@@ -684,11 +664,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('textbox', { name: 'Full Name' }).clear()
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.clear`](/guide/browser/interactivity-api#userevent-clear)
-=======
-- [See more at `userEvent.clear`](/api/browser/interactivity#userevent-clear)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.clear`](/api/browser/interactivity#userevent-clear)
 
 ### hover
 
@@ -704,11 +680,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('img', { name: 'Rose' }).hover()
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.hover`](/guide/browser/interactivity-api#userevent-hover)
-=======
-- [See more at `userEvent.hover`](/api/browser/interactivity#userevent-hover)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.hover`](/api/browser/interactivity#userevent-hover)
 
 ### unhover
 
@@ -724,11 +696,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('img', { name: 'Rose' }).unhover()
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.unhover`](/guide/browser/interactivity-api#userevent-unhover)
-=======
-- [See more at `userEvent.unhover`](/api/browser/interactivity#userevent-unhover)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.unhover`](/api/browser/interactivity#userevent-unhover)
 
 ### fill
 
@@ -744,11 +712,7 @@ import { page } from 'vitest/browser'
 await page.getByRole('input', { name: 'Full Name' }).fill('Mr. Bean')
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.fill`](/guide/browser/interactivity-api#userevent-fill)
-=======
-- [See more at `userEvent.fill`](/api/browser/interactivity#userevent-fill)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.fill`](/api/browser/interactivity#userevent-fill)
 
 ### dropTo
 
@@ -770,11 +734,7 @@ const france = page.getByText('France')
 await paris.dropTo(france)
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.dragAndDrop`](/guide/browser/interactivity-api#userevent-draganddrop)
-=======
-- [See more at `userEvent.dragAndDrop`](/api/browser/interactivity#userevent-draganddrop)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.dragAndDrop`](/api/browser/interactivity#userevent-draganddrop)
 
 ### selectOptions
 
@@ -806,11 +766,7 @@ await languages.selectOptions([
 ])
 ```
 
-<<<<<<< HEAD:guide/browser/locators.md
-- [更多内容请参阅 `userEvent.selectOptions`](/guide/browser/interactivity-api#userevent-selectoptions)
-=======
-- [See more at `userEvent.selectOptions`](/api/browser/interactivity#userevent-selectoptions)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+- [更多内容请参阅 `userEvent.selectOptions`](/api/browser/interactivity#userevent-selectoptions)
 
 ### screenshot
 
@@ -825,14 +781,10 @@ function screenshot(options?: LocatorScreenshotOptions & { base64?: false }): Pr
 
 创建与定位器选择器匹配的元素的屏幕截图。
 
-<<<<<<< HEAD:guide/browser/locators.md
-你可以使用 `path` 选项指定屏幕截图的保存位置，该选项相对于当前测试文件。如果未设置 `path` 选项，Vitest 将默认使用 [`browser.screenshotDirectory`](/guide/browser/config#browser-screenshotdirectory)（默认为 `__screenshot__`），并结合文件名和测试名来确定屏幕截图的文件路径。
-=======
-You can specify the save location for the screenshot using the `path` option, which is relative to the current test file. If the `path` option is not set, Vitest will default to using [`browser.screenshotDirectory`](/config/browser/screenshotdirectory) (`__screenshot__` by default), along with the names of the file and the test to determine the screenshot's filepath.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+你可以使用 `path` 选项指定屏幕截图的保存位置，该选项相对于当前测试文件。如果未设置 `path` 选项，Vitest 将默认使用 [`browser.screenshotDirectory`](/config/browser/screenshotdirectory)（默认为 `__screenshot__`），并结合文件名和测试名来确定屏幕截图的文件路径。
 
 如果你还需要屏幕截图的内容，可以指定 `base64: true` 以返回屏幕截图的 base64 编码内容以及保存路径。
-
+<!-- TODO: translation -->
 ```ts
 import { page } from 'vitest/browser'
 
@@ -899,11 +851,7 @@ function element(): Element
 如果 _多个元素_ 匹配该选择器，则会抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
 ::: tip
-<<<<<<< HEAD:guide/browser/locators.md
-此方法在需要将其传递给外部库时非常有用。当定位器与 `expect.element` 一起使用时，每次断言 [重试](/guide/browser/assertion-api) 时都会自动调用此方法：
-=======
-This method can be useful if you need to pass it down to an external library. It is called automatically when locator is used with `expect.element` every time the assertion is [retried](/api/browser/assertions):
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+此方法在需要将其传递给外部库时非常有用。当定位器与 `expect.element` 一起使用时，每次断言 [重试](/api/browser/assertions) 时都会自动调用此方法：
 
 ```ts
 await expect.element(page.getByRole('button')).toBeDisabled()
@@ -973,11 +921,7 @@ function all(): Locator[]
 
 此方法返回一个与选择器匹配的新定位器数组。
 
-<<<<<<< HEAD:guide/browser/locators.md
-在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/guide/browser/context#page) 包装每个元素。
-=======
-Internally, this method calls `.elements` and wraps every element using [`page.elementLocator`](/api/browser/context#page).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/locators.md
+在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/api/browser/context#page) 包装每个元素。
 
 - [更多内容请参阅  `locator.elements()`](#elements)
 

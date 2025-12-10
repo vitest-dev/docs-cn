@@ -235,7 +235,7 @@ The `reference` and `actual` images are decoded using the appropriate codec (cur
 - **Alpha channel**: always present. Images without transparency have alpha values set to `255` (fully opaque)
 
 ::: tip Performance Considerations
-The `createDiff` option indicates whether a diff image is needed. During [stable screenshot detection](/guide/browser/visual-regression-testing#how-visual-tests-work), Vitest calls comparators with `createDiff: false` to avoid unnecessary work.
+The `createDiff` option indicates whether a diff image is needed. During [stable screenshot detection](/api/browser/visual-regression-testing#how-visual-tests-work), Vitest calls comparators with `createDiff: false` to avoid unnecessary work.
 
 **Respect this flag to keep your tests fast**.
 :::

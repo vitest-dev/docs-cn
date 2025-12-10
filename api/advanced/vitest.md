@@ -53,11 +53,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 公共 `state` 是一个实验性 API（除了 `vitest.state.getReportedEntity`）。破坏性更改可能不遵循 SemVer，请在使用时固定 Vitest 的版本。
 :::
 
-<<<<<<< HEAD:advanced/api/vitest.md
-全局状态存储有关当前测试的信息。默认情况下，它使用与 `@vitest/runner` 相同的 API，但我们建议通过调用 `@vitest/runner` API 上的 `state.getReportedEntity()` 来使用 [任务报告器 API](/advanced/reporters#reported-tasks)：
-=======
-Global state stores information about the current tests. It uses the same API from `@vitest/runner` by default, but we recommend using the [Reported Tasks API](/api/advanced/reporters#reported-tasks) instead by calling `state.getReportedEntity()` on the `@vitest/runner` API:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+全局状态存储有关当前测试的信息。默认情况下，它使用与 `@vitest/runner` 相同的 API，但我们建议通过调用 `@vitest/runner` API 上的 `state.getReportedEntity()` 来使用 [任务报告器 API](/api/advanced/reporters#reported-tasks)：
 
 ```ts
 const task = vitest.state.idMap.get(taskId) // 旧 API
@@ -82,11 +78,7 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 ## projects
 
-<<<<<<< HEAD:advanced/api/vitest.md
-这是一个数组，里面包含了所有 [测试项目](/advanced/api/test-project) ，这些项目是用户自己定义的。如果用户没有显式指定任何项目，那么这个数组中只会包含一个 [根项目](#getrootproject) 。
-=======
-An array of [test projects](/api/advanced/test-project) that belong to user's projects. If the user did not specify a them, this array will only contain a [root project](#getrootproject).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+这是一个数组，里面包含了所有 [测试项目](/api/advanced/test-project) ，这些项目是用户自己定义的。如果用户没有显式指定任何项目，那么这个数组中只会包含一个 [根项目](#getrootproject) 。
 
 Vitest 会保证这个数组里至少有一个项目可用。如果用户在命令行里通过 --project 参数指定了不存在的项目名称，Vitest 会在创建这个数组前就报错。
 
@@ -140,11 +132,7 @@ declare module 'vitest' {
 ```
 
 ::: warning
-<<<<<<< HEAD:advanced/api/vitest.md
-从技术角度讲，`provide` 是 [`TestProject`](/advanced/api/test-project) 的一种方法，因此它仅限于特定项目。但是，所有项目都会从根项目继承值，这使得 `vitest.provide` 成为将值传递给测试的通用方法。
-=======
-Technically, `provide` is a method of [`TestProject`](/api/advanced/test-project), so it is limited to the specific project. However, all projects inherit the values from the root project which makes `vitest.provide` universal way of passing down values to tests.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+从技术角度讲，`provide` 是 [`TestProject`](/api/advanced/test-project) 的一种方法，因此它仅限于特定项目。但是，所有项目都会从根项目继承值，这使得 `vitest.provide` 成为将值传递给测试的通用方法。
 :::
 
 ## getProvidedContext
@@ -177,11 +165,7 @@ function globTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-<<<<<<< HEAD:advanced/api/vitest.md
-此方法通过收集所有项目中的每个测试来构造新的 [测试规范](/advanced/api/test-specification)，使用 [`project.globTestFiles`](/advanced/api/test-project#globtestfiles)。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
-=======
-This method constructs new [test specifications](/api/advanced/test-specification) by collecting every test in all projects with [`project.globTestFiles`](/api/advanced/test-project#globtestfiles). It accepts string filters to match the test files - these are the same filters that [CLI supports](/guide/filtering#cli).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+此方法通过收集所有项目中的每个测试来构造新的 [测试规范](/api/advanced/test-specification)，使用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
 此方法自动缓存所有测试规范。当我们下次调用 [`getModuleSpecifications`](#getmodulespecifications) 时，它将返回相同的规范，除非在此之前调用了 [`clearSpecificationsCache`](#clearspecificationscache)。
 
@@ -203,11 +187,7 @@ function getRelevantTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-<<<<<<< HEAD:advanced/api/vitest.md
-此方法通过调用 [`project.globTestFiles`](/advanced/api/test-project#globtestfiles) 解析每个测试规范。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
-=======
-This method resolves every test specification by calling [`project.globTestFiles`](/api/advanced/test-project#globtestfiles). It accepts string filters to match the test files - these are the same filters that [CLI supports](/guide/filtering#cli). If `--changed` flag was specified, the list will be filtered to include only files that changed. `getRelevantTestSpecifications` doesn't run any test files.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个测试规范。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
 
 ::: warning
 此方法可能很慢，因为它需要过滤 `--changed` 标志。如果我们只需要测试文件列表，请不要使用它。
@@ -226,11 +206,7 @@ function mergeReports(directory?: string): Promise<TestRunResult>
 
 请注意，`directory` 将始终相对于工作目录解析。
 
-<<<<<<< HEAD:advanced/api/vitest.md
-如果设置了 `config.mergeReports`，则此方法由 [`startVitest`](/advanced/guide/tests) 自动调用。
-=======
-This method is called automatically by [`startVitest`](/guide/advanced/tests) if `config.mergeReports` is set.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+如果设置了 `config.mergeReports`，则此方法由 [`startVitest`](/api/advanced/guide/tests) 自动调用。
 
 ## collect
 
@@ -238,15 +214,9 @@ This method is called automatically by [`startVitest`](/guide/advanced/tests) if
 function collect(filters?: string[]): Promise<TestRunResult>
 ```
 
-<<<<<<< HEAD:advanced/api/vitest.md
-执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/advanced/api/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
+执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
-此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析测试规范。有关更多信息，请参阅 [`project.globTestFiles`](/advanced/api/test-project#globtestfiles)。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。
-=======
-Execute test files without running test callbacks. `collect` returns unhandled errors and an array of [test modules](/api/advanced/test-module). It accepts string filters to match the test files - these are the same filters that [CLI supports](/guide/filtering#cli).
-
-This method resolves tests specifications based on the config `include`, `exclude`, and `includeSource` values. Read more at [`project.globTestFiles`](/api/advanced/test-project#globtestfiles). If `--changed` flag was specified, the list will be filtered to include only files that changed.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析测试规范。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。
 
 ::: warning
 请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
@@ -266,11 +236,7 @@ function start(filters?: string[]): Promise<TestRunResult>
 如果还调用了 [`vitest.init()`](#init)，则不应调用此方法。如果我们需要在 Vitest 初始化后运行测试，请使用 [`runTestSpecifications`](#runtestspecifications) 或 [`rerunTestSpecifications`](#reruntestspecifications)。
 :::
 
-<<<<<<< HEAD:advanced/api/vitest.md
-如果未设置 `config.mergeReports` 和 `config.standalone`，则此方法由 [`startVitest`](/advanced/guide/tests) 自动调用。
-=======
-This method is called automatically by [`startVitest`](/guide/advanced/tests) if `config.mergeReports` and `config.standalone` are not set.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+如果未设置 `config.mergeReports` 和 `config.standalone`，则此方法由 [`startVitest`](/api/advanced/guide/tests) 自动调用。
 
 ## init
 
@@ -286,11 +252,7 @@ function init(): Promise<void>
 如果还调用了 [`vitest.start()`](#start)，则不应调用此方法。
 :::
 
-<<<<<<< HEAD:advanced/api/vitest.md
-如果设置了 `config.standalone`，则此方法由 [`startVitest`](/advanced/guide/tests) 自动调用。
-=======
-This method is called automatically by [`startVitest`](/guide/advanced/tests) if `config.standalone` is set.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+如果设置了 `config.standalone`，则此方法由 [`startVitest`](/guide/advanced/tests) 自动调用。
 
 ## getModuleSpecifications
 
@@ -300,11 +262,7 @@ function getModuleSpecifications(moduleId: string): TestSpecification[]
 
 返回与模块 ID 相关的测试规范列表。ID 应已解析为绝对文件路径。如果 ID 不匹配 `include` 或 `includeSource` 模式，则返回的数组将为空。
 
-<<<<<<< HEAD:advanced/api/vitest.md
-此方法可以根据 `moduleId` 和 `pool` 返回已缓存的规范。但请注意，[`project.createSpecification`](/advanced/api/test-project#createspecification) 总是返回一个新实例，并且不会自动缓存。但是，当调用 [`runTestSpecifications`](#runtestspecifications) 时，规范会自动缓存。
-=======
-This method can return already cached specifications based on the `moduleId` and `pool`. But note that [`project.createSpecification`](/api/advanced/test-project#createspecification) always returns a new instance and it's not cached automatically. However, specifications are automatically cached when [`runTestSpecifications`](#runtestspecifications) is called.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+此方法可以根据 `moduleId` 和 `pool` 返回已缓存的规范。但请注意，[`project.createSpecification`](/api/advanced/test-project#createspecification) 总是返回一个新实例，并且不会自动缓存。但是，当调用 [`runTestSpecifications`](#runtestspecifications) 时，规范会自动缓存。
 
 ::: warning
 从 Vitest 3 开始，此方法使用缓存来检查文件是否为测试文件。为确保缓存不为空，请至少调用一次 [`globTestSpecifications`](#globtestspecifications)。
@@ -327,11 +285,7 @@ function runTestSpecifications(
 ): Promise<TestRunResult>
 ```
 
-<<<<<<< HEAD:advanced/api/vitest.md
-该方法会遍历并执行所有根据 [测试规格](/advanced/api/test-specification) 定义的测试用例。第二个参数 `allTestsRun` 则供覆盖率工具判断是否应在覆盖率报告中加入那些没有被任何测试覆盖到的文件。
-=======
-This method runs every test based on the received [specifications](/api/advanced/test-specification). The second argument, `allTestsRun`, is used by the coverage provider to determine if it needs to include uncovered files in report.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+该方法会遍历并执行所有根据 [测试规格](/api/advanced/test-specification) 定义的测试用例。第二个参数 `allTestsRun` 则供覆盖率工具判断是否应在覆盖率报告中加入那些没有被任何测试覆盖到的文件。
 
 ::: warning
 此方法不会触发 `onWatcherRerun`、`onWatcherStart` 和 `onTestsRerun` 回调。如果我们基于文件更改重新运行测试，请考虑使用 [`rerunTestSpecifications`](#reruntestspecifications) 代替。
@@ -364,11 +318,7 @@ function collectTests(
 ): Promise<TestRunResult>
 ```
 
-<<<<<<< HEAD:advanced/api/vitest.md
-执行测试文件而不运行测试回调。`collectTests` 返回未处理的错误和 [测试模块](/advanced/api/test-module) 数组。
-=======
-Execute test files without running test callbacks. `collectTests` returns unhandled errors and an array of [test modules](/api/advanced/test-module).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+执行测试文件而不运行测试回调。`collectTests` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。
 
 此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供测试规范。
 
@@ -556,11 +506,7 @@ vitest.onFilterWatchedSpecification(specification =>
 )
 ```
 
-<<<<<<< HEAD:advanced/api/vitest.md
-Vitest 可以根据 `pool` 或 `locations` 选项为同一文件创建不同的规范，因此不要依赖引用。Vitest 还可以从 [`vitest.getModuleSpecifications`](#getmodulespecifications) 返回缓存的规范 - 缓存基于 `moduleId` 和 `pool`。请注意，[`project.createSpecification`](/advanced/api/test-project#createspecification) 总是返回一个新实例。
-=======
-Vitest can create different specifications for the same file depending on the `pool` or `locations` options, so do not rely on the reference. Vitest can also return cached specification from [`vitest.getModuleSpecifications`](#getmodulespecifications) - the cache is based on the `moduleId` and `pool`. Note that [`project.createSpecification`](/api/advanced/test-project#createspecification) always returns a new instance.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
+Vitest 可以根据 `pool` 或 `locations` 选项为同一文件创建不同的规范，因此不要依赖引用。Vitest 还可以从 [`vitest.getModuleSpecifications`](#getmodulespecifications) 返回缓存的规范 - 缓存基于 `moduleId` 和 `pool`。请注意，[`project.createSpecification`](/api/advanced/test-project#createspecification) 总是返回一个新实例。
 
 ## matchesProjectFilter <Version>3.1.0</Version> {#matchesprojectfilter}
 
@@ -655,11 +601,7 @@ Vitest 只会收集当前文件内定义的测试，绝不会跟随导入去其�
 无论是否从 `vitest` 入口点导入， Vitest 都会收集所有 `it` 、`test` 、`suite` 和 `describe` 的定义。
 :::
 
-<<<<<<< HEAD:advanced/api/vitest.md
-## experimental_parseSpecifications <Version>4.0.0</Version> <Badge type="warning">实验</Badge> {#parsespecifications}
-=======
 ## experimental_parseSpecifications <Version type="experimental">4.0.0</Version> <Experimental /> {#parsespecifications}
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md
 
 ```ts
 function experimental_parseSpecifications(
@@ -669,12 +611,7 @@ function experimental_parseSpecifications(
   }
 ): Promise<TestModule[]>
 ```
-
-<<<<<<< HEAD:advanced/api/vitest.md
-该方法会依据规格数组 [collect tests](#parsespecification)。
-
-默认情况下， Vitest 仅同时运行 `os.availableParallelism()` 个规格，以避免性能骤降。我们可以在第二个参数中指定其他并发数。
-=======
+<!-- TODO: translation -->
 This method will [collect tests](#parsespecification) from an array of specifications. By default, Vitest will run only `os.availableParallelism()` number of specifications at a time to reduce the potential performance degradation. You can specify a different number in a second argument.
 
 ## experimental_clearCache <Version type="experimental">4.0.11</Version> <Experimental /> {#clearcache}
@@ -739,6 +676,5 @@ export interface SourceModuleDiagnostic {
 Returns module's diagnostic. If [`testModule`](/api/advanced/test-module) is not provided, `selfTime` and `totalTime` will be aggregated across all tests that were running the last time. If the module was not transformed or executed, the diagnostic will be empty.
 
 ::: warning
-At the moment, the [browser](/guide/browser/) modules are not supported.
+At the moment, the [browser](/api/browser/) modules are not supported.
 :::
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/vitest.md

@@ -110,11 +110,7 @@ export default defineConfig({
 
 ## 自定义浏览器定位器 API {#custom-browser-locators-api}
 
-<<<<<<< HEAD
-当内置定位器无法满足应用需求时。与其降级使用 CSS 选择器，并牺牲 Vitest 定位器 API 提供的重试保护机制，不如推荐你使用 [`locators.extend` API](/guide/browser/locators#custom-locators) 扩展定位器。
-=======
-Built-in locators might not be enough to express your application’s needs. Instead of falling back to CSS and losing the retry-ability protection that Vitest provides through its locator API, we now recommend extending locators using the new [`locators.extend` API](/api/browser/locators#custom-locators).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
+当内置定位器无法满足应用需求时。与其降级使用 CSS 选择器，并牺牲 Vitest 定位器 API 提供的重试保护机制，不如推荐你使用 [`locators.extend` API](/api/browser/locators#custom-locators) 扩展定位器。
 
 ```ts
 import { locators } from '@vitest/browser/context'
@@ -176,11 +172,7 @@ locators.extend({
 await page.getByRole('textbox').clickAndFill('Hello World')
 ```
 
-<<<<<<< HEAD
-请参阅 [`locators.extend` API](/guide/browser/locators#custom-locators) 获取更多信息。
-=======
-Please, refer to the [`locators.extend` API](/api/browser/locators#custom-locators) for more information.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
+请参阅 [`locators.extend` API](/api/browser/locators#custom-locators) 获取更多信息。
 
 ## `vi.spyOn` 和 `vi.fn` 中的显式资源管理 {#explicit-resource-management-in-vi-spyon-and-vi-fn}
 

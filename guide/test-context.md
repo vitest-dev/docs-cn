@@ -106,17 +106,10 @@ test('annotations API', async ({ annotate }) => {
 
 一个由 Vitest 控制的 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) ，在以下场景下会被触发中止：
 
-<<<<<<< HEAD
 - 测试用例超时
 - 用户使用 Ctrl+C 手动终止了测试
-- 代码中调用了 [`vitest.cancelCurrentRun`](/advanced/api/vitest#cancelcurrentrun) 方法
+- 代码中调用了 [`vitest.cancelCurrentRun`](/api/advanced/vitest#cancelcurrentrun) 方法
 - 当并行测试中的其他用例失败，并且启用了 [`bail`](/config/#bail) 参数时
-=======
-- Test times out
-- User manually cancelled the test run with Ctrl+C
-- [`vitest.cancelCurrentRun`](/api/advanced/vitest#cancelcurrentrun) was called programmatically
-- Another test failed in parallel and the [`bail`](/config/#bail) flag is set
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts
 it('stop request when test times out', async ({ signal }) => {
@@ -415,11 +408,8 @@ const test = baseTest.extend({
 
 `worker` 作用域将为每个工作线程运行一次夹具。运行的工作线程数量取决于各种因素。默认情况下，每个文件在单独的工作线程中运行，因此 `file` 和 `worker` 作用域的工作方式相同。
 
-<<<<<<< HEAD
-但是，如果你禁用了 [isolation](/config/#isolate)，那么工作线程的数量将受到 [`maxWorkers`](/config/#maxworkers) 或 [`poolOptions`](/config/#pooloptions) 配置的限制。
-=======
+<!-- TODO: translation -->
 However, if you disable [isolation](/config/#isolate), then the number of workers is limited by the [`maxWorkers`](/config/#maxworkers) configuration.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 请注意，在 `vmThreads` 或 `vmForks` 中运行测试时，指定 `scope: 'worker'` 的工作方式与 `scope: 'file'` 相同。这个限制存在是因为每个测试文件都有自己的 VM 上下文，所以如果 Vitest 只初始化一次，一个上下文可能会泄漏到另一个上下文中，并创建许多引用不一致的问题（例如，同一个类的实例会引用不同的构造函数）。
 

@@ -9,11 +9,7 @@ Vitest 通过 `vitest/browser` 入口点公开上下文模块。从 2.0 开始�
 ## `userEvent`
 
 ::: tip
-<<<<<<< HEAD:guide/browser/context.md
-`userEvent` API 的详细说明见[Interactivity API](/guide/browser/interactivity-api)。
-=======
-The `userEvent` API is explained in detail at [Interactivity API](/api/browser/interactivity).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/context.md
+`userEvent` API 的详细说明见 [Interactivity API](/api/browser/interactivity)。
 :::
 
 ```ts
@@ -47,11 +43,7 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
-<<<<<<< HEAD:guide/browser/context.md
-Commands API 的详细说明见 [Commands API](/guide/browser/commands)。
-=======
-This API is explained in detail at [Commands API](/api/browser/commands).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/context.md
+Commands API 的详细说明见 [Commands API](/api/browser/commands)。
 :::
 
 ```ts
@@ -67,16 +59,10 @@ export const commands: BrowserCommands
 页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
-<<<<<<< HEAD:guide/browser/context.md
 虽然它从 Playwright 的 `page` 中获取了一些实用程序，但它与 Playwright 的 `page` 并不是同一个对象。由于浏览器上下文是在浏览器中评估的，您的测试无法访问 Playwright 的 `page`，因为它是在服务器上运行的。
-=======
-While it exposes some utilities from Playwright's `page`, it is not the same object. Since the browser context is evaluated in the browser, your tests don't have access to Playwright's `page` because it runs on the server.
-
-Use [Commands API](/api/browser/commands) if you need to have access to Playwright's `page` object.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/context.md
 :::
 
-使用 [Commands API](/guide/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
+使用 [Commands API](/api/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
 ```ts
 export const page: {
   /**
@@ -120,11 +106,7 @@ export const page: {
 ```
 
 ::: tip
-<<<<<<< HEAD:guide/browser/context.md
-`getBy*` API 在 [Locators API](/guide/browser/locators) 中有详细说明。
-=======
-The `getBy*` API is explained at [Locators API](/api/browser/locators).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/context.md
+`getBy*` API 在 [Locators API](/api/browser/locators) 中有详细说明。
 :::
 
 ::: warning WARNING <Version>3.2.0</Version>

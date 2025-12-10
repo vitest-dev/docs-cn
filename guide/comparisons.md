@@ -52,11 +52,8 @@ uvu 使用 require 和 loader 钩子 进行代码转译，而 Vitest 使用 [Vit
 
 uvu 不提供观察模式以在文件更改后重新运行测试, 而 Vitest 通过 Vite 的模块热重载（HMR）观察模式提供了更好的开发体验。
 
-<<<<<<< HEAD
 uvu 是运行简单测试的快速选项, 但对于更复杂的测试和项目, Vitest 可能更快、更可靠。
-=======
-uvu is a fast option for running simple tests, but Vitest can be faster and more reliable for more complex tests and projects.
-
+<!-- TODO: translation -->
 ## Mocha
 
 [Mocha](https://mochajs.org) is a test framework running on Node.js and in the browser. Mocha is a popular choice for server-side testing. Mocha is highly configurable and does not include certain features by default. For example, it does not come with an assertion library, with the idea being that Node's built-in assertion runner is good enough for most use cases. Another popular choice for assertions with Mocha is [Chai](https://www.chaijs.com).
@@ -84,5 +81,4 @@ Mocha remains a solid choice for projects that need a minimal, flexible test run
 
 A standard setup is to use Vitest for all unit and component tests (business logic, utilities, hooks, and UI component tests), and Playwright for end-to-end tests that verify critical user paths and cross-browser compatibility. This combination gives you fast feedback during development with Vitest while ensuring your complete application works correctly in real browsers with Playwright.
 
-Vitest recently introduced [browser mode](https://vitest.dev/guide/browser), which runs tests in real browsers. However, there are key architectural differences: Playwright component tests run in a Node.js process and control the browser remotely. Vitest's browser mode runs tests natively in the browser, maintaining consistency with Vitest's test runner and developer experience, but it does have some [limitations](https://vitest.dev/guide/browser/#limitations).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
+Vitest recently introduced [browser mode](https://vitest.dev/api/browser), which runs tests in real browsers. However, there are key architectural differences: Playwright component tests run in a Node.js process and control the browser remotely. Vitest's browser mode runs tests natively in the browser, maintaining consistency with Vitest's test runner and developer experience, but it does have some [limitations](https://vitest.dev/api/browser/#limitations).

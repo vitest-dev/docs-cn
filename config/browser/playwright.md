@@ -62,11 +62,7 @@ export default defineConfig({
 这些选项直接传递给 `playwright[browser].launch` 命令。我们可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-launch) 中阅读有关该命令和可用参数的更多信息。
 
 ::: warning
-<<<<<<< HEAD:guide/browser/playwright.md
-Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](/guide/browser/config#browser-headless)。
-=======
-Vitest will ignore `launch.headless` option. Instead, use [`test.browser.headless`](/config/browser/headless).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser/playwright.md
+Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](/config/browser/headless)。
 
 请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试标志推送到 `launch.args`。
 :::
@@ -91,7 +87,7 @@ Vitest 通过调用 [`browser.newContext()`](https://playwright.dev/docs/api/cla
 如果我们的服务器通过 HTTPS 提供服务，Vitest 始终将 `ignoreHTTPSErrors` 设置为 `true`，并将 `serviceWorkers` 设置为 `'allow'`，以支持通过 [MSW](https://mswjs.io) 进行模块模拟。
 
 <<<<<<< HEAD:guide/browser/playwright.md
-建议使用 [`test.browser.viewport`](/guide/browser/config#browser-headless) 而不是在此处指定它，因为在无头模式下运行测试时会丢失该设置。
+建议使用 [`test.browser.viewport`](/config/browser/headless) 而不是在此处指定它，因为在无头模式下运行测试时会丢失该设置。
 =======
 It is also recommended to use [`test.browser.viewport`](/config/browser/headless) instead of specifying it here as it will be lost when tests are running in headless mode.
 >>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser/playwright.md
@@ -101,11 +97,7 @@ It is also recommended to use [`test.browser.viewport`](/config/browser/headless
 
 - **默认:** 无超时
 
-<<<<<<< HEAD:guide/browser/playwright.md
-此值配置 Playwright 等待所有可访问性检查通过并 [操作](/guide/browser/interactivity-api) 实际完成的默认超时时间。
-=======
-This value configures the default timeout it takes for Playwright to wait until all accessibility checks pass and [the action](/api/browser/interactivity) is actually done.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser/playwright.md
+此值配置 Playwright 等待所有可访问性检查通过并 [操作](/api/browser/interactivity) 实际完成的默认超时时间。
 
 我们还可以为每个操作配置操作超时：
 

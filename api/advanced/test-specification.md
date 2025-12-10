@@ -2,11 +2,7 @@
 
 `TestSpecification` 类描述了要作为测试运行的模块及其参数。
 
-<<<<<<< HEAD:advanced/api/test-specification.md
-你只能通过在测试项目上调用 [`createSpecification`](/advanced/api/test-project#createspecification) 方法来创建规范：
-=======
-You can only create a specification by calling [`createSpecification`](/api/advanced/test-project#createspecification) method on a test project:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-specification.md
+你只能通过在测试项目上调用 [`createSpecification`](/api/advanced/test-project#createspecification) 方法来创建规范：
 
 ```ts
 const specification = project.createSpecification(
@@ -19,19 +15,11 @@ const specification = project.createSpecification(
 
 ## taskId
 
-<<<<<<< HEAD:advanced/api/test-specification.md
-[测试模块的](/advanced/api/test-suite#id) 标识符。
+[测试模块](/api/advanced/test-suite#id) 的标识符。
 
 ## project
 
-这引用了测试模块所属的 [`TestProject`](/advanced/api/test-project)。
-=======
-[Test module's](/api/advanced/test-suite#id) identifier.
-
-## project
-
-This references the [`TestProject`](/api/advanced/test-project) that the test module belongs to.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-specification.md
+这引用了测试模块所属的 [`TestProject`](/api/advanced/test-project)。
 
 ## moduleId
 
@@ -45,11 +33,7 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 ## testModule
 
-<<<<<<< HEAD:advanced/api/test-specification.md
-与规范相关联的 [`TestModule`](/advanced/api/test-module) 实例。如果测试还未加入队列，则将是 `undefined`。
-=======
-Instance of [`TestModule`](/api/advanced/test-module) associated with the specification. If test wasn't queued yet, this will be `undefined`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-specification.md
+与规范相关联的 [`TestModule`](/api/advanced/test-module) 实例。如果测试还未加入队列，则将是 `undefined`。
 
 ## pool <Badge type="warning">experimental</Badge> {#pool}
 
@@ -92,4 +76,4 @@ describe('a group of tests', () => { // [!code error]
 function toJSON(): SerializedTestSpecification
 ```
 
-`toJSON` 生成一个 JSON 友好的对象，可以被 [浏览器模式](/guide/browser/) 或 [UI 模式](/guide/ui) 消费。
+`toJSON` 生成一个 JSON 友好的对象，可以被 [浏览器模式](/api/browser/) 或 [UI 模式](/guide/ui) 消费。

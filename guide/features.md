@@ -35,15 +35,9 @@ $ vitest
 
 ## 多线程 {#threads}
 
-<<<<<<< HEAD
-Vitest 默认会通过 [Tinypool](https://github.com/tinylibs/tinypool)（它是 [Piscina](https://github.com/piscinajs/piscina) 的轻量版分支），利用 [`node:child_process`](https://nodejs.org/api/child_process.html) 在 [多个进程](/guide/parallelism) 中并行执行测试文件，
-从而提升测试执行效率。如果你想让测试套件跑得更快，可以尝试开启 `--pool=threads` 选项，让 Vitest 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 执行测试——不过要注意，有些依赖可能在该模式下无法正常工作。
-
-要在单个线程或进程中运行测试，查看 [`poolOptions`](/config/#pooloptions) 了解更多消息。
-=======
+<!-- TODO: translation -->
 By default Vitest runs test files in [multiple processes](/guide/parallelism) using [`node:child_process`](https://nodejs.org/api/child_process.html), allowing tests to run simultaneously. If you want to speed up your test suite even further, consider enabling `--pool=threads` to run tests using [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) (beware that some packages might not work with this setup).
 To run tests in a single thread or process, see [`fileParallelism`](/config/#fileParallelism).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
@@ -293,7 +287,7 @@ export default defineConfig(({ mode }) => ({
 
 ## 未处理的错误 {#unhandled-errors}
 
-默认情况下，Vitest 会捕获并报告所有的 [未处理的拒绝(Promise)](https://developer.mozilla.org/en-US/docs/Web/API/Window/unhandledrejection_event)、[未捕获的异常](https://nodejs.org/api/process.html#event-uncaughtexception)（在 Node.js 中）以及 [错误事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event)（在 [浏览器](/guide/browser/) 中）。
+默认情况下，Vitest 会捕获并报告所有的 [未处理的拒绝(Promise)](https://developer.mozilla.org/en-US/docs/Web/API/Window/unhandledrejection_event)、[未捕获的异常](https://nodejs.org/api/process.html#event-uncaughtexception)（在 Node.js 中）以及 [错误事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event)（在 [浏览器](/api/browser/) 中）。
 
 您可以通过手动捕获这些错误来禁用此行为。Vitest 会认为回调已由您处理，不会再报告该错误。
 

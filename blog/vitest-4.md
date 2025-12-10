@@ -54,7 +54,7 @@ To stay updated, keep an eye on the [VoidZero blog](https://voidzero.dev/blog) a
 
 ## Browser Mode is Stable
 
-With this release we are removing the `experimental` tag from [Browser Mode](/guide/browser/). To make it possible, we had to introduce some changes to the public API.
+With this release we are removing the `experimental` tag from [Browser Mode](/api/browser/). To make it possible, we had to introduce some changes to the public API.
 
 To define a provider, you now need to install a separate package: [`@vitest/browser-playwright`](https://www.npmjs.com/package/@vitest/browser-playwright), [`@vitest/browser-webdriverio`](https://www.npmjs.com/package/@vitest/browser-webdriverio), or [`@vitest/browser-preview`](https://www.npmjs.com/package/@vitest/browser-preview). This makes it simpler to work with custom options and doesn't require adding `/// <reference` comments anymore.
 
@@ -144,7 +144,7 @@ With these changes, the `@vitest/browser` package can be removed from your depen
 
 ## Visual Regression Testing
 
-Vitest 4 adds support for [Visual Regression testing](/guide/browser/visual-regression-testing.md) in Browser Mode. We will continue to iterate on this feature to improve the experience.
+Vitest 4 adds support for [Visual Regression testing](/api/browser/visual-regression-testing.md) in Browser Mode. We will continue to iterate on this feature to improve the experience.
 
 Visual regression testing in Vitest can be done through the
 [`toMatchScreenshot` assertion](/api/browser/assertions.html#tomatchscreenshot):
@@ -175,7 +175,7 @@ await expect.element(page.getByText('To')).toBeInViewport({ ratio: 0.5 })
 
 ## Playwright Traces Support
 
-Vitest 4 supports generating [Playwright Traces](/guide/browser/trace-view). To enable tracing, you need to set the [`trace`](/config/browser/trace) option in the `test.browser` configuration or pass down `--browser.trace=on` option (`off`, `on-first-retry`, `on-all-retries`, `retain-on-failure` are also available).
+Vitest 4 supports generating [Playwright Traces](/api/browser/trace-view). To enable tracing, you need to set the [`trace`](/config/browser/trace) option in the `test.browser` configuration or pass down `--browser.trace=on` option (`off`, `on-first-retry`, `on-all-retries`, `retain-on-failure` are also available).
 
 ![Playwright Traces interface](/traces.png)
 

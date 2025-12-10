@@ -1,12 +1,7 @@
 # 配置 WebdriverIO {#configuring-webdriverio}
 
-<<<<<<< HEAD:guide/browser/webdriverio.md
 ::: info Playwright 与 WebdriverIO
-如果我们的项目尚未使用 WebdriverIO，我们建议从 [Playwright](/guide/browser/playwright) 开始，因为它更易于配置且 API 更灵活。
-=======
-::: info Playwright vs WebdriverIO
-If you do not already use WebdriverIO in your project, we recommend starting with [Playwright](/config/browser/playwright) as it is easier to configure and has more flexible API.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser/webdriverio.md
+如果我们的项目尚未使用 WebdriverIO，我们建议从 [Playwright](/config/browser/playwright) 开始，因为它更易于配置且 API 更灵活。
 :::
 
 要使用 WebdriverIO 运行测试，你需要安装 [`@vitest/browser-webdriverio`](https://www.npmjs.com/package/@vitest/browser-webdriverio) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `webdriverio` 导出：
@@ -65,9 +60,5 @@ export default defineConfig({
 ::: tip
 最有用的选项位于 `capabilities` 对象上。WebdriverIO 允许嵌套功能，但 Vitest 将忽略这些选项，因为我们依赖于不同的机制来生成多个浏览器。
 
-<<<<<<< HEAD:guide/browser/webdriverio.md
-请注意，Vitest 将忽略 `capabilities.browserName` — 请改用 [`test.browser.instances.browser`](/guide/browser/config#browser-capabilities-name)。
-=======
-Note that Vitest will ignore `capabilities.browserName` — use [`test.browser.instances.browser`](/config/browser/instances#browser) instead.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser/webdriverio.md
+请注意，Vitest 将忽略 `capabilities.browserName` — 请改用 [`test.browser.instances.browser`](/config/browser/instances#browser)。
 :::

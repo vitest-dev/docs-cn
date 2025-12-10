@@ -66,10 +66,7 @@ test('clicks on an element', async () => {
   await logo.click({})
 })
 ```
-
-<<<<<<< HEAD:guide/browser/interactivity-api.md
-相关链接：
-=======
+<!-- TODO: translation -->
 ### Clicking with a modifier
 
 With either WebdriverIO or Playwright:
@@ -91,7 +88,6 @@ await userEvent.click(element, { modifiers: ['Shift'] })
 ```
 
 References:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/interactivity.md
 
 - [Playwright `locator.click` API](https://playwright.dev/docs/api/class-locator#locator-click)
 - [WebdriverIO `element.click` API](https://webdriver.io/docs/api/element/click/)

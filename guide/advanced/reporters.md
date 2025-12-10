@@ -1,8 +1,4 @@
-<<<<<<< HEAD:advanced/reporters.md
-# 扩展默认报告器 {#extending-reporters}
-=======
-# Extending Reporters <Badge type="danger">advanced</Badge> {#extending-reporters}
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/reporters.md
+# 扩展默认报告器 <Badge type="danger">advanced</Badge> {#extending-reporters}
 
 ::: warning
 这是一个高级 API。如果我们只是想配置内置报告器，请阅读 [报告器](/guide/reporters) 指南。

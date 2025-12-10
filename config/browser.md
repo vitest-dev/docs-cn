@@ -1,13 +1,9 @@
-<<<<<<< HEAD:guide/browser/config.md
-# 浏览器配置参考 {#browser-config-reference}
-=======
+<!-- TODO: translation -->
 ---
 title: Browser Config Reference | Config
 outline: deep
 ---
-
-# Browser Config Reference
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+# 浏览器配置参考 {#browser-config-reference}
 
 我们可以通过更新 [配置文件](/config/) 中的 `test.browser` 字段来更改浏览器配置。一个简单的配置文件示例如下：
 
@@ -60,11 +56,8 @@ export default defineConfig({
 
 定义多个浏览器设置。每个配置必须至少有一个 `browser` 字段。
 
-<<<<<<< HEAD:guide/browser/config.md
-你可以指定大部分[项目选项](/config/)(未标记<NonProjectOption />图标的选项)和一些 `browser` 选项，如`browser.testerHtmlPath`。
-=======
+<!-- TODO: translation -->
 You can specify most of the [project options](/config/) (not marked with a <CRoot /> icon) and some of the `browser` options like `browser.testerHtmlPath`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
 
 ::: warning
 每个浏览器配置都从根配置继承选项：
@@ -89,7 +82,7 @@ export default defineConfig({
 })
 ```
 
-有关更多示例，请参阅 ["多设置" 指南](/guide/browser/multiple-setups)。
+有关更多示例，请参阅 ["多设置" 指南](/api/browser/multiple-setups)。
 :::
 
 可用的 `browser` 选项列表：
@@ -102,11 +95,7 @@ export default defineConfig({
 - [`browser.screenshotFailures`](#browser-screenshotfailures)
 - [`browser.provider`](#browser-provider)
 
-<<<<<<< HEAD:guide/browser/config.md
-在底层，Vitest 将这些实例转换为共享单个 Vite 服务器的单独[测试项目](/advanced/api/test-project)，以获得更好的缓存性能。
-=======
-Under the hood, Vitest transforms these instances into separate [test projects](/api/advanced/test-project) sharing a single Vite server for better caching performance.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+在底层，Vitest 将这些实例转换为共享单个 Vite 服务器的单独[测试项目](/api/advanced/test-project)，以获得更好的缓存性能。
 
 ## browser.headless
 
@@ -116,15 +105,11 @@ Under the hood, Vitest transforms these instances into separate [test projects](
 
 在 `headless` 模式下运行浏览器。如果我们在 CI 中运行 Vitest，则默认启用此模式。
 
+<!-- TODO: translation -->
 ## browser.isolate <Deprecated />
 
-<<<<<<< HEAD:guide/browser/config.md
 - **类型:** `boolean`
-- **默认值:** `true`
-=======
-- **Type:** `boolean`
 - **Default:** the same as [`--isolate`](/config/#isolate)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
 - **CLI:** `--browser.isolate`, `--browser.isolate=false`
 
 在单独的 iframe 中运行每个测试。
@@ -246,11 +231,7 @@ export interface BrowserProvider {
 
 ## browser.locators
 
-<<<<<<< HEAD:guide/browser/config.md
-内置 [浏览器定位器](/guide/browser/locators) 的选项。
-=======
-Options for built-in [browser locators](/api/browser/locators).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+内置 [浏览器定位器](/api/browser/locators) 的选项。
 
 ### browser.locators.testIdAttribute
 
@@ -318,11 +299,7 @@ export interface BrowserScript {
 - **类型:** `Record<string, BrowserCommand>`
 - **默认值:** `{ readFile, writeFile, ... }`
 
-<<<<<<< HEAD:guide/browser/config.md
-可以在浏览器测试中从 `vitest/browser` 导入的自定义[命令](/guide/browser/commands)。
-=======
-Custom [commands](/api/browser/commands) that can be imported during browser tests from `vitest/browser`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+可以在浏览器测试中从 `vitest/browser` 导入的自定义 [命令](/api/browser/commands)。
 
 ## browser.connectTimeout
 
@@ -376,11 +353,7 @@ interface TraceOptions {
 ```
 
 ::: danger WARNING
-<<<<<<< HEAD:guide/browser/config.md
-只有 [**playwright**](/guide/browser/playwright) 提供者支持该选项。
-=======
-This option is supported only by the [**playwright**](/config/browser/playwright) provider.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+只有 [**playwright**](/config/browser/playwright) 提供者支持该选项。
 :::
 
 ## browser.trackUnhandledErrors
@@ -400,14 +373,8 @@ This option is supported only by the [**playwright**](/config/browser/playwright
 
 ### browser.expect.toMatchScreenshot
 
-<<<<<<< HEAD:guide/browser/config.md
-[`toMatchScreenshot`](/guide/browser/assertion-api.html#tomatchscreenshot) 断言的默认选项。
+[`toMatchScreenshot`](/api/browser/assertions.html#tomatchscreenshot) 断言的默认选项。
 这些选项将应用于所有截图断言。
-=======
-Default options for the
-[`toMatchScreenshot` assertion](/api/browser/assertions.html#tomatchscreenshot).
-These options will be applied to all screenshot assertions.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
 
 ::: tip
 为截图断言设置全局默认值，有助于在整个测试套件中保持一致性，并减少单个测试中的重复。如果需要，你仍可以在特定测试用例的断言级别覆盖这些默认值。
@@ -436,13 +403,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD:guide/browser/config.md
-`toMatchScreenshot` 断言中可用的 [所有选项](/guide/browser/assertion-api#options) 均可在此配置。此外，还提供了两个路径解析函数：`resolveScreenshotPath` 和 `resolveDiffPath`。
-=======
-[All options available in the `toMatchScreenshot` assertion](/api/browser/assertions#options)
-can be configured here. Additionally, two path resolution functions are
-available: `resolveScreenshotPath` and `resolveDiffPath`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+`toMatchScreenshot` 断言中可用的 [所有选项](/api/browser/assertions#options) 均可在此配置。此外，还提供了两个路径解析函数：`resolveScreenshotPath` 和 `resolveDiffPath`。
 
 #### browser.expect.toMatchScreenshot.resolveScreenshotPath
 
@@ -485,13 +446,7 @@ available: `resolveScreenshotPath` and `resolveDiffPath`.
 
 - `screenshotDirectory: string`
 
-<<<<<<< HEAD:guide/browser/config.md
-  如果未提供值，则为 [`browser.screenshotDirectory`](/guide/browser/config#browser-screenshotdirectory)。
-=======
-  The value provided to
-  [`browser.screenshotDirectory`](/config/browser/screenshotdirectory),
-  if none is provided, its default value.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:config/browser.md
+  如果未提供值，则为 [`browser.screenshotDirectory`](/config/browser/screenshotdirectory)。
 
 - `root: string`
 
@@ -619,7 +574,7 @@ type Comparator<Options> = (
   message: string | null
 }
 ```
-
+<!-- TODO: translation -->
 The `reference` and `actual` images are decoded using the appropriate codec (currently only PNG). The `data` property is a flat `TypedArray` (`Buffer`, `Uint8Array`, or `Uint8ClampedArray`) containing pixel data in RGBA format:
 
 - **4 bytes per pixel**: red, green, blue, alpha (from `0` to `255` each)
@@ -628,7 +583,7 @@ The `reference` and `actual` images are decoded using the appropriate codec (cur
 - **Alpha channel**: always present. Images without transparency have alpha values set to `255` (fully opaque)
 
 ::: tip Performance Considerations
-The `createDiff` option indicates whether a diff image is needed. During [stable screenshot detection](/guide/browser/visual-regression-testing#how-visual-tests-work), Vitest calls comparators with `createDiff: false` to avoid unnecessary work.
+The `createDiff` option indicates whether a diff image is needed. During [stable screenshot detection](/api/browser/visual-regression-testing#how-visual-tests-work), Vitest calls comparators with `createDiff: false` to avoid unnecessary work.
 
 **Respect this flag to keep your tests fast**.
 :::

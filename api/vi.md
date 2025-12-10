@@ -231,7 +231,7 @@ function mocked<T>(
 ): MaybeMockedDeep<T>
 function mocked<T>(
   object: T,
-  options?: { partial?: boolean, deep?: boolean }
+  options?: { partial?: boolean; deep?: boolean }
 ): MaybePartiallyMockedDeep<T>
 ```
 
@@ -620,7 +620,7 @@ console.log(cart.getApples()) // 仍然为 42!
 :::
 
 ::: tip
-在 [浏览器模式](/guide/browser/) 下，无法监视导出的方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
+在 [浏览器模式](/api/browser/) 下，无法监视导出的方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
 
 ```ts
 import { calculator } from './src/calculator.ts'
@@ -854,11 +854,7 @@ await vi.advanceTimersToNextTimerAsync() // log: 3
 function advanceTimersToNextFrame(): Vitest
 ```
 
-<<<<<<< HEAD
-与 [`vi.advanceTimersByTime`](https://vitest.dev/api/vi#vi-advancetimersbytime) 类似，但会将计时器推进当前使用 `requestAnimationFrame` 安排的回调执行所需的毫秒数。
-=======
-Similar to [`vi.advanceTimersByTime`](/api/vi#vi-advancetimersbytime), but will advance timers by the milliseconds needed to execute callbacks currently scheduled with `requestAnimationFrame`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
+与 [`vi.advanceTimersByTime`](/api/vi#vi-advancetimersbytime) 类似，但会将计时器推进当前使用 `requestAnimationFrame` 安排的回调执行所需的毫秒数。
 
 ```ts
 let frameRendered = false

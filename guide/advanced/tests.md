@@ -1,16 +1,9 @@
-<<<<<<< HEAD:advanced/guide/tests.md
-# 运行测试 {#running-tests}
+# 运行测试 <Badge type="danger">advanced</Badge> {#running-tests}
 
 ::: warning 注意
 本指南介绍如何使用高级 API 通过 Node.js 脚本运行测试。如果您只想[运行测试](/guide/)，则可能不需要这个。它主要被库的作者使用。
 
 破坏性变更可能不会遵循 SemVer，请在使用实验性 API 时固定 Vitest 的版本。
-=======
-# Running Tests <Badge type="danger">advanced</Badge> {#running-tests}
-
-::: warning
-This guide explains how to use the advanced API to run tests via a Node.js script. If you just want to [run tests](/guide/), you probably don't need this. It is primarily used by library authors.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/tests.md
 :::
 
 Vitest 公开了两种启动 Vitest 的方法：
@@ -37,20 +30,12 @@ for (const testModule of testModules) {
 ```
 
 ::: tip
-<<<<<<< HEAD:advanced/guide/tests.md
-[`TestModule`](/advanced/api/test-module), [`TestSuite`](/advanced/api/test-suite) 和 [`TestCase`](/advanced/api/test-case) API 从 Vitest 2.1 开始不再是实验性的，并且遵循 SemVer。
-=======
-[`TestModule`](/api/advanced/test-module), [`TestSuite`](/api/advanced/test-suite) and [`TestCase`](/api/advanced/test-case) APIs are not experimental and follow SemVer since Vitest 2.1.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/tests.md
+[`TestModule`](/api/advanced/test-module), [`TestSuite`](/api/advanced/test-suite) 和 [`TestCase`](/api/advanced/test-case) API 从 Vitest 2.1 开始不再是实验性的，并且遵循 SemVer。
 :::
 
 ## `createVitest`
 
-<<<<<<< HEAD:advanced/guide/tests.md
-创建一个 [Vitest](/advanced/api/vitest) 实例而不运行测试。
-=======
-Creates a [Vitest](/api/advanced/vitest) instances without running tests.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/tests.md
+创建一个 [Vitest](/api/advanced/vitest) 实例而不运行测试。
 
 `createVitest` 方法不会验证是否已安装所需的软件包。此方法也不遵循 `config.standalone` 或 `config.mergeReports`。即使 `watch` 被禁用，Vitest 也不会自动关闭。
 
@@ -86,15 +71,9 @@ finally {
 }
 ```
 
-<<<<<<< HEAD:advanced/guide/tests.md
-如果我们打算保留 `Vitest` 实例，请确保至少调用 [`init`](/advanced/api/vitest#init) 。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使我们不打算使用 Vitest 观察器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖此标志使其某些功能在连续过程中正常工作。
+如果我们打算保留 `Vitest` 实例，请确保至少调用 [`init`](/api/advanced/vitest#init) 。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使我们不打算使用 Vitest 观察器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖此标志使其某些功能在连续过程中正常工作。
 
-报告器初始化后，如果需要手动运行测试，可以使用 [`runTestSpecifications`](/advanced/api/vitest#runtestspecifications) 或 [`rerunTestSpecifications`](/advanced/api/vitest#reruntestspecifications) 来运行测试。
-=======
-If you intend to keep the `Vitest` instance, make sure to at least call [`init`](/api/advanced/vitest#init). This will initialise reporters and the coverage provider, but won't run any tests. It is also recommended to enable the `watch` mode even if you don't intend to use the Vitest watcher, but want to keep the instance running. Vitest relies on this flag for some of its features to work correctly in a continuous process.
-
-After reporters are initialised, use [`runTestSpecifications`](/api/advanced/vitest#runtestspecifications) or [`rerunTestSpecifications`](/api/advanced/vitest#reruntestspecifications) to run tests if manual run is required:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:guide/advanced/tests.md
+报告器初始化后，如果需要手动运行测试，可以使用 [`runTestSpecifications`](/api/advanced/vitest#runtestspecifications) 或 [`rerunTestSpecifications`](/api/advanced/vitest#reruntestspecifications) 来运行测试。
 
 ```ts
 watcher.on('change', async (file) => {

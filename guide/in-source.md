@@ -72,23 +72,11 @@ export default defineConfig({
 ```
 
 ### 其他的打包器 {#other-bundlers}
-
+<!-- TODO: translation -->
 ::: details Rolldown
 ```js [rolldown.config.js]
 import { defineConfig } from 'rolldown/config'
 
-<<<<<<< HEAD
-export default defineBuildConfig({
-  replace: {
-    // [!code ++]
-    'import.meta.vitest': 'undefined', // [!code ++]
-  }, // [!code ++]
-  // 其他选项
-})
-```
-
-了解更多：[unbuild](https://github.com/unjs/unbuild)
-=======
 export default defineConfig({
   transform: {
     define: { // [!code ++]
@@ -99,7 +87,6 @@ export default defineConfig({
 ```
 
 Learn more: [Rolldown](https://rolldown.rs/)
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 :::
 
 ::: details Rollup

@@ -51,20 +51,12 @@ export default defineConfig({
 :::
 
 ::: info
-<<<<<<< HEAD:advanced/api/test-project.md
-如果 [根项目](/advanced/api/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
-=======
-If the [root project](/api/advanced/vitest#getroottestproject) is not part of user projects, its `name` will not be resolved.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+如果 [根项目](/api/advanced/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
 :::
 
 ## vitest
 
-<<<<<<< HEAD:advanced/api/test-project.md
-`vitest` 引用全局的 [`Vitest`](/advanced/api/vitest) 进程。
-=======
-`vitest` references the global [`Vitest`](/api/advanced/vitest) process.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+`vitest` 引用全局的 [`Vitest`](/api/advanced/vitest) 进程。
 
 ## serializedConfig
 
@@ -86,11 +78,7 @@ project.serializedConfig === project.serializedConfig // ❌
 
 ## globalConfig
 
-<<<<<<< HEAD:advanced/api/test-project.md
-[`Vitest`](/advanced/api/vitest) 初始化时的测试配置。如果这是 [根项目](/advanced/api/vitest#getroottestproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
-=======
-The test config that [`Vitest`](/api/advanced/vitest) was initialized with. If this is the [root project](/api/advanced/vitest#getroottestproject), `globalConfig` and `config` will reference the same object. This config is useful for values that cannot be set on the project level, like `coverage` or `reporters`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+[`Vitest`](/api/advanced/vitest) 初始化时的测试配置。如果这是 [根项目](/api/advanced/vitest#getroottestproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
 
 ```ts
 import type { ResolvedConfig } from 'vitest/node'
@@ -191,11 +179,7 @@ function createSpecification(
 ): TestSpecification
 ```
 
-<<<<<<< HEAD:advanced/api/test-project.md
-创建一个 [测试规范](/advanced/api/test-specification)，可用于 [`vitest.runTestSpecifications`](/advanced/api/vitest#runtestspecifications)。规范将测试文件限定到特定的 `project` 和测试 `locations`（可选）。测试 [位置](/advanced/api/test-case#location) 是源代码中定义测试的代码行。如果提供了位置，Vitest 将仅运行在这些行上定义的测试。请注意，如果定义了 [`testNamePattern`](/config/#testnamepattern)，则它也将被应用。
-=======
-Create a [test specification](/api/advanced/test-specification) that can be used in [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications). Specification scopes the test file to a specific `project` and test `locations` (optional). Test [locations](/api/advanced/test-case#location) are code lines where the test is defined in the source code. If locations are provided, Vitest will only run tests defined on those lines. Note that if [`testNamePattern`](/config/#testnamepattern) is defined, then it will also be applied.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+创建一个 [测试规范](/api/advanced/test-specification)，可用于 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。规范将测试文件限定到特定的 `project` 和测试 `locations`（可选）。测试 [位置](/api/advanced/test-case#location) 是源代码中定义测试的代码行。如果提供了位置，Vitest 将仅运行在这些行上定义的测试。请注意，如果定义了 [`testNamePattern`](/config/#testnamepattern)，则它也将被应用。
 
 ```ts
 import { resolve } from 'node:path/posix'
@@ -211,11 +195,7 @@ await vitest.runTestSpecifications([specification])
 ```
 
 ::: warning
-<<<<<<< HEAD:advanced/api/test-project.md
-`createSpecification` 期望传入已解析的 [模块 ID](/advanced/api/test-specification#moduleid)。它不会自动解析文件或检查文件系统中是否存在该文件。
-=======
-`createSpecification` expects resolved [module ID](/api/advanced/test-specification#moduleid). It doesn't auto-resolve the file or check that it exists on the file system.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+`createSpecification` 期望传入已解析的 [模块 ID](/api/advanced/test-specification#moduleid)。它不会自动解析文件或检查文件系统中是否存在该文件。
 
 另请注意，`project.createSpecification` 总是返回一个新实例。
 :::
@@ -245,11 +225,7 @@ function globTestFiles(filters?: string[]): {
 
 全局匹配所有测试文件。此函数返回一个包含常规测试和类型检查测试的对象。
 
-<<<<<<< HEAD:advanced/api/test-project.md
-此方法接受 `filters`。过滤器只能是文件路径的一部分，与 [`Vitest`](/advanced/api/vitest) 实例上的其他方法不同：
-=======
-This method accepts `filters`. Filters can only a part of the file path, unlike in other methods on the [`Vitest`](/api/advanced/vitest) instance:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+此方法接受 `filters`。过滤器只能是文件路径的一部分，与 [`Vitest`](/api/advanced/vitest) 实例上的其他方法不同：
 
 ```js
 project.globTestFiles(['foo']) // ✅
@@ -322,11 +298,7 @@ Vitest 在内部通过这个方法加载全局设置、自定义的覆盖率提�
 function onTestsRerun(cb: OnTestsRerunHandler): void
 ```
 
-<<<<<<< HEAD:advanced/api/test-project.md
-这是 [`project.vitest.onTestsRerun`](/advanced/api/vitest#ontestsrerun) 的简写。它接受一个回调，当测试被安排重新运行时（通常是由于文件更改）将等待该回调。
-=======
-This is a shorthand for [`project.vitest.onTestsRerun`](/api/advanced/vitest#ontestsrerun). It accepts a callback that will be awaited when the tests have been scheduled to rerun (usually, due to a file change).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-project.md
+这是 [`project.vitest.onTestsRerun`](/api/advanced/vitest#ontestsrerun) 的简写。它接受一个回调，当测试被安排重新运行时（通常是由于文件更改）将等待该回调。
 
 ```ts
 project.onTestsRerun((specs) => {

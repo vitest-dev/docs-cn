@@ -35,7 +35,7 @@ export default defineConfig({
 })
 ```
 
-For more examples, refer to the ["Multiple Setups" guide](/guide/browser/multiple-setups).
+For more examples, refer to the ["Multiple Setups" guide](/api/browser/multiple-setups).
 :::
 
 List of available `browser` options:

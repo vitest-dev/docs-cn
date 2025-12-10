@@ -24,11 +24,7 @@ Vitest 的 V8 覆盖率提供器现在使用了更精准的结果映射逻辑，
 
 然而，这导致 Vitest 覆盖率工具会处理很多意料之外的文件（例如压缩 JS 文件），造成报告生成速度很慢甚至卡死。在 Vitest v4 中，我们彻底移除了 `coverage.all`，并将默认行为改为**只在报告中包含被测试覆盖的文件**。
 
-<<<<<<< HEAD
-在升级到 v4 后，推荐在配置中显式指定 `coverage.include`，并视需要配合使用 `coverage.exclude` 进行排除。
-=======
 When upgrading to v4 it is recommended to define `coverage.include` in your configuration, and then start applying simple `coverage.exclude` patterns if needed.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts [vitest.config.ts]
 export default defineConfig({
@@ -68,11 +64,7 @@ export default defineConfig({
 - [覆盖率报告中的文件包含与排除](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
 - [性能分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage) 了解调试覆盖率生成的方法
 
-<<<<<<< HEAD
-### `spyOn` and `fn` 支持构造函数 {#spyon-and-fn-support-constructors}
-
-在之前版本中，如果你对构造函数使用 `vi.spyOn`，会收到类似 `Constructor <name> requires 'new'` 的错误。从 Vitest 4 开始，所有用 `new` 调用的 mock 都会正确创建实例，而不是调用 `mock.apply`。这意味着 mock 实现必须使用 `function` 或 `class` 关键字，例如：
-=======
+<!-- TODO: translation -->
 ### Simplified `exclude`
 
 By default, Vitest now only excludes tests from `node_modules` and `.git` folders. This means that Vitest no longer excludes:
@@ -114,7 +106,6 @@ export default defineConfig({
 ### `spyOn` and `fn` Support Constructors
 
 Previously, if you tried to spy on a constructor with `vi.spyOn`, you would get an error like `Constructor <name> requires 'new'`. Since Vitest 4, all mocks called with a `new` keyword construct the instance instead of calling `mock.apply`. This means that the mock implementation has to use either the `function` or the `class` keyword in these cases:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts {12-14,16-20}
 const cart = {
@@ -145,15 +136,6 @@ const mock = new Spy()
 
 ### Mock 的变更 {#changes-to-mocking}
 
-<<<<<<< HEAD
-Vitest 4 除新增构造函数支持外，还重构了 mock 的创建机制，一举修复多年累积的模块模拟顽疾；尤其在类与 spy 交互时，行为更易预测、不再烧脑。
-
-- `vi.fn().getMockName()` 现默认返回 `vi.fn()`，而不再附带 `spy`。这一改动会使快照中的 mock 名称从 `[MockFunction spy]` 简化为 `[MockFunction]`；而 `vi.spyOn` 创建的 spy 仍沿用原始名称，便于调试。
-- `vi.restoreAllMocks` 现已缩小作用范围：仅还原由 `vi.spyOn` 手动创建的 spy ，不再触及自动 mock ，亦不会重置其内部状态（对应配置项 [`restoreMocks`](/config/#restoremocks) 同步更新）。`.mockRestore` 仍按原行为重置实现并清空状态。
-- 现对 mock 调用 `vi.spyOn` 时，返回的仍是原 mock，而非新建 spy。
-- 自动 mock 的实例方法已正确隔离，但仍与原型共享底层状态；除非方法已自定义 mock 实现，否则修改原型实现会同步影响所有实例。此外，调用 `.mockReset` 不再破坏此继承关系。
-
-=======
 Alongside new features like supporting constructors, Vitest 4 creates mocks differently to address several module mocking issues that we received over the years. This release attempts to make module spies less confusing, especially when working with classes.
 
 - `vi.fn().getMockName()` now returns `vi.fn()` by default instead of `spy`. This can affect snapshots with mocks - the name will be changed from `[MockFunction spy]` to `[MockFunction]`. Spies created with `vi.spyOn` will keep using the original name by default for better debugging experience
@@ -161,7 +143,6 @@ Alongside new features like supporting constructors, Vitest 4 creates mocks diff
 - Calling `vi.spyOn` on a mock now returns the same mock
 - `mock.settledResults` are now populated immediately on function invocation with an `'incomplete'` result. When the promise is finished, the type is changed according to the result.
 - Automocked instance methods are now properly isolated, but share a state with the prototype. Overriding the prototype implementation will always affect instance methods unless the methods have a custom mock implementation of their own. Calling `.mockReset` on the mock also no longer breaks that inheritance.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 ```ts
 import { AutoMockedClass } from './example.js'
 const instance1 = new AutoMockedClass()
@@ -220,21 +201,12 @@ $ pnpm run test:dev math.test.ts
 
 Module Runner 已取代 `vite-node`，直接内嵌于 Vite, Vitest 亦移除 SSR 封装，直接调用。主要变更如下：
 
-<<<<<<< HEAD
-- 环境变量：`VITE_NODE_DEPS_MODULE_DIRECTORIES` → `VITEST_MODULE_DIRECTORIES`
-- 注入字段：`__vitest_executor` → `moduleRunner`（[`ModuleRunner`](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) 实例）
-- 移除内部入口 `vitest/execute`
-- 自定义环境用 `viteEnvironment` 取代 `transformMode`；未指定时，Vitest 以环境名匹配 [`server.environments`](https://vite.dev/guide/api-environment-instances.html)
-- 依赖列表剔除 `vite-node`
-- `deps.optimizer.web` 重命名为 [`deps.optimizer.client`](/config/#deps-optimizer-client)，并支持自定义环境名
-=======
 - `VITE_NODE_DEPS_MODULE_DIRECTORIES` environment variable was replaced with `VITEST_MODULE_DIRECTORIES`
 - Vitest no longer injects `__vitest_executor` into every [test runner](/api/advanced/runner). Instead, it injects `moduleRunner` which is an instance of [`ModuleRunner`](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
 - `vitest/execute` entry point was removed. It was always meant to be internal
 - [Custom environments](/guide/environment) no longer need to provide a `transformMode` property. Instead, provide `viteEnvironment`. If it is not provided, Vitest will use the environment name to transform files on the server (see [`server.environments`](https://vite.dev/guide/api-environment-instances.html))
 - `vite-node` is no longer a dependency of Vitest
 - `deps.optimizer.web` was renamed to [`deps.optimizer.client`](/config/#deps-optimizer-client). You can also use any custom names to apply optimizer configs when using other server environments
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`server.deps`](/config/#server-deps) 可继续用于包的内联/外部化。
 
@@ -332,11 +304,6 @@ const { getElementError } = utils // [!code ++]
 在过渡期间，`@vitest/browser/context` 和 `@vitest/browser/utils` 都能在运行时工作，但它们将在未来的版本中移除。
 :::
 
-<<<<<<< HEAD
-### 报告器更新 {#reporter-updates}
-
-Reporter API `onCollected`，`onSpecsCollected`，`onPathsCollected`，`onTaskUpdate` 和 `onFinished` 被移除。参阅 [`Reporters API`](/advanced/api/reporters) 了解新的替代方案。新的 API 在 Vitest `v3.0.0` 中引入。
-=======
 ### Pool Rework
 
 Vitest has used [`tinypool`](https://github.com/tinylibs/tinypool) for orchestrating how test files are run in the test runner workers. Tinypool has controlled how complex tasks like parallelism, isolation and IPC communication works internally. However we've found that Tinypool has some flaws that are slowing down development of Vitest. In Vitest v4 we've completely removed Tinypool and rewritten how pools work without new dependencies. Read more about reasoning from [feat!: rewrite pools without tinypool #8705
@@ -440,7 +407,6 @@ See [Recipes](/guide/recipes) for more examples.
 ### Reporter Updates
 
 Reporter APIs `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` and `onFinished` were removed. See [`Reporters API`](/api/advanced/reporters) for new alternatives. The new APIs were introduced in Vitest `v3.0.0`.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 移除了 `basic` 报告器，因为它等价于：
 
@@ -502,30 +468,18 @@ exports[`custom element with shadow root 1`] = `
 
 Vitest 4.0 移除了以下废弃的配置项：
 
-<<<<<<< HEAD
 - `poolMatchGlobs` 配置项。请使用 [`projects`](/guide/projects) 代替。
 - `environmentMatchGlobs` 配置项。请使用 [`projects`](/guide/projects) 代替。
 - `deps.external`、`deps.inline`、`deps.fallbackCJS` 配置项。请改用 `server.deps.external`、`server.deps.inline` 或 `server.deps.fallbackCJS`。
-- `browser.testerScripts` 配置项。请使用 [`browser.testerHtmlPath`](/guide/browser/config#browser-testerhtmlpath) 代替。
+- `browser.testerScripts` 配置项。请使用 [`browser.testerHtmlPath`](/config/browser/testerhtmlpath) 代替。
 - `minWorkers` 配置项。只有 `maxWorkers` 会对测试运行方式产生影响，因此我们正在移除这个公共选项。
 - Vitest 不再支持将测试选项作为第三个参数提供给 `test` 和 `describe`。请改用第二个参数。
-=======
-- `poolMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
-- `environmentMatchGlobs` config option. Use [`projects`](/guide/projects) instead.
-- `deps.external`, `deps.inline`, `deps.fallbackCJS` config options. Use `server.deps.external`, `server.deps.inline`, or `server.deps.fallbackCJS` instead.
-- `browser.testerScripts` config option. Use [`browser.testerHtmlPath`](/config/browser/testerhtmlpath) instead.
-- `minWorkers` config option. Only `maxWorkers` has any effect on how tests are running, so we are removing this public option.
-- Vitest no longer supports providing test options object as a third argument to `test` and `describe`. Use the second argument instead:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts
 test('example', () => { /* ... */ }, { retry: 2 }) // [!code --]
 test('example', { retry: 2 }, () => { /* ... */ }) // [!code ++]
 ```
 
-<<<<<<< HEAD
-同时，所有弃用类型被一次性清理，彻底解决误引 `@types/node` 的问题（[#5481](https://github.com/vitest-dev/vitest/issues/5481)、[#6141](https://github.com/vitest-dev/vitest/issues/6141)）。
-=======
 Note that providing a timeout number as the last argument is still supported:
 
 ```ts
@@ -533,7 +487,6 @@ test('example', () => { /* ... */ }, 1000) // ✅
 ```
 
 This release also removes all deprecated types. This finally fixes an issue where Vitest accidentally pulled in `@types/node` (see [#5481](https://github.com/vitest-dev/vitest/issues/5481) and [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ## 从 Jest 迁移 {#jest}
 
@@ -591,11 +544,7 @@ const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 
 ### 扩展 Mock 到外部库 {#extends-mocking-to-external-libraries}
 
-<<<<<<< HEAD
-Jest 默认会扩展 mock 到使用相同模块的外部库。Vitest 需要显式告知要 mock 的第三方库，使其成为源码的一部分，方法是使用 [server.deps.inline](https://vitest.dev/config/#server-deps-inline)：
-=======
-Where Jest does it by default, when mocking a module and wanting this mocking to be extended to other external libraries that use the same module, you should explicitly tell which 3rd-party library you want to be mocked, so the external library would be part of your source code, by using [server.deps.inline](/config/#server-deps-inline).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
+Jest 默认会扩展 mock 到使用相同模块的外部库。Vitest 需要显式告知要 mock 的第三方库，使其成为源码的一部分，方法是使用 [server.deps.inline](/config/#server-deps-inline)：
 
 ```
 server.deps.inline: ["lib-name"]
@@ -612,11 +561,7 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 
 ### 环境变量 {#envs}
 
-<<<<<<< HEAD
-与 Jest 类似，Vitest 会将未设置时的 `NODE_ENV` 设为 `test`。Vitest 还有对应 `JEST_WORKER_ID` 的 `VITEST_POOL_ID`（小于等于 `maxThreads`），如果依赖此值，需重命名。Vitest 还暴露 `VITEST_WORKER_ID`，表示唯一的运行中 worker ID，受 `maxThreads` 不影响，随 worker 创建递增。
-=======
 Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxWorkers`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxWorkers`, and will increase with each created worker.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ### 替换属性 {#replace-property}
 

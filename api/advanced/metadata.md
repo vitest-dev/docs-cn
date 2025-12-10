@@ -1,12 +1,4 @@
-<<<<<<< HEAD:advanced/metadata.md
-# 任务元数据 {#task-metadata}
-
-::: warning
-Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。
-:::
-=======
-# Task Metadata <Badge type="danger">advanced</Badge>
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/metadata.md
+# 任务元数据 <Badge type="danger">advanced</Badge>
 
 如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。
 

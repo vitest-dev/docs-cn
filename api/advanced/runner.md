@@ -1,8 +1,4 @@
-<<<<<<< HEAD:advanced/runner.md
-# 运行器 API {#runner-api}
-=======
-# Runner API <Badge type="danger">advanced</Badge>
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/runner.md
+# 运行器 API <Badge type="danger">advanced</Badge>
 
 ::: warning 注意
 这是高级 API。如果你只需要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
@@ -35,7 +31,7 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?: (test: Test, options: { retry: number, repeats: number }) => unknown
+  onBeforeTryTask?: (test: Test, options: { retry: number; repeats: number }) => unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -44,12 +40,12 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?: (test: Test, options: { retry: number, repeats: number }) => unknown
+  onAfterTryTask?: (test: Test, options: { retry: number; repeats: number }) => unknown
   /**
    * 在重试结果确定后调用。与 `onAfterTryTask` 不同，此时测试已进入新的状态，
    * 并且所有的 `after` 钩子此时也已被执行。
    */
-  onAfterRetryTask?: (test: Test, options: { retry: number, repeats: number }) => unknown
+  onAfterRetryTask?: (test: Test, options: { retry: number; repeats: number }) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -157,11 +153,7 @@ export default class Runner {
 ## Tasks {#tasks}
 
 ::: warning
-<<<<<<< HEAD:advanced/runner.md
-“Runner Tasks API” 是实验性的，主要应在测试运行时使用。Vitest 还暴露了 [“Reported Tasks API”](/advanced/api/test-module)，在主线程中工作时（例如在报告器内部）应优先使用。
-=======
-The "Runner Tasks API" is experimental and should primarily be used only in the test runtime. Vitest also exposes the ["Reported Tasks API"](/api/advanced/test-module), which should be preferred when working in the main thread (inside the reporter, for example).
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/runner.md
+“Runner Tasks API” 是实验性的，主要应在测试运行时使用。Vitest 还暴露了 [“Reported Tasks API”](/api/advanced/test-module)，在主线程中工作时（例如在报告器内部）应优先使用。
 
 团队目前正在讨论未来是否应将“Runner Tasks”替换为“Reported Tasks”。
 :::

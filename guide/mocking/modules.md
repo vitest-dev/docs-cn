@@ -2,17 +2,8 @@
 
 ## 模块的定义 {#defining-a-module}
 
-<<<<<<< HEAD
-在进行模块模拟之前，先要明确“模块”的含义。在 Vitest 中，模块指的是一个导出内容的文件。
-通过 [插件](https://vite.dev/guide/api-plugin.html)，几乎任何文件都可以转换为 JavaScript 模块。
-
-“模块对象”是一个命名空间对象，内部动态引用模块导出的标识符。
-换句话说，它就是一个包含已导出方法与属性的对象。
-
-例如，`example.js` 就是一个模块，它导出了 `method` 和 `variable`：
-=======
+<!-- TODO: translation -->
 Before mocking a "module", we should define what it is. In Vitest context, the "module" is a file that exports something. Using [plugins](https://vite.dev/guide/api-plugin.html), any file can be turned into a JavaScript module. The "module object" is a namespace object that holds dynamic references to exported identifiers. Simply put, it's an object with exported methods and properties. In this example, `example.js` is a module that exports `answer` and `variable`:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```js [example.js]
 export function answer() {
@@ -49,6 +40,7 @@ import { answer, variable } from './example.js'
 要完全替换一个模块，可以使用 [`vi.mock` API](/api/vi#vi-mock)。
 在调用 `vi.mock` 时，通过传入一个工厂函数作为第二个参数，该函数返回的新模块将动态替代原模块。
 
+<!-- TODO: translation -->
 ```ts
 import { vi } from 'vitest'
 
@@ -133,7 +125,7 @@ expect(exampleObject.answer).toHaveBeenCalled()
 ```
 
 ::: danger Browser Mode Support
-这种方式在 [浏览器模式](/guide/browser/) 下无法使用，因为浏览器会依赖原生的 ESM 机制来加载模块，
+这种方式在 [浏览器模式](/api/browser/) 下无法使用，因为浏览器会依赖原生的 ESM 机制来加载模块，
 而模块的命名空间对象是密封的（sealed），无法被重新配置。
 
 为绕过这一限制，Vitest 在 `vi.mock('./example.js')` 中提供了 `{ spy: true }` 选项。

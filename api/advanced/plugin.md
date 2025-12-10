@@ -11,11 +11,7 @@ outline: deep
 本指南假设我们知道如何使用 [Vite 插件](https://vite.dev/guide/api-plugin.html)。
 :::
 
-<<<<<<< HEAD:advanced/api/plugin.md
-Vitest 自 3.1 版起支持实验性的 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。欢迎在 [GitHub](https://github.com/vitest-dev/vitest/discussions/7104) 中提供有关此 API 的任何反馈。
-=======
-Vitest supports a `configureVitest` [plugin](https://vite.dev/guide/api-plugin.html) hook hook since version 3.1.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/plugin.md
+Vitest 自 3.1 版起支持实验性的 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
 
 ::: code-group
 ```ts [only vitest]
@@ -57,11 +53,7 @@ Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我
 ```
 :::
 
-<<<<<<< HEAD:advanced/api/plugin.md
-与 [`reporter.onInit`](/advanced/api/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/guide/projects) 操作全局配置。
-=======
-Unlike [`reporter.onInit`](/api/advanced/reporters#oninit), this hooks runs early in Vitest lifecycle allowing you to make changes to configuration like `coverage` and `reporters`. A more notable change is that you can manipulate the global config from a [test project](/guide/projects) if your plugin is defined in the project and not in the global config.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/plugin.md
+与 [`reporter.onInit`](/api/advanced/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/api/guide/projects) 操作全局配置。
 
 ## Context
 
@@ -132,6 +124,7 @@ vitest.config.project.push('my-project-name')
 请注意，这也将继承 `name` - Vitest 不允许多个项目使用相同的名称，因此这将引发错误。请确保我们指定了不同的名称。我们可以通过 `project.name` 属性访问当前名称，并且所有使用的名称都可以在 `vitest.projects` 数组中找到。
 :::
 
+<!-- TODO: translation -->
 ### experimental_defineCacheKeyGenerator <Version type="experimental">4.0.11</Version> <Experimental /> {#definecachekeygenerator}
 
 ```ts

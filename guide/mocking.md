@@ -39,7 +39,7 @@ vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
 ::: warning
-此方法在浏览器模式中无法使用。如需替代方案，请查看 [限制](/guide/browser/#spying-on-module-exports) 部分。
+此方法在浏览器模式中无法使用。如需替代方案，请查看 [限制](/api/browser/#spying-on-module-exports) 部分。
 :::
 
 ### 模拟导出函数 {#mock-an-exported-function}
@@ -71,7 +71,7 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
 ::: warning
-`vi.spyOn` 示例在浏览器模式中无法使用。如需替代方案，请查看 [限制](/guide/browser/#spying-on-module-exports) 部分。
+`vi.spyOn` 示例在浏览器模式中无法使用。如需替代方案，请查看 [限制](/api/browser/#spying-on-module-exports) 部分。
 :::
 
 ### 模拟导出类的实现 {#mock-an-exported-class-implementation}
@@ -102,7 +102,7 @@ vi.spyOn(mod, 'SomeClass').mockImplementation(class FakeClass {
 ```
 
 ::: warning
-vi.spyOn 的示例无法在浏览器模式中正常使用。如需替代方案，请查看 [限制](/guide/browser/#spying-on-module-exports) 部分。
+vi.spyOn 的示例无法在浏览器模式中正常使用。如需替代方案，请查看 [限制](/api/browser/#spying-on-module-exports) 部分。
 :::
 
 ### 监听一个函数是否返回了一个对象 {#spy-on-an-object-returned-from-a-function}

@@ -1,7 +1,7 @@
 # TestModule
 
 <<<<<<< HEAD:advanced/api/test-module.md
-`TestModule` 类表示项目中的单个模块。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/advanced/runner#tasks)。
+`TestModule` 类表示项目中的单个模块。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/api/advanced/runner#tasks)。
 =======
 The `TestModule` class represents a single module in a single project. This class is only available in the main thread. Refer to the ["Runner API"](/api/advanced/runner#tasks) if you are working with runtime tasks.
 >>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-module.md
@@ -16,7 +16,7 @@ if (task.type === 'module') {
 
 <<<<<<< HEAD:advanced/api/test-module.md
 ::: warning 扩展 Suite 的方法
-`TestModule` 类继承了 [`TestSuite`](/advanced/api/test-suite) 的所有方法和属性。本指南将列出 `TestModule` 独有的方法和属性。
+`TestModule` 类继承了 [`TestSuite`](/api/advanced/test-suite) 的所有方法和属性。本指南将列出 `TestModule` 独有的方法和属性。
 =======
 ::: warning Extending Suite Methods
 The `TestModule` class inherits all methods and properties from the [`TestSuite`](/api/advanced/test-suite). This guide will only list methods and properties unique to the `TestModule`.
@@ -50,7 +50,7 @@ function state(): TestModuleState
 ```
 
 <<<<<<< HEAD:advanced/api/test-module.md
-与 [`testSuite.state()`](/advanced/api/test-suite#state) 的工作方式相同，但如果模块尚未执行，还可以返回 `queued`。
+与 [`testSuite.state()`](/api/advanced/test-suite#state) 的工作方式相同，但如果模块尚未执行，还可以返回 `queued`。
 =======
 Works the same way as [`testSuite.state()`](/api/advanced/test-suite#state), but can also return `queued` if module wasn't executed yet.
 >>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-module.md
@@ -62,7 +62,7 @@ function meta(): TaskMeta
 ```
 
 <<<<<<< HEAD:advanced/api/test-module.md
-在模块执行或收集过程中附加到模块的自定义 [元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
+在模块执行或收集过程中附加到模块的自定义 [元数据](/api/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
 =======
 Custom [metadata](/api/advanced/metadata) that was attached to the module during its execution or collection. The meta can be attached by assigning a property to the `task.meta` object during a test run:
 >>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/advanced/test-module.md

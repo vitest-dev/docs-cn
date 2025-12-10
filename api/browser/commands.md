@@ -38,11 +38,7 @@ it('handles files', async () => {
 
 ## CDP Session
 
-<<<<<<< HEAD:guide/browser/commands.md
-Vitest 通过 `vitest/browser` 中导出的 `cdp` 方法访问原始 Chrome Devtools 协议。它主要用于库作者在其基础上构建工具。
-=======
-Vitest exposes access to raw Chrome DevTools Protocol via the `cdp` method exported from `vitest/browser`. It is mostly useful to library authors to build tools on top of it.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/commands.md
+Vitest 通过 `vitest/browser` 中导出的 `cdp` 方法访问原始 Chrome DevTools 协议。它主要用于库作者在其基础上构建工具。
 
 ```ts
 import { cdp } from 'vitest/browser'
@@ -65,11 +61,7 @@ CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` �
 
 ## 自定义命令 {#custom-commands}
 
-<<<<<<< HEAD:guide/browser/commands.md
-我们也可以通过 [`browser.commands`](/guide/browser/config#browser-commands) 配置选项添加自己的命令。如果我们正在开发一个库，可以通过插件内的`config`钩子来提供它们：
-=======
-You can also add your own commands via [`browser.commands`](/config/browser/commands) config option. If you develop a library, you can provide them via a `config` hook inside a plugin:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9:api/browser/commands.md
+我们也可以通过 [`browser.commands`](/config/browser/commands) 配置选项添加自己的命令。如果我们正在开发一个库，可以通过插件内的 `config` 钩子来提供它们：
 
 ```ts
 import type { Plugin } from 'vitest/config'

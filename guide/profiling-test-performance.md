@@ -14,21 +14,12 @@
 >   Duration  4.80s (transform 44ms, setup 0ms, import 35ms, tests 4.52s, environment 0ms)
 >   # Time metrics ^^
 > ```
-
-<<<<<<< HEAD
-- Transform ：转换文件所用的时间。详见 [文件转换](#file-transform)。
-- Setup ：执行 [`setupFiles`](/config/#setupfiles) 配置文件所花的时间。
-- Collect ：收集测试文件中所有用例的时间，包括导入文件依赖的耗时。
-- Tests ：实际执行测试用例所用的时间。
-- Environment ： [配置测试](/config/#environment) 环境（比如 JSDOM ）所需的时间。
-- Prepare ： Vitest 用于准备测试运行环境的时间。在 Node 环境下，包括导入并执行内部工具；在浏览器中，还包含初始化 iframe 的时间。
-=======
+<!-- TODO: translation reference history -->
 - Transform: How much time was spent transforming the files. See [File Transform](#file-transform).
 - Setup: Time spent for running the [`setupFiles`](/config/#setupfiles) files.
 - Import: Time it took to import your test files and their dependencies. This also includes the time spent collecting all tests. Note that this doesn't include dynamic imports inside of tests.
 - Tests: Time spent for actually running the test cases.
 - Environment: Time spent for setting up the test [`environment`](/config/#environment), for example JSDOM.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ## 测试运行器 {#test-runner}
 
@@ -42,59 +33,14 @@
 由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
-<<<<<<< HEAD
-要将这些选项传递给 Vitest ，可以在 Vitest 的配置中定义 `poolOptions.<pool>.execArgv`：
-=======
+<!-- TODO: translation -->
 To pass these options to Vitest's test runner, define `execArgv` in your Vitest configuration:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-<<<<<<< HEAD
-    pool: 'forks',
-    poolOptions: {
-      forks: {
-        execArgv: [
-          '--cpu-prof',
-          '--cpu-prof-dir=test-runner-profile',
-          '--heap-prof',
-          '--heap-prof-dir=test-runner-profile'
-        ],
-
-        // 生成单一的配置文件
-        singleFork: true,
-      },
-    },
-  },
-})
-```
-```ts [Threads]
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    pool: 'threads',
-    poolOptions: {
-      threads: {
-        execArgv: [
-          '--cpu-prof',
-          '--cpu-prof-dir=test-runner-profile',
-          '--heap-prof',
-          '--heap-prof-dir=test-runner-profile'
-        ],
-
-        // 生成单一的配置文件
-        singleThread: true,
-      },
-    },
-  },
-})
-```
-:::
-=======
     fileParallelism: false,
     execArgv: [
       '--cpu-prof',
@@ -105,7 +51,6 @@ export default defineConfig({
   },
 })
 ```
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看 [性能分析记录](#inspecting-profiling-records)。
 
@@ -134,30 +79,8 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 
 ## 文件转换 {#file-transform}
 
-<<<<<<< HEAD
-当测试转换和收集的时间较长时，可以使用环境变量 `DEBUG=vite-node:*` 来查看哪些文件正在被 `vite-node` 转换和执行。
-
-```bash
-$ DEBUG=vite-node:* vitest --run
-
- RUN  v2.1.1 /x/vitest/examples/profiling
-
-  vite-node:server:request /x/vitest/examples/profiling/global-setup.ts +0ms
-  vite-node:client:execute /x/vitest/examples/profiling/global-setup.ts +0ms
-  vite-node:server:request /x/vitest/examples/profiling/test/prime-number.test.ts +45ms
-  vite-node:client:execute /x/vitest/examples/profiling/test/prime-number.test.ts +26ms
-  vite-node:server:request /src/prime-number.ts +9ms
-  vite-node:client:execute /x/vitest/examples/profiling/src/prime-number.ts +9ms
-  vite-node:server:request /src/unnecessary-file.ts +6ms
-  vite-node:client:execute /x/vitest/examples/profiling/src/unnecessary-file.ts +4ms
-...
-```
-
-这种分析策略是识别由[「 桶文件 / barrel files 」](https://cn.vitejs.dev/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
-=======
 This profiling strategy is a good way to identify unnecessary transforms caused by [barrel files](https://vitejs.dev/guide/performance.html#avoid-barrel-files).
 If these logs contain files that should not be loaded when your test is run, you might have barrel files that are importing files unnecessarily.
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
 下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。
@@ -190,11 +113,7 @@ test('formatter works', () => {
 
 <img src="/module-graph-barrel-file.png" alt="Vitest UI demonstrating barrel file issues" />
 
-<<<<<<< HEAD
-要查看文件是如何转换的，可以使用 `VITE_NODE_DEBUG_DUMP` 环境变量将转换后的文件写入文件系统：
-=======
 To see how files are transformed, you can use `VITEST_DEBUG_DUMP` environment variable to write transformed files in the file system:
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```bash
 $ VITEST_DEBUG_DUMP=true vitest --run

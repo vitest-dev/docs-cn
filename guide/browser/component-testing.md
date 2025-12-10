@@ -39,7 +39,7 @@ Vitest中的组件测试使用**浏览器模式**在真实浏览器环境中运�
 
 本指南专门介绍使用Vitest功能的**组件测试模式和最佳实践**。虽然许多示例使用浏览器模式（因为这是推荐的方法），但这里的重点是组件特定的测试策略，而不是浏览器配置细节。
 
-有关详细的浏览器设置、配置选项和高级浏览器功能，请参阅[浏览器模式文档](/guide/browser/)。
+有关详细的浏览器设置、配置选项和高级浏览器功能，请参阅[浏览器模式文档](/api/browser/)。
 
 ## 什么是好的组件测试 {#what-makes-a-good-component-test}
 
@@ -180,13 +180,8 @@ test('Solid component handles user interaction', async () => {
 ### 1. 在CI/CD中使用浏览器模式 {#_1-use-browser-mode-for-ci-cd}
 确保测试在真实浏览器环境中运行以获得最准确的测试结果。浏览器模式提供准确的CSS渲染、真实的浏览器API和正确的事件处理。
 
-<<<<<<< HEAD
 ### 2. 测试用户交互 {#_2-test-user-interactions}
-使用Vitest的[交互API](/guide/browser/interactivity-api)模拟真实用户行为。使用`page.getByRole()`和`userEvent`方法，如我们的[高级测试模式](#advanced-testing-patterns)所示：
-=======
-### 2. Test User Interactions
-Simulate real user behavior using Vitest's [Interactivity API](/api/browser/interactivity). Use `page.getByRole()` and `userEvent` methods as shown in our [Advanced Testing Patterns](#advanced-testing-patterns):
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
+使用Vitest的[交互API](/api/browser/interactivity)模拟真实用户行为。使用`page.getByRole()`和`userEvent`方法，如我们的 [高级测试模式](#advanced-testing-patterns) 所示：
 
 ```tsx
 // Good: Test actual user interactions
@@ -262,7 +257,7 @@ test('ShoppingCart manages items correctly', async () => {
 ```
 
 ### 测试带有数据获取的异步组件 {#testing-async-components-with-data-fetching}
-
+<!-- TODO: translation -->
 ```tsx
 // Option 1: Recommended - Use MSW (Mock Service Worker) for API mocking
 import { http, HttpResponse } from 'msw'
@@ -300,15 +295,11 @@ test('UserProfile handles loading, success, and error states', async () => {
 })
 ```
 
-<<<<<<< HEAD
-### 测试组件通信 {#testing-component-communication}
-=======
 ::: tip
 See more details on [using MSW in the browser](https://mswjs.io/docs/integrations/browser).
 :::
 
 ### Testing Component Communication
->>>>>>> 63c27c40d2833c42ec624f3076c90acd960fe8f9
 
 ```tsx
 // Test parent-child component interaction
@@ -580,12 +571,12 @@ import { render } from 'vitest-browser-react' // [!code ++]
 ## 了解更多 {#learn-more}
 
 <<<<<<< HEAD
-- [浏览器模式文档](/guide/browser/)
-- [断言API](/guide/browser/assertion-api)
-- [交互性API](/guide/browser/interactivity-api)
+- [浏览器模式文档](/api/browser/)
+- [断言API](/api/browser/assertions)
+- [交互性API](/api/browser/interactivity)
 - [示例仓库](https://github.com/vitest-tests/browser-examples)
 =======
-- [Browser Mode Documentation](/guide/browser/)
+- [Browser Mode Documentation](/api/browser/)
 - [Assertion API](/api/browser/assertions)
 - [Interactivity API](/api/browser/interactivity)
 - [Example Repository](https://github.com/vitest-tests/browser-examples)
