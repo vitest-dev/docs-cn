@@ -18,7 +18,8 @@ export default antfu(
       // contains technically invalid code to display pretty diff
       'guide/snapshot.md',
       // uses invalid js example
-      'import-example.md',
+      'advanced/api/import-example.md',
+      '/api/advanced/import-example.md',
       'guide/examples/*.md',
     ],
   },
