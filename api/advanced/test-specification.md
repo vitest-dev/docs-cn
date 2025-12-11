@@ -1,0 +1,95 @@
+# TestSpecification
+
+`TestSpecification` 类描述了要作为测试运行的模块及其参数。
+
+<<<<<<< HEAD:advanced/api/test-specification.md
+你只能通过在测试项目上调用 [`createSpecification`](/advanced/api/test-project#createspecification) 方法来创建规范：
+=======
+You can only create a specification by calling [`createSpecification`](/api/advanced/test-project#createspecification) method on a test project:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b:api/advanced/test-specification.md
+
+```ts
+const specification = project.createSpecification(
+  resolve('./example.test.ts'),
+  [20, 40], // 可选测试行
+)
+```
+
+`createSpecification` 期望一个已解析的模块 ID。它不会自动解析文件或检查文件是否存在于文件系统中。
+
+## taskId
+
+<<<<<<< HEAD:advanced/api/test-specification.md
+[测试模块的](/advanced/api/test-suite#id) 标识符。
+
+## project
+
+这引用了测试模块所属的 [`TestProject`](/advanced/api/test-project)。
+=======
+[Test module's](/api/advanced/test-suite#id) identifier.
+
+## project
+
+This references the [`TestProject`](/api/advanced/test-project) that the test module belongs to.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b:api/advanced/test-specification.md
+
+## moduleId
+
+Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的绝对文件路径：
+
+```ts
+'C:/Users/Documents/project/example.test.ts' // ✅
+'/Users/mac/project/example.test.ts' // ✅
+'C:\\Users\\Documents\\project\\example.test.ts' // ❌
+```
+
+## testModule
+
+<<<<<<< HEAD:advanced/api/test-specification.md
+与规范相关联的 [`TestModule`](/advanced/api/test-module) 实例。如果测试还未加入队列，则将是 `undefined`。
+=======
+Instance of [`TestModule`](/api/advanced/test-module) associated with the specification. If test wasn't queued yet, this will be `undefined`.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b:api/advanced/test-specification.md
+
+## pool <Badge type="warning">experimental</Badge> {#pool}
+
+测试模块将运行的 [`pool`](/config/#pool)。
+
+::: danger
+通过 [`poolMatchGlob`](/config/#poolmatchglob) 和 [`typecheck.enabled`](/config/#typecheck-enabled)，单个测试项目中可以有多个池。这意味着可以有多个规范具有相同的 `moduleId` 但不同的 `pool`。在 Vitest 4 中，项目将仅支持单个池，此属性将被移除。
+:::
+
+## testLines
+
+这是源代码中定义测试文件的行号数组。此字段仅在 `createSpecification` 方法接收数组时定义。
+
+请注意，如果这些行中的至少一行没有测试，整个测试套件将会失败。以下是一个正确的 `testLines` 配置示例：
+
+::: code-group
+```ts [script.js]
+const specification = project.createSpecification(
+  resolve('./example.test.ts'),
+  [3, 8, 9],
+)
+```
+```ts:line-numbers{3,8,9} [example.test.js]
+import { test, describe } from 'vitest'
+
+test('verification works')
+
+describe('a group of tests', () => { // [!code error]
+  // ...
+
+  test('nested test')
+  test.skip('skipped test')
+})
+```
+:::
+
+## toJSON
+
+```ts
+function toJSON(): SerializedTestSpecification
+```
+
+`toJSON` 生成一个 JSON 友好的对象，可以被 [浏览器模式](/guide/browser/) 或 [UI 模式](/guide/ui) 消费。

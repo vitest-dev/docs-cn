@@ -5,7 +5,11 @@ outline: deep
 
 # 测试注释 {#test-annotations}
 
+<<<<<<< HEAD
 Vitest 支持通过 [`context.annotate`](/guide/test-context#annotate) API 为测试添加自定义消息和文件注释。这些注释会附加到测试用例上，并通过 [`onTestAnnotate`](/advanced/api/reporters#ontestannotate) 钩子传递给报告器。
+=======
+Vitest supports annotating your tests with custom messages and files via the [`context.annotate`](/guide/test-context#annotate) API. These annotations will be attached to the test case and passed down to reporters in the [`onTestAnnotate`](/api/advanced/reporters#ontestannotate) hook.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 test('hello world', async ({ annotate }) => {

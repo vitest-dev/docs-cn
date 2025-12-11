@@ -1,6 +1,10 @@
 # 多环境配置 {#multiple-setups}
 
+<<<<<<< HEAD
 你可以使用 [`browser.instances`](/guide/browser/config#browser-instances) 选项来指定多个不同的浏览器设置。
+=======
+You can specify several different browser setups using the [`browser.instances`](/config/browser/instances) option.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 与 [测试项目](/guide/projects) 相比，使用 `browser.instances` 的最大好处在于缓存效率更高。所有项目会共享同一个 Vite 服务器，因此文件转换和 [依赖的预打包](https://vite.dev/guide/dep-pre-bundling.html) 只需进行一次即可。
 

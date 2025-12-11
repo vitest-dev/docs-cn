@@ -142,7 +142,11 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
+<<<<<<< HEAD
 如果只有一个测试文件在运行，Vitest 将输出该文件的完整测试树，类似于 [`tree`](#tree-reporter) 报告器。如果文件中至少有一个测试失败，default 报告器也会打印测试树。
+=======
+If there is only one test file running, Vitest will output the full test tree of that file, similar to the [`tree`](#tree-reporter) reporter. The default reporter will also print the test tree if there is at least one failed test in the file.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -581,7 +585,23 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ### Blob Reporter {#blob-reporter}
+=======
+If you are using [Annotations API](/guide/test-annotations), the reporter will automatically inline them in the GitHub UI. You can disable this by setting `displayAnnotations` option to `false`:
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['github-actions', { displayAnnotations: false }],
+    ],
+  },
+})
+```
+
+### Blob Reporter
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
 默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
@@ -621,7 +641,11 @@ export default defineConfig({
 
 :::
 
+<<<<<<< HEAD
 此外，你还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
+=======
+Additionally, you can define your own [custom reporters](/guide/advanced/reporters) and use them by specifying their file path:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```bash
 npx vitest --reporter=./path/to/reporter.ts

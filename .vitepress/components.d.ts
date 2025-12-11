@@ -8,15 +8,18 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Advanced: typeof import('./components/Advanced.vue')['default']
     ArrowDown: typeof import('./components/ArrowDown.vue')['default']
     BlogIndex: typeof import('./components/BlogIndex.vue')['default']
     Box: typeof import('./components/Box.vue')['default']
     Contributors: typeof import('./components/Contributors.vue')['default']
     CourseLink: typeof import('./components/CourseLink.vue')['default']
+    CRoot: typeof import('./components/CRoot.vue')['default']
+    Deprecated: typeof import('./components/Deprecated.vue')['default']
+    Experimental: typeof import('./components/Experimental.vue')['default']
     FeaturesList: typeof import('./components/FeaturesList.vue')['default']
     HomePage: typeof import('./components/HomePage.vue')['default']
     ListItem: typeof import('./components/ListItem.vue')['default']
-    NonProjectOption: typeof import('./components/NonProjectOption.vue')['default']
     Version: typeof import('./components/Version.vue')['default']
   }
 }

@@ -95,7 +95,11 @@ Test Files  1 passed (1)
 如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
 :::
 
+<<<<<<< HEAD
 了解更多关于 Vitest 的使用，请参考 [API 索引](https://cn.vitest.dev/api/) 部分。
+=======
+Learn more about the usage of Vitest, see the [API](/api/) section.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ## 配置 Vitest {#configuring-vitest}
 

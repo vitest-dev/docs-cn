@@ -12,12 +12,15 @@ outline: deep
 
 要配置 Vitest 本身，请在我们的 Vite 配置中添加 `test` 属性。如果我们是从 `vite` 本身导入 `defineConfig`，我们还需要在配置文件顶部使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 添加对 Vitest 类型引用。
 
+<<<<<<< HEAD
 ::: details 打开配置示例
 使用 `vite` 中的 `defineConfig` 时使用以下步骤：
+=======
+If you are not using `vite`, add `defineConfig` imported from `vitest/config` to your config file:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
-```ts [vite.config.js]
-/// <reference types="vitest" />
-import { defineConfig } from 'vite'
+```js [vitest.config.js]
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -26,9 +29,13 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 `<reference types="vitest" />` 将在 Vitest 4 中停止工作，但我们已经可以开始迁移到 `vitest/config`：
+=======
+If you have a `vite` config already, you can add `/// <reference types="vitest/config" />` to include the `test` types:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
-```ts [vite.config.js]
+```js [vite.config.js]
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 
@@ -39,6 +46,7 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 使用 `vitest/config` 中的 `defineConfig` 时应遵循以下步骤：
 
 ```ts [vitest.config.js]
@@ -52,8 +60,11 @@ export default defineConfig({
 ```
 
 我们可以检索 Vitest 的默认选项，以便在需要时扩展它们：
+=======
+You can retrieve Vitest's default options to expand them if needed:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
-```ts [vitest.config.js]
+```js [vitest.config.js]
 import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -65,7 +76,7 @@ export default defineConfig({
 
 当使用单独的 `vitest.config.js` 时，我们还可以根据需要从另一个配置文件扩展 Vite 的选项：
 
-```ts [vitest.config.js]
+```js [vitest.config.js]
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
@@ -78,7 +89,7 @@ export default mergeConfig(viteConfig, defineConfig({
 
 如果我们的 Vite 配置定义为一个函数，我们可以像这样定义配置：
 
-```ts [vitest.config.js]
+```js [vitest.config.js]
 import { defineConfig, mergeConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
@@ -91,6 +102,7 @@ export default defineConfig(configEnv => mergeConfig(
   })
 ))
 ```
+<<<<<<< HEAD
 :::
 
 ::: warning
@@ -103,9 +115,12 @@ export default defineConfig({
   },
 })
 ```
+=======
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
+<<<<<<< HEAD
 在 [项目](/guide/projects) 配置里不被支持的选项，会在旁边标注 <NonProjectOption /> 。这表示这些选项只能在 Vitest 的根配置中进行设置。
 :::
 
@@ -2459,3 +2474,6 @@ export interface SnapshotEnvironment {
 - **默认值:** `'.vitest-attachments'`
 
 相对于项目根目录，用于保存通过 [`context.annotate`](/guide/test-context#annotate) 方法生成的附件文件的目录路径。
+=======
+Configuration options that are not supported inside a [project](/guide/projects) config have <CRoot /> icon next to them. This means they can only be set in the root Vitest config.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b

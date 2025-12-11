@@ -20,6 +20,32 @@ getApplesSpy.mock.calls.length === 1
 
 要验证 mock 的行为，请通过 [`expect`](/api/expect) 调用类似 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) 的断言方法；以下 API 参考汇总了所有可用来操控 mock 的属性和方法。
 
+::: warning IMPORTANT
+Vitest spies inherit implementation's [`length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) property when initialized, but it doesn't override it if the implementation was changed later:
+
+::: code-group
+```ts [vi.fn]
+const fn = vi.fn((arg1) => {})
+fn.length // == 1
+
+fn.mockImplementation(() => {})
+fn.length // == 1
+```
+```ts [vi.spyOn]
+const example = {
+  fn(arg1, arg2) {
+    // ...
+  }
+}
+
+const fn = vi.spyOn(example, 'fn')
+fn.length // == 2
+
+fn.mockImplementation(() => {})
+fn.length // == 2
+```
+:::
+
 ::: tip
 以下类型中的自定义函数实现使用泛型 `<T>` 进行标记。
 :::

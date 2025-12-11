@@ -285,5 +285,9 @@ export default defineConfig({
 - `resolveSnapshotPath`：只尊重根级别的快照路径解析器
 - 其他不影响测试运行器的选项
 
+<<<<<<< HEAD
 所有不支持在项目配置中使用的配置选项，在 ["配置"](/config/) 指南中会用 <NonProjectOption /> 标记。它们必须在根配置文件中定义一次。
+=======
+All configuration options that are not supported inside a project configuration are marked with a <CRoot /> icon next to their name. They can only be defined once in the root config file.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 :::

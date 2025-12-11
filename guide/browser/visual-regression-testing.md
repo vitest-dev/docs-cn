@@ -36,7 +36,12 @@ Vitest 原生支持可视化回归测试。它会自动截取 UI 组件或页面
 要获得稳定结果，应使用相同的测试环境。**推荐**采用云端服务（如 [Azure App Testing](https://azure.microsoft.com/en-us/products/playwright-testing)）或基于 [Docker containers](https://playwright.dev/docs/docker) 的环境。
 :::
 
+<<<<<<< HEAD
 在 Vitest 中，可通过 [`toMatchScreenshot` assertion](/guide/browser/assertion-api.html#tomatchscreenshot) 断言运行可视化回归测试：
+=======
+Visual regression testing in Vitest can be done through the
+[`toMatchScreenshot` assertion](/api/browser/assertions.html#tomatchscreenshot):
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 import { expect, test } from 'vitest'
@@ -101,11 +106,38 @@ $ vitest --update
 
 提交前务必核对更新后的截图，确保改动符合预期。
 
+<<<<<<< HEAD
 ## 配置可视化测试 {#configuring-visual-tests}
+=======
+## How Visual Tests Work
+
+Visual regression tests need stable screenshots to compare against. But pages aren't instantly stable as images load, animations finish, fonts render, and layouts settle.
+
+Vitest handles this automatically through "Stable Screenshot Detection":
+
+1. Vitest takes a first screenshot (or uses the reference screenshot if available) as baseline
+1. It takes another screenshot and compares it with the baseline
+    - If the screenshots match, the page is stable and testing continues
+    - If they differ, Vitest uses the newest screenshot as the baseline and repeats
+1. This continues until stability is achieved or the timeout is reached
+
+This ensures that transient visual changes (like loading spinners or animations) don't cause false failures. If something never stops animating though, you'll hit the timeout, so consider [disabling animations during testing](#disable-animations).
+
+If a stable screenshot is captured after retries (one or more) and a reference screenshot exists, Vitest performs a final comparison with the reference using `createDiff: true`. This will generate a diff image if they don't match.
+
+During stability detection, Vitest calls comparators with `createDiff: false` since it only needs to know if screenshots match. This keeps the detection process fast.
+
+## Configuring Visual Tests
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ### 全局配置 {#global-configuration}
 
+<<<<<<< HEAD
 可在 [Vitest 配置文件](/guide/browser/config#browser-expect-tomatchscreenshot) 中设定可视化回归测试的默认规则：
+=======
+Configure visual regression testing defaults in your
+[Vitest config](/config/browser/expect#tomatchscreenshot):
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'

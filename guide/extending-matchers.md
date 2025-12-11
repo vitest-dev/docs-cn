@@ -112,6 +112,14 @@ await expect().toBeAsyncAssertion()
 
 当前测试的全称(包括 describe 块)。
 
+### `task` <Advanced /> <Version type="experimental">4.0.11</Version> {#task}
+
+Contains a reference to [the `Test` runner task](/api/advanced/runner#tasks) when available.
+
+::: warning
+When using the global `expect` with concurrent tests, `this.task` is `undefined`. Use `context.expect` instead to ensure `task` is available in custom matchers.
+:::
+
 ### `testPath`
 
 当前正在执行的测试文件路径。

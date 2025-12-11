@@ -3,9 +3,15 @@ title: Browser Mode | Guide
 outline: deep
 ---
 
+<<<<<<< HEAD
 # 浏览器模式 <Badge type="warning">实验性</Badge> {#browser-mode}
 
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
+=======
+# Browser Mode {#browser-mode}
+
+This page provides information about the browser mode feature in the Vitest API, which allows you to run your tests in the browser natively, providing access to browser globals like window and document.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ::: tip
 如果你需要 `expect` 、`vi` ，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
@@ -35,27 +41,37 @@ bunx vitest init browser
 
 ### 手动安装 {#manual-installation}
 
+<<<<<<< HEAD
 我们也可以手动安装软件包。默认情况下，浏览器模式不需要任何额外的端到端 provider 就能在本地运行测试，因为它会复用你现有的浏览器。
+=======
+You can also install packages manually. Vitest always requires a provider to be defined. You can chose either [`preview`](/config/browser/preview), [`playwright`](/config/browser/playwright) or [`webdriverio`](/config/browser/webdriverio).
+
+If you want to just preview how your tests look, you can use the `preview` provider:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser
+npm install -D vitest @vitest/browser-preview
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser
+yarn add -D vitest @vitest/browser-preview
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser
+pnpm add -D vitest @vitest/browser-preview
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser
+bun add -D vitest @vitest/browser-preview
 ```
 :::
 
 ::: warning
 不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 
+<<<<<<< HEAD
 如果我们尚未使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，这可以使我们的测试运行得更快。此外，Playwright 使用的是 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) ，通常比 WebDriver 更快。
+=======
+If you don't already use one of these tools, we recommend starting with Playwright because it supports parallel execution, which makes your tests run faster.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ::: tabs key:provider
 == Playwright
@@ -63,16 +79,16 @@ bun add -D vitest @vitest/browser
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser playwright
+npm install -D vitest @vitest/browser-playwright
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser playwright
+yarn add -D vitest @vitest/browser-playwright
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser playwright
+pnpm add -D vitest @vitest/browser-playwright
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser playwright
+bun add -D vitest @vitest/browser-playwright
 ```
 == WebdriverIO
 
@@ -80,16 +96,16 @@ bun add -D vitest @vitest/browser playwright
 
 ::: code-group
 ```bash [npm]
-npm install -D vitest @vitest/browser webdriverio
+npm install -D vitest @vitest/browser-webdriverio
 ```
 ```bash [yarn]
-yarn add -D vitest @vitest/browser webdriverio
+yarn add -D vitest @vitest/browser-webdriverio
 ```
 ```bash [pnpm]
-pnpm add -D vitest @vitest/browser webdriverio
+pnpm add -D vitest @vitest/browser-webdriverio
 ```
 ```bash [bun]
-bun add -D vitest @vitest/browser webdriverio
+bun add -D vitest @vitest/browser-webdriverio
 ```
 :::
 
@@ -118,7 +134,11 @@ export default defineConfig({
 ::: info
 Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`browser.api`](/config/#browser-api) 选项来更改这个端口号。
 
+<<<<<<< HEAD
 自 Vitest 2.1.5 版本起，命令行界面（CLI）不再自动打印 Vite 的 URL。当我们在观察模式下运行时，可以通过按 "b" 键来打印 URL。
+=======
+The CLI does not prints the Vite server URL automatically. You can press "b" to print the URL when running in watch mode.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 :::
 
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
@@ -397,7 +417,11 @@ test('properly handles form inputs', async () => {
 
 如果你的框架没有被包含在内，请随时创建你自己的软件包——它是一个简单的封装，围绕着框架渲染器和 `page.elementLocator` API。我们会在本页面添加指向它的链接。请确保其名称以 `vitest-browser-` 开头。
 
+<<<<<<< HEAD
 除了渲染组件和定位元素外，你还需要进行断言。Vitest 基于 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库提供了一整套开箱即用的 DOM 断言。更多信息请参阅 [Assertions API](/guide/browser/assertion-api)。
+=======
+Besides rendering components and locating elements, you will also need to make assertions. Vitest forks the [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) library to provide a wide range of DOM assertions out of the box. Read more at the [Assertions API](/api/browser/assertions).
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 import { expect } from 'vitest'
@@ -406,7 +430,11 @@ import { page } from 'vitest/browser'
 await expect.element(page.getByText('Hello World')).toBeInTheDocument()
 ```
 
+<<<<<<< HEAD
 Vitest 暴露了一个 [上下文 API](/guide/browser/context)，其中包含一组在测试中可能对你有用的实用程序。例如，如果你需要进行交互操作，比如点击元素或在输入框中输入文本，你可以使用来自 `vitest/browser` 的 `userEvent`。更多内容请参阅 [交互性 API](/guide/browser/interactivity-api)。
+=======
+Vitest exposes a [Context API](/api/browser/context) with a small set of utilities that might be useful to you in tests. For example, if you need to make an interaction, like clicking an element or typing text into an input, you can use `userEvent` from `vitest/browser`. Read more at the [Interactivity API](/api/browser/interactivity).
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -526,7 +554,11 @@ Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工�
 我们还可以在 [`browser-examples`](https://github.com/vitest-tests/browser-examples) 中查看更多的案例。
 
 ::: warning
+<<<<<<< HEAD
 `testing-library` 提供了一个软件包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `vitest/browser`导入的 [`userEvent`](/guide/browser/interactivity-api)，它在引擎盖下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+=======
+`testing-library` provides a package `@testing-library/user-event`. We do not recommend using it directly because it simulates events instead of actually triggering them - instead, use [`userEvent`](/api/browser/interactivity) imported from `vitest/browser` that uses Chrome DevTools Protocol or Webdriver (depending on the provider) under the hood.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 :::
 
 ::: code-group

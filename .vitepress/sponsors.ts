@@ -51,6 +51,11 @@ const vitestSponsors = {
       url: 'https://www.liminity.se/',
       img: '/liminity.svg',
     },
+    {
+      name: 'Bytebase',
+      url: 'https://www.bytebase.com/',
+      img: '/bytebase.svg',
+    },
   ],
 } satisfies Record<string, Sponsor[]>
 

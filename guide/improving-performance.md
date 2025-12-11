@@ -22,17 +22,43 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     isolate: false,
+<<<<<<< HEAD
     // 你还可以仅对特定池禁用隔离
     poolOptions: {
       forks: {
         isolate: false,
       },
     },
+=======
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
   },
 })
 ```
 
 :::
+
+You can also disable isolation for specific files only by using `projects`:
+
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    projects: [
+      {
+        name: 'Isolated',
+        isolate: true, // (default value)
+        exclude: ['**.non-isolated.test.ts'],
+      },
+      {
+        name: 'Non-isolated',
+        isolate: false,
+        include: ['**.non-isolated.test.ts'],
+      }
+    ]
+  },
+})
+```
 
 :::tip
 如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
@@ -186,6 +212,7 @@ Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用�
 为了减少主线程的 Vite 服务器的负载，可以使用测试分片。将负载平均到多个 Vite 服务器上。
 
 ```sh
+<<<<<<< HEAD
 # 以32核心CPU拆分成4个分片为例。
 # 每个分片需要一个主线程，因此每个分片可以分配7个测试线程 (1+7) *4 =32
 # 使用 VITEST_MAX_THREADS 进行分配:
@@ -193,6 +220,15 @@ VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=1/4 & \
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=2/4 & \
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=3/4 & \
 VITEST_MAX_THREADS=7 vitest run --reporter=blob --shard=4/4 & \
+=======
+# Example for splitting tests on 32 CPU to 4 shards.
+# As each process needs 1 main thread, there's 7 threads for test runners (1+7)*4 = 32
+# Use VITEST_MAX_WORKERS:
+VITEST_MAX_WORKERS=7 vitest run --reporter=blob --shard=1/4 & \
+VITEST_MAX_WORKERS=7 vitest run --reporter=blob --shard=2/4 & \
+VITEST_MAX_WORKERS=7 vitest run --reporter=blob --shard=3/4 & \
+VITEST_MAX_WORKERS=7 vitest run --reporter=blob --shard=4/4 & \
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 wait # https://man7.org/linux/man-pages/man2/waitpid.2.html
 
 vitest run --merge-reports

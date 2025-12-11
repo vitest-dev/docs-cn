@@ -854,7 +854,11 @@ await vi.advanceTimersToNextTimerAsync() // log: 3
 function advanceTimersToNextFrame(): Vitest
 ```
 
+<<<<<<< HEAD
 与 [`vi.advanceTimersByTime`](https://vitest.dev/api/vi#vi-advancetimersbytime) 类似，但会将计时器推进当前使用 `requestAnimationFrame` 安排的回调执行所需的毫秒数。
+=======
+Similar to [`vi.advanceTimersByTime`](/api/vi#vi-advancetimersbytime), but will advance timers by the milliseconds needed to execute callbacks currently scheduled with `requestAnimationFrame`.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 let frameRendered = false

@@ -180,8 +180,13 @@ test('Solid component handles user interaction', async () => {
 ### 1. 在CI/CD中使用浏览器模式 {#_1-use-browser-mode-for-ci-cd}
 确保测试在真实浏览器环境中运行以获得最准确的测试结果。浏览器模式提供准确的CSS渲染、真实的浏览器API和正确的事件处理。
 
+<<<<<<< HEAD
 ### 2. 测试用户交互 {#_2-test-user-interactions}
 使用Vitest的[交互API](/guide/browser/interactivity-api)模拟真实用户行为。使用`page.getByRole()`和`userEvent`方法，如我们的[高级测试模式](#advanced-testing-patterns)所示：
+=======
+### 2. Test User Interactions
+Simulate real user behavior using Vitest's [Interactivity API](/api/browser/interactivity). Use `page.getByRole()` and `userEvent` methods as shown in our [Advanced Testing Patterns](#advanced-testing-patterns):
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```tsx
 // Good: Test actual user interactions
@@ -261,23 +266,20 @@ test('ShoppingCart manages items correctly', async () => {
 ```tsx
 // Option 1: Recommended - Use MSW (Mock Service Worker) for API mocking
 import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
+import { setupWorker } from 'msw/browser'
 
-// Set up MSW server with API handlers
-const server = setupServer(
+// Set up MSW worker with API handlers
+const worker = setupWorker(
   http.get('/api/users/:id', ({ params }) => {
-    const { id } = params
-    if (id === '123') {
-      return HttpResponse.json({ name: 'John Doe', email: 'john@example.com' })
-    }
-    return HttpResponse.json({ error: 'User not found' }, { status: 404 })
+    // Describe the happy path
+    return HttpResponse.json({ id: params.id, name: 'John Doe', email: 'john@example.com' })
   })
 )
 
-// Start server before all tests
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+// Start the worker before all tests
+beforeAll(() => worker.start())
+afterEach(() => worker.resetHandlers())
+afterAll(() => worker.stop())
 
 test('UserProfile handles loading, success, and error states', async () => {
   // Test success state
@@ -287,7 +289,7 @@ test('UserProfile handles loading, success, and error states', async () => {
   await expect.element(getByText('john@example.com')).toBeInTheDocument()
 
   // Test error state by overriding the handler for this test
-  server.use(
+  worker.use(
     http.get('/api/users/:id', () => {
       return HttpResponse.json({ error: 'User not found' }, { status: 404 })
     })
@@ -298,7 +300,15 @@ test('UserProfile handles loading, success, and error states', async () => {
 })
 ```
 
+<<<<<<< HEAD
 ### 测试组件通信 {#testing-component-communication}
+=======
+::: tip
+See more details on [using MSW in the browser](https://mswjs.io/docs/integrations/browser).
+:::
+
+### Testing Component Communication
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```tsx
 // Test parent-child component interaction
@@ -569,7 +579,14 @@ import { render } from 'vitest-browser-react' // [!code ++]
 
 ## 了解更多 {#learn-more}
 
+<<<<<<< HEAD
 - [浏览器模式文档](/guide/browser/)
 - [断言API](/guide/browser/assertion-api)
 - [交互性API](/guide/browser/interactivity-api)
 - [示例仓库](https://github.com/vitest-tests/browser-examples)
+=======
+- [Browser Mode Documentation](/guide/browser/)
+- [Assertion API](/api/browser/assertions)
+- [Interactivity API](/api/browser/interactivity)
+- [Example Repository](https://github.com/vitest-tests/browser-examples)
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b

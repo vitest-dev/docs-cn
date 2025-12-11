@@ -2,6 +2,7 @@
 
 ## 模块的定义 {#defining-a-module}
 
+<<<<<<< HEAD
 在进行模块模拟之前，先要明确“模块”的含义。在 Vitest 中，模块指的是一个导出内容的文件。
 通过 [插件](https://vite.dev/guide/api-plugin.html)，几乎任何文件都可以转换为 JavaScript 模块。
 
@@ -9,6 +10,9 @@
 换句话说，它就是一个包含已导出方法与属性的对象。
 
 例如，`example.js` 就是一个模块，它导出了 `method` 和 `variable`：
+=======
+Before mocking a "module", we should define what it is. In Vitest context, the "module" is a file that exports something. Using [plugins](https://vite.dev/guide/api-plugin.html), any file can be turned into a JavaScript module. The "module object" is a namespace object that holds dynamic references to exported identifiers. Simply put, it's an object with exported methods and properties. In this example, `example.js` is a module that exports `answer` and `variable`:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```js [example.js]
 export function answer() {

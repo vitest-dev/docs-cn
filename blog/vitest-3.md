@@ -62,7 +62,11 @@ _2025 年 1 月 17 日_
   </video>
 </div>
 
+<<<<<<< HEAD
 伴随此更改，我们还重新设计了公共报告器 API（reporters 字段），使[生命周期](/advanced/api/reporters)更容易理解。
+=======
+Alongside this change, we also redesign the public reporter API (the `reporters` field) making the [lifecycle](/api/advanced/reporters) easier to understand.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 你可以在 [#7069](https://github.com/vitest-dev/vitest/pull/7069) PR 中关注设计过程。为了逆向工程之前的 onTaskUpdate API 并实现这个新的优雅生命周期，我们经历了一番艰难的努力。
 
@@ -115,7 +119,11 @@ export default defineConfig({
 
 实例相对于工作区的主要优势在于更好的缓存策略 - Vitest 只创建一个 Vite 服务器来服务文件，这些文件只会被处理一次，而与你测试的浏览器数量无关。
 
+<<<<<<< HEAD
 此版本还改进了浏览器模式特性的文档，并引入了针对 [Playwright](/guide/browser/playwright) 和 [WebdriverIO](/guide/browser/webdriverio) 的单独指南，希望能使配置更容易。
+=======
+This release also improves the documentation of Browser Mode features and introduces separate guides for [Playwright](/config/browser/playwright) and [WebdriverIO](/config/browser/webdriverio) hopefully making it easier to configure.
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ## 按需过滤 {#filtering-by-location}
 

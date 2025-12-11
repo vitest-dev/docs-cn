@@ -189,7 +189,11 @@ test('stocks are the same', () => {
 
 - **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
 
+<<<<<<< HEAD
 使用 `toBeCloseTo` 比较浮点数。可选的 `numDigits` 参数限制了小数点后要检查的位数。例如：
+=======
+Use `toBeCloseTo` to compare floating-point numbers. The optional `numDigits` argument limits the number of digits to check _after_ the decimal point. The default for `numDigits` is 2. For example:
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 import { expect, test } from 'vitest'
@@ -344,7 +348,7 @@ function apples() {
 }
 
 function bananas() {
-  return null
+  return undefined
 }
 
 test('we don\'t have apples', () => {
@@ -380,9 +384,19 @@ test('getApplesCount has some unusual side effects...', () => {
 
 ## toBeOneOf
 
+<<<<<<< HEAD
 - **类型:** `(sample: Array<any>) => any`
 
 `toBeOneOf` 断言某个值是否与所提供数组中的任何值匹配。
+=======
+- **Type:** `(sample: Array<any> | Set<any>) => any`
+
+`toBeOneOf` asserts if a value matches any of the values in the provided array or set.
+
+::: warning EXPERIMENTAL
+Providing a `Set` is an experimental feature and may change in a future release.
+:::
+>>>>>>> 6a59445f92d4a3c4ade0126d8f3da58a35e43f0b
 
 ```ts
 import { expect, test } from 'vitest'
@@ -429,6 +443,17 @@ test('stock is type of string', () => {
   expect(actual).toBeTypeOf('string')
 })
 ```
+
+:::warning
+`toBeTypeOf` uses the native `typeof` operator under the hood with all its quirks, most notably that the value `null` has type `object`.
+
+```ts
+test('toBeTypeOf cannot check for null or array', () => {
+  expect(null).toBeTypeOf('object')
+  expect([]).toBeTypeOf('object')
+})
+```
+:::
 
 ## toBeInstanceOf
 
@@ -588,7 +613,13 @@ import { getAllFruits } from './stocks.js'
 
 test('the fruit list contains orange', () => {
   expect(getAllFruits()).toContain('orange')
+})
 
+test('pineapple contains apple', () => {
+  expect('pineapple').toContain('apple')
+})
+
+test('the element contains a class and is contained', () => {
   const element = document.querySelector('#el')
   // element 有 class 属性 flex
   expect(element.classList).toContain('flex')
@@ -684,6 +715,9 @@ test('John Doe Invoice', () => {
 
   // 将键名包裹在数组中，避免其被解析为深层引用
   expect(invoice).toHaveProperty(['P.O'], '12345')
+
+  // Deep equality of object property
+  expect(invoice).toHaveProperty('items[0]', { type: 'apples', quantity: 10 })
 })
 ```
 
@@ -1209,6 +1243,8 @@ test('spy function returns bananas on a last call', () => {
 
 我们可以调用这个断言来检查函数是否在特定的调用中成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
+The count starts at 1. So, to check the second entry, you would write `.toHaveNthReturnedWith(2, ...)`.
+
 ```ts
 import { expect, test, vi } from 'vitest'
 
@@ -1317,6 +1353,8 @@ test('spy function resolves bananas on a last call', async () => {
 您可以调用此断言来检查函数在特定调用中是否成功解析了某个值。需要将一个间谍函数（spy function）传递给 `expect`。
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
+
+The count starts at 1. So, to check the second entry, you would write `.toHaveNthResolvedWith(2, ...)`.
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1680,6 +1718,42 @@ test('variety ends with "re"', () => {
 
 :::tip
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
+:::
+
+## expect.schemaMatching
+
+- **Type:** `(expected: StandardSchemaV1) => any`
+
+When used with an equality check, this asymmetric matcher will return `true` if the value matches the provided schema. The schema must implement the [Standard Schema v1](https://standardschema.dev/) specification.
+
+```ts
+import { expect, test } from 'vitest'
+import { z } from 'zod'
+import * as v from 'valibot'
+import { type } from 'arktype'
+
+test('email validation', () => {
+  const user = { email: 'john@example.com' }
+
+  // using Zod
+  expect(user).toEqual({
+    email: expect.schemaMatching(z.string().email()),
+  })
+
+  // using Valibot
+  expect(user).toEqual({
+    email: expect.schemaMatching(v.pipe(v.string(), v.email()))
+  })
+
+  // using ArkType
+  expect(user).toEqual({
+    email: expect.schemaMatching(type('string.email')),
+  })
+})
+```
+
+:::tip
+You can use `expect.not` with this matcher to negate the expected value.
 :::
 
 ## expect.addSnapshotSerializer
