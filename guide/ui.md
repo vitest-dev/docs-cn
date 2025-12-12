@@ -102,7 +102,7 @@ npx vite preview --outDir ./html
 如果模块是内联的，您将看到另外三个窗口：
 
 - 源代码：模块未更改的源代码
-- 转换后：Vitest 使用 Vite 的[模块运行器](https://vite.dev/guide/api-environment-runtimes#modulerunner)执行的转换后代码
+- 转换后：Vitest 使用 Vite 的[ModuleRunner](https://vite.dev/guide/api-environment-runtimes#modulerunner)执行的转换后代码
 - Source Map (v3)：源映射映射关系
 
 "Source"窗口中的所有静态导入显示当前模块评估它们的总时间。如果导入已在模块图中评估过，它将显示 `0ms`，因为此时已被缓存。
