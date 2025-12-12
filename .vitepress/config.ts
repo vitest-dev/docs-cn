@@ -212,7 +212,7 @@ export default ({ mode }: { mode: string }) => {
             collapsed: false,
             items: [
               {
-                text: 'Config File',
+                text: '配置文件',
                 link: '/config/',
               },
               {
