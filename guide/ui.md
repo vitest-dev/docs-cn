@@ -75,9 +75,9 @@ npx vite preview --outDir ./html
 请注意，如果您的图表过大，节点位置可能需要一些时间才能稳定下来。
 :::
 
-您可以随时点击"重置"来恢复入口模块图。要展开模块图，右键点击或按住 <kbd>Shift</kbd> 同时点击您感兴趣的节点。它将显示与所选节点相关的所有节点。
+您可以随时点击"Reset"来恢复入口模块图。要展开模块图，右键点击或按住 <kbd>Shift</kbd> 同时点击您感兴趣的节点。它将显示与所选节点相关的所有节点。
 
-默认情况下，Vitest 不显示来自 `node_modules` 的模块。通常，这些模块会被外部化。您可以通过取消选择"隐藏 node_modules"来启用它们。
+默认情况下，Vitest 不显示来自 `node_modules` 的模块。通常，这些模块会被外部化。您可以通过取消选择"Hide node_modules"来启用它们。
 
 ### 模块信息 {#module-info}
 
@@ -86,13 +86,13 @@ npx vite preview --outDir ./html
 <img alt="The module info view for an inlined module" img-light src="/ui/light-module-info.png">
 <img alt="The module info view for an inlined module" img-dark src="/ui/dark-module-info.png">
 
-此视图分为两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示"已缓存"或"未缓存"的徽章。在右侧您可以看到时间诊断信息：
+此视图分为两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示"cached"或"not cached"的徽章。在右侧您可以看到时间诊断信息：
 
 - 自身时间：导入模块所花费的时间，不包括静态导入。
-- 总时间：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的转换时间。
+- 总时间：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的`transform`时间。
 - 转换：转换模块所花费的时间。
 
-如果您是通过点击导入打开此视图，您还会在开始处看到一个"返回"按钮，它将带您回到上一个模块。
+如果您是通过点击导入打开此视图，您还会在开始处看到一个"Back"按钮，它将带您回到上一个模块。
 
 底部部分取决于模块类型。如果模块是外部的，您只能看到该文件的源代码。您将无法进一步遍历模块图，也不会看到导入静态导入所花费的时间。
 
@@ -105,7 +105,7 @@ npx vite preview --outDir ./html
 - 转换后：Vitest 使用 Vite 的[模块运行器](https://vite.dev/guide/api-environment-runtimes#modulerunner)执行的转换后代码
 - Source Map (v3)：源映射映射关系
 
-"源代码"窗口中的所有静态导入显示当前模块评估它们的总时间。如果导入已在模块图中评估过，它将显示 `0ms`，因为此时已被缓存。
+"Source"窗口中的所有静态导入显示当前模块评估它们的总时间。如果导入已在模块图中评估过，它将显示 `0ms`，因为此时已被缓存。
 
 如果模块加载时间超过 500 毫秒，时间将以红色显示。如果模块加载时间超过 100 毫秒，时间将以橙色显示。
 
@@ -129,7 +129,7 @@ npx vite preview --outDir ./html
 
 ### 导入分解 {#import-breakdown}
 
-模块图选项卡还提供一个导入分解，其中包含加载时间最长的模块列表（默认为前 10 个，但您可以按"显示更多"来加载更多），按总时间排序。
+模块图选项卡还提供一个导入分解，其中包含加载时间最长的模块列表（默认为前 10 个，但您可以按"Show more"来加载更多），按总时间排序。
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
