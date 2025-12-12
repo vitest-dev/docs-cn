@@ -2,7 +2,7 @@
 title: Vitest UI | 指南
 ---
 
-# Vitest UI
+# Vitest UI {#vitest-ui}
 
 Vitest 由 Vite 提供能力，在运行测试时有一个开发服务器。这允许 Vitest 提供一个漂亮的 UI 界面来查看并与测试交互。Vitest 的 UI 界面是可选的，你可以通过以下安装：
 
@@ -53,18 +53,18 @@ npx vite preview --outDir ./html
 你可以使用 [`outputFile`](/config/#outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
 
-## Module Graph
+## 模块图 {#module-graph}
 
-Module Graph's tab displays the module graph of the selected test file.
+模块图选项卡显示所选测试文件的模块图。
 
 ::: info
-All of the provided images use [Zammad](https://github.com/zammad/zammad) repository as an example.
+所有提供的图像均使用 [Zammad](https://github.com/zammad/zammad) 仓库作为示例。
 :::
 
 <img alt="The module graph view" img-light src="/ui/light-module-graph.png">
 <img alt="The module graph view" img-dark src="/ui/dark-module-graph.png">
 
-If there are more than 50 modules, the module graph displays only the first two levels of the graph to reduce the visual clutter. You can always click on "Show Full Graph" icon to preview the full graph.
+如果模块超过 50 个，模块图仅显示图的前两个层级，以减少视觉混乱。您可以随时点击"显示完整图表"图标来预览完整图表。
 
 <center>
   <img alt="The 'Show Full Graph' button located close to the legend" img-light src="/ui/light-ui-show-graph.png">
@@ -72,72 +72,72 @@ If there are more than 50 modules, the module graph displays only the first two 
 </center>
 
 ::: warning
-Note that if your graph is too big, it may take some time before the node positions are stabilized.
+请注意，如果您的图表过大，节点位置可能需要一些时间才能稳定下来。
 :::
 
-You can always restore the entry module graph by clicking on "Reset". To expand the module graph, right-click or hold <kbd>Shift</kbd> while clicking the node that interests you. It will display all nodes related to the selected one.
+您可以随时点击"重置"来恢复入口模块图。要展开模块图，右键点击或按住 <kbd>Shift</kbd> 同时点击您感兴趣的节点。它将显示与所选节点相关的所有节点。
 
-By default, Vitest doesn't show the modules from `node_modules`. Usually, these modules are externalized. You can enable them by deselecting "Hide node_modules".
+默认情况下，Vitest 不显示来自 `node_modules` 的模块。通常，这些模块会被外部化。您可以通过取消选择"隐藏 node_modules"来启用它们。
 
-### Module Info
+### 模块信息 {#module-info}
 
-By left-clicking on the module node, you open the Module Info view.
+通过左键点击模块节点，您可以打开模块信息视图。
 
 <img alt="The module info view for an inlined module" img-light src="/ui/light-module-info.png">
 <img alt="The module info view for an inlined module" img-dark src="/ui/dark-module-info.png">
 
-This view is separated into two parts. The top part shows the full module ID and some diagnostics about the module. If [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) is enabled, there will be a "cached" or "not cached" badge. On the right you can see time diagnostics:
+此视图分为两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示"已缓存"或"未缓存"的徽章。在右侧您可以看到时间诊断信息：
 
-- Self Time: the time it took to import the module, excluding static imports.
-- Total Time: the time it took to import the module, including static imports. Note that this does not include `transform` time of the current module.
-- Transform: the time it took to transform the module.
+- 自身时间：导入模块所花费的时间，不包括静态导入。
+- 总时间：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的转换时间。
+- 转换：转换模块所花费的时间。
 
-If you opened this view by clicking on an import, you will also see a "Back" button at the start that will take you to the previous module.
+如果您是通过点击导入打开此视图，您还会在开始处看到一个"返回"按钮，它将带您回到上一个模块。
 
-The bottom part depends on the module type. If the module is external, you will only see the source code of that file. You will not be able to traverse the module graph any further, and you won't see how long it took to import static imports.
+底部部分取决于模块类型。如果模块是外部的，您只能看到该文件的源代码。您将无法进一步遍历模块图，也不会看到导入静态导入所花费的时间。
 
 <img alt="The module info view for an external module" img-light src="/ui/light-module-info-external.png">
 <img alt="The module info view for an external module" img-dark src="/ui/dark-module-info-external.png">
 
-If the module was inlined, you will see three more windows:
+如果模块是内联的，您将看到另外三个窗口：
 
-- Source: unchanged source code of the module
-- Transformed: the transformed code that Vitest executes using Vite's [module runner](https://vite.dev/guide/api-environment-runtimes#modulerunner)
-- Source Map (v3): source map mappings
+- 源代码：模块未更改的源代码
+- 转换后：Vitest 使用 Vite 的[模块运行器](https://vite.dev/guide/api-environment-runtimes#modulerunner)执行的转换后代码
+- Source Map (v3)：源映射映射关系
 
-All static imports in the "Source" window show a total time it took to evaluate them by the current module. If the import was already evaluated in the module graph, it will show `0ms` because it is cached by that point.
+"源代码"窗口中的所有静态导入显示当前模块评估它们的总时间。如果导入已在模块图中评估过，它将显示 `0ms`，因为此时已被缓存。
 
-If the module took longer than 500 milliseconds to load, the time will be displayed in red. If the module took longer than 100 milliseconds, the time will be displayed in orange.
+如果模块加载时间超过 500 毫秒，时间将以红色显示。如果模块加载时间超过 100 毫秒，时间将以橙色显示。
 
-You can click on an import source to jump into that module and traverse the graph further (note `./support/assertions/index.ts` below).
+您可以点击导入源代码跳转到该模块并进一步遍历图表（注意下面的 `./support/assertions/index.ts`）。
 
 <img alt="The module info view for an internal module" img-light src="/ui/light-module-info-traverse.png">
 <img alt="The module info view for an internal module" img-dark src="/ui/dark-module-info-traverse.png">
 
 ::: warning
-Note that type-only imports are not executed at runtime and do not display a total duration. They also cannot be opened.
+请注意，仅类型导入在运行时不执行，不显示总持续时间。它们也无法打开。
 :::
 
-If another plugin injects a module import during transformation, those imports will be displayed at the start of the module in gray colour (for example, modules injected by `import.meta.glob`). They also show the total time and can be traversed further.
+如果另一个插件在转换期间注入模块导入，这些导入将在模块开始处以灰色显示（例如，通过 `import.meta.glob` 注入的模块）。它们也显示总时间并且可以进一步遍历。
 
 <img alt="The module info view for an internal module" img-light src="/ui/light-module-info-shadow.png">
 <img alt="The module info view for an internal module" img-dark src="/ui/dark-module-info-shadow.png">
 
 ::: tip
-If you are developing a custom integration on top of Vitest, you can use [`vitest.experimental_getSourceModuleDiagnostic`](/api/advanced/vitest#getsourcemodulediagnostic) to retrieve this information.
+如果您正在基于 Vitest 开发自定义集成，可以使用 [`vitest.experimental_getSourceModuleDiagnostic`](/api/advanced/vitest#getsourcemodulediagnostic) 来检索此信息。
 :::
 
-### Import Breakdown
+### 导入分解 {#import-breakdown}
 
-The Module Graph tab also provides an Import Breakdown with a list of modules that take the longest time to load (top 10 by default, but you can press "Show more" to load 10 more), sorted by Total Time.
+模块图选项卡还提供一个导入分解，其中包含加载时间最长的模块列表（默认为前 10 个，但您可以按"显示更多"来加载更多），按总时间排序。
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
 
-You can click on the module to see the Module Info. If the module is external, it will have the yellow color (the same color in the module graph).
+您可以点击模块查看模块信息。如果模块是外部的，它将显示黄色（与模块图中的颜色相同）。
 
-The breakdown shows a list of modules with self time, total time, and a percentage relative to the time it took to load the whole test file.
+分解显示模块列表，包含自身时间、总时间以及相对于加载整个测试文件所花费时间的百分比。
 
-The "Show Import Breakdown" icon will have a red color if there is at least one file that took longer than 500 milliseconds to load, and it will be orange if there is at least one file that took longer than 100 milliseconds.
+如果至少有一个文件加载时间超过 500 毫秒，"显示导入分解"图标将显示红色；如果至少有一个文件加载时间超过 100 毫秒，它将显示橙色。
 
-By default, Vitest shows the breakdown automatically if there is at least one module that took longer than 500 milliseconds to load. You can control the behaviour by setting the [`experimental.printImportBreakdown`](/config/experimental#experimental-printimportbreakdown) option.
+默认情况下，如果至少有一个模块加载时间超过 500 毫秒，Vitest 会自动显示分解。您可以通过设置 [`experimental.printImportBreakdown`](/config/experimental#experimental-printimportbreakdown) 选项来控制此行为。
