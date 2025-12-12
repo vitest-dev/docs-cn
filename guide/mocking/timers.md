@@ -10,11 +10,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 function executeAfterTwoHours(func) {
-  setTimeout(func, 1000 * 60 * 60 * 2) // 2 hours
+  setTimeout(func, 1000 * 60 * 60 * 2) // 2 小时
 }
 
 function executeEveryMinute(func) {
-  setInterval(func, 1000 * 60) // 1 minute
+  setInterval(func, 1000 * 60) // 1 分钟
 }
 
 const mock = vi.fn(() => console.log('executed'))
