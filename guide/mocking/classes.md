@@ -74,7 +74,7 @@ import { Dog } from './dog.js'
 vi.mock(import('./dog.js'), () => {
   const Dog = vi.fn(class {
     feed = vi.fn()
-    // ... other mocks
+    // 模拟其他内容...
   })
   return { Dog }
 })
