@@ -464,7 +464,7 @@ export function ignored() { // [!code error]
 
 ## 覆盖率性能 {#coverage-performance}
 
-如果你的项目中代码覆盖率生成较慢，请参阅[性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
+如果你的项目中代码覆盖率生成较慢，请参阅 [性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
 
 ## UI 模式 {#vitest-ui}
 
