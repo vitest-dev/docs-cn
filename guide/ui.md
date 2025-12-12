@@ -64,7 +64,7 @@ npx vite preview --outDir ./html
 <img alt="The module graph view" img-light src="/ui/light-module-graph.png">
 <img alt="The module graph view" img-dark src="/ui/dark-module-graph.png">
 
-如果模块超过 50 个，模块图仅显示图的前两个层级，以减少视觉混乱。您可以随时点击"显示完整图表"图标来预览完整图表。
+如果模块超过 50 个，模块图仅显示图的前两个层级，以减少视觉混乱。您可以随时点击"Show Full Graph"图标来预览完整图表。
 
 <center>
   <img alt="The 'Show Full Graph' button located close to the legend" img-light src="/ui/light-ui-show-graph.png">
