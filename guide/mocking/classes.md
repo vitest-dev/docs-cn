@@ -154,5 +154,5 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 :::
 
 ::: danger
-在 Vitest 4 中引入了使用 `vi.fn()` 模拟类的功能。在此之前，你必须直接使用 `function` 和 `prototype` 继承。参见 [v3 指南](https://v3.vitest.dev/guide/mocking.html#classes)。
+在 Vitest 4 中引入了使用 `vi.fn()` 模拟类的功能。在此之前，你必须直接使用 `function` 和 `prototype` 继承。参见 [v3指南](https://v3.cn.vitest.dev/)。
 :::
