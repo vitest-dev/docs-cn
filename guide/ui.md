@@ -64,7 +64,7 @@ npx vite preview --outDir ./html
 <img alt="The module graph view" img-light src="/ui/light-module-graph.png">
 <img alt="The module graph view" img-dark src="/ui/dark-module-graph.png">
 
-如果模块超过 50 个，模块图仅显示图的前两个层级，以减少视觉混乱。您可以随时点击"Show Full Graph"图标来预览完整图表。
+如果模块超过 50 个，模块图仅显示图的前两个层级，以减少视觉混乱。你可以随时点击 "Show Full Graph" 图标来预览完整图表。
 
 <center>
   <img alt="The 'Show Full Graph' button located close to the legend" img-light src="/ui/light-ui-show-graph.png">
@@ -72,44 +72,44 @@ npx vite preview --outDir ./html
 </center>
 
 ::: warning
-请注意，如果您的图表过大，节点位置可能需要一些时间才能稳定下来。
+请注意，如果你的图表过大，节点位置可能需要一些时间才能稳定下来。
 :::
 
-您可以随时点击"Reset"来恢复入口模块图。要展开模块图，右键点击或按住 <kbd>Shift</kbd> 同时点击您感兴趣的节点。它将显示与所选节点相关的所有节点。
+你可以随时点击 "Reset" 来恢复入口模块图。要展开模块图，右键点击或按住 <kbd>Shift</kbd> 同时点击你感兴趣的节点。它将显示与所选节点相关的所有节点。
 
-默认情况下，Vitest 不显示来自 `node_modules` 的模块。通常，这些模块会被外部化。您可以通过取消选择"Hide node_modules"来启用它们。
+默认情况下，Vitest 不显示来自 `node_modules` 的模块。通常，这些模块会被外部化。你可以通过取消选择 "Hide node_modules" 来启用它们。
 
 ### 模块信息 {#module-info}
 
-通过左键点击模块节点，您可以打开模块信息视图。
+通过左键点击模块节点，你可以打开模块信息视图。
 
 <img alt="The module info view for an inlined module" img-light src="/ui/light-module-info.png">
 <img alt="The module info view for an inlined module" img-dark src="/ui/dark-module-info.png">
 
-此视图分为两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示"cached"或"not cached"的徽章。在右侧您可以看到时间诊断信息：
+此视图分为两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示 "cached" 或 "not cached" 的徽章。在右侧你可以看到时间诊断信息：
 
 - 自身时间：导入模块所花费的时间，不包括静态导入。
-- 总时间：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的`transform`时间。
+- 总时间：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
 - 转换：转换模块所花费的时间。
 
-如果您是通过点击导入打开此视图，您还会在开始处看到一个"Back"按钮，它将带您回到上一个模块。
+若你是通过点击导入项打开此视图，你还会在顶部看到一个 "Back" 按钮，点击可返回上一个模块。
 
-底部部分取决于模块类型。如果模块是外部的，您只能看到该文件的源代码。您将无法进一步遍历模块图，也不会看到导入静态导入所花费的时间。
+底部显示内容取决于模块类型。对于外部模块，你仅能看到该文件的源代码。此时无法继续遍历模块依赖图，也无法查看静态导入的耗时情况。
 
 <img alt="The module info view for an external module" img-light src="/ui/light-module-info-external.png">
 <img alt="The module info view for an external module" img-dark src="/ui/dark-module-info-external.png">
 
-如果模块是内联的，您将看到另外三个窗口：
+如果模块是内联的，你将看到另外三个窗口：
 
 - 源代码：模块未更改的源代码
 - 转换后：Vitest 使用 Vite 的[ModuleRunner](https://vite.dev/guide/api-environment-runtimes#modulerunner)执行的转换后代码
 - Source Map (v3)：源映射映射关系
 
-"Source"窗口中的所有静态导入显示当前模块评估它们的总时间。如果导入已在模块图中评估过，它将显示 `0ms`，因为此时已被缓存。
+"Source" 窗口中的所有静态导入显示当前模块评估它们的总时间。如果导入已在模块图中评估过，它将显示 `0ms`，因为此时已被缓存。
 
 如果模块加载时间超过 500 毫秒，时间将以红色显示。如果模块加载时间超过 100 毫秒，时间将以橙色显示。
 
-您可以点击导入源代码跳转到该模块并进一步遍历图表（注意下面的 `./support/assertions/index.ts`）。
+你可以点击导入源代码跳转到该模块并进一步遍历图表（注意下面的 `./support/assertions/index.ts`）。
 
 <img alt="The module info view for an internal module" img-light src="/ui/light-module-info-traverse.png">
 <img alt="The module info view for an internal module" img-dark src="/ui/dark-module-info-traverse.png">
@@ -124,20 +124,20 @@ npx vite preview --outDir ./html
 <img alt="The module info view for an internal module" img-dark src="/ui/dark-module-info-shadow.png">
 
 ::: tip
-如果您正在基于 Vitest 开发自定义集成，可以使用 [`vitest.experimental_getSourceModuleDiagnostic`](/api/advanced/vitest#getsourcemodulediagnostic) 来检索此信息。
+如果你正在基于 Vitest 开发自定义集成，可以使用 [`vitest.experimental_getSourceModuleDiagnostic`](/api/advanced/vitest#getsourcemodulediagnostic) 来检索此信息。
 :::
 
 ### 导入分解 {#import-breakdown}
 
-模块图选项卡还提供一个导入分解，其中包含加载时间最长的模块列表（默认为前 10 个，但您可以按"Show more"来加载更多），按总时间排序。
+模块图选项卡还提供一个导入分解，其中包含加载时间最长的模块列表（默认为前 10 个，但你可以按 "Show more" 来加载更多），按总时间排序。
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
 
-您可以点击模块查看模块信息。如果模块是外部的，它将显示黄色（与模块图中的颜色相同）。
+你可以点击模块查看模块信息。如果模块是外部的，它将显示黄色（与模块图中的颜色相同）。
 
 分解显示模块列表，包含自身时间、总时间以及相对于加载整个测试文件所花费时间的百分比。
 
-如果至少有一个文件加载时间超过 500 毫秒，"显示导入分解"图标将显示红色；如果至少有一个文件加载时间超过 100 毫秒，它将显示橙色。
+如果至少有一个文件加载时间超过 500 毫秒，"Show Import Breakdown" 图标将显示红色；如果至少有一个文件加载时间超过 100 毫秒，它将显示橙色。
 
-默认情况下，如果至少有一个模块加载时间超过 500 毫秒，Vitest 会自动显示分解。您可以通过设置 [`experimental.printImportBreakdown`](/config/experimental#experimental-printimportbreakdown) 选项来控制此行为。
+默认情况下，如果至少有一个模块加载时间超过 500 毫秒，Vitest 会自动显示分解。你可以通过设置 [`experimental.printImportBreakdown`](/config/experimental#experimental-printimportbreakdown) 选项来控制此行为。
