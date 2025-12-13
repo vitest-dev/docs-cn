@@ -5,21 +5,21 @@ outline: deep
 
 # setupFiles
 
-- **Type:** `string | string[]`
+- **类型:** `string | string[]`
 
-Path to setup files. They will be run before each test file.
+setup 文件的路径。它们将在每个测试文件之前运行。
 
 :::info
-Editing a setup file will automatically trigger a rerun of all tests.
+编辑设置文件将自动触发所有测试的重新运行。
 :::
 
-You can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between workers.
+你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
 :::tip
-Note, that if you are running [`--isolate=false`](#isolate), this setup file will be run in the same global scope multiple times. Meaning, that you are accessing the same global object before each test, so make sure you are not doing the same thing more than you need.
+请注意，如果运行 [`--isolate=false`](#isolate)，这个配置文件将在全局范围内多次运行。这意味着每次测试前都要访问同一个全局对象，因此请确保不要重复做同一件事。
 :::
 
-For example, you may rely on a global variable:
+比如，你可能依赖于一个全局变量：
 
 ```ts
 import { config } from '@some-testing-lib'
@@ -30,7 +30,7 @@ if (!globalThis.defined) {
   globalThis.defined = true
 }
 
-// hooks are reset before each suite
+// 钩子函数会在每个测试套件前重置
 afterEach(() => {
   cleanup()
 })
