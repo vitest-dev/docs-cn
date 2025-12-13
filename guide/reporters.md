@@ -635,10 +635,10 @@ export default defineConfig({
 
 :::
 
-此外，你还可以定义自己的[自定义报告器](/guide/advanced/reporters)，并通过指定文件路径来使用它们:
+此外，你还可以定义自己的 [自定义报告器](/guide/advanced/reporters)，并通过指定文件路径来使用它们:
 
 ```bash
 npx vitest --reporter=./path/to/reporter.ts
 ```
 
-自定义报告器应实现[报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)。
+自定义报告器应实现 [报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)。
