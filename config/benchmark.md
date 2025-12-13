@@ -67,4 +67,4 @@ vitest bench --compare main.json
 - **类型:** `string | undefined`
 - **默认值:** `undefined`
 
-与当前运行结果进行比较的以前基准结果的文件路径。
+用于与当前运行结果进行比较的先前基准测试结果的文件路径。
