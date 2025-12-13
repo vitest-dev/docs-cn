@@ -5,12 +5,12 @@ outline: deep
 
 # fileParallelism
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-file-parallelism`, `--fileParallelism=false`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-file-parallelism`, `--fileParallelism=false`
 
-Should all test files run in parallel. Setting this to `false` will override `maxWorkers` option to `1`.
+所有测试文件应该并行运行。 将其设置为 `false` 将覆盖 `maxWorkers` 选项为 `1`。
 
 ::: tip
-This option doesn't affect tests running in the same file. If you want to run those in parallel, use `concurrent` option on [describe](/api/#describe-concurrent) or via [a config](#sequence-concurrent).
+此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，使用 `concurrent` 选项 [describe](/api/#describe-concurrent) 或通过 [配置](#sequence-concurrent)。
 :::
