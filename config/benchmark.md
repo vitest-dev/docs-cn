@@ -50,7 +50,7 @@ outline: deep
 
 存储基准测试结果的文件路径，可用于稍后的 `--compare` 选项。
 
-For example:
+例如：
 
 ```sh
 # 保存主分支的结果
