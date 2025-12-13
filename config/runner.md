@@ -5,7 +5,7 @@ outline: deep
 
 # runner
 
-- **Type**: `VitestRunnerConstructor`
-- **Default**: `node`, when running tests, or `benchmark`, when running benchmarks
+- **类型**: `VitestRunnerConstructor`
+- **默认值**: 运行测试时为 `node`，运行基准测试时为 `benchmark`
 
-Path to a custom test runner. This is an advanced feature and should be used with custom library runners. You can read more about it in [the documentation](/api/advanced/runner).
+自定义测试运行器的路径。这是一项高级功能，应与自定义库运行器一起使用。你可以在 [文档](/api/advanced/runner) 中阅读更多相关信息。
