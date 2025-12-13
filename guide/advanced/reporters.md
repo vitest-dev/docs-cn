@@ -14,7 +14,7 @@
 import { DefaultReporter } from 'vitest/reporters'
 
 export default class MyDefaultReporter extends DefaultReporter {
-  // do something
+  // 在此实现自定义功能
 }
 ```
 
