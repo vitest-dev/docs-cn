@@ -5,21 +5,20 @@ outline: deep
 
 # testNamePattern <CRoot /> {#testnamepattern}
 
-- **Type** `string | RegExp`
-- **CLI:** `-t <pattern>`, `--testNamePattern=<pattern>`, `--test-name-pattern=<pattern>`
+- **类型** `string | RegExp`
+- **命令行终端:** `-t <pattern>`, `--testNamePattern=<pattern>`, `--test-name-pattern=<pattern>`
 
-Run tests with full names matching the pattern.
-If you add `OnlyRunThis` to this property, tests not containing the word `OnlyRunThis` in the test name will be skipped.
+使用与模式匹配的全名运行测试。 如果你将 `OnlyRunThis` 添加到此属性，将跳过测试名称中不包含单词 `OnlyRunThis` 的测试。
 
 ```js
 import { expect, test } from 'vitest'
 
-// run
+// 运行
 test('OnlyRunThis', () => {
   expect(true).toBe(true)
 })
 
-// skipped
+// 跳过
 test('doNotRun', () => {
   expect(true).toBe(true)
 })
