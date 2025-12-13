@@ -42,7 +42,7 @@ export default ({ mode }: { mode: string }) => {
         zh: {
           label: 'English',
           lang: 'en-US',
-          link: 'https://vitest.dev/',
+          link: 'https://v3.vitest.dev/',
         },
       },
       head: [
