@@ -41,7 +41,7 @@ outline: deep
 
 ## benchmark.outputFile
 
-已弃用，尝试使用 `benchmark.outputJson`。
+已弃用，建议使用 `benchmark.outputJson`。
 
 ## benchmark.outputJson {#benchmark-outputJson}
 
