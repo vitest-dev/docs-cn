@@ -110,7 +110,11 @@ export default ({ mode }: { mode: string }) => {
     },
     themeConfig: {
       logo: '/logo.svg',
-
+      lastUpdatedText: '最后更新',
+      docFooter: {
+        prev: '上一页',
+        next: '下一页',
+      },
       editLink: {
         pattern: 'https://github.com/vitest-dev/docs-cn/edit/dev/:path',
         text: '在 GitHub 上编辑此页面',
