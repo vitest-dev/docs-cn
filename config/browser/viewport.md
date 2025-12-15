@@ -5,7 +5,7 @@ outline: deep
 
 # browser.viewport
 
-- **Type:** `{ width, height }`
-- **Default:** `414x896`
+- **类型:** `{ width, height }`
+- **默认值:** `414x896`
 
-Default iframe's viewport.
+默认 `iframe` 的视口。
