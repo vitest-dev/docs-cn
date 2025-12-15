@@ -8,7 +8,7 @@ outline: deep
 - **类型:** `boolean`
 - **默认值:** `false`
 
-将在每次测试前调用 [`vi.unstubAllEnvs()`](/api/vi#vi-unstuballenvs) 。
+将在每次测试前调用 [`vi.unstubAllEnvs()`](/api/vi#vi-unstuballenvs)。
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
