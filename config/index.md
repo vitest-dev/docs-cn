@@ -1688,7 +1688,7 @@ export interface BrowserProvider {
   getSupportedBrowsers: () => readonly string[]
   initialize: (
     ctx: Vitest,
-    options: { browser: string, options?: BrowserProviderOptions }
+    options: { browser: string; options?: BrowserProviderOptions }
   ) => Awaitable<void>
   openPage: (url: string) => Awaitable<void>
   close: () => Awaitable<void>
