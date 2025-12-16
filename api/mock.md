@@ -308,7 +308,6 @@ fn.mock.calls
 - `'return'` - 函数返回时没有抛出。
 - `'throw'` - 函数抛出了一个值。
 
-
 `value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
 
 ```js

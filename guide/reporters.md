@@ -28,7 +28,6 @@ export default defineConfig({
 
 某些报告器可以通过传递附加选项进行自定义。具体选项将在下面的章节中介绍。
 
-
 ```ts
 export default defineConfig({
   test: {

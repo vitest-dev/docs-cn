@@ -37,8 +37,8 @@ export default () => {
     },
     head: [
       ['meta', { name: 'theme-color', content: '#729b1a' }],
-      ['link', { rel: 'icon', href: '/favicon.ico', sizes: '48x48' }],
-      ['link', { rel: 'icon', href: '/logo.svg', sizes: 'any', type: 'image/svg+xml' }],
+      ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
+      ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
       ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
       ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, marko, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinypool, tinyspy, node' }],
       ['meta', { property: 'og:title', content: vitestName }],
@@ -123,7 +123,7 @@ export default () => {
                   text: '社区指南',
                   link: contributing,
                 },
-              ]
+              ],
             },
             {
               items: [
@@ -134,10 +134,6 @@ export default () => {
                 {
                   text: 'v0.x',
                   link: 'https://v0.vitest.dev/',
-                },
-                {
-                  text: 'v1.x',
-                  link: 'https://v1.vitest.dev/',
                 },
               ],
             },
@@ -173,7 +169,7 @@ export default () => {
             ],
           },
         ],
-        '/': [
+        '/guide/': [
           {
             text: '指南',
             items: [
@@ -227,40 +223,7 @@ export default () => {
               },
               {
                 text: '浏览器模式',
-                link: '/guide/browser/',
-                collapsed: false,
-                items: [
-                  {
-                    text: 'Assertion API',
-                    link: '/guide/browser/assertion-api',
-                    docFooterText: 'Assertion API | Browser Mode',
-                  },
-                  {
-                    text: 'Retry-ability',
-                    link: '/guide/browser/retry-ability',
-                    docFooterText: 'Retry-ability | Browser Mode',
-                  },
-                  {
-                    text: 'Context',
-                    link: '/guide/browser/context',
-                    docFooterText: 'Context | Browser Mode',
-                  },
-                  {
-                    text: 'Interactivity API',
-                    link: '/guide/browser/interactivity-api',
-                    docFooterText: 'Interactivity API | Browser Mode',
-                  },
-                  {
-                    text: 'Commands',
-                    link: '/guide/browser/commands',
-                    docFooterText: 'Commands | Browser Mode',
-                  },
-                  {
-                    text: 'Examples',
-                    link: '/guide/browser/examples',
-                    docFooterText: 'Examples | Browser Mode',
-                  },
-                ],
+                link: '/guide/browser',
               },
               {
                 text: '源码内联测试',
@@ -304,6 +267,8 @@ export default () => {
               },
             ],
           },
+        ],
+        '/api/': [
           {
             text: 'API',
             items: [
@@ -337,6 +302,8 @@ export default () => {
               },
             ],
           },
+        ],
+        '/config/': [
           {
             text: '配置',
             items: [

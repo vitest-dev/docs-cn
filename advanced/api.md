@@ -82,7 +82,6 @@ Vitest 实例需要当前的测试模式。它可以是以下之一：
 
 你可以使用 `start` 方法运行测试或者基准测试。你还可以传递一个字符串数组以筛选测试文件。
 
-
 ### `provide`
 
 Vitest 暴露了`provide`方法，它是`vitest.getCoreWorkspaceProject().provide`的简写。使用该方法，您可以从主线程向测试传递值。所有值在存储前都会通过 `structuredClone`进行检查，但值本身不会被克隆。

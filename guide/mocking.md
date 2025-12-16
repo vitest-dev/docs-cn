@@ -198,8 +198,9 @@ export default {
       resolveId(id) {
         if (id === '$app/forms') {
           return 'virtual:$app/forms'
+        }
       },
-    },
+    }
   ],
 }
 ```
@@ -483,7 +484,6 @@ afterEach(() => server.resetHandlers())
 ```
 
 > 使用 `onUnhandleRequest: 'error'` 配置服务器可以确保即使某个请求没有相应的请求处理程序，也会抛出错误。
-
 
 ### 了解更多
 

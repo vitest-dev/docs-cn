@@ -501,7 +501,6 @@ Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 
 
 你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
 
-
 文档块格式:
 
 ```js
@@ -2532,4 +2531,3 @@ export interface SnapshotEnvironment {
 - **默认值:** `false`
 
 调用任何`console`方法时始终打印控制台跟踪。这对于调试很有用。
-
