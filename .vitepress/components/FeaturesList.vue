@@ -86,7 +86,6 @@
       >expect-type</a>
       进行类型测试
     </ListItem>
-    <ListItem>支持分片</ListItem>
   </ul>
 </template>
 

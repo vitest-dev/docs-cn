@@ -3,11 +3,11 @@ title: 主要功能 | 指南
 outline: deep
 ---
 
-# 主要功能
+# 主要功能 {#features}
 
 <FeaturesList class="!gap-1 text-lg" />
 
-## 一套配置可以运用在多种环境
+## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
 
 <div h-2 />
 <CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">通过视频了解如何编写你的第一个测试</CourseLink>
@@ -16,7 +16,7 @@ outline: deep
 
 了解更多信息 [配置 Vitest](/guide/#配置-vitest)
 
-## 监听模式(watch mode)
+## 监听模式 {#watch-mode}
 
 ```bash
 $ vitest
@@ -26,43 +26,35 @@ $ vitest
 
 `vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 
-使用 `--standalone` 标志启动 Vitest，使其在后台运行。它不会运行任何测试，直到测试发生变化。如果源代码发生变化，Vitest 不会运行测试，直到运行了导入源代码的测试为止
-
-## 开箱即用的常见 Web 支持
+## 开箱即用的常见 Web 支持 {#common-web-idioms-out-of-the-box}
 
 开箱即用的 ES Module / TypeScript / JSX support / PostCSS
 
-## 多线程
+## 多线程 {#threads}
 
 默认的情况下，Vitest 通过 [Tinypool](https://github.com/tinylibs/tinypool) 使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 在多个线程中运行 [Piscina](https://github.com/piscinajs/piscina) 的轻量级分支，允许测试同时运行。 如果我们的测试运行的代码与多线程不兼容，我们可以切换到 [`--pool=forks`](/config/#pool)，它会通过 Tinypool [`在多个进程中运行测试节点：child_process`](https://nodejs.org/api/child_process.html) 。
 
-要在单个线程或进程中运行测试，查看 [`poolOptions`](/config/#pooloptions) 了解更多消息。
+要在单个线程或进程中运行测试，了解更多信息，请参阅 [`poolOptions`](/config/#pooloptions)。
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
-## 测试可过滤
+## 测试可过滤 {#test-filtering}
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-了解更多信息 [测试筛选](guide/filtering)
+了解更多信息，请参阅 [测试筛选](guide/filtering)
 
-## 同时运行多个测试
+## 同时运行多个测试 {#running-tests-concurrently}
 
 在连续的测试中使用 `.concurrent` 来并行运行它们。
 
 ```ts twoslash
 import { describe, it } from 'vitest'
-// The two tests marked with concurrent will be run in parallel
+// 标记为并发的两个测试将并行启动
 describe('suite', () => {
-  it('serial test', async () => {
-    /* ... */
-  })
-  it.concurrent('concurrent test 1', async ({ expect }) => {
-    /* ... */
-  })
-  it.concurrent('concurrent test 2', async ({ expect }) => {
-    /* ... */
-  })
+  it('serial test', async () => { /* ... */ })
+  it.concurrent('concurrent test 1', async ({ expect }) => { /* ... */ })
+  it.concurrent('concurrent test 2', async ({ expect }) => { /* ... */ })
 })
 ```
 
@@ -70,29 +62,23 @@ describe('suite', () => {
 
 ```ts twoslash
 import { describe, it } from 'vitest'
-// All tests within this suite will be run in parallel
+// 该套件的所有测试将并行开始
 describe.concurrent('suite', () => {
-  it('concurrent test 1', async ({ expect }) => {
-    /* ... */
-  })
-  it('concurrent test 2', async ({ expect }) => {
-    /* ... */
-  })
-  it.concurrent('concurrent test 3', async ({ expect }) => {
-    /* ... */
-  })
+  it('concurrent test 1', async ({ expect }) => { /* ... */ })
+  it('concurrent test 2', async ({ expect }) => { /* ... */ })
+  it.concurrent('concurrent test 3', async ({ expect }) => { /* ... */ })
 })
 ```
 
 你还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。
 
-了解更多信息 [API 索引](../api/#concurrent)
+了解更多信息，请参阅 [API 索引](../api/#concurrent)
 
 ::: warning
-在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
+在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试上下文](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
 :::
 
-## 快照
+## 快照 {#snapshot}
 
 兼容 [Jest 快照测试](https://jestjs.io/zh-Hans/docs/snapshot-testing) 功能。
 
@@ -104,28 +90,32 @@ it('renders correctly', () => {
 })
 ```
 
-了解更多信息 [快照](/guide/snapshot)
+了解更多信息，请参阅 [快照](/guide/snapshot)
 
-## Chai 和 Jest 的 `expect` 语法兼容
+## Chai 和 Jest 的 `expect` 语法兼容 {#chai-and-jest-expect-compatibility}
 
-内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 APIs
+内置 [Chai](https://www.chaijs.com/) 进行断言和与 [Jest expect](https://jestjs.io/docs/expect) 兼容的 API。
 
 注意，如果你正在使用添加匹配器的第三方库，将 `test.globals` 设置为 `true` 将提供更好的兼容性。
 
-## 对象模拟(Mocking)
+## 对象模拟 {#mocking}
 
 内置 [Tinyspy](https://github.com/tinylibs/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
 
 ```ts twoslash
 import { expect, vi } from 'vitest'
+
 const fn = vi.fn()
+
 fn('hello', 1)
+
 expect(vi.isMockFunction(fn)).toBe(true)
 expect(fn.mock.calls[0]).toEqual(['hello', 1])
 
 fn.mockImplementation((arg: string) => arg)
 
 fn('world', 2)
+
 expect(fn.mock.results[1].value).toBe('world')
 ```
 
@@ -144,14 +134,14 @@ $ npm i -D jsdom
 import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
-    environment: 'happy-dom', // or 'jsdom', 'node'
+    environment: 'happy-dom', // 或 'jsdom' 和 'node'
   },
 })
 ```
 
-了解更多信息 [模拟对象](/guide/mocking)
+了解更多信息，请参阅 [模拟对象](/guide/mocking)
 
-## 测试覆盖率
+## 测试覆盖率 {#coverage}
 
 Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生代码覆盖率，通过 [`istanbul`](https://istanbul.js.org/) 支持检测代码覆盖率。
 
@@ -164,23 +154,9 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 }
 ```
 
-可以在配置文件中设置 `test.coverage` 选项来配置它：
+了解更多信息，请参阅 [测试覆盖率](/guide/coverage)
 
-```ts
-// vite.config.ts
-import { defineConfig } from 'vitest/config'
-export default defineConfig({
-  test: {
-    coverage: {
-      reporter: ['text', 'json', 'html'],
-    },
-  },
-})
-```
-
-了解更多信息 [测试覆盖率](/guide/coverage)
-
-## 源码内联测试
+## 源码内联测试 {#in-source-testing}
 
 Vitest 还提供了一种方式，可以运行与你的代码实现放在一起的测试，类似 [Rust's 模块测试](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-module-and-cfgtest).
 
@@ -188,11 +164,11 @@ Vitest 还提供了一种方式，可以运行与你的代码实现放在一起�
 
 ```ts
 // src/index.ts
-// the implementation
+// 实现
 export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0)
 }
-// in-source test suites
+// 源码内联测试套件
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest
   it('add', () => {
@@ -207,7 +183,7 @@ if (import.meta.vitest) {
 
 ## 基准测试 <Badge type="warning">实验性</Badge> {#benchmarking}
 
-你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
+自 Vitest 0.23.0 起，你可以使用 [`bench`](/api/#bench) 运行基准测试，通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
 ```ts twoslash
 import { bench, describe } from 'vitest'
@@ -234,7 +210,7 @@ describe('sort', () => {
 
 ## 类型测试 <Badge type="warning">实验性</Badge> {#type-testing}
 
-你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
+自 Vitest 0.25.0 起，你可以 [编写测试](/guide/testing-types) 来捕获类型回归。 Vitest 附带 [`expect-type`](https://github.com/mmkal/expect-type) 包，为你提供类似且易于理解的 API。
 
 ```ts
 import { assertType, expectTypeOf } from 'vitest'
@@ -244,34 +220,7 @@ test('my types work properly', () => {
   expectTypeOf(mount).toBeFunction()
   expectTypeOf(mount).parameter(0).toMatchTypeOf<{ name: string }>()
 
-  // @ts-expect-error name is a string
+  // @ts-expect-error 的名称是一个字符串
   assertType(mount({ name: 42 }))
 })
 ```
-
-## 分片
-
-使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter)标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
-
-```bash
-vitest --shard=1/2 --reporter=blob
-vitest --shard=2/2 --reporter=blob
-vitest --merge-reports --reporter=junit --coverage.reporter=text
-```
-
-了解更多信息 [`性能优化 | 分片`](/guide/improving-performance#sharding)
-
-## 环境变量
-
-Vitest 只从 `.env` 文件中自动加载以 `VITE_` 为前缀的环境变量，以保持与前端相关测试的兼容性，并遵守 [Vite 的既定惯例](https://vitejs.dev/guide/env-and-mode.html#env-files)。要从 `.env` 文件加载所有环境变量，可以使用从 `vite` 导入的 `loadEnv` 方法：
-
-```ts twoslash
-import { loadEnv } from 'vite'
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig(({ mode }) => ({
-  test: {
-    // mode defines what ".env.{mode}" file to choose if exists
-    env: loadEnv(mode, process.cwd(), ''),
-  },
-}))
