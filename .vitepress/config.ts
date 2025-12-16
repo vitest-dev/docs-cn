@@ -174,7 +174,7 @@ export default () => {
             text: '指南',
             items: [
               {
-                text: '简介',
+                text: '为什么是 Vitest?',
                 link: '/guide/why',
               },
               {
