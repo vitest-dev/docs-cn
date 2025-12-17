@@ -129,15 +129,11 @@ npx vite preview --outDir ./html
 
 ### 导入耗时分析 {#import-breakdown}
 
-<<<<<<< HEAD
-模块图选项卡还会提供导入耗时分析功能，默认显示加载时间最长的10个模块（点击"显示更多"可追加10个），按总耗时排序。
-=======
-::: tip FEEDBACK
-Please, leave feedback regarding this feature in a [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224).
+::: tip 功能反馈
+请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-The Module Graph tab also provides an Import Breakdown with a list of modules that take the longest time to load (top 10 by default, but you can press "Show more" to load 10 more), sorted by Total Time.
->>>>>>> 7e382ef570c2a5c18427069cc851ce758b47aef7
+模块图选项卡还会提供导入耗时分析功能，默认显示加载时间最长的10个模块（点击"显示更多"可追加10个），按总耗时排序。
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
