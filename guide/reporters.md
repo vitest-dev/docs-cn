@@ -142,7 +142,7 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-如果只有一个测试文件在运行，Vitest 会输出该文件完整的测试树，这类似于 [`树状报告器`](#tree-reporter)。当测试文件中只要有一个测试失败，默认报告树也会打印测试树。
+如果只有一个测试文件在运行，Vitest 会输出该文件完整的测试树，这类似于 [`树状报告器`](#tree-reporter)。如果文件中存在至少一个失败的测试，默认报告器同样会打印测试树。
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -581,7 +581,7 @@ export default defineConfig({
 })
 ```
 
-如果你正在使用 [Annotations API](/guide/test-annotations)，报告器会将其自动内联在 GitHub UI 中。你可以通过设置 `displayAnnotations` 为 `false` 将功能禁用：
+如果你正在使用 [Annotations API](/guide/test-annotations)，报告器会将这些注释内联显示在 GitHub UI 界面中。你可以通过设置 `displayAnnotations` 为 `false` 将功能禁用：
 
 ```ts
 export default defineConfig({
@@ -610,7 +610,7 @@ npx vitest --merge-reports=reports --reporter=json --reporter=default
 ```
 
 ::: tip
-Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
+`--reporter=blob` 和 `--merge-reports` 这两个选项在监听模式下均不可用。
 :::
 
 ## 自定义报告器 {#custom-reporters}
