@@ -142,8 +142,7 @@ export default defineConfig({
    Duration  1.26s (transform 35ms, setup 1ms, collect 90ms, tests 1.47s, environment 0ms, prepare 267ms)
 ```
 
-<!-- TODO: translation reference history -->
-If there is only one test file running, Vitest will output the full test tree of that file, similar to the [`tree`](#tree-reporter) reporter. The default reporter will also print the test tree if there is at least one failed test in the file.
+如果只有一个测试文件在运行，Vitest 会输出该文件完整的测试树，这类似于 [`树状报告器`](#tree-reporter)。当测试文件中只要有一个测试失败，默认报告树也会打印测试树。
 
 ```bash
 ✓ __tests__/file1.test.ts (2) 725ms
@@ -183,7 +182,7 @@ export default defineConfig({
 
 :::
 
-Example output:
+输出示例:
 
 ```bash
 ✓ __tests__/file1.test.ts > first test file > 2 + 2 should equal 4 1ms
@@ -547,7 +546,7 @@ export default defineConfig({
 
 :::
 
-### GitHub Actions Reporter {#github-actions-reporter}
+### GitHub Actions 报告器{#github-actions-reporter}
 
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
@@ -581,9 +580,8 @@ export default defineConfig({
   },
 })
 ```
-<!-- TODO: translation -->
 
-If you are using [Annotations API](/guide/test-annotations), the reporter will automatically inline them in the GitHub UI. You can disable this by setting `displayAnnotations` option to `false`:
+如果你正在使用 [Annotations API](/guide/test-annotations) ，报告器会将其自动内联在 GitHub UI 中。你可以通过设置 `displayAnnotations` 为 `false` 将功能禁用：
 
 ```ts
 export default defineConfig({
@@ -595,7 +593,7 @@ export default defineConfig({
 })
 ```
 
-### Blob Reporter
+### Blob 报告器
 
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
 默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
