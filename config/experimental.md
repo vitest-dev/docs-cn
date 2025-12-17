@@ -7,6 +7,10 @@ outline: deep
 
 ## experimental.fsModuleCache <Version type="experimental">4.0.11</Version> {#experimental-fsmodulecache}
 
+::: tip 功能反馈
+请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9221)。
+:::
+
 - **Type:** `boolean`
 - **Default:** `false`
 
@@ -103,6 +107,10 @@ At the moment, Vitest ignores the [test.cache.dir](/config/cache) or [cacheDir](
 
 ## experimental.openTelemetry <Version type="experimental">4.0.11</Version> {#experimental-opentelemetry}
 
+::: tip 功能反馈
+请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9222)。
+:::
+
 - **Type:**
 
 ```ts
@@ -167,6 +175,10 @@ It's important that Node can process `sdkPath` content because it is not transfo
 :::
 
 ## experimental.printImportBreakdown <Version type="experimental">4.0.15</Version> {#experimental-printimportbreakdown}
+
+::: tip 功能反馈
+请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
+:::
 
 - **Type:** `boolean`
 - **Default:** `false`
