@@ -1,11 +1,9 @@
 # Open Telemetry Support <Experimental /> {#open-telemetry-support}
 
-::: tip 功能反馈
-请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9222)。
-:::
+::: tip Example Project
 
-::: tip 示例项目
 [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/opentelemetry)
+
 :::
 
 [OpenTelemetry](https://opentelemetry.io/) traces can be a useful tool to debug the performance and behavior of your application inside tests.
