@@ -27,7 +27,7 @@ test('test', () => {
 })
 ```
 
-或者你也可以设置 [`environmentMatchGlobs`](https://vitest.dev/config/#environmentmatchglobs) 选项，根据 glob 模式指定环境。
+或者你也可以设置 [`environmentMatchGlobs`](/config/#environmentmatchglobs) 选项，根据 glob 模式指定环境。
 
 ## 自定义环境
 

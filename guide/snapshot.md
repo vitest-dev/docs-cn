@@ -30,7 +30,7 @@ it('toUpperCase', () => {
 此测试在第一次运行时，Vitest 会创建一个快照文件，如下所示：
 
 ```js
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Vitest Snapshot v1, /guide/snapshot.html
 
 exports['toUpperCase 1'] = '"FOOBAR"'
 ```
@@ -200,7 +200,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 ```diff
 - // Jest Snapshot v1, https://goo.gl/fbAQLP
-+ // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
++ // Vitest Snapshot v1, /guide/snapshot.html
 ```
 
 这实际上不会影响功能，但在从 Jest 迁移时可能会影响提交差异。
