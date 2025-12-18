@@ -9,4 +9,4 @@ outline: deep
 - **默认值:** `!process.env.CI`
 - **命令行终端:** `--open`, `--open=false`
 
-如果 [已启用](/config/ui)，则自动打开 UI 模式。
+如果 [已启用](/config/ui) UI 模式，则自动打开 UI 界面。
