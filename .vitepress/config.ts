@@ -32,7 +32,7 @@ export default () => {
       en: {
         label: 'English',
         lang: 'en',
-        link: 'https://vitest.dev/',
+        link: 'https://v1.vitest.dev/',
       },
     },
     head: [
@@ -69,7 +69,7 @@ export default () => {
       logo: '/logo.svg',
 
       editLink: {
-        pattern: 'https://github.com/vitest-dev/docs-cn/tree/dev/:path',
+        pattern: 'https://github.com/vitest-dev/docs-cn/tree/v1/:path',
         text: '为此页提供修改建议',
       },
 

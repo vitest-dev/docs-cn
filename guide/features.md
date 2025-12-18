@@ -123,7 +123,7 @@ Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](
 
 ```bash
 $ npm i -D happy-dom
-# or
+# 或者
 $ npm i -D jsdom
 ```
 
@@ -139,7 +139,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息，请参阅 [模拟对象](/guide/mocking)
+了解更多信息，请参阅 [模拟对象](/guide/mocking)。
 
 ## 测试覆盖率 {#coverage}
 
@@ -154,7 +154,7 @@ Vitest 通过 [`v8`](https://v8.dev/blog/javascript-code-coverage) 支持原生�
 }
 ```
 
-了解更多信息，请参阅 [测试覆盖率](/guide/coverage)
+了解更多信息，请参阅 [测试覆盖率](/guide/coverage)。
 
 ## 源码内联测试 {#in-source-testing}
 
@@ -179,7 +179,7 @@ if (import.meta.vitest) {
 }
 ```
 
-了解更多信息 [源码内联测试](/guide/in-source)
+了解更多信息 [源码内联测试](/guide/in-source)。
 
 ## 基准测试 <Badge type="warning">实验性</Badge> {#benchmarking}
 

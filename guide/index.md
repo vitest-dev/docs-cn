@@ -164,7 +164,7 @@ export default defineConfig({
 但我们建议 Vite 和 Vitest 使用相同的文件，而不是创建两个单独的文件。
 :::
 
-## 支持工作空间 {#projects-support}
+## 支持工作空间 {#workspaces-support}
 
 使用 [工作空间](/guide/workspace) 在同一项目中运行不同的项目配置。你可以在`vitest.workspace`文件中定义工作区的文件和文件夹列表。该文件支持 `js` / `ts` / `json` 扩展名。此功能非常适合 monorepo 使用。
 

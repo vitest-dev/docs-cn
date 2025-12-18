@@ -2,17 +2,17 @@
 title: 工作空间 | 指南
 ---
 
-# 工作空间
+# 工作空间 {#workspace}
 
-::: tip Sample Project
+::: tip 示例项目
 
-[GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/workspace) - [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/workspace?initialPath=__vitest__/)
+[GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/workspace) - [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/workspace?initialPath=__vitest__/)
 
 :::
 
 Vitest 通过工作空间配置文件提供了对 monorepos 的内置支持。你可以创建一个工作空间来定义项目的配置。
 
-## 定义工作空间
+## 定义工作空间 {#defining-a-workspace}
 
 一个工作区应该在其根目录下（如果你有配置文件，则与其位于同一文件夹中）有一个名为 `vitest.workspace` 或 `vitest.projects` 的文件。Vitest 支持 `ts`/`js`/`json` 扩展名的文件。
 
@@ -21,7 +21,9 @@ Vitest 通过工作空间配置文件提供了对 monorepos 的内置支持。�
 :::code-group
 
 ```ts [vitest.workspace.ts]
-export default ['packages/*']
+export default [
+  'packages/*'
+]
 ```
 
 :::
@@ -37,7 +39,9 @@ export default ['packages/*']
 :::code-group
 
 ```ts [vitest.workspace.ts]
-export default ['packages/*/vitest.config.{e2e,unit}.ts']
+export default [
+  'packages/*/vitest.config.{e2e,unit}.ts'
+]
 ```
 
 :::
@@ -88,7 +92,9 @@ export default defineWorkspace([
 :::code-group
 
 ```json [vitest.workspace.json]
-["packages/*"]
+[
+  "packages/*"
+]
 ```
 
 :::
@@ -102,7 +108,7 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
   test: {
     environment: 'jsdom',
-    // "reporters" 在项目配置中是不支持的，
+    // 在项目配置中是不支持配置 "reporters"，
     // 所以会报错
     reporters: ['json'],
   },
@@ -111,7 +117,7 @@ export default defineProject({
 
 :::
 
-## 运行测试
+## 运行测试 {#running-tests}
 
 要在工作区内运行测试，请在根目录 `package.json` 中定义一个脚本：
 
@@ -160,7 +166,7 @@ npm run test --project e2e --project unit
 
 :::
 
-## 配置
+## 配置 {#configuration}
 
 没有任何配置选项从根级别的配置文件继承。你可以创建一个共享的配置文件，并将其与项目配置文件合并：
 
@@ -190,10 +196,10 @@ export default mergeConfig(
 - 所有其他不影响测试运行器的选项。
 
 ::: tip
-所有不支持在项目配置中使用的配置选项，在 ["Config"](/config/) 页面上都有一个 <NonProjectOption /> 标记。
+所有不支持在项目配置中使用的配置选项，在 [配置索引](/config/) 页面上都有一个 <NonProjectOption /> 标记。
 :::
 
-## 覆盖率
+## 覆盖率 {#coverage}
 
 工作区项目的覆盖率可以直接使用。但是，如果你启用了 [`all`](/config/#coverage-all) 选项并且在某些项目中使用了非常规扩展名，则需要在根配置文件中使用处理此扩展名的插件。
 
