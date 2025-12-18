@@ -5,8 +5,8 @@ outline: deep
 
 # open <CRoot />
 
-- **Type:** `boolean`
-- **Default:** `!process.env.CI`
-- **CLI:** `--open`, `--open=false`
+- **类型:** `boolean`
+- **默认值:** `!process.env.CI`
+- **命令行终端:** `--open`, `--open=false`
 
-Open Vitest UI automatically if it's [enabled](/config/ui).
+如果 [已启用](/config/ui) UI 模式，则自动打开 UI 界面。
