@@ -807,7 +807,7 @@ vi.useRealTimers()
 
 ## Miscellaneous
 
-Vitest 提供的一组有用的辅助函数。
+Vitest 提供的一组有用的工具函数。
 
 ### vi.waitFor {#vi-waitfor}
 

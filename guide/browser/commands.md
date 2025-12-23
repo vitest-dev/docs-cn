@@ -11,7 +11,7 @@ outline: deep
 
 ### 文件处理
 
-你可以使用 `readFile` 、`writeFile` 和 `removeFile` API 来处理浏览器测试中的文件。所有路径都是相对于测试文件解析的，即使它们是在位于另一个文件中的辅助函数中调用的。
+你可以使用 `readFile` 、`writeFile` 和 `removeFile` API 来处理浏览器测试中的文件。所有路径都是相对于测试文件解析的，即使它们是在位于另一个文件中的工具函数中调用的。
 
 默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
 
