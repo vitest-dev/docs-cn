@@ -143,4 +143,4 @@ vitest --inspect-brk --browser --no-file-parallelism
 一旦 Vitest 开始运行，它会停止执行并且等待你打开可以连接 [Node.js inspector](https://nodejs.org/en/docs/guides/debugging-getting-started/)
 的开发者工具。你可以在谷歌浏览器中访问 `chrome://inspect` 打开谷歌开发者工具。
 
-在侦听模式下，你可以通过使用 `--isolate false` 选项在测试重新运行下保持调试器持续运行。
+在侦听模式下，你可以通过使用 `--isolate false` 选项在测试重新运行时保持调试器持续运行。
