@@ -133,7 +133,7 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 Vitest 还支持在没有 IDE 的情况下调试测试。然而，这要求测试不是并行运行的。可以使用以下命令之一启动 Vitest。
 
 ```sh
-# 如果线程池未知
+# 在单个线程内运行测试
 vitest --inspect-brk --no-file-parallelism
 
 # 使用浏览器模式运行测试
