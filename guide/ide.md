@@ -2,9 +2,9 @@
 title: IDE 插件 | 指南
 ---
 
-# IDE 插件
+# IDE 插件 {#ide-integrations}
 
-## VS Code <Badge>Official</Badge> {#vs-code}
+## VS Code <Badge>官方</Badge> {#vs-code}
 
 <p text-center>
 <img src="https://raw.githubusercontent.com/vitest-dev/vscode/main/img/cover.png" w-60>
@@ -26,7 +26,7 @@ WebStorm、PhpStorm、IntelliJ IDEA Ultimate 和其他 JetBrains IDE 内置了�
 
 ![Vitest WebStorm Demo](https://raw.githubusercontent.com/kricact/WS-info/main/gifs/vitest-run-all.gif)
 
-## Wallaby.js <Badge>Paid (free for OSS)</Badge>
+## Wallaby.js <Badge>开源软件免费</Badge> {#wallaby-js-paid-free-for-oss}
 
 由 [The Wallaby Team](https://wallabyjs.com) 团队创建。
 
