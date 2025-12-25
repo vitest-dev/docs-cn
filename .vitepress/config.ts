@@ -250,7 +250,7 @@ export default () => {
                 link: '/guide/debugging',
               },
               {
-                text: '与其他测试框架对比',
+                text: '测试框架比较',
                 link: '/guide/comparisons',
               },
               {
