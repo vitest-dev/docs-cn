@@ -37,7 +37,7 @@
     "vite-plugin-pwa": "^0.16.7",
     "vitepress": "^1.1.0",
     "workbox-window": "^7.0.0",
-    "@antfu/eslint-config": "^2.15.0",
+    "@antfu/eslint-config": "^5.4.1",
     "@antfu/ni": "^0.21.12",
     "@types/node": "^20.11.5",
     "@vitest/browser": "^1.6.1",

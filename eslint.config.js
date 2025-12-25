@@ -14,6 +14,7 @@ export default antfu({
     '*.d.ts',
     'coverage',
     '!.vitepress',
+    'guide/examples/*.md',
   ],
   rules: {
     // prefer global Buffer to not initialize the whole module
