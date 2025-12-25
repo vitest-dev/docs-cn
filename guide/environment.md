@@ -2,7 +2,7 @@
 title: 测试环境 | 指南
 ---
 
-# 测试环境
+# 测试环境 {#test-environment}
 
 Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/#environmentoptions) 选项修改环境的行为方式。
 
@@ -13,7 +13,7 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 - `happy-dom` 通过提供 Browser API 模拟浏览器环境，被认为比 jsdom 更快，但缺少一些 API，使用 [`happy-dom`](https://github.com/capricorn86/happy-dom) 包
 - `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
 
-## 特定文件的环境
+## 特定文件的环境 {#environments-for-specific-files}
 
 如果配置中设置 `environment` 选项时，它将应用于项目中的所有测试文件。要获得更细粒度的控制，你可以使用控制注释为特定文件指定环境。控制注释是以 `@vitest-environment` 开头，后跟环境名称的注释：
 
@@ -29,9 +29,9 @@ test('test', () => {
 
 或者你也可以设置 [`environmentMatchGlobs`](/config/#environmentmatchglobs) 选项，根据 glob 模式指定环境。
 
-## 自定义环境
+## 自定义环境 {#custom-environment}
 
-你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
+从 0.23.0 版本开始，你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径（自 0.34.0 版本起支持）。该包应该导出一个形状为 `Environment` 的对象。
 
 ```ts twoslash
 import type { Environment } from 'vitest'
@@ -39,7 +39,7 @@ import type { Environment } from 'vitest'
 export default <Environment>{
   name: 'custom',
   transformMode: 'ssr',
-  // optional - only if you support "experimental-vm" pool
+  // 可选 - 仅在支持 "experimental-vm" 的情况下使用
   async setupVM() {
     const vm = await import('node:vm')
     const context = vm.createContext()
@@ -48,7 +48,8 @@ export default <Environment>{
         return context
       },
       teardown() {
-        // called after all tests with this env have been run
+        // 在所有使用此环境的测试运行完毕后调用
+
       },
     }
   },
@@ -56,7 +57,7 @@ export default <Environment>{
     // custom setup
     return {
       teardown() {
-        // called after all tests with this env have been run
+        // 在所有使用此环境的测试运行完毕后调用
       },
     }
   },
@@ -79,15 +80,15 @@ Vitest 还提供了 `populateGlobal` 实用函数，可用于将属性从对象�
 
 ```ts
 interface PopulateOptions {
-  // should non-class functions be bind to the global namespace
+  // 非类函数是否应该绑定到全局命名空间
   bindFunctions?: boolean
 }
 
 interface PopulateResult {
-  // a list of all keys that were copied, even if value doesn't exist on original object
+  // 所有被复制的键的列表，即使原始对象上不存在该值
   keys: Set<string>
-  // a map of original object that might have been overridden with keys
-  // you can return these values inside `teardown` function
+  // 可能已被键覆盖的原始对象的映射
+  // 你可以在 `teardown` 函数中返回这些值
   originals: Map<string | symbol, any>
 }
 
