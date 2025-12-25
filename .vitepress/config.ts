@@ -218,7 +218,7 @@ export default () => {
                 link: '/guide/testing-types',
               },
               {
-                text: 'Vitest UI',
+                text: 'UI 模式',
                 link: '/guide/ui',
               },
               {
