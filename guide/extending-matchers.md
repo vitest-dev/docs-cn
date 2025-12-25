@@ -2,7 +2,7 @@
 title: 扩展断言 | 指南
 ---
 
-# 扩展断言(Matchers)
+# 扩展断言 (Matchers) {#extending-matchers}
 
 由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 `chai.use` API 或者 `expect.extend`。
 
@@ -23,10 +23,10 @@ expect.extend({
 })
 ```
 
-如果你使用 TypeScript，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
+如果你使用 TypeScript，自 Vitest 0.31.0 起，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
 
 ```ts
-import 'vitest'
+import type { Assertion, AsymmetricMatchersContaining } from 'vitest'
 
 interface CustomMatchers<R = unknown> {
   toBeFoo: () => R
@@ -45,7 +45,7 @@ declare module 'vitest' {
 断言的返回值应该兼容如下接口：
 
 ```ts
-interface ExpectationResult {
+interface MatcherResult {
   pass: boolean
   message: () => string
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
