@@ -2,7 +2,7 @@
 title: 常见错误 | 指南
 ---
 
-# 常见错误
+# 常见错误 {#common-errors}
 
 ## Cannot find module './relative-path'
 
@@ -12,8 +12,8 @@ title: 常见错误 | 指南
 - 2.你可能依赖于 `tsconfig.json` 中的 `baseUrl`。默认情况下，Vite 不考虑 `tsconfig.json`，因此如果你依赖此行为，你可能需要自己安装 [`vite-tsconfig-paths`](https://www.npmjs.com/package/vite-tsconfig-paths) 。
 
 ```ts
-import { defineConfig } from 'vitest/config'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
@@ -64,9 +64,9 @@ vi.resetModules()
 
 作为解决方法，我们可以切换到 [`pool: 'forks'`](/config/#forks) 或 [`pool: 'vmForks'`](/config/#vmforks)。
 
-::: code-group
+在配置文件中指定 `pool` ：
 
-```ts [vitest.config.js]
+```ts
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -76,37 +76,11 @@ export default defineConfig({
 })
 ```
 
-```bash [CLI]
-vitest --pool=forks
+或者可以在我们的 `package.json` 中增加 script ：
+
+```diff
+scripts: {
+-  "test": "vitest"
++  "test": "vitest --pool=forks"
+}
 ```
-
-:::
-
-## Segfaults and native code errors
-
-运行 [原生 NodeJS 模块](https://nodejs.org/api/addons.html)在 `pool: 'threads'` 中，可能会遇到来自原生代码的神秘错误。
-
-- `Segmentation fault (core dumped)`
-- `thread '<unnamed>' panicked at 'assertion failed`
-- `Abort trap: 6`
-- `internal error: entered unreachable code`
-
-在这些情况下，原生模块可能不是为多线程安全而构建的。在解决方案中，你可以切换到 `pool: 'forks'`，它在多个 `node:child_process` 而不是多个 `node:worker_threads` 中运行测试用例。
-
-::: code-group
-
-```ts [vitest.config.js]
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    pool: 'forks',
-  },
-})
-```
-
-```bash [CLI]
-vitest --pool=forks
-```
-
-:::
