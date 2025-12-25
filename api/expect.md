@@ -24,7 +24,7 @@ expect(input).toBe(2) // jest API
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
-如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
+如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为 [类型检查器](/guide/testing-types) ，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
 :::
 
 ## soft
