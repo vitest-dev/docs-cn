@@ -64,16 +64,15 @@ export default defineConfig({
 - [覆盖率报告中的文件包含与排除](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
 - [性能分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage) 了解调试覆盖率生成的方法
 
-<!-- TODO: translation -->
-### Simplified `exclude`
+### 简化的 `exclude` 配置 {#simplified-exclude}
 
-By default, Vitest now only excludes tests from `node_modules` and `.git` folders. This means that Vitest no longer excludes:
+默认情况下，Vitest 现在只从 `node_modules` 和 `.git` 文件夹中排除测试。这意味着 Vitest 不再排除：
 
-- `dist` and `cypress` folders
-- `.idea`, `.cache`, `.output`, `.temp` folders
-- config files like `rollup.config.js`, `prettier.config.js`, `ava.config.js` and so on
+- `dist` 和 `cypress` 文件夹
+- `.idea`、`.cache`、`.output`、`.temp` 文件夹
+- 配置文件，如 `rollup.config.js`、`prettier.config.js`、`ava.config.js` 等
 
-If you need to limit the directory where your tests files are located, use the [`test.dir`](/config/dir) option instead because it is more performant than excluding files:
+如果你需要限制测试文件所在的目录，请使用 [`test.dir`](/config/dir) 选项，因为它比排除文件更高效：
 
 ```ts
 import { configDefaults, defineConfig } from 'vitest/config'
@@ -85,7 +84,7 @@ export default defineConfig({
 })
 ```
 
-To restore the previous behaviour, specify old `excludes` manually:
+要恢复之前的行为，请手动指定旧的 `excludes`：
 
 ```ts
 import { configDefaults, defineConfig } from 'vitest/config'

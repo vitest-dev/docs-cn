@@ -63,13 +63,13 @@ ID 的格式如下：
 
 ::: tip
 你可以使用 `vitest/node` 中的 `generateFileHash` 函数生成文件哈希，该函数自 Vitest 3 起可用：
-<!-- TODO: translation -->
+
 ```ts
 import { generateFileHash } from 'vitest/node'
 
 const hash = generateFileHash(
-  '/file/path.js', // relative path
-  undefined // the project name or `undefined` is not set
+  '/file/path.js', // 相对路径
+  undefined // 项目名称，如果未设置则为 `undefined`
 )
 ```
 
@@ -199,19 +199,19 @@ describe('collection failed', () => {
 function meta(): TaskMeta
 ```
 在执行或收集过程中附加到套件的自定义[元数据](/api/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
-<!-- TODO: translation -->
+
 ```ts {7,12}
 import { test } from 'vitest'
 import { getCurrentSuite } from 'vitest/suite'
 
 describe('the validation works correctly', () => {
-  // assign "decorated" during collection
+  // 在收集期间分配 "decorated"
   const { suite } = getCurrentSuite()
   suite!.meta.decorated = true
 
   test('some test', ({ task }) => {
-    // 在试运行期间指定 “decorated”，它将可用
-    // 仅在 onTestCaseReady hook
+    // 在测试运行期间分配 "decorated"，它将可用
+    // 仅在 onTestCaseReady hook 中
     task.suite.meta.decorated = false
   })
 })

@@ -53,32 +53,32 @@ uvu 使用 require 和 loader 钩子 进行代码转译，而 Vitest 使用 [Vit
 uvu 不提供观察模式以在文件更改后重新运行测试, 而 Vitest 通过 Vite 的模块热重载（HMR）观察模式提供了更好的开发体验。
 
 uvu 是运行简单测试的快速选项, 但对于更复杂的测试和项目, Vitest 可能更快、更可靠。
-<!-- TODO: translation -->
+
 ## Mocha
 
-[Mocha](https://mochajs.org) is a test framework running on Node.js and in the browser. Mocha is a popular choice for server-side testing. Mocha is highly configurable and does not include certain features by default. For example, it does not come with an assertion library, with the idea being that Node's built-in assertion runner is good enough for most use cases. Another popular choice for assertions with Mocha is [Chai](https://www.chaijs.com).
+[Mocha](https://mochajs.org) 是一个在 Node.js 和浏览器中运行的测试框架。Mocha 是服务器端测试的热门选择。Mocha 高度可配置，默认情况下不包含某些功能。例如，它不自带断言库，其理念是 Node 的内置断言运行器对大多数用例来说已经足够好了。在 Mocha 中，另一个流行的断言库选择是 [Chai](https://www.chaijs.com)。
 
-Vitest also provides out-of-the-box setup for a few other features, which take additional configuration or the addition of other libraries in Mocha, for example:
+Vitest 还为一些其他功能提供了开箱即用的设置，而这些功能在 Mocha 中需要额外的配置或添加其他库，例如：
 
-- Snapshot testing
+- 快照测试
 - TypeScript
-- JSX support
-- Code Coverage
-- Mocking
-- Smart watch mode (only re-runs affected tests)
+- JSX 支持
+- 代码覆盖率
+- 模拟对象（Mocking）
+- 智能观察模式（仅重新运行受影响的测试）
 
-While Mocha supports Native ESM, it has limitations and configuration constraints. Watch mode does not work with ES Module files, for example.
+虽然 Mocha 支持原生 ESM，但它有一些限制和配置约束。例如，观察模式不能与 ES 模块文件一起使用。
 
-Performance-wise, Mocha runs tests serially by default but supports parallel execution with the `--parallel` flag (though some reporters and features don't work in parallel mode).
+在性能方面，Mocha 默认串行运行测试，但支持使用 `--parallel` 标志进行并行执行（尽管某些报告器和功能在并行模式下不起作用）。
 
-If you're already using Vite in your build pipeline, Vitest allows you to reuse the same configuration and plugins for testing, whereas Mocha would require a separate test setup. Vitest provides a Jest-compatible API while also supporting Mocha's familiar `describe`, `it`, and hook syntax, making migration straightforward for most test suites.
+如果你已经在构建管道中使用 Vite，Vitest 允许你重用相同的配置和插件进行测试，而 Mocha 则需要单独的测试设置。Vitest 提供了与 Jest 兼容的 API，同时也支持 Mocha 熟悉的 `describe`、`it` 和钩子语法，使大多数测试套件的迁移变得简单直接。
 
-Mocha remains a solid choice for projects that need a minimal, flexible test runner with complete control over their testing stack. However, if you want a modern testing experience with everything included out of the box - especially for Vite-powered applications - Vitest has you covered.
+Mocha 对于需要最小化、灵活的测试运行器并完全控制其测试堆栈的项目来说，仍然是一个可靠的选择。然而，如果你想要一个开箱即用的现代测试体验——特别是对于 Vite 驱动的应用程序——Vitest 可以满足你的需求。
 
 ## Playwright
 
-[Playwright](https://playwright.dev) is a testing framework from Microsoft that excels at end-to-end testing across multiple browsers (Chromium, Firefox, and WebKit). It controls real browsers to test complete user workflows—from logging in and navigating your app to submitting forms and verifying results. Vitest, on the other hand, is optimised for fast, isolated unit and component tests in a headless environment. These differences make it an ideal complement to Vitest.
+[Playwright](https://playwright.dev) 是微软推出的一个测试框架，擅长跨多个浏览器（Chromium、Firefox 和 WebKit）进行端到端测试。它控制真实的浏览器来测试完整的用户工作流程——从登录和导航应用程序到提交表单和验证结果。另一方面，Vitest 针对无头环境中的快速、隔离的单元测试和组件测试进行了优化。这些差异使它成为 Vitest 的理想补充。
 
-A standard setup is to use Vitest for all unit and component tests (business logic, utilities, hooks, and UI component tests), and Playwright for end-to-end tests that verify critical user paths and cross-browser compatibility. This combination gives you fast feedback during development with Vitest while ensuring your complete application works correctly in real browsers with Playwright.
+标准的设置是将 Vitest 用于所有单元测试和组件测试（业务逻辑、工具函数、钩子和 UI 组件测试），将 Playwright 用于验证关键用户路径和跨浏览器兼容性的端到端测试。这种组合让你在开发过程中通过 Vitest 获得快速反馈，同时通过 Playwright 确保完整的应用程序在真实浏览器中正常工作。
 
-Vitest recently introduced [browser mode](https://vitest.dev/api/browser), which runs tests in real browsers. However, there are key architectural differences: Playwright component tests run in a Node.js process and control the browser remotely. Vitest's browser mode runs tests natively in the browser, maintaining consistency with Vitest's test runner and developer experience, but it does have some [limitations](/guide/browser/#limitations).
+Vitest 最近引入了[浏览器模式](https://vitest.dev/api/browser)，可以在真实浏览器中运行测试。然而，存在关键的架构差异：Playwright 组件测试在 Node.js 进程中运行并远程控制浏览器。Vitest 的浏览器模式在浏览器中原生运行测试，与 Vitest 的测试运行器和开发者体验保持一致，但它确实有一些[限制](/guide/browser/#limitations)。

@@ -2,13 +2,13 @@
 title: resolveSnapshotPath | Config
 outline: deep
 ---
-<!-- TODO: translation -->
+
 # resolveSnapshotPath <CRoot />
 
-- **Type**: `(testPath: string, snapExtension: string, context: { config: SerializedConfig }) => string`
-- **Default**: stores snapshot files in `__snapshots__` directory
+- **类型**: `(testPath: string, snapExtension: string, context: { config: SerializedConfig }) => string`
+- **默认值**: 将快照文件存储在 `__snapshots__` 目录中
 
-Overrides default snapshot path. For example, to store snapshots next to test files:
+覆盖默认的快照路径。例如，将快照存储在测试文件旁边：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -20,7 +20,7 @@ export default defineConfig({
 })
 ```
 
-You can also use the `context` parameter to access the project's serialized config. This is useful when you have multiple [projects](/guide/projects) and want to store snapshots in different locations based on the project name:
+你还可以使用 `context` 参数来访问项目的序列化配置。当你有多个 [项目](/guide/projects) 并希望根据项目名称将快照存储在不同位置时，这很有用：
 
 ```ts
 import { basename, dirname, join } from 'node:path'

@@ -101,31 +101,30 @@ $ vitest --update
 
 提交前务必核对更新后的截图，确保改动符合预期。
 
-<!-- TODO: translation -->
-## How Visual Tests Work
+## 可视化测试的工作原理 {#how-visual-tests-work}
 
-Visual regression tests need stable screenshots to compare against. But pages aren't instantly stable as images load, animations finish, fonts render, and layouts settle.
+可视化回归测试需要稳定的截图进行比较。但页面不会立即稳定，因为图像需要加载、动画需要完成、字体需要渲染、布局需要稳定。
 
-Vitest handles this automatically through "Stable Screenshot Detection":
+Vitest 通过"稳定截图检测"自动处理这一问题：
 
-1. Vitest takes a first screenshot (or uses the reference screenshot if available) as baseline
-1. It takes another screenshot and compares it with the baseline
-    - If the screenshots match, the page is stable and testing continues
-    - If they differ, Vitest uses the newest screenshot as the baseline and repeats
-1. This continues until stability is achieved or the timeout is reached
+1. Vitest 拍摄第一张截图（或使用参考截图，如果可用）作为基线
+1. 它拍摄另一张截图并与基线进行比较
+    - 如果截图匹配，页面是稳定的，测试继续
+    - 如果它们不同，Vitest 使用最新的截图作为基线并重复
+1. 这会持续进行，直到达到稳定性或超时
 
-This ensures that transient visual changes (like loading spinners or animations) don't cause false failures. If something never stops animating though, you'll hit the timeout, so consider [disabling animations during testing](#disable-animations).
+这确保了瞬态视觉变化（如加载旋转器或动画）不会导致错误的失败。但是，如果某些内容永远不会停止动画，你将达到超时，因此请考虑[在测试期间禁用动画](#disable-animations)。
 
-If a stable screenshot is captured after retries (one or more) and a reference screenshot exists, Vitest performs a final comparison with the reference using `createDiff: true`. This will generate a diff image if they don't match.
+如果在重试后（一次或多次）捕获到稳定的截图并且存在参考截图，Vitest 会使用 `createDiff: true` 与参考进行最终比较。如果它们不匹配，这将生成差异图像。
 
-During stability detection, Vitest calls comparators with `createDiff: false` since it only needs to know if screenshots match. This keeps the detection process fast.
+在稳定性检测期间，Vitest 使用 `createDiff: false` 调用比较器，因为它只需要知道截图是否匹配。这使检测过程保持快速。
 
 ## 配置可视化测试 {#configuring-visual-tests}
 
 ### 全局配置 {#global-configuration}
 
 可在 [Vitest 配置文件](/config/browser/expect#tomatchscreenshot) 中设定可视化回归测试的默认规则：
-<!-- TODO: translation -->
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -136,9 +135,9 @@ export default defineConfig({
         toMatchScreenshot: {
           comparatorName: 'pixelmatch',
           comparatorOptions: {
-            // 0-1, how different can colors be?
+            // 0-1，颜色可以有多大差异？
             threshold: 0.2,
-            // 1% of pixels can differ
+            // 1% 的像素可以不同
             allowedMismatchedPixelRatio: 0.01,
           },
         },
@@ -151,12 +150,12 @@ export default defineConfig({
 ### 单测试配置 {#per-test-configuration}
 
 若某个测试需要不同的比较标准，可在调用时覆盖全局设置：
-<!-- TODO: translation -->
+
 ```ts
 await expect(element).toMatchScreenshot('button-hover', {
   comparatorName: 'pixelmatch',
   comparatorOptions: {
-    // more lax comparison for text-heavy elements
+    // 对文本密集型元素进行更宽松的比较
     allowedMismatchedPixelRatio: 0.1,
   },
 })
@@ -167,12 +166,12 @@ await expect(element).toMatchScreenshot('button-hover', {
 ### 聚焦测试目标元素 {#test-specific-elements}
 
 除非确实需要测试整个页面，否则应优先只对目标组件截图，这能显著减少因页面其他部分变化而造成的误报。
-<!-- TODO: translation -->
+
 ```ts
-// ❌ Captures entire page; prone to unrelated changes
+// ❌ 捕获整个页面；容易受到无关更改的影响
 await expect(page).toMatchScreenshot()
 
-// ✅ Captures only the component under test
+// ✅ 仅捕获被测试的组件
 await expect(page.getByTestId('product-card')).toMatchScreenshot()
 ```
 
@@ -633,18 +632,18 @@ export default defineConfig({
 ```
 
 该服务会提供两个关键环境变量：
-<!-- TODO: translation -->
+
 - `PLAYWRIGHT_SERVICE_URL`：指示 Playwright 连接的服务器地址
 - `PLAYWRIGHT_SERVICE_ACCESS_TOKEN`：你的身份验证令牌
 
 <!-- eslint-enable style/quote-props -->
 
-Follow the [official guide to create a Playwright Workspace](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#create-a-workspace).
+按照[官方指南创建 Playwright 工作区](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#create-a-workspace)。
 
-Once your workspace is created, configure Vitest to use it:
+创建工作区后，配置 Vitest 以使用它：
 
-1. **Set the endpoint URL**: following the [official guide](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#configure-the-browser-endpoint), retrieve the URL and set it as the `PLAYWRIGHT_SERVICE_URL` environment variable.
-2. **Enable token authentication**: [enable access tokens](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-authentication?pivots=playwright-test-runner#enable-authentication-using-access-tokens) for your workspace, then [generate a token](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-access-tokens#generate-a-workspace-access-token) and set it as the `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` environment variable.
+1. **设置端点 URL**：按照[官方指南](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#configure-the-browser-endpoint)，检索 URL 并将其设置为 `PLAYWRIGHT_SERVICE_URL` 环境变量。
+2. **启用令牌身份验证**：为你的工作区[启用访问令牌](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-authentication?pivots=playwright-test-runner#enable-authentication-using-access-tokens)，然后[生成令牌](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-access-tokens#generate-a-workspace-access-token)并将其设置为 `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` 环境变量。
 
 ::: danger 令牌务必保密！
 切勿将 `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` 提交到代码仓库。

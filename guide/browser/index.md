@@ -2,10 +2,10 @@
 title: Browser Mode | Guide
 outline: deep
 ---
-<!-- TODO: translation -->
-# Browser Mode {#browser-mode}
 
-This page provides information about the browser mode feature in the Vitest API, which allows you to run your tests in the browser natively, providing access to browser globals like window and document.
+# 浏览器模式 {#browser-mode}
+
+本页面提供了关于 Vitest API 中浏览器模式功能的信息，该功能允许你在浏览器中原生运行测试，提供对浏览器全局变量（如 window 和 document）的访问。
 
 ::: tip
 如果你需要 `expect` 、`vi` ，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
@@ -34,10 +34,10 @@ bunx vitest init browser
 :::
 
 ### 手动安装 {#manual-installation}
-<!-- TODO: translation -->
-You can also install packages manually. Vitest always requires a provider to be defined. You can chose either [`preview`](/config/browser/preview), [`playwright`](/config/browser/playwright) or [`webdriverio`](/config/browser/webdriverio).
 
-If you want to just preview how your tests look, you can use the `preview` provider:
+你也可以手动安装包。Vitest 始终需要定义一个提供程序。你可以选择 [`preview`](/config/browser/preview)、[`playwright`](/config/browser/playwright) 或 [`webdriverio`](/config/browser/webdriverio)。
+
+如果你只想预览测试的外观，可以使用 `preview` 提供程序：
 
 ::: code-group
 ```bash [npm]
@@ -57,9 +57,7 @@ bun add -D vitest @vitest/browser-preview
 ::: warning
 不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 
-<!-- TODO: translation -->
-
-If you don't already use one of these tools, we recommend starting with Playwright because it supports parallel execution, which makes your tests run faster.
+如果你还没有使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，这使你的测试运行得更快。
 
 ::: tabs key:provider
 == Playwright
@@ -121,8 +119,8 @@ export default defineConfig({
 
 ::: info
 Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`browser.api`](/config/#browser-api) 选项来更改这个端口号。
-<!-- TODO: translation -->
-The CLI does not print the Vite server URL automatically. You can press "b" to print the URL when running in watch mode.
+
+CLI 不会自动打印 Vite 服务器 URL。在观察模式下运行时，你可以按 "b" 键来打印 URL。
 :::
 
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。

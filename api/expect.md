@@ -189,8 +189,7 @@ test('stocks are the same', () => {
 
 - **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
 
-<!-- TODO: translation -->
-Use `toBeCloseTo` to compare floating-point numbers. The optional `numDigits` argument limits the number of digits to check _after_ the decimal point. The default for `numDigits` is 2. For example:
+使用 `toBeCloseTo` 来比较浮点数。可选的 `numDigits` 参数用于限制小数点_后_要检查的位数。`numDigits` 的默认值为 2。例如：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -380,13 +379,13 @@ test('getApplesCount has some unusual side effects...', () => {
 ```
 
 ## toBeOneOf
-<!-- TODO: translation -->
-- **Type:** `(sample: Array<any> | Set<any>) => any`
 
-`toBeOneOf` asserts if a value matches any of the values in the provided array or set.
+- **类型:** `(sample: Array<any> | Set<any>) => any`
 
-::: warning EXPERIMENTAL
-Providing a `Set` is an experimental feature and may change in a future release.
+`toBeOneOf` 断言一个值是否匹配提供的数组或集合中的任意一个值。
+
+::: warning 实验性功能
+提供 `Set` 是一个实验性功能，可能会在未来版本中发生变化。
 :::
 
 ```ts
@@ -648,7 +647,7 @@ test('toHaveLength', () => {
   expect('abc').toHaveLength(3)
   expect([1, 2, 3]).toHaveLength(3)
 
-  expect('').not.toHaveLength(3) // doesn't have .length of 3
+  expect('').not.toHaveLength(3) // 长度不为 3
   expect({ length: 3 }).toHaveLength(3)
 })
 ```
@@ -707,7 +706,7 @@ test('John Doe Invoice', () => {
   // 将键名包裹在数组中，避免其被解析为深层引用
   expect(invoice).toHaveProperty(['P.O'], '12345')
 
-  // Deep equality of object property
+  // 对象属性的深度相等
   expect(invoice).toHaveProperty('items[0]', { type: 'apples', quantity: 10 })
 })
 ```
@@ -723,7 +722,7 @@ import { expect, test } from 'vitest'
 
 test('top fruits', () => {
   expect('top fruits include apple, orange and grape').toMatch(/apple/)
-  expect('applefruits').toMatch('fruit') // toMatch also accepts a string
+  expect('applefruits').toMatch('fruit') // toMatch 也接受字符串
 })
 ```
 
@@ -770,8 +769,8 @@ test('invoice has john personal details', () => {
   expect(johnInvoice).toMatchObject(johnDetails)
 })
 
-test('the number of elements must match exactly', () => {
-  // Assert that an array of object matches
+test('元素数量必须完全匹配', () => {
+  // 断言对象数组匹配
   expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
     { foo: 'bar' },
     { baz: 1 },
@@ -1234,7 +1233,7 @@ test('spy function returns bananas on a last call', () => {
 
 我们可以调用这个断言来检查函数是否在特定的调用中成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
-The count starts at 1. So, to check the second entry, you would write `.toHaveNthReturnedWith(2, ...)`.
+计数从 1 开始。因此，要检查第二个条目，你需要写 `.toHaveNthReturnedWith(2, ...)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1713,9 +1712,9 @@ test('variety ends with "re"', () => {
 
 ## expect.schemaMatching
 
-- **Type:** `(expected: StandardSchemaV1) => any`
+- **类型:** `(expected: StandardSchemaV1) => any`
 
-When used with an equality check, this asymmetric matcher will return `true` if the value matches the provided schema. The schema must implement the [Standard Schema v1](https://standardschema.dev/) specification.
+当与相等性检查一起使用时，如果值与提供的 schema 匹配，此非对称匹配器将返回 `true`。schema 必须实现 [Standard Schema v1](https://standardschema.dev/) 规范。
 
 ```ts
 import { expect, test } from 'vitest'

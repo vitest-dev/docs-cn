@@ -14,12 +14,12 @@
 >   Duration  4.80s (transform 44ms, setup 0ms, import 35ms, tests 4.52s, environment 0ms)
 >   # Time metrics ^^
 > ```
-<!-- TODO: translation reference history -->
-- Transform: How much time was spent transforming the files. See [File Transform](#file-transform).
-- Setup: Time spent for running the [`setupFiles`](/config/#setupfiles) files.
-- Import: Time it took to import your test files and their dependencies. This also includes the time spent collecting all tests. Note that this doesn't include dynamic imports inside of tests.
-- Tests: Time spent for actually running the test cases.
-- Environment: Time spent for setting up the test [`environment`](/config/#environment), for example JSDOM.
+
+- Transform：转换文件所花费的时间。参见 [文件转换](#file-transform)。
+- Setup：运行 [`setupFiles`](/config/#setupfiles) 文件所花费的时间。
+- Import：导入测试文件及其依赖项所花费的时间。这也包括收集所有测试所花费的时间。注意，这不包括测试内部的动态导入。
+- Tests：实际运行测试用例所花费的时间。
+- Environment：设置测试 [`environment`](/config/#environment) 所花费的时间，例如 JSDOM。
 
 ## 测试运行器 {#test-runner}
 
@@ -33,8 +33,7 @@
 由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
-<!-- TODO: translation -->
-To pass these options to Vitest's test runner, define `execArgv` in your Vitest configuration:
+要将这些选项传递给 Vitest 的测试运行器，请在 Vitest 配置中定义 `execArgv`：
 
 ```ts
 import { defineConfig } from 'vitest/config'

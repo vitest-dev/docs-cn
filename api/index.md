@@ -427,8 +427,8 @@ test.each([
   expect(a + b).toBe(expected)
 })
 ```
-<!-- TODO: translation -->
-You can also access Object attributes with `.`, if you are using objects as arguments:
+
+如果使用对象作为参数，你也可以使用 `.` 来访问对象属性：
 
   ```ts
   test.each`
@@ -440,14 +440,14 @@ You can also access Object attributes with `.`, if you are using objects as argu
     expect(a.val + b).toBe(expected)
   })
 
-  // this will return
+  // 这将返回
   // ✓ add(1, b) -> 1b
   // ✓ add(2, b) -> 2b
   // ✓ add(3, b) -> 3b
   ```
 
-* First row should be column names, separated by `|`;
-* One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+* 第一行应为列名，用 `|` 分隔；
+* 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1221,9 +1221,8 @@ afterEach(async () => {
 
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
-<!-- TODO: translation -->
 ::: tip
-You can also use [`onTestFinished`](#ontestfinished) during the test execution to cleanup any state after the test has finished running.
+你也可以在测试执行期间使用 [`onTestFinished`](#ontestfinished) 来在测试运行完成后清理任何状态。
 :::
 
 ### beforeAll

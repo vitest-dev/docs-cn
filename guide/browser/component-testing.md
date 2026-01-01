@@ -257,33 +257,33 @@ test('ShoppingCart manages items correctly', async () => {
 ```
 
 ### 测试带有数据获取的异步组件 {#testing-async-components-with-data-fetching}
-<!-- TODO: translation -->
+
 ```tsx
-// Option 1: Recommended - Use MSW (Mock Service Worker) for API mocking
+// 选项 1：推荐 - 使用 MSW（Mock Service Worker）进行 API 模拟
 import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 
-// Set up MSW worker with API handlers
+// 使用 API 处理程序设置 MSW worker
 const worker = setupWorker(
   http.get('/api/users/:id', ({ params }) => {
-    // Describe the happy path
+    // 描述成功路径
     return HttpResponse.json({ id: params.id, name: 'John Doe', email: 'john@example.com' })
   })
 )
 
-// Start the worker before all tests
+// 在所有测试之前启动 worker
 beforeAll(() => worker.start())
 afterEach(() => worker.resetHandlers())
 afterAll(() => worker.stop())
 
 test('UserProfile handles loading, success, and error states', async () => {
-  // Test success state
+  // 测试成功状态
   const { getByText } = render(<UserProfile userId="123" />)
-  // expect.element auto-retries until elements are found
+  // expect.element 会自动重试直到找到元素
   await expect.element(getByText('John Doe')).toBeInTheDocument()
   await expect.element(getByText('john@example.com')).toBeInTheDocument()
 
-  // Test error state by overriding the handler for this test
+  // 通过为此测试覆盖处理程序来测试错误状态
   worker.use(
     http.get('/api/users/:id', () => {
       return HttpResponse.json({ error: 'User not found' }, { status: 404 })
@@ -296,13 +296,13 @@ test('UserProfile handles loading, success, and error states', async () => {
 ```
 
 ::: tip
-See more details on [using MSW in the browser](https://mswjs.io/docs/integrations/browser).
+查看更多关于[在浏览器中使用 MSW](https://mswjs.io/docs/integrations/browser) 的详细信息。
 :::
 
-### Testing Component Communication
+### 测试组件通信 {#testing-component-communication}
 
 ```tsx
-// Test parent-child component interaction
+// 测试父子组件交互
 test('parent and child components communicate correctly', async () => {
   const mockOnSelectionChange = vi.fn()
 

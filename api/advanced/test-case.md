@@ -265,14 +265,14 @@ interface TestDiagnostic {
 ::: info
 如果测试尚未被安排运行，`diagnostic()` 将返回 `undefined`。
 :::
-<!-- TODO: translation -->
+
 ## annotations
 
 ```ts
 function annotations(): ReadonlyArray<TestAnnotation>
 ```
 
-[Test annotations](/guide/test-annotations) added via the [`task.annotate`](/guide/test-context#annotate) API during the test execution.
+在测试执行期间通过 [`task.annotate`](/guide/test-context#annotate) API 添加的[测试注释](/guide/test-annotations)。
 
 ## artifacts <Version type="experimental">4.0.11</Version> <Experimental /> {#artifacts}
 
@@ -280,4 +280,4 @@ function annotations(): ReadonlyArray<TestAnnotation>
 function artifacts(): ReadonlyArray<TestArtifact>
 ```
 
-[Test artifacts](/api/advanced/artifacts) recorded via the `recordArtifact` API during the test execution.
+在测试执行期间通过 `recordArtifact` API 记录的[测试工件](/api/advanced/artifacts)。

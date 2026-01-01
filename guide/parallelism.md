@@ -12,8 +12,7 @@ outline: deep
 - `forks`（默认）和 `vmForks` 会在不同的 [child processes](https://nodejs.org/api/child_process.html) 中执行测试
 - `threads` 和 `vmThreads` 则会在不同的 [worker threads](https://nodejs.org/api/worker_threads.html) 中运行
 
-<!-- TODO: translation -->
-Both "child processes" and "worker threads" are refered to as "workers". You can configure the number of running workers with [`maxWorkers`](/config/#maxworkers) option.
+"子进程（child processes）"和"工作线程（worker threads）"统称为"工作者（workers）"。你可以通过 [`maxWorkers`](/config/#maxworkers) 选项来配置运行的工作者数量。
 
 如果项目包含大量测试文件，通常并行执行会大幅提升速度。但具体效果还要看项目本身、运行环境以及是否启用了 [隔离](/config/#isolate)。若需要关闭文件级并行化，可以将 [`fileParallelism`](/config/#fileparallelism) 设为 `false` 。更多性能优化技巧，请参考 [性能指南](/guide/improving-performance) 。
 

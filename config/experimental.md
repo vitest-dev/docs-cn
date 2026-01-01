@@ -2,7 +2,6 @@
 title: experimental | Config
 outline: deep
 ---
-<!-- TODO: translation -->
 
 # experimental
 
@@ -12,28 +11,28 @@ outline: deep
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9221)。
 :::
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Enabling this option allows Vitest to keep cached modules on the file system, making tests run faster between reruns.
+启用此选项允许 Vitest 将缓存的模块保存在文件系统上，使测试在重新运行之间运行得更快。
 
-You can delete the old cache by running [`vitest --clearCache`](/guide/cli#clearcache).
+你可以通过运行 [`vitest --clearCache`](/guide/cli#clearcache) 来删除旧缓存。
 
-::: warning BROWSER SUPPORT
-At the moment, this option does not affect [the browser](/guide/browser/).
+::: warning 浏览器支持
+目前，此选项不影响[浏览器](/guide/browser/)。
 :::
 
-You can debug if your modules are cached by running vitest with a `DEBUG=vitest:cache:fs` environment variable:
+你可以通过使用 `DEBUG=vitest:cache:fs` 环境变量运行 vitest 来调试模块是否被缓存：
 
 ```shell
 DEBUG=vitest:cache:fs vitest --experimental.fsModuleCache
 ```
 
-### Known Issues
+### 已知问题 {#known-issues}
 
-Vitest creates persistent file hash based on file content, its id, vite's environment configuration and coverage status. Vitest tries to use as much information it has about the configuration, but it is still incomplete. At the moment, it is not possible to track your plugin options because there is no standard interface for it.
+Vitest 基于文件内容、其 id、vite 的环境配置和覆盖率状态创建持久文件哈希。Vitest 尝试使用它拥有的关于配置的尽可能多的信息，但它仍然不完整。目前，无法跟踪你的插件选项，因为没有标准接口。
 
-If you have a plugin that relies on things outside the file content or the public configuration (like reading another file or a folder), it's possible that the cache will get stale. To workaround that, you can define a [cache key generator](/api/advanced/plugin#definecachekeygenerator) to specify dynamic option or to opt-out of caching for that module:
+如果你有一个依赖于文件内容或公共配置之外的内容（如读取另一个文件或文件夹）的插件，缓存可能会变得陈旧。要解决这个问题，你可以定义一个[缓存键生成器](/api/advanced/plugin#definecachekeygenerator)来指定动态选项或选择不缓存该模块：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -44,12 +43,12 @@ export default defineConfig({
       name: 'vitest-cache',
       configureVitest({ experimental_defineCacheKeyGenerator }) {
         experimental_defineCacheKeyGenerator(({ id, sourceCode }) => {
-          // never cache this id
+          // 永不缓存此 id
           if (id.includes('do-not-cache')) {
             return false
           }
 
-          // cache this file based on the value of a dynamic variable
+          // 基于动态变量的值缓存此文件
           if (sourceCode.includes('myDynamicVar')) {
             return process.env.DYNAMIC_VAR_VALUE
           }
@@ -65,9 +64,9 @@ export default defineConfig({
 })
 ```
 
-If you are a plugin author, consider defining a [cache key generator](/api/advanced/plugin#definecachekeygenerator) in your plugin if it can be registered with different options that affect the transform result.
+如果你是插件作者，如果你的插件可以使用影响转换结果的不同选项进行注册，请考虑在插件中定义一个[缓存键生成器](/api/advanced/plugin#definecachekeygenerator)。
 
-On the other hand, if your plugin should not affect the cache key, you can opt-out by setting `api.vitest.experimental.ignoreFsModuleCache` to `true`:
+另一方面，如果你的插件不应该影响缓存键，你可以通过将 `api.vitest.experimental.ignoreFsModuleCache` 设置为 `true` 来选择退出：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -93,18 +92,18 @@ export default defineConfig({
 })
 ```
 
-Note that you can still define the cache key generator even the plugin opt-out of module caching.
+请注意，即使插件选择退出模块缓存，你仍然可以定义缓存键生成器。
 
 ## experimental.fsModuleCachePath <Version type="experimental">4.0.11</Version> {#experimental-fsmodulecachepath}
 
-- **Type:** `string`
-- **Default:** `'node_modules/.experimental-vitest-cache'`
+- **类型:** `string`
+- **默认值:** `'node_modules/.experimental-vitest-cache'`
 
-Directory where the file system cache is located.
+文件系统缓存所在的目录。
 
-By default, Vitest will try to find the workspace root and store the cache inside the `node_modules` folder. The root is based on your package manager's lockfile (for example, `.package-lock.json`, `.yarn-state.yml`, `.pnpm/lock.yaml` and so on).
+默认情况下，Vitest 会尝试找到工作区根目录并将缓存存储在 `node_modules` 文件夹中。根目录基于你的包管理器的锁文件（例如，`.package-lock.json`、`.yarn-state.yml`、`.pnpm/lock.yaml` 等）。
 
-At the moment, Vitest ignores the [test.cache.dir](/config/cache) or [cacheDir](https://vite.dev/config/shared-options#cachedir) options completely and creates a separate folder.
+目前，Vitest 完全忽略 [test.cache.dir](/config/cache) 或 [cacheDir](https://vite.dev/config/shared-options#cachedir) 选项，并创建一个单独的文件夹。
 
 ## experimental.openTelemetry <Version type="experimental">4.0.11</Version> {#experimental-opentelemetry}
 
@@ -112,35 +111,35 @@ At the moment, Vitest ignores the [test.cache.dir](/config/cache) or [cacheDir](
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9222)。
 :::
 
-- **Type:**
+- **类型:**
 
 ```ts
 interface OpenTelemetryOptions {
   enabled: boolean
   /**
-   * A path to a file that exposes an OpenTelemetry SDK for Node.js.
+   * 暴露 Node.js OpenTelemetry SDK 的文件路径。
    */
   sdkPath?: string
   /**
-   * A path to a file that exposes an OpenTelemetry SDK for the browser.
+   * 暴露浏览器 OpenTelemetry SDK 的文件路径。
    */
   browserSdkPath?: string
 }
 ```
 
-- **Default:** `{ enabled: false }`
+- **默认值:** `{ enabled: false }`
 
-This option controls [OpenTelemetry](https://opentelemetry.io/) support. Vitest imports the SDK file in the main thread and before every test file, if `enabled` is set to `true`.
+此选项控制 [OpenTelemetry](https://opentelemetry.io/) 支持。如果 `enabled` 设置为 `true`，Vitest 会在主线程中以及每个测试文件之前导入 SDK 文件。
 
-::: danger PERFORMANCE CONCERNS
-OpenTelemetry may significantly impact Vitest performance; enable it only for local debugging.
+::: danger 性能注意事项
+OpenTelemetry 可能会显著影响 Vitest 性能；仅在本地调试时启用它。
 :::
 
-You can use a [custom service](/guide/open-telemetry) together with Vitest to pinpoint which tests or files are slowing down your test suite.
+你可以将[自定义服务](/guide/open-telemetry)与 Vitest 一起使用，以精确定位哪些测试或文件正在拖慢你的测试套件。
 
-For browser mode, see the [Browser Mode](/guide/open-telemetry#browser-mode) section of the OpenTelemetry guide.
+对于浏览器模式，请参阅 OpenTelemetry 指南的[浏览器模式](/guide/open-telemetry#browser-mode)部分。
 
-An `sdkPath` is resolved relative to the [`root`](/config/root) of the project and should point to a module that exposes a started SDK instance as a default export. For example:
+`sdkPath` 相对于项目的 [`root`](/config/root) 解析，应指向一个将已启动的 SDK 实例作为默认导出暴露的模块。例如：
 
 ::: code-group
 ```js [otel.js]
@@ -174,7 +173,7 @@ export default defineConfig({
 :::
 
 ::: warning
-It's important that Node can process `sdkPath` content because it is not transformed by Vitest. See [the guide](/guide/open-telemetry) on how to work with OpenTelemetry inside of Vitest.
+重要的是 Node 能够处理 `sdkPath` 内容，因为它不会被 Vitest 转换。请参阅[指南](/guide/open-telemetry)了解如何在 Vitest 中使用 OpenTelemetry。
 :::
 
 ## experimental.printImportBreakdown <Version type="experimental">4.0.15</Version> {#experimental-printimportbreakdown}
@@ -183,18 +182,18 @@ It's important that Node can process `sdkPath` content because it is not transfo
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Show import duration breakdown after tests have finished running. This option only works with [`default`](/guide/reporters#default), [`verbose`](/guide/reporters#verbose), or [`tree`](/guide/reporters#tree) reporters.
+在测试运行完成后显示导入耗时分解。此选项仅适用于 [`default`](/guide/reporters#default)、[`verbose`](/guide/reporters#verbose) 或 [`tree`](/guide/reporters#tree) 报告器。
 
-- Self: the time it took to import the module, excluding static imports;
-- Total: the time it took to import the module, including static imports. Note that this does not include `transform` time of the current module.
+- Self：导入模块所花费的时间，不包括静态导入；
+- Total：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
 
-<img alt="An example of import breakdown in the terminal" src="/reporter-import-breakdown.png" />
+<img alt="终端中导入分解的示例" src="/reporter-import-breakdown.png" />
 
-Note that if the file path is too long, Vitest will truncate it at the start until it fits 45 character limit.
+请注意，如果文件路径太长，Vitest 会从开头截断它，直到它符合 45 个字符的限制。
 
 ::: info
-[Vitest UI](/guide/ui#import-breakdown) shows a breakdown of imports automatically if at least one file took longer than 500 milliseconds to load. You can manually set this option to `false` to disable this.
+如果至少有一个文件加载时间超过 500 毫秒，[Vitest UI](/guide/ui#import-breakdown) 会自动显示导入分解。你可以手动将此选项设置为 `false` 来禁用此功能。
 :::

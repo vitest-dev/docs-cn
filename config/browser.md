@@ -1,6 +1,5 @@
-<!-- TODO: translation -->
 ---
-title: Browser Config Reference | Config
+title: 浏览器配置参考 | 配置
 outline: deep
 ---
 # 浏览器配置参考 {#browser-config-reference}
@@ -56,8 +55,7 @@ export default defineConfig({
 
 定义多个浏览器设置。每个配置必须至少有一个 `browser` 字段。
 
-<!-- TODO: translation -->
-You can specify most of the [project options](/config/) (not marked with a <CRoot /> icon) and some of the `browser` options like `browser.testerHtmlPath`.
+你可以指定大多数 [项目选项](/config/)（未标记 <CRoot /> 图标的）和一些 `browser` 选项，如 `browser.testerHtmlPath`。
 
 ::: warning
 每个浏览器配置都从根配置继承选项：
@@ -105,17 +103,16 @@ export default defineConfig({
 
 在 `headless` 模式下运行浏览器。如果我们在 CI 中运行 Vitest，则默认启用此模式。
 
-<!-- TODO: translation -->
 ## browser.isolate <Deprecated />
 
 - **类型:** `boolean`
-- **Default:** the same as [`--isolate`](/config/#isolate)
+- **默认值:** 与 [`--isolate`](/config/#isolate) 相同
 - **CLI:** `--browser.isolate`, `--browser.isolate=false`
 
 在单独的 iframe 中运行每个测试。
 
-::: danger DEPRECATED
-This option is deprecated. Use [`isolate`](/config/#isolate) instead.
+::: danger 已弃用
+此选项已弃用。请改用 [`isolate`](/config/#isolate)。
 :::
 
 ## browser.testerHtmlPath
@@ -491,16 +488,16 @@ resolveDiffPath: ({ arg, attachmentsDir, browserName, ext, root, testFileName })
 
 #### browser.expect.toMatchScreenshot.comparators
 
-- **Type:** `Record<string, Comparator>`
+- **类型:** `Record<string, Comparator>`
 
-Register custom screenshot comparison algorithms, like [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) or other perceptual similarity metrics.
+注册自定义截图比较算法，如 [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) 或其他感知相似度指标。
 
-To create a custom comparator, you need to register it in your config. If using TypeScript, declare its options in the `ScreenshotComparatorRegistry` interface.
+要创建自定义比较器，你需要在配置中注册它。如果使用 TypeScript，请在 `ScreenshotComparatorRegistry` 接口中声明其选项。
 
 ```ts
 import { defineConfig } from 'vitest/config'
 
-// 1. Declare the comparator's options type
+// 1. 声明比较器的选项类型
 declare module 'vitest/browser' {
   interface ScreenshotComparatorRegistry {
     myCustomComparator: {
@@ -510,7 +507,7 @@ declare module 'vitest/browser' {
   }
 }
 
-// 2. Implement the comparator
+// 2. 实现比较器
 export default defineConfig({
   test: {
     browser: {
@@ -521,12 +518,12 @@ export default defineConfig({
               reference,
               actual,
               {
-                createDiff, // always provided by Vitest
+                createDiff, // 始终由 Vitest 提供
                 sensitivity = 0.01,
                 ignoreColors = false,
               }
             ) => {
-              // ...algorithm implementation
+              // ...算法实现
               return { pass, diff, message }
             },
           },
@@ -537,7 +534,7 @@ export default defineConfig({
 })
 ```
 
-Then use it in your tests:
+然后在测试中使用它：
 
 ```ts
 await expect(locator).toMatchScreenshot({
@@ -574,22 +571,22 @@ type Comparator<Options> = (
   message: string | null
 }
 ```
-<!-- TODO: translation -->
-The `reference` and `actual` images are decoded using the appropriate codec (currently only PNG). The `data` property is a flat `TypedArray` (`Buffer`, `Uint8Array`, or `Uint8ClampedArray`) containing pixel data in RGBA format:
 
-- **4 bytes per pixel**: red, green, blue, alpha (from `0` to `255` each)
-- **Row-major order**: pixels are stored left-to-right, top-to-bottom
-- **Total length**: `width × height × 4` bytes
-- **Alpha channel**: always present. Images without transparency have alpha values set to `255` (fully opaque)
+`reference` 和 `actual` 图像使用适当的编解码器（目前仅支持 PNG）进行解码。`data` 属性是一个扁平的 `TypedArray`（`Buffer`、`Uint8Array` 或 `Uint8ClampedArray`），包含 RGBA 格式的像素数据：
 
-::: tip Performance Considerations
-The `createDiff` option indicates whether a diff image is needed. During [stable screenshot detection](/guide/browser/visual-regression-testing#how-visual-tests-work), Vitest calls comparators with `createDiff: false` to avoid unnecessary work.
+- **每像素 4 字节**：红色、绿色、蓝色、alpha（每个从 `0` 到 `255`）
+- **行主序**：像素从左到右、从上到下存储
+- **总长度**：`width × height × 4` 字节
+- **Alpha 通道**：始终存在。没有透明度的图像的 alpha 值设置为 `255`（完全不透明）
 
-**Respect this flag to keep your tests fast**.
+::: tip 性能考虑
+`createDiff` 选项指示是否需要差异图像。在 [稳定截图检测](/guide/browser/visual-regression-testing#how-visual-tests-work) 期间，Vitest 使用 `createDiff: false` 调用比较器以避免不必要的工作。
+
+**尊重此标志以保持测试快速**。
 :::
 
-::: warning Handle Missing Options
-The `options` parameter in `toMatchScreenshot()` is optional, so users might not provide all your comparator options. Always make them optional with default values:
+::: warning 处理缺失选项
+`toMatchScreenshot()` 中的 `options` 参数是可选的，因此用户可能不会提供所有比较器选项。始终使用默认值使它们成为可选的：
 
 ```ts
 myCustomComparator: (
@@ -597,7 +594,7 @@ myCustomComparator: (
   actual,
   { createDiff, threshold = 0.1, maxDiff = 100 },
 ) => {
-  // ...comparison logic
+  // ...比较逻辑
 }
 ```
 :::

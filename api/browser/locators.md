@@ -245,18 +245,18 @@ function getByLabelText(
 <label id="username-label">Username</label>
 <input aria-labelledby="username-label" />
 
-// Wrapper labels
+// 包裹式标签
 <label>Username <input /></label>
 
-// Wrapper labels where the label text is in another child element
+// 标签文本在另一个子元素中的包裹式标签
 <label>
   <span>Username</span>
   <input />
 </label>
 
-// aria-label attributes
-// Take care because this is not a label that users can see on the page,
-// so the purpose of your input must be obvious to visual users.
+// aria-label 属性
+// 请注意，这不是用户在页面上能看到的标签，
+// 因此输入框的用途必须对视觉用户来说是显而易见的。
 <input aria-label="Username" />
 ```
 
@@ -784,7 +784,7 @@ function screenshot(options?: LocatorScreenshotOptions & { base64?: false }): Pr
 你可以使用 `path` 选项指定屏幕截图的保存位置，该选项相对于当前测试文件。如果未设置 `path` 选项，Vitest 将默认使用 [`browser.screenshotDirectory`](/config/browser/screenshotdirectory)（默认为 `__screenshot__`），并结合文件名和测试名来确定屏幕截图的文件路径。
 
 如果你还需要屏幕截图的内容，可以指定 `base64: true` 以返回屏幕截图的 base64 编码内容以及保存路径。
-<!-- TODO: translation -->
+
 ```ts
 import { page } from 'vitest/browser'
 
@@ -794,10 +794,10 @@ const path = await button.screenshot()
 
 const { path, base64 } = await button.screenshot({
   path: './button-click-me.png',
-  base64: true, // also return base64 string
+  base64: true, // 同时返回 base64 字符串
 })
-// path - fullpath to the screenshot
-// bas64 - base64 encoded string of the screenshot
+// path - 屏幕截图的完整路径
+// base64 - 屏幕截图的 base64 编码字符串
 ```
 
 ::: warning WARNING <Version>3.2.0</Version>
@@ -959,8 +959,7 @@ test('works correctly', async () => {
 
 ### length
 
-This getter returns a number of elements that this locator is matching. It is equivalent to calling `locator.elements().length`.
-此属性返回当前定位器匹配的元素数量，等效于调用 g `locator.elements().length`。
+此属性返回当前定位器匹配的元素数量，等效于调用 `locator.elements().length`。
 
 参考以下 DOM 结构：
 
