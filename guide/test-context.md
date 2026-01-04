@@ -9,7 +9,7 @@ outline: deep
 
 ## 用法 {#usage}
 
-第一个参数或每个测试回调是一个测试上下文。
+在每个测试回调中，第一个参数表示测试上下文。
 
 ```ts
 import { it } from 'vitest'
