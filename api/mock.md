@@ -42,7 +42,7 @@ getApplesSpy.mock.calls.length === 1
 
 清除每次调用的所有信息。调用该方法后，`.mock` 上的所有属性都将返回空状态。此方法不会重置实现。如果需要在不同断言之间清理 mock，该方法非常有用。
 
-如果我们希望在每次测试前自动调用该方法，可以在配置中启用 [`clearMocks``](/config/#clearmocks)设置。
+如果我们希望在每次测试前自动调用该方法，可以在配置中启用 [`clearMocks`](/config/#clearmocks) 设置。
 
 ## mockName
 
@@ -60,7 +60,7 @@ getApplesSpy.mock.calls.length === 1
 import { vi } from 'vitest'
 // ---cut---
 const mockFn = vi.fn().mockImplementation((apples: number) => apples + 1)
-// or: vi.fn(apples => apples + 1);
+// 或：vi.fn(apples => apples + 1);
 
 const NelliesBucket = mockFn(0)
 const BobsBucket = mockFn(1)
@@ -116,12 +116,9 @@ import { vi } from 'vitest'
 // ---cut---
 const myMockFn = vi.fn(() => 'original')
 
-myMockFn.withImplementation(
-  () => 'temp',
-  () => {
-    myMockFn() // 'temp'
-  }
-)
+myMockFn.withImplementation(() => 'temp', () => {
+  myMockFn() // 'temp'
+})
 
 myMockFn() // 'original'
 ```
@@ -132,7 +129,7 @@ myMockFn() // 'original'
 test('async callback', () => {
   const myMockFn = vi.fn(() => 'original')
 
-  // We await this call since the callback is async
+  // 由于回调是异步的，我们要等待这个调用
   await myMockFn.withImplementation(
     () => 'temp',
     async () => {
@@ -157,7 +154,7 @@ import { vi } from 'vitest'
 // ---cut---
 const asyncMock = vi.fn().mockRejectedValue(new Error('Async error'))
 
-await asyncMock() // throws "Async error"
+await asyncMock() // 抛出 "Async error"
 ```
 
 ## mockRejectedValueOnce
@@ -174,8 +171,8 @@ const asyncMock = vi
   .mockResolvedValueOnce('first call')
   .mockRejectedValueOnce(new Error('Async error'))
 
-await asyncMock() // first call
-await asyncMock() // throws "Async error"
+await asyncMock() // 'first call'
+await asyncMock() // 抛出 "Async error"
 ```
 
 ## mockReset
@@ -290,8 +287,7 @@ const fn = vi.fn()
 fn('arg1', 'arg2')
 fn('arg3')
 
-fn.mock.calls
-=== [
+fn.mock.calls === [
   ['arg1', 'arg2'], // first call
   ['arg3'], // second call
 ]
@@ -318,47 +314,23 @@ const fn = vi
     throw new Error('thrown error')
   })
 
-const result = fn() // returned 'result'
+const result = fn() // 返回 'result'
 
 try {
-  fn() // threw Error
+  fn() // 抛出错误
 }
 catch {}
 
-fn.mock.results
-=== [
-  // first result
+fn.mock.results === [
+  // 首次调用结果
   {
     type: 'return',
     value: 'result',
   },
-  // last result
+  // 最后调用结果
   {
     type: 'throw',
     value: Error,
-  },
-]
-```
-
-## mock.settledResults
-
-包含函数中`resolved` 或 `rejected` 的所有值的数组。
-
-如果函数从未`resolved` 或 `rejected` ，则此数组将为空。
-
-```js
-const fn = vi.fn().mockResolvedValueOnce('result')
-
-const result = fn()
-
-fn.mock.settledResults === []
-
-await result
-
-fn.mock.settledResults === [
-  {
-    type: 'fulfilled',
-    value: 'result',
   },
 ]
 ```
@@ -377,21 +349,6 @@ fn1()
 
 fn1.mock.invocationCallOrder === [1, 3]
 fn2.mock.invocationCallOrder === [2]
-```
-
-## mock.contexts
-
-此属性是每次调用模拟函数时使用的 `this` 值的数组。
-
-```js
-const fn = vi.fn()
-const context = {}
-
-fn.apply(context)
-fn.call(context)
-
-fn.mock.contexts[0] === context
-fn.mock.contexts[1] === context
 ```
 
 ## mock.instances
