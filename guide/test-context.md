@@ -94,7 +94,7 @@ function annotate(
 ): Promise<TestAnnotation>
 ```
 
-添加一个[测试注解](/guide/test-annotations)，它将由你的[报告器](/config/#reporters)显示。
+添加一个 [测试注解](/guide/test-annotations)，它将由你的 [报告器](/config/#reporters) 显示。
 
 ```ts
 test('annotations API', async ({ annotate }) => {
