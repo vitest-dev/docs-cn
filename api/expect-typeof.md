@@ -557,12 +557,12 @@ expectTypeOf(obj).toHaveProperty('a').not.toBeString()
 
 - **类型:** `ExpectTypeOf<BrandedType>`
 
-你可以使用 `.branded` 来允许类型断言对语义上等效但表示形式不同的类型成功。
+可以使用 `.branded` 来允许类型断言成功，适用于那些语义上等价但表示形式不同的类型。
 
 ```ts
 import { expectTypeOf } from 'vitest'
 
-// 没有 .branded，即使类型实际上相同，这也会失败
+// 没有使用 .branded，即使实际上类型相同，但也会断言失败
 expectTypeOf<{ a: { b: 1 } & { c: 1 } }>().toEqualTypeOf<{ a: { b: 1; c: 1 } }>()
 
 // 使用 .branded，断言成功
@@ -570,5 +570,5 @@ expectTypeOf<{ a: { b: 1 } & { c: 1 } }>().branded.toEqualTypeOf<{ a: { b: 1; c:
 ```
 
 ::: warning
-此辅助函数会带来性能成本，如果用于过深的类型，可能会导致 TypeScript 编译器"放弃"。请谨慎使用，仅在必要时使用。
+此工具函数会带来性能开销，并且在处理过深类型时可能导致 TypeScript 编译器 “崩溃”。请谨慎使用，仅在必要时使用。
 :::
