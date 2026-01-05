@@ -138,9 +138,9 @@ function experimental_defineCacheKeyGenerator(
 ): void
 ```
 
-定义一个生成器，它将在哈希缓存键之前应用。
+定义一个缓存键生成器，它将在缓存键哈希之前运行。
 
-使用此方法确保 Vitest 生成正确的哈希。如果你的插件可以使用不同的选项注册，定义此函数是一个好主意。
+通过这种方式，可以确保 Vitest 生成正确的哈希值。如果你的插件支持通过不同的参数选项注册，建议使用此函数。
 
 仅当定义了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) 时才会调用此方法。
 
@@ -162,7 +162,7 @@ export function plugin(options: PluginOptions) {
     configureVitest({ experimental_defineCacheKeyGenerator }) {
       experimental_defineCacheKeyGenerator(() => {
         // 由于这些选项会影响转换结果，
-        // 将它们作为唯一字符串一起返回
+        // 将它们组合成一个唯一字符串并返回
         return options.replacePropertyKey + options.replacePropertyValue
       })
     }
