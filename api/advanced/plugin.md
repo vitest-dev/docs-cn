@@ -140,7 +140,7 @@ function experimental_defineCacheKeyGenerator(
 
 定义一个缓存键生成器，它将在缓存键哈希之前运行。
 
-通过这种方式，可以确保 Vitest 生成正确的哈希值。如果你的插件支持通过不同的参数选项注册，建议使用此函数。
+如果你的插件支持通过不同的参数选项注册，建议通过这种方式，确保 Vitest 生成正确的哈希值。
 
 仅当定义了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) 时才会调用此方法。
 
