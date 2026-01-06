@@ -61,23 +61,22 @@ test('clicks on an element', async () => {
   // 或者你可以直接从定位器上访问
   await logo.click()
 
-  // 使用 WebdriverIO 时，这会使用 ElementClick（无参数时）或
-  // actions（有参数时）。使用空对象可以强制使用 actions。
+  // 在 WebdriverIO 中，该方法根据参数情况使用 ElementClick（无参数时）或行为链（有参数时）
+  // 传入空对象可以强制使用行为链
   await logo.click({})
 })
 ```
 
-### 使用修饰键点击
+### 使用修饰键点击 {#clicking-with-a-modifier}
 
 使用 WebdriverIO 或 Playwright：
 
 ```ts
 await userEvent.keyboard('{Shift>}')
-// 通过使用空对象作为选项，这会选择使用一系列操作
-// 而不是 webdriver 中的 ElementClick。
-// Firefox 有一个 bug 使这成为必要。
-// 关注 https://bugzilla.mozilla.org/show_bug.cgi?id=1456642 以了解何时
-// 修复此问题。
+// 通过传入空对象作为选项参数，该方法强制会选择使用行为链
+// 而非 webdriver 的原生 ElementClick
+// 由于 Firefox 存在一个 bug ，所以必须使用这种方式
+// 关注 https://bugzilla.mozilla.org/show_bug.cgi?id=1456642 以获取该问题的修复进展
 await userEvent.click(element, {})
 await userEvent.keyboard('{/Shift}')
 ```
