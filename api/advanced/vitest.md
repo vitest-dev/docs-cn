@@ -464,7 +464,7 @@ function onCancel(fn: (reason: CancelReason) => Awaitable<void>): () => void
 注册一个处理程序，当测试运行被 [`vitest.cancelCurrentRun`](#cancelcurrentrun) 取消时调用。
 
 ::: warning 实验性
-自 4.0.10 起，`onCancel` 返回一个清理函数，用于移除监听器。
+自 4.0.10 起，`onCancel` 会返回一个用于移除监听器的清理函数。
 :::
 
 ## onClose
@@ -612,7 +612,7 @@ function experimental_parseSpecifications(
 ): Promise<TestModule[]>
 ```
 
-此方法将从规范数组中 [收集测试](#parsespecification)。默认情况下，Vitest 一次只运行 `os.availableParallelism()` 数量的规范，以减少潜在的性能下降。你可以在第二个参数中指定不同的数字。
+此方法将从规范数组中 [收集测试用例](#parsespecification)。默认情况下，Vitest 每次仅会并行运行 `os.availableParallelism()` 数量的规范，以降低潜在的性能损耗。你可以通过第二个参数指定不同的并发数量。
 
 ## experimental_clearCache <Version type="experimental">4.0.11</Version> <Experimental /> {#clearcache}
 
@@ -673,8 +673,8 @@ export interface SourceModuleDiagnostic {
 ```
 :::
 
-返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，`selfTime` 和 `totalTime` 将汇总上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
+返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，则 `selfTime` 和 `totalTime` 将聚合上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
 
 ::: warning
-目前不支持 [浏览器](/guide/browser/) 模块。
+[浏览器模式](/guide/browser/) 暂不支持。
 :::
