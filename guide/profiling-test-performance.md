@@ -15,11 +15,11 @@
 >   # Time metrics ^^
 > ```
 
-- Transform：转换文件所花费的时间。参见 [文件转换](#file-transform)。
-- Setup：运行 [`setupFiles`](/config/#setupfiles) 文件所花费的时间。
+- Transform：转换文件所用的时间。详情请参阅 [文件转换](#file-transform)。
+- Setup：执行 [`setupFiles`](/config/#setupfiles) 文件所花费的时间。
 - Import：导入测试文件及其依赖项所花费的时间。这也包括收集所有测试所花费的时间。注意，这不包括测试内部的动态导入。
-- Tests：实际运行测试用例所花费的时间。
-- Environment：设置测试 [`environment`](/config/#environment) 所花费的时间，例如 JSDOM。
+- Tests：实际执行测试用例所用的时间。
+- Environment：[`配置测试`](/config/#environment) 环境（比如 JSDOM）所需的时间。
 
 ## 测试运行器 {#test-runner}
 
