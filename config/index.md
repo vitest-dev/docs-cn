@@ -79,4 +79,4 @@ export default defineConfig(configEnv => mergeConfig(
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
-所有不支持在项目配置中使用的配置选项，在 [配置](/guide/projects) 指南中会用 <CRoot />  标记。它们必须在根配置文件中定义一次。
+在 [项目](/guide/projects) 配置中不支持的配置选项旁边会显示 <CRoot /> 图标。这意味着它们只能在 Vitest 根配置文件中进行设置。
