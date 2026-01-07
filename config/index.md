@@ -23,7 +23,7 @@ export default defineConfig({
   },
 })
 ```
-如果你已经在使用 `Vite`，请在 `Vite` 配置中添加 `test` 属性。你还需要使用 `/// <reference types="vitest/config" />` 在你的配置文件的顶部引用。
+如果你已经有一个 `vite` 配置文件，可以通过 `/// <reference types="vitest/config" />` 来引入 `test` 类型声明：
 
 ```js [vite.config.js]
 /// <reference types="vitest/config" />
