@@ -320,7 +320,7 @@ import { increment } from './increment.js'
 // increment 已被模拟, 因为 vi.mock 已导入声明提升
 increment(1) === 100
 
-// 此处存在函数提升，工厂函数会在第1行 import 之前被调用
+// 此处存在函数提升，工厂函数会在第 1 行 import 之前被调用
 vi.mock('./increment.js', () => ({ increment: () => 100 }))
 
 // 所有调用均被模拟，并且 `increment` 始终返回100
