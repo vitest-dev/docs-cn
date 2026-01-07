@@ -12,7 +12,7 @@ outline: deep
 
 要配置 Vitest 本身，请在我们的 Vite 配置中添加 `test` 属性。如果我们是从 `vite` 本身导入 `defineConfig`，我们还需要在配置文件顶部使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 添加对 Vitest 类型引用。
 
-如果你没有使用 `vite`，可以在配置文件中从 `vitest/config` 导入 `defineConfig`：
+如果你尚未使用 `vite` ，可以在配置文件中从 `vitest/config` 导入 `defineConfig`：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -23,8 +23,7 @@ export default defineConfig({
   },
 })
 ```
-
-如果你已经有一个 `vite` 配置文件，可以添加 `/// <reference types="vitest/config" />` 来引入 `test` 类型：
+如果你已经有一个 `vite` 配置文件，可以通过 `/// <reference types="vitest/config" />` 来引入 `test` 类型声明：
 
 ```js [vite.config.js]
 /// <reference types="vitest/config" />
@@ -37,7 +36,7 @@ export default defineConfig({
 })
 ```
 
-如果需要，你可以获取 Vitest 的默认选项来扩展它们：
+你可以获取 Vitest 的默认配置，以便在需要时扩展它们：
 
 ```js [vitest.config.js]
 import { configDefaults, defineConfig } from 'vitest/config'
@@ -80,4 +79,4 @@ export default defineConfig(configEnv => mergeConfig(
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
-在 [项目](/guide/projects) 配置中不支持的配置选项旁边会有 <CRoot /> 图标。这意味着它们只能在根 Vitest 配置中设置。
+在 [项目](/guide/projects) 配置中不支持的配置选项旁边会显示 <CRoot /> 图标。这意味着它们只能在 Vitest 根配置文件中进行设置。
