@@ -36,7 +36,7 @@ export default defineConfig({
 })
 ```
 
-如果你需要，你可以通过检索 Vitest 的默认选项来扩展：
+你可以获取 Vitest 的默认配置，以便在需要时扩展它们：
 
 ```js [vitest.config.js]
 import { configDefaults, defineConfig } from 'vitest/config'
