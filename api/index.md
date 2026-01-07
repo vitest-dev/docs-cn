@@ -366,7 +366,6 @@ test.fails('fail test', async () => {
 
 ### test.each
 
-- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
 
 ::: tip
@@ -426,6 +425,11 @@ test.each([
 ])('add($0, $1) -> $2', (a, b, expected) => {
   expect(a + b).toBe(expected)
 })
+
+// 这将返回
+// ✓ add(1, 1) -> 2
+// ✓ add(1, 2) -> 3
+// ✓ add(2, 1) -> 3
 ```
 
 如果使用对象作为参数，你也可以使用 `.` 来访问对象属性：
@@ -453,33 +457,12 @@ test.each([
 import { expect, test } from 'vitest'
 
 test.each`
-  a             | b      | expected
-  ${{ val: 1 }} | ${'b'} | ${'1b'}
-  ${{ val: 2 }} | ${'b'} | ${'2b'}
-  ${{ val: 3 }} | ${'b'} | ${'3b'}
-`('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
-  expect(a.val + b).toBe(expected)
-})
-
-// 这将返回
-// ✓ add(1, b) -> 1b
-// ✓ add(2, b) -> 2b
-// ✓ add(3, b) -> 3b
-```
-
-从 Vitest 0.25.3 开始，还可以使用模板字符串表。
-
-- 第一行应为列名，用 `|` 分隔；
-- 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
-
-```ts
-test.each`
-  a             | b      | expected
-  ${1}          | ${1}   | ${2}
-  ${'a'}        | ${'b'} | ${'ab'}
-  ${[]}         | ${'b'} | ${'b'}
-  ${{}}         | ${'b'} | ${'[object Object]b'}
-  ${{ asd: 1 }} | ${'b'} | ${'[object Object]b'}
+  a               | b      | expected
+  ${1}            | ${1}   | ${2}
+  ${'a'}          | ${'b'} | ${'ab'}
+  ${[]}           | ${'b'} | ${'b'}
+  ${{}}           | ${'b'} | ${'[object Object]b'}
+  ${{ asd: 1 }}   | ${'b'} | ${'[object Object]b'}
 `('returns $expected when $a is added $b', ({ a, b, expected }) => {
   expect(a + b).toBe(expected)
 })
