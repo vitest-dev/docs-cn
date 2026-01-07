@@ -103,7 +103,6 @@ test('heavy test', { skip: true, timeout: 10_000 }, () => {
 
 ## test
 
-- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it`
 
 `test` 定义了一组相关的期望。 它接收测试名称和保存测试期望的函数。
@@ -120,7 +119,6 @@ test('should work as expected', () => {
 
 ### test.extend {#test-extended}
 
-- **类型:** `<T extends Record<string, any>>(fixtures: Fixtures<T>): TestAPI<ExtraContext & T>`
 - **别名:** `it.extend`
 
 使用 `test.extend` 来使用自定义的 fixtures 扩展测试上下文。这将返回一个新的 `test`，它也是可扩展的，因此可以根据需要扩展更多的 fixtures 或覆盖现有的 fixtures。有关更多信息，请参阅 [扩展测试上下文](/guide/test-context.html#test-extend)。
@@ -150,7 +148,6 @@ myTest('add item', ({ todos }) => {
 
 ### test.skip
 
-- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number | TestOptions) => void`
 - **别名:** `it.skip`
 
 如果想跳过运行某些测试，但又不想删代码，可以使用 `test.skip` 来跳过这些测试。
@@ -190,7 +187,6 @@ test('skipped test', (context) => {
 
 ### test.skipIf
 
-- **类型:** `(condition: any) => Test`
 - **别名:** `it.skipIf`
 
 在某些情况下，可能会需要在不同的环境下多次运行测试，而且某些测试可能是特定于环境的。我们这时候可以通过使用 `test.skipIf` 来跳过测试，而不是用 `if` 来封装测试代码。
@@ -211,7 +207,6 @@ test.skipIf(isDev)('prod only test', () => {
 
 ### test.runIf
 
-- **类型:** `(condition: any) => Test`
 - **别名:** `it.runIf`
 
 与 [test.skipIf](#test-skipif) 相反。
@@ -232,7 +227,6 @@ test.runIf(isDev)('dev only test', () => {
 
 ### test.only
 
-- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
 
 使用 `test.only` 仅运行给定 测试套件 中的某些测试。这在调试时非常有用。
@@ -258,7 +252,6 @@ test.only('test', () => {
 
 ### test.concurrent
 
-- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.concurrent`
 
 `test.concurrent` 标记并行运行的连续测试。它接收测试名称、包含要收集的测试的异步函数以及可选的超时（以毫秒为单位）。
@@ -306,7 +299,6 @@ test.concurrent('test 2', async ({ expect }) => {
 
 ### test.sequential
 
-- **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.sequential`
 
 `test.sequential` 标记一个测试为顺序测试。如果要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
@@ -333,7 +325,6 @@ describe.concurrent('suite', () => {
 
 ### test.todo
 
-- **类型:** `(name: string | Function) => void`
 - **别名:** `it.todo`
 
 使用 `test.todo` 来存根测试，以便稍后实施。测试报告中将显示一个条目，以便知道还有多少测试需要执行。
@@ -366,7 +357,6 @@ test.fails('fail test', async () => {
 
 ### test.each
 
-- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]) => void`
 - **别名:** `it.each`
 
 ::: tip
@@ -858,7 +848,6 @@ describe('numberToCurrency', () => {
 
 ### describe.skip
 
-- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 - **别名:** `suite.skip`
 
 在套件中使用 `describe.skip` 可避免运行特定的 describe 块。
@@ -876,7 +865,6 @@ describe.skip('skipped suite', () => {
 
 ### describe.skipIf
 
-- **类型:** `(condition: any) => void`
 - **别名:** `suite.skipIf`
 
 在某些情况下，可能会在不同的环境下多次运行套件，其中一些测试套件可能是特定于环境的。可以使用 `describe.skipIf` 来跳过条件为真时的套件，而不是使用 `if` 来封装套件。
@@ -897,7 +885,6 @@ describe.skipIf(isDev)('prod only test suite', () => {
 
 ### describe.runIf
 
-- **类型:** `(condition: any) => void`
 - **别名:** `suite.runIf`
 
 与 [describe.skipIf](#describe-skipif) 相反。
@@ -1001,7 +988,6 @@ describe.concurrent('suite', () => {
 
 ### describe.sequential
 
-- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 - **别名:** `suite.sequential`
 
 测试套件中的 `describe.sequential` 会将每个测试标记为顺序测试。如果需要在 `describe.concurrent` 中或使用 `--sequence.concurrent` 命令选项按顺序运行测试，这一点非常有用。
@@ -1022,7 +1008,6 @@ describe.concurrent('suite', () => {
 
 ### describe.shuffle
 
-- **类型:** `(name: string | Function, fn: TestFunction, options?: number | TestOptions) => void`
 - **别名:** `suite.shuffle`
 
 Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法，但如果只想让测试套件的一部分以随机顺序运行测试，可以用这个标志来标记它。
@@ -1059,7 +1044,6 @@ describe.shuffle('suite', () => {
 
 ### describe.todo
 
-- **类型:** `(name: string | Function) => void`
 - **别名:** `suite.todo`
 
 使用 `describe.todo` 来暂存待以后实施的套件。测试报告中会显示一个条目，这样就能知道还有多少测试需要执行。
@@ -1071,7 +1055,6 @@ describe.todo('unimplemented suite')
 
 ### describe.each
 
-- **类型:** `(cases: ReadonlyArray<T>, ...args: any[]): (name: string | Function, fn: (...args: T[]) => void, options?: number | TestOptions) => void`
 - **别名:** `suite.each`
 
 ::: tip
