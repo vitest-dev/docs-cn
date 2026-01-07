@@ -263,7 +263,7 @@ test('ShoppingCart manages items correctly', async () => {
 import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 
-// 使用 API 处理程序设置 MSW worker
+// 使用 MSW Worker 初始化 API 处理程序
 const worker = setupWorker(
   http.get('/api/users/:id', ({ params }) => {
     // 描述成功路径
@@ -283,7 +283,7 @@ test('UserProfile handles loading, success, and error states', async () => {
   await expect.element(getByText('John Doe')).toBeInTheDocument()
   await expect.element(getByText('john@example.com')).toBeInTheDocument()
 
-  // 通过为此测试覆盖处理程序来测试错误状态
+  // 通过为此测试覆盖处理程序，来测试错误状态
   worker.use(
     http.get('/api/users/:id', () => {
       return HttpResponse.json({ error: 'User not found' }, { status: 404 })
@@ -296,7 +296,7 @@ test('UserProfile handles loading, success, and error states', async () => {
 ```
 
 ::: tip
-查看更多关于[在浏览器中使用 MSW](https://mswjs.io/docs/integrations/browser) 的详细信息。
+更多内容请参阅 [在浏览器中使用 MSW](https://mswjs.io/docs/integrations/browser)。
 :::
 
 ### 测试组件通信 {#testing-component-communication}
