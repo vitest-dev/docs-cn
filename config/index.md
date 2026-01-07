@@ -12,8 +12,7 @@ outline: deep
 
 要配置 Vitest 本身，请在我们的 Vite 配置中添加 `test` 属性。如果我们是从 `vite` 本身导入 `defineConfig`，我们还需要在配置文件顶部使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 添加对 Vitest 类型引用。
 
-<!-- TODO: translation -->
-If you are not using `vite`, add `defineConfig` imported from `vitest/config` to your config file:
+如果你不使用 `vite` ，你可以通过 `vitest/config` 中的 `defineConfig` 去配置你的文件：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -24,8 +23,7 @@ export default defineConfig({
   },
 })
 ```
-<!-- TODO: translation -->
-If you have a `vite` config already, you can add `/// <reference types="vitest/config" />` to include the `test` types:
+如果你已经在使用 `Vite`，请在 `Vite` 配置中添加 `test` 属性。你还需要使用 `/// <reference types="vitest/config" />` 在你的配置文件的顶部引用。
 
 ```js [vite.config.js]
 /// <reference types="vitest/config" />
@@ -38,7 +36,7 @@ export default defineConfig({
 })
 ```
 
-You can retrieve Vitest's default options to expand them if needed:
+如果你需要，你可以通过检索 Vitest 的默认选项来扩展：
 
 ```js [vitest.config.js]
 import { configDefaults, defineConfig } from 'vitest/config'
@@ -81,5 +79,4 @@ export default defineConfig(configEnv => mergeConfig(
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
-<!-- TODO: translation -->
-Configuration options that are not supported inside a [project](/guide/projects) config have <CRoot /> icon next to them. This means they can only be set in the root Vitest config.
+所有不支持在项目配置中使用的配置选项，在 [配置](/guide/projects) 指南中会用 <CRoot />  标记。它们必须在根配置文件中定义一次。
