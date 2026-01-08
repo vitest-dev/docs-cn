@@ -382,7 +382,7 @@ test('getApplesCount has some unusual side effects...', () => {
 
 - **类型:** `(sample: Array<any> | Set<any>) => any`
 
-`toBeOneOf` 断言一个值是否匹配提供的数组或集合中的任意一个值。
+`toBeOneOf` 断言一个值是否与提供的数组或集合中的任意一个值相匹配。
 
 ::: warning 实验性功能
 提供 `Set` 是一个实验性功能，可能会在未来版本中发生变化。
@@ -722,7 +722,7 @@ import { expect, test } from 'vitest'
 
 test('top fruits', () => {
   expect('top fruits include apple, orange and grape').toMatch(/apple/)
-  expect('applefruits').toMatch('fruit') // toMatch 也接受字符串
+  expect('applefruits').toMatch('fruit') // toMatch 也接受字符串作为参数
 })
 ```
 
