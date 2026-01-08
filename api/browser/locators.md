@@ -237,26 +237,26 @@ function getByLabelText(
 下方示例中，`page.getByLabelText('Username')` 会一次性选中所有相关输入框。
 
 ```html
-// for/htmlFor relationship between label and form element id
+// for/htmlFor 标签与表单元素 ID 的关系
 <label for="username-input">Username</label>
 <input id="username-input" />
 
-// The aria-labelledby attribute with form elements
+// 使用 aria-labelledby 属性与表单元素
 <label id="username-label">Username</label>
 <input aria-labelledby="username-label" />
 
 // 包裹式标签
 <label>Username <input /></label>
 
-// 标签文本在另一个子元素中的包裹式标签
+// 标签文本位于其他子元素中的包裹式标签
 <label>
   <span>Username</span>
   <input />
 </label>
 
 // aria-label 属性
-// 请注意，这不是用户在页面上能看到的标签，
-// 因此输入框的用途必须对视觉用户来说是显而易见的。
+// 注意：这不是用户在页面上可见的标签
+// 因此输入的目的必须对视觉障碍用户显而易见。
 <input aria-label="Username" />
 ```
 
