@@ -1751,13 +1751,9 @@ You can use `expect.not` with this matcher to negate the expected value.
 
 - **类型:** `(plugin: PrettyFormatPlugin) => void`
 
-这个方法添加了在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果想了解更多，请阅读有关[自定义序列化程序的指南](/guide/snapshot#custom-serializer)。
+这个方法添加了在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果想了解更多，请阅读有关 [自定义序列化程序的指南](/guide/snapshot#custom-serializer)。
 
-<<<<<<< HEAD
-如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/#setupfiles) 中调用此方法。这将影响每个快照。
-=======
-If you are adding custom serializers, you should call this method inside [`setupFiles`](/config/setupfiles). This will affect every snapshot.
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
+如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/setupfiles) 中调用此方法。这将影响每个快照。
 
 :::tip
 如果以前将 Vue CLI 与 Jest 一起使用，需要安装 [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue)。 否则，的快照将被包裹在一个字符串中，其中 `"` 是要转义的。
@@ -1792,11 +1788,7 @@ test('custom matchers', () => {
 ```
 
 ::: tip
-<<<<<<< HEAD
-如果希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
-=======
-If you want your matchers to appear in every test, you should call this method inside [`setupFiles`](/config/setupfiles).
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
+如果希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/setupfiles) 中调用此方法。
 :::
 
 这个函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。

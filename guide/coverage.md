@@ -83,11 +83,7 @@ import Box from '../.vitepress/components/Box.vue'
   <Box>Coverage report</Box>
 </div>
 
-<<<<<<< HEAD
 ## Istanbul 覆盖率提供方案 {#istanbul-provider}
-=======
-## Istanbul Provider
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 [Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。
 这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。
@@ -173,11 +169,7 @@ export default defineConfig({
 ```
 :::
 
-<<<<<<< HEAD
 ## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
-=======
-## Including and Excluding Files from Coverage Report
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 你可以通过设置 [`coverage.include`](/config/#coverage-include) 和 [`coverage.exclude`](/config/#coverage-exclude) 来决定覆盖率报告中展示哪些文件。
 

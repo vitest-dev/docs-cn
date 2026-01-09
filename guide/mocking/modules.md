@@ -59,12 +59,8 @@ vi.mock(import('./example.js'), () => {
 ```
 
 ::: tip
-<<<<<<< HEAD
-请注意，你可以在 [setup 文件](/config/#setupfiles) 中调用 `vi.mock` ，
+请注意，你可以在 [setup 文件](/config/setupfiles) 中调用 `vi.mock` ，
 这样模块的模拟就会在所有测试文件中自动生效，无需在每个文件中重复声明。
-=======
-Remember that you can call `vi.mock` in a [setup file](/config/setupfiles) to apply the module mock in every test file automatically.
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 :::
 
 ::: tip

@@ -2,12 +2,6 @@
 title: 性能优化 | 指南
 ---
 
-<<<<<<< HEAD
-# 性能优化 {#improving-performance}
-=======
-## Test Isolation
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
-
 ## 测试隔离 {#test-isolation}
 
 默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
@@ -79,11 +73,7 @@ export default defineConfig({
 
 :::
 
-<<<<<<< HEAD
 ## 限制搜索目录 {#limiting-directory-search}
-=======
-## Limiting Directory Search
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 你可以通过 [`test.dir`](/config/#test-dir) 选项限制 Vitest 搜索文件的工作目录。如果根目录中存在不相关的文件夹和文件，这将加快搜索速度。
 

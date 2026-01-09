@@ -21,11 +21,7 @@
 - Tests: Time spent for actually running the test cases.
 - Environment: Time spent for setting up the test [`environment`](/config/#environment), for example JSDOM.
 
-<<<<<<< HEAD
 ## 测试运行器 {#test-runner}
-=======
-## Test Runner
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 当测试执行时间较长的时候，可以生成测试运行器的性能分析报告。可以参考 NodeJS 文档来了解和使用这些选项：
 
@@ -60,11 +56,7 @@ export default defineConfig({
 
 也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling) 。
 
-<<<<<<< HEAD
 ## 主线程 {#main-thread}
-=======
-## Main Thread
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 对主线程进行性能分析有助于调试 Vitest 的 Vite 使用情况和 [`globalSetup`](/config/#globalsetup) 文件。
 这也是 Vite 插件运行的地方。
@@ -85,11 +77,7 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 
 测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看[检查分析记录](#inspecting-profiling-records)。
 
-<<<<<<< HEAD
 ## 文件转换 {#file-transform}
-=======
-## File Transform
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 This profiling strategy is a good way to identify unnecessary transforms caused by [barrel files](https://vitejs.dev/guide/performance.html#avoid-barrel-files).
 If these logs contain files that should not be loaded when your test is run, you might have barrel files that are importing files unnecessarily.
@@ -139,11 +127,7 @@ _x_examples_profiling_test_prime-number_test_ts-1413378098.js
 _src_prime-number_ts-525172412.js
 ```
 
-<<<<<<< HEAD
 ## 代码覆盖率 {#code-coverage}
-=======
-## Code Coverage
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 如果你的项目中代码覆盖率生成较慢，您可以使用 `DEBUG=vitest:coverage` 环境变量来启用性能日志记录。
 
@@ -169,11 +153,7 @@ $ DEBUG=vitest:coverage vitest --run --coverage
 例如，如果你的配置意外地将大型构建压缩后的 JavaScript 文件包含在代码覆盖率中，这些文件应该会出现在日志中。
 在这种情况下，你可能需要调整 [`coverage.include`](/config/#coverage-include) 和 [`coverage.exclude`](/config/#coverage-exclude) 选项。
 
-<<<<<<< HEAD
 ## 性能记录分析 {#inspecting-profiling-records}
-=======
-## Inspecting Profiling Records
->>>>>>> b2d8febfad9f50536b8e8bd01ff1bc116497f6f5
 
 可以使用各种工具检查 `*.cpuprofile` 和 `*.heapprofile` 的内容。下面是一些示例。
 
