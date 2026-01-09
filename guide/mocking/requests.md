@@ -6,7 +6,7 @@ Mock Service Worker (MSW) 通过拦截你的测试发出的请求来工作，允
 
 ## 配置 {#configuration}
 
-你可以像下面这样在你的 [setup 文件](/config/#setupfiles) 中使用它：
+你可以像下面这样在你的 [setup 文件](/config/setupfiles) 中使用它：
 
 ::: code-group
 

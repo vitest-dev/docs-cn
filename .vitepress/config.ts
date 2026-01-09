@@ -735,6 +735,10 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/environment',
               },
               {
+                text: 'Test Run Lifecycle',
+                link: '/guide/lifecycle',
+              },
+              {
                 text: '快照',
                 link: '/guide/snapshot',
               },
