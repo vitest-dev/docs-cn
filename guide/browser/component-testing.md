@@ -259,7 +259,7 @@ test('ShoppingCart manages items correctly', async () => {
 ### 测试带有数据获取的异步组件 {#testing-async-components-with-data-fetching}
 
 ```tsx
-// 选项 1：推荐 - 使用 MSW（Mock Service Worker）进行 API 模拟
+// 选项 1（推荐）：使用 MSW（Mock Service Worker）进行 API 模拟
 import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
 
