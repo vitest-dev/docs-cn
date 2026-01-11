@@ -2,7 +2,7 @@
 
 ## 模块的定义 {#defining-a-module}
 
-在模拟“模块”之前，我们应该定义它是什么。在 Vitest 上下文中，“模块”是导出某些内容的文件。使用 [插件](https://vite.dev/guide/api-plugin.html)，任何文件都可以转换为 JavaScript 模块。"模块对象"是一个命名空间对象，它保存对导出标识符的动态引用。简单来说，它是一个具有导出方法和属性的对象。在此示例中，`example.js` 是一个导出 `answer` 和 `variable` 的模块：
+在模拟一个 “模块” 之前，我们首先需要明确其定义。在 Vitest 上下文中，“模块” 是指导出某些内容的文件。通过 [Vite 插件](https://vite.dev/guide/api-plugin.html)，任何文件都可以被转为 JavaScript 模块。而 “模拟对象” 则是一个摸命名空间对象，它持有对导出标识符的动态引用。简而言之，模拟对象就是一个包含导出方法的和属性的普通对象。在以下示例中，`example.js` 就是一个导出 `answer` 和 `variable` 的模块：
 
 ```js [example.js]
 export function answer() {
@@ -42,9 +42,8 @@ import { answer, variable } from './example.js'
 ```ts
 import { vi } from 'vitest'
 
-// ./example.js 模块将被替换为
-// 工厂函数的结果，并且
-// 原始的 ./example.js 模块将永远不会被调用
+// ./example.js 模块将被替换为工厂函数的执行结果
+// 而原始的 ./example.js 模块将永远不会被调用
 vi.mock(import('./example.js'), () => {
   return {
     answer() {
@@ -334,8 +333,7 @@ vi.mock('./answer.js')
 const __vitest_module_0__ = await __handle_mock__(
   () => import('./answer.js')
 )
-// 为了保持实时绑定，我们必须通过
-// 模块命名空间来访问导出
+// 为了保持实时绑定，我们必须通过模块命名空间上的导出
 console.log(__vitest_module_0__.answer())
 ```
 :::

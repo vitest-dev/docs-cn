@@ -81,4 +81,4 @@ Mocha 对于需要最小化、灵活的测试运行器并完全控制其测试�
 
 标准的配置是采用 Vitest 执行所有单元测试和组件测试（业务逻辑、工具函数、钩子和 UI 组件测试），同时使用 Playwright 进行关键用户路径测试和跨浏览器兼容性的端到端测试。这种组合既能通过 Vitest 在开发阶段快速获得反馈，又能利用 Playwright 确保完整的应用程序在真实浏览器中正常运行。
 
-Vitest 近期推出了 [浏览器模式](/guide/browser)，支持在真实浏览器中运行测试。然而，两者存在关键架构差异：Playwright 的组件测试运行于 Node.js 进程并远程控制浏览器，而 Vitest Vitest 的浏览器模式在浏览器中原生运行测试，虽然保持了与 Vitest 测试运行器及开发者体验的一致性，但它确实有一些 [限制](/guide/browser/#limitations)。
+Vitest 近期推出了 [浏览器模式](/guide/browser/)，支持在真实浏览器中运行测试。然而，两者存在关键架构差异：Playwright 的组件测试运行于 Node.js 进程并远程控制浏览器，而 Vitest Vitest 的浏览器模式在浏览器中原生运行测试，虽然保持了与 Vitest 测试运行器及开发者体验的一致性，但它确实有一些 [限制](/guide/browser/#limitations)。
