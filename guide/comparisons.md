@@ -56,9 +56,9 @@ uvu 是运行简单测试的快速选项, 但对于更复杂的测试和项目, 
 
 ## Mocha
 
-[Mocha](https://mochajs.org) 是一个可在 Node.js 和浏览器中运行的测试框架。Mocha 是服务器端测试的热门选择。Mocha 具有高度可配置性且默认不包含某些功能。例如，它不内置断言库，因为 Node 的原生断言运行器已能满足大多数场景需求。在 Mocha 中，与 Mocha 搭配使用的流行断言库还包括 [Chai](https://www.chaijs.com)。
+[Mocha](https://mochajs.org) 是一个可在 Node.js 和浏览器中运行的测试框架。作为服务器端测试的主流选择。它具有高度可配置性，且默认不包含某些功能。例如，它不内置断言库，其设计理念是 Node 的原生断言运行器已能满足大多数场景需求。与 Mocha 搭配使用的主流断言库是 [Chai](https://www.chaijs.com)。
 
-Vitest 则开箱即用，提供了多项需要 Mocha 额外配置或引入其他库才能实现的功能，例如：
+Vitest 还针对多项功能提供了开箱即用的支持，而这些功能在 Mocha 中需要额外配置或引入其他库才能实现，例如：
 
 - 快照测试
 - TypeScript
@@ -81,4 +81,4 @@ Mocha 对于需要最小化、灵活的测试运行器并完全控制其测试�
 
 标准的配置是采用 Vitest 执行所有单元测试和组件测试（业务逻辑、工具函数、钩子和 UI 组件测试），同时使用 Playwright 进行关键用户路径测试和跨浏览器兼容性的端到端测试。这种组合既能通过 Vitest 在开发阶段快速获得反馈，又能利用 Playwright 确保完整的应用程序在真实浏览器中正常运行。
 
-Vitest 近期推出了 [浏览器模式](/api/browser)，支持在真实浏览器中运行测试。然而，两者存在关键架构差异：Playwright 的组件测试运行于 Node.js 进程并远程控制浏览器，而 Vitest Vitest 的浏览器模式在浏览器中原生运行测试，虽然保持了与 Vitest 测试运行器及开发者体验的一致性，但它确实有一些[限制](/guide/browser/#limitations)。
+Vitest 近期推出了 [浏览器模式](/guide/browser)，支持在真实浏览器中运行测试。然而，两者存在关键架构差异：Playwright 的组件测试运行于 Node.js 进程并远程控制浏览器，而 Vitest Vitest 的浏览器模式在浏览器中原生运行测试，虽然保持了与 Vitest 测试运行器及开发者体验的一致性，但它确实有一些 [限制](/guide/browser/#limitations)。
