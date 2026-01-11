@@ -24,7 +24,7 @@ Vitest 的 V8 覆盖率提供器现在使用了更精准的结果映射逻辑，
 
 然而，这导致 Vitest 覆盖率工具会处理很多意料之外的文件（例如压缩 JS 文件），造成报告生成速度很慢甚至卡死。在 Vitest v4 中，我们彻底移除了 `coverage.all`，并将默认行为改为**只在报告中包含被测试覆盖的文件**。
 
-When upgrading to v4 it is recommended to define `coverage.include` in your configuration, and then start applying simple `coverage.exclude` patterns if needed.
+升级至 v4 版本时，建议先在配置文件中定义 `coverage.include`，再根据需要逐步添加简单的 `coverage.exclude` 匹配规则。
 
 ```ts [vitest.config.ts]
 export default defineConfig({
@@ -66,13 +66,13 @@ export default defineConfig({
 
 ### 简化的 `exclude` 配置 {#simplified-exclude}
 
-默认情况下，Vitest 现在只从 `node_modules` 和 `.git` 文件夹中排除测试。这意味着 Vitest 不再排除：
+默认情况下，Vitest 现在仅排除 `node_modules` 和 `.git` 文件夹中的测试文件。这意味着 Vitest 不再排除以下内容：
 
 - `dist` 和 `cypress` 文件夹
 - `.idea`、`.cache`、`.output`、`.temp` 文件夹
 - 配置文件，如 `rollup.config.js`、`prettier.config.js`、`ava.config.js` 等
 
-如果你需要限制测试文件所在的目录，请使用 [`test.dir`](/config/dir) 选项，因为它比排除文件更高效：
+如果需要限制测试文件所在的目录，建议使用 [`test.dir`](/config/dir) 选项，因为它的性能优于排除文件：
 
 ```ts
 import { configDefaults, defineConfig } from 'vitest/config'
@@ -102,9 +102,9 @@ export default defineConfig({
 })
 ```
 
-### `spyOn` and `fn` Support Constructors
+### `spyOn` 和 `fn` 支持构造函数  {#spyon-and-fn-support-constructors}
 
-Previously, if you tried to spy on a constructor with `vi.spyOn`, you would get an error like `Constructor <name> requires 'new'`. Since Vitest 4, all mocks called with a `new` keyword construct the instance instead of calling `mock.apply`. This means that the mock implementation has to use either the `function` or the `class` keyword in these cases:
+在之前的版本中，如果尝试使用 `vi.spyOn` 监视构造函数，可能会收到类似 `Constructor <name> requires 'new'` 的错误。自 Vitest 4 起，所有通过 `new` 关键字调用的模拟会构造实例，而不是调用 `mock.apply`。这意味着在这些情况下，模拟实现必须使用 `function` 或 `class` 关键字：
 
 ```ts {12-14,16-20}
 const cart = {
@@ -135,13 +135,14 @@ const mock = new Spy()
 
 ### Mock 的变更 {#changes-to-mocking}
 
-Alongside new features like supporting constructors, Vitest 4 creates mocks differently to address several module mocking issues that we received over the years. This release attempts to make module spies less confusing, especially when working with classes.
+除了新增对构造函数的支持等功能外，Vitest 4 还对模拟的创建方式进行了调整，以解决多年来我们收到的多个模块模拟问题。此版本试图减少模块监视的混淆，尤其是在处理类时。
 
-- `vi.fn().getMockName()` now returns `vi.fn()` by default instead of `spy`. This can affect snapshots with mocks - the name will be changed from `[MockFunction spy]` to `[MockFunction]`. Spies created with `vi.spyOn` will keep using the original name by default for better debugging experience
-- `vi.restoreAllMocks` no longer resets the state of spies and only restores spies created manually with `vi.spyOn`, automocks are no longer affected by this function (this also affects the config option [`restoreMocks`](/config/#restoremocks)). Note that `.mockRestore` will still reset the mock implementation and clear the state
-- Calling `vi.spyOn` on a mock now returns the same mock
-- `mock.settledResults` are now populated immediately on function invocation with an `'incomplete'` result. When the promise is finished, the type is changed according to the result.
-- Automocked instance methods are now properly isolated, but share a state with the prototype. Overriding the prototype implementation will always affect instance methods unless the methods have a custom mock implementation of their own. Calling `.mockReset` on the mock also no longer breaks that inheritance.
+- `vi.fn().getMockName()` 现在默认返回 `vi.fn()` 而非 `spy`。这可能会影响包含模拟的快照 —— 名称将从 `[MockFunction spy]` 改为 `[MockFunction]`。通过 `vi.spyOn` 创建的监视器默认仍会使用原始名称，以提供更好的调试体验。
+- `vi.restoreAllMocks` 不再重置监视器的状态，仅恢复通过 `vi.spyOn` 手动创建的监视器，自动模拟不再受此函数影响（这也影响了配置选项 [`restoreMocks`](/config/#restoremocks)）。需注意的是，`.mockRestore` 仍会重置模拟实现并清除状态。
+- 对模拟调用 `vi.spyOn` 现在会返回相同的模拟。
+- `mock.settledResults` 现在会在函数调用时立即填充一个 `'incomplete'` 结果。当 Promise 完成时，类型会根据结果更新。
+- 自动模拟的实例方法现在已正确隔离，但仍与原型共享状态。除非实例方法有自己的自定义模拟实现，否则覆盖原型实现将始终影响实例方法。对模拟调用 `.mockReset` 也不再破坏这种继承关系。
+
 ```ts
 import { AutoMockedClass } from './example.js'
 const instance1 = new AutoMockedClass()
@@ -303,6 +304,7 @@ const { getElementError } = utils // [!code ++]
 在过渡期间，`@vitest/browser/context` 和 `@vitest/browser/utils` 都能在运行时工作，但它们将在未来的版本中移除。
 :::
 
+<!-- TODO: translation -->
 ### Pool Rework
 
 Vitest has used [`tinypool`](https://github.com/tinylibs/tinypool) for orchestrating how test files are run in the test runner workers. Tinypool has controlled how complex tasks like parallelism, isolation and IPC communication works internally. However we've found that Tinypool has some flaws that are slowing down development of Vitest. In Vitest v4 we've completely removed Tinypool and rewritten how pools work without new dependencies. Read more about reasoning from [feat!: rewrite pools without tinypool #8705
@@ -403,6 +405,7 @@ export default defineConfig({
 
 See [Recipes](/guide/recipes) for more examples.
 
+<!-- TODO: translation -->
 ### Reporter Updates
 
 Reporter APIs `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` and `onFinished` were removed. See [`Reporters API`](/api/advanced/reporters) for new alternatives. The new APIs were introduced in Vitest `v3.0.0`.
@@ -559,6 +562,7 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 ```
 
 ### 环境变量 {#envs}
+<!-- TODO: translation -->
 
 Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxWorkers`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxWorkers`, and will increase with each created worker.
 
