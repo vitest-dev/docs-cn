@@ -1,11 +1,11 @@
 ---
-title: Browser Mode | Guide
+title: 浏览器模式 | 指南
 outline: deep
 ---
 
 # 浏览器模式 {#browser-mode}
 
-本页面提供了关于 Vitest API 中浏览器模式功能的信息，该功能允许你在浏览器中原生运行测试，提供对浏览器全局变量（如 window 和 document）的访问。
+本章介绍 Vitest API 中浏览器模式功能，该功能允许你在浏览器中运行测试，从而可直接访问 window 和 document 等浏览器全局对象。
 
 ::: tip
 如果你需要 `expect` 、`vi` ，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
@@ -35,9 +35,9 @@ bunx vitest init browser
 
 ### 手动安装 {#manual-installation}
 
-你也可以手动安装包。Vitest 始终需要定义一个提供程序。你可以选择 [`preview`](/config/browser/preview)、[`playwright`](/config/browser/playwright) 或 [`webdriverio`](/config/browser/webdriverio)。
+你也可以手动安装依赖包。Vitest 明确要求定义一个 provider。你可以选择 [`preview`](/config/browser/preview)、[`playwright`](/config/browser/playwright) 或 [`webdriverio`](/config/browser/webdriverio)。
 
-如果你只想预览测试的外观，可以使用 `preview` 提供程序：
+如果你仅需预览测试运行效果，可以使用 `preview` 提供程序：
 
 ::: code-group
 ```bash [npm]
@@ -57,7 +57,7 @@ bun add -D vitest @vitest/browser-preview
 ::: warning
 不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 
-如果你还没有使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，这使你的测试运行得更快。
+如果你还没有使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，可显著提升测试速度。
 
 ::: tabs key:provider
 == Playwright
