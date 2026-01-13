@@ -1,8 +1,9 @@
 ---
-title: 浏览器配置参考 | 配置
+title: 浏览器配置 | 配置
 outline: deep
 ---
-# 浏览器配置参考 {#browser-config-reference}
+
+# 浏览器配置 {#browser-config-reference}
 
 我们可以通过更新 [配置文件](/config/) 中的 `test.browser` 字段来更改浏览器配置。一个简单的配置文件示例如下：
 
@@ -26,7 +27,7 @@ export default defineConfig({
 })
 ```
 
-请参阅 ["配置参考"](/config/) 文章以获取不同的配置示例。
+请参阅 [“配置文件”](/config/) 文章以获取不同的配置示例。
 
 ::: warning
 此页面上列出的 _所有选项_ 都位于配置中的 `test` 属性内：
@@ -53,9 +54,9 @@ export default defineConfig({
 - **类型:** `BrowserConfig`
 - **默认值:** `[]`
 
-定义多个浏览器设置。每个配置必须至少有一个 `browser` 字段。
+定义多个浏览器实例。每个配置必须至少有一个 `browser` 字段。
 
-你可以指定大多数 [项目选项](/config/)（未标记 <CRoot /> 图标的）和一些 `browser` 选项，如 `browser.testerHtmlPath`。
+你可以指定大多数 [项目选项](/config/)（未标记 <CRoot /> 图标的）和一些 `browser` 配置项，如 `browser.testerHtmlPath`。
 
 ::: warning
 每个浏览器配置都从根配置继承选项：
@@ -490,9 +491,9 @@ resolveDiffPath: ({ arg, attachmentsDir, browserName, ext, root, testFileName })
 
 - **类型:** `Record<string, Comparator>`
 
-注册自定义截图比较算法，如 [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) 或其他感知相似度指标。
+注册自定义屏幕截图比较算法，例如 [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) 或其他感知相似度指标。
 
-要创建自定义比较器，你需要在配置中注册它。如果使用 TypeScript，请在 `ScreenshotComparatorRegistry` 接口中声明其选项。
+要创建自定义比较器，你需要在配置文件中进行注册。如果使用 TypeScript，请将其选项声明在 `ScreenshotComparatorRegistry` 接口中。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -507,7 +508,7 @@ declare module 'vitest/browser' {
   }
 }
 
-// 2. 实现比较器
+// 2. 实现比较器函数
 export default defineConfig({
   test: {
     browser: {
@@ -523,7 +524,7 @@ export default defineConfig({
                 ignoreColors = false,
               }
             ) => {
-              // ...算法实现
+              // 算法实现...
               return { pass, diff, message }
             },
           },
@@ -546,7 +547,7 @@ await expect(locator).toMatchScreenshot({
 })
 ```
 
-**Comparator Function Signature:**
+**比较器函数签名：**
 
 ```ts
 type Comparator<Options> = (
@@ -572,15 +573,15 @@ type Comparator<Options> = (
 }
 ```
 
-`reference` 和 `actual` 图像使用适当的编解码器（目前仅支持 PNG）进行解码。`data` 属性是一个扁平的 `TypedArray`（`Buffer`、`Uint8Array` 或 `Uint8ClampedArray`），包含 RGBA 格式的像素数据：
+`reference` 和 `actual` 图像使用对应的编解码器（目前仅支持 PNG）进行解码。`data` 属性是一个扁平的 `TypedArray`（`Buffer`、`Uint8Array` 或 `Uint8ClampedArray`），包含 RGBA 格式的像素数据：
 
-- **每像素 4 字节**：红色、绿色、蓝色、alpha（每个从 `0` 到 `255`）
-- **行主序**：像素从左到右、从上到下存储
+- **每像素 4 字节**：红色、绿色、蓝色、alpha 通道（每个从 `0` 到 `255`）
+- **行主序**：像素按从左到右、从上到下的顺序存储
 - **总长度**：`width × height × 4` 字节
 - **Alpha 通道**：始终存在。没有透明度的图像的 alpha 值设置为 `255`（完全不透明）
 
 ::: tip 性能考虑
-`createDiff` 选项指示是否需要差异图像。在 [稳定截图检测](/guide/browser/visual-regression-testing#how-visual-tests-work) 期间，Vitest 使用 `createDiff: false` 调用比较器以避免不必要的工作。
+`createDiff` 选项指示是否需要差异图像。在 [稳定截图检测](/guide/browser/visual-regression-testing#how-visual-tests-work) 期间，Vitest 会调用比较器并设置 `createDiff: false` 以避免不必要的工作。
 
 **尊重此标志以保持测试快速**。
 :::
@@ -594,7 +595,7 @@ myCustomComparator: (
   actual,
   { createDiff, threshold = 0.1, maxDiff = 100 },
 ) => {
-  // ...比较逻辑
+  // 比较逻辑...
 }
 ```
 :::
