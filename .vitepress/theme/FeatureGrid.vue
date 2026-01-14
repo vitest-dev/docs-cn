@@ -42,7 +42,7 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
     <div class="flex flex-col gap-3 justify-between">
       <div class="p-5 sm:p-10 flex flex-col gap-3">
         <h5 class="text-white">
-          智能且即时的监视模式
+          智能且即时的 watch 模式
         </h5>
         <p class="max-w-[23rem] text-pretty">
           只重新运行相关的更改，就像测试的热模块重载一样！
@@ -60,7 +60,7 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
         <p class="max-w-[25rem] text-pretty">
           内置 ESM、TypeScript 和 JSX 支持，由
           <code class="mx-1 outline-none bg-nickel/50 text-aqua">Oxc</code>
-          提供动力。
+          驱动。
         </p>
       </div>
       <RiveAnimation
