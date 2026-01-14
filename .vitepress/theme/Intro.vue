@@ -18,7 +18,7 @@
           <a href="https://vite.dev" target="_blank">
             <code class="mr-1 outline-none bg-nickel/50 text-vite">Vite</code>
           </a>
-          应用测试变得轻而易举。Vitest 基于 Vite 构建，原生支持 Vite 配置，并复用相同的解析和管道转换。
+          应用测试变得轻而易举。Vitest 基于 Vite 构建，原生支持 Vite 配置，并复用相同的解析和转换。
         </p>
         <p class="text-pretty">
           即使不使用 Vite，也同样可以使用 Vitest。它兼容 Jest，也同样适用于后端代码。
