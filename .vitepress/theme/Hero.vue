@@ -7,17 +7,17 @@
           <img src="@assets/logos/voidzero-light.svg" alt="VoidZero" class="h-2.5">
         </a>
         <h1 class="text-white text-pretty">
-          Next Generation Testing Framework
+          下一代测试框架
         </h1>
         <p class="text-white/70 text-lg max-w-[25rem] text-pretty">
-          A Vite-native testing framework. It's fast!
+          一个原生支持 Vite 的测试框架。非常快速！
         </p>
         <div class="flex items-center gap-5 mt-8">
           <a href="/guide/" class="button button--primary inline-block w-fit">
-            <span>Get Started</span>
+            <span>快速开始</span>
           </a>
           <a href="https://github.com/vitest-dev/vitest" target="_blank" rel="noopener noreferrer" class="button inline-block w-fit">
-            View on GitHub
+            查看源码
           </a>
         </div>
       </div>

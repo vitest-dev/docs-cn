@@ -7,13 +7,6 @@
 ```ts
 const specification = project.createSpecification(
   resolve('./example.test.ts'),
-<<<<<<< HEAD
-  [20, 40], // 可选测试行
-)
-```
-
-`createSpecification` 期望一个已解析的模块 ID。它不会自动解析文件或检查文件是否存在于文件系统中。
-=======
   {
     testLines: [20, 40],
     testNamePattern: /hello world/,
@@ -22,8 +15,7 @@ const specification = project.createSpecification(
 )
 ```
 
-`createSpecification` expects resolved module identifier. It doesn't auto-resolve the file or check that it exists on the file system.
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
+`createSpecification` 期望一个已解析的模块 ID。它不会自动解析文件或检查文件是否存在于文件系统中。
 
 ## taskId
 
@@ -51,12 +43,10 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 测试模块将运行的 [`pool`](/config/#pool)。
 
+<!-- TODO: translation -->
+
 ::: danger
-<<<<<<< HEAD
-通过 [`poolMatchGlob`](/config/#poolmatchglob) 和 [`typecheck.enabled`](/config/#typecheck-enabled)，单个测试项目中可以有多个池。这意味着可以有多个规范具有相同的 `moduleId` 但不同的 `pool`。在 Vitest 4 中，项目将仅支持单个池，此属性将被移除。
-=======
 It's possible to have multiple pools in a single test project with [`typecheck.enabled`](/config/#typecheck-enabled). This means it's possible to have several specifications with the same `moduleId` but different `pool`. In later versions, the project will only support a single pool.
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
 :::
 
 ## testLines

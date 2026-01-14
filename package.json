@@ -1,7 +1,7 @@
 {
   "name": "docs-cn",
   "type": "module",
-  "version": "4.0.16",
+  "version": "4.0.17",
   "private": true,
   "packageManager": "pnpm@9.7.1",
   "scripts": {
@@ -22,10 +22,9 @@
     "vue": "^3.5.26"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@antfu/eslint-config": "^6.7.3",
     "@antfu/ni": "^28.1.0",
-    "@iconify-json/carbon": "^1.2.15",
+    "@iconify-json/carbon": "^1.2.16",
     "@iconify-json/logos": "^1.2.10",
     "@shikijs/transformers": "^3.21.0",
     "@shikijs/vitepress-twoslash": "^3.21.0",
@@ -35,18 +34,8 @@
     "@vite-pwa/vitepress": "^1.1.0",
     "@vitejs/plugin-vue": "^6.0.3",
     "eslint": "^9.39.2",
-=======
-    "@iconify-json/carbon": "catalog:",
-    "@iconify-json/logos": "catalog:",
-    "@iconify/vue": "catalog:",
-    "@shikijs/transformers": "^3.21.0",
-    "@shikijs/vitepress-twoslash": "^3.21.0",
-    "@unocss/reset": "catalog:",
-    "@vite-pwa/assets-generator": "^1.0.2",
-    "@vite-pwa/vitepress": "^1.1.0",
-    "@vitejs/plugin-vue": "catalog:",
+    "@iconify/vue": "^5.0.0",
     "@voidzero-dev/vitepress-theme": "^4.0.4",
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
     "https-localhost": "^4.7.1",
     "lint-staged": "^16.2.7",
     "pathe": "^2.0.3",
@@ -60,7 +49,7 @@
     "vitepress-plugin-group-icons": "^1.6.5",
     "vitepress-plugin-llms": "^1.10.0",
     "vitepress-plugin-tabs": "^0.7.3",
-    "vitest": "^4.0.16",
+    "vitest": "^4.0.17",
     "workbox-window": "^7.4.0"
   },
   "simple-git-hooks": {

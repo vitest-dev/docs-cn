@@ -1,6 +1,7 @@
 import { transformerNotationWordHighlight } from '@shikijs/transformers'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { withPwa } from '@vite-pwa/vitepress'
+import { extendConfig } from '@voidzero-dev/vitepress-theme/config'
 import { defineConfig } from 'vitepress'
 import {
   groupIconMdPlugin,
@@ -26,7 +27,6 @@ import {
 } from './meta'
 import { pwa } from './scripts/pwa'
 import { transformHead } from './scripts/transformHead'
-import { extendConfig } from '@voidzero-dev/vitepress-theme/config'
 
 export default ({ mode }: { mode: string }) => {
   return withPwa(extendConfig(defineConfig({
@@ -170,11 +170,11 @@ export default ({ mode }: { mode: string }) => {
           {
             title: 'Versions',
             items: [
-              { text: 'Unreleased Docs', link: 'https://main.vitest.dev/' },
-              { text: 'Vitest v3 Docs', link: 'https://v3.vitest.dev/' },
-              { text: 'Vitest v2 Docs', link: 'https://v2.vitest.dev/' },
-              { text: 'Vitest v1 Docs', link: 'https://v1.vitest.dev/' },
-              { text: 'Vitest v0 Docs', link: 'https://v0.vitest.dev/' },
+              { text: '未发布', link: 'https://main.vitest.dev/' },
+              { text: 'Vitest v3 文档', link: 'https://v3.cn.vitest.dev/' },
+              { text: 'Vitest v2 文档', link: 'https://v2.vitest.dev/' },
+              { text: 'Vitest v1 文档', link: 'https://v1.vitest.dev/' },
+              { text: 'Vitest v0 文档', link: 'https://v0.vitest.dev/' },
             ],
           },
           /* {
@@ -233,24 +233,19 @@ export default ({ mode }: { mode: string }) => {
                 },
                 {
                   text: 'v3.x',
-                  link: 'https://v3.vitest.dev/',
+                  link: 'https://v3.cn.vitest.dev/',
                 },
                 {
                   text: 'v2.x',
                   link: 'https://v2.vitest.dev/',
                 },
                 {
-<<<<<<< HEAD
-                  text: 'v3.x',
-                  link: 'https://v3.cn.vitest.dev/',
-=======
                   text: 'v1.x',
                   link: 'https://v1.vitest.dev/',
                 },
                 {
                   text: 'v0.x',
                   link: 'https://v0.vitest.dev/',
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
                 },
               ],
             },

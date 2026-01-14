@@ -10,13 +10,8 @@ import {
   VPTeamPageTitle,
   VPTeamPageSection,
   VPTeamMembers
-<<<<<<< HEAD
-} from 'vitepress/theme'
-import { teamMembers, teamEmeritiMembers, translationTeamMembers } from './.vitepress/contributors'
-=======
 } from '@voidzero-dev/vitepress-theme'
 import { teamMembers, teamEmeritiMembers } from './.vitepress/contributors'
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
 </script>
 
 <VPTeamPage>

@@ -3,23 +3,7 @@ import ListItem from './ListItem.vue'
 </script>
 
 <template>
-<<<<<<< HEAD
-  <ul class="features-list" dir="auto" flex="~ col gap2 md:gap-3">
-=======
-  <ul
-    class="features-list"
-    dir="auto"
-  >
-    <ListItem><a target="_blank" href="https://vitejs.dev" rel="noopener noreferrer">Vite</a>'s config, transformers, resolvers, and plugins</ListItem>
-    <ListItem>Use the same setup from your app to run the tests!</ListItem>
-    <ListItem>Smart & instant watch mode, like HMR for tests!</ListItem>
-    <ListItem>Component testing for Vue, React, Svelte, Lit, Marko and more</ListItem>
-    <ListItem>Out-of-the-box TypeScript / JSX support</ListItem>
-    <ListItem>ESM first, top level await</ListItem>
-    <ListItem>Benchmarking support with <a target="_blank" href="https://github.com/tinylibs/tinybench" rel="noopener noreferrer">Tinybench</a></ListItem>
-    <ListItem>Filtering, timeouts, concurrent for suite and tests</ListItem>
-    <ListItem><a href="/guide/projects">Projects</a> support</ListItem>
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
+  <ul class="features-list" dir="auto">
     <ListItem>
       与
       <a target="_blank" href="https://vitejs.dev" rel="noopener noreferrer">Vite</a>

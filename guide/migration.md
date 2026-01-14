@@ -631,10 +631,9 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 否则快照中会出现大量转义的 `"` 字符。
-=======
-Otherwise your snapshots will have a lot of escaped `"` characters.
+
+<!-- TODO: translation -->
 
 ## Migrating from Mocha + Chai + Sinon {#mocha-chai-sinon}
 
@@ -814,4 +813,3 @@ For more information, see:
 - [Chai-Style Spy Assertions](/api/expect#chai-style-spy-assertions)
 - [Mocking Guide](/guide/mocking)
 - [Vi API](/api/vi)
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122

@@ -4,12 +4,13 @@
       <div class="flex flex-col gap-3 max-w-md">
         <div class="flex gap-3 items-center">
           <img src="@assets/icons/vitest-light.svg" alt="Vitest icon" class="size-5">
-          <span class="text-grey text-xs font-medium font-mono uppercase tracking-wide">Why Vitest</span>
+          <span class="text-grey text-xs font-medium font-mono uppercase tracking-wide">为什么是 Vitest？</span>
         </div>
         <h3 class="text-white max-w-xl text-balance">
-          The Vite Native Test Runner
+          <span>Vite 原生</span>
+          <span>测试运行器</span>
         </h3>
-        <a href="/guide/why" target="_blank" class="button w-fit mt-8 hidden lg:block">Learn more</a>
+        <a href="/guide/why" target="_blank" class="button w-fit mt-8 hidden lg:block">了解更多</a>
       </div>
       <div class="lg:max-w-lg">
         <p class="text-pretty mb-5">
@@ -21,10 +22,11 @@
           transform pipelines.
         </p>
         <p class="text-pretty">
+          即使不使用 Vite，同样也可以使用 Vitest。
           You can also use Vitest even if you are not using Vite. It is Jest-comptible
           and works for backend code too.
         </p>
-        <a href="/guide/why" target="_blank" class="button w-fit mt-8 block lg:hidden">Learn more</a>
+        <a href="/guide/why" target="_blank" class="button w-fit mt-8 block lg:hidden">了解更多</a>
       </div>
     </div>
   </div>

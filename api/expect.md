@@ -6,11 +6,9 @@
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
-<<<<<<< HEAD
-`expect` 用于创建断言。在此上下文中，`断言` 是可以被调用来验证一个语句的函数。Vitest 默认提供 `chai` 断言，并且还提供了基于 `chai` 构建的与 `Jest` 兼容的断言。与 `Jest` 不同的是，Vitest 支持将消息作为第二个参数——如果断言失败，错误信息将等于该消息。
-=======
+<!-- TODO: translation reference history -->
+
 `expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions built on top of `chai`. Since Vitest 4.1, for spy/mock testing, Vitest also provides [Chai-style assertions](#chai-style-spy-assertions) (e.g., `expect(spy).to.have.been.called()`) alongside Jest-style assertions (e.g., `expect(spy).toHaveBeenCalled()`). Unlike `Jest`, Vitest supports a message as the second argument - if the assertion fails, the error message will be equal to it.
->>>>>>> bc4f029f46abb198f1cfffc663b28b434cc02122
 
 ```ts
 export interface ExpectStatic extends Chai.ExpectStatic, AsymmetricMatchersContaining {
