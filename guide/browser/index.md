@@ -390,6 +390,7 @@ test('properly handles form inputs', async () => {
 - [`vitest-browser-vue`](https://github.com/vitest-dev/vitest-browser-vue) 渲染 [vue](https://vuejs.org) 组件
 - [`vitest-browser-svelte`](https://github.com/vitest-dev/vitest-browser-svelte) 渲染 [svelte](https://svelte.dev) 组件
 - [`vitest-browser-react`](https://github.com/vitest-dev/vitest-browser-react) 渲染 [react](https://react.dev) 组件
+- [`vitest-browser-angular`](https://github.com/vitest-community/vitest-browser-angular) 渲染 [Angular](https://angular.dev) 组件
 
 其他框架也有社区提供的软件包：
 

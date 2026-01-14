@@ -44,7 +44,7 @@ test('test', () => {
 你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
 
 ```ts
-import type { Environment } from 'vitest/environments'
+import type { Environment } from 'vitest/runtime'
 
 export default <Environment>{
   name: 'custom',
@@ -77,10 +77,10 @@ export default <Environment>{
 Vitest 要求环境对象显式提供 `viteEnvironment` 字段（若省略则取 Vitest 环境名）。该字段必须设为 `ssr`、`client` 或任意自定义 [Vite 环境](https://cn.vite.dev/guide/api-environment) 名称，用于指定处理测试文件的目标环境。
 :::
 
-你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：
+你还可以通过 `vitest/runtime` 访问默认的 Vitest 环境：
 
 ```ts
-import { builtinEnvironments, populateGlobal } from 'vitest/environments'
+import { builtinEnvironments, populateGlobal } from 'vitest/runtime'
 
 console.log(builtinEnvironments) // { jsdom, happy-dom, node, edge-runtime }
 ```

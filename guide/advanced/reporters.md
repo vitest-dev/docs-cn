@@ -11,7 +11,7 @@
 一般来说，我们不需要从头开始创建报告器。`vitest` 附带了几个可以扩展的默认报告程序。
 
 ```ts
-import { DefaultReporter } from 'vitest/reporters'
+import { DefaultReporter } from 'vitest/node'
 
 export default class MyDefaultReporter extends DefaultReporter {
   // 在此实现自定义功能
@@ -23,7 +23,7 @@ export default class MyDefaultReporter extends DefaultReporter {
 这是自定义报告器的示例：
 
 ```ts [custom-reporter.js]
-import { BaseReporter } from 'vitest/reporters'
+import { BaseReporter } from 'vitest/node'
 
 export default class CustomReporter extends BaseReporter {
   onTestModuleCollected() {

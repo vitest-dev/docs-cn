@@ -32,7 +32,7 @@ Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告�
 本指南列出了所有支持的报告器方法。不过，别忘了，与其创建自己的 报告器 ，我们可以 [扩展现有的报告器](/guide/advanced/reporters)：
 
 ```ts [custom-reporter.js]
-import { BaseReporter } from 'vitest/reporters'
+import { BaseReporter } from 'vitest/node'
 
 export default class CustomReporter extends BaseReporter {
   onTestRunEnd(testModules, errors) {

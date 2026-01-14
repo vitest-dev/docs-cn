@@ -120,6 +120,23 @@ describe('another suite', () => {
 })
 ```
 
+运行 Vitest 时指定文件过滤器和行号：
+
+```shell
+vitest ./test/example.test.ts:5
+```
+
+```ts:line-numbers
+import { assert, describe, it } from 'vitest'
+
+describe('suite', () => {
+  // 仅运行此测试
+  it('test', () => {
+    assert.equal(Math.sqrt(4), 3)
+  })
+})
+```
+
 ## 未实现的测试套件和测试 {#unimplemented-suites-and-tests}
 
 使用 `.todo` 留存将要实施的测试套件和测试的待办事项

@@ -190,7 +190,7 @@ export default defineConfig({
 })
 ```
 
-### 自定义提供者 <Badge type="danger">高级</Badge>
+### 自定义提供者 <Badge type="danger">高级</Badge> {#custom-provider-advanced}
 
 ::: danger ADVANCED API
 自定义提供者 API 高度实验性，并且可能在补丁版本之间发生变化。如果你只需要在浏览器中运行测试，请改用 [`browser.instances`](#browser-instances) 选项。
