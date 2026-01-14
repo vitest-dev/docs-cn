@@ -15,7 +15,7 @@
 <h1 align="center">
 Vitest
 </h1>
-<p align="center">由 oxc 驱动的下一代测试框架</p>
+<p align="center">由 Vite 驱动的下一代测试框架</p>
 
 <p align="center">
   <a href="https://cn.vitest.dev">中文文档</a> ｜ <a href="https://vitest.dev">英文文档</a>
