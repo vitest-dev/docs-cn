@@ -15,16 +15,20 @@ import Intro from './Intro.vue'
   <!-- 'some-company' requires public/trusted-by/some-company.svg -->
   <!-- <TrustedBy :logos="['some-company']" /> -->
   <Intro />
-  <HeadingSection heading="Fast. Lightweight. Integrated." />
+  <HeadingSection heading="快速 · 轻量 · 深度集成" />
   <VitestFeatureGrid />
   <Sponsors
-    description="Vitest is free and open source, made possible by wonderful sponsors."
-    sponsor-link="https://github.com/sponsors/vitest-dev" :sponsors="sponsors"
+    heading="免费 & 开源"
+    description="Vitest 是免费开源项目，这得益于出色的赞助商们鼎力支持。"
+    sponsor-link="https://github.com/sponsors/vitest-dev"
+    sponsor-link-text="成为赞助商"
+    :sponsors="sponsors"
   />
   <Spacer />
   <Footer
-    heading="Start testing with Vitest"
-    subheading="Supercharge your tests with unparalleled performance made for the modern web" button-text="Get started"
+    heading="开始使用 Vitest 进行测试"
+    subheading="为现代 Web 应用提供超凡性能的测试加速方案"
+    button-text="快速起步"
     button-link="/guide/"
   />
 </template>

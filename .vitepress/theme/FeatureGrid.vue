@@ -9,13 +9,12 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
     <div class="flex flex-col gap-3">
       <div class="p-5 sm:p-10 pb-0 sm:pb-0 flex flex-col gap-3">
         <h5 class="text-balance sm:text-pretty text-white">
-          Vite Powered
+          基于 Vite 驱动
         </h5>
         <p class="sm:max-w-[30rem] text-pretty">
-          Reuse <code
+          可以复用 <code
             class="mr-1 outline-none bg-nickel/50 text-vite"
-          >Vite</code>'s config and plugins - consistent across your app and tests.
-          But it's not required to use Vitest!
+          >Vite</code> 的配置和插件，使得应用和测试保持一致。但是使用 Vitest 并不需要使用 Vite！
         </p>
       </div>
       <RiveAnimation
@@ -28,13 +27,12 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
     <div class="flex flex-col gap-3 border-r-0 justify-between">
       <div class="p-5 sm:p-10 pb-0 sm:pb-0 flex flex-col gap-3">
         <h5 class="text-white">
-          Jest Compatible
+          与 Jest 兼容
         </h5>
         <p class="max-w-[28rem] text-pretty">
-          Expect, snapshot, coverage, and more - migrating from <code
-            class="mr-1 outline-none bg-nickel/50 text-zest"
-          >Jest</code> is
-          straightforward.
+          支持 Expect 断言、快照测试、覆盖率等功能，从
+          <code class="mr-1 outline-none bg-nickel/50 text-zest">Jest</code>
+          迁移过来非常简单。
         </p>
       </div>
       <div class="flex-1 flex items-center justify-center p-5 sm:p-10">
@@ -44,10 +42,10 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
     <div class="flex flex-col gap-3 justify-between">
       <div class="p-5 sm:p-10 flex flex-col gap-3">
         <h5 class="text-white">
-          Smart & instant watch mode
+          智能且即时的监视模式
         </h5>
         <p class="max-w-[23rem] text-pretty">
-          Only rerun the related changes, just like HMR for tests!
+          只重新运行相关的更改，就像测试的热模块重载一样！
         </p>
       </div>
       <div class="card-bg px-5 sm:px-10 pt-5 sm:pt-10 flex justify-center">
@@ -57,10 +55,12 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
     <div class="flex flex-col gap-3 justify-between">
       <div class="p-5 sm:p-10 pb-0 sm:pb-0 flex flex-col gap-3">
         <h5 class="text-white">
-          ESM, TypeScript, JSX
+          ESM、TypeScript、JSX 支持
         </h5>
         <p class="max-w-[25rem] text-pretty">
-          Out-of-box ESM, TypeScript and JSX support powered by <code class="mx-1 outline-none bg-nickel/50 text-aqua">Oxc</code>.
+          内置 ESM、TypeScript 和 JSX 支持，由
+          <code class="mx-1 outline-none bg-nickel/50 text-aqua">Oxc</code>
+          提供动力。
         </p>
       </div>
       <RiveAnimation
@@ -72,7 +72,7 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
     </div>
   </section>
   <section class="wrapper border-t py-10 flex items-center justify-center">
-    <a href="/guide/features" class="button">See full features list</a>
+    <a href="/guide/features" class="button">查看全部功能列表</a>
   </section>
 </template>
 

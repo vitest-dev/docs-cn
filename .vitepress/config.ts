@@ -154,21 +154,21 @@ export default ({ mode }: { mode: string }) => {
           {
             title: 'Vitest',
             items: [
-              { text: 'Guides', link: '/guide/' },
+              { text: '指南', link: '/guide/' },
               { text: 'API', link: '/api/' },
-              { text: 'Config', link: '/config/' },
+              { text: '配置', link: '/config/' },
             ],
           },
           {
-            title: 'Resources',
+            title: '资源',
             items: [
-              { text: 'Team', link: '/team' },
-              { text: 'Blog', link: '/blog' },
-              { text: 'Releases', link: releases },
+              { text: '团队', link: '/team' },
+              { text: '博客', link: '/blog' },
+              { text: '更新日志', link: releases },
             ],
           },
           {
-            title: 'Versions',
+            title: '版本',
             items: [
               { text: '未发布', link: 'https://main.vitest.dev/' },
               { text: 'Vitest v3 文档', link: 'https://v3.cn.vitest.dev/' },
