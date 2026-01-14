@@ -3,3 +3,9 @@
     实验性
   </Badge>
 </template>
+
+<style scoped>
+.experimental-badge {
+  cursor: help;
+}
+</style>

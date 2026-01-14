@@ -170,11 +170,11 @@ axios.get(`/apples/${increment(1)}`)
 function doMock(
   path: string,
   factory?: MockOptions | MockFactory<unknown>
-): void
+): Disposable
 function doMock<T>(
   module: Promise<T>,
   factory?: MockOptions | MockFactory<T>
-): void
+): Disposable
 ```
 
 与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [动态导入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
@@ -221,6 +221,24 @@ test('importing the next module imports mocked one', async () => {
   expect(mockedIncrement(1)).toBe(103)
 })
 ```
+
+::: tip
+In environments that support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management), you can use `using` on the value returned from `vi.doMock()` to automatically call [`vi.doUnmock()`](#vi-dounmock) on the mocked module when the containing block is exited. This is especially useful when mocking a dynamically imported module for a single test case.
+
+```ts
+it('uses a mocked version of my-module', () => {
+  using _mockDisposable = vi.doMock('my-module')
+
+  const myModule = await import('my-module') // mocked
+
+  // my-module is restored here
+})
+
+it('uses the normal version of my-module again', () => {
+  const myModule = await import('my-module') // not mocked
+})
+```
+:::
 
 ### vi.mocked
 
@@ -1037,6 +1055,46 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })` 。
 :::
+
+### vi.setTimerTickMode <Version>4.1.0</Version> {#vi-settimertickmode}
+
+- **Type:** `(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
+
+Controls how fake timers are advanced.
+
+- `manual`: The default behavior. Timers will only advance when you call one of `vi.advanceTimers...()` methods.
+- `nextTimerAsync`: Timers will be advanced automatically to the next available timer after each macrotask.
+- `interval`: Timers are advanced automatically by a specified interval.
+
+When `mode` is `'interval'`, you can also provide an `interval` in milliseconds.
+
+**Example:**
+
+```ts
+import { vi } from 'vitest'
+
+vi.useFakeTimers()
+
+// Manual mode (default)
+vi.setTimerTickMode({ mode: 'manual' })
+
+let i = 0
+setInterval(() => console.log(++i), 50)
+
+vi.advanceTimersByTime(150) // logs 1, 2, 3
+
+// nextTimerAsync mode
+vi.setTimerTickMode({ mode: 'nextTimerAsync' })
+
+// Timers will advance automatically after each macrotask
+await new Promise(resolve => setTimeout(resolve, 150)) // logs 4, 5, 6
+
+// interval mode (default when 'fakeTimers.shouldAdvanceTime' is `true`)
+vi.setTimerTickMode({ mode: 'interval', interval: 50 })
+
+// Timers will advance automatically every 50ms
+await new Promise(resolve => setTimeout(resolve, 150)) // logs 7, 8, 9
+```
 
 ### vi.isFakeTimers {#vi-isfaketimers}
 

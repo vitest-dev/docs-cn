@@ -3,7 +3,7 @@ import ListItem from './ListItem.vue'
 </script>
 
 <template>
-  <ul class="features-list" dir="auto" flex="~ col gap2 md:gap-3">
+  <ul class="features-list" dir="auto">
     <ListItem>
       与
       <a target="_blank" href="https://vitejs.dev" rel="noopener noreferrer">Vite</a>
@@ -77,5 +77,8 @@ import ListItem from './ListItem.vue'
 
 .features-list {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>
