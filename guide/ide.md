@@ -2,12 +2,21 @@
 title: IDE 插件 | 指南
 ---
 
+<<<<<<< HEAD
 # IDE 插件 {#ide-integrations}
+=======
+<script setup>
+import { useData } from 'vitepress'
+const { isDark } = useData()
+</script>
+
+# IDE Integrations
+>>>>>>> beb9ed0234ced21cb7eff99345453a433cdc9664
 
 ## VS Code <Badge>Official</Badge> {#vs-code}
 
 <p text-center>
-<img src="https://raw.githubusercontent.com/vitest-dev/vscode/main/img/cover.png" w-60>
+<img :src="`https://raw.githubusercontent.com/vitest-dev/vscode/main/img/cover-${isDark ? 'light' : 'dark' }.png`" w-60>
 </p>
 
 [GitHub](https://github.com/vitest-dev/vscode) | [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=vitest.explorer)
@@ -19,7 +28,7 @@ title: IDE 插件 | 指南
 WebStorm、PhpStorm、IntelliJ IDEA Ultimate 和其他 JetBrains IDE 内置了对 Vitest 的支持。
 
 <p text-center>
-<img src="https://raw.githubusercontent.com/kricact/WS-info/main/banners/vitest-jb.png" w-60>
+<img :src="`/ide/vitest-jb-${isDark ? 'light' : 'dark'}.png`" w-60>
 </p>
 
 [WebStorm Help](https://www.jetbrains.com/help/webstorm/vitest.html) | [IntelliJ IDEA Ultimate Help](https://www.jetbrains.com/help/idea/vitest.html) | [PhpStorm Help](https://www.jetbrains.com/help/phpstorm/vitest.html)
@@ -33,7 +42,7 @@ WebStorm、PhpStorm、IntelliJ IDEA Ultimate 和其他 JetBrains IDE 内置了�
 [Wallaby.js](https://wallabyjs.com) 在你键入时立即运行 Vitest 测试，在代码旁边高亮显示 IDE 中的结果。
 
 <p text-left>
-<img src="https://wallabyjs.com/assets/img/vitest_cover.png" w-142 />
+  <img :src="`/ide/vitest-wallaby-${isDark ? 'light' : 'dark'}.png`" alt="Vitest + Wallaby logos" w-142>
 </p>
 
 [VS Code](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode) | [JetBrains](https://plugins.jetbrains.com/plugin/15742-wallaby) |

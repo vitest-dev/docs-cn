@@ -32,6 +32,7 @@
     "@unocss/reset": "^66.5.12",
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vite-pwa/vitepress": "^1.1.0",
+<<<<<<< HEAD
     "@vitejs/plugin-vue": "^6.0.3",
     "eslint": "^9.39.2",
     "@iconify/vue": "^5.0.0",
@@ -44,6 +45,14 @@
     "tsx": "^4.21.0",
     "unocss": "^66.5.12",
     "vite": "^7.3.1",
+=======
+    "@vitejs/plugin-vue": "catalog:",
+    "@voidzero-dev/vitepress-theme": "^4.1.1",
+    "https-localhost": "^4.7.1",
+    "tinyglobby": "catalog:",
+    "unocss": "catalog:",
+    "vite": "^6.3.5",
+>>>>>>> beb9ed0234ced21cb7eff99345453a433cdc9664
     "vite-plugin-pwa": "^1.2.0",
     "vitepress": "2.0.0-alpha.15",
     "vitepress-plugin-group-icons": "^1.6.5",
