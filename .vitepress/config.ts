@@ -125,15 +125,22 @@ export default ({ mode }: { mode: string }) => {
 
       search: {
         provider: 'local',
-        /* provider: 'algolia',
         options: {
-          appId: 'ZTF29HGJ69',
-          apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
-          indexName: 'vitest',
-          // searchParameters: {
-          //   facetFilters: ['tags:en'],
-          // },
-        }, */
+          translations: {
+            button: {
+              buttonText: '搜索',
+            },
+            modal: {
+              resetButtonTitle: '清除查询条件',
+              noResultsText: '无法找到相关结果',
+              footer: {
+                selectText: '选择',
+                navigateText: '切换',
+                closeText: '关闭',
+              },
+            },
+          },
+        },
       },
 
       carbonAds: {

@@ -2,7 +2,7 @@ import type { SponsorTier } from '@voidzero-dev/vitepress-theme/src/types/sponso
 
 export const sponsors: SponsorTier[] = [
   {
-    tier: 'Special',
+    tier: '特别赞助商',
     size: 'big',
     items: [
       {
@@ -23,7 +23,7 @@ export const sponsors: SponsorTier[] = [
     ],
   },
   {
-    tier: 'Platinum Sponsors',
+    tier: '铂金赞助商',
     size: 'big',
     items: [
       {
@@ -34,7 +34,7 @@ export const sponsors: SponsorTier[] = [
     ],
   },
   {
-    tier: 'Gold',
+    tier: '金牌赞助商',
     size: 'medium',
     items: [
       {
