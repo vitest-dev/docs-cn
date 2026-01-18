@@ -4,7 +4,7 @@ title: 扩展断言 | 指南
 
 # 扩展断言 {#extending-matchers}
 
-由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 `chai.use` API 或者 `expect.extend`。
+由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 [`chai.use`](https://www.chaijs.com/guide/plugins/) API 或者 `expect.extend`。
 
 本文将以 `expect.extend` 为例探讨扩展断言。如果你对 Chai 的 API 更感兴趣，可以查看 [他们的指南](https://www.chaijs.com/guide/plugins/)。
 
@@ -23,37 +23,24 @@ expect.extend({
 })
 ```
 
-如果你使用 TypeScript，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
+如果你使用 TypeScript，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Matchers` 接口：
 
-::: code-group
-```ts [<Version>3.2.0</Version>]
+```ts
 import 'vitest'
 
-interface CustomMatchers<R = unknown> {
-  toBeFoo: () => R
-}
-
 declare module 'vitest' {
-  interface Matchers<T = any> extends CustomMatchers<T> {}
+  interface Matchers<T = any> {
+    toBeFoo: () => R
+  }
 }
 ```
-```ts [<Version>3.0.0</Version>]
-import 'vitest'
-
-interface CustomMatchers<R = unknown> {
-  toBeFoo: () => R
-}
-
-declare module 'vitest' {
-  interface Assertion<T = any> extends CustomMatchers<T> {}
-  interface AsymmetricMatchersContaining extends CustomMatchers {}
-}
-```
-:::
 
 ::: tip
-从 Vitest 3.2 版本开始，你可以通过扩展 `Matchers` 接口，让 `expect.extend` 、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。而在此之前，你需要为这几种用法分别单独定义接口。
+导入 `vitest` 会使 TypeScript 将其视为 ES 模块文件，若无此声明则类型检查将无法生效。
 :::
+
+Extending the `Matchers` interface will add a type to `expect.extend`, `expect().*`, and `expect.*` methods at the same time.
+扩展 `Matchers` 接口，让 `expect.extend` 、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。
 
 ::: warning
 不要忘记在 `tsconfig.json` 中包含声明文件。
@@ -62,7 +49,7 @@ declare module 'vitest' {
 断言的返回值应该兼容如下接口：
 
 ```ts
-interface ExpectationResult {
+interface MatcherResult {
   pass: boolean
   message: () => string
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
@@ -86,13 +73,46 @@ await expect().toBeAsyncAssertion()
 ```
 :::
 
-断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。
+断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。其余参数将直接传递给匹配器。自 4.1 起，Vitest 提供了多个类型供自定义匹配器使用：
+
+```ts
+import type {
+  // 函数类型
+  Matcher,
+  // 返回值
+  MatcherResult,
+  // 通过 `this` 访问的状态
+  MatcherState,
+} from 'vitest'
+import { expect } from 'vitest'
+
+// 使用 "function" 关键字定义以访问 "this" 的简单匹配器
+const customMatcher: Matcher = function (received) {
+  // ...
+}
+
+// 带参数的匹配器
+const customMatcher: Matcher<MatcherState, [arg1: unknown, arg2: unknown]> = function (received, arg1, arg2) {
+  // ...
+}
+
+// 带自定义注解的匹配器
+function customMatcher(this: MatcherState, received: unknown, arg1: unknown, arg2: unknown): MatcherResult {
+  // ...
+  return {
+    pass: false,
+    message: () => 'something went wrong!',
+  }
+}
+
+expect.extend({ customMatcher })
+```
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 
 ### `isNot`
 
-如果断言是在 `not` 方法上调用的( `expect(received).not.toBeFoo()` )，则返回 true。
+如果断言是在 `not` 方法上调用的( `expect(received).not.toBeFoo()` )，则返回 true。你无需手动处理该逻辑，Vitest 会自动反转 `pass` 的值。
 
 ### `promise`
 
@@ -112,7 +132,7 @@ await expect().toBeAsyncAssertion()
 
 当前测试的全称(包括 describe 块)。
 
-### `task` <Advanced /> <Version type="experimental">4.0.11</Version> {#task}
+### `task` <Advanced /> <Version>4.1.0</Version> {#task}
 
 Contains a reference to [the `Test` runner task](/api/advanced/runner#tasks) when available.
 
@@ -123,3 +143,15 @@ When using the global `expect` with concurrent tests, `this.task` is `undefined`
 ### `testPath`
 
 当前正在执行的测试文件路径。
+
+### `environment`
+
+当前 [`environment`](/config/environment) 的名称（例如 `jsdom`）。
+
+### `soft`
+
+断言是否以 [`soft`](/api/expect#soft) 方式调用。您无需手动处理该逻辑，Vitest 始终会捕获错误。
+
+::: tip
+以上并非全部可用属性，仅列出最实用的部分。其他状态值由 Vitest 内部使用。
+:::

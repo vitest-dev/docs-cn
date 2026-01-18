@@ -219,3 +219,11 @@ describe('the validation works correctly', () => {
 :::tip
 如果元数据是在收集阶段（而非 `test` 函数内部）附加的，那么它将在 available 的 [`onTestModuleCollected`](./reporters#ontestmodulecollected) 中可用。
 :::
+
+## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
+
+```ts
+function toTestSpecification(): TestSpecification
+```
+
+Returns a new [test specification](/api/advanced/test-specification) that can be used to filter or run this specific test suite.
