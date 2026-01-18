@@ -272,7 +272,7 @@ interface TestDiagnostic {
 function annotations(): ReadonlyArray<TestAnnotation>
 ```
 
-在测试执行期间通过 [`task.annotate`](/guide/test-context#annotate) API 添加的[测试注释](/guide/test-annotations)。
+通过 [`task.annotate`](/guide/test-context#annotate) API，在测试执行过程中添加的 [测试注释](/guide/test-annotations)。
 
 ## artifacts <Version type="experimental">4.0.11</Version> <Experimental /> {#artifacts}
 
@@ -280,4 +280,4 @@ function annotations(): ReadonlyArray<TestAnnotation>
 function artifacts(): ReadonlyArray<TestArtifact>
 ```
 
-在测试执行期间通过 `recordArtifact` API 记录的[测试工件](/api/advanced/artifacts)。
+通过 `recordArtifact` API，在测试执行过程中记录的 [测试产物](/api/advanced/artifacts)。
