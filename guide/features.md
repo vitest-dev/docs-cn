@@ -39,9 +39,6 @@ $ vitest
 
 ## 多线程 {#threads}
 
-默认情况下，Vitest 使用 [`node:child_process`](https://nodejs.org/api/child_process.html) 在[多个进程](/guide/parallelism)中运行测试文件，允许测试同时运行。如果你想进一步加快测试套件的速度，可以考虑启用 `--pool=threads` 来使用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 运行测试（请注意，某些包可能无法在此设置下工作）。
-要在单个线程或进程中运行测试，请参阅 [`fileParallelism`](/config/#fileParallelism)。
-
 默认情况下，Vitest 会通过 [`node:child_process`](https://nodejs.org/api/child_process.html) 在 [多个进程](/guide/parallelism) 中运行测试文件，实现测试的并行执行。如需进一步提升测试速度，可考虑启用 `--pool=threads` 参数改用 [`node:worker_threads`](https://nodejs.org/api/worker_threads.html) 运行测试（但需注意某些依赖包可能不兼容此模式）。若需在单线程/进程中运行测试，请参阅 [`fileParallelism`](/config/#fileParallelism) 配置项。
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。

@@ -2,7 +2,7 @@
 title: 交互性 API | 浏览器模式
 ---
 
-# 交互性 API
+# 交互性 API {#interactivity-api}
 
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event/intro) 库的子集 API，而不是伪造事件，这使得浏览器行为更加可靠和一致，符合用户与页面交互的方式。
 

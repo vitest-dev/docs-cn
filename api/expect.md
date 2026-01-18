@@ -191,7 +191,7 @@ test('stocks are the same', () => {
 
 - **类型:** `(value: number, numDigits?: number) => Awaitable<void>`
 
-使用 `toBeCloseTo` 来比较浮点数。可选的 `numDigits` 参数用于限制小数点_后_要检查的位数。`numDigits` 的默认值为 2。例如：
+使用 `toBeCloseTo` 来比较浮点数。可选的 `numDigits` 参数用于限制小数点 _后_ 要检查的位数。`numDigits` 的默认值为 2。例如：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -771,7 +771,7 @@ test('invoice has john personal details', () => {
   expect(johnInvoice).toMatchObject(johnDetails)
 })
 
-test('元素数量必须完全匹配', () => {
+test('the number of elements must match exactly', () => {
   // 断言对象数组匹配
   expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
     { foo: 'bar' },

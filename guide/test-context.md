@@ -439,7 +439,7 @@ test('types are defined correctly', ({ todos, archive }) => {
 })
 ```
 
-::: info Type Inferring
+::: info 类型推断
 请注意，Vitest 不支持在调用 `use` 函数时推断类型。在调用 `test.extend` 时，最好将整个上下文类型作为泛型类型传递：
 
 ```ts

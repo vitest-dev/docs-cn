@@ -39,7 +39,7 @@ Vitest中的组件测试使用**浏览器模式**在真实浏览器环境中运�
 
 本指南专门介绍使用Vitest功能的**组件测试模式和最佳实践**。虽然许多示例使用浏览器模式（因为这是推荐的方法），但这里的重点是组件特定的测试策略，而不是浏览器配置细节。
 
-有关详细的浏览器设置、配置选项和高级浏览器功能，请参阅[浏览器模式文档](/guide/browser/)。
+有关详细的浏览器设置、配置选项和高级浏览器功能，请参阅 [浏览器模式文档](/guide/browser/)。
 
 ## 什么是好的组件测试 {#what-makes-a-good-component-test}
 
@@ -123,7 +123,7 @@ test('ProductList filters and displays products correctly', async () => {
 
 ## Testing Library 集成 {#testing-library-integration}
 
-虽然Vitest为流行的框架提供了官方包([`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue)、[`vitest-browser-react`](https://www.npmjs.com/package/vitest-browser-react)、[`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte))，但你也可以为尚未得到官方支持的框架集成[Testing Library](https://testing-library.com/)。
+虽然Vitest为流行的框架提供了官方包([`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue)、[`vitest-browser-react`](https://www.npmjs.com/package/vitest-browser-react)、[`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte))，但你也可以为尚未得到官方支持的框架集成 [Testing Library](https://testing-library.com/)。
 
 ### 何时使用 Testing Library {#when-to-use-testing-library}
 
@@ -181,7 +181,7 @@ test('Solid component handles user interaction', async () => {
 确保测试在真实浏览器环境中运行以获得最准确的测试结果。浏览器模式提供准确的CSS渲染、真实的浏览器API和正确的事件处理。
 
 ### 2. 测试用户交互 {#_2-test-user-interactions}
-使用Vitest的[交互API](/api/browser/interactivity)模拟真实用户行为。使用`page.getByRole()`和`userEvent`方法，如我们的 [高级测试模式](#advanced-testing-patterns) 所示：
+使用Vitest的 [交互API](/api/browser/interactivity) 模拟真实用户行为。使用`page.getByRole()`和`userEvent`方法，如我们的 [高级测试模式](#advanced-testing-patterns) 所示：
 
 ```tsx
 // Good: Test actual user interactions
@@ -193,7 +193,7 @@ await page.getByLabelText(/email/i).fill('user@example.com')
 ```
 
 ### 3. 测试可访问性 {#_3-test-accessibility}
-通过测试键盘导航、焦点管理和ARIA属性，确保组件对所有用户都能正常工作。请查看我们的[测试可访问性](#testing-accessibility)示例了解实用模式：
+通过测试键盘导航、焦点管理和ARIA属性，确保组件对所有用户都能正常工作。请查看我们的 [测试可访问性](#testing-accessibility) 示例了解实用模式：
 
 ```tsx
 // Test keyboard navigation
@@ -205,7 +205,7 @@ await expect.element(modal).toHaveAttribute('aria-modal', 'true')
 ```
 
 ### 4. 模拟外部依赖 {#_4-mock-external-dependencies}
-通过模拟API和外部服务，将测试重点放在组件逻辑上。这使得测试更快、更可靠。请查看我们的[隔离策略](#isolation-strategy)获取示例：
+通过模拟API和外部服务，将测试重点放在组件逻辑上。这使得测试更快、更可靠。请查看我们的 [隔离策略](#isolation-strategy) 获取示例：
 
 ```tsx
 // For API requests, we recommend using MSW (Mock Service Worker)

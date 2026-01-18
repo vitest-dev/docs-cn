@@ -94,7 +94,7 @@ export default defineConfig({
 - [`browser.screenshotFailures`](#browser-screenshotfailures)
 - [`browser.provider`](#browser-provider)
 
-在底层，Vitest 将这些实例转换为共享单个 Vite 服务器的单独[测试项目](/api/advanced/test-project)，以获得更好的缓存性能。
+在底层，Vitest 将这些实例转换为共享单个 Vite 服务器的单独 [测试项目](/api/advanced/test-project)，以获得更好的缓存性能。
 
 ## browser.headless
 
@@ -192,7 +192,7 @@ export default defineConfig({
 
 ### 自定义提供者 <Badge type="danger">高级</Badge> {#custom-provider-advanced}
 
-::: danger ADVANCED API
+::: danger 高级 API
 自定义提供者 API 高度实验性，并且可能在补丁版本之间发生变化。如果你只需要在浏览器中运行测试，请改用 [`browser.instances`](#browser-instances) 选项。
 :::
 
