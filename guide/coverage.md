@@ -353,6 +353,10 @@ export default CustomCoverageProviderModule
 你可以在忽略提示里加入 `@preserve` 关键字。
 但要小心，这些忽略提示有可能会被打包进最终的生产环境构建中。
 
+::: tip
+Follow https://github.com/vitest-dev/vitest/issues/2021 for updates about `@preserve` usage.
+:::
+
 ```diff
 -/* istanbul ignore if */
 +/* istanbul ignore if -- @preserve */
@@ -366,6 +370,30 @@ if (condition) {
 ### 示例 {#examples}
 
 ::: code-group
+
+```ts [lines: start/stop]
+/* istanbul ignore start -- @preserve */
+if (parameter) { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+else { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+/* istanbul ignore stop -- @preserve */
+
+console.log('Included')
+
+/* v8 ignore start -- @preserve */
+if (parameter) { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+else { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+/* v8 ignore stop -- @preserve */
+
+console.log('Included')
+```
 
 ```ts [if else]
 /* v8 ignore if -- @preserve */
