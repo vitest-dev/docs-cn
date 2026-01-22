@@ -470,6 +470,14 @@ export default ({ mode }: { mode: string }) => {
                 link: '/config/sequence',
               },
               {
+                text: 'tags',
+                link: '/config/tags',
+              },
+              {
+                text: 'strictTags',
+                link: '/config/stricttags',
+              },
+              {
                 text: 'typecheck',
                 link: '/config/typecheck',
               },
@@ -773,7 +781,15 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/filtering',
               },
               {
+<<<<<<< HEAD
                 text: '测试上下文',
+=======
+                text: 'Test Tags',
+                link: '/guide/test-tags',
+              },
+              {
+                text: 'Test Context',
+>>>>>>> 4a24a6d9f32c7ad524eb2a1d042d5ee52ed4312b
                 link: '/guide/test-context',
               },
               {

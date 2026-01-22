@@ -93,7 +93,29 @@ describe('suite', () => {
 })
 ```
 
+<<<<<<< HEAD
 ## 选择要运行的测试套件和测试 {#selecting-suites-and-tests-to-run}
+=======
+## Filtering Tags
+
+If your test defines a [tag](/guide/test-tags), you can filter your tests with a `--tags-filter` option:
+
+```ts
+test('renders a form', { tags: ['frontend'] }, () => {
+  // ...
+})
+
+test('calls an external API', { tags: ['backend'] }, () => {
+  // ...
+})
+```
+
+```shell
+vitest --tags-filter=frontend
+```
+
+## Selecting Suites and Tests to Run
+>>>>>>> 4a24a6d9f32c7ad524eb2a1d042d5ee52ed4312b
 
 使用 `.only` 仅运行某些测试套件或测试
 

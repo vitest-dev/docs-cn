@@ -257,7 +257,11 @@ function mocked<T>(
 
 TypeScript 的类型助手。只返回传入的对象。
 
+<<<<<<< HEAD
 当 `partial` 为 `true` 时，它将期望一个 `Partial<T>` 作为返回值。默认情况下，这只会让 TypeScript 认为第一层的值是模拟的。我们可以将 `{ deep: true }` 作为第二个参数传递给 TypeScript，告诉它整个对象都是模拟的（如果实际上是的话）。
+=======
+When `partial` is `true` it will expect a `Partial<T>` as a return value. By default, this will only make TypeScript believe that the first level values are mocked. You can pass down `{ deep: true }` as a second argument to tell TypeScript that the whole object is mocked, if it actually is. You can pass down `{ partial: true, deep: true }` to make nested objects also partial recursively.
+>>>>>>> 4a24a6d9f32c7ad524eb2a1d042d5ee52ed4312b
 
 ```ts [example.ts]
 export function add(x: number, y: number): number {
@@ -266,6 +270,10 @@ export function add(x: number, y: number): number {
 
 export function fetchSomething(): Promise<Response> {
   return fetch('https://vitest.dev/')
+}
+
+export function getUser(): { name: string; address: { city: string; zip: string } } {
+  return { name: 'John', address: { city: 'New York', zip: '10001' } }
 }
 ```
 
@@ -285,6 +293,13 @@ test('mock return value with only partially correct typing', async () => {
     ok: false,
   })
   // vi.mocked(example.someFn).mockResolvedValue({ ok: false }) // 这是一个错误类型
+})
+
+test('mock return value with deep partial typing', async () => {
+  vi.mocked(example.getUser, { partial: true, deep: true }).mockReturnValue({
+    address: { city: 'Los Angeles' },
+  })
+  expect(example.getUser().address.city).toBe('Los Angeles')
 })
 ```
 

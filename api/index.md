@@ -29,10 +29,20 @@ interface TestOptions {
    * @default 0
    */
   repeats?: number
+  /**
+   * Custom tags of the test. Useful for filtering tests.
+   */
+  tags?: string[] | string
 }
 ```
 
+<<<<<<< HEAD
 当测试函数返回一个 promise 时，运行器会等待它解析结束收集异步的结果。如果 promise 被拒绝，测试就会失败。
+=======
+<!-- TODO: rewrite this into separate test files with options highlighted -->
+
+When a test function returns a promise, the runner will wait until it is resolved to collect async expectations. If the promise is rejected, the test will fail.
+>>>>>>> 4a24a6d9f32c7ad524eb2a1d042d5ee52ed4312b
 
 ::: tip
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅 [迁移指南中的回调完成部分](/guide/migration.html#done-callback)。
