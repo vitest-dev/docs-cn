@@ -3,9 +3,9 @@ title: 测试标签 | 指南
 outline: deep
 ---
 
-# Test Tags <Version>4.1.0</Version>
+# 测试标签 <Version>4.1.0</Version> {#test-tags}
 
-[`Tags`](/config/tags) allow you to mark tests and change their options based on the tag's definition.
+允许你在测试或测试套件上添加指定 [`标签`](/config/tags)，并根据标签的定义配置来运行测试。
 
 ## 定义标签 {#defining-tags}
 
@@ -267,7 +267,7 @@ vitest --tags-filter="!slow and not flaky"
 
 ### 示例 {#examples}
 
-Here are some common filtering patterns:
+以下是常见的筛选命令示例：
 
 ```shell
 # 仅运行 unit 的测试
