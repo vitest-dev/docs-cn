@@ -1,19 +1,17 @@
 ---
-title: Test Tags | Guide
+title: 测试标签 | 指南
 outline: deep
 ---
-
-<!-- TODO: translation -->
 
 # Test Tags <Version>4.1.0</Version>
 
 [`Tags`](/config/tags) allow you to mark tests and change their options based on the tag's definition.
 
-## Defining Tags
+## 定义标签 {#defining-tags}
 
-Tags must be defined in your configuration file — Vitest does not provide any built-in tags. If a test uses a tag that isn't defined in the config, the test runner will throw an error. This prevents unexpected behavior from mistyped tag names. You can disable this check with the [`strictTags`](/config/stricttags) option.
+ Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
 
-You must define a `name` of the tag, and you may define additional options that will be applied to every test marked with the tag, e.g., a `timeout`, or `retry`. For the full list of available options, see [`tags`](/config/tags).
+在标签定义时至少必须包含 `name` 选项，与此同时你还可以定义其他选项如 `timeout` 或 `retry`，这些选项将应用于使用该标签的所有测试。完整的可用选项，详情参见 [`tags`](/config/tags)。
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -47,16 +45,15 @@ export default defineConfig({
 ```
 
 ::: warning
-If several tags have the same options and are used on the same test, they will be resolved in the order they were specified, or sorted by priority first (the lower the number, the higher the priority). Tags without a defined priority are merged first and will be overriden by higher priority ones:
+如果多个标签具有相同选项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'] })
 // { timeout: 30_000, retry: 3 }
 ```
 
-Note that the `timeout` is 30 seconds (and not 60) because `flaky` tag has a priority of `1` while `db` (that defines 60 second timeout) has no priority.
-
-If test defines its own options, they will have the highest priority:
+注意此时的 `timeout` 是 30 秒而不是 60 秒，因为 `flaky` 标签的优先级为 `1`，而定义了 60 秒超时的 `db` 标签未设置优先级。
+如果在当前测试上直接定义，则测试选项优先级最高：
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
@@ -64,7 +61,7 @@ test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
 ```
 :::
 
-If you are using TypeScript, you can enforce what tags are available by augmenting the `TestTags` type with a property that contains a union of strings (make sure this file is included by your `tsconfig`):
+如果你正在使用 TypeScript，可以扩展 `TestTags` 类型添加一个包含字符串的联合类型来限定的标签可用范围，请确保该文件被包含在 `tsconfig` 中：
 
 ```ts [vitest.shims.ts]
 import 'vitest'
@@ -80,7 +77,7 @@ declare module 'vitest' {
 }
 ```
 
-To see all your tags, you can use [`--list-tags`](/guide/cli#listtags) command:
+要查看所有可用的标签，可使用 [`--list-tags`](/guide/cli#listtags) 命令：
 
 ```shell
 vitest --list-tags
@@ -91,7 +88,7 @@ db: Tests for database queries.
 flaky: Flaky CI tests.
 ```
 
-To print it in JSON, pass down `--list-tags=json`:
+如果需要以 JSON 格式输出，传入 `--list-tags=json` 参数：
 
 ```json
 {
@@ -121,9 +118,9 @@ To print it in JSON, pass down `--list-tags=json`:
 }
 ```
 
-## Using Tags in Tests
+## 在测试中使用标签 {#using-tags-in-tests}
 
-You can apply tags to individual tests or entire suites using the `tags` option:
+可以通过 `tags` 参数 为单个测试或整个测试套件添加标签
 
 ```ts
 import { describe, test } from 'vitest'
@@ -134,18 +131,18 @@ test('renders homepage', { tags: ['frontend'] }, () => {
 
 describe('API endpoints', { tags: ['backend'] }, () => {
   test('returns user data', () => {
-    // This test inherits the "backend" tag from the parent suite
+    // 此测试会继承父级测试套件的 "backend" 标签
   })
 
   test('validates input', { tags: ['validation'] }, () => {
-    // This test has both "backend" (inherited) and "validation" tags
+    // 此测试同时拥有 "backend"（继承）和 "validation" 标签
   })
 })
 ```
 
-Tags are inherited from parent suites, so all tests inside a tagged `describe` block will automatically have that tag.
+标签会从父级测试套件中继承下来，因此所有位于已标记 `describe` 代码块内的测试都会自动添加该标签。
 
-It's also possible to define `tags` for every test in the file by using JSDoc's `@module-tag` at the top of the file:
+还可以在文件顶部使用 JSDoc 的 `@module-tag` 为文件中的所有测试定义 `标签`：
 
 ```ts
 /**
@@ -160,9 +157,9 @@ test('dashboard renders items', () => {
 ```
 
 ::: danger
-A `@module-tag` in a JSDoc comment applies to all tests in that file, not just the test it precedes.
+JSDoc 注释中的 `@module-tag` 会作用于该文件内的所有测试，而不仅是紧跟注释其后的单个测试。
 
-Consider this example:
+请看以下示例：
 
 ```js{3,10}
 describe('forms', () => {
@@ -182,7 +179,7 @@ describe('forms', () => {
 })
 ```
 
-In this example, every test in the file will have both the `frontend` and `db` tags. To tag individual tests, use the options argument instead:
+在上诉例子中，文件内的每个测试都会同时带有 `frontend` 和 `db` 标签。若需为单个测试添加标签，请改用配置参数形式：
 
 ```js{2,6}
 describe('forms', () => {
@@ -197,21 +194,23 @@ describe('forms', () => {
 ```
 :::
 
-## Filtering Tests by Tag
+## 按标签筛选用例 {#filtering-tests-by-tag}
 
-To run only tests with specific tags, use the [`--tags-filter`](/guide/cli#tagsfilter) CLI option:
+要仅运行带有指定标签的用例，可使用 [`--tags-filter`](/guide/cli#tagsfilter) 命令行参数：
 
 ```shell
 vitest --tags-filter=frontend
 vitest --tags-filter="frontend and backend"
 ```
 
-If you are running Vitest UI, you can start a filter with a `tag:` prefix to filter out tests by tags using the same tags expression sytax:
+如果你使用 UI 模式，可通过 `tag:` 前缀启动筛选器，使用相同的标签表达式语法按标签过滤测试：
+
+如果使用 UI 模式，你可以在过滤器中使用标签表达式进行过滤，例如 `tag:` 加前缀
 
 <img alt="The tags filter in Vitest UI" img-light src="/ui/light-ui-tags.png">
 <img alt="The tags filter in Vitest UI" img-dark src="/ui/dark-ui-tags.png">
 
-If you are using a programmatic API, you can pass down a `tagsFilter` option to [`startVitest`](/guide/advanced/#startvitest) or [`createVitest`](/guide/advanced/#createvitest):
+如果你使用编程式 API，可将 `tagsFilter` 参数传递给 [`startVitest`](/guide/advanced/#startvitest) 或 [`createVitest`](/guide/advanced/#createvitest)：
 
 ```ts
 import { startVitest } from 'vitest/node'
@@ -221,7 +220,7 @@ await startVitest('test', [], {
 })
 ```
 
-Or you can create a [test specification](/api/advanced/test-specification) with your custom filters:
+也可创建包含自定义筛选器的 [test specification](/api/advanced/test-specification)：
 
 ```ts
 const specification = vitest.getRootProject().createSpecification(
@@ -232,73 +231,73 @@ const specification = vitest.getRootProject().createSpecification(
 )
 ```
 
-### Syntax
+### 语法 {#syntax}
 
-You can combine tags in different ways. Vitest supports these keywords:
+可通过多种方式组合标签。Vitest 支持以下关键字：
 
-- `and` or `&&` to include both expressions
-- `or` or `||` to include at least one expression
-- `not` or `!` to exclude the expression
-- `*` to match any number of characters (0 or more)
-- `()` to group expressions and override precedence
+- `and` 或 `&&` 表示同时满足两个表达式
+- `or` 或 `||` 表示至少满足一个表达式
+- `not` 或 `!` 表示排除指定表达式
+- `*` 表示匹配任意数量字符（0 个或多个）
+- `()` 表示分组表达式并提升优先级
 
-The parser follows standard [operator precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence): `not`/`!` has the highest priority, then `and`/`&&`, then `or`/`||`. Use parentheses to override default precedence.
+解析器将遵循标准 [运算符优先级](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence)：`not`/`!` 优先级最高，其次是 `and`/`&&`，最后是 `or`/`||`。使用括号将提升优先级。
 
-::: warning Reserved Names
-Tag names cannot be `and`, `or`, or `not` (case-insensitive) as these are reserved keywords. Tag names also cannot contain special characters (`(`, `)`, `&`, `|`, `!`, `*`, spaces) as these are used by the expression parser.
+::: warning 保留字
+标签名称不能为 `and`, `or`, 或 `not`（不区分大小写），这些都是保留字。标签名称也不能包含特殊字符（`(`， `)`， `&`， `|`， `!`， `*`，空格），这些字符已经被表达式解析器占用。
 :::
 
-### Wildcards
+### 通配符 {#wildcards}
 
-You can use a wildcard (`*`) to match any number of characters:
+使用（`*`）可以匹配任意数量字符：
 
 ```shell
 vitest --tags-filter="unit/*"
 ```
 
-This will match tags like `unit/components`, `unit/utils`, etc.
+将会匹配到类似 `unit/components`， `unit/utils` 等标签。
 
-### Excluding Tags
+### 排除 {#excluding-tags}
 
-To exclude tests with a specific tag, add an exclamation mark (`!`) at the start or a "not" keyword:
+在标签前添加感叹号（`!`）或使用 “not” 关键字可排除指定标签的测试：
 
 ```shell
 vitest --tags-filter="!slow and not flaky"
 ```
 
-### Examples
+### 示例 {#examples}
 
 Here are some common filtering patterns:
 
 ```shell
-# Run only unit tests
+# 仅运行 unit 的测试
 vitest --tags-filter="unit"
 
-# Run tests that are both frontend AND fast
+# 运行同时满足 frontend 和 fast 的测试
 vitest --tags-filter="frontend and fast"
 
-# Run tests that are either unit OR e2e
+# 运行 unit 测试或 e2e 测试
 vitest --tags-filter="unit or e2e"
 
-# Run all tests except slow ones
+# 运行除 slow 测试外的所有测试
 vitest --tags-filter="!slow"
 
-# Run frontend tests that are not flaky
+# 运行 frontend 且非不稳定的测试
 vitest --tags-filter="frontend && !flaky"
 
-# Run tests matching a wildcard pattern
+# 运行匹配通配符模式的测试
 vitest --tags-filter="api/*"
 
-# Complex expression with parentheses
+# 带括号的复杂表达式
 vitest --tags-filter="(unit || e2e) && !slow"
 
-# Run database tests that are either postgres or mysql, but not slow
+# 运行数据库测试（PostgreSQL 或 MySQL）且非慢速的测试
 vitest --tags-filter="db && (postgres || mysql) && !slow"
 ```
 
-You can also pass multiple `--tags-filter` flags. They are combined with AND logic:
+支持传递多个 `--tags-filter` 参数，它们会使用 AND 逻辑相组合：
 
 ```shell
-# Run tests that match (unit OR e2e) AND are NOT slow
+# 运行（unit 或 e2e 测试）且非慢速的测试
 vitest --tags-filter="unit || e2e" --tags-filter="!slow"
 ```
