@@ -123,11 +123,11 @@ test('ProductList filters and displays products correctly', async () => {
 
 ## Testing Library 集成 {#testing-library-integration}
 
-虽然 Vitest 为流行的框架提供了官方依赖 ([`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue)、[`vitest-browser-react`](https://www.npmjs.com/package/vitest-browser-react)、[`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte))，但对于尚未官方支持的框架，你可以通过 [Testing Library](https://testing-library.com/) 进行继承。
+虽然 Vitest 为流行的框架提供了官方依赖包 ([`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue)、[`vitest-browser-react`](https://www.npmjs.com/package/vitest-browser-react)、[`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte))，但对于尚未官方支持的框架，你可以通过 [Testing Library](https://testing-library.com/) 进行继承。
 
 ### 何时使用 Testing Library {#when-to-use-testing-library}
 
-- 你使用框架还没有官方的 Vitest 浏览器包
+- 你使用框架还没有官方的 Vitest 浏览器依赖包
 - 你正在迁移使用 Testing Library 的现有测试
 - 针对特定的测试场景更倾向于使用 Testing Library 的 API
 
@@ -431,7 +431,7 @@ test('Modal component is accessible', async () => {
   await expect.element(modal).toHaveAttribute('aria-labelledby') // 关联标题元素
   await expect.element(modal).toHaveAttribute('aria-modal', 'true') // 表示模态框行为
 
-  // 测试键盘导航 - ESC键应关闭模态框
+  // 测试键盘导航 - ESC 键应关闭模态框
   // 这是 ARIA 编写规范的要求
   await userEvent.keyboard('{Escape}')
   // expect.element 会自动重试直到模态框消失
@@ -455,7 +455,7 @@ test('Modal component is accessible', async () => {
 
 浏览器模式会在真实浏览器中运行测试，让你能使用完整的开发者工具。当测试失败时，你可以：
 
-- **在测试执行期间打开浏览器开发者工具**（按F12或右键点击 → 检查）
+- **在测试执行期间打开浏览器开发者工具**（按 F12 或右键点击 → 检查）
 - **在测试代码或组件代码中设置断点**
 - **检查 DOM** 查看实际渲染的输出
 - **检查控制台报错** 排查 JavaScript 错误或警告
