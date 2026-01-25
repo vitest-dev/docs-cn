@@ -7,7 +7,7 @@ outline: deep
 
 组件测试是一种专注于独立测试单个 UI 组件的测试策略。与测试整个用户流程的端到端测试不同，组件测试验证每个组件单独工作是否正确，使它们运行更快且更容易调试。
 
-Vitest 为多个框架提供全面的组件测试支持，包括 Vue、React、Svelte、Lit、Preact、Qwik、Solid、Marko等。本指南涵盖了使用Vitest 有效测试组件的特定模式、工具和最佳实践。
+Vitest 为多个框架提供全面的组件测试支持，包括 Vue、React、Svelte、Lit、Preact、Qwik、Solid、Marko等。本指南涵盖了使用 Vitest 有效测试组件的特定模式、工具和最佳实践。
 
 ## 为什么进行组件测试？ {#why-component-testing}
 
@@ -31,7 +31,7 @@ Vitest 中的组件测试使用 **浏览器模式** 在真实浏览器环境中�
 
 - CSS 布局和样式问题
 - 真实浏览器 API 行为
-- 精确的事件处理与传播
+- 精确的事件处理与传播机制
 - 正确的焦点管理和无障碍功能特性
 :::
 
