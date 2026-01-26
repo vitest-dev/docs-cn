@@ -5,13 +5,13 @@ outline: deep
 
 # 测试标签 <Version>4.1.0</Version> {#test-tags}
 
-允许你在测试或测试套件上添加指定 [`标签`](/config/tags)，并根据标签的定义配置来运行测试。
+允许你在测试用例上添加 [`标签`](/config/tags)，在必要时可以使用标签进行过滤测试，或覆盖测试配置。
 
 ## 定义标签 {#defining-tags}
 
  Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
 
-在标签定义时至少必须包含 `name` 选项，与此同时你还可以定义其他选项如 `timeout` 或 `retry`，这些选项将应用于使用该标签的所有测试。完整的可用选项，详情参见 [`tags`](/config/tags)。
+在标签定义时至少必须包含 `name` 参数，与此同时你还可以定义其他配置参数如 `timeout` 或 `retry`，这些配置参数将应用于使用该标签的所有测试。完整的可用配置参数，参见 [`tags`](/config/tags)。
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -45,7 +45,7 @@ export default defineConfig({
 ```
 
 ::: warning
-如果多个标签具有相同选项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
+如果多个标签具有相同配置项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'] })
@@ -54,7 +54,7 @@ test('flaky database test', { tags: ['flaky', 'db'] })
 
 注意此时的 `timeout` 是 30 秒而不是 60 秒，因为 `flaky` 标签的优先级为 `1`，而定义了 60 秒超时的 `db` 标签未设置优先级。
 
-如果在当前测试上直接定义，则测试选项优先级最高：
+如果在当前测试上直接定义，则测试配置项优先级最高：
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
@@ -121,7 +121,7 @@ flaky: Flaky CI tests.
 
 ## 在测试中使用标签 {#using-tags-in-tests}
 
-可以通过 `tags` 参数 为单个测试或整个测试套件添加标签
+可以通过 `tags` 参数 为单个测试用例或整个测试套件添加标签
 
 ```ts
 import { describe, test } from 'vitest'
