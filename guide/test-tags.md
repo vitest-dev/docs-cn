@@ -258,7 +258,7 @@ vitest --tags-filter="unit/*"
 
 将会匹配到类似 `unit/components`， `unit/utils` 等标签。
 
-### 排除 {#excluding-tags}
+### 排除标签 {#excluding-tags}
 
 在标签前添加感叹号（`!`）或使用 “not” 关键字可排除指定标签的测试：
 
