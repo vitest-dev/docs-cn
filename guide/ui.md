@@ -133,7 +133,9 @@ npx vite preview --outDir ./html
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-模块图选项卡还会提供导入耗时分析功能，默认显示加载时间最长的10个模块（点击"显示更多"可追加10个），按总耗时排序。
+<!-- TODO: translation -->
+
+The Module Graph tab also provides an Import Breakdown with a list of modules that take the longest time to load (top 10 by default), sorted by Total Time.
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
@@ -144,4 +146,6 @@ npx vite preview --outDir ./html
 
 如果至少有一个文件加载时间超过 500 毫秒，"Show Import Breakdown" 图标将显示红色；如果至少有一个文件加载时间超过 100 毫秒，它将显示橙色。
 
-默认情况下，如果至少有一个模块加载时间超过 500 毫秒，Vitest 会自动显示分析结果。你可以通过设置 [`experimental.printImportBreakdown`](/config/experimental#experimental-printimportbreakdown) 选项来控制此行为。
+<!-- TODO: translation -->
+
+You can use [`experimental.importDurations.limit`](/config/experimental#experimental-importdurationslimit) to control the number of imports displayed.

@@ -175,16 +175,34 @@ export default defineConfig({
 请注意 Node 必须能够直接处理 `sdkPath` 指向的内容，因为它不会被 Vitest 转换。了解如何在 Vitest 中使用 OpenTelemetry ，详情参阅 [指南](/guide/open-telemetry)。
 :::
 
-## experimental.printImportBreakdown <Version type="experimental">4.0.15</Version> {#experimental-printimportbreakdown}
+## experimental.importDurations <Version type="experimental">4.1.0</Version> {#experimental-importdurations}
+
+<!-- TODO: translation -->
 
 ::: tip 功能反馈
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-- **类型:** `boolean`
-- **默认值:** `false`
+- **Type:**
 
-在测试运行完成后显示导入耗时明细。此选项仅适用于 [`default`](/guide/reporters#default)、[`verbose`](/guide/reporters#verbose) 或 [`tree`](/guide/reporters#tree) 报告器。
+```ts
+interface ImportDurationsOptions {
+  /**
+   * Print import breakdown to CLI terminal after tests finish.
+   */
+  print?: boolean
+  /**
+   * Maximum number of imports to collect and display.
+   */
+  limit?: number
+}
+```
+
+- **Default:** `{ print: false, limit: 0 }` (`limit` is 10 if `print` or UI is enabled)
+
+Configure import duration collection and display.
+
+The `print` option controls CLI terminal output. The `limit` option controls how many imports to collect and display. [Vitest UI](/guide/ui#import-breakdown) can always toggle the breakdown display regardless of the `print` setting.
 
 - Self：模块导入耗时，不包括静态导入；
 - Total：模块导入耗时，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
@@ -192,6 +210,20 @@ export default defineConfig({
 <img alt="终端中导入耗时明细的示例" src="/reporter-import-breakdown.png" />
 
 请注意，如果文件路径太长，Vitest 会从开头截断它，最多显示 45 个字符。
+
+### experimental.importDurations.print {#experimental-importdurationsprint}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Print import breakdown to CLI terminal after tests finish. This only works with [`default`](/guide/reporters#default), [`verbose`](/guide/reporters#verbose), or [`tree`](/guide/reporters#tree) reporters.
+
+### experimental.importDurations.limit {#experimental-importdurationslimit}
+
+- **Type:** `number`
+- **Default:** `0` (or `10` if `print` or UI is enabled)
+
+Maximum number of imports to collect and display in CLI output, [Vitest UI](/guide/ui#import-breakdown), and third-party reporters.
 
 ::: info
 [Vitest UI](/guide/ui#import-breakdown) 会在至少一个文件加载时间超过 500 毫秒时自动显示导入耗时分析。你可手动将此选项设为 `false` 来禁用该功能。

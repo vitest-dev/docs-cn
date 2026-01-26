@@ -20,7 +20,7 @@ outline: deep
 
 与 _测试文件_ 不同， Vitest 在同一个文件中会顺序执行 _测试用例_ 。也就是说，同一个文件里的测试会按定义顺序一个接一个地执行。
 
-如果希望让同一文件中的多个测试并行执行，可以使用 [`concurrent`](/api/#test-concurrent) 选项。启用后， Vitest 会将同一文件中的并发测试分组，并基于 maxConcurrency 控制并行度，然后通过 [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) 一起执行。
+如果希望让同一文件中的多个测试并行执行，可以使用 [`concurrent`](/api/test#test-concurrent) 选项。启用后， Vitest 会将同一文件中的并发测试分组，并基于 maxConcurrency 控制并行度，然后通过 [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) 一起执行。
 
 Vitest 不会自动分析你的测试是否可以并行，也不会为了并发而额外创建工作者。这意味着，只有在测试中有大量异步操作时，使用并发才能提升性能。例如，以下示例即便指定了 concurrent ，也会顺序执行，因为它们是同步的：
 

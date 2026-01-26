@@ -91,7 +91,7 @@ describe.concurrent('suite', () => {
 
 你还可以将 `.skip`、`.only` 和 `.todo` 用于并发测试套件和测试用例。
 
-了解更多信息 [API 索引](../api/#concurrent)
+了解更多信息 [API 索引](/api/test#test-concurrent)
 
 ::: warning
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
@@ -217,7 +217,7 @@ if (import.meta.vitest) {
 
 ## 基准测试 <Badge type="warning">实验性</Badge> {#benchmarking}
 
-你可以使用 [`bench`](/api/#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
+你可以使用 [`bench`](/api/test#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
 
 ```ts [sort.bench.ts]
 import { bench, describe } from 'vitest'

@@ -25,7 +25,7 @@ vitest --browser.trace=on
 ```
 :::
 
-默认情况下，Vitest 会为每个测试生成一个追踪文件。你也可以通过设置 `trace` 为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'` 来配置仅在测试失败时生成追踪。这些文件将保存在测试文件相邻的 `__traces__` 文件夹中。追踪文件的名称包括项目名称、测试名称、[`repeats` 次数和 `retry` 次数](/api/#test-api-reference)：
+默认情况下，Vitest 会为每个测试生成一个追踪文件。你也可以通过设置 `trace` 为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'` 来配置仅在测试失败时生成追踪。这些文件将保存在测试文件相邻的 `__traces__` 文件夹中。追踪文件的名称包括项目名称、测试名称、the [`repeats`](/api/test#repeats) 次数和 [`retry`](/api/test#retry) 次数：
 
 ```
 chromium-my-test-0-0.trace.zip

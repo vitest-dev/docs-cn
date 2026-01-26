@@ -156,9 +156,9 @@ export default ({ mode }: { mode: string }) => {
           {
             title: 'Vitest',
             items: [
-              { text: '指南', link: '/guide/' },
-              { text: 'API', link: '/api/' },
-              { text: '配置', link: '/config/' },
+              { text: 'Guides', link: '/guide/' },
+              { text: 'API', link: '/api/test' },
+              { text: 'Config', link: '/config/' },
             ],
           },
           {
@@ -198,7 +198,7 @@ export default ({ mode }: { mode: string }) => {
 
       nav: [
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
-        { text: 'API', link: '/api/', activeMatch: '^/api/' },
+        { text: 'API', link: '/api/test', activeMatch: '^/api/' },
         { text: '配置', link: '/config/', activeMatch: '^/config/' },
         {
           text: '博客',
@@ -964,7 +964,20 @@ export default ({ mode }: { mode: string }) => {
         '/api': [
           {
             text: 'Test API',
-            link: '/api/',
+            items: [
+              {
+                text: 'Test',
+                link: '/api/test',
+              },
+              {
+                text: 'Describe',
+                link: '/api/describe',
+              },
+              {
+                text: 'Hooks',
+                link: '/api/hooks',
+              },
+            ],
           },
           {
             text: 'Mocks',
