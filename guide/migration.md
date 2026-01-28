@@ -403,7 +403,7 @@ export default defineConfig({
 ```
 :::
 
-See [Recipes](/guide/recipes) for more examples.
+更多示例请参阅 [测试技巧](/guide/recipes)。
 
 <!-- TODO: translation -->
 ### Reporter Updates

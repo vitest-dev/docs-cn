@@ -951,7 +951,7 @@ export default ({ mode }: { mode: string }) => {
           {
             items: [
               {
-                text: 'Recipes',
+                text: '测试技巧',
                 link: '/guide/recipes',
               },
               {
