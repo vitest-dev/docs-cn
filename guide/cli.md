@@ -123,24 +123,22 @@ tests/test1.test.ts
 tests/test2.test.ts
 ```
 
-<!-- TODO: translation -->
+## Shell 自动补全 {#shell-autocompletions}
 
-## Shell Autocompletions
+Vitest 通过 [`@bomb.sh/tab`](https://github.com/bombshell-dev/tab) 提供命令、选项及选项值的 Shell 自动补全功能。
 
-Vitest provides shell autocompletions for commands, options, and option values powered by [`@bomb.sh/tab`](https://github.com/bombshell-dev/tab).
+### 初始化 {#setup}
 
-### Setup
-
-For permanent setup in zsh, add this to your `~/.zshrc`:
+如需在 zsh 中永久启用自动补全，请将以下内容添加至 `~/.zshrc` 文件：
 
 ```bash
-# Add to ~/.zshrc for permanent autocompletions (same can be done for other shells)
+# 将此行加入 ~/.zshrc 实现永久自动补全（其他 shell 配置方式类似）
 source <(vitest complete zsh)
 ```
 
-### Package Manager Integration
+### 包管理器集成 {#package-manager-integration}
 
-`@bomb.sh/tab` integrates with [package managers](https://github.com/bombshell-dev/tab?tab=readme-ov-file#package-manager-completions). Autocompletions work when running vitest directly:
+`@bomb.sh/tab` 与 [包管理器](https://github.com/bombshell-dev/tab?tab=readme-ov-file#package-manager-completions) 集成。直接运行 vitest 时自动补全即可生效：
 
 ::: code-group
 
@@ -166,7 +164,7 @@ bun vitest <Tab>
 
 :::
 
-For package manager autocompletions, you should install [tab's package manager completions](https://github.com/bombshell-dev/tab?tab=readme-ov-file#package-manager-completions) separately.
+对于包管理器自动补全，需单独安装 [tab 的包管理器补全组件](https://github.com/bombshell-dev/tab?tab=readme-ov-file#package-manager-completions)。
 
 ## 选项 {#options}
 

@@ -93,9 +93,9 @@ describe('suite', () => {
 })
 ```
 
-## Filtering Tags
+## 标签过滤 {#filtering-tags}
 
-If your test defines a [tag](/guide/test-tags), you can filter your tests with a `--tags-filter` option:
+若测试中定义了 [标签](/guide/test-tags)，可通过 `--tags-filter` 选项进行筛选：
 
 ```ts
 test('renders a form', { tags: ['frontend'] }, () => {
