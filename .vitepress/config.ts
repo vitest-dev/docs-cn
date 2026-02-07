@@ -7,7 +7,6 @@ import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
-import llmstxt from 'vitepress-plugin-llms'
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import { version } from '../package.json'
 import { teamMembers } from './contributors'
@@ -78,7 +77,6 @@ export default ({ mode }: { mode: string }) => {
             'next': '',
           },
         }) as any,
-        llmstxt(),
       ],
     },
     markdown: {
