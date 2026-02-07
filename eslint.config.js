@@ -1,4 +1,5 @@
 import antfu, { GLOB_SRC } from '@antfu/eslint-config'
+import { createSimplePlugin } from 'eslint-factory'
 
 export default antfu(
   {
@@ -72,4 +73,20 @@ export default antfu(
       'no-throw-literal': 'off',
     },
   },
+  createSimplePlugin({
+    name: 'no-vitepress-plugin-llms',
+    include: ['**/*.ts', '**/*.ts/**'],
+    create(context) {
+      return {
+        ImportDeclaration(node) {
+          if (node.type === 'ImportDeclaration' && node.source.value === 'vitepress-plugin-llms') {
+            context.report({
+              node,
+              message: 'Don\'t use vitepress-plugin-llms, only need to be installed in the upstream repository.',
+            })
+          }
+        },
+      }
+    },
+  }),
 )
