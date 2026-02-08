@@ -4,13 +4,11 @@ title: 性能优化 | 指南
 
 ## 测试隔离 {#test-isolation}
 
-默认情况下，Vitest 在基于[pool](/config/pool) 的隔离环境中运行每个测试文件：
+默认情况下，Vitest 在基于 [pool](/config/pool) 的隔离环境中运行每个测试文件：
 
-<!-- TODO: translation -->
-
-- `threads` pool runs every test file in a separate [`Worker`](https://nodejs.org/api/worker_threads.html#class-worker)
-- `forks` pool runs every test file in a separate [forked child process](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options)
-- `vmThreads` pool runs every test file in a separate [VM context](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options), but it uses workers for parallelism
+- `threads` 线程池：每个测试文件在独立的 [`Worker`](https://nodejs.org/api/worker_threads.html#class-worker) 中运行
+- `forks` 进程池：每个测试文件在独立的 [子进程分支](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) 中运行。
+- `vmThreads` 虚拟线程池：每个测试文件在独立的 [VM 上下文](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options) 中运行，但通过 Worker 实现并行执行。
 
 对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 标志，或者在配置文件中将 [`test.isolate`](/config/isolate) 属性设置为 `false`。
 
