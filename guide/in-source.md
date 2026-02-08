@@ -72,7 +72,7 @@ export default defineConfig({
 ```
 
 ### 其他的打包器 {#other-bundlers}
-<!-- TODO: translation -->
+
 ::: details Rolldown
 ```js [rolldown.config.js]
 import { defineConfig } from 'rolldown/config'
@@ -116,7 +116,7 @@ export default defineBuildConfig({
   replace: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  // other options
+  // 其他选项
 })
 ```
 

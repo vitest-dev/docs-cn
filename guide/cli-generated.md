@@ -925,4 +925,4 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **命令行终端:** `--experimental.nodeLoader`
 - **配置:** [experimental.nodeLoader](/config/experimental#experimental-nodeloader)
 
-控制 Vitest 是否使用 Node.js Loader API 处理源代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
+控制 Vitest 是否使用 Node.js Loader API 处理内联代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
