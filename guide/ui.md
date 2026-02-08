@@ -50,7 +50,7 @@ export default defineConfig({
 npx vite preview --outDir ./html
 ```
 
-你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
+你可以使用 [`outputFile`](/config/#outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
 
 ## 模块图 {#module-graph}
@@ -135,9 +135,7 @@ If the module took longer than the [`danger` threshold](/config/experimental#exp
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-<!-- TODO: translation -->
-
-The Module Graph tab also provides an Import Breakdown with a list of modules that take the longest time to load (top 10 by default), sorted by Total Time.
+模块依赖图标签还提供了导入耗时分析功能，默认显示加载耗时最长的前 10 个模块列表（按总耗时排序）。
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
@@ -146,8 +144,6 @@ The Module Graph tab also provides an Import Breakdown with a list of modules th
 
 分析列表包含自用耗时、总耗时以及相对于加载整个测试文件所花费时间的百分比。
 
-<!-- TODO: translation reference history -->
+当存在至少一个文件加载时间超过 [`danger` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认值：500 毫秒）时，“显示导入耗时分析” 图标将呈现红色；如果存在至少一个文件加载时间超过 [`warn`阈值](/config/experimental#experimental-importdurations-thresholds)（默认值：100 毫秒），则图标显示为橙色。
 
-The "Show Import Breakdown" icon will have a red color if there is at least one file that took longer than the [`danger` threshold](/config/experimental#experimental-importdurations-thresholds) (default: 500ms) to load, and it will be orange if there is at least one file that took longer than the [`warn` threshold](/config/experimental#experimental-importdurations-thresholds) (default: 100ms).
-
-You can use [`experimental.importDurations.limit`](/config/experimental#experimental-importdurationslimit) to control the number of imports displayed.
+可以使用 [`experimental.importDurations.limit`](/config/experimental#experimental-importdurationslimit) 配置项控制显示的导入项数量上限。

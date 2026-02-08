@@ -17,13 +17,12 @@ export default class MyDefaultReporter extends DefaultReporter {
   // 在此实现自定义功能
 }
 ```
-<!-- TODO: translation -->
 
 ::: warning
-However, note that exposed reports are not considered stable and can change the shape of their API within a minor version.
+请注意，导出的报告器接口尚未稳定，在次要版本更新中可能会调整其 API 结构。
 :::
 
-Of course, you can create your reporter from scratch. Just implement the [`Reporter`](/api/advanced/reporters) interface:
+当然，您也可以从头开始创建自定义报告器，只需实现 [`Reporter`](/api/advanced/reporters) 接口即可：
 
 这是自定义报告器的示例：
 
@@ -54,11 +53,9 @@ export default defineConfig({
 })
 ```
 
-## 报告的任务 {#reported-tasks}
+## 报告任务 {#reported-tasks}
 
-<!-- TODO: translation -->
-
-Reported [events](/api/advanced/reporters) receive tasks for [tests](/api/advanced/test-case), [suites](/api/advanced/test-suite) and [modules](/api/advanced/test-module):
+报告器接收的 [事件](/api/advanced/reporters) 包含 [测试用例](/api/advanced/test-case)、[测试套件](/api/advanced/test-suite) 和 [测试模块](/api/advanced/test-module) 任务：
 
 ```ts twoslash
 import type { Reporter, TestModule } from 'vitest/node'
