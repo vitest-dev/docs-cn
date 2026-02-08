@@ -70,21 +70,19 @@
 
 设置为 true 时，如果端口已被使用，则退出，而不是自动尝试下一个可用端口
 
-<!-- TODO: translation -->
-
 ### api.allowExec
 
-- **CLI:** `--api.allowExec`
-- **Config:** [api.allowExec](/config/api#api-allowexec)
+- **命令行终端:** `--api.allowExec`
+- **配置:** [api.allowExec](/config/api#api-allowexec)
 
-Allow API to execute code. (Be careful when enabling this option in untrusted environments)
+允许 API 执行代码。（在非受信环境中启用此选项时需谨慎）
 
 ### api.allowWrite
 
-- **CLI:** `--api.allowWrite`
-- **Config:** [api.allowWrite](/config/api#api-allowwrite)
+- **命令行终端:** `--api.allowWrite`
+- **配置:** [api.allowWrite](/config/api#api-allowwrite)
 
-Allow API to edit files. (Be careful when enabling this option in untrusted environments)
+允许 API 编辑文件。（在非受信环境中启用此选项时需谨慎）
 
 ### silent
 
@@ -313,12 +311,12 @@ Specifies the module name or path for the custom coverage provider module. Visit
 - **配置:** [browser.enabled](/config/browser/enabled)
 
 在浏览器中运行测试。 相当于 `--browser.enabled` (默认值: `false`)
-<!-- TODO: translation -->
+
 ### browser.name
 
 - **命令行终端:** `--browser.name <name>`
 
-Run all tests in a specific browser. Some browsers are only available for specific providers (see `--browser.provider`).
+在特定浏览器中运行所有测试。某些浏览器仅适用于特定的 provider（详情请参见 `--browser.provider`）
 
 ### browser.headless
 
@@ -348,21 +346,19 @@ Run all tests in a specific browser. Some browsers are only available for specif
 
 设置为 true 时，如果端口已被使用，则退出，而不是自动尝试下一个可用端口
 
-<!-- TODO: translation -->
-
 ### browser.api.allowExec
 
-- **CLI:** `--browser.api.allowExec`
-- **Config:** [browser.api.allowExec](/config/browser/api#api-allowexec)
+- **命令行终端:** `--browser.api.allowExec`
+- **配置:** [browser.api.allowExec](/config/browser/api#api-allowexec)
 
-Allow API to execute code. (Be careful when enabling this option in untrusted environments)
+允许 API 执行代码。（在非受信环境中启用此选项时需谨慎）
 
 ### browser.api.allowWrite
 
-- **CLI:** `--browser.api.allowWrite`
-- **Config:** [browser.api.allowWrite](/config/browser/api#api-allowwrite)
+- **命令行终端:** `--browser.api.allowWrite`
+- **配置:** [browser.api.allowWrite](/config/browser/api#api-allowwrite)
 
-Allow API to edit files. (Be careful when enabling this option in untrusted environments)
+允许 API 编辑文件。（在非受信环境中启用此选项时需谨慎）
 
 ### browser.isolate
 
@@ -378,20 +374,18 @@ Allow API to edit files. (Be careful when enabling this option in untrusted envi
 
 运行测试时显示 Vitest UI (默认值: `!process.env.CI`)
 
-<!-- TODO: translation -->
-
 ### browser.detailsPanelPosition
 
-- **CLI:** `--browser.detailsPanelPosition <position>`
-- **Config:** [browser.detailsPanelPosition](/config/browser/detailspanelposition)
+- **命令行终端:** `--browser.detailsPanelPosition <position>`
+- **配置:** [browser.detailsPanelPosition](/config/browser/detailspanelposition)
 
-Default position for the details panel in browser mode. Either `right` (horizontal split) or `bottom` (vertical split) (default: `right`)
+浏览器模式下详情面板的默认位置。可选 `right`（水平分割）或 `bottom`（垂直分割）（默认值：`right`）
 
 ### browser.fileParallelism
 
 - **命令行终端:** `--browser.fileParallelism`
 
-浏览器测试文件是否应并行运行。使用 `--browser.fileParallelism=false` 进行禁用 (默认值: `true`)
+浏览器测试文件是否应并行运行。使用 `--browser.fileParallelism=false` 进行禁用（默认值: `true`）
 
 ### browser.connectTimeout
 
@@ -511,13 +505,13 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **配置:** [sequence.seed](/config/sequence#sequence-seed)
 
 设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
-<!-- TODO: translation -->
+
 ### sequence.hooks
 
 - **命令行终端:** `--sequence.hooks <order>`
 - **配置:** [sequence.hooks](/config/sequence#sequence-hooks)
 
-Changes the order in which hooks are executed. Accepted values are: "stack", "list" and "parallel". Visit [`sequence.hooks`](/config/sequence#sequence-hooks) for more information (default: `"parallel"`)
+更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。详情请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"parallel"`）
 
 ### sequence.setupFiles
 
@@ -562,7 +556,7 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 ### retry.count
 
 - **命令行终端:** `--retry.count <times>`
-- **Config:** [retry.count](/config/retry#retry-count)
+- **配置:** [retry.count](/config/retry#retry-count)
 
 如果测试失败，重试特定次数（默认值： `0`）
 
@@ -571,16 +565,14 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 - **命令行终端:** `--retry.delay <ms>`
 - **配置:** [retry.delay](/config/retry#retry-delay)
 
-<!-- TODO: translation -->
-
-Delay in milliseconds between retry attempts (default: `0`)
+重试之间的延迟时间（单位：毫秒）（默认值：`0`）
 
 ### retry.condition
 
 - **命令行终端:** `--retry.condition <pattern>`
 - **配置:** [retry.condition](/config/retry#retry-condition)
 
-Regex pattern to match error messages that should trigger a retry. Only errors matching this pattern will cause a retry (default: retry on all errors)
+触发重试操作的错误信息匹配正则表达式。仅当错误信息符合该模式时才会执行重试（默认值：所有错误都会触发重试）
 
 ### diff.aAnnotation
 
@@ -843,91 +835,102 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 使用 `bundle` 将配置打包到 esbuild 中，或使用 `runner`（实验性功能）进行动态处理。此功能仅适用于 Vite 6.1.0 及更高版本可使用 (默认值: `bundle`)
 
-<!-- TODO: translation -->
-
 ### standalone
 
 - **命令行终端:** `--standalone`
 
-Start Vitest without running tests. Tests will be running only on change. This option is ignored when CLI file filters are passed. (default: `false`)
+单独启动 Vitest，且不运行任何测试。仅在文件变更时才运行测试。如果通过命令行参数过滤文件，此选项将被忽略。（默认值：`false`）
 
 ### listTags
 
-- **CLI:** `--listTags [type]`
+- **命令行终端:** `--listTags [type]`
 
-List all available tags instead of running tests. `--list-tags=json` will output tags in JSON format, unless there are no tags.
+列出所有可用标签，且不运行任何测试。使用 `--list-tags=json` 参数将会以 JSON 格式输出标签，如果没有没有标签则不会输出。
 
 ### clearCache
 
 - **命令行终端:** `--clearCache`
 
-Delete all Vitest caches, including `experimental.fsModuleCache`, without running any tests. This will reduce the performance in the subsequent test run.
+删除所有 Vitest 缓存，包括 `experimental.fsModuleCache`，且不运行任何测试。此操作会降低后续测试运行的性能。
 
 ### tagsFilter
 
-- **CLI:** `--tagsFilter <expression>`
+- **命令行终端:** `--tagsFilter <expression>`
 
-Run only tests with the specified tags. You can use logical operators `&&` (and), `||` (or) and `!` (not) to create complex expressions, see [Test Tags](/guide/test-tags#syntax) for more information.
+仅运行带有指定标签的测试。可以使用逻辑运算符 `&&`（与）、`||`（或）和 `!`（非）创建复杂的表达式，详情请参见 [测试标签语法](/guide/test-tags#syntax)。
 
 ### strictTags
 
-- **CLI:** `--strictTags`
-- **Config:** [strictTags](/config/stricttags)
+- **命令行终端:** `--strictTags`
+- **配置:** [strictTags](/config/stricttags)
 
-Should Vitest throw an error if test has a tag that is not defined in the config. (default: `true`)
+如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
+
+### experimental.importDurations.print
+
+- **命令行终端:** `--experimental.importDurations.print <boolean|on-warn>`
+- **配置:** [experimental.importDurations.print](/config/experimental#experimental-importdurations-print)
 
 ### experimental.fsModuleCache
 
 - **命令行终端:** `--experimental.fsModuleCache`
 - **配置:** [experimental.fsModuleCache](/config/experimental#experimental-fsmodulecache)
 
-Enable caching of modules on the file system between reruns.
+在重新运行之前，启用文件系统上的缓存。
 
 ### experimental.importDurations.print
 
-- **CLI:** `--experimental.importDurations.print <boolean|on-warn>`
-- **Config:** [experimental.importDurations.print](/config/experimental#experimental-importdurations-print)
+- **命令行终端:** `--experimental.importDurations.print <boolean|on-warn>`
+- **配置:** [experimental.importDurations.print](/config/experimental#experimental-importdurations-print)
 
-When to print import breakdown to CLI terminal. Use `true` to always print, `false` to never print, or `on-warn` to print only when imports exceed the warn threshold (default: false).
-
-### experimental.importDurations.limit
-
-- **CLI:** `--experimental.importDurations.limit <number>`
-- **Config:** [experimental.importDurations.limit](/config/experimental#experimental-importdurations-limit)
-
-Maximum number of imports to collect and display (default: 0, or 10 if print or UI is enabled).
-
-### experimental.importDurations.failOnDanger
-
-- **CLI:** `--experimental.importDurations.failOnDanger`
-- **Config:** [experimental.importDurations.failOnDanger](/config/experimental#experimental-importdurations-failondanger)
-
-Fail the test run if any import exceeds the danger threshold (default: false).
+控制何时将导入耗时分析输出到命令行终端。`true` 表示始终输出，`false` 表示不输出，`on-warn` 表示仅在导入超过警告阈值时输出。（默认值：`false`）
 
 ### experimental.importDurations.thresholds.warn
 
-- **CLI:** `--experimental.importDurations.thresholds.warn <number>`
-- **Config:** [experimental.importDurations.thresholds.warn](/config/experimental#experimental-importdurations-thresholds-warn)
+- **命令行终端:** `--experimental.importDurations.thresholds.warn <number>`
+- **配置:** [experimental.importDurations.thresholds.warn](/config/experimental#experimental-importdurations-thresholds-warn)
 
-Warning threshold - imports exceeding this are shown in yellow/orange (default: 100).
+警告阈值——超过此值的导入将以黄色/橙色显示。（默认值：100）
+
+### experimental.importDurations.limit
+
+- **命令行终端:** `--experimental.importDurations.limit <number>`
+- **配置:** [experimental.importDurations.limit](/config/experimental#experimental-importdurations-limit)
+
+收集和显示的最大导入数量。（默认值：0，如果启用了 print 或 UI 模式，则为 10）
+
+### experimental.importDurations.failOnDanger
+
+- **命令行终端:** `--experimental.importDurations.failOnDanger`
+- **配置:** [experimental.importDurations.failOnDanger](/config/experimental#experimental-importdurations-failondanger)
+
+如果任何导入超过危险阈值，则测试运行失败。（默认值：`false`）
+
+### experimental.importDurations.thresholds.warn
+
+- **命令行终端:** `--experimental.importDurations.thresholds.warn <number>`
+- **配置:** [experimental.importDurations.thresholds.warn](/config/experimental#experimental-importdurations-thresholds-warn)
+
+警告阈值，超过此阈值的导入将以黄色 / 橙色显示。（默认值：100）
 
 ### experimental.importDurations.thresholds.danger
 
-- **CLI:** `--experimental.importDurations.thresholds.danger <number>`
-- **Config:** [experimental.importDurations.thresholds.danger](/config/experimental#experimental-importdurations-thresholds-danger)
+- **命令行终端:** `--experimental.importDurations.thresholds.danger <number>`
+- **配置:** [experimental.importDurations.thresholds.danger](/config/experimental#experimental-importdurations-thresholds-danger)
 
 Danger threshold - imports exceeding this are shown in red (default: 500).
+危险阈值，超过此阈值的导入将以红色显示。（默认值：500）
 
 ### experimental.viteModuleRunner
 
-- **CLI:** `--experimental.viteModuleRunner`
-- **Config:** [experimental.viteModuleRunner](/config/experimental#experimental-vitemodulerunner)
+- **命令行终端:** `--experimental.viteModuleRunner`
+- **配置:** [experimental.viteModuleRunner](/config/experimental#experimental-vitemodulerunner)
 
-Control whether Vitest uses Vite's module runner to run the code or fallback to the native `import`. (default: `true`)
+控制 Vitest 是否使用 Vite 的模块运行器运行代码，或回退到原生 `import`。（默认值：`true`）
 
 ### experimental.nodeLoader
 
-- **CLI:** `--experimental.nodeLoader`
-- **Config:** [experimental.nodeLoader](/config/experimental#experimental-nodeloader)
+- **命令行终端:** `--experimental.nodeLoader`
+- **配置:** [experimental.nodeLoader](/config/experimental#experimental-nodeloader)
 
-Controls whether Vitest will use Node.js Loader API to process in-source or mocked files. This has no effect if `viteModuleRunner` is enabled. Disabling this can increase performance. (default: `true`)
+控制 Vitest 是否使用 Node.js Loader API 处理源代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
