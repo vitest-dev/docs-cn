@@ -22,7 +22,7 @@ export default class MyDefaultReporter extends DefaultReporter {
 请注意，导出的报告器接口尚未稳定，在次要版本更新中可能会调整其 API 结构。
 :::
 
-当然，您也可以从头开始创建自定义报告器，只需实现 [`Reporter`](/api/advanced/reporters) 接口即可：
+当然，你也可以从头开始创建自定义报告器，只需实现 [`Reporter`](/api/advanced/reporters) 接口即可：
 
 这是自定义报告器的示例：
 

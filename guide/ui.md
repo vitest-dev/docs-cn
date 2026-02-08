@@ -50,7 +50,7 @@ export default defineConfig({
 npx vite preview --outDir ./html
 ```
 
-你可以使用 [`outputFile`](/config/#outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
+你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
 
 ## 模块图 {#module-graph}
@@ -146,4 +146,4 @@ If the module took longer than the [`danger` threshold](/config/experimental#exp
 
 当存在至少一个文件加载时间超过 [`danger` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认值：500 毫秒）时，“显示导入耗时分析” 图标将呈现红色；如果存在至少一个文件加载时间超过 [`warn`阈值](/config/experimental#experimental-importdurations-thresholds)（默认值：100 毫秒），则图标显示为橙色。
 
-可以使用 [`experimental.importDurations.limit`](/config/experimental#experimental-importdurationslimit) 配置项控制显示的导入项数量上限。
+你可以使用 [`experimental.importDurations.limit`](/config/experimental#experimental-importdurationslimit) 配置项控制显示的导入项数量上限。
