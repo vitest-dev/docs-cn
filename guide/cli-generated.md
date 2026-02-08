@@ -845,7 +845,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--listTags [type]`
 
-列出所有可用标签，且不运行任何测试。使用 `--list-tags=json` 参数将会以 JSON 格式输出标签，如果没有没有标签则不会输出。
+列出所有可用标签，且不运行任何测试。使用 `--list-tags=json` 参数将会以 JSON 格式输出标签，如果没有标签则不会输出。
 
 ### clearCache
 
@@ -857,7 +857,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--tagsFilter <expression>`
 
-仅运行带有指定标签的测试。可以使用逻辑运算符 `&&`（与）、`||`（或）和 `!`（非）创建复杂的表达式，详情请参见 [测试标签语法](/guide/test-tags#syntax)。
+仅运行带有指定标签的测试。可以使用逻辑运算符 `&&`（与）、`||`（或）和 `!`（非）创建复杂的表达式，详情请参见 [测试标签语法](/guide/test-tags#syntax)
 
 ### strictTags
 
@@ -885,13 +885,6 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 控制何时将导入耗时分析输出到命令行终端。`true` 表示始终输出，`false` 表示不输出，`on-warn` 表示仅在导入超过警告阈值时输出。（默认值：`false`）
 
-### experimental.importDurations.thresholds.warn
-
-- **命令行终端:** `--experimental.importDurations.thresholds.warn <number>`
-- **配置:** [experimental.importDurations.thresholds.warn](/config/experimental#experimental-importdurations-thresholds-warn)
-
-警告阈值——超过此值的导入将以黄色/橙色显示。（默认值：100）
-
 ### experimental.importDurations.limit
 
 - **命令行终端:** `--experimental.importDurations.limit <number>`
@@ -918,7 +911,6 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **命令行终端:** `--experimental.importDurations.thresholds.danger <number>`
 - **配置:** [experimental.importDurations.thresholds.danger](/config/experimental#experimental-importdurations-thresholds-danger)
 
-Danger threshold - imports exceeding this are shown in red (default: 500).
 危险阈值，超过此阈值的导入将以红色显示。（默认值：500）
 
 ### experimental.viteModuleRunner
