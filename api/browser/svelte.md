@@ -1,7 +1,7 @@
 ---
 outline: deep
 ---
-<!-- TODO: translation -->
+
 # vitest-browser-svelte
 
 The community [`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte) package renders [Svelte](https://svelte.dev/) components in [Browser Mode](/guide/browser/).

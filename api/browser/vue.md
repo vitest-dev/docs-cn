@@ -33,7 +33,7 @@ test('counter button increments the count', async () => {
 `vitest-browser-vue` 返回的 API 能与内置的 [定位器](/api/browser/locators)、[用户事件](/api/browser/interactivity) 及 [断言](/api/browser/assertions) 更好的协作。例如：即使组件在断言间被重新渲染，Vitest 仍会自动重试元素查找，直至断言成功。
 :::
 
-该包提供两个入口点：`vitest-browser-vue` 和 `vitest-browser-vue/pure`。两者暴露完全相同的 API，在下一个测试开始前 `pure` 不会添加移除组件处理程序。
+该包提供两个入口点：`vitest-browser-vue` 和 `vitest-browser-vue/pure`。两者暴露完全相同的 API，但在下一个测试开始前 `pure` 不会添加移除组件处理程序。
 
 ## 渲染函数 {#render}
 
@@ -80,13 +80,17 @@ await screen.getByRole('link', { name: 'Expand' }).click()
 
 #### container
 
-承载 Vue 组件渲染的 DOM 容器节点。这是一个常规 DOM 节点，因此理论上可以通过 `container.querySelector` 等方式检查子元素。
+Vue 组件将被渲染到 `container` 这个 DOM 容器中。这是一个常规 DOM 节点，因此理论上可以通过 `container.querySelector` 等方式检查子元素。
 
 :::danger
-如果你需通过 `container` 查询渲染元素，你应该重新考虑测试方法！[定位器](/api/browser/locators) 专为应对组件变更设计，比直接查询容器更具稳定性。应避免使用 `container` 查询元素！
+如果你需通过 `container` 查询渲染元素，你应该重新考虑测试方法！[定位器](/api/browser/locators) 专为应对组件变更而设计，比直接查询容器更具稳定性。应避免使用 `container` 查询元素！
 :::
 
 #### baseElement
+
+Vue 组件将被渲染到 `container` 这个 DOM 容器中。如果在调用 render 时没有通过 `baseElement` 选项指定容器，则默认使用 `document.body`。
+
+适用于被测组件需要在容器 `div` 之外渲染内容，例如，对直接渲染到 body 的传送门组件进行快照测试。
 
 :::tip
 `render` 返回的查询方法会基于 `baseElement` 进行查找，因此即使不指定 `baseElement`，也能通过这些查询方法来测试你的传送门组件。
@@ -125,7 +129,7 @@ function debug(
 function rerender(props: Partial<Props>): void
 ```
 
-最佳实践是测试负责更新属性的组件本身，以确保属性更新逻辑正确，从而避免测试代码依赖于实现细节。如果需要在测试过程中更新已渲染组件的属性，当前函数可用于实现该需求。
+其最佳实践是测试负责更新属性的组件本身，以确保属性更新逻辑正确，从而避免测试代码依赖于实现细节。如果需要在测试过程中更新已渲染组件的属性，当前函数可用于实现该需求。
 
 ```js
 import { render } from 'vitest-browser-vue'
