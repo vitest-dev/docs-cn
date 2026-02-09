@@ -4,7 +4,7 @@ outline: deep
 
 # vitest-browser-svelte
 
-The community [`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte) package renders [Svelte](https://svelte.dev/) components in [Browser Mode](/guide/browser/).
+由社区提供的 [`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte) 包可在 [浏览器模式](/guide/browser/) 中渲染 [Svelte](https://svelte.dev/) 组件。
 
 ```ts
 import { render } from 'vitest-browser-svelte'
@@ -23,16 +23,16 @@ test('counter button increments the count', async () => {
 ```
 
 ::: warning
-This library takes inspiration from [`@testing-library/svelte`](https://github.com/testing-library/svelte-testing-library).
+该库的灵感来至于 [`@testing-library/svelte`](https://github.com/testing-library/svelte-testing-library)。
 
-If you have used `@testing-library/svelte` in your tests before, you can keep using it, however the `vitest-browser-svelte` package provides certain benefits unique to the Browser Mode that `@testing-library/svelte` lacks:
+如果你之前使用过 `@testing-library/svelte`，仍可以继续延用。但 `vitest-browser-svelte` 包提供了浏览器模式下特有的优势，这些是 `@testing-library/svelte` 所不具备的：
 
-`vitest-browser-svelte` returns APIs that interact well with built-in [locators](/api/browser/locators), [user events](/api/browser/interactivity) and [assertions](/api/browser/assertions): for example, Vitest will automatically retry the element until the assertion is successful, even if it was rerendered between the assertions.
+`vitest-browser-svelte` 返回的 API 能与内置的 [定位器](/api/browser/locators)、[用户事件](/api/browser/interactivity) 及 [断言](/api/browser/assertions) 更好的协作。例如：即使组件在断言间被重新渲染，Vitest 仍会自动重试元素查找，直至断言成功。
 :::
 
-The package exposes two entry points: `vitest-browser-svelte` and `vitest-browser-svelte/pure`. They expose identical API, but the `pure` entry point doesn't add a handler to remove the component before the next test has started.
+该包提供两个入口点：`vitest-browser-svelte` 和 `vitest-browser-svelte/pure`。两者暴露完全相同的 API，但在下一个测试开始前 `pure` 不会添加移除组件处理程序。
 
-## render
+## 渲染函数 {#render}
 
 ```ts
 export function render<C extends Component>(
@@ -42,9 +42,9 @@ export function render<C extends Component>(
 ): RenderResult<C>
 ```
 
-### Options
+### 选项 {#options}
 
-The `render` function supports either options that you can pass down to [`mount`](https://svelte.dev/docs/svelte/imperative-component-api#mount) or props directly:
+`render` 函数支持两种传参方式，一种是向 [`mount`](https://svelte.dev/docs/svelte/imperative-component-api#mount) 传入配置选项，另一种则是直接向组件传入属性：
 
 ```ts
 const screen = render(Component, {
@@ -57,33 +57,33 @@ const screen = render(Component, {
 
 #### props
 
-Component props.
+组件属性。
 
 #### target
 
-By default, Vitest will create a `div`, append it to `document.body`, and render your component there. If you provide your own `HTMLElement` container, it will not be appended automatically — you'll need to call `document.body.appendChild(container)` before `render`.
+默认情况下，Vitest 会创建一个 `div` 并添加到 `document.body` 上，然后在该节点中渲染你的组件。如果提供自定义的 `HTMLElement` 容器，则不会自动添加，你需要在调用 `render` 前手动执行 `document.body.appendChild(container)`。
 
-For example, if you are unit testing a `tbody` element, it cannot be a child of a `div`. In this case, you can specify a `table` as the render container.
+例如，当测试 `tbody` 元素时，它不能作为 `div` 的子元素。在这个例子中，你可以指定一个 `table` 作为渲染容器。
 
 ```ts
 const table = document.createElement('table')
 
 const screen = render(TableBody, {
   props,
-  // ⚠️ appending the element to `body` manually before rendering
+  // ⚠️ 渲染前需手动将元素添加到 `body`
   target: document.body.appendChild(table),
 })
 ```
 
 #### baseElement
 
-This can be passed down in a third argument. You should rarely, if ever, need to use this option.
+`baseElement` 可通过第三个参数传递。除非特殊情况，否则极少需要使用此选项。
 
-If the `target` is specified, then this defaults to that, otherwise this defaults to `document.body`. This is used as the base element for the queries as well as what is printed when you use `debug()`.
+如果指定了 `target` 参数，则默认以此为根元素，否则将默认使用 `document.body`。该元素既作为查询操作的根节点，也会在使用 `debug()` 时被输出展示。
 
-### Render Result
+### 渲染结果 {#render-result}
 
-In addition to documented return value, the `render` function also returns all available [locators](/api/browser/locators) relative to the [`baseElement`](#baseelement), including [custom ones](/api/browser/locators#custom-locators).
+除文档记载的返回值外，`render` 函数还会返回相对于 [`baseElement`](#baseelement) 的所有可用 [定位器](/api/browser/locators)，包括 [自定义定位器](/api/browser/locators#custom-locators)。
 
 ```ts
 const screen = render(TableBody, props)
@@ -93,27 +93,27 @@ await screen.getByRole('link', { name: 'Expand' }).click()
 
 #### container
 
-The containing DOM node where your Svelte component is rendered. This is a regular DOM node, so you technically could call `container.querySelector` etc. to inspect the children.
+Svelte 组件将被渲染到 `container` 这个 DOM 容器中。这是一个常规 DOM 节点，因此理论上可以通过 `container.querySelector` 等方式检查子元素。
 
 :::danger
-If you find yourself using `container` to query for rendered elements then you should reconsider! The [locators](/api/browser/locators) are designed to be more resilient to changes that will be made to the component you're testing. Avoid using `container` to query for elements!
+如果你需通过 `container` 查询渲染元素，你应该重新考虑测试方法！[定位器](/api/browser/locators) 专为应对组件变更而设计，比直接查询容器更具稳定性。应避免使用 `container` 查询元素！
 :::
 
 #### component
 
-The mounted Svelte component instance. You can use this to access component methods and properties if needed.
+已挂载的 Svelte 组件实例。如需访问组件方法和属性，可通过此实例进行操作。
 
 ```ts
 const { component } = render(Counter, {
   initialCount: 0,
 })
 
-// Access component exports if needed
+// 访问组件导出项
 ```
 
 #### locator
 
-The [locator](/api/browser/locators) of your `container`. It is useful to use queries scoped only to your component, or pass it down to other assertions:
+`container` 的 [定位器](/api/browser/locators)。适用于在组件范围内查找元素或传递给其他断言语句场景：
 
 ```ts
 import { render } from 'vitest-browser-svelte'
@@ -134,7 +134,7 @@ function debug(
 ): void
 ```
 
-This method is a shortcut for `console.log(prettyDOM(baseElement))`. It will print the DOM content of the container or specified elements to the console.
+此方法是 `console.log(prettyDOM(baseElement))` 的简写方式，用于在控制台输出容器或指定元素的 DOM 内容。
 
 #### rerender
 
@@ -144,6 +144,8 @@ function rerender(props: Partial<ComponentProps<T>>): void
 
 Updates the component's props and waits for Svelte to apply the changes. Use this to test how your component responds to prop changes.
 
+更新组件属性并等待 Svelte 变更被应用。适用于测试组件属性变化的响应。
+
 ```ts
 import { render } from 'vitest-browser-svelte'
 
@@ -151,7 +153,7 @@ const { rerender } = render(NumberDisplay, {
   number: 1,
 })
 
-// re-render the same component with different props
+// 使用新属性重新渲染同一个组件
 await rerender({ number: 2 })
 ```
 
@@ -161,14 +163,14 @@ await rerender({ number: 2 })
 function unmount(): void
 ```
 
-Unmount and destroy the Svelte component. This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+卸载并销毁 Svelte 组件。该特性适用于测试组件从页面移除时的行为（例如验证是否残留未清除的事件处理器，避免引发内存泄漏）。
 
 ```ts
 import { render } from 'vitest-browser-svelte'
 
 const { container, unmount } = render(Component)
 unmount()
-// your component has been unmounted and now: container.innerHTML === ''
+// 组件已被卸载，此时：container.innerHTML === ''
 ```
 
 ## cleanup
@@ -177,7 +179,7 @@ unmount()
 export function cleanup(): void
 ```
 
-Remove all components rendered with [`render`](#render).
+移除所有通过 [`render`](#render) 方法渲染的组件。
 
 ## Extend Queries
 

@@ -21,7 +21,7 @@ test('counter button increments the count', async () => {
 ```
 
 ::: warning
-该库的灵感来至于 [`@testing-library/react`](https://github.com/testing-library/react-testing-library).
+该库的灵感来至于 [`@testing-library/react`](https://github.com/testing-library/react-testing-library)。
 
 如果你之前使用过 `@testing-library/react`，仍可继续延用。但 `vitest-browser-react` 包提供了浏览器模式下特有的优势，这些是 `@testing-library/vue` 所不具备的：
 
@@ -109,6 +109,8 @@ await screen.getByRole('link', { name: 'Expand' }).click()
 
 The containing `div` DOM node of your rendered React Element (rendered using `ReactDOM.render`). This is a regular DOM node, so you technically could call `container.querySelector` etc. to inspect the children.
 
+这是渲染后的 React 元素所包含的 `div` DOM 节点（通过 `ReactDOM.render` 渲染生成）。这是一个常规 DOM 节点，因此理论上可以通过 `container.querySelector` 等方式检查子元素。
+
 :::danger
 如果你需通过 `container` 查询渲染元素，你应该重新考虑测试方法！[定位器](/api/browser/locators) 专为应对组件变更而设计，比直接查询容器更具稳定性。应避免使用 `container` 查询元素！
 :::
@@ -125,7 +127,7 @@ React 元素将被渲染到 `container` 这个 DOM 容器中。如果在调用 r
 
 #### locator
 
-`container` 的 [定位器](/api/browser/locators)。在组件范围内查找元素或传递给其他断言语句场景下特别有用：
+`container` 的 [定位器](/api/browser/locators)。适用于在组件范围内查找元素或传递给其他断言语句场景：
 
 ```jsx
 import { render } from 'vitest-browser-react'
@@ -146,7 +148,7 @@ function debug(
 ): void
 ```
 
-此方法是 `console.log(prettyDOM(baseElement))` 的快捷方式，用于在控制台输出容器或指定元素的 DOM 内容。
+此方法是 `console.log(prettyDOM(baseElement))` 的简写方式，用于在控制台输出容器或指定元素的 DOM 内容。
 
 #### rerender
 
@@ -187,7 +189,7 @@ await unmount()
 function asFragment(): DocumentFragment
 ```
 
-Returns a `DocumentFragment` of your rendered component. This can be useful if you need to avoid live bindings and see how your component reacts to events.
+返回已渲染组件的 `DocumentFragment`。适用于需要避免实时绑定并观察组件对事件的响应。
 
 ## cleanup
 
@@ -195,7 +197,7 @@ Returns a `DocumentFragment` of your rendered component. This can be useful if y
 export function cleanup(): Promise<void>
 ```
 
-Remove all components rendered with [`render`](#render).
+移除所有通过 [`render`](#render) 方法渲染的组件。
 
 ## renderHook
 

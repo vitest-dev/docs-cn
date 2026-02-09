@@ -25,8 +25,7 @@ test('counter button increments the count', async () => {
 ```
 
 ::: warning
-
-该库的灵感来至于 [`@testing-library/vue`](https://github.com/testing-library/vue-testing-library).
+该库的灵感来至于 [`@testing-library/vue`](https://github.com/testing-library/vue-testing-library)。
 
 如果你之前使用过 `@testing-library/vue`，仍可以继续延用。但 `vitest-browser-vue` 包提供了浏览器模式下特有的优势，这些是 `@testing-library/vue` 所不具备的：
 
@@ -98,7 +97,7 @@ Vue 组件将被渲染到 `container` 这个 DOM 容器中。如果在调用 ren
 
 #### locator
 
-`container` 的 [定位器](/api/browser/locators)。在组件范围内查找元素或传递给其他断言语句场景下特别有用：
+`container` 的 [定位器](/api/browser/locators)。适用于在组件范围内查找元素或传递给其他断言语句场景：
 
 ```js
 import { render } from 'vitest-browser-vue'
@@ -121,7 +120,7 @@ function debug(
 ): void
 ```
 
-此方法是 `console.log(prettyDOM(baseElement))` 的快捷方式，用于在控制台输出容器或指定元素的 DOM 内容。
+此方法是 `console.log(prettyDOM(baseElement))` 的简写方式，用于在控制台输出容器或指定元素的 DOM 内容。
 
 #### rerender
 
