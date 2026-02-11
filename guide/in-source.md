@@ -100,7 +100,7 @@ export default {
       'import.meta.vitest': 'undefined', // [!code ++]
     }), // [!code ++]
   ],
-  // 其他选项
+  // 其他配置项
 }
 ```
 
@@ -116,7 +116,7 @@ export default defineBuildConfig({
   replace: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  // 其他选项
+  // 其他配置项
 })
 ```
 

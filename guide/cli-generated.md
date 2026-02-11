@@ -316,7 +316,7 @@ Specifies the module name or path for the custom coverage provider module. Visit
 
 - **命令行终端:** `--browser.name <name>`
 
-在特定浏览器中运行所有测试。某些浏览器仅适用于特定的 provider（详情请参见 `--browser.provider`）
+在指定浏览器中运行所有测试。某些浏览器仅适用于特定的 provider（详情请参见 `--browser.provider`）
 
 ### browser.headless
 
@@ -866,11 +866,6 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
 
-### experimental.importDurations.print
-
-- **命令行终端:** `--experimental.importDurations.print <boolean|on-warn>`
-- **配置:** [experimental.importDurations.print](/config/experimental#experimental-importdurations-print)
-
 ### experimental.fsModuleCache
 
 - **命令行终端:** `--experimental.fsModuleCache`
@@ -883,7 +878,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **命令行终端:** `--experimental.importDurations.print <boolean|on-warn>`
 - **配置:** [experimental.importDurations.print](/config/experimental#experimental-importdurations-print)
 
-控制何时将导入耗时分析输出到命令行终端。`true` 表示始终输出，`false` 表示不输出，`on-warn` 表示仅在导入超过警告阈值时输出。（默认值：`false`）
+控制何时将导入耗时分析输出到命令行终端。`true` 表示始终输出，`false` 表示永不输出，`on-warn` 表示仅在导入超过警告阈值时输出。（默认值：`false`）
 
 ### experimental.importDurations.limit
 
