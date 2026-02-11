@@ -40,7 +40,7 @@ export function render(
 ```
 
 :::warning
-请注意，与其他包不同，为了正确支持 [`Suspense`](https://react.dev/reference/react/Suspense) 功能，此处的 `render` 是异步方法。
+请注意，与其他包不同，为了支持 [`Suspense`](https://react.dev/reference/react/Suspense) 功能，此处的 `render` 是异步方法。
 
 ```tsx
 import { render } from 'vitest-browser-react'
@@ -106,8 +106,6 @@ await screen.getByRole('link', { name: 'Expand' }).click()
 ```
 
 #### container
-
-The containing `div` DOM node of your rendered React Element (rendered using `ReactDOM.render`). This is a regular DOM node, so you technically could call `container.querySelector` etc. to inspect the children.
 
 这是渲染后的 React 元素所包含的 `div` DOM 节点（通过 `ReactDOM.render` 渲染生成）。这是一个常规 DOM 节点，因此理论上可以通过 `container.querySelector` 等方式检查子元素。
 
@@ -219,11 +217,11 @@ test('returns logged in user', async () => {
 })
 ```
 
-### Options
+### 选项 {#renderhook-options}
 
-`renderHook` accepts the same options as [`render`](#render) with an addition to `initialProps`:
+`renderHook` 接受与 [`render`](#render) 相同的配置项，并额外支持 `initialProps` 参数：
 
-It declares the props that are passed to the render-callback when first invoked. These will not be passed if you call `rerender` without props.
+首次调用时声明传递给渲染回调函数的属性参数。若不带参数调用 `rerender` 则不会传递这些属性。
 
 ```jsx
 import { renderHook } from 'vitest-browser-react'
@@ -239,7 +237,7 @@ test('returns logged in user', async () => {
 ```
 
 :::warning
-When using `renderHook` in conjunction with the `wrapper` and `initialProps` options, the `initialProps` are not passed to the `wrapper` component. To provide props to the `wrapper` component, consider a solution like this:
+当 `renderHook` 与 `wrapper` 和 `initialProps` 选项结合使用时，要注意的是 `initialProps` 不会传递给 `wrapper` 组件。如果需要向 `wrapper` 组件传递属性参数，可采用以下方案解决：
 
 ```jsx
 function createWrapper(Wrapper, props) {
@@ -256,13 +254,13 @@ await renderHook(() => {}, {
 ```
 :::
 
-`renderHook` returns a few useful methods and properties:
+`renderHook` 返回包含以下工具方法和属性的对象:
 
 ### Render Hook Result
 
 #### result
 
-Holds the value of the most recently committed return value of the render-callback:
+保存渲染回调函数最近一次提交的返回值:
 
 ```jsx
 import { useState } from 'react'
@@ -281,24 +279,24 @@ const { result } = await renderHook(() => {
 expect(result.current).toBe('Alice')
 ```
 
-Note that the value is held in `result.current`. Think of result as a [ref](https://react.dev/learn/referencing-values-with-refs) for the most recently committed value.
+注意返回值存储在 `result.current` 中。可以将 result 视为最近保存的值 [ref](https://zh-hans.react.dev/learn/referencing-values-with-refs)。
 
 #### rerender {#renderhooks-rerender}
 
-Renders the previously rendered render-callback with the new props:
+使用新的 props 重新渲染之前渲染过的回调函数：
 
 ```jsx
 import { renderHook } from 'vitest-browser-react'
 
 const { rerender } = await renderHook(({ name = 'Alice' } = {}) => name)
 
-// re-render the same hook with different props
+// 使用不同 props 重新渲染同一个 hook
 await rerender({ name: 'Bob' })
 ```
 
 #### unmount {#renderhooks-unmount}
 
-Unmounts the test hook.
+卸载测试钩子。
 
 ```jsx
 import { renderHook } from 'vitest-browser-react'
@@ -308,9 +306,9 @@ const { unmount } = await renderHook(({ name = 'Alice' } = {}) => name)
 await unmount()
 ```
 
-## Extend Queries
+## 扩展查询 {#extend-queries}
 
-To extend locator queries, see [`"Custom Locators"`](/api/browser/locators#custom-locators). For example, to make `render` return a new custom locator, define it using the `locators.extend` API:
+如果想扩展定位器的查询方法，详情参阅 [`“自定义扩展器”`](/api/browser/locators#custom-locators)。例如，要为 `render` 扩展一个新的定位器，可使用 `locators.extend` API 进行定义：
 
 ```jsx {5-7,12}
 import { locators } from 'vitest/browser'
@@ -328,19 +326,19 @@ await expect.element(
 ).toBeVisible()
 ```
 
-## Configuration
+## 配置 {#configuration}
 
-You can configure if the component should be rendered in Strict Mode with configure method from `vitest-browser-react/pure`:
+可以通过 `vitest-browser-react/pure` 中的 `configure` 方法配置组件是否应在严格模式下渲染：
 
 ```js
 import { configure } from 'vitest-browser-react/pure'
 
 configure({
-  // disabled by default
+  // 默认禁用
   reactStrictMode: true,
 })
 ```
 
-## See also
+## 相关链接 {#see-also}
 
 - [React Testing Library 文档](https://testing-library.com/docs/react-testing-library/intro)

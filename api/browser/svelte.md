@@ -142,8 +142,6 @@ function debug(
 function rerender(props: Partial<ComponentProps<T>>): void
 ```
 
-Updates the component's props and waits for Svelte to apply the changes. Use this to test how your component responds to prop changes.
-
 更新组件属性并等待 Svelte 变更被应用。适用于测试组件属性变化的响应。
 
 ```ts
@@ -181,9 +179,9 @@ export function cleanup(): void
 
 移除所有通过 [`render`](#render) 方法渲染的组件。
 
-## Extend Queries
+## 扩展查询 {#extend-queries}
 
-To extend locator queries, see [`"Custom Locators"`](/api/browser/locators#custom-locators). For example, to make `render` return a new custom locator, define it using the `locators.extend` API:
+如果想扩展定位器的查询方法，详情参阅 [`“自定义扩展器”`](/api/browser/locators#custom-locators)。例如，要为 `render` 扩展一个新的定位器，可使用 `locators.extend` API 进行定义：
 
 ```ts {5-7,12}
 import { locators } from 'vitest/browser'
@@ -201,9 +199,9 @@ await expect.element(
 ).toBeVisible()
 ```
 
-## Snippets
+## 代码片段 {#snippets}
 
-For simple snippets, you can use a wrapper component and "dummy" children to test them. Setting `data-testid` attributes can be helpful when testing slots in this manner.
+对于简单的代码片段，您可以使用包装组件和 “占位” 子元素进行测试。通过设置 `data-testid` 属性帮助测试插槽内容。
 
 ::: code-group
 ```ts [basic.test.js]
@@ -241,7 +239,7 @@ test('basic snippet', async () => {
 ```
 :::
 
-For more complex snippets, e.g. where you want to check arguments, you can use Svelte's [`createRawSnippet`](https://svelte.dev/docs/svelte/svelte#createRawSnippet) API.
+对于更复杂的代码片段（例如需要检查参数的情况），可以使用 Svelte 的 [`createRawSnippet`](https://svelte.dev/docs/svelte/svelte#createRawSnippet) API。
 
 ::: code-group
 ```js [complex-snippet.test.js]
@@ -277,7 +275,7 @@ test('renders greeting in message snippet', async () => {
 ```
 :::
 
-## See also
+## 相关链接 {#see-also}
 
-- [Svelte Testing Library documentation](https://testing-library.com/docs/svelte-testing-library/intro)
-- [Svelte Testing Library examples](https://github.com/testing-library/svelte-testing-library/tree/main/examples)
+- [Svelte Testing Library 文档](https://testing-library.com/docs/svelte-testing-library/intro)
+- [Svelte Testing Library 示例](https://github.com/testing-library/svelte-testing-library/tree/main/examples)
