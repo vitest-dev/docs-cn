@@ -146,7 +146,7 @@ function debug(
 ): void
 ```
 
-此方法是 `console.log(prettyDOM(baseElement))` 的简写方式，用于在控制台输出容器或指定元素的 DOM 内容。
+此方法是 `console.log(prettyDOM(baseElement))` 的简写形式，用于在控制台输出容器或指定元素的 DOM 内容。
 
 #### rerender
 
