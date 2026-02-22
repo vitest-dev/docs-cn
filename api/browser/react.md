@@ -23,7 +23,7 @@ test('counter button increments the count', async () => {
 ::: warning
 该库的灵感来至于 [`@testing-library/react`](https://github.com/testing-library/react-testing-library)。
 
-如果你之前使用过 `@testing-library/react`，仍可继续延用。但 `vitest-browser-react` 包提供了浏览器模式下特有的优势，这些是 `@testing-library/vue` 所不具备的：
+如果你之前使用过 `@testing-library/react`，仍可继续延用。但 `vitest-browser-react` 包提供了浏览器模式下特有的优势，这些是 `@testing-library/react` 所不具备的：
 
 `vitest-browser-react` 返回的 API 能与内置的 [定位器](/api/browser/locators)、[用户事件](/api/browser/interactivity) 及 [断言](/api/browser/assertions) 更好的协作。例如：即使组件在断言间被重新渲染，Vitest 仍会自动重试元素查找，直至断言成功。
 :::
@@ -206,7 +206,7 @@ export function renderHook<Props, Result>(
 ): Promise<RenderHookResult<Result, Props>>
 ```
 
-This is a convenience wrapper around `render` with a custom test component. The API emerged from a popular testing pattern and is mostly interesting for libraries publishing hooks. You should prefer `render` since a custom test component results in more readable and robust tests since the thing you want to test is not hidden behind an abstraction.
+这是对 `render` 方法的封装，内置了自定义测试组件。该 API 源于一种流行的测试模式，主要适用于发布 hooks 库的开发者。我们建议优先使用 `render` 方法，因为自定义测试组件会导致被测逻辑隐藏在抽象层之后，而直接使用 `render` 能写出更可读、更健壮的测试代码。
 
 ```jsx
 import { renderHook } from 'vitest-browser-react'
@@ -217,7 +217,7 @@ test('returns logged in user', async () => {
 })
 ```
 
-### 选项 {#renderhook-options}
+### 选项 {#options-1}
 
 `renderHook` 接受与 [`render`](#render) 相同的配置项，并额外支持 `initialProps` 参数：
 
