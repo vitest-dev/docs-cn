@@ -2,133 +2,50 @@
 outline: deep
 ---
 
-# 配置索引
+# 配置索引 {#configuring-vitest}
 
-## 配置
-
-`vitest` 将读取你的项目根目录的 `vite.config.ts` 文件以匹配插件并设置为你的 Vite 应用。如果想使用不同的配置进行测试，你可以：
-
-- 创建 `vitest.config.ts`，优先级更高。
-- 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts` 。
-- 在 `defineConfig` 中使用 `process.env.VITEST` 或 `mode` 属性（默认值是 `test`）在 `vite.config.ts` 中有条件的应用不同的配置。
-
-要配置 `vitest` 本身，请在你的 Vite 配置中添加 `test` 属性。如果你使用 `vite` 的 `defineConfig` 你还需要将 [三斜线指令](https://www.tslang.cn/docs/handbook/triple-slash-directives.html#-reference-types-) 写在配置文件的顶部。
-
-使用 `vite` 的 `defineConfig` 可以参考下面的格式：
-
-```ts
-/// <reference types="vitest" />
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  test: {
-    // ... Specify options here.
-  },
-})
-```
-
-使用 `vitest/config` 中的 `defineConfig` 可以参考下面的格式：
-
-```ts
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    // ... Specify options here.
-  },
-})
-```
-
-如果有需要，你可以获取到 Vitest 的默认选项以扩展它们：
-
-```ts
-import { configDefaults, defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    exclude: [...configDefaults.exclude, 'packages/template/*'],
-  },
-})
-```
-
-## 选项
-
-当使用单独的 `vitest.config.js` 时，如果需要，你还可以从另一个配置文件扩展 Vite 的选项：
-
-```ts
-import { defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config'
-
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      exclude: ['packages/template/*'],
-    },
-  })
-)
-```
+要创建 Vitest 配置文件，请遵循 [指南](/config/file) 进行操作。在继续之前，请确保您已理解 Vitest 配置解析的工作原理。
 
 ::: warning
-`mergeConfig` helper 在 Vitest v0.30.0 之后可用。如果使用低版本，你可以直接从 `vite` 导入它。
-:::
+本页上列出的 _所有选项_ 都位于配置内的 `test` 属性内：
 
-如果你的 vite 配置被定义为一个函数，可以像这样定义配置：
-
-```ts
-import { defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config'
-
-export default defineConfig(configEnv =>
-  mergeConfig(
-    viteConfig(configEnv),
-    defineConfig({
-      test: {
-        exclude: ['packages/template/*'],
-      },
-    })
-  )
-)
-```
-
-## 配置选项
-
-:::tip
-除了以下选项，你还可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。 例如，`define` 定义全局变量，或 `resolve.alias` 定义别名。
-
-*此处列出的*所有选项都位于配置中的 `test` 属性上：
-
-```ts
+```ts [vitest.config.js]
 export default defineConfig({
   test: {
     exclude: [],
   },
 })
 ```
-
 :::
 
 ::: tip
-所有不支持在 [workspace](/guide/workspace) 项目配置中的配置选项都会有 <NonProjectOption /> 标记。
+
+由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://cn.vite.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
+
+所有在 [workspace](/guide/workspace) 项目配置中不受支持的选项均标有<NonProjectOption /> 号。
 :::
 
 ### include
 
 - **类型:** `string[]`
 - **默认值:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
+- **命令行终端:** `vitest [...include], vitest **/*.test.js`
 
 匹配包含测试文件的 glob 规则。
-
-::: tip NOTE
-使用 coverage 时，Vitest 会自动将测试文件的 `include` 模式添加到 coverage 的默认 `exclude` 模式中。请参见 [`coverage.exclude`](#coverage-exclude)。
-:::
 
 ### exclude
 
 - **类型:** `string[]`
-- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*']`
+- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**', '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*']`
+- **命令行终端:** `vitest --exclude "**/excluded-file"`
 
 匹配排除测试文件的 glob 规则。
+
+::: warning
+该选项不会影响代码覆盖率。如需从覆盖率报告中排除特定文件，请使用 [`coverage.exclude`](#coverage-exclude)。
+
+如果使用命令行参数，这是唯一一个不会被覆盖配置的选项的参数。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
+:::
 
 ### includeSource
 
@@ -139,10 +56,9 @@ export default defineConfig({
 
 当定义时，Vitest 将运行所有包含 `import.meta.vitest` 的匹配文件。
 
-### server {#server}
+### server <Version>0.34.0</version> {#server}
 
 - **类型:** `{ sourcemap?, deps?, ... }`
-- **版本:** Since Vitest 0.34.0
 
 Vite-Node 服务端选项。
 
@@ -175,7 +91,7 @@ Vite-Node 调试器选项。
 
 - **类型:** `{ external?, inline?, ... }`
 
-对依赖关系进行内联或外联的处理
+对依赖关系进行内联或外联的处理。
 
 #### server.deps.external
 
@@ -186,7 +102,7 @@ Vite-Node 调试器选项。
 
 这些选项支持在 `node_modules` 中编写的包名称或在 [`deps.moduleDirectories`](#deps-moduledirectories) 中指定的包名称。例如，位于 `packages/some-name` 内的包`@company/some-name` 应指定为 `some-name`，并且 `packages` 应包含在 `deps.moduleDirectories` 中。基本上，Vitest 总是检查文件路径，而不是实际的包名称。
 
-如果成功匹配，Vitest 会在 _file path_ 上调用它，而不是包名称。
+如果使用正则匹配，Vitest 会在 _file path_ 上调用它，而不是包名称。
 
 #### server.deps.inline
 
@@ -219,10 +135,10 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 
 处理依赖关系解析。
 
-#### deps.optimizer {#deps-optimizer}
+#### deps.optimizer
 
-- **类型:** `{ ssr?, web? }`
-- **参考:** [依赖优化选项](https://cn.vitejs.dev/config/dep-optimization-options.html)
+- **类型:** `{ ssr?, client? }`
+- **详情参阅:** [依赖优化选项](https://cn.vite.dev/config/dep-optimization-options.html)
 
 启用依赖优化。如果你有很多测试，这可能会提高它们的性能。
 
@@ -233,7 +149,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 - 你的 `alias` 配置现在在捆绑包中得到处理
 - 测试中的代码更接近于它在浏览器中的运行方式
 
-请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](/config/dep-optimization-options) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` 和 `happy-dom`, 在 `node` 和 `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
+请注意，只有 `deps.experimentalOptimizer?.[mode].include` 选项中的包会被捆绑（一些插件会自动填充它，比如 Svelte）。 你可以在 [Vite](https://cn.vite.dev/config/dep-optimization-options.html) 文档中阅读有关可用选项的更多信息。默认情况，Vitest 的 `experimentalOptimizer.web` 用在 `jsdom` 和 `happy-dom`, 在 `node` 和 `edge` 环境下使用 `experimentalOptimizer.ssr`，但这可以在 [`transformMode`](#transformmode) 进行配置。
 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
@@ -241,7 +157,7 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
 :::
 
-#### deps.optimizer.{mode}.enabled
+#### deps.optimizer.{mode}.enabled <version>1.3.0</version> {#deps-optimizer-mode-enabled}
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -249,13 +165,10 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 启用依赖优化。
 
 ::: warning
-此选项仅适用于 Vite 4.3.2 及更高版本。
+目前，此选项仅支持 Vite 4.3.2 及其更高版本。
 :::
 
-#### deps.web <Badge type="info">0.34.2+</Badge>
-
-#### deps.web
-
+#### deps.web <version>0.34.2</version> {#deps-web}
 - **类型:** `{ transformAssets?, ... }`
 
 当转换模式设置为 `web` 时应用于外部文件的选项。默认情况下，`jsdom` 和 `happy-dom` 使用 `web` 模式，而 `node` 和 `edge` 环境使用 `ssr` 转换模式，因此这些选项不会影响这些环境中的文件。
@@ -322,7 +235,7 @@ TypeError: createAsyncThunk is not a function
 TypeError: default is not a function
 ```
 
-如果你使用的是绕过此 Node.js 限制的捆绑器或转译器，则可以手动启用此选项。默认情况下，当 `environment` 为 `node` 时，Vitest 假定你使用的是 Node ESM 语法，并且不关心命名导出。
+默认情况下，Vitest 假设你使用的是打包工具来绕过此问题，不会失败，但如果代码未被处理，你可以手动禁用此行为。
 
 #### deps.moduleDirectories
 
@@ -350,9 +263,9 @@ export default defineConfig({
 ### runner
 
 - **类型**: `VitestRunnerConstructor`
-- **默认值**: `node`, when running tests, or `benchmark`, when running benchmarks
+- **默认值**: 运行测试时为`node`，运行基准测试时为 `benchmark`
 
-自定义测试运行程序的路径。这是一项高级功能，应与自定义库运行器一起使用。你可以在 [文档](/advanced/runner) 中阅读更多相关信息。
+自定义测试运行器的路径。这是一项高级功能，应与自定义库运行器一起使用。你可以在 [文档](/advanced/runner) 中阅读更多相关信息。
 
 ### benchmark
 
@@ -388,7 +301,7 @@ export default defineConfig({
 - **类型:** `Arrayable<BenchmarkBuiltinReporters | Reporter>`
 - **默认值:** `'default'`
 
-用于定义输出的自定义报告器。它可以包含一个或多个内置报告名称、报告实例和(或)自定义报告的路径。
+用于定义输出的自定义报告器。它可以包含一个或多个内置报告名称、报告实例和（或）自定义报告的路径。
 
 #### benchmark.outputFile
 
@@ -399,7 +312,7 @@ export default defineConfig({
 
 通过 CLI 命令提供对象，请使用以下语法: `--outputFile.json=./path --outputFile.junit=./other-path`.
 
-#### benchmark.outputJson {#benchmark-outputJson}
+#### benchmark.outputJson <version>1.6.0</version> {#benchmark-outputJson}
 
 - **类型:** `string | undefined`
 - **默认值:** `undefined`
@@ -409,16 +322,16 @@ export default defineConfig({
 例如:
 
 ```sh
-# save main branch's result
+# 保存主分支的结果
 git checkout main
 vitest bench --outputJson main.json
 
-# change a branch and compare against main
+# 切换到另一个分支并与主分支进行比较
 git checkout feature
 vitest bench --compare main.json
 ```
 
-#### benchmark.compare {#benchmark-compare}
+#### benchmark.compare <version>1.6.0</version> {#benchmark-compare}
 
 - **类型:** `string | undefined`
 - **默认值:** `undefined`
@@ -432,12 +345,12 @@ vitest bench --compare main.json
 在测试内部运行时定义自定义别名。它们将与来自 `resolve.alias` 的别名合并。
 
 ::: warning
-Vitest 使用 Vite SSR 基元来运行测试，这有[一定的缺陷](https://vitejs.dev/guide/ssr.html#ssr-externals)。
+Vitest 使用 Vite SSR 基元来运行测试，这有 [一定的缺陷](https://cn.vite.dev/guide/ssr.html#ssr-externals)。
 
-1. 别名只影响由[inlined](#server-deps-inline)模块直接用`import`关键字导入的模块（默认情况下所有源代码都是内联的）。
+1. 别名只影响由 [inlined](#server-deps-inline) 模块直接用 `import` 关键字导入的模块（默认情况下所有源代码都是内联的）。
 2. Vitest 不支持对 `require` 调用进行别名。
-3. 如果您要别名外部依赖（例如，`react` -> `preact`），您可能需要别名实际的 `node_modules` 包，以使其适用于外部依赖。[Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) 和 [pnpm](https://pnpm.io/aliases/) 都支持通过 `npm:` 前缀进行别名。
-   :::
+3. 如果我们要别名外部依赖（例如，`react` -> `preact`），我们可能需要别名实际的 `node_modules` 包，以使其适用于外部依赖。[Yarn](https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-alias) 和 [pnpm](https://pnpm.io/aliases/) 都支持通过 `npm:` 前缀进行别名。
+:::
 
 ### globals
 
@@ -473,14 +386,14 @@ export default defineConfig({
 
 ```ts
 // vitest.config.ts
-import { defineConfig } from 'vitest/config'
 import AutoImport from 'unplugin-auto-import/vite'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
     AutoImport({
       imports: ['vitest'],
-      dts: true, // generate TypeScript declaration
+      dts: true, // 生成 TypeScript 声明文件
     }),
   ],
 })
@@ -493,11 +406,7 @@ export default defineConfig({
 - **命令行终端:** `--environment=<env>`
 
 Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用，你可以使用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
-如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
-
-::: tip
-你还可以使用 [浏览器模式](/guide/browser/) 在浏览器中运行集成或单元测试，而无需模拟环境。
-:::
+如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境。
 
 你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
 
@@ -542,17 +451,17 @@ test('use jsdom in this test file', () => {
 
 从 0.23.0 开始，你还可以定义自定义环境。 当使用非内置环境时，Vitest 将尝试加载包 `vitest-environment-${name}`。 该包应导出一个具有 `Environment` 属性的对象：
 
-```ts
+```ts [environment.js]
 import type { Environment } from 'vitest'
 
 export default <Environment>{
   name: 'custom',
-  transformMode: 'ssr',
+  viteEnvironment: 'ssr',
   setup() {
-    // custom setup
+    // 自定义设置
     return {
       teardown() {
-        // called after all tests with this env have been run
+        // 在所有使用此环境的测试运行完毕后调用。
       },
     }
   },
@@ -562,9 +471,9 @@ export default <Environment>{
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
 
 ::: tip
-jsdom 环境变量导出了等同于当前[JSDOM](https://github.com/jsdom/jsdom) 的 `jsdom` 全局变量实例。如果你想让 TypeScript 识别它，可以在使用此环境时将 `vitest/jsdom`添加到 `tsconfig.json` 中：
+jsdom 环境变量导出了等同于当前 [JSDOM](https://github.com/jsdom/jsdom) 的 `jsdom` 全局变量实例。如果你想让 TypeScript 识别它，可以在使用此环境时将 `vitest/jsdom`添加到 `tsconfig.json` 中：
 
-```json
+```json [tsconfig.json]
 {
   "compilerOptions": {
     "types": ["vitest/jsdom"]
@@ -596,9 +505,9 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     environmentMatchGlobs: [
-      // all tests in tests/dom will run in jsdom
+      // `tests/dom` 目录中的所有测试将在 jsdom 中运行。
       ['tests/dom/**', 'jsdom'],
-      // all tests in tests/ with .edge.test.ts will run in edge-runtime
+      // `tests/` 目录中所有以 `.edge.test.ts` 结尾的测试将在 edge-runtime 中运行。
       ['**/*.edge.test.ts', 'edge-runtime'],
       // ...
     ],
@@ -606,7 +515,7 @@ export default defineConfig({
 })
 ```
 
-### poolMatchGlobs {#poolmatchglobs}
+### poolMatchGlobs <version>0.29.4</version> {#poolmatchglobs}
 
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
 - **默认值:** `[]`
@@ -622,10 +531,11 @@ export default defineConfig({
   test: {
     poolMatchGlobs: [
       // all tests in "worker-specific" directory will run inside a worker as if you enabled `--pool=threads` for them,
+      // "worker-specific" 目录下的所有测试将在 worker 中运行，等效于对这些测试启用 `--pool=threads`
       ['**/tests/worker-specific/**', 'threads'],
-      // run all tests in "browser" directory in an actual browser
+      // "browser" 目录下的所有测试将在真实浏览器中运行
       ['**/tests/browser/**', 'browser'],
-      // all other tests will run based on "browser.enabled" and "threads" options, if you didn't specify other globs
+      // 其余测试将根据 "browser.enabled" 和 "threads" 配置项决定运行环境（未指定其他 glob 规则时）
       // ...
     ],
   },
@@ -643,17 +553,17 @@ export default defineConfig({
 ### watch<NonProjectOption />
 
 - **类型:** `boolean`
-- **默认值:** `!process.env.CI`
+- **默认值:** `!process.env.CI && process.stdin.isTTY`
 - **命令行终端:** `-w`, `--watch`, `--watch=false`
 
-启动监听模式
+启动监听模式。
 
 ### root
 
 - **类型:** `string`
 - **命令行终端:** `-r <path>`, `--root=<path>`
 
-项目的根目录
+项目的根目录。
 
 ### reporters<NonProjectOption />
 
@@ -661,17 +571,7 @@ export default defineConfig({
 - **默认值:** `'default'`
 - **命令行终端:** `--reporter=<name>`, `--reporter=<name1> --reporter=<name2>`
 
-用于输出的自定义 reporters 。 Reporters 可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/types/reporter.ts) 或选择内置的 reporters 字符串：
-
-- `'default'` - 当他们经过测试套件
-- `'basic'` - 给定一个类似于 CI 中的默认报告实例
-- `'verbose'` - 保持完整的任务树可见
-- `'dot'` - 将每个任务显示为一个点
-- `'junit'` - JUnit XML 报告器（你可以使用 `VITEST_JUNIT_SUITE_NAME` 环境变量配置 `test suites` 标签名称）
-- `'json'` - 给出一个简单的 JSON 总结
-- `'html'` - 根据 [`@vitest/ui`](/guide/ui) 输出 HTML 报告
-- `'hanging-process'` - 如果 Vitest 无法安全退出进程，则显示挂起进程列表。 这可能是一个复杂的操作，只有在 Vitest 始终无法退出进程时才启用它
-- 自定义报告的路径 (例如 `'./path/to/reporter.ts'`, `'@scope/reporter'`)
+自定义 [报告器](/guide/reporters) 输出。报告器可以是 [一个 Reporter 实例](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)、用于选择内置报告器的字符串，或自定义实现的路径（例如 `./path/to/reporter.ts`、`@scope/reporter`）。
 
 ### outputFile<NonProjectOption />
 
@@ -680,7 +580,7 @@ export default defineConfig({
 
 当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
 
-### pool<NonProjectOption /> {#pool}
+### pool<NonProjectOption /> <version>1.0.0</version> {#pool}
 
 - **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
 - **默认值:** `'forks'`
@@ -698,9 +598,9 @@ export default defineConfig({
 
 #### vmThreads<NonProjectOption />
 
-在 `threads` 线程池中使用[ VM 上下文](https://nodejs.org/api/vm.html)（在受限环境中）运行测试。
+在 `threads` 线程池中使用 [VM 上下文](https://nodejs.org/api/vm.html)（在沙箱环境中）运行测试。
 
-这样可以加快测试速度，但是当运行[ ESM 代码](https://github.com/nodejs/node/issues/37648)时，VM 模块可能不稳定。你的测试可能会[泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
+这样可以加快测试速度，但是当运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时，VM 模块可能不稳定。你的测试可能会 [泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
 
 ::: warning
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
@@ -717,7 +617,7 @@ catch (err) {
 ```
 
 - 导入 ES 模块会无限期地缓存它们，如果你有很多上下文（测试文件），这会导致内存泄漏。Node.js 中没有可以清除该缓存的 API。
-- 在沙盒环境中访问全局变量[需要更长的时间](https://github.com/nodejs/node/issues/31658)。
+- 在沙盒环境中访问全局变量 [需要更长的时间](https://github.com/nodejs/node/issues/31658)。
 
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
 :::
@@ -726,14 +626,14 @@ catch (err) {
 
 与 `vmThreads` 池类似，但通过 [tinypool](https://github.com/tinylibs/tinypool) 使用 `child_process` 而不使用 `worker_threads`。测试与主进程之间的通信速度虽然不如 `vmThreads` 快。但进程相关的 API（如 `process.chdir()` ）在 `vmForks` 中却可以使用。请注意，这个与 `vmThreads` 中列出的池具有相同的缺陷。
 
-### poolOptions<NonProjectOption /> {#pooloptions}
+### poolOptions<NonProjectOption /> <version>1.0.0</version>
 
 - **类型:** `Record<'threads' | 'forks' | 'vmThreads' | 'vmForks', {}>`
 - **默认值:** `{}`
 
 #### poolOptions.threads
 
-`threads` 池的选项。
+`threads` 池相关选项。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -742,7 +642,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       threads: {
-        // Threads related options here
+        // 此处是与线程相关的选项
       },
     },
   },
@@ -752,14 +652,14 @@ export default defineConfig({
 ##### poolOptions.threads.maxThreads<NonProjectOption />
 
 - **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **默认值:** _可用 CPU 核心数_
 
 最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
 ##### poolOptions.threads.minThreads<NonProjectOption />
 
 - **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **默认值:** _可用 CPU 核心数_
 
 最小线程数或百分比。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
 
@@ -805,7 +705,7 @@ export default defineConfig({
 
 #### poolOptions.forks
 
-`forks` 池的选项。
+`forks` 池相关选项。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -814,7 +714,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       forks: {
-        // Forks related options here
+        // 此处是 Fork 相关的选项
       },
     },
   },
@@ -824,14 +724,14 @@ export default defineConfig({
 ##### poolOptions.forks.maxForks<NonProjectOption />
 
 - **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **默认值:** _可用 CPU 核心数_
 
 最大分支数量或百分比。
 
 ##### poolOptions.forks.minForks<NonProjectOption />
 
 - **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **默认值:** _可用 CPU 核心数_
 
 最小分支数量或百分比。
 
@@ -868,7 +768,7 @@ export default defineConfig({
 
 #### poolOptions.vmThreads
 
-`vmThreads` 池的选项。
+`vmThreads` 池相关选项。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -877,7 +777,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       vmThreads: {
-        // VM threads related options here
+        // 此处是与虚拟线程相关的选项
       },
     },
   },
@@ -886,22 +786,22 @@ export default defineConfig({
 
 ##### poolOptions.vmThreads.maxThreads<NonProjectOption />
 
-- **类型:** `number | string`
-- **默认:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _可用 CPU 核心数_
 
 最大线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
 ##### poolOptions.vmThreads.minThreads<NonProjectOption />
 
-- **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _可用 CPU 核心数_
 
-最小线程数或百分比。还可以使用`VITEST_MIN_THREADS`环境变量进行设置。
+最小线程数或百分比。还可以使用`VITEST_MAX_THREADS`环境变量进行设置。
 
 ##### poolOptions.vmThreads.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
-- **命令行终端:** `1 / CPU Cores`
+- **命令行终端:** `1 / CPU 核心`
 
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
 
@@ -915,15 +815,17 @@ export default defineConfig({
 - 有单位时
   - `50%` - 如上，占系统总内存的百分比
   - `100KB`, `65MB`, 等 - 用单位表示固定的内存限制
-    - `K` / `KB` - Kilobytes (x1000)
-    - `KiB` - Kibibytes (x1024)
-    - `M` / `MB` - Megabytes - `MiB` - Mebibytes
-    - `G` / `GB` - Gigabytes - `GiB` - Gibibytes
+    - `K` / `KB` - 千字节 (x1000)
+    - `KiB` - 千字节 (x1024)
+    - `M` / `MB`- 千字节
+    - `MiB` - 兆字节
+    - `G` / `GB` - 千兆字节
+    - `GiB` - 千兆字节
 
 :::
 
 ::: warning
-由于系统内存报告不正确，基于百分比的内存限制[在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
+由于系统内存报告不正确，基于百分比的内存限制 [在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
 
 ##### poolOptions.vmThreads.useAtomics<NonProjectOption />
@@ -940,7 +842,7 @@ export default defineConfig({
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，详细信息可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 。
+将附加参数传递给虚拟机上下文中的 `node` 进程。详情请参阅 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 。
 
 :::warning
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
@@ -948,7 +850,7 @@ export default defineConfig({
 
 #### poolOptions.vmForks<NonProjectOption />
 
-`vmForks` 池的选项
+`vmForks` 池相关选项
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -957,7 +859,7 @@ export default defineConfig({
   test: {
     poolOptions: {
       vmForks: {
-        // VM forks related options here
+        // 此处是虚拟 Fork 相关的选项
       },
     },
   },
@@ -966,22 +868,22 @@ export default defineConfig({
 
 ##### poolOptions.vmForks.maxForks<NonProjectOption />
 
-- **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _可用 CPU 核心数_
 
-最大线程数或百分比。也可以使用 `VITEST_MAX_FORKS` 环境变量。
+最大线程数或百分比。你也可以使用 `VITEST_MAX_FORKS` 环境变量。
 
 ##### poolOptions.vmForks.minForks<NonProjectOption />
 
-- **类型:** `number | string`
-- **默认值:** _available CPUs_
+- **类型:** `number`
+- **默认值:** _可用 CPU 核心数_
 
-最小线程数或百分比。也可以使用 `VITEST_MIN_FORKS` 环境变量。
+最小线程数或百分比。你也可以使用 `VITEST_MIN_FORKS` 环境变量。
 
 ##### poolOptions.vmForks.memoryLimit<NonProjectOption />
 
 - **类型:** `string | number`
-- **默认值:** `1 / CPU Cores`
+- **默认值:** `1 / CPU 核心`
 
 指定 Worker 被回收前的内存限制。该值在很大程度上取决于环境，因此最好手动指定，而不是依赖默认值。该值的计算方法查看 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit)
 
@@ -990,13 +892,13 @@ export default defineConfig({
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，查看 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 了解更多详情。。
+将附加参数传递给虚拟机上下文中的 `node` 进程。更多内容请参阅 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html)。
 
 :::warning
 使用时要小心，因为某些选项（如 `--prof` 、`--title`）可能会导致 worker 崩溃。查看 https://github.com/nodejs/node/issues/41103 了解更多详情。
 :::
 
-### fileParallelism<NonProjectOption /> {#fileparallelism}
+### fileParallelism<NonProjectOption /> <version>1.1.0</version> {#fileparallelism}
 
 - **类型:** `boolean`
 - **默认值:** `true`
@@ -1005,25 +907,25 @@ export default defineConfig({
 所有测试文件应该并行运行。将其设置为 `false` 将覆盖 `maxWorkers` 和 `minWorkers` 选项为 `1`。
 
 ::: tip
-此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在[description](/api/#describe-concurrent)或通过[a config](#sequence-concurrent) 上使用 `concurrent` 选项。
+此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在 [description](/api/#describe-concurrent) 或通过 [配置](#sequence-concurrent) 上使用 `concurrent` 选项。
 :::
 
-### maxWorkers<NonProjectOption /> {#maxworkers}
+### maxWorkers<NonProjectOption /> <version>1.1.0</version> {#maxworkers}
 
-- **类型:** `number | string`
+- **类型:** `number`
 
 运行测试时设置的最大工作线程数或百分比。`poolOptions。｛threads，vmThreads｝.maxThreads `/`poolOptions.forks.maxForks` 具有更高的优先级。
 
-### minWorkers<NonProjectOption /> {#minworkers}
+### minWorkers<NonProjectOption /> <version>1.1.0</version> {#minworkers}
 
-- **类型:** `number | string`
+- **类型:** `number`
 
 运行测试时设置的最小工作线程数或百分比。`poolOptions.{threads,vmThreads}.minThreads`/`poolOptions.forks.minForks` 具有更高的优先级。
 
 ### testTimeout
 
 - **类型:** `number`
-- **默认值:** `5_000` in Node.js, `15_000` if `browser.enabled` is `true`
+- **默认值:** 在 Node.js 环境下为 `5_000`，当 browser.enabled 为 `true` 时为 `15_000`
 - **命令行终端:** `--test-timeout=5000`, `--testTimeout=5000`
 
 测试的默认超时时间（以毫秒为单位）。
@@ -1031,10 +933,10 @@ export default defineConfig({
 ### hookTimeout
 
 - **类型:** `number`
-- **默认值:** `10_000` in Node.js, `30_000` if `browser.enabled` is `true`
+- **默认值:** 在 Node.js 环境下为 `10_000`，当 browser.enabled 为 `true` 时为 `30_000`
 - **命令行终端:** `--hook-timeout=10000`, `--hookTimeout=10000`
 
-钩子(hook)的默认超时时间（以毫秒为单位）。
+钩子 (hook) 的默认超时时间（以毫秒为单位）。
 
 ### teardownTimeout<NonProjectOption />
 
@@ -1046,7 +948,7 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 ### silent<NonProjectOption />
 
-- **类型:** `boolean`
+- **类型:** `boolean | 'passed-only'`
 - **默认值:** `false`
 - **命令行终端:** `--silent`, `--silent=false`
 
@@ -1056,10 +958,10 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 
 - **类型:** `string | string[]`
 
-setup 文件的路径。它们将运行在每个测试文件之前。
+setup 文件的路径。它们将在每个测试文件之前运行。
 
 ::: info 提示
-更改配置文件将触发所有测试的重新运行。
+编辑设置文件将自动触发所有测试的重新运行。
 :::
 
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
@@ -1079,7 +981,7 @@ if (!globalThis.defined) {
   globalThis.defined = true
 }
 
-// hooks are reset before each suite
+// Hook 在每个套件之前重置
 afterEach(() => {
   cleanup()
 })
@@ -1100,18 +1002,16 @@ globalThis.resetBeforeEachTest = true
 :::
 
 ::: warning
-全局设置只有在至少有一个正在运行的测试时才运行。这意味着在测试文件更改后，全局安装程序可能会在监视模式下开始运行（测试文件将等待全局安装程序完成后再运行）。
+自 Vitest 1.0.0-beta 起，全局设置只有在至少有一个正在运行的测试时才运行。这意味着在测试文件更改后，全局安装程序可能会在监视模式下开始运行（测试文件将等待全局安装程序完成后再运行）。
 
-请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 `provide` 方法将可序列化数据传递给测试：
+请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。然而，自 1.0.0 起，你可以通过 [`provide`](#provide) 方法将可序列化数据传递给测试：
 
 :::code-group
-
-```js [globalSetup.js]
+```ts [globalSetup.js]
 export default function setup({ provide }) {
   provide('wsPort', 3000)
 }
 ```
-
 ```ts [globalSetup.ts]
 import type { GlobalSetupContext } from 'vitest/node'
 
@@ -1119,15 +1019,13 @@ export default function setup({ provide }: GlobalSetupContext) {
   provide('wsPort', 3000)
 }
 
-// 你还可以可以扩展 `ProvidedContext` 类型，以便对 `provide/inject` 方法进行类型安全访问：
 declare module 'vitest' {
   export interface ProvidedContext {
     wsPort: number
   }
 }
 ```
-
-```ts [example.test.js]
+``` js [example.test.js]
 import { inject } from 'vitest'
 
 inject('wsPort') === 3000
@@ -1135,30 +1033,37 @@ inject('wsPort') === 3000
 
 :::
 
+### watchExclude<NonProjectOption />
+
+- **类型:** `string[]`
+- **默认值:** `['**/node_modules/**', '**/dist/**']`
+- **弃用** 请使用 [`server.watch.ignored`](https://cn.vite.dev/config/server-options.html#server-watch)
+
+触发监视重新运行时要忽略的文件路径（glob 模式）。
+
 ### forceRerunTriggers<NonProjectOption />
 
 - **类型**: `string[]`
 - **默认值:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
 
-将触发整个套件重新运行的文件路径的全局 glob 模式。 如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
+将触发整个套件重新运行的文件路径的 glob 模式。 如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
 
 如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖树:
 
 ```ts
 test('execute a script', async () => {
-  // Vitest cannot rerun this test, if content of `dist/index.js` changes
+  // 如果 `dist/index.js` 的内容发生变化，Vitest 无法重新运行此测试
   await execa('node', ['dist/index.js'])
 })
 ```
 
 :::tip 提醒
-请确保您的文件没有被 [`server.watch.ignored`](https://vitejs.dev/config/server-options.html#server-watch)排除在外。
+请确保我们的文件没有被 [`server.watch.ignored`](https://cn.vite.dev/config/server-options.html#server-watch)排除在外。
 :::
 
 ### coverage<NonProjectOption />
 
-- **类型:** `CoverageC8Options | CoverageIstanbulOptions`
-- **默认值:** `undefined`
+你可以选择 [`v8`](/guide/coverage.html#v8-provider)、[`istanbul`](/guide/coverage.html#istanbul-provider)，或者 [自定义覆盖率工具](/guide/coverage#custom-coverage-provider) 来进行代码覆盖率统计。
 
 你可以使用点符号向 CLI 提供覆盖选项：
 
@@ -1167,7 +1072,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 ```
 
 ::: warning
-如果你使用带点符号的覆盖选项，请不要忘记指定 `--coverage.enabled`。 在这种情况下，不要提供单个 --coverage 选项。
+如果正在使用点表示法配置测试覆盖率选项，请务必指定 `--coverage.enabled`。在这种情况下，切勿单独传递 `--coverage` 选项。
 :::
 
 #### coverage.provider
@@ -1186,20 +1091,19 @@ npx vitest --coverage.enabled --coverage.provider=istanbul --coverage.all
 - **命令行终端:** `--coverage.enabled`, `--coverage.enabled=false`
 
 是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
-
 #### coverage.include
 
 - **类型:** `string[]`
-- **默认值:** `['**']`
+- **默认值:** 在执行测试过程中所引入的文件。
 - **可用的测试提供者:** `'v8' | 'istanbul'`
-- **命令行终端:** `--coverage.include=<path>`, `--coverage.include=<path1> --coverage.include=<path2>`
+- **命令行终端:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
 
-匹配包含测试覆盖率的 glob 规则
+以 glob 模式指定需要统计覆盖率的文件列表。
 
 #### coverage.extension
 
 - **类型:** `string | string[]`
-- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.cts', '.tsx', '.jsx', '.vue', '.svelte', '.marko']`
+- **默认值:** `['.js', '.cjs', '.mjs', '.ts', '.mts', '.tsx', '.jsx', '.vue', '.svelte', '.marko', '.astro']`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.extension=<extension>`, `--coverage.extension=<extension1> --coverage.extension=<extension2>`
 
@@ -1250,7 +1154,8 @@ export default defineConfig({
 ```
 
 ::: tip NOTE
-Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 的默认值中。
+Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 中。
+无法显示测试文件的覆盖率。
 :::
 
 #### coverage.all
@@ -1278,23 +1183,7 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
 
-是否将所有文件（包括未测试的文件）包括在报告中。
-
-#### clean
-
-- **类型:** `boolean`
-- **默认值:** `true`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-
-运行测试之前是否清除覆盖率结果
-
-#### cleanOnRerun
-
-- **类型:** `boolean`
-- **默认值:** `false`
-- **可用的测试提供者:** `'v8' | 'istanbul'`
-
-监视重新运行时是否清除覆盖率报告
+监视重新运行时是否清除覆盖率报告。设置为 `false` 可保留观察模式下上次运行的覆盖结果。
 
 #### coverage.reportsDirectory
 
@@ -1309,7 +1198,7 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 配置测试覆盖率报告写入的目录。
 
-要预览覆盖范围报告，请使用 [HTML reporter](/guide/reporters.html#html-reporter), 该选项必须设置为 html 报告目录的子目录 (比如 `./html/coverage`).
+要预览覆盖范围报告，请使用 [HTML 报告器](/guide/reporters.html#html-reporter), 该选项必须设置为 html 报告目录的子目录 (比如 `./html/coverage`).
 
 #### coverage.reporter
 
@@ -1336,27 +1225,27 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
   }
   ```
 
-我们还可以传递自定义覆盖报告器。查看[自定义覆盖报告器](/guide/coverage#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A6%86%E7%9B%96%E7%8E%87%E6%8F%90%E4%BE%9B%E8%80%85)了解更多详情。
+我们还可以传递自定义覆盖报告器。查看 [自定义覆盖率的报告器](/guide/coverage#custom-coverage-reporter) 了解更多详情。
 
 <!-- eslint-skip -->
 
 ```ts
 {
   reporter: [
-    // Specify reporter using name of the NPM package
+    // 使用 NPM 包的名称指定报告器
     "@vitest/custom-coverage-reporter",
     ["@vitest/custom-coverage-reporter", { someOption: true }],
 
-    // Specify reporter using local path
+    // 使用本地路径指定报告器
     "/absolute/path/to/custom-reporter.cjs",
     ["/absolute/path/to/custom-reporter.cjs", { someOption: true }],
   ];
 }
 ```
 
-我们可以在 Vitest UI 中查看覆盖率报告：查看 [Vitest UI Coverage](/guide/coverage#vitest-ui) 了解更多详情。
+我们可以在 Vitest UI 中查看覆盖率报告：查看 [UI 模式](/guide/coverage#vitest-ui) 了解更多详情。
 
-#### coverage.reportOnFailure {#coverage-reportonfailure}
+#### coverage.reportOnFailure
 
 - **类型:** `boolean`
 - **默认值:** `false`
@@ -1374,6 +1263,18 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 收集 [项目`root`](#root) 之外文件的覆盖率。
 
+#### coverage.excludeAfterRemap <Version>2.1.0</Version> {#coverage-exclude-after-remap}
+
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
+- **命令行终端:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
+
+在覆盖范围重新映射到原始源后再次应用排除。
+当你的源文件被转译并且可能包含非源文件的源映射时，这很有用。
+
+当你看到报告中显示的文件与你的 `coverage.exclude` 模式匹配时，请使用此选项。
+
 #### coverage.skipFull
 
 - **类型:** `boolean`
@@ -1385,7 +1286,7 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 #### coverage.thresholds
 
-覆盖范围阈值选项
+覆盖率阈值选项。
 
 ##### coverage.thresholds.lines
 
@@ -1393,8 +1294,7 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.lines=<number>`
 
-lines 的全局阈值。
-更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
+lines 的全局阈值。详见 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 了解更多信息。
 
 ##### coverage.thresholds.functions
 
@@ -1402,8 +1302,7 @@ lines 的全局阈值。
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.functions=<number>`
 
-functions 的全局阈值。
-更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
+functions 的全局阈值。详见 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 了解更多信息。
 
 ##### coverage.thresholds.branches
 
@@ -1411,8 +1310,7 @@ functions 的全局阈值。
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.branches=<number>`
 
-branches 的全局阈值。
-更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
+branches 的全局阈值。详见 [istanbul 文档](https://github.com/istanbuljs/nyc#coverage-thresholds) 了解更多信息。
 
 ##### coverage.thresholds.statements
 
@@ -1421,7 +1319,6 @@ branches 的全局阈值。
 - **命令行终端:** `--coverage.thresholds.statements=<number>`
 
 statements 的全局阈值。
-更多信息请查看 [istanbul documentation](https://github.com/istanbuljs/nyc#coverage-thresholds)。
 
 ##### coverage.thresholds.perFile
 
@@ -1434,12 +1331,12 @@ statements 的全局阈值。
 
 ##### coverage.thresholds.autoUpdate
 
-- **类型:** `boolean`
+- **类型:** `boolean | function`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.autoUpdate=<boolean>`
 
-如果当前覆盖率高于配置的阈值时，将所有阈值 `lines` 、`functions` 、`branches` 和 `statements` 更新到配置文件中。
+如果当前覆盖率优于配置的阈值时，将所有阈值 `lines`、`functions`、`branches` 和 `statements` 更新到配置文件中。
 此选项有助于在覆盖率提高时保持阈值不变。
 
 ##### coverage.thresholds.100
@@ -1460,17 +1357,22 @@ statements 的全局阈值。
 
 设置与 glob 模式匹配的文件的阈值。
 
+::: tip NOTE
+Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入全局覆盖率阈值。
+这与 Jest 的行为不同。
+:::
+
 <!-- eslint-skip -->
 
 ```ts
 {
   coverage: {
     thresholds: {
-      // Thresholds for all files
+      // 所有文件的阈值
       functions: 95,
       branches: 70,
 
-      // Thresholds for matching glob pattern
+      // 匹配全局模式的阈值
       'src/utils/**.ts': {
         statements: 95,
         functions: 90,
@@ -1478,11 +1380,36 @@ statements 的全局阈值。
         lines: 80,
       },
 
-      // Files matching this pattern will only have lines thresholds set.
-      // Global thresholds are not inherited.
+      // 匹配此模式的文件将仅设置行阈值。
+      // 全局阈值不会被继承。
       '**/math.ts': {
         lines: 100,
       }
+    }
+  }
+}
+```
+
+##### coverage.thresholds[glob-pattern].100 <Version>2.1.0</Version> {#coverage-thresholds-glob-pattern-100}
+
+- **类型：** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8' | 'istanbul'`
+
+将匹配全局模式的文件的阈值设置为 100。
+
+<!-- eslint-skip -->
+```ts
+{
+  coverage: {
+    thresholds: {
+      // 所有文件的阈值
+      functions: 95,
+      branches: 70,
+
+      // 匹配全局模式的阈值
+      'src/utils/**.ts': { 100: true },
+      '**/math.ts': { 100: true }
     }
   }
 }
@@ -1500,7 +1427,7 @@ statements 的全局阈值。
 该选项只有在使用的编译器删除了转译代码中的注释和其他非运行时代码时才有效。
 默认情况下，Vite 使用 ESBuild，它会删除 `.ts`、`.tsx` 和 `.jsx` 文件中的注释和 Typescript 类型。
 
-如果还想将 ESBuild 应用于其他文件，请在 [`esbuild` options](https://cn.vitejs.dev/config/shared-options.html#esbuild) 中定义它们：
+如果还想将 ESBuild 应用于其他文件，请在 [`esbuild` 选项](https://cn.vitejs.dev/config/shared-options.html#esbuild) 中定义它们：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -1524,7 +1451,7 @@ export default defineConfig({
 
 - **类型:** `string[]`
 - **默认值:** `[]`
-- **可用的测试提供者:** `'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
 设置为要忽略覆盖率的类方法名称数组。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
@@ -1558,7 +1485,7 @@ export default defineConfig({
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.watermarks.statements=50,80`， `--coverage.watermarks.branches=50,80`
 
-语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
+语句、行、分支和函数的水印。更多内容请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
 #### coverage.processingConcurrency
 
@@ -1575,7 +1502,7 @@ export default defineConfig({
 - **可用的测试提供者:** `'custom'`
 - **命令行终端:** `--coverage.customProviderModule=<path or module name>`
 
-指定自定义覆盖率提供者的模块名称或路径。有关详细信息，请参阅[指南 - 自定义覆盖率提供者](/guide/coverage#custom-coverage-provider)。
+指定自定义覆盖率提供者的模块名称或路径。有关详细信息，请参阅 [指南 - 自定义覆盖率提供者](/guide/coverage#custom-coverage-provider)。
 
 ### testNamePattern<NonProjectOption />
 
@@ -1588,12 +1515,12 @@ export default defineConfig({
 ```js
 import { expect, test } from 'vitest'
 
-// run
+// 运行
 test('OnlyRunThis', () => {
   expect(true).toBe(true)
 })
 
-// skipped
+// 跳过
 test('doNotRun', () => {
   expect(true).toBe(true)
 })
@@ -1615,18 +1542,16 @@ test('doNotRun', () => {
 
 提供 API 服务的端口。当设置为 true 时，默认端口为 51204
 
-### browser {#browser}
+### browser <Badge type="warning">实验性</Badge> {#browser}
 
-- **类型:** `{ enabled?, name?, provider?, headless?, api? }`
-- **默认值:** `{ enabled: false, headless: process.env.CI, api: 63315 }`
-- **命令行终端:** `--browser`, `--browser=<name>`, `--browser.name=chrome --browser.headless`
+- **默认值:** `{ enabled: false }`
+- **命令行终端:** `--browser=<name>`, `--browser.name=chrome --browser.headless`
 
-在浏览器中运行 Vitest 测试。我们默认使用 [WebdriverIO](https://webdriver.io/) 来运行测试，但可以使用 [browser.provider](#browser-provider) 选项进行配置。
+在浏览器环境中运行 Vitest 测试。默认使用 [WebdriverIO](https://webdriver.io/) 作为测试运行器，但可通过 [browser.provider](/config/#browser-provider) 选项进行配置。
 
 ::: tip NOTE
-在 [指南页面](/guide/browser/) 中阅读有关在真实浏览器中进行测试的更多信息。
+更多关于真实浏览器测试的详细信息，请参阅 [浏览器模式 | 指南](/guide/browser/)。
 :::
-
 ::: warning
 这是一项实验性功能。重大更改可能不会遵循 semver，请在使用时锁定 Vitest 的版本。
 :::
@@ -1637,9 +1562,9 @@ test('doNotRun', () => {
 - **默认值:** `false`
 - **命令行终端:** `--browser`, `--browser.enabled=false`
 
-默认情况下在浏览器中运行所有测试。可以用 [`poolMatchGlobs`](#poolmatchglobs) 选项覆盖。
+默认在浏览器内运行所有测试。可使用 `poolMatchGlobs` 选项覆盖。
 
-#### browser&#46;name
+#### browser.name
 
 - **类型:** `string`
 - **命令行终端:** `--browser=safari`
@@ -1656,7 +1581,7 @@ test('doNotRun', () => {
 - **默认值:** `process.env.CI`
 - **命令行终端:** `--browser.headless`, `--browser.headless=false`
 
-以 `headless` 模式运行浏览器。如果你在 CI 中运行 Vitest，它将默认启用。
+以 `无头` 模式运行浏览器。如果你在 CI 中运行 Vitest，它将默认启用。
 
 #### browser.isolate
 
@@ -1666,21 +1591,28 @@ test('doNotRun', () => {
 
 在单独的 iframe 中运行每个测试。
 
+#### browser.testerHtmlPath <Version>2.1.4</Version> {#browser-testerhtmlpath}
+
+- **Type:** `string`
+- **Default:** `@vitest/browser/tester.html`
+
+A path to the HTML entry point. Can be relative to the root of the project. This file will be processed with [`transformIndexHtml`](https://vite.dev/guide/api-plugin#transformindexhtml) hook.
+
 #### browser.api
 
 - **类型:** `number | { port?, strictPort?, host? }`
 - **默认值:** `63315`
 - **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
-为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](#api) 选项。
+为在浏览器中提供代码的 Vite 服务器配置选项。它不影响 [`test.api`](#api) 选项。默认情况下，Vitest 会分配端口 `63315`，以避免与开发服务器冲突，从而允许同时运行这两个端口。
 
 #### browser.provider
 
-- **类型:** `'webdriverio' | 'playwright' | string`
-- **默认值:** `'webdriverio'`
+- **类型:** `'webdriverio' | 'playwright' | 'preview' | string`
+- **默认值:** `'preview'`
 - **命令行终端:** `--browser.provider=playwright`
 
-设置运行浏览器测试时浏览器的路径。Vitest 提供了两个浏览器驱动选项: `webdriverio`(默认) 和 `playwright`。自定义提供商应该使用 `default` 进行导出，并具有如下类型签名:
+设置运行浏览器测试时浏览器的路径。Vitest 提供了三个浏览器驱动选项: `preview`（默认）、`webdriverio` 和 `playwright` 。自定义提供商应该使用 `default` 进行导出，并具有如下类型签名:
 
 ```ts
 export interface BrowserProvider {
@@ -1706,6 +1638,8 @@ export interface BrowserProvider {
 调用 `provider.initialize` 时将传递给提供程序的选项。
 
 ```ts
+import { defineConfig } from 'vitest/config'
+
 export default defineConfig({
   test: {
     browser: {
@@ -1720,8 +1654,7 @@ export default defineConfig({
 ```
 
 ::: tip
-为了在使用内置提供程序时获得更好的类型安全性，你可以将以下类型之一（针对正在使用的提供程序）添加到 tsconfig 的 `compilerOptions.types` 字段中：
-
+为提升使用内置提供程序时的类型安全性，您可在 tsconfig 的 `compilerOptions.types` 字段中添加对应提供程序的类型声明（根据实际使用的提供程序选择）：
 ```json
 {
   "compilerOptions": {
@@ -1749,6 +1682,17 @@ export default defineConfig({
 - **Default:** `414x896`
 
 默认 iframe 的viewport。
+
+#### browser.locators {#browser-locators}
+
+Options for built-in [browser locators](/guide/browser/locators).
+
+##### browser.locators.testIdAttribute
+
+- **Type:** `string`
+- **Default:** `data-testid`
+
+Attribute used to find elements with `getByTestId` locator.
 
 #### browser.screenshotDirectory {#browser-screenshotdirectory}
 
@@ -1825,37 +1769,38 @@ export interface BrowserScript {
 - **类型:** `boolean`
 - **默认值:** `false`
 
-是否在每次测试前对所有监听(Spy)调用 [`.mockClear()`](/api/mock#mockclear)。这将清除模拟历史记录，但不会将其实现重置为默认值。
+每次测试前，会对所有监听对象调用 [`.mockClear()`](/api/mock#mockclear)。这将清除模拟历史记录，但不会影响模拟实现。
 
 ### mockReset
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
-是否在每次测试之前对所有监听(Spy)调用 [`.mockReset()`](/api/mock#mockreset)。 这将清除模拟历史并将其实现重置为空函数（将返回`undefined`）。
+每次测试前，都会对所有监听对象调用 [`.mockReset()`](/api/mock#mockreset)。这将清除模拟历史记录，并将每个实现重置为其原始状态。
 
 ### restoreMocks
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
-是否在每次测试之前对所有监听(Spy)调用 [`.mockRestore()`](/api/#mockrestore)。 这将清除模拟历史并将其实现重置为原始历史。
+每次测试前，都会对所有监听对象调用 [`.mockRestore()`](/api/mock#mockrestore)。
+这将清除模拟历史记录，将每个实现恢复为原始实现，并恢复被监视对象的原始描述符。
 
-### unstubEnvs {#unstubenvs}
+### unstubEnvs
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
 将在每次测试前调用 [`vi.unstubAllEnvs`](/api/#vi-unstuballenvs)。
 
-### unstubGlobals {#unstubglobals}
+### unstubGlobals
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
 将在每次测试前调用 [`vi.unstubAllGlobals`](/api/#vi-unstuballglobals)。
 
-### testTransformMode {#testtransformmode}
+### testTransformMode
 
 - **类型:** `{ web?, ssr? }`
 
@@ -1869,33 +1814,19 @@ export interface BrowserScript {
 对指定的文件使用 SSR 转换管道。<br>
 Vite 插件在处理这些文件时会收到 `ssr: true` 标志。
 
-#### testTransformMode&#46;web
+#### testTransformMode.web
 
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-首先会进行正常的转换管道（针对浏览器），然后进行 SSR 重写以在 Node 中运行代码。<br>
+首先会进行正常的转换流程（针对浏览器环境），然后进行 SSR 重写以在 Node 中运行代码。<br>
 Vite 插件在处理这些文件时会收到 `ssr: false` 标志。
-
-当你使用 JSX 作为 React 以外的组件模型（例如 Vue JSX 或 SolidJS）时，你可能需要进行如下配置以使 `.tsx` / `.jsx` 转换为客户端组件：
-
-```ts
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    transformMode: {
-      web: [/\.[jt]sx$/],
-    },
-  },
-})
-```
 
 ### snapshotFormat<NonProjectOption />
 
 - **类型:** `PrettyFormatOptions`
 
-测试快照的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
+快照测试的格式选项。这些选项被传递给 [`pretty-format`](https://www.npmjs.com/package/pretty-format)。
 
 ::: tip
 请注意，此对象上的 `plugins` 字段将被忽略。
@@ -1903,17 +1834,17 @@ export default defineConfig({
 如果你需要通过 pretty-format 插件扩展快照序列器，请使用 [`expect.addSnapshotSerializer`](/api/expect#expect-addsnapshotserializer) 或 [snapshotSerializers](#snapshotserializers) 选项。
 :::
 
-### snapshotSerializers<NonProjectOption /> {#snapshotserializers}
+### snapshotSerializers<NonProjectOption />
 
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-快照测试的快照序列化程序模块的路径列表，如果要添加自定义快照序列化器，则非常有用。有关详细信息，请参阅[自定义序列化器](/guide/snapshot#custom-serializer)。
+快照测试的快照序列化程序模块的路径列表，如果要添加自定义快照序列化器，则非常有用。更多内容请参阅 [自定义序列化器](/guide/snapshot#custom-serializer)。
 
 ### resolveSnapshotPath<NonProjectOption />
 
-- **类型**: `(testPath: string, snapExtension: string) => string`
-- **默认值**: 存储快照文件在 `__snapshots__` 目录
+- **类型**: `(testPath: string, snapExtension: string, context: { config: SerializedConfig }) => string`
+- **默认值**: 将快照文件存储在 `__snapshots__` 目录中
 
 覆盖快照的默认路径。例如，要在测试文件旁边存储一下快照：
 
@@ -1996,7 +1927,7 @@ export default defineConfig({
 如果你决定处理 CSS 文件，你可以配置 CSS 模块中的类名是否在限定范围内。 默认情况下，Vitest 会导出一个代理，绕过 CSS 模块处理。 你可以选择以下选项之一：
 
 - `stable`: 类名将生成为`_${name}_${hashedFilename}`，这意味着如果 CSS 内容发生变化，生成的类将保持不变，但如果文件名被修改，或者文件名将发生变化 被移动到另一个文件夹。 如果你使用快照功能，此设置很有用。
-- `scoped`: 类名将照常生成，遵照 `css.modules.generateScopeName` 方法，如果你有的话。 默认情况下，文件名将生成为`_${name}_${hash}`，其中 hash 包括文件名和文件内容。
+- `scoped`: 类名将照常生成，遵照 `css.modules.generateScopedName` 方法，如果你有的话。 默认情况下，文件名将生成为`_${name}_${hash}`，其中 hash 包括文件名和文件内容。
 - `non-scoped`: 类名将保留 CSS 中定义的名称。
 
 ::: warning
@@ -2020,7 +1951,7 @@ export default defineConfig({
 
 如果要禁用缓存功能，请使用此选项。目前，Vitest 会对测试结果进行缓存，优先运行时间较长和失败的测试。
 
-缓存目录由 Vite 的 [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) 选项控制：
+缓存目录由 Vite 的 [`cacheDir`](https://cn.vite.dev/config/shared-options.html#cachedir) 选项控制：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -2030,7 +1961,7 @@ export default defineConfig({
 })
 ```
 
-您可以使用 `process.env.VITEST` 来限制目录，使其仅用于 Vitest：
+我们可以使用 `process.env.VITEST` 来限制目录，使其仅用于 Vitest：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -2069,29 +2000,25 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 如果你希望测试随机运行，可以使用此选项或 CLI 参数 [`--sequence.shuffle`](/guide/cli) 启用它。
 
-Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始 - 这会使测试运行得更快。 如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
+Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试会更早开始，这会使测试运行得更快。如果你的测试将以随机顺序运行，你将失去这种性能改进，但跟踪意外依赖于先前运行的测试可能很有用。
 
-- **类型**: `boolean | { files?, tests? }`
-- **默认值**: `false`
-- **命令行终端**: `--sequence.shuffle`, `--sequence.shuffle=false`
-
-#### sequence.shuffle.files {#sequence-shuffle-files}
+#### sequence.shuffle.files
 
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
 
-是否随机化文件，注意如果启用此选项，长时间运行的测试将不会提前启动。
+是否随机执行测试文件顺序。请注意，若启用此选项，耗时较长的测试将不会提前开始执行。
 
-#### sequence.shuffle.tests {#sequence-shuffle-tests}
+#### sequence.shuffle.tests
 
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
 
-是否随机测试。
+是否随机执行测试顺序。
 
-#### sequence.concurrent {#sequence-concurrent}
+#### sequence.concurrent
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -2110,7 +2037,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 #### sequence.hooks
 
 - **类型**: `'stack' | 'list' | 'parallel'`
-- **默认值**: `'parallel'`
+- **默认值**: `'stack'`
 - **命令行终端**: `--sequence.hooks=<value>`
 
 更改钩子的执行顺序。
@@ -2123,7 +2050,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 该选项不会影响 [`onTestFinished`](/api/#ontestfinished)。它总是以相反的顺序调用。
 :::
 
-#### sequence.setupFiles {#sequence-setupfiles}
+#### sequence.setupFiles
 
 - **类型**: `'list' | 'parallel'`
 - **默认值**: `'parallel'`
@@ -2136,17 +2063,17 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 ### typecheck
 
-用于配置 [typechecking](/guide/testing-types) 测试环境的选项。
+[类型测试](/guide/testing-types) 测试环境的配置选项。
 
-#### typecheck.enabled {#typecheck-enabled}
+#### typecheck.enabled
 
 - **类型**: `boolean`
 - **默认值**: `false`
 - **命令行终端**: `--typecheck`, `--typecheck.enabled`
 
-常规测试时是否进行类型检查。
+在常规测试的同时启用类型检查。
 
-#### typecheck.only {#typecheck-only}
+#### typecheck.only
 
 - **类型**: `boolean`
 - **默认值**: `false`
@@ -2211,9 +2138,9 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **默认值**: `300`
 - **命令行终端:**:`--slow-test-threshold=<number>`, `--slowTestThreshold=<number>`
 
-如果测试被认为是缓慢的，那么会在报告结果中显示毫秒值。
+测试或测试套件执行超过该毫秒数即被视为缓慢，并在结果中相应标注。
 
-### chaiConfig {#chaiconfig}
+### chaiConfig
 
 - **类型:** `{ includeStack?, showDiff?, truncateThreshold? }`
 - **默认值:** `{ includeStack: false, showDiff: true, truncateThreshold: 40 }`
@@ -2243,7 +2170,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 此配置选项影响在 `test.each` 标题和断言错误消息中截断值的方式。
 
-### bail {#bail}
+### bail
 
 - **类型:** `number`
 - **默认值:** `0`
@@ -2253,7 +2180,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 默认情况下，即使其中一些测试失败，Vitest 也会运行你的所有测试用例。这可能不适用于 CI 构建，你只对 100% 成功的构建感兴趣，并且希望在测试失败时尽早停止测试执行。`bail` 选项可用于通过在发生故障时防止运行更多测试来加速 CI 运行。
 
-### retry {#retry}
+### retry
 
 - **类型:** `number`
 - **默认值:** `0`
@@ -2265,7 +2192,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 
 - **类型**: `(log: string, type: 'stdout' | 'stderr') => boolean | void`
 
-在测试自定义 `console.log` 的处理程序。如果返回 `false`，Vitest 将不会将日志打印到控制台上。
+用于自定义处理测试中调用的 `console` 方法。如果返回值是 `false` ， Vitest 将不会将日志打印到控制台。需要注意的是， Vitest 会忽略除 `false` 之外的其他假值。
 
 这在过滤掉来自第三方库的日志时会非常有用。
 
@@ -2281,7 +2208,7 @@ export default defineConfig({
 })
 ```
 
-### onStackTrace<NonProjectOption /> {#onstacktrace}
+### onStackTrace<NonProjectOption />
 
 - **类型**: `(error: Error, frame: ParsedStack) => boolean | void`
 
@@ -2296,12 +2223,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     onStackTrace(error: Error, { file }: ParsedStack): boolean | void {
-      // If we've encountered a ReferenceError, show the whole stack.
+      // 如果我们遇到引用错误，显示整个堆栈。
       if (error.name === 'ReferenceError') {
         return
       }
 
-      // Reject all frames from third party libraries.
+      // 拒绝来自第三方库的所有框架。
       if (file.includes('node_modules')) {
         return false
       }
@@ -2313,11 +2240,11 @@ export default defineConfig({
 ### diff
 
 - **类型:** `string`
-- **命令行终端:** `--diff=<value>`
+- **命令行终端:** `--diff=<path>`
 
-生成差异界面时使用的不同配置的路径。如果你想自定义差异显示，这将非常有用。
+用于生成差异对比界面的配置文件路径。如需自定义差异显示效果，可通过此配置实现。
 
-:::code-group
+::: code-group
 
 ```ts [vitest.diff.ts]
 import type { DiffOptions } from 'vitest'
@@ -2330,22 +2257,22 @@ export default {
 } satisfies DiffOptions
 ```
 
-```ts [vitest.config.js]
+```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    diff: './vitest.diff.ts',
-  },
+    diff: './vitest.diff.ts'
+  }
 })
 ```
-
 :::
 
 #### diff.truncateThreshold
 
 - **类型**: `number`
 - **默认值**: `0`
+- **命令行终端:** `--diff.truncateThreshold=<path>`
 
 要显示的差异结果的最大长度。超过此阈值的差异将被截断。
 默认值为 0 时，截断不会生效。
@@ -2354,6 +2281,7 @@ export default defineConfig({
 
 - **类型**: `string`
 - **默认值**: `'... Diff result is truncated'`
+- **命令行终端:** `--diff.truncateAnnotation=<annotation>`
 
 在 diff 结果末尾输出的注释（如果被截断）。
 
@@ -2380,7 +2308,7 @@ export default defineConfig({
 #### fakeTimers.toFake
 
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
-- **默认值:** `['setTimeout', 'clearTimeout', 'setImmediate', 'clearImmediate', 'setInterval', 'clearInterval', 'Date']`
+- **默认值:** 除 `nextTick` 和 `queueMicrotask` 外的所有全局可用方法
 
 包含要伪造的全局方法和 API 名称的数组。
 
@@ -2412,17 +2340,17 @@ export default defineConfig({
 #### fakeTimers.shouldClearNativeTimers
 
 - **类型:** `boolean`
-- **默认值:** `false`
+- **默认值:** `true`
 
-通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。这些计时器默认情况下不会被清除，如果计时器在假计时器会话启动前就已存在，则可能会导致意外行为。
+通过委托各自的处理程序，告诉假冒计时器清除 "native"（即非假冒）计时器。禁用时，如果计时器在启动假计时器会话之前已经存在，则可能导致意外行为。
 
-### workspace<NonProjectOption /> {#workspace}
+### workspace<NonProjectOption />
 
-- **类型:** `string`
+- **类型:** `string | TestProjectConfiguration`
 - **命令行终端:** `--workspace=./file.js`
-- **默认值:** `vitest.{workspace,projects}.{js,ts,json}` close to the config file or root
+- **默认值:** 配置文件或根目录附近的 `vitest.{workspace,projects}.{js,ts,json}`
 
-相对于[root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
+相对于 [root](#root) 的 [workspace](/guide/projects) 配置文件的路径。
 
 ### isolate
 
@@ -2432,7 +2360,7 @@ export default defineConfig({
 
 在隔离的环境中运行测试。此选项对 `vmThreads` 和 `vmForks` 池没有影响。
 
-如果你的代码不依赖于副作用（对于具有 `node` 环境的项目通常如此），禁用此选项可能会[改进性能](/guide/improving-performance)。
+如果你的代码不依赖于副作用（这在 `node` 环境的项目通常如此），禁用此选项可能会 [性能提升](/guide/improving-performance)。
 
 ::: tip
 你可以使用 [`poolOptions`](#poolOptions) 属性禁用特定池的隔离。
@@ -2443,14 +2371,14 @@ export default defineConfig({
 - **类型:** `boolean`
 - **默认值:** `false`
 
-Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`location`属性。如果您有大量测试，这可能会导致性能小幅下降。
+Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含 `location` 属性。如果我们有大量测试，这可能会导致性能小幅下降。
 
 `location` 属性的 `列` 和 `行` 值与原始文件中的 `test` 或 `describe` 位置相对应。
 
-如果您没有明确禁用该选项，并且在运行 Vitest 时使用了该选项，则该选项将自动启用：
+如果我们没有明确禁用该选项，并且在运行 Vitest 时使用了该选项，则该选项将自动启用：
 - [Vitest UI](/guide/ui)
-- 或使用不带 [headless](/guide/browser/#headless) 模式的 [浏览器模式](/guide/browser/)
-- 或使用[HTML 报告器](/guide/reporters#html-reporter)
+- 或使用不带 [无头模式](/guide/browser/#headless) 的 [浏览器](/guide/browser/)
+- 或使用 [HTML 报告器](/guide/reporters#html-reporter)
 
 ::: tip
 如果不使用依赖于该选项的自定义代码，该选项将不起作用。
@@ -2462,7 +2390,7 @@ Vitest API 在 [reporters](#reporters) 中接收任务时是否应包含`locatio
 
 自定义快照环境实现的路径。如果在不支持 Node.js API 的环境中运行测试，该选项将非常有用。此选项对浏览器运行程序没有任何影响。
 
-该对象应具有 `SnapshotEnvironment` 的形状，用于解析和读/写快照文件：
+该对象应具有 `SnapshotEnvironment` 的接口规范，用于解析和读/写快照文件：
 
 ```ts
 export interface SnapshotEnvironment {
@@ -2481,10 +2409,10 @@ export interface SnapshotEnvironment {
 ::: warning
 这是一个低级选项，仅适用于无法访问默认 Node.js API 的高级情况。
 
-如果只需要配置快照功能，请使用 [`snapshotFormat`](#snapshotformat)或 [`resolveSnapshotPath`](#resolvesnapshotpath)选项。
+如果只需要配置快照功能，请使用 [`snapshotFormat`](#snapshotformat) 或 [`resolveSnapshotPath`](#resolvesnapshotpath) 选项。
 :::
 
-### env {#env}
+### env
 
 - **类型:** `Partial<NodeJS.ProcessEnv>`
 
@@ -2502,14 +2430,14 @@ export interface SnapshotEnvironment {
 与每次测试开始时调用 [`expect.hasAssertions()`](/api/expect#expect-hasassertions) 相同。这可确保不会意外通过任何测试。
 
 ::: tip
-这仅适用于 Vitest 的`expect`。如果您使用`assert`或`.should`断言，它们将不计算在内，并且您的测试将因缺少 expect 断言而失败。
+这仅适用于 Vitest 的`expect`。如果我们使用`assert`或`.should`断言，它们将不计算在内，并且我们的测试将因缺少 expect 断言而失败。
 
-您可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
+我们可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
 :::
 
 #### expect.poll
 
-[`expect.poll`](/api/expect#poll) 的全局配置选项。这些选项与您可以传递给 `expect.poll(condition, options)` 的选项相同。
+[`expect.poll`](/api/expect#poll) 的全局配置选项。这些选项与我们可以传递给 `expect.poll(condition, options)` 的选项相同。
 
 ##### expect.poll.interval
 
@@ -2530,4 +2458,4 @@ export interface SnapshotEnvironment {
 - **类型:** `boolean`
 - **默认值:** `false`
 
-调用任何`console`方法时始终打印控制台跟踪。这对于调试很有用。
+每次调用 `console` 方法时都输出堆栈追踪信息，这对于排查问题非常有帮助。
