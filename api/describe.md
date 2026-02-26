@@ -2,11 +2,9 @@
 outline: deep
 ---
 
-<!-- TODO: translation -->
-
 # describe
 
-- **Alias:** `suite`
+- **别名:** `suite`
 
 ```ts
 function describe(
@@ -21,9 +19,9 @@ function describe(
 ): void
 ```
 
-`describe` is used to group related tests and benchmarks into a suite. Suites help organize your test files by creating logical blocks, making test output easier to read and enabling shared setup/teardown through [lifecycle hooks](/api/hooks).
+`describe` 用于将相关测试、基准测试分组为一个测试套件。测试套件是通过创建逻辑块来组织测试文件，使测试输出更易读，并支持通过 [生命周期钩子](/api/hooks) 实现共享的初始化/清理机制。
 
-When you use `test` in the top level of file, they are collected as part of the implicit suite for it. Using `describe` you can define a new suite in the current context, as a set of related tests or benchmarks and other nested suites.
+当在文件顶层使用 `test` 时，这些测试会被自动归集为该文件的隐式套件的一部分。使用 `describe` 可以在当前上下文中定义一个新的测试套件，该套件由一组相关的测试、基准测试或其他嵌套测试套件组成。
 
 ```ts [basic.spec.ts]
 import { describe, expect, test } from 'vitest'
@@ -48,7 +46,7 @@ describe('person', () => {
 })
 ```
 
-You can also nest `describe` blocks if you have a hierarchy of tests:
+还可以通过嵌套的 `describe` 代码块来构建层级化的测试结构：
 
 ```ts
 import { describe, expect, test } from 'vitest'
@@ -76,9 +74,9 @@ describe('numberToCurrency', () => {
 })
 ```
 
-## Test Options
+## 测试参数 {#test-options}
 
-You can use [test options](/api/test#test-options) to apply configuration to every test inside a suite, including nested suites. This is useful when you want to set timeouts, retries, or other options for a group of related tests.
+可以通过 [测试参数](/api/test#test-options) 为套件内的所有测试（包括嵌套测试套件）统一配置参数。适用于为相关测试组设置超时、重试次数或其他配置参数。
 
 ```ts
 import { describe, test } from 'vitest'
@@ -87,7 +85,7 @@ describe('slow tests', { timeout: 10_000 }, () => {
   test('test 1', () => { /* ... */ })
   test('test 2', () => { /* ... */ })
 
-  // nested suites also inherit the timeout
+  // 嵌套的测试套件同样会继承父级测试套件的超时配置
   describe('nested', () => {
     test('test 3', () => { /* ... */ })
   })
@@ -96,11 +94,11 @@ describe('slow tests', { timeout: 10_000 }, () => {
 
 ### `shuffle`
 
-- **Type:** `boolean`
-- **Default:** `false` (configured by [`sequence.shuffle`](/config/sequence#sequence-shuffle))
-- **Alias:** [`describe.shuffle`](#describe-shuffle)
+- **类型:** `boolean`
+- **默认值:** `false` (configured by [`sequence.shuffle`](/config/sequence#sequence-shuffle))
+- **别名:** [`describe.shuffle`](#describe-shuffle)
 
-Run tests within the suite in random order. This option is inherited by nested suites.
+以随机顺序执行测试套件内的测试。该配置选项会被嵌套测试套件继承。
 
 ```ts
 import { describe, test } from 'vitest'
@@ -114,16 +112,16 @@ describe('randomized tests', { shuffle: true }, () => {
 
 ## describe.skip
 
-- **Alias:** `suite.skip`
+- **别名:** `suite.skip`
 
-Use `describe.skip` in a suite to avoid running a particular describe block.
+在测试套件中使用 `describe.skip` 可跳过特定的测试套件执行。
 
 ```ts
 import { assert, describe, test } from 'vitest'
 
 describe.skip('skipped suite', () => {
   test('sqrt', () => {
-    // Suite skipped, no error
+    // 跳过该测试套件，不报错
     assert.equal(Math.sqrt(4), 3)
   })
 })
@@ -131,9 +129,9 @@ describe.skip('skipped suite', () => {
 
 ## describe.skipIf
 
-- **Alias:** `suite.skipIf`
+- **别名:** `suite.skipIf`
 
-In some cases, you might run suites multiple times with different environments, and some of the suites might be environment-specific. Instead of wrapping the suite with `if`, you can use `describe.skipIf` to skip the suite whenever the condition is truthy.
+在某些情况下，可能会在不同的环境下多次运行套件，而某些套件可能仅适用于特定环境。可以使用 `describe.skipIf` 在条件为真值时自动跳过该套件的执行，而不是使用 `if` 语句包裹套件。
 
 ```ts
 import { describe, test } from 'vitest'
@@ -141,15 +139,15 @@ import { describe, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 describe.skipIf(isDev)('prod only test suite', () => {
-  // this test suite only runs in production
+  // 此测试套件仅在生产环境中运行
 })
 ```
 
 ## describe.runIf
 
-- **Alias:** `suite.runIf`
+- **别名:** `suite.runIf`
 
-Opposite of [describe.skipIf](#describe-skipif).
+与 [describe.skipIf](#describe-skipif) 相反。
 
 ```ts
 import { assert, describe, test } from 'vitest'
@@ -157,20 +155,20 @@ import { assert, describe, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 describe.runIf(isDev)('dev only test suite', () => {
-  // this test suite only runs in development
+  // 此测试套件仅在开发环境中运行。
 })
 ```
 
 ## describe.only
 
-- **Alias:** `suite.only`
+- **别名:** `suite.only`
 
-Use `describe.only` to only run certain suites
+使用 `describe.only` 仅运行某些测试套件
 
 ```ts
 import { assert, describe, test } from 'vitest'
 
-// Only this suite (and others marked with only) are run
+// 只有此测试套件（以及其他标记为 `only` 的测试套件）会被运行。
 describe.only('suite', () => {
   test('sqrt', () => {
     assert.equal(Math.sqrt(4), 3)
@@ -178,13 +176,13 @@ describe.only('suite', () => {
 })
 
 describe('other suite', () => {
-  // ... will be skipped
+  // 将被跳过...
 })
 ```
 
-Sometimes it is very useful to run `only` tests in a certain file, ignoring all other tests from the whole test suite, which pollute the output.
+有时，只运行某个文件中的测试套件，这样可以忽略整个测试套件中其他干扰输出的测试项。
 
-In order to do that, run `vitest` with specific file containing the tests in question:
+为了做到这一点，只需在运行 `vitest` 时指定包含目标测试用例的文件路径：
 
 ```shell
 vitest interesting.test.ts
@@ -192,14 +190,14 @@ vitest interesting.test.ts
 
 ## describe.concurrent
 
-- **Alias:** `suite.concurrent`
+- **别名:** `suite.concurrent`
 
-`describe.concurrent` runs all inner suites and tests in parallel
+测试套件中的 `describe.concurrent` 会将所有测试标记为并发测试。
 
 ```ts
 import { describe, test } from 'vitest'
 
-// All suites and tests within this suite will be run in parallel
+// 此测试套件中的所有测试套件和测试将并行运行。
 describe.concurrent('suite', () => {
   test('concurrent test 1', async () => { /* ... */ })
   describe('concurrent suite 2', async () => {
@@ -210,16 +208,16 @@ describe.concurrent('suite', () => {
 })
 ```
 
-`.skip`, `.only`, and `.todo` works with concurrent suites. All the following combinations are valid:
+`.skip`、`.only` 和 `.todo` 适用于并发测试套件。以下所有组合都有效：
 
 ```ts
 describe.concurrent(/* ... */)
-describe.skip.concurrent(/* ... */) // or describe.concurrent.skip(/* ... */)
-describe.only.concurrent(/* ... */) // or describe.concurrent.only(/* ... */)
-describe.todo.concurrent(/* ... */) // or describe.concurrent.todo(/* ... */)
+describe.skip.concurrent(/* ... */) // 或 describe.concurrent.skip(/* ... */)
+describe.only.concurrent(/* ... */) // 或 describe.concurrent.only(/* ... */)
+describe.todo.concurrent(/* ... */) // 或 describe.concurrent.todo(/* ... */)
 ```
 
-When running concurrent tests, Snapshots and Assertions must use `expect` from the local [Test Context](/guide/test-context) to ensure the right test is detected.
+在运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的  `expect`，以确保能正确识别对应的测试用例。
 
 ```ts
 describe.concurrent('suite', () => {
@@ -234,9 +232,9 @@ describe.concurrent('suite', () => {
 
 ## describe.sequential
 
-- **Alias:** `suite.sequential`
+- **别名:** `suite.sequential`
 
-`describe.sequential` in a suite marks every test as sequential. This is useful if you want to run tests in sequence within `describe.concurrent` or with the `--sequence.concurrent` command option.
+测试套件中的 `describe.sequential` 会将所有测试标记为顺序执行。该特性适用于需要在 `describe.concurrent` 并发测试套件中按顺序运行测试，或使用 `--sequence.concurrent` 命令行选项。
 
 ```ts
 import { describe, test } from 'vitest'
@@ -254,57 +252,57 @@ describe.concurrent('suite', () => {
 
 ## describe.shuffle
 
-- **Alias:** `suite.shuffle`
+- **别名:** `suite.shuffle`
 
-Vitest provides a way to run all tests in random order via CLI flag [`--sequence.shuffle`](/guide/cli) or config option [`sequence.shuffle`](/config/sequence#sequence-shuffle), but if you want to have only part of your test suite to run tests in random order, you can mark it with this flag.
+Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/sequence#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法。但如果只想让测试套件的一部分以随机顺序运行，可以用这个标志来标记它。
 
 ```ts
 import { describe, test } from 'vitest'
 
-// or describe('suite', { shuffle: true }, ...)
+// 或 `describe('suite', { shuffle: true }, ...)`
 describe.shuffle('suite', () => {
   test('random test 1', async () => { /* ... */ })
   test('random test 2', async () => { /* ... */ })
   test('random test 3', async () => { /* ... */ })
 
-  // `shuffle` is inherited
+  // `shuffle` 是继承的
   describe('still random', () => {
     test('random 4.1', async () => { /* ... */ })
     test('random 4.2', async () => { /* ... */ })
   })
 
-  // disable shuffle inside
+  // 禁用内部的 shuffle
   describe('not random', { shuffle: false }, () => {
     test('in order 5.1', async () => { /* ... */ })
     test('in order 5.2', async () => { /* ... */ })
   })
 })
-// order depends on sequence.seed option in config (Date.now() by default)
+// 顺序取决于配置中的 `sequence.seed` 选项（默认为 `Date.now()`）
 ```
 
 `.skip`, `.only`, and `.todo` works with random suites.
 
 ## describe.todo
 
-- **Alias:** `suite.todo`
+- **别名:** `suite.todo`
 
-Use `describe.todo` to stub suites to be implemented later. An entry will be shown in the report for the tests so you know how many tests you still need to implement.
+使用 `describe.todo` 来暂存待实现的测试套件。报告中会显示这些测试的条目，以便你了解还有多少测试需要实现。
 
 ```ts
-// An entry will be shown in the report for this suite
+// 此测试套件将在报告中显示一个条目
 describe.todo('unimplemented suite')
 ```
 
 ## describe.each
 
-- **Alias:** `suite.each`
+- **别名:** `suite.each`
 
 ::: tip
-While `describe.each` is provided for Jest compatibility,
-Vitest also has [`describe.for`](#describe-for) which simplifies argument types and aligns with [`test.for`](/api/test#test-for).
+虽然 `describe.each` 是为了兼容 Jest 提供的，
+但 Vitest 也有 [`describe.for`](#describe-for)，它简化了参数类型并与 [`test.for`](/api/test#test-for) 保持一致。
 :::
 
-Use `describe.each` if you have more than one test that depends on the same data.
+如果我们有多个依赖于相同数据的测试，请使用 `describe.each`。
 
 ```ts
 import { describe, expect, test } from 'vitest'
@@ -328,8 +326,8 @@ describe.each([
 })
 ```
 
-* First row should be column names, separated by `|`;
-* One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+* 第一行应为列名，用 `|` 分隔；
+* 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
 
 ```ts
 import { describe, expect, test } from 'vitest'
@@ -350,13 +348,13 @@ describe.each`
 
 ## describe.for
 
-- **Alias:** `suite.for`
+- **别名:** `suite.for`
 
-The difference from `describe.each` is how array case is provided in the arguments.
-Other non array case (including template string usage) works exactly same.
+与 `describe.each` 的区别在于数组用例在参数中的提供方式。
+其他非数组情况（包括模板字符串的使用）的工作方式完全相同。
 
 ```ts
-// `each` spreads array case
+// `each` 会展开数组用例
 describe.each([
   [1, 1, 2],
   [1, 2, 3],
@@ -367,7 +365,7 @@ describe.each([
   })
 })
 
-// `for` doesn't spread array case
+// `for` 不会展开数组用例
 describe.for([
   [1, 1, 2],
   [1, 2, 3],
