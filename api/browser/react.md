@@ -308,7 +308,7 @@ await unmount()
 
 ## 扩展查询 {#extend-queries}
 
-如果想扩展定位器的查询方法，详情参阅 [`“自定义扩展器”`](/api/browser/locators#custom-locators)。例如，要为 `render` 扩展一个新的定位器，可使用 `locators.extend` API 进行定义：
+如果想扩展定位器的查询方法，详情参阅 [`“自定义定位器”`](/api/browser/locators#custom-locators)。例如，要为 `render` 扩展一个新的定位器，可使用 `locators.extend` API 进行定义：
 
 ```jsx {5-7,12}
 import { locators } from 'vitest/browser'
