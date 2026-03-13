@@ -2,11 +2,9 @@
 outline: deep
 ---
 
-<!-- TODO: translation -->
-
 # Test
 
-- **Alias:** `it`
+- **别名:** `it`
 
 ```ts
 function test(
@@ -21,9 +19,9 @@ function test(
 ): void
 ```
 
-`test` or `it` defines a set of related expectations. It receives the test name and a function that holds the expectations to test.
+`test` 或 `it` 定义一组相关的断言。它接收测试名称和一个包含断言逻辑的函数。
 
-Optionally, you can provide a timeout (in milliseconds) for specifying how long to wait before terminating, or a set of [additional options](#test-options). The default timeout is 5 seconds, and can be configured globally with [`testTimeout`](/config/testtimeout).
+你可以选择性地配置超时时间（单位毫秒），用于指定终止前的最长等待时间，也可以提供一组 [额外选项](#test-options)。默认超时时间为 5 秒，可通过 [`testTimeout`](/config/testtimeout) 进行全局配置。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -34,48 +32,48 @@ test('should work as expected', () => {
 ```
 
 ::: warning
-If the first argument is a function, its `name` property will be used as the name of the test. The function itself will not be called.
+如果第一个参数为函数，`name` 属性将作为测试的名称。函数本身并不会被调用。
 
-If test body is not provided, the test is marked as `todo`.
+如果尚未编写测试体，请将当前测试标记为 `todo`。
 :::
 
-When a test function returns a promise, the runner will wait until it is resolved to collect async expectations. If the promise is rejected, the test will fail.
+当测试函数返回 promise 时，运行器将等待其 resolved 后在收集异步断言。如果 Promise 被拒绝，那么测试将会失败。
 
 ::: tip
-In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](/guide/migration#done-callback).
+在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用该形式，测试须在 `done` 被调用后才会结束。你可以改用 `async` 函数来实现相同的效果，更多内容请参阅 [迁移手册中 Done Callback 章节](/guide/migration#done-callback)。
 :::
 
 ## Test Options
 
-You can define boolean options by chaining properties on a function:
+你可以通过链式调用函数属性来配置布尔选项：
 
 ```ts
 import { test } from 'vitest'
 
 test.skip('skipped test', () => {
-  // some logic that fails right now
+  // 当前存在逻辑错误
 })
 
 test.concurrent.skip('skipped concurrent test', () => {
-  // some logic that fails right now
+  // 当前存在逻辑错误
 })
 ```
 
-But you can also provide an object as a second argument instead:
+也可以在第二个参数中传入一个对象：
 
 ```ts
 import { test } from 'vitest'
 
 test('skipped test', { skip: true }, () => {
-  // some logic that fails right now
+  // 当前存在逻辑错误
 })
 
 test('skipped concurrent test', { skip: true, concurrent: true }, () => {
-  // some logic that fails right now
+  // 当前存在逻辑错误
 })
 ```
 
-They both work in exactly the same way. To use either one is purely a stylistic choice.
+两种方式完全等价，使用哪种纯粹是风格偏好。
 
 ### timeout
 
@@ -215,7 +213,7 @@ Prefer using non-nested meta, if possible.
 
 - **Type:** `boolean`
 - **Default:** `false` (configured by [`sequence.concurrent`](/config/sequence#sequence-concurrent))
-- **Alias:** [`test.concurrent`](#test-concurrent)
+- **别名:** [`test.concurrent`](#test-concurrent)
 
 Whether this test run concurrently with other concurrent tests in the suite.
 
@@ -223,7 +221,7 @@ Whether this test run concurrently with other concurrent tests in the suite.
 
 - **Type:** `boolean`
 - **Default:** `true`
-- **Alias:** [`test.sequential`](#test-sequential)
+- **别名:** [`test.sequential`](#test-sequential)
 
 Whether tests run sequentially. When both `concurrent` and `sequential` are specified, `concurrent` takes precendence.
 
@@ -231,7 +229,7 @@ Whether tests run sequentially. When both `concurrent` and `sequential` are spec
 
 - **Type:** `boolean`
 - **Default:** `false`
-- **Alias:** [`test.skip`](#test-skip)
+- **别名:** [`test.skip`](#test-skip)
 
 Whether the test should be skipped.
 
@@ -239,7 +237,7 @@ Whether the test should be skipped.
 
 - **Type:** `boolean`
 - **Default:** `false`
-- **Alias:** [`test.only`](#test-only)
+- **别名:** [`test.only`](#test-only)
 
 Should this test be the only one running in a suite.
 
@@ -247,7 +245,7 @@ Should this test be the only one running in a suite.
 
 - **Type:** `boolean`
 - **Default:** `false`
-- **Alias:** [`test.todo`](#test-todo)
+- **别名:** [`test.todo`](#test-todo)
 
 Whether the test should be skipped and marked as a todo.
 
@@ -255,13 +253,13 @@ Whether the test should be skipped and marked as a todo.
 
 - **Type:** `boolean`
 - **Default:** `false`
-- **Alias:** [`test.fails`](#test-fails)
+- **别名:** [`test.fails`](#test-fails)
 
 Whether the test is expected to fail. If it does, the test will pass, otherwise it will fail.
 
 ## test.extend
 
-- **Alias:** `it.extend`
+- **别名:** `it.extend`
 
 Use `test.extend` to extend the test context with custom fixtures. This will return a new `test` and it's also extendable, so you can compose more fixtures or override existing ones by extending it as you need. See [Extend Test Context](/guide/test-context#extend-test-context) for more information.
 
@@ -310,17 +308,17 @@ describe('use scoped values', () => {
 
 ## test.scoped <Version>3.1.0</Version> <Deprecated /> {#test-scoped}
 
-- **Alias:** `it.scoped`
+- **别名:** `it.scoped`
 
 ::: danger DEPRECATED
 `test.scoped` is deprecated in favor of [`test.override`](#test-override) and will be removed in a future major version.
 :::
 
-Alias of [`test.override`](#test-override)
+别名 of [`test.override`](#test-override)
 
 ## test.skip
 
-- **Alias:** `it.skip`
+- **别名:** `it.skip`
 
 If you want to skip running certain tests, but you don't want to delete the code due to any reason, you can use `test.skip` to avoid running them.
 
@@ -359,7 +357,7 @@ test('skipped test', (context) => {
 
 ## test.skipIf
 
-- **Alias:** `it.skipIf`
+- **别名:** `it.skipIf`
 
 In some cases you might run tests multiple times with different environments, and some of the tests might be environment-specific. Instead of wrapping the test code with `if`, you can use `test.skipIf` to skip the test whenever the condition is truthy.
 
@@ -375,7 +373,7 @@ test.skipIf(isDev)('prod only test', () => {
 
 ## test.runIf
 
-- **Alias:** `it.runIf`
+- **别名:** `it.runIf`
 
 Opposite of [test.skipIf](#test-skipif).
 
@@ -391,7 +389,7 @@ test.runIf(isDev)('dev only test', () => {
 
 ## test.only
 
-- **Alias:** `it.only`
+- **别名:** `it.only`
 
 Use `test.only` to only run certain tests in a given suite. This is useful when debugging.
 
@@ -418,7 +416,7 @@ Vitest detects when tests are running in CI and will throw an error if any test 
 
 ## test.concurrent
 
-- **Alias:** `it.concurrent`
+- **别名:** `it.concurrent`
 
 `test.concurrent` marks consecutive tests to be run in parallel. It receives the test name, an async function with the tests to collect, and an optional timeout (in milliseconds).
 
@@ -457,7 +455,7 @@ Note that if tests are synchronous, Vitest will still run them sequentially.
 
 ## test.sequential
 
-- **Alias:** `it.sequential`
+- **别名:** `it.sequential`
 
 `test.sequential` marks a test as sequential. This is useful if you want to run tests in sequence within `describe.concurrent` or with the `--sequence.concurrent` command option.
 
@@ -483,7 +481,7 @@ describe.concurrent('suite', () => {
 
 ## test.todo
 
-- **Alias:** `it.todo`
+- **别名:** `it.todo`
 
 Use `test.todo` to stub tests to be implemented later. An entry will be shown in the report for the tests so you know how many tests you still need to implement.
 
@@ -500,7 +498,7 @@ Vitest will automatically mark test as `todo` if test has no body.
 
 ## test.fails
 
-- **Alias:** `it.fails`
+- **别名:** `it.fails`
 
 Use `test.fails` to indicate that an assertion will fail explicitly.
 
@@ -516,7 +514,7 @@ This flag is useful to track difference in behaviour of your library over time. 
 
 ## test.each
 
-- **Alias:** `it.each`
+- **别名:** `it.each`
 
 ::: tip
 While `test.each` is provided for Jest compatibility,
@@ -625,7 +623,7 @@ Vitest processes `$values` with Chai `format` method. If the value is too trunca
 
 ## test.for
 
-- **Alias:** `it.for`
+- **别名:** `it.for`
 
 Alternative to `test.each` to provide [`TestContext`](/guide/test-context).
 
@@ -670,7 +668,7 @@ Scoped `describe`. See [describe](/api/describe) for more information.
 
 ## test.suite <Version>4.1.0</Version> {#test-suite}
 
-Alias for `suite`. See [describe](/api/describe) for more information.
+别名 for `suite`. See [describe](/api/describe) for more information.
 
 ## test.beforeEach
 
