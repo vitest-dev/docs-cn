@@ -4,8 +4,7 @@ outline: deep
 
 # 钩子 {#hooks}
 
-这些函数允许你介入测试的生命周期，从而避免重复编写 setup 和 teardown 代码。它们作用于当前上下文：在顶层使用时作用于整个文件，在 `describe` 块内部使用时作用于当前测试套件。当 Vitest
-作为 [类型检查器](/guide/testing-types) 运行时，这些钩子不会被调用。
+这些函数允许你介入测试的生命周期，从而避免重复编写 setup 和 teardown 代码。它们作用于当前上下文：在顶层使用时作用于整个文件，在 `describe` 块内部使用时作用于当前测试套件。当 Vitest 作为 [类型检查器](/guide/testing-types) 运行时，这些钩子不会被调用。
 
 测试钩子默认按栈顺序调用（"after" 钩子会逆序执行），但你可以通过 [`sequence.hooks`](/config/sequence#sequence-hooks) 选项进行配置。
 
@@ -18,7 +17,9 @@ function beforeEach(
 ): void
 ```
 
-注册一个回调函数，在当前测试套件中每个测试运行前调用。如果该函数返回 Promise，Vitest 会等待 Promise 解决后再运行测试。
+注册一个回调函数，在当前测试套件中每个测试运行前调用。
+
+如果该函数返回 Promise，Vitest 会等待 Promise 解决后再运行测试。
 
 你可以选择传入超时时间（毫秒），用于指定终止前的最长等待时间。默认为 10 秒，可通过 [`hookTimeout`](/config/hooktimeout) 全局配置。
 
@@ -265,6 +266,8 @@ function aroundAll(
 ```
 
 注册一个回调函数，包裹当前测试套件中的所有测试。回调接收一个 `runSuite` 函数，**必须** 调用它来运行测试套件。
+
+`runSuite()` 函数会运行测试套件中的所有测试，包括 `beforeAll`/`afterAll`/`beforeEach`/`afterEach` `钩子、aroundEach` 钩子以及 fixtures。
 
 ::: warning
 **必须** 在回调中调用 `runSuite()`。如果未调用 `runSuite()`，钩子将报错失败，测试套件中的所有测试都将被跳过。
