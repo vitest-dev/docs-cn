@@ -684,7 +684,9 @@ test.concurrent.for([
 挂载在 test.extend 实例上的 `afterAll` 钩子，继承 [`test.extend`](#test-extend) 的类型。更多内容请参阅 [afterAll](/api/hooks#afterall)。
 
 ## test.aroundEach <Version>4.1.0</Version> {#test-aroundeach}
+
 挂载在 test.extend 实例上的 `aroundEach` 钩子，继承 [`test.extend`](#test-extend) 的类型。更多内容请参阅 [aroundEach](/api/hooks#aroundeach)。
+
 ## test.aroundAll <Version>4.1.0</Version> {#test-aroundall}
 
 挂载在 test.extend 实例上的 `aroundAll` 钩子，继承 [`test.extend`](#test-extend) 的类型。更多内容请参阅 [aroundAll](/api/hooks#aroundall)。
