@@ -235,7 +235,7 @@ test.runIf(isDev)('dev only test', () => {
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
 
-使用 `test.only` 仅运行给定 测试套件 中的某些测试。这在调试时非常有用。
+使用 `test.only` 仅运行给定 测试套件中的某些测试。这在调试时非常有用。
 
 可选择提供超时（以毫秒为单位），用于指定终止前的等待时间。默认值为 5 秒，可通过 [testTimeout](/config/#testtimeout) 进行全局配置。
 
@@ -284,9 +284,9 @@ describe('suite', () => {
 
 ```ts
 test.concurrent(/* ... */)
-test.skip.concurrent(/* ... */) // or test.concurrent.skip(/* ... */)
-test.only.concurrent(/* ... */) // or test.concurrent.only(/* ... */)
-test.todo.concurrent(/* ... */) // or test.concurrent.todo(/* ... */)
+test.skip.concurrent(/* ... */) // 或 test.concurrent.skip(/* ... */)
+test.only.concurrent(/* ... */) // 或 test.concurrent.only(/* ... */)
+test.todo.concurrent(/* ... */) // 或 test.concurrent.todo(/* ... */)
 ```
 
 运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context.md) 中的 `expect`，以确保检测到正确的测试。
@@ -376,15 +376,15 @@ test.fails('fail test', async () => {
 当需要使用不同变量运行同一测试时，请使用 `test.each`。
 我们可以按照测试功能参数的顺序，在测试名称中注入带有 [printf formatting](https://nodejs.org/api/util.html#util_util_format_format_args) 的参数。
 
-- `%s`: string
-- `%d`: number
-- `%i`: integer
-- `%f`: floating point value
-- `%j`: json
-- `%o`: object
-- `%#`: 0-based index of the test case
-- `%$`: 1-based index of the test case
-- `%%`: single percent sign ('%')
+- `%s`：字符串
+- `%d`：数字
+- `%i`：整数
+- `%f`：浮点数
+- `%j`：JSON
+- `%o`：对象
+- `%#`：测试用例从 0 开始的索引
+- `%$`：测试用例从 1 开始的索引
+- `%%`：百分号字面量（`%`）
 
 ```ts
 import { expect, test } from 'vitest'
@@ -480,7 +480,7 @@ Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以
 
 `test.each` 是一种能同时提供 [`TestContext`](/guide/test-context) 的替代用法。
 
-它和 `test.each` 的主要区别在于：当你需要传递数组参数时，二者的写法和处理方式不同。而对于非数组参数（包括模板字符串的用法），`test.each` 和 `test.each` 的使用方法是一致的。
+它和 `test.each` 的主要区别在于：当你需要传递数组参数时，二者的写法和处理方式不同。而对于非数组参数（包括模板字符串的用法），`test.for` 和 `test.each` 的使用方法是一致的。
 
 ```ts
 // `each` 展开数组用例
@@ -889,7 +889,7 @@ import { assert, describe, test } from 'vitest'
 const isDev = process.env.NODE_ENV === 'development'
 
 describe.runIf(isDev)('dev only test suite', () => {
-  // 此测试套件仅在开发环境中运行。
+  // 此测试套件仅在开发环境中运行
 })
 ```
 
@@ -906,7 +906,7 @@ describe.runIf(isDev)('dev only test suite', () => {
 ```ts
 import { assert, describe, test } from 'vitest'
 
-// 只有此测试套件（以及其他标记为 `only` 的测试套件）会被运行。
+// 只有此测试套件（以及其他标记为 `only` 的测试套件）会被运行
 describe.only('suite', () => {
   test('sqrt', () => {
     assert.equal(Math.sqrt(4), 3)
@@ -1161,7 +1161,7 @@ describe.for([
 import { beforeEach } from 'vitest'
 
 beforeEach(async () => {
-  // 每次执行测试前，先重置所有 mock，然后准备好需要用到的测试数据。
+  // 每次执行测试前，先重置所有 mock，然后准备好需要用到的测试数据
   await stopMocking()
   await addUser({ name: 'John' })
 })
@@ -1175,10 +1175,10 @@ beforeEach(async () => {
 import { beforeEach } from 'vitest'
 
 beforeEach(async () => {
-  // 在每个测试运行之前调用一次。
+  // 在每个测试运行之前调用一次
   await prepareSomething()
 
-  // 清理函数，在每个测试运行之后调用一次。
+  // 清理函数，在每个测试运行之后调用一次
   return async () => {
     await resetSomething()
   }
