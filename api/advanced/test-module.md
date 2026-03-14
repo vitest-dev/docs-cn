@@ -66,7 +66,7 @@ describe('the validation works correctly', (task) => {
 ```
 
 :::tip
-如果元数据是在收集过程中附加的（在 `test` 函数之外），那么它将在自定义报告器中的['onTestModuleCollectd']（./reporters#onTestModuleCollected）挂钩中可用。
+如果元数据是在收集过程中附加的（在 `test` 函数之外），那么它将在自定义报告器中的['onTestModuleCollectd'](./reporters#onTestModuleCollected) 挂钩中可用。
 :::
 
 ## diagnostic
@@ -123,10 +123,10 @@ interface ImportDuration {
 
 ## viteEnvironment <Version>4.1.0</Version> {#viteenvironment}
 
-This is a Vite's [`DevEnvironment`](https://vite.dev/guide/api-environment) that transforms all files inside of the test module.
+这是 Vite 的 [`DevEnvironment`](https://cn.vite.dev/guide/api-environment)，用于转换测试模块中的所有文件。
 
-::: details History
-- `v4.0.15`: added as experimental
+::: details 历史
+- `v4.0.15`: 作为实验性功能添加
 :::
 
 ## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
@@ -135,6 +135,6 @@ This is a Vite's [`DevEnvironment`](https://vite.dev/guide/api-environment) that
 function toTestSpecification(testCases?: TestCase[]): TestSpecification
 ```
 
-Returns a new [test specification](/api/advanced/test-specification) that can be used to filter or run this specific test module.
+返回一个新的 [TestSpecification](/api/advanced/test-specification)，可用于过滤或运行此特定测试模块。
 
-It accepts an optional array of test cases that should be filtered.
+它接受一个可选的测试用例数组，用于指定要过滤的测试用例。

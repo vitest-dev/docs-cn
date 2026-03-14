@@ -199,11 +199,8 @@ describe('collection failed', () => {
 ```ts
 function meta(): TaskMeta
 ```
-在执行或收集过程中附加到套件的自定义 [元数据](/api/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
 
-<!-- TODO: translation reference history -->
-
-Custom [metadata](/api/advanced/metadata) that was attached to the suite during its execution or collection. Since Vitest 4.1, the meta can be attached by providing a `meta` object during test collection:
+在测试套件执行或收集期间附加的自定义 [元数据](/api/advanced/metadata)。自 Vitest 4.1 版本起，可通过在测试收集阶段提供 `meta` 对象来附加元数据：
 
 ```ts {7,10}
 import { describe, test, TestRunner } from 'vitest'
@@ -214,13 +211,13 @@ describe('the validation works correctly', { meta: { decorated: true } }, () => 
     // 仅在 onTestCaseReady hook 中
     task.suite.meta.decorated = false
 
-    // tests inherit suite's metadata
+    // 测试继承测试套件的元数据
     task.meta.decorated === true
   })
 })
 ```
 
-Note that suite metadata will be inherited by tests since Vitest 4.1.
+注意，自 Vitest 4.1 起，测试套件的元数据将被其包含的测试用例继承。
 
 :::tip
 如果元数据是在收集阶段（而非 `test` 函数内部）附加的，那么它将在 available 的 [`onTestModuleCollected`](./reporters#ontestmodulecollected) 中可用。
@@ -232,4 +229,4 @@ Note that suite metadata will be inherited by tests since Vitest 4.1.
 function toTestSpecification(): TestSpecification
 ```
 
-Returns a new [test specification](/api/advanced/test-specification) that can be used to filter or run this specific test suite.
+返回一个新的 [测试规范](/api/advanced/test-specification)，该规范可用于筛选或运行此特定测试套件。
