@@ -470,13 +470,13 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **配置:** [logHeapUsage](/config/logheapusage)
 
 在节点中运行时，显示每个测试的堆大小
-<!-- TODO: translation -->
+
 ### detectAsyncLeaks
 
-- **CLI:** `--detectAsyncLeaks`
-- **Config:** [detectAsyncLeaks](/config/detectasyncleaks)
+- **命令行终端:** `--detectAsyncLeaks`
+- **配置:** [detectAsyncLeaks](/config/detectasyncleaks)
 
-Detect asynchronous resources leaking from the test file (default: `false`)
+检测测试文件中是否存在异步资源泄漏（默认值：`false`）
 
 ### allowOnly
 
@@ -775,13 +775,13 @@ Detect asynchronous resources leaking from the test file (default: `false`)
 - **配置:** [teardownTimeout](/config/teardowntimeout)
 
 拆卸函数的默认超时（以毫秒为单位）（默认值：`10000`）
-<!-- TODO: translation -->
+
 ### maxConcurrency
 
 - **命令行终端:** `--maxConcurrency <number>`
 - **配置:** [maxConcurrency](/config/maxconcurrency)
 
-Maximum number of concurrent tests and suites during test file execution (default: `5`)
+测试文件执行期间并发运行的测试和测试套件的最大数量（默认值：`5`）
 
 ### expect.requireAssertions
 

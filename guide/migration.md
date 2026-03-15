@@ -201,14 +201,12 @@ $ pnpm run test:dev math.test.ts
 
 Module Runner 已取代 `vite-node`，直接内嵌于 Vite, Vitest 亦移除 SSR 封装，直接调用。主要变更如下：
 
-<!-- TODO: translation -->
-
-- `VITE_NODE_DEPS_MODULE_DIRECTORIES` environment variable was replaced with `VITEST_MODULE_DIRECTORIES`
-- Vitest no longer injects `__vitest_executor` into every [test runner](/api/advanced/runner). Instead, it injects `moduleRunner` which is an instance of [`ModuleRunner`](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
-- `vitest/execute` entry point was removed. It was always meant to be internal
-- [Custom environments](/guide/environment) no longer need to provide a `transformMode` property. Instead, provide `viteEnvironment`. If it is not provided, Vitest will use the environment name to transform files on the server (see [`server.environments`](https://cn.vite.dev/guide/api-environment-instances.html))
-- `vite-node` is no longer a dependency of Vitest
-- `deps.optimizer.web` was renamed to [`deps.optimizer.client`](/config/deps#deps-client). You can also use any custom names to apply optimizer configs when using other server environments
+- `VITE_NODE_DEPS_MODULE_DIRECTORIES` 环境变量已替换为 `VITEST_MODULE_DIRECTORIES`
+- Vitest 不再向每个 [测试运行器](/api/advanced/runner) 注入 `__vitest_executor`，改为注入 `moduleRunner`，它是 [`ModuleRunner`](https://cn.vite.dev/guide/api-environment-runtimes.html#modulerunner) 的实例
+- `vitest/execute` 入口点已移除，它始终仅供内部使用
+- [自定义环境](/guide/environment) 不再需要提供 `transformMode` 属性，改为提供 `viteEnvironment`。若未提供，Vitest 将使用环境名称在服务端转换文件（更多内容请参阅 [`server.environments`](https://cn.vite.dev/guide/api-environment-instances.html)）
+- `vite-node` 不再是 Vitest 的依赖项
+- `deps.optimizer.web` 已重命名为 [`deps.optimizer.client`](/config/deps#deps-client)。在使用其他服务端环境时，你也可以使用任意自定义名称来应用优化器配置
 
 Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`server.deps`](/config/server#deps) 可继续用于包的内联/外部化。
 
@@ -564,9 +562,8 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 ```
 
 ### 环境变量 {#envs}
-<!-- TODO: translation -->
 
-Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxWorkers`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxWorkers`, and will increase with each created worker.
+与 Jest 一样，如果 `NODE_ENV` 在此之前未被设置，Vitest 会将其设为 `test`。Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID`（始终小于或等于 `maxWorkers`），如果你依赖该变量，别忘了重命名。Vitest 还暴露了 `VITEST_WORKER_ID`，它是运行中 worker 的唯一 ID 且该编号不受 `maxWorkers` 影响，每创建一个新 worker 就会递增。
 
 ### 替换属性 {#replace-property}
 

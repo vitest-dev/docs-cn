@@ -41,7 +41,7 @@ _2025 年 1 月 17 日_
 
 - [英文文档](https://v3.vitest.dev/)
 - [简体中文](/)
-- [迁移手册](/guide/migration)
+- [迁移指南](/guide/migration)
 - [GitHub 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)
 
 如果你之前没有使用过 Vitest，我们建议你先阅读 [入门指南](/guide/) 和 [特性指南](/guide/features)。

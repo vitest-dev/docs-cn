@@ -4,7 +4,7 @@ title: 常见错误 | 指南
 
 # 常见错误 {#common-errors}
 
-## Cannot find module './relative-path'
+## 不能找到模块 './relative-path' {#cannot-find-module-relative-path}
 
 如果你收到一个 **module cannot be found** 的报错，则可能意味着几种不同情况：
 
@@ -41,19 +41,18 @@ export default defineConfig({
   },
 })
 ```
-<!-- TODO: translation -->
 
-## Failed to Terminate Worker
+## Worker 无法终止 {#failed-to-terminate-worker}
 
-This error can happen when NodeJS's `fetch` is used with [`pool: 'threads'`](/config/pool#threads). See [#3077](https://github.com/vitest-dev/vitest/issues/3077) for details.
+当 NodeJS 的 `fetch` 与 [`pool: 'threads'`](/config/pool#threads) 一起使用时，可能会出现此错误。详情请参阅 [#3077](https://github.com/vitest-dev/vitest/issues/3077)。
 
-The default [`pool: 'forks'`](/config/pool#forks) does not have this issue. If you've explicitly set `pool: 'threads'`, switching back to `'forks'` or using [`'vmForks'`](/config/pool#vmforks) will resolve it.
+默认的 [`pool: 'forks'`](/config/pool#forks) 不存在此问题。如果你已显式设置 `pool: 'threads'`，切换回 `'forks'` 或使用 [`'vmForks'`](/config/pool#vmforks) 即可解决。
 
-## Custom package conditions are not resolved
+## 自定义包条件无法解析 {#custom-package-conditions-are-not-resolved}
 
-If you are using custom conditions in your `package.json` [exports](https://nodejs.org/api/packages.html#package-entry-points) or [subpath imports](https://nodejs.org/api/packages.html#subpath-imports), you may find that Vitest does not respect these conditions by default.
+如果你在 `package.json` 的 [exports](https://nodejs.org/api/packages.html#package-entry-points) 或 [subpath imports](https://nodejs.org/api/packages.html#subpath-imports) 中使用了自定义条件，你可能会发现 Vitest 默认不遵循这些条件。
 
-For example, if you have the following in your `package.json`:
+例如，如果你的 `package.json` 中包含以下内容：
 
 ```json
 {
@@ -72,7 +71,7 @@ For example, if you have the following in your `package.json`:
 }
 ```
 
-By default, Vitest will only use the `import` and `default` conditions. To make Vitest respect custom conditions, you need to configure [`ssr.resolve.conditions`](https://vite.dev/config/ssr-options#ssr-resolve-conditions) in your Vitest config:
+默认情况下，Vitest 仅使用 `import` 和 `default` 条件。要让 Vitest 遵循自定义条件，须在 Vitest 配置中配置 [`ssr.resolve.conditions`](https://cn.vite.dev/config/ssr-options#ssr-resolve-conditions)：
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -86,17 +85,17 @@ export default defineConfig({
 })
 ```
 
-::: tip Why `ssr.resolve.conditions` and not `resolve.conditions`?
-Vitest follows Vite's configuration convention:
-- [`resolve.conditions`](https://vite.dev/config/shared-options#resolve-conditions) applies to Vite's `client` environment, which corresponds to Vitest's browser mode, jsdom, happy-dom, or custom environments with `viteEnvironment: 'client'`.
-- [`ssr.resolve.conditions`](https://vite.dev/config/ssr-options#ssr-resolve-conditions) applies to Vite's `ssr` environment, which corresponds to Vitest's node environment or custom environments with `viteEnvironment: 'ssr'`.
+::: tip 为什么是 `ssr.resolve.conditions` 而不是 `resolve.conditions`?
+Vitest 遵循 Vite 的配置约定：
+- [`resolve.conditions`](https://cn.vite.dev/config/shared-options#resolve-conditions) 适用于 Vite 的 `client` 环境，对应 Vitest 的浏览器模式、jsdom、happy-dom，以及使用 `viteEnvironment: 'client'` 的自定义环境。
+- [`ssr.resolve.conditions`](https://cn.vite.dev/config/ssr-options#ssr-resolve-conditions) 适用于 Vite 的 `ssr` 环境，对应 Vitest 的 node 环境或使用 `viteEnvironment: 'ssr'` 的自定义环境。
 
-Since Vitest defaults to the `node` environment (which uses `viteEnvironment: 'ssr'`), module resolution uses `ssr.resolve.conditions`. This applies to both package exports and subpath imports.
+由于 Vitest 默认使用 `node` 环境（该环境使用 `viteEnvironment: 'ssr'`），模块解析将使用 `ssr.resolve.conditions`。这同时适用于包导出（package exports）和子路径导入（subpath imports）。
 
-You can learn more about Vite environments and Vitest environments in [`environment`](/config/environment).
+你可以在 [`environment`](/config/environment) 中了解更多关于 Vite 环境和 Vitest 环境的内容。
 :::
 
-## Segfaults and Native Code Errors
+## 段错误与原生代码错误 {#segfaults-and-native-code-errors}
 
 运行 [原生 NodeJS 模块](https://nodejs.org/api/addons.html) 在 `pool: 'threads'` 中，可能会遇到来自原生代码的神秘错误。
 

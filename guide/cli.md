@@ -122,8 +122,8 @@ vitest list --filesOnly
 tests/test1.test.ts
 tests/test2.test.ts
 ```
-<!-- TODO: translation -->
-Since Vitest 4.1, you may pass `--static-parse` to [parse test files](/api/advanced/vitest#parsespecifications) instead of running them to collect tests. Vitest parses test files with limited concurrency, defaulting to `os.availableParallelism()`. You can change it via the `--static-parse-concurrency` option.
+
+自 Vitest 4.1 起，你可以传入 `--static-parse` 来 [解析测试文件](/api/advanced/vitest#parsespecifications)，而无需运行它们来收集测试。Vitest 以有限的并发数解析测试文件，默认为 `os.availableParallelism()`。你可以通过 `--static-parse-concurrency` 选项来修改此值。
 
 ## Shell 自动补全 {#shell-autocompletions}
 

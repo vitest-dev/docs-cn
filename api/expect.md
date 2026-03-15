@@ -6,9 +6,7 @@
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
-<!-- TODO: translation reference history -->
-
-`expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions built on top of `chai`. Since Vitest 4.1, for spy/mock testing, Vitest also provides [Chai-style assertions](#chai-style-spy-assertions) (e.g., `expect(spy).to.have.been.called()`) alongside Jest-style assertions (e.g., `expect(spy).toHaveBeenCalled()`). Unlike `Jest`, Vitest supports a message as the second argument - if the assertion fails, the error message will be equal to it.
+`expect` 用于创建断言。在此上下文中，`断言` 是可以被调用来验证一个语句的函数。Vitest 默认提供 `chai` 断言，同时也提供基于 chai 构建的兼容 `Jest` 的断言。自 Vitest 4.1 起，在进行 spy/mock 测试时，Vitest 还额外提供了 [Chai 风格断言](#chai-style-spy-assertions)（如 `expect(spy).to.have.been.called()`），与 Jest 风格断言（如 `expect(spy).toHaveBeenCalled()`）并存。与 `Jest` 不同，Vitest 支持将一条消息作为第二个参数传入，如果断言失败，错误信息将等于该消息。
 
 ```ts
 export interface ExpectStatic extends Chai.ExpectStatic, AsymmetricMatchersContaining {
@@ -792,9 +790,7 @@ test('the number of elements must match exactly', () => {
 
 - `RegExp`: 错误消息匹配该模式
 - `string`: 错误消息包含该子字符串
-- any other value: compare with thrown value using deep equality (similar to `toEqual`)
-
-<!-- TODO: translation -->
+- 任何其他值：使用深度相等与抛出的值进行比较（等价于 `toEqual`）
 
 :::tip
 必须将代码包装在一个函数中，否则错误将无法被捕获，测试将失败。
@@ -855,10 +851,8 @@ test('throws on pineapples', async () => {
 
 :::
 
-<!-- TODO: translation -->
-
 :::tip
-You can also test non-Error values that are thrown:
+你也可以测试抛出的非 Error 值：
 
 ```ts
 test('throws non-Error values', () => {
