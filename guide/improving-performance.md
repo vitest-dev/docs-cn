@@ -216,8 +216,7 @@ jobs:
         run: npx vitest --merge-reports
 ```
 
-If your tests create file-based attachments (for example via `context.annotate` or custom artifacts), upload and restore [`attachmentsDir`](/config/attachmentsdir) in the merge job as shown above.
-
+如果你的测试会创建基于文件的附件（例如通过 `context.annotate` 或自定义测试产物），请在合并任务中按上文所示上传并还原 [`attachmentsDir`](/config/attachmentsdir)。
 :::
 
 :::tip
