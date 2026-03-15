@@ -279,19 +279,17 @@ Vitest 提供了 `createTaskCollector` 工具来创建您自己的 `test` 方法
 
 任务是套件的一部分对象。它会通过 `suite.task` 方法自动添加到当前套件中：
 
-<!-- TODO: translation -->
-
 ```js [custom.js]
 export { afterAll, beforeAll, describe, TestRunner } from 'vitest'
 
-// this function will be called during collection phase:
-// don't call function handler here, add it to suite tasks
-// with "getCurrentSuite().task()" method
-// note: createTaskCollector provides support for "todo"/"each"/...
+// 此函数将在收集阶段被调用：
+// 不要在此处调用函数处理器，而应通过
+// "getCurrentSuite().task()" 方法将其添加到套件任务中
+// 注意：createTaskCollector 提供了对 "todo"/"each"/... 的支持
 export const myCustomTask = TestRunner.createTaskCollector(
   function (name, fn, timeout) {
     TestRunner.getCurrentSuite().task(name, {
-      ...this, // so "todo"/"skip"/... is tracked correctly
+      ...this, // 以便正确追踪 "todo"/"skip"/...
       meta: {
         customPropertyToDifferentiateTask: true
       },

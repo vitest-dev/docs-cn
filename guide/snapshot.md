@@ -12,7 +12,7 @@ title: 测试快照 | 指南
 
 ## 使用快照 {#use-snapshots}
 
-要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/#tomatchsnapshot) API:
+要将一个值快照，你可以使用 `expect()` 的 [`toMatchSnapshot()`](/api/expect#tomatchsnapshot) API:
 
 ```ts
 import { expect, it } from 'vitest'
@@ -39,7 +39,7 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
 :::
 
-同样，你可以使用 [`toMatchInlineSnapshot()`](/api/#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
+同样，你可以使用 [`toMatchInlineSnapshot()`](/api/expect#tomatchinlinesnapshot) 将内联快照存储在测试文件中。
 
 ```ts
 import { expect, it } from 'vitest'

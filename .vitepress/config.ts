@@ -777,7 +777,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/environment',
               },
               {
-                text: 'Test Run Lifecycle',
+                text: '测试运行生命周期',
                 link: '/guide/lifecycle',
               },
               {
@@ -885,7 +885,7 @@ export default ({ mode }: { mode: string }) => {
                     link: '/guide/migration#jest',
                   },
                   {
-                    text: 'Migrating from Mocha + Chai + Sinon',
+                    text: '从 Mocha + Chai + Sinon 迁移',
                     link: '/guide/migration#mocha-chai-sinon',
                   },
                 ],

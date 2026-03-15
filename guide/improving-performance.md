@@ -2,6 +2,8 @@
 title: 性能优化 | 指南
 ---
 
+# 性能优化 {#improving-performance}
+
 ## 测试隔离 {#test-isolation}
 
 默认情况下，Vitest 在基于 [pool](/config/pool) 的隔离环境中运行每个测试文件：
@@ -214,15 +216,14 @@ jobs:
         run: npx vitest --merge-reports
 ```
 
-If your tests create file-based attachments (for example via `context.annotate` or custom artifacts), upload and restore [`attachmentsDir`](/config/attachmentsdir) in the merge job as shown above.
-
+如果你的测试会创建基于文件的附件（例如通过 `context.annotate` 或自定义测试产物），请在合并任务中按上文所示上传并还原 [`attachmentsDir`](/config/attachmentsdir)。
 :::
 
 :::tip
 测试分片在多核心 CPU 机器上也很有用。
 
 Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用于运行测试文件。
-在多核心 CPU 机器中，主线程可能会成为瓶颈，因为它无法处理来自其余线程的所有请求。例如，在 32核 CPU 机器中，主线程负责处理来自 31 个测试线程的负载。
+在多核心 CPU 机器中，主线程可能会成为瓶颈，因为它无法处理来自其余线程的所有请求。例如，在 32 核 CPU 机器中，主线程负责处理来自 31 个测试线程的负载。
 
 为了减少主线程的 Vite 服务器的负载，可以使用测试分片。将负载平均到多个 Vite 服务器上。
 

@@ -39,7 +39,7 @@ test('my types work properly', () => {
 
 在测试文件中触发的任何类型错误都将被视为测试错误，因此你可以使用任何类型技巧来测试项目中的类型。
 
-你可以在 [API 部分](/api/#expecttypeof) 中查看所有可用的匹配器列表。
+你可以在 [API 部分](/api/expect-typeof) 中查看所有可用的匹配器列表。
 
 ## 读取错误 {#reading-errors}
 

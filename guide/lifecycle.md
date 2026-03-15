@@ -9,7 +9,7 @@ outline: deep
 
 ## 概述 {#overview}
 
-一次完整的 Vitest 测试运行通常经历以下几个主要阶段：:
+一次完整的 Vitest 测试运行通常经历以下几个主要阶段：
 
 1. **初始化:** 加载配置并初始化项目
 2. **全局初始化:** 在所有测试运行之前执行一次初始化
@@ -89,7 +89,7 @@ export function teardown() {
 - setup 文件在 **每个测试文件** 之前执行
 - 可在此处初始化任何全局 _状态_ 或配置
 
-**作用域:** Worker process (same as your tests)
+**作用域:** Worker 进程（与测试相同）
 
 **注意事项:**
 - 如果禁用了 [isolation](/config/isolate)，setup 文件仍会在每个测试文件之前重新执行以触发副作用，但导入的模块会被缓存

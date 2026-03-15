@@ -107,9 +107,7 @@ npx vite preview --outDir ./html
 
 "Source" 窗口中的所有静态导入显示当前模块评估它们的总耗时。如果导入已在模块图中被评估过，它将显示 `0ms`，因为此时已被缓存。
 
-<!-- TODO: translation reference history -->
-
-If the module took longer than the [`danger` threshold](/config/experimental#experimental-importdurations-thresholds) (default: 500ms) to load, the time will be displayed in red. If the module took longer than the [`warn` threshold](/config/experimental#experimental-importdurations-thresholds) (default: 100ms), the time will be displayed in orange.
+如果某个模块的加载时间超过 [`danger` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认：500ms），耗时将以红色显示。如果超过 [`warn` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认：100ms），耗时将以橙色显示。
 
 你可以点击导入源代码跳转到该模块并进一步遍历图表（注意下面的 `./support/assertions/index.ts`）。
 

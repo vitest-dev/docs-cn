@@ -201,14 +201,12 @@ $ pnpm run test:dev math.test.ts
 
 Module Runner 已取代 `vite-node`，直接内嵌于 Vite, Vitest 亦移除 SSR 封装，直接调用。主要变更如下：
 
-<!-- TODO: translation -->
-
-- `VITE_NODE_DEPS_MODULE_DIRECTORIES` environment variable was replaced with `VITEST_MODULE_DIRECTORIES`
-- Vitest no longer injects `__vitest_executor` into every [test runner](/api/advanced/runner). Instead, it injects `moduleRunner` which is an instance of [`ModuleRunner`](https://vite.dev/guide/api-environment-runtimes.html#modulerunner)
-- `vitest/execute` entry point was removed. It was always meant to be internal
-- [Custom environments](/guide/environment) no longer need to provide a `transformMode` property. Instead, provide `viteEnvironment`. If it is not provided, Vitest will use the environment name to transform files on the server (see [`server.environments`](https://cn.vite.dev/guide/api-environment-instances.html))
-- `vite-node` is no longer a dependency of Vitest
-- `deps.optimizer.web` was renamed to [`deps.optimizer.client`](/config/deps#deps-client). You can also use any custom names to apply optimizer configs when using other server environments
+- `VITE_NODE_DEPS_MODULE_DIRECTORIES` 环境变量已替换为 `VITEST_MODULE_DIRECTORIES`
+- Vitest 不再向每个 [测试运行器](/api/advanced/runner) 注入 `__vitest_executor`，改为注入 `moduleRunner`，它是 [`ModuleRunner`](https://cn.vite.dev/guide/api-environment-runtimes.html#modulerunner) 的实例
+- `vitest/execute` 入口点已移除，它始终仅供内部使用
+- [自定义环境](/guide/environment) 不再需要提供 `transformMode` 属性，改为提供 `viteEnvironment`。若未提供，Vitest 将使用环境名称在服务端转换文件（更多内容请参阅 [`server.environments`](https://cn.vite.dev/guide/api-environment-instances.html)）
+- `vite-node` 不再是 Vitest 的依赖项
+- `deps.optimizer.web` 已重命名为 [`deps.optimizer.client`](/config/deps#deps-client)。在使用其他服务端环境时，你也可以使用任意自定义名称来应用优化器配置
 
 Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`server.deps`](/config/server#deps) 可继续用于包的内联/外部化。
 
@@ -306,20 +304,18 @@ const { getElementError } = utils // [!code ++]
 在过渡期间，`@vitest/browser/context` 和 `@vitest/browser/utils` 都能在运行时工作，但它们将在未来的版本中移除。
 :::
 
-<!-- TODO: translation -->
-### Pool Rework
+### Pool 重构 {#pool-rework}
 
-Vitest has used [`tinypool`](https://github.com/tinylibs/tinypool) for orchestrating how test files are run in the test runner workers. Tinypool has controlled how complex tasks like parallelism, isolation and IPC communication works internally. However we've found that Tinypool has some flaws that are slowing down development of Vitest. In Vitest v4 we've completely removed Tinypool and rewritten how pools work without new dependencies. Read more about reasoning from [feat!: rewrite pools without tinypool #8705
-](https://github.com/vitest-dev/vitest/pull/8705).
+Vitest 过去使用 [`tinypool`](https://github.com/tinylibs/tinypool) 来编排测试文件在 test runner worker 中的运行方式。Tinypool 负责在内部处理并行、隔离和 IPC 通信等复杂任务。然而我们发现 Tinypool 存在一些缺陷，拖慢了 Vitest 的开发进度。在 Vitest v4 中，我们彻底移除了 Tinypool，并在不引入新依赖的前提下重写了 pool 的工作机制。详细原因请参阅 [feat!: rewrite pools without tinypool #8705](https://github.com/vitest-dev/vitest/pull/8705)
 
-New pool architecture allows Vitest to simplify many previously complex configuration options:
+新的 pool 架构使 Vitest 得以简化许多此前复杂的配置项：
 
-- `maxThreads` and `maxForks` are now `maxWorkers`.
-- Environment variables `VITEST_MAX_THREADS` and `VITEST_MAX_FORKS` are now `VITEST_MAX_WORKERS`.
-- `singleThread` and `singleFork` are now `maxWorkers: 1, isolate: false`. If your tests were relying on module reset between tests, you'll need to add [setupFile](/config/setupfiles) that calls [`vi.resetModules()`](/api/vi.html#vi-resetmodules) in [`beforeAll` test hook](/api/hooks#beforeall).
-- `poolOptions` is removed. All previous `poolOptions` are now top-level options. The `memoryLimit` of VM pools is renamed to `vmMemoryLimit`.
-- `threads.useAtomics` is removed. If you have a use case for this, feel free to open a new feature request.
-- Custom pool interface has been rewritten, see [Custom Pool](/guide/advanced/pool#custom-pool)
+- `maxThreads` 和 `maxForks` 现统一为 `maxWorkers`。
+- 环境变量 `VITEST_MAX_THREADS` 和 `VITEST_MAX_FORKS` 现统一为 `VITEST_MAX_WORKERS`。
+- `singleThread` 和 `singleFork` 现等价于 `maxWorkers: 1, isolate: false`。如果你的测试依赖测试间的模块重置，需添加 [setupFile](/config/setupfiles) 并在 [`beforeAll` 测试钩子](/api/hooks#beforeall) 中调用 [`vi.resetModules()`](/api/vi.html#vi-resetmodules)。
+- `poolOptions` 已移除。原有的所有 `poolOptions` 配置项现均为顶层选项。虚拟运行池的 `memoryLimit` 已重命名为 `vmMemoryLimit`。
+- `threads.useAtomics` 已移除。如果你有相关使用场景，欢迎提交新的功能请求。
+- 自定义运行池接口已重写，详见 [自定义运行池](/guide/advanced/pool#custom-pool)。
 
 ```ts
 export default defineConfig({
@@ -342,23 +338,23 @@ export default defineConfig({
 })
 ```
 
-Previously it was not possible to specify some pool related options per project when using [Vitest Projects](/guide/projects). With the new architecture this is no longer a blocker.
+此前在使用 [测试项目](/guide/projects) 时，无法为单个项目单独指定某些 pool 相关配置项。新架构已解除了这一限制。
 
 ::: code-group
-```ts [Isolation per project]
+```ts [按项目隔离]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     projects: [
       {
-        // Non-isolated unit tests
+        // 非隔离的单元测试
         name: 'Unit tests',
         isolate: false,
         exclude: ['**.integration.test.ts'],
       },
       {
-        // Isolated integration tests
+        // 隔离的集成测试
         name: 'Integration tests',
         include: ['**.integration.test.ts'],
       },
@@ -366,7 +362,7 @@ export default defineConfig({
   },
 })
 ```
-```ts [Parallel & Sequential projects]
+```ts [并行与串行项目]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -385,7 +381,7 @@ export default defineConfig({
   },
 })
 ```
-```ts [Node CLI options per project]
+```ts [按项目分配 Node CLI 选项]
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -407,10 +403,9 @@ export default defineConfig({
 
 更多示例请参阅 [测试技巧](/guide/recipes)。
 
-<!-- TODO: translation -->
-### Reporter Updates
+### 报告器升级 {#reporter-updates}
 
-Reporter APIs `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate` and `onFinished` were removed. See [`Reporters API`](/api/advanced/reporters) for new alternatives. The new APIs were introduced in Vitest `v3.0.0`.
+Reporter API 中的 `onCollected`、`onSpecsCollected`、`onPathsCollected`、`onTaskUpdate` 和 `onFinished` 已被移除。新的替代方案请参阅 [`Reporters API`](/api/advanced/reporters)。新 API 于 Vitest `v3.0.0` 中引入。
 
 移除了 `basic` 报告器，因为它等价于：
 
@@ -564,9 +559,8 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 ```
 
 ### 环境变量 {#envs}
-<!-- TODO: translation -->
 
-Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxWorkers`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxWorkers`, and will increase with each created worker.
+与 Jest 一样，如果 `NODE_ENV` 在此之前未被设置，Vitest 会将其设为 `test`。Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID`（始终小于或等于 `maxWorkers`），如果你依赖该变量，别忘了重命名。Vitest 还暴露了 `VITEST_WORKER_ID`，它是运行中 worker 的唯一 ID 且该编号不受 `maxWorkers` 影响，每创建一个新 worker 就会递增。
 
 ### 替换属性 {#replace-property}
 
@@ -638,51 +632,49 @@ export default defineConfig({
 
 否则快照中会出现大量转义的 `"` 字符。
 
-<!-- TODO: translation -->
+## 从 Mocha + Chai + Sinon 迁移 {#mocha-chai-sinon}
 
-## Migrating from Mocha + Chai + Sinon {#mocha-chai-sinon}
+Vitest 对从 Mocha+Chai+Sinon 测试套件迁移提供了完善支持。虽然 Vitest 默认使用与 Jest 兼容的 API，但它同时也提供 Chai 风格的断言用于 spy/mock 测试，从而降低迁移成本。
 
-Vitest provides excellent support for migrating from Mocha+Chai+Sinon test suites. While Vitest uses a Jest-compatible API by default, it also provides Chai-style assertions for spy/mock testing, making migration easier.
+### 测试结构 {#test-structure}
 
-### Test Structure
-
-Mocha and Vitest have similar test structures, but with some differences:
+Mocha 与 Vitest 的测试结构相似，但存在一些差异：
 
 ```ts
 // Mocha
 describe('suite', () => {
-  before(() => { /* setup */ })
-  after(() => { /* teardown */ })
-  beforeEach(() => { /* setup */ })
-  afterEach(() => { /* teardown */ })
+  before(() => { /* 初始化 */ })
+  after(() => { /* 清理 */ })
+  beforeEach(() => { /* 初始化 */ })
+  afterEach(() => { /* 清理 */ })
 
   it('test', () => {
-    // test code
+    // 测试代码
   })
 })
 
-// Vitest - same structure works!
+// Vitest - 相同的结构同样适用！
 import { afterAll, afterEach, beforeAll, beforeEach, describe, it } from 'vitest'
 
 describe('suite', () => {
-  beforeAll(() => { /* setup */ })
-  afterAll(() => { /* teardown */ })
-  beforeEach(() => { /* setup */ })
-  afterEach(() => { /* teardown */ })
+  beforeAll(() => { /* 初始化 */ })
+  afterAll(() => { /* 清理 */ })
+  beforeEach(() => { /* 初始化 */ })
+  afterEach(() => { /* 清理 */ })
 
   it('test', () => {
-    // test code
+    // 测试代码
   })
 })
 ```
 
-### Assertions
+### 断言 {#assertions}
 
-Vitest includes Chai assertions by default, so Chai assertions work without changes:
+Vitest 默认内置 Chai 断言，因此 Chai 断言无需任何修改即可使用：
 
 ```ts
-// Both Mocha+Chai and Vitest
-import { expect } from 'vitest' // or 'chai' in Mocha
+// Mocha+Chai 与 Vitest 均适用
+import { expect } from 'vitest' // 或在 Mocha 中导入 'chai'
 
 expect(value).to.equal(42)
 expect(value).to.be.true
@@ -690,12 +682,12 @@ expect(array).to.have.lengthOf(3)
 expect(obj).to.have.property('key')
 ```
 
-### Spy/Mock Assertions
+### Spy/Mock 断言 {#spy-mock-assertions}
 
-Vitest provides **Chai-style assertions** for spies and mocks, allowing you to migrate from Sinon without rewriting assertions:
+Vitest 为 spy 和 mock 提供 **Chai 风格** 的断言，让你无需重写断言即可从 Sinon 迁移：
 
 ```ts
-// Before (Mocha + Chai + Sinon)
+// 迁移前（Mocha + Chai + Sinon）
 const sinon = require('sinon')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
@@ -708,7 +700,7 @@ expect(spy).to.have.been.called
 expect(spy).to.have.been.calledOnce
 expect(spy).to.have.been.calledWith('arg1', 'arg2')
 
-// After (Vitest) - same assertion syntax!
+// 迁移后（Vitest）- 断言语法完全相同！
 import { expect, vi } from 'vitest'
 
 const spy = vi.spyOn(obj, 'method')
@@ -719,27 +711,27 @@ expect(spy).to.have.been.calledOnce
 expect(spy).to.have.been.calledWith('arg1', 'arg2')
 ```
 
-#### Complete Chai-Style Assertion Support
+#### 完整的 Chai 风格断言支持 {#}complete-chai-style-assertion-support}
 
 Vitest supports all common sinon-chai assertions:
 
-| Sinon-Chai | Vitest | Description |
+| Sinon-Chai | Vitest | 详情 |
 |------------|--------|-------------|
-| `spy.called` | `called` | Spy was called at least once |
-| `spy.calledOnce` | `calledOnce` | Spy was called exactly once |
-| `spy.calledTwice` | `calledTwice` | Spy was called exactly twice |
-| `spy.calledThrice` | `calledThrice` | Spy was called exactly three times |
-| `spy.callCount(n)` | `callCount(n)` | Spy was called n times |
-| `spy.calledWith(...)` | `calledWith(...)` | Spy was called with specific args |
-| `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy was called once with specific args |
-| `spy.returned` | `returned` | Spy returned successfully |
-| `spy.returnedWith(value)` | `returnedWith(value)` | Spy returned specific value |
+| `spy.called` | `called` | Spy 至少被调用过一次 |
+| `spy.calledOnce` | `calledOnce` |  Spy 恰好被调用过一次 |
+| `spy.calledTwice` | `calledTwice` | Spy 恰好被调用过两次 |
+| `spy.calledThrice` | `calledThrice` | Spy 恰好被调用过三次 |
+| `spy.callCount(n)` | `callCount(n)` | Spy 被调用过 n 次 |
+| `spy.calledWith(...)` | `calledWith(...)` | Spy 以特定参数被调用 |
+| `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy 以特定参数恰好被调用一次 |
+| `spy.returned` | `returned` | Spy 成功返回 |
+| `spy.returnedWith(value)` | `returnedWith(value)` | Spy 返回了特定值 |
 
-See the [Chai-Style Spy Assertions](/api/expect#chai-style-spy-assertions) documentation for the complete list.
+更多内容请参阅 [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions) 文档中的完整列表。
 
-### Creating Spies and Mocks
+### 创建 Spy 和 Mock {#creating-spies-and-mocks}
 
-Replace Sinon's spy/stub/mock creation with Vitest's `vi` utilities:
+用 Vitest 的 `vi` 工具替换 Sinon 的 spy/stub/mock 创建方式：
 
 ```ts
 // Sinon
@@ -752,10 +744,10 @@ const mock = sinon.mock(obj)
 import { vi } from 'vitest'
 const spy = vi.fn()
 const stub = vi.spyOn(obj, 'method')
-// Vitest doesn't have "mocks" - use spies instead
+// Vitest 没有 "mock" 的概念，请使用 spy 代替
 ```
 
-### Stubbing Return Values
+### 存根返回值 {#stubbing-return-values}
 
 ```ts
 // Sinon
@@ -769,7 +761,7 @@ stub.mockReturnValueOnce(1)
 stub.mockReturnValueOnce(2)
 ```
 
-### Stubbing Implementations
+### 存根实现 {#stubbing-implementations}
 
 ```ts
 // Sinon
@@ -779,21 +771,21 @@ stub.callsFake(arg => arg * 2)
 stub.mockImplementation(arg => arg * 2)
 ```
 
-### Restoring Spies
+### 恢复 Spy {#restoring-spies}
 
 ```ts
 // Sinon
 spy.restore()
-sinon.restore() // restore all
+sinon.restore() // 恢复全部
 
 // Vitest
 spy.mockRestore()
-vi.restoreAllMocks() // restore all
+vi.restoreAllMocks() // 恢复全部
 ```
 
-### Timers
+### 定时器 {#timers-1}
 
-Both Sinon and Vitest use `@sinonjs/fake-timers` internally:
+Sinon 和 Vitest 在内部都使用 `@sinonjs/fake-timers`：
 
 ```ts
 // Sinon
@@ -808,13 +800,13 @@ vi.advanceTimersByTime(1000)
 vi.useRealTimers()
 ```
 
-### Key Differences
+### 主要差异 {#key-differences}
 
-1. **Globals**: Mocha provides globals by default. In Vitest, either import from `vitest` or enable [`globals`](/config/globals) config
-2. **Assertion style**: You can use both Chai-style (`expect(spy).to.have.been.called`) and Jest-style (`expect(spy).toHaveBeenCalled()`)
-3. **Parallel execution**: Vitest runs tests in parallel by default, Mocha runs sequentially
+1. **全局变量**：Mocha 默认提供全局变量。在 Vitest 中，需要从 `vitest` 导入，或启用 [`globals`](/config/globals) 配置。
+2. **断言风格**：可同时使用 Chai 风格（`expect(spy).to.have.been.called`）和 Jest 风格（`expect(spy).toHaveBeenCalled()`）。
+3. **并发执行**：Vitest 默认并发运行测试，Mocha 则顺序执行。
 
-For more information, see:
-- [Chai-Style Spy Assertions](/api/expect#chai-style-spy-assertions)
-- [Mocking Guide](/guide/mocking)
+更多内容请参阅：
+- [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions)
+- [Mocking 指南](/guide/mocking)
 - [Vi API](/api/vi)
