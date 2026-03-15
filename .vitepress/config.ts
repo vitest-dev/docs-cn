@@ -777,7 +777,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/environment',
               },
               {
-                text: 'Test Run Lifecycle',
+                text: '测试运行生命周期',
                 link: '/guide/lifecycle',
               },
               {

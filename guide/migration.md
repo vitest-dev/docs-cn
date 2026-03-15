@@ -636,7 +636,7 @@ export default defineConfig({
 
 Vitest 对从 Mocha+Chai+Sinon 测试套件迁移提供了完善支持。虽然 Vitest 默认使用与 Jest 兼容的 API，但它同时也提供 Chai 风格的断言用于 spy/mock 测试，从而降低迁移成本。
 
-### Test Structure {#test-structure}
+### 测试结构 {#test-structure}
 
 Mocha 与 Vitest 的测试结构相似，但存在一些差异：
 
