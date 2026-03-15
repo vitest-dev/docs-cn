@@ -73,7 +73,7 @@ export function teardown() {
 **发生了什么:**
 - 根据 `browser.enabled` 或 `pool` 配置（`threads`、`forks`、`vmThreads` 或 `vmForks`）创建 Worker
 - 每个 Worker 拥有独立的隔离环境（除非禁用了 [隔离](/config/isolate)）
-- 默认情况下，Worker 不会复用以保证隔离性。只有在以下情况才会复用：
+- 默认情况下，Worker 为了保证隔离性不会复用。只有在以下情况才会复用：
   - 禁用了 [隔离](/config/isolate)
   - 或 pool 为 `vmThreads`、`vmForks`，因为 [VM](https://nodejs.org/api/vm.html) 已提供足够的隔离环境
 
@@ -115,8 +115,8 @@ afterEach(() => {
 
 测试文件的执行顺序取决于你的配置：
 
-- 在同一个 Worker 内，**默认顺序执行**
-- 不同 Worker 之间，文件会 **并行执行**，可通过 [`maxWorkers`](/config/maxworkers) 配置
+- 在同一个 Worker 内，**默认串行执行**
+- 不同 Worker 之间，文件会 **并行执行**，可通过 [`maxWorkers`](/config/maxworkers) 进行配置
 - 可通过 [`sequence.shuffle`](/config/sequence#sequence-shuffle) 随机执行顺序，或通过 [`sequence.sequencer`](/config/sequence#sequence-sequencer) 精细控制执行顺序
 - 耗时较长的测试通常会优先启动（基于缓存），除非启用了随机化
 
@@ -314,7 +314,7 @@ describe('outer', () => {
 
 **发生了什么:**
 - [`globalSetup`](/config/globalsetup) 文件中的 `teardown()` 函数执行
-- 多个清理函数以 setup 的 **倒序** 执行
+- 多个清理函数以初始化 **相反的顺序** 执行
 - 在 watch 模式下，清理在进程退出前执行，而非在每次重新运行之间执行
 
 **作用域:** 主进程
