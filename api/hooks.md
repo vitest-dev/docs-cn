@@ -308,7 +308,7 @@ beforeAll(async () => {
 ```
 :::
 
-### 多个钩子 {##multiple-hooks-1}
+### 多个钩子 {#multiple-hooks-1}
 
 注册多个 `aroundAll` 钩子时，它们会相互嵌套。先注册的钩子是最外层的包裹：
 
