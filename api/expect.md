@@ -31,7 +31,7 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
-从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请参阅 [Test API](/api/test)。
+从技术上讲，这个示例没有使用 [`test`](/api/test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请参阅 [Test API](/api/test)。
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
