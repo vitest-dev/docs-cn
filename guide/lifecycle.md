@@ -124,11 +124,11 @@ afterEach(() => {
 
 执行顺序如下：
 
-1. **文件级代码** — `describe` 块外的所有代码立即执行
-2. **测试收集** — 处理 `describe` 块，导入测试文件时以副作用的形式注册测试
-3. **[`aroundAll`](/api/hooks#aroundall) 钩子** — 包裹套件中的所有测试（须调用 `runSuite()`）
-4. **[`beforeAll`](/api/hooks#beforeall) 钩子** — 在套件中任何测试运行之前执行一次
-5. **对于每个测试**：
+1. **文件级代码:** `describe` 块外的所有代码立即执行
+2. **测试收集:** 处理 `describe` 块，导入测试文件时以副作用的形式注册测试
+3. **[`aroundAll`](/api/hooks#aroundall) 钩子:** 包裹套件中的所有测试（须调用 `runSuite()`）
+4. **[`beforeAll`](/api/hooks#beforeall) 钩子:** 在套件中任何测试运行之前执行一次
+5. **对于每个测试:**：
  - [`aroundEach`](/api/hooks#aroundeach) 钩子包裹该测试（须调用 `runTest()`）
  - `beforeEach` 钩子执行（按定义顺序，或基于 [`sequence.hooks`](/config/sequence#sequence-hooks)）
  - 测试函数执行
@@ -136,7 +136,7 @@ afterEach(() => {
  - [`onTestFinished`](/api/hooks#ontestfinished) 回调执行（始终倒序）
  - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
  - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
-6. **[`afterAll`](/api/hooks#afterall) 钩子** — 套件中所有测试完成后执行一次
+6. **[`afterAll`](/api/hooks#afterall) 钩子:** 套件中所有测试完成后执行一次
 
 **执行流程示例:**
 
@@ -144,7 +144,7 @@ afterEach(() => {
 // 立即执行（收集阶段）
 console.log('File loaded')
 
-describe('用户API', () => {
+describe('User API', () => {
   // 立即执行（收集阶段）
   console.log('Suite defined')
 
@@ -172,12 +172,12 @@ describe('用户API', () => {
     console.log('beforeEach')
   })
 
-  test('创建用户', () => {
+  test('creates user', () => {
     // 测试执行
     console.log('test 1')
   })
 
-  test('更新用户', () => {
+  test('updates user', () => {
     // 测试执行
     console.log('test 2')
   })
