@@ -235,7 +235,7 @@ test.runIf(isDev)('dev only test', () => {
 - **类型:** `(name: string | Function, fn: TestFunction, timeout?: number) => void`
 - **别名:** `it.only`
 
-使用 `test.only` 仅运行给定 测试套件中的某些测试。这在调试时非常有用。
+使用 `test.only` 仅运行给定测试套件中的某些测试。这在调试时非常有用。
 
 可选择提供超时（以毫秒为单位），用于指定终止前的等待时间。默认值为 5 秒，可通过 [testTimeout](/config/#testtimeout) 进行全局配置。
 
