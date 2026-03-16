@@ -6,7 +6,11 @@
 type Awaitable<T> = T | PromiseLike<T>
 ```
 
+<<<<<<< HEAD
 `expect` 用于创建断言。在此上下文中，`断言` 是可以被调用来验证一个语句的函数。Vitest 默认提供 `chai` 断言，同时也提供基于 chai 构建的兼容 `Jest` 的断言。自 Vitest 4.1 起，在进行 spy/mock 测试时，Vitest 还额外提供了 [Chai 风格断言](#chai-style-spy-assertions)（如 `expect(spy).to.have.been.called()`），与 Jest 风格断言（如 `expect(spy).toHaveBeenCalled()`）并存。与 `Jest` 不同，Vitest 支持将一条消息作为第二个参数传入，如果断言失败，错误信息将等于该消息。
+=======
+`expect` is used to create assertions. In this context `assertions` are functions that can be called to assert a statement. Vitest provides `chai` assertions by default and also `Jest` compatible assertions built on top of `chai`. Since Vitest 4.1, for spy/mock testing, Vitest also provides Chai-style assertions (e.g., [`expect(spy).to.have.been.called()`](#called)) alongside Jest-style assertions (e.g., `expect(spy).toHaveBeenCalled()`). Unlike `Jest`, Vitest supports a message as the second argument - if the assertion fails, the error message will be equal to it.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 export interface ExpectStatic extends Chai.ExpectStatic, AsymmetricMatchersContaining {
@@ -2107,7 +2111,11 @@ You can use `expect.not` with this matcher to negate the expected value.
 如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/setupfiles) 中调用此方法。这将影响每个快照。
 
 :::tip
+<<<<<<< HEAD
 如果以前将 Vue CLI 与 Jest 一起使用，需要安装 [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue)。 否则，的快照将被包裹在一个字符串中，其中 `"` 是要转义的。
+=======
+If you previously used Vue CLI with Jest, you might want to install [jest-serializer-vue](https://npmx.dev/package/jest-serializer-vue). Otherwise, your snapshots will be wrapped in a string, which cases `"` to be escaped.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 :::
 
 ## expect.extend

@@ -4,7 +4,11 @@ outline: deep
 
 # vitest-browser-svelte
 
+<<<<<<< HEAD
 由社区提供的 [`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte) 包可在 [浏览器模式](/guide/browser/) 中渲染 [Svelte](https://svelte.dev/) 组件。
+=======
+The community [`vitest-browser-svelte`](https://npmx.dev/package/vitest-browser-svelte) package renders [Svelte](https://svelte.dev/) components in [Browser Mode](/guide/browser/).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 import { render } from 'vitest-browser-svelte'
@@ -12,7 +16,7 @@ import { expect, test } from 'vitest'
 import Component from './Component.svelte'
 
 test('counter button increments the count', async () => {
-  const screen = render(Component, {
+  const screen = await render(Component, {
     initialCount: 1,
   })
 
@@ -39,15 +43,30 @@ export function render<C extends Component>(
   Component: ComponentImport<C>,
   options?: ComponentOptions<C>,
   renderOptions?: SetupOptions
-): RenderResult<C>
+): RenderResult<C> & PromiseLike<RenderResult<C>>
 ```
 
+<<<<<<< HEAD
 ### 选项 {#options}
+=======
+The `render` function records a `svelte.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
+
+::: warning
+Synchronous usage of `render` is deprecated and will be removed in the next major version. Please always `await` the result:
+
+```ts
+const screen = render(Component) // [!code --]
+const screen = await render(Component) // [!code ++]
+```
+:::
+
+### Options
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 `render` 函数支持两种传参方式，一种是向 [`mount`](https://svelte.dev/docs/svelte/imperative-component-api#mount) 传入配置选项，另一种则是直接向组件传入属性：
 
 ```ts
-const screen = render(Component, {
+const screen = await render(Component, {
   props: { // [!code --]
     initialCount: 1, // [!code --]
   }, // [!code --]
@@ -68,7 +87,7 @@ const screen = render(Component, {
 ```ts
 const table = document.createElement('table')
 
-const screen = render(TableBody, {
+const screen = await render(TableBody, {
   props,
   // ⚠️ 渲染前需手动将元素添加到 `body`
   target: document.body.appendChild(table),
@@ -86,7 +105,7 @@ const screen = render(TableBody, {
 除文档记载的返回值外，`render` 函数还会返回相对于 [`baseElement`](#baseelement) 的所有可用 [定位器](/api/browser/locators)，包括 [自定义定位器](/api/browser/locators#custom-locators)。
 
 ```ts
-const screen = render(TableBody, props)
+const screen = await render(TableBody, props)
 
 await screen.getByRole('link', { name: 'Expand' }).click()
 ```
@@ -104,7 +123,7 @@ Svelte 组件将被渲染到 `container` 这个 DOM 容器中。这是一个常�
 已挂载的 Svelte 组件实例。如需访问组件方法和属性，可通过此实例进行操作。
 
 ```ts
-const { component } = render(Counter, {
+const { component } = await render(Counter, {
   initialCount: 0,
 })
 
@@ -118,7 +137,7 @@ const { component } = render(Counter, {
 ```ts
 import { render } from 'vitest-browser-svelte'
 
-const { locator } = render(NumberDisplay, {
+const { locator } = await render(NumberDisplay, {
   number: 2,
 })
 
@@ -139,15 +158,19 @@ function debug(
 #### rerender
 
 ```ts
-function rerender(props: Partial<ComponentProps<T>>): void
+function rerender(props: Partial<ComponentProps<T>>): Promise<void>
 ```
 
+<<<<<<< HEAD
 更新组件属性并等待 Svelte 变更被应用。适用于测试组件属性变化的响应。
+=======
+Updates the component's props and waits for Svelte to apply the changes. Use this to test how your component responds to prop changes. Also records a `svelte.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 import { render } from 'vitest-browser-svelte'
 
-const { rerender } = render(NumberDisplay, {
+const { rerender } = await render(NumberDisplay, {
   number: 1,
 })
 
@@ -158,17 +181,31 @@ await rerender({ number: 2 })
 #### unmount
 
 ```ts
-function unmount(): void
+function unmount(): Promise<void>
 ```
 
+<<<<<<< HEAD
 卸载并销毁 Svelte 组件。该特性适用于测试组件从页面移除时的行为（例如验证是否残留未清除的事件处理器，避免引发内存泄漏）。
+=======
+Unmount and destroy the Svelte component. Also records a `svelte.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+
+::: warning
+Synchronous usage of `unmount` is deprecated and will be removed in the next major version. Please always `await` the result.
+:::
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 import { render } from 'vitest-browser-svelte'
 
+<<<<<<< HEAD
 const { container, unmount } = render(Component)
 unmount()
 // 组件已被卸载，此时：container.innerHTML === ''
+=======
+const { container, unmount } = await render(Component)
+await unmount()
+// your component has been unmounted and now: container.innerHTML === ''
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 ```
 
 ## cleanup
@@ -193,7 +230,7 @@ locators.extend({
   },
 })
 
-const screen = render(Component)
+const screen = await render(Component)
 await expect.element(
   screen.getByArticleTitle('Hello World')
 ).toBeVisible()
@@ -211,7 +248,7 @@ import { expect, test } from 'vitest'
 import SubjectTest from './basic-snippet.test.svelte'
 
 test('basic snippet', async () => {
-  const screen = render(SubjectTest)
+  const screen = await render(SubjectTest)
 
   const heading = screen.getByRole('heading')
   const child = heading.getByTestId('child')
@@ -250,7 +287,7 @@ import { expect, test } from 'vitest'
 import Subject from './complex-snippet.svelte'
 
 test('renders greeting in message snippet', async () => {
-  const screen = render(Subject, {
+  const screen = await render(Subject, {
     name: 'Alice',
     message: createRawSnippet(greeting => ({
       render: () => `<span data-testid="message">${greeting()}</span>`,

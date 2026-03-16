@@ -51,7 +51,11 @@ export default defineConfig({
 :::
 
 ::: info
+<<<<<<< HEAD
 如果 [根项目](/api/advanced/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
+=======
+If the [root project](/api/advanced/vitest#getrootproject) is not part of user projects, its `name` will not be resolved.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 :::
 
 ## vitest
@@ -78,7 +82,11 @@ project.serializedConfig === project.serializedConfig // ❌
 
 ## globalConfig
 
+<<<<<<< HEAD
 [`Vitest`](/api/advanced/vitest) 初始化时的测试配置。如果这是 [根项目](/api/advanced/vitest#getroottestproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
+=======
+The test config that [`Vitest`](/api/advanced/vitest) was initialized with. If this is the [root project](/api/advanced/vitest#getrootproject), `globalConfig` and `config` will reference the same object. This config is useful for values that cannot be set on the project level, like `coverage` or `reporters`.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 import type { ResolvedConfig } from 'vitest/node'
@@ -206,7 +214,11 @@ await vitest.runTestSpecifications([specification])
 function isRootProject(): boolean
 ```
 
+<<<<<<< HEAD
 检查当前项目是否为根项目。我们也可以通过调用 [`vitest.getRootProject()`](#getrootproject) 获取根项目。
+=======
+Checks if the current project is the root project. You can also get the root project by calling [`vitest.getRootProject()`](/api/advanced/vitest#getrootproject).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ## globTestFiles
 
@@ -233,7 +245,11 @@ project.globTestFiles(['basic/foo.js:10']) // ❌
 ```
 
 ::: tip
+<<<<<<< HEAD
 Vitest 使用 [fast-glob](https://www.npmjs.com/package/fast-glob) 来查找测试文件。`test.dir`、`test.root`、`root` 或 `process.cwd()` 定义了 `cwd` 选项。
+=======
+Vitest uses [fast-glob](https://npmx.dev/package/fast-glob) to find test files. `test.dir`, `test.root`, `root` or `process.cwd()` define the `cwd` option.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 此方法查看多个配置选项：
 

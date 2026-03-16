@@ -45,7 +45,11 @@ export default defineConfig({
 ```
 
 ::: warning
+<<<<<<< HEAD
 如果多个标签具有相同配置项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
+=======
+If several tags have the same options and are used on the same test, they will be resolved in the order they were specified, or sorted by priority first (the lower the number, the higher the priority). Tags without a defined priority are merged first and will be overridden by higher priority ones:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'] })
@@ -204,9 +208,13 @@ vitest --tags-filter=frontend
 vitest --tags-filter="frontend and backend"
 ```
 
+<<<<<<< HEAD
 如果你使用 UI 模式，可通过 `tag:` 前缀启动筛选器，使用相同的标签表达式语法按标签过滤测试：
 
 如果使用 UI 模式，你可以在过滤器中使用标签表达式进行过滤，例如 `tag:` 加前缀
+=======
+If you are running Vitest UI, you can start a filter with a `tag:` prefix to filter out tests by tags using the same tags expression syntax:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 <img alt="The tags filter in Vitest UI" img-light src="/ui/light-ui-tags.png">
 <img alt="The tags filter in Vitest UI" img-dark src="/ui/dark-ui-tags.png">

@@ -123,7 +123,11 @@ test('ProductList filters and displays products correctly', async () => {
 
 ## Testing Library 集成 {#testing-library-integration}
 
+<<<<<<< HEAD
 虽然 Vitest 为流行的框架提供了官方依赖包 ([`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue)、[`vitest-browser-react`](https://www.npmjs.com/package/vitest-browser-react)、[`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte))，但对于尚未官方支持的框架，你可以通过 [Testing Library](https://testing-library.com/) 进行继承。
+=======
+While Vitest provides official packages for popular frameworks ([`vitest-browser-vue`](https://npmx.dev/package/vitest-browser-vue), [`vitest-browser-react`](https://npmx.dev/package/vitest-browser-react), [`vitest-browser-svelte`](https://npmx.dev/package/vitest-browser-svelte)), you can integrate with [Testing Library](https://testing-library.com/) for frameworks not yet officially supported.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ### 何时使用 Testing Library {#when-to-use-testing-library}
 
@@ -166,10 +170,17 @@ test('Solid component handles user interaction', async () => {
 
 与 Vitest 配合使用效果良好的流行 Testing Library 包：
 
+<<<<<<< HEAD
 - [`@testing-library/solid`](https://github.com/solidjs/solid-testing-library) - 用于Solid.js
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) - 用于Marko
 - [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) - [`vitest-browser-svelte`](https://www.npmjs.com/package/vitest-browser-svelte) 的替代方案
 - [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) - [`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue) 的替代方案
+=======
+- [`@testing-library/solid`](https://github.com/solidjs/solid-testing-library) - For Solid.js
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) - For Marko
+- [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) - Alternative to [`vitest-browser-svelte`](https://npmx.dev/package/vitest-browser-svelte)
+- [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) - Alternative to [`vitest-browser-vue`](https://npmx.dev/package/vitest-browser-vue)
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ::: tip 迁移路径
 当你使用的框架后续获得 Vitest 官方支持时，可以通过替换 Testing Library 的 `render` 函数来逐步迁移，同时保持大部分测试逻辑不变。

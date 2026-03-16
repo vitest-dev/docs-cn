@@ -16,7 +16,11 @@
 - **命令行终端:** `-u, --update [type]`
 - **配置:** [update](/config/update)
 
+<<<<<<< HEAD
 更新快照（接受 boolean, "new" 或 "all"）
+=======
+Update snapshot (accepts boolean, "new", "all" or "none")
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ### watch
 
@@ -102,7 +106,11 @@
 - **命令行终端:** `--reporter <name>`
 - **配置:** [reporters](/config/reporters)
 
+<<<<<<< HEAD
 指定报告器（default、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
+=======
+Specify reporters (default, agent, blob, verbose, dot, json, tap, tap-flat, junit, tree, hanging-process, github-actions)
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ### outputFile
 

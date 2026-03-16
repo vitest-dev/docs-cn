@@ -112,21 +112,106 @@ test('formatter works', () => {
 
 <img src="/module-graph-barrel-file.png" alt="Vitest UI demonstrating barrel file issues" />
 
-To see how files are transformed, you can use `VITEST_DEBUG_DUMP` environment variable to write transformed files in the file system:
+To see how files are transformed, you can open the "Module Info" view in the UI:
 
-```bash
-$ VITEST_DEBUG_DUMP=true vitest --run
+<img alt="The module info view for an inlined module" img-light src="/ui/light-module-info.png">
+<img alt="The module info view for an inlined module" img-dark src="/ui/dark-module-info.png">
 
- RUN  v2.1.1 /x/vitest/examples/profiling
-...
+## File Import
 
-$ ls .vitest-dump/
-_x_examples_profiling_global-setup_ts-1292904907.js
-_x_examples_profiling_test_prime-number_test_ts-1413378098.js
-_src_prime-number_ts-525172412.js
+Some modules just take a long time to load. To identify which modules are the slowest, enable [`experimental.importDurations`](/config/experimental#experimental-importdurations) in your configuration:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    experimental: {
+      importDurations: {
+        print: true,
+      },
+    },
+  },
+})
 ```
 
+This will print a breakdown of the slowest imports after your tests finish:
+
+```bash
+Import Duration Breakdown (Top 10)
+
+Module                      Self     Total
+my-test.test.ts              5ms    620ms [████████████████████]
+date-fns/index.js          500ms    500ms [████████████████░░░░] # [!code error]
+src/utils/helpers.ts        10ms    120ms [████████░░░░░░░░░░░░]
+```
+
+<<<<<<< HEAD
 ## 代码覆盖率 {#code-coverage}
+=======
+You can also use `--experimental.importDurations.print` from the CLI without changing your configuration:
+
+```bash
+vitest --experimental.importDurations.print
+```
+
+Once you've identified the slow modules, there are several strategies to speed up imports:
+
+### Use Specific Entry Points
+
+Many libraries ship multiple entry points. Importing the main entry point (which is often a [barrel file](https://vitejs.dev/guide/performance.html#avoid-barrel-files)) can pull in far more code than you need.
+
+For example, `date-fns` re-exports hundreds of functions from its main entry point. Instead of importing from the top-level module, import directly from the specific function:
+
+```ts
+import { format } from 'date-fns' // [!code --]
+import { format } from 'date-fns/format' // [!code ++]
+```
+
+### Use `resolve.alias` to Redirect Imports
+
+If a dependency doesn't provide granular entry points, or if third-party code imports the heavy entry point, you can use [`resolve.alias`](https://vite.dev/config/shared-options#resolve-alias) to redirect imports to a lighter alternative:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  resolve: {
+    alias: [
+      {
+        find: /^date-fns$/,
+        replacement: join(dirname(require.resolve('date-fns/package.json')), 'index.cjs'),
+      },
+    ]
+  },
+})
+```
+
+### Use the Dependency Optimizer
+
+Vitest can bundle external libraries into a single file using [`deps.optimizer`](/config/deps#deps-optimizer), which reduces the overhead of importing packages with many internal modules:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    deps: {
+      optimizer: {
+        ssr: {
+          enabled: true,
+          include: ['date-fns'],
+        },
+      },
+    },
+  },
+})
+```
+
+This is especially effective for UI libraries and packages with deep import trees. Use `optimizer.ssr` for `node`/`edge` environments and `optimizer.client` for `jsdom`/`happy-dom` environments.
+
+## Code Coverage
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 如果你的项目中代码覆盖率生成较慢，您可以使用 `DEBUG=vitest:coverage` 环境变量来启用性能日志记录。
 

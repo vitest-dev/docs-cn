@@ -370,7 +370,11 @@ await expect.element(getByTestId('parent')).toContainHTML('</span>')
 ::: warning
 你可能不需要使用这个匹配器。我们鼓励从用户在浏览器中感知应用程序的角度进行测试。这就是为什么不建议针对特定的 DOM 结构进行测试。
 
+<<<<<<< HEAD
 在某些情况下，被测试的代码会渲染从外部来源获取的 HTML，而你希望验证该 HTML 代码是否按预期使用。
+=======
+It could be useful in situations where the code being tested renders html that was obtained from an external source, and you want to validate that html code was used as intended.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 不应使用它来检查你控制的 DOM 结构。请改用 [`toContainElement`](#tocontainelement)。
 :::
@@ -1077,9 +1081,15 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
 
 - `comparatorName: "pixelmatch" = "pixelmatch"`
 
+<<<<<<< HEAD
   用于比较图像的算法/库名称。
 
   目前，仅支持 [“pixelmatch”](https://github.com/mapbox/pixelmatch)。
+=======
+  The algorithm/library used for comparing images.
+
+  `"pixelmatch"` is the only built-in comparator, but you can use custom ones by [registering them in the config file](/config/browser/expect#browser-expect-tomatchscreenshot-comparators).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 - `comparatorOptions: object`
 
@@ -1130,7 +1140,11 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
 
 #### `"pixelmatch"` comparator options
 
+<<<<<<< HEAD
 使用 `"pixelmatch"` 比较器时，以下选项可用：
+=======
+The `"pixelmatch"` comparator uses [`@blazediff/core`](https://blazediff.dev/docs/core) under the hood. The following options are available when using it:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 - `allowedMismatchedPixelRatio: number | undefined = undefined`
 

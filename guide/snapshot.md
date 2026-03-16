@@ -79,7 +79,17 @@ it('toUpperCase', () => {
 vitest -u
 ```
 
+<<<<<<< HEAD
 ## 文件快照 {#file-snapshots}
+=======
+### CI behavior
+
+By default, Vitest does not write snapshots in CI (`process.env.CI` is truthy) and any snapshot mismatches, missing snapshots, and obsolete snapshots fail the run. See [`update`](/config/update) for the details.
+
+An **obsolete snapshot** is a snapshot entry (or snapshot file) that no longer matches any collected test. This usually happens after removing or renaming tests.
+
+## File Snapshots
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `` ` ``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
 

@@ -4,7 +4,11 @@ outline: deep
 
 # vitest-browser-vue
 
+<<<<<<< HEAD
 由社区提供的 [`vitest-browser-vue`](https://www.npmjs.com/package/vitest-browser-vue) 包可在 [浏览器模式](/guide/browser/) 中渲染 [Vue](https://cn.vuejs.org/) 组件。
+=======
+The community [`vitest-browser-vue`](https://npmx.dev/package/vitest-browser-vue) package renders [Vue](https://vuejs.org/) components in [Browser Mode](/guide/browser/).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 import { render } from 'vitest-browser-vue'
@@ -12,7 +16,7 @@ import { expect, test } from 'vitest'
 import Component from './Component.vue'
 
 test('counter button increments the count', async () => {
-  const screen = render(Component, {
+  const screen = await render(Component, {
     props: {
       initialCount: 1,
     }
@@ -40,10 +44,25 @@ test('counter button increments the count', async () => {
 export function render(
   component: Component,
   options?: ComponentRenderOptions,
-): RenderResult
+): RenderResult & PromiseLike<RenderResult>
 ```
 
+<<<<<<< HEAD
 ### 选项 {#options}
+=======
+The `render` function records a `vue.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
+
+::: warning
+Synchronous usage of `render` is deprecated and will be removed in the next major version. Please always `await` the result:
+
+```ts
+const screen = render(Component) // [!code --]
+const screen = await render(Component) // [!code ++]
+```
+:::
+
+### Options
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 `render` 函数支持 `@vue/test-utils` 中 [`mount` 选项](https://test-utils.vuejs.org/api/#mount) 的全部参数（除 `attachTo` 外，需改用 `container`）。此外还额外支持 `container` 和 `baseElement` 参数。
 
@@ -56,7 +75,7 @@ export function render(
 ```js
 const table = document.createElement('table')
 
-const { container } = render(TableBody, {
+const { container } = await render(TableBody, {
   props,
   // ⚠️ 渲染前需手动将元素添加到 `body`
   container: document.body.appendChild(table),
@@ -72,7 +91,7 @@ const { container } = render(TableBody, {
 除文档记载的返回值外，`render` 函数还会返回相对于 [`baseElement`](#baseelement) 的所有可用 [定位器](/api/browser/locators)，包括 [自定义定位器](/api/browser/locators#custom-locators)。
 
 ```ts
-const screen = render(TableBody, { props })
+const screen = await render(TableBody, { props })
 
 await screen.getByRole('link', { name: 'Expand' }).click()
 ```
@@ -102,7 +121,7 @@ Vue 组件将被渲染到 `container` 这个 DOM 容器中。如果在调用 ren
 ```js
 import { render } from 'vitest-browser-vue'
 
-const { locator } = render(NumberDisplay, {
+const { locator } = await render(NumberDisplay, {
   props: { number: 2 }
 })
 
@@ -125,27 +144,50 @@ function debug(
 #### rerender
 
 ```ts
-function rerender(props: Partial<Props>): void
+function rerender(props: Partial<Props>): void & PromiseLike<void>
 ```
 
+<<<<<<< HEAD
 其最佳实践是测试负责更新属性的组件本身，以确保属性更新逻辑正确，从而避免测试代码依赖于实现细节。如果需要在测试过程中更新已渲染组件的属性，当前函数可用于实现该需求。
+=======
+Also records a `vue.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
+
+It is better if you test the component that's doing the prop updating to ensure that the props are being updated correctly to avoid relying on implementation details in your tests. That said, if you'd prefer to update the props of a rendered component in your test, this function can be used to update props of the rendered component.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
+
+::: warning
+Synchronous usage of `rerender` is deprecated and will be removed in the next major version. Please always `await` the result.
+:::
 
 ```js
 import { render } from 'vitest-browser-vue'
 
-const { rerender } = render(NumberDisplay, { props: { number: 1 } })
+const { rerender } = await render(NumberDisplay, { props: { number: 1 } })
 
+<<<<<<< HEAD
 // 使用新属性重新渲染同一个组件
 rerender({ number: 2 })
+=======
+// re-render the same component with different props
+await rerender({ number: 2 })
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 ```
 
 #### unmount
 
 ```ts
-function unmount(): void
+function unmount(): void & PromiseLike<void>
 ```
 
+<<<<<<< HEAD
 此操作将会把已渲染的组件卸载。该特性适用于测试组件从页面移除时的行为（例如验证是否残留未清除的事件处理器，避免引发内存泄漏）。
+=======
+This will cause the rendered component to be unmounted. Also records a `vue.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+
+::: warning
+Synchronous usage of `unmount` is deprecated and will be removed in the next major version. Please always `await` the result.
+:::
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 #### emitted
 
@@ -182,7 +224,7 @@ locators.extend({
   },
 })
 
-const screen = render(Component)
+const screen = await render(Component)
 await expect.element(
   screen.getByArticleTitle('Hello World')
 ).toBeVisible()

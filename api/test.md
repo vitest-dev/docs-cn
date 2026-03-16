@@ -199,7 +199,11 @@ describe(
       },
       ({ task }) => {
         // task.meta === { nested: { object: false } }
+<<<<<<< HEAD
         // 注意 array 丢失了，因为 "nested" 对象被整体覆盖
+=======
+        // notice array got lost because "nested" object was overridden
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
       }
     )
   }

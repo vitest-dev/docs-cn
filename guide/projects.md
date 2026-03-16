@@ -42,11 +42,21 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 Vitest 会将 `packages` 中的每个文件夹视为独立项目，即使其中没有配置文件。如果 glob 模式匹配到文件，它将验证文件名是否以 `vitest.config`/`vite.config` 开头，或匹配 `(vite|vitest).*.config.*` 模式，以确保它是 Vitest 配置文件。例如，以下配置文件是有效的：
+=======
+Vitest will treat every folder in `packages` as a separate project even if it doesn't have a config file inside. If a project entry resolves to a file (either from a glob pattern or a direct file path), Vitest will validate that the name either:
+
+- starts with `vitest.config` or `vite.config` (for example, `vitest.config.unit.ts`)
+- or matches `vitest.<name>.config.*` / `vite.<name>.config.*`, where `<name>` can contain letters, numbers, `_`, and `-`
+
+For example, these config files are valid:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 - `vitest.config.ts`
 - `vite.config.js`
 - `vitest.unit.config.ts`
+- `vitest.e2e-node.config.ts`
 - `vite.e2e.config.js`
 - `vitest.config.unit.js`
 - `vite.config.e2e.js`

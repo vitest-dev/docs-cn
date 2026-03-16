@@ -36,9 +36,15 @@ export default {
 ::: danger BEWARE
 Vitest 使用不同的方法与 Node.js 进程进行通信。
 
+<<<<<<< HEAD
 - 如果 Vitest 在工作线程内运行测试，它将通过[消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)发送数据
 - 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
 - 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
+=======
+- If Vitest runs tests inside worker threads, it will send data via [message port](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)
+- If Vitest uses child process, the data will be send as a serialized Buffer via [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API
+- If Vitest runs tests in the browser, the data will be stringified using [flatted](https://npmx.dev/package/flatted) package
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 该属性也会出现在每个测试的 `json` 报告中，因此请确保数据可以序列化为 JSON。
 

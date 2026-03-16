@@ -67,7 +67,7 @@ _2025 年 1 月 17 日_
 你可以在 [#7069](https://github.com/vitest-dev/vitest/pull/7069) PR 中关注设计过程。为了逆向工程之前的 onTaskUpdate API 并实现这个新的优雅生命周期，我们经历了一番艰难的努力。
 
 <div class="flex align-center justify-center">
-  <img src="/on-task-update.gif" />
+  <img src="/on-task-update.gif" alt="a gif from it's always sunny with a drawing board" />
 </div>
 
 ## 内联工作区 {#inline-workspace}

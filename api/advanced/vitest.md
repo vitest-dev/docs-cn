@@ -351,7 +351,11 @@ function collectTests(
 function cancelCurrentRun(reason: CancelReason): Promise<void>
 ```
 
+<<<<<<< HEAD
 此方法将优雅地取消所有正在进行的测试。它将等待已启动的测试完成运行，并且不会运行已计划运行但尚未启动的测试。
+=======
+This method will gracefully cancel all ongoing tests. It will stop the on-going tests and will not run tests that were scheduled to run but haven't started yet.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ## setGlobalTestNamePattern
 

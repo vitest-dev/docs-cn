@@ -12,5 +12,9 @@ outline: deep
 所有测试文件应该并行运行。 将其设置为 `false` 将覆盖 `maxWorkers` 选项为 `1`。
 
 ::: tip
+<<<<<<< HEAD
 此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，使用 `concurrent` 选项 [describe](/api/describe#describe-concurrent) 或通过 [配置](#sequence-concurrent)。
+=======
+This option doesn't affect tests running in the same file. If you want to run those in parallel, use `concurrent` option on [describe](/api/describe#describe-concurrent) or via [a config](/config/sequence#sequence-concurrent).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 :::

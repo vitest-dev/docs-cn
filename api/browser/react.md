@@ -4,7 +4,11 @@ outline: deep
 
 # vitest-browser-react
 
+<<<<<<< HEAD
 由社区提供的 [`vitest-browser-react`](https://www.npmjs.com/package/vitest-browser-react) 包可在 [浏览器模式](/guide/browser/) 中渲染 [React](https://zh-hans.react.dev/) 组件。
+=======
+The community [`vitest-browser-react`](https://npmx.dev/package/vitest-browser-react) package renders [React](https://react.dev/) components in [Browser Mode](/guide/browser/).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```jsx
 import { render } from 'vitest-browser-react'
@@ -38,6 +42,8 @@ export function render(
   options?: ComponentRenderOptions,
 ): Promise<RenderResult>
 ```
+
+The `render` function records a `react.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
 
 :::warning
 请注意，与其他包不同，为了支持 [`Suspense`](https://react.dev/reference/react/Suspense) 功能，此处的 `render` 是异步方法。
@@ -154,7 +160,13 @@ function debug(
 function rerender(ui: React.ReactNode): Promise<void>
 ```
 
+<<<<<<< HEAD
 其最佳实践是测试负责更新属性的组件本身，以确保属性更新逻辑正确，从而避免测试代码依赖于实现细节。如果需要在测试过程中更新已渲染组件的属性，当前函数可用于实现该需求。
+=======
+Also records a `react.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
+
+It is better if you test the component that's doing the prop updating to ensure that the props are being updated correctly to avoid relying on implementation details in your tests. That said, if you'd prefer to update the props of a rendered component in your test, this function can be used to update props of the rendered component.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```jsx
 import { render } from 'vitest-browser-react'
@@ -171,7 +183,13 @@ await rerender(<NumberDisplay number={2} />)
 function unmount(): Promise<void>
 ```
 
+<<<<<<< HEAD
 此操作将会把已渲染的组件卸载。该特性适用于测试组件从页面移除时的行为（例如验证是否残留未清除的事件处理器，避免引发内存泄漏）。
+=======
+Also records a `react.unmount` trace mark in the [Trace View](/guide/browser/trace-view).
+
+This will cause the rendered component to be unmounted. This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```jsx
 import { render } from 'vitest-browser-react'

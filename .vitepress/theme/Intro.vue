@@ -21,7 +21,12 @@
           应用测试变得轻而易举。Vitest 基于 Vite 构建，原生支持 Vite 配置，并复用相同的解析和转换。
         </p>
         <p class="text-pretty">
+<<<<<<< HEAD
           即使不使用 Vite，也同样可以使用 Vitest。它兼容 Jest，也同样适用于后端代码。
+=======
+          You can also use Vitest even if you are not using Vite. It is Jest-compatible
+          and works for backend code too.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
         </p>
         <a href="/guide/why" target="_blank" class="button w-fit mt-8 block lg:hidden">了解更多</a>
       </div>

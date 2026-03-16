@@ -99,7 +99,15 @@ export default defineConfig({
 
 默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
 
+<<<<<<< HEAD
 我们可以通过配置报告器来禁用摘要：
+=======
+::: tip
+When Vitest detects it is running inside an AI coding agent, the [`agent`](#agent-reporter) reporter is used instead to reduce output and minimize token usage. You can override this by explicitly configuring the [`reporters`](/config/reporters) option.
+:::
+
+You can disable the summary by configuring the reporter:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 :::code-group
 ```ts [vitest.config.ts]
@@ -548,18 +556,27 @@ export default defineConfig({
 
 ### GitHub Actions 报告器 {#github-actions-reporter}
 
+<<<<<<< HEAD
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
+=======
+Output [workflow commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
+to provide annotations for test failures. This reporter is automatically enabled when the `reporters` option is not configured and `process.env.GITHUB_ACTIONS === 'true'` (on GitHub Actions environment).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 <img alt="GitHub Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="GitHub Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
 
+<<<<<<< HEAD
 当你使用自定义报告器时，如果想在 GitHub Actions 中显示结果，需要手动把 `github-actions` 添加到报告器列表中。
+=======
+If you configure reporters, you need to explicitly add `github-actions`.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts
 export default defineConfig({
   test: {
-    reporters: process.env.GITHUB_ACTIONS ? ['dot', 'github-actions'] : ['dot'],
+    reporters: process.env.GITHUB_ACTIONS === 'true' ? ['dot', 'github-actions'] : ['dot'],
   },
 })
 ```
@@ -569,7 +586,7 @@ export default defineConfig({
 ```ts
 export default defineConfig({
   test: {
-    reporters: process.env.GITHUB_ACTIONS
+    reporters: process.env.GITHUB_ACTIONS === 'true'
       ? [
           'default',
           ['github-actions', { onWritePath(path) {
@@ -593,7 +610,92 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ### Blob 报告器
+=======
+The GitHub Actions reporter automatically generates a [Job Summary](https://github.blog/news-insights/product-news/supercharging-github-actions-with-job-summaries/) with an overview of your test results. The summary includes test file and test case statistics, and highlights flaky tests that required retries.
+
+<img alt="GitHub Actions Job Summary" img-dark src="/github-actions-job-summary-dark.png">
+<img alt="GitHub Actions Job Summary" img-light src="/github-actions-job-summary-light.png">
+
+The job summary is enabled by default and writes to the path specified by `$GITHUB_STEP_SUMMARY`. You can override it by using the `jobSummary.outputPath` option:
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['github-actions', {
+        jobSummary: {
+          outputPath: '/home/runner/jobs/summary/step',
+        },
+      }],
+    ],
+  },
+})
+```
+
+To disable the job summary:
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['github-actions', { jobSummary: { enabled: false } }],
+    ],
+  },
+})
+```
+
+The flaky tests section of the summary includes permalink URLs that link test names directly to the relevant source lines on GitHub. These links are generated automatically using environment variables that GitHub Actions provides (`$GITHUB_REPOSITORY`, `$GITHUB_SHA`, and `$GITHUB_WORKSPACE`), so no configuration is needed in most cases.
+
+If you need to override these values — for example, when running in a container or a custom environment — you can customize them via the `fileLinks` option:
+
+- `repository`: the GitHub repository in `owner/repo` format. Defaults to `process.env.GITHUB_REPOSITORY`.
+- `commitHash`: the commit SHA to use in permalink URLs. Defaults to `process.env.GITHUB_SHA`.
+- `workspacePath`: the absolute path to the root of the repository on disk. Used to compute relative file paths for the permalink URLs. Defaults to `process.env.GITHUB_WORKSPACE`.
+
+All three values must be available for the links to be generated.
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['github-actions', {
+        jobSummary: {
+          fileLinks: {
+            repository: 'owner/repo',
+            commitHash: 'abcdefg',
+            workspacePath: '/home/runner/work/repo/',
+          },
+        },
+      }],
+    ],
+  },
+})
+```
+
+### Agent Reporter
+
+Outputs a minimal report optimized for AI coding assistants and LLM-based workflows. Only failed tests and their error messages are displayed. Console logs from passing tests and the summary section are suppressed to reduce token usage.
+
+This reporter is automatically enabled when no `reporters` option is configured and Vitest detects it is running inside an AI coding agent. If you configure custom reporters, you can explicitly add `agent`:
+
+:::code-group
+```bash [CLI]
+npx vitest --reporter=agent
+```
+
+```ts [vitest.config.ts]
+export default defineConfig({
+  test: {
+    reporters: ['agent']
+  },
+})
+```
+:::
+
+### Blob Reporter
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
 默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。

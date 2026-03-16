@@ -162,7 +162,11 @@ mocked() // 是一个 spy 函数
 ```
 
 ::: warning
+<<<<<<< HEAD
 别忘了，这只是 [mocks _external_ access](#mocking-pitfalls)。在本例中，如果 `original` 在内部调用 `mocked`，它将始终调用模块中定义的函数，而不是 mock 工厂中的函数。
+=======
+Don't forget that this only [mocks _external_ access](/guide/mocking/modules#mocking-modules-pitfalls). In this example, if `original` calls `mocked` internally, it will always call the function defined in the module, not in the mock factory.
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 :::
 
 ### 模拟当前日期 {#mock-the-current-date}

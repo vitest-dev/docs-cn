@@ -356,7 +356,11 @@ Diff image:
 要点在于，将视觉回归测试与常规测试分离运行。
 否则，你可能会因截图差异引发的失败日志而浪费数小时进行排查。
 
+<<<<<<< HEAD
 #### 测试组织建议 {#organizing-your-tests}
+=======
+### Organizing Your Tests
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 首先，应将视觉回归测试与其他测试隔离管理。
 建议单独建立一个 `visual` 文件夹（或根据项目结构选择更合适的目录名称）来存放这些测试用例，以便维护与执行。
@@ -380,15 +384,24 @@ Diff image:
 - `vitest --project visual`
 :::
 
+<<<<<<< HEAD
 #### 持续集成（ CI ）环境配置 {#ci-setup}
+=======
+### CI Setup
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 在 CI 环境中运行视觉回归测试时，需要确保浏览器已正确安装。至于如何安装，则取决于你所使用的 CI 服务提供商及其运行环境。
 
 ::: tabs key:provider
 == Playwright
 
+<<<<<<< HEAD
 [Playwright](https://npmjs.com/package/playwright) 能让浏览器安装与管理变得非常简单。
 你只需固定所用的 Playwright 版本，并在运行测试之前加入以下命令或脚本：
+=======
+[Playwright](https://npmx.dev/package/playwright) makes this easy. Just pin
+your version and add this before running tests:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```yaml [.github/workflows/ci.yml]
 # ...the rest of the workflow
@@ -398,9 +411,15 @@ Diff image:
 
 == WebdriverIO
 
+<<<<<<< HEAD
 [WebdriverIO](https://www.npmjs.com/package/webdriverio) 要求用户自行准备浏览器环境。不过，
 [ @browser-actions ](https://github.com/browser-actions) 团队已经为此提供了方便的解决方案，
 帮你轻松完成浏览器的安装与配置。
+=======
+[WebdriverIO](https://npmx.dev/package/webdriverio) expects you to bring
+your own browsers. The folks at
+[@browser-actions](https://github.com/browser-actions) have your back:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```yaml [.github/workflows/ci.yml]
 # ...the rest of the workflow
@@ -420,7 +439,11 @@ Diff image:
   run: npm run test:visual
 ```
 
+<<<<<<< HEAD
 #### 更新工作流程 {#the-update-workflow}
+=======
+### The Update Workflow
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 关键点来了——切勿在每一次 Pull Request 中都自动更新截图，
 <small>*(那只会带来混乱)*</small>。更稳妥的方式，是建立一个手动触发的工作流程，
@@ -567,14 +590,17 @@ jobs:
 你的测试依旧在本地运行，只是将浏览器托管到云端执行。
 这基于 Playwright 的远程浏览器功能，但所有云端基础设施均由 Microsoft 负责维护与管理。
 
+<<<<<<< HEAD
 #### 测试组织建议
+=======
+### Organizing Your Tests
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 为控制成本，应将视觉回归测试与其他测试分离管理，
 并确保只有那些实际需要截取页面截图的用例才会调用该服务。
 
 最为简洁高效的做法，是使用 [Test Projects](/guide/projects) 功能来隔离这些测试。
 
-<!-- eslint-disable style/quote-props -->
 ```ts [vitest.config.ts]
 import { env } from 'node:process'
 import { defineConfig } from 'vitest/config'
@@ -605,9 +631,9 @@ export default defineConfig({
               connectOptions: {
                 wsEndpoint: `${env.PLAYWRIGHT_SERVICE_URL}?${new URLSearchParams({
                   'api-version': '2025-09-01',
-                  os: 'linux', // always use Linux for consistency
+                  'os': 'linux', // always use Linux for consistency
                   // helps identifying runs in the service's dashboard
-                  runName: `Vitest ${env.CI ? 'CI' : 'local'} run @${new Date().toISOString()}`,
+                  'runName': `Vitest ${env.CI ? 'CI' : 'local'} run @${new Date().toISOString()}`,
                 })}`,
                 exposeNetwork: '<loopback>',
                 headers: {
@@ -630,6 +656,7 @@ export default defineConfig({
   },
 })
 ```
+<<<<<<< HEAD
 
 该服务会提供两个关键环境变量：
 
@@ -637,6 +664,8 @@ export default defineConfig({
 - `PLAYWRIGHT_SERVICE_ACCESS_TOKEN`：你的身份认证令牌
 
 <!-- eslint-enable style/quote-props -->
+=======
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 按照 [官方指南创建 Playwright 工作区](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#create-a-workspace)。
 
@@ -662,7 +691,11 @@ export default defineConfig({
 }
 ```
 
+<<<<<<< HEAD
 #### 运行测试
+=======
+### Running Tests
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```bash
 # Local development
@@ -680,7 +713,11 @@ npm run test:visual -- --update
 - **按量计费**：仅有视觉测试会消耗服务分钟数，成本可控；
 - **零运维负担**：无需配置 Docker 或复杂的工作流，几乎不需额外维护。
 
+<<<<<<< HEAD
 #### 持续集成（ CI ）环境配置
+=======
+### CI Setup
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 在 CI 平台中，将所需的密钥添加到环境变量或机密配置中：
 

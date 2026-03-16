@@ -1,6 +1,10 @@
 # 配置 Playwright {#configuring-playwright}
 
+<<<<<<< HEAD
 要使用 playwright 运行测试，你需要安装 [`@vitest/browser-playwright`](https://www.npmjs.com/package/@vitest/browser-playwright) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `playwright` 导出：
+=======
+To run tests using playwright, you need to install the [`@vitest/browser-playwright`](https://npmx.dev/package/@vitest/browser-playwright) npm package and specify its `playwright` export in the `test.browser.provider` property of your config:
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 ```ts [vitest.config.js]
 import { playwright } from '@vitest/browser-playwright'
@@ -74,7 +78,13 @@ Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](
 Use `connectOptions.wsEndpoint` to connect to an existing Playwright server instead of launching browsers locally. This is useful for running browsers in Docker, in CI, or on a remote machine.
 
 ::: warning
+<<<<<<< HEAD
 由于此命令连接到现有的 Playwright 服务器，任何 `launch` 选项都将被忽略。
+=======
+
+Vitest forwards `launchOptions` to Playwright server via the `x-playwright-launch-options` header. This works only if the remote Playwright server supports this header, for example when using the `playwright run-server` CLI.
+
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 :::
 
 ::: details Example: Running a Playwright Server in Docker

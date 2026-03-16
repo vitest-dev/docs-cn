@@ -28,7 +28,11 @@ outline: deep
 - **类型:** `string[]`
 - **默认值:** `[]`
 
+<<<<<<< HEAD
 匹配包含内联基准测试文件的 glob 规则。此选项类似于 [`includeSource`](#includesource)。
+=======
+Include globs for in-source benchmark test files. This option is similar to [`includeSource`](/config/include-source).
+>>>>>>> b72fc6b467384d82f530164b077760e0919f8532
 
 定义后，Vitest 将运行所有匹配的文件，其中包含 `import.meta.vitest`。
 
