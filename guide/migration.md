@@ -711,7 +711,7 @@ expect(spy).to.have.been.calledOnce
 expect(spy).to.have.been.calledWith('arg1', 'arg2')
 ```
 
-#### 完整的 Chai 风格断言支持 {#}complete-chai-style-assertion-support}
+#### 完整的 Chai 风格断言支持 {#complete-chai-style-assertion-support}
 
 Vitest supports all common sinon-chai assertions:
 
