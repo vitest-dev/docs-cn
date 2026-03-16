@@ -1,4 +1,4 @@
-# 任务元数据 <Badge type="danger">advanced</Badge>
+# 任务元数据 <Badge type="danger">高级</Badge>
 
 如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。
 
@@ -33,12 +33,12 @@ export default {
 } satisfies Reporter
 ```
 
-::: danger BEWARE
+::: danger 警告
 Vitest 使用不同的方法与 Node.js 进程进行通信。
 
-- 如果 Vitest 在工作线程内运行测试，它将通过[消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)发送数据
+- 如果 Vitest 在工作线程内运行测试，它将通过 [消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) 发送数据
 - 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
-- 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
+- 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://npmx.dev/package/flatted) 包进行字符串化
 
 该属性也会出现在每个测试的 `json` 报告中，因此请确保数据可以序列化为 JSON。
 

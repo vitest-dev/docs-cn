@@ -7,7 +7,7 @@ outline: [2, 3]
 
 定位器是表示一个或多个元素的方式。每个定位器都由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
-定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/config/browser/provider)。
+定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmx.dev/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/config/browser/provider)。
 
 ::: tip
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
@@ -65,7 +65,7 @@ await page.getByRole('button', { name: /submit/i }).click()
 根据 ARIA 指南，**强烈不建议** 通过 `role` 或 `aria-*` 属性为已经具有隐式角色的内置元素提供角色。
 :::
 
-##### Options
+**Options**
 
 - `exact: boolean`
 
@@ -189,7 +189,7 @@ await page.getByRole('button', { name: /submit/i }).click()
   page.getByRole('button', { selected: false }) // ❌
   ```
 
-##### 更多内容请参阅 {#see-also}
+### 更多内容请参阅 {#see-also}
 
 - [MDN 上的 ARIA 角色列表](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
 - [w3.org 上的 ARIA 角色列表](https://www.w3.org/TR/wai-aria-1.2/#role_definitions)
@@ -213,13 +213,13 @@ page.getByAltText(/incredibles.*? poster/i) // ✅
 page.getByAltText('non existing alt text') // ❌
 ```
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-1}
+## 更多内容请参阅 {#see-also-1}
 
 - [testing-library's `ByAltText`](https://testing-library.com/docs/queries/byalttext/)
 
@@ -260,13 +260,13 @@ function getByLabelText(
 <input aria-label="Username" />
 ```
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-2}
+## 更多内容请参阅 {#see-also-2}
 
 - [testing-library's `ByLabelText`](https://testing-library.com/docs/queries/bylabeltext/)
 
@@ -292,13 +292,13 @@ page.getByPlaceholder('not found') // ❌
 通常情况下，使用 [`getByLabelText`](#getbylabeltext) 依赖标签比依赖占位符更好。
 :::
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-3}
+## 更多内容请参阅 {#see-also-3}
 
 - [testing-library's `ByPlaceholderText`](https://testing-library.com/docs/queries/byplaceholdertext/)
 
@@ -324,13 +324,13 @@ page.getByText('about', { exact: true }) // ❌
 此定位器适用于定位非交互式元素。如果你需要定位交互式元素，比如按钮或输入框，建议使用 [`getByRole`](#getbyrole)。
 :::
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-4}
+## 更多内容请参阅 {#see-also-4}
 
 - [testing-library's `ByText`](https://testing-library.com/docs/queries/bytext/)
 
@@ -352,13 +352,13 @@ page.getByTitle('Delete') // ✅
 page.getByTitle('Create') // ❌
 ```
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-5}
+## 更多内容请参阅 {#see-also-5}
 
 - [testing-library's `ByTitle`](https://testing-library.com/docs/queries/bytitle/)
 
@@ -381,13 +381,13 @@ page.getByTestId('non-existing-element') // ❌
 建议仅在其他定位器不适用于你的使用场景时才使用此方法。使用 `data-testid` 属性并不符合用户实际使用软件的方式，因此如果可能应避免使用。
 :::
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写和整个字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空格。
 
-#### 更多内容请参阅 {#see-also-6}
+## 更多内容请参阅 {#see-also-6}
 
 - [testing-library's `ByTestId`](https://testing-library.com/docs/queries/bytestid/)
 
@@ -821,6 +821,30 @@ const { path, base64 } = await button.screenshot({
 注意，当 `save` 设置为 `false` 时，`screenshot` 将始终返回 base64 字符串。在此情况下，路径参数也会被忽略。
 :::
 
+### mark
+
+```ts
+function mark(name: string, options?: { stack?: string }): Promise<void>
+```
+
+Adds a named marker to the trace timeline and uses the current locator as marker context.
+
+Pass `options.stack` to override the callsite location in trace metadata. This is useful for wrapper libraries that need to preserve the end-user source location.
+
+```ts
+import { page } from 'vitest/browser'
+
+const submitButton = page.getByRole('button', { name: 'Submit' })
+
+await submitButton.mark('before submit')
+await submitButton.click()
+await submitButton.mark('after submit')
+```
+
+::: tip
+This method is useful only when [`browser.trace`](/config/browser/trace) is enabled.
+:::
+
 ### query
 
 ```ts
@@ -938,6 +962,63 @@ page.getByText('World').elements() // ✅ [HTMLElement]
 page.getByText('Hello', { exact: true }).elements() // ✅ [HTMLElement]
 page.getByText('Hello').elements() // ✅ [HTMLElement, HTMLElement]
 page.getByText('Hello USA').elements() // ✅ []
+```
+
+### findElement <Version>4.1.0</Version> {#findelement}
+
+```ts
+function findElement(
+  options?: SelectorOptions
+): Promise<HTMLElement | SVGElement>
+```
+
+::: danger WARNING
+This is an escape hatch for cases where you need the raw DOM element — for example, to pass it to a third-party library like FormKit that doesn't accept Vitest locators. If you are interacting with the element yourself, use other [builtin methods](#methods) instead.
+:::
+
+This method returns an element matching the locator. Unlike [`.element()`](#element), this method will wait and retry until a matching element appears in the DOM, using increasing intervals (0, 20, 50, 100, 100, 500ms).
+
+If _no element_ is found before the timeout, an error is thrown. By default, the timeout matches the test timeout.
+
+If _multiple elements_ match the selector and `strict` is `true` (the default), an error is thrown immediately without retrying. Set `strict` to `false` to return the first matching element instead.
+
+It accepts options:
+
+- `timeout: number` - How long to wait in milliseconds until at least one element is found. By default, this shares timeout with the test.
+- `strict: boolean` - When `true` (default), throws an error if multiple elements match the locator. When `false`, returns the first matching element.
+
+Consider the following DOM structure:
+
+```html
+<div>Hello <span>World</span></div>
+<div>Hello Germany</div>
+<div>Hello</div>
+```
+
+These locators will resolve successfully:
+
+```ts
+await page.getByText('Hello World').findElement() // ✅ HTMLDivElement
+await page.getByText('World').findElement() // ✅ HTMLSpanElement
+await page.getByText('Hello Germany').findElement() // ✅ HTMLDivElement
+```
+
+These locators will throw an error:
+
+```ts
+// multiple elements match, strict mode rejects
+await page.getByText('Hello').findElement() // ❌
+await page.getByText(/^Hello/).findElement() // ❌
+
+// no matching element before timeout
+await page.getByText('Hello USA').findElement() // ❌
+```
+
+Using `strict: false` to allow multiple matches:
+
+```ts
+// returns the first matching element instead of throwing
+await page.getByText('Hello').findElement({ strict: false }) // ✅ HTMLDivElement
 ```
 
 ### all

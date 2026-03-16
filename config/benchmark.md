@@ -28,7 +28,7 @@ outline: deep
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-匹配包含内联基准测试文件的 glob 规则。此选项类似于 [`includeSource`](#includesource)。
+匹配包含内联基准测试文件的 glob 规则。此选项类似于 [`includeSource`](/config/include-source)。
 
 定义后，Vitest 将运行所有匹配的文件，其中包含 `import.meta.vitest`。
 

@@ -110,29 +110,29 @@ expect.extend({ customMatcher })
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 
-### `isNot`
+## `isNot`
 
 如果断言是在 `not` 方法上调用的( `expect(received).not.toBeFoo()` )，则返回 true。你无需手动处理该逻辑，Vitest 会自动反转 `pass` 的值。
 
-### `promise`
+## `promise`
 
 如果断言是在 `resolved/rejected` 中调用的，它的值将包含此断言的名称。否则，它将是一个空字符串。
 
-### `equals`
+## `equals`
 
 这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。默认情况下，它支持非对称的断言。
 
-### `utils`
+## `utils`
 
 它包含了一系列工具函数，你可以使用它们来显示信息。
 
 `this` 上下文也包含了当前测试的信息，你可以通过调用 `expect.getState()` 来获取它，其中最有用的属性是：
 
-### `currentTestName`
+## `currentTestName`
 
 当前测试的全称(包括 describe 块)。
 
-### `task` <Advanced /> <Version>4.1.0</Version> {#task}
+## `task` <Advanced /> <Version>4.1.0</Version> {#task}
 
 Contains a reference to [the `Test` runner task](/api/advanced/runner#tasks) when available.
 
@@ -140,15 +140,15 @@ Contains a reference to [the `Test` runner task](/api/advanced/runner#tasks) whe
 When using the global `expect` with concurrent tests, `this.task` is `undefined`. Use `context.expect` instead to ensure `task` is available in custom matchers.
 :::
 
-### `testPath`
+## `testPath`
 
 当前正在执行的测试文件路径。
 
-### `environment`
+## `environment`
 
 当前 [`environment`](/config/environment) 的名称（例如 `jsdom`）。
 
-### `soft`
+## `soft`
 
 断言是否以 [`soft`](/api/expect#soft) 方式调用。您无需手动处理该逻辑，Vitest 始终会捕获错误。
 

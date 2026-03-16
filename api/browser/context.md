@@ -63,6 +63,7 @@ export const commands: BrowserCommands
 :::
 
 使用 [Commands API](/api/browser/commands) 如果您需要访问 Playwright 的 `page` 对象。
+<!-- TODO: translation -->
 ```ts
 export const page: {
   /**
@@ -78,7 +79,15 @@ export const page: {
     base64: string
   }>) & ((options?: ScreenshotOptions) => Promise<string>)
   /**
-   * 使用自定义方法扩展默认的 `page` 对象。
+   * Add a trace marker when browser tracing is enabled.
+   */
+  mark(name: string, options?: { stack?: string }): Promise<void>
+  /**
+   * Group multiple operations under a trace marker when browser tracing is enabled.
+   */
+  mark<T>(name: string, body: () => T | Promise<T>, options?: { stack?: string }): Promise<T>
+  /**
+   * Extend default `page` object with custom methods.
    */
   extend: (methods: Partial<BrowserPage>) => BrowserPage
   /**
@@ -112,6 +121,40 @@ export const page: {
 ::: warning WARNING <Version>3.2.0</Version>
 请注意，如果 `save` 设置为 `false`，`screenshot` 将始终返回 base64 字符串。
 在这种情况下，`path` 也会被忽略。
+:::
+
+### mark
+
+```ts
+function mark(name: string, options?: { stack?: string }): Promise<void>
+function mark<T>(
+  name: string,
+  body: () => T | Promise<T>,
+  options?: { stack?: string },
+): Promise<T>
+```
+
+Adds a named marker to the trace timeline for the current test.
+
+Pass `options.stack` to override the callsite location in trace metadata. This is useful for wrapper libraries that need to preserve the end-user source location.
+
+If you pass a callback, Vitest creates a trace group with this name, runs the callback, and closes the group automatically.
+
+```ts
+import { page } from 'vitest/browser'
+
+await page.mark('before submit')
+await page.getByRole('button', { name: 'Submit' }).click()
+await page.mark('after submit')
+
+await page.mark('submit flow', async () => {
+  await page.getByRole('textbox', { name: 'Email' }).fill('john@example.com')
+  await page.getByRole('button', { name: 'Submit' }).click()
+})
+```
+
+::: tip
+This method is useful only when [`browser.trace`](/config/browser/trace) is enabled.
 :::
 
 ### frameLocator
@@ -246,7 +289,7 @@ utils.configurePrettyDOM({
 - **`maxLength`** - Maximum length of the output string (default: `7000`)
 - **`filterNode`** - A CSS selector string or function to filter out nodes from the output. When a string is provided, elements matching the selector will be excluded. When a function is provided, it should return `false` to exclude a node.
 - **`highlight`** - Enable syntax highlighting (default: `true`)
-- And other options from [`pretty-format`](https://www.npmjs.com/package/@vitest/pretty-format)
+- And other options from [`pretty-format`](https://npmx.dev/package/@vitest/pretty-format)
 
 #### Filtering with CSS Selectors <Version>4.1.0</Version> {#filtering-with-css-selectors}
 
