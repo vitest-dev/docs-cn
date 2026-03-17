@@ -22,11 +22,11 @@ it('should work', ({ task }) => {
 
 ## 内置测试上下文 {#built-in-test-context}
 
-#### `task`
+### `task`
 
 包含关于测试的元数据的只读对象。
 
-#### `expect`
+### `expect`
 
 绑定到当前测试的 `expect` API:
 
@@ -52,7 +52,7 @@ it.concurrent('math is hard', ({ expect }) => {
 })
 ```
 
-#### `skip`
+### `skip`
 
 ```ts
 function skip(note?: string): never
@@ -79,7 +79,7 @@ it('math is hard', ({ skip, mind }) => {
 })
 ```
 
-#### `annotate` <Version>3.2.0</Version> {#annotate}
+### `annotate` <Version>3.2.0</Version> {#annotate}
 
 ```ts
 function annotate(
@@ -102,7 +102,7 @@ test('annotations API', async ({ annotate }) => {
 })
 ```
 
-#### `signal` <Version>3.2.0</Version> {#signal}
+### `signal` <Version>3.2.0</Version> {#signal}
 
 一个由 Vitest 控制的 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) ，在以下场景下会被触发中止：
 
@@ -117,11 +117,11 @@ it('stop request when test times out', async ({ signal }) => {
 }, 2000)
 ```
 
-#### `onTestFailed`
+### `onTestFailed`
 
 [`onTestFailed`](/api/hooks#ontestfailed) 与当前测试用例绑定。当你并发执行多个测试并希望只对某个具体测试进行特殊处理时，这个 API 会非常有用。
 
-#### `onTestFinished`
+### `onTestFinished`
 
 [`onTestFinished`](/api/hooks#ontestfailed) 与当前测试用例绑定。当你并发执行多个测试并希望只对某个特定测试进行特殊处理时，这个 API 会非常有帮助。
 
@@ -505,7 +505,7 @@ test.describe('a nested suite', () => {
 
 Consider overriding it on the top level of the module, or by using [`injected`](#default-fixture-injected) option and providing the value in the project config.
 
-Also note that in [non-isolate](/config/isolate) mode overriding a `worker` fixture will affect the fixture value in all test files running after it was overriden.
+Also note that in [non-isolate](/config/isolate) mode overriding a `worker` fixture will affect the fixture value in all test files running after it was overridden.
 :::
 
 #### Test Scope (Default)

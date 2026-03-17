@@ -51,7 +51,7 @@ export default defineConfig({
 :::
 
 ::: info
-如果 [根项目](/api/advanced/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
+如果 [根项目](/api/advanced/vitest#getrootproject) 不是用户工作区的一部分，则不会解析其 `name`。
 :::
 
 ## vitest
@@ -78,7 +78,7 @@ project.serializedConfig === project.serializedConfig // ❌
 
 ## globalConfig
 
-[`Vitest`](/api/advanced/vitest) 初始化时的测试配置。如果这是 [根项目](/api/advanced/vitest#getroottestproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
+[`Vitest`](/api/advanced/vitest) 初始化时的测试配置。如果这是 [根项目](/api/advanced/vitest#getrootproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
 
 ```ts
 import type { ResolvedConfig } from 'vitest/node'
@@ -206,7 +206,7 @@ await vitest.runTestSpecifications([specification])
 function isRootProject(): boolean
 ```
 
-检查当前项目是否为根项目。我们也可以通过调用 [`vitest.getRootProject()`](#getrootproject) 获取根项目。
+检查当前项目是否为根项目。我们也可以通过调用 [`vitest.getRootProject()`](/api/advanced/vitest#getrootproject) 获取根项目。
 
 ## globTestFiles
 
@@ -233,7 +233,7 @@ project.globTestFiles(['basic/foo.js:10']) // ❌
 ```
 
 ::: tip
-Vitest 使用 [fast-glob](https://www.npmjs.com/package/fast-glob) 来查找测试文件。`test.dir`、`test.root`、`root` 或 `process.cwd()` 定义了 `cwd` 选项。
+Vitest 使用 [fast-glob](https://npmx.dev/package/fast-glob) 来查找测试文件。`test.dir`、`test.root`、`root` 或 `process.cwd()` 定义了 `cwd` 选项。
 
 此方法查看多个配置选项：
 

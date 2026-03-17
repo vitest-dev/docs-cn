@@ -256,7 +256,7 @@ export default defineConfig({
 [Git LFS](https://github.com/git-lfs/git-lfs?tab=readme-ov-file) 中。
 这样既能避免仓库体积膨胀，又能高效管理和传输这些大尺寸文件，提升团队协作效率。
 
-## 调试视觉测试失败 {#debugging-failed-tests}
+## 调试失败的视觉测试 {#debugging-failed-tests}
 
 当视觉回归测试未能通过时， Vitest 会生成三张关键截图，帮助你分析问题所在：
 
@@ -356,7 +356,7 @@ Diff image:
 要点在于，将视觉回归测试与常规测试分离运行。
 否则，你可能会因截图差异引发的失败日志而浪费数小时进行排查。
 
-#### 测试组织建议 {#organizing-your-tests}
+### 测试组织建议 {#organizing-your-tests}
 
 首先，应将视觉回归测试与其他测试隔离管理。
 建议单独建立一个 `visual` 文件夹（或根据项目结构选择更合适的目录名称）来存放这些测试用例，以便维护与执行。
@@ -380,14 +380,14 @@ Diff image:
 - `vitest --project visual`
 :::
 
-#### 持续集成（ CI ）环境配置 {#ci-setup}
+### 持续集成（ CI ）环境配置 {#ci-setup}
 
 在 CI 环境中运行视觉回归测试时，需要确保浏览器已正确安装。至于如何安装，则取决于你所使用的 CI 服务提供商及其运行环境。
 
 ::: tabs key:provider
 == Playwright
 
-[Playwright](https://npmjs.com/package/playwright) 能让浏览器安装与管理变得非常简单。
+[Playwright](https://npmx.dev/package/playwright) 能让浏览器安装与管理变得非常简单。
 你只需固定所用的 Playwright 版本，并在运行测试之前加入以下命令或脚本：
 
 ```yaml [.github/workflows/ci.yml]
@@ -398,7 +398,7 @@ Diff image:
 
 == WebdriverIO
 
-[WebdriverIO](https://www.npmjs.com/package/webdriverio) 要求用户自行准备浏览器环境。不过，
+[WebdriverIO](https://npmx.dev/package/webdriverio) 要求用户自行准备浏览器环境。不过，
 [ @browser-actions ](https://github.com/browser-actions) 团队已经为此提供了方便的解决方案，
 帮你轻松完成浏览器的安装与配置。
 
@@ -420,7 +420,7 @@ Diff image:
   run: npm run test:visual
 ```
 
-#### 更新工作流程 {#the-update-workflow}
+### 更新工作流程 {#the-update-workflow}
 
 关键点来了——切勿在每一次 Pull Request 中都自动更新截图，
 <small>*(那只会带来混乱)*</small>。更稳妥的方式，是建立一个手动触发的工作流程，
@@ -566,121 +566,6 @@ jobs:
 
 你的测试依旧在本地运行，只是将浏览器托管到云端执行。
 这基于 Playwright 的远程浏览器功能，但所有云端基础设施均由 Microsoft 负责维护与管理。
-
-#### 测试组织建议
-
-为控制成本，应将视觉回归测试与其他测试分离管理，
-并确保只有那些实际需要截取页面截图的用例才会调用该服务。
-
-最为简洁高效的做法，是使用 [Test Projects](/guide/projects) 功能来隔离这些测试。
-
-<!-- eslint-disable style/quote-props -->
-```ts [vitest.config.ts]
-import { env } from 'node:process'
-import { defineConfig } from 'vitest/config'
-import { playwright } from '@vitest/browser-playwright'
-
-export default defineConfig({
-  // ...global Vite config
-  tests: {
-    // ...global Vitest config
-    projects: [
-      {
-        extends: true,
-        test: {
-          name: 'unit',
-          include: ['tests/**/*.test.ts'],
-          // regular config, can use local browsers
-        },
-      },
-      {
-        extends: true,
-        test: {
-          name: 'visual',
-          // or you could use a different suffix, e.g.,: `tests/**/*.visual.ts?(x)`
-          include: ['visual-regression-tests/**/*.test.ts?(x)'],
-          browser: {
-            enabled: true,
-            provider: playwright({
-              connectOptions: {
-                wsEndpoint: `${env.PLAYWRIGHT_SERVICE_URL}?${new URLSearchParams({
-                  'api-version': '2025-09-01',
-                  os: 'linux', // always use Linux for consistency
-                  // helps identifying runs in the service's dashboard
-                  runName: `Vitest ${env.CI ? 'CI' : 'local'} run @${new Date().toISOString()}`,
-                })}`,
-                exposeNetwork: '<loopback>',
-                headers: {
-                  Authorization: `Bearer ${env.PLAYWRIGHT_SERVICE_ACCESS_TOKEN}`,
-                },
-                timeout: 30_000,
-              }
-            }),
-            headless: true,
-            instances: [
-              {
-                browser: 'chromium',
-                viewport: { width: 2560, height: 1440 },
-              },
-            ],
-          },
-        },
-      },
-    ],
-  },
-})
-```
-
-该服务会提供两个关键环境变量：
-
-- `PLAYWRIGHT_SERVICE_URL`：指示 Playwright 连接的服务器地址
-- `PLAYWRIGHT_SERVICE_ACCESS_TOKEN`：你的身份认证令牌
-
-<!-- eslint-enable style/quote-props -->
-
-按照 [官方指南创建 Playwright 工作区](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#create-a-workspace)。
-
-创建工作区后，配置 Vitest 使用该工作区：
-
-1. **设置端点 URL**：按照 [官方指南](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/quickstart-run-end-to-end-tests?tabs=playwrightcli&pivots=playwright-test-runner#configure-the-browser-endpoint)，检索 URL 并将其设置为 `PLAYWRIGHT_SERVICE_URL` 环境变量。
-2. **启用令牌身份认证**：为你的工作区 [启用访问令牌](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-authentication?pivots=playwright-test-runner#enable-authentication-using-access-tokens)，然后 [生成令牌](https://learn.microsoft.com/en-us/azure/app-testing/playwright-workspaces/how-to-manage-access-tokens#generate-a-workspace-access-token)并将其设置为 `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` 环境变量。
-
-::: danger 令牌务必保密！
-切勿将 `PLAYWRIGHT_SERVICE_ACCESS_TOKEN` 提交到代码仓库。
-任何获取到该令牌的人都可能在你的账户上产生高额费用。
-在本地开发时，应通过环境变量引用令牌；在 CI 中，应将其存放于安全的密钥管理中。
-:::
-
-然后，将 `test` 脚本按如下方式拆分运行：
-
-```json [package.json]
-{
-  "scripts": {
-    "test:visual": "vitest --project visual",
-    "test:unit": "vitest --project unit"
-  }
-}
-```
-
-#### 运行测试
-
-```bash
-# Local development
-npm run test:unit    # free, runs locally
-npm run test:visual  # uses cloud browsers
-
-# Update screenshots
-npm run test:visual -- --update
-```
-
-这种方式的最大优势在于“开箱即用”：
-
-- **截图结果一致**：所有人共享相同的云端浏览器环境，避免环境差异；
-- **支持本地执行**：开发者可在本地直接运行并更新视觉回归测试；
-- **按量计费**：仅有视觉测试会消耗服务分钟数，成本可控；
-- **零运维负担**：无需配置 Docker 或复杂的工作流，几乎不需额外维护。
-
-#### 持续集成（ CI ）环境配置
 
 在 CI 平台中，将所需的密钥添加到环境变量或机密配置中：
 

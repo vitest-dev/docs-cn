@@ -55,13 +55,13 @@ bun add -D vitest @vitest/browser-preview
 :::
 
 ::: warning
-不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
+不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmx.dev/package/playwright) 或 [`webdriverio`](https://npmx.dev/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 
 如果你还没有使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，可显著提升测试速度。
 
 ::: tabs key:provider
 == Playwright
-[Playwright](https://npmjs.com/package/playwright) 是一个用于网络测试和自动化的框架。
+[Playwright](https://npmx.dev/package/playwright) 是一个用于网络测试和自动化的框架。
 
 ::: code-group
 ```bash [npm]
@@ -78,7 +78,7 @@ bun add -D vitest @vitest/browser-playwright
 ```
 == WebdriverIO
 
-[WebdriverIO](https://www.npmjs.com/package/webdriverio) 允许我们使用 WebDriver 协议在本地运行测试。
+[WebdriverIO](https://npmx.dev/package/webdriverio) 允许我们使用 WebDriver 协议在本地运行测试。
 
 ::: code-group
 ```bash [npm]
@@ -356,7 +356,7 @@ npx vitest --browser.headless
 在这种情况下，Vitest 将使用 Chrome 浏览器以无头模式运行。
 
 ::: warning
-默认情况下Headless模式不可用。我们需要使用 [`playwright`](https://npmjs.com/package/playwright) 或 [`webdriverio`](https://www.npmjs.com/package/webdriverio) 提供程序来启用此功能。
+默认情况下无头模式不可用。我们需要使用 [`playwright`](https://npmx.dev/package/playwright) 或 [`webdriverio`](https://npmx.dev/package/webdriverio) 提供程序来启用此功能。
 :::
 
 ## 示例 {#examples}
@@ -396,7 +396,7 @@ test('properly handles form inputs', async () => {
 
 - [`vitest-browser-lit`](https://github.com/EskiMojo14/vitest-browser-lit) 渲染 [lit](https://lit.dev) 组件
 - [`vitest-browser-preact`](https://github.com/JoviDeCroock/vitest-browser-preact) 渲染 [preact](https://preactjs.com) 组件
-- [`vitest-browser-qwik`](https://github.com/kunai-consulting/vitest-browser-qwik) 渲染 [qwik](https://qwik.dev) 组件
+- [`vitest-browser-qwik`](https://github.com/QwikDev/vitest-browser-qwik) 渲染 [qwik](https://qwik.dev) 组件
 
 如果你的框架没有被包含在内，请随时创建你自己的软件包——它是一个简单的封装，围绕着框架渲染器和 `page.elementLocator` API。我们会在本页面添加指向它的链接。请确保其名称以 `vitest-browser-` 开头。
 

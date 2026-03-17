@@ -4,9 +4,9 @@ title: 测试快照 | 指南
 
 # 测试快照 {#snapshot}
 
-当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
-
 <CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
+
+当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
 
 使用快照时，Vitest 将获取给定值的快照，将其比较时将参考存储在测试旁边的快照文件。如果两个快照不匹配，则测试将失败：要么更改是意外的，要么参考快照需要更新到测试结果的新版本。
 
@@ -78,6 +78,12 @@ it('toUpperCase', () => {
 ```bash
 vitest -u
 ```
+<!-- TODO: translation -->
+### CI behavior
+
+By default, Vitest does not write snapshots in CI (`process.env.CI` is truthy) and any snapshot mismatches, missing snapshots, and obsolete snapshots fail the run. See [`update`](/config/update) for the details.
+
+An **obsolete snapshot** is a snapshot entry (or snapshot file) that no longer matches any collected test. This usually happens after removing or renaming tests.
 
 ## 文件快照 {#file-snapshots}
 

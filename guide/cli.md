@@ -171,7 +171,7 @@ bun vitest <Tab>
 ## 选项 {#options}
 
 ::: tip
-Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
+Vitest 同时支持 [CLI 参数](https://github.com/cacjs/cac#dot-nested-options) 的驼峰式(`--passWithNoTests`)和短横线式(`--pass-with-no-tests`)写法（例外情况：`--no-color` 和 `--inspect-brk` 必须使用短横线式）。
 
 Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=dot` 都是有效的。
 
@@ -242,5 +242,3 @@ vitest run --shard=3/3
 ```sh
 vitest --merge-reports --reporter=junit
 ```
-
-[cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options

@@ -204,8 +204,6 @@ vitest --tags-filter=frontend
 vitest --tags-filter="frontend and backend"
 ```
 
-如果你使用 UI 模式，可通过 `tag:` 前缀启动筛选器，使用相同的标签表达式语法按标签过滤测试：
-
 如果使用 UI 模式，你可以在过滤器中使用标签表达式进行过滤，例如 `tag:` 加前缀
 
 <img alt="The tags filter in Vitest UI" img-light src="/ui/light-ui-tags.png">

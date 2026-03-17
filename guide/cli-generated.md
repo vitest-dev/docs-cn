@@ -16,7 +16,7 @@
 - **命令行终端:** `-u, --update [type]`
 - **配置:** [update](/config/update)
 
-更新快照（接受 boolean, "new" 或 "all"）
+更新快照（接受 boolean, "new"、"all" 或 "none"）
 
 ### watch
 
@@ -102,7 +102,7 @@
 - **命令行终端:** `--reporter <name>`
 - **配置:** [reporters](/config/reporters)
 
-指定报告器（default、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
+指定报告器（default、agent、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
 
 ### outputFile
 

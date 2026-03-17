@@ -11,7 +11,7 @@ outline: deep
 本指南假设我们知道如何使用 [Vite 插件](https://vite.dev/guide/api-plugin.html)。
 :::
 
-Vitest 自 3.1 版起支持实验性的 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
+Vitest 自 3.1 版起支持 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
 
 ::: code-group
 ```ts [only vitest]

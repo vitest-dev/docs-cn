@@ -47,7 +47,7 @@ Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包
 
 新的 [注释 API](/guide/test-annotations) 允许你为任何测试添加自定义消息和附件。这些注释在 UI、HTML、junit、tap 和 GitHub Actions 报告器中可见。如果测试失败，Vitest 还会在 CLI 中打印相关注释。
 
-<img src="/annotation-api-cute-puppy-example.png" />
+<img src="/annotation-api-cute-puppy-example.png" alt="an example of annotation with a cute puppy" />
 
 ## 作用域固定装置 {#scoped-fixtures}
 
@@ -106,7 +106,7 @@ export default defineConfig({
 ```
 :::
 
-<img src="/v3-2-custom-colors.png" />
+<img src="/v3-2-custom-colors.png" alt="an example of project names with custom backgrounds" />
 
 ## 自定义浏览器定位器 API {#custom-browser-locators-api}
 

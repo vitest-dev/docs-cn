@@ -4,7 +4,7 @@
 `preview` 提供程序的主要功能是在真实浏览器环境中显示测试。不过，它不支持高级浏览器自动化功能，如多个浏览器实例或无头模式。对于更复杂的场景，请考虑使用 [Playwright](/config/browser/playwright) 或 [WebdriverIO](/config/browser/webdriverio)。
 :::
 
-要让你的测试运行在真实浏览器中，需要安装 [`@vitest/browser-preview`](https://www.npmjs.com/package/@vitest/browser-preview) npm 软件包，并在配置的 `test.browser.provider` 属性中指定其 `preview` 导出：
+要让你的测试运行在真实浏览器中，需要安装 [`@vitest/browser-preview`](https://npmx.dev/package/@vitest/browser-preview) npm 软件包，并在配置的 `test.browser.provider` 属性中指定其 `preview` 导出：
 
 ```ts [vitest.config.js]
 import { preview } from '@vitest/browser-preview'
@@ -29,4 +29,4 @@ export default defineConfig({
 - 它不支持无头模式; 浏览器窗口始终可见.
 - 它不支持同一浏览器的多个实例; 每个实例必须使用不同的浏览器.
 - 它不支持高级浏览器功能或选项; 你只能指定浏览器名称.
-- 它不支持 CDP（Chrome DevTools 协议）命令或其他低层浏览器交互. 与 Playwright 或 WebdriverIO 不同, [`userEvent`](/api/browser/interactivity) API 只是从 [`@testing-library/user-event`](https://www.npmjs.com/package/@testing-library/user-event) 重新导出, 没有与浏览器的特殊集成.
+- 它不支持 CDP（Chrome DevTools 协议）命令或其他低层浏览器交互. 与 Playwright 或 WebdriverIO 不同, [`userEvent`](/api/browser/interactivity) API 只是从 [`@testing-library/user-event`](https://npmx.dev/package/@testing-library/user-event) 重新导出, 没有与浏览器的特殊集成.
