@@ -334,7 +334,7 @@ test('we don\'t have apples', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeNullable` simply asserts if something is nullable (`null` or `undefined`).
+`toBeNullable` 简单地断言某些内容是否为 null（`null` 或 `undefined`）。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -435,7 +435,7 @@ test('stock is type of string', () => {
 ```
 
 :::warning
-`toBeTypeOf` uses the native `typeof` operator under the hood with all its quirks, most notably that the value `null` has type `object`.
+`toBeTypeOf` 底层使用原生 `typeof` 运算符（包含其固有特性），最显著的表现是 `null` 值会被判定为 `object` 类型。
 
 ```ts
 test('toBeTypeOf cannot check for null or array', () => {
@@ -883,7 +883,7 @@ test('matches snapshot', () => {
 })
 ```
 
-我们还可以提供一个对象的形状，如果我们只是测试对象的形状，而不需要它完全兼容：
+当我们不需要完全兼容时，可以仅对对象的接口规范进行测试：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -919,7 +919,7 @@ test('matches inline snapshot', () => {
 })
 ```
 
-如果我么只是在测试对象的形状，而不需要它 100% 兼容，我们也可以提供一个对象的形状。
+当我们不需要完全兼容时，可以仅对对象的接口规范进行测试：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1081,7 +1081,7 @@ test('calls mock1 after mock2', () => {
 })
 ```
 
-## toHaveBeenCalledExactlyOnceWit
+## toHaveBeenCalledExactlyOnceWith
 
 - **类型**: `(...args: any[]) => Awaitable<void>`
 
@@ -1308,7 +1308,7 @@ test('spy function resolved a value two times', async () => {
 
 ## toHaveResolvedWith
 
-- **类型**: `(returnValue: any) => Awaitable<void>`
+- **类型:** `(returnValue: any) => Awaitable<void>`
 
 您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
 
@@ -1328,7 +1328,7 @@ test('spy function resolved a product', async () => {
 
 ## toHaveLastResolvedWith
 
-- **Type**: `(returnValue: any) => Awaitable<void>`
+- **类型:** `(returnValue: any) => Awaitable<void>`
 
 您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
@@ -1349,13 +1349,13 @@ test('spy function resolves bananas on a last call', async () => {
 
 ## toHaveNthResolvedWith
 
-- **Type**: `(time: number, returnValue: any) => Awaitable<void>`
+- **类型:** `(time: number, returnValue: any) => Awaitable<void>`
 
-您可以调用此断言来检查函数在特定调用中是否成功解析了某个值。需要将一个间谍函数（spy function）传递给 `expect`。
+你可以调用此断言来检查函数在特定调用中是否成功解析了某个值。需要将一个 spy 函数传递给 `expect`。
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
-The count starts at 1. So, to check the second entry, you would write `.toHaveNthResolvedWith(2, ...)`.
+从 1 开始计数。因此，要检查第二个参数，你需要编写 `.toHaveNthResolvedWith(2, ...)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1372,12 +1372,12 @@ test('spy function returns bananas on second call', async () => {
 
 ## called <Version>4.1.0</Version> {#called}
 
-- **Type:** `Assertion` (property, not a method)
+- **类型:** `Assertion` (property, not a method)
 
-Chai-style assertion that checks if a spy was called at least once. This is equivalent to `toHaveBeenCalled()`.
+这是一个检查 spy 函数是否至少被调用一次的 Chai 风格断言，等价于 `toHaveBeenCalled()`。
 
 ::: tip
-This is a property assertion following sinon-chai conventions. Access it without parentheses: `expect(spy).to.have.been.called`
+这是一个遵循 sinon-chai 约定的属性断言。使用时无需括号：`expect(spy).to.have.been.called`
 :::
 
 ```ts
@@ -1389,15 +1389,15 @@ test('spy was called', () => {
   spy()
 
   expect(spy).to.have.been.called
-  expect(spy).to.not.have.been.called // negation
+  expect(spy).to.not.have.been.called // 否定断言
 })
 ```
 
 ## callCount <Version>4.1.0</Version> {#callcount}
 
-- **Type:** `(count: number) => void`
+- **类型:** `(count: number) => void`
 
-Chai-style assertion that checks if a spy was called a specific number of times. This is equivalent to `toHaveBeenCalledTimes(count)`.
+Chai 风格断言，用于检查 spy 函数被调用的次数是否符合预期。等价于 `toHaveBeenCalledTimes(count)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1415,9 +1415,9 @@ test('spy call count', () => {
 
 ## calledWith <Version>4.1.0</Version> {#calledwith}
 
-- **Type:** `(...args: any[]) => void`
+- **类型:** `(...args: any[]) => void`
 
-Chai-style assertion that checks if a spy was called with specific arguments at least once. This is equivalent to `toHaveBeenCalledWith(...args)`.
+Chai 风格断言，用于检查 spy 函数是否至少以指定参数被调用过一次。等价于 `toHaveBeenCalledWith(...args)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1435,12 +1435,12 @@ test('spy called with arguments', () => {
 
 ## calledOnce <Version>4.1.0</Version> {#calledonce}
 
-- **Type:** `Assertion` (property, not a method)
+- **类型:** `Assertion` (property, not a method)
 
-Chai-style assertion that checks if a spy was called exactly once. This is equivalent to `toHaveBeenCalledOnce()`.
+Chai 风格断言，用于检查 spy 函数是否恰好被调用了一次。等价于 `toHaveBeenCalledOnce()`。
 
 ::: tip
-This is a property assertion following sinon-chai conventions. Access it without parentheses: `expect(spy).to.have.been.calledOnce`
+这是遵循 sinon-chai 约定的属性断言，使用时无需括号：`expect(spy).to.have.been.calledOnce`
 :::
 
 ```ts
@@ -1457,9 +1457,9 @@ test('spy called once', () => {
 
 ## calledOnceWith <Version>4.1.0</Version> {#calledoncewith}
 
-- **Type:** `(...args: any[]) => void`
+- **类型:** `(...args: any[]) => void`
 
-Chai-style assertion that checks if a spy was called exactly once with specific arguments. This is equivalent to `toHaveBeenCalledExactlyOnceWith(...args)`.
+Chai 风格断言，用于检查 spy 函数是否恰好以指定参数被调用了一次。等价于 `toHaveBeenCalledExactlyOnceWith(...args)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1475,12 +1475,12 @@ test('spy called once with arguments', () => {
 
 ## calledTwice <Version>4.1.0</Version> {#calledtwice}
 
-- **Type:** `Assertion` (property, not a method)
+- **类型:** `Assertion` (property, not a method)
 
-Chai-style assertion that checks if a spy was called exactly twice. This is equivalent to `toHaveBeenCalledTimes(2)`.
+Chai 风格断言，用于检查 spy 函数是否恰好被调用了两次。等价于 `toHaveBeenCalledTimes(2)`。
 
 ::: tip
-This is a property assertion following sinon-chai conventions. Access it without parentheses: `expect(spy).to.have.been.calledTwice`
+这是遵循 sinon-chai 约定的属性断言，使用时无需括号：`expect(spy).to.have.been.calledTwice`
 :::
 
 ```ts
@@ -1498,12 +1498,12 @@ test('spy called twice', () => {
 
 ## calledThrice <Version>4.1.0</Version> {#calledthrice}
 
-- **Type:** `Assertion` (property, not a method)
+- **类型:** `Assertion` (property, not a method)
 
-Chai-style assertion that checks if a spy was called exactly three times. This is equivalent to `toHaveBeenCalledTimes(3)`.
+Chai 风格断言，用于检查 spy 函数是否恰好被调用了三次。等价于 `toHaveBeenCalledTimes(3)`。
 
 ::: tip
-This is a property assertion following sinon-chai conventions. Access it without parentheses: `expect(spy).to.have.been.calledThrice`
+这是遵循 sinon-chai 约定的属性断言，使用时无需括号：`expect(spy).to.have.been.calledThrice`
 :::
 
 ```ts
@@ -1522,9 +1522,9 @@ test('spy called thrice', () => {
 
 ## lastCalledWith
 
-- **Type:** `(...args: any[]) => void`
+- **类型:** `(...args: any[]) => void`
 
-Chai-style assertion that checks if the last call to a spy was made with specific arguments. This is equivalent to `toHaveBeenLastCalledWith(...args)`.
+Chai 风格断言，用于检查 spy 函数最后一次调用是否使用了指定参数。等价于 `toHaveBeenLastCalledWith(...args)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1541,9 +1541,9 @@ test('spy last called with', () => {
 
 ## nthCalledWith
 
-- **Type:** `(n: number, ...args: any[]) => void`
+- **类型:** `(n: number, ...args: any[]) => void`
 
-Chai-style assertion that checks if the nth call to a spy was made with specific arguments. This is equivalent to `toHaveBeenNthCalledWith(n, ...args)`.
+Chai 风格断言，用于检查 spy 函数第 n 次调用是否使用了指定参数。等价于 `toHaveBeenNthCalledWith(n, ...args)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1561,12 +1561,12 @@ test('spy nth called with', () => {
 
 ## returned <Version>4.1.0</Version> {#returned}
 
-- **Type:** `Assertion` (property, not a method)
+- **类型:** `Assertion` (property, not a method)
 
-Chai-style assertion that checks if a spy returned successfully at least once. This is equivalent to `toHaveReturned()`.
+Chai 风格断言，用于检查 spy 函数是否至少成功返回过一次。等价于 `toHaveReturned()`。
 
 ::: tip
-This is a property assertion following sinon-chai conventions. Access it without parentheses: `expect(spy).to.have.returned`
+这是遵循 sinon-chai 约定的属性断言，使用时无需括号：`expect(spy).to.have.returned`
 :::
 
 ```ts
@@ -1583,9 +1583,9 @@ test('spy returned', () => {
 
 ## returnedWith <Version>4.1.0</Version> {#returnedwith}
 
-- **Type:** `(value: any) => void`
+- **类型:** `(value: any) => void`
 
-Chai-style assertion that checks if a spy returned a specific value at least once. This is equivalent to `toHaveReturnedWith(value)`.
+Chai 风格断言，用于检查 spy 函数是否至少返回过一次指定的值。等价于 `toHaveReturnedWith(value)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1605,9 +1605,9 @@ test('spy returned with value', () => {
 
 ## returnedTimes <Version>4.1.0</Version> {#returnedtimes}
 
-- **Type:** `(count: number) => void`
+- **类型:** `(count: number) => void`
 
-Chai-style assertion that checks if a spy returned successfully a specific number of times. This is equivalent to `toHaveReturnedTimes(count)`.
+Chai 风格断言，用于检查 spy 函数成功返回的次数是否符合预期。等价于 `toHaveReturnedTimes(count)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1625,9 +1625,9 @@ test('spy returned times', () => {
 
 ## lastReturnedWith
 
-- **Type:** `(value: any) => void`
+- **类型:** `(value: any) => void`
 
-Chai-style assertion that checks if the last return value of a spy matches the expected value. This is equivalent to `toHaveLastReturnedWith(value)`.
+Chai 风格断言，用于检查 spy 函数最后一次返回值是否与预期值匹配。等价于 `toHaveLastReturnedWith(value)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1646,9 +1646,9 @@ test('spy last returned with', () => {
 
 ## nthReturnedWith
 
-- **Type:** `(n: number, value: any) => void`
+- **类型:** `(n: number, value: any) => void`
 
-Chai-style assertion that checks if the nth return value of a spy matches the expected value. This is equivalent to `toHaveNthReturnedWith(n, value)`.
+Chai 风格断言，用于检查 spy 函数第 n 次返回值是否与预期值匹配。等价于 `toHaveNthReturnedWith(n, value)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1669,9 +1669,9 @@ test('spy nth returned with', () => {
 
 ## calledBefore <Version>4.1.0</Version> {#calledbefore}
 
-- **Type:** `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => void`
+- **类型:** `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => void`
 
-Chai-style assertion that checks if a spy was called before another spy. This is equivalent to `toHaveBeenCalledBefore(mock, failIfNoFirstInvocation)`.
+Chai 风格断言，用于检查一个 spy 函数是否在另一个 spy 函数之前被调用。等价于 `toHaveBeenCalledBefore(mock, failIfNoFirstInvocation)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1689,9 +1689,9 @@ test('spy called before another', () => {
 
 ## calledAfter <Version>4.1.0</Version> {#calledafter}
 
-- **Type:** `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => void`
+- **类型:** `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => void`
 
-Chai-style assertion that checks if a spy was called after another spy. This is equivalent to `toHaveBeenCalledAfter(mock, failIfNoFirstInvocation)`.
+Chai 风格断言，用于检查一个 spy 函数是否在另一个 spy 函数之后被调用。等价于 `toHaveBeenCalledAfter(mock, failIfNoFirstInvocation)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1707,8 +1707,8 @@ test('spy called after another', () => {
 })
 ```
 
-::: tip Migration Guide
-For a complete guide on migrating from Mocha+Chai+Sinon to Vitest, see the [Migration Guide](/guide/migration#mocha-chai-sinon).
+::: tip 迁移指南
+完整的从 Mocha+Chai+Sinon 迁移到 Vitest 的指南，请参阅 [迁移指南](/guide/migration#mocha-chai-sinon)。
 :::
 
 ## toSatisfy
@@ -1988,7 +1988,7 @@ test('basket includes fuji', () => {
 
 - **类型:** `(expected: any) => any`
 
-当与相等检查一起使用时，如果值的形状相似，该非对称匹配器将返回 `true`。
+当与相等检查一起使用时，如果值的接口规范相似，该非对称匹配器将返回 `true`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -2077,17 +2077,17 @@ import { type } from 'arktype'
 test('email validation', () => {
   const user = { email: 'john@example.com' }
 
-  // using Zod
+  // 使用 Zod
   expect(user).toEqual({
     email: expect.schemaMatching(z.string().email()),
   })
 
-  // using Valibot
+  // 使用 Valibot
   expect(user).toEqual({
     email: expect.schemaMatching(v.pipe(v.string(), v.email()))
   })
 
-  // using ArkType
+  // 使用 ArkType
   expect(user).toEqual({
     email: expect.schemaMatching(type('string.email')),
   })
@@ -2095,7 +2095,7 @@ test('email validation', () => {
 ```
 
 :::tip
-You can use `expect.not` with this matcher to negate the expected value.
+可以通过 `expect.not` 结合此匹配器来对期望值进行取反断言。
 :::
 
 ## expect.addSnapshotSerializer
