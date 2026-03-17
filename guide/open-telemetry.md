@@ -141,7 +141,7 @@ export default defineConfig({
 
 生成追踪数据时，请像往常一样运行 Vitest，无论是 watch 模式还是运行模式均可。Vitest 会在所有操作完成后手动调用 `sdk.shutdown()` 以确保追踪数据得到正确处理。
 
-你可以使用任何支持 OpenTelemetry API 的开源或商业产品来查看追踪。。如果是初次接触 OpenTelemetry，我们推荐从 [Jaeger](https://www.jaegertracing.io/docs/2.11/getting-started/#all-in-one) 开始，因为它真的很容易设置。
+你可以使用任何支持 OpenTelemetry API 的开源或商业产品来查看追踪。如果是初次接触 OpenTelemetry，我们推荐从 [Jaeger](https://www.jaegertracing.io/docs/2.11/getting-started/#all-in-one) 开始，因为它真的很容易设置。
 
 <img src="/otel-jaeger.png" alt="an example of open telemetry result in jaeger" />
 
