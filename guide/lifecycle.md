@@ -11,7 +11,6 @@ outline: deep
 
 一次完整的 Vitest 测试运行通常经历以下几个主要阶段：
 
-<<<<<<< HEAD
 1. **初始化:** 加载配置并初始化项目
 2. **全局初始化:** 在所有测试运行之前执行一次初始化
 3. **创建 Worker:** 根据 [pool](/config/pool) 配置创建测试 Worker
@@ -19,15 +18,6 @@ outline: deep
 5. **执行测试:** 运行测试及其钩子和断言
 6. **报告:** 收集并输出测试结果
 7. **全局清理:** 所有测试完成后执行最终清理
-=======
-1. **Initialization:** Configuration loading and project setup
-2. **Global Setup:** One-time setup before any tests run
-3. **Worker Creation:** Test workers are spawned based on the [pool](/config/pool) configuration
-4. **Test File Collection:** Test files are discovered and organized
-5. **Test Execution:** Tests run with their hooks and assertions
-6. **Reporting:** Results are collected and reported
-7. **Global Teardown:** Final cleanup after all tests complete
->>>>>>> c0fcb140c1c79f419ea6578e689607cdf4218036
 
 第 4–6 阶段针对每个测试文件各执行一次，因此在整个测试套件中会执行多次；如果你使用了多于 [1 个 worker](/config/maxworkers)，这些阶段还会在不同文件间并行执行。
 
@@ -134,7 +124,6 @@ afterEach(() => {
 
 执行顺序如下：
 
-<<<<<<< HEAD
 1. **文件级代码:** `describe` 块外的所有代码立即执行
 2. **测试收集:** 处理 `describe` 块，导入测试文件时以副作用的形式注册测试
 3. **[`aroundAll`](/api/hooks#aroundall) 钩子:** 包裹套件中的所有测试（须调用 `runSuite()`）
@@ -148,21 +137,6 @@ afterEach(() => {
  - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
  - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
 6. **[`afterAll`](/api/hooks#afterall) 钩子:** 套件中所有测试完成后执行一次
-=======
-1. **File-level code:** All code outside `describe` blocks runs immediately
-2. **Test collection:** `describe` blocks are processed, and tests are registered as side effects of importing the test file
-3. **[`aroundAll`](/api/hooks#aroundall) hooks:** Wrap around all tests in the suite (must call `runSuite()`)
-4. **[`beforeAll`](/api/hooks#beforeall) hooks:** Run once before any tests in the suite
-5. **For each test:**
-   - [`aroundEach`](/api/hooks#aroundeach) hooks wrap around the test (must call `runTest()`)
-   - `beforeEach` hooks execute (in order defined, or based on [`sequence.hooks`](/config/sequence#sequence-hooks))
-   - Test function executes
-   - `afterEach` hooks execute (reverse order by default with `sequence.hooks: 'stack'`)
-   - [`onTestFinished`](/api/hooks#ontestfinished) callbacks run (always in reverse order)
-   - If test failed: [`onTestFailed`](/api/hooks#ontestfailed) callbacks run
-   - Note: if `repeats` or `retry` are set, all of these steps are executed again
-6. **[`afterAll`](/api/hooks#afterall) hooks:** Run once after all tests in the suite complete
->>>>>>> c0fcb140c1c79f419ea6578e689607cdf4218036
 
 **执行流程示例:**
 
@@ -373,7 +347,6 @@ export function teardown() {
 
 在 watch 模式下，生命周期会重复执行，但有一些差异：
 
-<<<<<<< HEAD
 1. **首次运行:** 完整生命周期如上所述
 2. **文件变更时:**
    - 启动新的 [测试运行器](/api/advanced/reporters#ontestrunstart)
@@ -383,17 +356,6 @@ export function teardown() {
 3. **退出时:**
    - 执行全局清理
    - 进程终止
-=======
-1. **Initial run:** Full lifecycle as described above
-2. **On file change:**
-   - New [test run](/api/advanced/reporters#ontestrunstart) starts
-   - Only affected test files are re-run
-   - [Setup files](/config/setupfiles) run again for those test files
-   - [Global setup](/config/globalsetup) does **not** re-run (use [`project.onTestsRerun`](/config/globalsetup#handling-test-reruns) for rerun-specific logic)
-3. **On exit:**
-   - Global teardown executes
-   - Process terminates
->>>>>>> c0fcb140c1c79f419ea6578e689607cdf4218036
 
 ## 性能注意事项 {#performance-considerations}
 
