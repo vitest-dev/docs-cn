@@ -15,6 +15,7 @@ export default defineConfig({
   test: {
     projects: [
       {
+<<<<<<< HEAD
         // 禁用隔离的单元测试
         name: 'Unit tests',
         isolate: false,
@@ -24,6 +25,21 @@ export default defineConfig({
         // 集成隔离的测试
         name: 'Integration tests',
         include: ['**.integration.test.ts'],
+=======
+        test: {
+          // Non-isolated unit tests
+          name: 'Unit tests',
+          isolate: false,
+          exclude: ['**.integration.test.ts'],
+        },
+      },
+      {
+        test: {
+          // Isolated integration tests
+          name: 'Integration tests',
+          include: ['**.integration.test.ts'],
+        },
+>>>>>>> 533b7d49f571f3024e559dee4f55f67d7212a838
       },
     ],
   },
@@ -41,13 +57,17 @@ export default defineConfig({
   test: {
     projects: [
       {
-        name: 'Parallel',
-        exclude: ['**.sequential.test.ts'],
+        test: {
+          name: 'Parallel',
+          exclude: ['**.sequential.test.ts'],
+        },
       },
       {
-        name: 'Sequential',
-        include: ['**.sequential.test.ts'],
-        fileParallelism: false,
+        test: {
+          name: 'Sequential',
+          include: ['**.sequential.test.ts'],
+          fileParallelism: false,
+        },
       },
     ],
   },
