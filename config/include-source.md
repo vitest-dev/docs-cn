@@ -1,5 +1,5 @@
 ---
-title: includeSource | Config
+title: includeSource | 配置
 ---
 
 # includeSource
@@ -7,17 +7,17 @@ title: includeSource | Config
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-A list of [glob patterns](https://superchupu.dev/tinyglobby/comparison) that match your [in-source test files](/guide/in-source). These patterns are resolved relative to the [`root`](/config/root) ([`process.cwd()`](https://nodejs.org/api/process.html#processcwd) by default).
+匹配包含内联测试文件的 [glob 规则](https://superchupu.dev/tinyglobby/comparison)。该规则相对于 [`root`](/config/root) 进行解析（默认为 [`process.cwd()`](https://nodejs.org/api/process.html#processcwd)）。
 
-When defined, Vitest will run all matched files that have `import.meta.vitest` inside.
+当定义时，Vitest 将运行所有包含 `import.meta.vitest` 的匹配文件。
 
 ::: warning
-Vitest performs a simple text-based inclusion check on source files. If a file contains `import.meta.vitest`, even in a comment, it will be matched as an in-source test file.
+Vitest 对源文件执行基于文本的包含的简单检查。如果文件即使在注释中包含 `import.meta.vitest`，它也会被匹配为源文件内联测试。
 :::
 
-Vitest uses the [`tinyglobby`](https://npmx.dev/package/tinyglobby) package to resolve the globs.
+Vitest 使用 [`tinyglobby`](https://npmx.dev/package/tinyglobby) 包来解析 glob。
 
-## Example
+## 示例 {#example}
 
 ```js
 import { defineConfig } from 'vitest/config'
@@ -29,14 +29,14 @@ export default defineConfig({
 })
 ```
 
-Then you can write tests inside your source files:
+然后你可以在源文件中编写测试：
 
 ```ts [src/index.ts]
 export function add(...args: number[]) {
   return args.reduce((a, b) => a + b, 0)
 }
 
-// #region in-source test suites
+// #region 内联测试套件
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest
   it('add', () => {
@@ -48,7 +48,7 @@ if (import.meta.vitest) {
 // #endregion
 ```
 
-For your production build, you need to replace the `import.meta.vitest` with `undefined`, letting the bundler do the dead code elimination.
+在生产环境构建时，你需要将 `import.meta.vitest` 替换为 `undefined`，以便打包工具移除未使用的代码。
 
 ::: code-group
 ```js [vite.config.ts]
@@ -80,7 +80,7 @@ export default {
       'import.meta.vitest': 'undefined', // [!code ++]
     }) // [!code ++]
   ],
-  // other options
+  // 其他配置项
 }
 ```
 ```js [build.config.js]
@@ -90,7 +90,7 @@ export default defineBuildConfig({
   replace: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  // other options
+  // 其他配置项
 })
 ```
 ```js [webpack.config.js]
@@ -107,7 +107,7 @@ module.exports = {
 :::
 
 ::: tip
-To get TypeScript support for `import.meta.vitest`, add `vitest/importMeta` to your `tsconfig.json`:
+为了让 `import.meta.vitest` 获得更好的 TypeScript 支持，请在 `tsconfig.json` 中添加 `vitest/importMeta`：
 
 ```json [tsconfig.json]
 {
