@@ -5,7 +5,7 @@ outline: deep
 
 # snapshotEnvironment
 
-- **Type:** `string`
+- **类型:** `string`
 
 Path to a custom snapshot environment implementation. This is useful if you are running your tests in an environment that doesn't support Node.js APIs. This option doesn't have any effect on a browser runner.
 

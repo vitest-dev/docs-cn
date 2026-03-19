@@ -5,8 +5,8 @@ outline: deep
 
 # bail
 
-- **Type:** `number`
-- **Default:** `0`
+- **类型:** `number`
+- **默认值:** `0`
 - **CLI**: `--bail=<value>`
 
 Stop test execution when given number of tests have failed.

@@ -5,9 +5,9 @@ outline: deep
 
 # isolate
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-isolate`, `--isolate=false`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-isolate`, `--isolate=false`
 
 Run tests in an isolated environment. This option has no effect on `vmThreads` and `vmForks` pools.
 

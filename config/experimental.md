@@ -183,7 +183,7 @@ export default defineConfig({
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-- **Type:**
+- **类型:**
 
 ```ts
 interface ImportDurationsOptions {
@@ -216,7 +216,7 @@ interface ImportDurationsOptions {
 }
 ```
 
-- **Default:** `{ print: false, failOnDanger: false, limit: 0, thresholds: { warn: 100, danger: 500 } }` (`limit` is 10 if `print` or UI is enabled)
+- **默认值:** `{ print: false, failOnDanger: false, limit: 0, thresholds: { warn: 100, danger: 500 } }` (`limit` is 10 if `print` or UI is enabled)
 
 Configure import duration collection and display.
 
@@ -232,8 +232,8 @@ The `print` option controls CLI terminal output. The `limit` option controls how
 
 ### experimental.importDurations.print {#experimental-importdurationsprint}
 
-- **Type:** `boolean | 'on-warn'`
-- **Default:** `false`
+- **类型:** `boolean | 'on-warn'`
+- **默认值:** `false`
 
 Controls when to print import breakdown to CLI terminal after tests finish. This only works with [`default`](/guide/reporters#default), [`verbose`](/guide/reporters#verbose), or [`tree`](/guide/reporters#tree) reporters.
 
@@ -243,8 +243,8 @@ Controls when to print import breakdown to CLI terminal after tests finish. This
 
 ### experimental.importDurations.failOnDanger {#experimental-importdurationsfailondanger}
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Fail the test run if any import exceeds the `thresholds.danger` value. When enabled and the threshold is exceeded, the breakdown is always printed regardless of the `print` setting.
 
@@ -256,15 +256,15 @@ vitest --experimental.importDurations.failOnDanger
 
 ### experimental.importDurations.limit {#experimental-importdurationslimit}
 
-- **Type:** `number`
-- **Default:** `0` (or `10` if `print`, `failOnDanger`, or UI is enabled)
+- **类型:** `number`
+- **默认值:** `0` (or `10` if `print`, `failOnDanger`, or UI is enabled)
 
 Maximum number of imports to collect and display in CLI output, [Vitest UI](/guide/ui#import-breakdown), and third-party reporters.
 
 ### experimental.importDurations.thresholds {#experimental-importdurationsthresholds}
 
-- **Type:** `{ warn?: number; danger?: number }`
-- **Default:** `{ warn: 100, danger: 500 }`
+- **类型:** `{ warn?: number; danger?: number }`
+- **默认值:** `{ warn: 100, danger: 500 }`
 
 Duration thresholds in milliseconds for coloring and warnings:
 
@@ -283,8 +283,8 @@ Duration thresholds in milliseconds for coloring and warnings:
 Please leave feedback regarding this feature in a [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9501).
 :::
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 Controls whether Vitest uses Vite's [module runner](https://vite.dev/guide/api-environment-runtimes#modulerunner) to run the code or fallback to the native `import`.
 
@@ -415,8 +415,8 @@ If you are running tests in Deno, TypeScript files are processed by the runtime 
 
 ## experimental.nodeLoader <Version type="experimental">4.1.0</Version> {#experimental-nodeloader}
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 If module runner is disabled, Vitest uses a native [Node.js module loader](https://nodejs.org/api/module.html#customization-hooks) to transform files to support `import.meta.vitest`, `vi.mock` and `vi.hoisted`.
 

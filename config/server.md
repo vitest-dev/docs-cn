@@ -19,8 +19,8 @@ Normally, Vitest should do this automatically.
 
 ### server.deps.external
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** files inside [`moduleDirectories`](/config/deps#moduledirectories)
+- **类型:** `(string | RegExp)[]`
+- **默认值:** files inside [`moduleDirectories`](/config/deps#moduledirectories)
 
 Specifies modules that should not be transformed by Vite and should instead be processed directly by the engine. These modules are imported via native dynamic `import` and bypass both transformation and resolution phases.
 
@@ -50,8 +50,8 @@ If a `RegExp` is provided, it is matched against the full file path.
 
 ### server.deps.inline
 
-- **Type:** `(string | RegExp)[] | true`
-- **Default:** everything that is not externalized
+- **类型:** `(string | RegExp)[] | true`
+- **默认值:** everything that is not externalized
 
 Specifies modules that should be transformed and resolved by Vite. These modules are run by Vite's [module runner](https://vite.dev/guide/api-environment-runtimes#modulerunner).
 
@@ -65,8 +65,8 @@ If a `RegExp` is provided, it is matched against the full file path.
 
 ### server.deps.fallbackCJS
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 When enabled, Vitest will try to guess a CommonJS build for an ESM entry by checking a few common CJS/UMD file name and folder patterns (like `.mjs`, `.umd.js`, `.cjs.js`, `umd/`, `cjs/`, `lib/`).
 

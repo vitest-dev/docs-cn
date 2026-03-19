@@ -5,8 +5,8 @@ outline: deep
 
 # includeTaskLocation
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Should `location` property be included when Vitest API receives tasks in [reporters](/config/reporters). If you have a lot of tests, this might cause a small performance regression.
 

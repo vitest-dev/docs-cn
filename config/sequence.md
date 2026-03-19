@@ -28,8 +28,8 @@ If [`sequence.groupOrder`](#sequence-grouporder) is specified, the sequencer wil
 
 ## sequence.groupOrder
 
-- **Type:** `number`
-- **Default:** `0`
+- **类型:** `number`
+- **默认值:** `0`
 
 Controls the order in which this project runs its tests when using multiple [projects](/guide/projects).
 

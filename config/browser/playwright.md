@@ -160,8 +160,8 @@ await userEvent.click(page.getByRole('button'), {
 
 ## `persistentContext` <Version>4.1.0</Version> {#persistentcontext}
 
-- **Type:** `boolean | string`
-- **Default:** `false`
+- **类型:** `boolean | string`
+- **默认值:** `false`
 
 When enabled, Vitest uses Playwright's [persistent context](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-persistent-context) instead of a regular browser context. This allows browser state (cookies, localStorage, DevTools settings, etc.) to persist between test runs.
 

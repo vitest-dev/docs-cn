@@ -7,9 +7,9 @@ outline: deep
 
 # update <CRoot /> {#update}
 
-- **Type:** `boolean | 'new' | 'all' | 'none'`
-- **Default:** `false`
-- **CLI:** `-u`, `--update`, `--update=false`, `--update=new`, `--update=none`
+- **类型:** `boolean | 'new' | 'all' | 'none'`
+- **默认值:** `false`
+- **命令行终端:** `-u`, `--update`, `--update=false`, `--update=new`, `--update=none`
 
 Define snapshot update behavior.
 

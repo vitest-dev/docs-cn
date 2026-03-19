@@ -5,8 +5,8 @@ outline: deep
 
 # browser.orchestratorScripts
 
-- **Type:** `BrowserScript[]`
-- **Default:** `[]`
+- **类型:** `BrowserScript[]`
+- **默认值:** `[]`
 
 Custom scripts that should be injected into the orchestrator HTML before test iframes are initiated. This HTML document only sets up iframes and doesn't actually import your code.
 

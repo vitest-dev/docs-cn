@@ -5,8 +5,8 @@ outline: deep
 
 # expandSnapshotDiff
 
-- **Type:** `boolean`
-- **CLI:** `--expandSnapshotDiff`, `--expand-snapshot-diff`
-- **Default:** `false`
+- **类型:** `boolean`
+- **命令行终端:** `--expandSnapshotDiff`, `--expand-snapshot-diff`
+- **默认值:** `false`
 
 Show full diff when snapshot fails instead of a patch.

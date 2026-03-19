@@ -5,7 +5,7 @@ outline: deep
 
 # browser.expect
 
-- **Type:** `ExpectOptions`
+- **类型:** `ExpectOptions`
 
 ## browser.expect.toMatchScreenshot
 
@@ -48,7 +48,7 @@ available: `resolveScreenshotPath` and `resolveDiffPath`.
 
 ## browser.expect.toMatchScreenshot.resolveScreenshotPath
 
-- **Type:** `(data: PathResolveData) => string`
+- **类型:** `(data: PathResolveData) => string`
 - **Default output:** `` `${root}/${testFileDirectory}/${screenshotDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
 
 A function to customize where reference screenshots are stored. The function
@@ -127,7 +127,7 @@ resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>
 
 ## browser.expect.toMatchScreenshot.resolveDiffPath
 
-- **Type:** `(data: PathResolveData) => string`
+- **类型:** `(data: PathResolveData) => string`
 - **Default output:** `` `${root}/${attachmentsDir}/${testFileDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
 
 A function to customize where diff images are stored when screenshot comparisons
@@ -143,7 +143,7 @@ resolveDiffPath: ({ arg, attachmentsDir, browserName, ext, root, testFileName })
 
 ## browser.expect.toMatchScreenshot.comparators
 
-- **Type:** `Record<string, Comparator>`
+- **类型:** `Record<string, Comparator>`
 
 Register custom screenshot comparison algorithms, like [SSIM](https://en.wikipedia.org/wiki/Structural_similarity_index_measure) or other perceptual similarity metrics.
 

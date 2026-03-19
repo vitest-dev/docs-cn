@@ -5,8 +5,8 @@ outline: deep
 
 # browser.connectTimeout
 
-- **Type:** `number`
-- **Default:** `60_000`
+- **类型:** `number`
+- **默认值:** `60_000`
 
 The timeout in milliseconds. If connection to the browser takes longer, the test suite will fail.
 

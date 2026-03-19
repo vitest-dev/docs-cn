@@ -5,8 +5,8 @@ outline: deep
 
 # maxWorkers
 
-- **Type:** `number | string`
-- **Default:**
+- **类型:** `number | string`
+- **默认值:**
   - if [`watch`](/config/watch) is disabled, uses all available parallelism
   - if [`watch`](/config/watch) is enabled, uses half of all available parallelism
 

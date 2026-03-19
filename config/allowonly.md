@@ -9,7 +9,7 @@ outline: deep
 
 - **Type**: `boolean`
 - **Default**: `!process.env.CI`
-- **CLI:** `--allowOnly`, `--allowOnly=false`
+- **命令行终端:** `--allowOnly`, `--allowOnly=false`
 
 By default, Vitest does not permit tests marked with the [`only`](/api/test#test-only) flag in Continuous Integration (CI) environments. Conversely, in local development environments, Vitest allows these tests to run.
 

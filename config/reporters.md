@@ -4,7 +4,7 @@ title: reporters | Config
 
 # reporters <CRoot />
 
-- **Type:**
+- **类型:**
 
 ```ts
 interface UserConfig {
@@ -14,8 +14,8 @@ interface UserConfig {
 type ConfigReporter = string | Reporter | [string, object?]
 ```
 
-- **Default:** [`'default'`](/guide/reporters#default-reporter) (or <code>[['default'](/guide/reporters#default-reporter), ['github-actions'](/guide/reporters#github-actions-reporter)]</code> when `process.env.GITHUB_ACTIONS === 'true'`)
-- **CLI:**
+- **默认值:** [`'default'`](/guide/reporters#default-reporter) (or <code>[['default'](/guide/reporters#default-reporter), ['github-actions'](/guide/reporters#github-actions-reporter)]</code> when `process.env.GITHUB_ACTIONS === 'true'`)
+- **命令行终端:**
   - `--reporter=tap` for a single reporter
   - `--reporter=verbose --reporter=github-actions` for multiple reporters
 

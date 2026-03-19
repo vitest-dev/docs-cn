@@ -7,9 +7,9 @@ outline: deep
 
 # ui <CRoot />
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--ui`, `--ui=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--ui`, `--ui=false`
 
 Enable [Vitest UI](/guide/ui).
 

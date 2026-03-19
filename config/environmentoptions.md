@@ -4,8 +4,8 @@ title: environmentOptions | Config
 
 # environmentOptions
 
-- **Type:** `Record<'jsdom' | 'happyDOM' | string, unknown>`
-- **Default:** `{}`
+- **类型:** `Record<'jsdom' | 'happyDOM' | string, unknown>`
+- **默认值:** `{}`
 
 These options are passed to the setup method of the current [environment](/config/environment). By default, you can configure options only for `jsdom` and `happyDOM` when you use them as your test environment.
 

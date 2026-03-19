@@ -5,8 +5,8 @@ outline: deep
 
 # browser.instances
 
-- **Type:** `BrowserConfig`
-- **Default:** `[]`
+- **类型:** `BrowserConfig`
+- **默认值:** `[]`
 
 Defines multiple browser setups. Every config has to have at least a `browser` field.
 

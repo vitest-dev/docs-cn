@@ -1,12 +1,12 @@
 ---
-title: include | Config
+title: include | 配置
 ---
 
 # include
 
-- **Type:** `string[]`
-- **Default:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
-- **CLI:** `vitest [...include]`, `vitest **/*.test.js`
+- **类型:** `string[]`
+- **默认值:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
+- **命令行终端:** `vitest [...include]`, `vitest **/*.test.js`
 
 A list of [glob patterns](https://superchupu.dev/tinyglobby/comparison) that match your test files. These patterns are resolved relative to the [`root`](/config/root) ([`process.cwd()`](https://nodejs.org/api/process.html#processcwd) by default).
 

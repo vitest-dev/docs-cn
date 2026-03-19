@@ -5,8 +5,8 @@ outline: deep
 
 # browser.trackUnhandledErrors
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 Enables tracking uncaught errors and exceptions so they can be reported by Vitest.
 

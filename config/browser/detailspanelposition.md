@@ -7,9 +7,9 @@ outline: deep
 
 # browser.detailsPanelPosition
 
-- **Type:** `'right' | 'bottom'`
-- **Default:** `'right'`
-- **CLI:** `--browser.detailsPanelPosition=bottom`, `--browser.detailsPanelPosition=right`
+- **类型:** `'right' | 'bottom'`
+- **默认值:** `'right'`
+- **命令行终端:** `--browser.detailsPanelPosition=bottom`, `--browser.detailsPanelPosition=right`
 
 Controls the default position of the details panel in the Vitest UI when running browser tests.
 

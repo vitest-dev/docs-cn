@@ -5,7 +5,7 @@ outline: deep
 
 # provide
 
-- **Type:** `Partial<ProvidedContext>`
+- **类型:** `Partial<ProvidedContext>`
 
 Define values that can be accessed inside your tests using `inject` method.
 

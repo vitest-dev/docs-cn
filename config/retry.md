@@ -9,9 +9,9 @@ outline: deep
 
 Retry the test specific number of times if it fails.
 
-- **Type:** `number | { count?: number, delay?: number, condition?: RegExp }`
-- **Default:** `0`
-- **CLI:** `--retry <times>`, `--retry.count <times>`, `--retry.delay <ms>`, `--retry.condition <pattern>`
+- **类型:** `number | { count?: number, delay?: number, condition?: RegExp }`
+- **默认值:** `0`
+- **命令行终端:** `--retry <times>`, `--retry.count <times>`, `--retry.delay <ms>`, `--retry.condition <pattern>`
 
 ## Basic Usage
 

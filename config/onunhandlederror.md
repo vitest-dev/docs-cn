@@ -5,7 +5,7 @@ outline: deep
 
 # onUnhandledError <CRoot /> <Version>4.0.0</Version>
 
-- **Type:**
+- **类型:**
 
 ```ts
 function onUnhandledError(

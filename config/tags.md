@@ -7,8 +7,8 @@ outline: deep
 
 # tags <Version>4.1.0</Version> {#tags}
 
-- **Type:** `TestTagDefinition[]`
-- **Default:** `[]`
+- **类型:** `TestTagDefinition[]`
+- **默认值:** `[]`
 
 Defines all [available tags](/guide/test-tags) in your test project. By default, if test defines a name not listed here, Vitest will throw an error, but this can be configured via a [`strictTags`](/config/stricttags) option.
 
@@ -18,7 +18,7 @@ Use [`--tags-filter`](/guide/test-tags#syntax) to filter tests by their tags. Us
 
 ## name
 
-- **Type:** `string`
+- **类型:** `string`
 - **Required:** `true`
 
 The name of the tag. This is what you use in the `tags` option in tests.
@@ -54,7 +54,7 @@ declare module 'vitest' {
 
 ## description
 
-- **Type:** `string`
+- **类型:** `string`
 
 A human-readable description for the tag. This will be shown in UI and inside error messages when a tag is not found.
 
@@ -73,8 +73,8 @@ export default defineConfig({
 
 ## priority
 
-- **Type:** `number`
-- **Default:** `Infinity`
+- **类型:** `number`
+- **默认值:** `Infinity`
 
 Priority for merging options when multiple tags with the same options are applied to a test. Lower number means higher priority (e.g., priority `1` takes precedence over priority `3`).
 

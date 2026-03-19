@@ -5,7 +5,7 @@ outline: deep
 
 # alias
 
-- **Type:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
+- **类型:** `Record<string, string> | Array<{ find: string | RegExp, replacement: string, customResolver?: ResolverFunction | ResolverObject }>`
 
 Define custom aliases when running inside tests. They will be merged with aliases from `resolve.alias`.
 

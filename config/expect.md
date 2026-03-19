@@ -5,12 +5,12 @@ outline: deep
 
 # expect
 
-- **Type:** `ExpectOptions`
+- **类型:** `ExpectOptions`
 
 ## expect.requireAssertions
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 The same as calling [`expect.hasAssertions()`](/api/expect#expect-hasassertions) at the start of every test. This makes sure that no test will pass accidentally.
 
@@ -30,14 +30,14 @@ Global configuration options for [`expect.poll`](/api/expect#poll). These are th
 
 ### expect.poll.interval
 
-- **Type:** `number`
-- **Default:** `50`
+- **类型:** `number`
+- **默认值:** `50`
 
 Polling interval in milliseconds
 
 ### expect.poll.timeout
 
-- **Type:** `number`
-- **Default:** `1000`
+- **类型:** `number`
+- **默认值:** `1000`
 
 Polling timeout in milliseconds

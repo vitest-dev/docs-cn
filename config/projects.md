@@ -5,7 +5,7 @@ outline: deep
 
 # projects <CRoot />
 
-- **Type:** `TestProjectConfiguration[]`
-- **Default:** `[]`
+- **类型:** `TestProjectConfiguration[]`
+- **默认值:** `[]`
 
 An array of [projects](/guide/projects).

@@ -5,7 +5,7 @@ outline: deep
 
 # browser.screenshotFailures
 
-- **Type:** `boolean`
-- **Default:** `!browser.ui`
+- **类型:** `boolean`
+- **默认值:** `!browser.ui`
 
 Should Vitest take screenshots if the test fails.

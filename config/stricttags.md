@@ -7,9 +7,9 @@ outline: deep
 
 # strictTags <Version>4.1.0</Version> {#stricttags}
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--strict-tags`, `--no-strict-tags`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--strict-tags`, `--no-strict-tags`
 
 Should Vitest throw an error if test has a [`tag`](/config/tags) that is not defined in the config to avoid silently doing something surprising due to mistyped names (applying the wrong configuration or skipping the test due to a `--tags-filter` flag).
 

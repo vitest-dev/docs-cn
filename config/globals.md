@@ -4,9 +4,9 @@ title: globals | Config
 
 # globals
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--globals`, `--no-globals`, `--globals=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--globals`, `--no-globals`, `--globals=false`
 
 By default, `vitest` does not provide global APIs for explicitness. If you prefer to use the APIs globally like Jest, you can pass the `--globals` option to CLI or add `globals: true` in the config.
 

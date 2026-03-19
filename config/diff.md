@@ -5,8 +5,8 @@ outline: deep
 
 # diff
 
-- **Type:** `string`
-- **CLI:** `--diff=<path>`
+- **类型:** `string`
+- **命令行终端:** `--diff=<path>`
 
 `DiffOptions` object or a path to a module which exports `DiffOptions`. Useful if you want to customize diff display.
 
@@ -56,7 +56,7 @@ export default {
 
 - **Type**: `boolean`
 - **Default**: `true`
-- **CLI:** `--diff.expand=false`
+- **命令行终端:** `--diff.expand=false`
 
 Expand all common lines.
 
@@ -64,7 +64,7 @@ Expand all common lines.
 
 - **Type**: `number`
 - **Default**: `0`
-- **CLI:** `--diff.truncateThreshold=<path>`
+- **命令行终端:** `--diff.truncateThreshold=<path>`
 
 The maximum length of diff result to be displayed. Diffs above this threshold will be truncated.
 Truncation won't take effect with default value 0.
@@ -73,7 +73,7 @@ Truncation won't take effect with default value 0.
 
 - **Type**: `string`
 - **Default**: `'... Diff result is truncated'`
-- **CLI:** `--diff.truncateAnnotation=<annotation>`
+- **命令行终端:** `--diff.truncateAnnotation=<annotation>`
 
 Annotation that is output at the end of diff result if it's truncated.
 

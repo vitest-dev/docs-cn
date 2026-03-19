@@ -5,8 +5,8 @@ outline: deep
 
 # browser.ui
 
-- **Type:** `boolean`
-- **Default:** `!isCI`
-- **CLI:** `--browser.ui=false`
+- **类型:** `boolean`
+- **默认值:** `!isCI`
+- **命令行终端:** `--browser.ui=false`
 
 Should Vitest UI be injected into the page. By default, injects UI iframe during development.

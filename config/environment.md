@@ -4,9 +4,9 @@ title: environment | Config
 
 # environment
 
-- **Type:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime' | string`
-- **Default:** `'node'`
-- **CLI:** `--environment=<env>`
+- **类型:** `'node' | 'jsdom' | 'happy-dom' | 'edge-runtime' | string`
+- **默认值:** `'node'`
+- **命令行终端:** `--environment=<env>`
 
 The environment that will be used for testing. The default environment in Vitest
 is a Node.js environment. If you are building a web application, you can use

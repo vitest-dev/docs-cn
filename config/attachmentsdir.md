@@ -5,7 +5,7 @@ outline: deep
 
 # attachmentsDir
 
-- **Type:** `string`
-- **Default:** `'.vitest-attachments'`
+- **类型:** `string`
+- **默认值:** `'.vitest-attachments'`
 
 Directory path for storing attachments created by [`context.annotate`](/guide/test-context#annotate) relative to the project root.

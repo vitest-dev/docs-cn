@@ -4,9 +4,9 @@ title: exclude | Config
 
 # exclude
 
-- **Type:** `string[]`
-- **Default:** `['**/node_modules/**', '**/.git/**']`
-- **CLI:** `vitest --exclude "**/excluded-file" --exclude "*/other-files/*.js"`
+- **类型:** `string[]`
+- **默认值:** `['**/node_modules/**', '**/.git/**']`
+- **命令行终端:** `vitest --exclude "**/excluded-file" --exclude "*/other-files/*.js"`
 
 A list of [glob patterns](https://superchupu.dev/tinyglobby/comparison) that should be excluded from your test files. These patterns are resolved relative to the [`root`](/config/root) ([`process.cwd()`](https://nodejs.org/api/process.html#processcwd) by default).
 

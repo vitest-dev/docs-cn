@@ -5,8 +5,8 @@ outline: deep
 
 # vmMemoryLimit
 
-- **Type:** `string | number`
-- **Default:** `1 / CPU Cores`
+- **类型:** `string | number`
+- **默认值:** `1 / CPU Cores`
 
 This option affects only `vmForks` and `vmThreads` pools.
 

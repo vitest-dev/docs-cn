@@ -5,9 +5,9 @@ outline: deep
 
 # pool
 
-- **Type:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
-- **Default:** `'forks'`
-- **CLI:** `--pool=threads`
+- **类型:** `'threads' | 'forks' | 'vmThreads' | 'vmForks'`
+- **默认值:** `'forks'`
+- **命令行终端:** `--pool=threads`
 
 Pool used to run tests in.
 

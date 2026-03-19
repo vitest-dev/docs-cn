@@ -5,9 +5,9 @@ outline: deep
 
 # disableConsoleIntercept
 
-- **Type:** `boolean`
-- **CLI:** `--disableConsoleIntercept`
-- **Default:** `false`
+- **类型:** `boolean`
+- **命令行终端:** `--disableConsoleIntercept`
+- **默认值:** `false`
 
 By default, Vitest automatically intercepts console logging during tests for extra formatting of test file, test title, etc.
 

@@ -5,8 +5,8 @@ outline: deep
 
 # restoreMocks
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Should Vitest automatically call [`vi.restoreAllMocks()`](/api/vi#vi-restoreallmocks) before each test.
 

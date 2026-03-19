@@ -5,9 +5,9 @@ outline: deep
 <!-- TODO: translation -->
 # detectAsyncLeaks
 
-- **Type:** `boolean`
-- **CLI:** `--detectAsyncLeaks`, `--detect-async-leaks`
-- **Default:** `false`
+- **类型:** `boolean`
+- **命令行终端:** `--detectAsyncLeaks`, `--detect-async-leaks`
+- **默认值:** `false`
 
 ::: warning
 Enabling this option will make your tests run much slower. Use only when debugging or developing tests.

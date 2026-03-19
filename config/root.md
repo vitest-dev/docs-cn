@@ -5,7 +5,7 @@ outline: deep
 
 # root
 
-- **Type:** `string`
-- **CLI:** `-r <path>`, `--root=<path>`
+- **类型:** `string`
+- **命令行终端:** `-r <path>`, `--root=<path>`
 
 Project root

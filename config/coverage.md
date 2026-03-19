@@ -19,27 +19,27 @@ If you are using coverage options with dot notation, don't forget to specify `--
 
 ## coverage.provider
 
-- **Type:** `'v8' | 'istanbul' | 'custom'`
-- **Default:** `'v8'`
-- **CLI:** `--coverage.provider=<provider>`
+- **类型:** `'v8' | 'istanbul' | 'custom'`
+- **默认值:** `'v8'`
+- **命令行终端:** `--coverage.provider=<provider>`
 
 Use `provider` to select the tool for coverage collection.
 
 ## coverage.enabled
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.enabled`, `--coverage.enabled=false`
+- **命令行终端:** `--coverage.enabled`, `--coverage.enabled=false`
 
 Enables coverage collection. Can be overridden using `--coverage` CLI option.
 
 ## coverage.include
 
-- **Type:** `string[]`
-- **Default:** Files that were imported during test run
+- **类型:** `string[]`
+- **默认值:** Files that were imported during test run
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
+- **命令行终端:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
 
 List of files included in coverage as glob patterns. By default only files covered by tests are included.
 
@@ -49,10 +49,10 @@ See [Including and excluding files from coverage report](/guide/coverage.html#in
 
 ## coverage.exclude
 
-- **Type:** `string[]`
-- **Default:** : `[]`
+- **类型:** `string[]`
+- **默认值:** : `[]`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
+- **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
 List of files excluded from coverage as glob patterns.
 
@@ -60,28 +60,28 @@ See [Including and excluding files from coverage report](/guide/coverage.html#in
 
 ## coverage.clean
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.clean`, `--coverage.clean=false`
+- **命令行终端:** `--coverage.clean`, `--coverage.clean=false`
 
 Clean coverage results before running tests
 
 ## coverage.cleanOnRerun
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
+- **命令行终端:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
 
 Clean coverage report on watch rerun. Set to `false` to preserve coverage results from previous run in watch mode.
 
 ## coverage.reportsDirectory
 
-- **Type:** `string`
-- **Default:** `'./coverage'`
+- **类型:** `string`
+- **默认值:** `'./coverage'`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.reportsDirectory=<path>`
+- **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 ::: warning
 Vitest will delete this directory before running tests if `coverage.clean` is enabled (default value).
@@ -91,10 +91,10 @@ Directory to write coverage report to.
 
 ## coverage.reporter
 
-- **Type:** `string | string[] | [string, {}][]`
-- **Default:** `['text', 'html', 'clover', 'json']`
+- **类型:** `string | string[] | [string, {}][]`
+- **默认值:** `['text', 'html', 'clover', 'json']`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
+- **命令行终端:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
 
 Coverage reporters to use. See [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) for detailed list of all reporters. See [`@types/istanbul-reports`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts) for details about reporter specific options.
 
@@ -135,28 +135,28 @@ You can check your coverage report in Vitest UI: check [Vitest UI Coverage](/gui
 
 ## coverage.reportOnFailure {#coverage-reportonfailure}
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
+- **命令行终端:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
 
 Generate coverage report even when tests fail.
 
 ## coverage.allowExternal
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
+- **命令行终端:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
 Collect coverage of files outside the [project `root`](/config/root).
 
 ## coverage.excludeAfterRemap
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
+- **命令行终端:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
 
 Apply exclusions again after coverage has been remapped to original sources.
 This is useful when your source files are transpiled and may contain source maps of non-source files.
@@ -165,10 +165,10 @@ Use this option when you are seeing files that show up in report even if they ma
 
 ## coverage.skipFull
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.skipFull`, `--coverage.skipFull=false`
+- **命令行终端:** `--coverage.skipFull`, `--coverage.skipFull=false`
 
 Do not show files with 100% statement, branch, and function coverage.
 
@@ -197,51 +197,51 @@ If a threshold is set to a negative number, it will be treated as the maximum nu
 
 ### coverage.thresholds.lines
 
-- **Type:** `number`
+- **类型:** `number`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.lines=<number>`
+- **命令行终端:** `--coverage.thresholds.lines=<number>`
 
 Global threshold for lines.
 
 ### coverage.thresholds.functions
 
-- **Type:** `number`
+- **类型:** `number`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.functions=<number>`
+- **命令行终端:** `--coverage.thresholds.functions=<number>`
 
 Global threshold for functions.
 
 ### coverage.thresholds.branches
 
-- **Type:** `number`
+- **类型:** `number`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.branches=<number>`
+- **命令行终端:** `--coverage.thresholds.branches=<number>`
 
 Global threshold for branches.
 
 ### coverage.thresholds.statements
 
-- **Type:** `number`
+- **类型:** `number`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.statements=<number>`
+- **命令行终端:** `--coverage.thresholds.statements=<number>`
 
 Global threshold for statements.
 
 ### coverage.thresholds.perFile
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
+- **命令行终端:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
 
 Check thresholds per file.
 
 ### coverage.thresholds.autoUpdate
 
-- **Type:** `boolean | function`
-- **Default:** `false`
+- **类型:** `boolean | function`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.autoUpdate=<boolean>`
+- **命令行终端:** `--coverage.thresholds.autoUpdate=<boolean>`
 
 Update all threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is better than the configured thresholds.
 This option helps to maintain thresholds when coverage is improved.
@@ -265,18 +265,18 @@ You can also pass a function for formatting the updated threshold values:
 
 ### coverage.thresholds.100
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.thresholds.100`, `--coverage.thresholds.100=false`
+- **命令行终端:** `--coverage.thresholds.100`, `--coverage.thresholds.100=false`
 
 Sets global thresholds to 100.
 Shortcut for `--coverage.thresholds.lines 100 --coverage.thresholds.functions 100 --coverage.thresholds.branches 100 --coverage.thresholds.statements 100`.
 
 ### coverage.thresholds[glob-pattern]
 
-- **Type:** `{ statements?: number functions?: number branches?: number lines?: number }`
-- **Default:** `undefined`
+- **类型:** `{ statements?: number functions?: number branches?: number lines?: number }`
+- **默认值:** `undefined`
 - **Available for providers:** `'v8' | 'istanbul'`
 
 Sets thresholds for files matching the glob pattern.
@@ -315,8 +315,8 @@ This is different from Jest behavior.
 
 ### coverage.thresholds[glob-pattern].100
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 - **Available for providers:** `'v8' | 'istanbul'`
 
 Sets thresholds to 100 for files matching the glob pattern.
@@ -340,17 +340,17 @@ Sets thresholds to 100 for files matching the glob pattern.
 
 ## coverage.ignoreClassMethods
 
-- **Type:** `string[]`
-- **Default:** `[]`
+- **类型:** `string[]`
+- **默认值:** `[]`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.ignoreClassMethods=<method>`
+- **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
 Set to array of class method names to ignore for coverage.
 See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods) for more information.
 
 ## coverage.watermarks
 
-- **Type:**
+- **类型:**
 <!-- eslint-skip -->
 ```ts
 {
@@ -361,7 +361,7 @@ See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods)
 }
 ```
 
-- **Default:**
+- **默认值:**
 <!-- eslint-skip -->
 ```ts
 {
@@ -373,32 +373,32 @@ See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods)
 ```
 
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.watermarks.statements=50,80`, `--coverage.watermarks.branches=50,80`
+- **命令行终端:** `--coverage.watermarks.statements=50,80`, `--coverage.watermarks.branches=50,80`
 
 Watermarks for statements, lines, branches and functions. See [istanbul documentation](https://github.com/istanbuljs/nyc#high-and-low-watermarks) for more information.
 
 ## coverage.processingConcurrency
 
-- **Type:** `boolean`
-- **Default:** `Math.min(20, os.availableParallelism?.() ?? os.cpus().length)`
+- **类型:** `boolean`
+- **默认值:** `Math.min(20, os.availableParallelism?.() ?? os.cpus().length)`
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.processingConcurrency=<number>`
+- **命令行终端:** `--coverage.processingConcurrency=<number>`
 
 Concurrency limit used when processing the coverage results.
 
 ## coverage.customProviderModule
 
-- **Type:** `string`
+- **类型:** `string`
 - **Available for providers:** `'custom'`
-- **CLI:** `--coverage.customProviderModule=<path or module name>`
+- **命令行终端:** `--coverage.customProviderModule=<path or module name>`
 
 Specifies the module name or path for the custom coverage provider module. See [Guide - Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information.
 
 ## coverage.htmlDir
 
-- **Type:** `string`
-- **Default:** Automatically inferred from `html`, `html-spa`, or `lcov` coverage reporters
-- **CLI:** `--coverage.htmlDir=<path>`
+- **类型:** `string`
+- **默认值:** Automatically inferred from `html`, `html-spa`, or `lcov` coverage reporters
+- **命令行终端:** `--coverage.htmlDir=<path>`
 
 Directory of HTML coverage output to be served in [Vitest UI](/guide/ui) and [HTML reporter](/guide/reporters.html#html-reporter).
 
@@ -408,9 +408,9 @@ Note that setting this option does not change where coverage HTML report is gene
 
 ## coverage.changed
 
-- **Type:** `boolean | string`
-- **Default:** `false` (inherits from `test.changed`)
+- **类型:** `boolean | string`
+- **默认值:** `false` (inherits from `test.changed`)
 - **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.changed`, `--coverage.changed=<commit/branch>`
+- **命令行终端:** `--coverage.changed`, `--coverage.changed=<commit/branch>`
 
 Collect coverage only for files changed since a specified commit or branch. When set to `true`, it uses staged and unstaged changes.

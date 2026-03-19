@@ -5,9 +5,9 @@ outline: deep
 
 # browser.trace
 
-- **Type:** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
-- **CLI:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
-- **Default:** `'off'`
+- **类型:** `'on' | 'off' | 'on-first-retry' | 'on-all-retries' | 'retain-on-failure' | object`
+- **命令行终端:** `--browser.trace=on`, `--browser.trace=retain-on-failure`
+- **默认值:** `'off'`
 
 Capture a trace of your browser test runs. You can preview traces with [Playwright Trace Viewer](https://trace.playwright.dev/).
 

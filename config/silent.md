@@ -5,9 +5,9 @@ outline: deep
 
 # silent <CRoot /> {#silent}
 
-- **Type:** `boolean | 'passed-only'`
-- **Default:** `false`
-- **CLI:** `--silent`, `--silent=false`
+- **类型:** `boolean | 'passed-only'`
+- **默认值:** `false`
+- **命令行终端:** `--silent`, `--silent=false`
 
 Silent console output from tests.
 

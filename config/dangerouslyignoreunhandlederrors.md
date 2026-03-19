@@ -7,7 +7,7 @@ outline: deep
 
 - **Type**: `boolean`
 - **Default**: `false`
-- **CLI:**
+- **命令行终端:**
   - `--dangerouslyIgnoreUnhandledErrors`
   - `--dangerouslyIgnoreUnhandledErrors=false`
 

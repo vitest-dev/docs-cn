@@ -5,7 +5,7 @@ outline: deep
 
 # browser.provider {#browser-provider}
 
-- **Type:** `BrowserProviderOption`
+- **类型:** `BrowserProviderOption`
 
 The return value of the provider factory. You can import the factory from `@vitest/browser-<provider-name>` or make your own provider:
 

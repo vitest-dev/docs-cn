@@ -5,7 +5,7 @@ outline: deep
 
 # globalSetup
 
-- **Type:** `string | string[]`
+- **类型:** `string | string[]`
 
 Path to global setup files relative to project [root](/config/root).
 

@@ -5,13 +5,13 @@ outline: deep
 
 # deps
 
-- **Type:** `{ optimizer?, ... }`
+- **类型:** `{ optimizer?, ... }`
 
 Handling for dependencies resolution.
 
 ## deps.optimizer {#deps-optimizer}
 
-- **Type:** `{ ssr?, client? }`
+- **类型:** `{ ssr?, client? }`
 - **See also:** [Dep Optimization Options](https://vitejs.dev/config/dep-optimization-options.html)
 
 Enable dependency optimization. If you have a lot of tests, this might improve their performance.
@@ -33,14 +33,14 @@ You will not be able to edit your `node_modules` code for debugging, since the c
 
 ### deps.optimizer.{mode}.enabled
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Enable dependency optimization.
 
 ## deps.client  {#deps-client}
 
-- **Type:** `{ transformAssets?, ... }`
+- **类型:** `{ transformAssets?, ... }`
 
 Options that are applied to external files when the environment is set to `client`. By default, `jsdom` and `happy-dom` use `client` environment, while `node` and `edge` environments use `ssr`, so these options will have no affect on files inside those environments.
 
@@ -48,8 +48,8 @@ Usually, files inside `node_modules` are externalized, but these options also af
 
 ### deps.client.transformAssets
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 Should Vitest process assets (.png, .svg, .jpg, etc) files and resolve them like Vite does in the browser.
 
@@ -61,8 +61,8 @@ At the moment, this option only works with [`vmThreads`](/config/pool#vmthreads)
 
 ### deps.client.transformCss
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 Should Vitest process CSS (.css, .scss, .sass, etc) files and resolve them like Vite does in the browser.
 
@@ -74,8 +74,8 @@ At the moment, this option only works with [`vmThreads`](/config/pool#vmthreads)
 
 ### deps.client.transformGlobPattern
 
-- **Type:** `RegExp | RegExp[]`
-- **Default:** `[]`
+- **类型:** `RegExp | RegExp[]`
+- **默认值:** `[]`
 
 Regexp pattern to match external files that should be transformed.
 
@@ -87,8 +87,8 @@ At the moment, this option only works with [`vmThreads`](/config/pool#vmthreads)
 
 ## deps.interopDefault
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
 Interpret CJS module's default as named exports. Some dependencies only bundle CJS modules and don't use named exports that Node.js can statically analyze when a package is imported using `import` syntax instead of `require`. When importing such dependencies in Node environment using named exports, you will see this error:
 
@@ -110,7 +110,7 @@ By default, Vitest assumes you are using a bundler to bypass this and will not f
 
 ## deps.moduleDirectories
 
-- **Type:** `string[]`
+- **类型:** `string[]`
 - **Default**: `['node_modules']`
 
 A list of directories that should be treated as module directories. This config option affects the behavior of [`vi.mock`](/api/vi#vi-mock): when no factory is provided and the path of what you are mocking matches one of the `moduleDirectories` values, Vitest will try to resolve the mock by looking for a `__mocks__` folder in the [root](/config/root) of the project.

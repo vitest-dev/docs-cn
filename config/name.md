@@ -4,7 +4,7 @@ title: name | Config
 
 # name
 
-- **Type:**
+- **类型:**
 
 ```ts
 interface UserConfig {

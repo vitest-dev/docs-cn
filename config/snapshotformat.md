@@ -5,7 +5,7 @@ outline: deep
 
 # snapshotFormat <CRoot />
 
-- **Type:** `PrettyFormatOptions`
+- **类型:** `PrettyFormatOptions`
 
 Format options for snapshot testing. These options are passed down to our fork of [`pretty-format`](https://npmx.dev/package/pretty-format). In addition to the `pretty-format` options we support `printShadowRoot: boolean`.
 
