@@ -12,6 +12,29 @@ outline: [2, 3]
 ::: tip
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
 :::
+<!-- TODO: translation -->
+::: tip Difference from `testing-library`
+Vitest's `page.getBy*` methods return a locator object, not a DOM element. This makes locator queries composable and allows Vitest to retry interactions and assertions when needed.
+
+Compared to testing-library queries:
+
+- Use locator chaining (`.getBy*`, `.filter`, `.nth`) instead of `within(...)`.
+- Keep locators around and interact with them later (`await locator.click()`), instead of resolving elements up front.
+- Single-element escape hatches like `.element()` and `.query()` are strict and throw if multiple elements match.
+
+```ts
+import { expect } from 'vitest'
+import { page } from 'vitest/browser'
+
+const deleteButton = page
+  .getByRole('row')
+  .filter({ hasText: 'Vitest' })
+  .getByRole('button', { name: /delete/i })
+
+await deleteButton.click()
+await expect.element(deleteButton).toBeEnabled()
+```
+:::
 
 ## getByRole
 
