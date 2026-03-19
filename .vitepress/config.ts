@@ -262,11 +262,11 @@ export default ({ mode }: { mode: string }) => {
       sidebar: {
         '/config': [
           {
-            text: 'Config Reference',
+            text: '配置索引',
             collapsed: false,
             items: [
               {
-                text: '配置文件',
+                text: '配置 Vitest',
                 link: '/config/',
               },
               {

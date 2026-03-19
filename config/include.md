@@ -8,15 +8,15 @@ title: include | 配置
 - **默认值:** `['**/*.{test,spec}.?(c|m)[jt]s?(x)']`
 - **命令行终端:** `vitest [...include]`, `vitest **/*.test.js`
 
-A list of [glob patterns](https://superchupu.dev/tinyglobby/comparison) that match your test files. These patterns are resolved relative to the [`root`](/config/root) ([`process.cwd()`](https://nodejs.org/api/process.html#processcwd) by default).
+匹配包含测试文件的 [glob 规则](https://superchupu.dev/tinyglobby/comparison)。该规则相对于 [`root`](/config/root) 进行解析（默认为 [`process.cwd()`](https://nodejs.org/api/process.html#processcwd)）。
 
-Vitest uses the [`tinyglobby`](https://npmx.dev/package/tinyglobby) package to resolve the globs.
+Vitest 使用 [`tinyglobby`](https://npmx.dev/package/tinyglobby) 包来解析 glob。
 
-::: tip NOTE
-When using coverage, Vitest automatically adds test files `include` patterns to coverage's default `exclude` patterns. See [`coverage.exclude`](/config/coverage#exclude).
+::: tip 注意
+运行覆盖率测试时，Vitest 会自动将测试文件的 `include` 模式添加到覆盖率默认的 `exclude` 模式中。请参阅 [`coverage.exclude`](/config/coverage#exclude)。
 :::
 
-## Example
+## 示例 {#example}
 
 ```js
 import { defineConfig } from 'vitest/config'
@@ -31,7 +31,7 @@ export default defineConfig({
 })
 ```
 
-Vitest provides reasonable defaults, so normally you wouldn't override them. A good example of defining `include` is for [test projects](/guide/projects):
+Vitest 默认提供了合理的值，通常情况下无需覆盖。`include` 典型使用场景是定义 [测试项目](/guide/projects)：
 
 ```js{8,12} [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -57,7 +57,7 @@ export default defineConfig({
 ```
 
 ::: warning
-This option will override Vitest defaults. If you just want to extend them, use `configDefaults` from `vitest/config`:
+此选项会覆盖 Vitest 的默认值。如果只想在默认值基础上扩展，请使用 `vitest/config` 中的 `configDefaults`：
 
 ```js{6}
 import { configDefaults, defineConfig } from 'vitest/config'

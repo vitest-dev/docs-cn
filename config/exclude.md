@@ -1,5 +1,5 @@
 ---
-title: exclude | Config
+title: exclude | 配置
 ---
 
 # exclude
@@ -8,17 +8,17 @@ title: exclude | Config
 - **默认值:** `['**/node_modules/**', '**/.git/**']`
 - **命令行终端:** `vitest --exclude "**/excluded-file" --exclude "*/other-files/*.js"`
 
-A list of [glob patterns](https://superchupu.dev/tinyglobby/comparison) that should be excluded from your test files. These patterns are resolved relative to the [`root`](/config/root) ([`process.cwd()`](https://nodejs.org/api/process.html#processcwd) by default).
+匹配排除测试文件的 [glob 规则](https://superchupu.dev/tinyglobby/comparison)。该规则相对于 [`root`](/config/root) 进行解析（默认为 [`process.cwd()`](https://nodejs.org/api/process.html#processcwd)）。
 
-Vitest uses the [`tinyglobby`](https://npmx.dev/package/tinyglobby) package to resolve the globs.
+Vitest 使用 [`tinyglobby`](https://npmx.dev/package/tinyglobby) 包来解析 glob 规则。
 
 ::: warning
-This option does not affect coverage. If you need to remove certain files from the coverage report, use [`coverage.exclude`](/config/coverage#exclude).
+该配置项不影响代码覆盖率。如需从覆盖率报告中排除特定文件，请使用 [`coverage.exclude`](/config/coverage#exclude)。
 
-This is the only option that doesn't override your configuration if you provide it with a CLI flag. All glob patterns added via `--exclude` flag will be added to the config's `exclude`.
+如果使用命令行参数，这是唯一一个不会被覆盖配置项。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
 :::
 
-## Example
+## 示例 {#example}
 
 ```js
 import { defineConfig } from 'vitest/config'
@@ -35,7 +35,7 @@ export default defineConfig({
 ```
 
 ::: tip
-Although the CLI `exclude` option is additive, manually setting `exclude` in your config will replace the default value. To extend the default `exclude` patterns, use `configDefaults` from `vitest/config`:
+虽然使用命令行 `exclude` 配置项是累加的，但在配置中手动设置 `exclude` 会替换默认值。要扩展默认的 `exclude` 配置项，请使用 `vitest/config` 中的 `configDefaults`：
 
 ```js{6}
 import { configDefaults, defineConfig } from 'vitest/config'
