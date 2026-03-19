@@ -15,17 +15,6 @@ export default defineConfig({
   test: {
     projects: [
       {
-<<<<<<< HEAD
-        // 禁用隔离的单元测试
-        name: 'Unit tests',
-        isolate: false,
-        exclude: ['**.integration.test.ts'],
-      },
-      {
-        // 集成隔离的测试
-        name: 'Integration tests',
-        include: ['**.integration.test.ts'],
-=======
         test: {
           // Non-isolated unit tests
           name: 'Unit tests',
@@ -39,7 +28,6 @@ export default defineConfig({
           name: 'Integration tests',
           include: ['**.integration.test.ts'],
         },
->>>>>>> 533b7d49f571f3024e559dee4f55f67d7212a838
       },
     ],
   },

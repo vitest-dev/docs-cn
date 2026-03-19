@@ -12,7 +12,7 @@ outline: [2, 3]
 ::: tip
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
 :::
-
+<!-- TODO: translation -->
 ::: tip Difference from `testing-library`
 Vitest's `page.getBy*` methods return a locator object, not a DOM element. This makes locator queries composable and allows Vitest to retry interactions and assertions when needed.
 
