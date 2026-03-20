@@ -55,7 +55,11 @@ function onInit(vitest: Vitest): Awaitable<void>
 当 [Vitest](/api/advanced/vitest) 初始化或启动时，但在测试被过滤之前，会调用此方法。
 
 ::: info
+<<<<<<< HEAD
 在内部，这个方法在 [`vitest.start`](/api/advanced/vitest#start)、[`vitest.init`](/api/advanced/vitest#init) 或 [`vitest.mergeReports`](/api/advanced/vitest#mergereports) 中调用。例如，如果我们使用 API，请确保根据我们的需要调用其中一个，然后再调用 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。内置的 CLI 将始终按正确的顺序运行方法。
+=======
+Internally this method is called inside [`vitest.start`](/api/advanced/vitest#start), [`vitest.standalone`](/api/advanced/vitest#standalone) or [`vitest.mergeReports`](/api/advanced/vitest#mergereports). If you are using programmatic API, make sure to call either one depending on your needs before calling [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications), for example. Built-in CLI will always run methods in correct order.
+>>>>>>> 90d6b60c689bf907af7554bfb003889abd259210
 :::
 
 请注意，我们还可以通过 [`project`](/api/advanced/test-project) 属性从测试用例、套件和测试模块中访问 `vitest` 实例，但在此方法中存储对 `vitest` 的引用也可能有用。

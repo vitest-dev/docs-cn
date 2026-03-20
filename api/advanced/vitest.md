@@ -233,18 +233,28 @@ function start(filters?: string[]): Promise<TestRunResult>
 初始化报告器、覆盖率提供者并运行测试。此方法接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
 ::: warning
+<<<<<<< HEAD
 如果还调用了 [`vitest.init()`](#init)，则不应调用此方法。如果我们需要在 Vitest 初始化后运行测试，请使用 [`runTestSpecifications`](#runtestspecifications) 或 [`rerunTestSpecifications`](#reruntestspecifications)。
+=======
+This method should not be called if [`vitest.standalone()`](#standalone) is also invoked. Use [`runTestSpecifications`](#runtestspecifications) or [`rerunTestSpecifications`](#reruntestspecifications) instead if you need to run tests after Vitest was initialised.
+>>>>>>> 90d6b60c689bf907af7554bfb003889abd259210
 :::
 
 如果未设置 `config.mergeReports` 和 `config.standalone`，则此方法由 [`startVitest`](/guide/advanced/tests) 自动调用。
 
-## init
+## standalone <Version type="experimental">4.1.1</Version> {#standalone}
 
 ```ts
-function init(): Promise<void>
+function standalone(): Promise<void>
 ```
 
+<<<<<<< HEAD
 初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
+=======
+- **Alias**: `init` <Deprecated />
+
+Initialize reporters and the coverage provider. This method doesn't run any tests. If the `--watch` flag is provided, Vitest will still run changed tests even if this method was not called.
+>>>>>>> 90d6b60c689bf907af7554bfb003889abd259210
 
 在内部，仅当启用了 [`--standalone`](/guide/cli#standalone) 标志时才会调用此方法。
 
@@ -548,7 +558,11 @@ function waitForTestRunEnd(): Promise<void>
 function createCoverageProvider(): Promise<CoverageProvider | null>
 ```
 
+<<<<<<< HEAD
 当配置中启用了 `coverage` 时，创建覆盖率提供器。若使用 [`start`](#start) 或 [`init`](#init) 方法启动测试，这一步会自动完成。
+=======
+Creates a coverage provider if `coverage` is enabled in the config. This is done automatically if you are running tests with [`start`](#start) or [`standalone`](#standalone) methods.
+>>>>>>> 90d6b60c689bf907af7554bfb003889abd259210
 
 ::: warning
 若未将 [`coverage.clean`](/config/coverage#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。

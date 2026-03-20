@@ -853,7 +853,11 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--standalone`
 
+<<<<<<< HEAD
 单独启动 Vitest，且不运行任何测试。仅在文件变更时才运行测试。如果通过命令行参数过滤文件，此选项将被忽略。（默认值：`false`）
+=======
+Start Vitest without running tests. Tests will be running only on change. If browser mode is enabled, the UI will be opened automatically. This option is ignored when CLI file filters are passed. (default: `false`)
+>>>>>>> 90d6b60c689bf907af7554bfb003889abd259210
 
 ### listTags
 
