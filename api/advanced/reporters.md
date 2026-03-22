@@ -6,28 +6,24 @@
 
 Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告器的方法来表示：
 
-- [`onInit`](#oninit)
-- [`onTestRunStart`](#ontestrunstart)
-  - [`onTestModuleQueued`](#ontestmodulequeued)
-  - [`onTestModuleCollected`](#ontestmodulecollected)
-  - [`onTestModuleStart`](#ontestmodulestart)
-    - [`onTestSuiteReady`](#ontestsuiteready)
-      - [`onHookStart(beforeAll)`](#onhookstart)
-      - [`onHookEnd(beforeAll)`](#onhookend)
-        - [`onTestCaseReady`](#ontestcaseready)
-          - [`onTestCaseAnnotate`](#ontestcaseannotate) <Version>3.2.0</Version>
-          - [`onTestCaseArtifactRecord`](#ontestcaseartifactrecord) <Version type="experimental">4.0.11</Version>
-          - [`onHookStart(beforeEach)`](#onhookstart)
-          - [`onHookEnd(beforeEach)`](#onhookend)
-          - [`onHookStart(afterEach)`](#onhookstart)
-          - [`onHookEnd(afterEach)`](#onhookend)
-        - [`onTestCaseResult`](#ontestcaseresult)
-      - [`onHookStart(afterAll)`](#onhookstart)
-      - [`onHookEnd(afterAll)`](#onhookend)
-    - [`onTestSuiteResult`](#ontestsuiteresult)
-  - [`onTestModuleEnd`](#ontestmoduleend)
-  - [`onCoverage`](#oncoverage)
-- [`onTestRunEnd`](#ontestrunend)
+- [报告器 {#reporters}](#报告器-reporters)
+  - [onInit](#oninit)
+  - [onBrowserInit {#onbrowserinit}](#onbrowserinit-onbrowserinit)
+  - [onTestRunStart](#ontestrunstart)
+  - [onTestRunEnd](#ontestrunend)
+  - [onCoverage](#oncoverage)
+  - [onTestModuleQueued](#ontestmodulequeued)
+  - [onTestModuleCollected](#ontestmodulecollected)
+  - [onTestModuleStart](#ontestmodulestart)
+  - [onTestModuleEnd](#ontestmoduleend)
+  - [onHookStart](#onhookstart)
+  - [onHookEnd](#onhookend)
+  - [onTestSuiteReady](#ontestsuiteready)
+  - [onTestSuiteResult](#ontestsuiteresult)
+  - [onTestCaseReady](#ontestcaseready)
+  - [onTestCaseResult](#ontestcaseresult)
+  - [onTestCaseAnnotate 3.2.0 {#ontestcaseannotate}](#ontestcaseannotate-320-ontestcaseannotate)
+  - [onTestCaseArtifactRecord 4.0.11 {#ontestcaseartifactrecord}](#ontestcaseartifactrecord-4011-ontestcaseartifactrecord)
 
 除非被跳过，否则单个模块中的测试和 reporters 将按顺序报告。所有跳过的测试将在 reporters 测试套件或模块的末尾报告。
 
@@ -55,7 +51,7 @@ function onInit(vitest: Vitest): Awaitable<void>
 当 [Vitest](/api/advanced/vitest) 初始化或启动时，但在测试被过滤之前，会调用此方法。
 
 ::: info
-在内部，这个方法在 [`vitest.start`](/api/advanced/vitest#start)、[`vitest.init`](/api/advanced/vitest#init) 或 [`vitest.mergeReports`](/api/advanced/vitest#mergereports) 中调用。例如，如果我们使用 API，请确保根据我们的需要调用其中一个，然后再调用 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。内置的 CLI 将始终按正确的顺序运行方法。
+在内部，这个方法在 [`vitest.start`](/api/advanced/vitest#start)、[`vitest.standalone`](/api/advanced/vitest#standalone) 或 [`vitest.mergeReports`](/api/advanced/vitest#mergereports) 中调用。例如，如果我们使用 API，请确保根据我们的需要调用其中一个，然后再调用 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。内置的 CLI 将始终按正确的顺序运行方法。
 :::
 
 请注意，我们还可以通过 [`project`](/api/advanced/test-project) 属性从测试用例、套件和测试模块中访问 `vitest` 实例，但在此方法中存储对 `vitest` 的引用也可能有用。

@@ -233,16 +233,18 @@ function start(filters?: string[]): Promise<TestRunResult>
 初始化报告器、覆盖率提供者并运行测试。此方法接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
 ::: warning
-如果还调用了 [`vitest.init()`](#init)，则不应调用此方法。如果我们需要在 Vitest 初始化后运行测试，请使用 [`runTestSpecifications`](#runtestspecifications) 或 [`rerunTestSpecifications`](#reruntestspecifications)。
+如果还调用了 [`vitest.standalone()`](#standalone)，则不应调用此方法。如果我们需要在 Vitest 初始化后运行测试，请使用 [`runTestSpecifications`](#runtestspecifications) 或 [`rerunTestSpecifications`](#reruntestspecifications)。
 :::
 
 如果未设置 `config.mergeReports` 和 `config.standalone`，则此方法由 [`startVitest`](/guide/advanced/tests) 自动调用。
 
-## init
+## standalone <Version type="experimental">4.1.1</Version> {#standalone}
 
 ```ts
-function init(): Promise<void>
+function standalone(): Promise<void>
 ```
+
+- **别名:**: `init` <Deprecated />
 
 初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
 
@@ -548,7 +550,7 @@ function waitForTestRunEnd(): Promise<void>
 function createCoverageProvider(): Promise<CoverageProvider | null>
 ```
 
-当配置中启用了 `coverage` 时，创建覆盖率提供器。若使用 [`start`](#start) 或 [`init`](#init) 方法启动测试，这一步会自动完成。
+当配置中启用了 `coverage` 时，创建覆盖率提供器。若使用 [`start`](#start) 或 [`standalone`](#standalone) 方法启动测试，这一步会自动完成。
 
 ::: warning
 若未将 [`coverage.clean`](/config/coverage#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。
