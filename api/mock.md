@@ -481,13 +481,8 @@ fn.mock.calls
 ]
 ```
 
-<<<<<<< HEAD
 :::warning 对象按引用存储。
 请注意，Vitest 在 `mock` 状态的所有属性中始终按引用保存对象。一旦你的代码修改了这些属性，诸如 [`.toHaveBeenCalledWith`](/api/expect#tohavebeencalledwith) 之类的断言便可能无法通过：
-=======
-:::warning Objects are Stored by Reference
-Note that Vitest always stores objects by reference in all properties of the `mock` state. This means that if the properties were changed by your code, then some assertions like [`.toHaveBeenCalledWith`](/api/expect#tohavebeencalledwith) will not pass:
->>>>>>> fca844f9a15346177ea07e12fc0b024691451ce0
 
 ```ts
 const argument = {
