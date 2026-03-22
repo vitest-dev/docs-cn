@@ -285,6 +285,20 @@ Specifies the module name or path for the custom coverage provider module. Visit
 
 Collect coverage only for files changed since a specified commit or branch (e.g., `origin/main` or `HEAD~1`). Inherits value from `--changed` by default.
 
+### coverage.excludeAfterRemap
+
+- **CLI:** `--coverage.excludeAfterRemap`
+- **Config:** [coverage.excludeAfterRemap](/config/coverage#coverage-excludeafterremap)
+
+Apply exclusions again after coverage has been remapped to original sources. (default: false)
+
+### coverage.htmlDir
+
+- **CLI:** `--coverage.htmlDir <path>`
+- **Config:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
+
+Directory of HTML coverage output to be served in UI mode and HTML reporter.
+
 ### mode
 
 - **命令行终端:** `--mode <name>`
