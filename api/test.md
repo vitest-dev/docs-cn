@@ -223,7 +223,11 @@ describe(
 - **默认值:** `true`
 - **别名:** [`test.sequential`](#test-sequential)
 
+<<<<<<< HEAD
 是否按顺序运行测试。如果同时指定了 `concurrent` 和 `sequential`，`concurrent` 优先生效。
+=======
+Whether tests run sequentially. When both `concurrent` and `sequential` are specified, `concurrent` takes precedence.
+>>>>>>> 60164364d6dff131460e90b86368354a500818d7
 
 ### skip
 

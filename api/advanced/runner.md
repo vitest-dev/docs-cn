@@ -201,7 +201,11 @@ interface Suite extends TaskBase {
 }
 ```
 
+<<<<<<< HEAD
 每个任务都有一个引用其所在套件的 `suite` 属性。如果 `test` 或 `describe` 在顶级被初始化，它们将不会有 `suite` 属性（它 **不会** 等于 `file`！）。`File` 也永远不会有一个 `suite` 属性。从下往上遍历任务时，这一属性非常有用。
+=======
+Every task has a `suite` property that references a suite it is located in. If `test` or `describe` are initiated at the top level, they will not have a `suite` property (it will **not** be equal to `file`!). `File` also never has a `suite` property. It is useful to traverse the tasks from the bottom up.
+>>>>>>> 60164364d6dff131460e90b86368354a500818d7
 
 ```ts
 interface Test<ExtraContext = object> extends TaskBase {

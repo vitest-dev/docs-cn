@@ -726,6 +726,7 @@ Vitest supports all common sinon-chai assertions:
 
 | Sinon-Chai | Vitest | 详情 |
 |------------|--------|-------------|
+<<<<<<< HEAD
 | `spy.called` | `called` | Spy 至少被调用过一次 |
 | `spy.calledOnce` | `calledOnce` |  Spy 恰好被调用过一次 |
 | `spy.calledTwice` | `calledTwice` | Spy 恰好被调用过两次 |
@@ -735,6 +736,16 @@ Vitest supports all common sinon-chai assertions:
 | `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy 以特定参数恰好被调用一次 |
 | `spy.returned` | `returned` | Spy 成功返回 |
 | `spy.returnedWith(value)` | `returnedWith(value)` | Spy 返回了特定值 |
+=======
+| `spy.called` | `called` | Spy was called at least once |
+| `spy.calledOnce` | `calledOnce` | Spy was called exactly once |
+| `spy.calledTwice` | `calledTwice` | Spy was called exactly twice |
+| `spy.calledThrice` | `calledThrice` | Spy was called exactly three times |
+| `spy.callCount(n)` | `callCount(n)` | Spy was called n times |
+| `spy.calledWith(...)` | `calledWith(...)` | Spy was called with specific args |
+| `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy was called once with specific args |
+| `spy.returned(value)` | `returned` | Spy returned specific value |
+>>>>>>> 60164364d6dff131460e90b86368354a500818d7
 
 更多内容请参阅 [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions) 文档中的完整列表。
 
