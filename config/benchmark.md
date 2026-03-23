@@ -1,5 +1,5 @@
 ---
-title: benchmark | Config
+title: benchmark | 配置
 outline: deep
 ---
 

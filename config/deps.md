@@ -1,5 +1,5 @@
 ---
-title: deps | Config
+title: deps | 配置
 outline: deep
 ---
 

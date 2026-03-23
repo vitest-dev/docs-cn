@@ -1,5 +1,5 @@
 ---
-title: name | Config
+title: name | 配置
 ---
 
 # name
