@@ -1560,20 +1560,10 @@ test('spy nth called with', () => {
 ```
 
 ## returned <Version>4.1.0</Version> {#returned}
-
-<<<<<<< HEAD
-- **类型:** `Assertion` (property, not a method)
-
-Chai 风格断言，用于检查 spy 函数是否至少成功返回过一次。等价于 `toHaveReturned()`。
-
-::: tip
-这是遵循 sinon-chai 约定的属性断言，使用时无需括号：`expect(spy).to.have.returned`
-:::
-=======
+<!-- TODO: translation -->
 - **Type:** `(value: any) => void`
 
 Chai-style assertion that checks if a spy returned a specific value at least once. This is equivalent to `toHaveReturnedWith(value)`.
->>>>>>> 60164364d6dff131460e90b86368354a500818d7
 
 ```ts
 import { expect, test, vi } from 'vitest'
