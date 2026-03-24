@@ -734,7 +734,6 @@ Vitest supports all common sinon-chai assertions:
 | `spy.calledWith(...)` | `calledWith(...)` | Spy 以特定参数被调用 |
 | `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy 以特定参数恰好被调用一次 |
 | `spy.returned(value)` | `returned` | Spy 返回了特定值 |
-| `spy.returnedWith(value)` | `returnedWith(value)` | Spy 返回了特定值 |
 
 更多内容请参阅 [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions) 文档中的完整列表。
 
