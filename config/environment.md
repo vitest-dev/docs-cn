@@ -8,7 +8,10 @@ title: environment | Config
 - **默认值:** `'node'`
 - **命令行终端:** `--environment=<env>`
 
-测试时将使用的运行环境。Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 Web 端应用，可选用 [`jsdom`](https://github.com/jsdom/jsdom) 或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。如果你正在构建边缘计算函数，可选用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境。
+测试时将使用的运行环境。Vitest 中的默认测试环境是一个 Node.js 环境。
+如果你正在构建 Web 端应用，可选用 [`jsdom`](https://github.com/jsdom/jsdom)
+或 [`happy-dom`](https://github.com/capricorn86/happy-dom) 这种类似浏览器(browser-like)的环境来替代 Node.js。
+如果你正在构建边缘计算函数，可选用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境。
 
 ::: tip
 你还可以使用 [浏览器模式](/guide/browser/) 在浏览器中运行集成或单元测试，而无需模拟环境。

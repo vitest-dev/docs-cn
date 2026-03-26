@@ -26,7 +26,6 @@ outline: deep
 这使得测试运行速度更快，但 VM 模块在运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时不稳定。你的测试可能会 [泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动设置 [`vmMemoryLimit`](/config/vmmemorylimit) 阈值。
 
 ::: warning
-Running code in a sandbox has some advantages (faster tests), but also comes with a number of disadvantages.
 在沙箱中运行代码有一些优势（测试速度更快），但也存在一些劣势。
 
 - 原生模块（如 `fs`、`path` 等）内的全局变量与你的测试环境中存在的全局变量不同。因此，这些原生模块抛出的任何错误都会引用一个与你的代码中使用的 Error 构造函数不同的构造函数：
