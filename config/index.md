@@ -132,7 +132,7 @@ export default defineConfig({
 ::: warning
 该选项不会影响代码覆盖率。如需从覆盖率报告中排除特定文件，请使用 [`coverage.exclude`](#coverage-exclude)。
 
-如果使用命令行参数，这是唯一一个不会被覆盖配置的选项的参数。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
+如果使用命令行参数，这是唯一一个不会被覆盖配置的选项。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
 :::
 
 ### includeSource
@@ -468,7 +468,7 @@ export default defineConfig({
 }
 ```
 
-如果你在 TypeScript 配置中修改了 [`typeRoots`](https://www.typescriptlang.org/tsconfig/#typeRoots) ，以便编译时引入更多类型，那么你需要重新把 `node_modules` 加回到 `typeRoots` 中，这样才能让 `vitest/globals` 被正确识别。
+如果你在 TypeScript 配置中修改了 [`typeRoots`](https://www.typescriptlang.org/tsconfig/#typeRoots)，以便编译时引入更多类型，那么你需要重新把 `node_modules` 加回到 `typeRoots` 中，这样才能让 `vitest/globals` 被正确识别。
 
 ```json [tsconfig.json]
 {
@@ -558,7 +558,7 @@ export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
   setup() {
-    // 自定义设置
+    // 自定义初始化
     return {
       teardown() {
         // 在所有使用此环境的测试运行完毕后调用。
@@ -708,11 +708,11 @@ export default defineConfig({
 
 ### watchTriggerPatterns <Version>3.2.0</Version><NonProjectOption /> {#watchtriggerpatterns}
 
-- **类型：** `WatcherTriggerPattern[]`
+- **类型:** `WatcherTriggerPattern[]`
 
-Vitest 依据静态与动态 `import` 语句生成的模块图来决定重新执行哪些测试。但若测试读取文件系统或向代理拉取数据，这些依赖便无法被自动探测。
+Vitest 基于由静态和动态 `import` 语句填充的模块依赖图来重新运行测试。但是，如果你从文件系统读取或从代理获取，Vitest 无法检测这些依赖关系。
 
-要触发相关测试重新运行，可定义一条正则及一个返回待执行测试文件列表的函数。
+要触发相关测试重新运行，你可以定义一个正则表达式模式和一个返回要运行的测试文件列表的函数。。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -733,7 +733,7 @@ export default defineConfig({
 ```
 
 ::: warning
-返回的文件应该是绝对的或相对于 root 的。 请注意，这是一个全局选项，不能在 [project](/guide/projects) 配置内部使用。
+返回的文件应该是绝对路径或相对于根目录的相对路径。注意这是一个全局选项，不能在 [project](/guide/projects) 配置中使用。
 :::
 
 ### root
