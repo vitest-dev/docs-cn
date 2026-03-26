@@ -1,5 +1,5 @@
 ---
-title: outputFile | Config
+title: outputFile | 配置
 outline: deep
 ---
 
@@ -8,5 +8,4 @@ outline: deep
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
 
-Write test results to a file when the `--reporter=json`, `--reporter=html` or `--reporter=junit` option is also specified.
-By providing an object instead of a string you can define individual outputs when using multiple reporters.
+当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入文件。通过提供对象而非字符串，你可以在使用多个报告器时定义各自的输出配置。
