@@ -1,5 +1,5 @@
 ---
-title: root | Config
+title: root | 配置
 outline: deep
 ---
 
@@ -8,4 +8,4 @@ outline: deep
 - **类型:** `string`
 - **命令行终端:** `-r <path>`, `--root=<path>`
 
-Project root
+项目的根目录
