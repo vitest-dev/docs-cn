@@ -67,6 +67,31 @@ Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](
 请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试标志推送到 `launch.args`。
 :::
 
+::: tip Enabling new Chromium headless mode
+Playwright supports a [new headless mode](https://playwright.dev/docs/browsers#chromium-new-headless-mode) for Chromium that uses the real Chrome browser instead of the dedicated headless shell. This provides more authentic, reliable test execution and removes the need to install a separate headless Chromium build.
+
+To opt in, set `channel` to `'chromium'` in `launchOptions`:
+
+```ts [vitest.config.ts]
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    browser: {
+      headless: true,
+      provider: playwright({
+        launchOptions: {
+          channel: 'chromium',
+        },
+      }),
+      instances: [{ browser: 'chromium' }],
+    },
+  },
+})
+```
+:::
+
 ## connectOptions
 
 这些选项直接传递给 `playwright[browser].connect` 命令。你可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-connect) 中了解更多关于该命令和可用参数的信息。
