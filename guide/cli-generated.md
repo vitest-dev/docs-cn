@@ -285,6 +285,20 @@ Specifies the module name or path for the custom coverage provider module. Visit
 
 Collect coverage only for files changed since a specified commit or branch (e.g., `origin/main` or `HEAD~1`). Inherits value from `--changed` by default.
 
+### coverage.excludeAfterRemap
+
+- **CLI:** `--coverage.excludeAfterRemap`
+- **Config:** [coverage.excludeAfterRemap](/config/coverage#coverage-excludeafterremap)
+
+Apply exclusions again after coverage has been remapped to original sources. (default: false)
+
+### coverage.htmlDir
+
+- **CLI:** `--coverage.htmlDir <path>`
+- **Config:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
+
+Directory of HTML coverage output to be served in UI mode and HTML reporter.
+
 ### mode
 
 - **命令行终端:** `--mode <name>`
@@ -853,7 +867,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--standalone`
 
-单独启动 Vitest，且不运行任何测试。仅在文件变更时才运行测试。如果通过命令行参数过滤文件，此选项将被忽略。（默认值：`false`）
+单独启动 Vitest，且不运行任何测试。仅在文件变更时才运行测试。若启用浏览器模式，UI 界面将自动打开。如果通过命令行参数过滤文件，此选项将被忽略。（默认值：`false`）
 
 ### listTags
 
@@ -935,3 +949,10 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [experimental.nodeLoader](/config/experimental#experimental-nodeloader)
 
 控制 Vitest 是否使用 Node.js Loader API 处理内联代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
+<!-- TODO: translation -->
+### experimental.vcsProvider
+
+- **CLI:** `--experimental.vcsProvider <path>`
+- **Config:** [experimental.vcsProvider](/config/experimental#experimental-vcsprovider)
+
+Custom provider for detecting changed files. (default: `git`)

@@ -32,7 +32,7 @@ outline: deep
 
 ```ts
 try {
-  fs.writeFileSync('/doesnt exist')
+  fs.writeFileSync('/does-not-exist')
 }
 catch (err) {
   console.log(err instanceof Error) // false
