@@ -1,5 +1,5 @@
 ---
-title: hookTimeout | Config
+title: hookTimeout | 配置
 outline: deep
 ---
 
