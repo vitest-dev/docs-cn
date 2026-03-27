@@ -1,5 +1,5 @@
 ---
-title: globalSetup | Config
+title: globalSetup | 配置
 outline: deep
 ---
 
@@ -7,9 +7,9 @@ outline: deep
 
 - **类型:** `string | string[]`
 
-Path to global setup files relative to project [root](/config/root).
+相对于 [项目根目录](/config/root) 的全局初始化文件路径。
 
-A global setup file can either export named functions `setup` and `teardown` or a `default` function that returns a teardown function:
+全局初始化文件可以导出命名的 `setup` 和 `teardown` 函数，或者导出一个返回 `teardown` 函数的 `default` 函数：
 
 ::: code-group
 ```js [exports]
@@ -32,12 +32,12 @@ export default function setup(project) {
 ```
 :::
 
-Note that the `setup` method and a `default` function receive a [test project](/api/advanced/test-project) as the first argument. The global setup is called before the test workers are created and only if there is at least one test queued, and teardown is called after all test files have finished running. In [watch mode](/config/watch), the teardown is called before the process is exited instead. If you need to reconfigure your setup before the test rerun, you can use [`onTestsRerun`](#handling-test-reruns) hook instead.
+注意，`setup` 方法和 `default` 函数接收一个 [测试项目](/api/advanced/test-project) 作为第一个参数。全局初始化在创建测试工作线程之前调用，且仅当至少有一个测试排队时才会调用；清理在所有测试文件运行完成后调用。在 [watch 模式](/config/watch) 中，清理会在进程退出之前调用。如果你需要在测试重新运行前重新配置初始化，可以使用 [`onTestsRerun`](#handling-test-reruns) 钩子。
 
-Multiple global setup files are possible. `setup` and `teardown` are executed sequentially with teardown in reverse order.
+可以存在多个全局初始化文件。`setup` 和 `teardown` 会按顺序执行，清理则以相反顺序执行。
 
 ::: danger
-Beware that the global setup is running in a different global scope before test workers are even created, so your tests don't have access to global variables defined here. However, you can pass down serializable data to tests via [`provide`](/config/provide) method and read them in your tests via `inject` imported from `vitest`:
+注意，全局初始化在测试工作线程创建之前运行于不同的全局作用域，因此你的测试无法访问在此处定义的全局变量。但你可以通过 [`provide`](/config/provide) 方法将可序列化的数据传递给测试，并在测试中通过从 `vitest` 导入的 `inject` 读取：
 
 :::code-group
 ```ts [example.test.ts]
@@ -59,12 +59,12 @@ declare module 'vitest' {
 }
 ```
 
-If you need to execute code in the same process as tests, use [`setupFiles`](/config/setupfiles) instead, but note that it runs before every test file.
+如果你需要在与测试相同的线程中执行代码，请使用 [`setupFiles`](/config/setupfiles)，但请注意它会在每个测试文件之前运行。
 :::
 
-## Handling Test Reruns
+## 处理测试重新运行 {#handling-test-reruns}
 
-You can define a custom callback function to be called when Vitest reruns tests. The test runner will wait for it to complete before executing tests. Note that you cannot destruct the `project` like `{ onTestsRerun }` because it relies on the context.
+你可以定义一个自定义回调函数，在 `Vitest` 重新运行测试时调用。测试运行器会等待它完成后再执行测试。注意，你不能解构 `project`，例如 `{ onTestsRerun }`，因为它依赖于上下文。
 
 ```ts [globalSetup.ts]
 import type { TestProject } from 'vitest/node'
