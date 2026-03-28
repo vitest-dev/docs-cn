@@ -9,6 +9,7 @@ import ListItem from './ListItem.vue'
       <a target="_blank" href="https://vitejs.dev" rel="noopener noreferrer">Vite</a>
       通用的配置、转换器、解析器和插件。
     </ListItem>
+<<<<<<< HEAD
     <ListItem>使用与你的应用相同的设置来运行测试！</ListItem>
     <ListItem>智能文件监听模式，就像是测试的 HMR！</ListItem>
     <ListItem>支持对 Vue、React、Svelte、Lit 等框架进行组件测试。</ListItem>
@@ -64,6 +65,17 @@ import ListItem from './ListItem.vue'
     </ListItem>
     <ListItem>支持分片执行</ListItem>
     <ListItem>报告未捕获的错误</ListItem>
+=======
+    <ListItem><a target="_blank" href="https://www.chaijs.com/" rel="noopener noreferrer">Chai</a> built-in for assertions + <a target="_blank" href="https://jestjs.io/docs/expect" rel="noopener noreferrer">Jest expect</a> compatible APIs</ListItem>
+    <ListItem>Jest-compatible mocking</ListItem>
+    <ListItem><a target="_blank" href="https://github.com/capricorn86/happy-dom" rel="noopener noreferrer">happy-dom</a> or <a target="_blank" href="https://github.com/jsdom/jsdom" rel="noopener noreferrer">jsdom</a> for DOM mocking</ListItem>
+    <ListItem><a href="https://vitest.dev/guide/browser/" rel="noopener noreferrer">Browser Mode</a> for running component tests in the browser</ListItem>
+    <ListItem>Code coverage via <a target="_blank" href="https://v8.dev/blog/javascript-code-coverage" rel="noopener noreferrer">v8</a> or <a target="_blank" href="https://istanbul.js.org/" rel="noopener noreferrer">istanbul</a></ListItem>
+    <ListItem>Rust-like <a href="/guide/in-source">in-source testing</a></ListItem>
+    <ListItem>Type Testing via <a target="_blank" href="https://github.com/mmkal/expect-type" rel="noopener noreferrer">expect-type</a></ListItem>
+    <ListItem>Sharding Support</ListItem>
+    <ListItem>Reporting Uncaught Errors</ListItem>
+>>>>>>> 75b8e759c1128a8da6df977d50acf33d2c46d033
   </ul>
 </template>
 
