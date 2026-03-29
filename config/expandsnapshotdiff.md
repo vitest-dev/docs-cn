@@ -1,5 +1,5 @@
 ---
-title: expandSnapshotDiff | Config
+title: expandSnapshotDiff | 配置
 outline: deep
 ---
 

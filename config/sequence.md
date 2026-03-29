@@ -1,5 +1,5 @@
 ---
-title: sequence | Config
+title: sequence | 配置
 outline: deep
 ---
 

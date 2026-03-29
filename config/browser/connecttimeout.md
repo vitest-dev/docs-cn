@@ -1,5 +1,5 @@
 ---
-title: browser.connectTimeout | Config
+title: browser.connectTimeout | 配置
 outline: deep
 ---
 

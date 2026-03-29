@@ -1,5 +1,5 @@
 ---
-title: tags | Config
+title: tags | 配置
 outline: deep
 ---
 

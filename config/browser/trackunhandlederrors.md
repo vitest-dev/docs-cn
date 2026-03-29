@@ -1,5 +1,5 @@
 ---
-title: browser.trackUnhandledErrors | Config
+title: browser.trackUnhandledErrors | 配置
 outline: deep
 ---
 

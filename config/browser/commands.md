@@ -1,5 +1,5 @@
 ---
-title: browser.commands | Config
+title: browser.commands | 配置
 outline: deep
 ---
 

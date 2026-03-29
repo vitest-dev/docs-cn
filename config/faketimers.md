@@ -1,5 +1,5 @@
 ---
-title: fakeTimers | Config
+title: fakeTimers | 配置
 outline: deep
 ---
 

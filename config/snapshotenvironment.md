@@ -1,5 +1,5 @@
 ---
-title: snapshotEnvironment | Config
+title: snapshotEnvironment | 配置
 outline: deep
 ---
 

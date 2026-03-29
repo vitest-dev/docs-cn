@@ -1,5 +1,5 @@
 ---
-title: browser.ui | Config
+title: browser.ui | 配置
 outline: deep
 ---
 

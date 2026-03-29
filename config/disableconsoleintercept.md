@@ -1,5 +1,5 @@
 ---
-title: disableConsoleIntercept | Config
+title: disableConsoleIntercept | 配置
 outline: deep
 ---
 

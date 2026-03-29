@@ -1,5 +1,5 @@
 ---
-title: printConsoleTrace | Config
+title: printConsoleTrace | 配置
 outline: deep
 ---
 

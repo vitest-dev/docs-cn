@@ -1,5 +1,5 @@
 ---
-title: browser.screenshotFailures | Config
+title: browser.screenshotFailures | 配置
 outline: deep
 ---
 

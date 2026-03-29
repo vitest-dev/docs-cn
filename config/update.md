@@ -1,5 +1,5 @@
 ---
-title: update | Config
+title: update | 配置
 outline: deep
 ---
 

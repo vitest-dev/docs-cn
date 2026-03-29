@@ -1,5 +1,5 @@
 ---
-title: cache | Config
+title: cache | 配置
 outline: deep
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: includeTaskLocation | Config
+title: includeTaskLocation | 配置
 outline: deep
 ---
 

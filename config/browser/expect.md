@@ -1,5 +1,5 @@
 ---
-title: browser.expect | Config
+title: browser.expect | 配置
 outline: deep
 ---
 

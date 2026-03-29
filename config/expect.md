@@ -1,5 +1,5 @@
 ---
-title: expect | Config
+title: expect | 配置
 outline: deep
 ---
 

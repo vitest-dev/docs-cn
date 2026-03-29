@@ -1,5 +1,5 @@
 ---
-title: browser.isolate | Config
+title: browser.isolate | 配置
 outline: deep
 ---
 

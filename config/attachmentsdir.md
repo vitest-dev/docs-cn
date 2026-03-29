@@ -1,5 +1,5 @@
 ---
-title: attachmentsDir | Config
+title: attachmentsDir | 配置
 outline: deep
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: browser.enabled | Config
+title: browser.enabled | 配置
 ---
 
 # browser.enabled

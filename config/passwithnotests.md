@@ -1,5 +1,5 @@
 ---
-title: passWithNoTests | Config
+title: passWithNoTests | 配置
 outline: deep
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: env | Config
+title: env | 配置
 outline: deep
 ---
 

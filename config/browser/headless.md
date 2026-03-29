@@ -1,5 +1,5 @@
 ---
-title: browser.headless | Config
+title: browser.headless | 配置
 outline: deep
 ---
 

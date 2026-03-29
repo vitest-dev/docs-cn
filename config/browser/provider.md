@@ -1,5 +1,5 @@
 ---
-title: browser.provider | Config
+title: browser.provider | 配置
 outline: deep
 ---
 

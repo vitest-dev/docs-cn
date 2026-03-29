@@ -1,5 +1,5 @@
 ---
-title: strictTags | Config
+title: strictTags | 配置
 outline: deep
 ---
 

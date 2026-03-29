@@ -1,5 +1,5 @@
 ---
-title: slowTestThreshold | Config
+title: slowTestThreshold | 配置
 outline: deep
 ---
 

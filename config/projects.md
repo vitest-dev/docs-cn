@@ -1,5 +1,5 @@
 ---
-title: projects | Config
+title: projects | 配置
 outline: deep
 ---
 

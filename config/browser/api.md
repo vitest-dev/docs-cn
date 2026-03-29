@@ -1,5 +1,5 @@
 ---
-title: browser.api | Config
+title: browser.api | 配置
 outline: deep
 ---
 

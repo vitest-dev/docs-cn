@@ -1,5 +1,5 @@
 ---
-title: watchTriggerPatterns | Config
+title: watchTriggerPatterns | 配置
 outline: deep
 ---
 

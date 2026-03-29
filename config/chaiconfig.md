@@ -1,5 +1,5 @@
 ---
-title: chaiConfig | Config
+title: chaiConfig | 配置
 outline: deep
 ---
 

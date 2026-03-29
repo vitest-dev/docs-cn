@@ -1,5 +1,5 @@
 ---
-title: mode | Config
+title: mode | 配置
 outline: deep
 ---
 

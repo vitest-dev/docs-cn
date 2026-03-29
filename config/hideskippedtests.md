@@ -1,5 +1,5 @@
 ---
-title: hideSkippedTests | Config
+title: hideSkippedTests | 配置
 outline: deep
 ---
 

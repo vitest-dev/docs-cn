@@ -1,5 +1,5 @@
 ---
-title: browser.orchestratorScripts | Config
+title: browser.orchestratorScripts | 配置
 outline: deep
 ---
 

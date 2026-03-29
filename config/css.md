@@ -1,5 +1,5 @@
 ---
-title: css | Config
+title: css | 配置
 outline: deep
 ---
 

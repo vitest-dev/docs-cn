@@ -1,5 +1,5 @@
 ---
-title: onConsoleLog | Config
+title: onConsoleLog | 配置
 outline: deep
 ---
 

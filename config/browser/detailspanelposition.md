@@ -1,5 +1,5 @@
 ---
-title: browser.detailsPanelPosition | Config
+title: browser.detailsPanelPosition | 配置
 outline: deep
 ---
 

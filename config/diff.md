@@ -1,5 +1,5 @@
 ---
-title: diff | Config
+title: diff | 配置
 outline: deep
 ---
 

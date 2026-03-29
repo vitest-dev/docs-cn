@@ -1,5 +1,5 @@
 ---
-title: bail | Config
+title: bail | 配置
 outline: deep
 ---
 

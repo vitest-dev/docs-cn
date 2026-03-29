@@ -1,5 +1,5 @@
 ---
-title: environment | Config
+title: environment | 配置
 ---
 
 # environment

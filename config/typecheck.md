@@ -1,5 +1,5 @@
 ---
-title: typecheck | Config
+title: typecheck | 配置
 outline: deep
 ---
 

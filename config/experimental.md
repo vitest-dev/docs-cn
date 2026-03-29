@@ -1,5 +1,5 @@
 ---
-title: 实验性 | Config
+title: 实验性 | 配置
 outline: deep
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: isolate | Config
+title: isolate | 配置
 outline: deep
 ---
 

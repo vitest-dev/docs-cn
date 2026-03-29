@@ -1,5 +1,5 @@
 ---
-title: browser.instances | Config
+title: browser.instances | 配置
 outline: deep
 ---
 

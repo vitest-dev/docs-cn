@@ -1,5 +1,5 @@
 ---
-title: browser.locators | Config
+title: browser.locators | 配置
 outline: deep
 ---
 

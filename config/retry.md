@@ -1,5 +1,5 @@
 ---
-title: retry | Config
+title: retry | 配置
 outline: deep
 ---
 

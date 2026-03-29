@@ -1,5 +1,5 @@
 ---
-title: detectAsyncLeaks | Config
+title: detectAsyncLeaks | 配置
 outline: deep
 ---
 <!-- TODO: translation -->

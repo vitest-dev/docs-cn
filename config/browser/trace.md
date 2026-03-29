@@ -1,5 +1,5 @@
 ---
-title: browser.trace | Config
+title: browser.trace | 配置
 outline: deep
 ---
 

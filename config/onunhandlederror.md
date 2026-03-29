@@ -1,5 +1,5 @@
 ---
-title: onUnhandledError | Config
+title: onUnhandledError | 配置
 outline: deep
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: browser.testerHtmlPath | Config
+title: browser.testerHtmlPath | 配置
 outline: deep
 ---
 

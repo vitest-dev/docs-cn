@@ -1,5 +1,5 @@
 ---
-title: dangerouslyIgnoreUnhandledErrors | Config
+title: dangerouslyIgnoreUnhandledErrors | 配置
 outline: deep
 ---
 
