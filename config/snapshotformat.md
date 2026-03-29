@@ -1,5 +1,5 @@
 ---
-title: snapshotFormat | Config
+title: snapshotFormat | 配置
 outline: deep
 ---
 
