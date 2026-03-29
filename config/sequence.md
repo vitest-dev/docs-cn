@@ -5,7 +5,7 @@ outline: deep
 
 # sequence
 
-- **Type**: `{ sequencer?, shuffle?, seed?, hooks?, setupFiles?, groupOrder }`
+- **类型:** `{ sequencer?, shuffle?, seed?, hooks?, setupFiles?, groupOrder }`
 
 Options for how tests should be sorted.
 
@@ -17,8 +17,8 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 ## sequence.sequencer <CRoot />
 
-- **Type**: `TestSequencerConstructor`
-- **Default**: `BaseSequencer`
+- **类型:** `TestSequencerConstructor`
+- **默认值:** `BaseSequencer`
 
 A custom class that defines methods for sharding and sorting. You can extend `BaseSequencer` from `vitest/node`, if you only need to redefine one of the `sort` and `shard` methods, but both should exist.
 
@@ -91,9 +91,9 @@ Tests in these projects will run in this order:
 
 ## sequence.shuffle
 
-- **Type**: `boolean | { files?, tests? }`
-- **Default**: `false`
-- **CLI**: `--sequence.shuffle`, `--sequence.shuffle=false`
+- **类型:** `boolean | { files?, tests? }`
+- **默认值:** `false`
+- **命令行终端:** `--sequence.shuffle`, `--sequence.shuffle=false`
 
 If you want files and tests to run randomly, you can enable it with this option, or CLI argument [`--sequence.shuffle`](/guide/cli).
 
@@ -101,25 +101,25 @@ Vitest usually uses cache to sort tests, so long-running tests start earlier, wh
 
 ### sequence.shuffle.files {#sequence-shuffle-files}
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
 
 Whether to randomize files, be aware that long running tests will not start earlier if you enable this option.
 
 ### sequence.shuffle.tests {#sequence-shuffle-tests}
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
 
 Whether to randomize tests.
 
 ## sequence.concurrent {#sequence-concurrent}
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI**: `--sequence.concurrent`, `--sequence.concurrent=false`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--sequence.concurrent`, `--sequence.concurrent=false`
 
 If you want tests to run in parallel, you can enable it with this option, or CLI argument [`--sequence.concurrent`](/guide/cli).
 
@@ -129,17 +129,17 @@ When you run tests with `sequence.concurrent` and `expect.requireAssertions` set
 
 ## sequence.seed <CRoot />
 
-- **Type**: `number`
-- **Default**: `Date.now()`
-- **CLI**: `--sequence.seed=1000`
+- **类型:** `number`
+- **默认值:** `Date.now()`
+- **命令行终端:** `--sequence.seed=1000`
 
 Sets the randomization seed, if tests are running in random order.
 
 ## sequence.hooks
 
-- **Type**: `'stack' | 'list' | 'parallel'`
-- **Default**: `'stack'`
-- **CLI**: `--sequence.hooks=<value>`
+- **类型:** `'stack' | 'list' | 'parallel'`
+- **默认值:** `'stack'`
+- **命令行终端:** `--sequence.hooks=<value>`
 
 Changes the order in which hooks are executed.
 
@@ -153,9 +153,9 @@ This option doesn't affect [`onTestFinished`](/api/hooks#ontestfinished). It is 
 
 ## sequence.setupFiles {#sequence-setupfiles}
 
-- **Type**: `'list' | 'parallel'`
-- **Default**: `'parallel'`
-- **CLI**: `--sequence.setupFiles=<value>`
+- **类型:** `'list' | 'parallel'`
+- **默认值:** `'parallel'`
+- **命令行终端:** `--sequence.setupFiles=<value>`
 
 Changes the order in which setup files are executed.
 

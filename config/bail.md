@@ -7,7 +7,7 @@ outline: deep
 
 - **类型:** `number`
 - **默认值:** `0`
-- **CLI**: `--bail=<value>`
+- **命令行终端:** `--bail=<value>`
 
 Stop test execution when given number of tests have failed.
 
