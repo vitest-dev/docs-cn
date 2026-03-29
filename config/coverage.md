@@ -1,20 +1,20 @@
 ---
-title: coverage | Config
+title: coverage | 配置
 outline: deep
 ---
-<!-- TODO: translation -->
+
 # coverage <CRoot /> {#coverage}
 
-You can use [`v8`](/guide/coverage.html#v8-provider), [`istanbul`](/guide/coverage.html#istanbul-provider) or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
+你可以选择 [`v8`](/guide/coverage.html#v8-provider)、[`istanbul`](/guide/coverage.html#istanbul-provider) 或 [自定义代码覆盖率工具](/guide/coverage#custom-coverage-provider) 来进行代码覆盖率统计。
 
-You can provide coverage options to CLI with dot notation:
+你可以通过点符号向 CLI 提供覆盖率选项：
 
 ```sh
 npx vitest --coverage.enabled --coverage.provider=istanbul
 ```
 
 ::: warning
-If you are using coverage options with dot notation, don't forget to specify `--coverage.enabled`. Do not provide a single `--coverage` option in that case.
+如果你使用点符号配置覆盖率选项，别忘了指定 `--coverage.enabled`。在这种情况下，不要只提供单个 `--coverage` 选项。
 :::
 
 ## coverage.provider
@@ -23,86 +23,86 @@ If you are using coverage options with dot notation, don't forget to specify `--
 - **默认值:** `'v8'`
 - **命令行终端:** `--coverage.provider=<provider>`
 
-Use `provider` to select the tool for coverage collection.
+使用 `provider` 选择收集测试覆盖率的工具。
 
 ## coverage.enabled
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.enabled`, `--coverage.enabled=false`
 
-Enables coverage collection. Can be overridden using `--coverage` CLI option.
+是否启用收集测试覆盖率。可以使用 `--coverage` 覆盖 CLI 选项。
 
 ## coverage.include
 
 - **类型:** `string[]`
-- **默认值:** Files that were imported during test run
-- **Available for providers:** `'v8' | 'istanbul'`
+- **默认值:** 在执行测试过程中所引入的文件
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
 
-List of files included in coverage as glob patterns. By default only files covered by tests are included.
+以 glob 模式指定需要统计覆盖率的文件列表。默认情况下，仅包含被测试覆盖的文件。
 
-It is recommended to pass file extensions in the pattern.
+建议在匹配规则中传递文件扩展名。
 
-See [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples.
+更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
 
 ## coverage.exclude
 
 - **类型:** `string[]`
 - **默认值:** : `[]`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
-List of files excluded from coverage as glob patterns.
+以 glob 模式指定从代码覆盖率中排除的文件列表。
 
-See [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples.
+更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
 
 ## coverage.clean
 
 - **类型:** `boolean`
 - **默认值:** `true`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.clean`, `--coverage.clean=false`
 
-Clean coverage results before running tests
+运行测试前清除代码覆盖率结果。
 
 ## coverage.cleanOnRerun
 
 - **类型:** `boolean`
 - **默认值:** `true`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.cleanOnRerun`, `--coverage.cleanOnRerun=false`
 
-Clean coverage report on watch rerun. Set to `false` to preserve coverage results from previous run in watch mode.
+在 watch 模式重新运行时清除代码覆盖率报告。设为 `false` 可在 watch 模式下保留上一次运行的代码覆盖率结果。
 
 ## coverage.reportsDirectory
 
 - **类型:** `string`
 - **默认值:** `'./coverage'`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 ::: warning
-Vitest will delete this directory before running tests if `coverage.clean` is enabled (default value).
+如果启用了（默认值） `coverage.clean`，Vitest 会在运行测试前删除此目录。
 :::
 
-Directory to write coverage report to.
+用于写入代码覆盖率报告的目录。
 
 ## coverage.reporter
 
 - **类型:** `string | string[] | [string, {}][]`
 - **默认值:** `['text', 'html', 'clover', 'json']`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
 
-Coverage reporters to use. See [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) for detailed list of all reporters. See [`@types/istanbul-reports`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts) for details about reporter specific options.
+要使用的代码覆盖率报告器。所有报告器的详细列表请参阅 [istanbul 文档](https://istanbul.js.org/docs/advanced/alternative-reporters/)。关于报告器特定选项的详细信息请参阅 [`@types/istanbul-reports`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts)。
 
-The reporter has three different types:
+报告器有三种不同的类型：
 
-- A single reporter: `{ reporter: 'html' }`
-- Multiple reporters without options: `{ reporter: ['html', 'json'] }`
-- A single or multiple reporters with reporter options:
+- 单个报告器：`{ reporter: 'html' }`
+- 不带选项的多个报告器：`{ reporter: ['html', 'json'] }`
+- 带有报告器选项的单个或多个报告器：
   <!-- eslint-skip -->
   ```ts
   {
@@ -114,81 +114,81 @@ The reporter has three different types:
   }
   ```
 
-You can also pass custom coverage reporters. See [Guide - Custom Coverage Reporter](/guide/coverage#custom-coverage-reporter) for more information.
+你也可以传递自定义代码覆盖率报告器。更多信息请参阅 [指南 | 自定义代码覆盖率报告器](/guide/coverage#custom-coverage-reporter)。
 
 <!-- eslint-skip -->
 ```ts
   {
     reporter: [
-      // Specify reporter using name of the NPM package
+       // 使用 NPM 包名指定报告器
       '@vitest/custom-coverage-reporter',
       ['@vitest/custom-coverage-reporter', { someOption: true }],
 
-      // Specify reporter using local path
+      // 使用本地路径指定报告器
       '/absolute/path/to/custom-reporter.cjs',
       ['/absolute/path/to/custom-reporter.cjs', { someOption: true }],
     ]
   }
 ```
 
-You can check your coverage report in Vitest UI: check [Vitest UI Coverage](/guide/coverage#vitest-ui) for more details.
+你可以在 Vitest UI 模式中查看代码覆盖率报告。更多详情请参阅 [Vitest UI Coverage](/guide/coverage#vitest-ui)。
 
 ## coverage.reportOnFailure {#coverage-reportonfailure}
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reportOnFailure`, `--coverage.reportOnFailure=false`
 
-Generate coverage report even when tests fail.
+即使测试失败也生成代码覆盖率报告。
 
 ## coverage.allowExternal
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.allowExternal`, `--coverage.allowExternal=false`
 
-Collect coverage of files outside the [project `root`](/config/root).
+收集 [项目根路径](/config/root) 以外文件的代码覆盖率。
 
 ## coverage.excludeAfterRemap
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.excludeAfterRemap`, `--coverage.excludeAfterRemap=false`
 
-Apply exclusions again after coverage has been remapped to original sources.
-This is useful when your source files are transpiled and may contain source maps of non-source files.
+在覆盖率数据已重新映射回原始源代码后，再次应用排除规则。
+适用于源文件经过转译且可能包含非源文件的 source map 的情况。
 
-Use this option when you are seeing files that show up in report even if they match your `coverage.exclude` patterns.
+当发现某些文件即使匹配了 `coverage.exclude` 模式仍出现在报告中时，请使用此选项。
 
 ## coverage.skipFull
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.skipFull`, `--coverage.skipFull=false`
 
-Do not show files with 100% statement, branch, and function coverage.
+是否显示语句、分支和函数覆盖率达到 100% 的文件。
 
 ## coverage.thresholds
 
-Options for coverage thresholds.
+覆盖率阈值选项。
 
-If a threshold is set to a positive number, it will be interpreted as the minimum percentage of coverage required. For example, setting the lines threshold to `90` means that 90% of lines must be covered.
+如果阈值设置为正数，将被解释为要求的最低代码覆盖率百分比。例如，将行阈值设置为 `90` 意味着必须覆盖 90% 的行。
 
-If a threshold is set to a negative number, it will be treated as the maximum number of uncovered items allowed. For example, setting the lines threshold to `-10` means that no more than 10 lines may be uncovered.
+如果阈值设置为负数，将被视为允许的最大未覆盖项目数。例如，将行阈值设置为 `-10` 意味着未覆盖的行数不得超过 10 行。
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // Requires 90% function coverage
+      // 要求函数覆盖率达到 90%
       functions: 90,
 
-      // Require that no more than 10 lines are uncovered
+      // 要求未覆盖代码行数不超过 10 行
       lines: -10,
     }
   }
@@ -198,62 +198,62 @@ If a threshold is set to a negative number, it will be treated as the maximum nu
 ### coverage.thresholds.lines
 
 - **类型:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.lines=<number>`
 
-Global threshold for lines.
+行数（lines）全局阈值。
 
 ### coverage.thresholds.functions
 
 - **类型:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.functions=<number>`
 
-Global threshold for functions.
+函数（functions）全局阈值。
 
 ### coverage.thresholds.branches
 
 - **类型:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.branches=<number>`
 
-Global threshold for branches.
+分支（branches）全局阈值。
 
 ### coverage.thresholds.statements
 
 - **类型:** `number`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.statements=<number>`
 
-Global threshold for statements.
+语句（statements）全局阈值。
 
 ### coverage.thresholds.perFile
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
 
-Check thresholds per file.
+按文件检查覆盖率阈值。
 
 ### coverage.thresholds.autoUpdate
 
 - **类型:** `boolean | function`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.autoUpdate=<boolean>`
 
-Update all threshold values `lines`, `functions`, `branches` and `statements` to configuration file when current coverage is better than the configured thresholds.
-This option helps to maintain thresholds when coverage is improved.
+当实际覆盖率超过配置阈值时，自动将 `lines`、`functions`、`branches` 和 `statements` 的阈值更新到配置文件中。
+此选项适用于覆盖率提高时保持阈值不变。
 
-You can also pass a function for formatting the updated threshold values:
+你也可以通过传入函数自定义阈值更新值的格式：
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // Update thresholds without decimals
+      // 更新阈值为整数
       autoUpdate: (newThreshold) => Math.floor(newThreshold),
 
       // 95.85 -> 95
@@ -267,23 +267,23 @@ You can also pass a function for formatting the updated threshold values:
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.100`, `--coverage.thresholds.100=false`
 
-Sets global thresholds to 100.
-Shortcut for `--coverage.thresholds.lines 100 --coverage.thresholds.functions 100 --coverage.thresholds.branches 100 --coverage.thresholds.statements 100`.
+将全局阈值设置为 100。
+这是 `--coverage.thresholds.lines 100 --coverage.thresholds.functions 100 --coverage.thresholds.branches 100 --coverage.thresholds.statements 100` 的快捷方式。
 
 ### coverage.thresholds[glob-pattern]
 
 - **类型:** `{ statements?: number functions?: number branches?: number lines?: number }`
 - **默认值:** `undefined`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
-Sets thresholds for files matching the glob pattern.
+设置与 glob 模式匹配的文件的阈值。
 
-::: tip NOTE
-Vitest counts all files, including those covered by glob-patterns, into the global coverage thresholds.
-This is different from Jest behavior.
+::: tip 注意
+Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆盖率阈值计算。
+此做法与 Jest 不同。
 :::
 
 <!-- eslint-skip -->
@@ -291,11 +291,11 @@ This is different from Jest behavior.
 {
   coverage: {
     thresholds: {
-      // Thresholds for all files
+      // 所有文件的阈值
       functions: 95,
       branches: 70,
 
-      // Thresholds for matching glob pattern
+      // 对匹配 glob 模式的文件设置独立阈值
       'src/utils/**.ts': {
         statements: 95,
         functions: 90,
@@ -303,8 +303,8 @@ This is different from Jest behavior.
         lines: 80,
       },
 
-      // Files matching this pattern will only have lines thresholds set.
-      // Global thresholds are not inherited.
+      // 匹配此模式的文件仅设置行覆盖率阈值
+      // 不继承全局阈值
       '**/math.ts': {
         lines: 100,
       }
@@ -317,20 +317,20 @@ This is different from Jest behavior.
 
 - **类型:** `boolean`
 - **默认值:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
-Sets thresholds to 100 for files matching the glob pattern.
+为匹配 glob 模式的文件设置 100% 覆盖率阈值。
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // Thresholds for all files
+      // 所有文件的阈值
       functions: 95,
       branches: 70,
 
-      // Thresholds for matching glob pattern
+      // 全局模式匹配阈值
       'src/utils/**.ts': { 100: true },
       '**/math.ts': { 100: true }
     }
@@ -342,11 +342,11 @@ Sets thresholds to 100 for files matching the glob pattern.
 
 - **类型:** `string[]`
 - **默认值:** `[]`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
-Set to array of class method names to ignore for coverage.
-See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods) for more information.
+设置为要忽略覆盖率的类方法名称数组。
+更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods)。
 
 ## coverage.watermarks
 
@@ -372,45 +372,45 @@ See [istanbul documentation](https://github.com/istanbuljs/nyc#ignoring-methods)
 }
 ```
 
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.watermarks.statements=50,80`, `--coverage.watermarks.branches=50,80`
 
-Watermarks for statements, lines, branches and functions. See [istanbul documentation](https://github.com/istanbuljs/nyc#high-and-low-watermarks) for more information.
+语句、行、分支和函数的阈值标记。更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
 ## coverage.processingConcurrency
 
 - **类型:** `boolean`
 - **默认值:** `Math.min(20, os.availableParallelism?.() ?? os.cpus().length)`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
 
-Concurrency limit used when processing the coverage results.
+处理代码覆盖率结果时使用的并发限制。
 
 ## coverage.customProviderModule
 
 - **类型:** `string`
-- **Available for providers:** `'custom'`
+- **可用的测试提供者:** `'custom'`
 - **命令行终端:** `--coverage.customProviderModule=<path or module name>`
 
-Specifies the module name or path for the custom coverage provider module. See [Guide - Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information.
+指定自定义代码覆盖率驱动模块的模块名或路径。更多信息请参阅 [指南 - 自定义覆盖率提供者](/guide/coverage#custom-coverage-provider)。
 
 ## coverage.htmlDir
 
 - **类型:** `string`
-- **默认值:** Automatically inferred from `html`, `html-spa`, or `lcov` coverage reporters
+- **默认值:** 从 `html`、`html-spa` 或 `lcov` 代码覆盖率报告器自动推断
 - **命令行终端:** `--coverage.htmlDir=<path>`
 
-Directory of HTML coverage output to be served in [Vitest UI](/guide/ui) and [HTML reporter](/guide/reporters.html#html-reporter).
+要在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中提供的 HTML 代码覆盖率输出目录。
 
-This is automatically configured when using builtin coverage reporters that produce HTML output (`html`, `html-spa`, and `lcov`). Use this option to override with a custom coverage reporting location when using custom coverage reporters.
+使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和`lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
 
-Note that setting this option does not change where coverage HTML report is generated. Configure the `coverage.reporter` option to change the directory instead.
+注意，设置此选项不会更改代码覆盖率 HTML 报告的生成位置。要更改目录，请配置 `coverage.reporter` 选项。
 
 ## coverage.changed
 
 - **类型:** `boolean | string`
 - **默认值:** `false` (inherits from `test.changed`)
-- **Available for providers:** `'v8' | 'istanbul'`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.changed`, `--coverage.changed=<commit/branch>`
 
-Collect coverage only for files changed since a specified commit or branch. When set to `true`, it uses staged and unstaged changes.
+仅收集自指定提交或分支以来更改的文件的代码覆盖率。设置为 `true` 时，使用已暂存和未暂存的更改。
