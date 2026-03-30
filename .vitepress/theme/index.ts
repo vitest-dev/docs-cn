@@ -1,13 +1,14 @@
-import { h } from 'vue'
 import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import { inBrowser } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+import { h } from 'vue'
+import HomePage from '../components/HomePage.vue'
+import OldDocument from '../components/OldDocument.vue'
+import Version from '../components/Version.vue'
 import '../style/main.css'
 import '../style/vars.css'
 import 'uno.css'
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
-import HomePage from '../components/HomePage.vue'
-import Version from '../components/Version.vue'
 import '@shikijs/vitepress-twoslash/style.css'
 
 if (inBrowser) {
@@ -19,6 +20,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => h(HomePage),
+      'layout-top': () => h(OldDocument),
     })
   },
   enhanceApp({ app }) {
