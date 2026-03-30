@@ -9,4 +9,4 @@ outline: deep
 - **默认值:** `300`
 - **命令行终端:** `--slow-test-threshold=<number>`, `--slowTestThreshold=<number>`
 
-The number of milliseconds after which a test or suite is considered slow and reported as such in the results.
+测试或测试套件执行时间超过该毫秒数即被视为缓慢，并在测试结果中予以标注。
