@@ -25,11 +25,11 @@ test('custom', ({ task }) => {
 ```ts
 // custom-reporter.js
 export default {
-  // you can intercept packs if needed
+  // 必要时可拦截数据包
   onTaskUpdate(packs) {
     const [id, result, meta] = packs[0]
   },
-  // meta is located on every task inside "onFinished"
+  // 所有任务的元数据均位于 "onFinished" 方法内
   onFinished(files) {
     files[0].meta.done === true
     files[0].tasks[0].meta.custom === 'some-custom-handler'
@@ -41,16 +41,18 @@ export default {
 如果短时间内完成多个测试，Vitest 可以同时发送多个任务。
 :::
 
-::: danger BEWARE
+::: danger 小心
 Vitest 使用不同的方法与 Node.js 进程进行通信。
 
-- 如果 Vitest 在工作线程内运行测试，它将通过[消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)发送数据
+- 如果 Vitest 在工作线程内运行测试，它将通过 [消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) 发送数据
 - 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
 - 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
 
 该属性也会出现在每个测试的 `json` 报告中，因此请确保数据可以序列化为 JSON。
 
-另外，请确保在设置[错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types)之前序列化它们。
+一般经验法则是，你几乎可以发送任何内容，除了函数、Promises、regexp（`v8.stringify` 无法序列化它，但你可以发送字符串版本并自己在 Node.js 进程中解析它），以及其他不可序列化的数据，但内部可以有循环引用。
+
+另外，请确保在设置 [错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types) 之前序列化它们。
 :::
 
 当测试运行完成时，你还可以从 Vitest 状态获取此信息：
