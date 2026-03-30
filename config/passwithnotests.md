@@ -9,4 +9,4 @@ outline: deep
 - **默认值:** `false`
 - **命令行终端:** `--passWithNoTests`, `--passWithNoTests=false`
 
-Vitest will not fail, if no tests will be found.
+如果未发现任何测试，Vitest 不会报错。
