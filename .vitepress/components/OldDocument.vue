@@ -1,7 +1,7 @@
 <template>
   <div class="old-document">
     <p>
-      本文档适用于 v2 <strong>（旧版本）</strong>。如需查看最新版本请访问
+      本文档适用于 v1 <strong>（旧版本）</strong>。如需查看最新版本请访问
       <a href="https://cn.vitest.dev" class="new-document-link">https://cn.vitest.dev</a>.
     </p>
   </div>

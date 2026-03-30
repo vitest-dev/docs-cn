@@ -85,14 +85,15 @@ vitest --api=false
 - **类型**: `boolean | string`
 - **默认值**: false
 
-  仅针对变更文件运行测试。若未提供参数值，则默认检测未提交的变更（包括暂存和非暂存更改）。
+仅针对变更文件运行测试。若未提供参数值，则默认检测未提交的变更（包括暂存和非暂存更改）。
 
-  如需检测最近一次提交的变更，可使用 `--changed HEAD~1`。也可指定提交哈希（如 `--changed 09a9920`）或分支名（如 `--changed origin/develop`）。
-  如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
+如需检测最近一次提交的变更，可使用 `--changed HEAD~1`。也可指定提交哈希（如 `--changed 09a9920`）或分支名（如 `--changed origin/develop`）。
+如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
 
-  与代码覆盖率功能联用时，报告将仅包含与变更相关的文件。
+与代码覆盖率功能联用时，报告将仅包含与变更相关的文件。
 
-  若同时配置 [`forceRerunTriggers`](/config/#forcereruntriggers) 选项，当该列表中的任一文件发生变更时，将运行完整测试套件。默认情况下，Vitest 配置文件和`package.json` 的变更总会触发全量测试。
+若同时配置 [`forceRerunTriggers`](/config/#forcereruntriggers) 选项，当该列表中的任一文件发生变更时，将运行完整测试套件。默认情况下，Vitest 配置文件和`package.json` 的变更总会触发全量测试。
+
 ### shard
 
 - **类型**: `string`
