@@ -1,4 +1,4 @@
-# 运行器 API
+# 运行器 API {#test-runner}
 
 ::: warning 注意
 这是高级 API。如果你只需要运行测试，你可能不需要这个。它主要被库的作者使用。
@@ -31,7 +31,7 @@ export interface VitestRunner {
    * 这是在实际运行测试函数之前被调用的。
    * 此时已经有了带有 "state" 和 "startTime" 属性的 "result" 对象。
    */
-  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
+  onBeforeTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
   /**
    * 这是在结果和状态都被设置之后被调用的。
    */
@@ -40,7 +40,7 @@ export interface VitestRunner {
    * 这是在运行测试函数后立即被调用的。此时还没有新的状态。
    * 如果测试函数抛出异常，将不会调用此方法。
    */
-  onAfterTryTask?: (test: TaskPopulated, options: { retry: number, repeats: number }) => unknown
+  onAfterTryTask?: (test: TaskPopulated, options: { retry: number; repeats: number }) => unknown
 
   /**
    * 这是在运行单个测试套件之前被调用的，此时还没有测试结果。
@@ -80,7 +80,8 @@ export interface VitestRunner {
   /**
    * 这个方法被用于 "test" 和 "custom" 处理程序。
    * 你可以在 "setupFiles" 中使用 "beforeAll" 来定义自定义上下文，而不是使用 runner。
-   * 更多信息请参考：https://vitest.dev/advanced/runner.html#your-task-function
+   *
+   * @seehttps://v1.vitest.dev/advanced/runner.html#your-task-function
    */
   extendTaskContext?: <T extends Test | Custom>(context: TaskContext<T>) => TaskContext<T>
   /**
@@ -106,7 +107,7 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。它还暴露了 `BenchmarkNodeRunner`，如果你想扩展基准测试功能的话也可以继承它。
 :::
 
-## 你的任务函数
+## 你的任务函数 {#your-task-function}
 
 你可以通过扩展 `Vitest` 的任务系统来添加你自己的任务。一个任务是一个对象，是套件的一部分。它会自动通过 `suite.task` 方法添加到当前套件中：
 
@@ -114,14 +115,14 @@ Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注�
 // ./utils/custom.js
 import { createTaskCollector, getCurrentSuite, setFn } from 'vitest/suite'
 
-export { describe, beforeAll, afterAll } from 'vitest'
+export { afterAll, beforeAll, describe } from 'vitest'
 
 // 当 Vitest 收集任务时，将调用此函数
 // createTaskCollector 只提供了所有的 "todo"/"each"/... 支持，你不必使用它
 // 要支持自定义任务，你只需要调用 "getCurrentSuite().task()"
 export const myCustomTask = createTaskCollector(function (name, fn, timeout) {
   getCurrentSuite().task(name, {
-    ...this, // so "todo"/"skip" is tracked correctly
+    ...this, // 正确跟踪 "todo"/"skip" 事项
     meta: {
       customPropertyToDifferentiateTask: true,
     },

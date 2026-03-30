@@ -2,11 +2,11 @@
 title: 类型测试 | 指南
 ---
 
-# 类型测试
+# 类型测试 {#testing-types}
 
-::: tip Sample Project
+::: tip 示例项目
 
-[GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/typecheck) - [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/typecheck?initialPath=__vitest__/)
+[GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/typecheck) - [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/typecheck?initialPath=__vitest__/)
 
 :::
 
@@ -35,11 +35,11 @@ test('my types work properly', () => {
 
 你可以在 [API 部分](/api/#expecttypeof) 中查看可能的匹配器列表。
 
-## 读取错误
+## 读取错误 {#reading-errors}
 
 如果使用的是 `expectTypeOf` API，请参阅 [expect-type 关于其错误信息的文档](https://github.com/mmkal/expect-type#error-messages)。
 
-当类型不匹配时，`.toEqualTypeOf` 和 `.toMatchTypeOf`会使用一种特殊的辅助类型来生成尽可能可操作的错误信息。但要理解它们还有一些细微差别。由于断言是 "流畅地 "编写的，所以失败应该发生在 "预期 "类型上，而不是 "实际 "类型上（`expect<Actual>().toEqualTypeOf<Expected>()`）。这意味着类型错误可能有点令人困惑，因此该库生成了一个 `MismatchInfo` 类型，试图明确说明期望是什么。例如
+当类型不匹配时，`.toEqualTypeOf` 和 `.toMatchTypeOf`会使用一种特殊的辅助类型来生成尽可能可操作的错误信息。但要理解它们还有一些细微差别。由于断言是 "流畅地 "编写的，所以失败应该发生在 "预期 "类型上，而不是 "实际 "类型上（`expect<Actual>().toEqualTypeOf<Expected>()`）。这意味着类型错误可能有点令人困惑，因此该库生成了一个 `MismatchInfo` 类型，试图明确说明期望是什么。例如：
 
 ```ts
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
@@ -55,7 +55,7 @@ test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the 
 999 expectTypeOf({a: 1}).toEqualTypeOf<{a: string}>()
 ```
 
-请注意，报告的类型约束是一个可读性强的消息，指定了"期望"和"实际"类型。不要字面上解读句子 `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"` ，而是看属性名（`'a'`）和消息内容：`Expected: string, Actual: number`。这将告诉你出了什么问题，在大多数情况下。当然，对于非常复杂的类型，调试可能需要更多的努力，并且可能需要一些试验。如果错误消息实际上是误导性的，请[提出问题](https://github.com/mmkal/expect-type)。
+请注意，报告的类型约束是一个可读性强的消息，指定了"期望"和"实际"类型。不要字面上解读句子 `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"` ，而是看属性名（`'a'`）和消息内容：`Expected: string, Actual: number`。这将告诉你出了什么问题，在大多数情况下。当然，对于非常复杂的类型，调试可能需要更多的努力，并且可能需要一些试验。如果错误消息实际上是误导性的，请 [提出问题](https://github.com/mmkal/expect-type)。
 
 对于像 `expectTypeOf(1).toBeString()` 这样的断言，`toBe...` 方法（如 `toBeString`、`toBeNumber`、`toBeVoid` 等）在被测试的 `Actual` 类型不匹配时会解析为一个不可调用的类型。例如，失败的断言可能会显示如下内容：
 
@@ -71,7 +71,7 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
 
-#### 具体的 "expected " 对象与类型参数
+#### 具体的 "expected " 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
 
 像这样的断言的错误消息：
 
@@ -116,9 +116,9 @@ assertType<string>(answr) //
 
 :::
 
-## 运行类型检查
+## 运行类型检查 {#run-typechecking}
 
-要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
+自 Vitest v1.0 起，要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
 
 ```json
 {

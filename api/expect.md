@@ -19,12 +19,12 @@ expect(input).to.equal(2) // chai API
 expect(input).toBe(2) // jest API
 ```
 
-从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读[测试 API 参考](/api/)。
+从技术上讲，这个示例没有使用 [`test`](/api/#test) 函数，因此在控制台中你将看到 Nodejs 错误而不是 Vitest 输出。 要了解更多关于 `test` 的信息，请阅读 [测试 API 参考](/api/)。
 
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
-如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
+如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为 [类型测试](/guide/testing-types) ，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
 :::
 
 ## soft
@@ -37,10 +37,10 @@ expect(input).toBe(2) // jest API
 import { expect, test } from 'vitest'
 
 test('expect.soft test', () => {
-  expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
-  expect.soft(1 + 2).toBe(4) // mark the test as fail and continue
+  expect.soft(1 + 1).toBe(3) // 将期望标记为失败并继续
+  expect.soft(1 + 2).toBe(4) // 将期望标记为失败并继续
 })
-// At the end of the test, the above errors will be output.
+// 在执行结束后，报告器会报告这两个错误。
 ```
 
 它也可以与 `expect` 一起使用。 如果 `expect` 断言失败，测试将终止并显示所有错误。
@@ -49,41 +49,14 @@ test('expect.soft test', () => {
 import { expect, test } from 'vitest'
 
 test('expect.soft test', () => {
-  expect.soft(1 + 1).toBe(3) // mark the test as fail and continue
-  expect(1 + 2).toBe(4) // failed and terminate the test, all previous errors will be output
-  expect.soft(1 + 3).toBe(5) // do not run
+  expect.soft(1 + 1).toBe(3) // 将期望标记为失败并继续
+  expect(1 + 2).toBe(4) // 测试失败并终止执行，所有先前错误将被输出
+  expect.soft(1 + 3).toBe(5) // 不再执行
 })
 ```
 
 ::: warning
 `expect.soft` 只能在 [`test`](/api/#test) 函数的内部使用。
-:::
-
-## poll
-
-- **类型:** `ExpectStatic & (actual: () => any, options: { interval, timeout, message }) => Assertions`
-
-`expect.poll` 重新运行断言，直到成功为止。你可以通过设置 `interval` 和 `timeout` 选项来配置 Vitest 应重新运行 `expect.poll` 回调的次数。
-
-如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
-
-::: warning
-`expect.poll` 使每个断言都异步，所以不要忘记等待它，否则可能会收到未经处理的 promise 拒绝。
-
-`expect.poll` 不适用于多个匹配器：
-
-- 快照匹配器不受支持，因为它们总是成功的。如果你的情况不稳定，请考虑首先使用 [`vi.waitFor`](/api/vi#vi-waitfor) 解决：
-
-```ts
-import { expect, vi } from 'vitest'
-
-const flakyValue = await vi.waitFor(() => getFlakyValue())
-expect(flakyValue).toMatchSnapshot()
-```
-
-- `.resolves` 和 `.rejects` 不支持。 如果它是异步的，`expect.poll` 已经在等待。
-- `toThrow` 及其别名不受支持，因为 `expect.poll` 条件总是在匹配器获取值之前解析。
-
 :::
 
 ## not
@@ -143,9 +116,9 @@ test.fails('decimals are not equal in javascript', () => {
 })
 
 test('decimals are rounded to 5 after the point', () => {
-  // 0.2 + 0.1 is 0.30000 | "000000000004" removed
+  // 0.2 + 0.1 等于 0.30000 | "000000000004" 被移除
   expect(0.2 + 0.1).toBeCloseTo(0.3, 5)
-  // nothing from 0.30000000000000004 is removed
+  // 没有从 0.30000000000000004 移除任何内容
   expect(0.2 + 0.1).not.toBeCloseTo(0.3, 50)
 })
 ```
@@ -206,7 +179,7 @@ if (stocks.getInfo('Bill')) {
 }
 ```
 
-因此，如果要测试 `stocks.getInfo` 是否真实，可以这样写：
+因此，如果要测试 `stocks.getInfo` 是否是 true，可以这样写：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -220,7 +193,7 @@ test('if we know Bill stock, sell apples to him', () => {
 })
 ```
 
-除了 `false`、`null`、`undefined`、`NaN`、`0`、`-0`、`0n`、`""` 和 `document.all` 以外，JavaScript 中的一切都是真实的。
+除了 `false`、`null`、`undefined`、`NaN`、`0`、`-0`、`0n`、`""` 和 `document.all` 以外，JavaScript 中的一切都是 true。
 
 ## toBeFalsy
 
@@ -240,7 +213,7 @@ if (!stocks.stockFailed('Bill')) {
 }
 ```
 
-因此，如果要测试`stocks.stockFailed`是否是虚假的，可以这样写：
+因此，如果要测试 `stocks.stockFailed` 是否是 false，可以这样写：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -254,7 +227,7 @@ test('if Bill stock hasn\'t failed, sell apples to him', () => {
 })
 ```
 
-除了 `false`、`null`、`undefined`、`NaN`、`0`、`-0`、`0n`、`""` 和 `document.all` 以外，JavaScript 中的一切都是真实的。
+除了 `false`、`null`、`undefined`、`NaN`、`0`、`-0`、`0n`、`""` 和 `document.all` 以外，JavaScript 中的一切都是 true。
 
 ## toBeNull
 
@@ -278,7 +251,7 @@ test('we don\'t have apples', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeNaN` 简单地断言某些内容是否为 `NaN`。toBe(NaN)` 的别名。
+`toBeNaN` 简单地断言某些内容是否为 `NaN`。`toBe(NaN)` 的别名。
 
 ```ts twoslash
 import { expect, test } from 'vitest'
@@ -462,9 +435,9 @@ test('the fruit list contains orange', () => {
   expect(getAllFruits()).toContain('orange')
 
   const element = document.querySelector('#el')
-  // element has a class
+  // element 有 class 属性 flex
   expect(element.classList).toContain('flex')
-  // element is inside another one
+  // element 是 #wrapper 的子元素
   expect(document.querySelector('#wrapper')).toContain(element)
 })
 ```
@@ -498,7 +471,7 @@ test('toHaveLength', () => {
   expect('abc').toHaveLength(3)
   expect([1, 2, 3]).toHaveLength(3)
 
-  expect('').not.toHaveLength(3) // doesn't have .length of 3
+  expect('').not.toHaveLength(3) // length 不等于3
   expect({ length: 3 }).toHaveLength(3)
 })
 ```
@@ -536,25 +509,25 @@ const invoice = {
 }
 
 test('John Doe Invoice', () => {
-  expect(invoice).toHaveProperty('isActive') // assert that the key exists
-  expect(invoice).toHaveProperty('total_amount', 5000) // assert that the key exists and the value is equal
+  expect(invoice).toHaveProperty('isActive') // 断言对应的key存在
+  expect(invoice).toHaveProperty('total_amount', 5000) // 断言对应的key存在，并且值相等
 
-  expect(invoice).not.toHaveProperty('account') // assert that this key does not exist
+  expect(invoice).not.toHaveProperty('account') // 断言对应的key不存在
 
-  // Deep referencing using dot notation
+  // 使用点号进行深层引用
   expect(invoice).toHaveProperty('customer.first_name')
   expect(invoice).toHaveProperty('customer.last_name', 'Doe')
   expect(invoice).not.toHaveProperty('customer.location', 'India')
 
-  // Deep referencing using an array containing the key
+  // 使用含键名的数组进行深层引用
   expect(invoice).toHaveProperty('items[0].type', 'apples')
-  expect(invoice).toHaveProperty('items.0.type', 'apples') // dot notation also works
+  expect(invoice).toHaveProperty('items.0.type', 'apples') // 也可以使用点号
 
-  // Deep referencing using an array containing the keyPath
+  // 通过包含键路径的数组实现深层引用
   expect(invoice).toHaveProperty(['items', 0, 'type'], 'apples')
-  expect(invoice).toHaveProperty(['items', '0', 'type'], 'apples') // string notation also works
+  expect(invoice).toHaveProperty(['items', '0', 'type'], 'apples') // 字符串表示法同样适用
 
-  // Wrap your key in an array to avoid the key from being parsed as a deep reference
+  // 将键名包裹在数组中，避免其被解析为深层引用
   expect(invoice).toHaveProperty(['P.O'], '12345')
 })
 ```
@@ -570,7 +543,7 @@ import { expect, test } from 'vitest'
 
 test('top fruits', () => {
   expect('top fruits include apple, orange and grape').toMatch(/apple/)
-  expect('applefruits').toMatch('fruit') // toMatch also accepts a string
+  expect('applefruits').toMatch('fruit') // toMatch 同样支持字符串匹配
 })
 ```
 
@@ -618,7 +591,7 @@ test('invoice has john personal details', () => {
 })
 
 test('the number of elements must match exactly', () => {
-  // Assert that an array of object matches
+  // 断言对象数组的匹配情况
   expect([{ foo: 'bar' }, { baz: 1 }]).toMatchObject([
     { foo: 'bar' },
     { baz: 1 },
@@ -653,15 +626,15 @@ function getFruitStock(type: string) {
     throw new Error('Pineapples are not in stock')
   }
 
-  // Do some other stuff
+  // 做一些其他的东西
 }
 
 test('throws on pineapples', () => {
-  // Test that the error message says "stock" somewhere: these are equivalent
+  // 测试错误信息包含 “stock”，这两种写法是等效的
   expect(() => getFruitStock('pineapples')).toThrowError(/stock/)
   expect(() => getFruitStock('pineapples')).toThrowError('stock')
 
-  // Test the exact error message
+  // 测试确切的错误消息
   expect(() => getFruitStock('pineapples')).toThrowError(
     /^Pineapples are not in stock$/
   )
@@ -728,7 +701,7 @@ import { expect, test } from 'vitest'
 
 test('matches inline snapshot', () => {
   const data = { foo: new Set(['bar', 'snapshot']) }
-  // Vitest will update following content when updating the snapshot
+  // Vitest 将在更新快照的同时更新以下内容
   expect(data).toMatchInlineSnapshot(`
     {
       "foo": Set {
@@ -758,7 +731,7 @@ test('matches snapshot', () => {
 })
 ```
 
-## toMatchFileSnapshot {#tomatchfilesnapshot}
+## toMatchFileSnapshot<Version>0.30.0+</Version>  {#tomatchfilesnapshot}
 
 - **类型:** `<T>(filepath: string, message?: string) => Promise<void>`
 
@@ -1016,126 +989,6 @@ test('spy function returns bananas on second call', () => {
 })
 ```
 
-## toHaveResolved
-
-- **类型**: `() => Awaitable<void>`
-
-
-此断言检查函数是否至少成功解析过一次值（即未reject）。需要将 spy 函数传递给 `expect`。
-
-如果函数返回了一个promise，但尚未resolved，则将会失败。
-
-```ts twoslash
-// @filename: db/apples.js
-/** @type {any} */
-const db = {}
-export default db
-// @filename: test.ts
-// ---cut---
-import { expect, test, vi } from 'vitest'
-import db from './db/apples.js'
-
-async function getApplesPrice(amount: number) {
-  return amount * await db.get('price')
-}
-
-test('spy function resolved a value', async () => {
-  const getPriceSpy = vi.fn(getApplesPrice)
-
-  const price = await getPriceSpy(10)
-
-  expect(price).toBe(100)
-  expect(getPriceSpy).toHaveResolved()
-})
-```
-
-## toHaveResolvedTimes
-
-- **类型**: `(amount: number) => Awaitable<void>`
-
-此断言检查函数是否已成功解析值精确次数（即未reject）。需要将 spy 函数传递给`expect`。
-
-这只会计算已resolved的promises。如果函数返回了一个promise，但尚未resolved，则不会计算在内。
-
-
-```ts twoslash
-import { expect, test, vi } from 'vitest'
-
-test('spy function resolved a value two times', async () => {
-  const sell = vi.fn((product: string) => Promise.resolve({ product }))
-
-  await sell('apples')
-  await sell('bananas')
-
-  expect(sell).toHaveResolvedTimes(2)
-})
-```
-
-## toHaveResolvedWith
-
-- **类型**: `(returnValue: any) => Awaitable<void>`
-
-
-
-您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
-
-如果函数返回了一个promise，但尚未resolved，则将会失败。
-
-
-```ts twoslash
-import { expect, test, vi } from 'vitest'
-
-test('spy function resolved a product', async () => {
-  const sell = vi.fn((product: string) => Promise.resolve({ product }))
-
-  await sell('apples')
-
-  expect(sell).toHaveResolvedWith({ product: 'apples' })
-})
-```
-
-## toHaveLastResolvedWith
-
-- **Type**: `(returnValue: any) => Awaitable<void>`
-
-您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
-
-如果函数返回了一个promise，但尚未resolved，则将会失败。
-
-```ts twoslash
-import { expect, test, vi } from 'vitest'
-
-test('spy function resolves bananas on a last call', async () => {
-  const sell = vi.fn((product: string) => Promise.resolve({ product }))
-
-  await sell('apples')
-  await sell('bananas')
-
-  expect(sell).toHaveLastResolvedWith({ product: 'bananas' })
-})
-```
-
-## toHaveNthResolvedWith
-
-- **Type**: `(time: number, returnValue: any) => Awaitable<void>`
-
-您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
-
-如果函数返回了一个promise，但尚未resolved，则将会失败。
-
-```ts twoslash
-import { expect, test, vi } from 'vitest'
-
-test('spy function returns bananas on second call', async () => {
-  const sell = vi.fn((product: string) => Promise.resolve({ product }))
-
-  await sell('apples')
-  await sell('bananas')
-
-  expect(sell).toHaveNthResolvedWith(2, { product: 'bananas' })
-})
-```
-
 ## toSatisfy
 
 - **类型:** `(predicate: (value: any) => boolean) => Awaitable<void>`
@@ -1175,7 +1028,7 @@ async function buyApples() {
 }
 
 test('buyApples returns new stock id', async () => {
-  // toEqual returns a promise now, so you HAVE to await it
+  // toEqual 现在返回一个 Promise，调用时需添加 await
   await expect(buyApples()).resolves.toEqual({ id: 1 }) // jest API
   await expect(buyApples()).resolves.to.equal({ id: 1 }) // chai API
 })
@@ -1205,7 +1058,7 @@ async function buyApples(id) {
 }
 
 test('buyApples throws an error when no id provided', async () => {
-  // toThrow returns a promise now, so you HAVE to await it
+  // toThrow 现在返回一个 Promise，调用时需添加 await
   await expect(buyApples()).rejects.toThrow('no id')
 })
 ```
@@ -1264,7 +1117,7 @@ function onSelect(cb) {
   cbs.push(cb)
 }
 
-// after selecting from db, we call all callbacks
+// 在数据库查询操作之后，立即执行全部回调函数
 function select(id) {
   return db.select({ id }).then((data) => {
     return Promise.all(cbs.map(cb => cb(data)))
@@ -1274,11 +1127,11 @@ function select(id) {
 test('callback was called', async () => {
   expect.hasAssertions()
   onSelect((data) => {
-    // should be called on select
+    // 必须在 select 操作时调用
     expect(data).toBeTruthy()
   })
-  // if not awaited, test will fail
-  // if you don't have expect.hasAssertions(), test will pass
+  // 若没有添加 await 测试将会失败
+  // 若缺少 expect.hasAssertions(), 测试仍会通过
   await select(3)
 })
 ```
@@ -1319,7 +1172,7 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
         expect(err.message).toBe(`${dir}/src does not exist`)
         break
       default:
-        // to exhaust all error tests
+        // 必须覆盖所有错误测试场景
         expect.unreachable('All error test must be handled')
         break
     }
@@ -1357,7 +1210,7 @@ test('"id" is a number', () => {
 })
 ```
 
-## expect.closeTo {#expect-closeto}
+## expect.closeTo <Version>1.0.0</Version> {#expect-closeto}
 
 - **类型:** `(expected: any, precision?: number) => any`
 
@@ -1390,7 +1243,11 @@ import { expect, test } from 'vitest'
 
 test('basket includes fuji', () => {
   const basket = {
-    varieties: ['Empire', 'Fuji', 'Gala'],
+    varieties: [
+      'Empire',
+      'Fuji',
+      'Gala'
+    ],
     count: 3,
   }
   expect(basket).toEqual({
@@ -1486,7 +1343,7 @@ test('variety ends with "re"', () => {
 
 - **类型:** `(plugin: PrettyFormatPlugin) => void`
 
-这个方法添加了在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果想了解更多，请阅读有关[自定义序列化程序的指南](/guide/snapshot#custom-serializer)。
+这个方法添加了在创建快照时调用的自定义序列化程序。这是一个高级功能 - 如果想了解更多，请阅读有关 [自定义序列化程序的指南](/guide/snapshot#custom-serializer)。
 
 如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/#setupfiles) 中调用此方法。这将影响每个快照。
 
@@ -1549,7 +1406,7 @@ declare module 'vitest' {
 如果想了解更多信息，请查看 [扩展断言 (Matchers) 指南](/guide/extending-matchers)。
 :::
 
-## expect.addEqualityTesters {#expect-addequalitytesters}
+## expect.addEqualityTesters <Version>1.2.0</Version> {#expect-addequalitytesters}
 
 - **类型:** `(tester: Array<Tester>) => void`
 

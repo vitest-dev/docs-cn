@@ -2,13 +2,13 @@
 title: 命令行界面 | 指南
 ---
 
-# 命令行界面
+# 命令行界面 {#command-line-interface}
 
-## 命令
+## 命令 {#commands}
 
 ### `vitest`
 
-在当前目录中启动 Vitest。在开发环境会自动进入监听(`watch`)模式，在 CI 环境会自动进入运行(`run`)模式。
+在当前目录中启动 Vitest。在开发环境会自动进入监听（`watch`）模式，在 CI 环境会自动进入运行（`run`）模式。
 
 你可以通过添加参数作为过滤器来运行测试文件，比如：
 
@@ -54,39 +54,9 @@ export default {
 
 ### `vitest bench`
 
-仅运行 [基准](https://vitest.dev/guide/features.html#benchmarking-experimental) 测试，比较性能结果。
+仅运行 [基准](/guide/features.html#benchmarking-experimental) 测试，比较性能结果。
 
-### `vitest init`
-
-`vitest-init<name>` 可以用于设置项目配置。目前，它只支持 [`browser`](/guide/browser/) 值：
-
-```bash
-vitest init browser
-```
-
-### `vitest list`
-
-`vitest list` 命令继承所有的 `vitest` 选项以打印所有匹配测试的列表。此命令忽略 `reporters` 选项。默认情况下，它将打印与文件过滤器和名称模式匹配的所有测试的名称：
-
-```shell
-vitest list filename.spec.ts -t="some-test"
-```
-
-```txt
-describe > some-test
-describe > some-test > test 1
-describe > some-test > test 2
-```
-
-你可以传递 `--json` 标志以 JSON 格式打印测试，也可以将其保存在单独的文件中：
-
-```bash
-vitest list filename.spec.ts -t="some-test" --json=./file.json
-```
-
-如果 `--json` 标志没有接收到值，它将把 JSON 输出到 stdout 中。
-
-## 选项
+## 选项 {#options}
 
 <!--@include: ./cli-table.md-->
 
@@ -115,15 +85,14 @@ vitest --api=false
 - **类型**: `boolean | string`
 - **默认值**: false
 
-  设置为 true 时，仅对已更改的文件运行测试。默认情况下，将考虑所有未提交的更改（包括已暂存和未暂存的文件）。
+仅针对变更文件运行测试。若未提供参数值，则默认检测未提交的变更（包括暂存和非暂存更改）。
 
-  要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
+如需检测最近一次提交的变更，可使用 `--changed HEAD~1`。也可指定提交哈希（如 `--changed 09a9920`）或分支名（如 `--changed origin/develop`）。
+如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
 
-  如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
+与代码覆盖率功能联用时，报告将仅包含与变更相关的文件。
 
-  与代码覆盖一起使用时，报告将只包含与更改相关的文件。
-
-  如果与 [`forceRerunTriggers`](/config/#forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
+若同时配置 [`forceRerunTriggers`](/config/#forcereruntriggers) 选项，当该列表中的任一文件发生变更时，将运行完整测试套件。默认情况下，Vitest 配置文件和`package.json` 的变更总会触发全量测试。
 
 ### shard
 
@@ -143,22 +112,6 @@ vitest --api=false
   vitest run --shard=3/3
   ```
 
-:::warning 警告
+:::warning
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
 :::
-
-::: tip
-如果在没有输出文件的情况下使用 `--reporter=blob`，则默认路径将包括当前碎片配置，以避免与其他 Vitest 进程发生冲突。
-:::
-
-### merge-reports
-
-- **类型:** `boolean | string`
-
-合并位于指定文件夹中的每个 blob 报告（默认情况下为`.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
-
-```sh
-vitest --merge-reports --reporter=junit
-```
-
-[cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options

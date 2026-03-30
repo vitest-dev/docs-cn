@@ -1,8 +1,8 @@
-# 扩展默认报告器 (Extending Reporters)
+# 扩展默认报告器 {#extending-reporters}
 
 你可以从 `vitest/reporters` 导入报告器并扩展它们以创建你的自定义报告器。
 
-## 扩展内置报告器 (Extending Built-in Reporters)
+## 扩展内置报告器 {#extending-built-in-reporters}
 
 一般来说，你不需要从头开始创建报告器。`vitest` 附带了几个可以扩展的默认报告程序。
 
@@ -10,7 +10,7 @@
 import { DefaultReporter } from 'vitest/reporters'
 
 export default class MyDefaultReporter extends DefaultReporter {
-  // do something
+  // 执行操作
 }
 ```
 
@@ -38,7 +38,7 @@ import { Reporter } from 'vitest/reporters'
 
 export default class CustomReporter implements Reporter {
   onCollected() {
-    // print something
+    // 打印内容
   }
 }
 ```
@@ -56,11 +56,11 @@ export default defineConfig({
 })
 ```
 
-## 导出报告器 (Exported Reporters)
+## 导出报告器 {#exported-reporters}
 
-`vitest` 附带了一些[内置报告器](/guide/reporters)，你可以开箱即用。
+`vitest` 附带了一些 [内置报告器](/guide/reporters)，你可以开箱即用。
 
-### 内置报告器:
+### 内置报告器: {#built-in-reporters}
 
 1. `BasicReporter`
 1. `DefaultReporter`
@@ -72,10 +72,10 @@ export default defineConfig({
 1. `TapFlatReporter`
 1. `HangingProcessReporter`
 
-### 基础抽象报告器:
+### 基础抽象报告器: {#base-abstract-reporters}
 
 1. `BaseReporter`
 
-### 接口报告器:
+### 接口报告器: {#interface-reporters}
 
 1. `Reporter`

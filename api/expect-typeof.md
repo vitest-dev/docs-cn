@@ -1,22 +1,22 @@
 # expectTypeOf
 
-- **类型:** `<T>(a: unknown) => ExpectTypeOf`
-
 ::: warning
 在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
 :::
+
+- **类型:** `<T>(a: unknown) => ExpectTypeOf`
 
 ## not
 
 - **类型:** `ExpectTypeOf`
 
-  你可以使用 `.not` 属性否定所有断言。
+你可以使用 `.not` 属性否定所有断言。
 
 ## toEqualTypeOf
 
 - **类型:** `<T>(expected: T) => void`
 
-  该匹配器将检查类型是否完全相同。如果两个对象具有不同的值但类型相同，则此匹配器不会失败。但是，如果对象缺少属性，它将失败。
+该匹配器将检查类型是否完全相同。如果两个对象具有不同的值但类型相同，则此匹配器不会失败。但是，如果对象缺少属性，它将失败。
 
 ```ts twoslash
 import { expectTypeOf } from 'vitest'
@@ -31,7 +31,7 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 
 - **类型:** `<T>(expected: T) => void`
 
-此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
+此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect](/api/expect) 的 `toMatchObject()`。使用此匹配器，你可以检查对象是否 “匹配” 类型。
 
 ```ts twoslash
 import { expectTypeOf } from 'vitest'
@@ -50,7 +50,7 @@ expectTypeOf<string | number>().not.toMatchTypeOf<number>()
 ```ts twoslash
 import { expectTypeOf } from 'vitest'
 
-type ResponsiveProp<T> = T | T[] | { xs?: T, sm?: T, md?: T }
+type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 
 interface CSSProperties {
   margin?: string
@@ -64,15 +64,15 @@ function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<{ xs?: any }>() // extracts the last type from a union
+  .extract<{ xs?: any }>() // 从联合类型中提取最后一个类型
   .toEqualTypeOf<{
-    xs?: CSSProperties
-    sm?: CSSProperties
-    md?: CSSProperties
-  }>()
+  xs?: CSSProperties
+  sm?: CSSProperties
+  md?: CSSProperties
+}>()
 
 expectTypeOf(getResponsiveProp(cssProperties))
-  .extract<unknown[]>() // extracts an array from a union
+  .extract<unknown[]>() // 从联合类型中提取数组
   .toEqualTypeOf<CSSProperties[]>()
 ```
 
@@ -93,17 +93,16 @@ type ResponsiveProp<T> = T | T[] | { xs?: T; sm?: T; md?: T }
 
 interface CSSProperties { margin?: string; padding?: string }
 
-function getResponsiveProp<T>(\_props: T): ResponsiveProp<T> {
-return {}
+function getResponsiveProp<T>(_props: T): ResponsiveProp<T> {
+  return {}
 }
 
 const cssProperties: CSSProperties = { margin: '1px', padding: '2px' }
 
 expectTypeOf(getResponsiveProp(cssProperties))
-.exclude<unknown[]>()
-.exclude<{ xs?: unknown }>() // or just .exclude<unknown[] | { xs?: unknown }>()
-.toEqualTypeOf<CSSProperties>()
-
+  .exclude<unknown[]>()
+  .exclude<{ xs?: unknown }>() // 或 just .exclude<unknown[] | { xs?: unknown }>()
+  .toEqualTypeOf<CSSProperties>()
 ```
 
 ::: warning
@@ -181,9 +180,7 @@ expectTypeOf(foo).parameter(1).toBeString()
 ```ts twoslash
 import { expectTypeOf } from 'vitest'
 
-expectTypeOf(Date).constructorParameters.toEqualTypeOf<
-  [] | [string | number | Date]
->()
+expectTypeOf(Date).constructorParameters.toEqualTypeOf<[] | [string | number | Date]>()
 ```
 
 ::: warning
