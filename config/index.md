@@ -747,9 +747,9 @@ export default defineConfig({
 
 - **类型:** `string`
 - **命令行终端:** `--dir=<path>`
-- **默认值:** same as `root`
+- **默认值:** 与 `root` 相同
 
-扫描测试文件的基本目录。如果我们的根目录覆盖整个项目，我们可以指定此选项以加快测试发现速度
+用于扫描测试文件的基础目录。如果你的根目录覆盖整个项目，可以指定此选项来加快测试发现速度。
 
 ### reporters<NonProjectOption />
 
@@ -764,7 +764,7 @@ export default defineConfig({
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
 
-当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
+当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入文件。通过提供对象而非字符串，你可以在使用多个报告器时定义各自的输出配置。
 
 ### pool<NonProjectOption />
 
@@ -1011,7 +1011,7 @@ export default defineConfig({
 :::
 
 ::: warning
-由于系统内存报告不正确，基于百分比的内存限制 [在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
+由于系统内存报告不正确，基于百分比的内存限制 [在 Linux CircleCI 环境下无效](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
 
 ##### poolOptions.vmThreads.useAtomics<NonProjectOption />
@@ -1169,7 +1169,7 @@ if (!globalThis.defined) {
   globalThis.defined = true
 }
 
-// Hook 在每个套件之前重置
+// 在每个套件之前重置 Hook
 afterEach(() => {
   cleanup()
 })
@@ -1292,7 +1292,7 @@ export default function setup(project: TestProject) {
 - **类型**: `string[]`
 - **默认值:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
 
-将触发整个套件重新运行的文件路径的全局 glob 模式。 如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
+将触发整个测试套件重新运行的文件路径（glob 模式）。如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
 
 如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖树:
 
@@ -1340,7 +1340,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 #### coverage.include
 
 - **类型:** `string[]`
-- **默认值:** 在执行测试过程中所引入的文件。
+- **默认值:** 在执行测试过程中所引入的文件
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
 
@@ -1534,19 +1534,19 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 覆盖率阈值选项。
 
-如果将阈值设置为正数，则将其解释为所需的最小覆盖率百分比。例如，将行阈值设置为 `90` 意味着必须覆盖 90% 的行。
+如果阈值设置为正数，将被解释为要求的最低代码覆盖率百分比。例如，将行阈值设置为 `90` 意味着必须覆盖 90% 的行。
 
-如果将阈值设置为负数，则将其视为允许的最大未覆盖项数量。例如，将行阈值设置为 `-10` 意味着未覆盖的行数不得超过 10 行。
+如果阈值设置为负数，将被视为允许的最大未覆盖项目数。例如，将行阈值设置为 `-10` 意味着未覆盖的行数不得超过 10 行。
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // 需要 90% 的功能覆盖率
+      // 要求函数覆盖率达到 90%
       functions: 90,
 
-      // 要求不超过10行被覆盖
+      // 要求未覆盖代码行数不超过 10 行
       lines: -10,
     }
   }
@@ -1601,8 +1601,8 @@ statements 的全局阈值。
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.autoUpdate=<boolean>`
 
-如果当前覆盖率优于配置的阈值时，将所有阈值 `lines`、`functions`、`branches` 和 `statements` 更新到配置文件中。
-此选项有助于在覆盖率提高时保持阈值不变。
+当实际覆盖率超过配置阈值时，自动将 `lines`、`functions`、`branches` 和 `statements` 的阈值更新到配置文件中。
+此选项适用于覆盖率提高时保持阈值不变。
 
 ##### coverage.thresholds.100
 
@@ -1637,7 +1637,7 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
       functions: 95,
       branches: 70,
 
-      // 匹配全局模式的阈值
+      // 对匹配 glob 模式的文件设置独立阈值
       'src/utils/**.ts': {
         statements: 95,
         functions: 90,
@@ -1645,8 +1645,8 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
         lines: 80,
       },
 
-      // 匹配此模式的文件将仅设置行阈值。
-      // 全局阈值不会被继承。
+      // 匹配此模式的文件仅设置行覆盖率阈值
+      // 不继承全局阈值
       '**/math.ts': {
         lines: 100,
       }
@@ -1658,8 +1658,8 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
 ##### coverage.thresholds[glob-pattern].100 <Version>2.1.0</Version> {#coverage-thresholds-glob-pattern-100}
 
 - **类型：** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
 将匹配全局模式的文件的阈值设置为 100。
 
@@ -1714,9 +1714,9 @@ export default defineConfig({
 
 #### coverage.experimentalAstAwareRemapping
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8'`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8'`
 - **CLI:** `--coverage.experimentalAstAwareRemapping=<boolean>`
 
 基于实验性 AST 分析的覆盖率重映射。相比默认模式能提供更精确的结果。
@@ -1728,7 +1728,8 @@ export default defineConfig({
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
-设置为要忽略覆盖率的类方法名称数组。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
+设置为要忽略覆盖率的类方法名称数组。
+更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods)。
 
 #### coverage.watermarks
 
@@ -1759,7 +1760,7 @@ export default defineConfig({
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.watermarks.statements=50,80`， `--coverage.watermarks.branches=50,80`
 
-语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
+语句、行、分支和函数的阈值标记。更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
 #### coverage.processingConcurrency
 
