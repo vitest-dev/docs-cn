@@ -2257,7 +2257,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 #### typecheck.tsconfig
 
 - **类型**: `string`
-- **默认值**: _tries to find closest tsconfig.json_
+- **默认值**: _尝试查找最近的 tsconfig.json_
 
 自定义 tsconfig 的路径，相对于项目根目录。
 
@@ -2266,7 +2266,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **Type**: `number`
 - **Default**: `10_000`
 
-生成类型检查器所需的最短时间（以毫秒为单位）。
+启动类型检查器所需的最短时间（毫秒）。
 
 ### slowTestThreshold<NonProjectOption />
 
