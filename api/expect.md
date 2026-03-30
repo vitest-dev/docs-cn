@@ -861,7 +861,7 @@ test('throws non-Error values', () => {
 })
 ```
 :::
-
+<!-- TODO: translation -->
 :::warning Unhandled Rejections with Fake Timers
 When using fake timers, an async function that rejects _during_ a `vi.advanceTimersByTimeAsync` call will trigger an [unhandled rejection](https://nodejs.org/api/process.html#event-unhandledrejection) — even if you later assert it with `.rejects.toThrow()`. This happens because the error is thrown before the `expect` chain has a chance to catch it.
 

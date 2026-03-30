@@ -120,11 +120,7 @@ it('renders correctly', () => {
 
 ## 对象模拟 (Mocking) {#mocking}
 
-<<<<<<< HEAD
-内置 [Tinyspy](https://github.com/tinylibs/tinyspy) 用于在 `vi` 对象上使用 `jest` 兼容的 API 进行对象模拟。
-=======
-Vitest provides `jest`-compatible APIs on `vi` object.
->>>>>>> a96e7c3fda767f2a71f142bcecff9e42fa9ee18e
+Vitest 在 `vi` 对象上提供了与 `Jest` 兼容的 API 接口。
 
 ```ts
 import { expect, vi } from 'vitest'
