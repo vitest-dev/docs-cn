@@ -3,8 +3,6 @@ title: update | 配置
 outline: deep
 ---
 
-<!-- TODO: translation -->
-
 # update <CRoot /> {#update}
 
 - **类型:** `boolean | 'new' | 'all' | 'none'`
