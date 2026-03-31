@@ -429,6 +429,13 @@ Directory of HTML coverage output to be served in UI mode and HTML reporter.
 
 启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
 
+### browser.locators.exact
+
+- **CLI:** `--browser.locators.exact`
+- **Config:** [browser.locators.exact](/config/browser/locators#locators-exact)
+
+Should locators match the text exactly by default (default: `false`)
+
 ### pool
 
 - **命令行终端:** `--pool <pool>`
