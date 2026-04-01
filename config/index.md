@@ -2403,7 +2403,7 @@ export default defineConfig({
 })
 ```
 
-Or as a module:
+或者作为模块：
 
 :::code-group
 ```ts [vitest.config.js]
@@ -2434,7 +2434,7 @@ export default {
 - **默认值**: `true`
 - **命令行终端:** `--diff.expand=false`
 
-Expand all common lines.
+展开所有公共行。
 
 #### diff.truncateThreshold
 
@@ -2458,7 +2458,7 @@ Expand all common lines.
 - **类型**: `DiffOptionsColor = (arg: string) => string`
 - **默认值**: `noColor = (string: string): string => string`
 
-截断注释的颜色，默认为无色输出。
+截断注释的颜色，默认无颜色输出。
 
 #### diff.printBasicPrototype
 
@@ -2635,14 +2635,14 @@ export interface SnapshotEnvironment {
 - **类型:** `number`
 - **默认值:** `50`
 
-轮询间隔（以毫秒为单位）
+轮询间隔（以毫秒为单位）。
 
 ##### expect.poll.timeout
 
 - **类型:** `number`
 - **默认值:** `1000`
 
-轮询超时时间（以毫秒为单位）
+轮询超时时间（以毫秒为单位）。
 
 ### printConsoleTrace
 
