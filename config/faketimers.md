@@ -7,50 +7,50 @@ outline: deep
 
 - **类型:** `FakeTimerInstallOpts`
 
-Options that Vitest will pass down to [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers) when using [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers).
+当使用 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 时，Vitest 会将此选项传递给 [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers)。
 
 ## fakeTimers.now
 
 - **类型:** `number | Date`
 - **默认值:** `Date.now()`
 
-Installs fake timers with the specified Unix epoch.
+使用指定的 Unix 时间戳安装假计时器。
 
 ## fakeTimers.toFake
 
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
-- **默认值:** everything available globally except `nextTick` and `queueMicrotask`
+- **默认值:** 全局可用的所有方法，除了 `nextTick` 和 `queueMicrotask`
 
-An array with names of global methods and APIs to fake.
+需要模拟的全局方法和 API 名称数组。
 
-To only mock `setTimeout()` and `nextTick()`, specify this property as `['setTimeout', 'nextTick']`.
+如果仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
 
-Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--pool=threads`.
+当使用 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 会在 `node:child_process` 内部使用 `process.nextTick`，模拟后会导致进程挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
 ## fakeTimers.loopLimit
 
 - **类型:** `number`
 - **默认值:** `10_000`
 
-The maximum number of timers that will be run when calling [`vi.runAllTimers()`](/api/vi#vi-runalltimers).
+调用 [`vi.runAllTimers()`](/api/vi#vi-runalltimers) 时将运行的最大计时器数量。
 
 ## fakeTimers.shouldAdvanceTime
 
 - **类型:** `boolean`
 - **默认值:** `false`
 
-Tells @sinonjs/fake-timers to increment mocked time automatically based on the real system time shift (e.g. the mocked time will be incremented by 20ms for every 20ms change in the real system time).
+告诉 @sinonjs/fake-timers 根据真实系统时间的变化自动递增模拟时间（例如，真实系统时间变化 20ms 时，模拟时间也会递增 20ms）。
 
 ## fakeTimers.advanceTimeDelta
 
 - **类型:** `number`
 - **默认值:** `20`
 
-Relevant only when using with `shouldAdvanceTime: true`. increment mocked time by advanceTimeDelta ms every advanceTimeDelta ms change in the real system time.
+仅在使用 `shouldAdvanceTime: true` 时相关。真实系统时间每变化 advanceTimeDelta 毫秒，模拟时间就会递增 advanceTimeDelta 毫秒。
 
 ## fakeTimers.shouldClearNativeTimers
 
 - **类型:** `boolean`
 - **默认值:** `true`
 
-Tells fake timers to clear "native" (i.e. not fake) timers by delegating to their respective handlers. When disabled, it can lead to potentially unexpected behavior if timers existed prior to starting fake timers session.
+指示假计时器通过委托给它们各自的处理函数来清除 “原生”（即非假）计时器。如果禁用此功能，当伪计时器会话启动前已存在计时器时，可能导致意外行为。
