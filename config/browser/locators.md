@@ -12,11 +12,8 @@ outline: deep
 - **类型:** `string`
 - **默认值:** `data-testid`
 
-<<<<<<< HEAD
 用于通过 `getByTestId` 定位器查找元素的属性。
-=======
-Attribute used to find elements with `getByTestId` locator.
-
+<!-- TODO: translation -->
 ## browser.locators.exact <Version type="experimental">4.1.3</Version> {#browser-locators-exact}
 
 - **Type:** `boolean`
@@ -30,4 +27,3 @@ When set to `true`, [locators](/api/browser/locators) will match text exactly by
 const locator = page.getByText('Hello, World', { exact: true })
 await locator.click()
 ```
->>>>>>> ab4222a4c4bd8d175537000fb1b0f6b7334065c3
