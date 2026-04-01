@@ -8,4 +8,4 @@ outline: deep
 - **类型:** `TestProjectConfiguration[]`
 - **默认值:** `[]`
 
-An array of [projects](/guide/projects).
+一个由多个 [项目](/guide/projects) 组成的数组。
