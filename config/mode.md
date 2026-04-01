@@ -9,4 +9,4 @@ outline: deep
 - **命令行终端:** `--mode=staging`
 - **默认值:** `'test'`
 
-Overrides Vite mode
+覆盖 Vite 模式。

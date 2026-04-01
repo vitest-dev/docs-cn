@@ -9,4 +9,4 @@ outline: deep
 - **命令行终端:** `--expandSnapshotDiff`, `--expand-snapshot-diff`
 - **默认值:** `false`
 
-Show full diff when snapshot fails instead of a patch.
+当快照测试失败时显示完整差异（而非补丁对比）。
