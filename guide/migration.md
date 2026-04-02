@@ -641,7 +641,41 @@ export default defineConfig({
 
 否则快照中会出现大量转义的 `"` 字符。
 
+<<<<<<< HEAD
 ## 从 Mocha + Chai + Sinon 迁移 {#mocha-chai-sinon}
+=======
+### Custom Snapshot Matchers <Badge type="warning">experimental</Badge> <Version>4.1.3</Version>
+
+Jest imports snapshot composables from `jest-snapshot`. In Vitest, import from `vitest/runtime` instead:
+
+```ts
+const { toMatchSnapshot } = require('jest-snapshot') // [!code --]
+import { toMatchSnapshot } from 'vitest/runtime' // [!code ++]
+
+expect.extend({
+  toMatchTrimmedSnapshot(received: string, length: number) {
+    return toMatchSnapshot.call(this, received.slice(0, length))
+  },
+})
+```
+
+For inline snapshots, the same applies:
+
+```ts
+const { toMatchInlineSnapshot } = require('jest-snapshot') // [!code --]
+import { toMatchInlineSnapshot } from 'vitest/runtime' // [!code ++]
+
+expect.extend({
+  toMatchTrimmedInlineSnapshot(received: string, inlineSnapshot?: string) {
+    return toMatchInlineSnapshot.call(this, received.slice(0, 10), inlineSnapshot)
+  },
+})
+```
+
+See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers) for the full guide.
+
+## Migrating from Mocha + Chai + Sinon {#mocha-chai-sinon}
+>>>>>>> 7bcfba99069917ceca25fdcb80d58c38fdcd7233
 
 Vitest 对从 Mocha+Chai+Sinon 测试套件迁移提供了完善支持。虽然 Vitest 默认使用与 Jest 兼容的 API，但它同时也提供 Chai 风格的断言用于 spy/mock 测试，从而降低迁移成本。
 
