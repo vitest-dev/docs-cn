@@ -177,8 +177,6 @@ export default defineConfig({
 
 ## experimental.importDurations <Version type="experimental">4.1.0</Version> {#experimental-importdurations}
 
-<!-- TODO: translation -->
-
 ::: tip 功能反馈
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
@@ -188,29 +186,29 @@ export default defineConfig({
 ```ts
 interface ImportDurationsOptions {
   /**
-   * When to print import breakdown to CLI terminal.
-   * - false: Never print (default)
-   * - true: Always print
-   * - 'on-warn': Print only when any import exceeds warn threshold
+   * 何时在 CLI 终端打印导入耗时明细
+   * - false: 从不打印（默认值）
+   * - true: 总是打印
+   * - 'on-warn': 仅当有导入超过警告阈值时打印
    */
   print?: boolean | 'on-warn'
   /**
-   * Fail the test run if any import exceeds the danger threshold.
-   * When enabled and threshold exceeded, breakdown is always printed.
+   * 当任何导入超过危险阈值时使测试运行失败
+   * 启用后若超过阈值，将始终打印明细
    * @default false
    */
   failOnDanger?: boolean
   /**
-   * Maximum number of imports to collect and display.
+   * 收集并显示的最大导入数量
    */
   limit?: number
   /**
-   * Duration thresholds in milliseconds for coloring and warnings.
+   * 持续时间阈值（毫秒），用于控制着色显示和警告触发。
    */
   thresholds?: {
-    /** Threshold for yellow/warning color. @default 100 */
+    /** 黄色/警告颜色的阈值 @default 100 */
     warn?: number
-    /** Threshold for red/danger color and failOnDanger. @default 500 */
+    /** 红色/危险颜色及触发 failOnDanger 的阈值 @default 500 */
     danger?: number
   }
 }
@@ -218,9 +216,9 @@ interface ImportDurationsOptions {
 
 - **默认值:** `{ print: false, failOnDanger: false, limit: 0, thresholds: { warn: 100, danger: 500 } }` (`limit` is 10 if `print` or UI is enabled)
 
-Configure import duration collection and display.
+配置导入耗时收集与显示功能。
 
-The `print` option controls CLI terminal output. The `limit` option controls how many imports to collect and display. [Vitest UI](/guide/ui#import-breakdown) can always toggle the breakdown display regardless of the `print` setting.
+`print` 选项控制 CLI 终端的输出行为，`limit` 选项控制收集和显示的导入数量上限。[UI 模式](/guide/ui#import-breakdown) 始终可切换明细显示视图（不受 `print` 设置影响）。
 
 - Self：模块导入耗时，不包括静态导入；
 - Total：模块导入耗时，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
@@ -235,11 +233,11 @@ The `print` option controls CLI terminal output. The `limit` option controls how
 - **类型:** `boolean | 'on-warn'`
 - **默认值:** `false`
 
-Controls when to print import breakdown to CLI terminal after tests finish. This only works with [`default`](/guide/reporters#default), [`verbose`](/guide/reporters#verbose), or [`tree`](/guide/reporters#tree) reporters.
+控制测试结束后何时在 CLI 打印导入耗时分析。该功能仅适用于 [`default`](/guide/reporters#default)、[`verbose`](/guide/reporters#verbose) 或 [`tree`](/guide/reporters#tree) 报告器。
 
-- `false`: Never print breakdown
-- `true`: Always print breakdown
-- `'on-warn'`: Print only when any import exceeds the `thresholds.warn` value
+- `false`: 从不打印分析结果
+- `true`: 总是打印分析结果
+- `'on-warn'`: 仅当任何导入耗时超过 `thresholds.warn` 阈值时打印
 
 ### experimental.importDurations.failOnDanger {#experimental-importdurationsfailondanger}
 
@@ -272,7 +270,7 @@ Duration thresholds in milliseconds for coloring and warnings:
 - `danger`: Threshold for red/danger color and `failOnDanger` (default: 500ms)
 
 ::: info
-[Vitest UI](/guide/ui#import-breakdown) 会在至少一个文件的加载时间超过 `danger` 阈值时，自动显示导入耗时分析。
+[UI 模式](/guide/ui#import-breakdown) 会在至少一个文件的加载时间超过 `danger` 阈值时，自动显示导入耗时分析。
 :::
 
 <!-- TODO: translation -->
@@ -307,7 +305,7 @@ Also note that this option only works with `forks` or `threads` [pools](/config/
 
 ### Module Runner
 
-By default, Vitest runs tests in a very permissive module runner sandbox powered by Vite's [Environment API](https://vite.dev/guide/api-environment.html#environment-api). Every file is categorized as either an "inline" module or an "external" module.
+By default, Vitest runs tests in a very permissive module runner sandbox powered by Vite's [Environment API](https://cn.vite.dev/guide/api-environment.html#environment-api). Every file is categorized as either an "inline" module or an "external" module.
 
 Module runner runs all "inlined" modules. It provides `import.meta.env`, `require`, `__dirname`, `__filename`, static `import`, and has its own module resolution mechanism. This makes it very easy to run code when you don't want to configure the environment and just need to test that the bare JavaScript logic you wrote works as intended.
 
@@ -428,7 +426,7 @@ interface VCSProviderOptions {
 }
 ```
 
-- **Default:** `'git'`
+- **默认值:** `'git'`
 
 Custom provider for detecting changed files. Used with the [`--changed`](/guide/cli#changed) flag to determine which files have been modified.
 
