@@ -192,10 +192,7 @@ Pretty foo: Object {
 ```
 
 我们使用的是 Jest 的 `pretty-format` 来序列化快照。你可以在这里阅读更多相关内容：[pretty-format](https://github.com/facebook/jest/blob/main/packages/pretty-format/README.md#serialize).
-
-<<<<<<< HEAD
-## 与 Jest 的区别 {#difference-from-jest}
-=======
+<!-- TODO: translation -->
 ## Custom Snapshot Matchers <Badge type="warning">experimental</Badge> <Version>4.1.3</Version> {#custom-snapshot-matchers}
 
 You can build custom snapshot matchers using the composable functions exported from `vitest/runtime`. These let you transform values before snapshotting while preserving full snapshot lifecycle support (creation, update, inline rewriting).
@@ -266,8 +263,7 @@ declare module 'vitest' {
 See [Extending Matchers](/guide/extending-matchers) for more on `expect.extend` and custom matcher conventions.
 :::
 
-## Difference from Jest
->>>>>>> 7bcfba99069917ceca25fdcb80d58c38fdcd7233
+## 与 Jest 的区别 {#difference-from-jest}
 
 Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
