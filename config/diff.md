@@ -10,6 +10,8 @@ outline: deep
 
 `DiffOptions` 对象或导出 `DiffOptions` 的模块路径。适用于想要自定义差异显示的场景。
 
+Vitest 差异渲染底层使用 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format)，其中部分 `DiffOptions` 会透传给 pretty-format 配置，其余参数则直接影响差异渲染行为。
+
 例如，作为配置对象：
 
 ```ts

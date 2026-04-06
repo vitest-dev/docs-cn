@@ -107,6 +107,10 @@ function customMatcher(this: MatcherState, received: unknown, arg1: unknown, arg
 
 expect.extend({ customMatcher })
 ```
+<!-- TODO: translation -->
+::: tip
+To build custom **snapshot matchers** (wrappers around `toMatchSnapshot()` / `toMatchInlineSnapshot()` / `toMatchFileSnapshot()`), use `Snapshots` exported from `vitest`. See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers).
+:::
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 

@@ -36,9 +36,7 @@ import ListItem from './ListItem.vue'
       <a target="_blank" href="https://jestjs.io/zh-Hans/docs/expect" rel="noopener noreferrer">Jest expect</a> API
     </ListItem>
     <ListItem>
-      内置
-      <a target="_blank" href="https://github.com/Aslemammad/tinyspy" rel="noopener noreferrer">Tinyspy</a> 用于对象
-      Mock
+      兼容 Jest 对象模拟
     </ListItem>
     <ListItem>
       使用
