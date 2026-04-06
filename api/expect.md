@@ -1561,7 +1561,7 @@ test('spy nth called with', () => {
 
 ## returned <Version>4.1.0</Version> {#returned}
 <!-- TODO: translation -->
-- **Type:** `(value: any) => void`
+- **类型:**`(value: any) => void`
 
 Chai-style assertion that checks if a spy returned a specific value at least once. This is equivalent to `toHaveReturnedWith(value)`.
 

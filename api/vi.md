@@ -1071,7 +1071,7 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 
 ### vi.setTimerTickMode <Version>4.1.0</Version> {#vi-settimertickmode}
 
-- **Type:** `(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
+- **类型:**`(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
 
 Controls how fake timers are advanced.
 
