@@ -861,9 +861,9 @@ test('throws non-Error values', () => {
 })
 ```
 :::
-<!-- TODO: translation -->
-:::warning Unhandled Rejections with Fake Timers
-When using fake timers, an async function that rejects _during_ a `vi.advanceTimersByTimeAsync` call will trigger an [unhandled rejection](https://nodejs.org/api/process.html#event-unhandledrejection) — even if you later assert it with `.rejects.toThrow()`. This happens because the error is thrown before the `expect` chain has a chance to catch it.
+
+:::warning 使用假定时器时的未处理拒绝
+当使用假定时器时，在 `vi.advanceTimersByTimeAsync` 调用期间被拒绝的异步函数会触发 [未处理的拒绝](https://nodejs.org/api/process.html#event-unhandledrejection)，即使你稍后使用 `.rejects.toThrow()` 进行断言。这是因为错误在 `expect` 链有机会捕获之前就被抛出了。
 
 ```ts
 async function foo() {
@@ -876,12 +876,12 @@ test('rejects', async () => {
 
   await vi.advanceTimersByTimeAsync(100)
 
-  // The assertion passes, but the error was already "unhandled" during advanceTimersByTimeAsync
+  // 断言虽然通过，但在 advanceTimersByTimeAsync 期间错误已经是 “未处理” 状态
   await expect(result).rejects.toThrow()
 })
 ```
 
-To avoid this, prefer [`vi.setTimerTickMode('nextTimerAsync')`](/api/vi#vi-settimertickmode) so that timers tick automatically as promises settle, without needing a manual advance:
+为避免这种情况，推荐使用 [`vi.setTimerTickMode('nextTimerAsync')`](/api/vi#vi-settimertickmode)，这样定时器会在 Promise 解决时自动触发，无需手动调用：
 
 ```ts
 beforeEach(() => {
@@ -890,12 +890,12 @@ beforeEach(() => {
 })
 
 test('rejects', async () => {
-  // No advanceTimersByTimeAsync needed — the error is caught by rejects.toThrow()
+  // 不需要 advanceTimersByTimeAsync，错误会被 rejects.toThrow() 捕获
   await expect(foo()).rejects.toThrow('boom')
 })
 ```
 
-Alternatively, set up the `.rejects.toThrow()` assertion _before_ advancing timers so the rejection is handled immediately:
+或者，也可以在推进计时器 _之前_ 设置 `.rejects.toThrow()` 断言，这样就能立即处理失败情况：
 
 ```ts
 test('rejects', async () => {
@@ -1606,10 +1606,10 @@ test('spy nth called with', () => {
 ```
 
 ## returned <Version>4.1.0</Version> {#returned}
-<!-- TODO: translation -->
+
 - **类型:**`(value: any) => void`
 
-Chai-style assertion that checks if a spy returned a specific value at least once. This is equivalent to `toHaveReturnedWith(value)`.
+Chai 风格断言，用于检查 spy 函数是否至少返回过一次指定的值。等价于 `toHaveReturnedWith(value)`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
