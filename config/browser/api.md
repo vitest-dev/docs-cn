@@ -3,28 +3,26 @@ title: browser.api | 配置
 outline: deep
 ---
 
-<!-- TODO: translation -->
-
 # browser.api
 
 - **类型:** `number | object`
 - **默认值:** `63315`
 - **命令行终端:** `--browser.api=63315`, `--browser.api.port=1234, --browser.api.host=example.com`
 
-Configure options for Vite server that serves code in the browser. Does not affect [`test.api`](/config/api) option. By default, Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel.
+配置用于在浏览器中提供代码的 Vite 服务器选项。不影响 [`test.api`](/config/api) 配置。默认情况下，Vitest 会分配 `63315` 端口以避免与开发服务器冲突，从而实现两者并行运行。
 
 ## api.allowWrite <Version>4.1.0</Version> {#api-allowwrite}
 
 - **类型:** `boolean`
-- **默认值:** `true` if not exposed to the network, `false` otherwise
+- **默认值:** 未暴露公网时默认为 `true`，否则为 `false`
 
-Vitest saves [annotation attachments](/guide/test-annotations), [artifacts](/api/advanced/artifacts) and [snapshots](/guide/snapshot) by receiving a WebSocket connection from the browser. This allows anyone who can connect to the API write any arbitrary code on your machine within the root of your project (configured by [`fs.allow`](https://vite.dev/config/server-options#server-fs-allow)).
+Vitest 通过接收来自浏览器的 WebSocket 连接来保存 [测试注解](/guide/test-annotations)、[测试产物](/api/advanced/artifacts) 和 [快照](/guide/snapshot)。这意味着任何能连接到该 API 的人都可在你机器的项目根目录（由 [`fs.allow`](https://cn.vite.dev/config/server-options#server-fs-allow) 配置）内执行任意代码。
 
-If browser server is not exposed to the internet (the host is `localhost`), this should not be a problem, so the default value in that case is `true`. If you override the host, Vitest will set `allowWrite` to `false` by default to prevent potentially harmful writes.
+当浏览器服务器未暴露至互联网（主机为 `localhost`）时，默认值设为 `true` 不会构成安全隐患。若你修改了主机配置，Vitest 将默认将 `allowWrite` 设为 `false` 以防止潜在的恶意写入风险。
 
 ## api.allowExec <Version>4.1.0</Version> {#api-allowexec}
 
 - **类型:** `boolean`
-- **默认值:** `true` if not exposed to the network, `false` otherwise
+- **默认值:** 未暴露至公网时默认为 `true`，否则为 `false`
 
-Allows running any test file via the UI. This only applies to the interactive elements (and the server code behind them) in the [UI](/guide/ui) that can run the code. If UI is disabled, this has no effect. See [`api.allowExec`](/config/api#api-allowexec) for more information.
+允许通过 [UI 模式](/guide/ui) 运行任意测试文件。此配置仅作用于界面交互元素（及其背后的服务端代码）的可执行权限。如果 UI 模式被禁用，则该配置不生效。更多信息请参阅 [`api.allowExec`](/config/api#api-allowexec)。
