@@ -35,6 +35,8 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 
 ## 内联快照 {#inline-snapshots}
 
+Vitest stores a serialized representation of the received value. Snapshot rendering is powered by [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format). [`snapshotFormat`](/config/snapshotformat) allows configuring general snapshot formatting behavior in Vitest. For further customization, you can implement your own [custom serializers](#custom-serializer) or [custom snapshot matchers](#custom-snapshot-matchers).
+
 ::: warning
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
 :::
@@ -190,16 +192,15 @@ Pretty foo: Object {
   "y": 2,
 }
 ```
-
-我们使用的是 Jest 的 `pretty-format` 来序列化快照。你可以在这里阅读更多相关内容：[pretty-format](https://github.com/facebook/jest/blob/main/packages/pretty-format/README.md#serialize).
 <!-- TODO: translation -->
 ## Custom Snapshot Matchers <Badge type="warning">experimental</Badge> <Version>4.1.3</Version> {#custom-snapshot-matchers}
 
-You can build custom snapshot matchers using the composable functions exported from `vitest/runtime`. These let you transform values before snapshotting while preserving full snapshot lifecycle support (creation, update, inline rewriting).
+You can build custom snapshot matchers using the composable functions exposed on `Snapshots` from `vitest`. These let you transform values before snapshotting while preserving full snapshot lifecycle support (creation, update, inline rewriting).
 
 ```ts
-import { expect, test } from 'vitest'
-import { toMatchFileSnapshot, toMatchInlineSnapshot, toMatchSnapshot } from 'vitest/runtime'
+import { expect, test, Snapshots } from 'vitest'
+
+const { toMatchFileSnapshot, toMatchInlineSnapshot, toMatchSnapshot } = Snapshots
 
 expect.extend({
   toMatchTrimmedSnapshot(received: string, length: number) {
@@ -229,6 +230,10 @@ test('raw file snapshot', async () => {
 The composables return `{ pass, message }` so you can further customize the error:
 
 ```ts
+import { Snapshots } from 'vitest'
+
+const { toMatchSnapshot } = Snapshots
+
 expect.extend({
   toMatchTrimmedSnapshot(received: string, length: number) {
     const result = toMatchSnapshot.call(this, received.slice(0, length))
@@ -278,7 +283,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 #### 2. `printBasicPrototype` 默认为 `false` {#_2-printbasicprototype-is-default-to-false}
 
-Jest 和 Vitest 的快照都是由 [`pretty-format`](https://github.com/facebook/jest/blob/main/packages/pretty-format) 支持的。在 Vitest 中，我们将 `printBasicPrototype` 的默认值设置为 `false` 以提供更清晰的快照输出，在 Jest 版本 < 29.0.0 中默认为 `true`。
+Jest 和 Vitest的快照功能均基于 `pretty-format` 实现，但 Vitest 在 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 基础上应用了自定义的快照默认配置。具体而言，Vitest将 `printBasicPrototype` 设为 `false` 以生成更简洁的快照输出，而 Jest 29.0.0 以下版本默认将该值设为 `true`。
 
 ```ts
 import { expect, test } from 'vitest'
