@@ -133,6 +133,10 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 你可以在 Vitest UI 模式中查看代码覆盖率报告。更多详情请参阅 [Vitest UI Coverage](/guide/coverage#vitest-ui)。
 
+::: tip AI coding agents
+When Vitest detects it is running inside an AI coding agent, it automatically adds the `text-summary` reporter and sets `skipFull: true` on the `text` reporter to reduce output and minimize token usage.
+:::
+
 ## coverage.reportOnFailure {#coverage-reportonfailure}
 
 - **类型:** `boolean`
