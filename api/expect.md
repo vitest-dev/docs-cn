@@ -792,7 +792,7 @@ test('matches snapshot', () => {
 })
 ```
 
-我们还可以提供一个对象的形状，如果我们只是测试对象的形状，而不需要它完全兼容：
+当我们不需要完全兼容时，可以仅对对象的接口规范进行测试：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -828,7 +828,7 @@ test('matches inline snapshot', () => {
 })
 ```
 
-如果我么只是在测试对象的形状，而不需要它 100% 兼容，我们也可以提供一个对象的形状。
+当我们不需要完全兼容时，可以仅对对象的接口规范进行测试：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1552,7 +1552,7 @@ test('basket includes fuji', () => {
 
 - **类型:** `(expected: any) => any`
 
-当与相等检查一起使用时，如果值的形状相似，该非对称匹配器将返回 `true`。
+当与相等检查一起使用时，如果值的接口规范相似，该非对称匹配器将返回 `true`。
 
 ```ts
 import { expect, test } from 'vitest'

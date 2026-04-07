@@ -14,7 +14,7 @@
 import { DefaultReporter } from 'vitest/reporters'
 
 export default class MyDefaultReporter extends DefaultReporter {
-  // do something
+  // 执行操作
 }
 ```
 
@@ -40,7 +40,7 @@ import type { Reporter } from 'vitest/node'
 
 export default class CustomReporter implements Reporter {
   onTestModuleCollected() {
-    // print something
+    // 打印内容
   }
 }
 ```

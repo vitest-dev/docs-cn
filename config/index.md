@@ -132,7 +132,7 @@ export default defineConfig({
 ::: warning
 该选项不会影响代码覆盖率。如需从覆盖率报告中排除特定文件，请使用 [`coverage.exclude`](#coverage-exclude)。
 
-如果使用命令行参数，这是唯一一个不会被覆盖配置的选项的参数。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
+如果使用命令行参数，这是唯一一个不会被覆盖配置的选项。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
 :::
 
 ### includeSource
@@ -468,7 +468,7 @@ export default defineConfig({
 }
 ```
 
-如果你在 TypeScript 配置中修改了 [`typeRoots`](https://www.typescriptlang.org/tsconfig/#typeRoots) ，以便编译时引入更多类型，那么你需要重新把 `node_modules` 加回到 `typeRoots` 中，这样才能让 `vitest/globals` 被正确识别。
+如果你在 TypeScript 配置中修改了 [`typeRoots`](https://www.typescriptlang.org/tsconfig/#typeRoots)，以便编译时引入更多类型，那么你需要重新把 `node_modules` 加回到 `typeRoots` 中，这样才能让 `vitest/globals` 被正确识别。
 
 ```json [tsconfig.json]
 {
@@ -558,7 +558,7 @@ export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
   setup() {
-    // 自定义设置
+    // 自定义初始化
     return {
       teardown() {
         // 在所有使用此环境的测试运行完毕后调用。
@@ -708,11 +708,11 @@ export default defineConfig({
 
 ### watchTriggerPatterns <Version>3.2.0</Version><NonProjectOption /> {#watchtriggerpatterns}
 
-- **类型：** `WatcherTriggerPattern[]`
+- **类型:** `WatcherTriggerPattern[]`
 
-Vitest 依据静态与动态 `import` 语句生成的模块图来决定重新执行哪些测试。但若测试读取文件系统或向代理拉取数据，这些依赖便无法被自动探测。
+Vitest 基于由静态和动态 `import` 语句填充的模块依赖图来重新运行测试。但是，如果你从文件系统读取或从代理获取，Vitest 无法检测这些依赖关系。
 
-要触发相关测试重新运行，可定义一条正则及一个返回待执行测试文件列表的函数。
+要触发相关测试重新运行，你可以定义一个正则表达式模式和一个返回要运行的测试文件列表的函数。。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -733,7 +733,7 @@ export default defineConfig({
 ```
 
 ::: warning
-返回的文件应该是绝对的或相对于 root 的。 请注意，这是一个全局选项，不能在 [project](/guide/projects) 配置内部使用。
+返回的文件应该是绝对路径或相对于根目录的相对路径。注意这是一个全局选项，不能在 [project](/guide/projects) 配置中使用。
 :::
 
 ### root
@@ -747,9 +747,9 @@ export default defineConfig({
 
 - **类型:** `string`
 - **命令行终端:** `--dir=<path>`
-- **默认值:** same as `root`
+- **默认值:** 与 `root` 相同
 
-扫描测试文件的基本目录。如果我们的根目录覆盖整个项目，我们可以指定此选项以加快测试发现速度
+用于扫描测试文件的基础目录。如果你的根目录覆盖整个项目，可以指定此选项来加快测试发现速度。
 
 ### reporters<NonProjectOption />
 
@@ -764,7 +764,7 @@ export default defineConfig({
 - **类型:** `string | Record<string, string>`
 - **命令行终端:** `--outputFile=<path>`, `--outputFile.json=./path`
 
-当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入一个文件。通过提供对象而不是字符串，你可以在使用多个报告器时定义单独的输出。
+当指定 `--reporter=json`、`--reporter=html` 或 `--reporter=junit` 时，将测试结果写入文件。通过提供对象而非字符串，你可以在使用多个报告器时定义各自的输出配置。
 
 ### pool<NonProjectOption />
 
@@ -1011,7 +1011,7 @@ export default defineConfig({
 :::
 
 ::: warning
-由于系统内存报告不正确，基于百分比的内存限制 [在 Linux CircleCI 上不起作用](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
+由于系统内存报告不正确，基于百分比的内存限制 [在 Linux CircleCI 环境下无效](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
 :::
 
 ##### poolOptions.vmThreads.useAtomics<NonProjectOption />
@@ -1169,7 +1169,7 @@ if (!globalThis.defined) {
   globalThis.defined = true
 }
 
-// Hook 在每个套件之前重置
+// 在每个套件之前重置 Hook
 afterEach(() => {
   cleanup()
 })
@@ -1292,7 +1292,7 @@ export default function setup(project: TestProject) {
 - **类型**: `string[]`
 - **默认值:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
 
-将触发整个套件重新运行的文件路径的全局 glob 模式。 如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
+将触发整个测试套件重新运行的文件路径（glob 模式）。如果在 git diff 中找到触发器，则与 --changed 参数配对时，将运行整个测试套件。
 
 如果你正在测试调用 CLI 命令时很有用，因为 Vite 无法构建模块依赖树:
 
@@ -1340,7 +1340,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 #### coverage.include
 
 - **类型:** `string[]`
-- **默认值:** 在执行测试过程中所引入的文件。
+- **默认值:** 在执行测试过程中所引入的文件
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.include=<pattern>`, `--coverage.include=<pattern1> --coverage.include=<pattern2>`
 
@@ -1534,19 +1534,19 @@ Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 
 
 覆盖率阈值选项。
 
-如果将阈值设置为正数，则将其解释为所需的最小覆盖率百分比。例如，将行阈值设置为 `90` 意味着必须覆盖 90% 的行。
+如果阈值设置为正数，将被解释为要求的最低代码覆盖率百分比。例如，将行阈值设置为 `90` 意味着必须覆盖 90% 的行。
 
-如果将阈值设置为负数，则将其视为允许的最大未覆盖项数量。例如，将行阈值设置为 `-10` 意味着未覆盖的行数不得超过 10 行。
+如果阈值设置为负数，将被视为允许的最大未覆盖项目数。例如，将行阈值设置为 `-10` 意味着未覆盖的行数不得超过 10 行。
 
 <!-- eslint-skip -->
 ```ts
 {
   coverage: {
     thresholds: {
-      // 需要 90% 的功能覆盖率
+      // 要求函数覆盖率达到 90%
       functions: 90,
 
-      // 要求不超过10行被覆盖
+      // 要求未覆盖代码行数不超过 10 行
       lines: -10,
     }
   }
@@ -1601,8 +1601,8 @@ statements 的全局阈值。
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.autoUpdate=<boolean>`
 
-如果当前覆盖率优于配置的阈值时，将所有阈值 `lines`、`functions`、`branches` 和 `statements` 更新到配置文件中。
-此选项有助于在覆盖率提高时保持阈值不变。
+当实际覆盖率超过配置阈值时，自动将 `lines`、`functions`、`branches` 和 `statements` 的阈值更新到配置文件中。
+此选项适用于覆盖率提高时保持阈值不变。
 
 ##### coverage.thresholds.100
 
@@ -1637,7 +1637,7 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
       functions: 95,
       branches: 70,
 
-      // 匹配全局模式的阈值
+      // 对匹配 glob 模式的文件设置独立阈值
       'src/utils/**.ts': {
         statements: 95,
         functions: 90,
@@ -1645,8 +1645,8 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
         lines: 80,
       },
 
-      // 匹配此模式的文件将仅设置行阈值。
-      // 全局阈值不会被继承。
+      // 匹配此模式的文件仅设置行覆盖率阈值
+      // 不继承全局阈值
       '**/math.ts': {
         lines: 100,
       }
@@ -1658,8 +1658,8 @@ Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入�
 ##### coverage.thresholds[glob-pattern].100 <Version>2.1.0</Version> {#coverage-thresholds-glob-pattern-100}
 
 - **类型：** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8' | 'istanbul'`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8' | 'istanbul'`
 
 将匹配全局模式的文件的阈值设置为 100。
 
@@ -1714,9 +1714,9 @@ export default defineConfig({
 
 #### coverage.experimentalAstAwareRemapping
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8'`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8'`
 - **CLI:** `--coverage.experimentalAstAwareRemapping=<boolean>`
 
 基于实验性 AST 分析的覆盖率重映射。相比默认模式能提供更精确的结果。
@@ -1728,7 +1728,8 @@ export default defineConfig({
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.ignoreClassMethods=<method>`
 
-设置为要忽略覆盖率的类方法名称数组。参考 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods) 来了解详情。
+设置为要忽略覆盖率的类方法名称数组。
+更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods)。
 
 #### coverage.watermarks
 
@@ -1759,7 +1760,7 @@ export default defineConfig({
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.watermarks.statements=50,80`， `--coverage.watermarks.branches=50,80`
 
-语句、行、分支和函数的水印。有关更多信息，请参见 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
+语句、行、分支和函数的阈值标记。更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#high-and-low-watermarks)。
 
 #### coverage.processingConcurrency
 
@@ -2256,7 +2257,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 #### typecheck.tsconfig
 
 - **类型**: `string`
-- **默认值**: _tries to find closest tsconfig.json_
+- **默认值**: _尝试查找最近的 tsconfig.json_
 
 自定义 tsconfig 的路径，相对于项目根目录。
 
@@ -2265,7 +2266,7 @@ Vitest 通常使用缓存对测试进行排序，因此长时间运行的测试�
 - **Type**: `number`
 - **Default**: `10_000`
 
-生成类型检查器所需的最短时间（以毫秒为单位）。
+启动类型检查器所需的最短时间（毫秒）。
 
 ### slowTestThreshold<NonProjectOption />
 
@@ -2402,7 +2403,7 @@ export default defineConfig({
 })
 ```
 
-Or as a module:
+或者作为模块：
 
 :::code-group
 ```ts [vitest.config.js]
@@ -2433,7 +2434,7 @@ export default {
 - **默认值**: `true`
 - **命令行终端:** `--diff.expand=false`
 
-Expand all common lines.
+展开所有公共行。
 
 #### diff.truncateThreshold
 
@@ -2457,7 +2458,7 @@ Expand all common lines.
 - **类型**: `DiffOptionsColor = (arg: string) => string`
 - **默认值**: `noColor = (string: string): string => string`
 
-截断注释的颜色，默认为无色输出。
+截断注释的颜色，默认无颜色输出。
 
 #### diff.printBasicPrototype
 
@@ -2634,14 +2635,14 @@ export interface SnapshotEnvironment {
 - **类型:** `number`
 - **默认值:** `50`
 
-轮询间隔（以毫秒为单位）
+轮询间隔（以毫秒为单位）。
 
 ##### expect.poll.timeout
 
 - **类型:** `number`
 - **默认值:** `1000`
 
-轮询超时时间（以毫秒为单位）
+轮询超时时间（以毫秒为单位）。
 
 ### printConsoleTrace
 
