@@ -1,5 +1,5 @@
 ---
-title: onStackTrace | Config
+title: onStackTrace | 配置
 outline: deep
 ---
 

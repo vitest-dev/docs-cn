@@ -1,20 +1,20 @@
 ---
-title: disableConsoleIntercept | Config
+title: disableConsoleIntercept | 配置
 outline: deep
 ---
 
 # disableConsoleIntercept
 
-- **Type:** `boolean`
-- **CLI:** `--disableConsoleIntercept`
-- **Default:** `false`
+- **类型:** `boolean`
+- **命令行终端:** `--disableConsoleIntercept`
+- **默认值:** `false`
 
-By default, Vitest automatically intercepts console logging during tests for extra formatting of test file, test title, etc.
+默认情况下，Vitest 会在测试期间自动拦截控制台日志，以便为测试文件、测试标题等添加额外格式。
 
-This is also required for console log preview on Vitest UI.
+该功能也是 UI 模式控制台日志预览的必要条件。
 
-However, disabling such interception might help when you want to debug a code with normal synchronous terminal console logging.
+不过，当你想要使用正常的同步终端控制台日志来调试代码时，禁用这种拦截可能会有帮助。
 
 ::: warning
-This option has no effect on [browser tests](/guide/browser/) since Vitest preserves original logging in browser devtools.
+此选项对 [浏览器测试](/guide/browser/) 无效，因为 Vitest 会保留浏览器开发者工具中的原始日志记录。
 :::

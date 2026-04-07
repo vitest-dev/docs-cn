@@ -1,16 +1,16 @@
 ---
-title: cache | Config
+title: cache | 配置
 outline: deep
 ---
 
 # cache <CRoot />
 
-- **Type**: `false`
-- **CLI**: `--no-cache`, `--cache=false`
+- **类型:** `false`
+- **命令行终端:** `--no-cache`, `--cache=false`
 
-Use this option if you want to disable the cache feature. At the moment Vitest stores cache for test results to run the longer and failed tests first.
+使用此选项可禁用缓存功能。当前 Vitest 会缓存测试结果，以便优先运行耗时较长和失败的测试。
 
-The cache directory is controlled by the Vite's [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) option:
+缓存目录由 Vite 的 [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) 选项控制：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -20,7 +20,7 @@ export default defineConfig({
 })
 ```
 
-You can limit the directory only for Vitest by using `process.env.VITEST`:
+可通过 `process.env.VITEST` 将目录限制为仅 Vitest 使用：
 
 ```ts
 import { defineConfig } from 'vitest/config'

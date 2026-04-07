@@ -120,7 +120,7 @@ test('button looks correct', async () => {
 
 它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
 
-## 自定义序列化程序 {#custom-serializer}
+## 自定义序列化器 {#custom-serializer}
 
 你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 默认有内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 

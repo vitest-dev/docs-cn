@@ -1,30 +1,28 @@
 ---
-title: setupFiles | Config
+title: setupFiles | 配置
 outline: deep
 ---
-
-<!-- TODO: translation reference history -->
 
 # setupFiles
 
 - **类型:** `string | string[]`
 
-Paths to setup files resolved relative to the [`root`](/config/root). They will run before each _test file_ in the same process. By default, all test files run in parallel, but you can configure it with [`sequence.setupFiles`](/config/sequence#sequence-setupfiles) option.
+相对于 [项目根目录](/config/root) 的初始化文件路径。它们会在每个 _测试文件_ 之前的同一进程中运行。默认情况下，所有测试文件并行运行，但你可以通过 [`sequence.setupFiles`](/config/sequence#sequence-setupfiles) 选项进行配置。
 
-Vitest will ignore any exports from these files.
+Vitest 会忽略这些文件的任何导出。
 
 :::warning
-Note that setup files are executed in the same process as tests, unlike [`globalSetup`](/config/globalsetup) that runs once in the main thread before any test worker is created.
+注意，初始化文件与测试在同一个进程中执行，这与 [`globalSetup`](/config/globalsetup) 不同，后者会在任何测试工作线程创建之前，在主线程中仅执行一次。
 :::
 
 :::info
 编辑设置文件将自动触发所有测试的重新运行。
 :::
 
-If you have a heavy process running in the background, you can use `process.env.VITEST_POOL_ID` (integer-like string) inside to distinguish between workers and spread the workload.
+如果后台运行了高负载进程，可在内部使用 `process.env.VITEST_POOL_ID`（类整数字符串）区分不同工作线程以分配负载。
 
 :::warning
-If [isolation](/config/isolate) is disabled, imported modules are cached, but the setup file itself is executed again before each test file, meaning that you are accessing the same global object before each test file. Make sure you are not doing the same thing more than necessary.
+如果禁用了 [隔离模式](/config/isolate)，导入的模块会被缓存，但初始化文件本身会在每个测试文件之前重新运行，这意味着每次测试前你访问的都是同一个全局对象。请确保不会执行不必要的重复操作。
 
 比如，你可能依赖于一个全局变量：
 
@@ -37,7 +35,7 @@ if (!globalThis.setupInitialized) {
   globalThis.setupInitialized = true
 }
 
-// hooks reset before each test file
+// 在每个套件之前重置 Hook
 afterEach(() => {
   cleanup()
 })

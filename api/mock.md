@@ -20,8 +20,8 @@ getApplesSpy.mock.calls.length === 1
 
 要验证 mock 的行为，请通过 [`expect`](/api/expect) 调用类似 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) 的断言方法；以下 API 参考汇总了所有可用来操控 mock 的属性和方法。
 
-::: warning IMPORTANT
-Vitest spies inherit implementation's [`length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) property when initialized, but it doesn't override it if the implementation was changed later:
+::: warning 重要说明
+Vitest 的 spy 函数在初始化时会继承被监听函数的 [`length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) 属性，但后续如果修改被监听函数，则不会覆盖该属性值。
 
 ::: code-group
 ```ts [vi.fn]
@@ -50,10 +50,8 @@ fn.length // == 2
 以下类型中的自定义函数实现使用泛型 `<T>` 进行标记。
 :::
 
-<!-- TODO: translation -->
-
-::: warning Class Support {#class-support}
-Shorthand methods like `mockReturnValue`, `mockReturnValueOnce`, `mockResolvedValue` and others cannot be used on a mocked class. Class constructors have [unintuitive behaviour](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) regarding the return value:
+::: warning 类支持 {#class-support}
+像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有[反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
 
 ```ts {2,7}
 const CorrectDogClass = vi.fn(class {
@@ -73,16 +71,16 @@ Marti instanceof CorrectDogClass // ✅ true
 Newt instanceof IncorrectDogClass // ❌ false!
 ```
 
-Even though the shapes are the same, the _return value_ from the constructor is assigned to `Newt`, which is a plain object, not an instance of a mock. Vitest guards you against this behaviour in shorthand methods (but not in `mockImplementation`!) and throws an error instead.
+尽管接口规范相同，但构造函数的 _返回值_ 被赋给了 `Newt`，这是一个普通对象，而非模拟类的实例。Vitest 会在简写方法中（但不会在 `mockImplementation` 中！）防止这种行为，转而抛出错误。
 
-If you need to mock constructed instance of a class, consider using the `class` syntax with `mockImplementation` instead:
+如果需要模拟类的构造实例，考虑改用 `class` 语法配合 `mockImplementation`：
 
 ```ts
 mock.mockReturnValue({ hello: () => 'world' }) // [!code --]
 mock.mockImplementation(class { hello = () => 'world' }) // [!code ++]
 ```
 
-If you need to test the behaviour where this is a valid use case, you can use `mockImplementation` with a `constructor`:
+如果需要测试这种有效用例的行为，可以使用带有 `constructor` 的 `mockImplementation`：
 
 ```ts
 mock.mockImplementation(class {
@@ -425,19 +423,18 @@ const myMockFn = vi
 // 'first call', 'second call', 'default', 'default'
 console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 ```
-<!-- TODO: translation -->
 ## mockThrow <Version>4.1.0</Version> {#mockthrow}
 
 ```ts
 function mockThrow(value: unknown): Mock<T>
 ```
 
-Accepts a value that will be thrown whenever the mock function is called.
+接收一个值，该值会在每次调用模拟函数时被抛出。
 
 ```ts
 const myMockFn = vi.fn()
 myMockFn.mockThrow(new Error('error message'))
-myMockFn() // throws Error<'error message'>
+myMockFn() // 抛出 <'error message'> 错误
 ```
 
 ## mockThrowOnce <Version>4.1.0</Version> {#mockthrowonce}
@@ -446,7 +443,7 @@ myMockFn() // throws Error<'error message'>
 function mockThrowOnce(value: unknown): Mock<T>
 ```
 
-Accepts a value that will be thrown during the next function call. If chained, every consecutive call will throw the specified value.
+接收一个值，该值会在下一次函数调用时被抛出。如果链式调用，每次连续调用都会抛出指定的值。
 
 ```ts
 const myMockFn = vi
@@ -476,8 +473,8 @@ fn('arg3')
 
 fn.mock.calls
 === [
-  ['arg1', 'arg2'], // first call
-  ['arg3'], // second call
+  ['arg1', 'arg2'], // 首次调用
+  ['arg3'], // 第二次调用
 ]
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: runner | Config
+title: runner | 配置
 outline: deep
 ---
 

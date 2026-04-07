@@ -1,5 +1,5 @@
 ---
-title: watch | Config
+title: watch | 配置
 outline: deep
 ---
 

@@ -1,23 +1,21 @@
 ---
-title: allowOnly | Config
+title: allowOnly | 配置
 outline: deep
 ---
 
-<!-- TODO: translation -->
-
 # allowOnly
 
-- **Type**: `boolean`
-- **Default**: `!process.env.CI`
-- **CLI:** `--allowOnly`, `--allowOnly=false`
+- **类型:**: `boolean`
+- **默认值:**: `!process.env.CI`
+- **命令行终端:** `--allowOnly`, `--allowOnly=false`
 
-By default, Vitest does not permit tests marked with the [`only`](/api/test#test-only) flag in Continuous Integration (CI) environments. Conversely, in local development environments, Vitest allows these tests to run.
+默认情况下，Vitest 不允许在持续集成（CI）环境中运行带有 [`only`](/api/test#test-only) 标记的测试。相反，在本地开发环境中，Vitest 允许运行这些测试。
 
 ::: info
-Vitest uses [`std-env`](https://npmx.dev/package/std-env) package to detect the environment.
+Vitest 使用 [`std-env`](https://npmx.dev/package/std-env) 包来检测环境。
 :::
 
-You can customize this behavior by explicitly setting the `allowOnly` option to either `true` or `false`.
+你可以通过显式设置 `allowOnly` 选项为 `true` 或 `false` 来自定义此行为。
 
 ::: code-group
 ```js [vitest.config.js]
@@ -34,6 +32,6 @@ vitest --allowOnly
 ```
 :::
 
-When enabled, Vitest will not fail the test suite if tests marked with [`only`](/api/test#test-only) are detected, including in CI environments.
+启用时，即使检测到带有 [`only`](/api/test#test-only) 标记的测试，Vitest 也不会导致测试套件失败，包括在 CI 环境中。
 
-When disabled, Vitest will fail the test suite if tests marked with [`only`](/api/test#test-only) are detected, including in local development environments.
+禁用时时，如果检测到带有 [`only`](/api/test#test-only) 标记的测试，Vitest 将导致测试套件失败，包括在本地开发环境中。

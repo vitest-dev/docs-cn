@@ -1,5 +1,5 @@
 ---
-title: execArgv | Config
+title: execArgv | 配置
 outline: deep
 ---
 

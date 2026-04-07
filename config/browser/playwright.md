@@ -67,10 +67,10 @@ Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](
 请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试标志推送到 `launch.args`。
 :::
 
-::: tip Enabling new Chromium headless mode
-Playwright supports a [new headless mode](https://playwright.dev/docs/browsers#chromium-new-headless-mode) for Chromium that uses the real Chrome browser instead of the dedicated headless shell. This provides more authentic, reliable test execution and removes the need to install a separate headless Chromium build.
+::: tip 启用新版 Chromium 无头模式
+Playwright 支持 Chromium 的 [新版无头模式](https://playwright.dev/docs/browsers#chromium-new-headless-mode)，该模式使用真实的 Chrome 浏览器而非专用的无头 shell。这能提供更真实可靠的测试执行，且无需安装单独的无头 Chromium 构建版本。
 
-To opt in, set `channel` to `'chromium'` in `launchOptions`:
+启用方式：在 `launchOptions` 中设置 `channel` 为 `'chromium'`：
 
 ```ts [vitest.config.ts]
 import { playwright } from '@vitest/browser-playwright'
@@ -95,19 +95,19 @@ export default defineConfig({
 ## connectOptions
 
 这些选项直接传递给 `playwright[browser].connect` 命令。你可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-connect) 中了解更多关于该命令和可用参数的信息。
-<!-- TODO: translation -->
-Use `connectOptions.wsEndpoint` to connect to an existing Playwright server instead of launching browsers locally. This is useful for running browsers in Docker, in CI, or on a remote machine.
+
+通过 `connectOptions.wsEndpoint` 可连接现有 Playwright 服务器，而无需在本地启动浏览器。此功能适用于在 Docker、CI 或远程机器中运行浏览器场景。
 
 ::: warning
 
-Vitest forwards `launchOptions` to Playwright server via the `x-playwright-launch-options` header. This works only if the remote Playwright server supports this header, for example when using the `playwright run-server` CLI.
+Vitest 会通过 `x-playwright-launch-options` 请求头将 `launchOptions` 转发至 Playwright 服务器。仅当远程 Playwright 服务器支持该请求头时此功能才生效，例如使用 `playwright run-server` CLI 时。
 
 :::
 
-::: details Example: Running a Playwright Server in Docker
-To run browsers in a Docker container (see [Playwright Docker guide](https://playwright.dev/docs/docker#remote-connection)):
+::: details 示例：在 Docker 中运行 Playwright 服务器
+要在 Docker 容器中运行浏览器（参见 [Playwright Docker 指南](https://playwright.dev/docs/docker#remote-connection)）：
 
-Start a Playwright server using Docker Compose:
+使用 Docker Compose 启动 Playwright 服务器：
 
 ```yaml [docker-compose.yml]
 services:
@@ -125,7 +125,7 @@ services:
 docker compose up -d
 ```
 
-Then configure Vitest to connect to it. The [`exposeNetwork`](https://playwright.dev/docs/api/class-browsertype#browser-type-connect-option-expose-network) option lets the containerized browser reach Vitest's dev server on the host:
+然后配置 Vitest 连接到该服务器。[`exposeNetwork`](https://playwright.dev/docs/api/class-browsertype#browser-type-connect-option-expose-network) 选项允许容器化浏览器访问主机上的 Vitest 开发服务器：
 
 ```ts [vitest.config.ts]
 import { playwright } from '@vitest/browser-playwright'
@@ -181,21 +181,19 @@ await userEvent.click(page.getByRole('button'), {
 })
 ```
 
-<!-- TODO: translation -->
-
 ## `persistentContext` <Version>4.1.0</Version> {#persistentcontext}
 
-- **Type:** `boolean | string`
-- **Default:** `false`
+- **类型:** `boolean | string`
+- **默认值:** `false`
 
-When enabled, Vitest uses Playwright's [persistent context](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-persistent-context) instead of a regular browser context. This allows browser state (cookies, localStorage, DevTools settings, etc.) to persist between test runs.
+启用后，Vitest 将使用 Playwright 的 [持久化上下文](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-persistent-context) 替代常规浏览器上下文。这使得浏览器状态（如 cookies、localStorage、DevTools 设置等）能在测试运行间保留。
 
 ::: warning
-This option is ignored when running tests in parallel (e.g. when headless with [`fileParallelism`](/config/fileparallelism) enabled) since persistent context cannot be shared across parallel sessions.
+该选项在并行运行测试时会被忽略（例如启用 [`fileParallelism`](/config/fileparallelism) 的无头模式场景），因为持久化上下文无法跨并行会话共享。
 :::
 
-- When set to `true`, the user data is stored in `./node_modules/.cache/vitest-playwright-user-data`
-- When set to a string, the value is used as the path to the user data directory
+- 设为 `true` 时，用户数据存储在 `./node_modules/.cache/vitest-playwright-user-data`
+- 设为字符串时，该值将作为用户数据目录路径
 
 ```ts [vitest.config.js]
 import { playwright } from '@vitest/browser-playwright'
@@ -206,7 +204,7 @@ export default defineConfig({
     browser: {
       provider: playwright({
         persistentContext: true,
-        // or specify a custom directory:
+        // 或指定自定义目录：
         // persistentContext: './my-browser-data',
       }),
       instances: [{ browser: 'chromium' }],

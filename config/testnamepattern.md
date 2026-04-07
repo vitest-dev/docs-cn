@@ -1,14 +1,14 @@
 ---
-title: testNamePattern | Config
+title: testNamePattern | 配置
 outline: deep
 ---
 
 # testNamePattern <CRoot /> {#testnamepattern}
 
-- **类型** `string | RegExp`
-- **命令行终端** `-t <pattern>`, `--testNamePattern=<pattern>`, `--test-name-pattern=<pattern>`
+- **类型:** `string | RegExp`
+- **命令行终端:** `-t <pattern>`, `--testNamePattern=<pattern>`, `--test-name-pattern=<pattern>`
 
-运行符合全名匹配的测试。如果在此属性中添加 `OnlyRunThis`，则测试中不包含 `OnlyRunThis` 关键字的用例将会被跳过。
+运行名称完全匹配该模式的测试。如果在此属性中添加 `OnlyRunThis`，则测试中不包含 `OnlyRunThis` 关键字的用例将会被跳过。
 
 ```js
 import { expect, test } from 'vitest'

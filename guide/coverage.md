@@ -241,7 +241,7 @@ export default defineConfig({
 ```
 :::
 
-## 自定义覆盖率的报告器 {#custom-coverage-reporter}
+## 自定义代码覆盖率报告器 {#custom-coverage-reporter}
 
 我们可以通过在 `test.coverage.reporter` 中传递软件包名称或绝对路径来使用自定义覆盖报告器：
 

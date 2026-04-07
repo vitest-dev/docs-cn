@@ -1071,7 +1071,7 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 
 ### vi.setTimerTickMode <Version>4.1.0</Version> {#vi-settimertickmode}
 
-- **Type:** `(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
+- **类型:**`(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
 
 Controls how fake timers are advanced.
 
@@ -1125,9 +1125,9 @@ function useRealTimers(): Vitest
 
 当定时器用完后，我们可以调用此方法将模拟的计时器返回到其原始实现。之前调度的计时器都将被丢弃。
 
-## 辅助函数{#miscellaneous}
+## 工具函数{#miscellaneous}
 
-Vitest 提供的一组有用的辅助函数。
+Vitest 提供的一组有用的工具函数。
 
 ### vi.waitFor {#vi-waitfor}
 
@@ -1342,17 +1342,15 @@ function resetConfig(): void
 
 如果之前调用过 [`vi.setConfig`](#vi-setconfig) ，则会将配置重置为原始状态。
 
-<!-- TODO: translation -->
-
 ### vi.defineHelper <Version>4.1.0</Version> {#vi-defineHelper}
 
 ```ts
 function defineHelper<F extends (...args: any) => any>(fn: F): F
 ```
 
-Wraps a function to create an assertion helper. When an assertion fails inside the helper, the error stack trace will point to where the helper was called, not inside the helper itself. This makes it easier to identify the source of test failures when using custom assertion functions.
+封装函数以创建断言工具函数。当功能函数内断言失败时，错误堆栈会指向调用工具函数的位置，而非工具函数内部。这使得使用自定义断言函数时能更轻松定位测试失败根源。
 
-Works with both synchronous and asynchronous functions, and supports `expect.soft()`.
+同时支持同步和异步函数，并兼容 `expect.soft()` 用法。
 
 ```ts
 import { expect, vi } from 'vitest'
@@ -1362,11 +1360,11 @@ const assertPair = vi.defineHelper((a, b) => {
 })
 
 test('example', () => {
-  assertPair('left', 'right') // Error points to this line
+  assertPair('left', 'right') // 错误将指向此行
 })
 ```
 
-Example output:
+示例输出：
 
 <!-- eslint-skip -->
 ```js

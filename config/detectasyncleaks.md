@@ -1,22 +1,22 @@
 ---
-title: detectAsyncLeaks | Config
+title: detectAsyncLeaks | 配置
 outline: deep
 ---
-<!-- TODO: translation -->
+
 # detectAsyncLeaks
 
-- **Type:** `boolean`
-- **CLI:** `--detectAsyncLeaks`, `--detect-async-leaks`
-- **Default:** `false`
+- **类型:** `boolean`
+- **命令行终端:** `--detectAsyncLeaks`, `--detect-async-leaks`
+- **默认值:** `false`
 
 ::: warning
-Enabling this option will make your tests run much slower. Use only when debugging or developing tests.
+启用此选项会显著降低测试运行速度。仅在调试或开发测试时使用。
 :::
 
-Detect asynchronous resources leaking from the test file.
-Uses [`node:async_hooks`](https://nodejs.org/api/async_hooks.html) to track creation of async resources. If a resource is not cleaned up, it will be logged after tests have finished.
+检测测试文件中泄漏的异步资源。
+该功能使用 [`node:async_hooks`](https://nodejs.org/api/async_hooks.html) 来追踪异步资源的创建。如果资源未被清理，将在测试结束后记录相关日志。
 
-For example if your code has `setTimeout` calls that execute the callback after tests have finished, you will see following error:
+例如，如果代码中存在 `setTimeout` 调用且其回调在测试结束后执行，将看到如下错误：
 
 ```sh
 ⎯⎯⎯⎯⎯⎯⎯⎯ Async Leaks 1 ⎯⎯⎯⎯⎯⎯⎯⎯
@@ -30,7 +30,7 @@ Timeout leaking in test/checkout-screen.test.tsx
  30|
 ```
 
-To fix this, you'll need to make sure your code cleans the timeout properly:
+修复此问题，需确保正确清理定时器：
 
 ```js
 useEffect(() => {

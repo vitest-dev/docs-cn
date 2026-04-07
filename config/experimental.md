@@ -1,5 +1,5 @@
 ---
-title: 实验性 | Config
+title: 实验性 | 配置
 outline: deep
 ---
 
@@ -177,50 +177,48 @@ export default defineConfig({
 
 ## experimental.importDurations <Version type="experimental">4.1.0</Version> {#experimental-importdurations}
 
-<!-- TODO: translation -->
-
 ::: tip 功能反馈
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-- **Type:**
+- **类型:**
 
 ```ts
 interface ImportDurationsOptions {
   /**
-   * When to print import breakdown to CLI terminal.
-   * - false: Never print (default)
-   * - true: Always print
-   * - 'on-warn': Print only when any import exceeds warn threshold
+   * 何时在 CLI 终端打印导入耗时明细
+   * - false: 从不打印（默认值）
+   * - true: 总是打印
+   * - 'on-warn': 仅当有导入超过警告阈值时打印
    */
   print?: boolean | 'on-warn'
   /**
-   * Fail the test run if any import exceeds the danger threshold.
-   * When enabled and threshold exceeded, breakdown is always printed.
+   * 当任何导入超过危险阈值时使测试运行失败
+   * 启用后若超过阈值，将始终打印明细
    * @default false
    */
   failOnDanger?: boolean
   /**
-   * Maximum number of imports to collect and display.
+   * 收集并显示的最大导入数量
    */
   limit?: number
   /**
-   * Duration thresholds in milliseconds for coloring and warnings.
+   * 持续时间阈值（毫秒），用于控制着色显示和警告触发。
    */
   thresholds?: {
-    /** Threshold for yellow/warning color. @default 100 */
+    /** 黄色/警告颜色的阈值 @default 100 */
     warn?: number
-    /** Threshold for red/danger color and failOnDanger. @default 500 */
+    /** 红色/危险颜色及触发 failOnDanger 的阈值 @default 500 */
     danger?: number
   }
 }
 ```
 
-- **Default:** `{ print: false, failOnDanger: false, limit: 0, thresholds: { warn: 100, danger: 500 } }` (`limit` is 10 if `print` or UI is enabled)
+- **默认值:** `{ print: false, failOnDanger: false, limit: 0, thresholds: { warn: 100, danger: 500 } }` (`limit` is 10 if `print` or UI is enabled)
 
-Configure import duration collection and display.
+配置导入耗时收集与显示功能。
 
-The `print` option controls CLI terminal output. The `limit` option controls how many imports to collect and display. [Vitest UI](/guide/ui#import-breakdown) can always toggle the breakdown display regardless of the `print` setting.
+`print` 选项控制 CLI 终端的输出行为，`limit` 选项控制收集和显示的导入数量上限。[UI 模式](/guide/ui#import-breakdown) 始终可切换明细显示视图（不受 `print` 设置影响）。
 
 - Self：模块导入耗时，不包括静态导入；
 - Total：模块导入耗时，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
@@ -232,23 +230,23 @@ The `print` option controls CLI terminal output. The `limit` option controls how
 
 ### experimental.importDurations.print {#experimental-importdurationsprint}
 
-- **Type:** `boolean | 'on-warn'`
-- **Default:** `false`
+- **类型:** `boolean | 'on-warn'`
+- **默认值:** `false`
 
-Controls when to print import breakdown to CLI terminal after tests finish. This only works with [`default`](/guide/reporters#default), [`verbose`](/guide/reporters#verbose), or [`tree`](/guide/reporters#tree) reporters.
+控制测试结束后何时在 CLI 打印导入耗时分析。该功能仅适用于 [`default`](/guide/reporters#default)、[`verbose`](/guide/reporters#verbose) 或 [`tree`](/guide/reporters#tree) 报告器。
 
-- `false`: Never print breakdown
-- `true`: Always print breakdown
-- `'on-warn'`: Print only when any import exceeds the `thresholds.warn` value
+- `false`: 从不打印分析结果
+- `true`: 总是打印分析结果
+- `'on-warn'`: 仅当任何导入耗时超过 `thresholds.warn` 阈值时打印
 
 ### experimental.importDurations.failOnDanger {#experimental-importdurationsfailondanger}
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Fail the test run if any import exceeds the `thresholds.danger` value. When enabled and the threshold is exceeded, the breakdown is always printed regardless of the `print` setting.
+当任何导入操作耗时超过 `thresholds.danger` 阈值时，测试将会运行失败。启用该选项且超过阈值时，无论 `print` 如何设置，始终会打印性能分析报告。
 
-This is useful for enforcing import performance budgets in CI:
+该功能适用于在 CI 环境中确保导入操作符合性能预期：
 
 ```bash
 vitest --experimental.importDurations.failOnDanger
@@ -256,93 +254,91 @@ vitest --experimental.importDurations.failOnDanger
 
 ### experimental.importDurations.limit {#experimental-importdurationslimit}
 
-- **Type:** `number`
-- **Default:** `0` (or `10` if `print`, `failOnDanger`, or UI is enabled)
+- **类型:** `number`
+- **默认值:** `0`（如果启用 `print`、`failOnDanger` 或 UI 模式时默认为`10`）
 
-Maximum number of imports to collect and display in CLI output, [Vitest UI](/guide/ui#import-breakdown), and third-party reporters.
+在 CLI 输出、[UI 模式](/guide/ui#import-breakdown) 及第三方报告器中收集和显示的导入操作最大数量限制。
 
 ### experimental.importDurations.thresholds {#experimental-importdurationsthresholds}
 
-- **Type:** `{ warn?: number; danger?: number }`
-- **Default:** `{ warn: 100, danger: 500 }`
+- **类型:** `{ warn?: number; danger?: number }`
+- **默认值:** `{ warn: 100, danger: 500 }`
 
-Duration thresholds in milliseconds for coloring and warnings:
+用于着色和警告的耗时阈值（单位：毫秒）：
 
-- `warn`: Threshold for yellow/warning color (default: 100ms)
-- `danger`: Threshold for red/danger color and `failOnDanger` (default: 500ms)
+- `warn`：触发黄色/警告颜色的阈值（默认值：100毫秒）
+- `danger`：触发红色/危险颜色及 `failOnDanger` 的阈值（默认值：500毫秒）
 
 ::: info
-[Vitest UI](/guide/ui#import-breakdown) 会在至少一个文件的加载时间超过 `danger` 阈值时，自动显示导入耗时分析。
+[UI 模式](/guide/ui#import-breakdown) 会在至少一个文件的加载时间超过 `danger` 阈值时，自动显示导入耗时分析。
 :::
-
-<!-- TODO: translation -->
 
 ## experimental.viteModuleRunner <Version type="experimental">4.1.0</Version> {#experimental-vitemodulerunner}
 
-::: tip FEEDBACK
-Please leave feedback regarding this feature in a [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9501).
+::: tip 反馈
+通过 [GitHub 讨论区](https://github.com/vitest-dev/vitest/discussions/9501) 提交关于此功能的反馈。
 :::
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-Controls whether Vitest uses Vite's [module runner](https://vite.dev/guide/api-environment-runtimes#modulerunner) to run the code or fallback to the native `import`.
+控制 Vitest 是否使用 Vite 的 [模块运行器](https://cn.vite.dev/guide/api-environment-runtimes#modulerunner) 执行代码，或回退至原生 `import` 方式。
 
-If this option is defined in the root config, all [projects](/guide/projects) will inherit it automatically.
+如果在根配置中定义此选项，所有 [项目](/guide/projects) 将自动继承该设置。
 
-Consider disabling the module runner if you are running tests in the same environment as your code (server backend or simple scripts, for example). However, we still recommend running `jsdom`/`happy-dom` tests with Vite's module runner or in [the browser](/guide/browser/) since it doesn't require any additional configuration.
+当测试运行环境与代码执行环境相同时（例如服务端后端或简单脚本），可考虑禁用模块运行器。但对于 `jsdom`/`happy-dom` 测试，我们仍建议使用 Vite 模块运行器或在 [浏览器模式](/guide/browser/) 中运行，因为这样无需添加额外的配置。
 
-Disabling this flag will disable _all_ file transforms:
+禁用此选项将导致 _所有_ 文件转换失效：
 
-- test files and your source code are not processed by Vite
-- your global setup files are not processed
-- your custom runner/pool/environment files are not processed
-- your config file is still processed by Vite (this happens before Vitest knows the `viteModuleRunner` flag)
+- 测试文件及源码不会经过 Vite 处理
+- 全局初始化文件不会被处理
+- 自定义运行器 / 池 / 环境文件不会被处理
+- 配置文件仍由 Vite 处理（该过程发生在 Vitest 获知 `viteModuleRunner` 标志之前执行）
 
 ::: warning
-At the moment, Vitest still requires Vite for certain functionality like the module graph or watch mode.
+当前 Vitest 仍需依赖 Vite 实现某些功能，如模块图或监视模式。
 
-Also note that this option only works with `forks` or `threads` [pools](/config/pool).
+另外请注意，此选项仅适用于`forks`或`threads`[执行池](/config/pool)。
 :::
 
-### Module Runner
+### 模块运行器 {#module-runner}
 
-By default, Vitest runs tests in a very permissive module runner sandbox powered by Vite's [Environment API](https://vite.dev/guide/api-environment.html#environment-api). Every file is categorized as either an "inline" module or an "external" module.
+Vitest 默认在由 Vite [环境 API](https://cn.vite.dev/guide/api-environment.html#environment-api) 提供非常宽松的模块运行器沙箱中执行测试。所有文件被归类为 "inline" 模块或 "external" 模块。
 
-Module runner runs all "inlined" modules. It provides `import.meta.env`, `require`, `__dirname`, `__filename`, static `import`, and has its own module resolution mechanism. This makes it very easy to run code when you don't want to configure the environment and just need to test that the bare JavaScript logic you wrote works as intended.
+模块运行器负责执行所有 "inline" 模块。它提供 `import.meta.env` 环境变量、`require` 函数、`__dirname` 和 `__filename` 路径变量、静态 `import` 语法，并具备独立的模块解析机制。这使得在不配置环境的情况下运行代码变得非常简单，只需要测试你编写的纯 JavaScript 逻辑是否按预期工作即可。
 
-All "external" modules run in native mode, meaning they are executed outside of the module runner sandbox. If you are running tests in Node.js, these files are imported with the native `import` keyword and processed by Node.js directly.
+所有 "external" 模块均以原生模式运行，这意味着它们会在模块运行器的沙箱环境之外执行。当在 Node.js 环境中运行测试时，这些文件将通过原生 `import` 关键字导入，并由 Node.js 直接处理。
 
-While running JSDOM/happy-dom tests in a permissive fake environment might be justified, running Node.js tests in a non-Node.js environment can hide and silence potential errors you may encounter in production, especially if your code doesn't require any additional transformations provided by Vite plugins.
+虽然在宽松的模拟环境中运行 JSDOM / happy-dom 测试可能具有合理性，但在非 Node.js 环境下运行 Node.js 测试可能会隐藏并抑制你在生产环境中可能遇到的潜在错误，尤其是当你的代码不需要 Vite 插件提供的任何额外转换时。
 
-### Known Limitations
+### 已知限制 {#known-limitations}
 
-Some Vitest features rely on files being transformed. Vitest uses synchronous [Node.js Loaders API](https://nodejs.org/api/module.html#customization-hooks) to transform test files and setup files to support these features:
+部分 Vitest 功能依赖于文件转换机制。Vitest 采用同步的 [Node.js Loaders API](https://nodejs.org/api/module.html#customization-hooks) 来转换测试文件和配置文件，以实现以下功能支持：
 
 - [`import.meta.vitest`](/guide/in-source)
 - [`vi.mock`](/api/vi#vi-mock)
 - [`vi.hoisted`](/api/vi#vi-hoisted)
 
 ::: warning
-This means that Vitest requires at least Node 22.15 for those features to work. At the moment, they also do not work in Deno or Bun.
+这意味着 Vitest 至少需要 Node 22.15 才能使这些功能工作。目前，它们也不适用于 Deno 或 Bun。
 
-Vitest will only detect `vi.mock` and `vi.hoisted` inside of test files, they will not be hoisted inside imported modules.
+Vitest 只会在测试文件中检测 `vi.mock` 和 `vi.hoisted`，它们不会在导入的模块中被提升。
 :::
 
-This could affect performance because Vitest needs to read the file and process it. If you do not use these features, you can disable the transforms by setting `experimental.nodeLoader` to `false`. Vitest only reads test files and setup files while looking for `vi.mock` or `vi.hoisted`. Using these in other files won't hoist them to the top of the file and can lead to unexpected behavior.
+这可能会影响性能，因为 Vitest 需要读取文件并处理它。如果你不使用这些功能，可以通过将 `experimental.nodeLoader` 设置为 `false` 来禁用转换。Vitest 只在查找 `vi.mock` 或 `vi.hoisted` 时读取测试文件和全局初始化文件。在其他文件中使用它们不会将它们提升到文件顶部，并可能导致意外行为。
 
-Some features will not work due to the nature of `viteModuleRunner`, including:
+由于 `viteModuleRunner` 的性质，某些功能将不起作用，包括：
 
-- no `import.meta.env`: `import.meta.env` is a Vite feature, use `process.env` instead
-- no `plugins`: plugins are not applied because there is no transformation phase, use [customization hooks](https://nodejs.org/api/module.html#customization-hooks) via [`execArgv`](/config/execargv) instead
-- no `alias`: aliases are not applied because there is no transformation phase
-- `istanbul` coverage provider doesn't work because there is no transformation phase, use `v8` instead
+- 不支持 `import.meta.env`：`import.meta.env` 是 Vite 特性，使用 `process.env` 替代
+- 不支持 `plugins`：由于不存在转换阶段，插件不会生效，通过 [`execArgv`](/config/execargv) 使用 [自定义钩子](https://nodejs.org/api/module.html#customization-hooks) 替代
+- 不支持 `alias`：由于不存在转换阶段，路径别名不会生效
+- `istanbul` 覆盖率工具无法工作（因缺少转换阶段），请改用 `v8` 覆盖率工具
 
-::: warning Coverage Support
-At the moment Vitest supports coverage via `v8` provider as long as files can be transformed into JavaScript. To transform TypeScript, Vitest uses [`module.stripTypeScriptTypes`](https://nodejs.org/api/module.html#modulestriptypescripttypescode-options) which is available in Node.js since v22.13. If you are using a custom [module loader](https://nodejs.org/api/module.html#customization-hooks), Vitest is not able to reuse it to transform files for analysis.
+::: warning 覆盖率支持
+当前 Vitest 通过 `v8` 提供程序支持覆盖率分析，前提是文件能够被转换为 JavaScript。对于 TypeScript 转换，Vitest 使用 Node.js v22.13 版本起提供的 [`module.stripTypeScriptTypes`](https://nodejs.org/api/module.html#modulestriptypescripttypescode-options) 功能。如果你使用自定义 [模块加载器](https://nodejs.org/api/module.html#customization-hooks)，Vitest 将无法复用该加载器进行覆盖率分析所需的文件转换。
 :::
 
-With regards to mocking, it is also important to point out that ES modules do not support property override. This means that code like this won't work anymore:
+关于模拟对象功能，需要特别指出的是 ES 模块不支持属性重写。这意味着以下代码将无法正常工作：
 
 ```ts
 import * as fs from 'node:fs'
@@ -351,7 +347,7 @@ import { vi } from 'vitest'
 vi.spyOn(fs, 'readFileSync').mockImplementation(() => '42') // ❌
 ```
 
-However, Vitest supports auto-spying on modules without overriding their implementation. When `vi.mock` is called with a `spy: true` argument, the module is mocked in a way that preserves original implementations, but all exported functions are wrapped in a `vi.fn()` spy:
+但 Vitest 支持在不覆盖模块实现的情况下进行自动监听。当调用 `vi.mock` 并传入 `spy: true` 参数时，模块会以保留原始实现的方式被模拟，同时所有导出的函数都会被包裹在 `vi.fn()` 监听器中：
 
 ```ts
 import * as fs from 'node:fs'
@@ -362,7 +358,7 @@ vi.mock('node:fs', { spy: true })
 fs.readFileSync.mockImplementation(() => '42') // ✅
 ```
 
-Factory mocking is implemented using a top-level await. This means that mocked modules cannot be loaded with `require()` in your source code:
+工厂模拟功能通过顶层 await 实现。这意味着在你的源代码中无法使用 `require()` 加载被模拟的模块：
 
 ```ts
 vi.mock('node:fs', async (importOriginal) => {
@@ -372,26 +368,26 @@ vi.mock('node:fs', async (importOriginal) => {
   }
 })
 
-const fs = require('node:fs') // throws an error
+const fs = require('node:fs') // 报错
 ```
 
-This limitation exists because factories can be asynchronous. This should not be a problem because Vitest doesn't mock builtin modules inside `node_modules`, which is similar to how Vitest works by default.
+这种限制源自于工厂函数可以是异步的。不过这不构成问题，因为 Vitest 默认不会模拟 `node_modules` 中的内置模块，这类似于 Vitest 默认的工作方式。
 
 ### TypeScript
 
-If you are using Node.js 22.18/23.6 or higher, TypeScript will be [transformed natively](https://nodejs.org/en/learn/typescript/run-natively) by Node.js.
+如果你使用的是 Node.js 22.18/23.6 或更高版本，TypeScript 将由 Node.js [原生支持转换](https://nodejs.org/en/learn/typescript/run-natively)。
 
-::: warning TypeScript with Node.js 22.6-22.18
-If you are using Node.js version between 22.6 and 22.18, you can also enable native TypeScript support via `--experimental-strip-types` flag:
+::: warning  在 Node.js 22.6-22.18 环境中的使用 TypeScript
+如果您使用的 Node.js 版本介于 22.6 至 22.18 之间，还可通过 `--experimental-strip-types` 参数启用原生 TypeScript 支持：
 
 ```shell
 NODE_OPTIONS="--experimental-strip-types" vitest
 ```
 
-If you are using TypeScript and Node.js version lower than 22.6, then you will need to either:
+如果你使用的是 TypeScript 且 Node.js 版本低于 22.6，则需要执行以下任一操作：
 
-- build your test files and source code and run those files directly
-- import a [custom loader](https://nodejs.org/api/module.html#customization-hooks) via `execArgv` flag
+- 构建测试文件和源代码并直接运行这些文件
+- 通过 `execArgv` 参数导入 [自定义加载器](https://nodejs.org/api/module.html#customization-hooks)
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -410,12 +406,12 @@ export default defineConfig({
 })
 ```
 
-If you are running tests in Deno, TypeScript files are processed by the runtime without any additional configurations.
+如果你在 Deno 中运行测试，TypeScript 文件由运行时处理，无需任何额外配置。
 :::
 
 ## experimental.vcsProvider <Version type="experimental">4.1.1</Version> {#experimental-vcsprovider}
 
-- **Type:** `VCSProvider | string`
+- **类型:** `VCSProvider | string`
 
 ```ts
 interface VCSProvider {
@@ -428,11 +424,11 @@ interface VCSProviderOptions {
 }
 ```
 
-- **Default:** `'git'`
+- **默认值:** `'git'`
 
-Custom provider for detecting changed files. Used with the [`--changed`](/guide/cli#changed) flag to determine which files have been modified.
+用于检测更改文件的自定义驱动。与 [`--changed`](/guide/cli#changed) 标志配合使用，用于确定哪些文件已被修改。
 
-By default, Vitest uses Git to detect changed files. You can provide a custom implementation of the `VCSProvider` interface to use a different version control system:
+默认情况下，Vitest 使用 Git 检测更改的文件。你可以提供 `VCSProvider` 接口的自定义实现以使用不同的版本控制系统：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -442,7 +438,7 @@ export default defineConfig({
     experimental: {
       vcsProvider: {
         async findChangedFiles({ root, changedSince }) {
-          // return paths of changed files
+          // 返回已变更的文件路径
           return []
         },
       },
@@ -451,7 +447,7 @@ export default defineConfig({
 })
 ```
 
-You can also pass a string path to a module with a default export that implements the `VCSProvider` interface:
+你也可以传入一个字符串路径，指向包含实现 `VCSProvider` 接口的默认导出模块：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -468,7 +464,7 @@ export default defineConfig({
 ```js [my-vcs-provider.js]
 export default {
   async findChangedFiles({ root, changedSince }) {
-    // return paths of changed files
+    // 返回已变更的文件路径
     return []
   },
 }
@@ -476,9 +472,9 @@ export default {
 
 ## experimental.nodeLoader <Version type="experimental">4.1.0</Version> {#experimental-nodeloader}
 
-- **Type:** `boolean`
-- **Default:** `true`
+- **类型:** `boolean`
+- **默认值:** `true`
 
-If module runner is disabled, Vitest uses a native [Node.js module loader](https://nodejs.org/api/module.html#customization-hooks) to transform files to support `import.meta.vitest`, `vi.mock` and `vi.hoisted`.
+如果禁用模块运行器，Vitest 会使用原生 [Node.js 模块加载器](https://nodejs.org/api/module.html#customization-hooks) 来转换文件，以支持 `import.meta.vitest`、`vi.mock` 和 `vi.hoisted` 功能。
 
-If you don't use these features, you can disable this to improve performance.
+如果你不使用这些特性，可禁用此功能以提升性能。

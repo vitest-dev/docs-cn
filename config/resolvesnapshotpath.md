@@ -1,5 +1,5 @@
 ---
-title: resolveSnapshotPath | Config
+title: resolveSnapshotPath | 配置
 outline: deep
 ---
 
@@ -20,7 +20,7 @@ export default defineConfig({
 })
 ```
 
-你还可以使用 `context` 参数来访问项目的序列化配置。当你配置了多个 [项目](/guide/projects) 并希望根据项目名称将快照存储在不同位置时，这很有用：
+你也可以使用 `context` 参数来访问项目的序列化配置。适用于有多个 [项目](/guide/projects) 并想要根据项目名称在不同位置存储快照的场景：
 
 ```ts
 import { basename, dirname, join } from 'node:path'

@@ -1,11 +1,11 @@
 ---
-title: attachmentsDir | Config
+title: attachmentsDir | 配置
 outline: deep
 ---
 
 # attachmentsDir
 
-- **Type:** `string`
-- **Default:** `'.vitest-attachments'`
+- **类型:** `string`
+- **默认值:** `'.vitest-attachments'`
 
-Directory path for storing attachments created by [`context.annotate`](/guide/test-context#annotate) relative to the project root.
+用于存储 [`context.annotate`](/guide/test-context#annotate) 所创建附件的目录路径（相对于项目根目录）。

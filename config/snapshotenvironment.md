@@ -1,15 +1,15 @@
 ---
-title: snapshotEnvironment | Config
+title: snapshotEnvironment | 配置
 outline: deep
 ---
 
 # snapshotEnvironment
 
-- **Type:** `string`
+- **类型:** `string`
 
-Path to a custom snapshot environment implementation. This is useful if you are running your tests in an environment that doesn't support Node.js APIs. This option doesn't have any effect on a browser runner.
+自定义快照环境实现的路径。该选项适用于在不支持 Node.js API 的环境中运行测试的场景。该选项在浏览器运行器中无效。
 
-This object should have the shape of `SnapshotEnvironment` and is used to resolve and read/write snapshot files:
+该对象需符合 `SnapshotEnvironment` 接口规范，用于解析和读写快照文件：
 
 ```ts
 export interface SnapshotEnvironment {
@@ -23,10 +23,10 @@ export interface SnapshotEnvironment {
 }
 ```
 
-You can extend default `VitestSnapshotEnvironment` from `vitest/snapshot` entry point if you need to overwrite only a part of the API.
+如需仅覆盖部分 API，可从 `vitest/snapshot` 入口扩展默认的 `VitestSnapshotEnvironment`。
 
 ::: warning
-This is a low-level option and should be used only for advanced cases where you don't have access to default Node.js APIs.
+此为底层选项，仅适用于无法访问默认 Node.js API 的高级场景。
 
-If you just need to configure snapshots feature, use [`snapshotFormat`](/config/snapshotformat) or [`resolveSnapshotPath`](/config/resolvesnapshotpath) options.
+如果你只需要配置快照功能，请使用 [`snapshotFormat`](/config/snapshotformat) 或 [`resolveSnapshotPath`](/config/resolvesnapshotpath) 选项。
 :::

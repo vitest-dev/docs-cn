@@ -1,15 +1,15 @@
 ---
-title: watchTriggerPatterns | Config
+title: watchTriggerPatterns | 配置
 outline: deep
 ---
 
 # watchTriggerPatterns <CRoot /> <Version>3.2.0</Version>
 
-- **Type:** `WatcherTriggerPattern[]`
+- **类型:** `WatcherTriggerPattern[]`
 
-Vitest reruns tests based on the module graph which is populated by static and dynamic `import` statements. However, if you are reading from the file system or fetching from a proxy, then Vitest cannot detect those dependencies.
+Vitest 基于由静态和动态 `import` 语句填充的模块依赖图来重新运行测试。但是，如果你从文件系统读取或从代理获取，Vitest 无法检测这些依赖关系。
 
-To correctly rerun those tests, you can define a regex pattern and a function that returns a list of test files to run.
+要触发相关测试重新运行，你可以定义一个正则表达式模式和一个返回要运行的测试文件列表的函数。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -20,7 +20,7 @@ export default defineConfig({
       {
         pattern: /^src\/(mailers|templates)\/(.*)\.(ts|html|txt)$/,
         testsToRun: (id, match) => {
-          // relative to the root value
+          // 相对于根路径
           return `./api/tests/mailers/${match[2]}.test.ts`
         },
       },
@@ -30,5 +30,5 @@ export default defineConfig({
 ```
 
 ::: warning
-Returned files should be either absolute or relative to the root. Note that this is a global option, and it cannot be used inside of [project](/guide/projects) configs.
+返回的文件应该是绝对路径或相对于根目录的相对路径。注意这是一个全局选项，不能在 [project](/guide/projects) 配置中使用。
 :::
