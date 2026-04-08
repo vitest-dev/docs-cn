@@ -477,4 +477,41 @@ export default {
 
 如果禁用模块运行器，Vitest 会使用原生 [Node.js 模块加载器](https://nodejs.org/api/module.html#customization-hooks) 来转换文件，以支持 `import.meta.vitest`、`vi.mock` 和 `vi.hoisted` 功能。
 
+<<<<<<< HEAD
 如果你不使用这些特性，可禁用此功能以提升性能。
+=======
+If you don't use these features, you can disable this to improve performance.
+
+## experimental.preParse <Version type="experimental">4.1.3</Version> {#experimental-preparse}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Parses test specifications before running them. This applies the [`.only`](/api/test#test-only) modifier, the [`-t`](/config/testnamepattern) test name pattern, [`--tags-filter`](/guide/test-tags#syntax), [test lines](/api/advanced/test-specification#testlines), and [test IDs](/api/advanced/test-specification#testids) across all files without executing them. For example, if only a single test is marked with `.only`, Vitest will skip all other tests in all files.
+
+::: tip
+This option is recommended when using [`.only`](/api/test#test-only), the [`-t`](/config/testnamepattern) flag, or [`--tags-filter`](/guide/test-tags#syntax).
+
+Enabling it unconditionally may slow down your test runs due to the additional parsing step.
+:::
+
+::: warning
+Pre-parsing uses static analysis (AST parsing) instead of executing your test files. This means that test names, tags, and modifiers (`.only`, `.skip`, `.todo`) must be statically analyzable. Dynamic test names (e.g., names stored in variables or returned from function calls) and non-literal tags will not be resolved correctly.
+
+```ts
+// ✅ works — static string literal
+test('adds numbers', () => {})
+
+// ✅ works — static tags
+test('my test', { tags: ['unit'] }, () => {})
+
+// ❌ won't match correctly — dynamic name
+const name = getName()
+test(name, () => {})
+
+// ❌ won't match correctly — dynamic tags
+const tags = getTags()
+test('my test', { tags }, () => {})
+```
+:::
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16

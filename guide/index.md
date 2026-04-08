@@ -1,5 +1,12 @@
 ---
+<<<<<<< HEAD
 title: 快速起步 | 指南
+=======
+title: Getting Started | Guide
+next:
+  text: Writing Tests
+  link: /guide/learn/writing-tests
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
 ---
 
 # 快速起步 {#getting-started}
@@ -95,10 +102,17 @@ Test Files  1 passed (1)
 如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
 :::
 
+<<<<<<< HEAD
 了解更多关于 Vitest 的使用，请参考 [API 索引](/api/test) 部分。
+=======
+Your first test is passing! Continue to [Writing Tests](/guide/learn/writing-tests) to learn about organizing tests, reading test output, and the core testing patterns you'll use every day.
+
+To run tests once without watching for file changes, use `vitest run`. You can also pass additional flags like `--reporter` or `--coverage`. For a full list of CLI options, run `npx vitest --help` or see the [CLI guide](/guide/cli).
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
 
 ## 配置 Vitest {#configuring-vitest}
 
+<<<<<<< HEAD
 Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
 
 - 创建 `vitest.config.ts`，优先级将会最高。
@@ -228,6 +242,9 @@ export default defineConfig({
 ## 自动安装依赖项 {#automatic-dependency-installation}
 
 如果某些依赖项尚未安装，Vitest 会提示您安装。您可以通过设置 `VITEST_SKIP_INSTALL_CHECKS=1` 环境变量来禁用此行为。
+=======
+Vitest reads your `vite.config.*` by default, so your existing Vite plugins and configuration work out-of-the-box. You can also create a dedicated `vitest.config.*` for test-specific settings. See the [Config Reference](/config/) for details.
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
 
 ## IDE 集成 {#ide-integrations}
 
@@ -241,6 +258,7 @@ export default defineConfig({
 
 | 示例 | 源代码 | 演练场 |
 |---|---|---|
+<<<<<<< HEAD
 | `basic` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic) | [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__/) |
 | `fastify` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/fastify) | [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/fastify?initialPath=__vitest__/) |
 | `in-source-test` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test) | [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/in-source-test?initialPath=__vitest__/) |
@@ -303,5 +321,23 @@ pnpm link --global # 你可以使用你喜爱的任何包管理工具来设置�
 然后，回到你的 Vitest 项目并运行 `pnpm link --global vitest`（或者使用你的其他包管理工具来全局链接 `Vitest`）。
 
 ## 社区 {#community}
+=======
+| `basic` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/basic) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/basic?initialPath=__vitest__/) |
+| `fastify` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/fastify) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/fastify?initialPath=__vitest__/) |
+| `in-source-test` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/in-source-test?initialPath=__vitest__/) |
+| `lit` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/lit) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/lit?initialPath=__vitest__/) |
+| `vue` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/vue) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/vue?initialPath=__vitest__/) |
+| `marko` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/marko) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/marko?initialPath=__vitest__/) |
+| `preact` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/preact) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/preact?initialPath=__vitest__/) |
+| `qwik` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/qwik) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/qwik?initialPath=__vitest__/) |
+| `react` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/react) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/react?initialPath=__vitest__/) |
+| `solid` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/solid) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/solid?initialPath=__vitest__/) |
+| `svelte` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/svelte) | [Play Online](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/svelte?initialPath=__vitest__/) |
+| `profiling` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/profiling) | Not Available |
+| `typecheck` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/typecheck) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/typecheck?initialPath=__vitest__/) |
+| `projects` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/projects) | [Play Online](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/projects?initialPath=__vitest__/) |
+
+## Community
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
 
 如果你有疑问或者需要帮助，可以到 [Discord](https://chat.vitest.dev) 和 [GitHub Discussions](https://github.com/vitest-dev/vitest/discussions) 社区来寻求帮助。

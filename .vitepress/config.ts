@@ -723,7 +723,62 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
+<<<<<<< HEAD
             text: '浏览器模式',
+=======
+            text: 'Learn',
+            collapsed: false,
+            items: [
+              {
+                text: 'Writing Tests',
+                link: '/guide/learn/writing-tests',
+                docFooterText: 'Writing Tests | Learn',
+              },
+              {
+                text: 'Using Matchers',
+                link: '/guide/learn/matchers',
+                docFooterText: 'Using Matchers | Learn',
+              },
+              {
+                text: 'Testing Async Code',
+                link: '/guide/learn/async',
+                docFooterText: 'Testing Async Code | Learn',
+              },
+              {
+                text: 'Setup and Teardown',
+                link: '/guide/learn/setup-teardown',
+                docFooterText: 'Setup and Teardown | Learn',
+              },
+              {
+                text: 'Mock Functions',
+                link: '/guide/learn/mock-functions',
+                docFooterText: 'Mock Functions | Learn',
+              },
+              {
+                text: 'Snapshot Testing',
+                link: '/guide/learn/snapshots',
+                docFooterText: 'Snapshot Testing | Learn',
+              },
+              {
+                text: 'Testing in Practice',
+                link: '/guide/learn/testing-in-practice',
+                docFooterText: 'Testing in Practice | Learn',
+              },
+              {
+                text: 'Debugging Tests',
+                link: '/guide/learn/debugging-tests',
+                docFooterText: 'Debugging Tests | Learn',
+              },
+              {
+                text: 'Writing Tests with AI',
+                link: '/guide/learn/writing-tests-with-ai',
+                docFooterText: 'Writing Tests with AI | Learn',
+              },
+            ],
+          },
+          {
+            text: 'Browser Mode',
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
             collapsed: false,
             items: [
               {
@@ -796,6 +851,7 @@ export default ({ mode }: { mode: string }) => {
                 collapsed: true,
                 items: [
                   {
+<<<<<<< HEAD
                     text: '模拟日期',
                     link: '/guide/mocking/dates',
                   },
@@ -825,6 +881,37 @@ export default ({ mode }: { mode: string }) => {
                   },
                   {
                     text: '模拟类',
+=======
+                    text: 'Dates',
+                    link: '/guide/mocking/dates',
+                  },
+                  {
+                    text: 'Functions',
+                    link: '/guide/mocking/functions',
+                  },
+                  {
+                    text: 'Globals',
+                    link: '/guide/mocking/globals',
+                  },
+                  {
+                    text: 'Modules',
+                    link: '/guide/mocking/modules',
+                  },
+                  {
+                    text: 'File System',
+                    link: '/guide/mocking/file-system',
+                  },
+                  {
+                    text: 'Requests',
+                    link: '/guide/mocking/requests',
+                  },
+                  {
+                    text: 'Timers',
+                    link: '/guide/mocking/timers',
+                  },
+                  {
+                    text: 'Classes',
+>>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
                     link: '/guide/mocking/classes',
                   },
                 ],
