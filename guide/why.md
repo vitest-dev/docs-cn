@@ -3,9 +3,9 @@ title: 为什么是 Vitest | 指南
 ---
 
 # 为什么是 Vitest {#why-vitest}
-
-:::tip 提示
-该文档假设你是熟悉 Vite 的。开始阅读之前建议先浏览 [为什么选 Vite](https://cn.vitejs.dev/guide/why.html) 和 [下一代前端工具 ViteJS](https://www.bilibili.com/video/BV1kh411Q7WN) ，在视频中 [尤雨溪](https://bsky.app/profile/evanyou.me) 做了一个示范来解释 Vite 的主要概念。
+<!-- TODO: translation -->
+:::tip NOTE
+Vitest is powered by Vite. While you do not need to know Vite to use Vitest, understanding Vite helps explain some of Vitest's unique advantages. To learn more about Vite, read the [Why Vite Guide](https://vitejs.dev/guide/why.html) or watch [Next generation frontend tooling with ViteJS](https://www.youtube.com/watch?v=UJypSr8IhKY) by [Evan You](https://bsky.app/profile/evanyou.me).
 :::
 
 ## Vite 原生测试运行器的必要性 {#the-need-for-a-vite-native-test-runner}

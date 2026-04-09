@@ -3,6 +3,10 @@ title: 测试快照 | 指南
 ---
 
 # 测试快照 {#snapshot}
+<!-- TODO: translation -->
+::: tip
+For a beginner-friendly introduction to snapshot testing, see the [Snapshot Testing](/guide/learn/snapshots) tutorial.
+:::
 
 <CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
 

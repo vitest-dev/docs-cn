@@ -4,8 +4,12 @@ outline: false
 ---
 
 # 模拟对象 {#mocking}
+<!-- TODO: translation -->
+::: tip
+New to mocking? Start with the [Mock Functions](/guide/learn/mock-functions) tutorial for a hands-on introduction to `vi.fn`, `vi.spyOn`, and `vi.mock`.
+:::
 
-在编写测试时，迟早会需要创建一个内部或外部服务的 "fake" 版本。这通常被称为**mocking**。Vitest 通过其 `vi` 辅助工具提供了实用函数来帮助您。我们可以从 `vitest` 中导入它，或者如果启用了 [`global` 配置](/config/globals)，也可以全局访问它。
+在编写测试时，迟早会需要创建一个内部或外部服务的 "fake" 版本。这通常被称为 **mocking**。Vitest 通过其 `vi` 辅助工具提供了实用函数来帮助您。我们可以从 `vitest` 中导入它，或者如果启用了 [`global` 配置](/config/globals)，也可以全局访问它。
 
 ::: warning
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/mock.html#mockreset) 文档。

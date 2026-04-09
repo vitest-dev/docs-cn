@@ -723,6 +723,57 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
+            text: 'Learn',
+            collapsed: false,
+            items: [
+              {
+                text: 'Writing Tests',
+                link: '/guide/learn/writing-tests',
+                docFooterText: 'Writing Tests | Learn',
+              },
+              {
+                text: 'Using Matchers',
+                link: '/guide/learn/matchers',
+                docFooterText: 'Using Matchers | Learn',
+              },
+              {
+                text: 'Testing Async Code',
+                link: '/guide/learn/async',
+                docFooterText: 'Testing Async Code | Learn',
+              },
+              {
+                text: 'Setup and Teardown',
+                link: '/guide/learn/setup-teardown',
+                docFooterText: 'Setup and Teardown | Learn',
+              },
+              {
+                text: 'Mock Functions',
+                link: '/guide/learn/mock-functions',
+                docFooterText: 'Mock Functions | Learn',
+              },
+              {
+                text: 'Snapshot Testing',
+                link: '/guide/learn/snapshots',
+                docFooterText: 'Snapshot Testing | Learn',
+              },
+              {
+                text: 'Testing in Practice',
+                link: '/guide/learn/testing-in-practice',
+                docFooterText: 'Testing in Practice | Learn',
+              },
+              {
+                text: 'Debugging Tests',
+                link: '/guide/learn/debugging-tests',
+                docFooterText: 'Debugging Tests | Learn',
+              },
+              {
+                text: 'Writing Tests with AI',
+                link: '/guide/learn/writing-tests-with-ai',
+                docFooterText: 'Writing Tests with AI | Learn',
+              },
+            ],
+          },
+          {
             text: '浏览器模式',
             collapsed: false,
             items: [
@@ -796,35 +847,35 @@ export default ({ mode }: { mode: string }) => {
                 collapsed: true,
                 items: [
                   {
-                    text: '模拟日期',
+                    text: '日期',
                     link: '/guide/mocking/dates',
                   },
                   {
-                    text: '模拟函数',
+                    text: '函数',
                     link: '/guide/mocking/functions',
                   },
                   {
-                    text: '模拟全局对象',
+                    text: '全局对象',
                     link: '/guide/mocking/globals',
                   },
                   {
-                    text: '模拟模块',
+                    text: '模块',
                     link: '/guide/mocking/modules',
                   },
                   {
-                    text: '模拟文件系统',
+                    text: '文件系统',
                     link: '/guide/mocking/file-system',
                   },
                   {
-                    text: '模拟请求',
+                    text: '请求',
                     link: '/guide/mocking/requests',
                   },
                   {
-                    text: '模拟计时器',
+                    text: '计时器',
                     link: '/guide/mocking/timers',
                   },
                   {
-                    text: '模拟类',
+                    text: '类',
                     link: '/guide/mocking/classes',
                   },
                 ],
