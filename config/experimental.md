@@ -477,11 +477,8 @@ export default {
 
 如果禁用模块运行器，Vitest 会使用原生 [Node.js 模块加载器](https://nodejs.org/api/module.html#customization-hooks) 来转换文件，以支持 `import.meta.vitest`、`vi.mock` 和 `vi.hoisted` 功能。
 
-<<<<<<< HEAD
 如果你不使用这些特性，可禁用此功能以提升性能。
-=======
-If you don't use these features, you can disable this to improve performance.
-
+<!-- TODO: translation -->
 ## experimental.preParse <Version type="experimental">4.1.3</Version> {#experimental-preparse}
 
 - **Type:** `boolean`
@@ -514,4 +511,3 @@ const tags = getTags()
 test('my test', { tags }, () => {})
 ```
 :::
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16

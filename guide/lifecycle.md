@@ -4,16 +4,12 @@ outline: deep
 ---
 
 # 测试运行生命周期 {#test-run-lifecycle}
-
-<<<<<<< HEAD
-理解测试运行的生命周期，对于编写高效测试、调试问题以及优化测试套件至关重要。本指南说明 Vitest 中各个生命周期阶段的发生时机与执行顺序，从初始化到清理的全过程。
-=======
+<!-- TODO: translation -->
 ::: tip
 Looking for a practical introduction to `beforeEach`, `afterEach`, and other hooks? See the [Setup and Teardown](/guide/learn/setup-teardown) tutorial.
 :::
 
-Understanding the test run lifecycle is essential for writing effective tests, debugging issues, and optimizing your test suite. This guide explains when and in what order different lifecycle phases occur in Vitest, from initialization to teardown.
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
+理解测试运行的生命周期，对于编写高效测试、调试问题以及优化测试套件至关重要。本指南说明 Vitest 中各个生命周期阶段的发生时机与执行顺序，从初始化到清理的全过程。
 
 ## 概述 {#overview}
 

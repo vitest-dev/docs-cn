@@ -510,7 +510,7 @@ export function ignored() { // [!code error]
 
 <img alt="html coverage in Vitest UI" img-light src="/ui-coverage-1-light.png">
 <img alt="html coverage in Vitest UI" img-dark src="/ui-coverage-1-dark.png">
-
+<!-- TODO: translation -->
 ## Coverage in Agent Environments
 
 When Vitest detects it is running inside an AI coding agent, it automatically adjusts the default `text` reporter to reduce output and minimize token usage:

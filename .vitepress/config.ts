@@ -723,9 +723,6 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
-<<<<<<< HEAD
-            text: '浏览器模式',
-=======
             text: 'Learn',
             collapsed: false,
             items: [
@@ -777,8 +774,7 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
-            text: 'Browser Mode',
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
+            text: '浏览器模式',
             collapsed: false,
             items: [
               {
@@ -851,67 +847,35 @@ export default ({ mode }: { mode: string }) => {
                 collapsed: true,
                 items: [
                   {
-<<<<<<< HEAD
-                    text: '模拟日期',
+                    text: '日期',
                     link: '/guide/mocking/dates',
                   },
                   {
-                    text: '模拟函数',
+                    text: '函数',
                     link: '/guide/mocking/functions',
                   },
                   {
-                    text: '模拟全局对象',
+                    text: '全局对象',
                     link: '/guide/mocking/globals',
                   },
                   {
-                    text: '模拟模块',
+                    text: '模块',
                     link: '/guide/mocking/modules',
                   },
                   {
-                    text: '模拟文件系统',
+                    text: '文件系统',
                     link: '/guide/mocking/file-system',
                   },
                   {
-                    text: '模拟请求',
+                    text: '请求',
                     link: '/guide/mocking/requests',
                   },
                   {
-                    text: '模拟计时器',
+                    text: '计时器',
                     link: '/guide/mocking/timers',
                   },
                   {
-                    text: '模拟类',
-=======
-                    text: 'Dates',
-                    link: '/guide/mocking/dates',
-                  },
-                  {
-                    text: 'Functions',
-                    link: '/guide/mocking/functions',
-                  },
-                  {
-                    text: 'Globals',
-                    link: '/guide/mocking/globals',
-                  },
-                  {
-                    text: 'Modules',
-                    link: '/guide/mocking/modules',
-                  },
-                  {
-                    text: 'File System',
-                    link: '/guide/mocking/file-system',
-                  },
-                  {
-                    text: 'Requests',
-                    link: '/guide/mocking/requests',
-                  },
-                  {
-                    text: 'Timers',
-                    link: '/guide/mocking/timers',
-                  },
-                  {
-                    text: 'Classes',
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
+                    text: '类',
                     link: '/guide/mocking/classes',
                   },
                 ],

@@ -16,26 +16,18 @@ import FeaturesList from '../.vitepress/components/FeaturesList.vue'
 ## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
 
 <div h-2 />
-
-<<<<<<< HEAD
-与 Vite 的配置、转换器、解析器和插件通用，将会使用应用中的相同配置来运行测试。
-=======
+<!-- TODO: translation -->
 ::: tip
 This page is a high-level overview of Vitest's capabilities. If you're new to Vitest, we recommend reading the [Learn](/guide/learn/writing-tests) tutorial first for a hands-on introduction.
 :::
 
 ## Shared Config between Test, Dev and Build
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
 
-了解更多信息 [配置 Vitest](/guide/#configuring-vitest) 。
+与 Vite 的配置、转换器、解析器和插件通用，将会使用应用中的相同配置来运行测试。
 
-<<<<<<< HEAD
+更多详情请参阅 [配置 Vitest](/config/) 。
+
 ## 监听模式(watch mode) {#watch-mode}
-=======
-Learn more at [Configuring Vitest](/config/).
-
-## Watch Mode
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
 
 ```bash
 $ vitest

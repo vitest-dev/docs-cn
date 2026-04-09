@@ -3,16 +3,12 @@ title: 测试快照 | 指南
 ---
 
 # 测试快照 {#snapshot}
-
-<<<<<<< HEAD
-<CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
-=======
+<!-- TODO: translation -->
 ::: tip
 For a beginner-friendly introduction to snapshot testing, see the [Snapshot Testing](/guide/learn/snapshots) tutorial.
 :::
 
-<CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">Learn Snapshot by video from Vue School</CourseLink>
->>>>>>> a141f9d49fa021ae0f1d6962f9dbc8bce3bbdd16
+<CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
 
 当你希望确保函数的输出不会意外更改时，快照测试是一个非常有用的工具。
 
