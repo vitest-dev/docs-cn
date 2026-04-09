@@ -56,10 +56,10 @@ export default defineConfig({
 ```
 
 追踪文件在报告器中作为 [注释](/guide/test-annotations) 形式呈现。例如，在 HTML 报告器中，你可以在测试详情页中找到追踪文件的链接。
-<!-- TODO: translation -->
-## Trace markers
 
-You can add explicit named markers to make the trace timeline easier to read:
+## 跟踪标记 {#trace-markers}
+
+你可以添加具名标记，让追踪时间线更易于阅读：
 
 ```ts
 import { page } from 'vitest/browser'
@@ -71,9 +71,9 @@ document.body.innerHTML = `
 await page.getByRole('button', { name: 'Sign in' }).mark('sign in button rendered')
 ```
 
-Both `page.mark(name)` and `locator.mark(name)` are available.
+`page.mark(name)` 和 `locator.mark(name)` 均可用。
 
-You can also group multiple operations under one marker with `page.mark(name, callback)`:
+你还可以使用 `page.mark(name, callback)` 将多个操作归到同一标记下：
 
 ```ts
 await page.mark('sign in flow', async () => {
@@ -83,7 +83,7 @@ await page.mark('sign in flow', async () => {
 })
 ```
 
-You can also wrap reusable helpers with [`vi.defineHelper()`](/api/vi#vi-defineHelper) so trace entries point to where the helper is called, not its internals:
+你也可以用 [`vi.defineHelper()`](/api/vi#vi-defineHelper) 包装可复用的工具函数，这样追踪条目会指向调用该函数的位置，而非其内部：
 
 ```ts
 import { vi } from 'vitest'
@@ -95,7 +95,7 @@ const myRender = vi.defineHelper(async (content: string) => {
 })
 
 test('renders content', async () => {
-  await myRender('<button>Hello</button>') // trace points to this line
+  await myRender('<button>Hello</button>') // 追踪指向这一行
 })
 ```
 
@@ -117,12 +117,12 @@ npx playwright show-trace "path-to-trace-file"
 ## 局限性 {#limitations}
 
 目前，Vitest 无法填充 Trace Viewer 中的 "Sources" 标签页。这意味着虽然你可以看到测试期间捕获的操作和截图，但无法直接在 Trace Viewer 中查看测试的源代码。你需要返回代码编辑器查看测试实现。
-<!-- TODO: translation -->
-- `expect.element(...)` assertions
-- Interactive actions like `click`, `fill`, `type`, `hover`, `selectOptions`, `upload`, `dragAndDrop`, `tab`, `keyboard`, `wheel`, and screenshots
 
-Under the hood, Playwright still records its own low-level action events as usual. Vitest wraps them with source-location groups so you can jump straight from the trace timeline to the relevant line in your test.
+- `expect.element(...)` 断言方法
+- 交互操作如 `click`, `fill`, `type`, `hover`, `selectOptions`, `upload`, `dragAndDrop`, `tab`, `keyboard`, `wheel` 以及屏幕截图
 
-Keep in mind that plain assertions like `expect(value).toBe(...)` run in Node, not the browser, so they won't show up in the trace.
+底层实现上，Playwright 仍会照常记录其原始操作事件。Vitest 通过源码定位分组对这些事件进行封装，使你可以直接从跟踪时间轴跳转到测试代码的对应行。
 
-For anything not covered automatically, you can use `page.mark()` or `locator.mark()` to add your own trace groups — see [Trace markers](#trace-markers) above.
+需注意，像 `expect(value).toBe(...)` 这样的常规断言是在 Node 中运行的，而不是在浏览器中运行，因此它们不会出现在追踪中。
+
+对于任何未自动覆盖的内容，你可以使用 `page.mark()` 或 `locator.mark()` 添加自定义跟踪分组，详见前文 [跟踪标记](#trace-markers) 章节。

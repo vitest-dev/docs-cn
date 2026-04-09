@@ -1356,7 +1356,7 @@ test('spy function resolved a value two times', async () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
-您可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
+你可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
@@ -1376,7 +1376,7 @@ test('spy function resolved a product', async () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
-您可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
+你可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 

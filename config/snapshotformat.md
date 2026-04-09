@@ -11,7 +11,7 @@ outline: deep
 
 关于 `PrettyFormatOptions` 的完整选项说明，请参阅 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format)。本文档重点介绍 Vitest 快照特有的默认值和限制。
 
-Vitest 快照在应用您的 `snapshotFormat` 覆盖前已预设以下默认值：
+Vitest 快照在应用你的 `snapshotFormat` 覆盖前已预设以下默认值：
 
 - `printBasicPrototype: false`
 - `escapeString: false`

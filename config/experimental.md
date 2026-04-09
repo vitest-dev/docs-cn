@@ -378,7 +378,7 @@ const fs = require('node:fs') // 报错
 如果你使用的是 Node.js 22.18/23.6 或更高版本，TypeScript 将由 Node.js [原生支持转换](https://nodejs.org/en/learn/typescript/run-natively)。
 
 ::: warning  在 Node.js 22.6-22.18 环境中的使用 TypeScript
-如果您使用的 Node.js 版本介于 22.6 至 22.18 之间，还可通过 `--experimental-strip-types` 参数启用原生 TypeScript 支持：
+如果你使用的 Node.js 版本介于 22.6 至 22.18 之间，还可通过 `--experimental-strip-types` 参数启用原生 TypeScript 支持：
 
 ```shell
 NODE_OPTIONS="--experimental-strip-types" vitest
@@ -481,8 +481,8 @@ export default {
 <!-- TODO: translation -->
 ## experimental.preParse <Version type="experimental">4.1.3</Version> {#experimental-preparse}
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Parses test specifications before running them. This applies the [`.only`](/api/test#test-only) modifier, the [`-t`](/config/testnamepattern) test name pattern, [`--tags-filter`](/guide/test-tags#syntax), [test lines](/api/advanced/test-specification#testlines), and [test IDs](/api/advanced/test-specification#testids) across all files without executing them. For example, if only a single test is marked with `.only`, Vitest will skip all other tests in all files.
 

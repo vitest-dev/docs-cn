@@ -3,9 +3,9 @@ title: 测试快照 | 指南
 ---
 
 # 测试快照 {#snapshot}
-<!-- TODO: translation -->
+
 ::: tip
-For a beginner-friendly introduction to snapshot testing, see the [Snapshot Testing](/guide/learn/snapshots) tutorial.
+想轻松上手快照测试？推荐从 [快照测试](/guide/learn/snapshots) 教程开始学习，该教程采用渐进式教学方式，特别适合初学者掌握核心概念。
 :::
 
 <CourseLink href="https://vueschool.io/lessons/snapshots-in-vitest?friend=vueuse">通过 Vue School 的视频学习快照</CourseLink>
@@ -84,12 +84,12 @@ it('toUpperCase', () => {
 ```bash
 vitest -u
 ```
-<!-- TODO: translation -->
-### CI behavior
 
-By default, Vitest does not write snapshots in CI (`process.env.CI` is truthy) and any snapshot mismatches, missing snapshots, and obsolete snapshots fail the run. See [`update`](/config/update) for the details.
+### CI 环境行为 {#ci-behavior}
 
-An **obsolete snapshot** is a snapshot entry (or snapshot file) that no longer matches any collected test. This usually happens after removing or renaming tests.
+默认情况下，Vitest 在 CI 环境（`process.env.CI` 为真值时）不会写入快照文件，且任何快照不匹配、快照缺失或快照废弃的情况都会导致测试失败。更多信息请参阅 [`update`](/config/update) 参数说明。
+
+**废弃快照** 指的是不再匹配任何现有测试的快照条目（或快照文件），这种情况通常发生在删除或重命名测试用例后。
 
 ## 文件快照 {#file-snapshots}
 

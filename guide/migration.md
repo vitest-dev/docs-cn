@@ -288,7 +288,7 @@ export default defineConfig({
 
 现在，`playwright` 工厂中的属性命名也与 [Playwright 文档](https://playwright.dev/docs/api/class-testoptions#test-options-launch-options) 一致，从而更容易查找。
 
-有了这一变更，就不再需要 `@vitest/browser` 软件包了，您可以将其从依赖关系中移除。要支持上下文导入，应将 `@vitest/browser/context` 更新为 `vitest/browser`：
+有了这一变更，就不再需要 `@vitest/browser` 软件包了，你可以将其从依赖关系中移除。要支持上下文导入，应将 `@vitest/browser/context` 更新为 `vitest/browser`：
 
 ```ts
 import { page } from '@vitest/browser/context' // [!code --]

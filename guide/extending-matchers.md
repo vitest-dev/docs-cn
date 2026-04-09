@@ -154,7 +154,7 @@ When using the global `expect` with concurrent tests, `this.task` is `undefined`
 
 ## `soft`
 
-断言是否以 [`soft`](/api/expect#soft) 方式调用。您无需手动处理该逻辑，Vitest 始终会捕获错误。
+断言是否以 [`soft`](/api/expect#soft) 方式调用。你无需手动处理该逻辑，Vitest 始终会捕获错误。
 
 ## `assertion` <Advanced /> <Version type="experimental">4.1.4</Version> {#assertion}
 

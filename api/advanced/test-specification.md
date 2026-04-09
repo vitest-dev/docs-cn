@@ -44,10 +44,8 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 测试模块将运行的 [`pool`](/config/pool)。
 
-<!-- TODO: translation -->
-
 ::: danger
-It's possible to have multiple pools in a single test project with [`typecheck.enabled`](/config/typecheck#typecheck-enabled). This means it's possible to have several specifications with the same `moduleId` but different `pool`. In later versions, the project will only support a single pool.
+在启用 [`typecheck.enabled`](/config/typecheck#typecheck-enabled) 配置的情况下，单个测试项目中可能存在多个运行池。这意味着可能出现多个测试规范共享相同 `moduleId` 但使用不同 `pool` 的情况。请注意，后续版本将仅支持单一运行池模式。
 :::
 
 ## testLines

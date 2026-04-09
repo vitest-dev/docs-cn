@@ -131,7 +131,7 @@ declare module 'vitest/browser' {
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
 - `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
-- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
+- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果你需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
 - `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
 

@@ -52,9 +52,9 @@ npx vite preview --outDir ./html
 
 你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
-<!-- TODO: translation -->
+
 ::: tip
-To view the HTML report from CI, for example in GitHub Actions, upload the output directory as an artifact:
+要在持续集成环境，例如 GitHub Actions 中查看 HTML 报告，请将输出目录作为产物上传：
 
 ```yaml
 - uses: actions/upload-artifact@v4
@@ -67,7 +67,7 @@ To view the HTML report from CI, for example in GitHub Actions, upload the outpu
   run: echo "[View HTML report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
 ```
 
-This adds a link to the job summary. Click it to open the report in [Vitest Viewer](https://viewer.vitest.dev/) directly in the browser. You can also download the artifact manually and extract it, then run `vite preview` locally as above.
+这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
 :::
 
 ## 模块图 {#module-graph}

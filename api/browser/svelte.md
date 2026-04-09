@@ -216,7 +216,7 @@ await expect.element(
 
 ## 代码片段 {#snippets}
 
-对于简单的代码片段，您可以使用包装组件和 “占位” 子元素进行测试。通过设置 `data-testid` 属性帮助测试插槽内容。
+对于简单的代码片段，你可以使用包装组件和 “占位” 子元素进行测试。通过设置 `data-testid` 属性帮助测试插槽内容。
 
 ::: code-group
 ```ts [basic.test.js]

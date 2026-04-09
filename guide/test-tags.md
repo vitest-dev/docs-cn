@@ -300,20 +300,20 @@ vitest --tags-filter="db && (postgres || mysql) && !slow"
 # 运行（unit 或 e2e 测试）且非慢速的测试
 vitest --tags-filter="unit || e2e" --tags-filter="!slow"
 ```
-<!-- TODO: translation -->
-### Checking Tags Filter at Runtime
 
-You can use `TestRunner.matchesTags` (since Vitest 4.1.1) to check whether the current tags filter matches a set of tags. This is useful for conditionally running expensive setup logic only when relevant tests are included:
+### 运行时检查标签过滤器 {#checking-tags-filter-at-runtime}
+
+自 Vitest 4.1.1 起，你可以使用 `TestRunner.matchesTags` 方法来检查当前标签过滤器是否匹配一组标签。该特性特别适用于按需执行高开销的初始化逻辑，当相关测试的标签被包含时才运行：
 
 ```ts
 import { beforeAll, TestRunner } from 'vitest'
 
 beforeAll(async () => {
-  // Seed database when "vitest --tags-filter db" is used
+  // 当使用 "vitest --tags-filter db" 时初始化数据库
   if (TestRunner.matchesTags(['db'])) {
     await seedDatabase()
   }
 })
 ```
 
-The method accepts an array of tags and returns `true` if the current `--tags-filter` would include a test with those tags. If no tags filter is active, it always returns `true`.
+该方法接收一个标签数组作为参数，如果当前 `--tags-filter` 会包含带有这些标签的测试，则返回 `true`。如果未启用标签过滤器，则始终返回 `true`。

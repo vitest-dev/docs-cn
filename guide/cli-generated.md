@@ -427,35 +427,35 @@ Directory of HTML coverage output to be served in UI mode and HTML reporter.
 - **命令行终端:** `--browser.trace <mode>`
 - **配置:** [browser.trace](/config/browser/trace)
 
-启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
-<!-- TODO: translation -->
+启用追踪视图模式。可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
+
 ### browser.locators.exact
 
-- **CLI:** `--browser.locators.exact`
-- **Config:** [browser.locators.exact](/config/browser/locators#locators-exact)
+- **命令行终端:** `--browser.locators.exact`
+- **配置:** [browser.locators.exact](/config/browser/locators#locators-exact)
 
-Should locators match the text exactly by default (default: `false`)
+定位器是否默认需完全匹配文本内容（默认值：`false`）
 
 ### pool
 
 - **命令行终端:** `--pool <pool>`
 - **配置:** [pool](/config/pool)
 
-如果未在浏览器中运行，则指定 pool (默认值: `threads`)
+如果未在浏览器中运行，则指定 pool (默认值: `threads`)。
 
 ### execArgv
 
 - **命令行终端:** `--execArgv <option>`
 - **配置:** [execArgv](/config/execargv)
 
-Pass additional arguments to `node` process when spawning `worker_threads` or `child_process`.
+为 `worker_threads` 或 `child_process` 启动的 `node` 进程传递额外参数。
 
 ### vmMemoryLimit
 
 - **命令行终端:** `--vmMemoryLimit <limit>`
 - **配置:** [vmMemoryLimit](/config/vmmemorylimit)
 
-Memory limit for VM pools. If you see memory leaks, try to tinker this value.
+虚拟机池的内存限制。如果出现内存泄漏问题，可尝试调整此参数值。
 
 ### fileParallelism
 
@@ -504,7 +504,7 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **命令行终端:** `--allowOnly`
 - **配置:** [allowOnly](/config/allowonly)
 
-允许执行那些被标记为"only"的测试用例或测试套件 (默认值: `!process.env.CI`)
+允许执行那些被标记为 "only" 的测试用例或测试套件 (默认值: `!process.env.CI`)
 
 ### dangerouslyIgnoreUnhandledErrors
 
@@ -539,14 +539,14 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **命令行终端:** `--sequence.seed <seed>`
 - **配置:** [sequence.seed](/config/sequence#sequence-seed)
 
-设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
+设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。更多信息请参阅 ["随机种子"](https://en.wikipedia.org/wiki/Random_seed)。
 
 ### sequence.hooks
 
 - **命令行终端:** `--sequence.hooks <order>`
 - **配置:** [sequence.hooks](/config/sequence#sequence-hooks)
 
-更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。详情请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"parallel"`）
+更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。更多信息请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"parallel"`）
 
 ### sequence.setupFiles
 
@@ -956,17 +956,17 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [experimental.nodeLoader](/config/experimental#experimental-nodeloader)
 
 控制 Vitest 是否使用 Node.js Loader API 处理内联代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
-<!-- TODO: translation -->
+
 ### experimental.vcsProvider
 
-- **CLI:** `--experimental.vcsProvider <path>`
-- **Config:** [experimental.vcsProvider](/config/experimental#experimental-vcsprovider)
+- **命令行终端:** `--experimental.vcsProvider <path>`
+- **配置:** [experimental.vcsProvider](/config/experimental#experimental-vcsprovider)
 
-Custom provider for detecting changed files. (default: `git`)
+用于检测文件变更的自定义 provider 程序（默认值：`git`）
 
 ### experimental.preParse
 
-- **CLI:** `--experimental.preParse`
-- **Config:** [experimental.preParse](/config/experimental#experimental-preparse)
+- **命令行终端:** `--experimental.preParse`
+- **配置:** [experimental.preParse](/config/experimental#experimental-preparse)
 
-Parse test specifications before running them. This will apply `.only` flag and test name pattern across all files without running them. (default: `false`)
+在运行测试前解析测试规范。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。

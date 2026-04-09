@@ -850,9 +850,9 @@ const { path, base64 } = await button.screenshot({
 function mark(name: string, options?: { stack?: string }): Promise<void>
 ```
 
-Adds a named marker to the trace timeline and uses the current locator as marker context.
+在追踪时间线上添加一个具名标记，并使用当前定位器作为标记上下文。
 
-Pass `options.stack` to override the callsite location in trace metadata. This is useful for wrapper libraries that need to preserve the end-user source location.
+传入 `options.stack` 以覆盖追踪元数据中的调用位置。适用于二次封装库并且需要保留用户调用源码位置的场景。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -865,7 +865,7 @@ await submitButton.mark('after submit')
 ```
 
 ::: tip
-This method is useful only when [`browser.trace`](/config/browser/trace) is enabled.
+此方法适用于启用 [`browser.trace`](/config/browser/trace) 配置时有效。
 :::
 
 ### query
@@ -878,10 +878,8 @@ function query(): Element | null
 
 如果多个元素匹配该选择器，此方法将抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
-<!-- TODO: translation -->
-
 ::: danger
-This is an escape hatch for external APIs that do not support locators. Prefer using locator methods instead.
+这是针对不支持定位器的外部 API 的变通方案。优先使用定位器方法。
 :::
 
 考虑以下 DOM 结构：
@@ -1109,7 +1107,7 @@ page.getByRole('alert').length // ✅ 0
 
 ## 自定义定位器 <Version>3.2.0</Version> <Badge type="danger">advanced</Badge> {#custom-locators}
 
-您可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
+你可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
 
 当内置定位器无法满足需求时（例如使用自定义 UI 框架时），这些定位器会非常有用。
 

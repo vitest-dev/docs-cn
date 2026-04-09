@@ -14,12 +14,12 @@ Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编�
 
 在这里，Vitest 调用 `tsc` 或 `vue-tsc`，具体取决于你的配置，并解析结果。如果发现任何类型错误，Vitest 还会在你的源代码中打印出类型错误。你可以使用 [`typecheck.ignoreSourceErrors`](/config/typecheck#typecheck-ignoresourceerrors) 配置选项禁用它。
 
-请记住，Vitest 不会运行这些文件，编译器只会对它们进行静态分析。也就是说，如果您使用动态名称或 `test.each` 或 `test.for`，测试名称将不会被评估，它将原样显示。
+请记住，Vitest 不会运行这些文件，编译器只会对它们进行静态分析。也就是说，如果你使用动态名称或 `test.each` 或 `test.for`，测试名称将不会被评估，它将原样显示。
 
 ::: warning
-在 Vitest 2.1 之前，您的 `typecheck.include` 覆盖了 `include` 模式，因此您的运行时测试并没有实际运行；它们只是被类型检查。
+在 Vitest 2.1 之前，你的 `typecheck.include` 覆盖了 `include` 模式，因此你的运行时测试并没有实际运行；它们只是被类型检查。
 
-自 Vitest 2.1 起，如果您的 `include` 和 `typecheck.include` 重叠，Vitest 将分别报告类型测试和运行时测试。
+自 Vitest 2.1 起，如果你的 `include` 和 `typecheck.include` 重叠，Vitest 将分别报告类型测试和运行时测试。
 :::
 
 使用 CLI 标志，如 `--allowOnly` 和 `-t` 也支持类型检查。

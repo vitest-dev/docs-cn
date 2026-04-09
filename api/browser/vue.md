@@ -161,11 +161,11 @@ rerender({ number: 2 })
 ```ts
 function unmount(): void & PromiseLike<void>
 ```
-<!-- TODO: translation -->
-This will cause the rendered component to be unmounted. Also records a `vue.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+
+该操作会触发组件卸载，同时在 [跟踪视图](/guide/browser/trace-view) 中记录 `vue.unmount` 标记点。此功能特别适用于测试组件从页面移除时的行为（例如验证是否残留事件处理器导致内存泄漏）。
 
 ::: warning
-Synchronous usage of `unmount` is deprecated and will be removed in the next major version. Please always `await` the result.
+同步调用 `unmount` 的方式已被弃用，将在下一主要版本中移除。请使用 `await` 进行异步调用。
 :::
 
 #### emitted

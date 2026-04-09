@@ -86,18 +86,18 @@ export default defineConfig({
 ## 限制搜索目录 {#limiting-directory-search}
 
 你可以通过 [`test.dir`](/config/dir) 选项限制 Vitest 搜索文件的工作目录。如果根目录中存在不相关的文件夹和文件，这将加快搜索速度。
-<!-- TODO: translation -->
-## Caching Between Reruns
 
-In watch mode, Vitest caches all transformed files in memory, which makes reruns fast. However, this cache is discarded once the test run finishes. By enabling [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache), Vitest persists this cache to the file system so it can be reused across reruns.
+## 重新运行间的缓存机制 {#caching-between-reruns}
 
-This improvement is most noticeable when rerunning a small number of tests that depend on a large module graph. For full test suites, parallelization already mitigates the cost because other tests populate the in-memory cache while earlier tests are still running. For example, running one test file with a huge module graph (>900 modules):
+在监听模式下，Vitest 会将所有转换后的文件缓存在内存中，从而实现快速重新运行。不过该缓存会在测试运行结束后被清除。通过启用 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) 配置，Vitest 会将此缓存持久化到文件系统，使其能在多次重运行间复用。
+
+当重新运行少量依赖大型模块图的测试时，这种优化效果最为显著。对于完整测试套件，由于并行化机制会在早期测试仍在运行时通过其他测试填充内存缓存，其性能损耗已得到缓解。例如运行一个依赖庞大模块图（>900 个模块）的测试文件时：
 
 ```shell
-# the first run
+# 首次运行
 Duration  8.75s (transform 4.02s, setup 629ms, import 5.52s, tests 2.52s, environment 0ms, prepare 3ms)
 
-# the second run
+# 二次运行
 Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, environment 0ms, prepare 3ms)
 ```
 
