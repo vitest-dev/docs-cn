@@ -1011,7 +1011,7 @@ it('render basic', async () => {
 - **类型:** `(snapshot?: string, hint?: string) => void`
 
 与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 类似，但期望的值与 [`toThrow`](#toThrow) 相同。
-
+<!-- TODO: translation -->
 ## toMatchAriaSnapshot <Version type="experimental">4.1.4</Version> <Experimental /> {#tomatcharisnapshot}
 
 - **Type:** `() => void`

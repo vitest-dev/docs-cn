@@ -421,12 +421,9 @@ JSON 报告示例:
 ```
 
 ::: info
-自Vitest 3起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
+自Vitest 3 起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
 :::
-
-<<<<<<< HEAD
-### HTML 报告器 {#html-reporter}
-=======
+<!-- TODO: translation -->
 The `meta` field in each assertion result can be filtered via the `filterMeta` reporter option. It receives the key and value of each field and should return a falsy value to exclude the field from the report:
 
 ```ts
@@ -440,9 +437,7 @@ export default defineConfig({
   },
 })
 ```
-
-### HTML Reporter
->>>>>>> 5755951bae9c1f29ead80a0df48c81f2d0a46248
+### HTML 报告器 {#html-reporter}
 
 生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
 

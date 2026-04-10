@@ -123,10 +123,7 @@ test('button looks correct', async () => {
 ```
 
 它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
-
-<<<<<<< HEAD
-## 自定义序列化器 {#custom-serializer}
-=======
+<!-- TODO: translation -->
 ## ARIA Snapshots <Badge type="warning">experimental</Badge> <Version>4.1.4</Version>
 
 ARIA snapshots capture the accessibility tree of a DOM element and compare it against a stored template. Based on [Playwright's ARIA snapshots](https://playwright.dev/docs/aria-snapshots), they provide a semantic alternative to visual regression testing — asserting structure and meaning rather than pixels.
@@ -159,8 +156,7 @@ test('navigation structure', async () => {
 
 See the dedicated [ARIA Snapshots guide](/guide/browser/aria-snapshots) for syntax details, retry behavior in Browser Mode, and file vs. inline snapshot examples. See [`toMatchAriaSnapshot`](/api/expect#tomatcharisnapshot) and [`toMatchAriaInlineSnapshot`](/api/expect#tomatchariainlinesnapshot) for the full API reference.
 
-## Custom Serializer
->>>>>>> 5755951bae9c1f29ead80a0df48c81f2d0a46248
+## 自定义序列化器 {#custom-serializer}
 
 你可以添加自己的逻辑来修改快照的序列化方式。像 Jest 一样，Vitest 默认有内置的 JavaScript 类型、HTML 元素、ImmutableJS 和 React 元素提供了默认的序列化程序。
 
@@ -327,10 +323,7 @@ declare module 'vitest' {
 ::: tip
 See [Extending Matchers](/guide/extending-matchers) for more on `expect.extend` and custom matcher conventions.
 :::
-
-<<<<<<< HEAD
-## 与 Jest 的区别 {#difference-from-jest}
-=======
+<!-- TODO: translation -->
 ## Custom Snapshot Domain <Badge type="warning">experimental</Badge> <Version>4.1.4</Version> {#custom-snapshot-domain}
 
 Custom serializers control how values are _rendered_ into snapshot strings, but comparison is still string equality. A **domain snapshot adapter** goes further: it owns the entire comparison pipeline for a custom matcher, including how to capture a value, render it, parse a stored snapshot, and match them semantically.
@@ -517,8 +510,7 @@ test('user data inline', () => {
 })
 ```
 
-## Difference from Jest
->>>>>>> 5755951bae9c1f29ead80a0df48c81f2d0a46248
+## 与 Jest 的区别 {#difference-from-jest}
 
 Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
