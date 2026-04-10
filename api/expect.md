@@ -1011,6 +1011,43 @@ it('render basic', async () => {
 - **类型:** `(snapshot?: string, hint?: string) => void`
 
 与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 类似，但期望的值与 [`toThrow`](#toThrow) 相同。
+<!-- TODO: translation -->
+## toMatchAriaSnapshot <Version type="experimental">4.1.4</Version> <Experimental /> {#tomatcharisnapshot}
+
+- **Type:** `() => void`
+
+Captures the accessibility tree of a DOM element and generate a snapshot file or compares it against a stored snapshot. See the [ARIA Snapshots guide](/guide/browser/aria-snapshots) for more details.
+
+```ts
+import { expect, test } from 'vitest'
+
+test('navigation accessibility', () => {
+  document.body.innerHTML = `
+    <nav aria-label="Actions">
+      <button>Save</button>
+      <button>Cancel</button>
+    </nav>
+  `
+  expect(document.querySelector('nav')).toMatchAriaSnapshot()
+})
+```
+
+## toMatchAriaInlineSnapshot <Version type="experimental">4.1.4</Version> <Experimental /> {#tomatchariainlinesnapshot}
+
+- **Type:** `(snapshot?: string) => void`
+
+Same as [`toMatchAriaSnapshot`](#tomatcharisnapshot), but stores the snapshot inline in the test file. See the [ARIA Snapshots guide](/guide/browser/aria-snapshots) for more details.
+
+```ts
+import { expect, test } from 'vitest'
+
+test('user profile', () => {
+  expect(document.body).toMatchAriaInlineSnapshot(`
+    - heading "Dashboard" [level=1]
+    - button /User \\d+/: Profile
+  `)
+})
+```
 
 ## toHaveBeenCalled
 
