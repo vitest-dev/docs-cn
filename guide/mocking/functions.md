@@ -25,7 +25,7 @@ const messages = {
   onItem(callback) {
     messages.callbacks.push(callback)
   },
-  getLatest, // can also be a `getter or setter if supported`
+  getLatest, // 也可以是 `支持 getter 或 setter 的情况`
 }
 
 function getLatest(index = messages.items.length - 1) {

@@ -97,7 +97,7 @@ Test Files  1 passed (1)
 ::: warning 警告
 如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
 :::
-
+<!-- TODO: translation -->
 Your first test is passing! Continue to [Writing Tests](/guide/learn/writing-tests) to learn about organizing tests, reading test output, and the core testing patterns you'll use every day.
 
 To run tests once without watching for file changes, use `vitest run`. You can also pass additional flags like `--reporter` or `--coverage`. For a full list of CLI options, run `npx vitest --help` or see the [CLI guide](/guide/cli).
