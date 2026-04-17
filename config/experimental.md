@@ -329,10 +329,18 @@ Vitest 只会在测试文件中检测 `vi.mock` 和 `vi.hoisted`，它们不会�
 
 由于 `viteModuleRunner` 的性质，某些功能将不起作用，包括：
 
+<<<<<<< HEAD
 - 不支持 `import.meta.env`：`import.meta.env` 是 Vite 特性，使用 `process.env` 替代
 - 不支持 `plugins`：由于不存在转换阶段，插件不会生效，通过 [`execArgv`](/config/execargv) 使用 [自定义钩子](https://nodejs.org/api/module.html#customization-hooks) 替代
 - 不支持 `alias`：由于不存在转换阶段，路径别名不会生效
 - `istanbul` 覆盖率工具无法工作（因缺少转换阶段），请改用 `v8` 覆盖率工具
+=======
+- no `import.meta.env`: `import.meta.env` is a Vite feature, use `process.env` instead
+- no `plugins`: plugins are not applied because there is no transformation phase, use [customization hooks](https://nodejs.org/api/module.html#customization-hooks) via [`execArgv`](/config/execargv) instead
+- no `alias`: aliases are not applied because there is no transformation phase
+- `istanbul` coverage provider doesn't work because there is no transformation phase, use `v8` instead
+- `vi.resetModules()`: there is no API to invalidate ES modules from the module cache
+>>>>>>> 12702e8515ef30e22866b894ec4ebe4086f3c6ff
 
 ::: warning 覆盖率支持
 当前 Vitest 通过 `v8` 提供程序支持覆盖率分析，前提是文件能够被转换为 JavaScript。对于 TypeScript 转换，Vitest 使用 Node.js v22.13 版本起提供的 [`module.stripTypeScriptTypes`](https://nodejs.org/api/module.html#modulestriptypescripttypescode-options) 功能。如果你使用自定义 [模块加载器](https://nodejs.org/api/module.html#customization-hooks)，Vitest 将无法复用该加载器进行覆盖率分析所需的文件转换。
