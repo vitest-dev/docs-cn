@@ -333,6 +333,7 @@ Vitest 只会在测试文件中检测 `vi.mock` 和 `vi.hoisted`，它们不会�
 - 不支持 `plugins`：由于不存在转换阶段，插件不会生效，通过 [`execArgv`](/config/execargv) 使用 [自定义钩子](https://nodejs.org/api/module.html#customization-hooks) 替代
 - 不支持 `alias`：由于不存在转换阶段，路径别名不会生效
 - `istanbul` 覆盖率工具无法工作（因缺少转换阶段），请改用 `v8` 覆盖率工具
+- - `vi.resetModules()`：没有 API 可以从模块缓存中使 ES 模块失效there
 
 ::: warning 覆盖率支持
 当前 Vitest 通过 `v8` 提供程序支持覆盖率分析，前提是文件能够被转换为 JavaScript。对于 TypeScript 转换，Vitest 使用 Node.js v22.13 版本起提供的 [`module.stripTypeScriptTypes`](https://nodejs.org/api/module.html#modulestriptypescripttypescode-options) 功能。如果你使用自定义 [模块加载器](https://nodejs.org/api/module.html#customization-hooks)，Vitest 将无法复用该加载器进行覆盖率分析所需的文件转换。
