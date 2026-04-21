@@ -111,8 +111,13 @@ TypeError: default is not a function
 
 ## deps.moduleDirectories
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['node_modules']`
+=======
+- **Type:** `string[]`
+- **Default:** `['node_modules']`
+>>>>>>> 30df941749c0ffd4dfc4cc5c8691c9770e007b83
 
 配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且你正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/root) 中查找 `__mocks__` 文件夹来解析 mock。
 

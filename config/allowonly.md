@@ -5,9 +5,15 @@ outline: deep
 
 # allowOnly
 
+<<<<<<< HEAD
 - **类型:**: `boolean`
 - **默认值:**: `!process.env.CI`
 - **命令行终端:** `--allowOnly`, `--allowOnly=false`
+=======
+- **Type:** `boolean`
+- **Default:** `!process.env.CI`
+- **CLI:** `--allowOnly`, `--allowOnly=false`
+>>>>>>> 30df941749c0ffd4dfc4cc5c8691c9770e007b83
 
 默认情况下，Vitest 不允许在持续集成（CI）环境中运行带有 [`only`](/api/test#test-only) 标记的测试。相反，在本地开发环境中，Vitest 允许运行这些测试。
 

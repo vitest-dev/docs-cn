@@ -5,9 +5,15 @@ outline: deep
 
 # bail
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `0`
 - **命令行终端:** `--bail=<value>`
+=======
+- **Type:** `number`
+- **Default:** `0`
+- **CLI:** `--bail=<value>`
+>>>>>>> 30df941749c0ffd4dfc4cc5c8691c9770e007b83
 
 当指定数量的测试用例失败时立即终止测试执行。
 

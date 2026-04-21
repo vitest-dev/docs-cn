@@ -244,7 +244,11 @@ function start(filters?: string[]): Promise<TestRunResult>
 function standalone(): Promise<void>
 ```
 
+<<<<<<< HEAD
 - **别名:**: `init` <Deprecated />
+=======
+- **Alias:** `init` <Deprecated />
+>>>>>>> 30df941749c0ffd4dfc4cc5c8691c9770e007b83
 
 初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
 
