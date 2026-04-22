@@ -616,7 +616,11 @@ test.each`
 ```
 
 ::: tip
+<<<<<<< HEAD
 Vitest 使用 Chai 的 `format` 方法处理 `$values`。如果值被截断，可在配置文件中调大 [chaiConfig.truncateThreshold](/config/chaiconfig#chaiconfig-truncatethreshold)。
+=======
+Vitest formats interpolated title values with its display formatter. If the value is too truncated, you can increase [taskTitleValueFormatTruncate](/config/tasktitlevalueformattruncate) in your config file.
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 :::
 
 ## test.for

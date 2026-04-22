@@ -5,9 +5,15 @@ outline: deep
 
 # dangerouslyIgnoreUnhandledErrors <CRoot />
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:**
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **CLI:**
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
   - `--dangerouslyIgnoreUnhandledErrors`
   - `--dangerouslyIgnoreUnhandledErrors=false`
 

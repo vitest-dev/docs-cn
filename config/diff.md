@@ -56,37 +56,61 @@ export default {
 
 ## diff.expand
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `--diff.expand=false`
+=======
+- **Type:** `boolean`
+- **Default:** `true`
+- **CLI:** `--diff.expand=false`
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 展开所有公共行。
 
 ## diff.truncateThreshold
 
+<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `0`
 - **命令行终端:** `--diff.truncateThreshold=<path>`
+=======
+- **Type:** `number`
+- **Default:** `0`
+- **CLI:** `--diff.truncateThreshold=<path>`
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 差异结果的最大显示长度。超过此阈值的差异将被截断。默认值 0 表示不截断。
 
 ## diff.truncateAnnotation
 
+<<<<<<< HEAD
 - **类型:** `string`
 - **默认值:** `'... Diff result is truncated'`
 - **命令行终端:** `--diff.truncateAnnotation=<annotation>`
+=======
+- **Type:** `string`
+- **Default:** `'... Diff result is truncated'`
+- **CLI:** `--diff.truncateAnnotation=<annotation>`
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 如果差异结果被截断，在末尾输出的注释。
 
 ## diff.truncateAnnotationColor
 
+<<<<<<< HEAD
 - **类型:** `DiffOptionsColor = (arg: string) => string`
 - **默认值:** `noColor = (string: string): string => string`
+=======
+- **Type:** `DiffOptionsColor = (arg: string) => string`
+- **Default:** `noColor = (string: string): string => string`
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 截断注释的颜色，默认无颜色输出。
 
 ## diff.printBasicPrototype
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 
@@ -98,3 +122,16 @@ export default {
 - **默认值:** `20` (或比较不同类型时为 `8`)
 
 打印嵌套对象时递归的最大深度。
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+
+Print basic prototype `Object` and `Array` in diff output.
+
+## diff.maxDepth
+
+- **Type:** `number`
+- **Default:** `20` (or `8` when comparing different types)
+
+Limit the depth to recurse when printing nested objects.
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf

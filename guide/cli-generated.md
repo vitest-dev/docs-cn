@@ -102,7 +102,11 @@
 - **命令行终端:** `--reporter <name>`
 - **配置:** [reporters](/config/reporters)
 
+<<<<<<< HEAD
 指定报告器（default、agent、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
+=======
+Specify reporters (default, agent, minimal, blob, verbose, dot, json, tap, tap-flat, junit, tree, hanging-process, github-actions)
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 ### outputFile
 

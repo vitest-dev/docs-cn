@@ -5,8 +5,13 @@ outline: deep
 
 # forceRerunTriggers <CRoot />
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
+=======
+- **Type:** `string[]`
+- **Default:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 将触发整个测试套件重新运行的文件路径（glob 模式）。当与 `--changed` 参数配合使用时，如果在 git diff 中发现触发文件，就会运行整个测试套件。
 

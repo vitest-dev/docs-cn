@@ -61,7 +61,11 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 ## 自定义 Provider <Badge type="danger">advanced</Badge> {#custom-provider}
+=======
+## Custom Provider <Badge type="danger">advanced</Badge> {#custom-provider}
+>>>>>>> 1f86109e54689db534e518c85a6a73daa82d5bcf
 
 ::: danger 高级 API
 自定义 provider API 处于高度实验阶段，可能会在小版本之间发生变化。如果你只需要在浏览器中运行测试，请使用 [`browser.instances`](/config/browser/instances) 选项替代。
