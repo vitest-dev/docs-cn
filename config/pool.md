@@ -13,7 +13,11 @@ outline: deep
 
 ## threads
 
+<<<<<<< HEAD
 启用多线程。使用 threads 线程池时，你无法使用与进程相关的 API，如 `process.chdir()`。某些用原生语言编写的库（如`Prisma`、`bcrypt` 和 `canvas`）在多线程中运行时存在问题，容易导致段错误。在这些情况下，建议改用 `forks` 线程池。
+=======
+Enable multi-threading. When using threads you are unable to use process related APIs such as `process.chdir()`. Some libraries written in native languages, such as `Prisma`, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is advised to use `forks` pool instead.
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 ## forks
 

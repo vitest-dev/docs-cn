@@ -35,8 +35,13 @@ test('assert.fail', () => {
 
 ## isOk
 
+<<<<<<< HEAD
 - **类型:** `<T>(value: T, message?: string) => asserts value`
 - **Alias** `ok`
+=======
+- **Type:** `<T>(value: T, message?: string) => asserts value`
+- **Alias:** `ok`
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 断言给定的 `value` 是 true 。
 
@@ -51,8 +56,13 @@ test('assert.isOk', () => {
 
 ## isNotOk
 
+<<<<<<< HEAD
 - **类型:** `<T>(value: T, message?: string) => void`
 - **Alias** `notOk`
+=======
+- **Type:** `<T>(value: T, message?: string) => void`
+- **Alias:** `notOk`
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 断言给定的 `value` 是 false 。
 

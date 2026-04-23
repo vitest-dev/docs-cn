@@ -5,7 +5,11 @@ outline: deep
 
 # css
 
+<<<<<<< HEAD
 - **类型:** `boolean | { include?, exclude?, modules? }`
+=======
+- **Type:** `boolean | { include?, exclude?, modules? }`
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 配置是否应处理 CSS。当被排除时，CSS 文件将被替换为空字符串以绕过后续处理。CSS 模块将返回代理对象以不影响运行时。
 
@@ -15,8 +19,13 @@ outline: deep
 
 ## css.include
 
+<<<<<<< HEAD
 - **类型:** `RegExp | RegExp[]`
 - **默认值:** `[]`
+=======
+- **Type:** `RegExp | RegExp[]`
+- **Default:** `[]`
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 使用 RegExp 模式进行匹配，指定哪些 CSS 文件应返回实际内容并通过 Vite 处理。
 
@@ -26,13 +35,19 @@ outline: deep
 
 ## css.exclude
 
+<<<<<<< HEAD
 - **类型:** `RegExp | RegExp[]`
 - **默认值:** `[]`
+=======
+- **Type:** `RegExp | RegExp[]`
+- **Default:** `[]`
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 使用 RegExp 模式指定哪些 CSS 文件应返回空内容。
 
 ## css.modules
 
+<<<<<<< HEAD
 - **类型:** `{ classNameStrategy? }`
 - **默认值:** `{}`
 
@@ -40,6 +55,15 @@ outline: deep
 
 - **类型:** `'stable' | 'scoped' | 'non-scoped'`
 - **默认值:** `'stable'`
+=======
+- **Type:** `{ classNameStrategy? }`
+- **Default:** `{}`
+
+### css.modules.classNameStrategy
+
+- **Type:** `'stable' | 'scoped' | 'non-scoped'`
+- **Default:** `'stable'`
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 如果您决定处理 CSS 文件，可以配置 CSS modules 中的类名是否应限定作用域。您可以选择以下选项之一：
 

@@ -49,7 +49,18 @@ Vitest 需要 Vite >=v6.0.0 和 Node >=v20.0.0
 
 `npx` 是一个命令行工具，用于执行指定的命令。默认情况下，`npx` 会首先检查本地项目的二进制文件中是否存在该命令。如果在那里没有找到，`npx` 会在系统的 `$PATH` 中查找并执行该命令（如果找到的话）。如果两个位置都没有找到该命令，`npx` 会在执行之前将其安装在临时位置。
 
+<<<<<<< HEAD
 ## 编写测试 {#writing-tests}
+=======
+Vitest and third party integrations can use `.vitest` directory to store generated artifacts. It's recommended to add this in your `.gitignore`.
+
+``` sh [.gitignore]
+# Vitest reports and artifacts
+.vitest/
+```
+
+## Writing Tests
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 例如，我们将编写一个简单的测试来验证将两个数字相加的函数的输出。
 

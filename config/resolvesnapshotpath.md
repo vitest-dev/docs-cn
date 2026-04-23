@@ -5,8 +5,13 @@ outline: deep
 
 # resolveSnapshotPath <CRoot />
 
+<<<<<<< HEAD
 - **类型**: `(testPath: string, snapExtension: string, context: { config: SerializedConfig }) => string`
 - **默认值**: 将快照文件存储在 `__snapshots__` 目录中
+=======
+- **Type:** `(testPath: string, snapExtension: string, context: { config: SerializedConfig }) => string`
+- **Default:** stores snapshot files in `__snapshots__` directory
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 覆盖默认的快照路径。例如，将快照文件与测试文件存放在同一目录下：
 

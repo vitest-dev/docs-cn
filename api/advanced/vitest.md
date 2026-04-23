@@ -244,7 +244,11 @@ function start(filters?: string[]): Promise<TestRunResult>
 function standalone(): Promise<void>
 ```
 
+<<<<<<< HEAD
 - **别名:**: `init` <Deprecated />
+=======
+- **Alias:** `init` <Deprecated />
+>>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
 
@@ -696,3 +700,122 @@ export interface SourceModuleDiagnostic {
 ::: warning
 [浏览器模式](/guide/browser/) 暂不支持。
 :::
+
+## createReport <Version>5.0.0</Version> {#createreport}
+
+```ts
+function createReport(scope: string): Report
+```
+
+Creates a report that is limited to the given scope. `Report` follows Vitest's rules around [Storing artifacts on file system](/guide/advanced/reporters.html#storing-artifacts-on-file-system).
+
+`Report` provides collection of utilities for writing test results, temporary files and other artifacts on the file system. It's especially intended for third party integrations like custom reporters.
+
+All operations of `Report` are limited to given `scope`. A single report cannot interfere with other reports. Internally Vitest creates `.vitest` directory where each `scope` creates their own directory. This convention of `.vitest` directory reduces the amount of entries end-users need to specify in their `.gitignore`.
+
+```ts
+import type { Report } from 'vitest/node'
+
+const scope = 'example-yaml-reporter'
+
+// Automatically creates `<project-root>/.vitest/example-yaml-reporter/`
+// directory if it does not exist already
+const report: Report = vitest.createReport(scope)
+```
+
+### Report.root
+
+```ts
+const root: string
+```
+
+The root directory for this scope.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// Is <project-root>/.vitest/my-json-reporter
+const root = report.root
+```
+
+
+### Report.clean
+
+```ts
+function clean(): Promise<void>
+```
+
+Clean up the report directory for this scope.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// Removes everything inside <project-root>/.vitest/my-json-reporter/
+await report.clean()
+```
+
+### Report.writeFile
+
+```ts
+function writeFile(
+  filename: string,
+  content: string | Uint8Array,
+  encoding?: BufferEncoding
+): Promise<void>
+```
+
+Write a file to the report directory for this scope. By default the file will be written with UTF-8 encoding. The filename is relative to the scope directory.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// Writes file to .vitest/my-json-reporter/test-report.json
+await report.writeFile('test-report.json', JSON.stringify(results))
+```
+
+### Report.readFile
+
+```ts
+function readFile(filename: string, encoding?: BufferEncoding): Promise<string>
+```
+
+Read a file from the report directory for this scope.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// Reads file from .vitest/my-json-reporter/test-report.json
+const content: string = await report.readFile('test-report.json')
+```
+
+### Report.readdir
+
+```ts
+function readdir(): Promise<string[]>
+```
+
+Read contents of the report directory for this scope.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// Reads contents from .vitest/my-json-reporter
+const filenames: string[] = await report.readdir()
+```
+
+### Report.delete
+
+<!-- eslint-skip -->
+```ts
+function delete(filename: string): Promise<void>
+```
+
+Delete a file from the report directory for this scope.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// Deletes file from .vitest/my-json-reporter/test-report.json
+await report.delete('test-report.json')
+```
+
