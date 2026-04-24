@@ -1077,7 +1077,7 @@ test('spy function', () => {
 
 ## toHaveBeenCalledTimes
 
-- **类型**: `(amount: number) => Awaitable<void>`
+- **类型:** `(amount: number) => Awaitable<void>`
 
 这个断言检查函数是否被调用了特定次数。需要将一个 spy 函数传递给 `expect`。
 
@@ -1102,7 +1102,7 @@ test('spy function called two times', () => {
 
 ## toHaveBeenCalledWith
 
-- **类型**: `(...args: any[]) => Awaitable<void>`
+- **类型:** `(...args: any[]) => Awaitable<void>`
 
 这个断言检查函数是否至少一次被调用，并带有特定的参数。需要将一个 spy 函数传递给 `expect`。
 
@@ -1128,7 +1128,7 @@ test('spy function', () => {
 
 ## toHaveBeenCalledBefore
 
-- **类型**: `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => Awaitable<void>`
+- **类型:** `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => Awaitable<void>`
 
 这个断言检查一个 `Mock` 是否在另一个 `Mock` 之前被调用。
 
@@ -1147,7 +1147,7 @@ test('calls mock1 before mock2', () => {
 
 ## toHaveBeenCalledAfter
 
-- **类型**: `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => Awaitable<void>`
+- **类型:** `(mock: MockInstance, failIfNoFirstInvocation?: boolean) => Awaitable<void>`
 
 这个断言检查一个 `Mock` 是否在另一个 `Mock` 之后被调用。
 
@@ -1166,7 +1166,7 @@ test('calls mock1 after mock2', () => {
 
 ## toHaveBeenCalledExactlyOnceWith
 
-- **类型**: `(...args: any[]) => Awaitable<void>`
+- **类型:** `(...args: any[]) => Awaitable<void>`
 
 这个断言检查函数是否恰好被调用了一次，并且带有特定的参数。需要将一个 spy 函数传递给 `expect`。
 
@@ -1190,7 +1190,7 @@ test('spy function', () => {
 
 ## toHaveBeenLastCalledWith
 
-- **类型**: `(...args: any[]) => Awaitable<void>`
+- **类型:** `(...args: any[]) => Awaitable<void>`
 
 这个断言检查函数在其最后一次调用时是否被传入了特定的参数。需要将一个 spy 函数传递给 `expect`。
 
@@ -1216,7 +1216,7 @@ test('spy function', () => {
 
 ## toHaveBeenNthCalledWith
 
-- **类型**: `(time: number, ...args: any[]) => Awaitable<void>`
+- **类型:** `(time: number, ...args: any[]) => Awaitable<void>`
 
 这个断言检查函数是否在特定的次数被调用时带有特定的参数。计数从 1 开始。因此，要检查第二次调用，我们需要写成 `.toHaveBeenNthCalledWith(2, ...)`。
 
@@ -1243,7 +1243,7 @@ test('first call of spy function called with right params', () => {
 
 ## toHaveReturned
 
-- **类型**: `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
 这个断言检查函数是否至少成功返回了一次值（ i.e. ，没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
 
@@ -1267,7 +1267,7 @@ test('spy function returned a value', () => {
 
 ## toHaveReturnedTimes
 
-- **类型**: `(amount: number) => Awaitable<void>`
+- **类型:** `(amount: number) => Awaitable<void>`
 
 这个断言检查函数是否在确切的次数内成功返回了值（ i.e. ，没有抛出错误）。需要将一个 spy 函数传递给 `expect`。
 
@@ -1286,7 +1286,7 @@ test('spy function returns a value two times', () => {
 
 ## toHaveReturnedWith
 
-- **类型**: `(returnValue: any) => Awaitable<void>`
+- **类型:** `(returnValue: any) => Awaitable<void>`
 
 我们可以调用这个断言来检查函数是否至少一次成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
@@ -1304,7 +1304,7 @@ test('spy function returns a product', () => {
 
 ## toHaveLastReturnedWith
 
-- **类型**: `(returnValue: any) => Awaitable<void>`
+- **类型:** `(returnValue: any) => Awaitable<void>`
 
 我们可以使用这个断言来检查函数在最后一次被调用时是否成功返回了特定的值。需要将一个 spy 函数传递给 `expect`。
 
@@ -1323,7 +1323,7 @@ test('spy function returns bananas on a last call', () => {
 
 ## toHaveNthReturnedWith
 
-- **类型**: `(time: number, returnValue: any) => Awaitable<void>`
+- **类型:** `(time: number, returnValue: any) => Awaitable<void>`
 
 我们可以调用这个断言来检查函数是否在特定的调用中成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
 
@@ -1344,7 +1344,7 @@ test('spy function returns bananas on second call', () => {
 
 ## toHaveResolved
 
-- **类型**: `() => Awaitable<void>`
+- **类型:** `() => Awaitable<void>`
 
 这个断言检查函数是否至少一次成功地解析了一个值（ i.e. ，没有被拒绝）。需要将一个 spy 函数传递给 `expect`。
 
@@ -1370,7 +1370,7 @@ test('spy function resolved a value', async () => {
 
 ## toHaveResolvedTimes
 
-- **类型**: `(amount: number) => Awaitable<void>`
+- **类型:** `(amount: number) => Awaitable<void>`
 
 此断言检查函数是否已成功解析值精确次数（即未 reject）。需要将 spy 函数传递给`expect`。
 

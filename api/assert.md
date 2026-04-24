@@ -36,7 +36,7 @@ test('assert.fail', () => {
 ## isOk
 
 - **类型:** `<T>(value: T, message?: string) => asserts value`
-- **Alias** `ok`
+- **别名:** `ok`
 
 断言给定的 `value` 是 true 。
 
@@ -52,7 +52,7 @@ test('assert.isOk', () => {
 ## isNotOk
 
 - **类型:** `<T>(value: T, message?: string) => void`
-- **Alias** `notOk`
+- **别名:** `notOk`
 
 断言给定的 `value` 是 false 。
 
