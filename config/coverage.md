@@ -65,11 +65,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.clean`, `--coverage.clean=false`
 
-<<<<<<< HEAD
 运行测试前清除代码覆盖率结果。
-=======
-Clean coverage results before running tests.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 ## coverage.cleanOnRerun
 
@@ -393,7 +389,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
 
 处理代码覆盖率结果时使用的并发限制。
-
+<!-- TODO: translation -->
 ## coverage.instrumenter <Version type="experimental">4.1.5</Version> {#coverage-instrumenter}
 
 - **Type:** `(options: InstrumenterOptions) => CoverageInstrumenter`

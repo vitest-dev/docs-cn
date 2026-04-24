@@ -8,7 +8,7 @@ outline: deep
 - **Type:** `boolean | { enabled?: boolean; recordCanvas?: boolean; inlineImages?: boolean }`
 - **CLI:** `--browser.traceView`
 - **Default:** `false`
-
+<!-- TODO: translation -->
 Enable trace-view collection for browser tests. Vitest captures DOM snapshots for browser interactions and can show them in the browser UI, Vitest UI, or HTML reporter when those surfaces are enabled — no external tools required.
 
 ```ts

@@ -5,11 +5,7 @@ outline: deep
 
 # sequence
 
-<<<<<<< HEAD
 - **类型:** `{ sequencer?, shuffle?, seed?, hooks?, setupFiles?, groupOrder }`
-=======
-- **Type:** `{ sequencer?, shuffle?, seed?, hooks?, setupFiles?, groupOrder }`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 控制测试排序方式的选项。
 
@@ -21,13 +17,8 @@ npx vitest --sequence.shuffle --sequence.seed=1000
 
 ## sequence.sequencer <CRoot />
 
-<<<<<<< HEAD
 - **类型:** `TestSequencerConstructor`
 - **默认值:** `BaseSequencer`
-=======
-- **Type:** `TestSequencerConstructor`
-- **Default:** `BaseSequencer`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 自定义类，用于定义分片和排序方法。如果只需重定义 `sort` 或 `shard` 其中一种方法，可从 `vitest/node` 扩展 `BaseSequencer` 基类，但需确保两个方法同时存在。
 
@@ -100,15 +91,9 @@ export default defineConfig({
 
 ## sequence.shuffle
 
-<<<<<<< HEAD
 - **类型:** `boolean | { files?, tests? }`
 - **默认值:** `false`
 - **命令行终端:** `--sequence.shuffle`, `--sequence.shuffle=false`
-=======
-- **Type:** `boolean | { files?, tests? }`
-- **Default:** `false`
-- **CLI:** `--sequence.shuffle`, `--sequence.shuffle=false`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 如果希望测试文件和测试用例随机执行，可通过此选项或 CLI 参数 [`--sequence.shuffle`](/guide/cli) 启用。
 
@@ -116,43 +101,25 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 
 ### sequence.shuffle.files {#sequence-shuffle-files}
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 是否启用文件随机排序，请注意启用此选项后，耗时较长的测试将无法优先启动执行。
 
 ### sequence.shuffle.tests {#sequence-shuffle-tests}
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 Whether to randomize tests.
 
 ## sequence.concurrent {#sequence-concurrent}
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--sequence.concurrent`, `--sequence.concurrent=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--sequence.concurrent`, `--sequence.concurrent=false`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 如果希望测试并行运行，可通过此选项或 CLI 参数 [`--sequence.concurrent`](/guide/cli) 启用。
 
@@ -162,29 +129,17 @@ Whether to randomize tests.
 
 ## sequence.seed <CRoot />
 
-<<<<<<< HEAD
 - **类型:** `number`
 - **默认值:** `Date.now()`
 - **命令行终端:** `--sequence.seed=1000`
-=======
-- **Type:** `number`
-- **Default:** `Date.now()`
-- **CLI:** `--sequence.seed=1000`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 设置随机种子，当测试以随机顺序运行时生效。
 
 ## sequence.hooks
 
-<<<<<<< HEAD
 - **类型:** `'stack' | 'list' | 'parallel'`
 - **默认值:** `'stack'`
 - **命令行终端:** `--sequence.hooks=<value>`
-=======
-- **Type:** `'stack' | 'list' | 'parallel'`
-- **Default:** `'stack'`
-- **CLI:** `--sequence.hooks=<value>`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 调整钩子函数的执行顺序：
 
@@ -198,15 +153,9 @@ Whether to randomize tests.
 
 ## sequence.setupFiles {#sequence-setupfiles}
 
-<<<<<<< HEAD
 - **类型:** `'list' | 'parallel'`
 - **默认值:** `'parallel'`
 - **命令行终端:** `--sequence.setupFiles=<value>`
-=======
-- **Type:** `'list' | 'parallel'`
-- **Default:** `'parallel'`
-- **CLI:** `--sequence.setupFiles=<value>`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 调整配置文件的执行顺序：
 

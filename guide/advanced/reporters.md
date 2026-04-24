@@ -71,10 +71,7 @@ class MyReporter implements Reporter {
   }
 }
 ```
-
-<<<<<<< HEAD
-## 导出报告器 {#exported-reporters}
-=======
+<!-- TODO: translation -->
 ## Storing artifacts on file system
 
 ::: tip
@@ -102,8 +99,7 @@ Reporters and other integrations should respect following rules around `.vitest`
     └── report.xml
 ```
 
-## Exported Reporters
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
+## 导出报告器 {#exported-reporters}
 
 `vitest` 附带了一些 [内置报告器](/guide/reporters)，我们可以开箱即用。
 

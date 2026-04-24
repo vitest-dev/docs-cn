@@ -102,11 +102,7 @@
 - **命令行终端:** `--reporter <name>`
 - **配置:** [reporters](/config/reporters)
 
-<<<<<<< HEAD
-指定报告器（default、agent、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
-=======
-Specify reporters (default, agent, minimal, blob, verbose, dot, json, tap, tap-flat, junit, tree, hanging-process, github-actions)
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
+指定报告器（default, agent, minimal, blob, verbose, dot, json, tap, tap-flat, junit, tree, hanging-process, github-actions）
 
 ### outputFile
 
@@ -431,10 +427,8 @@ Directory of HTML coverage output to be served in UI mode and HTML reporter.
 - **命令行终端:** `--browser.trace <mode>`
 - **配置:** [browser.trace](/config/browser/trace)
 
-<<<<<<< HEAD
 启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
 <!-- TODO: translation -->
-=======
 ### browser.traceView.enabled
 
 - **CLI:** `--browser.traceView.enabled`
@@ -456,7 +450,6 @@ Capture canvas pixels in trace-view snapshots (default: `false`)
 
 Inline loaded image pixels in trace-view snapshots (default: `false`)
 
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 ### browser.locators.exact
 
 - **CLI:** `--browser.locators.exact`

@@ -244,11 +244,7 @@ function start(filters?: string[]): Promise<TestRunResult>
 function standalone(): Promise<void>
 ```
 
-<<<<<<< HEAD
-- **别名:**: `init` <Deprecated />
-=======
-- **Alias:** `init` <Deprecated />
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
+- **别名:** `init` <Deprecated />
 
 初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
 
@@ -700,7 +696,7 @@ export interface SourceModuleDiagnostic {
 ::: warning
 [浏览器模式](/guide/browser/) 暂不支持。
 :::
-
+<!-- TODO: translation -->
 ## createReport <Version>5.0.0</Version> {#createreport}
 
 ```ts
@@ -737,7 +733,6 @@ const report = vitest.createReport('my-json-reporter')
 // Is <project-root>/.vitest/my-json-reporter
 const root = report.root
 ```
-
 
 ### Report.clean
 
@@ -818,4 +813,3 @@ const report = vitest.createReport('my-json-reporter')
 // Deletes file from .vitest/my-json-reporter/test-report.json
 await report.delete('test-report.json')
 ```
-

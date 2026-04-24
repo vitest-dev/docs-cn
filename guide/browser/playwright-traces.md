@@ -1,5 +1,5 @@
 # Playwright Traces
-
+<!-- TODO: translation -->
 Vitest Browser Mode supports generating Playwright's [trace files](https://playwright.dev/docs/trace-viewer#viewing-remote-traces). To enable tracing, you need to set the [`trace`](/config/browser/trace) option in the `test.browser` configuration.
 
 ::: warning

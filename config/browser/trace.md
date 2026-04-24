@@ -10,14 +10,10 @@ outline: deep
 - **默认值:** `'off'`
 
 捕获浏览器测试运行的追踪记录。你可以通过 [Playwright Trace Viewer](https://trace.playwright.dev/) 预览追踪文件。
-
-<<<<<<< HEAD
-该选项支持以下取值：
-=======
+<!-- TODO: translation -->
 See [Playwright Traces](/guide/browser/playwright-traces) for the full workflow.
 
-This options supports the following values:
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
+该选项支持以下取值：
 
 - `'on'` - 为所有测试捕获追踪记录（不推荐，因性能消耗较大）
 - `'off'` - 不捕获追踪记录

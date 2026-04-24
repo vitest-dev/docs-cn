@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-# 追踪视图 {#trace-view}
-
-Vitest 浏览器模式支持生成 Playwright 的 [追踪文件](https://playwright.dev/docs/trace-viewer#viewing-remote-traces)。要启用追踪功能，需要在 `test.browser` 配置中设置 [`trace`](/config/browser/trace) 选项。
-
-::: warning
-生成追踪文件仅在使用 [Playwright provider](/config/browser/playwright) 时可用。
-=======
 # Trace View <Badge type="warning" text="Experimental" /> <Version>5.0.0</Version>
-
+<!-- TODO: translation -->
 `browser.traceView` records browser interactions as DOM snapshots and lets you replay them step by step in Vitest's built-in trace viewer. It is useful when the live browser view is not enough: you can inspect earlier tests, failed retries, screenshots, assertions, and user actions after the browser has already moved on.
 
 Trace view is additive to the current browser testing workflow. Enabling it does not force a single debugging mode. You can use it with the normal local browser UI, with a headless browser and Vitest UI, or with the HTML reporter in CI.
@@ -20,7 +12,6 @@ The normal local browser mode opens the [browser UI](/config/browser/ui), where 
 
 For static output, add the [HTML reporter](/guide/reporters#html-reporter). The same trace viewer can then be opened from the generated report, which is useful for run-mode and CI failures.
 
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 :::
 
 ::: details Looking for Playwright traces?
@@ -53,54 +44,19 @@ vitest --browser.traceView
 
 :::
 
-<<<<<<< HEAD
-默认情况下，Vitest 会为每个测试生成一个追踪文件。你也可以通过设置 `trace` 为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'` 来配置仅在测试失败时生成追踪。这些文件将保存在测试文件相邻的 `__traces__` 文件夹中。追踪文件的名称包括项目名称、测试名称、the [`repeats`](/api/test#repeats) 次数和 [`retry`](/api/test#retry) 次数：
-
-```
-chromium-my-test-0-0.trace.zip
-^^^^^^^^ 项目名称
-         ^^^^^^ 测试名称
-                ^ 重复次数
-                  ^ 重试次数
-```
-
-要更改输出目录，可以在 `test.browser.trace` 配置中设置 `tracesDir` 选项。这样所有追踪文件将按测试文件分组存储在同一目录中。
-=======
 When `browser.traceView` is enabled, tests with recorded traces can be opened in the trace viewer from the [browser UI](/config/browser/ui), [Vitest UI](/guide/ui), and [HTML reporter](/guide/reporters#html-reporter). The viewer has two resizable panes:
 
 - **Step list** (left) — every recorded action, assertion, mark, and lifecycle entry, with name, timing, selector, and source location. Failed actions and assertions are highlighted in red.
 - **DOM snapshot** (right) — a reconstruction of the page at the selected step. The interacted element is highlighted in blue.
 
 Selecting a step also opens its source location in the Editor tab when that location is available.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 <img alt="Vitest UI trace viewer showing step list and DOM snapshot" img-light src="/browser/trace-view-light.png">
 <img alt="Vitest UI trace viewer showing step list and DOM snapshot" img-dark src="/browser/trace-view-dark.png">
 
-<<<<<<< HEAD
-export default defineConfig({
-  test: {
-    browser: {
-      provider: playwright(),
-      trace: {
-        mode: 'on',
-        // 路径相对于项目根目录
-        tracesDir: './playwright-traces',
-      },
-    },
-  },
-})
-```
-
-追踪文件在报告器中作为 [注释](/guide/test-annotations) 形式呈现。例如，在 HTML 报告器中，你可以在测试详情页中找到追踪文件的链接。
-<!-- TODO: translation -->
-## Trace markers
-=======
 <small>Example replay uses [Vuetify's](https://github.com/vuetifyjs/vuetify) `VDateInput` component.</small>
 
-
 ## Common Setups
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 <!--
 TODO: The browser UI / Vitest UI / browser driver combinations are not specific to trace view and might be better documented in the Browser Mode guide.  Something like:
@@ -185,15 +141,9 @@ test('shows button', async () => {
 })
 ```
 
-<<<<<<< HEAD
-## 预览 {#preview}
-
-要打开追踪文件，可以使用 Playwright Trace Viewer。在终端中运行以下命令：
-=======
 ## Retries and Repeats
 
 Each attempt — retry or repeat — is recorded as a separate trace. When a test has multiple attempts, the viewer opens the most recent one by default. You can switch between attempts in the Report tab.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 ## Snapshot Fidelity
 
@@ -219,32 +169,17 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-这将启动 Trace Viewer 并加载指定的追踪文件。
-
-或者，你可以在浏览器中打开 https://trace.playwright.dev 并在那里上传追踪文件。
-=======
 `inlineImages` stores loaded `<img>` pixels in the trace snapshot. This is mostly useful for the HTML reporter, where the report should be portable without depending on external image URLs. This is pixel capture, not original resource capture: SVGs are rasterized, animated images are not preserved as animations, and CSS background images or fonts are not covered. Cross-origin images need CORS-readable pixels to be inlined; otherwise they can still render from the external URL if it remains reachable.
 
 `recordCanvas` stores readable canvas pixels in the trace snapshot. This is useful for charts and simple 2D canvas output, but it is not a full canvas drawing timeline and does not provide complete WebGL replay.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 ### External Resource Limits
 
-<<<<<<< HEAD
-## 局限性 {#limitations}
-
-目前，Vitest 无法填充 Trace Viewer 中的 "Sources" 标签页。这意味着虽然你可以看到测试期间捕获的操作和截图，但无法直接在 Trace Viewer 中查看测试的源代码。你需要返回代码编辑器查看测试实现。
-<!-- TODO: translation -->
-- `expect.element(...)` assertions
-- Interactive actions like `click`, `fill`, `type`, `hover`, `selectOptions`, `upload`, `dragAndDrop`, `tab`, `keyboard`, `wheel`, and screenshots
-=======
 Trace view does not currently provide a general resource store. Resources that are not captured into the snapshot remain URL-backed.
 
 This means CSS background images and `@font-face` files referenced from serialized CSS still depend on their original URLs. External images can still render in the viewer when the browser can load the URL, but they are not portable in the HTML reporter unless `inlineImages` can capture their pixels. Cross-origin images need CORS-readable pixels for that capture; otherwise the browser can display them, but rrweb cannot safely draw them into a canvas data URL.
 
 Use `inlineImages` for loaded `<img>` elements that need to be portable in the HTML reporter. CSS subresources, fonts, non-CORS cross-origin images, videos, and other external files remain limitations of the current snapshot-based trace format.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 ::: warning Canvas replay sandbox
 

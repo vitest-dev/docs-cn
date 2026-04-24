@@ -614,13 +614,9 @@ test.each`
   expect(a + b).toBe(expected)
 })
 ```
-
+<!-- TODO: translation -->
 ::: tip
-<<<<<<< HEAD
-Vitest 使用 Chai 的 `format` 方法处理 `$values`。如果值被截断，可在配置文件中调大 [chaiConfig.truncateThreshold](/config/chaiconfig#chaiconfig-truncatethreshold)。
-=======
 Vitest formats interpolated title values with its display formatter. If the value is too truncated, you can increase [taskTitleValueFormatTruncate](/config/tasktitlevalueformattruncate) in your config file.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 :::
 
 ## test.for

@@ -5,13 +5,8 @@ outline: deep
 
 # cache <CRoot />
 
-<<<<<<< HEAD
 - **类型:** `false`
 - **命令行终端:** `--no-cache`, `--cache=false`
-=======
-- **Type:** `false`
-- **CLI:** `--no-cache`, `--cache=false`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 使用此选项可禁用缓存功能。当前 Vitest 会缓存测试结果，以便优先运行耗时较长和失败的测试。
 

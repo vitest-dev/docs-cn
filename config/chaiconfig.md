@@ -29,10 +29,4 @@ outline: deep
 - **类型:** `number`
 - **默认值:** `40`
 
-<<<<<<< HEAD
 设置断言错误中实际值与期望值的长度阈值。当超过该阈值时（例如处理大型数据结构），值将被截断显示为类似 `[ Array(3) ]` 或 `{ Object (prop1, prop2) }` 的形式。若需完全禁用截断功能，请将该值设为 `0`。
-
-此配置项会影响 `test.each` 标题及断言错误信息内部值的截断显示。
-=======
-Sets length threshold for actual and expected values in assertion error messages. If this threshold is exceeded, for example for large data structures, the value is replaced with something like `[ Array(3) ]` or `{ Object (prop1, prop2) }`. Set it to `0` if you want to disable truncating altogether.
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926

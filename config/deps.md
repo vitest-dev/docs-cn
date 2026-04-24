@@ -27,7 +27,6 @@ outline: deep
 
 此选项还会继承你的 `optimizeDeps` 配置（对于 Web 环境，Vitest 会扩展 `optimizeDeps`；对于 SSR 环境则会扩展 `ssr.optimizeDeps`）。如果在 `deps.optimizer` 中重定义 `include`/`exclude` 选项，运行测试时将会扩展你的 `optimizeDeps` 配置。若某选项同时出现在 `include` 和 `exclude` 列表中，Vitest 会自动将其从 `include` 中移除。
 
-
 ::: tip
 你将无法通过编辑 `node_modules` 中的代码进行调试，因为这些代码实际位于 `cacheDir` 或 `test.cache.dir` 目录中。如需使用 `console.log` 语句进行调试，请直接修改对应文件，或通过 `deps.optimizer?.[mode].force` 选项强制重新打包。
 :::
@@ -111,13 +110,8 @@ TypeError: default is not a function
 
 ## deps.moduleDirectories
 
-<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['node_modules']`
-=======
-- **Type:** `string[]`
-- **Default:** `['node_modules']`
->>>>>>> ec964f36ce7596a023a32b8265f6019c51b32926
 
 配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且你正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/root) 中查找 `__mocks__` 文件夹来解析 mock。
 
