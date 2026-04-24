@@ -102,7 +102,7 @@
 - **命令行终端:** `--reporter <name>`
 - **配置:** [reporters](/config/reporters)
 
-指定报告器（default、agent、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
+指定报告器（default, agent, minimal, blob, verbose, dot, json, tap, tap-flat, junit, tree, hanging-process, github-actions）
 
 ### outputFile
 
@@ -427,7 +427,28 @@ Directory of HTML coverage output to be served in UI mode and HTML reporter.
 - **命令行终端:** `--browser.trace <mode>`
 - **配置:** [browser.trace](/config/browser/trace)
 
-启用追踪视图模式。可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
+启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
+<!-- TODO: translation -->
+### browser.traceView.enabled
+
+- **CLI:** `--browser.traceView.enabled`
+- **Config:** [browser.traceView.enabled](/config/browser/traceview#traceview-enabled)
+
+Enable Vitest trace-view collection for browser tests (default: `false`)
+
+### browser.traceView.recordCanvas
+
+- **CLI:** `--browser.traceView.recordCanvas`
+- **Config:** [browser.traceView.recordCanvas](/config/browser/traceview#traceview-recordcanvas)
+
+Capture canvas pixels in trace-view snapshots (default: `false`)
+
+### browser.traceView.inlineImages
+
+- **CLI:** `--browser.traceView.inlineImages`
+- **Config:** [browser.traceView.inlineImages](/config/browser/traceview#traceview-inlineimages)
+
+Inline loaded image pixels in trace-view snapshots (default: `false`)
 
 ### browser.locators.exact
 

@@ -389,6 +389,46 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
 
 处理代码覆盖率结果时使用的并发限制。
+<!-- TODO: translation -->
+## coverage.instrumenter <Version type="experimental">4.1.5</Version> {#coverage-instrumenter}
+
+- **Type:** `(options: InstrumenterOptions) => CoverageInstrumenter`
+- **Available for providers:** `'istanbul'`
+
+Factory for a custom instrumenter to use in place of the default `istanbul-lib-instrument`. Vitest calls the factory once during initialization and reuses the returned instrumenter for every file. The rest of the Istanbul pipeline (collection, merging, reporting) is unchanged.
+
+The factory receives an `InstrumenterOptions` object with Vitest's runtime coverage settings, and must return an object implementing the `CoverageInstrumenter` interface. Both types are exported from `vitest/node`.
+
+<!-- eslint-skip -->
+```ts
+interface InstrumenterOptions {
+  coverageVariable: string
+  coverageGlobalScope: string
+  coverageGlobalScopeFunc: boolean
+  ignoreClassMethods: string[]
+}
+
+interface CoverageInstrumenter {
+  instrumentSync: (code: string, filename: string, inputSourceMap?: any) => string
+  lastSourceMap: () => any
+  lastFileCoverage: () => any
+}
+```
+
+<!-- eslint-skip -->
+```ts
+import { defineConfig } from 'vitest/config'
+import { createInstrumenter } from '@vitest/some-custom-instrumenter'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      provider: 'istanbul',
+      instrumenter: options => createInstrumenter(options),
+    }
+  }
+})
+```
 
 ## coverage.customProviderModule
 

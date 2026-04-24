@@ -807,6 +807,16 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/browser/trace-view',
                 docFooterText: '追踪查看器 | 浏览器模式',
               },
+              {
+                text: 'Playwright Traces',
+                link: '/guide/browser/playwright-traces',
+                docFooterText: 'Playwright Traces | Browser Mode',
+              },
+              {
+                text: 'ARIA Snapshots',
+                link: '/guide/browser/aria-snapshots',
+                docFooterText: 'ARIA Snapshots | Browser Mode',
+              },
             ],
           },
           {

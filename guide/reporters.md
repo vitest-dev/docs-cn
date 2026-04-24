@@ -100,7 +100,7 @@ export default defineConfig({
 默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
 
 ::: tip
-当 Vitest 检测到运行在 AI 智能体编程环境中时，将自动启用 [`agent`](#agent-reporter) 报告器以精简输出内容并优化词元 (token) 消耗。你可以通过显式配置 [`reporters`](/config/reporters) 选项来覆盖此行为。
+当 Vitest 检测到运行在 AI 智能体编程环境中时，将自动启用 [`minimal`](#minimal-reporter) 报告器以精简输出内容并优化词元 (token) 消耗。你可以通过显式配置 [`reporters`](/config/reporters) 选项来覆盖此行为。
 :::
 
 我们可以通过配置报告器来禁用摘要：
@@ -421,9 +421,22 @@ JSON 报告示例:
 ```
 
 ::: info
-自Vitest 3起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
+自Vitest 3 起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
 :::
+<!-- TODO: translation -->
+The `meta` field in each assertion result can be filtered via the `filterMeta` reporter option. It receives the key and value of each field and should return a falsy value to exclude the field from the report:
 
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['json', {
+        filterMeta: (key, value) => key !== 'internalField',
+      }]
+    ]
+  },
+})
+```
 ### HTML 报告器 {#html-reporter}
 
 生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
@@ -657,21 +670,24 @@ export default defineConfig({
 })
 ```
 
-### Agent Reporter
+### Minimal Reporter
 
-Outputs a minimal report optimized for AI coding assistants and LLM-based workflows. Only failed tests and their error messages are displayed. Console logs from passing tests and the summary section are suppressed to reduce token usage.
+- **Alias:** `agent`
 
-This reporter is automatically enabled when no `reporters` option is configured and Vitest detects it is running inside an AI coding agent. If you configure custom reporters, you can explicitly add `agent`:
+Outputs a minimal report containing only failed tests and their error messages. Console logs from passing tests and the summary section are also suppressed.
+
+::: tip Agent Reporter
+This reporter is well optimized for AI coding assistants and LLM-based workflows to reduce token usage. It is automatically enabled when no `reporters` option is configured and Vitest detects it is running inside an AI coding agent. If you configure custom reporters, you can explicitly add `minimal` or `agent`:
 
 :::code-group
 ```bash [CLI]
-npx vitest --reporter=agent
+npx vitest --reporter=minimal
 ```
 
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
-    reporters: ['agent']
+    reporters: ['minimal']
   },
 })
 ```
