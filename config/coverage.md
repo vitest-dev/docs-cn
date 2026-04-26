@@ -134,7 +134,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 你可以在 Vitest UI 模式中查看代码覆盖率报告。更多详情请参阅 [Vitest UI Coverage](/guide/coverage#vitest-ui)。
 
 ::: tip AI 智能体编程
-当 Vitest 检测到运行环境为 AI 智能体编程环境时，会自动启用 `text-summary` 报告器，并对 `text` 报告器设置 `skipFull: true` 以减少输出内容，从而降低令牌消耗。
+当 Vitest 检测到运行环境为 AI 智能体编程环境时，会自动启用 `text-summary` 报告器，并对 `text` 报告器设置 `skipFull: true` 以减少输出内容，从而降低词元的消耗。
 :::
 
 ## coverage.reportOnFailure {#coverage-reportonfailure}
