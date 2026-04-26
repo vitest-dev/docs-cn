@@ -123,12 +123,12 @@ vitest --pool=forks
 ```
 
 :::
-<!-- TODO: translation -->
-## Unhandled Promise Rejection
 
-This error happens when a Promise rejects but no `.catch()` handler or `await` is attached to it before the microtask queue flushes. This behavior comes from JavaScript itself and is not specific to Vitest. Learn more in the [Node.js documentation](https://nodejs.org/api/process.html#event-unhandledrejection).
+## 未处理的 Promise 拒绝 {#unhandled-promise-rejection}
 
-A common cause is calling an async function without `await`ing it:
+当 Promise 被拒绝，但在微任务队列清空前未附加 `.catch()` 处理程序或 `await` 时，会发生此错误。该行为源自 JavaScript 本身，并非 Vitest 特有。更多信息请参阅 [Node.js 文档](https://nodejs.org/api/process.html#event-unhandledrejection)。
+
+一个常见原因是调用异步函数时未使用 `await`：
 
 ```ts
 async function fetchUser(id) {
@@ -144,15 +144,15 @@ test('fetches user', async () => {
 })
 ```
 
-Because `fetchUser()` is not `await`ed, its rejection has no handler and Vitest reports:
+由于未对 `fetchUser()` 使用 `await`，其拒绝状态没有处理程序，Vitest 会报告：
 
 ```
 Unhandled Rejection: Error: User 123 not found
 ```
 
-### Fix
+### 修复方法 {#fix}
 
-`await` the promise so Vitest can catch the error:
+使用 `await` 等待 promise，以便 Vitest 可以捕获错误：
 
 ```ts
 test('fetches user', async () => {
@@ -160,7 +160,7 @@ test('fetches user', async () => {
 })
 ```
 
-If you expect the call to throw, use [`expect().rejects`](/api/expect#rejects):
+如果你期望调用抛出错误，使用 [`expect().rejects`](/api/expect#rejects)：
 
 ```ts
 test('rejects for missing user', async () => {

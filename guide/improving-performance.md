@@ -32,7 +32,7 @@ export default defineConfig({
 
 :::
 
-You can also disable isolation for specific files only by using `projects`:
+你也可以仅通过 `projects` 为特定文件禁用隔离：
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -43,7 +43,7 @@ export default defineConfig({
       {
         test: {
           name: 'Isolated',
-          isolate: true, // (default value)
+          isolate: true, // （默认值）
           exclude: ['**.non-isolated.test.ts'],
         },
       },

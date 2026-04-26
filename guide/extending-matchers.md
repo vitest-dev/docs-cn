@@ -39,7 +39,6 @@ declare module 'vitest' {
 导入 `vitest` 会使 TypeScript 将其视为 ES 模块文件，若无此声明则类型检查将无法生效。
 :::
 
-Extending the `Matchers` interface will add a type to `expect.extend`, `expect().*`, and `expect.*` methods at the same time.
 扩展 `Matchers` 接口，让 `expect.extend` 、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。
 
 ::: warning
@@ -158,7 +157,7 @@ When using the global `expect` with concurrent tests, `this.task` is `undefined`
 
 ## `assertion` <Advanced /> <Version type="experimental">4.1.4</Version> {#assertion}
 
-The underlying [Chai assertion](https://www.chaijs.com/guide/plugins/) object. This is the same instance that Chai plugins receive, giving you access to Chai's flag system and chainable methods. This can be useful for building custom matchers that need to interact with Chai's internals.
+底层 [Chai 断言](https://www.chaijs.com/guide/plugins/) 对象。这是与 Chai 插件接收的同一个实例，使你能够访问 Chai 的标志系统和可链式方法。适用于需要与 Chai 内部交互的自定义匹配器。
 
 ::: tip
 以上并非全部可用属性，仅列出最实用的部分。其他状态值由 Vitest 内部使用。

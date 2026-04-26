@@ -505,11 +505,11 @@ export function ignored() { // [!code error]
 
 此功能已与具有 HTML 输出的内置覆盖率报告器集成（`html`、`html-spa` 和 `lcov` 报告器）。`html` 报告器默认启用，开箱即用。若要与自定义报告器集成，可以配置 [`coverage.htmlDir`](/config/coverage#coverage-htmldir)。
 
-<img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
-<img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
+<img alt="UI 模式中的 HTML 覆盖率功能" img-light src="/vitest-ui-show-coverage-light.png">
+<img alt="UI 模式中的 HTML 覆盖率功能" img-dark src="/vitest-ui-show-coverage-dark.png">
 
-<img alt="html coverage in Vitest UI" img-light src="/ui-coverage-1-light.png">
-<img alt="html coverage in Vitest UI" img-dark src="/ui-coverage-1-dark.png">
+<img alt="UI 模式中 HTML 覆盖率报告" img-light src="/ui-coverage-1-light.png">
+<img alt="UI 模式中 HTML 覆盖率报告" img-dark src="/ui-coverage-1-dark.png">
 
 ## 智能体编程环境中的覆盖率报告 {#coverage-in-agent-environments}
 

@@ -39,7 +39,7 @@ exports['toUpperCase 1'] = '"FOOBAR"'
 
 ## 内联快照 {#inline-snapshots}
 
-Vitest stores a serialized representation of the received value. Snapshot rendering is powered by [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format). [`snapshotFormat`](/config/snapshotformat) allows configuring general snapshot formatting behavior in Vitest. For further customization, you can implement your own [custom serializers](#custom-serializer) or [custom snapshot matchers](#custom-snapshot-matchers).
+Vitest 会存储接收值的序列化表示。快照渲染功能由 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 提供支持。通过 [`snapshotFormat`](/config/snapshotformat) 可配置 Vitest 中的通用快照格式化行为。如需进一步定制，你可实现自己的 [自定义序列化器](#custom-serializer) 或 [自定义快照匹配器](#custom-snapshot-matchers)。
 
 ::: warning
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。

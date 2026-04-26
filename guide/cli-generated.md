@@ -252,7 +252,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **命令行终端:** `--coverage.customProviderModule <path>`
 - **配置:** [coverage.customProviderModule](/config/coverage#coverage-customprovidermodule)
 
-Specifies the module name or path for the custom coverage provider module. Visit [Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information. This option is only available for custom providers
+指定自定义覆盖率提供者模块的模块名称或路径。详情请参阅 [自定义覆盖率提供者](/guide/coverage#custom-coverage-provider) 了解更多信息。此选项仅适用于自定义提供者。
 
 ### coverage.watermarks.statements
 
@@ -280,24 +280,24 @@ Specifies the module name or path for the custom coverage provider module. Visit
 
 ### coverage.changed
 
-- **CLI:** `--coverage.changed <commit/branch>`
-- **Config:** [coverage.changed](/config/coverage#coverage-changed)
+- **命令行终端:** `--coverage.changed <commit/branch>`
+- **配置:** [coverage.changed](/config/coverage#coverage-changed)
 
-Collect coverage only for files changed since a specified commit or branch (e.g., `origin/main` or `HEAD~1`). Inherits value from `--changed` by default.
+仅收集指定提交或分支（例如 `origin/main` 或 `HEAD~1`）以来更改的文件的覆盖率。默认继承自 `--changed` 的值。
 
 ### coverage.excludeAfterRemap
 
-- **CLI:** `--coverage.excludeAfterRemap`
-- **Config:** [coverage.excludeAfterRemap](/config/coverage#coverage-excludeafterremap)
+- **命令行终端:** `--coverage.excludeAfterRemap`
+- **配置:** [coverage.excludeAfterRemap](/config/coverage#coverage-excludeafterremap)
 
-Apply exclusions again after coverage has been remapped to original sources. (default: false)
+在覆盖率数据重新映射回源代码后再次应用排除规则。（默认值：false）
 
 ### coverage.htmlDir
 
-- **CLI:** `--coverage.htmlDir <path>`
-- **Config:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
+- **命令行终端:** `--coverage.htmlDir <path>`
+- **配置:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
 
-Directory of HTML coverage output to be served in UI mode and HTML reporter.
+UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 ### mode
 
@@ -428,27 +428,27 @@ Directory of HTML coverage output to be served in UI mode and HTML reporter.
 - **配置:** [browser.trace](/config/browser/trace)
 
 启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
-<!-- TODO: translation -->
+
 ### browser.traceView.enabled
 
-- **CLI:** `--browser.traceView.enabled`
-- **Config:** [browser.traceView.enabled](/config/browser/traceview#traceview-enabled)
+- **命令行终端:** `--browser.traceView.enabled`
+- **配置:** [browser.traceView.enabled](/config/browser/traceview#traceview-enabled)
 
-Enable Vitest trace-view collection for browser tests (default: `false`)
+启用浏览器测试 Vitest 追踪视图收集功能（默认值：`false`）
 
 ### browser.traceView.recordCanvas
 
-- **CLI:** `--browser.traceView.recordCanvas`
-- **Config:** [browser.traceView.recordCanvas](/config/browser/traceview#traceview-recordcanvas)
+- **命令行终端:** `--browser.traceView.recordCanvas`
+- **配置:** [browser.traceView.recordCanvas](/config/browser/traceview#traceview-recordcanvas)
 
-Capture canvas pixels in trace-view snapshots (default: `false`)
+在追踪视图快照中捕获 Canvas 像素（默认：`false`）
 
 ### browser.traceView.inlineImages
 
-- **CLI:** `--browser.traceView.inlineImages`
-- **Config:** [browser.traceView.inlineImages](/config/browser/traceview#traceview-inlineimages)
+- **命令行终端:** `--browser.traceView.inlineImages`
+- **配置:** [browser.traceView.inlineImages](/config/browser/traceview#traceview-inlineimages)
 
-Inline loaded image pixels in trace-view snapshots (default: `false`)
+在追踪视图快照中内联加载的图像像素（默认值：`false`）
 
 ### browser.locators.exact
 
