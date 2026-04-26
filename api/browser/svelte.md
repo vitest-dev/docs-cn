@@ -41,11 +41,11 @@ export function render<C extends Component>(
   renderOptions?: SetupOptions
 ): RenderResult<C> & PromiseLike<RenderResult<C>>
 ```
-<!-- TODO: translation -->
-The `render` function records a `svelte.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
+
+`render` 函数会记录一个 `svelte.render` 追踪标记，该标记可在 [Trace View](/guide/browser/trace-view) 中查看。
 
 ::: warning
-Synchronous usage of `render` is deprecated and will be removed in the next major version. Please always `await` the result:
+同步调用 `render` 的方式已被弃用，并将在下一个主要版本中移除。请始终使用 `await` 处理其返回结果：
 
 ```ts
 const screen = render(Component) // [!code --]
@@ -152,8 +152,8 @@ function debug(
 ```ts
 function rerender(props: Partial<ComponentProps<T>>): Promise<void>
 ```
-<!-- TODO: translation -->
-Updates the component's props and waits for Svelte to apply the changes. Use this to test how your component responds to prop changes. Also records a `svelte.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
+
+更新组件的属性，并等待 Svelte 应用这些更改。此功能可用于测试组件对属性变化的响应。同时会在 [Trace View](/guide/browser/trace-view) 中记录一个 `svelte.rerender` 追踪标记。
 
 ```ts
 import { render } from 'vitest-browser-svelte'
@@ -171,11 +171,11 @@ await rerender({ number: 2 })
 ```ts
 function unmount(): Promise<void>
 ```
-<!-- TODO: translation -->
-Unmount and destroy the Svelte component. Also records a `svelte.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+
+卸载并销毁 Svelte 组件。同时会在 [Trace View](/guide/browser/trace-view) 中记录一个 `svelte.unmount` 追踪标记。此功能适用于测试组件从页面中移除时的行为（例如测试是否未遗留事件监听器导致内存泄漏）。
 
 ::: warning
-Synchronous usage of `unmount` is deprecated and will be removed in the next major version. Please always `await` the result.
+同步调用 `unmount` 的方式已被弃用，并将在下一个主要版本中移除。请始终使用 `await` 处理其返回结果：
 :::
 
 ```ts

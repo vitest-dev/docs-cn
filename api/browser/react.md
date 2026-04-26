@@ -155,10 +155,10 @@ function debug(
 ```ts
 function rerender(ui: React.ReactNode): Promise<void>
 ```
-<!-- TODO: translation -->
-Also records a `react.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
 
-It is better if you test the component that's doing the prop updating to ensure that the props are being updated correctly to avoid relying on implementation details in your tests. That said, if you'd prefer to update the props of a rendered component in your test, this function can be used to update props of the rendered component.
+同时会在 [Trace View](/guide/browser/trace-view) 中记录一个 `react.rerender` 追踪标记。
+
+为了更好地确保组件正确地更新属性，建议测试负责属性更新的组件本身，以避免在测试中依赖实现细节。尽管如此，如果你更倾向于在测试中更新已渲染组件的属性，可以使用此函数来实现。
 
 ```jsx
 import { render } from 'vitest-browser-react'
@@ -174,10 +174,10 @@ await rerender(<NumberDisplay number={2} />)
 ```ts
 function unmount(): Promise<void>
 ```
-<!-- TODO: translation -->
-Also records a `react.unmount` trace mark in the [Trace View](/guide/browser/trace-view).
 
-This will cause the rendered component to be unmounted. This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+同时会在 [Trace View](/guide/browser/trace-view) 中记录一个 `react.unmount` 追踪标记。
+
+此操作将卸载已渲染的组件。适用于测试组件从页面中移除时的行为（例如测试是否未遗留事件监听器导致内存泄漏）。
 
 ```jsx
 import { render } from 'vitest-browser-react'

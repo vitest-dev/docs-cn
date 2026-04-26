@@ -304,8 +304,6 @@ function rerunTestSpecifications(
 
 此方法发出 `reporter.onWatcherRerun` 和 `onTestsRerun` 事件，然后使用 [`runTestSpecifications`](#runtestspecifications) 运行测试。如果主进程中没有错误，它将发出 `reporter.onWatcherStart` 事件。
 
-<!-- TODO: translation -->
-
 ## runTestFiles <Version>4.1.0</Version> {#runtestfiles}
 
 ```ts
@@ -315,11 +313,11 @@ function runTestFiles(
 ): Promise<TestRunResult>
 ```
 
-This automatically creates specifications to run based on filepaths filters.
+该功能会根据文件路径过滤器自动创建待运行的测试规范。
 
-This is different from [`start`](#start) because it does not create a coverage provider, trigger `onInit` and `onWatcherStart` events, or throw an error if there are no files to run (in this case, the function will return empty arrays without triggering a test run).
+这与 [`start`](#start) 的不同之处在于：它不会创建覆盖率提供程序、不会触发 `onInit` 和 `onWatcherStart` 事件，且在无文件可运行时也不会抛出错误（此时函数将返回空数组且不会触发测试运行）。
 
-This function accepts the same filters as [`start`](#start) and the CLI.
+此函数接受的过滤器参数与 [`start`](#start) 及命令行接口完全一致。
 
 ## updateSnapshot
 
@@ -482,8 +480,7 @@ function onCancel(fn: (reason: CancelReason) => Awaitable<void>): () => void
 
 注册一个处理程序，当测试运行被 [`vitest.cancelCurrentRun`](#cancelcurrentrun) 取消时调用。
 
-<!-- TODO: translation -->
-Since 4.0.10, `onCancel` experimentally returns a teardown function that will remove the listener. Since 4.1.0 this behaviour is considered stable.
+自 4.0.10 起，`onCancel` 实验性地返回一个清理函数，该函数会移除监听器。自 4.1.0 起，此行为被视为稳定。
 
 ## onClose
 
@@ -696,26 +693,26 @@ export interface SourceModuleDiagnostic {
 ::: warning
 [浏览器模式](/guide/browser/) 暂不支持。
 :::
-<!-- TODO: translation -->
+
 ## createReport <Version>5.0.0</Version> {#createreport}
 
 ```ts
 function createReport(scope: string): Report
 ```
 
-Creates a report that is limited to the given scope. `Report` follows Vitest's rules around [Storing artifacts on file system](/guide/advanced/reporters.html#storing-artifacts-on-file-system).
+创建一个仅限于给定作用域的报告。`Report` 遵循 Vitest 关于 [在文件系统中存储工件](/guide/advanced/reporters.html#storing-artifacts-on-file-system) 的规则。
 
-`Report` provides collection of utilities for writing test results, temporary files and other artifacts on the file system. It's especially intended for third party integrations like custom reporters.
+`Report` 提供了一系列用于在文件系统中写入测试结果、临时文件和其他产物的工具函数。它特别适用于第三方集成，例如自定义报告器。
 
-All operations of `Report` are limited to given `scope`. A single report cannot interfere with other reports. Internally Vitest creates `.vitest` directory where each `scope` creates their own directory. This convention of `.vitest` directory reduces the amount of entries end-users need to specify in their `.gitignore`.
+`Report` 的所有操作都限制在给定的 `scope` 内。单个报告不会干扰其他报告。Vitest 内部会创建一个 `.vitest` 目录，每个 `scope` 在其中创建自己的子目录。这种 `.vitest` 目录的约定减少了最终用户需要在 `.gitignore` 中指定的条目数量。
 
 ```ts
 import type { Report } from 'vitest/node'
 
 const scope = 'example-yaml-reporter'
 
-// Automatically creates `<project-root>/.vitest/example-yaml-reporter/`
-// directory if it does not exist already
+// 自动创建 `<project-root>/.vitest/example-yaml-reporter/`
+// 如果目录不存在
 const report: Report = vitest.createReport(scope)
 ```
 
@@ -730,7 +727,7 @@ The root directory for this scope.
 ```ts
 const report = vitest.createReport('my-json-reporter')
 
-// Is <project-root>/.vitest/my-json-reporter
+// 即 <project-root>/.vitest/my-json-reporter
 const root = report.root
 ```
 
@@ -740,12 +737,12 @@ const root = report.root
 function clean(): Promise<void>
 ```
 
-Clean up the report directory for this scope.
+清理此作用域的报告目录。
 
 ```ts
 const report = vitest.createReport('my-json-reporter')
 
-// Removes everything inside <project-root>/.vitest/my-json-reporter/
+// 删除 <project-root>/.vitest/my-json-reporter/ 内的所有内容
 await report.clean()
 ```
 
@@ -759,12 +756,12 @@ function writeFile(
 ): Promise<void>
 ```
 
-Write a file to the report directory for this scope. By default the file will be written with UTF-8 encoding. The filename is relative to the scope directory.
+向此作用域的报告目录写入文件。默认情况下，文件将以 UTF-8 编码写入。文件名是相对于作用域目录的。
 
 ```ts
 const report = vitest.createReport('my-json-reporter')
 
-// Writes file to .vitest/my-json-reporter/test-report.json
+// 将文件写入 .vitest/my-json-reporter/test-report.json
 await report.writeFile('test-report.json', JSON.stringify(results))
 ```
 
@@ -774,12 +771,12 @@ await report.writeFile('test-report.json', JSON.stringify(results))
 function readFile(filename: string, encoding?: BufferEncoding): Promise<string>
 ```
 
-Read a file from the report directory for this scope.
+从此作用域的报告目录读取文件。
 
 ```ts
 const report = vitest.createReport('my-json-reporter')
 
-// Reads file from .vitest/my-json-reporter/test-report.json
+// 从 .vitest/my-json-reporter/test-report.json 读取文件
 const content: string = await report.readFile('test-report.json')
 ```
 
@@ -789,12 +786,12 @@ const content: string = await report.readFile('test-report.json')
 function readdir(): Promise<string[]>
 ```
 
-Read contents of the report directory for this scope.
+读取此作用域报告目录的内容。
 
 ```ts
 const report = vitest.createReport('my-json-reporter')
 
-// Reads contents from .vitest/my-json-reporter
+// 从 from .vitest/my-json-reporter 读取内容
 const filenames: string[] = await report.readdir()
 ```
 
@@ -805,11 +802,11 @@ const filenames: string[] = await report.readdir()
 function delete(filename: string): Promise<void>
 ```
 
-Delete a file from the report directory for this scope.
+从此作用域的报告目录删除文件。
 
 ```ts
 const report = vitest.createReport('my-json-reporter')
 
-// Deletes file from .vitest/my-json-reporter/test-report.json
+// 从 .vitest/my-json-reporter/test-report.json 删除文件
 await report.delete('test-report.json')
 ```

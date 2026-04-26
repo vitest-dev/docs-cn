@@ -6,24 +6,7 @@
 
 Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告器的方法来表示：
 
-- [报告器 {#reporters}](#报告器-reporters)
-  - [onInit](#oninit)
-  - [onBrowserInit {#onbrowserinit}](#onbrowserinit-onbrowserinit)
-  - [onTestRunStart](#ontestrunstart)
-  - [onTestRunEnd](#ontestrunend)
-  - [onCoverage](#oncoverage)
-  - [onTestModuleQueued](#ontestmodulequeued)
-  - [onTestModuleCollected](#ontestmodulecollected)
-  - [onTestModuleStart](#ontestmodulestart)
-  - [onTestModuleEnd](#ontestmoduleend)
-  - [onHookStart](#onhookstart)
-  - [onHookEnd](#onhookend)
-  - [onTestSuiteReady](#ontestsuiteready)
-  - [onTestSuiteResult](#ontestsuiteresult)
-  - [onTestCaseReady](#ontestcaseready)
-  - [onTestCaseResult](#ontestcaseresult)
-  - [onTestCaseAnnotate 3.2.0 {#ontestcaseannotate}](#ontestcaseannotate-320-ontestcaseannotate)
-  - [onTestCaseArtifactRecord 4.0.11 {#ontestcaseartifactrecord}](#ontestcaseartifactrecord-4011-ontestcaseartifactrecord)
+<!--@include: ./reporters-life-cycle.md-->
 
 除非被跳过，否则单个模块中的测试和 reporters 将按顺序报告。所有跳过的测试将在 reporters 测试套件或模块的末尾报告。
 

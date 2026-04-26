@@ -1,0 +1,24 @@
+<!-- 因经常误被错误格式化，估另抽单个文件处理-->
+
+- [`onInit`](#oninit)
+- [`onTestRunStart`](#ontestrunstart)
+  - [`onTestModuleQueued`](#ontestmodulequeued)
+  - [`onTestModuleCollected`](#ontestmodulecollected)
+  - [`onTestModuleStart`](#ontestmodulestart)
+    - [`onTestSuiteReady`](#ontestsuiteready)
+      - [`onHookStart(beforeAll)`](#onhookstart)
+      - [`onHookEnd(beforeAll)`](#onhookend)
+        - [`onTestCaseReady`](#ontestcaseready)
+          - [`onTestCaseAnnotate`](#ontestcaseannotate) <Version>3.2.0</Version>
+          - [`onTestCaseArtifactRecord`](#ontestcaseartifactrecord) <Version type="experimental">4.0.11</Version>
+          - [`onHookStart(beforeEach)`](#onhookstart)
+          - [`onHookEnd(beforeEach)`](#onhookend)
+          - [`onHookStart(afterEach)`](#onhookstart)
+          - [`onHookEnd(afterEach)`](#onhookend)
+        - [`onTestCaseResult`](#ontestcaseresult)
+      - [`onHookStart(afterAll)`](#onhookstart)
+      - [`onHookEnd(afterAll)`](#onhookend)
+    - [`onTestSuiteResult`](#ontestsuiteresult)
+  - [`onTestModuleEnd`](#ontestmoduleend)
+  - [`onCoverage`](#oncoverage)
+- [`onTestRunEnd`](#ontestrunend)
