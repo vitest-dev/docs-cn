@@ -1,15 +1,15 @@
 ---
-title: taskTitleValueFormatTruncate | Config
+title: taskTitleValueFormatTruncate | 配置
 outline: deep
 ---
 
 # taskTitleValueFormatTruncate <CRoot /> {#tasktitlevalueformattruncate}
-<!-- TODO: translation -->
-- **Type** `number`
-- **Default:** `40`
 
-Sets the length limit for formatted values interpolated into generated task titles.
+- **类型:** `number`
+- **默认值:** `40`
 
-This affects values inserted by APIs like `test.each` and `test.for`, including both `$value` and `%` placeholder formatting.
+设置插入生成任务标题的格式化值的长度限制。
 
-Set it to `0` to disable truncation.
+此设置会影响通过 `test.each` 和 `test.for` 等 API 插入的值，包括 `$value` 和 `%` 占位符格式化。
+
+将其设置为 `0` 可禁用截断功能。
