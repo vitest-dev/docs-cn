@@ -12,8 +12,8 @@ outline: deep
 用于运行测试的线程池。
 
 ## threads
-<!-- TODO: translation -->
-Enable multi-threading. When using threads you are unable to use process related APIs such as `process.chdir()`. Some libraries written in native languages, such as `Prisma`, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is advised to use `forks` pool instead.
+
+启用多线程模式。使用线程时，你无法调用进程相关 API 例如 `process.chdir()`。某些原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
 
 ## forks
 

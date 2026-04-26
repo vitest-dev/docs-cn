@@ -4,9 +4,9 @@ outline: deep
 ---
 
 # 测试运行生命周期 {#test-run-lifecycle}
-<!-- TODO: translation -->
+
 ::: tip
-Looking for a practical introduction to `beforeEach`, `afterEach`, and other hooks? See the [Setup and Teardown](/guide/learn/setup-teardown) tutorial.
+想快速掌握 `beforeEach`、`afterEach` 等钩子函数的实战用法？推荐学习 [初始化和清理](/guide/learn/setup-teardown) 教程，该教程通过典型场景演示如何优雅地管理测试生命周期。
 :::
 
 理解测试运行的生命周期，对于编写高效测试、调试问题以及优化测试套件至关重要。本指南说明 Vitest 中各个生命周期阶段的发生时机与执行顺序，从初始化到清理的全过程。

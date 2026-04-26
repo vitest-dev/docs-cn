@@ -143,7 +143,7 @@ export default defineConfig({
 
 你可以使用任何支持 OpenTelemetry API 的开源或商业产品来查看追踪。如果是初次接触 OpenTelemetry，我们推荐从 [Jaeger](https://www.jaegertracing.io/docs/2.11/getting-started/#all-in-one) 开始，因为它真的很容易设置。
 
-<img src="/otel-jaeger.png" alt="an example of open telemetry result in jaeger" />
+<img src="/otel-jaeger.png" alt="Jaeger 中的 OpenTelemetry 结果示例" />
 
 ## `@opentelemetry/api` {#opentelemetry-api}
 

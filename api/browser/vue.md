@@ -42,11 +42,11 @@ export function render(
   options?: ComponentRenderOptions,
 ): RenderResult & PromiseLike<RenderResult>
 ```
-<!-- TODO: translation -->
-The `render` function records a `vue.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
+
+`render` 函数会记录一个 `vue.render` 追踪标记，该标记可在 [Trace View](/guide/browser/trace-view) 中查看。
 
 ::: warning
-Synchronous usage of `render` is deprecated and will be removed in the next major version. Please always `await` the result:
+同步调用 `render` 的方式已被弃用，并将在下一个主要版本中移除。请始终使用 `await` 处理其返回结果：
 
 ```ts
 const screen = render(Component) // [!code --]
@@ -138,13 +138,12 @@ function debug(
 ```ts
 function rerender(props: Partial<Props>): void & PromiseLike<void>
 ```
-<!-- TODO: translation -->
-Also records a `vue.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
+同时还会在 [Trace View](/guide/browser/trace-view) 中记录一个 `vue.rerender` 追踪标记。
 
-It is better if you test the component that's doing the prop updating to ensure that the props are being updated correctly to avoid relying on implementation details in your tests. That said, if you'd prefer to update the props of a rendered component in your test, this function can be used to update props of the rendered component.
+为了更好地确保组件正确地更新属性，建议测试负责属性更新的组件本身，以避免在测试中依赖实现细节。尽管如此，如果你更倾向于在测试中更新已渲染组件的属性，可以使用此函数来实现。
 
 ::: warning
-Synchronous usage of `rerender` is deprecated and will be removed in the next major version. Please always `await` the result.
+同步调用 `render` 的方式已被弃用，并将在下一个主要版本中移除。请始终使用 `await` 处理其返回结果：
 :::
 
 ```js
@@ -161,11 +160,11 @@ rerender({ number: 2 })
 ```ts
 function unmount(): void & PromiseLike<void>
 ```
-<!-- TODO: translation -->
-This will cause the rendered component to be unmounted. Also records a `vue.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
+
+该操作会触发组件卸载，同时在 [跟踪视图](/guide/browser/trace-view) 中记录 `vue.unmount` 标记点。此功能特别适用于测试组件从页面移除时的行为（例如验证是否残留事件处理器导致内存泄漏）。
 
 ::: warning
-Synchronous usage of `unmount` is deprecated and will be removed in the next major version. Please always `await` the result.
+同步调用 `unmount` 的方式已被弃用，将在下一主要版本中移除。请使用 `await` 进行异步调用。
 :::
 
 #### emitted

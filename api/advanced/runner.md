@@ -275,7 +275,7 @@ export interface TaskResult {
 
 ## 你的任务函数 {#your-task-function}
 
-Vitest 提供了 `createTaskCollector` 工具来创建您自己的 `test` 方法。它的行为与测试相同，但在收集期间会调用自定义方法。
+Vitest 提供了 `createTaskCollector` 工具来创建你自己的 `test` 方法。它的行为与测试相同，但在收集期间会调用自定义方法。
 
 任务是套件的一部分对象。它会通过 `suite.task` 方法自动添加到当前套件中：
 

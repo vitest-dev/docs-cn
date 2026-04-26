@@ -16,9 +16,9 @@ import FeaturesList from '../.vitepress/components/FeaturesList.vue'
 ## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
 
 <div h-2 />
-<!-- TODO: translation -->
+
 ::: tip
-This page is a high-level overview of Vitest's capabilities. If you're new to Vitest, we recommend reading the [Learn](/guide/learn/writing-tests) tutorial first for a hands-on introduction.
+本页为 Vitest 核心功能的概览指南。如果你初次接触 Vitest，建议先学习 [入门](/guide/learn/writing-tests) 教程，通过实践演练快速掌握测试编写基础。
 :::
 
 ## Shared Config between Test, Dev and Build
@@ -297,7 +297,7 @@ export default defineConfig(({ mode }) => ({
 
 默认情况下，Vitest 会捕获并报告所有的 [未处理的拒绝(Promise)](https://developer.mozilla.org/en-US/docs/Web/API/Window/unhandledrejection_event)、[未捕获的异常](https://nodejs.org/api/process.html#event-uncaughtexception)（在 Node.js 中）以及 [错误事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/error_event)（在 [浏览器](/guide/browser/) 中）。
 
-您可以通过手动捕获这些错误来禁用此行为。Vitest 会认为回调已由您处理，不会再报告该错误。
+你可以通过手动捕获这些错误来禁用此行为。Vitest 会认为回调已由你处理，不会再报告该错误。
 
 ::: code-group
 ```ts [setup.node.js]
@@ -324,7 +324,7 @@ window.addEventListener('unhandledrejection', () => {
 
 或者，你也可以使用 [`dangerouslyIgnoreUnhandledErrors`](/config/dangerouslyignoreunhandlederrors) 选项来忽略报告的错误。Vitest 仍会报告它们，但它们不会影响测试结果（退出码不会改变）。
 
-如果您需要测试某个错误未被捕获，可以创建如下所示的测试：
+如果你需要测试某个错误未被捕获，可以创建如下所示的测试：
 
 ```ts
 test('my function throws uncaught error', async ({ onTestFinished }) => {

@@ -98,9 +98,9 @@ export default defineConfig({
 ### 默认报告器 {#default-reporter}
 
 默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
-<!-- TODO: translation -->
+
 ::: tip
-When Vitest detects it is running inside an AI coding agent, the [`minimal`](#minimal-reporter) reporter is used instead to reduce output and minimize token usage. You can override this by explicitly configuring the [`reporters`](/config/reporters) option.
+当 Vitest 检测到运行在 AI 智能体编程环境中时，将自动启用 [`minimal`](#minimal-reporter) 报告器以精简输出内容并优化词元 (token) 消耗。你可以通过显式配置 [`reporters`](/config/reporters) 选项来覆盖此行为。
 :::
 
 我们可以通过配置报告器来禁用摘要：

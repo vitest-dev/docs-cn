@@ -323,8 +323,8 @@ npx vitest --browser.headless
 :::
 
 Vitest 默认会在开发模式下自动打开浏览器界面，测试会在页面中央的 iframe 中执行。你可以通过选择界面中的预设尺寸、在测试中调用 `page.viewport` 方法，或者在 [配置文件](/config/browser/viewport) 中设置默认值来调整视口大小。
-<!-- TODO: translation -->
-For an alternative debugging model that captures DOM snapshots for every test instead of showing a live iframe, see [Trace View](/guide/browser/trace-view).
+
+如需采用捕获每个测试的 DOM 快照，而非实时显示 iframe的替代调试方案，请参阅 [追踪视图](/guide/browser/trace-view)。
 
 ## 无头模式 {#headless}
 

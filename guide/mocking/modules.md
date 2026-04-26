@@ -225,19 +225,19 @@ import { Answer } from './answer.js'
 vi.mock(import('./answer.js'), { spy: true })
 
 test('instance inherits the state', () => {
-  // these invocations could be private inside another function
-  // that you don't have access to in your test
+  // 这些调用可能封装在另一个函数的私有作用域内
+  // 测试中无法直接访问
   const answer1 = new Answer(42)
   const answer2 = new Answer(0)
 
   expect(answer1.value()).toBe(42)
   expect(answer1.value).toHaveBeenCalled()
-  // note that different instances have their own states
+  // 注意不同实例拥有独立状态
   expect(answer2.value).not.toHaveBeenCalled()
 
   expect(answer2.value()).toBe(0)
 
-  // but the prototype state accumulates all calls
+  // 但原型状态会累积所有调用记录
   expect(Answer.prototype.value).toHaveBeenCalledTimes(2)
   expect(Answer.prototype.value).toHaveReturned(42)
   expect(Answer.prototype.value).toHaveReturned(0)

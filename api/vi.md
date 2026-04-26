@@ -225,7 +225,7 @@ test('importing the next module imports mocked one', async () => {
 ```
 
 ::: tip
-In environments that support [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management), you can use `using` on the value returned from `vi.doMock()` to automatically call [`vi.doUnmock()`](#vi-dounmock) on the mocked module when the containing block is exited. This is especially useful when mocking a dynamically imported module for a single test case.
+在支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) 的环境中，可对 `vi.doMock()` 返回值使用 `using` 语法，当代码块退出时自动调用 [`vi.doUnmock()`](#vi-dounmock) 取消模块模拟。该特性特别适用于在针对单个测试用例模拟动态导入模块。
 
 ```ts
 it('uses a mocked version of my-module', () => {
@@ -233,7 +233,7 @@ it('uses a mocked version of my-module', () => {
 
   const myModule = await import('my-module') // mocked
 
-  // my-module is restored here
+  // 此处 my-module 已恢复原始状态
 })
 
 it('uses the normal version of my-module again', () => {
@@ -1073,40 +1073,40 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 
 - **类型:**`(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
 
-Controls how fake timers are advanced.
+控制模拟计时器的推进方式：
 
-- `manual`: The default behavior. Timers will only advance when you call one of `vi.advanceTimers...()` methods.
-- `nextTimerAsync`: Timers will be advanced automatically to the next available timer after each macrotask.
-- `interval`: Timers are advanced automatically by a specified interval.
+- `manual`：默认行为。仅当调用 `vi.advanceTimers...()` 系列方法时才会推进计时器
+- `nextTimerAsync`：每个宏任务执行后自动推进到下一个可用计时器
+- `interval`：按指定间隔自动推进计时器
 
-When `mode` is `'interval'`, you can also provide an `interval` in milliseconds.
+当 `mode` 为 `'interval'` 时，可额外传入毫秒级 `interval` 参数。
 
-**Example:**
+**示例:**
 
 ```ts
 import { vi } from 'vitest'
 
 vi.useFakeTimers()
 
-// Manual mode (default)
+// 手动模式（默认）
 vi.setTimerTickMode('manual')
 
 let i = 0
 setInterval(() => console.log(++i), 50)
 
-vi.advanceTimersByTime(150) // logs 1, 2, 3
+vi.advanceTimersByTime(150) // 输出 1, 2, 3
 
-// nextTimerAsync mode
+// nextTimerAsync 模式
 vi.setTimerTickMode('nextTimerAsync')
 
-// Timers will advance automatically after each macrotask
-await new Promise(resolve => setTimeout(resolve, 150)) // logs 4, 5, 6
+// 每个宏任务后定时器会自动推进
+await new Promise(resolve => setTimeout(resolve, 150)) // 输出 4, 5, 6
 
-// interval mode (default when 'fakeTimers.shouldAdvanceTime' is `true`)
+// 间隔模式（当配置中 fakeTimers.shouldAdvanceTime 为 true 时的默认行为）
 vi.setTimerTickMode('interval', 50)
 
-// Timers will advance automatically every 50ms
-await new Promise(resolve => setTimeout(resolve, 150)) // logs 7, 8, 9
+// 每50毫秒自动推进计时器
+await new Promise(resolve => setTimeout(resolve, 150)) // 输出 7, 8, 9
 ```
 
 ### vi.isFakeTimers {#vi-isfaketimers}

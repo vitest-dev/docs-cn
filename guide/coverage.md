@@ -505,17 +505,17 @@ export function ignored() { // [!code error]
 
 此功能已与具有 HTML 输出的内置覆盖率报告器集成（`html`、`html-spa` 和 `lcov` 报告器）。`html` 报告器默认启用，开箱即用。若要与自定义报告器集成，可以配置 [`coverage.htmlDir`](/config/coverage#coverage-htmldir)。
 
-<img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
-<img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
+<img alt="UI 模式中的 HTML 覆盖率功能" img-light src="/vitest-ui-show-coverage-light.png">
+<img alt="UI 模式中的 HTML 覆盖率功能" img-dark src="/vitest-ui-show-coverage-dark.png">
 
-<img alt="html coverage in Vitest UI" img-light src="/ui-coverage-1-light.png">
-<img alt="html coverage in Vitest UI" img-dark src="/ui-coverage-1-dark.png">
-<!-- TODO: translation -->
-## Coverage in Agent Environments
+<img alt="UI 模式中 HTML 覆盖率报告" img-light src="/ui-coverage-1-light.png">
+<img alt="UI 模式中 HTML 覆盖率报告" img-dark src="/ui-coverage-1-dark.png">
 
-When Vitest detects it is running inside an AI coding agent, it automatically adjusts the default `text` reporter to reduce output and minimize token usage:
+## 智能体编程环境中的覆盖率报告 {#coverage-in-agent-environments}
 
-- `skipFull: true` is set on the `text` reporter, so files with 100% coverage are omitted from the terminal output.
-- The [`text-summary`](/config/coverage#coverage-reporter) reporter is added automatically, so the agent always sees a concise totals table even when `skipFull` hides all individual files.
+当 Vitest 检测到运行在 AI 智能体编程环境时，会自动调整默认的 `text` 报告器行为以减少输出内容并减少词元 (token) 消耗：
 
-These adjustments only apply when the `text` reporter is already part of the active reporter list (it is included in the default). Explicitly configured reporters are never removed.
+- 对 `text` 报告器设置 `skipFull: true`，终端输出将跳过覆盖率已达 100% 的文件。
+- 自动启用 [`text-summary`](/config/coverage#coverage-reporter) 报告器，确保即使因 `skipFull` 设置隐藏了所有文件详情，智能体仍能获取简洁的覆盖率汇总表格。
+
+这些调整仅在 `text` 报告器已存在于当前激活报告器列表时生效（该报告器默认包含在内）。显式配置的报告器永远不会被移除。

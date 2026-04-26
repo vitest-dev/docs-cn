@@ -379,7 +379,7 @@ const fs = require('node:fs') // 报错
 如果你使用的是 Node.js 22.18/23.6 或更高版本，TypeScript 将由 Node.js [原生支持转换](https://nodejs.org/en/learn/typescript/run-natively)。
 
 ::: warning  在 Node.js 22.6-22.18 环境中的使用 TypeScript
-如果您使用的 Node.js 版本介于 22.6 至 22.18 之间，还可通过 `--experimental-strip-types` 参数启用原生 TypeScript 支持：
+如果你使用的 Node.js 版本介于 22.6 至 22.18 之间，还可通过 `--experimental-strip-types` 参数启用原生 TypeScript 支持：
 
 ```shell
 NODE_OPTIONS="--experimental-strip-types" vitest
@@ -479,35 +479,35 @@ export default {
 如果禁用模块运行器，Vitest 会使用原生 [Node.js 模块加载器](https://nodejs.org/api/module.html#customization-hooks) 来转换文件，以支持 `import.meta.vitest`、`vi.mock` 和 `vi.hoisted` 功能。
 
 如果你不使用这些特性，可禁用此功能以提升性能。
-<!-- TODO: translation -->
+
 ## experimental.preParse <Version type="experimental">4.1.3</Version> {#experimental-preparse}
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-Parses test specifications before running them. This applies the [`.only`](/api/test#test-only) modifier, the [`-t`](/config/testnamepattern) test name pattern, [`--tags-filter`](/guide/test-tags#syntax), [test lines](/api/advanced/test-specification#testlines), and [test IDs](/api/advanced/test-specification#testids) across all files without executing them. For example, if only a single test is marked with `.only`, Vitest will skip all other tests in all files.
+在运行测试前预解析测试规范。这会在所有文件中应用 [`.only`](/api/test#test-only) 修饰符、[`-t`](/config/testnamepattern) 测试名称模式、[`--tags-filter`](/guide/test-tags#syntax)、[测试行号](/api/advanced/test-specification#testlines) 和 [测试ID](/api/advanced/test-specification#testids) 而无需执行它们。例如，如果只有一个测试标记了 `.only`，Vitest 将跳过所有其他文件中的测试。
 
 ::: tip
-This option is recommended when using [`.only`](/api/test#test-only), the [`-t`](/config/testnamepattern) flag, or [`--tags-filter`](/guide/test-tags#syntax).
+使用 [`.only`](/api/test#test-only)、[`-t`](/config/testnamepattern) 标志或 [`--tags-filter`](/guide/test-tags#syntax) 时推荐启用此选项。
 
-Enabling it unconditionally may slow down your test runs due to the additional parsing step.
+无条件启用可能会因额外的解析步骤而降低测试运行速度。
 :::
 
 ::: warning
-Pre-parsing uses static analysis (AST parsing) instead of executing your test files. This means that test names, tags, and modifiers (`.only`, `.skip`, `.todo`) must be statically analyzable. Dynamic test names (e.g., names stored in variables or returned from function calls) and non-literal tags will not be resolved correctly.
+预解析使用静态分析（AST 解析）而非执行测试文件。这意味着测试名称、标签和修饰符（`.only`、`.skip`、`.todo`）必须可静态分析的。动态测试名称（例如，存储在变量中或从函数调用返回的名称）和非字面量标签将无法正确解析。
 
 ```ts
-// ✅ works — static string literal
+// ✅ 有效 —— 静态字符串字面量
 test('adds numbers', () => {})
 
-// ✅ works — static tags
+// ✅ 有效 —— 静态标签
 test('my test', { tags: ['unit'] }, () => {})
 
-// ❌ won't match correctly — dynamic name
+// ❌ 无法正确匹配 —— 动态名称
 const name = getName()
 test(name, () => {})
 
-// ❌ won't match correctly — dynamic tags
+// ❌ 无法正确匹配 —— 动态标签
 const tags = getTags()
 test('my test', { tags }, () => {})
 ```

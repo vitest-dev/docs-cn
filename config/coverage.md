@@ -132,9 +132,9 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 ```
 
 你可以在 Vitest UI 模式中查看代码覆盖率报告。更多详情请参阅 [Vitest UI Coverage](/guide/coverage#vitest-ui)。
-<!-- TODO: translation -->
-::: tip AI coding agents
-When Vitest detects it is running inside an AI coding agent, it automatically adds the `text-summary` reporter and sets `skipFull: true` on the `text` reporter to reduce output and minimize token usage.
+
+::: tip AI 智能体编程
+当 Vitest 检测到运行环境为 AI 智能体编程环境时，会自动启用 `text-summary` 报告器，并对 `text` 报告器设置 `skipFull: true` 以减少输出内容，从而降低词元的消耗。
 :::
 
 ## coverage.reportOnFailure {#coverage-reportonfailure}
@@ -389,15 +389,15 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
 
 处理代码覆盖率结果时使用的并发限制。
-<!-- TODO: translation -->
+
 ## coverage.instrumenter <Version type="experimental">4.1.5</Version> {#coverage-instrumenter}
 
-- **Type:** `(options: InstrumenterOptions) => CoverageInstrumenter`
-- **Available for providers:** `'istanbul'`
+- **类型:** `(options: InstrumenterOptions) => CoverageInstrumenter`
+- **可用的测试提供者:** `'istanbul'`
 
-Factory for a custom instrumenter to use in place of the default `istanbul-lib-instrument`. Vitest calls the factory once during initialization and reuses the returned instrumenter for every file. The rest of the Istanbul pipeline (collection, merging, reporting) is unchanged.
+用于替代默认 `istanbul-lib-instrument` 的自定义检测器工厂函数。Vitest 在初始化期间调用该工厂函数一次，并对每个文件复用返回的检测器。Istanbul 管道的其余部分（收集、合并、报告）保持不变。
 
-The factory receives an `InstrumenterOptions` object with Vitest's runtime coverage settings, and must return an object implementing the `CoverageInstrumenter` interface. Both types are exported from `vitest/node`.
+该工厂函数接收包含 Vitest 运行时覆盖率设置的 `InstrumenterOptions` 对象，必须返回实现 `CoverageInstrumenter` 接口的对象。两种类型均从 `vitest/node` 导出。
 
 <!-- eslint-skip -->
 ```ts

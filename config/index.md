@@ -78,11 +78,11 @@ export default defineConfig(configEnv => mergeConfig(
 ```
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
-<!-- TODO: translation -->
-## Automatic Dependency Installation
 
-Vitest will prompt you to install certain dependencies if they are not already installed. You can disable this behavior by setting the `VITEST_SKIP_INSTALL_CHECKS=1` environment variable.
+## 自动依赖安装 {#automatic-dependency-installation}
 
-## Config Options
+当检测到必要依赖未安装时，Vitest 将提示你进行安装。如需禁用此功能，可通过设置环境变量 `VITEST_SKIP_INSTALL_CHECKS=1` 实现。
+
+## 配置选项 {#config-options}
 
 在 [项目](/guide/projects) 配置中不支持的配置选项旁边会显示 <CRoot /> 图标。这意味着它们只能在 Vitest 根配置文件中进行设置。

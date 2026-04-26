@@ -44,10 +44,8 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 测试模块将运行的 [`pool`](/config/pool)。
 
-<!-- TODO: translation -->
-
 ::: danger
-It's possible to have multiple pools in a single test project with [`typecheck.enabled`](/config/typecheck#typecheck-enabled). This means it's possible to have several specifications with the same `moduleId` but different `pool`. In later versions, the project will only support a single pool.
+在启用 [`typecheck.enabled`](/config/typecheck#typecheck-enabled) 配置的情况下，单个测试项目中可能存在多个运行池。这意味着可能出现多个测试规范共享相同 `moduleId` 但使用不同 `pool` 的情况。请注意，后续版本将仅支持单一运行池模式。
 :::
 
 ## testLines
@@ -79,15 +77,15 @@ describe('a group of tests', () => { // [!code error]
 
 ## testNamePattern <Version>4.1.0</Version> {#testnamepattern}
 
-A regexp that matches the name of the test in this module. This value will override the global [`testNamePattern`](/config/testnamepattern) option if it's set.
+用于匹配当前模块中测试名称的正则表达式。如果已设置，该值将覆盖全局 [`testNamePattern`](/config/testnamepattern) 配置。
 
 ## testIds <Version>4.1.0</Version> {#testids}
 
-The ids of tasks inside of this specification to run.
+当前测试规范中需要运行的任务 ID 集合。
 
 ## testTagsFilter <Version>4.1.0</Version> {#testtagsfilter}
 
-The [tags filter](/guide/test-tags#syntax) that a test must pass in order to be included in the run. Multiple filters are treated as `AND`.
+测试必须通过的 [标签过滤器](/guide/test-tags#syntax) 才能被纳入运行范围。多个过滤器将按 `AND` 逻辑处理。
 
 ## toJSON
 

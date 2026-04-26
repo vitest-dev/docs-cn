@@ -17,6 +17,7 @@ export default antfu(
       'advanced/api/import-example.md',
       'api/advanced/import-example.md',
       'guide/examples/*.md',
+      'api/advanced/reporters-life-cycle.md',
     ],
   },
   {

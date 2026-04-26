@@ -311,7 +311,6 @@ describe('use scoped values', () => {
 - **别名:** `it.scoped`
 
 ::: danger 弃用
-`test.scoped` is deprecated in favor of [`test.override`](#test-override) and will be removed in a future major version.
 `test.scoped` 已弃用，建议使用 [`test.override`](#test-override)，将在未来的主版本中移除。
 :::
 
@@ -344,7 +343,7 @@ test('skipped test', (context) => {
 })
 ```
 
-If the condition is unknown, you can provide it to the `skip` method as the first arguments:
+如果条件状态未知，可将其作为第一个参数传递给 `skip` 方法：
 
 ```ts
 import { assert, test } from 'vitest'
@@ -614,9 +613,9 @@ test.each`
   expect(a + b).toBe(expected)
 })
 ```
-<!-- TODO: translation -->
+
 ::: tip
-Vitest formats interpolated title values with its display formatter. If the value is too truncated, you can increase [taskTitleValueFormatTruncate](/config/tasktitlevalueformattruncate) in your config file.
+Vitest 会使用其显示格式化器处理插入标题的值。如果值被过度截断，可在配置文件中调整 [taskTitleValueFormatTruncate](/config/tasktitlevalueformattruncate) 参数。
 :::
 
 ## test.for

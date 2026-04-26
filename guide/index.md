@@ -49,10 +49,11 @@ Vitest 需要 Vite >=v6.0.0 和 Node >=v20.0.0
 
 `npx` 是一个命令行工具，用于执行指定的命令。默认情况下，`npx` 会首先检查本地项目的二进制文件中是否存在该命令。如果在那里没有找到，`npx` 会在系统的 `$PATH` 中查找并执行该命令（如果找到的话）。如果两个位置都没有找到该命令，`npx` 会在执行之前将其安装在临时位置。
 <!-- TODO: translation -->
-Vitest and third party integrations can use `.vitest` directory to store generated artifacts. It's recommended to add this in your `.gitignore`.
+
+Vitest 及第三方集成可使用 `.vitest` 目录存储构建产物，建议将其添加到你的 `.gitignore` 文件中。
 
 ``` sh [.gitignore]
-# Vitest reports and artifacts
+# Vitest 报告与构建产物
 .vitest/
 ```
 
@@ -105,13 +106,13 @@ Test Files  1 passed (1)
 如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
 :::
 
-Your first test is passing! Continue to [Writing Tests](/guide/learn/writing-tests) to learn about organizing tests, reading test output, and the core testing patterns you'll use every day.
+你的第一个测试已通过！继续阅读 [编写测试用例](/guide/learn/writing-tests) 了解如何组织测试、解读测试输出以及日常使用的核心测试模式。
 
-To run tests once without watching for file changes, use `vitest run`. You can also pass additional flags like `--reporter` or `--coverage`. For a full list of CLI options, run `npx vitest --help` or see the [CLI guide](/guide/cli).
+要运行一次测试而不监听文件变化，请使用 `vitest run` 命令。你也可以传递额外的标志，如 `--reporter` 或 `--coverage`。查看完整的 CLI 选项列表，运行 `npx vitest --help` 或参阅 [CLI 指南](/guide/cli)。
 
 ## 配置 Vitest {#configuring-vitest}
 
-Vitest reads your `vite.config.*` by default, so your existing Vite plugins and configuration work out-of-the-box. You can also create a dedicated `vitest.config.*` for test-specific settings. See the [Config Reference](/config/) for details.
+Vitest 默认会读取你的 `vite.config.*` 文件，因此现有 Vite 插件和配置可以开箱即用。你也可创建专用的 `vitest.config.*` 文件来配置测试特定设置。详情请参阅 [配置](/config/)。
 
 ## IDE 集成 {#ide-integrations}
 

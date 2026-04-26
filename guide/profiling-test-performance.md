@@ -209,7 +209,7 @@ This is especially effective for UI libraries and packages with deep import tree
 
 ## 代码覆盖率 {#code-coverage}
 
-如果你的项目中代码覆盖率生成较慢，您可以使用 `DEBUG=vitest:coverage` 环境变量来启用性能日志记录。
+如果你的项目中代码覆盖率生成较慢，你可以使用 `DEBUG=vitest:coverage` 环境变量来启用性能日志记录。
 
 ```bash
 $ DEBUG=vitest:coverage vitest --run --coverage

@@ -12,15 +12,15 @@ outline: [2, 3]
 ::: tip
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
 :::
-<!-- TODO: translation -->
-::: tip Difference from `testing-library`
-Vitest's `page.getBy*` methods return a locator object, not a DOM element. This makes locator queries composable and allows Vitest to retry interactions and assertions when needed.
 
-Compared to testing-library queries:
+::: tip 与 `testing-library` 的区别
+Vitest 的 `page.getBy*` 方法返回的是一个定位器对象，而非 DOM 元素。这使得定位器查询可组合，并允许 Vitest 在需要时重试交互和断言。
 
-- Use locator chaining (`.getBy*`, `.filter`, `.nth`) instead of `within(...)`.
-- Keep locators around and interact with them later (`await locator.click()`), instead of resolving elements up front.
-- Single-element escape hatches like `.element()` and `.query()` are strict and throw if multiple elements match.
+与 testing-library 查询的对比：
+
+- 使用定位器链式调用（如 `.getBy*`、`.filter`、`.nth`）代替 `within(...)`。
+- 保留定位器并在后续操作中使用（如 `await locator.click()`），而非提前解析元素。
+- 单元素应急方法（如 `.element()` 和 `.query()`）是严格的，如果匹配到多个元素会抛出错误。
 
 ```ts
 import { expect } from 'vitest'
@@ -679,7 +679,7 @@ await page.getByRole('img', { name: 'Rose' }).tripleClick()
 function wheel(options: UserEventWheelOptions): Promise<void>
 ```
 
-Triggers a [`wheel` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event) on an element. You can use the options to choose a general scroll `direction` or a precise `delta` value.
+触发元素上的 [`wheel` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event)。你可以通过选项选择通用的滚动 `direction` 或精确的 `delta` 值。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -850,9 +850,9 @@ const { path, base64 } = await button.screenshot({
 function mark(name: string, options?: { stack?: string }): Promise<void>
 ```
 
-Adds a named marker to the trace timeline and uses the current locator as marker context.
+在追踪时间线上添加一个具名标记，并使用当前定位器作为标记上下文。
 
-Pass `options.stack` to override the callsite location in trace metadata. This is useful for wrapper libraries that need to preserve the end-user source location.
+传入 `options.stack` 以覆盖追踪元数据中的调用位置。适用于二次封装库并且需要保留用户调用源码位置的场景。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -865,7 +865,7 @@ await submitButton.mark('after submit')
 ```
 
 ::: tip
-This method is useful only when [`browser.trace`](/config/browser/trace) is enabled.
+此方法适用于启用 [`browser.trace`](/config/browser/trace) 配置时有效。
 :::
 
 ### query
@@ -878,10 +878,8 @@ function query(): Element | null
 
 如果多个元素匹配该选择器，此方法将抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
-<!-- TODO: translation -->
-
 ::: danger
-This is an escape hatch for external APIs that do not support locators. Prefer using locator methods instead.
+这是针对不支持定位器的外部 API 的变通方案。优先使用定位器方法。
 :::
 
 考虑以下 DOM 结构：
@@ -920,12 +918,11 @@ function element(): Element
 
 如果 _多个元素_ 匹配该选择器，则会抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
-<!-- TODO: translation reference history -->
-
 ::: danger
-This is an escape hatch for external APIs that do not support locators. Prefer using locator methods instead.
 
-It is called automatically when locator is used with `expect.element` every time the assertion is [retried](/api/browser/assertions):
+这是一个用于不支持定位器的外部 API 的应急方案。建议优先使用定位器方法。
+
+当定位器与 `expect.element` 一起使用时，每次断言 [重试](/api/browser/assertions) 时，该方法会自动调用：
 
 ```ts
 await expect.element(page.getByRole('button')).toBeDisabled()
@@ -996,21 +993,21 @@ function findElement(
 ```
 
 ::: danger WARNING
-This is an escape hatch for cases where you need the raw DOM element — for example, to pass it to a third-party library like FormKit that doesn't accept Vitest locators. If you are interacting with the element yourself, use other [builtin methods](#methods) instead.
+这是一个应急方案，适用于需要直接操作原始 DOM 元素的场景，例如将其传递给不支持 Vitest 定位器的第三方库，如 FormKit。如果你需要与元素交互，请改用其他 [内置方法](#methods)。
 :::
 
-This method returns an element matching the locator. Unlike [`.element()`](#element), this method will wait and retry until a matching element appears in the DOM, using increasing intervals (0, 20, 50, 100, 100, 500ms).
+此方法返回一个与定位器匹配的元素。与 [`.element()`](#element) 不同，该方法会等待并重试，直到匹配的元素出现在 DOM 中，重试间隔逐步增加（0、20、50、100、100、500 毫秒）。
 
-If _no element_ is found before the timeout, an error is thrown. By default, the timeout matches the test timeout.
+如果在超时前 _未找到任何元素_，将抛出错误。默认情况下，超时时间与测试的超时时间一致。
 
-If _multiple elements_ match the selector and `strict` is `true` (the default), an error is thrown immediately without retrying. Set `strict` to `false` to return the first matching element instead.
+如果匹配到 _多个元素_ 选择器且 `strict` 为 `true`（默认值），则会立即抛出错误而不会重试。将 `strict` 设为 `false` 可返回第一个匹配的元素。
 
-It accepts options:
+支持的选项：
 
-- `timeout: number` - How long to wait in milliseconds until at least one element is found. By default, this shares timeout with the test.
-- `strict: boolean` - When `true` (default), throws an error if multiple elements match the locator. When `false`, returns the first matching element.
+- `timeout: number` - 等待至少一个元素出现的毫秒数。默认与测试的超时时间一致。
+- `strict: boolean` - 为 `true`（默认）时，如果多个元素匹配定位器，则抛出错误；为 `false` 时，返回第一个匹配的元素。
 
-Consider the following DOM structure:
+考虑以下 DOM 结构：
 
 ```html
 <div>Hello <span>World</span></div>
@@ -1018,7 +1015,7 @@ Consider the following DOM structure:
 <div>Hello</div>
 ```
 
-These locators will resolve successfully:
+以下定位器会成功解析：
 
 ```ts
 await page.getByText('Hello World').findElement() // ✅ HTMLDivElement
@@ -1026,21 +1023,21 @@ await page.getByText('World').findElement() // ✅ HTMLSpanElement
 await page.getByText('Hello Germany').findElement() // ✅ HTMLDivElement
 ```
 
-These locators will throw an error:
+以下定位器会抛出错误：
 
 ```ts
-// multiple elements match, strict mode rejects
+// 多个元素匹配，严格模式会拒绝
 await page.getByText('Hello').findElement() // ❌
 await page.getByText(/^Hello/).findElement() // ❌
 
-// no matching element before timeout
+// 超时前未找到匹配元素
 await page.getByText('Hello USA').findElement() // ❌
 ```
 
-Using `strict: false` to allow multiple matches:
+使用 `strict: false` 以允许匹配多个：
 
 ```ts
-// returns the first matching element instead of throwing
+// 返回第一个匹配元素而不是抛出错误
 await page.getByText('Hello').findElement({ strict: false }) // ✅ HTMLDivElement
 ```
 
@@ -1082,7 +1079,7 @@ import { commands, page } from 'vitest/browser'
 
 test('works correctly', async () => {
   await commands.test(page.getByText('Hello').selector) // ✅
-  // vitest will automatically unwrap it to a string
+  // Vitest 会自动将其解包为字符串
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```
@@ -1109,7 +1106,7 @@ page.getByRole('alert').length // ✅ 0
 
 ## 自定义定位器 <Version>3.2.0</Version> <Badge type="danger">advanced</Badge> {#custom-locators}
 
-您可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
+你可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
 
 当内置定位器无法满足需求时（例如使用自定义 UI 框架时），这些定位器会非常有用。
 

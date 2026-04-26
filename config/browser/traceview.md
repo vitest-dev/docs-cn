@@ -1,15 +1,15 @@
 ---
-title: browser.traceView | Config
+title: browser.traceView | 配置
 outline: deep
 ---
 
 # browser.traceView <Badge type="warning" text="Experimental" /> <Version>5.0.0</Version>
 
-- **Type:** `boolean | { enabled?: boolean; recordCanvas?: boolean; inlineImages?: boolean }`
-- **CLI:** `--browser.traceView`
-- **Default:** `false`
-<!-- TODO: translation -->
-Enable trace-view collection for browser tests. Vitest captures DOM snapshots for browser interactions and can show them in the browser UI, Vitest UI, or HTML reporter when those surfaces are enabled — no external tools required.
+- **类型:** `boolean | { enabled?: boolean; recordCanvas?: boolean; inlineImages?: boolean }`
+- **命令行终端:** `--browser.traceView`
+- **默认值:** `false`
+
+启用浏览器测试的 trace-view（追踪视图）收集功能。Vitest 会捕获浏览器交互的 DOM 快照，当启用浏览器 UI 模式、UI 模式 或 HTML 报告器时，可在这些界面中无需外部工具直接展示。
 
 ```ts
 export default defineConfig({
@@ -21,7 +21,7 @@ export default defineConfig({
 })
 ```
 
-Use the object form to enable additional snapshot fidelity options:
+使用对象形式可启用额外的快照保真度选项：
 
 ```ts
 export default defineConfig({
@@ -37,34 +37,34 @@ export default defineConfig({
 })
 ```
 
-| Option | Default | Description |
+| 选项 | 默认值 | 详情 |
 | --- | --- | --- |
-| `enabled` | `false` | Enables Vitest trace-view artifact collection. |
-| `inlineImages` | `false` | Inlines loaded `<img>` pixels into snapshots for more portable replay, useful in the HTML reporter. |
-| `recordCanvas` | `false` | Captures canvas pixels in snapshots. |
+| `enabled` | `false` | 启用 Vitest trace-view 收集产物。 |
+| `inlineImages` | `false` | 将加载的 `<img>` 像素内联到快照中，实现更便捷的回放功能，适用于 HTML 报告器。 |
+| `recordCanvas` | `false` | 在快照中捕获 canvas 像素。 |
 
 ## browser.traceView.enabled {#traceview-enabled}
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--browser.traceView.enabled`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--browser.traceView.enabled`
 
-Enables Vitest trace-view artifact collection.
+启用 Vitest 追踪视图构建产物收集。
 
 ## browser.traceView.inlineImages {#traceview-inlineimages}
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--browser.traceView.inlineImages`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--browser.traceView.inlineImages`
 
-Inlines loaded `<img>` pixels into snapshots for more portable replay, useful in the HTML reporter.
+将加载的 `<img>` 像素内联到快照中，实现更便捷的回放功能，适用于 HTML 报告器。
 
 ## browser.traceView.recordCanvas {#traceview-recordcanvas}
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--browser.traceView.recordCanvas`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--browser.traceView.recordCanvas`
 
-Captures canvas pixels in snapshots. This enables a weaker replay iframe sandbox because rrweb needs scripts to redraw canvas data.
+在快照中捕获 canvas 像素。这会启用较弱的回放 iframe 沙盒，因为 rrweb 需要脚本重绘 canvas数据。
 
-See [Trace View](/guide/browser/trace-view) for full documentation.
+完整文档请参阅 [追踪视图](/guide/browser/trace-view)。

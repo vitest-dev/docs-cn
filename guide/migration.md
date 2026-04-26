@@ -4,19 +4,19 @@ outline: deep
 ---
 
 # 迁移指南 {#migration-guide}
-<!-- TODO: translation -->
-[Migrating to Vitest 3.0](https://v3.vitest.dev/guide/migration) | [Migrating to Vitest 2.0](https://v2.vitest.dev/guide/migration)
 
-## 迁移到 Vitest 4.0 {#vitest-4}
+[迁移至 Vitest 3.0](https://v3.vitest.dev/guide/migration) | [迁移至 Vitest 2.0](https://v2.vitest.dev/guide/migration)
 
-::: warning Prerequisites
-Vitest 4.0 requires **Vite >= 6.0.0** and **Node.js >= 20.0.0**. Before proceeding
-with any other migration steps, ensure your environment meets these requirements.
-Running Vitest 4.0 on older versions of Vite or Node.js is not supported and may
-result in unexpected errors.
+## 迁移至 Vitest 4.0 {#vitest-4}
+
+::: warning 前提条件
+Vitest 4.0 要求 **Vite >= 6.0.0** 和 **Node.js >= 20.0.0**。
+在执行其他迁移步骤前，请确保你的环境满足这些要求。
+在旧版 Vite 或 Node.js 上不支持运行 Vitest 4.0，
+这可能导致意外错误。
 :::
 
-### V8 Code Coverage Major Changes {#v8-code-coverage-major-changes}
+### V8 代码覆盖率重大变更 {#v8-code-coverage-major-changes}
 
 Vitest 的 V8 覆盖率提供器现在使用了更精准的结果映射逻辑，从 Vitest v3 升级后，你可能会看到覆盖率报告的内容有变化。
 
@@ -288,7 +288,7 @@ export default defineConfig({
 
 现在，`playwright` 工厂中的属性命名也与 [Playwright 文档](https://playwright.dev/docs/api/class-testoptions#test-options-launch-options) 一致，从而更容易查找。
 
-有了这一变更，就不再需要 `@vitest/browser` 软件包了，您可以将其从依赖关系中移除。要支持上下文导入，应将 `@vitest/browser/context` 更新为 `vitest/browser`：
+有了这一变更，就不再需要 `@vitest/browser` 软件包了，你可以将其从依赖关系中移除。要支持上下文导入，应将 `@vitest/browser/context` 更新为 `vitest/browser`：
 
 ```ts
 import { page } from '@vitest/browser/context' // [!code --]
@@ -488,13 +488,13 @@ test('example', () => { /* ... */ }, { retry: 2 }) // [!code --]
 test('example', { retry: 2 }, () => { /* ... */ }) // [!code ++]
 ```
 
-Note that providing a timeout number as the last argument is still supported:
+注意，仍然支持将超时数字作为最后一个参数：
 
 ```ts
 test('example', () => { /* ... */ }, 1000) // ✅
 ```
 
-This release also removes all deprecated types. This finally fixes an issue where Vitest accidentally pulled in `@types/node` (see [#5481](https://github.com/vitest-dev/vitest/issues/5481) and [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
+此版本还移除了所有已废弃的类型。最终解决了 Vitest 意外引入 `@types/node` 的问题 (参见 [#5481](https://github.com/vitest-dev/vitest/issues/5481) 和 [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
 
 ## 从 Jest 迁移 {#jest}
 
