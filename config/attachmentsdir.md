@@ -5,7 +5,12 @@ outline: deep
 
 # attachmentsDir
 
+<<<<<<< HEAD
 - **类型:** `string`
 - **默认值:** `'.vitest-attachments'`
+=======
+- **Type:** `string`
+- **Default:** `'.vitest/attachments'`
+>>>>>>> ad185a835a130e727cdfb4ac909f05238364dc6a
 
 用于存储 [`context.annotate`](/guide/test-context#annotate) 所创建附件的目录路径（相对于项目根目录）。

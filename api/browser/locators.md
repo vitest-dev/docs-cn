@@ -1053,19 +1053,74 @@ function all(): Locator[]
 
 - [更多内容请参阅  `locator.elements()`](#elements)
 
+### serialize
+
+```ts
+function serialize(): SerializedLocator
+```
+
+Returns a JSON-serializable representation of the locator. The returned object has two fields:
+
+- [`selector`](#selector): the provider-specific selector string used to query the element at runtime.
+- `locator`: a human-readable description of the locator (e.g. `getByRole('button')`), used for error messages and tracing. Equivalent to calling [`asLocator()`](#aslocator).
+
+This is primarily intended for forwarding a locator to a [browser command](/api/browser/commands), which runs in Node and cannot receive a live `Locator` instance:
+
+```ts
+import { commands, page } from 'vitest/browser'
+
+await commands.myCommand(page.getByRole('button').serialize())
+```
+
+::: tip
+Vitest automatically serializes any `Locator` argument passed to a command, so calling `serialize()` explicitly is rarely necessary. You can also use `JSON.stringify(locator)` (it calls [`toJSON`](#tojson) internally), which produces the same result.
+:::
+
+### toJSON
+
+```ts
+function toJSON(): SerializedLocator
+```
+
+Alias of [`serialize`](#serialize). Defined so that `JSON.stringify(locator)` and structured-clone-based transports return a `SerializedLocator` object.
+
+### asLocator
+
+```ts
+function asLocator(): string
+```
+
+Returns a human-readable description of the locator using the JavaScript locator syntax (e.g. `getByRole('button', { name: 'Submit' })`). This is the same string exposed as the `locator` field of [`serialize()`](#serialize) and is used in error messages and traces.
+
+```ts
+import { page } from 'vitest/browser'
+
+const button = page.getByRole('button', { name: 'Submit' })
+button.asLocator() // "getByRole('button', { name: 'Submit' })"
+```
+
+::: tip
+Use [`selector`](#selector) when you need the provider-specific string to forward to a [browser command](/api/browser/commands). Use `asLocator()` only for diagnostic output. The returned string is not meant to be re-used to query elements.
+:::
+
 ## Properties
 
 ### selector
 
+<<<<<<< HEAD
 `selector` 是一个字符串，将由浏览器提供程序用于定位元素。Playwright 将使用 `playwright` 定位器语法，而 `preview` 和 `webdriverio` 将使用 CSS。
+=======
+The `selector` is a string that will be used to locate the element by the browser provider. Playwright will use a `playwright` locator syntax, and `preview` and `webdriverio` will use CSS.
+>>>>>>> ad185a835a130e727cdfb4ac909f05238364dc6a
 
 ::: danger
 你不应在测试代码中使用此字符串。`selector` 字符串仅应在使用 Commands API 时使用：
 
 ```ts [commands.ts]
 import type { BrowserCommand } from 'vitest/node'
+import type { SerializedLocator } from '@vitest/browser'
 
-const test: BrowserCommand<string> = function test(context, selector) {
+const test: BrowserCommand<SerializedLocator> = function test(context, { selector }) {
   // playwright
   await context.iframe.locator(selector).click()
   // webdriverio
@@ -1078,8 +1133,13 @@ import { test } from 'vitest'
 import { commands, page } from 'vitest/browser'
 
 test('works correctly', async () => {
+<<<<<<< HEAD
   await commands.test(page.getByText('Hello').selector) // ✅
   // Vitest 会自动将其解包为字符串
+=======
+  await commands.test(page.getByText('Hello').serialize()) // ✅
+  // vitest will automatically unwrap it to a SerializedLocator
+>>>>>>> ad185a835a130e727cdfb4ac909f05238364dc6a
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```

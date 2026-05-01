@@ -14,10 +14,17 @@ interface UserConfig {
 type ConfigReporter = string | Reporter | [string, object?]
 ```
 
+<<<<<<< HEAD
 - **默认值:** [`'default'`](/guide/reporters#default-reporter)（当 `process.env.GITHUB_ACTIONS === 'true'` 时为 <code>[['default'](/guide/reporters#default-reporter), ['github-actions'](/guide/reporters#github-actions-reporter)]</code>）
 - **命令行终端:**
   - `--reporter=tap` 用于单个报告器
   - `--reporter=verbose --reporter=github-actions` 用于多个报告器
+=======
+- **Default:** [`'default'`](/guide/reporters#default-reporter). See [Default Reporters](/guide/reporters#default-reporters) for environment-specific behavior.
+- **CLI:**
+  - `--reporter=tap` for a single reporter
+  - `--reporter=verbose --reporter=github-actions` for multiple reporters
+>>>>>>> ad185a835a130e727cdfb4ac909f05238364dc6a
 
 此选项定义在 Vitest 测试运行期间可用的单个报告器或报告器列表。
 
@@ -49,16 +56,24 @@ type ConfigReporter = string | Reporter | [string, object?]
 
 ::: code-group
 ```js [vitest.config.js]
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     reporters: [
+<<<<<<< HEAD
       'default',
       // 条件报告器
       process.env.CI ? 'github-actions' : {},
       // 来自 npm 包的自定义报告器
       // 选项将以元组形式向下传递
+=======
+      ...configDefaults.reporters,
+      // conditional reporter
+      ...(process.env.CI ? ['html'] : []),
+      // custom reporter from npm package
+      // options are passed down as a tuple
+>>>>>>> ad185a835a130e727cdfb4ac909f05238364dc6a
       [
         'vitest-sonar-reporter',
         { outputFile: 'sonar-report.xml' }
