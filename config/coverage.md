@@ -457,4 +457,19 @@ export default defineConfig({
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.changed`, `--coverage.changed=<commit/branch>`
 
+<<<<<<< HEAD
 仅收集自指定提交或分支以来更改的文件的代码覆盖率。设置为 `true` 时，使用已暂存和未暂存的更改。
+=======
+Collect coverage only for files changed since a specified commit or branch. When set to `true`, it uses staged and unstaged changes.
+
+## coverage.autoAttachSubprocess <Version>5.0.0</Version> {#coverage-autoattachsubprocess}
+
+- **Type:** `boolean`
+- **Default:** `false`
+- **Available for providers:** `'v8'`
+- **CLI:** `--coverage.autoAttachSubprocess`
+
+Track coverage of the `node:child_process` and `node:worker_threads` spawned during test run.
+
+Note that this option has some performance overhead as its using [`NODE_V8_COVERAGE`](https://nodejs.org/api/cli.html#node-v8-coveragedir) internally. This triggers Node to write lots of unnecessary files on file system.
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc

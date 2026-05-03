@@ -35,7 +35,11 @@ beforeEach(async () => {
 
 此处，`beforeEach` 确保每个测试都会添加用户。
 
+<<<<<<< HEAD
 `beforeEach` 还可以返回一个可选的清理函数（等价于 [`afterEach`](#aftereach)）：
+=======
+`beforeEach` can also return an optional cleanup function. It's similar to [`afterEach`](#aftereach). The only difference is that it's executed after all other `afterEach` hooks:
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -44,7 +48,11 @@ beforeEach(async () => {
   // 在每次测试运行前调用一次
   await prepareSomething()
 
+<<<<<<< HEAD
   // 清理函数，在每次测试运行后调用一次
+=======
+  // clean up function, called once after each test run, after afterEach hooks
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
   return async () => {
     await resetSomething()
   }
@@ -103,7 +111,11 @@ beforeAll(async () => {
 
  此处，`beforeAll` 确保在测试运行前完成模拟数据的初始化。
 
+<<<<<<< HEAD
 `beforeAll` 还可以返回一个可选的清理函数（等价于 [`afterAll`](#afterall)）：
+=======
+`beforeAll` can also return an optional cleanup function. It's similar to [`afterAll`](#afterall). The only difference is that it's executed after all other `afterAll` hooks:
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ```ts
 import { beforeAll } from 'vitest'
@@ -112,7 +124,11 @@ beforeAll(async () => {
   // 在所有测试运行之前调用一次
   await startMocking()
 
+<<<<<<< HEAD
   // 清理函数，在所有测试运行之后调用一次
+=======
+  // clean up function, called once after all tests run, after afterAll hooks
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
   return async () => {
     await stopMocking()
   }

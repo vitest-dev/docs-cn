@@ -145,7 +145,11 @@ export default class Runner {
 :::
 
 ::: tip
+<<<<<<< HEAD
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。如果你想扩展基准测试功能，它还提供了 `NodeBenchmarkRunner`。
+=======
+Snapshot support and some other features depend on the runner. If you don't want to lose it, you can extend your runner from `TestRunner` imported from `vitest`. It also exposes `NodeBenchmarkRunner`, if you want to extend benchmark functionality.
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 :::
 
 ## Tasks {#tasks}

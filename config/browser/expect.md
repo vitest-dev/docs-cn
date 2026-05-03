@@ -104,7 +104,15 @@ export default defineConfig({
 
   [`attachmentsDir`](/config/attachmentsdir) 配置项提供的值，如果未配置则使用其默认值。
 
+<<<<<<< HEAD
 例如，以下示例按浏览器分组存储截图：
+=======
+- `project: TestProject` <Version type="experimental">4.1.6</Version> <Experimental />
+
+  The [`TestProject`](/api/advanced/test-project) the test belongs to.
+
+For example, to group screenshots by browser:
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ```ts
 resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>

@@ -208,7 +208,24 @@ describe.concurrent('suite', () => {
 })
 ```
 
+<<<<<<< HEAD
 `.skip`、`.only` 和 `.todo` 适用于并发测试套件。以下所有组合都有效：
+=======
+Set `concurrent` to `false` to opt out of concurrency inherited from a parent suite or [`sequence.concurrent`](/config/sequence#sequence-concurrent):
+
+```ts
+describe.concurrent('suite', () => {
+  test('concurrent test', async () => { /* ... */ })
+
+  describe('sequential suite', { concurrent: false }, () => {
+    test('sequential test 1', async () => { /* ... */ })
+    test('sequential test 2', async () => { /* ... */ })
+  })
+})
+```
+
+`.skip`, `.only`, and `.todo` works with concurrent suites. All the following combinations are valid:
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ```ts
 describe.concurrent(/* ... */)
@@ -230,6 +247,7 @@ describe.concurrent('suite', () => {
 })
 ```
 
+<<<<<<< HEAD
 ## describe.sequential
 
 - **别名:** `suite.sequential`
@@ -250,6 +268,8 @@ describe.concurrent('suite', () => {
 })
 ```
 
+=======
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 ## describe.shuffle
 
 - **别名:** `suite.shuffle`

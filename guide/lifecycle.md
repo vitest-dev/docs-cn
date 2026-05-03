@@ -128,6 +128,7 @@ afterEach(() => {
 
 执行顺序如下：
 
+<<<<<<< HEAD
 1. **文件级代码:** `describe` 块外的所有代码立即执行
 2. **测试收集:** 处理 `describe` 块，导入测试文件时以副作用的形式注册测试
 3. **[`aroundAll`](/api/hooks#aroundall) 钩子:** 包裹套件中的所有测试（须调用 `runSuite()`）
@@ -141,6 +142,23 @@ afterEach(() => {
  - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
  - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
 6. **[`afterAll`](/api/hooks#afterall) 钩子:** 套件中所有测试完成后执行一次
+=======
+1. **File-level code:** All code outside `describe` blocks runs immediately
+2. **Test collection:** `describe` blocks are processed, and tests are registered as side effects of importing the test file
+3. **[`aroundAll`](/api/hooks#aroundall) hooks:** Wrap around all tests in the suite (must call `runSuite()`)
+4. **[`beforeAll`](/api/hooks#beforeall) hooks:** Run once before any tests in the suite
+5. **For each test:**
+   - [`aroundEach`](/api/hooks#aroundeach) hooks wrap around the test (must call `runTest()`)
+   - `beforeEach` hooks execute (in order defined, or based on [`sequence.hooks`](/config/sequence#sequence-hooks))
+   - Test function executes
+   - `afterEach` hooks execute (reverse order by default with `sequence.hooks: 'stack'`)
+   - Cleanup functions returned from `beforeEach` hooks execute (reverse order by default with `sequence.hooks: 'stack'`)
+   - [`onTestFinished`](/api/hooks#ontestfinished) callbacks run (always in reverse order)
+   - If test failed: [`onTestFailed`](/api/hooks#ontestfailed) callbacks run
+   - Note: if `repeats` or `retry` are set, all of these steps are executed again
+6. **[`afterAll`](/api/hooks#afterall) hooks:** Run once after all tests in the suite complete
+7. **Cleanup functions returned from `beforeAll` hooks:** Run once after all tests in the suite complete
+>>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 **执行流程示例:**
 
@@ -162,6 +180,11 @@ describe('User API', () => {
   beforeAll(() => {
     // 在套件所有测试前运行一次
     console.log('beforeAll')
+
+    return function beforeAllCleanup() {
+      // Runs once afterAll hooks have run
+      console.log('beforeAllCleanup')
+    }
   })
 
   aroundEach(async (runTest) => {
@@ -174,6 +197,11 @@ describe('User API', () => {
   beforeEach(() => {
     // 每个测试用例前运行
     console.log('beforeEach')
+
+    return function beforeEachCleanup() {
+      // Runs after afterEach hooks have run
+      console.log('beforeEachCleanup')
+    }
   })
 
   test('creates user', () => {
@@ -206,13 +234,16 @@ describe('User API', () => {
 //     beforeEach
 //       test 1
 //     afterEach
+//     beforeEachCleanup
 //   aroundEach after
 //   aroundEach before
 //     beforeEach
 //       test 2
 //     afterEach
+//     beforeEachCleanup
 //   aroundEach after
 //   afterAll
+//   beforeAllCleanup
 // aroundAll after
 ```
 
