@@ -262,7 +262,7 @@ test('update input', async () => {
 该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
 
 ::: tip
-该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
+该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)（例如，`{Shift}{selectall}`）。
 
 在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::

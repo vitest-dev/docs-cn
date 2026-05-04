@@ -55,7 +55,7 @@ bun add -D vitest @vitest/browser-preview
 :::
 
 ::: warning
-不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmx.dev/package/playwright) 或 [`webdriverio`](https://npmx.dev/package/webdriverio) 。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
+不过，要在 CI 中运行测试，我们需要安装 [`playwright`](https://npmx.dev/package/playwright) 或 [`webdriverio`](https://npmx.dev/package/webdriverio)。我们还建议在本地测试时切换到这两个选项中的一个，而不是使用默认的 `preview` 提供程序，因为它依赖于模拟事件而不是使用 Chrome DevTools 协议。
 
 如果你还没有使用这些工具中的任何一个，我们建议从 Playwright 开始，因为它支持并行执行，可显著提升测试速度。
 
@@ -295,9 +295,9 @@ Vitest 中的浏览器选项取决于 provider。如果在配置文件中传递 
 
 ## 浏览器兼容性 {#browser-compatibility}
 
-Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行我们的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
+Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行我们的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild) 选项（默认为 `esnext`）中指定的功能。
 
-默认情况下，Vite 的目标浏览器支持原生 [ES Modules](https://caniuse.com/es6-module)、原生 [ESM 动态导入](https://caniuse.com/es6-module-dynamic-import) 和 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel)在 iframe 之间进行通信：
+默认情况下，Vite 的目标浏览器支持原生 [ES Modules](https://caniuse.com/es6-module)、原生 [ESM 动态导入](https://caniuse.com/es6-module-dynamic-import) 和 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel) 在 iframe 之间进行通信：
 
 - Chrome >=87
 - Firefox >=78

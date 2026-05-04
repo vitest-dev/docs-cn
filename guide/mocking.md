@@ -15,7 +15,7 @@ New to mocking? Start with the [Mock Functions](/guide/learn/mock-functions) tut
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/mock.html#mockreset) 文档。
 :::
 
-如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看[API部分](/api/vi)。
+如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看 [API部分](/api/vi)。
 
 Vitest 提供了有关模拟的全部指南：
 

@@ -517,7 +517,7 @@ test.fails('repro #1234', () => {
 - **别名:** `it.each`
 
 ::: tip
-`test.each` 是为兼容 Jest 而提供的，Vitest 还提供了 [`test.for`](#test-for)，额外支持集成  [`TestContext`](/guide/test-context)。
+`test.each` 是为兼容 Jest 而提供的，Vitest 还提供了 [`test.for`](#test-for)，额外支持集成 [`TestContext`](/guide/test-context)。
 :::
 
 当需要以不同变量运行相同测试时，使用 `test.each`。你可以在测试名称中按测试函数参数顺序，使用 [printf 格式化](https://nodejs.org/api/util.html#util_util_format_format_args) 注入参数。

@@ -32,7 +32,7 @@ function mock<T>(
 ): void
 ```
 
-用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
+用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted) 中定义它们，并在 `vi.mock` 中引用它们。
 
 建议仅在测试文件中使用 `vi.mock` 或 `vi.hoisted`。若禁用 Vite 的 [module runner](/config/experimental#experimental-vitemodulerunner)，这些模拟声明将不会被提升。此设计作为性能优化手段，可避免预加载不必要的文件。
 
@@ -41,7 +41,7 @@ function mock<T>(
 
 为了提升 `vi.mock` ，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi` （例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/globals) 配置选项。
 
-Vitest 不会模拟 [setup file](/config/setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules) ，在运行测试文件前清除所有模块缓存。
+Vitest 不会模拟 [setup file](/config/setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules)，在运行测试文件前清除所有模块缓存。
 :::
 
 如果定义了 `factory` 函数，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
@@ -86,7 +86,7 @@ vi.mock(import('./path/to/module.js'), async (importOriginal) => {
 
 这也意味着不能在 factory 内部使用任何在 factory 外部定义的变量。
 
-如果需要在 factory 内部使用变量，请尝试 [`vi.doMock`](#vi-domock) 。它以同样的方式工作，但不会被吊起。请注意，它只能模拟后续的导入。
+如果需要在 factory 内部使用变量，请尝试 [`vi.doMock`](#vi-domock)。它以同样的方式工作，但不会被吊起。请注意，它只能模拟后续的导入。
 
 如果在 `vi.mock` 之前声明了 `vi.hoisted` 方法，也可以引用该方法定义的变量：
 
@@ -164,7 +164,7 @@ axios.get(`/apples/${increment(1)}`)
 请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/setupfiles) 中为每个所需的模块调用 `vi.mock` 。
 :::
 
-如果没有提供 `__mocks__` 文件夹或未提供工厂函数，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅[算法](/guide/mocking/modules#automocking-algorithm)。
+如果没有提供 `__mocks__` 文件夹或未提供工厂函数，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [算法](/guide/mocking/modules#automocking-algorithm)。
 
 ### vi.doMock
 
@@ -321,7 +321,7 @@ vi.mock('./example.js', async () => {
 function importMock<T>(path: string): Promise<MaybeMockedDeep<T>>
 ```
 
-导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅[算法](/guide/mocking/modules#automocking-algorithm)。
+导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [算法](/guide/mocking/modules#automocking-algorithm)。
 
 ### vi.unmock
 
@@ -402,7 +402,7 @@ test('module has old state', async () => {
 ```
 
 ::: warning
-不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 。
+不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock)。
 :::
 
 ### vi.dynamicImportSettled
@@ -436,7 +436,7 @@ test('operations are resolved', async () => {
 该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
 :::
 
-## 模拟函数和对象
+## 模拟函数和对象 {#mocking-functions-and-objects}
 
 本节介绍如何使用 [method mock](/api/mock) 替换环境变量和全局变量。
 
@@ -570,7 +570,7 @@ function spyOn<T, K extends keyof T>(
 ): Mock<T[K]>
 ```
 
-创建与 [`vi.fn()`](#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
+创建与 [`vi.fn()`](#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock)。
 
 ```ts
 let apples = 0
@@ -618,7 +618,7 @@ const spy = vi
 如果传入箭头函数， mock 被调用时将抛出 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
 
 ::: tip
-若运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) ，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
+若运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management)，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
 
 ```ts
 it('calls console.log', () => {
@@ -803,7 +803,7 @@ IntersectionObserver === undefined
 
 ## Fake Timers
 
-本节介绍如何使用 [fake timers](/guide/mocking/timers) 。
+本节介绍如何使用 [fake timers](/guide/mocking/timers)。
 
 ### vi.advanceTimersByTime
 
@@ -971,7 +971,7 @@ function runAllTimersAsync(): Promise<Vitest>
 ```
 
 该方法将异步调用每个已启动的定时器，直到定时器队列为空。这意味着在 `runAllTimersAsync` 期间调用的每个定时器都会被触发，即使是异步定时器。如果我们有一个无限的时间间隔、
-会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/faketimers#faketimers-looplimit) ）。
+会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/faketimers#faketimers-looplimit)）。
 
 ```ts
 setTimeout(async () => {
@@ -1062,7 +1062,7 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 
 在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick` 。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick` ，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
-内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
+内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ::: tip
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
@@ -1340,7 +1340,7 @@ vi.setConfig({
 function resetConfig(): void
 ```
 
-如果之前调用过 [`vi.setConfig`](#vi-setconfig) ，则会将配置重置为原始状态。
+如果之前调用过 [`vi.setConfig`](#vi-setconfig)，则会将配置重置为原始状态。
 
 ### vi.defineHelper <Version>4.1.0</Version> {#vi-defineHelper}
 

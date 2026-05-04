@@ -179,7 +179,7 @@ await frame.click() // ❌ 不可用
 ::: danger IMPORTANT
 目前，`frameLocator` 方法仅支持 `playwright` 提供者。
 
-交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
+交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有 [同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
 :::
 
 ## `cdp`
@@ -187,7 +187,7 @@ await frame.click() // ❌ 不可用
 `cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
 ::: warning
-CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
 :::
 
 ```ts

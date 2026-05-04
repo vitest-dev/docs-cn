@@ -25,7 +25,7 @@ head:
       content: summary_large_image
 ---
 
-# Vitest 3.2 发布了！
+# Vitest 3.2 发布了！{#vitest-3-2-is-out}
 
 _2025 年 6 月 2 日_
 
@@ -122,7 +122,7 @@ locators.extend({
 })
 ```
 
-返回 Playwright [定位器字符串](https://playwright.dev/docs/other-locators)来构造新的定位器。请注意，从此方法返回的字符串将用作于父定位器范围内（如果有的话）。
+返回 Playwright [定位器字符串](https://playwright.dev/docs/other-locators) 来构造新的定位器。请注意，从此方法返回的字符串将用作于父定位器范围内（如果有的话）。
 
 现在你可以直接在 `page` 对象或任何其他定位器上调用 `getByCommentsCount`：
 

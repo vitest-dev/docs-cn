@@ -36,14 +36,14 @@ expect(input).toBe(2) // jest API
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
-如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
+如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为 [类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type)。
 :::
 
 ## assert
 
 - **类型:** `Chai.AssertStatic`
 
-Vitest 将 Chai 的 [`assert` API](https://www.chaijs.com/api/assert/) 以 `expect.assert` 的形式重新导出。你可以在  [Assert API page](/api/assert) 页面查看支持的方法。
+Vitest 将 Chai 的 [`assert` API](https://www.chaijs.com/api/assert/) 以 `expect.assert` 的形式重新导出。你可以在 [Assert API page](/api/assert) 页面查看支持的方法。
 
 如果你需要缩小类型范围时，这将特别有用，因为 `expect.to*` 方法不支持此功能：
 

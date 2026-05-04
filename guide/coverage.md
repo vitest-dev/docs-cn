@@ -44,7 +44,7 @@ npm i -D @vitest/coverage-istanbul
 
 ::: info
 以下对 V8 覆盖率的说明仅适用于 Vitest，并不适用于其他测试工具。
-从 `v3.2.0` 版本开始，Vitest 在 V8 覆盖率中采用了 [基于 AST 的重映射技术](/blog/vitest-3-2#coverage-v8-ast-aware-remapping) ，从而生成与 Istanbul 一致的覆盖率报告。
+从 `v3.2.0` 版本开始，Vitest 在 V8 覆盖率中采用了 [基于 AST 的重映射技术](/blog/vitest-3-2#coverage-v8-ast-aware-remapping)，从而生成与 Istanbul 一致的覆盖率报告。
 
 这让用户在享受 V8 覆盖率高速执行的同时，也能获得 Istanbul 覆盖率的高准确度。
 :::
@@ -347,7 +347,7 @@ export default CustomCoverageProviderModule
 - [`istanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
 使用 TypeScript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
-被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
+被视为 [合法注释](https://esbuild.github.io/api/#legal-comments) 的注释将被保留。
 
 你可以在忽略提示里加入 `@preserve` 关键字。
 但要小心，这些忽略提示有可能会被打包进最终的生产环境构建中。

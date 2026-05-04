@@ -398,8 +398,7 @@ Diff image:
 
 == WebdriverIO
 
-[WebdriverIO](https://npmx.dev/package/webdriverio) 要求用户自行准备浏览器环境。不过，
-[ @browser-actions ](https://github.com/browser-actions) 团队已经为此提供了方便的解决方案，
+[WebdriverIO](https://npmx.dev/package/webdriverio) 要求用户自行准备浏览器环境。不过，[ @browser-actions ](https://github.com/browser-actions) 团队已经为此提供了方便的解决方案，
 帮你轻松完成浏览器的安装与配置。
 
 ```yaml [.github/workflows/ci.yml]

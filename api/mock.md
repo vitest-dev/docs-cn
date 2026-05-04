@@ -51,7 +51,7 @@ fn.length // == 2
 :::
 
 ::: warning 类支持 {#class-support}
-像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有[反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
+像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有 [反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
 
 ```ts {2,7}
 const CorrectDogClass = vi.fn(class {

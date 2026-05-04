@@ -53,7 +53,7 @@ export default defineConfig({
 - **类型:** `(string | RegExp)[] | true`
 - **默认值:** 所有未被外置的模块
 
-指定应由 Vite 进行转换和解析的模块。这些模块由 Vite 的 [模块运行器](https://cn.vite.dev/guide/api-environment-runtimes#modulerunner)执行。
+指定应由 Vite 进行转换和解析的模块。这些模块由 Vite 的 [模块运行器](https://cn.vite.dev/guide/api-environment-runtimes#modulerunner) 执行。
 
 通常情况下，源代码文件会被自动内联处理。
 

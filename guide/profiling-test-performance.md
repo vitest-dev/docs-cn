@@ -53,7 +53,7 @@ export default defineConfig({
 
 测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看 [性能分析记录](#inspecting-profiling-records)。
 
-也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling) 。
+也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling)。
 
 ## 主线程 {#main-thread}
 
@@ -74,7 +74,7 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 #               NodeJS arguments                                           Vitest arguments
 ```
 
-测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看[检查分析记录](#inspecting-profiling-records)。
+测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看 [检查分析记录](#inspecting-profiling-records)。
 
 ## 文件转换 {#file-transform}
 

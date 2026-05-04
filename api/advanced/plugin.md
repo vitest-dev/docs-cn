@@ -59,7 +59,7 @@ Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我
 
 ### project
 
-该插件所属的当前[测试项目](./test-project)。
+该插件所属的当前 [测试项目](./test-project)。
 
 ::: warning 浏览器模式
 请注意，如果我们依赖浏览器功能，则 `project.browser` 字段尚未设置。请改用 [`reporter.onBrowserInit`](./reporters#onbrowserinit) 事件。

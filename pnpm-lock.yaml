@@ -60,6 +60,9 @@ importers:
       eslint-factory:
         specifier: ^0.1.2
         version: 0.1.2(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
+      eslint-plugin-docs-style:
+        specifier: 0.1.0-beta.1
+        version: 0.1.0-beta.1(@eslint/markdown@7.5.1)(eslint@10.0.3(jiti@2.6.1))
       https-localhost:
         specifier: ^4.7.1
         version: 4.7.1
@@ -2512,6 +2515,13 @@ packages:
     resolution: {integrity: sha512-i3UeLYmclf1Icp35+6W7CR4Bp2PIpDgBuf/mpmXK5UeLkZlvYJ21VuQKKHHAIBKRTPivPGX/gZl5JGno1o9Y0A==}
     peerDependencies:
       eslint: '>=8.40.0'
+
+  eslint-plugin-docs-style@0.1.0-beta.1:
+    resolution: {integrity: sha512-Pbe2TKvbTItp5++tXs9wyO2T14VlqmU7sHWvkddER3psMwFeyOmzn6QaL5XPlpcPBh8MaghhwOkAnoETTH2GRQ==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@eslint/markdown': ^7.5.1
+      eslint: ^9.0.0 || ^10.0.0
 
   eslint-plugin-es-x@7.8.0:
     resolution: {integrity: sha512-7Ds8+wAAoV3T+LAKeu39Y5BzXCrGKrcISfgKEqTS4BDN8SFEDQd0S43jiQ8vIa3wUKD07qitZdfzlenSi8/0qQ==}
@@ -7152,6 +7162,11 @@ snapshots:
       eslint: 10.0.3(jiti@2.6.1)
       module-replacements: 2.11.0
       semver: 7.7.4
+
+  eslint-plugin-docs-style@0.1.0-beta.1(@eslint/markdown@7.5.1)(eslint@10.0.3(jiti@2.6.1)):
+    dependencies:
+      '@eslint/markdown': 7.5.1
+      eslint: 10.0.3(jiti@2.6.1)
 
   eslint-plugin-es-x@7.8.0(eslint@10.0.3(jiti@2.6.1)):
     dependencies:

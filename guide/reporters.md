@@ -166,7 +166,7 @@ export default defineConfig({
 
 除此之外，`verbose` 报告器会立即打印测试错误消息。完整的测试错误会在测试运行结束时报告。
 
-这是唯一一个在测试未失败时报告[注解](/guide/test-annotations)的终端报告器。
+这是唯一一个在测试未失败时报告 [注解](/guide/test-annotations) 的终端报告器。
 
 :::code-group
 
@@ -460,12 +460,12 @@ export default defineConfig({
 :::
 
 ::: tip
-该报告器需要安装 [`@vitest/ui`](/guide/ui) 。
+该报告器需要安装 [`@vitest/ui`](/guide/ui)。
 :::
 
 ### TAP 报告器 {#tap-reporter}
 
-按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
+按照 [Test Anything Protocol](https://testanything.org/)(TAP)输出报告。
 
 :::code-group
 
@@ -693,7 +693,7 @@ export default defineConfig({
 ```
 :::
 
-### Blob 报告器
+### Blob 报告器 {#blob-reporter}
 
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
 默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。

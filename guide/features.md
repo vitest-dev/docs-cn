@@ -25,7 +25,7 @@ This page is a high-level overview of Vitest's capabilities. If you're new to Vi
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用中的相同配置来运行测试。
 
-更多详情请参阅 [配置 Vitest](/config/) 。
+更多详情请参阅 [配置 Vitest](/config/)。
 
 ## 监听模式(watch mode) {#watch-mode}
 
@@ -53,7 +53,7 @@ Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的�
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-了解更多信息 [测试筛选](/guide/filtering) 。
+了解更多信息 [测试筛选](/guide/filtering)。
 
 ## 同时运行多个测试 {#running-tests-concurrently}
 
@@ -165,7 +165,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [模拟对象](/guide/mocking) 。
+了解更多信息 [模拟对象](/guide/mocking)。
 
 ## 测试覆盖率 {#coverage}
 
@@ -195,7 +195,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [覆盖率](/guide/coverage) 。
+了解更多信息 [覆盖率](/guide/coverage)。
 
 ## 源码内联测试 {#in-source-testing}
 
@@ -267,7 +267,7 @@ test('my types work properly', () => {
 
 ## 分片 {#sharding}
 
-使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter)标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
+使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter) 标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
 
 ```bash
 vitest --shard=1/2 --reporter=blob --coverage

@@ -1,4 +1,4 @@
-# 运行器 API <Badge type="danger">advanced</Badge>
+# 运行器 API <Badge type="danger">advanced</Badge> {#runner-api}
 
 ::: warning 注意
 这是高级 API。如果你只需要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。

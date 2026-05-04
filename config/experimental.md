@@ -298,7 +298,7 @@ vitest --experimental.importDurations.failOnDanger
 ::: warning
 当前 Vitest 仍需依赖 Vite 实现某些功能，如模块图或监视模式。
 
-另外请注意，此选项仅适用于`forks`或`threads`[执行池](/config/pool)。
+另外请注意，此选项仅适用于`forks`或`threads` [执行池](/config/pool)。
 :::
 
 ### 模块运行器 {#module-runner}

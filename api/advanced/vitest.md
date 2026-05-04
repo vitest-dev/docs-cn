@@ -78,7 +78,7 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 ## projects
 
-这是一个数组，里面包含了所有 [测试项目](/api/advanced/test-project) ，这些项目是用户自己定义的。如果用户没有显式指定任何项目，那么这个数组中只会包含一个 [根项目](#getrootproject) 。
+这是一个数组，里面包含了所有 [测试项目](/api/advanced/test-project)，这些项目是用户自己定义的。如果用户没有显式指定任何项目，那么这个数组中只会包含一个 [根项目](#getrootproject)。
 
 Vitest 会保证这个数组里至少有一个项目可用。如果用户在命令行里通过 --project 参数指定了不存在的项目名称，Vitest 会在创建这个数组前就报错。
 

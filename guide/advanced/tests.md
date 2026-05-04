@@ -1,7 +1,7 @@
 # 运行测试 <Badge type="danger">advanced</Badge> {#running-tests}
 
 ::: warning 注意
-本指南介绍如何使用高级 API 通过 Node.js 脚本运行测试。如果您只想[运行测试](/guide/)，则可能不需要这个。它主要被库的作者使用。
+本指南介绍如何使用高级 API 通过 Node.js 脚本运行测试。如果您只想 [运行测试](/guide/)，则可能不需要这个。它主要被库的作者使用。
 
 破坏性变更可能不会遵循 SemVer，请在使用实验性 API 时固定 Vitest 的版本。
 :::
@@ -67,7 +67,7 @@ finally {
 }
 ```
 
-如果我们打算保留 `Vitest` 实例，请确保至少调用 [`init`](/api/advanced/vitest#init) 。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使我们不打算使用 Vitest 观察器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖此标志使其某些功能在连续过程中正常工作。
+如果我们打算保留 `Vitest` 实例，请确保至少调用 [`init`](/api/advanced/vitest#init)。这将初始化报告器和覆盖率提供者，但不会运行任何测试。即使我们不打算使用 Vitest 观察器，但希望保持实例运行，也建议启用 `watch` 模式。Vitest 依赖此标志使其某些功能在连续过程中正常工作。
 
 报告器初始化后，如果需要手动运行测试，可以使用 [`runTestSpecifications`](/api/advanced/vitest#runtestspecifications) 或 [`rerunTestSpecifications`](/api/advanced/vitest#reruntestspecifications) 来运行测试。
 

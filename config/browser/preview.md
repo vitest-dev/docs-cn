@@ -1,4 +1,4 @@
-# 配置预览
+# 配置预览 {#configuring-preview}
 
 ::: warning
 `preview` 提供程序的主要功能是在真实浏览器环境中显示测试。不过，它不支持高级浏览器自动化功能，如多个浏览器实例或无头模式。对于更复杂的场景，请考虑使用 [Playwright](/config/browser/playwright) 或 [WebdriverIO](/config/browser/webdriverio)。
@@ -22,7 +22,7 @@ export default defineConfig({
 
 这将使用默认浏览器打开一个新的浏览器窗口来运行测试。您可以通过设置 `instances` 数组中的 `browser` 属性来配置使用哪个浏览器。Vitest 会尝试自动打开浏览器，但在某些环境下可能无法正常工作。在这种情况下，您可以在所需的浏览器中手动打开所提供的 URL。
 
-## 与其他 Providers 的差异
+## 与其他 Providers 的差异 {#differences-with-other-providers}
 
 与 [Playwright](/config/browser/playwright) 或 [WebdriverIO](/config/browser/webdriverio) 等其他 Providers 相比，预览服务存在一些限制：
 

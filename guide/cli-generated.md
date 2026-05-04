@@ -238,7 +238,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **命令行终端:** `--coverage.ignoreClassMethods <name>`
 - **配置:** [coverage.ignoreClassMethods](/config/coverage#coverage-ignoreclassmethods)
 
-覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods) 。该选项仅适用于 istanbul providers（默认值：`[]`）
+覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods)。该选项仅适用于 istanbul providers（默认值：`[]`）
 
 ### coverage.processingConcurrency
 
