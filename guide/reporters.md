@@ -757,18 +757,47 @@ export default defineConfig({
 
 ### Blob 报告器
 
+<<<<<<< HEAD
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
 默认情况下，将所有结果存储在 `.vitest-reports` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
+=======
+Stores test results on the machine so they can be later merged using [`--merge-reports`](/guide/cli#merge-reports) command.
+By default, stores all results in `.vitest/blob/` folder, but can be overridden with `--outputFile` or `--outputFile.blob` flags.
+>>>>>>> 829251fd7ea29069318b4f0ab64681319658925e
 
 ```bash
 npx vitest --reporter=blob --outputFile=reports/blob-1.json
 ```
 
+<<<<<<< HEAD
 如果你在带有 [`--shard`](/guide/cli#shard) 标志的不同机器上运行 Vitest，我们建议你使用此报告程序。
 使用 CI 管道末尾的 `--merge-reports` 命令，可以将所有 blob 报告合并到任何报告中：
+=======
+We recommend using this reporter if you are running Vitest on different machines with the [`--shard`](/guide/cli#shard) flag or across multiple environments (e.g., linux/macos/windows). All blob reports can be merged into any report by using `--merge-reports` command at the end of your CI pipeline:
+>>>>>>> 829251fd7ea29069318b4f0ab64681319658925e
 
 ```bash
 npx vitest --merge-reports=reports --reporter=json --reporter=default
+```
+
+When running the same tests across multiple environments, use the `VITEST_BLOB_LABEL` environment variable to distinguish each environment's blob. Vitest reads labels at merge time and displays results separately:
+
+```bash
+VITEST_BLOB_LABEL=linux vitest run --reporter=blob
+```
+
+You can also provide the label via the blob reporter option. This has higher priority than `VITEST_BLOB_LABEL`.
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    reporters: [
+      ['blob', { label: 'linux' }],
+    ],
+  },
+})
 ```
 
 Blob reporter output doesn't include file-based [attachments](/api/advanced/artifacts.html#testattachment).
