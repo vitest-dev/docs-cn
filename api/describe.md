@@ -207,10 +207,7 @@ describe.concurrent('suite', () => {
   test.concurrent('concurrent test 3', async () => { /* ... */ })
 })
 ```
-
-<<<<<<< HEAD
-`.skip`、`.only` 和 `.todo` 适用于并发测试套件。以下所有组合都有效：
-=======
+<!-- TODO: translation -->
 Set `concurrent` to `false` to opt out of concurrency inherited from a parent suite or [`sequence.concurrent`](/config/sequence#sequence-concurrent):
 
 ```ts
@@ -224,8 +221,7 @@ describe.concurrent('suite', () => {
 })
 ```
 
-`.skip`, `.only`, and `.todo` works with concurrent suites. All the following combinations are valid:
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
+`.skip`、`.only` 和 `.todo` 适用于并发测试套件。以下所有组合都有效：
 
 ```ts
 describe.concurrent(/* ... */)
@@ -247,29 +243,6 @@ describe.concurrent('suite', () => {
 })
 ```
 
-<<<<<<< HEAD
-## describe.sequential
-
-- **别名:** `suite.sequential`
-
-测试套件中的 `describe.sequential` 会将所有测试标记为顺序执行。该特性适用于需要在 `describe.concurrent` 并发测试套件中按顺序运行测试，或使用 `--sequence.concurrent` 命令行选项。
-
-```ts
-import { describe, test } from 'vitest'
-
-describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => { /* ... */ })
-  test('concurrent test 2', async () => { /* ... */ })
-
-  describe.sequential('', () => {
-    test('sequential test 1', async () => { /* ... */ })
-    test('sequential test 2', async () => { /* ... */ })
-  })
-})
-```
-
-=======
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 ## describe.shuffle
 
 - **别名:** `suite.shuffle`

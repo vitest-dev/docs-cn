@@ -6,10 +6,7 @@ outline: deep
 # 迁移指南 {#migration-guide}
 
 [迁移至 Vitest 3.0](https://v3.vitest.dev/guide/migration) | [迁移至 Vitest 2.0](https://v2.vitest.dev/guide/migration)
-
-<<<<<<< HEAD
-## 迁移至 Vitest 4.0 {#vitest-4}
-=======
+<!-- TODO: translation -->
 ## Migrating to Vitest 5.0 {#vitest-5}
 
 ::: warning Work in progress
@@ -72,8 +69,7 @@ Several entry points were marked as deprecated in Vitest 4.1. This release remov
 - `vitest/mocker` is removed completely, use `@vitest/mocker` package directly (this was published by accident at one point and never removed)
 - `vitest/internal/module-runner` is removed
 
-## Migrating to Vitest 4.0 {#vitest-4}
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
+## 迁移至 Vitest 4.0 {#vitest-4}
 
 ::: warning 前提条件
 Vitest 4.0 要求 **Vite >= 6.0.0** 和 **Node.js >= 20.0.0**。

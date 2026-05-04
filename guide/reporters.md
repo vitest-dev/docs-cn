@@ -5,11 +5,7 @@ outline: deep
 
 # 报告器 {#reporters}
 
-<<<<<<< HEAD
-Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile` [配置选项](/config/reporters) 中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
-=======
-Vitest provides several built-in reporters to display test output in different formats, as well as the ability to use custom reporters. You can select different reporters either by using the `--reporter` command line option, or by including a `reporters` property in your [configuration file](/config/reporters). If no reporter is specified, Vitest [auto-selects reporters](#default-configuration) based on the environment.
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
+Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile` [配置选项](/config/reporters) 中加入 `reporters` 属性来选择不同的报告器。如果未指定报告器，Vitest 将根据运行环境 [自动选择报告器](#default-configuration)。
 
 通过命令行使用报告器:
 
@@ -38,10 +34,7 @@ export default defineConfig({
   },
 })
 ```
-
-<<<<<<< HEAD
-## 报告器输出 {#reporter-output}
-=======
+<!-- TODO: translation -->
 ## Default Configuration
 
 When `reporters` is not configured, Vitest uses the following reporters:
@@ -62,8 +55,7 @@ export default defineConfig({
 })
 ```
 
-## Reporter Output
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
+## 报告器输出 {#reporter-output}
 
 默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](/config/outputfile)，将测试输出写入文件。
 
@@ -99,13 +91,8 @@ import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-<<<<<<< HEAD
-    reporters: ['json', 'default'],
-    outputFile: './test-output.json',
-=======
     reporters: ['json', ...configDefaults.reporters],
     outputFile: './test-output.json'
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
   },
 })
 ```
@@ -131,16 +118,8 @@ export default defineConfig({
 ## 内置报告器 {#built-in-reporters}
 
 ### 默认报告器 {#default-reporter}
-
-<<<<<<< HEAD
-默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
-
-::: tip
-当 Vitest 检测到运行在 AI 智能体编程环境中时，将自动启用 [`minimal`](#minimal-reporter) 报告器以精简输出内容并优化词元 (token) 消耗。你可以通过显式配置 [`reporters`](/config/reporters) 选项来覆盖此行为。
-:::
-=======
+<!-- TODO: translation -->
 The `default` reporter displays summary of running tests and their status at the bottom. Once a suite passes, its status will be reported on top of the summary.
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 我们可以通过配置报告器来禁用摘要：
 
@@ -377,14 +356,7 @@ AssertionError: expected 5 to be 4 // Object.is equality
     </testsuite>
 </testsuites>
 ```
-
-<<<<<<< HEAD
-输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标签。这些也可以通过报告选项 `suiteName` 和 `classnameTemplate` 进行自定义。`classnameTemplate` 可以是一个模板字符串或者一个函数。
-
-`classnameTemplate` 选项支持的占位符有：
-- filename
-- filepath
-=======
+<!-- TODO: translation -->
 The output XML contains nested `testsuites` → `testsuite` → `testcase` tags. You can customize the reporter's behaviour with the following options:
 
 | Option | Description | Default |
@@ -417,7 +389,6 @@ The following placeholders are available for `classnameTemplate` and `titleTempl
 ::: tip
 `{filename}` follows Vitest's convention and resolves to the **relative path** from the project root (e.g. `src/foo.test.ts`). This differs from jest-junit where `{filename}` is the bare file name. Use `{basename}` to get only the file name.
 :::
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ```ts
 export default defineConfig({
@@ -664,32 +635,14 @@ export default defineConfig({
 :::
 
 ### GitHub Actions 报告器 {#github-actions-reporter}
-
-<<<<<<< HEAD
-当测试失败时输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message) 提供注解。当未配置 `reporters` 选项且 `process.env.GITHUB_ACTIONS === 'true'`（在GitHub Actions环境中）时，此报告器会自动启用。
-=======
+<!-- TODO: translation -->
 Output [workflow commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
 to provide annotations for test failures. This reporter is [enabled automatically](#default-configuration) when `process.env.GITHUB_ACTIONS === 'true'` (on GitHub Actions environment).
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 <img alt="GitHub Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="GitHub Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
 
-<<<<<<< HEAD
-如果已配置报告器，需显式添加 `github-actions` 添加到报告器列表中。
-
-```ts
-export default defineConfig({
-  test: {
-    reporters: process.env.GITHUB_ACTIONS === 'true' ? ['dot', 'github-actions'] : ['dot'],
-  },
-})
-```
-
-你可以使用 `onWritePath` 选项自定义以 [GitHub 注解命令格式](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 打印的文件路径。这在容器化环境（如 Docker）中运行 Vitest 时非常有用，因为在这些环境中文件路径可能与 GitHub Actions 环境中的路径不匹配。
-=======
 You can customize the file paths that are printed in [GitHub's annotation command format](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) by using the `onWritePath` option. This is useful when running Vitest in a containerized environment, such as Docker, where the file paths may not match the paths in the GitHub Actions environment.
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ```ts
 export default defineConfig({

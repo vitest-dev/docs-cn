@@ -1052,7 +1052,7 @@ function all(): Locator[]
 在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/api/browser/context#page) 包装每个元素。
 
 - [更多内容请参阅  `locator.elements()`](#elements)
-
+<!-- TODO: translation -->
 ### serialize
 
 ```ts
@@ -1107,11 +1107,7 @@ Use [`selector`](#selector) when you need the provider-specific string to forwar
 
 ### selector
 
-<<<<<<< HEAD
 `selector` 是一个字符串，将由浏览器提供程序用于定位元素。Playwright 将使用 `playwright` 定位器语法，而 `preview` 和 `webdriverio` 将使用 CSS。
-=======
-The `selector` is a string that will be used to locate the element by the browser provider. Playwright will use a `playwright` locator syntax, and `preview` and `webdriverio` will use CSS.
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
 
 ::: danger
 你不应在测试代码中使用此字符串。`selector` 字符串仅应在使用 Commands API 时使用：
@@ -1133,13 +1129,8 @@ import { test } from 'vitest'
 import { commands, page } from 'vitest/browser'
 
 test('works correctly', async () => {
-<<<<<<< HEAD
   await commands.test(page.getByText('Hello').selector) // ✅
-  // Vitest 会自动将其解包为字符串
-=======
-  await commands.test(page.getByText('Hello').serialize()) // ✅
-  // vitest will automatically unwrap it to a SerializedLocator
->>>>>>> facf19878b9f2907f12e998709b8f4d4c2da25cc
+  // Vitest 会自动将其解包为 SerializedLocator 对象
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```
