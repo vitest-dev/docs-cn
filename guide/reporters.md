@@ -5,7 +5,7 @@ outline: deep
 
 # 报告器 {#reporters}
 
-Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile` [配置选项](/config/reporters) 中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
+Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile` [配置选项](/config/reporters) 中加入 `reporters` 属性来选择不同的报告器。如果未指定报告器，Vitest 将根据运行环境 [自动选择报告器](#default-configuration)。
 
 通过命令行使用报告器:
 
@@ -31,6 +31,26 @@ export default defineConfig({
 export default defineConfig({
   test: {
     reporters: ['default', ['junit', { suiteName: 'UI tests' }]],
+  },
+})
+```
+<!-- TODO: translation -->
+## Default Configuration
+
+When `reporters` is not configured, Vitest uses the following reporters:
+
+- [`default`](#default-reporter) in normal terminal runs
+- [`minimal`](#minimal-reporter) when Vitest detects an AI coding agent
+- [`github-actions`](#github-actions-reporter) is added when `process.env.GITHUB_ACTIONS === 'true'`
+
+If you configure your own reporters, the configured list replaces the default list. To add a reporter while keeping Vitest's defaults, extend `configDefaults.reporters`:
+
+```ts
+import { configDefaults, defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    reporters: ['json', ...configDefaults.reporters],
   },
 })
 ```
@@ -67,10 +87,12 @@ npx vitest --reporter=json --reporter=default
 ```
 
 ```ts
+import { configDefaults, defineConfig } from 'vitest/config'
+
 export default defineConfig({
   test: {
-    reporters: ['json', 'default'],
-    outputFile: './test-output.json',
+    reporters: ['json', ...configDefaults.reporters],
+    outputFile: './test-output.json'
   },
 })
 ```
@@ -96,12 +118,8 @@ export default defineConfig({
 ## 内置报告器 {#built-in-reporters}
 
 ### 默认报告器 {#default-reporter}
-
-默认情况下（即如果没有指定报告器），Vitest 会在底部显示运行测试的摘要及其状态。一旦测试套件通过，其状态将被报告在摘要的顶部。
-
-::: tip
-当 Vitest 检测到运行在 AI 智能体编程环境中时，将自动启用 [`minimal`](#minimal-reporter) 报告器以精简输出内容并优化词元 (token) 消耗。你可以通过显式配置 [`reporters`](/config/reporters) 选项来覆盖此行为。
-:::
+<!-- TODO: translation -->
+The `default` reporter displays summary of running tests and their status at the bottom. Once a suite passes, its status will be reported on top of the summary.
 
 我们可以通过配置报告器来禁用摘要：
 
@@ -338,18 +356,71 @@ AssertionError: expected 5 to be 4 // Object.is equality
     </testsuite>
 </testsuites>
 ```
+<!-- TODO: translation -->
+The output XML contains nested `testsuites` → `testsuite` → `testcase` tags. You can customize the reporter's behaviour with the following options:
 
-输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标签。这些也可以通过报告选项 `suiteName` 和 `classnameTemplate` 进行自定义。`classnameTemplate` 可以是一个模板字符串或者一个函数。
+| Option | Description | Default |
+|---|---|---|
+| `suiteName` | `name` attribute of `<testsuites>` | `"vitest tests"` |
+| `suiteNameTemplate` | Template for the `name` attribute of `<testsuite>`. Accepts a string with placeholders or a function. | Relative file path |
+| `classnameTemplate` | Template for the `classname` attribute of `<testcase>`. Accepts a string with placeholders or a function. | Relative file path |
+| `titleTemplate` | Template for the `name` attribute of `<testcase>`. Accepts a string with placeholders or a function. | Full test title with ancestor hierarchy |
+| `ancestorSeparator` | Separator used when joining ancestor describe block names in the `{classname}` placeholder and in the default test title. | `" > "` |
+| `addFileAttribute` | Add a `file` attribute to each `<testcase>`. | `false` |
+| `includeConsoleOutput` | Include `<system-out>` / `<system-err>` console output. | `true` |
+| `stackTrace` | Include stack traces in `<failure>` elements. | `true` |
 
-`classnameTemplate` 选项支持的占位符有：
-- filename
-- filepath
+The following placeholders are available for `suiteNameTemplate`:
+- `{title}` – name of the first top-level `describe` block; falls back to the file basename when there is no top-level `describe`
+- `{filename}` – relative file path from the root (e.g. `src/foo.test.ts`)
+- `{filepath}` – absolute file path
+- `{basename}` – file name without directory (e.g. `foo.test.ts`)
+- `{displayName}` – Vitest project name
+
+The following placeholders are available for `classnameTemplate` and `titleTemplate`:
+- `{classname}` – ancestor `describe` block names joined by `ancestorSeparator` (e.g. `outer > inner`)
+- `{title}` – leaf test title (the string passed to `it`/`test`)
+- `{suitename}` – top-level `describe` block name, empty string when the test has no enclosing `describe`
+- `{filename}` – relative file path from the root
+- `{filepath}` – absolute file path
+- `{basename}` – file name without directory
+- `{displayName}` – Vitest project name
+
+::: tip
+`{filename}` follows Vitest's convention and resolves to the **relative path** from the project root (e.g. `src/foo.test.ts`). This differs from jest-junit where `{filename}` is the bare file name. Use `{basename}` to get only the file name.
+:::
 
 ```ts
 export default defineConfig({
   test: {
     reporters: [
-      ['junit', { suiteName: 'custom suite name', classnameTemplate: 'filename:{filename} - filepath:{filepath}' }]
+      ['junit', {
+        suiteName: 'My Test Suite',
+        // Use the first top-level describe block name as the testsuite name
+        suiteNameTemplate: '{title}',
+        // classname = ancestor describe chain
+        classnameTemplate: '{classname}',
+        // name = leaf test title only (jest-junit-compatible)
+        titleTemplate: '{title}',
+        ancestorSeparator: ' > ',
+      }]
+    ]
+  },
+})
+```
+
+Function-based templates receive all available variables and can return any string:
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['junit', {
+        classnameTemplate: ({ classname, filename }) =>
+          classname ? `${filename}::${classname}` : filename,
+        titleTemplate: ({ suitename, title }) =>
+          suitename ? `[${suitename}] ${title}` : title,
+      }]
     ]
   },
 })
@@ -564,23 +635,14 @@ export default defineConfig({
 :::
 
 ### GitHub Actions 报告器 {#github-actions-reporter}
-
-当测试失败时输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message) 提供注解。当未配置 `reporters` 选项且 `process.env.GITHUB_ACTIONS === 'true'`（在GitHub Actions环境中）时，此报告器会自动启用。
+<!-- TODO: translation -->
+Output [workflow commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
+to provide annotations for test failures. This reporter is [enabled automatically](#default-configuration) when `process.env.GITHUB_ACTIONS === 'true'` (on GitHub Actions environment).
 
 <img alt="GitHub Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="GitHub Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
 
-如果已配置报告器，需显式添加 `github-actions` 添加到报告器列表中。
-
-```ts
-export default defineConfig({
-  test: {
-    reporters: process.env.GITHUB_ACTIONS === 'true' ? ['dot', 'github-actions'] : ['dot'],
-  },
-})
-```
-
-你可以使用 `onWritePath` 选项自定义以 [GitHub 注解命令格式](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 打印的文件路径。这在容器化环境（如 Docker）中运行 Vitest 时非常有用，因为在这些环境中文件路径可能与 GitHub Actions 环境中的路径不匹配。
+You can customize the file paths that are printed in [GitHub's annotation command format](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) by using the `onWritePath` option. This is useful when running Vitest in a containerized environment, such as Docker, where the file paths may not match the paths in the GitHub Actions environment.
 
 ```ts
 export default defineConfig({
@@ -677,7 +739,7 @@ export default defineConfig({
 Outputs a minimal report containing only failed tests and their error messages. Console logs from passing tests and the summary section are also suppressed.
 
 ::: tip Agent Reporter
-This reporter is well optimized for AI coding assistants and LLM-based workflows to reduce token usage. It is automatically enabled when no `reporters` option is configured and Vitest detects it is running inside an AI coding agent. If you configure custom reporters, you can explicitly add `minimal` or `agent`:
+This reporter is well optimized for AI coding assistants and LLM-based workflows to reduce token usage. It is [enabled automatically](#default-configuration) when Vitest detects it is running inside an AI coding agent.
 
 :::code-group
 ```bash [CLI]

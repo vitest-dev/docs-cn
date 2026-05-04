@@ -34,8 +34,8 @@ beforeEach(async () => {
 ```
 
 此处，`beforeEach` 确保每个测试都会添加用户。
-
-`beforeEach` 还可以返回一个可选的清理函数（等价于 [`afterEach`](#aftereach)）：
+<!-- TODO: translation -->
+`beforeEach` can also return an optional cleanup function. It's similar to [`afterEach`](#aftereach). The only difference is that it's executed after all other `afterEach` hooks:
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -44,7 +44,7 @@ beforeEach(async () => {
   // 在每次测试运行前调用一次
   await prepareSomething()
 
-  // 清理函数，在每次测试运行后调用一次
+  // 清理函数，在每次测试运行后调用一次，在 afterEach 钩子之后执行
   return async () => {
     await resetSomething()
   }
@@ -103,7 +103,7 @@ beforeAll(async () => {
 
  此处，`beforeAll` 确保在测试运行前完成模拟数据的初始化。
 
-`beforeAll` 还可以返回一个可选的清理函数（等价于 [`afterAll`](#afterall)）：
+`beforeAll` 还可以返回一个可选的清理函数（等价于 [`afterAll`](#afterall)）。唯一区别在于该钩子会在所有其他 `afterAll` 钩子执行完毕后运行：
 
 ```ts
 import { beforeAll } from 'vitest'
@@ -112,7 +112,7 @@ beforeAll(async () => {
   // 在所有测试运行之前调用一次
   await startMocking()
 
-  // 清理函数，在所有测试运行之后调用一次
+  // 清理函数，在所有测试运行结束后调用一次，在所有 afterAll 钩子之后执行
   return async () => {
     await stopMocking()
   }

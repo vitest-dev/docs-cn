@@ -137,10 +137,12 @@ afterEach(() => {
  - `beforeEach` 钩子执行（按定义顺序，或基于 [`sequence.hooks`](/config/sequence#sequence-hooks)）
  - 测试函数执行
  - `afterEach` 钩子执行（默认以 `sequence.hooks: 'stack'` 倒序执行）
+ - Cleanup functions returned from `beforeEach` hooks execute (reverse order by default with `sequence.hooks: 'stack'`)
  - [`onTestFinished`](/api/hooks#ontestfinished) 回调执行（始终倒序）
  - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
  - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
 6. **[`afterAll`](/api/hooks#afterall) 钩子:** 套件中所有测试完成后执行一次
+7. **Cleanup functions returned from `beforeAll` hooks:** Run once after all tests in the suite complete
 
 **执行流程示例:**
 
@@ -162,6 +164,11 @@ describe('User API', () => {
   beforeAll(() => {
     // 在套件所有测试前运行一次
     console.log('beforeAll')
+
+    return function beforeAllCleanup() {
+      // Runs once afterAll hooks have run
+      console.log('beforeAllCleanup')
+    }
   })
 
   aroundEach(async (runTest) => {
@@ -174,6 +181,11 @@ describe('User API', () => {
   beforeEach(() => {
     // 每个测试用例前运行
     console.log('beforeEach')
+
+    return function beforeEachCleanup() {
+      // Runs after afterEach hooks have run
+      console.log('beforeEachCleanup')
+    }
   })
 
   test('creates user', () => {
@@ -206,13 +218,16 @@ describe('User API', () => {
 //     beforeEach
 //       test 1
 //     afterEach
+//     beforeEachCleanup
 //   aroundEach after
 //   aroundEach before
 //     beforeEach
 //       test 2
 //     afterEach
+//     beforeEachCleanup
 //   aroundEach after
 //   afterAll
+//   beforeAllCleanup
 // aroundAll after
 ```
 

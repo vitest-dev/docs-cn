@@ -216,14 +216,14 @@ describe(
 - **别名:** [`test.concurrent`](#test-concurrent)
 
 是否与测试套件中其他并发测试并行运行。
+<!-- TODO: translation -->
+Set `concurrent` to `false` to opt out of concurrency inherited from [`describe.concurrent`](/api/describe#describe-concurrent) or [`sequence.concurrent`](/config/sequence#sequence-concurrent):
 
-### sequential
-
-- **类型:** `boolean`
-- **默认值:** `true`
-- **别名:** [`test.sequential`](#test-sequential)
-
-是否按顺序运行测试。如果同时指定了 `concurrent` 和 `sequential`，`concurrent` 优先生效。
+```ts
+test('runs sequentially', { concurrent: false }, async () => {
+  // ...
+})
+```
 
 ### skip
 
@@ -452,31 +452,6 @@ test.concurrent('test 2', async ({ expect }) => {
 ```
 
 注意，如果测试是同步的，Vitest 仍会按顺序运行它们。
-
-## test.sequential
-
-- **别名:** `it.sequential`
-
-`test.sequential` 将测试标记为顺序执行。适用于在 `describe.concurrent` 或 `--sequence.concurrent` 命令选项下按顺序运行测试的场景。
-```ts
-import { describe, test } from 'vitest'
-
-// 配置项 { sequence: { concurrent: true } } 开启时
-test('concurrent test 1', async () => { /* ... */ })
-test('concurrent test 2', async () => { /* ... */ })
-
-test.sequential('sequential test 1', async () => { /* ... */ })
-test.sequential('sequential test 2', async () => { /* ... */ })
-
-// 在并发测试套件内
-describe.concurrent('suite', () => {
-  test('concurrent test 1', async () => { /* ... */ })
-  test('concurrent test 2', async () => { /* ... */ })
-
-  test.sequential('sequential test 1', async () => { /* ... */ })
-  test.sequential('sequential test 2', async () => { /* ... */ })
-})
-```
 
 ## test.todo
 

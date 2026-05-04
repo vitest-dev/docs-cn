@@ -298,6 +298,13 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **配置:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
 
 UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
+<!-- TODO: translation -->
+### coverage.autoAttachSubprocess
+
+- **CLI:** `--coverage.autoAttachSubprocess`
+- **Config:** [coverage.autoAttachSubprocess](/config/coverage#coverage-autoattachsubprocess)
+
+Track coverage of the `node:child_process` and `node:worker_threads` spawned during test run. Supported only by `v8` provider. (default: false)
 
 ### mode
 
@@ -865,7 +872,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--attachmentsDir <dir>`
 - **配置:** [attachmentsDir](/config/attachmentsdir)
 
-`context.annotate` 方法所生成附件的存储目录 (默认值: `.vitest-attachments`)
+`context.annotate` 方法所生成附件的存储目录 (默认值: `.vitest/attachments`)
 
 ### run
 

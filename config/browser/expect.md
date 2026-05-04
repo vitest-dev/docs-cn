@@ -104,6 +104,10 @@ export default defineConfig({
 
   [`attachmentsDir`](/config/attachmentsdir) 配置项提供的值，如果未配置则使用其默认值。
 
+- `project: TestProject` <Version type="experimental">4.1.6</Version> <Experimental />
+
+  The [`TestProject`](/api/advanced/test-project) the test belongs to.
+
 例如，以下示例按浏览器分组存储截图：
 
 ```ts
