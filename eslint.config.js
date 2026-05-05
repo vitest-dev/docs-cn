@@ -1,6 +1,6 @@
 import antfu, { GLOB_SRC } from '@antfu/eslint-config'
 import { createSimplePlugin } from 'eslint-factory'
-import docsStyle from 'eslint-plugin-docs-style'
+import mdStyle from 'eslint-plugin-md-style'
 
 export default antfu(
   {
@@ -62,7 +62,7 @@ export default antfu(
       'import/no-named-as-default': 'off',
     },
   },
-  docsStyle.configs.recommended,
+  mdStyle.configs.recommended,
   {
     files: [`**/*.md`, `**/*.md/${GLOB_SRC}`],
     rules: {
