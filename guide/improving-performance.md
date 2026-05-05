@@ -139,14 +139,20 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 
 > Vitest 对 _测试文件_（而非单个测试用例）进行分片。如果你有 1000 个测试文件，使用 `--shard=1/4` 时会运行其中的 250 个文件，而不会根据文件内的用例数量做进一步切分。
 
-在各台机器上收集保存在 `.vitest-reports` 目录中的结果文件，然后通过 [`--merge-reports`](/guide/cli#merge-reports) 选项将这些结果合并：
+在各台机器上收集保存在 `.vitest/blob/` 目录中的结果文件，然后通过 [`--merge-reports`](/guide/cli#merge-reports) 选项将这些结果合并：
 
 ```sh
 vitest run --merge-reports
 ```
+<!-- TODO: translation -->
+When running the same shards across multiple environments, set the `VITEST_BLOB_LABEL` environment variable so merged reports can display them separately:
 
-::: details GitHub Actions 示例
-同样方案也应用于 https://github.com/vitest-tests/test-sharding 仓库。
+```sh
+VITEST_BLOB_LABEL=linux vitest run --reporter=blob --shard=1/3
+```
+
+::: details GitHub Actions example
+This setup is also used at https://github.com/vitest-tests/test-sharding.
 
 ```yaml
 # 灵感来至于 https://playwright.dev/docs/test-sharding
@@ -157,9 +163,10 @@ on:
       - main
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     steps:
@@ -176,22 +183,15 @@ jobs:
 
       - name: Run tests
         run: pnpm run test --reporter=blob --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        env:
+          VITEST_BLOB_LABEL: ${{ matrix.os }}
 
-      - name: Upload blob report to GitHub Actions Artifacts
+      - name: Upload Vitest results GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: blob-report-${{ matrix.shardIndex }}
-          path: .vitest-reports/*
-          include-hidden-files: true
-          retention-days: 1
-
-      - name: Upload attachments to GitHub Actions Artifacts
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: blob-attachments-${{ matrix.shardIndex }}
-          path: .vitest/**
+          name: vitest-results-${{ matrix.os }}-${{ matrix.shardIndex }}
+          path: .vitest
           include-hidden-files: true
           retention-days: 1
 
@@ -212,18 +212,10 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: .vitest-reports
-          pattern: blob-report-*
-          merge-multiple: true
-
-      - name: Download attachments from GitHub Actions Artifacts
+      - name: Download Vitest results from GitHub Actions Artifacts
         uses: actions/download-artifact@v4
         with:
           path: .vitest
-          pattern: blob-attachments-*
           merge-multiple: true
 
       - name: Merge reports

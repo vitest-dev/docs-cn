@@ -202,7 +202,7 @@ function getRelevantTestSpecifications(
 function mergeReports(directory?: string): Promise<TestRunResult>
 ```
 
-合并指定目录中的多个运行的报告（如果未指定，则使用 `--merge-reports` 的值）。此值也可以在 `config.mergeReports` 上设置（默认情况下，它将读取 `.vitest-reports` 文件夹）。
+合并指定目录中的多个运行的报告（如果未指定，则使用 `--merge-reports` 的值）。此值也可以在 `config.mergeReports` 上设置（默认情况下，它将读取 `.vitest/blob/` 文件夹）。
 
 请注意，`directory` 将始终相对于工作目录解析。
 
