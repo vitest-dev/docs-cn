@@ -139,20 +139,12 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 
 > Vitest 对 _测试文件_（而非单个测试用例）进行分片。如果你有 1000 个测试文件，使用 `--shard=1/4` 时会运行其中的 250 个文件，而不会根据文件内的用例数量做进一步切分。
 
-<<<<<<< HEAD
-在各台机器上收集保存在 `.vitest-reports` 目录中的结果文件，然后通过 [`--merge-reports`](/guide/cli#merge-reports) 选项将这些结果合并：
-=======
-Collect the results stored in `.vitest/blob/` directory from each machine and merge them with [`--merge-reports`](/guide/cli#merge-reports) option:
->>>>>>> 829251fd7ea29069318b4f0ab64681319658925e
+在各台机器上收集保存在 `.vitest/blob/` 目录中的结果文件，然后通过 [`--merge-reports`](/guide/cli#merge-reports) 选项将这些结果合并：
 
 ```sh
 vitest run --merge-reports
 ```
-
-<<<<<<< HEAD
-::: details GitHub Actions 示例
-同样方案也应用于 https://github.com/vitest-tests/test-sharding 仓库。
-=======
+<!-- TODO: translation -->
 When running the same shards across multiple environments, set the `VITEST_BLOB_LABEL` environment variable so merged reports can display them separately:
 
 ```sh
@@ -161,7 +153,6 @@ VITEST_BLOB_LABEL=linux vitest run --reporter=blob --shard=1/3
 
 ::: details GitHub Actions example
 This setup is also used at https://github.com/vitest-tests/test-sharding.
->>>>>>> 829251fd7ea29069318b4f0ab64681319658925e
 
 ```yaml
 # 灵感来至于 https://playwright.dev/docs/test-sharding

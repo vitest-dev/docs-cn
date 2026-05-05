@@ -228,24 +228,16 @@ vitest run --shard=3/3
 :::warning 警告
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
 :::
-
+<!-- TODO: translation reference history -->
 ::: tip
-<<<<<<< HEAD
-如果在没有输出文件的情况下使用 `--reporter=blob`，则默认路径将包括当前碎片配置，以避免与其他 Vitest 进程发生冲突。
-=======
 If `--reporter=blob` is used without an output file, the default path will include the current shard config and blob label from `VITEST_BLOB_LABEL` or the blob reporter `label` option to avoid collisions with other Vitest processes.
->>>>>>> 829251fd7ea29069318b4f0ab64681319658925e
 :::
 
 ### merge-reports
 
 - **类型:** `boolean | string`
-
-<<<<<<< HEAD
-合并位于指定文件夹中的每个 blob 报告（默认情况下为`.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
-=======
+<!-- TODO: translation reference history -->
 Merges every blob report located in the specified folder (`.vitest/blob/` by default). You can use any reporters with this command (except [`blob`](/guide/reporters#blob-reporter)):
->>>>>>> 829251fd7ea29069318b4f0ab64681319658925e
 
 ```sh
 vitest --merge-reports --reporter=junit
