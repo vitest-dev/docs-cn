@@ -33,6 +33,14 @@ if (task.type === 'module') {
 'example.test.ts' // ✅
 'project\\example.test.ts' // ❌
 ```
+<!-- TODO: translation -->
+## viteEnvironment <Version>4.1.0</Version> {#viteenvironment}
+
+This is a Vite's [`DevEnvironment`](https://vite.dev/guide/api-environment) that transforms all files inside of the test module.
+
+::: details History
+- `v4.0.15`: added as experimental
+:::
 
 ## state
 
@@ -120,14 +128,26 @@ interface ImportDuration {
   totalTime: number
 }
 ```
+<!-- TODO: translation -->
+## logs <Version>5.0.0</Version> {#logs}
 
-## viteEnvironment <Version>4.1.0</Version> {#viteenvironment}
+```ts
+function logs(): ReadonlyArray<UserConsoleLog>
+```
 
-这是 Vite 的 [`DevEnvironment`](https://cn.vite.dev/guide/api-environment)，用于转换测试模块中的所有文件。
+Console logs recorded on top level of the module during test collection.For example:
 
-::: details 历史
-- `v4.0.15`: 作为实验性功能添加
-:::
+```ts
+console.log('included') // [!code highlight]
+
+describe('suite', () => {
+  console.log('not included') // [!code error]
+
+  test('test', () => {
+    console.log('not included') // [!code error]
+  })
+})
+```
 
 ## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
 
