@@ -222,7 +222,7 @@ describe('the validation works correctly', { meta: { decorated: true } }, () => 
 :::tip
 如果元数据是在收集阶段（而非 `test` 函数内部）附加的，那么它将在 available 的 [`onTestModuleCollected`](./reporters#ontestmodulecollected) 中可用。
 :::
-
+<!-- TODO: translation -->
 ## logs <Version>5.0.0</Version> {#logs}
 
 ```ts

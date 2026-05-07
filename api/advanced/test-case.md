@@ -291,11 +291,8 @@ function annotations(): ReadonlyArray<TestAnnotation>
 function artifacts(): ReadonlyArray<TestArtifact>
 ```
 
-<<<<<<< HEAD
 通过 `recordArtifact` API，在测试执行过程中记录的 [测试产物](/api/advanced/artifacts)。
-=======
-[Test artifacts](/api/advanced/artifacts) recorded via the `recordArtifact` API during the test execution.
-
+<!-- TODO: translation -->
 ## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
 
 ```ts
@@ -311,4 +308,3 @@ function logs(): ReadonlyArray<UserConsoleLog>
 ```
 
 Console logs recorded during the test execution.
->>>>>>> 9dac0cd8fb1155577223e344cdf5364178d19fe1
