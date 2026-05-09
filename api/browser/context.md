@@ -175,9 +175,23 @@ const frame = page.frameLocator(
 await frame.getByText('Hello World').click() // ✅
 await frame.click() // ❌ 不可用
 ```
+<!-- TODO: translation -->
+::: danger IMPORTANT
+By default `frameLocator` does not support querying elements with `expect.element()` in cross-origin iframes. Interactive methods, such as `.click()` work fine. This is different behaviour than Playwright.
+
+```ts
+const frame = page.frameLocator(page.getByTestId('cross-origin-iframe'))
+const button = frame.getByRole('button', { name: 'Submit' })
+
+await button.click() // Interactive methods work fine ✅
+await expect.element(button).toBeVisible() // Querying elements does not work ❌
+```
+
+If you need to work with cross-origin iframes, you'll need to pass `args: ["--disable-web-security"]` in [`launchOptions`](/config/browser/playwright.html#launchoptions). Or alternatively create a custom [browser command](/api/browser/commands.html#custom-commands) that accesses the iframe on server side where it's available.
+:::
 
 ::: danger IMPORTANT
-目前，`frameLocator` 方法仅支持 `playwright` 提供者。
+At the moment, the `frameLocator` method is only supported by the `playwright` provider.
 
 交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
 :::

@@ -702,7 +702,9 @@ MyClass.mock.instances[0] === a
 若构造函数显式返回值，该值不会存入 `instances`，而会出现在 `results` 中：
 
 ```js
-const Spy = vi.fn(() => ({ method: vi.fn() }))
+const Spy = vi.fn(function () {
+  return { method: vi.fn() }
+})
 const a = new Spy()
 
 Spy.mock.instances[0] !== a
