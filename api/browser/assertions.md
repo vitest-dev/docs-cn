@@ -52,13 +52,9 @@ interface ExpectPollOptions {
   message?: string
 }
 ```
-
+<!-- TODO: translation -->
 ::: tip
-<<<<<<< HEAD
-`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
-=======
 Like [`expect.poll`](/api/expect#poll), `expect.element` retries DOM assertions until they pass or the timeout is reached. When it receives a locator, Vitest resolves it with [`locator.findElement()`](/api/browser/locators#findelement) before running the DOM assertion. The `timeout` option applies to the whole retry operation. The `interval` option controls how often failed DOM assertions are retried, but locator resolution uses `findElement`'s own increasing retry intervals.
->>>>>>> 1a64d60cbf1eb0a369bb876b68cb16cf72bc2434
 
 `toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 

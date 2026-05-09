@@ -27,7 +27,7 @@ outline: deep
 const locator = page.getByText('Hello, World', { exact: true })
 await locator.click()
 ```
-
+<!-- TODO: translation -->
 ## browser.locators.errorFormat <Version>5.0.0</Version> {#browser-locators-errorformat}
 
 - **Type:** `'html' | 'aria' | 'all'`

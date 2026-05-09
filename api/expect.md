@@ -108,14 +108,10 @@ interface ExpectPoll extends ExpectStatic {
   (actual: (options: { signal: AbortSignal }) => T, options?: { interval?: number; timeout?: number; message?: string }): Promise<Assertions<Awaited<T>>>
 }
 ```
-
-<<<<<<< HEAD
-`expect.poll` 重新运行断言，直到成功为止。你可以通过设置 `interval` 和 `timeout` 选项来配置 Vitest 应重新运行 `expect.poll` 回调的次数。
-=======
+<!-- TODO: translation -->
 `expect.poll` reruns the _assertion_ until it is succeeded. You can configure how often Vitest retries and how long it waits by setting `interval` and `timeout` options. The `timeout` applies to the whole polling operation, including pending callback and async matcher execution.
 
 The callback receives an `AbortSignal` that is aborted when the poll timeout is reached.
->>>>>>> 1a64d60cbf1eb0a369bb876b68cb16cf72bc2434
 
 如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
 

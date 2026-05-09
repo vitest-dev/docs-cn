@@ -167,7 +167,7 @@ test('rejects for missing user', async () => {
   await expect(fetchUser(123)).rejects.toThrow('User 123 not found')
 })
 ```
-
+<!-- TODO: translation -->
 ## Package fails to load in Vitest but works in your app
 
 Some packages work in an app build but fail in Vitest because they are only valid after a bundler has rewritten or resolved them. When Vitest externalizes a dependency, Node.js loads it directly, so Node's ESM and package rules apply. See Node.js documentation on [ECMAScript modules](https://nodejs.org/docs/latest/api/esm.html) and [packages](https://nodejs.org/docs/latest/api/packages.html) for the precise rules.
