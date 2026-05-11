@@ -847,12 +847,14 @@ const { path, base64 } = await button.screenshot({
 ### mark
 
 ```ts
-function mark(name: string, options?: { stack?: string }): Promise<void>
+function mark(name: string, options?: { stack?: string; kind?: BrowserTraceEntryKind }): Promise<void>
 ```
 
 在追踪时间线上添加一个具名标记，并使用当前定位器作为标记上下文。
 
 传入 `options.stack` 以覆盖追踪元数据中的调用位置。适用于二次封装库并且需要保留用户调用源码位置的场景。
+
+Pass `options.kind` to categorize your marker as specific type, for example as `'action'`.
 
 ```ts
 import { page } from 'vitest/browser'
