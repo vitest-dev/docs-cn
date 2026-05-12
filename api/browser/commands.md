@@ -126,7 +126,30 @@ declare module 'vitest/browser' {
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
+<<<<<<< HEAD
 ### 自定义 `playwright` 命令  {#custom-playwright-commands}
+=======
+### Recording trace markers
+
+Custom commands can record [trace markers](/api/browser/context#mark) for the test that triggered them through `context.mark`. This is the server-side equivalent of `page.mark` and helps annotate the [trace view](/guide/browser/trace-view) with custom actions performed inside a command.
+
+```ts
+import type { BrowserCommand } from 'vitest/node'
+
+export const uploadFixture: BrowserCommand<[name: string]> = async (
+  context,
+  name,
+) => {
+  await context.mark(`upload start: ${name}`, { kind: 'action' })
+  // ... do server-side work
+  await context.mark(`upload done: ${name}`, { kind: 'action' })
+}
+```
+
+`context.mark` is a no-op when browser tracing is not enabled or no test is currently running in the session. Unlike `page.mark`, it does not accept a callback form.
+
+### Custom `playwright` commands
+>>>>>>> 7df7a657dc941d7c21aac6ec9b42769a30a98ff0
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
