@@ -122,7 +122,7 @@ export const page: {
 请注意，如果 `save` 设置为 `false`，`screenshot` 将始终返回 base64 字符串。
 在这种情况下，`path` 也会被忽略。
 :::
-
+<!-- TODO: translation -->
 ### mark
 
 ```ts
@@ -157,6 +157,8 @@ await page.mark('submit flow', async () => {
 
 ::: tip
 This method is useful only when [`browser.trace`](/config/browser/trace) is enabled.
+
+A server-side equivalent is available on the [`BrowserCommandContext`](/api/browser/commands#recording-trace-markers) so [custom commands](/api/browser/commands#custom-commands) can record markers attributed to the test that triggered them.
 :::
 
 ### frameLocator
