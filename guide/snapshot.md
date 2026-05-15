@@ -124,9 +124,9 @@ test('button looks correct', async () => {
 
 它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
 
-## ARIA 快照 <Badge type="warning">实验性</Badge> <Version>4.1.4</Version> {# ARIA Snapshots}
+## ARIA 快照 <Badge type="warning">实验性</Badge> <Version>4.1.4</Version> {#aria-snapshots}
 
-ARIA 快照会捕获 DOM 元素的无障碍访问树，并与存储的模板进行比对。基于 [Playwright 的 ARIA 快照](https://playwright.dev/docs/aria-snapshots) 实现，它提供了视觉回归测试之外的语义化替代方案 —— 断言结构和含义而非像素。
+ARIA 快照会捕获 DOM 元素的无障碍访问树，并与存储的模板进行比对。基于 [Playwright 的 ARIA 快照](https://playwright.dev/docs/aria-snapshots) 实现，它提供了视觉回归测试之外的语义化替代方案，断言结构和含义而非像素。
 
 例如，以下 HTML：
 

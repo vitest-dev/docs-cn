@@ -3,7 +3,6 @@ import { createSimplePlugin } from 'eslint-factory'
 
 export default antfu(
   {
-    formatters: { markdown: 'prettier' },
     stylistic: true,
     typescript: true,
     vue: true,
