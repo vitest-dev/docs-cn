@@ -338,7 +338,7 @@ declare module 'vitest' {
 领域适配器需实现四个方法和两个泛型 - `Captured`（值的实际类型）和 `Expected`（存储的快照解析后的类型）：
 
 ```ts
-import type { DomainMatchResult, DomainSnapshotAdapter } from '@vitest/snapshot'
+import type { DomainMatchResult, DomainSnapshotAdapter } from 'vitest'
 
 const myAdapter: DomainSnapshotAdapter<Captured, Expected> = {
   name: 'my-domain',
