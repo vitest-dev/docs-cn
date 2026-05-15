@@ -191,9 +191,9 @@ export default {
     return `Pretty foo: ${printer(val.foo, config, indentation, depth, refs)}`
   },
   test(val) {
-    return val && Object.hasOwn(val, 'foo')
+    return val && Object.prototype.hasOwnProperty.call(val, 'foo')
   },
-} satisfies SnapshotSerializer
+} satisfies SnapshotSerializ:er
 ```
 
 ```ts [vitest.config.ts]
@@ -235,7 +235,7 @@ Pretty foo: Object {
 可通过 `vitest` 提供的 `Snapshots` 组合式函数构建自定义快照匹配器。这些函数允许你在生成快照前对值进行转换，同时完整保留快照生命周期支持（创建、更新、内联重写）。
 
 ```ts
-import { expect, Snapshots, test } from 'vitest'
+import { expect, test, Snapshots } from 'vitest'
 
 const { toMatchFileSnapshot, toMatchInlineSnapshot, toMatchSnapshot } = Snapshots
 
@@ -519,7 +519,7 @@ test('user data inline', () => {
 
 Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
-### 1. 快照文件中的注释标头不同 {#\_1-comment-header-in-the-snapshot-file-is-different}
+### 1. 快照文件中的注释标头不同 {#_1-comment-header-in-the-snapshot-file-is-different}
 
 ```diff
 - // Jest Snapshot v1, https://goo.gl/fbAQLP
@@ -528,7 +528,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 这实际上不会影响功能，但在从 Jest 迁移时可能会影响提交差异。
 
-### 2. `printBasicPrototype` 默认为 `false` {#\_2-printbasicprototype-is-default-to-false}
+### 2. `printBasicPrototype` 默认为 `false` {#_2-printbasicprototype-is-default-to-false}
 
 Jest 和 Vitest的快照功能均基于 `pretty-format` 实现，但 Vitest 在 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 基础上应用了自定义的快照默认配置。具体而言，Vitest将 `printBasicPrototype` 设为 `false` 以生成更简洁的快照输出，而 Jest 29.0.0 以下版本默认将该值设为 `true`。
 
@@ -576,7 +576,7 @@ export default defineConfig({
 })
 ```
 
-### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符 {#\_3-chevron-is-used-as-a-separator-instead-of-colon-for-custom-messages}
+### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符 {#_3-chevron-is-used-as-a-separator-instead-of-colon-for-custom-messages}
 
 当创建快照文件期间传递自定义消息时，Vitest 使用 V 形 `>` 作为分隔符而不是冒号 `:` 以提高自定义消息可读性。
 
@@ -602,7 +602,7 @@ exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 ```
 
-### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同 {#\_4-default-error-snapshot-is-different-for-tothrowerrormatchingsnapshot-and-tothrowerrormatchinginlinesnapshot}
+### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同 {#_4-default-error-snapshot-is-different-for-tothrowerrormatchingsnapshot-and-tothrowerrormatchinginlinesnapshot}
 
 ```js
 import { expect, test } from 'vitest'
