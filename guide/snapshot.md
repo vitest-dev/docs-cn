@@ -123,12 +123,12 @@ test('button looks correct', async () => {
 ```
 
 它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
-<!-- TODO: translation -->
-## ARIA Snapshots <Badge type="warning">experimental</Badge> <Version>4.1.4</Version>
 
-ARIA snapshots capture the accessibility tree of a DOM element and compare it against a stored template. Based on [Playwright's ARIA snapshots](https://playwright.dev/docs/aria-snapshots), they provide a semantic alternative to visual regression testing — asserting structure and meaning rather than pixels.
+## ARIA 快照 <Badge type="warning">实验性</Badge> <Version>4.1.4</Version> {# ARIA Snapshots}
 
-For example, given this HTML:
+ARIA 快照会捕获 DOM 元素的无障碍访问树，并与存储的模板进行比对。基于 [Playwright 的 ARIA 快照](https://playwright.dev/docs/aria-snapshots) 实现，它提供了视觉回归测试之外的语义化替代方案 —— 断言结构和含义而非像素。
+
+例如，以下 HTML：
 
 ```html
 <nav aria-label="Main">
@@ -137,7 +137,7 @@ For example, given this HTML:
 </nav>
 ```
 
-You can assert its accessibility tree:
+你可以断言其无障碍访问树结构：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -154,7 +154,7 @@ test('navigation structure', async () => {
 })
 ```
 
-See the dedicated [ARIA Snapshots guide](/guide/browser/aria-snapshots) for syntax details, retry behavior in Browser Mode, and file vs. inline snapshot examples. See [`toMatchAriaSnapshot`](/api/expect#tomatcharisnapshot) and [`toMatchAriaInlineSnapshot`](/api/expect#tomatchariainlinesnapshot) for the full API reference.
+语法细节、浏览器模式下的重试行为以及文件快照与内联快照的对比示例，请参阅专门的 [ARIA 快照指南](/guide/browser/aria-snapshots)。完整 API 请参阅 [`toMatchAriaSnapshot`](/api/expect#tomatcharisnapshot) 和 [`toMatchAriaInlineSnapshot`](/api/expect#tomatchariainlinesnapshot)。
 
 ## 自定义序列化器 {#custom-serializer}
 
@@ -175,10 +175,11 @@ expect.addSnapshotSerializer({
     )}`
   },
   test(val) {
-    return val && Object.prototype.hasOwnProperty.call(val, 'foo')
+    return val && Object.hasOwn(val, 'foo')
   },
 })
 ```
+
 我们还支持 [snapshotSerializers](/config/snapshotserializers) 选项，可以隐式添加自定义序列化器。
 
 ```ts [path/to/custom-serializer.ts]
@@ -190,7 +191,7 @@ export default {
     return `Pretty foo: ${printer(val.foo, config, indentation, depth, refs)}`
   },
   test(val) {
-    return val && Object.prototype.hasOwnProperty.call(val, 'foo')
+    return val && Object.hasOwn(val, 'foo')
   },
 } satisfies SnapshotSerializer
 ```
@@ -228,13 +229,13 @@ Pretty foo: Object {
   "y": 2,
 }
 ```
-<!-- TODO: translation -->
-## Custom Snapshot Matchers <Badge type="warning">experimental</Badge> <Version>4.1.3</Version> {#custom-snapshot-matchers}
 
-You can build custom snapshot matchers using the composable functions exposed on `Snapshots` from `vitest`. These let you transform values before snapshotting while preserving full snapshot lifecycle support (creation, update, inline rewriting).
+## 自定义快照匹配器 <Badge type="warning">实验性</Badge> <Version>4.1.3</Version> {#custom-snapshot-matchers}
+
+可通过 `vitest` 提供的 `Snapshots` 组合式函数构建自定义快照匹配器。这些函数允许你在生成快照前对值进行转换，同时完整保留快照生命周期支持（创建、更新、内联重写）。
 
 ```ts
-import { expect, test, Snapshots } from 'vitest'
+import { expect, Snapshots, test } from 'vitest'
 
 const { toMatchFileSnapshot, toMatchInlineSnapshot, toMatchSnapshot } = Snapshots
 
@@ -267,7 +268,7 @@ test('raw file snapshot', async () => {
 })
 ```
 
-The composables return `{ pass, message }` so you can further customize the error:
+这些组合式函数会返回 `{ pass, message }` 对象，方便你进一步自定义错误提示：
 
 ```ts
 import { Snapshots } from 'vitest'
@@ -283,24 +284,24 @@ expect.extend({
 ```
 
 ::: warning
-For inline snapshot matchers, the snapshot argument must be the last parameter (or second-to-last when using property matchers). Vitest rewrites the last string argument in the source code, so custom arguments before the snapshot work, but custom arguments after it are not supported.
+对于内联快照匹配器，快照参数必须是最后一个参数（使用属性匹配器时则为倒数第二个）。Vitest 会重写源代码中的最后一个字符串参数，因此快照前的自定义参数有效，但不支持快照后的自定义参数。
 :::
 
 ::: tip
-File snapshot matchers must be `async` — `toMatchFileSnapshot` returns a `Promise`. Remember to `await` the result in the matcher and in your test.
+文件快照匹配器必须是 `async` 的 — `toMatchFileSnapshot` 会返回一个 `Promise`。请确保在匹配器和测试中都使用 `await` 处理返回结果。
 :::
 
 ::: warning
-When custom inline snapshot matcher is aynchronous, Vitest cannot automatically infer the call location for inline snapshot rewriting. You must capture the call site by setting the `'error'` flag on the chai assertion object:
+当自定义内联快照匹配器为异步时，Vitest 无法自动推断内联快照重写的调用位置。你必须通过在 chai 断言对象上设置 `'error'` 标志来捕获调用点：
 
 ```ts
-import { expect, chai, Snapshots } from 'vitest'
+import { chai, expect, Snapshots } from 'vitest'
 
 const { toMatchInlineSnapshot } = Snapshots
 
 expect.extend({
   async toMatchTransformedInlineSnapshot(received: string, inlineSnapshot?: string) {
-    // capture call site synchronously at the top of matcher implementation
+    // 在匹配器实现顶部同步捕获调用点
     chai.util.flag(this.assertion, 'error', new Error())
     const transformed = await transform(received)
     return toMatchInlineSnapshot.call(this, transformed, inlineSnapshot)
@@ -310,7 +311,7 @@ expect.extend({
 
 :::
 
-For TypeScript, extend the `Assertion` interface:
+对于 TypeScript，需扩展 `Assertion` 接口：
 
 ```ts
 import 'vitest'
@@ -325,63 +326,63 @@ declare module 'vitest' {
 ```
 
 ::: tip
-See [Extending Matchers](/guide/extending-matchers) for more on `expect.extend` and custom matcher conventions.
+更多关于 `expect.extend` 和自定义匹配器约定的内容，请参阅 [扩展匹配器](/guide/extending-matchers)。
 :::
-<!-- TODO: translation -->
-## Custom Snapshot Domain <Badge type="warning">experimental</Badge> <Version>4.1.4</Version> {#custom-snapshot-domain}
 
-Custom serializers control how values are _rendered_ into snapshot strings, but comparison is still string equality. A **domain snapshot adapter** goes further: it owns the entire comparison pipeline for a custom matcher, including how to capture a value, render it, parse a stored snapshot, and match them semantically.
+## 自定义领域快照 <Badge type="warning">experimental</Badge> <Version>4.1.4</Version> {#custom-snapshot-domain}
 
-### The adapter interface
+自定义序列化器控制值如何被 **渲染** 成快照字符串，但比较过程仍然基于字符串相等。**领域快照适配器** 则更进一步：它拥有自定义匹配器的整个比较流水线，包括如何捕获值、渲染值、解析存储的快照，以及如何对它们进行语义匹配。
 
-A domain adapter implements four methods and is generic over two types — `Captured` (what the value actually is) and `Expected` (what the stored snapshot parses into):
+### 适配器接口 {#the-adapter-interface}
+
+领域适配器需实现四个方法和两个泛型 - `Captured`（值的实际类型）和 `Expected`（存储的快照解析后的类型）：
 
 ```ts
-import type { DomainMatchResult, DomainSnapshotAdapter } from 'vitest'
+import type { DomainMatchResult, DomainSnapshotAdapter } from '@vitest/snapshot'
 
 const myAdapter: DomainSnapshotAdapter<Captured, Expected> = {
   name: 'my-domain',
 
-  // Extract structured data from the received value
+  // 从接收值中提取结构化数据
   capture(received: unknown): Captured { /* ... */ },
 
-  // Render captured data as the snapshot string (what gets stored)
+  // 将捕获的数据渲染为快照字符串（即存储的内容）
   render(captured: Captured): string { /* ... */ },
 
-  // Parse a stored snapshot string into a structured expected value
+  // 将存储的快照字符串解析为结构化的期望值
   parseExpected(input: string): Expected { /* ... */ },
 
-  // Compare captured vs expected, return pass/fail and resolved output
+  // 比较捕获值与期望值，返回通过 / 失败结果及解析后的输出
   match(captured: Captured, expected: Expected): DomainMatchResult { /* ... */ },
 }
 ```
 
 #### `DomainMatchResult`
 
-The `match` method returns a `DomainMatchResult` with two optional string fields beyond `pass`:
+`match` 方法返回一个 `DomainMatchResult`，除了 `pass` 之外还有两个可选的字符串字段：
 
-- **`resolved`** — the captured value viewed through the template's lens. Where the template uses patterns (e.g. regexes) or omits details, the resolved string adopts those patterns. Where the template doesn't match, it uses literal captured values. This serves as both the actual side of diffs and the value written on `--update`. When omitted, falls back to `render(capture(received))`.
+- **`resolved`** — 通过模板视角观察到的捕获值。当模板使用匹配模式（例如正则表达式）或省略细节时，解析字符串会采用这些匹配模式。模板未匹配到的地方，则使用字面量的捕获值。这既用作差异对比的实际一侧，也是在执行 `--update` 时写入的值。如果省略，则回退到 `render(capture(received))`。
 
-- **`expected`** — the stored template re-rendered as a string. Used as the expected side of diffs. When omitted, falls back to the raw snapshot string from the snap file or inline snapshot.
+- **`expected`** — 将存储的模板重新渲染为字符串。用作差异对比的期望一侧。如果省略，则回退到快照文件或内联快照中的原始快照字符串。
 
-:::details Why are `Captured` and `Expected` separate types?
+:::details 为什么 `Captured` 和 `Expected` 是单独的类型？
 
-When a snapshot is first generated, `render(captured)` produces a plain string that gets stored. But once stored, the user can **hand-edit** it — replacing literals with regex patterns, relaxing assertions, or adding domain-specific query syntax. After editing, `parseExpected(input)` parses this modified string into a type that is _richer_ than what `capture` produces.
+首次生成快照时，`render(captured)` 会生成一个纯字符串并存储起来。但一旦存储后，用户可以 **手动编辑** 它。用正则表达式模式替换字面值、放宽断言或添加特定领域的查询语法。编辑后，`parseExpected(input)` 将这个修改后的字符串解析成一种比 `capture` 生成的类型 _更丰富_ 的类型。
 
-For example, in the [key-value adapter](#example-key-value-adapter) below, `Captured` values are always `string`, but `Expected` values can be `string | RegExp`:
+例如，在下面的 [键值适配器](#example-key-value-adapter) 中，`Captured` 值始终是 `string`，但 `Expected` 值可以是 `string | RegExp`：
 
 ```ts
 type KVCaptured = Record<string, string>
 type KVExpected = Record<string, string | RegExp>
 ```
 
-This asymmetry is what makes `--update` work correctly: `match` returns a `resolved` string that updates changed literal parts while **preserving** the user's hand-edited patterns. If both sides were the same type, there would be no way to distinguish "what the value actually is" from "what the user chose to assert" — and every update would overwrite the user's patterns.
+这种不对称性正是 `--update` 能正确工作的原因：`match` 返回一个 `resolved` 字符串，它在更新变化的字面部分的同时 **保留** 了用户手动编辑的模式。如果双方是同一类型，就无法区分 “值的实际内容” 和 “用户选择断言的内容”，每次更新都会覆盖用户的匹配模式。
 
 :::
 
-### Build a matcher from the adapter
+### 从适配器构建匹配器 {#build-a-matcher-from-the-adapte}
 
-Register a custom matcher with `expect.extend(...)` and call the snapshot composables from `vitest`:
+使用 `expect.extend(...)` 注册自定义匹配器，并从 `vitest` 调用快照组合函数：
 
 ```ts [setup.ts]
 import { expect, Snaphsots } from 'vitest'
@@ -401,16 +402,16 @@ expect.extend({
 })
 ```
 
-Then use your matcher in tests:
+然后在测试中使用你的匹配器：
 
 ```ts
 expect(value).toMatchMyDomainSnapshot()
 expect(value).toMatchMyDomainInlineSnapshot(`key=value`)
 ```
 
-### Example: key-value adapter
+### 示例：键值适配器 {#example-key-value-adapter}
 
-A minimal adapter that stores objects as `key=value` lines, with regex pattern and subset key match support ([full source](https://github.com/vitest-dev/vitest/blob/main/test/snapshots/test/fixtures/domain/basic.ts)):
+一个最小化的适配器，将对象存储为 `key=value` 行，支持正则表达式匹配和子集键匹配（[完整源码](https://github.com/vitest-dev/vitest/blob/main/test/snapshots/test/fixtures/domain/basic.ts)）：
 
 ```ts [kv-adapter.ts]
 import type { DomainMatchResult, DomainSnapshotAdapter } from 'vitest'
@@ -458,12 +459,12 @@ export const kvAdapter: DomainSnapshotAdapter<KVCaptured, KVExpected> = {
     for (const [key, actualValue] of Object.entries(captured)) {
       const expectedValue = expected[key]
 
-      // non-asserted keys are skipped (works as subset match)
+      // 未断言键会被跳过（实现子集匹配）
       if (typeof expectedValue === 'undefined') {
         continue
       }
 
-      // preserve matched pattern for normalized diff and partial update
+      // 保留匹配模式用于标准化差异比较和局部更新
       if (expectedValue instanceof RegExp && expectedValue.test(actualValue)) {
         resolvedLines.push(`${key}=/${expectedValue.source}/`)
         continue
@@ -518,7 +519,7 @@ test('user data inline', () => {
 
 Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容的快照功能，除少数例外:
 
-#### 1. 快照文件中的注释标头不同 {#_1-comment-header-in-the-snapshot-file-is-different}
+### 1. 快照文件中的注释标头不同 {#\_1-comment-header-in-the-snapshot-file-is-different}
 
 ```diff
 - // Jest Snapshot v1, https://goo.gl/fbAQLP
@@ -527,7 +528,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 这实际上不会影响功能，但在从 Jest 迁移时可能会影响提交差异。
 
-#### 2. `printBasicPrototype` 默认为 `false` {#_2-printbasicprototype-is-default-to-false}
+### 2. `printBasicPrototype` 默认为 `false` {#\_2-printbasicprototype-is-default-to-false}
 
 Jest 和 Vitest的快照功能均基于 `pretty-format` 实现，但 Vitest 在 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 基础上应用了自定义的快照默认配置。具体而言，Vitest将 `printBasicPrototype` 设为 `false` 以生成更简洁的快照输出，而 Jest 29.0.0 以下版本默认将该值设为 `true`。
 
@@ -575,7 +576,7 @@ export default defineConfig({
 })
 ```
 
-#### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符 {#_3-chevron-is-used-as-a-separator-instead-of-colon-for-custom-messages}
+### 3. 使用 V 形 `>` 而非冒号 `:` 作为自定义消息的分隔符 {#\_3-chevron-is-used-as-a-separator-instead-of-colon-for-custom-messages}
 
 当创建快照文件期间传递自定义消息时，Vitest 使用 V 形 `>` 作为分隔符而不是冒号 `:` 以提高自定义消息可读性。
 
@@ -601,7 +602,7 @@ exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 ```
 
-#### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同 {#_4-default-error-snapshot-is-different-for-tothrowerrormatchingsnapshot-and-tothrowerrormatchinginlinesnapshot}
+### 4. `toThrowErrorMatchingSnapshot` 和 `toThrowErrorMatchingInlineSnapshot` 的默认 `Error` 快照不同 {#\_4-default-error-snapshot-is-different-for-tothrowerrormatchingsnapshot-and-tothrowerrormatchinginlinesnapshot}
 
 ```js
 import { expect, test } from 'vitest'
