@@ -10,23 +10,23 @@ next:
 
 # 调试失败的测试 {#debugging-failing-tests}
 
-本章介绍如何在 Vitest 中调查测试失败问题：阅读错误输出、隔离问题、识别常见原因以及使用可用的调试工具。
+本章介绍如何在 Vitest 中调查测试失败问题：阅读错误输出、隔离问题、识别常见原因以及使用相关调试工具。
 
-## 阅读错误信息 {#reading-the-error}
+## 阅读错误输出 {#reading-the-error}
 
 当测试失败时，Vitest 会提供多个信息片段。让我们来看一个真实的失败案例并进行分析：
 
 <<< ./snippets/debug-output-fail.ansi
 
-这里包含很多信息，但每个部分都告诉你一些情况：
+这里包含信息很多，但每一部分都在传达有用的信息：
 
-**标题** (`FAIL src/user.test.js > createUser > sets the default role`) 告诉你哪个文件、哪个 describe 块和哪个测试失败了。这是测试树中的完整路径。
+**标题** (`FAIL src/user.test.js > createUser > sets the default role`) 告诉你哪个文件、哪个 describe 块以及哪个测试失败了。这就是它在测试树中的完整路径。
 
-**断言信息** (`expected { ... } to deeply equal { ... }`) 告诉你哪种检查失败了，并显示正在比较的两个值。
+**断言信息** (`expected { ... } to deeply equal { ... }`) 告诉你哪种检查失败了，并展示参与比较的两个值。
 
-**差异对比** 显示了究竟哪里不同。以 <code class="diff-add">+</code> 开头的行是你实际得到的结果，以 <code class="diff-remove">-</code> 开头的行是你期望的结果。在这个例子中，role 是 <code class="diff-add">"viewer"</code>，但测试期望的是 <code class="diff-remove">"member"</code>。
+**差异对比** 会准确展示差异所在。以 <code class="diff-add">+</code> 开头的行是你实际得到的结果，以 <code class="diff-remove">-</code> 开头的行是你期望的结果。在这个例子中，role 是 <code class="diff-add">"viewer"</code>，但测试期望的是 <code class="diff-remove">"member"</code>。
 
-**代码片段** 显示确切的代码行及其周围的几行，并用使用脱字符 (`^`) 指向失败的断言。在大多数终端和 IDE 中，你可以点击文件路径直接跳转到那里。
+**代码片段** 会显示出错的确切代码行以及附近几行内容，并用使用脱字符 (`^`) 指向失败的断言。在大多数终端和 IDE 中，你可以点击文件路径直接跳转到对应位置。
 
 此时，问题是：是代码发生了变化（也许默认 role 被有意更新为 `"viewer"`），还是测试本身有误？检查 `createUser` 的源代码以找出答案。如果默认值是有意更改的，就更新测试。如果不是，那么你就发现了一个 bug。
 
@@ -53,7 +53,7 @@ test.only('sets the default role', () => {
 })
 ```
 
-如果你有很多失败的测试，并且想专注于第一个失败，可以使用 [`--bail`](/config/bail) 来在指定数量的失败后停止：
+如果你有很多失败的测试，先聚焦第一个失败测试，可以使用 [`--bail`](/config/bail) 在失败次数达到设定值后停止执行：
 
 ```bash
 vitest --bail 1
@@ -100,7 +100,7 @@ test('starts empty', ({ users }) => {
 
 ### 异步问题 {#async-issues}
 
-涉及 Promise 的测试如果异步流程处理不当，可能会间歇性失败或以令人困惑的方式失败。最常见的错误是忘记 `await`：
+如果异步流程处理不当，涉及 Promise 的测试可能会间歇性失败，或以令人困惑的方式报错。最常见的错误是忘记 `await`：
 
 ```js
 // 即使 fetchUser 被 reject，这个测试总是通过！
@@ -132,7 +132,7 @@ test('fetches user', async () => {
 
 ### 未清理模拟 {#mocks-not-cleaned-up}
 
-如果一个测试中的模拟泄露到另一个测试中，你会得到意外的行为。例如，一个覆盖了方法返回值的 `vi.spyOn` 会持续到下一个测试，除非它被恢复。
+如果一个测试中的 mock 泄露到另一个测试中，你会得到意外的行为。例如，使用 vi.spyOn 覆盖了某个方法的返回值后，如果没有恢复，它就会持续影响下一个测试。
 
 最简单的解决方法是在配置中启用自动模拟恢复：
 
@@ -152,7 +152,7 @@ export default defineConfig({
 
 ### 控制台日志 {#console-logging}
 
-在测试中添加 `console.log` 直到检查没有任何问题。这是检查值和理解当前情况的最快方法：
+在测试中添加 `console.log` 直到检查完全没问题。这是查看数据、快速搞清楚发生了什么的最快办法：
 
 ```js
 test('transforms data correctly', () => {
@@ -170,7 +170,7 @@ Vitest 会在测试结果中内联显示控制台输出，因此你可以看到�
 
 ### UI 模式 {#vitest-ui}
 
-要获得测试套件的可视化概览，请使用 `--ui` 标志运行 Vitest：
+如果想以可视化方式总览整个测试套件，请使用 `--ui` 参数运行 Vitest：
 
 ```bash
 vitest --ui
@@ -180,7 +180,7 @@ vitest --ui
 
 ### VS Code 扩展 {#vs-code-extension}
 
-[Vitest VS Code 扩展](https://cn.vitest.dev/vscode) 允许你直接从编辑器中运行和调试单个测试。你可以点击任何测试旁边的 “播放” 按钮，设置断点，并在 VS Code 调试器中单步执行代码。这通常比在终端和编辑器之间切换更快。
+[Vitest VS Code 扩展](https://cn.vitest.dev/vscode) 允许你直接从编辑器中运行和调试单个测试。你可以点击任何测试旁边的 “播放” 按钮，设置断点，并在 VS Code 调试器逐步跟踪代码执行过程。相比在终端和编辑器之间频繁切换，这种方式通常更高效。
 
 ### 详细输出 {#verbose-output}
 
@@ -194,13 +194,13 @@ vitest --reporter=verbose
 
 ### 附加调试器 {#attaching-a-debugger}
 
-对于需要逐行执行代码的更复杂问题，你可以使用 `--inspect-brk` 标志运行 Vitest 并附加调试器。`--no-file-parallelism` 标志确保测试在主线程中运行，以便断点可靠工作：
+对于需要逐行执行代码的更复杂问题，你可以使用 `--inspect-brk` 参数运行 Vitest 并附加调试器。`--no-file-parallelism` 参数确保测试在主线程中运行，以便断点可靠工作：
 
 ```bash
 vitest --inspect-brk --no-file-parallelism
 ```
 
-然后从 VS Code、IntelliJ 或 Chrome DevTools (`chrome://inspect`) 附加调试器。详细设置说明请参阅 [调试](/guide/debugging)，其中包含每个编辑器的具体步骤。
+然后从 VS Code、IntelliJ 或 Chrome DevTools (`chrome://inspect`) 附加调试器。每种编辑器的详细配置方式，请参阅 [调试](/guide/debugging)。
 
 ## 获取帮助 {#getting-help}
 

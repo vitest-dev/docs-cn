@@ -46,12 +46,12 @@ test('rejects with an error', async () => {
 ```
 
 ::: warning
-不要忘记在 `expect` 前面加上 `await`。Vitest 会检测未等待的断言，并在测试结束时打印警告，但最好始终显式地包含 `await`。Vitest 也会在开始下一个测试之前等待 `Promise.all` 中所有待处理的 Promise，但依赖这种行为会使测试更难理解。
+不要忘记在 `expect` 前面加上 `await`。Vitest 会检测未等待的断言，并在测试结束时打印警告，但最好始终显式地添加 `await`。Vitest 还会在启动下一个测试之前，等待 `Promise.all` 中所有仍在进行的 Promise 完成，不过依赖这种行为会让测试更难理解。
 :::
 
 ## 断言计数 {#assertion-counting}
 
-对于异步代码，存在一个微妙的风险：回调函数或 `.then()` 链中的断言可能永远不会执行，而测试仍然会通过，因为没有断言失败。[`expect.hasAssertions()`](/api/expect#hasassertions) 通过验证在测试期间至少运行了一个断言来防范这种情况：
+对于异步代码，存在一个不易察觉的风险：回调函数或 `.then()` 链中的断言可能根本没有执行，而测试仍然会通过，因为没有断言失败。[`expect.hasAssertions()`](/api/expect#hasassertions) 正是用来防范这种情况的，它会检查该测试在执行期间是否至少运行过一条断言：
 
 ```js
 test('callback is invoked', async () => {
@@ -78,7 +78,7 @@ test('both callbacks are called', async () => {
 })
 ```
 
-在大多数情况下，使用直接断言的 `async`/`await` 已经足够清晰，你不需要进行断言计数。当断言位于回调函数、循环或条件分支中，并且你想确保它们确实执行了时，它才最有用。
+在大多数情况下，使用直接断言的 `async`/`await` 已经足够清晰，无需额外进行断言计数。断言计数最适用于当断言位于回调函数、循环或条件分支中，而你希望确保它们确实已经执行。
 
 ::: tip
 如果你希望项目中的每个测试都至少需要一个断言，可以在配置中启用 [`expect.requireAssertions`](/config/expect#expect-requireassertions)，而不是手动为每个测试添加 `expect.hasAssertions()`。
@@ -101,7 +101,7 @@ test('the data is peanut butter', async () => {
 })
 ```
 
-这种形式适用于任何基于回调的 API。将 `resolve` 作为成功回调传递，测试将等待直到回调被调用。
+这种形式适用于任何基于回调的 API。将 `resolve` 作为成功回调传递进去，测试就会一直等待，直到该回调被调用。
 
 ::: tip
 大多数现代 Node.js API（例如 `fs/promises` 和 `fetch`）原生支持 Promise，因此你可以直接使用 `async`/`await`。上述的回调包装形式主要适用于尚未采用 Promise 的旧版库。
@@ -142,7 +142,7 @@ test('this causes an unhandled rejection error', () => {
 })
 ```
 
-要修复此问题，请确保 `await` 所有 Promise 或捕获预期的拒绝：
+要修复此问题，请确保对所有 Promise 使用 `await`，或捕获那些预期会发生的 reject：
 
 ```js
 test('handle the rejection', async () => {
