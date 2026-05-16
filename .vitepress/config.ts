@@ -767,9 +767,9 @@ export default ({ mode }: { mode: string }) => {
                 docFooterText: '调试测试 | 学习',
               },
               {
-                text: '与 AI 一起写测试',
+                text: '使用 AI 编写测试',
                 link: '/guide/learn/writing-tests-with-ai',
-                docFooterText: '与 AI 一起写测试 | 学习',
+                docFooterText: '使用 AI 编写测试 | 学习',
               },
             ],
           },

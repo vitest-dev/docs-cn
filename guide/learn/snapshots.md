@@ -101,7 +101,7 @@ test('generates a greeting', () => {
 
 - **在 watch 模式下**：在终端中按 `u` 键更新所有失败的快照
 - **通过命令行界面**：运行 `vitest -u` 或 `vitest --update` 来更新快照并退出
-- **在 VS Code 中**：使用 [Vitest 插件](https://vitest.dev/vscode) 在测试面板上选择 “更新快照” 命令
+- **在 VS Code 中**：使用 [Vitest 扩展](https://vitest.dev/vscode) 在测试面板上选择 “更新快照” 命令
 
 ```bash
 vitest -u
