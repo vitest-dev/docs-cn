@@ -138,7 +138,7 @@ export default ({ mode }: { mode: string }) => {
 
       banner: {
         id: 'viteplus-alpha',
-        text: 'Announcing Vite+ Alpha: Open source. Unified. Next-gen.',
+        text: 'Vite+ Alpha 发布：开源、统一、下一代工具链。',
         url: 'https://voidzero.dev/posts/announcing-vite-plus-alpha?utm_source=vitest&utm_content=top_banner',
       },
 
@@ -155,14 +155,14 @@ export default ({ mode }: { mode: string }) => {
       ],
 
       footer: {
-        copyright: `© ${new Date().getFullYear()} VoidZero Inc. and Vitest contributors.`,
+        copyright: `© ${new Date().getFullYear()} VoidZero Inc. 和 Vitest 贡献者。`,
         nav: [
           {
             title: 'Vitest',
             items: [
-              { text: 'Guides', link: '/guide/' },
+              { text: '指南', link: '/guide/' },
               { text: 'API', link: '/api/test' },
-              { text: 'Config', link: '/config/' },
+              { text: '配置', link: '/config/' },
             ],
           },
           {
