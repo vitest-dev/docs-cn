@@ -1,5 +1,5 @@
 ---
-title: Debugging Failing Tests | Guide
+title: 调试失败的测试 | Guide
 prev:
   text: 测试实践
   link: /guide/learn/testing-in-practice
@@ -18,7 +18,7 @@ next:
 
 <<< ./snippets/debug-output-fail.ansi
 
-这里包含信息很多，但每一部分都在传达有用的信息：
+这里信息很多，但每一部分都在传达有用的信息：
 
 **标题** (`FAIL src/user.test.js > createUser > sets the default role`) 告诉你哪个文件、哪个 describe 块以及哪个测试失败了。这就是它在测试树中的完整路径。
 
@@ -124,7 +124,7 @@ test('fetches user', async () => {
 
 如果你在使用 [快照测试](/guide/learn/snapshots) 并且有意更改了代码的输出，现有的快照就会过时。测试会失败，并显示旧快照与新输出之间的差异。
 
-这是期望获得的结果。检查差异以确认更改是正确的，然后通过监视模式下按 `u` 键或运行 `vitest -u` 来更新快照。
+这是预期中的结果。检查差异以确认更改是正确的，然后通过监视模式下按 `u` 键或运行 `vitest -u` 来更新快照。
 
 ### 错误的测试环境 {#wrong-test-environment}
 
@@ -152,7 +152,7 @@ export default defineConfig({
 
 ### 控制台日志 {#console-logging}
 
-在测试中添加 `console.log` 直到检查完全没问题。这是查看数据、快速搞清楚发生了什么的最快办法：
+在测试中添加 `console.log`，检查到完全没问题。这是查看数据、快速搞清楚发生了什么的最快办法：
 
 ```js
 test('transforms data correctly', () => {

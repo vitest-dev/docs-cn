@@ -14,7 +14,7 @@ Vitest 使用 `expect` 配合 “匹配器” 来断言值是否满足特定条�
 
 ## 常见匹配器 {#common-matchers}
 
-测试值的最简单方法判断精确相等。当你编写 `expect(2 + 2).toBe(4)` 时，[`toBe`](/api/expect#tobe) 匹配器使用 [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) 检查值是否完全等于 `4`。
+测试一个值时，最简单的方法是检查它是否精确相等。当你编写 `expect(2 + 2).toBe(4)` 时，[`toBe`](/api/expect#tobe) 匹配器使用 [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) 检查值是否完全等于 `4`。
 
 ```js
 import { expect, test } from 'vitest'
@@ -24,7 +24,7 @@ test('two plus two is four', () => {
 })
 ```
 
-这种方式于数字、字符串和布尔值等原始值效果非常有效。但在比较对象时，`toBe` 检查的是 **恒等性**（它们是否是内存中的同一个对象），而不是它们是否具有相同的结构。这时就需要用到 [`toEqual`](/api/expect#toequal)。它会递归地比较对象或数组的每个字段或元素，忽略对象恒等性：
+这种方式适用于检查数字、字符串和布尔值等原始值。但在比较对象时，`toBe` 检查的是 **恒等性**（它们是否是内存中的同一个对象），而不是它们是否具有相同的结构。这时就需要用到 [`toEqual`](/api/expect#toequal)。它会递归地比较对象或数组的每个字段或元素，忽略对象恒等性：
 
 ```js
 test('object assignment', () => {

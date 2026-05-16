@@ -156,7 +156,7 @@ describe('suite', () => {
 8 - afterAll
 ```
 
-注意这个形式：`beforeAll` 和 `afterAll` 在整个测试套件中只运行一次，而 `beforeEach` 和 `afterEach` 则为每个测试重复执行。在每个测试内部，外层的 `beforeEach` 首先运行（初始化最宽泛的上下文），然后内层的 `beforeEach` 运行（缩小上下文范围）。测试结束后，顺序则相反：内层的 `afterEach` 先清理较窄的上下文，然后外层的 `afterEach` 处理更宽泛的清理工作。
+注意这里的执行顺序：`beforeAll` 和 `afterAll` 在整个测试套件中只运行一次，而 `beforeEach` 和 `afterEach` 则为每个测试重复执行。在每个测试内部，外层的 `beforeEach` 首先运行（初始化最宽泛的上下文），然后内层的 `beforeEach` 运行（缩小上下文范围）。测试结束后，顺序则相反：内层的 `afterEach` 先清理较窄的上下文，然后外层的 `afterEach` 处理更宽泛的清理工作。
 
 ## 使用 `onTestFinished` 进行清理 {#cleanup-with-ontestfinished}
 

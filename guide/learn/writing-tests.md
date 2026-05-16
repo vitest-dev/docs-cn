@@ -8,7 +8,7 @@ next:
   link: /guide/learn/matchers
 ---
 
-# 编写测试用例 {#writing-tests}
+# 编写测试 {#writing-tests}
 
 在 [入门指南](/guide/) 中，你安装了 Vitest 并运行了第一个测试。本章将深入探讨如何在 Vitest 中编写和组织测试。
 
@@ -37,12 +37,12 @@ it('should compute square roots', () => {
 })
 ```
 
-两者的工作方式相同，使用你喜欢的哪一个。你可以在项目中自由混合使用它们。如果你想在代码库中强制执行一致的选择，[`consistent-test-it`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-it.md) ESLint 规则（在 [oxlint](https://oxc.rs/docs/guide/usage/linter/rules/jest/consistent-test-it.html) 中也可用）可以提供帮助。
+两者的工作方式相同，使用你喜欢的那个。你可以在项目中自由混合使用它们。如果你想在代码库中强制执行一致的选择，[`consistent-test-it`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-it.md) ESLint 规则（在 [oxlint](https://oxc.rs/docs/guide/usage/linter/rules/jest/consistent-test-it.html) 中也可用）可以提供帮助。
 :::
 
 ## 使用 `describe` 分组测试 {#grouping-tests-with-describe}
 
-随着测试文件的增长，你会希望将相关的测试组织在一起。[`describe`](/api/describe) 可以创建一个测试套件，它是一个命名的测试组：
+随着测试文件的增长，你会希望将相关的测试组织在一起。[`describe`](/api/describe) 创建一个测试套件，这是一个命名的测试组：
 
 ```js
 import { describe, expect, test } from 'vitest'
@@ -63,7 +63,7 @@ describe('Math.sqrt', () => {
 })
 ```
 
-你可以嵌套 `describe` 块以进一步组织测试，但请保持嵌套层次较浅。深层嵌套的测试更难阅读。对于简单模块，一个扁平的测试列表通常就足够了，`describe` 适用于当文件测试多个函数或方法，且每个都需要自己的分组。
+你可以嵌套 `describe` 块以进一步组织，但请保持嵌套层次较浅。深层嵌套的测试更难阅读。对于简单模块，一个扁平的测试列表通常就足够了，`describe` 适用于当文件测试多个函数或方法且每个都需要自己的分组。
 
 ## 测试文件 {#test-files}
 
@@ -118,7 +118,7 @@ Vitest 会转换 TypeScript 以供执行，但在测试运行期间 **不会** �
 
 ## 阅读测试输出 {#reading-test-output}
 
-当你运行 `vitest` 且只有一个测试文件匹配时，输出会展开为树状结构，显示 `describe` 分组、各个测试及其耗时：
+当你运行 `vitest` 且只有一个测试文件匹配时，输出会以树状结构展开显示，显示 `describe` 分组、各个测试及其耗时：
 
 <<< ./snippets/test-output-single.ansi
 
@@ -126,11 +126,11 @@ Vitest 会转换 TypeScript 以供执行，但在测试运行期间 **不会** �
 
 <<< ./snippets/test-output-multiple.ansi
 
-当测试失败时，Vitest 会准确显示出了什么问题。你将看到期望值、实际值、突出显示差异的差异对比，以及包含失败断言的周围行代码片段。它还包括文件和行号，以便你可以直接跳转到源代码：
+当测试失败时，Vitest 会准确地告诉你问题出在哪里。你将看到期望值、实际值、突出显示差异的差异对比，以及包含失败断言的周围行代码片段。它还包括文件和行号，以便你可以直接跳转到源代码：
 
 <<< ./snippets/test-output-fail.ansi
 
-通过差异对比和代码片段，你通常可以理解出了什么问题，而无需添加额外的 `console.log` 语句或自己打开文件。
+通过差异对比和代码片段，你通常就能看出问题出在哪里，而无需添加额外的 `console.log` 语句或自己打开文件。
 
 ## 跳过和聚焦测试 {#skipping-and-focusing-tests}
 
@@ -205,7 +205,7 @@ test.concurrent.for([
 [`describe.for`](/api/describe#describe-for) 的工作方式相同，但会为每组参数创建一个套件。适用于多个测试共享相同的参数化设置。
 
 ::: tip
-Vitest 还提供了 [`test.each`](/api/test#each)，熟悉 Jest 的用户可能会认出它。它们的工作方式类似，但会将数组参数展开传递，而不是作为单个值传递，并且不提供对测试上下文的访问。它主要为了与 Jest 兼容而存在。在新代码中，建议优先使用 `test.for`。
+Vitest 还提供了 [`test.each`](/api/test#each)，熟悉 Jest 的用户可能会认出它。它的工作方式类似，但会将数组参数展开传递，而不是作为单个值传递，并且不提供对测试上下文的访问。它主要为了与 Jest 兼容而存在。在新代码中，建议优先使用 `test.for`。
 :::
 
 ## 使用全局导入 {#using-global-imports}

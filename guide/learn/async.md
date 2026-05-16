@@ -10,7 +10,7 @@ next:
 
 # 测试异步代码 {#testing-asynchronous-code}
 
-JavaScript 代码经常以异步方式运行。无论是获取数据、读取文件还是等待定时器，Vitest 都需要知道它正在测试的代码何时完成，然后才能继续执行下一个测试。以下是你最常使用的形式。
+JavaScript 代码经常以异步方式运行。无论是获取数据、读取文件还是等待定时器，Vitest 都需要知道它正在测试的代码何时完成，然后才能继续执行下一个测试。下面是最常见的几种写法。
 
 ## Async/Await
 
@@ -133,7 +133,7 @@ export default defineConfig({
 
 ## 未处理的 Rejection {#unhandled-rejections}
 
-默认情况下，Vitest 会将未处理的 Promise reject 报告为测试运行中的错误。如果你的代码中某个 Promise 被 reject 且未被捕获，即使所有断言都通过，测试运行也会失败。这是有意为之的：未处理的 reject 通常表示存在真正的 bug，例如忘记的 `await` 或者一个 “发出后不管” 的 Promise 在静默中失败了。
+默认情况下，Vitest 会将未处理的 Promise reject 报告为测试运行中的错误。如果你的代码中某个 Promise 被 reject 且未被捕获，即使所有断言都通过，测试运行也会失败。这是有意为之的：未处理的 reject 通常表示存在真正的 bug，例如忘记的 `await` 或者一个 “发出后不再等待” 的 Promise 在静默中失败了。
 
 ```js
 test('this causes an unhandled rejection error', () => {
