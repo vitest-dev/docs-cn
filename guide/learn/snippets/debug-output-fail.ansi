@@ -1,4 +1,4 @@
- [31mFAIL[39m src/user.test.js [2m>[22m createUser [2m>[22m sets the default role
+[31mFAIL[39m src/user.test.js [2m>[22m createUser [2m>[22m sets the default role
 [31mAssertionError: expected { name: 'Alice', role: 'viewer' } to deeply equal { name: 'Alice', role: 'member' }[39m
 
 [31m- Expected[39m

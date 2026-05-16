@@ -1,4 +1,4 @@
- [31mFAIL[39m src/utils.test.js [2m>[22m Math.sqrt [2m>[22m returns the square root of perfect squares
+[31mFAIL[39m src/utils.test.js [2m>[22m Math.sqrt [2m>[22m returns the square root of perfect squares
 [31mAssertionError: expected 3 to be 2[39m
 
 [31m- Expected[39m
