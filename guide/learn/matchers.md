@@ -1,20 +1,20 @@
 ---
-title: Using Matchers | Guide
+title: 使用匹配器 | 指南
 prev:
-  text: Writing Tests
+  text: 编写测试
   link: /guide/learn/writing-tests
 next:
-  text: Testing Asynchronous Code
+  text: 测试异步代码
   link: /guide/learn/async
 ---
 
-# Using Matchers
+# 使用匹配器 {#using-matchers}
 
-Vitest uses `expect` with "matchers" to assert that values meet certain conditions. This page covers the matchers you'll use most often. For the complete list, see the [Expect API Reference](/api/expect).
+Vitest 使用 `expect` 配合 “匹配器” 来断言值是否满足特定条件。本章介绍最常用的匹配器。完整列表请参阅 [Expect API](/api/expect)。
 
-## Common Matchers
+## 常见匹配器 {#common-matchers}
 
-The simplest way to test a value is with exact equality. When you write `expect(2 + 2).toBe(4)`, the [`toBe`](/api/expect#tobe) matcher checks that the value is exactly `4` using [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
+测试值的最简单方法判断精确相等。当你编写 `expect(2 + 2).toBe(4)` 时，[`toBe`](/api/expect#tobe) 匹配器使用 [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) 检查值是否完全等于 `4`。
 
 ```js
 import { expect, test } from 'vitest'
@@ -24,7 +24,7 @@ test('two plus two is four', () => {
 })
 ```
 
-This works great for primitive values like numbers, strings, and booleans. But when you're comparing objects, `toBe` checks *identity* (whether they're the exact same object in memory), not whether they have the same shape. That's where [`toEqual`](/api/expect#toequal) comes in. It recursively compares every field of an object or element of an array, ignoring object identity:
+这种方式于数字、字符串和布尔值等原始值效果非常有效。但在比较对象时，`toBe` 检查的是 **恒等性**（它们是否是内存中的同一个对象），而不是它们是否具有相同的结构。这时就需要用到 [`toEqual`](/api/expect#toequal)。它会递归地比较对象或数组的每个字段或元素，忽略对象恒等性：
 
 ```js
 test('object assignment', () => {
@@ -35,32 +35,32 @@ test('object assignment', () => {
 })
 ```
 
-Here's an example that shows the difference more clearly. Two objects with the same content are `toEqual` but not `toBe`:
+下面这个例子更清楚地展示了两者之间的差异。两个内容相同的对象 `toEqual` 会通过，但 `toBe` 会失败：
 
 ```js
 test('toBe vs toEqual', () => {
   const a = { name: 'Alice' }
   const b = { name: 'Alice' }
 
-  // These are different objects in memory
+  // 它们在内存中是不同的对象
   expect(a).not.toBe(b)
 
-  // But they have the same structure
+  // 但结构相同
   expect(a).toEqual(b)
 })
 ```
 
-There's also [`toStrictEqual`](/api/expect#tostrictequal), which is stricter than `toEqual` in three ways: it checks `undefined` properties, distinguishes sparse arrays from `undefined` values, and verifies that objects have the same type (not just the same shape):
+还有 [`toStrictEqual`](/api/expect#tostrictequal)，它在三个方面比 `toEqual` 更严格：检查 `undefined` 属性、区分稀疏数组和 `undefined` 值，以及验证对象是否具有相同的类型（不仅仅是相同的结构）：
 
 ```js
 test('toEqual vs toStrictEqual', () => {
-  // toEqual ignores undefined properties
+  // toEqual 忽略 undefined 属性
   expect({ a: 1 }).toEqual({ a: 1, b: undefined })
 
-  // toStrictEqual catches them
+  // toStrictEqual 会捕获它们
   expect({ a: 1 }).not.toStrictEqual({ a: 1, b: undefined })
 
-  // toEqual doesn't check object types
+  // toEqual 不检查对象类型
   class User {
     constructor(name) {
       this.name = name
@@ -72,10 +72,10 @@ test('toEqual vs toStrictEqual', () => {
 ```
 
 ::: tip
-A good rule of thumb: use `toBe` for primitives (numbers, strings, booleans), `toEqual` for comparing structure, and `toStrictEqual` when you also care about types and explicit `undefined` values.
+一个好的经验法则是：对原始值类型（数字、字符串、布尔值）使用 `toBe`，比较结构时使用 `toEqual`，当你还关心类型和显式的 `undefined` 值时使用 `toStrictEqual`。
 :::
 
-You can also negate any matcher by inserting `.not` before it. This is useful when you want to verify that something is *not* the case:
+你可以在任何匹配器前插入 `.not` 来否定它。适用于验证某些 _不成立_ 情况：
 
 ```js
 test('adding positive numbers is not zero', () => {
@@ -83,17 +83,17 @@ test('adding positive numbers is not zero', () => {
 })
 ```
 
-## Truthiness
+## 真值 {#truthiness}
 
-In tests you sometimes need to distinguish between `undefined`, `null`, and `false`. Other times you don't care about the exact value and just want to know if something is truthy or falsy. Vitest provides matchers for both situations:
+在测试中，有时你需要区分 `undefined`、`null` 和 `false`。其他时候你不关心确切的值，只想知道具体是真值还是假值。Vitest 为这两种情况提供了相应的匹配器：
 
-- [`toBeNull`](/api/expect#tobenull) matches only `null`
-- [`toBeUndefined`](/api/expect#tobeundefined) matches only `undefined`
-- [`toBeDefined`](/api/expect#tobedefined) is the opposite of `toBeUndefined`. It passes for anything that isn't `undefined`
-- [`toBeTruthy`](/api/expect#tobetruthy) matches anything that an `if` statement would treat as true
-- [`toBeFalsy`](/api/expect#tobefalsy) matches anything that an `if` statement would treat as false
+- [`toBeNull`](/api/expect#tobenull) 仅匹配 `null`
+- [`toBeUndefined`](/api/expect#tobeundefined) 仅匹配 `undefined`
+- [`toBeDefined`](/api/expect#tobedefined) 是 `toBeUndefined` 的反义。任何非 `undefined` 的值都会通过
+- [`toBeTruthy`](/api/expect#tobetruthy) 匹配任何 `if` 语句会视为 true 的值
+- [`toBeFalsy`](/api/expect#tobefalsy) 匹配任何 `if` 语句会视为 false 的值
 
-You should pick the matcher that most precisely describes what you're checking. Using `toBeTruthy` when you really mean `toBeDefined` can hide bugs, because `0` and `""` are both defined but falsy.
+你应该选择最能精确描述你检查内容的匹配器。当你实际意思是 `toBeDefined` 时使用 `toBeTruthy` 可能会掩盖 bug，因为 `0` 和 `""` 都是已定义的但却是假值。
 
 ```js
 test('null checks', () => {
@@ -109,15 +109,15 @@ test('null checks', () => {
 test('zero', () => {
   const z = 0
 
-  expect(z).toBeDefined() // passes: 0 is defined
-  expect(z).toBeFalsy() // passes: 0 is falsy
-  expect(z).not.toBeNull() // passes: 0 is not null
+  expect(z).toBeDefined() // 通过：0 已定义
+  expect(z).toBeFalsy() // 通过：0 是假值
+  expect(z).not.toBeNull() // 通过：0 不是 null
 })
 ```
 
-## Numbers
+## 数字 {#numbers}
 
-Most number comparisons are straightforward. Vitest provides the matchers you'd expect for greater-than, less-than, and equality checks:
+大多数数字比较都很直接。Vitest 提供了大于、小于和相等检查的匹配器：
 
 ```js
 test('number comparisons', () => {
@@ -128,29 +128,29 @@ test('number comparisons', () => {
   expect(value).toBeLessThan(5)
   expect(value).toBeLessThanOrEqual(4.5)
 
-  // For exact equality, both toBe and toEqual work the same for numbers
+  // 对于精确相等，toBe 和 toEqual 对数字的效果相同
   expect(value).toBe(4)
   expect(value).toEqual(4)
 })
 ```
 
-There is one common gotcha with floating point arithmetic. In JavaScript, `0.1 + 0.2` doesn't equal `0.3` exactly (it's `0.30000000000000004`). This means a `toBe(0.3)` check will fail. Use [`toBeCloseTo`](/api/expect#tobecloseto) instead, which compares numbers within a small rounding error:
+浮点数运算有一个常见的陷阱。在 JavaScript 中，`0.1 + 0.2` 并不完全等于 `0.3`（它是 `0.30000000000000004`）。这意味着 `toBe(0.3)` 检查会失败。请改用 [`toBeCloseTo`](/api/expect#tobecloseto)，它会在较小的舍入误差范围内比较数字：
 
 ```js
 test('adding floating point numbers', () => {
   const value = 0.1 + 0.2
 
-  // This won't work because of floating point rounding
+  // 由于浮点数舍入，这不会通过
   // expect(value).toBe(0.3)
 
-  // This works
+  // 这个可以
   expect(value).toBeCloseTo(0.3)
 })
 ```
 
-## Strings
+## 字符串 {#strings}
 
-You can test strings against regular expressions with [`toMatch`](/api/expect#tomatch). This is especially handy when you care about a pattern rather than an exact value, like checking that an error message contains a certain word or that a URL matches a particular format:
+你可以使用 [`toMatch`](/api/expect#tomatch) 根据正则表达式测试字符串。当你关心形式而非确切值时，这特别方便，例如检查错误消息是否包含某个单词，或者 URL 是否符合特定格式：
 
 ```js
 test('there is no I in team', () => {
@@ -162,9 +162,9 @@ test('version string matches semver format', () => {
 })
 ```
 
-## Arrays and Iterables
+## 数组和可迭代对象 {#arrays-and-iterables}
 
-[`toContain`](/api/expect#tocontain) checks that an array (or any iterable, like a `Set`) includes a particular item. It uses `===` for comparison, so it works well for primitives:
+[`toContain`](/api/expect#tocontain) 检查数组（或任何可迭代对象，如 `Set`）是否包含特定项。它使用 `===` 进行比较，因此对原始类型效果很好：
 
 ```js
 test('the shopping list has milk in it', () => {
@@ -175,11 +175,11 @@ test('the shopping list has milk in it', () => {
 })
 ```
 
-If you need to check that an array contains an object with a particular structure, use [`toContainEqual`](/api/expect#tocontainequal) instead. It works like `toEqual` but for individual items inside an array.
+如果你需要检查数组是否包含具有特定结构的对象，请改用 [`toContainEqual`](/api/expect#tocontainequal)。它的工作原理类似于 `toEqual`，但用于数组中的单个元素。
 
-## Objects
+## 对象 {#objects}
 
-When testing objects, you often want to check only a few important fields without specifying every property. [`toMatchObject`](/api/expect#tomatchobject) lets you do exactly that. It verifies that the object contains at least the properties you specify, and ignores any additional ones:
+测试对象时，你通常只想检查几个重要的字段，而不是检查每个属性。[`toMatchObject`](/api/expect#tomatchobject) 正是为此而设计。它验证对象至少包含你指定的属性，并忽略任何额外的属性：
 
 ```js
 test('user has expected fields', () => {
@@ -190,7 +190,7 @@ test('user has expected fields', () => {
     createdAt: '2024-01-01'
   }
 
-  // We only care about name and email here
+  // 这里我们只关心 name 和 email
   expect(user).toMatchObject({
     name: 'Alice',
     email: 'alice@example.com',
@@ -198,7 +198,7 @@ test('user has expected fields', () => {
 })
 ```
 
-For checking individual properties, especially nested ones, [`toHaveProperty`](/api/expect#tohaveproperty) is more readable. You pass a dot-separated path and optionally an expected value:
+对于检查单个属性，特别是嵌套属性，[`toHaveProperty`](/api/expect#tohaveproperty) 更具可读性。你传递一个点分隔的路径，并可选择性地传递一个期望值：
 
 ```js
 test('object has property', () => {
@@ -214,9 +214,9 @@ test('object has property', () => {
 })
 ```
 
-## Asymmetric Matchers
+## 非对称匹配器 {#asymmetric-matchers}
 
-Sometimes you don't know the exact value, but you know its type or shape. Asymmetric matchers let you describe what a value should *look like* without pinning down the exact content. They work inside any matcher that does deep comparison, like `toEqual` or `toMatchObject`:
+有时你不知道确切的值，但知道它的类型或结构。非对称匹配器让你可以描述值应该 _看起来应该是什么样_，而无需确定确切内容。它们可以在任何进行深度比较的匹配器内部工作，例如 `toEqual` 或 `toMatchObject`：
 
 ```js
 test('user has the right shape', () => {
@@ -231,17 +231,17 @@ test('user has the right shape', () => {
 })
 ```
 
-The most common asymmetric matchers are:
+最常用的非对称匹配器有：
 
-- [`expect.any(Constructor)`](/api/expect#expect-any) matches any value created with the given constructor (e.g., `Number`, `String`, `Array`)
-- [`expect.stringContaining(str)`](/api/expect#expect-stringcontaining) matches a string that includes the given substring
-- [`expect.stringMatching(regex)`](/api/expect#expect-stringmatching) matches a string against a regular expression
-- [`expect.arrayContaining(arr)`](/api/expect#expect-arraycontaining) matches an array that includes all items in the expected array (order doesn't matter, extra items are allowed)
-- [`expect.objectContaining(obj)`](/api/expect#expect-objectcontaining) matches an object that includes at least the specified properties
+- [`expect.any(Constructor)`](/api/expect#expect-any) 匹配使用给定构造函数创建的任何值（例如 `Number`、`String`、`Array`）
+- [`expect.stringContaining(str)`](/api/expect#expect-stringcontaining) 匹配包含给定子字符串的字符串
+- [`expect.stringMatching(regex)`](/api/expect#expect-stringmatching) 根据正则表达式匹配字符串
+- [`expect.arrayContaining(arr)`](/api/expect#expect-arraycontaining) 匹配包含预期数组中所有项的数组（顺序无关紧要，允许额外项）
+- [`expect.objectContaining(obj)`](/api/expect#expect-objectcontaining) 匹配至少包含指定属性的对象
 
-## Exceptions
+## 异常 {#exceptions}
 
-To verify that a function throws an error, use [`toThrow`](/api/expect#tothrow). You need to wrap the call in another function so that Vitest can catch the error instead of letting it crash the test:
+要验证函数是否抛出错误，请使用 [`toThrow`](/api/expect#tothrow)。你需要将调用包装在另一个函数中，以便 Vitest 可以捕获错误而不是让它导致测试崩溃：
 
 ```js
 function compileCode(code) {
@@ -252,36 +252,36 @@ function compileCode(code) {
 }
 
 test('compiling an empty string throws', () => {
-  // Check that it throws at all
+  // 检查它是否抛出异常
   expect(() => compileCode('')).toThrow()
 
-  // Check the error message
+  // 检查错误信息
   expect(() => compileCode('')).toThrow('Cannot compile empty string')
 
-  // Check the message with a regex
+  // 使用正则表达式检查错误信息
   expect(() => compileCode('')).toThrow(/empty string/)
 })
 ```
 
 ::: tip
-The wrapping function `() => compileCode('')` is important. If you wrote `expect(compileCode('')).toThrow()`, the error would be thrown *before* `expect` gets a chance to catch it, and the test would fail with an unhandled error instead.
+包装函数 `() => compileCode('')` 很重要。如果你写成 `expect(compileCode('')).toThrow()`，错误会在 `expect` 有机会捕获它 _之前_ 就被抛出，测试将因未处理的错误而失败。
 :::
 
-## Soft Assertions
+## 软断言 {#soft-assertions}
 
-Normally, a failing assertion stops the test immediately. That's useful most of the time, but sometimes you want to check several independent things and see all the failures at once rather than fixing them one by one.
+通常，失败的断言会立即停止测试。这是适用大多数情况，但有时你想检查多个独立项并一次性看到所有失败，而不是逐个修复。
 
-[`expect.soft`](/api/expect#soft) does exactly that. It records the failure but lets the test keep running:
+[`expect.soft`](/api/expect#soft) 正是为此而设计。它会记录失败，但让测试继续运行：
 
 ```js
 test('check multiple fields', () => {
   const user = { name: 'Alice', age: 30, role: 'admin' }
 
   expect.soft(user.name).toBe('Alice')
-  expect.soft(user.age).toBe(25) // this fails but execution continues
+  expect.soft(user.age).toBe(25) // 这个会失败，但执行会继续
   expect.soft(user.role).toBe('admin')
-  // the test report will show that age didn't match
+  // 测试报告将显示 age 不匹配
 })
 ```
 
-This is especially useful for validating the shape of an API response or a complex object where multiple fields might be wrong at the same time.
+这对于验证 API 响应或复杂对象的结构特别有用，因为多个字段可能同时出错。
