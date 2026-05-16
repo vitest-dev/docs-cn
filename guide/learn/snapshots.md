@@ -138,7 +138,7 @@ test('renders the component', async () => {
 
 另一方面，快照并不总是最佳工具。如果输出频繁变化（例如，包含时间戳或随机 ID），你花在更新快照上的时间将比它们为你节省的时间更多。如果你只关心一两个特定字段，像 [`toMatchObject`](/api/expect#tomatchobject) 或 [`toHaveProperty`](/api/expect#tohaveproperty) 这样的针对性断言，比捕获所有内容的快照更能清晰地表达你的意图。
 
-一般的规则是：当你希望防止输出发生 **任何** 变化时，使用快照；当你只关心 **特定** 属性时，使用针对性断言。
+一般的规则是：当你希望防止输出发生 _任何_ 变化时，使用快照；当你只关心 _特定_ 属性时，使用针对性断言。
 
 ## 处理动态值 {#handling-dynamic-values}
 
