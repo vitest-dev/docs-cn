@@ -103,7 +103,7 @@ Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, enviro
 
 ## 运行池 {#pool}
 
-默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和[segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
+默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 
@@ -144,14 +144,14 @@ vitest run --reporter=blob --shard=3/3 # 3rd machine
 ```sh
 vitest run --merge-reports
 ```
-<!-- TODO: translation -->
-When running the same shards across multiple environments, set the `VITEST_BLOB_LABEL` environment variable so merged reports can display them separately:
+
+在多个环境中运行相同的分片时，设置 `VITEST_BLOB_LABEL` 环境变量，以便合并的报告可以区分显示：
 
 ```sh
 VITEST_BLOB_LABEL=linux vitest run --reporter=blob --shard=1/3
 ```
 
-::: details GitHub Actions example
+::: details GitHub Actions 示例
 This setup is also used at https://github.com/vitest-tests/test-sharding.
 
 ```yaml
