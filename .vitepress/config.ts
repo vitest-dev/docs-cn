@@ -813,9 +813,9 @@ export default ({ mode }: { mode: string }) => {
                 docFooterText: 'Playwright Traces | Browser Mode',
               },
               {
-                text: 'ARIA Snapshots',
+                text: 'ARIA 快照',
                 link: '/guide/browser/aria-snapshots',
-                docFooterText: 'ARIA Snapshots | Browser Mode',
+                docFooterText: 'ARIA 快照 | 浏览器模式',
               },
             ],
           },
