@@ -3,7 +3,7 @@
 - **类型:** `<T>(a: unknown) => ExpectTypeOf`
 
 ::: warning
-在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
+在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 参数。
 :::
 
 ## not

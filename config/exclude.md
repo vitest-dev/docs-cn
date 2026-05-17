@@ -15,7 +15,7 @@ Vitest 使用 [`tinyglobby`](https://npmx.dev/package/tinyglobby) 包来解析 g
 ::: warning
 该配置项不影响代码覆盖率。如需从覆盖率报告中排除特定文件，请使用 [`coverage.exclude`](/config/coverage#exclude)。
 
-如果使用命令行参数，这是唯一一个不会被覆盖配置项。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
+如果使用命令行参数，这是唯一一个不会被覆盖配置项。通过 `--exclude` 参数添加的所有 glob 规则都将追加到 `exclude` 中。
 :::
 
 ## 示例 {#example}

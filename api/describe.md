@@ -247,7 +247,7 @@ describe.concurrent('suite', () => {
 
 - **别名:** `suite.shuffle`
 
-Vitest 通过 CLI 标志 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/sequence#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法。但如果只想让测试套件的一部分以随机顺序运行，可以用这个标志来标记它。
+Vitest 通过 CLI 参数 [`--sequence.shuffle`](/guide/cli) 或配置选项 [`sequence.shuffle`](/config/sequence#sequence-shuffle)，提供了一种以随机顺序运行所有测试的方法。但如果只想让测试套件的一部分以随机顺序运行，可以用这个参数来标记它。
 
 ```ts
 import { describe, test } from 'vitest'

@@ -71,22 +71,22 @@ class MyReporter implements Reporter {
   }
 }
 ```
-<!-- TODO: translation -->
-## Storing artifacts on file system
+
+## 在文件系统上存储附件 {#storing-artifacts-on-file-system}
 
 ::: tip
-Vitest provides [`vitest.createReport`](/api/advanced/vitest.html#createreport) that exposes collection of utilities for writing artifacts on file system conveniently.
+Vitest 提供了 [`vitest.createReport`](/api/advanced/vitest.html#createreport)，它公开了一组工具函数，用于在文件系统上写入附件。
 :::
 
-If your custom reporter needs to store any artifacts on file system it should place them inside `.vitest` directory. This directory is a convention that Vitest reporters and third party integrations can use to co-locate their results in a single directory. This way users of your custom reporter do not need to add multiple exclusion in their `.gitignore`. Only the `.vitest` is needed.
+如果你的自定义报告器需要在文件系统上存储任何附件，应该将它们放在 `.vitest` 目录中。这个目录是一个约定，Vitest 报告器和第三方集成可以使用它将结果放在同一个目录中。这样，你的自定义报告器的用户就不需要在他们的 `.gitignore` 中添加多个排除项。只需要排除 `.vitest` 即可。
 
-Reporters and other integrations should respect following rules around `.vitest` directory:
+报告器和其他集成应遵守以下关于 `.vitest` 目录的规则：
 
-- `.vitest` directory is placed in [the `root` of the project](/config/root)
-- Reporter can create `.vitest` directory if it does not already exist
-- Reporter should never remove `.vitest` directory
-- Reporter should create their own directory inside `.vitest`, for example `.vitest/yaml-reporter/`
-- Reporter can remove their own specific directory inside `.vitest`, for example `.vitest/yaml-reporter/`
+- `.vitest` 目录位于项目的 [根目录](/config/root)
+- 如果 `.vitest` 目录不存在，报告器将自行创建
+- 报告器绝不会删除 `.vitest` 目录
+- 报告器会在 `.vitest` 内创建自己的目录，例如 `.vitest/yaml-reporter/`
+- 报告器会删除其在 `.vitest` 内的特定目录，例如 `.vitest/yaml-reporter/`
 
 ```ansi
 .vitest

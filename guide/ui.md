@@ -38,9 +38,9 @@ export default defineConfig({
 ```
 
 你可以在 Vitest UI 中查看覆盖率报告：查看 [覆盖率 | UI 模式](/guide/coverage#vitest-ui) 了解更多详情。
-<!-- TODO: translation -->
+
 ::: warning
-If you still want to see how your tests are running in real time in the terminal, add `configDefaults.reporters` to the `reporters` option: `['html', ...configDefaults.reporters]`.
+如果你仍然希望在终端中实时查看测试运行情况，请将 `configDefaults.reporters` 添加到 `reporters` 选项中：`['html', ...configDefaults.reporters]`。
 :::
 
 ::: tip

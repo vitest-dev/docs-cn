@@ -81,7 +81,7 @@ const hash = generateFileHash(
 
 ## location
 
-套件在模块中定义的位置。仅当配置中启用了 [`includeTaskLocation`](/config/includetasklocation) 时才会收集位置信息。请注意，如果使用了 `--reporter=html`、`--ui` 或 `--browser` 标志，此选项会自动启用。
+套件在模块中定义的位置。仅当配置中启用了 [`includeTaskLocation`](/config/includetasklocation) 时才会收集位置信息。请注意，如果使用了 `--reporter=html`、`--ui` 或 `--browser` 参数，此选项会自动启用。
 
 此套件的位置将等于 `{ line: 3, column: 1 }`：
 

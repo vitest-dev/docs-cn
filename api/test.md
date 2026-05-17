@@ -411,7 +411,7 @@ vitest interesting.test.ts
 ```
 
 ::: warning
-Vitest 会检测当前是否在 CI 环境中运行，如果有任何测试带有 `only` 标志，将会抛出错误。你可以通过 [`allowOnly`](/config/allowonly) 选项来配置此行为。
+Vitest 会检测当前是否在 CI 环境中运行，如果有任何测试带有 `only` 参数，将会抛出错误。你可以通过 [`allowOnly`](/config/allowonly) 选项来配置此行为。
 :::
 
 ## test.concurrent

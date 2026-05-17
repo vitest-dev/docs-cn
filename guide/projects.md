@@ -285,11 +285,10 @@ export default defineConfig({
 
 ::: danger 不支持的选项
 部分配置选项不允许在项目配置中使用，主要包括：
-<!-- TODO: translation -->
 - `coverage`：覆盖率统计针对整个进程
 - `reporters`：只支持根级别的 reporters
 - `resolveSnapshotPath`：只尊重根级别的快照路径解析器
-- `attachmentsDir`: attachments are stored in one root-level directory shared by all projects
+- `attachmentsDir`：附件存储在由所有项目共享的一个根级目录中
 - 其他不影响测试运行器的选项
 
 所有不支持在项目配置中使用的配置选项，在 ["配置"](/config/) 指南中会用 <CRoot /> 标记。它们必须在根配置文件中定义一次。

@@ -187,10 +187,10 @@ function getRelevantTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个测试规范。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
+此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个测试规范。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
 
 ::: warning
-此方法可能很慢，因为它需要过滤 `--changed` 标志。如果我们只需要测试文件列表，请不要使用它。
+此方法可能很慢，因为它需要过滤 `--changed` 参数。如果我们只需要测试文件列表，请不要使用它。
 
 - 如果我们需要获取已知测试文件的规范列表，请使用 [`getModuleSpecifications`](#getmodulespecifications) 代替。
 - 如果我们需要获取所有可能的测试文件列表，请使用 [`globTestSpecifications`](#globtestspecifications)。
@@ -216,7 +216,7 @@ function collect(filters?: string[]): Promise<TestRunResult>
 
 执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
-此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析测试规范。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。
+此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析测试规范。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
 
 ::: warning
 请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
@@ -246,9 +246,9 @@ function standalone(): Promise<void>
 
 - **别名:** `init` <Deprecated />
 
-初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
+初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 参数，Vitest 仍将运行更改的测试，即使未调用此方法。
 
-在内部，仅当启用了 [`--standalone`](/guide/cli#standalone) 标志时才会调用此方法。
+在内部，仅当启用了 [`--standalone`](/guide/cli#standalone) 参数时才会调用此方法。
 
 ::: warning
 如果还调用了 [`vitest.start()`](#start)，则不应调用此方法。

@@ -177,7 +177,7 @@ export interface TestResultPending {
 ```ts
 interface TestResultSkipped {
   /**
-   * 使用 `skip` 或 `todo` 标志跳过测试。
+   * 使用 `skip` 或 `todo` 参数跳过测试。
    * 你可以在 `options.mode` 选项中查看使用的是哪种模式。
    */
   readonly state: 'skipped'
@@ -193,7 +193,7 @@ interface TestResultSkipped {
 ```
 
 ::: tip
-如果测试因为其他测试有 `only` 标志而被跳过，则 `options.mode` 将等于 `skip`。
+如果测试因为其他测试有 `only` 参数而被跳过，则 `options.mode` 将等于 `skip`。
 :::
 
 如果测试失败，返回值将是 `TestResultFailed`：
@@ -246,7 +246,7 @@ interface TestDiagnostic {
   readonly slow: boolean
   /**
    * 测试使用的内存量（字节）。
-   * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
+   * 只有使用 `logHeapUsage` 参数执行测试时，该值才可用。
    */
   readonly heap: number | undefined
   /**

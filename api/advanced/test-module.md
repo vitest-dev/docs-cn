@@ -110,7 +110,7 @@ interface ModuleDiagnostic {
   readonly duration: number
   /**
    * 模块使用的内存量（以字节为单位）。
-   * 此值仅在使用 `logHeapUsage` 标志执行测试时才可用。
+   * 此值仅在使用 `logHeapUsage` 参数执行测试时才可用。
    */
   readonly heap: number | undefined
   /**

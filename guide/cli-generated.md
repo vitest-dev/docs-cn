@@ -298,13 +298,13 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **配置:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
 
 UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
-<!-- TODO: translation -->
+
 ### coverage.autoAttachSubprocess
 
-- **CLI:** `--coverage.autoAttachSubprocess`
-- **Config:** [coverage.autoAttachSubprocess](/config/coverage#coverage-autoattachsubprocess)
+- **命令行终端:** `--coverage.autoAttachSubprocess`
+- **配置:** [coverage.autoAttachSubprocess](/config/coverage#coverage-autoattachsubprocess)
 
-Track coverage of the `node:child_process` and `node:worker_threads` spawned during test run. Supported only by `v8` provider. (default: false)
+跟踪测试运行期间生成的 `node:child_process` 和 `node:worker_threads` 的覆盖率。仅 `v8` 提供程序支持。（默认值：false）
 
 ### mode
 
