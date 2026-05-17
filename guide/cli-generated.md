@@ -791,6 +791,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 忽略源文件中的类型错误
 
+### typecheck.build
+
+- **CLI:** `--typecheck.build`
+- **Config:** [typecheck.build](/config/typecheck#typecheck-build)
+
+Use TypeScript build mode
+
 ### typecheck.tsconfig
 
 - **命令行终端:** `--typecheck.tsconfig <path>`
