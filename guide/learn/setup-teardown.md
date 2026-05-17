@@ -73,7 +73,7 @@ test('can query products', async () => {
 
 数据库连接只创建一次，在所有测试间共享，并在文件运行结束时关闭。
 
-## 使用 `describe` 进行作用域限定 {#scoping-with-describe}
+## 使用 `describe` 进行作用域划分 {#scoping-with-describe}
 
 在 `describe` 块内定义的钩子仅适用于该块内的测试。顶层的钩子则适用于文件中的每个测试。这让你可以为不同的测试组初始化不同的状态：
 

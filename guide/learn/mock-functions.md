@@ -10,7 +10,7 @@ next:
 
 # 模拟函数 {#mock-functions}
 
-在编写测试时，经常需要用一个受控版本替换真实的函数或模块。这被称为 **模拟**。你可能会因为很多原因这样做：比如真实函数会发起网络请求，从而拖慢测试速度，又或者你需要模拟一个难以用真实代码触发的错误。模拟函数让你能够控制依赖项返回什么、观察它如何被调用，并将被测代码与副作用隔离开。
+在编写测试时，你经常需要用一个可控的版本来替换真实的函数或模块。这被称为 **模拟**。这样做通常有几个原因：比如真实函数会发起网络请求，从而拖慢测试速度，或者你需要模拟一种难以通过真实代码触发的错误。模拟函数可以让你控制依赖项的返回值、观察它是如何被调用的，并将被测代码与副作用隔离开来。
 
 Vitest 通过 [`vi`](/api/vi) 对象提供模拟工具函数。
 
@@ -38,7 +38,7 @@ test('mock function basics', () => {
 
 ## 模拟返回值 {#mock-return-values}
 
-一个总是返回 `undefined` 的模拟函数本身用处不大。你通常需要控制它返回什么，以便测试代码对不同值的反应：
+一个总是返回 `undefined` 的模拟函数本身并没有太大用处。通常你会希望控制它的返回值，这样就可以测试你的代码在面对不同返回结果时会如何响应：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -74,7 +74,7 @@ test('mock async return values', async () => {
 
 ## 模拟实现 {#mock-implementation}
 
-有时你需要的不只是一个固定的返回值。你希望模拟函数能实际对其参数进行一些操作。[`mockImplementation`](/api/mock#mockimplementation) 允许你提供一个完整的替代函数：
+有时你需要的不只是一个固定的返回值。而是希望模拟函数能根据传入的参数真正执行一些逻辑。[`mockImplementation`](/api/mock#mockimplementation) 允许你提供一个完整的替代函数：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -174,7 +174,7 @@ expect(calls[0]).toEqual({ count: 1 }) // ✅ 通过
 
 ## 监听方法 {#spying-on-methods}
 
-[`vi.spyOn`](/api/vi#vi-spyon) 与 `vi.fn()` 有一个重要区别。它不是创建一个全新的函数，而是包装对象上 _现有_ 的方法。默认情况下原始实现仍然有效，但你可以观察每次调用，并选择性地覆盖其行为：
+[`vi.spyOn`](/api/vi#vi-spyon) 与 `vi.fn()` 有一个重要区别。它不是创建一个全新的函数，而是包装对象上 _现有方法_。默认情况下原始实现仍然会正常执行，但你可以观察每次调用，并且在需要时选择覆盖它的行为：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -248,7 +248,7 @@ export default defineConfig({
 
 ## 模拟模块 {#mocking-modules}
 
-有时你需要替换 [整个模块](/guide/mocking/modules)，而不仅仅是单个函数。例如，一个你不想在测试期间运行的数据库客户端或日志记录器。[`vi.mock`](/api/vi#vi-mock) 允许你用模拟实现替换模块的导出：
+有时你需要替换不是单个函数，而是 [整个模块](/guide/mocking/modules)。例如，一个你不想在测试期间运行的数据库客户端或日志记录器。[`vi.mock`](/api/vi#vi-mock) 允许你用模拟实现替换模块的导出：
 
 ```js
 import { expect, test, vi } from 'vitest'
