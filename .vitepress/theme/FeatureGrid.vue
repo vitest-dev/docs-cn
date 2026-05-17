@@ -45,7 +45,7 @@ import RiveAnimation from '@components/shared/RiveAnimation.vue'
           智能且即时的 watch 模式
         </h5>
         <p class="max-w-[23rem] text-pretty">
-          只重新运行相关变更，就像测试版 HMR 一样！
+          只重新运行相关变更，让测试也拥有 HMR 般的体验！
         </p>
       </div>
       <div class="card-bg px-5 sm:px-10 pt-5 sm:pt-10 flex justify-center">
