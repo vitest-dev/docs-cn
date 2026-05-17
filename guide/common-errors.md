@@ -87,6 +87,7 @@ export default defineConfig({
 
 ::: tip 为什么是 `ssr.resolve.conditions` 而不是 `resolve.conditions`?
 Vitest 遵循 Vite 的配置约定：
+
 - [`resolve.conditions`](https://cn.vite.dev/config/shared-options#resolve-conditions) 适用于 Vite 的 `client` 环境，对应 Vitest 的浏览器模式、jsdom、happy-dom，以及使用 `viteEnvironment: 'client'` 的自定义环境。
 - [`ssr.resolve.conditions`](https://cn.vite.dev/config/ssr-options#ssr-resolve-conditions) 适用于 Vite 的 `ssr` 环境，对应 Vitest 的 node 环境或使用 `viteEnvironment: 'ssr'` 的自定义环境。
 
@@ -167,20 +168,20 @@ test('rejects for missing user', async () => {
   await expect(fetchUser(123)).rejects.toThrow('User 123 not found')
 })
 ```
-<!-- TODO: translation -->
-## Package fails to load in Vitest but works in your app
 
-Some packages work in an app build but fail in Vitest because they are only valid after a bundler has rewritten or resolved them. When Vitest externalizes a dependency, Node.js loads it directly, so Node's ESM and package rules apply. See Node.js documentation on [ECMAScript modules](https://nodejs.org/docs/latest/api/esm.html) and [packages](https://nodejs.org/docs/latest/api/packages.html) for the precise rules.
+## Package 在 Vitest 中加载失败但在你的应用中正常工作 {#fails-to-load-in-vitest-but-works-in-your-app}
 
-Common examples include packages that:
+有些包在应用构建中可以正常工作，但在 Vitest 中会失败，因为它们只有在经过打包器重写或解析后才是有效的。当 Vitest 将某个依赖外部化时，Node.js 会直接加载它，因此 Node 的 ESM 和包规则适用。请参阅 Node.js 关于 [ECMAScript 模块](https://nodejs.org/docs/latest/api/esm.html) 和 [packages](https://nodejs.org/docs/latest/api/packages.html) 的文档以了解具体规则。
 
-- ship ESM syntax in `.js` files without `"type": "module"`
-- use extensionless relative imports in ESM files
-- have incorrect `exports`, `imports`, `main`, or `module` entries
-- mix CommonJS and ESM entry points in a way that only works after bundling
-- import CSS or other non-JavaScript files that are expected to be handled by a bundler
+常见的例子包括以下类型的包：
 
-You might see errors such as:
+- 在 `.js` 文件中提供 ESM 语法但没有 `"type": "module"`
+- 在 ESM 文件中使用无扩展名的相对导入
+- 具有错误的 `exports`、`imports`、`main` 或 `module` 配置项
+- 以仅适用于打包后的方式混合 CommonJS 和 ESM 入口点
+- 导入 CSS 或其他应由打包器处理的非 JavaScript 文件
+
+你可能会看到如下错误：
 
 - `Cannot find module './relative-path' imported from ...`
 - `Unexpected token 'export'`
@@ -188,9 +189,9 @@ You might see errors such as:
 - `Module ... seems to be an ES Module but shipped in a CommonJS package.`
 - `Unknown file extension ".css"`
 
-When possible, fix the package so Node.js can load it directly: add `"type": "module"` for ESM `.js` files, use `.mjs`, include explicit file extensions in ESM imports, and make sure `exports` points to files Node.js can load.
+如果可能，应修复该包，使 Node.js 可以直接加载它：为 ESM `.js` 文件添加 `"type": "module"`，使用 `.mjs`，在 ESM 导入中包含显式的文件扩展名，并确保 `exports` 指向 Node.js 可以加载的文件。
 
-If you cannot fix the package itself, inline it so Vite handles it instead of passing it to Node.js as an external dependency. Inline the whole dependency chain that leads to the invalid package. If your source imports `wrapper-package`, and `wrapper-package` imports `broken-package`, inline both packages:
+如果你无法修复包本身，请将其内联，以便让 Vite 处理它，而不是将其作为外部依赖传递给 Node.js。将通向该无效包的整个依赖链都内联进来。如果你的源码导入了 `wrapper-package`，而 `wrapper-package` 导入 `broken-package`，请内联这两个包：
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -206,7 +207,7 @@ export default defineConfig({
 })
 ```
 
-You can also use Vite's [`ssr.resolve.noExternal`](https://vite.dev/config/ssr-options#ssr-resolve-noexternal) for the same purpose. Vitest merges `ssr.resolve.noExternal` into [`server.deps.inline`](/config/server#server-deps-inline), so this is useful when the dependency also needs to be bundled by Vite in SSR builds:
+你也可以使用 Vite 的 [`ssr.resolve.noExternal`](https://vite.dev/config/ssr-options#ssr-resolve-noexternal) 达到相同目的。适用于当依赖在 SSR 构建中也需要由 Vite 打包时，Vitest 将 `ssr.resolve.noExternal` 合并到 [`server.deps.inline`](/config/server#server-deps-inline) 中：
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
