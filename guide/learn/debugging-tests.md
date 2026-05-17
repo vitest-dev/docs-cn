@@ -1,74 +1,74 @@
 ---
-title: Debugging Failing Tests | Guide
+title: 调试失败的测试 | Guide
 prev:
-  text: Testing in Practice
+  text: 测试实践
   link: /guide/learn/testing-in-practice
 next:
-  text: Writing Tests with AI
+  text: 使用 AI 编写测试
   link: /guide/learn/writing-tests-with-ai
 ---
 
-# Debugging Failing Tests
+# 调试失败的测试 {#debugging-failing-tests}
 
-This page covers how to investigate test failures in Vitest: reading error output, isolating problems, identifying common causes, and using the available debugging tools.
+本章介绍如何在 Vitest 中调查测试失败问题：阅读错误输出、隔离问题、识别常见原因以及使用相关调试工具。
 
-## Reading the Error
+## 阅读错误输出 {#reading-the-error}
 
-When a test fails, Vitest gives you several pieces of information. Let's look at a real failure and break it down:
+当测试失败时，Vitest 会提供多个信息片段。让我们来看一个真实的失败案例并进行分析：
 
 <<< ./snippets/debug-output-fail.ansi
 
-There's a lot here, but each part tells you something:
+这里信息很多，但每一部分都在传达有用的信息：
 
-**The header** (`FAIL src/user.test.js > createUser > sets the default role`) tells you which file, describe block, and test failed. This is the full path in the test tree.
+**标题** (`FAIL src/user.test.js > createUser > sets the default role`) 告诉你哪个文件、哪个 describe 块以及哪个测试失败了。这就是它在测试树中的完整路径。
 
-**The assertion message** (`expected { ... } to deeply equal { ... }`) tells you what kind of check failed and shows the two values being compared.
+**断言信息** (`expected { ... } to deeply equal { ... }`) 告诉你哪种检查失败了，并展示参与比较的两个值。
 
-**The diff** shows exactly what's different. Lines starting with <code class="diff-add">+</code> are what you actually got, and lines starting with <code class="diff-remove">-</code> are what you expected. In this case, the role was <code class="diff-add">"viewer"</code> but the test expected <code class="diff-remove">"member"</code>.
+**差异对比** 会准确展示差异所在。以 <code class="diff-add">+</code> 开头的行是你实际得到的结果，以 <code class="diff-remove">-</code> 开头的行是你期望的结果。在这个例子中，role 是 <code class="diff-add">"viewer"</code>，但测试期望的是 <code class="diff-remove">"member"</code>。
 
-**The code snippet** shows the exact line and a few surrounding lines, with a caret (`^`) pointing to the failing assertion. You can click the file path in most terminals and IDEs to jump directly there.
+**代码片段** 会显示出错的确切代码行以及附近几行内容，并用使用脱字符 (`^`) 指向失败的断言。在大多数终端和 IDE 中，你可以点击文件路径直接跳转到对应位置。
 
-At this point, the question is: did the code change (maybe the default role was intentionally updated to `"viewer"`), or is the test wrong? Check the source code for `createUser` to find out. If the default was intentionally changed, update the test. If not, you've found a bug.
+此时，问题是：是代码发生了变化（也许默认 role 被有意更新为 `"viewer"`），还是测试本身有误？检查 `createUser` 的源代码以找出答案。如果默认值是有意更改的，就更新测试。如果不是，那么你就发现了一个 bug。
 
-## Isolating the Problem
+## 隔离问题 {#isolating-the-problem}
 
-When a test fails and the cause isn't immediately clear, the first step is to isolate it. Run just that one test, without the rest of your suite:
+当测试失败且原因不明显时，第一步是将其隔离。只运行那个特定的测试，而不运行测试套件的其他部分：
 
 ```bash
-# Run only the failing test file
+# 仅运行失败的测试文件
 vitest src/user.test.js
 
-# Run only tests matching a name pattern
+# 仅运行匹配名称规则的测试
 vitest -t "sets the default role"
 
-# Combine both for maximum precision
+# 结合两者以获得最大精度
 vitest src/user.test.js -t "sets the default role"
 ```
 
-You can also add [`.only`](/api/test#only) to the test itself:
+你也可以给测试本身添加 [`.only`](/api/test#only)：
 
 ```js
 test.only('sets the default role', () => {
-  // only this test runs in the file
+  // 文件中只有这个测试会运行
 })
 ```
 
-If you have many failures and want to focus on the first one, use [`--bail`](/config/bail) to stop after a set number of failures:
+如果你有很多失败的测试，先聚焦第一个失败测试，可以使用 [`--bail`](/config/bail) 在失败次数达到设定值后停止执行：
 
 ```bash
 vitest --bail 1
 ```
 
-If the test passes when run alone but fails when run with others, you have a test isolation problem (more on that below). If it fails even when run alone, the issue is in the test itself or the code it's testing.
+如果测试单独运行时通过，但与其他测试一起运行时失败，那么你就遇到了测试隔离问题（下文会详细说明）。如果即使单独运行也失败，那么问题就出在测试本身或其测试的代码中。
 
-## Common Causes of Failures
+## 测试失败的常见原因 {#common-causes-of-failures}
 
-### Shared State Between Tests
+### 测试间的共享状态 {#shared-state-between-tests}
 
-This is one of the most common and frustrating issues. A test passes when you run it alone, but fails when the full suite runs. The usual cause is that some other test modifies shared state (a global variable, a module-level cache, a database) and doesn't clean up after itself.
+这是最常见也最令人头疼的问题之一。测试单独运行时通过，但整个测试套件运行时却失败。通常原因是其他测试修改了共享状态（全局变量、模块级缓存、数据库）且没有自行清理。
 
 ```js
-// This is a problem: `users` is shared between tests
+// 这是个问题：`users` 在测试间共享
 const users = []
 
 test('adds a user', () => {
@@ -77,12 +77,12 @@ test('adds a user', () => {
 })
 
 test('starts empty', () => {
-  // This fails because 'Alice' is still in the array!
+  // 这个会失败，因为 'Alice' 还在数组中！
   expect(users).toEqual([])
 })
 ```
 
-The fix is to reset the state before each test with [`beforeEach`](/api/hooks#beforeeach), or better yet, use [`test.extend`](/guide/test-context#extend-test-context) to create fresh state for each test automatically:
+解决方法是在每个测试前使用 [`beforeEach`](/api/hooks#beforeeach) 重置状态，或者更好的是使用 [`test.extend`](/guide/test-context#extend-test-context) 自动为每个测试创建新的状态：
 
 ```js
 const test = baseTest.extend('users', () => [])
@@ -93,24 +93,24 @@ test('adds a user', ({ users }) => {
 })
 
 test('starts empty', ({ users }) => {
-  // Passes: each test gets its own array
+  // 通过：每个测试都有自己的数组
   expect(users).toEqual([])
 })
 ```
 
-### Async Issues
+### 异步问题 {#async-issues}
 
-Tests that involve promises can fail intermittently or in confusing ways if the async flow isn't handled correctly. The most common mistake is forgetting an `await`:
+如果异步流程处理不当，涉及 Promise 的测试可能会间歇性失败，或以令人困惑的方式报错。最常见的错误是忘记 `await`：
 
 ```js
-// This test always passes, even if fetchUser rejects!
+// 即使 fetchUser 被 reject，这个测试总是通过！
 test('fetches user', () => {
-  // Missing await: the test finishes before the promise settles
+  // 缺少 await：测试在 Promise 完成前就结束了
   expect(fetchUser(1)).resolves.toMatchObject({ name: 'Alice' })
 })
 ```
 
-Vitest will usually warn you about unawaited assertions at the end of the test. If you see that warning, add the missing `await`:
+Vitest 通常会在测试结束时警告你有未等待的断言。如果你看到这个警告，就加上缺失的 `await`：
 
 ```js
 test('fetches user', async () => {
@@ -118,23 +118,23 @@ test('fetches user', async () => {
 })
 ```
 
-If a test hangs and eventually times out, it usually means a promise never resolves. Check for missing callbacks, unresolved conditions, or deadlocks in the code you're testing.
+如果测试卡住并最终超时，通常意味着 Promise 永远不会 resolve。检查你测试的代码中是否有缺少的回调、未解决的条件或死锁。
 
-### Stale Snapshots
+### 过时的快照 {#stale-snapshots}
 
-If you're using [snapshot tests](/guide/learn/snapshots) and you intentionally changed the output of your code, the existing snapshots will be outdated. The test fails and shows a diff between the old snapshot and the new output.
+如果你在使用 [快照测试](/guide/learn/snapshots) 并且有意更改了代码的输出，现有的快照就会过时。测试会失败，并显示旧快照与新输出之间的差异。
 
-This is expected. Review the diff to confirm the changes are correct, then update the snapshots by pressing `u` in watch mode or running `vitest -u`.
+这是预期中的结果。检查差异以确认更改是正确的，然后通过监视模式下按 `u` 键或运行 `vitest -u` 来更新快照。
 
-### Wrong Test Environment
+### 错误的测试环境 {#wrong-test-environment}
 
-If your code accesses browser APIs like `document` or `window` and you see errors like "document is not defined", your test is running in the Node environment (the default). You can switch to a browser-like environment with the [`environment`](/config/environment) config option, or better yet, use [Browser Mode](/guide/browser/) which runs tests in a real browser.
+如果你的代码访问了浏览器 API，如 `document` 或 `window`，并且看到类似 "document is not defined" 的错误，说明你的测试正在 Node.js 环境（默认环境）中运行。你可以通过 [`environment`](/config/environment) 配置选项切换到类浏览器环境，或者最好是使用 [浏览器模式](/guide/browser/) 在真实浏览器中运行测试。
 
-### Mocks Not Cleaned Up
+### 未清理模拟 {#mocks-not-cleaned-up}
 
-If a mock from one test leaks into another, you'll get unexpected behavior. For example, a `vi.spyOn` that overrides a method's return value will persist into the next test unless it's restored.
+如果一个测试中的 mock 泄露到另一个测试中，你会得到意外的行为。例如，使用 vi.spyOn 覆盖了某个方法的返回值后，如果没有恢复，它就会持续影响下一个测试。
 
-The easiest fix is to enable automatic mock restoration in your config:
+最简单的解决方法是在配置中启用自动模拟恢复：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -146,13 +146,13 @@ export default defineConfig({
 })
 ```
 
-This calls [`mockRestore()`](/api/mock#mockrestore) on every mock after each test. See the [Mock Functions](/guide/learn/mock-functions#resetting-mocks) tutorial for more details.
+这会在每个测试后对每个模拟调用 [`mockRestore()`](/api/mock#mockrestore)。更多详情请参阅 [模拟函数](/guide/learn/mock-functions#resetting-mocks)。
 
-## Debugging Tools
+## 调试工具 {#debugging-tools}
 
-### Console Logging
+### 控制台日志 {#console-logging}
 
-There's nothing wrong with adding `console.log` to your tests. It's the fastest way to inspect values and understand what's happening:
+在测试中添加 `console.log`，检查到完全没问题。这是查看数据、快速搞清楚发生了什么的最快办法：
 
 ```js
 test('transforms data correctly', () => {
@@ -166,49 +166,49 @@ test('transforms data correctly', () => {
 })
 ```
 
-Vitest displays console output inline with the test results, so you can see which test produced which log.
+Vitest 会在测试结果中内联显示控制台输出，因此你可以看到具体哪个测试产生了哪个日志。
 
-### Vitest UI
+### UI 模式 {#vitest-ui}
 
-For a visual overview of your test suite, run Vitest with the `--ui` flag:
+如果想以可视化方式总览整个测试套件，请使用 `--ui` 参数运行 Vitest：
 
 ```bash
 vitest --ui
 ```
 
-This opens a browser-based dashboard where you can see all your tests, their status, and their output. It also includes a module graph that shows how your files are connected, which can help you understand why a change in one file causes failures in another. See the [Vitest UI](/guide/ui) guide for more details.
+这会打开一个基于浏览器的仪表板，你可以在其中看到所有测试、它们的状态和输出。它还包括一个模块图，显示你的文件是如何连接的，这可以帮助你理解为什么一个文件的更改会导致另一个文件中的测试失败。更多详情请参阅 [UI 模式](/guide/ui)。
 
-### VS Code Extension
+### VS Code 扩展 {#vs-code-extension}
 
-The [Vitest VS Code extension](https://vitest.dev/vscode) lets you run and debug individual tests directly from your editor. You can click a "play" button next to any test, set breakpoints, and step through code in the VS Code debugger. This is often faster than switching between the terminal and your editor.
+[Vitest VS Code 扩展](https://cn.vitest.dev/vscode) 允许你直接从编辑器中运行和调试单个测试。你可以点击任何测试旁边的 “播放” 按钮，设置断点，并在 VS Code 调试器逐步跟踪代码执行过程。相比在终端和编辑器之间频繁切换，这种方式通常更高效。
 
-### Verbose Output
+### 详细输出 {#verbose-output}
 
-If the default output isn't showing enough detail, use the verbose reporter:
+如果默认输出显示的信息不够详细，请使用详细报告器：
 
 ```bash
 vitest --reporter=verbose
 ```
 
-This shows every test individually (not just the files), which can help spot patterns in which tests pass and which fail.
+这会单独显示每个测试（不仅仅是文件），这有助于发现哪些测试通过、哪些失败的规律。
 
-### Attaching a Debugger
+### 附加调试器 {#attaching-a-debugger}
 
-For more complex issues where you need to step through code line by line, you can run Vitest with the `--inspect-brk` flag and attach a debugger. The `--no-file-parallelism` flag ensures tests run in the main thread so breakpoints work reliably:
+对于需要逐行执行代码的更复杂问题，你可以使用 `--inspect-brk` 参数运行 Vitest 并附加调试器。`--no-file-parallelism` 参数确保测试在主线程中运行，以便断点可靠工作：
 
 ```bash
 vitest --inspect-brk --no-file-parallelism
 ```
 
-Then attach from VS Code, IntelliJ, or Chrome DevTools (`chrome://inspect`). See the [Debugging](/guide/debugging) guide for detailed setup instructions for each editor.
+然后从 VS Code、IntelliJ 或 Chrome DevTools (`chrome://inspect`) 附加调试器。每种编辑器的详细配置方式，请参阅 [调试](/guide/debugging)。
 
-## Getting Help
+## 获取帮助 {#getting-help}
 
-If you're stuck, these resources can help:
+如果你遇到困难，以下资源可以提供帮助：
 
-- The [Common Errors](/guide/common-errors) page covers specific error messages and their solutions
-- [GitHub Issues](https://github.com/vitest-dev/vitest/issues) for searching known bugs and workarounds
-- The [Discord community](https://chat.vitest.dev) for real-time help from other Vitest users and maintainers
+- [常见错误](/guide/common-errors) 页面涵盖了特定错误信息及其解决方案
+- [GitHub Issues](https://github.com/vitest-dev/vitest/issues) 用于搜索已知 bug 和变通方案
+- [Discord 社区](https://chat.vitest.dev) 可以获取其他 Vitest 用户和维护者的实时帮助
 
 <style>
 .vp-doc code.diff-add {

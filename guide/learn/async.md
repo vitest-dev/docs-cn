@@ -1,20 +1,20 @@
 ---
-title: Testing Asynchronous Code | Guide
+title: 测试异步代码 | 指南
 prev:
-  text: Using Matchers
+  text: 使用匹配器
   link: /guide/learn/matchers
 next:
-  text: Setup and Teardown
+  text: 初始化与清理
   link: /guide/learn/setup-teardown
 ---
 
-# Testing Asynchronous Code
+# 测试异步代码 {#testing-asynchronous-code}
 
-JavaScript code frequently runs asynchronously. Whether you're fetching data, reading files, or waiting on timers, Vitest needs to know when the code it is testing has completed before moving on to the next test. Here are the patterns you'll use most often.
+JavaScript 代码经常以异步方式运行。无论是获取数据、读取文件还是等待定时器，Vitest 都需要知道它正在测试的代码何时完成，然后才能继续执行下一个测试。下面是最常见的几种写法。
 
 ## Async/Await
 
-The most straightforward approach is to make your test function `async`. Vitest will automatically wait for the returned promise to resolve before considering the test complete. If the promise rejects, the test fails with the rejection reason.
+最直接的方法是让你的测试函数变为 `async`。Vitest 会自动等待返回的 Promise resolve，然后才认为测试完成。如果 Promise 被 reject，测试将失败，并显示拒绝原因。
 
 ```js
 import { expect, test } from 'vitest'
@@ -29,11 +29,11 @@ test('fetches user by id', async () => {
 })
 ```
 
-This is the pattern you'll use the vast majority of the time. It reads just like synchronous code, and errors propagate naturally through `await`.
+这是你绝大多数时候会使用的形式。它读起来就像同步代码一样，错误也会通过 `await` 自然地传播。
 
-## Resolves and Rejects
+## Resolves 与 Rejects {#resolves-and-rejects}
 
-Sometimes you'd rather assert on a promise directly instead of `await`-ing it into a variable first. The [`.resolves`](/api/expect#resolves) and [`.rejects`](/api/expect#rejects) helpers let you do this. They unwrap the promise and then apply the matcher to the resolved or rejected value:
+有时你可能更愿意直接对 Promise 进行断言，而不是先将其通过 `await` 赋值给变量。[`.resolves`](/api/expect#resolves) 和 [`.rejects`](/api/expect#rejects) 工具函数让你能够做到这一点。它们会解开 Promise，然后将匹配器应用到 resolved 或 rejected 值上：
 
 ```js
 test('resolves to Alice', async () => {
@@ -46,12 +46,12 @@ test('rejects with an error', async () => {
 ```
 
 ::: warning
-Don't forget the `await` before `expect`. Vitest will detect unawaited assertions and print a warning at the end of the test, but it's best to always include `await` explicitly. Vitest will also wait for all pending promises in `Promise.all` before starting the next test, but relying on this behavior makes tests harder to understand.
+不要忘记在 `expect` 前面加上 `await`。Vitest 会检测未等待的断言，并在测试结束时打印警告，但最好始终显式地添加 `await`。Vitest 还会在启动下一个测试之前，等待 `Promise.all` 中所有仍在进行的 Promise 完成，不过依赖这种行为会让测试更难理解。
 :::
 
-## Assertion Counting
+## 断言计数 {#assertion-counting}
 
-With async code, there's a subtle risk: an assertion inside a callback or `.then()` chain might never execute, and the test would still pass because no assertion failed. [`expect.hasAssertions()`](/api/expect#hasassertions) guards against this by verifying that at least one assertion ran during the test:
+对于异步代码，存在一个不易察觉的风险：回调函数或 `.then()` 链中的断言可能根本没有执行，而测试仍然会通过，因为没有断言失败。[`expect.hasAssertions()`](/api/expect#hasassertions) 正是用来防范这种情况的，它会检查该测试在执行期间是否至少运行过一条断言：
 
 ```js
 test('callback is invoked', async () => {
@@ -61,11 +61,11 @@ test('callback is invoked', async () => {
   data.items.forEach((item) => {
     expect(item.id).toBeDefined()
   })
-  // if data.items is empty, the test fails instead of silently passing
+  // 如果 data.items 为空，测试会失败而不是静默通过
 })
 ```
 
-When you know exactly how many assertions should run, [`expect.assertions(n)`](/api/expect#assertions) is more precise:
+当你知道应该运行的确切断言数量时，[`expect.assertions(n)`](/api/expect#assertions) 会更加精确：
 
 ```js
 test('both callbacks are called', async () => {
@@ -78,15 +78,15 @@ test('both callbacks are called', async () => {
 })
 ```
 
-In most cases, `async`/`await` with direct assertions is clear enough and you don't need assertion counting. It's most useful when assertions are inside callbacks, loops, or conditional branches where you want to guarantee they actually executed.
+在大多数情况下，使用直接断言的 `async`/`await` 已经足够清晰，无需额外进行断言计数。断言计数最适用于当断言位于回调函数、循环或条件分支中，而你希望确保它们确实已经执行。
 
 ::: tip
-If you want every test in your project to require at least one assertion, enable [`expect.requireAssertions`](/config/expect#expect-requireassertions) in your config instead of adding `expect.hasAssertions()` to each test manually.
+如果你希望项目中的每个测试都至少需要一个断言，可以在配置中启用 [`expect.requireAssertions`](/config/expect#expect-requireassertions)，而不是手动为每个测试添加 `expect.hasAssertions()`。
 :::
 
-## Callbacks
+## 回调函数 {#callbacks}
 
-Some older APIs use callbacks instead of promises. Since Vitest works with promises, the simplest approach is to wrap the callback in a `Promise`:
+一些较旧的 API 使用回调函数而非 Promise。由于 Vitest 与 Promise 协同工作，最简单的方法是将回调函数包装在 `Promise` 中：
 
 ```js
 function fetchData(callback) {
@@ -101,25 +101,25 @@ test('the data is peanut butter', async () => {
 })
 ```
 
-This pattern works for any callback-based API. Pass `resolve` as the success callback, and the test will wait until the callback is invoked.
+这种形式适用于任何基于回调的 API。将 `resolve` 作为成功回调传递进去，测试就会一直等待，直到该回调被调用。
 
 ::: tip
-Most modern Node.js APIs (such as `fs/promises` and `fetch`) support promises natively, so you can use `async`/`await` directly. The callback wrapping pattern above is mainly useful for older libraries that haven't adopted promises yet.
+大多数现代 Node.js API（例如 `fs/promises` 和 `fetch`）原生支持 Promise，因此你可以直接使用 `async`/`await`。上述的回调包装形式主要适用于尚未采用 Promise 的旧版库。
 :::
 
-## Timeouts
+## 超时 {#timeouts}
 
-By default, each test has a 5-second timeout. If a test takes longer than that (perhaps because a promise never resolves, or a network request hangs), it will fail with a timeout error. This prevents your test suite from getting stuck indefinitely.
+默认情况下，每个测试有 5 秒的超时时间。如果某个测试耗时超过此限制（可能是因为 Promise 从未 resolve，或网络请求挂起），它将因超时错误而失败。这可以防止你的测试套件无限期地卡住。
 
-You can set a [custom timeout](/api/test#timeout) as the third argument to `test`, which is useful for tests that legitimately need more time:
+你可以将 [自定义超时时间](/api/test#timeout) 作为 `test` 的第三个参数进行设置，这适用于确实需要更多时间的测试：
 
 ```js
 test('long-running operation', async () => {
   await someSlowOperation()
-}, 10_000) // 10 seconds
+}, 10_000) // 10 秒
 ```
 
-If you find yourself needing longer timeouts across many tests, you can change the default for all tests with the [`testTimeout`](/config/testtimeout) config option:
+如果你发现自己需要在许多测试中使用更长的超时时间，可以通过 [`testTimeout`](/config/testtimeout) 配置选项更改所有测试的默认值：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -131,27 +131,27 @@ export default defineConfig({
 })
 ```
 
-## Unhandled Rejections
+## 未处理的 Rejection {#unhandled-rejections}
 
-By default, Vitest reports unhandled promise rejections as errors in the test run. If a promise rejects somewhere in your code and nothing catches it, the test run will fail, even if all your assertions passed. This is intentional: unhandled rejections usually indicate real bugs, like a forgotten `await` or a fire-and-forget promise that silently fails.
+默认情况下，Vitest 会将未处理的 Promise reject 报告为测试运行中的错误。如果你的代码中某个 Promise 被 reject 且未被捕获，即使所有断言都通过，测试运行也会失败。这是有意为之的：未处理的 reject 通常表示存在真正的 bug，例如忘记的 `await` 或者一个 “发出后不再等待” 的 Promise 在静默中失败了。
 
 ```js
 test('this causes an unhandled rejection error', () => {
-  // This promise rejects but is never awaited or caught
+  // 这个 Promise 会 reject 但从未被 await 或 catch
   Promise.reject(new Error('oops'))
 })
 ```
 
-To fix this, make sure you `await` all promises or catch expected rejections:
+要修复此问题，请确保对所有 Promise 使用 `await`，或捕获那些预期会发生的 reject：
 
 ```js
 test('handle the rejection', async () => {
-  // Either await the promise
+  // 要么等待 Promise
   await expect(Promise.reject(new Error('oops'))).rejects.toThrow('oops')
 
-  // Or catch it explicitly if you don't need to assert on it
+  // 如果不需要对其断言，可以显式 catch 它
   Promise.reject(new Error('expected')).catch(() => {})
 })
 ```
 
-If your code intentionally produces unhandled rejections, you can filter specific errors with [`onUnhandledError`](/config/onunhandlederror) or disable the check entirely with [`dangerouslyIgnoreUnhandledErrors`](/config/dangerouslyignoreunhandlederrors).
+如果你的代码有意产生未处理的 reject，可以使用 [`onUnhandledError`](/config/onunhandlederror) 过滤特定的错误，或者通过 [`dangerouslyIgnoreUnhandledErrors`](/config/dangerouslyignoreunhandlederrors) 完全禁用此检查。

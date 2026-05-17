@@ -1,22 +1,22 @@
 ---
-title: Snapshot Testing | Guide
+title: 快照测试 | 指南
 prev:
-  text: Mock Functions
+  text: 模拟函数
   link: /guide/learn/mock-functions
 next:
-  text: Testing in Practice
+  text: 测试实操
   link: /guide/learn/testing-in-practice
 ---
 
-# Snapshot Testing
+# 快照测试 {#snapshot-testing}
 
-Snapshot tests capture the output of a piece of code and save it to a file. On subsequent runs, the output is compared against the saved snapshot. If the output changes, the test fails. Either the change is a bug, or the snapshot needs to be updated.
+快照测试会捕获一段代码的输出并将其保存到文件中。在后续运行时，将输出结果与已保存的快照进行比较。如果输出发生变化，测试就会失败。这种变化可能是 bug，也可能是快照需要更新。
 
-This approach is particularly useful when you're testing something that produces structured output: a function that returns a complex object, a component that renders HTML, or an error formatter that produces multi-line messages. Writing manual assertions for every field or line would be tedious and fragile. Instead, you capture the entire output once, and let Vitest tell you if it ever changes.
+这种方法特别适合测试会产生结构化输出的场景：例如返回复杂对象的函数、渲染 HTML 的组件，或是生成多行消息的错误格式化器。为每个字段或每行代码手动编写断言既繁琐又脆弱。相反，你可以一次性捕获整个输出，然后由 Vitest 来告诉你输出是否发生了变化。
 
-## Your First Snapshot
+## 你的第一个快照 {#your-first-snapshot}
 
-To create a snapshot test, pass a value to [`toMatchSnapshot()`](/api/expect#tomatchsnapshot):
+要创建快照测试，只需将值传递给 [`toMatchSnapshot()`](/api/expect#tomatchsnapshot) 方法即可：
 
 ```js
 import { expect, test } from 'vitest'
@@ -34,14 +34,14 @@ test('generates a greeting', () => {
 })
 ```
 
-The first time you run this test, there's no existing snapshot to compare against, so Vitest creates one. It stores the snapshot in a `__snapshots__` directory next to your test file:
+首次运行此测试时，由于不存在可比较的现有快照，Vitest 会自动创建一个。它会将快照存储在与测试文件相邻的 `__snapshots__` 目录中：
 
 ```
 __snapshots__/
   example.test.js.snap
 ```
 
-If you open that file, you'll see a serialized representation of the value:
+如果打开该文件，你会看到该值的序列化表示：
 
 ```js
 exports['generates a greeting 1'] = `
@@ -53,17 +53,17 @@ exports['generates a greeting 1'] = `
 `
 ```
 
-From now on, every time you run this test, Vitest serializes the output of `generateGreeting('Alice')` and compares it character-by-character against this stored snapshot. If the output changes (say, someone modifies the message format or bumps the version number), the test fails and shows a clear diff of what changed.
+从此以后，每次运行此测试时，Vitest 都会将 `generateGreeting('Alice')` 的输出序列化，并与存储的快照进行逐字符比较。如果输出发生变化（比如有人修改了消息格式或更新了版本号），测试就会失败，并清晰地显示变更的差异。
 
 ::: tip
-Commit your snapshot files to version control. They serve as a record of the expected output and should be reviewed in code review just like any other test assertion.
+请将快照文件提交到版本控制系统。它们作为预期输出的记录，应该像其他测试断言一样在代码审查中进行检查。
 :::
 
-## Inline Snapshots
+## 内联快照 {#inline-snapshots}
 
-External snapshot files work well, but they mean you have to jump to a different file to see what the expected output actually looks like. For smaller values, it's often more convenient to keep the snapshot right in your test file with [`toMatchInlineSnapshot()`](/api/expect#tomatchinlinesnapshot).
+外部快照文件虽然好用，但意味着你必须跳转到另一个文件才能查看预期输出的实际内容。对于较小的值，使用 [`toMatchInlineSnapshot()`](/api/expect#tomatchinlinesnapshot) 将快照直接保留在测试文件中通常更为方便。
 
-Start by writing the assertion without any argument:
+首先，在没有任何参数的情况下编写断言：
 
 ```js
 test('generates a greeting', () => {
@@ -71,7 +71,7 @@ test('generates a greeting', () => {
 })
 ```
 
-When you run the test, Vitest will **automatically fill in** the snapshot as a string argument:
+当你运行测试时，Vitest 将 **自动填充** 快照作为字符串参数：
 
 ```js
 test('generates a greeting', () => {
@@ -85,37 +85,37 @@ test('generates a greeting', () => {
 })
 ```
 
-Now the expected output lives right next to the code that produces it. You can read the test and immediately understand what `generateGreeting` is expected to return. When the output changes, Vitest updates the string in place, so you don't need to manage separate snapshot files.
+现在，预期输出就紧挨着生成它的代码。你可以阅读测试并立即理解 `generateGreeting` 应该返回什么。当输出发生变化时，Vitest 会原地更新字符串，因此你无需管理单独的快照文件。
 
-Inline snapshots are great for small, focused values. For large outputs (like a full HTML page), external snapshots or file snapshots are a better fit.
+内联快照非常适合小型、关注点明确。对于大型输出（如完整的 HTML 页面），外部快照或文件快照更为合适。
 
 ::: tip
-Unlike external snapshots, inline snapshots don't create separate `.snap` files. The expected value is stored directly in your test file as the argument to `toMatchInlineSnapshot()`, so there's nothing extra to commit.
+与外部快照不同，内联快照不会创建单独的 `.snap` 文件。预期值直接作为 `toMatchInlineSnapshot()` 的参数存储在测试文件中，因此无需额外提交任何内容。
 :::
 
-## Updating Snapshots
+## 更新快照 {#updating-snapshots}
 
-When you intentionally change the output of your code, existing snapshots will be outdated and the tests will fail. This is by design; it's the whole point of snapshot testing. But once you've verified that the new output is correct, you need to update the snapshots.
+当你故意更改代码的输出时，现有的快照将过时，测试也会失败。这是设计使然；这正是快照测试的全部意义所在。但一旦你确认新输出是正确的，就需要更新快照。
 
-There are several ways to do this:
+有几种方法可以做到这一点：
 
-- **In watch mode**: press `u` in the terminal to update all failed snapshots
-- **From the CLI**: run `vitest -u` or `vitest --update` to update snapshots and exit
-- **In VS Code**: use the "Update Snapshots" command on the test gutter icon from the [Vitest extension](https://vitest.dev/vscode)
+- **在 watch 模式下**：在终端中按 `u` 键更新所有失败的快照
+- **通过命令行界面**：运行 `vitest -u` 或 `vitest --update` 来更新快照并退出
+- **在 VS Code 中**：使用 [Vitest 扩展](https://vitest.dev/vscode) 在测试面板上选择 “更新快照” 命令
 
 ```bash
 vitest -u
 ```
 
-For inline snapshots, Vitest modifies your test file directly with the new values. For external snapshots, it rewrites the `.snap` file.
+对于内联快照，Vitest 会直接用新值修改你的测试文件。对于外部快照，它会重写 `.snap` 文件。
 
 ::: warning
-Be careful when updating snapshots. Always review the diff to confirm the changes are intentional and not a bug. It's easy to accidentally accept a broken output by blindly pressing `u`.
+更新快照时要小心。务必仔细检查差异，以确认更改是有意为之，而非缺陷。盲目按 `u` 键很容易意外接受一个错误的输出。
 :::
 
-## File Snapshots
+## 文件快照 {#file-snapshots}
 
-Sometimes the output you're testing is large enough that even an external `.snap` file feels awkward, or you want to view the snapshot with proper syntax highlighting in your editor. [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) lets you save the snapshot to a file with any extension you want:
+有时你测试的输出非常大，以至于即使是外部的 `.snap` 文件也显得笨拙，或者你希望在编辑器中以正确的语法高亮查看快照。[`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) 允许你将快照保存为任意扩展名的文件：
 
 ```js
 test('renders the component', async () => {
@@ -124,25 +124,25 @@ test('renders the component', async () => {
 })
 ```
 
-The snapshot is stored as a plain `.html` file that you can open in a browser, view with syntax highlighting, or diff with standard tools. This works well for HTML, SVG, CSS, generated code, or any output where the file format matters for readability.
+快照以普通的 `.html` 文件形式存储，你可以用浏览器打开、以语法高亮查看，或用标准工具进行差异对比。对于 HTML、SVG、CSS、生成代码等这类可读性很重要的输出格式，这种方式都很有效。
 
-## When to Use Snapshots
+## 何时使用快照 {#when-to-use-snapshots}
 
-Snapshots shine when you're working with structured, serializable output that would be painful to assert on manually. Some common use cases:
+当你处理结构化、可序列化的输出，并且手动断言会非常痛苦时，快照测试就可以大放异彩。一些常见的用例包括：
 
-- A function that returns a complex configuration object with many nested fields
-- HTML or markup generated by a rendering function or template engine
-- Error messages that include formatted stack traces or context information
-- CLI output or log messages with specific formatting
-- JSON API responses where you want to catch any unexpected field changes
+- 返回具有许多嵌套字段的复杂配置对象的函数
+- 由渲染函数或模板引擎生成的 HTML 或标记
+- 包含格式化堆栈跟踪或上下文信息的错误消息
+- 具有特定格式的 CLI 输出或日志消息
+- JSON API 响应，你希望捕获所有意外的字段更改
 
-On the other hand, snapshots are not always the best tool. If the output changes frequently (for instance, it includes timestamps or random IDs), you'll spend more time updating snapshots than they save you. And if you only care about one or two specific fields, a targeted assertion like [`toMatchObject`](/api/expect#tomatchobject) or [`toHaveProperty`](/api/expect#tohaveproperty) expresses your intent more clearly than a snapshot that captures everything.
+另一方面，快照并不总是最佳工具。如果输出频繁变化（例如，包含时间戳或随机 ID），你花在更新快照上的时间将比它们为你节省的时间更多。如果你只关心一两个特定字段，像 [`toMatchObject`](/api/expect#tomatchobject) 或 [`toHaveProperty`](/api/expect#tohaveproperty) 这样的针对性断言，比捕获所有内容的快照更能清晰地表达你的意图。
 
-The general rule: use snapshots when you want to protect against *any* change in the output, and use targeted assertions when you only care about *specific* properties.
+一般的规则是：当你希望防止输出发生 _任何_ 变化时，使用快照；当你只关心 _特定_ 属性时，使用针对性断言。
 
-## Handling Dynamic Values
+## 处理动态值 {#handling-dynamic-values}
 
-If your output includes values that change every run (like timestamps or IDs), you can use property matchers to pin the structure while ignoring volatile fields. Pass an object with asymmetric matchers as the first argument to `toMatchSnapshot()` or `toMatchInlineSnapshot()`:
+如果你的输出包含每次运行都会变化的值（如时间戳或 ID），你可以使用属性匹配器来固定结构，同时忽略易变字段。将一个包含非对称匹配器的对象作为第一个参数传递给 `toMatchSnapshot()` 或 `toMatchInlineSnapshot()`：
 
 ```js
 test('user snapshot with dynamic fields', () => {
@@ -155,11 +155,11 @@ test('user snapshot with dynamic fields', () => {
 })
 ```
 
-The `id` and `createdAt` fields are checked against the matchers (any number, any date) instead of being compared to a stored value. All other fields are snapshotted as usual.
+`id` 和 `createdAt` 字段将根据匹配器（任意数字、任意日期）进行检查，而不是与存储的值进行比较。其他字段则像往常一样进行快照对比。
 
-## Error Snapshots
+## 错误快照 {#error-snapshots}
 
-A common use of inline snapshots is capturing error messages. [`toThrowErrorMatchingInlineSnapshot`](/api/expect#tothrowerrormatchinginlinesnapshot) combines `toThrow` with `toMatchInlineSnapshot` so you can snapshot the error message without a separate `.snap` file:
+内联快照的一个常见用法是捕获错误消息。[`toThrowErrorMatchingInlineSnapshot`](/api/expect#tothrowerrormatchinginlinesnapshot) 将 `toThrow` 与 `toMatchInlineSnapshot` 结合，这样你就可以在不使用单独 `.snap` 文件的情况下对错误消息进行快照：
 
 ```js
 test('throws on invalid input', () => {
@@ -169,8 +169,8 @@ test('throws on invalid input', () => {
 })
 ```
 
-This is especially handy for verifying that error messages are clear and don't accidentally change. Like other inline snapshots, Vitest fills in the string on the first run and updates it when you press `u`.
+这对于验证错误消息是否清晰且不会意外更改非常方便。与其他内联快照一样，Vitest 在首次运行时填充字符串，并在你按下 `u` 时更新它。
 
 ::: tip
-For custom snapshot serializers, snapshot matchers, and advanced configuration, see the [Snapshot](/guide/snapshot) guide.
+关于自定义快照序列化器、快照匹配器和高级配置，请参阅 [快照](/guide/snapshot)。
 :::

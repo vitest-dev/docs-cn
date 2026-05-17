@@ -1,20 +1,20 @@
 ---
-title: Writing Tests | Guide
+title: 编写测试用例 | 指南
 prev:
-  text: Getting Started
+  text: 快速起步
   link: /guide/
 next:
-  text: Using Matchers
+  text: 使用匹配器
   link: /guide/learn/matchers
 ---
-<!-- TODO: translation -->
-# Writing Tests
 
-In the [Getting Started](/guide/) guide, you installed Vitest and ran your first test. This page dives deeper into how to write and organize tests in Vitest.
+# 编写测试 {#writing-tests}
 
-## Your First Test
+在 [入门指南](/guide/) 中，你安装了 Vitest 并运行了第一个测试。本章将深入探讨如何在 Vitest 中编写和组织测试。
 
-A test verifies that a piece of code produces the expected result. In Vitest, you use the [`test`](/api/test) function to define a test, and [`expect`](/api/expect) to make assertions. Each test has a name (a string describing what it checks) and a function that contains one or more assertions. If any assertion fails, the test fails.
+## 你的第一个测试 {#your-first-test}
+
+测试用于验证某段代码是否产生预期结果。在 Vitest 中，你使用 [`test`](/api/test) 函数来定义测试，使用 [`expect`](/api/expect) 来进行断言。每个测试都有一个名称（描述其检查内容的字符串）和一个包含一个或多个断言的函数。如果任何断言失败，则该测试失败。
 
 ```js
 import { expect, test } from 'vitest'
@@ -26,8 +26,8 @@ test('Math.sqrt works for perfect squares', () => {
 })
 ```
 
-::: details Use `test` or `it`?
-You might also see tests written with [`it`](/api/test) instead of `test`. They behave identically. `it` is just an alias that some people prefer because it reads more naturally with a descriptive name:
+::: details 使用 `test` 还是 `it`？
+你可能也会看到使用 [`it`](/api/test) 而非 `test` 编写的测试。它们的行为完全相同。`it` 只是一个别名，有些人更喜欢它，因为它在配合描述性名称时读起来更自然：
 
 ```js
 import { expect, it } from 'vitest'
@@ -37,12 +37,12 @@ it('should compute square roots', () => {
 })
 ```
 
-Use whichever you prefer. Both work the same way, and you can mix them freely in a project. If you want to enforce a consistent choice across your codebase, the [`consistent-test-it`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-it.md) ESLint rule (also available in [oxlint](https://oxc.rs/docs/guide/usage/linter/rules/jest/consistent-test-it.html)) can help with that.
+两者的工作方式相同，使用你喜欢的那个。你可以在项目中自由混合使用它们。如果你想在代码库中强制执行一致的选择，[`consistent-test-it`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-it.md) ESLint 规则（在 [oxlint](https://oxc.rs/docs/guide/usage/linter/rules/jest/consistent-test-it.html) 中也可用）可以提供帮助。
 :::
 
-## Grouping Tests with `describe`
+## 使用 `describe` 分组测试 {#grouping-tests-with-describe}
 
-As your test files grow, you'll want to organize related tests together. [`describe`](/api/describe) creates a test suite, which is a named group of tests:
+随着测试文件的增长，你会希望将相关的测试组织在一起。[`describe`](/api/describe) 创建一个测试套件，这是一个命名的测试组：
 
 ```js
 import { describe, expect, test } from 'vitest'
@@ -63,32 +63,32 @@ describe('Math.sqrt', () => {
 })
 ```
 
-You can nest `describe` blocks for further organization, but keep nesting shallow. Deeply nested tests are harder to read. A flat list of tests is often enough for simple modules, and `describe` becomes more useful when a file tests multiple functions or methods that each need their own group.
+你可以嵌套 `describe` 块以进一步组织，但请保持嵌套层次较浅。深层嵌套的测试更难阅读。对于简单模块，一个扁平的测试列表通常就足够了，`describe` 适用于当文件测试多个函数或方法且每个都需要自己的分组。
 
-## Test Files
+## 测试文件 {#test-files}
 
-By default, Vitest looks for any file that contains `.test.` or `.spec.` in its name, such as `utils.test.js`, `app.spec.js`, or `math.test.jsx`. It searches in all subdirectories, so it doesn't matter where you place them.
+默认情况下，Vitest 会查找文件名中包含 `.test.` 或 `.spec.` 的任何文件，例如 `utils.test.js`、`app.spec.js` 或 `math.test.jsx`。它会在所有子目录中搜索，因此你将它们放在哪里并不重要。
 
-The exact patterns are:
+确切的匹配规则是：
 
 - `**/*.test.{ts,js,mjs,cjs,tsx,jsx}`
 - `**/*.spec.{ts,js,mjs,cjs,tsx,jsx}`
 
-There's no single "right" way to organize your test files. Some teams prefer placing tests right next to the source code they test, while others keep them in a dedicated directory. Vitest will find them either way:
+组织测试文件没有单一的 “正确” 方法。有些团队喜欢将测试放在它们所测试的源代码旁边，而另一些团队则将它们保存在一个专用目录中。这两种方式 Vitest 都能找到：
 
 ```
 src/
   utils.js
-  utils.test.js       # co-located with the source
+  utils.test.js       # 与源代码放在一起
   __tests__/
-    utils.test.js      # in a test directory
+    utils.test.js     # 在测试目录中
 ```
 
-If the default patterns don't work for your project, you can customize which files are included with the [`include`](/config/include) and [`exclude`](/config/exclude) config options.
+如果默认匹配规则不适合你的项目，你可以使用 [`include`](/config/include) 和 [`exclude`](/config/exclude) 配置选项来自定义包含哪些文件。
 
-## Testing TypeScript
+## 测试 TypeScript {#testing-typescript}
 
-Because Vitest runs on top of Vite, TypeScript works out of the box. There's no extra compiler to install, no `ts-jest` to configure, and no separate build step for your tests. Just name your test file `.test.ts` instead of `.test.js` and start writing:
+由于 Vitest 构建于 Vite 之上，TypeScript 可以开箱即用。无需安装额外的编译器，无需配置 `ts-jest`，也无需为测试进行单独的构建步骤。只需将测试文件命名为 `.test.ts` 而不是 `.test.js`，然后开始编写：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -110,59 +110,59 @@ test('creates a user with the correct fields', () => {
 })
 ```
 
-You can import your production types, use generics, and write typed test utilities exactly as you would in the rest of your codebase. Vite transforms TypeScript on the fly, so tests start fast even in large projects.
+你可以像在代码库的其他部分一样，导入类型、使用泛型并编写类型化的测试工具。Vite 会即时转换 TypeScript，即使在大型项目中测试也能快速启动。
 
 ::: tip
-Vitest transforms TypeScript for execution but does **not** type-check your tests during the test run. This is the same trade-off Vite makes for speed: you get fast feedback in the terminal, and run `tsc` or `vitest typecheck` separately when you want full type checking. See the [Testing Types](/guide/testing-types) guide for more details.
+Vitest 会转换 TypeScript 以供执行，但在测试运行期间 **不会** 对你的测试进行类型检查。你在终端中能够快速获得反馈，这是 Vite 为速度所做的权衡。当你需要完整的类型检查时，可以单独运行 `tsc` 或 `vitest typecheck`。更多详情请参阅 [测试类型](/guide/testing-types) 指南。
 :::
 
-## Reading Test Output
+## 阅读测试输出 {#reading-test-output}
 
-When you run `vitest` and only a single test file matches, the output is expanded into a tree structure showing `describe` groups and individual tests along with their duration:
+当你运行 `vitest` 且只有一个测试文件匹配时，输出会以树状结构展开显示，显示 `describe` 分组、各个测试及其耗时：
 
 <<< ./snippets/test-output-single.ansi
 
-When multiple test files run, Vitest collapses each file into a single line to keep the output manageable:
+当多个测试文件运行时，Vitest 会将每个文件折叠为单行，以保持输出可控：
 
 <<< ./snippets/test-output-multiple.ansi
 
-When a test fails, Vitest shows you exactly what went wrong. You'll see the expected value, the actual value, a diff highlighting the difference, and a code snippet of the surrounding lines with the failing assertion highlighted. It also includes the file and line number so you can jump straight to the source:
+当测试失败时，Vitest 会准确地告诉你问题出在哪里。你将看到期望值、实际值、突出显示差异的差异对比，以及包含失败断言的周围行代码片段。它还包括文件和行号，以便你可以直接跳转到源代码：
 
 <<< ./snippets/test-output-fail.ansi
 
-Between the diff and the code snippet, you can usually understand what went wrong without needing to add extra `console.log` statements or open the file yourself.
+通过差异对比和代码片段，你通常就能看出问题出在哪里，而无需添加额外的 `console.log` 语句或自己打开文件。
 
-## Skipping and Focusing Tests
+## 跳过和聚焦测试 {#skipping-and-focusing-tests}
 
-While developing, you'll often want to run only a subset of tests. Vitest provides modifiers for this:
+在开发过程中，你通常只想运行一部分测试。Vitest 为此提供了修饰符：
 
-[`.only`](/api/test#only) tells Vitest to run only this test (or suite) and skip everything else in the file. This is useful when you're working on a specific test and don't want to wait for the entire suite to finish:
+[`.only`](/api/test#only) 告诉 Vitest 只运行此测试（或套件），并跳过文件中的所有其他测试。适用于正在处理特定测试并且不想等待整个套件完成的场景：
 
 ```js
 test.only('focus on this test', () => {
-  // only this test runs in the file
+  // 文件中只运行此测试
 })
 ```
 
-[`.skip`](/api/test#skip) does the opposite. It skips a test without removing it, which is handy when a test is temporarily broken or you want to ignore it while you work on something else:
+[`.skip`](/api/test#skip) 则相反。它跳过一个测试而不删除它，适用于测试暂时损坏或你在处理其他事情时想要忽略它的场景：
 
 ```js
 test.skip('not ready yet', () => {
-  // this test is skipped
+  // 此测试被跳过
 })
 ```
 
-[`.todo`](/api/test#todo) lets you mark a placeholder for a test you haven't written yet. Vitest will list it in the output so you won't forget about it:
+[`.todo`](/api/test#todo) 让你为尚未编写的测试标记一个占位符。Vitest 会在输出中列出它，这样你就不会忘记：
 
 ```js
 test.todo('implement validation later')
 ```
 
-These modifiers are great for quick, local changes while developing. For more permanent ways to filter tests (by filename, line number, or tags), see the [Test Filtering](/guide/filtering) guide.
+这些修饰符非常适合开发过程中的快速本地更改。对于更永久的测试过滤方式（按文件名、行号或标签），请参阅 [测试过滤](/guide/filtering) 指南。
 
-## Parameterized Tests
+## 参数化测试 {#parameterized-tests}
 
-When you have several test cases that only differ in their inputs and expected outputs, writing a separate `test` for each one gets repetitive. [`test.for`](/api/test#test-for) lets you define the cases as data and run the same test logic for all of them:
+当你有多个测试用例，仅输入和预期输出不同时，为每个用例编写单独的 `test` 会显得重复。[`test.for`](/api/test#test-for) 允许你将用例定义为数据，并为所有用例运行相同的测试逻辑：
 
 ```js
 import { expect, test } from 'vitest'
@@ -176,9 +176,9 @@ test.for([
 })
 ```
 
-The placeholders `%i`, `%s`, and `%f` in the test name are replaced with the corresponding values from each row, so the output shows `add(1, 1) -> 2`, `add(1, 2) -> 3`, and so on.
+测试名称中的占位符 `%i`、`%s` 和 `%f` 会被每行中对应的值替换，因此输出会显示 `add(1, 1) -> 2`、`add(1, 2) -> 3` 等。
 
-If your cases have more than two or three values, passing objects is more readable. Use `$property` in the name to interpolate fields:
+如果你的用例包含两个或三个以上的值，传递对象更具可读性。在名称中使用 `$property` 来插入字段：
 
 ```js
 test.for([
@@ -190,7 +190,7 @@ test.for([
 })
 ```
 
-The second argument to the test function is the [Test Context](/guide/test-context), which gives you access to fixtures, per-test `expect`, and other utilities. This is especially useful with [`test.concurrent`](/api/test#concurrent), where concurrent tests run in parallel and the global `expect` can't reliably associate a snapshot with the right test. The context-scoped `expect` solves this:
+测试函数的第二个参数是 [测试上下文](/guide/test-context)，它让你可以访问 fixtures、每个测试的 `expect` 和其他工具函数。[`test.concurrent`](/api/test#concurrent) 适用于并发测试，因为并发测试会并行运行，而全局的 `expect` 无法可靠地将快照与正确的测试关联起来。上下文作用域的 `expect` 正好解决了这个问题：
 
 ```js
 test.concurrent.for([
@@ -202,15 +202,15 @@ test.concurrent.for([
 })
 ```
 
-[`describe.for`](/api/describe#describe-for) works the same way but creates a suite for each set of parameters, which is useful when multiple tests share the same parameterized setup.
+[`describe.for`](/api/describe#describe-for) 的工作方式相同，但会为每组参数创建一个套件。适用于多个测试共享相同的参数化设置。
 
 ::: tip
-Vitest also provides [`test.each`](/api/test#each), which you may recognize from Jest. It works similarly but spreads array arguments instead of passing them as a single value, and doesn't provide access to the Test Context. It exists mainly for Jest compatibility. Prefer `test.for` in new code.
+Vitest 还提供了 [`test.each`](/api/test#each)，熟悉 Jest 的用户可能会认出它。它的工作方式类似，但会将数组参数展开传递，而不是作为单个值传递，并且不提供对测试上下文的访问。它主要为了与 Jest 兼容而存在。在新代码中，建议优先使用 `test.for`。
 :::
 
-## Using Global Imports
+## 使用全局导入 {#using-global-imports}
 
-By default, you import `test`, `expect`, `describe`, and other functions from `vitest` at the top of every test file. If you'd rather use them as globals without importing (similar to how Jest works), you can enable the [`globals`](/config/globals) option in your config:
+默认情况下，你需要在每个测试文件的顶部从 `vitest` 导入 `test`、`expect`、`describe` 和其他函数。如果你希望将它们作为全局变量使用而无需导入（类似于 Jest 的工作方式），可以在配置中启用 [`globals`](/config/globals) 选项：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -222,7 +222,7 @@ export default defineConfig({
 })
 ```
 
-With this enabled, you can write tests without the import line:
+启用此选项后，你可以在没有导入的情况下直接编写测试：
 
 ```js
 test('no import needed', () => {
@@ -231,11 +231,11 @@ test('no import needed', () => {
 ```
 
 ::: tip
-If you use TypeScript, add `"types": ["vitest/globals"]` to your `tsconfig.json` `compilerOptions` for proper type support.
+如果你使用 TypeScript，请在 `tsconfig.json` 的 `compilerOptions` 中添加 `"types": ["vitest/globals"]` 以获得正确的类型支持。
 :::
 
-## Running Tests
+## 运行测试 {#running-tests}
 
-Vitest runs all test files **in parallel** by default, using [child processes](/config/pool). Each test file runs in its own isolated context, so your test files don't share state with each other. This prevents tests in different files from accidentally interfering.
+Vitest 默认使用 [子进程](/config/pool) **并行** 运行所有测试文件。每个测试文件都在其独立的上下文中运行，因此你的测试文件不会彼此共享状态。这可以防止不同文件中的测试意外相互干扰。
 
-Tests **within** a single file run sequentially by default, which is usually what you want since tests in the same file often share setup code. If your tests are truly independent, you can opt into running them concurrently with [`test.concurrent`](/api/test#concurrent) to speed things up. See the [Parallelism](/guide/parallelism) guide for more details on controlling test execution.
+同一个文件内的测试默认按顺序运行。由于同一文件中的测试往往共享初始化代码，这种按顺序执行通常是合理的。如果你的测试是真正独立的，你可以选择使用 [`test.concurrent`](/api/test#concurrent) 并发运行它们以加快速度。有关控制测试执行的更多详情，请参阅 [并行性](/guide/parallelism) 指南。

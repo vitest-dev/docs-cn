@@ -9,7 +9,7 @@ outline: deep
 
 ## 定义标签 {#defining-tags}
 
- Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
+Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
 
 在标签定义时至少必须包含 `name` 参数，与此同时你还可以定义其他配置参数如 `timeout` 或 `retry`，这些配置参数将应用于使用该标签的所有测试。完整的可用配置参数，参见 [`tags`](/config/tags)。
 
@@ -60,6 +60,7 @@ test('flaky database test', { tags: ['flaky', 'db'] })
 test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
 // { timeout: 120_000, retry: 3 }
 ```
+
 :::
 
 如果你正在使用 TypeScript，可以扩展 `TestTags` 类型添加一个包含字符串的联合类型来限定的标签可用范围，请确保该文件被包含在 `tsconfig` 中：
@@ -193,6 +194,7 @@ describe('forms', () => {
   })
 })
 ```
+
 :::
 
 ## 按标签筛选用例 {#filtering-tests-by-tag}

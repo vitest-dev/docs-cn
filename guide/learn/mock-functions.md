@@ -1,22 +1,22 @@
 ---
-title: Mock Functions | Guide
+title: 模拟函数 | 指南
 prev:
-  text: Setup and Teardown
+  text: 初始化与清理
   link: /guide/learn/setup-teardown
 next:
-  text: Snapshot Testing
+  text: 快照测试
   link: /guide/learn/snapshots
 ---
 
-# Mock Functions
+# 模拟函数 {#mock-functions}
 
-When writing tests, you often need to replace a real function or module with a controlled version. This is called **mocking**. There are several reasons you might want to do this: maybe the real function makes network requests that would slow down your tests, or maybe you need to simulate an error that's hard to trigger with real code. Mock functions let you control what a dependency returns, observe how it was called, and isolate the code under test from side effects.
+在编写测试时，你经常需要用一个可控的版本来替换真实的函数或模块。这被称为 **模拟**。这样做通常有几个原因：比如真实函数会发起网络请求，从而拖慢测试速度，或者你需要模拟一种难以通过真实代码触发的错误。模拟函数可以让你控制依赖项的返回值、观察它是如何被调用的，并将被测代码与副作用隔离开来。
 
-Vitest provides mocking utilities through the [`vi`](/api/vi) object.
+Vitest 通过 [`vi`](/api/vi) 对象提供模拟工具函数。
 
-## Creating Mock Functions
+## 创建 Mock 函数 {#creating-mock-functions}
 
-The simplest way to create a mock is with [`vi.fn()`](/api/vi#vi-fn). This gives you a function that does nothing by default (returns `undefined`), but tracks every call made to it:
+创建模拟最简单的方法是使用 [`vi.fn()`](/api/vi#vi-fn)。这会得到一个默认什么都不做（仅返回 `undefined`）的函数，但它会追踪每一次调用：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -24,21 +24,21 @@ import { expect, test, vi } from 'vitest'
 test('mock function basics', () => {
   const getApples = vi.fn()
 
-  // Call it
+  // 调用它
   getApples()
 
-  // Check it was called
+  // 检查它是否被调用过
   expect(getApples).toHaveBeenCalled()
   expect(getApples).toHaveBeenCalledTimes(1)
 
-  // By default, a mock returns undefined
+  // 默认情况下，模拟函数返回 undefined
   expect(getApples()).toBeUndefined()
 })
 ```
 
-## Mock Return Values
+## 模拟返回值 {#mock-return-values}
 
-A mock that always returns `undefined` isn't very useful on its own. You'll usually want to control what it returns so you can test how your code reacts to different values:
+一个总是返回 `undefined` 的模拟函数本身并没有太大用处。通常你会希望控制它的返回值，这样就可以测试你的代码在面对不同返回结果时会如何响应：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -46,18 +46,18 @@ import { expect, test, vi } from 'vitest'
 test('mock return values', () => {
   const getApples = vi.fn()
 
-  // Always return this value
+  // 总是返回这个值
   getApples.mockReturnValue(10)
   expect(getApples()).toBe(10)
 
-  // Return this value only once, then fall back to the default
+  // 仅返回此值一次，然后回退到默认值
   getApples.mockReturnValueOnce(20)
-  expect(getApples()).toBe(20) // 20 (one-time)
-  expect(getApples()).toBe(10) // back to default
+  expect(getApples()).toBe(20) // 20（一次性）
+  expect(getApples()).toBe(10) // 回到默认值
 })
 ```
 
-If the function you're mocking is async, use [`mockResolvedValue`](/api/mock#mockresolvedvalue) and [`mockRejectedValue`](/api/mock#mockrejectedvalue) to control the promise outcome:
+如果你模拟的函数是异步的，请使用 [`mockResolvedValue`](/api/mock#mockresolvedvalue) 和 [`mockRejectedValue`](/api/mock#mockrejectedvalue) 来控制 Promise 的结果：
 
 ```js
 test('mock async return values', async () => {
@@ -72,9 +72,9 @@ test('mock async return values', async () => {
 })
 ```
 
-## Mock Implementation
+## 模拟实现 {#mock-implementation}
 
-Sometimes you need more than a fixed return value. You want the mock to actually do something with its arguments. [`mockImplementation`](/api/mock#mockimplementation) lets you provide a full replacement function:
+有时你需要的不只是一个固定的返回值。而是希望模拟函数能根据传入的参数真正执行一些逻辑。[`mockImplementation`](/api/mock#mockimplementation) 允许你提供一个完整的替代函数：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -88,15 +88,15 @@ test('mock with custom implementation', () => {
 })
 ```
 
-As a shorthand, you can pass the implementation directly to `vi.fn()`:
+作为快捷方式，你可以直接将实现传递给 `vi.fn()`：
 
 ```js
 const add = vi.fn((a, b) => a + b)
 ```
 
-## Inspecting Calls
+## 检查调用 {#inspecting-calls}
 
-One of the most powerful things about mock functions is that they remember every call made to them. You can assert on how many times a function was called, what arguments it received, and what it returned:
+模拟函数最强大的功能之一是它们能记住每一次调用。你可以断言函数被调用了多少次、接收了什么参数以及返回了什么：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -107,18 +107,18 @@ test('inspecting mock calls', () => {
   greet('Alice')
   greet('Bob', 'Charlie')
 
-  // Number of calls
+  // 调用次数
   expect(greet).toHaveBeenCalledTimes(2)
 
-  // Check specific arguments
+  // 检查特定参数
   expect(greet).toHaveBeenCalledWith('Alice')
   expect(greet).toHaveBeenCalledWith('Bob', 'Charlie')
 
-  // Check the arguments of a specific call by position
+  // 按位置检查特定调用的参数
   expect(greet).toHaveBeenNthCalledWith(1, 'Alice')
   expect(greet).toHaveBeenLastCalledWith('Bob', 'Charlie')
 
-  // Access the raw call data
+  // 访问原始调用数据
   expect(greet.mock.calls).toEqual([
     ['Alice'],
     ['Bob', 'Charlie'],
@@ -126,7 +126,7 @@ test('inspecting mock calls', () => {
 })
 ```
 
-The `.mock` property gives you full access to the call history. In addition to `.mock.calls`, you can also inspect `.mock.results` to see what the mock returned (or threw) on each call:
+`.mock` 属性让你能完全访问调用历史。除了 `.mock.calls`，你还可以检查 `.mock.results` 来查看模拟函数每次调用返回了什么或抛出了什么：
 
 ```js
 const double = vi.fn(x => x * 2)
@@ -141,7 +141,7 @@ expect(double.mock.results).toEqual([
 ```
 
 ::: warning
-`.mock.calls` stores references to the arguments, not copies. If you pass an object to a mock and then mutate it afterwards, the recorded call will reflect the mutated state, not the state at the time of the call:
+`.mock.calls` 存储的是对参数的引用，而不是副本。如果你将一个对象传递给模拟函数，之后又修改了它，那么记录的调用将反映修改后的状态，而不是调用时的状态：
 
 ```js
 const fn = vi.fn()
@@ -150,11 +150,11 @@ const obj = { count: 1 }
 fn(obj)
 obj.count = 2
 
-// ❌ This fails! mock.calls[0][0].count is now 2, not 1
+// ❌ 这会失败！mock.calls[0][0].count 现在是 2，而不是 1
 expect(fn).toHaveBeenCalledWith({ count: 1 })
 ```
 
-If you need to assert on the original values, you can use `mockImplementation` to capture a clone at call time:
+如果你需要对原始值进行断言，可以使用 `mockImplementation` 在调用时捕获一个克隆：
 
 ```js
 const calls = []
@@ -166,15 +166,15 @@ const obj = { count: 1 }
 fn(obj)
 obj.count = 2
 
-expect(calls[0]).toEqual({ count: 1 }) // ✅ passes
+expect(calls[0]).toEqual({ count: 1 }) // ✅ 通过
 ```
 
-Alternatively, you can make your assertion before the mutation happens.
+或者，你可以在修改发生之前进行断言。
 :::
 
-## Spying on Methods
+## 监听方法 {#spying-on-methods}
 
-[`vi.spyOn`](/api/vi#vi-spyon) is different from `vi.fn()` in an important way. Instead of creating a brand new function, it wraps an *existing* method on an object. The original implementation still works by default, but you can observe every call and optionally override the behavior:
+[`vi.spyOn`](/api/vi#vi-spyon) 与 `vi.fn()` 有一个重要区别。它不是创建一个全新的函数，而是包装对象上 _现有方法_。默认情况下原始实现仍然会正常执行，但你可以观察每次调用，并且在需要时选择覆盖它的行为：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -188,10 +188,10 @@ const calculator = {
 test('spy on a method', () => {
   const spy = vi.spyOn(calculator, 'add')
 
-  // The original implementation still works
+  // 原始实现仍然工作
   expect(calculator.add(1, 2)).toBe(3)
 
-  // But we can observe calls
+  // 但我们可以观察调用
   expect(spy).toHaveBeenCalledWith(1, 2)
   expect(spy).toHaveBeenCalledTimes(1)
 })
@@ -204,17 +204,17 @@ test('spy can override implementation', () => {
 })
 ```
 
-This is particularly useful when you want to verify that your code calls a method correctly without replacing the method's behavior entirely.
+适用于你想验证你的代码正确调用了某个方法，而不是完全替换该方法的行为。
 
-## Resetting Mocks
+## 重置模拟 {#resetting-mocks}
 
-Mock functions accumulate state as tests run. They remember every call, every return value, and any custom implementation you've set. If you don't reset them between tests, this state can leak and cause confusing failures. Vitest provides three levels of cleanup:
+模拟函数随着测试运行会积累状态。它们会记住每次调用、每个返回值以及你设置的任何自定义实现。如果你不在测试之间重置它们，这种状态可能会泄漏并导致难以理解的失败。Vitest 提供了三个级别的清理函数：
 
-- **[`mockClear()`](/api/mock#mockclear)** clears the recorded call history and return values, but keeps any custom implementation you've set
-- **[`mockReset()`](/api/mock#mockreset)** does everything `mockClear` does, and also removes any custom implementation, returning the mock to its default state
-- **[`mockRestore()`](/api/mock#mockrestore)** is specifically for spies created with `vi.spyOn`. It restores the original object method, effectively undoing the spy. On `vi.fn()` mocks, it behaves the same as `mockReset`
+- **[`mockClear()`](/api/mock#mockclear)** 清除记录的调用历史和返回值，但保留你设置的任何自定义实现
+- **[`mockReset()`](/api/mock#mockreset)** 执行 `mockClear` 的所有操作，并且还会移除所有自定义实现，将模拟恢复到其默认状态
+- **[`mockRestore()`](/api/mock#mockrestore)** 专门用于通过 `vi.spyOn` 创建的 spy。它会恢复对象的原始方法，有效地撤销 spy。对于 `vi.fn()` 创建的模拟，其行为与 `mockReset` 相同
 
-In practice, the easiest approach is to restore all mocks automatically after each test:
+在实践中，最简单的方法是在每个测试后自动恢复所有模拟：
 
 ```js
 import { afterEach, expect, test, vi } from 'vitest'
@@ -230,11 +230,11 @@ afterEach(() => {
 test('spy is restored after the test', () => {
   const spy = vi.spyOn(calculator, 'add').mockReturnValue(42)
   expect(calculator.add(1, 2)).toBe(42)
-  // afterEach will restore calculator.add to the original implementation
+  // afterEach 会将 calculator.add 恢复到原始实现
 })
 ```
 
-Even better, you can configure this globally with the [`restoreMocks`](/config/restoremocks) option so you don't need the `afterEach` at all:
+更好的做法是，你可以通过 [`restoreMocks`](/config/restoremocks) 选项全局配置此功能，这样你完全不需要 `afterEach`：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -246,9 +246,9 @@ export default defineConfig({
 })
 ```
 
-## Mocking Modules
+## 模拟模块 {#mocking-modules}
 
-Sometimes you need to replace an [entire module](/guide/mocking/modules) rather than a single function. For example, a database client or a logger that you don't want running during tests. [`vi.mock`](/api/vi#vi-mock) lets you replace a module's exports with mock implementations:
+有时你需要替换不是单个函数，而是 [整个模块](/guide/mocking/modules)。例如，一个你不想在测试期间运行的数据库客户端或日志记录器。[`vi.mock`](/api/vi#vi-mock) 允许你用模拟实现替换模块的导出：
 
 ```js
 import { expect, test, vi } from 'vitest'
@@ -268,20 +268,20 @@ test('mock a module', () => {
 ```
 
 ::: warning
-[`vi.mock`](/api/vi#vi-mock) calls are hoisted to the top of the file. They run before any imports. This means the mocked version is in place by the time your test code runs.
+[`vi.mock`](/api/vi#vi-mock) 调用会被提升到文件顶部。它们在所有导入之前运行。这意味着 mock 版本会在你的测试代码运行时就已经就位。
 :::
 
 ::: warning
-Always pass `import('./db.js')` rather than a plain string `'./db.js'`. When you use `import()`, TypeScript can infer the module's types, so the factory function's return value is type-checked and `importOriginal` returns the correctly typed module. As a bonus, if you rename or move the file in your IDE, the import path will be updated automatically. If you use a string, you lose both the type safety and the automatic refactoring.
+始终传递 `import('./db.js')` 而不是纯字符串 `'./db.js'`。当你使用 `import()` 时，TypeScript 可以推断模块的类型，因此工厂函数的返回值会进行类型检查，并且 `importOriginal` 会返回正确类型的模块。此外，如果你在 IDE 中重命名或移动文件，导入路径会自动更新。如果使用字符串，你将失去类型安全和自动重构能力。
 :::
 
-Vitest has comprehensive guides for specific mocking scenarios:
+Vitest 为特定的模拟场景提供了全方面的指南：
 
-- [Mocking Functions](/guide/mocking/functions)
-- [Mocking Modules](/guide/mocking/modules)
-- [Mocking Timers](/guide/mocking/timers)
-- [Mocking Dates](/guide/mocking/dates)
-- [Mocking Globals](/guide/mocking/globals)
-- [Mocking Requests](/guide/mocking/requests)
-- [Mocking the File System](/guide/mocking/file-system)
-- [Mocking Classes](/guide/mocking/classes)
+- [模拟函数](/guide/mocking/functions)
+- [模拟模块](/guide/mocking/modules)
+- [模拟计时器](/guide/mocking/timers)
+- [模拟日期](/guide/mocking/dates)
+- [模拟全局对象](/guide/mocking/globals)
+- [模拟请求](/guide/mocking/requests)
+- [模拟文件系统](/guide/mocking/file-system)
+- [模拟类](/guide/mocking/classes)

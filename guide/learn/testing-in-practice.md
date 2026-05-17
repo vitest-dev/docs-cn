@@ -1,22 +1,22 @@
 ---
-title: Testing in Practice | Guide
+title: 测试实操 | 指南
 prev:
-  text: Snapshot Testing
+  text: 快照测试
   link: /guide/learn/snapshots
 next:
-  text: Debugging Tests
+  text: 调试测试
   link: /guide/learn/debugging-tests
 ---
 
-# Testing in Practice
+# 测试实践 {#testing-in-practice}
 
-The previous pages covered the Vitest API: assertions, mocking, snapshots, and test lifecycle hooks. This page focuses on applying those tools to real code. It covers how to decide what to test, how to structure tests effectively, and how to organize test files as a project grows.
+前面的章节介绍了 Vitest API：断言、模拟、快照和测试生命周期钩子。本章重点介绍如何将这些工具应用到实际代码中，包括如何确定测试内容、如何组织测试结构，以及如何在项目增长时有效组织测试文件。
 
-## What to Test
+## 哪些需要测试 {#what-to-test}
 
-When you sit down to write tests for a function or module, start by thinking about its **contract**: what does it promise to do for the code that calls it? The contract is defined by its inputs (arguments, configuration) and its outputs (return values, side effects, errors). These are the things your tests should verify.
+当你开始为函数或模块编写测试时，首先要思考它的 **约定**：它对调用方作出了哪些保证？约定由其输入（参数、配置）和输出（返回值、副作用、错误）定义。这些正是你的测试需要验证的内容。
 
-Consider a `formatPrice` function:
+以 `formatPrice` 函数为例：
 
 ```js [formatPrice.js]
 export function formatPrice(amount, currency) {
@@ -27,7 +27,7 @@ export function formatPrice(amount, currency) {
 }
 ```
 
-The contract here is: given an amount and a currency code, return a formatted price string. Good tests for this function would cover:
+这里的约定是：给定金额和货币代码，返回格式化的价格字符串。针对此函数的良好测试应涵盖：
 
 ```js [formatPrice.test.js]
 import { expect, test } from 'vitest'
@@ -54,50 +54,50 @@ test('rounds to two decimal places', () => {
 })
 ```
 
-Notice what these tests *don't* do. They don't check which internal `Intl.NumberFormat` options were passed, or whether an intermediate variable was set. They only check the output.
+请注意这些测试 _不做什么_。它们不检查传递了哪些内部的 `Intl.NumberFormat` 选项，或者是否设置了中间变量。它们只检查输出。
 
 ::: tip
-A good rule of thumb: if someone refactors the internals but the output stays the same, should the test break? If it would, you're probably testing implementation details rather than behavior.
+一个好的做法：如果有人重构了内部实现但输出保持不变，测试应该失败吗？如果会失败，那么你很可能是在测试实现细节而非行为。
 :::
 
-## Structuring a Test
+## 测试结构 {#structuring-a-test}
 
-Most tests follow a natural three-part structure, sometimes called "Arrange, Act, Assert":
+大多数测试遵循一个自然的三段式结构，有时被称为“准备、执行、断言”：
 
-1. **Set up** the data your test needs
-2. **Call** the function or perform the action you're testing
-3. **Check** that the result matches your expectations
+1. **初始化** 测试所需的数据
+2. **调用** 要测试的函数或执行操作
+3. **检查** 结果是否符合预期
 
 ```js
 test('removes an item from the list', () => {
-  // Set up
+  // 初始化
   const list = new ShoppingList()
   list.add('milk')
   list.add('bread')
 
-  // Act
+  // 调用
   list.remove('milk')
 
-  // Check
+  // 检查
   expect(list.getItems()).toEqual(['bread'])
 })
 ```
 
-You don't need comments labeling each section. The structure becomes natural once you've written a few tests. The important thing is keeping each test focused on one behavior.
+你不需要用注释标注每个部分。写过几个测试后，这种结构就会变得很自然。重要的是让每个测试专注于一个行为。
 
-### One Behavior Per Test
+### 每个测试一个行为 {#one-behavior-per-test}
 
-If you find yourself writing "and" in a test name ("formats price and handles errors and logs the result"), that's a sign you should split it into separate tests.
+如果你发现自己在测试名中写 “和”（例如 “格式化价格并处理错误并记录结果”），这表明你应该将其拆分为多个独立的测试。
 
-### Descriptive Names
+### 描述性测试名 {#descriptive-names}
 
-Write test names that describe the behavior, not the implementation. "returns formatted price for USD" is better than "calls Intl.NumberFormat with correct options". When a test fails, the name should tell you what broke without having to read the test body.
+编写描述行为而非实现的测试名。“返回 USD 的格式化价格” 比 “使用正确选项调用 Intl.NumberFormat” 更好。当测试失败时，名称应该能告诉你哪里出了问题，而无需阅读测试体。
 
-## Testing Edge Cases
+## 测试边界情况 {#testing-edge-cases}
 
-After covering the main behavior, think about the boundaries. What happens at the edges? What inputs are unusual but valid? What should happen when things go wrong?
+覆盖主要行为后，考虑边界情况。在边界处会发生什么？哪些输入不常见但有效？出错时应该发生什么？
 
-Here's an example with a `parseAge` function that takes user input and returns a number:
+以下是一个 `parseAge` 函数的示例，它接收用户输入并返回一个数字：
 
 ```js [parseAge.js]
 export function parseAge(input) {
@@ -109,7 +109,7 @@ export function parseAge(input) {
 }
 ```
 
-The happy path is straightforward, but the edge cases are where bugs hide:
+主要流程是显而易见的，但边界情况才是真正隐藏错误的地方：
 
 ```js [parseAge.test.js]
 import { expect, test } from 'vitest'
@@ -148,49 +148,49 @@ test('throws for empty string', () => {
 })
 ```
 
-You don't need to test every possible input. Focus on the boundaries (0, 150, 151, -1), the error paths, and the types of inputs your function might realistically receive.
+你不需要测试所有可能的输入。重点关注边界值（0、150、151、-1）、错误路径，以及你的函数可能实际接收到的输入类型。
 
 ::: tip
-If you're unsure whether an edge case matters, ask yourself: could a real user or a real caller trigger this? If yes, test it.
+如果你不确定某个边界情况是否重要，可以问自己一句：真实用户或真实调用方是否可能触发它？如果答案是肯定的，那就应该为它编写测试。
 :::
 
-### Property-Based Testing
+### 基于属性的测试 {#property-based-testing}
 
-For functions with a wide range of valid inputs, manually choosing edge cases can only go so far. **Property-based testing** is a technique where you describe the *properties* that should hold for any input, and the testing framework generates hundreds of random inputs to try to find one that breaks.
+对于那些有效输入范围很广的函数，手动挑选边界情况终究是有限的。**基于属性的测试** 是一种技术，你描述任何输入都应该成立的 _属性_，测试框架会生成数百个随机输入，尝试找到破坏这些属性的情况。
 
-For example, you might say "for any valid age string, `parseAge` should return a non-negative integer" and let the tool find the counterexample. [fast-check](https://fast-check.dev/) is a popular property-based testing library that integrates well with Vitest. It's an advanced technique, but worth knowing about as your testing needs grow.
+例如，你可以描述 “对于任何有效的年龄字符串，`parseAge` 都应返回一个非负整数”，然后让工具寻找反例。[fast-check](https://fast-check.dev/) 是一款流行的基于属性测试库，并且能很好地与 Vitest 集成。这是一种更进阶的技术，但随着你的测试需求增长，它非常值得了解。
 
-## When to Mock
+## 何时使用模拟 {#when-to-mock}
 
-Mocking is a powerful tool, but it's easy to overuse.
+模拟是一个强大的工具，但很容易被过度使用。
 
-### Slow Dependencies
+### 慢速依赖项 {#slow-dependencies}
 
-Network requests, file system operations, and database calls can make your tests take seconds instead of milliseconds. Replace them with mocks to keep the feedback loop fast.
+网络请求、文件系统操作和数据库调用可能使你的测试需要数秒而非毫秒完成。使用模拟替换它们以保持快速反馈循环。
 
-For HTTP requests specifically, consider using [Mock Service Worker](https://mswjs.io/) instead of mocking fetch directly. See the [Mocking Requests](/guide/mocking/requests) guide for setup instructions.
+特别是对于 HTTP 请求，考虑使用 [Mock Service Worker](https://mswjs.io/) 而不是直接模拟 fetch。有关设置说明，请参阅 [模拟请求](/guide/mocking/requests)。
 
-### Non-Deterministic Values
+### 非确定性值 {#non-deterministic-values}
 
-If your code depends on the current date, a random number, or a UUID generator, mock those to make your tests predictable. Vitest provides [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) and [`vi.setSystemTime()`](/api/vi#vi-setsystemtime) for controlling time in tests.
+如果你的代码依赖于当前日期、随机数或 UUID 生成器，模拟这些值以使测试可预测。Vitest 提供了 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 和 [`vi.setSystemTime()`](/api/vi#vi-setsystemtime) 用于在测试中控制时间。
 
-### What Not to Mock
+### 不应模拟的内容 {#what-not-to-mock}
 
-Don't mock the thing you're testing. If you're testing a `UserService`, don't mock the `UserService`. Mock its *dependencies* (the database, the email sender) and let the service itself run for real.
+不要模拟你正在测试的对象。如果你正在测试 `UserService`，不要模拟 `UserService`。模拟它的 _依赖项_（数据库、邮件发送器）并让服务本身真实运行。
 
-Also, prefer real implementations when they're fast and reliable. If a dependency is a simple in-memory data structure or a pure function, there's no reason to mock it. The closer your tests are to real usage, the more confidence they give you.
+此外，当真实实现快速且可靠时，应优先使用真实实现。如果依赖项是简单的内存数据结构或纯函数，则没有理由模拟它。你的测试越接近真实使用场景，它们给你的底气就越足。
 
 ::: tip
-Only reach for mocks when the real thing is slow, flaky, or has side effects you can't control in a test.
+仅当真实对象速度慢、不稳定或具有你无法在测试中控制的副作用时，才使用模拟。
 :::
 
-## Fixing Bugs with Tests
+## 通过测试修复错误 {#fixing-bugs-with-tests}
 
-When you find a bug, it's tempting to jump straight into the code and fix it. A better approach is to write a failing test first that reproduces the bug, then fix the code and watch the test turn green.
+当你发现一个 bug 时，很容易直接跳入代码并修复它。更好的方法是先编写一个能重现该 bug 的失败用例，然后修复代码并观察测试变为通过状态。
 
-This has several benefits. The test proves the bug is real and not just a misunderstanding. It documents exactly what was broken. And it prevents the same bug from coming back later, because the test will catch it if someone accidentally reintroduces the same problem.
+这样做有几个好处。测试证明了错误是真实存在的，而不仅仅是误解。它准确记录了哪里出了问题。并且它防止了同一错误以后再次出现，因为如果有人不小心重新引入了相同问题，测试会捕获它。
 
-Here's what this looks like in practice. Suppose users report that `parseAge` crashes when given a string with leading spaces like `" 25"`. First, write a test that reproduces the problem:
+以下是实际操作的示例。假设用户报告 `parseAge` 在接收带有前导空格的字符串（如 `" 25"`）时崩溃。首先，编写一个重现问题的测试：
 
 ```js
 test('handles leading spaces', () => {
@@ -198,7 +198,7 @@ test('handles leading spaces', () => {
 })
 ```
 
-Run it and confirm it fails. Now you know exactly what's broken and have a clear target. Fix the implementation:
+运行它并确认失败。现在你确切知道哪里出了问题，并有了明确的目标。修复实现：
 
 ```js
 export function parseAge(input) {
@@ -207,19 +207,19 @@ export function parseAge(input) {
 }
 ```
 
-Run the test again. It passes. The bug is fixed, and you have a regression test that will catch it if someone removes the `.trim()` call later.
+再次运行测试。它通过了。bug 已修复，并且你有了一个回归测试，如果以后有人移除 `.trim()` 调用，它将捕获该 bug。
 
 ::: tip
-If you use AI agents to fix bugs, configure them to follow the same principle: reproduce the issue with a failing test first, then fix the code. This prevents the agent from "fixing" a bug by changing the test instead of the code, and gives you confidence that the fix actually works.
+如果你使用智能体来修复错误，请配置它们遵循相同原则：先用失败测试重现问题，然后修复代码。这可以防止智能体通过更改测试而非代码来 “修复” bug，并让你确信修复确实有效。
 :::
 
-## Organizing Test Files
+## 组织测试文件 {#organizing-test-files}
 
-There's no single right way to organize tests, but some patterns scale better than others.
+没有唯一正确的组织测试方式，但某些形式比其他形式更具扩展性。
 
-### File Layout
+### 文件布局 {#file-layout}
 
-The simplest starting point is one test file per source file. For every `utils.js`, there's a `utils.test.js` right next to it. This makes it easy to find the tests for any given piece of code, and most editors will show them side by side in the file tree:
+最简单的起点是为每个源文件创建一个测试文件。对于每个 `utils.js`，旁边都有一个 `utils.test.js`。这使得查找任何给定代码的测试变得容易，并且大多数编辑器会在文件树中并排显示它们：
 
 ```
 src/
@@ -229,11 +229,11 @@ src/
   formatPrice.test.js
 ```
 
-Some teams prefer a separate `__tests__` or `test` directory instead. Either approach works. The important thing is consistency across the project. Vitest's [`include`](/config/include) pattern matches both layouts by default.
+有些团队更喜欢使用单独的 `__tests__` 或 `test` 目录。两种方法都有效。重要的是项目内的一致性。Vitest 的 [`include`](/config/include) 默认匹配这两种布局。
 
-### Grouping with `describe`
+### 使用 `describe` 进行分组 {#grouping-with-describe}
 
-When a module exports multiple functions, use `describe` blocks to group the tests for each one. This keeps the test output organized and makes it clear which function a failing test belongs to:
+当一个模块导出多个函数时，使用 `describe` 块来分组每个函数的测试。这使测试输出保持有序，并清楚表明失败测试属于哪个函数：
 
 ```js
 describe('formatPrice', () => {
@@ -247,21 +247,21 @@ describe('parseAmount', () => {
 })
 ```
 
-Avoid nesting `describe` blocks more than one or two levels deep. Deeply nested test trees are hard to read and usually mean the source module is doing too many things at once.
+避免嵌套 `describe` 块超过一或两层深度。深度嵌套的测试树难以阅读，通常意味着源模块一次做了太多事情。
 
-### Splitting Large Files
+### 拆分大文件 {#splitting-large-files}
 
-As a project grows, some test files will inevitably get long. If a test file grows beyond a few hundred lines, consider splitting it by theme or feature area. For example, `userService.test.js` might become `userService.creation.test.js` and `userService.auth.test.js`. This also makes it faster to run a subset of tests during development.
+随着项目增长，一些测试文件不可避免地会变得很长。如果一个测试文件超过几百行，考虑按主题或功能区域拆分它。例如，`userService.test.js` 可能变成 `userService.creation.test.js` 和 `userService.auth.test.js`。这也使得在开发过程中运行测试子集更快。
 
-### Naming Tests
+### 命名测试 {#naming-tests}
 
-Test names matter more than you might expect. When a test fails in CI, the name is often the first thing someone reads. Names like "works correctly" or "handles edge case" don't tell you what broke.
+测试名称比你想象的更重要。当测试在 CI 中失败时，名称往往是有人阅读的第一件事。像 “正常工作” 或 “处理边界情况” 这样的名称无法告诉你哪里出了问题。
 
-Prefer names that describe the specific behavior: "returns 0 for an empty cart", "throws if the email format is invalid", "preserves existing items when adding a new one". The test output should read like a specification of what the module does.
+优先使用描述特定行为的名称：“空购物车返回 0”、“电子邮件格式无效时抛出错误”、“添加新项目时保留现有项目”。测试输出应该像模块功能的规范说明一样可读。
 
-## A Worked Example
+## 完整示例 {#a-worked-example}
 
-Let's put it all together. Here's a small `TodoList` module:
+让我们把所有内容整合起来。以下是一个小的 `TodoList` 模块：
 
 ```js [todoList.js]
 let nextId = 1
@@ -306,16 +306,16 @@ export function createTodoList() {
 }
 ```
 
-Looking at this code, we can identify the behaviors to test:
+查看这段代码，我们可以识别出需要测试的行为：
 
-- Adding items (the main purpose)
-- Adding empty items (should fail)
-- Removing items by ID
-- Removing items that don't exist (should fail)
-- Toggling completion status
-- Getting all items vs. completed items
+- 添加项目（主要目的）
+- 添加空项目（应该失败）
+- 按 ID 移除项目
+- 移除不存在的项目（应该失败）
+- 切换完成状态
+- 获取所有项目与已完成项目
 
-Here's how the test file might look:
+以下是测试文件可能的样子：
 
 ```js [todoList.test.js]
 import { describe, expect, test } from 'vitest'
@@ -425,16 +425,16 @@ describe('getCompleted', () => {
 })
 ```
 
-Each `describe` block focuses on one method. Each test verifies one specific behavior. The test names read like a specification of what the module does. And if any of these tests fail, the name and the assertion will tell you exactly what broke.
+每个 `describe` 块专注于一个方法。每个测试验证一个特定的行为。测试名称读起来就像模块功能的规范说明。如果其中任何一个测试失败，名称和断言会准确告诉你哪里出了问题。
 
 ::: tip
-Notice that we create a fresh `createTodoList()` in every test. This keeps tests independent, which means they can run in any order without affecting each other. If you find yourself repeating the same setup in every test, that's a good candidate for [`beforeEach`](/api/hooks#beforeeach) or a [`test.extend`](/guide/test-context#extend-test-context) fixture.
+注意我们在每个测试中都创建一个新的 `createTodoList()`。这保持了测试的独立性，意味着它们可以按任意顺序运行而不会相互影响。如果你发现自己在每个测试中重复相同的设置，那可能是使用 [`beforeEach`](/api/hooks#beforeeach) 或 [`test.extend`](/guide/test-context#extend-test-context) fixture 的好时机。
 :::
 
-::: details What about `nextId`?
-The `nextId` counter at the top of the module is shared across all calls to `createTodoList()`, including across tests. This means IDs aren't predictable: one test might get IDs 1 and 2, while another gets 3 and 4 depending on execution order. This works fine here because the tests only check *relative* uniqueness (`first.id !== second.id`), not specific ID values. If a test asserted `expect(todo.id).toBe(1)`, it would break depending on which tests ran before it. When you have shared module-level state like this, make sure your tests don't depend on its specific value.
+::: details `nextId` 怎么办？
+模块顶部的 `nextId` 计数器在所有对 `createTodoList()` 的调用中共享，包括跨测试。这意味着 ID 不可预测：一个测试可能获得 ID 1 和 2，而另一个测试获得 3 和 4，具体取决于执行顺序。这在这里没问题，因为测试只检查 _相对_ 唯一性（`first.id !== second.id`），而不是特定的 ID 值。如果测试断言了 `expect(todo.id).toBe(1)`，那么根据之前运行了哪些测试，它可能会失败。当你有像这样的共享模块级状态时，请确保你的测试不依赖于其具体值。
 :::
 
 ---
 
-If you're building a web application and want to test components in a real browser environment, check out [Component Testing](/guide/browser/component-testing) for testing React, Vue, Svelte, and other UI frameworks.
+如果你正在构建 Web 应用程序，并希望在真实的浏览器环境中测试组件，请查看 [组件测试](/guide/browser/component-testing)，了解如何测试 React、Vue、Svelte 和其他 UI 框架。

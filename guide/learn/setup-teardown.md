@@ -1,20 +1,20 @@
 ---
-title: Setup and Teardown | Guide
+title: 初始化与清理 | 指南
 prev:
-  text: Testing Asynchronous Code
+  text: 测试异步代码
   link: /guide/learn/async
 next:
-  text: Mock Functions
+  text: 模拟函数
   link: /guide/learn/mock-functions
 ---
 
-# Setup and Teardown
+# 初始化与清理 {#setup-and-teardown}
 
-Often while writing tests, you need to do some work before tests run (initialize data, connect to a database, start a server) and clean up afterwards. Rather than duplicating this code in every test, Vitest provides lifecycle hooks that run automatically at the right time.
+在编写测试时，经常需要在测试运行前进行一些准备工作（例如初始化数据、连接数据库、启动服务器），并在测试结束后进行清理。为了避免在每个测试中重复这些代码，Vitest 提供了生命周期钩子，它们会在恰当的时机自动执行。
 
-## Repeating Setup for Each Test
+## 为每个测试重复初始化 {#repeating-setup-for-each-test}
 
-The most common hooks are [`beforeEach`](/api/hooks#beforeeach) and [`afterEach`](/api/hooks#aftereach). As the names suggest, `beforeEach` runs before every test in the file, and `afterEach` runs after every test, even if the test fails. This makes them perfect for ensuring each test starts with a known state.
+最常用的钩子是 [`beforeEach`](/api/hooks#beforeeach) 和 [`afterEach`](/api/hooks#aftereach)。顾名思义，`beforeEach` 会在文件中的每个测试之前运行，而 `afterEach` 会在每个测试之后运行，即使测试失败也是如此。这使得它们非常适合确保每个测试都从一个已知的初始状态开始。
 
 ```js
 import { afterEach, beforeEach, expect, test } from 'vitest'
@@ -36,16 +36,16 @@ test('items starts with 3 fruits', () => {
 test('can add an item', () => {
   items.push('date')
   expect(items).toHaveLength(4)
-  // afterEach will reset items for the next test,
-  // so this mutation won't leak into other tests
+  // afterEach 会为下一个测试重置项目，
+  // 因此此处的修改不会影响到其他测试
 })
 ```
 
-Without these hooks, the second test's `push` would affect any test that runs after it, which is a classic source of flaky tests. The hooks guarantee clean state for every test.
+如果没有这些钩子，第二个测试的 `push` 操作会影响其后的所有测试，这是导致测试不稳定的典型原因。这些钩子确保了每个测试都拥有干净的状态。
 
-## One-Time Setup
+## 一次性初始化 {#one-time-setup}
 
-Some setup is too expensive to repeat for every test. If you need to connect to a database, start a server, or load a large file, doing that before every test would slow your suite down dramatically. That's what [`beforeAll`](/api/hooks#beforeall) and [`afterAll`](/api/hooks#afterall) are for. They run once for the entire file:
+有些初始化过于耗时，不适合为每个测试重复执行。如果你需要连接数据库、启动服务器或加载大型文件，在每个测试前都做这些操作会显著拖慢测试套件的速度。这正是 [`beforeAll`](/api/hooks#beforeall) 和 [`afterAll`](/api/hooks#afterall) 的用武之地。它们在整个文件运行期间只执行一次：
 
 ```js
 import { afterAll, beforeAll, expect, test } from 'vitest'
@@ -71,11 +71,11 @@ test('can query products', async () => {
 })
 ```
 
-The database connection is created once, shared across all tests, and then closed when the file finishes running.
+数据库连接只创建一次，在所有测试间共享，并在文件运行结束时关闭。
 
-## Scoping with `describe`
+## 使用 `describe` 进行作用域划分 {#scoping-with-describe}
 
-Hooks defined inside a `describe` block only apply to the tests within that block. Top-level hooks apply to every test in the file. This lets you set up different state for different groups of tests:
+在 `describe` 块内定义的钩子仅适用于该块内的测试。顶层的钩子则适用于文件中的每个测试。这让你可以为不同的测试组初始化不同的状态：
 
 ```js
 import { beforeEach, describe, expect, test } from 'vitest'
@@ -94,7 +94,7 @@ describe('math operations', () => {
 
   test('can subtract', () => {
     value -= 3
-    expect(value).toBe(-3) // value was reset to 0 by beforeEach
+    expect(value).toBe(-3) // value 被 beforeEach 重置为 0
   })
 })
 
@@ -111,11 +111,11 @@ describe('string operations', () => {
 })
 ```
 
-Each `describe` block has its own `beforeEach` that only affects the tests inside it. The string tests don't know or care about the `value` variable, and vice versa.
+每个 `describe` 块都有其自己的 `beforeEach` 钩子，该钩子仅影响其内部的测试。字符串测试不知道也不关心 `value` 变量，反之亦然。
 
-## Execution Order
+## 执行顺序 {#execution-order}
 
-When you have hooks at multiple levels, it's helpful to understand the order they run in. Top-level hooks wrap around inner hooks, forming a nesting structure:
+当你在多个层级上设置钩子时，了解它们的执行顺序会很有用。顶层钩子包裹着内层钩子，形成一种嵌套结构：
 
 ```js
 import { afterAll, afterEach, beforeAll, beforeEach, describe, test } from 'vitest'
@@ -139,7 +139,7 @@ describe('suite', () => {
 })
 ```
 
-This produces the following output:
+这会产生以下输出：
 
 ```
 1 - beforeAll
@@ -156,11 +156,9 @@ This produces the following output:
 8 - afterAll
 ```
 
-Notice the pattern: `beforeAll` and `afterAll` run once for the entire suite, while `beforeEach` and `afterEach` repeat for every test. Within each test, outer `beforeEach` runs first (setting up the broadest context), then inner `beforeEach` runs (narrowing the context). After the test, the order reverses: inner `afterEach` cleans up the narrow context first, then outer `afterEach` handles the broader cleanup.
+注意这里的执行顺序：`beforeAll` 和 `afterAll` 在整个测试套件中只运行一次，而 `beforeEach` 和 `afterEach` 则为每个测试重复执行。在每个测试内部，外层的 `beforeEach` 首先运行（初始化最宽泛的上下文），然后内层的 `beforeEach` 运行（缩小上下文范围）。测试结束后，顺序则相反：内层的 `afterEach` 先清理较窄的上下文，然后外层的 `afterEach` 处理更宽泛的清理工作。
 
-## Cleanup with `onTestFinished`
-
-Sometimes you create a resource inside a test that needs to be cleaned up afterwards. You could use `afterEach`, but that means the cleanup is separated from the setup, which can make the test harder to follow. [`onTestFinished`](/api/hooks#ontestfinished) lets you register a cleanup function right where you create the resource:
+## 使用 `onTestFinished` 进行清理 {#cleanup-with-ontestfinished}
 
 ```js
 import { expect, onTestFinished, test } from 'vitest'
@@ -175,7 +173,7 @@ test('creates a temporary file', () => {
 })
 ```
 
-A similar pattern works with `beforeEach`. You can return a cleanup function and Vitest will call it after each test. This is especially nice when the setup and teardown are closely related:
+类似的模式也适用于 `beforeEach`。你可以返回一个清理函数，Vitest 会在每个测试后调用它。当初始化和清理操作紧密相关时，这种方式极其方便：
 
 ```js
 import { beforeEach } from 'vitest'
@@ -188,11 +186,11 @@ beforeEach(() => {
 })
 ```
 
-## Fixtures with `test.extend`
+## 使用 `test.extend` 的 Fixtures {#fixtures-with-test-extend}
 
-The examples above use `let` variables and `beforeEach` to set up shared state. This works, but it has some downsides: the variable declarations are separated from the initialization, the types require explicit annotation, and it's easy to forget to clean up.
+上述示例使用 `let` 变量和 `beforeEach` 来初始化共享状态。这种方式可行，但存在一些缺点：变量声明与初始化是分离的，类型需要显式注解，并且容易忘记清理。
 
-Vitest offers a better pattern for this with [`test.extend`](/guide/test-context#extend-test-context). You define reusable **fixtures** that are automatically created for each test and cleaned up afterwards:
+Vitest 通过 [`test.extend`](/guide/test-context#extend-test-context) 提供了一个更好的形式。你可以定义可复用的 **fixtures**，它们会自动为每个测试创建并在之后清理：
 
 ```js [my-test.js]
 import { test as baseTest } from 'vitest'
@@ -217,13 +215,13 @@ test('user is created', ({ db, user }) => {
 })
 ```
 
-Fixtures are only initialized when a test actually uses them (by destructuring them from the context), and they can depend on each other. This makes them a great alternative to `beforeEach`/`afterEach` for most setup and teardown patterns.
+Fixtures 仅在测试实际使用它们时（通过从上下文中解构）才会初始化，并且它们可以相互依赖。对于大多数初始化和清理形式，这是 `beforeEach`/`afterEach` 的一个很好的替代方案。
 
-See the [Test Context](/guide/test-context) guide for the full details on fixtures, scoping, and overrides.
+有关 fixtures、作用域和覆盖的完整详细信息，请参阅 [测试上下文](/guide/test-context)。
 
-## Setup Files
+## 初始化文件 {#setup-files}
 
-If you have setup code that should run before every test file in your project (things like polyfills, global configuration, or custom matchers), you can put it in a setup file and point to it with the [`setupFiles`](/config/setupfiles) config option:
+如果你有一些初始化代码需要在项目中的每个测试文件运行前执行（例如 polyfills、全局配置或自定义匹配器），你可以将其放入一个初始化文件中，并通过 [`setupFiles`](/config/setupfiles) 配置选项指向它：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -236,15 +234,15 @@ export default defineConfig({
 ```
 
 ```js [test/setup.js]
-// This runs before every test file
+// 这会在每个测试文件之前运行
 import { expect } from 'vitest'
 import { customMatchers } from './custom-matchers.js'
 
 expect.extend(customMatchers)
 ```
 
-Unlike `beforeAll`, which runs once per file, setup files run in a separate phase before the test file even starts being collected. This makes them the right place for things like extending the `expect` API or configuring global polyfills.
+与每个文件运行一次的 `beforeAll` 不同，初始化文件在测试文件甚至开始收集之前，在一个独立的阶段运行。这使得它们非常适合扩展 `expect` API 或配置全局 polyfills 等操作。
 
 ::: tip
-For advanced cases where your test needs to run *inside* a wrapping context (like a database transaction or a tracing span), see the [`aroundEach`](/api/hooks#aroundeach) and [`aroundAll`](/api/hooks#aroundall) hooks. For the complete lifecycle picture, see [Test Run Lifecycle](/guide/lifecycle).
+对于需要在包装上下文（例如数据库事务或跟踪范围）_内部_ 运行测试的高级场景，请参阅 [`aroundEach`](/api/hooks#aroundeach) 和 [`aroundAll`](/api/hooks#aroundall) 钩子。有关完整的生命周期图，请参阅 [测试运行生命周期](/guide/lifecycle)。
 :::
