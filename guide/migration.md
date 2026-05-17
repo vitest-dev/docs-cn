@@ -36,7 +36,7 @@ test('example', { concurrent: false }, async () => { /* ... */ }) // [!code ++]
 
 ### 命令中的定位器被序列化为对象 {#locators-in-commands-are-serialized-as-objects}
 
-转发到 [浏览器命令](/api/browser/commands) 的定位器现在被序列化为 `SerializedLocator` 对象，而不是裸的选择器字符串。该对象公开两个字段：
+转发到 [浏览器命令](/api/browser/commands) 的定位器现在被序列化为 `SerializedLocator` 对象，而不是裸的选择器字符串。该对象导出两个字段：
 
 - `selector`：提供程序特定的选择器字符串（与 commands 先前接收的值相同）。
 - `locator`：定位器的人类可读的（例如 `getByRole('button')`），用于错误消息和跟踪。
