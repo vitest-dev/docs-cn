@@ -106,7 +106,7 @@ it('render basic', async () => {
 })
 ```
 
-它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 标志写回。
+它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 参数写回。
 
 ## 图像快照 {#visual-snapshots}
 
@@ -292,7 +292,7 @@ expect.extend({
 :::
 
 ::: warning
-当自定义内联快照匹配器为异步时，Vitest 无法自动推断内联快照重写的调用位置。你必须通过在 chai 断言对象上设置 `'error'` 标志来捕获调用点：
+当自定义内联快照匹配器为异步时，Vitest 无法自动推断内联快照重写的调用位置。你必须通过在 chai 断言对象上设置 `'error'` 参数来捕获调用点：
 
 ```ts
 import { chai, expect, Snapshots } from 'vitest'

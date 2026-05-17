@@ -293,7 +293,7 @@ vitest --experimental.importDurations.failOnDanger
 - 测试文件及源码不会经过 Vite 处理
 - 全局初始化文件不会被处理
 - 自定义运行器 / 池 / 环境文件不会被处理
-- 配置文件仍由 Vite 处理（该过程发生在 Vitest 获知 `viteModuleRunner` 标志之前执行）
+- 配置文件仍由 Vite 处理（该过程发生在 Vitest 获知 `viteModuleRunner` 参数之前执行）
 
 ::: warning
 当前 Vitest 仍需依赖 Vite 实现某些功能，如模块图或监视模式。
@@ -427,7 +427,7 @@ interface VCSProviderOptions {
 
 - **默认值:** `'git'`
 
-用于检测更改文件的自定义驱动。与 [`--changed`](/guide/cli#changed) 标志配合使用，用于确定哪些文件已被修改。
+用于检测更改文件的自定义驱动。与 [`--changed`](/guide/cli#changed) 参数配合使用，用于确定哪些文件已被修改。
 
 默认情况下，Vitest 使用 Git 检测更改的文件。你可以提供 `VCSProvider` 接口的自定义实现以使用不同的版本控制系统：
 
@@ -488,7 +488,7 @@ export default {
 在运行测试前预解析测试规范。这会在所有文件中应用 [`.only`](/api/test#test-only) 修饰符、[`-t`](/config/testnamepattern) 测试名称模式、[`--tags-filter`](/guide/test-tags#syntax)、[测试行号](/api/advanced/test-specification#testlines) 和 [测试ID](/api/advanced/test-specification#testids) 而无需执行它们。例如，如果只有一个测试标记了 `.only`，Vitest 将跳过所有其他文件中的测试。
 
 ::: tip
-使用 [`.only`](/api/test#test-only)、[`-t`](/config/testnamepattern) 标志或 [`--tags-filter`](/guide/test-tags#syntax) 时推荐启用此选项。
+使用 [`.only`](/api/test#test-only)、[`-t`](/config/testnamepattern) 参数或 [`--tags-filter`](/guide/test-tags#syntax) 时推荐启用此选项。
 
 无条件启用可能会因额外的解析步骤而降低测试运行速度。
 :::

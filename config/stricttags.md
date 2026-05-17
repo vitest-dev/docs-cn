@@ -10,9 +10,9 @@ outline: deep
 - **命令行终端:** `--strict-tags`, `--no-strict-tags`
 
 如果测试使用了未在配置中定义的 [`tag`](/config/tags)，Vitest 是否应抛出错误，以避免因拼写错误导致意外的行为（应用错误的配置或因
-`--tags-filter` 标志而跳过测试）。
+`--tags-filter` 参数而跳过测试）。
 
-注意，如果 `--tags-filter` 标志定义了配置中不存在的标签，Vitest 将会抛出错误。
+注意，如果 `--tags-filter` 参数定义了配置中不存在的标签，Vitest 将会抛出错误。
 
 例如，以下测试将因标签 `fortnend` 存在拼写错误（正确应为 `frontend`）而抛出错误：
 

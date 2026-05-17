@@ -766,7 +766,7 @@ export default defineConfig({
 ### Blob 报告器 {#blob-reporter}
 
 将测试结果存储在计算机上，以便以后可以使用 [`--merge-reports`](/guide/cli#merge-reports) 命令进行合并。
-默认情况下，将所有结果存储在 `.vitest/blob/` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 标志覆盖。
+默认情况下，将所有结果存储在 `.vitest/blob/` 文件夹中，但可以用 `--outputFile` 或 `--outputFile.blob` 参数覆盖。
 
 ```bash
 npx vitest --reporter=blob --outputFile=reports/blob-1.json

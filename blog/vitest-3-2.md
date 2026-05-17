@@ -192,7 +192,7 @@ it('calls console.log', () => {
 
 Vitest 现在向测试主体提供一个 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) 对象。你可以使用它来停止任何支持此 Web API 的资源。
 
-当测试超时、其他测试失败且 [`--bail` 标志](/config/bail) 设置为非零值，或者用户在终端中按下 Ctrl+C 时，信号会被中止。
+当测试超时、其他测试失败且 [`--bail` 参数](/config/bail) 设置为非零值，或者用户在终端中按下 Ctrl+C 时，信号会被中止。
 
 例如，你可以在测试中断时停止 `fetch` 请求：
 

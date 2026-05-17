@@ -12,7 +12,7 @@ title: 性能优化 | 指南
 - `forks` 进程池：每个测试文件在独立的 [子进程分支](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) 中运行。
 - `vmThreads` 虚拟线程池：每个测试文件在独立的 [VM 上下文](https://nodejs.org/api/vm.html#vmcreatecontextcontextobject-options) 中运行，但通过 Worker 实现并行执行。
 
-对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 标志，或者在配置文件中将 [`test.isolate`](/config/isolate) 属性设置为 `false`。
+对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 参数，或者在配置文件中将 [`test.isolate`](/config/isolate) 属性设置为 `false`。
 
 ::: code-group
 
@@ -63,7 +63,7 @@ export default defineConfig({
 如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
 :::
 
-对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的 [`test.fileParallelism`](/config/fileparallelism) 属性设置为 `false`。
+对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 参数，或将 config 中的 [`test.fileParallelism`](/config/fileparallelism) 属性设置为 `false`。
 
 ::: code-group
 

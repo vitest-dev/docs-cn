@@ -64,7 +64,7 @@ export default defineConfig({
 ::: warning
 Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](/config/browser/headless)。
 
-请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试标志推送到 `launch.args`。
+请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试参数推送到 `launch.args`。
 :::
 
 ::: tip 启用新版 Chromium 无头模式

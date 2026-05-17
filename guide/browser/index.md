@@ -306,7 +306,7 @@ Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) �
 
 ## 运行测试 {#running-tests}
 
-要使用 CLI 指定浏览器，请使用 `--browser` 标志后跟浏览器名称，如下所示：
+要使用 CLI 指定浏览器，请使用 `--browser` 参数后跟浏览器名称，如下所示：
 
 ```sh
 npx vitest --browser=chromium
@@ -330,7 +330,7 @@ Vitest 默认会在开发模式下自动打开浏览器界面，测试会在页�
 
 无头模式是浏览器模式下可用的另一个选项。在无头模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用无头模式。
 
-在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 标志。
+在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 参数。
 
 这是启用无头模式的示例配置：
 
@@ -349,7 +349,7 @@ export default defineConfig({
 })
 ```
 
-你还可以在 CLI 中使用 `--browser.headless` 标志设置无头模式，如下所示：
+你还可以在 CLI 中使用 `--browser.headless` 参数设置无头模式，如下所示：
 
 ```sh
 npx vitest --browser.headless

@@ -108,7 +108,7 @@ Test Files  1 passed (1)
 
 你的第一个测试已通过！继续阅读 [编写测试用例](/guide/learn/writing-tests) 了解如何组织测试、解读测试输出以及日常使用的核心测试模式。
 
-要运行一次测试而不监听文件变化，请使用 `vitest run` 命令。你也可以传递额外的标志，如 `--reporter` 或 `--coverage`。查看完整的 CLI 选项列表，运行 `npx vitest --help` 或参阅 [CLI 指南](/guide/cli)。
+要运行一次测试而不监听文件变化，请使用 `vitest run` 命令。你也可以传递额外的参数，如 `--reporter` 或 `--coverage`。查看完整的 CLI 选项列表，运行 `npx vitest --help` 或参阅 [CLI 指南](/guide/cli)。
 
 ## 配置 Vitest {#configuring-vitest}
 

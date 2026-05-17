@@ -225,7 +225,7 @@ type Comparator<Options> = (
 ::: tip 性能注意事项
 `createDiff` 选项表示是否需要生成差异图像。在 [稳定截图检测](/guide/browser/visual-regression-testing#how-visual-tests-work) 过程中，Vitest 会以 `createDiff: false` 调用比较器以避免不必要的计算。
 
-**请遵守此标志以保持测试速度**。
+**请遵守此参数以保持测试速度**。
 
 ::: warning 处理缺失参数
 `toMatchScreenshot()` 中的 `options` 参数是可选的，因此用户可能不会提供所有比较器选项。务必使用默认值使它们成为可选的：

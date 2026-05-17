@@ -33,7 +33,7 @@ $ vitest
 
 `vitest` **在开发环境下默认** 启动时使用 `监听模式`，在 CI 环境（当 `process.env.CI` 出现时）中以 `运行模式(run mode)` 启动。你可以使用 `vitest watch` 或 `vitest run` 明确指定所需的模式。
 
-使用 `--standalone` 标志启动 Vitest，使其在后台运行。它不会运行任何测试，直到测试发生变化。如果源代码发生变化，Vitest 不会运行测试，直到运行了导入源代码的测试为止
+使用 `--standalone` 参数启动 Vitest，使其在后台运行。它不会运行任何测试，直到测试发生变化。如果源代码发生变化，Vitest 不会运行测试，直到运行了导入源代码的测试为止
 
 ## 开箱即用的常见 Web 支持 {#common-web-idioms-out-of-the-box}
 
@@ -266,7 +266,7 @@ test('my types work properly', () => {
 
 ## 分片 {#sharding}
 
-使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter) 标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
+使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter) 参数在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
 
 ```bash
 vitest --shard=1/2 --reporter=blob --coverage

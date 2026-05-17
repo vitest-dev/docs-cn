@@ -104,15 +104,15 @@ describe > some-test > test 1
 describe > some-test > test 2
 ```
 
-你可以传递 `--json` 标志以 JSON 格式打印测试，也可以将其保存在单独的文件中：
+你可以传递 `--json` 参数以 JSON 格式打印测试，也可以将其保存在单独的文件中：
 
 ```bash
 vitest list filename.spec.ts -t="some-test" --json=./file.json
 ```
 
-如果 `--json` 标志没有接收到值，它将把 JSON 输出到 stdout 中。
+如果 `--json` 参数没有接收到值，它将把 JSON 输出到 stdout 中。
 
-你还可以传递 `--filesOnly` 标志来仅打印测试文件：
+你还可以传递 `--filesOnly` 参数来仅打印测试文件：
 
 ```bash
 vitest list --filesOnly

@@ -157,7 +157,7 @@ When using the global `expect` with concurrent tests, `this.task` is `undefined`
 
 ## `assertion` <Advanced /> <Version type="experimental">4.1.4</Version> {#assertion}
 
-底层 [Chai 断言](https://www.chaijs.com/guide/plugins/) 对象。这是与 Chai 插件接收的同一个实例，使你能够访问 Chai 的标志系统和可链式方法。适用于需要与 Chai 内部交互的自定义匹配器。
+底层 [Chai 断言](https://www.chaijs.com/guide/plugins/) 对象。这是与 Chai 插件接收的同一个实例，使你能够访问 Chai 的参数系统和可链式方法。适用于需要与 Chai 内部交互的自定义匹配器。
 
 ::: tip
 以上并非全部可用属性，仅列出最实用的部分。其他状态值由 Vitest 内部使用。

@@ -22,7 +22,7 @@ Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编�
 自 Vitest 2.1 起，如果你的 `include` 和 `typecheck.include` 重叠，Vitest 将分别报告类型测试和运行时测试。
 :::
 
-使用 CLI 标志，如 `--allowOnly` 和 `-t` 也支持类型检查。
+使用 CLI 参数，如 `--allowOnly` 和 `-t` 也支持类型检查。
 
 ```ts [mount.test-d.ts]
 import { assertType, expectTypeOf } from 'vitest'
@@ -124,7 +124,7 @@ assertType<string>(answr)
 
 ## 运行类型检查 {#run-typechecking}
 
-要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/typecheck) 标志：
+要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/typecheck) 参数：
 
 ```json [package.json]
 {

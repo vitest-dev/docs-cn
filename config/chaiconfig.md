@@ -22,7 +22,7 @@ outline: deep
 - **类型:** `boolean`
 - **默认值:** `true`
 
-控制是否在抛出的 AssertionError 中包含 `showDiff` 标志。设为 `false` 将始终禁用差异显示；设为 `true` 则当断言请求显示差异时才会启用。
+控制是否在抛出的 AssertionError 中包含 `showDiff` 参数。设为 `false` 将始终禁用差异显示；设为 `true` 则当断言请求显示差异时才会启用。
 
 ## chaiConfig.truncateThreshold
 
