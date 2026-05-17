@@ -1,13 +1,13 @@
 ---
-title: ARIA Snapshots | Guide
+title: ARIA 快照 | 指南
 outline: deep
 ---
-<!-- TODO: translation -->
-# ARIA Snapshots <Badge type="warning">experimental</Badge> <Version>4.1.4</Version>
 
-ARIA snapshots let you test the accessibility structure of your pages. Instead of asserting against raw HTML or visual output, you assert against the accessibility tree — the same structure that screen readers and other assistive technologies use.
+# ARIA 快照 <Experimental/> <Version>4.1.4</Version> {#aria-snapshots}
 
-Given this HTML:
+ARIA 快照可以让你测试页面的无障碍结构。你不是去断言原始 HTML 或视觉输出，而是去断言无障碍树，也就是屏幕阅读器和其他辅助技术所使用的那套结构。
+
+给定以下 HTML：
 
 ```html
 <nav aria-label="Main">
@@ -16,7 +16,7 @@ Given this HTML:
 </nav>
 ```
 
-You can assert its accessibility tree:
+你可以断言其无障碍树：
 
 ```ts
 await expect.element(page.getByRole('navigation')).toMatchAriaInlineSnapshot(`
@@ -28,19 +28,19 @@ await expect.element(page.getByRole('navigation')).toMatchAriaInlineSnapshot(`
 `)
 ```
 
-This catches accessibility regressions: missing labels, broken roles, incorrect heading levels, and more — things that DOM snapshots would miss. Even if the underlying HTML structure changes, the assertion would not fail as long as content matches semantically.
+这可以捕获无障碍方面的回归问题，比如缺失的标签、错误的角色、错误的标题层级等等，而这些往往是 DOM 快照捕捉不到的。即使底层的 HTML 结构发生了变化，只要内容在语义上仍然一致，这个断言就不会失败。
 
-For advanced cases, you can also generate and inspect the ARIA tree through `utils.aria` from `vitest/browser`. See the [Context API](/api/browser/context#aria) for details.
+对于更高级的场景，你还可以通过 `vitest/browser` 中的 `utils.aria` 生成并检查 ARIA 树。更多内容请参阅 [上下文 API](/api/browser/context#aria)。
 
-## Snapshot Workflow
+## 快照工作流 {#snapshot-workflow}
 
-ARIA snapshots use the same Vitest snapshot workflow as other snapshot assertions. File snapshots, inline snapshots, `--update` / `-u`, watch mode updates, and CI snapshot behavior all work the same way.
+ARIA 快照与其他快照断言使用相同的 Vitest 快照工作流。文件快照、内联快照、`--update`/`-u`、watch 模式更新以及 CI 快照行为都以相同的方式工作。
 
-See the main [Snapshot guide](/guide/snapshot) for the general snapshot workflow, update behavior, and review guidelines.
+关于通用快照工作流、更新行为和审查指南，请参阅 [快照指南](/guide/snapshot)。
 
-## Basic Usage
+## 基础使用 {#basic-usage}
 
-Given a page with this HTML:
+给定一个包含以下 HTML 的页面：
 
 ```html
 <form aria-label="Log In">
@@ -50,9 +50,9 @@ Given a page with this HTML:
 </form>
 ```
 
-### File Snapshots
+### 文件快照 {#file-snapshots}
 
-Use `toMatchAriaSnapshot()` to store the snapshot in a `.snap` file alongside your test:
+使用 `toMatchAriaSnapshot()` 将快照存储在与测试文件同目录的 `.snap` 文件中：
 
 ```ts [basic.test.ts]
 import { expect, test } from 'vitest'
@@ -62,10 +62,10 @@ test('login form', async () => {
 })
 ```
 
-On first run, Vitest generates a snapshot file entry:
+首次运行时，Vitest 会生成一条快照文件记录：
 
 ```js [__snapshots__/basic.test.ts.snap]
-// Vitest Snapshot ...
+// Vitest 快照...
 
 exports[`login form 1`] = `
 - form "Log In":
@@ -75,9 +75,9 @@ exports[`login form 1`] = `
 `
 ```
 
-### Inline Snapshots
+### 内联快照 {#inline-snapshots}
 
-Use `toMatchAriaInlineSnapshot()` to store the snapshot directly in the test file:
+使用 `toMatchAriaInlineSnapshot()` 将快照直接存储在测试文件中：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -92,9 +92,9 @@ test('login form', async () => {
 })
 ```
 
-## Browser Mode Retry Behavior
+## 浏览器模式的重试行为 {#browser-mode-retry-behavior}
 
-In [Browser Mode](/guide/browser/), `expect.element()` polls the DOM and waits for the accessibility tree to **stabilize** before evaluating the result. On each poll, the matcher re-queries the element and re-captures the accessibility tree. The snapshot is considered stable when two consecutive polls produce the same output.
+在 [浏览器模式](/guide/browser/) 中，`expect.element()` 会轮询 DOM 并等待无障碍树 **稳定** 后再评估结果。每次轮询时，匹配器会重新查询元素并重新捕获无障碍树。当连续两次轮询产生相同输出时，快照即被视为稳定。
 
 ```ts
 await expect.element(page.getByRole('form')).toMatchAriaInlineSnapshot(`
@@ -105,17 +105,17 @@ await expect.element(page.getByRole('form')).toMatchAriaInlineSnapshot(`
 `)
 ```
 
-On first run or with `--update`, the stable result is written as the new snapshot.
+首次运行或使用 `--update` 时，稳定结果会被写入作为新快照。
 
-When an existing snapshot is present, the matcher also checks whether the stable result matches. If it does not, polling resets and continues — giving the DOM time to reach the expected state. This handles cases like animations, async rendering, or delayed state updates where the tree may briefly stabilize in an intermediate state before settling into its final form.
+当已存在快照时，这个匹配器还会检查当前稳定下来的结果是否与快照一致。如果不一致，轮询就会重置并继续进行，从而给 DOM 留出时间到达期望状态。这可以处理诸如动画、异步渲染或延迟状态更新之类的情况：在这些场景中，树结构可能会先短暂稳定在某个中间状态，然后才最终稳定到目标状态。
 
-## Preserving Hand-Edited Patterns
+## 保留手动编辑的模式 {#preserving-hand-edited-patterns}
 
-When you hand-edit a snapshot to use regex patterns, those patterns survive `--update`. Only the literal parts that changed are overwritten. This lets you write flexible assertions that don't break when content changes.
+当你手动编辑快照并使用正则模式时，这些匹配规则在 `--update` 后仍会保留。只有发生更改的字面量会被覆盖。这让你可以编写灵活的断言，在内容变化时不会失效。
 
-### Example
+### 示例 {#example}
 
-**Step 1.** Your shopping cart page renders this HTML:
+**步骤 1.** 你的购物车页面渲染了以下 HTML：
 
 ```html
 <h1>Your Cart</h1>
@@ -125,7 +125,7 @@ When you hand-edit a snapshot to use regex patterns, those patterns survive `--u
 <button>Checkout</button>
 ```
 
-You run your test for the first time with `--update`. Vitest generates the snapshot:
+你首次使用 `--update` 运行测试。Vitest 生成了快照：
 
 ```yaml
 - heading "Your Cart" [level=1]
@@ -134,7 +134,7 @@ You run your test for the first time with `--update`. Vitest generates the snaps
 - button "Checkout"
 ```
 
-**Step 2.** The item names and prices are seeded test data that may change. You hand-edit those lines to regex patterns, but keep the stable structure as literals:
+**步骤 2.** 商品名称和价格是可能变化的种子测试数据。你手动将这些行编辑为正则表达式模式，但将稳定的结构保留为字面量：
 
 ```yaml
 - heading "Your Cart" [level=1]
@@ -143,7 +143,7 @@ You run your test for the first time with `--update`. Vitest generates the snaps
 - button "Checkout"
 ```
 
-**Step 3.** Later, a developer renames the button from "Checkout" to "Place Order". Running `--update` updates that literal but preserves your regex patterns:
+**步骤 3.** 后来，开发者将按钮从 “Checkout” 重命名为 “Place Order”。运行 `--update` 会更新该字面量，但保留你的正则表达式模式：
 
 ```yaml
 - heading "Your Cart" [level=1]
@@ -152,35 +152,35 @@ You run your test for the first time with `--update`. Vitest generates the snaps
 - button "Place Order"   👈 New snapshot updated with new string
 ```
 
-The regex patterns you wrote in step 2 are preserved because they still match the actual content. Only the mismatched literal "Checkout" was updated to "Place Order".
+你在步骤 2 中编写的正则表达式模式被保留，因为它们仍然匹配实际内容。只有不匹配的字面量 “Checkout” 被更新为 “Place Order”。
 
-## Snapshot Format
+## 快照格式 {#snapshot-format}
 
-ARIA snapshots use a YAML-like syntax. Each line represents a node in the accessibility tree.
+ARIA 快照使用类似 YAML 的语法。每行代表无障碍树中的一个节点。
 
-::: info
-ARIA snapshot templates use a **subset of YAML** syntax. Only the features needed for accessibility trees are supported: scalar values, nested mappings via indentation, and sequences (`- item`). Advanced YAML features like anchors, tags, flow collections, and multi-line scalars are not supported.
+:::info
+ARIA 快照模板使用 **YAML 语法的子集**。仅支持无障碍树所需的功能：标量值、通过缩进实现的嵌套映射以及序列（`- item`）。不支持 YAML 的高级功能，如锚点、标签、流集合和多行标量。
 
-Captured text is also whitespace-normalized before it is rendered into the snapshot. Newlines, `<br>` line breaks, tabs, and repeated whitespace collapse to single spaces, so multi-line DOM text is emitted as a single-line snapshot value.
+捕获的文本在渲染到快照之前也会进行空白字符规范化。换行符、`<br>` 换行、制表符和重复的空白字符都会折叠为单个空格，因此多行 DOM 文本会以单行快照值的形式输出。
 :::
 
-Each accessible element in the tree is represented as a YAML node:
+树中的每个无障碍元素都表示为一个 YAML 节点：
 
 ```yaml
 - role "name" [attribute=value]
 ```
 
-- `role`: The ARIA role of the element, such as `heading`, `list`, `listitem`, or `button`
-- `"name"`: The [accessible name](https://w3c.github.io/accname/), when present. Quoted strings match exact values, and `/patterns/` match regular expressions
-- `[attribute=value]`: Accessibility states and properties such as `checked`, `disabled`, `expanded`, `level`, `pressed`, or `selected`
+- `role`：元素的 ARIA 角色，例如 `heading`、`list`、`listitem` 或 `button`
+- `"name"`：[无障碍名称](https://w3c.github.io/accname/)，当存在时。带引号的字符串匹配精确值，`/patterns/` 匹配正则表达式
+- `[attribute=value]`：无障碍性状态和属性，例如 `checked`、`disabled`、`expanded`、`level`、`pressed` 或 `selected`
 
-These values come from ARIA attributes and the browser's accessibility tree, including semantics inferred from native HTML elements.
+这些值来自 ARIA 属性和浏览器的无障碍树，其中也包括从原生 HTML 元素推断出来的语义信息。
 
-Because ARIA snapshots reflect the browser's accessibility tree, content excluded from that tree, such as `aria-hidden="true"` or `display: none`, does not appear in the snapshot.
+由于 ARIA 快照反映的是浏览器的无障碍树，因此那些被排除在无障碍树之外的内容，比如 `aria-hidden="true"` 或 `display: none` 的元素，不会出现在快照中。
 
-### Roles and Accessible Names
+### 角色与无障碍名称 {#roles-and-accessible-names}
 
-For example:
+例如：
 
 ```html
 <button>Submit</button>
@@ -196,11 +196,11 @@ For example:
 - textbox "Email"
 ```
 
-The role usually comes from the element's native semantics, though it can also be defined with ARIA. The accessible name is computed from text content, associated labels, `aria-label`, `aria-labelledby`, and related naming rules.
+角色通常来自元素的原生语义，但也可以通过 ARIA 定义。无障碍名称根据文本内容、关联标签、`aria-label`、`aria-labelledby` 及相关命名规则计算得出。
 
-For a closer look at how names are computed, see [Accessible Name and Description Computation](https://w3c.github.io/accname/).
+要更深入了解名称的计算方式，请参阅 [无障碍名称与描述计算](https://w3c.github.io/accname/)。
 
-Some content appears in the snapshot as a text node instead of a role-based element:
+某些内容在快照中显示为文本节点而非基于角色的元素：
 
 ```html
 <span>Hello world</span>
@@ -210,7 +210,7 @@ Some content appears in the snapshot as a text node instead of a role-based elem
 - text: Hello world
 ```
 
-Text values are always serialized on a single line after whitespace normalization. For example:
+文本值在经过空白字符规范化后，总是会被序列化到单独一行中。例如：
 
 ```html
 <p>
@@ -224,9 +224,9 @@ Line 4
 - paragraph: Line 1 Line 2 Line 3 Line 4
 ```
 
-### Children
+### 子元素 {#children}
 
-Child elements appear nested under their parent:
+子元素嵌套在其父元素下方显示：
 
 ```html
 <ul>
@@ -243,7 +243,7 @@ Child elements appear nested under their parent:
     - listitem: Third
 ```
 
-If the parent has an accessible name, the snapshot includes it before the nested children:
+如果父元素具有无障碍名称，快照会在嵌套子元素之前包含该名称：
 
 ```html
 <nav aria-label="Main">
@@ -258,7 +258,7 @@ If the parent has an accessible name, the snapshot includes it before the nested
     - link "About"
 ```
 
-If an element only contains a single text child and has no other properties, the text is rendered inline:
+如果一个元素仅包含单个文本元素且没有其他属性，则文本会以内联方式呈现：
 
 ```html
 <p>Hello world</p>
@@ -268,11 +268,11 @@ If an element only contains a single text child and has no other properties, the
 - paragraph: Hello world
 ```
 
-### Attributes
+### 属性 {#attributes}
 
-ARIA states and properties appear in brackets:
+ARIA 状态和属性显示在方括号中：
 
-| HTML                                                                   | Snapshot                                  |
+| HTML                                                                   | 快照                                      |
 | ---------------------------------------------------------------------- | ----------------------------------------- |
 | `<input type="checkbox" checked aria-label="Agree">`                   | `- checkbox "Agree" [checked]`            |
 | `<input type="checkbox" aria-checked="mixed" aria-label="Select all">` | `- checkbox "Select all" [checked=mixed]` |
@@ -283,15 +283,15 @@ ARIA states and properties appear in brackets:
 | `<button aria-pressed="mixed">Bold</button>`                           | `- button "Bold" [pressed=mixed]`         |
 | `<option selected>English</option>`                                    | `- option "English" [selected]`           |
 
-Attributes only appear when they are active. A button that is not disabled simply has no `[disabled]` attribute — there is no `[disabled=false]`.
+属性只有在生效时才会显示。一个未被禁用的按钮不会带有 `[disabled]` 属性，也不会出现 `[disabled=false]` 这样的写法。
 
-### Pseudo-Attributes
+### 伪类 {#pseudo-attributes}
 
-Some DOM properties that aren't part of ARIA but are useful for testing are exposed with a `/` prefix:
+一些不属于 ARIA 但对测试有用的 DOM 属性会以 `/` 前缀形式暴露：
 
 #### `/url:`
 
-Links include their URL:
+链接会包含它们的 URL：
 
 ```html
 <a href="/">Home</a>
@@ -304,7 +304,7 @@ Links include their URL:
 
 #### `/placeholder:`
 
-Textboxes can include their placeholder text:
+文本框也可以包含它们的占位文本：
 
 ```html
 <input aria-label="Email" placeholder="user@example.com" />
@@ -315,11 +315,11 @@ Textboxes can include their placeholder text:
     - /placeholder: user@example.com
 ```
 
-::: tip When does `/placeholder:` appear?
+:::tip `/placeholder:` 何时出现？
 
-The `/placeholder:` pseudo-attribute only appears when the placeholder text is **different from the accessible name**. When an input has a placeholder but no `aria-label` or associated `<label>`, the browser uses the placeholder as the accessible name. In that case, the placeholder information is already in the name and is not duplicated.
+`/placeholder:` 伪类仅在占位符文本 **与无障碍名称不同时** 出现。当输入框有占位符但没有 `aria-label` 或关联的 `<label>` 时，浏览器会将占位符用作无障碍名称。在这种情况下，占位符信息已包含在名称中，不会重复出现。
 
-- When placeholder is the accessible name:
+- 当占位符是无障碍名称时：
 
 ```html
 <input placeholder="Search" />
@@ -329,7 +329,7 @@ The `/placeholder:` pseudo-attribute only appears when the placeholder text is *
 - textbox "Search"
 ```
 
-- When placeholder differs from the accessible name:
+- 当占位符与无障碍名称不同时：
 
 ```html
 <input placeholder="Search" aria-label="Search products" />
@@ -342,11 +342,11 @@ The `/placeholder:` pseudo-attribute only appears when the placeholder text is *
 
 :::
 
-## Matching
+## 匹配 {#matching}
 
-### Regular Expressions
+### 正则表达式 {#regular-expressions}
 
-Use regex patterns to match names flexibly:
+使用正则表达式模式来灵活匹配名称：
 
 ```html
 <h1>Welcome, Alice</h1>
@@ -359,7 +359,7 @@ Use regex patterns to match names flexibly:
     - /url: /https:\/\/example\.com\/.*/
 ```
 
-Regex also works in pseudo-attribute values:
+正则表达式也适用于伪类：
 
 ```html
 <input aria-label="Search" placeholder="Type to search..." />
@@ -370,33 +370,33 @@ Regex also works in pseudo-attribute values:
     - /placeholder: /Type .*/
 ```
 
-::: warning Escaping backslashes in regex patterns
-Snapshots are stored as JavaScript strings — in backtick-delimited template literals for inline snapshots and in `.snap` files. Because of this, backslashes need to be **doubled** when you hand-edit a snapshot to add a regex pattern.
+::: warning 正则表达式模式中的反斜杠转义
+快照会以 JavaScript 字符串的形式存储：内联快照使用反引号包裹的模板字面量，文件快照则存放在 `.snap` 文件中。因此，当你手动编辑快照并加入正则表达式规则时，反斜杠需要写成 **双反斜杠**。
 
-For example, to match one or more digits with `\d+`:
+例如，如果你想用 `\d+` 来匹配一个或多个数字：
 
 ```ts
-// ✅ Correct — double backslash
+// ✅ 正确 - 双反斜杠
 await expect.element(button).toMatchAriaInlineSnapshot(`
   - button: /item \\d+/
 `)
 
-// ❌ Wrong — single backslash is consumed by JS, regex sees "d+" instead of "\d+"
+// ❌ 错误 - 单反斜杠会被 JS 吃掉，正则表达式看到的是 "d+" 而不是 "\d+"
 await expect.element(button).toMatchAriaInlineSnapshot(`
   - button: /item \d+/
 `)
 ```
 
-This applies to both inline snapshots and `.snap` files. When Vitest **auto-generates** or **updates** a snapshot, escaping is handled automatically — you only need to worry about this when hand-editing regex patterns.
+这适用于内联快照和 `.snap` 文件。当 Vitest **自动生成** 或 **更新** 快照时，转义会被自动处理；只有在你手动编辑正则模式时，才需要特别注意这一点。
 :::
 
-### Child Matching
+### 子元素匹配 {#child-matching}
 
-The `/children` directive controls how a node's children are compared against the template. There are three modes:
+`/children` 指令控制如何将节点的子元素与模板进行比较。有三种模式：
 
-#### Partial Matching (default)
+#### 部分匹配（默认） {#partial-matching-default}
 
-By default (no `/children` directive), templates use **contain** semantics — extra children in the actual tree are allowed as long as all template children appear as an ordered subsequence. This is the same as `/children: contain`.
+默认情况下（无 `/children` 指令），模板使用 **包含** 语义，只要所有模板子元素以有序子序列的形式出现，实际树中的额外子元素是允许的。这与 `/children: contain` 相同。
 
 ```html
 <main>
@@ -407,18 +407,18 @@ By default (no `/children` directive), templates use **contain** semantics — e
 ```
 
 ```ts
-// This passes — the template children are a subset of the actual children
+// 通过 — 模板子元素是实际子元素的子集
 await expect.element(page.getByRole('main')).toMatchAriaInlineSnapshot(`
   - main:
     - heading "Welcome" [level=1]
 `)
 ```
 
-This is useful for focused, resilient tests that don't break when unrelated content is added.
+这适用于编写更聚焦、更稳健的测试，不会因为添加了无关内容就导致测试失效。
 
-#### Exact Matching (`/children: equal`)
+#### 精确匹配（`/children: equal`） {#exact-matching-children-equal}
 
-Requires that the node's immediate children match the template exactly — same count, same order. No extra children are allowed at this level.
+要求节点的直接子元素与模板完全匹配，相同数量、相同顺序。此层级不允许有额外子元素。
 
 ```html
 <ul aria-label="Features">
@@ -429,7 +429,7 @@ Requires that the node's immediate children match the template exactly — same 
 ```
 
 ```ts
-// This FAILS — the list has 3 items but the template only lists 2
+// 失败 — 列表有3个项目但模板只列出了2个
 await expect.element(page.getByRole('list')).toMatchAriaInlineSnapshot(`
   - list "Features":
     - /children: equal
@@ -439,7 +439,7 @@ await expect.element(page.getByRole('list')).toMatchAriaInlineSnapshot(`
 ```
 
 ```ts
-// This PASSES — all 3 items are listed
+// 通过 — 所有3个项目都已列出
 await expect.element(page.getByRole('list')).toMatchAriaInlineSnapshot(`
   - list "Features":
     - /children: equal
@@ -449,11 +449,11 @@ await expect.element(page.getByRole('list')).toMatchAriaInlineSnapshot(`
 `)
 ```
 
-The strict matching only applies at the level where `/children` is placed. Descendants of each `listitem` still use the default contain semantics.
+严格匹配只会应用在放置 `/children` 的那一层。每个 `listitem` 的后代元素仍然使用默认的包含式匹配语义。
 
-#### Deep Exact Matching (`/children: deep-equal`)
+#### 深度精确匹配（`/children: deep-equal`） {#deep-exact-matching-children-deep-equal}
 
-Like `equal`, but the strict matching **propagates to all descendants**. Every level of nesting must match exactly — same count, same order, no extra nodes at any depth.
+和 `equal` 类似，但这种严格匹配会递归应用到所有后代节点。每一层嵌套都必须完全一致：数量相同、顺序相同，并且在任何深度都不能有多余的节点。
 
 ```ts
 await expect.element(page.getByRole('navigation')).toMatchAriaInlineSnapshot(`
@@ -466,12 +466,12 @@ await expect.element(page.getByRole('navigation')).toMatchAriaInlineSnapshot(`
 `)
 ```
 
-With `deep-equal`, every child of each `link` must also match exactly. If a link had an extra child node not listed in the template, the assertion would fail.
+使用 `deep-equal` 时，每个 `link` 的所有子元素也必须完全匹配。如果某个链接有一个模板中未列出的额外子节点，断言就会失败。
 
-#### Comparison
+#### 对比 {#comparison}
 
-| Mode | Directive | Behavior |
-| --- | --- | --- |
-| Partial | _(default)_ or `/children: contain` | Template children are an ordered subsequence — extra actual children are ignored |
-| Exact | `/children: equal` | Immediate children must match exactly; descendants still use partial matching |
-| Deep exact | `/children: deep-equal` | All children at every depth must match exactly |
+| 模式         | 指令                             | 行为                                        |
+| ------------ | -------------------------------- | ------------------------------------------- |
+| 部分匹配     | _(默认)_ 或 `/children: contain` | 模板子元素是有序子序列,忽略实际额外的子元素 |
+| 精确匹配     | `/children: equal`               | 直接子元素必须完全匹配；后代仍使用部分匹配  |
+| 深度精确匹配 | `/children: deep-equal`          | 所有深度的子元素都必须完全匹配              |
