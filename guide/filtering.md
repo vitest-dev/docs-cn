@@ -1,38 +1,39 @@
 ---
 title: 测试筛选 | 指南
 ---
-<!-- TODO: translation -->
+
 # 测试筛选 {#test-filtering}
 
-As your test suite grows, running every test on every change becomes slow and distracting. If you're fixing a bug in a single module, you don't need to wait for hundreds of unrelated tests to finish. Test filtering lets you narrow down which tests run so you can stay focused on the code you're actively working on.
+随着测试套件不断增长，每次改动都运行全部测试会变得缓慢且干扰开发节奏。如果你只是在修复某个模块中的一个 bug，就没必要等待数百个无关测试全部跑完。测试过滤可以让你缩小执行范围，只运行当前正在处理的代码相关测试，从而更专注地开发。
 
-Vitest offers several ways to filter tests: from the command line, inside your test files, and through tags. Each approach is useful in different situations.
+Vitest 提供了多种过滤测试的方式：可以通过命令行、在测试文件内部，或使用标签来过滤。不同的方法适用于不同的场景。
 
-::: tip Performance Note
-Filters like `-t`, `--tags-filter`, `.only`, and `.skip` are applied *per test file* — Vitest still has to run each test file to discover which tests match. In a large project, this overhead adds up even if only a few tests actually execute.
+::: tip 性能说明
+像 `-t`、`--tags-filter`、`.only` 和 `.skip` 这样的过滤方式，都是按 _文件级_ 应用的。也就是说，Vitest 仍然需要运行每个测试文件，才能找出哪些测试符合条件。在大型项目中，即使最终真正执行的测试只有少数几个，这部分开销也会逐渐累积变大。
 
-To avoid this, always pass a file path alongside your filter so Vitest only loads the files you care about:
+为了避免这种情况，建议在使用过滤条件时同时传入文件路径，这样 Vitest 就只会加载你关注的哪些文件：
 
 ```bash
 vitest utils.test.ts -t "handles empty input"
 ```
 
-Alternatively, you can use the [`--experimental.preParse`](/config/experimental#experimental-preparse) flag, which parses test files to discover test names without fully executing them:
+另外，你也可以使用 [`--experimental.preParse`](/config/experimental#experimental-preparse) 参数。它会通过解析测试文件来发现测试名称，而不需要完整执行这些文件：
 
 ```bash
 vitest --experimental.preParse -t "handles empty input"
 ```
+
 :::
 
-## Filtering by File Name
+## 按文件名过滤 {#filtering-by-file-name}
 
-The simplest way to run a subset of tests is to pass a filename pattern as a CLI argument. Vitest will only run test files whose path contains the given string:
+在命令行参数中传入文件名的形式，是运行部分测试最简单的方式。Vitest 只会运行路径中包含该字符串的测试文件：
 
 ```bash
 vitest basic
 ```
 
-This matches any test file with `basic` in its path:
+匹配路径中包含 `basic` 的任意测试文件：
 
 ```
 basic.test.ts
@@ -40,52 +41,52 @@ basic-foo.test.ts
 basic/foo.test.ts
 ```
 
-This is useful when you know which file you need to work on and want to skip everything else.
+适用于明确知道需要处理哪些文件，并希望跳过其他所有内容。
 
-## Filtering by Test Name
+## 按测试名称过滤 {#filtering-by-test-name}
 
-Sometimes the test you care about is buried in a file with many other tests. The `-t` (or `--testNamePattern`) option filters by the test's name rather than the filename. It accepts a regex pattern and matches against the full test name, which includes any `describe` block names:
+有时，你关心的那个测试会埋在一个包含许多其他测试的文件里。`-t`（或 `--testNamePattern`）选项会按测试名称而不是文件名进行过滤。它接受一个正则表达式，并会匹配完整的测试名称，其中也包括所有 `describe` 代码块的名称：
 
 ```bash
 vitest -t "handles empty input"
 ```
 
-You can combine this with a file filter to narrow things down further:
+你可以与文件过滤器结合使用，进一步缩小范围：
 
 ```bash
 vitest utils -t "handles empty input"
 ```
 
-This runs only tests whose name matches `"handles empty input"` inside files matching `utils`.
+这仅运行匹配 `utils` 的文件中名称匹配 `"handles empty input"` 的测试。
 
-## Filtering by Line Number
+## 按行号过滤 {#filtering-by-line-number}
 
-When you're looking at a specific test in your editor, you often just want to run *that one test*. You can point directly to a line number:
+当你在编辑器里查看某个具体测试时，通常只想运行那 _一个测试_。你可以直接指定对应的行号：
 
 ```bash
 vitest basic/foo.test.ts:10
 ```
 
-Vitest will run the test that contains line 10. This requires the full filename (relative or absolute):
+Vitest 将运行包含第 10 行的测试。这需要完整的文件名（相对路径或绝对路径）：
 
 ```bash
 vitest basic/foo.test.ts:10 # ✅
 vitest ./basic/foo.test.ts:10 # ✅
 vitest /users/project/basic/foo.test.ts:10 # ✅
-vitest foo:10 # ❌ partial name won't work
-vitest ./basic/foo:10 # ❌ missing file extension
+vitest foo:10 # ❌ 部分名称无效
+vitest ./basic/foo:10 # ❌ 缺少文件扩展名
 ```
 
-To run multiple specific tests, separate them with spaces:
+要运行多个特定测试，用空格分隔它们：
 
 ```bash
 vitest basic/foo.test.ts:10 basic/foo.test.ts:25 # ✅
-vitest basic/foo.test.ts:10-25 # ❌ ranges are not supported
+vitest basic/foo.test.ts:10-25 # ❌ 不支持范围
 ```
 
-## Filtering by Tags
+## 按标签过滤 {#filtering-by-tags}
 
-For larger projects, you may want to categorize tests and run them by category. [Tags](/guide/test-tags) let you label tests and then filter by those labels from the CLI:
+对于更大的项目，你可能希望对测试进行分类，并按类别运行它们。通过 [标签](/guide/test-tags)，可以让你为测试添加标记，然后通过命令行按这些标签进行过滤：
 
 ```ts
 test('renders a form', { tags: ['frontend'] }, () => {
@@ -101,70 +102,70 @@ test('calls an external API', { tags: ['backend'] }, () => {
 vitest --tags-filter=frontend
 ```
 
-This is particularly helpful in CI pipelines where you might want to run frontend and backend tests in separate jobs, or skip slow integration tests during quick checks.
+适合在 CI 流水线中使用，例如你可能希望在不同的任务中分别运行前端测试和后端测试，或者在快速检查时跳过耗时较长的集成测试。
 
-## Focusing on Specific Tests with `.only`
+## 使用 `.only` 聚焦特定测试 {#focusing-on-specific-tests-with--only}
 
-When you're debugging a failing test, you want to run just that test without modifying CLI arguments every time. Adding `.only` to a test or suite tells Vitest to skip everything else in the file:
+当你调试失败的测试时，希望只运行该测试而无需每次都修改 CLI 参数。在测试用例或测试套件中添加 `.only` 会告诉 Vitest 跳过文件中的所有其他内容：
 
 ```ts
 import { describe, expect, it } from 'vitest'
 
 describe.only('suite', () => {
   it('test', () => {
-    // This runs because the suite is marked with .only
+    // 仅有这个会运行，因为测试套件被标记为 .only
     expect(Math.sqrt(4)).toBe(2)
   })
 })
 
 describe('another suite', () => {
   it('skipped test', () => {
-    // This does not run
+    // 这个不会运行
     expect(Math.sqrt(4)).toBe(2)
   })
 
   it.only('focused test', () => {
-    // This also runs because it is marked with .only
+    // 这个也会运行，因为它被标记为 .only
     expect(Math.sqrt(4)).toBe(2)
   })
 })
 ```
 
-You can use `.only` on both `describe` blocks and individual tests. When any test or suite in a file is marked with `.only`, all unmarked tests in that file are skipped.
+你可以在 `describe` 块和单个测试上使用 `.only`。当文件中任何测试或测试套件被标记为 `.only` 时，该文件中所有未标记的测试都会被跳过。
 
 ::: warning
-Remember to remove `.only` before committing. By default, Vitest will fail the entire test run if it encounters `.only` in CI (when `process.env.CI` is set), preventing you from accidentally skipping tests in your pipeline. This behavior is controlled by the [`allowOnly`](/config/allowonly) option.
+请记得在提交前移除 `.only`。默认情况下，在 CI 环境中（即设置了 `process.env.CI` 时）， Vitest 遇到 `.only` 会使整个测试运行失败，以防你在流水线中意外跳过测试。此行为由 [`allowOnly`](/config/allowonly) 选项控制。
 
-To catch `.only` even earlier, the [`no-focused-tests`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-focused-tests.md) ESLint rule (also available in [oxlint](https://oxc.rs/docs/guide/usage/linter/rules/jest/no-focused-tests.html)) can flag it in your editor before you commit.
+为了更早地捕获 `.only`，[`no-focused-tests`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-focused-tests.md) ESLint 规则（在 [oxlint](https://oxc.rs/docs/guide/usage/linter/rules/jest/no-focused-tests.html) 中也可用）这样你在提交前就能在编辑器里发现它。
 :::
 
-## Skipping Tests with `.skip`
+## 使用 `.skip` 跳过测试 {#skipping-tests-with-skip}
 
-The opposite of `.only` is `.skip`. Use it to temporarily disable a test or suite without deleting it. Skipped tests still show up in the report so you don't forget about them:
+`.skip` 与 `.only` 正好相反。使用它可以临时禁用某个测试或测试套件而无需删除它。被跳过的测试仍会显示在报告中，这样你就不会忘记它们：
 
 ```ts
 import { describe, expect, it } from 'vitest'
 
 describe.skip('skipped suite', () => {
   it('test', () => {
-    // This entire suite is skipped
+    // 整个测试套件都被跳过
     expect(Math.sqrt(4)).toBe(2)
   })
 })
 
 describe('suite', () => {
   it.skip('skipped test', () => {
-    // Just this one test is skipped
+    // 只有这个测试被跳过
     expect(Math.sqrt(4)).toBe(2)
   })
 })
 ```
 
-This is useful when a test is flaky or depends on an external service that's temporarily down. It lets you keep the test in place as a reminder while unblocking the rest of the suite.
+它让你可以保留测试作为提醒，同时不影响套件的其他部分运行，适用于测试不稳定或依赖于暂时不可用的外部服务。
 
-## Placeholder Tests with `.todo`
+## 使用 `.todo` 作为占位测试 {#placeholder-tests-with-todo}
 
-When planning new features, you might know what tests you'll need before you write the actual implementation. `.todo` marks a test as planned but not yet written. It shows up in the report as a reminder:
+在规划新功能时，你可能在编写实际实现之前，就知道需要哪些测试。`.todo` 用于将测试标记为已计划但尚未编写。它会作为提醒显示在报告中：
 
 ```ts
 import { describe, it } from 'vitest'
@@ -176,4 +177,4 @@ describe('suite', () => {
 })
 ```
 
-Unlike `.skip`, a `.todo` test has no test body. It's purely a placeholder for future work.
+与 `.skip` 不同，`.todo` 测试没有测试体。它纯粹是为后续工作预留的占位符。

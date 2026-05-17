@@ -13,21 +13,17 @@ import FeaturesList from '../.vitepress/components/FeaturesList.vue'
 
 <CourseLink href="https://vueschool.io/lessons/your-first-test?friend=vueuse">通过视频了解如何编写你的第一个测试</CourseLink>
 
-## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
-
-<div h-2 />
-
 ::: tip
 本页为 Vitest 核心功能的概览指南。如果你初次接触 Vitest，建议先学习 [入门](/guide/learn/writing-tests) 教程，通过实践演练快速掌握测试编写基础。
 :::
 
-## Shared Config between Test, Dev and Build
+## 测试、开发与构建之间共享配置 {#shared-config-between-test-dev-and-build}
 
 与 Vite 的配置、转换器、解析器和插件通用，将会使用应用中的相同配置来运行测试。
 
-更多详情请参阅 [配置 Vitest](/config/) 。
+更多详情请参阅 [配置 Vitest](/config/)。
 
-## 监听模式(watch mode) {#watch-mode}
+## 监听模式 (watch mode) {#watch-mode}
 
 ```bash
 $ vitest
@@ -49,11 +45,11 @@ $ vitest
 
 Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的运行环境改变不会影响其他文件。可以通过将 `--no-isolate` 传递给 CLI 来禁用隔离（以正确性换取运行性能）。
 
-## 测试可过滤 {#test-filtering}
+## 测试筛选 {#test-filtering}
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-了解更多信息 [测试筛选](/guide/filtering) 。
+了解更多信息 [测试筛选](/guide/filtering)。
 
 ## 同时运行多个测试 {#running-tests-concurrently}
 
@@ -145,12 +141,15 @@ expect(fn.mock.results[1].value).toBe('world')
 Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以你可能需要安装：
 
 ::: code-group
+
 ```bash [happy-dom]
 $ npm i -D happy-dom
 ```
+
 ```bash [jsdom]
 $ npm i -D jsdom
 ```
+
 :::
 
 然后，更改 `environment` 配置文件中的选项：
@@ -165,7 +164,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [模拟对象](/guide/mocking) 。
+了解更多信息 [模拟对象](/guide/mocking)。
 
 ## 测试覆盖率 {#coverage}
 
@@ -195,7 +194,7 @@ export default defineConfig({
 })
 ```
 
-了解更多信息 [覆盖率](/guide/coverage) 。
+了解更多信息 [覆盖率](/guide/coverage)。
 
 ## 源码内联测试 {#in-source-testing}
 
@@ -267,7 +266,7 @@ test('my types work properly', () => {
 
 ## 分片 {#sharding}
 
-使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter)标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
+使用 [`--shard`](/guide/cli#shard) 和 [`--reporter=blob`](/guide/reporters#blob-reporter) 标志在不同的计算机上运行测试。可以使用 `--merge-reports` 命令在 CI 管道的末尾合并所有测试结果：
 
 ```bash
 vitest --shard=1/2 --reporter=blob --coverage
@@ -300,6 +299,7 @@ export default defineConfig(({ mode }) => ({
 你可以通过手动捕获这些错误来禁用此行为。Vitest 会认为回调已由你处理，不会再报告该错误。
 
 ::: code-group
+
 ```ts [setup.node.js]
 // 在 Node.js
 process.on('unhandledRejection', () => {
@@ -310,6 +310,7 @@ process.on('uncaughtException', () => {
   // 你自己的处理程序
 })
 ```
+
 ```ts [setup.browser.js]
 // 在浏览器
 window.addEventListener('error', () => {
@@ -320,6 +321,7 @@ window.addEventListener('unhandledrejection', () => {
   // 你自己的处理程序
 })
 ```
+
 :::
 
 或者，你也可以使用 [`dangerouslyIgnoreUnhandledErrors`](/config/dangerouslyignoreunhandlederrors) 选项来忽略报告的错误。Vitest 仍会报告它们，但它们不会影响测试结果（退出码不会改变）。
