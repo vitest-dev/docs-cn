@@ -1055,7 +1055,7 @@ vi.useRealTimers()
 ### vi.useFakeTimers
 
 ```ts
-function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
+function useFakeTimers(config?: FakeTimersConfig): Vitest
 ```
 
 要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
@@ -1068,6 +1068,16 @@ function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })` 。
 :::
+
+You can use `toFake` to specify which timers to mock, or `toNotFake` to specify which timers to keep native. Note that `toFake` and `toNotFake` cannot be specified together.
+
+```ts
+// only mock setTimeout and clearTimeout
+vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
+
+// mock all timers except setInterval
+vi.useFakeTimers({ toNotFake: ['setInterval'] })
+```
 
 ### vi.setTimerTickMode <Version>4.1.0</Version> {#vi-settimertickmode}
 
@@ -1342,7 +1352,7 @@ function resetConfig(): void
 
 如果之前调用过 [`vi.setConfig`](#vi-setconfig) ，则会将配置重置为原始状态。
 
-### vi.defineHelper <Version>4.1.0</Version> {#vi-defineHelper}
+### vi.defineHelper <Version>4.1.0</Version> {#vi-definehelper}
 
 ```ts
 function defineHelper<F extends (...args: any) => any>(fn: F): F
