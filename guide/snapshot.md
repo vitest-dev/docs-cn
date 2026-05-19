@@ -124,11 +124,7 @@ test('button looks correct', async () => {
 
 它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
 
-<<<<<<< HEAD
-## ARIA 快照 <Badge type="warning">实验性</Badge> <Version>4.1.4</Version> {#aria-snapshots}
-=======
-## ARIA Snapshots <Experimental /> <Version>4.1.4</Version> {#aria-snapshots}
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+## ARIA 快照 <Experimental /> <Version>4.1.4</Version> {#aria-snapshots}
 
 ARIA 快照会捕获 DOM 元素的无障碍访问树，并与存储的模板进行比对。基于 [Playwright 的 ARIA 快照](https://playwright.dev/docs/aria-snapshots) 实现，它提供了视觉回归测试之外的语义化替代方案，断言结构和含义而非像素。
 
@@ -234,11 +230,7 @@ Pretty foo: Object {
 }
 ```
 
-<<<<<<< HEAD
-## 自定义快照匹配器 <Badge type="warning">实验性</Badge> <Version>4.1.3</Version> {#custom-snapshot-matchers}
-=======
-## Custom Snapshot Matchers <Experimental /> <Version>4.1.3</Version> {#custom-snapshot-matchers}
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+## 自定义快照匹配器 <Experimental /> <Version>4.1.3</Version> {#custom-snapshot-matchers}
 
 可通过 `vitest` 提供的 `Snapshots` 组合式函数构建自定义快照匹配器。这些函数允许你在生成快照前对值进行转换，同时完整保留快照生命周期支持（创建、更新、内联重写）。
 
@@ -337,11 +329,7 @@ declare module 'vitest' {
 更多关于 `expect.extend` 和自定义匹配器约定的内容，请参阅 [扩展匹配器](/guide/extending-matchers)。
 :::
 
-<<<<<<< HEAD
-## 自定义领域快照 <Badge type="warning">experimental</Badge> <Version>4.1.4</Version> {#custom-snapshot-domain}
-=======
-## Custom Snapshot Domain <Experimental /> <Version>4.1.4</Version> {#custom-snapshot-domain}
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+## 自定义领域快照 <Experimental /> <Version>4.1.4</Version> {#custom-snapshot-domain}
 
 自定义序列化器控制值如何被 **渲染** 成快照字符串，但比较过程仍然基于字符串相等。**领域快照适配器** 则更进一步：它拥有自定义匹配器的整个比较流水线，包括如何捕获值、渲染值、解析存储的快照，以及如何对它们进行语义匹配。
 

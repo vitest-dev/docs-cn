@@ -1068,7 +1068,7 @@ function useFakeTimers(config?: FakeTimersConfig): Vitest
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
 仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })` 。
 :::
-
+<!-- TODO: translation -->
 You can use `toFake` to specify which timers to mock, or `toNotFake` to specify which timers to keep native. Note that `toFake` and `toNotFake` cannot be specified together.
 
 ```ts

@@ -7,11 +7,6 @@ outline: deep
 
 允许你在测试用例上添加 [`标签`](/config/tags)，在必要时可以使用标签进行过滤测试，或覆盖测试配置。
 
-<<<<<<< HEAD
-## 定义标签 {#defining-tags}
-
-Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
-=======
 ## Why tags
 
 Tags become useful once a suite has groups of tests that share runner options, like a longer timeout for database queries or retries for integration tests on CI. Repeating those options on every relevant test by hand is brittle, and the categories often don't line up with file paths anyway, so splitting them out by file isn't an option. Flaky tests in particular tend to accumulate wherever the bugs landed, not in a `flaky/` folder.
@@ -31,10 +26,9 @@ A tag captures that kind of category: the definition holds the shared options, a
 
 You can combine projects and tags. A test that sits in a `Sequential` project can also carry a `flaky` tag, and Vitest applies both.
 
-## Defining Tags
+## 定义标签 {#defining-tags}
 
-Tags must be defined in your configuration file. By default, Vitest does not provide any built-in tags. If a test uses a tag that isn't defined in the config, the test runner will throw an error. This prevents unexpected behavior from mistyped tag names. You can disable this check with the [`strictTags`](/config/stricttags) option.
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+Vitest 并未提供任何的内置标签，在默认情况下，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
 
 在标签定义时至少必须包含 `name` 参数，与此同时你还可以定义其他配置参数如 `timeout` 或 `retry`，这些配置参数将应用于使用该标签的所有测试。完整的可用配置参数，参见 [`tags`](/config/tags)。
 
@@ -69,30 +63,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-::: warning
-如果多个标签具有相同配置项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
-
-```ts
-test('flaky database test', { tags: ['flaky', 'db'] })
-// { timeout: 30_000, retry: 3 }
-```
-
-注意此时的 `timeout` 是 30 秒而不是 60 秒，因为 `flaky` 标签的优先级为 `1`，而定义了 60 秒超时的 `db` 标签未设置优先级。
-
-如果在当前测试上直接定义，则测试配置项优先级最高：
-
-```ts
-test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
-// { timeout: 120_000, retry: 3 }
-```
-
-:::
-
 如果你正在使用 TypeScript，可以扩展 `TestTags` 类型添加一个包含字符串的联合类型来限定的标签可用范围，请确保该文件被包含在 `tsconfig` 中：
-=======
-If you are using TypeScript, you can enforce what tags are available by augmenting the `TestTags` type with a property that contains a union of strings (make sure this file is included by your `tsconfig`):
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
 
 ```ts [vitest.shims.ts]
 import 'vitest'
@@ -149,29 +120,25 @@ flaky: Flaky CI tests.
 }
 ```
 
-<<<<<<< HEAD
-## 在测试中使用标签 {#using-tags-in-tests}
-=======
 ### Resolving option conflicts
 
-If several tags define the same option and are applied to the same test, they are resolved by `priority` first (lower number wins), then by the order they appear in the test's `tags` array. Tags without a `priority` are merged first and overridden by higher-priority ones:
+如果多个标签具有相同配置项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'] })
 // { timeout: 30_000, retry: 3 }
 ```
 
-The `timeout` is 30 seconds (not 60) because `flaky` has priority `1` while `db` has no priority.
+注意此时的 `timeout` 是 30 秒而不是 60 秒，因为 `flaky` 标签的优先级为 `1`，而定义了 60 秒超时的 `db` 标签未设置优先级。
 
-Options defined on the test itself always win:
+如果在当前测试上直接定义，则测试配置项优先级最高：
 
 ```ts
 test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
 // { timeout: 120_000, retry: 3 }
 ```
 
-## Using Tags in Tests
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+## 在测试中使用标签 {#using-tags-in-tests}
 
 可以通过 `tags` 参数 为单个测试用例或整个测试套件添加标签
 
@@ -356,11 +323,7 @@ vitest --tags-filter="unit || e2e" --tags-filter="!slow"
 
 ### 运行时检查标签过滤器 {#checking-tags-filter-at-runtime}
 
-<<<<<<< HEAD
-自 Vitest 4.1.1 起，你可以使用 `TestRunner.matchesTags` 方法来检查当前标签过滤器是否匹配一组标签。该特性特别适用于按需执行高开销的初始化逻辑，当相关测试的标签被包含时才运行：
-=======
-You can use `TestRunner.matchesTags` to check whether the current tags filter matches a set of tags. This is useful for conditionally running expensive setup logic only when relevant tests are included:
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+你可以使用 `TestRunner.matchesTags` 方法来检查当前标签过滤器是否匹配一组标签。该特性特别适用于按需执行高开销的初始化逻辑，当相关测试的标签被包含时才运行：
 
 ```ts
 import { beforeAll, TestRunner } from 'vitest'
@@ -373,14 +336,11 @@ beforeAll(async () => {
 })
 ```
 
-<<<<<<< HEAD
 该方法接收一个标签数组作为参数，如果当前 `--tags-filter` 会包含带有这些标签的测试，则返回 `true`。如果未启用标签过滤器，则始终返回 `true`。
-=======
 The method accepts an array of tags and returns `true` if the current `--tags-filter` would include a test with those tags. If no tags filter is active, it always returns `true`.
-
+<!-- TODO: translation -->
 ## See also
 
 - [Per-File Isolation Settings](/guide/recipes/disable-isolation) and [Parallel and Sequential Test Files](/guide/recipes/parallel-sequential) use projects to partition tests by file. Reach for projects when categories need different runner settings rather than different timeouts or retries.
 - [Test Filtering](/guide/filtering) covers `-t`, `--include`, and the rest of the CLI filters.
 - [`tags`](/config/tags) and [`strictTags`](/config/stricttags) configuration reference.
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789

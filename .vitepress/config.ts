@@ -808,9 +808,9 @@ export default ({ mode }: { mode: string }) => {
                 docFooterText: '追踪查看器 | 浏览器模式',
               },
               {
-                text: 'Playwright Traces',
+                text: 'Playwright 追踪',
                 link: '/guide/browser/playwright-traces',
-                docFooterText: 'Playwright Traces | Browser Mode',
+                docFooterText: 'Playwright 追踪 | 浏览器模式',
               },
               {
                 text: 'ARIA 快照',
@@ -825,43 +825,15 @@ export default ({ mode }: { mode: string }) => {
           // write X in a test?" If yes, it belongs here. Mocking sub-pages
           // live nested because they're a multi-page subtopic.
           {
-<<<<<<< HEAD
-            text: '指南',
+            text: '编写测试',
             collapsed: false,
             items: [
-              {
-                text: '命令行界面',
-                link: '/guide/cli',
-              },
-              {
-                text: '测试筛选',
-                link: '/guide/filtering',
-              },
-              {
-                text: '测试标签',
-                link: '/guide/test-tags',
-              },
               {
                 text: '测试上下文',
                 link: '/guide/test-context',
               },
               {
-                text: '测试环境',
-                link: '/guide/environment',
-              },
-              {
-                text: '测试运行生命周期',
-=======
-            text: 'Authoring',
-            collapsed: false,
-            items: [
-              {
-                text: 'Test Context',
-                link: '/guide/test-context',
-              },
-              {
-                text: 'Test Run Lifecycle',
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+                text: '运行生命周期',
                 link: '/guide/lifecycle',
               },
               {
@@ -908,37 +880,8 @@ export default ({ mode }: { mode: string }) => {
                 ],
               },
               {
-<<<<<<< HEAD
-                text: '并行测试',
-                link: '/guide/parallelism',
-              },
-              {
-                text: '测试项目',
-                link: '/guide/projects',
-              },
-              {
-                text: '报告器',
-                link: '/guide/reporters',
-              },
-              {
-                text: '覆盖率',
-                link: '/guide/coverage',
-              },
-              {
-                text: '类型测试',
-                link: '/guide/testing-types',
-              },
-              {
-                text: 'UI 模式',
-                link: '/guide/ui',
-              },
-              {
-                text: '内联测试',
-                link: '/guide/in-source',
-=======
-                text: 'Test Tags',
+                text: '测试',
                 link: '/guide/test-tags',
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
               },
               {
                 text: '测试注释',
@@ -949,14 +892,11 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/extending-matchers',
               },
               {
-<<<<<<< HEAD
-                text: 'IDE 插件',
-=======
-                text: 'Testing Types',
+                text: '类型测试',
                 link: '/guide/testing-types',
               },
               {
-                text: 'In-Source Testing',
+                text: '内联测试',
                 link: '/guide/in-source',
               },
             ],
@@ -968,40 +908,39 @@ export default ({ mode }: { mode: string }) => {
           // page is about the runtime environment of the tests themselves
           // (jsdom, node), it still belongs here — that's a workflow choice.
           {
-            text: 'Workflow',
+            text: '工作流',
             collapsed: false,
             items: [
               {
-                text: 'CLI',
+                text: '命令行界面',
                 link: '/guide/cli',
               },
               {
-                text: 'Test Filtering',
+                text: '测试筛选',
                 link: '/guide/filtering',
               },
               {
-                text: 'Test Projects',
+                text: '测试项目',
                 link: '/guide/projects',
               },
               {
-                text: 'Test Environment',
+                text: '测试环境',
                 link: '/guide/environment',
               },
               {
-                text: 'Parallelism',
+                text: '并行测试',
                 link: '/guide/parallelism',
               },
               {
-                text: 'Reporters',
+                text: '报告器',
                 link: '/guide/reporters',
               },
               {
-                text: 'Vitest UI',
+                text: 'UI 模式',
                 link: '/guide/ui',
               },
               {
-                text: 'IDE Integration',
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+                text: 'IDE 插件',
                 link: '/guide/ide',
               },
             ],
@@ -1013,11 +952,11 @@ export default ({ mode }: { mode: string }) => {
           // measures or fixes the suite (rather than authoring or running
           // it), put it here.
           {
-            text: 'Quality & Debugging',
+            text: '质量与调试',
             collapsed: false,
             items: [
               {
-                text: 'Coverage',
+                text: '覆盖率',
                 link: '/guide/coverage',
               },
               {
@@ -1029,30 +968,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/common-errors',
               },
               {
-<<<<<<< HEAD
-                text: '迁移指南',
-                link: '/guide/migration',
-                collapsed: false,
-                items: [
-                  {
-                    text: '迁移到 Vitest 4',
-                    link: '/guide/migration#vitest-4',
-                  },
-                  {
-                    text: '从 Jest 迁移',
-                    link: '/guide/migration#jest',
-                  },
-                  {
-                    text: '从 Mocha + Chai + Sinon 迁移',
-                    link: '/guide/migration#mocha-chai-sinon',
-                  },
-                ],
-              },
-              {
                 text: '性能',
-=======
-                text: 'Performance',
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
                 collapsed: false,
                 items: [
                   {
@@ -1078,7 +994,7 @@ export default ({ mode }: { mode: string }) => {
           // comes from composition, or when users would search by intent
           // rather than by API name.
           {
-            text: 'Recipes',
+            text: '技巧',
             collapsed: false,
             items: [
               {
@@ -1154,27 +1070,20 @@ export default ({ mode }: { mode: string }) => {
           // Sits near the bottom because it's not daily-use and would push
           // active-use guides further from the user's first scroll.
           {
-            text: 'Migration',
+            text: '迁移',
             link: '/guide/migration',
             collapsed: false,
             items: [
               {
-<<<<<<< HEAD
-                text: '测试技巧',
-                link: '/guide/recipes',
-              },
-              {
-                text: '测试框架比较',
-=======
-                text: 'Migrating to Vitest 4.0',
+                text: '迁移至 Vitest 4.0',
                 link: '/guide/migration#vitest-4',
               },
               {
-                text: 'Migrating from Jest',
+                text: '从 Jest 迁移',
                 link: '/guide/migration#jest',
               },
               {
-                text: 'Migrating from Mocha + Chai + Sinon',
+                text: '从 Mocha + Chai + Sinon 迁移',
                 link: '/guide/migration#mocha-chai-sinon',
               },
             ],
@@ -1182,8 +1091,7 @@ export default ({ mode }: { mode: string }) => {
           {
             items: [
               {
-                text: 'Comparisons',
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+                text: '测试框架比较',
                 link: '/guide/comparisons',
               },
             ],

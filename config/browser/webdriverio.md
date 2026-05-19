@@ -60,13 +60,9 @@ export default defineConfig({
 ::: tip
 最有用的选项位于 `capabilities` 对象上。WebdriverIO 允许嵌套功能，但 Vitest 将忽略这些选项，因为我们依赖于不同的机制来生成多个浏览器。
 
-<<<<<<< HEAD
 请注意，Vitest 将忽略 `capabilities.browserName` — 请改用 [`test.browser.instances.browser`](/config/browser/instances#browser)。
-=======
-Note that Vitest will ignore `capabilities.browserName`; use [`test.browser.instances.browser`](/config/browser/instances#browser) instead.
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
 :::
-
+<!-- TODO: translation -->
 ## Headful Chrome in CI
 
 Vitest enables [`browser.headless`](/config/browser/headless) automatically in CI.

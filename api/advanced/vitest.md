@@ -7,13 +7,8 @@ title: Vitest API
 
 Vitest 实例需要当前的测试模式。它可以是以下之一：
 
-<<<<<<< HEAD
 - `test`：运行运行时测试时
-- `benchmark`：运行基准测试时 <Badge type="warning">实验性</Badge>
-=======
-- `test` when running runtime tests
-- `benchmark` when running benchmarks <Experimental />
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+- `benchmark`：运行基准测试时 <Experimental />
 
 ::: details New in Vitest 4
 Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除了已弃用的 API：
@@ -36,11 +31,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 
 测试模式只会调用 `test` 或 `it` 中的函数，并在遇到 `bench` 时抛出错误。此模式使用配置中的 `include` 和 `exclude` 选项来查找测试文件。
 
-<<<<<<< HEAD
-### benchmark <Badge type="warning">实验性</Badge> {#benchmark-experimental}
-=======
 ### benchmark <Experimental /> {#benchmark}
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
 
 基准测试模式调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项来查找基准测试文件。
 
@@ -56,11 +47,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 
 这是全局的 [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver)。
 
-<<<<<<< HEAD
-## state <Badge type="warning">实验性</Badge> {#state-experimental}
-=======
 ## state <Experimental /> {#state}
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
 
 ::: warning
 公共 `state` 是一个实验性 API（除了 `vitest.state.getReportedEntity`）。破坏性更改可能不遵循 SemVer，请在使用时固定 Vitest 的版本。

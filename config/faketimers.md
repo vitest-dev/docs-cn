@@ -5,11 +5,7 @@ outline: deep
 
 # fakeTimers
 
-<<<<<<< HEAD
-- **类型:** `FakeTimerInstallOpts`
-=======
-- **Type:** `FakeTimerConfig`
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+- **类型:** `FakeTimerConfig`
 
 当使用 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 时，Vitest 会将此选项传递给 [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers)。
 
@@ -25,16 +21,10 @@ outline: deep
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
 - **默认值:** 全局可用的所有方法，除了 `nextTick` 和 `queueMicrotask`
 
-<<<<<<< HEAD
-需要模拟的全局方法和 API 名称数组。
-
-如果仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
-=======
-An array with names of global methods and APIs to fake. For example, to only mock `setTimeout()` and `nextTick()`, specify this property as `['setTimeout', 'nextTick']`.
->>>>>>> 3a513123224c0041b8cda52ce1f47c912ce05789
+需要模拟的全局方法和 API 名称数组。例如仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
 
 当使用 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 会在 `node:child_process` 内部使用 `process.nextTick`，模拟后会导致进程挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
-
+<!-- TODO: translation -->
 ## fakeTimers.toNotFake
 
 - **Type:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
