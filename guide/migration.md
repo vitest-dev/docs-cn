@@ -483,8 +483,8 @@ export default defineConfig({
 ```
 
 :::
-
-更多示例请参阅 [测试技巧](/guide/recipes)。
+<!-- TODO: translation -->
+See [Per-File Isolation Settings](/guide/recipes/disable-isolation) and [Parallel and Sequential Test Files](/guide/recipes/parallel-sequential) for more examples.
 
 ### 报告器升级 {#reporter-updates}
 
@@ -715,7 +715,7 @@ export default defineConfig({
 
 否则快照中会出现大量转义的 `"` 字符。
 
-### 自定义快照匹配器 <Experimental/> <Version>4.1.3</Version> {#custom-snapshot-matchers}
+### 自定义快照匹配器 <Experimental /> <Version>4.1.3</Version> {#custom-snapshot-matcher}
 
 Jest 从 `jest-snapshot` 导入快照组合函数。在 Vitest 中，请改用 `vitest` 中的 `Snapshots`：
 

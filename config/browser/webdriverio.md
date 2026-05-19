@@ -62,3 +62,21 @@ export default defineConfig({
 
 请注意，Vitest 将忽略 `capabilities.browserName` — 请改用 [`test.browser.instances.browser`](/config/browser/instances#browser)。
 :::
+<!-- TODO: translation -->
+## Headful Chrome in CI
+
+Vitest enables [`browser.headless`](/config/browser/headless) automatically in CI.
+If you explicitly set `headless: false` for Chrome on a Linux CI runner, Chrome
+still needs a display server. Without one, WebDriverIO or ChromeDriver can fail
+with a misleading error such as `session not created: probably user data
+directory is already in use`.
+
+Run the test command through `xvfb-run` when you need headful Chrome in GitHub
+Actions or another Linux CI environment:
+
+```bash
+xvfb-run npm test
+```
+
+Alternatively, keep `browser.headless` enabled in CI and use headful mode only
+for local debugging.

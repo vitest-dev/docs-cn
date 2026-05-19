@@ -808,9 +808,9 @@ export default ({ mode }: { mode: string }) => {
                 docFooterText: '追踪查看器 | 浏览器模式',
               },
               {
-                text: 'Playwright Traces',
+                text: 'Playwright 追踪',
                 link: '/guide/browser/playwright-traces',
-                docFooterText: 'Playwright Traces | Browser Mode',
+                docFooterText: 'Playwright 追踪 | 浏览器模式',
               },
               {
                 text: 'ARIA 快照',
@@ -819,32 +819,21 @@ export default ({ mode }: { mode: string }) => {
               },
             ],
           },
+          // Authoring — how to express a test in code: constructing it,
+          // asserting, mocking dependencies, attaching metadata. The page is
+          // about *test content*, not the runner. Discriminator: "How do I
+          // write X in a test?" If yes, it belongs here. Mocking sub-pages
+          // live nested because they're a multi-page subtopic.
           {
-            text: '指南',
+            text: '编写测试',
             collapsed: false,
             items: [
-              {
-                text: '命令行界面',
-                link: '/guide/cli',
-              },
-              {
-                text: '测试筛选',
-                link: '/guide/filtering',
-              },
-              {
-                text: '测试标签',
-                link: '/guide/test-tags',
-              },
               {
                 text: '测试上下文',
                 link: '/guide/test-context',
               },
               {
-                text: '测试环境',
-                link: '/guide/environment',
-              },
-              {
-                text: '测试运行生命周期',
+                text: '运行生命周期',
                 link: '/guide/lifecycle',
               },
               {
@@ -891,32 +880,8 @@ export default ({ mode }: { mode: string }) => {
                 ],
               },
               {
-                text: '并行测试',
-                link: '/guide/parallelism',
-              },
-              {
-                text: '测试项目',
-                link: '/guide/projects',
-              },
-              {
-                text: '报告器',
-                link: '/guide/reporters',
-              },
-              {
-                text: '覆盖率',
-                link: '/guide/coverage',
-              },
-              {
-                text: '类型测试',
-                link: '/guide/testing-types',
-              },
-              {
-                text: 'UI 模式',
-                link: '/guide/ui',
-              },
-              {
-                text: '内联测试',
-                link: '/guide/in-source',
+                text: '测试',
+                link: '/guide/test-tags',
               },
               {
                 text: '测试注释',
@@ -927,8 +892,72 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/extending-matchers',
               },
               {
+                text: '类型测试',
+                link: '/guide/testing-types',
+              },
+              {
+                text: '内联测试',
+                link: '/guide/in-source',
+              },
+            ],
+          },
+          // Workflow — how to invoke, select, and orchestrate test runs
+          // across files/projects/processes. The page is about the *runner
+          // and tooling around it*, not what's inside a test. Discriminator:
+          // "How do I run / filter / parallelize / integrate Vitest?" If a
+          // page is about the runtime environment of the tests themselves
+          // (jsdom, node), it still belongs here — that's a workflow choice.
+          {
+            text: '工作流',
+            collapsed: false,
+            items: [
+              {
+                text: '命令行界面',
+                link: '/guide/cli',
+              },
+              {
+                text: '测试筛选',
+                link: '/guide/filtering',
+              },
+              {
+                text: '测试项目',
+                link: '/guide/projects',
+              },
+              {
+                text: '测试环境',
+                link: '/guide/environment',
+              },
+              {
+                text: '并行测试',
+                link: '/guide/parallelism',
+              },
+              {
+                text: '报告器',
+                link: '/guide/reporters',
+              },
+              {
+                text: 'UI 模式',
+                link: '/guide/ui',
+              },
+              {
                 text: 'IDE 插件',
                 link: '/guide/ide',
+              },
+            ],
+          },
+          // Quality & Debugging — how to verify the test run is healthy and
+          // diagnose it when it isn't. Coverage, perf, leak detection, error
+          // triage, observability. Discriminator: "Is my suite good?" or
+          // "Why did this fail / leak / slow down?" If a page primarily
+          // measures or fixes the suite (rather than authoring or running
+          // it), put it here.
+          {
+            text: '质量与调试',
+            collapsed: false,
+            items: [
+              {
+                text: '覆盖率',
+                link: '/guide/coverage',
               },
               {
                 text: '调试',
@@ -937,25 +966,6 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: '常见错误',
                 link: '/guide/common-errors',
-              },
-              {
-                text: '迁移指南',
-                link: '/guide/migration',
-                collapsed: false,
-                items: [
-                  {
-                    text: '迁移到 Vitest 4',
-                    link: '/guide/migration#vitest-4',
-                  },
-                  {
-                    text: '从 Jest 迁移',
-                    link: '/guide/migration#jest',
-                  },
-                  {
-                    text: '从 Mocha + Chai + Sinon 迁移',
-                    link: '/guide/migration#mocha-chai-sinon',
-                  },
-                ],
               },
               {
                 text: '性能',
@@ -974,6 +984,62 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'OpenTelemetry',
                 link: '/guide/open-telemetry',
+              },
+            ],
+          },
+          // Recipes — end-to-end patterns that solve a concrete problem by
+          // combining multiple features. Each entry is titled by the problem
+          // ("Database Transaction per Test"), not the feature. Add a recipe
+          // when a single feature page would over-explain, when the value
+          // comes from composition, or when users would search by intent
+          // rather than by API name.
+          {
+            text: '技巧',
+            collapsed: false,
+            items: [
+              {
+                text: 'Database Transaction per Test',
+                link: '/guide/recipes/db-transaction',
+              },
+              {
+                text: 'Cancelling Long-Running Operations Gracefully',
+                link: '/guide/recipes/cancellable',
+              },
+              {
+                text: 'Waiting for Async Conditions',
+                link: '/guide/recipes/wait-for',
+              },
+              {
+                text: 'Type Narrowing in Tests',
+                link: '/guide/recipes/type-narrowing',
+              },
+              {
+                text: 'Custom Assertion Helpers',
+                link: '/guide/recipes/custom-assertions',
+              },
+              {
+                text: 'Watching Non-Imported Files',
+                link: '/guide/recipes/watch-templates',
+              },
+              {
+                text: 'Extending Browser Locators',
+                link: '/guide/recipes/browser-locators',
+              },
+              {
+                text: 'Schema-Driven Assertions',
+                link: '/guide/recipes/schema-matching',
+              },
+              {
+                text: 'Auto-Cleanup with `using`',
+                link: '/guide/recipes/explicit-resources',
+              },
+              {
+                text: 'Per-File Isolation Settings',
+                link: '/guide/recipes/disable-isolation',
+              },
+              {
+                text: 'Parallel and Sequential Test Files',
+                link: '/guide/recipes/parallel-sequential',
               },
             ],
           },
@@ -999,12 +1065,31 @@ export default ({ mode }: { mode: string }) => {
               },
             ],
           },
+          // Migration — one-time transitional content: cross-version
+          // upgrades and porting from other test runners (Jest, Mocha).
+          // Sits near the bottom because it's not daily-use and would push
+          // active-use guides further from the user's first scroll.
           {
+            text: '迁移',
+            link: '/guide/migration',
+            collapsed: false,
             items: [
               {
-                text: '测试技巧',
-                link: '/guide/recipes',
+                text: '迁移至 Vitest 4.0',
+                link: '/guide/migration#vitest-4',
               },
+              {
+                text: '从 Jest 迁移',
+                link: '/guide/migration#jest',
+              },
+              {
+                text: '从 Mocha + Chai + Sinon 迁移',
+                link: '/guide/migration#mocha-chai-sinon',
+              },
+            ],
+          },
+          {
+            items: [
               {
                 text: '测试框架比较',
                 link: '/guide/comparisons',

@@ -5,7 +5,7 @@ outline: deep
 
 # fakeTimers
 
-- **类型:** `FakeTimerInstallOpts`
+- **类型:** `FakeTimerConfig`
 
 当使用 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 时，Vitest 会将此选项传递给 [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers)。
 
@@ -21,11 +21,22 @@ outline: deep
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
 - **默认值:** 全局可用的所有方法，除了 `nextTick` 和 `queueMicrotask`
 
-需要模拟的全局方法和 API 名称数组。
-
-如果仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
+需要模拟的全局方法和 API 名称数组。例如仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
 
 当使用 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 会在 `node:child_process` 内部使用 `process.nextTick`，模拟后会导致进程挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
+<!-- TODO: translation -->
+## fakeTimers.toNotFake
+
+- **Type:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
+- **Default:** `[]`
+
+An array with names of global methods and APIs to keep native. All other available timers will be mocked. For example, to keep `setInterval()` native and mock all other timers, specify this property as `['setInterval']`.
+
+Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. When running with `--pool=forks`, Vitest automatically adds `nextTick` to the `toNotFake` array.
+
+::: warning
+Using both `toFake` and `toNotFake` together is not supported.
+:::
 
 ## fakeTimers.loopLimit
 

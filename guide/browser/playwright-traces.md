@@ -1,9 +1,9 @@
-# Playwright 跟踪 {#playwright-traces}
+# Playwright 追踪 {#playwright-traces}
 
-Vitest 浏览器模式支持生成 Playwright 的 [跟踪文件](https://playwright.dev/docs/trace-viewer#viewing-remote-traces)。要启用跟踪，请在 `test.browser` 配置中设置 [`trace`](/config/browser/trace) 选项。
+Vitest 浏览器模式支持生成 Playwright 的 [追踪文件](https://playwright.dev/docs/trace-viewer#viewing-remote-traces)。要启用追踪，请在 `test.browser` 配置中设置 [`trace`](/config/browser/trace) 选项。
 
 ::: warning
-生成跟踪文件仅在 [Playwright provider](/config/browser/playwright) 下可用。
+生成追踪文件仅在 [Playwright provider](/config/browser/playwright) 下可用。
 :::
 
 ::: code-group
@@ -28,7 +28,7 @@ vitest --browser.trace=on
 
 :::
 
-默认情况下，Vitest 会为每个测试生成一个跟踪文件。你也可以将 `trace` 设置为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'`，使其仅在测试失败时生成跟踪。跟踪文件将保存在测试文件旁边的 `__traces__` 文件夹中。跟踪文件的名称包含项目名称、测试名称、[`repeats`](/api/test#repeats) 计数和 [`retry`](/api/test#retry) 计数：
+默认情况下，Vitest 会为每个测试生成一个追踪文件。你也可以将 `trace` 设置为 `'on-first-retry'`、`'on-all-retries'` 或 `'retain-on-failure'`，使其仅在测试失败时生成追踪。追踪文件将保存在测试文件旁边的 `__traces__` 文件夹中。追踪文件的名称包含项目名称、测试名称、[`repeats`](/api/test#repeats) 计数和 [`retry`](/api/test#retry) 计数：
 
 ```
 chromium-my-test-0-0.trace.zip
@@ -38,7 +38,7 @@ chromium-my-test-0-0.trace.zip
                   ^ retry count
 ```
 
-如果要更改输出目录，你可以在 `test.browser.trace` 配置中设置 `tracesDir` 参数。这样所有跟踪文件将按测试文件分组，存储在同一个目录中，。
+如果要更改输出目录，你可以在 `test.browser.trace` 配置中设置 `tracesDir` 参数。这样所有追踪文件将按测试文件分组，存储在同一个目录中，。
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -58,13 +58,13 @@ export default defineConfig({
 })
 ```
 
-跟踪文件在报告器中以 [注释](/guide/test-annotations) 形式提供。例如，在 HTML 报告器中，你可以在测试详情中找到指向跟踪文件的链接。
+追踪文件在报告器中以 [注释](/guide/test-annotations) 形式提供。例如，在 HTML 报告器中，你可以在测试详情中找到指向追踪文件的链接。
 
-## 跟踪标记 {#trace-markers}
+## 追踪标记 {#trace-markers}
 
 你也可以使用 `page.mark(name, callback)` 将多个操作分组在一个标记下：
 
-你可以添加显式的命名标记，让跟踪时间线更易于阅读：
+你可以添加显式的命名标记，让追踪时间线更易于阅读：
 
 ```ts
 import { page } from 'vitest/browser'
@@ -88,7 +88,7 @@ await page.mark('sign in flow', async () => {
 })
 ```
 
-你还可以使用 [`vi.defineHelper()`](/api/vi#vi-defineHelper) 包装可复用的工具函数，以便跟踪条目会指向工具函数的调用位置，而不是具体内部实现：
+你还可以使用 [`vi.defineHelper()`](/api/vi#vi-defineHelper) 包装可复用的工具函数，以便追踪条目会指向工具函数的调用位置，而不是具体内部实现：
 
 ```ts
 import { vi } from 'vitest'
@@ -106,18 +106,18 @@ test('renders content', async () => {
 
 ## 预览 {#preview}
 
-打开跟踪文件，你可以使用 Playwright Trace Viewer。在终端中运行以下命令：
+打开追踪文件，你可以使用 Playwright Trace Viewer。在终端中运行以下命令：
 
 ```bash
 npx playwright show-trace "path-to-trace-file"
 ```
 
-这将启动 Trace Viewer 并加载指定的跟踪文件。
+这将启动 Trace Viewer 并加载指定的追踪文件。
 
-或者，你可以在浏览器中打开 https://trace.playwright.dev 并在此处上传跟踪文件。
+或者，你可以在浏览器中打开 https://trace.playwright.dev 并在此处上传追踪文件。
 
-<img alt="Trace Viewer 显示跟踪时间线和渲染的组件" img-light src="/trace-viewer-light.png">
-<img alt="Trace Viewer 显示跟踪时间线和渲染的组件" img-dark src="/trace-viewer-dark.png">
+<img alt="Trace Viewer 显示追踪时间线和渲染的组件" img-light src="/trace-viewer-light.png">
+<img alt="Trace Viewer 显示追踪时间线和渲染的组件" img-dark src="/trace-viewer-dark.png">
 
 ## 源码位置 {#source-location}
 
@@ -126,6 +126,6 @@ npx playwright show-trace "path-to-trace-file"
 - `expect.element(...)` 断言
 - 交互式操作，如 `click`、`fill`、`type`、`hover`、`selectOptions`、`upload`、`dragAndDrop`、`tab`、`keyboard`、`wheel` 和截图
 
-在底层，Playwright 仍然像往常一样记录其自己的底层操作事件。Vitest 用源码位置组包装它们，这样你可以直接从跟踪时间线跳转到测试中的相关行。
+在底层，Playwright 仍然像往常一样记录其自己的底层操作事件。Vitest 用源码位置组包装它们，这样你可以直接从追踪时间线跳转到测试中的相关行。
 
-对于未自动覆盖的内容，你可以使用 `page.mark()` 或 `locator.mark()` 添加自己的跟踪组，详情请参阅上文 [跟踪标记](#trace-markers)。
+对于未自动覆盖的内容，你可以使用 `page.mark()` 或 `locator.mark()` 添加自己的追踪组，详情请参阅上文 [追踪标记](#trace-markers)。

@@ -3,7 +3,7 @@ title: ARIA 快照 | 指南
 outline: deep
 ---
 
-# ARIA 快照 <Experimental/> <Version>4.1.4</Version> {#aria-snapshots}
+# ARIA 快照 <Experimental /> <Version>4.1.4</Version> {#aria-snapshots}
 
 ARIA 快照可以让你测试页面的无障碍结构。你不是去断言原始 HTML 或视觉输出，而是去断言无障碍树，也就是屏幕阅读器和其他辅助技术所使用的那套结构。
 
