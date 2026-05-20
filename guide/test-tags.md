@@ -243,7 +243,7 @@ const specification = vitest.getRootProject().createSpecification(
 解析器将遵循标准 [运算符优先级](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence)：`not`/`!` 优先级最高，其次是 `and`/`&&`，最后是 `or`/`||`。使用括号将提升优先级。
 
 ::: warning 保留字
-标签名称不能为 `and`, `or`, 或 `not`（不区分大小写），这些都是保留字。标签名称也不能包含特殊字符（`(`， `)`， `&`， `|`， `!`， `*`，空格），这些字符已经被表达式解析器占用。
+标签名称不能为 `and`, `or`, 或 `not`（不区分大小写），这些都是保留字。标签名称也不能包含特殊字符（`(`，`)`，`&`，`|`，`!`，`*`，空格），这些字符已经被表达式解析器占用。
 :::
 
 ### 通配符 {#wildcards}
@@ -254,7 +254,7 @@ const specification = vitest.getRootProject().createSpecification(
 vitest --tags-filter="unit/*"
 ```
 
-将会匹配到类似 `unit/components`， `unit/utils` 等标签。
+将会匹配到类似 `unit/components`，`unit/utils` 等标签。
 
 ### 排除标签 {#excluding-tags}
 

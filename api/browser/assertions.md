@@ -54,7 +54,7 @@ interface ExpectPollOptions {
 ```
 
 ::: tip
-`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
+`expect.element` 是 `expect.poll(() => element)` 的简写，工作方式完全相同。
 
 `toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
@@ -1042,7 +1042,7 @@ function toMatchScreenshot(
 :::
 
 ::: tip
-若截图对比因**有意变更**而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 标志，以更新基准图。
+若截图对比因 **有意变更** 而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 标志，以更新基准图。
 :::
 
 ```html

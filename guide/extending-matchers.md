@@ -40,7 +40,7 @@ declare module 'vitest' {
 :::
 
 Extending the `Matchers` interface will add a type to `expect.extend`, `expect().*`, and `expect.*` methods at the same time.
-扩展 `Matchers` 接口，让 `expect.extend` 、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。
+扩展 `Matchers` 接口，让 `expect.extend`、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。
 
 ::: warning
 不要忘记在 `tsconfig.json` 中包含声明文件。
@@ -60,7 +60,7 @@ interface MatcherResult {
 ```
 
 ::: warning
-如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await` （例如：`await expect('foo').toBeFoo()` ），否则可能不会按预期执行：
+如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await`（例如：`await expect('foo').toBeFoo()`），否则可能不会按预期执行：
 
 ```ts
 expect.extend({
@@ -109,14 +109,14 @@ expect.extend({ customMatcher })
 ```
 <!-- TODO: translation -->
 ::: tip
-To build custom **snapshot matchers** (wrappers around `toMatchSnapshot()` / `toMatchInlineSnapshot()` / `toMatchFileSnapshot()`), use `Snapshots` exported from `vitest`. See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers).
+To build custom **snapshot matchers** (wrappers around `toMatchSnapshot()`/`toMatchInlineSnapshot()`/`toMatchFileSnapshot()`), use `Snapshots` exported from `vitest`. See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers).
 :::
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 
 ## `isNot`
 
-如果断言是在 `not` 方法上调用的( `expect(received).not.toBeFoo()` )，则返回 true。你无需手动处理该逻辑，Vitest 会自动反转 `pass` 的值。
+如果断言是在 `not` 方法上调用的(`expect(received).not.toBeFoo()`)，则返回 true。你无需手动处理该逻辑，Vitest 会自动反转 `pass` 的值。
 
 ## `promise`
 

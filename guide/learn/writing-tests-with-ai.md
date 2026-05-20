@@ -34,11 +34,11 @@ If your project has an `AGENTS.md` or similar file with coding conventions, incl
 
 Specific prompts produce better tests than generic ones. Compare these two:
 
-**Vague:** "Write tests for `userService.js`"
+**Vague:**"Write tests for `userService.js`"
 
 This will produce tests, but they'll likely be shallow: one happy-path test per function, minimal edge case coverage, and generic test names.
 
-**Better:** "Write tests for the `createUser` function in `userService.js`. Cover validation errors (missing name, invalid email format, duplicate email), the successful creation path, and verify that the password is hashed before being stored."
+**Better:**"Write tests for the `createUser` function in `userService.js`. Cover validation errors (missing name, invalid email format, duplicate email), the successful creation path, and verify that the password is hashed before being stored."
 
 This tells the AI exactly which function to focus on, which scenarios matter, and what behavior to verify. The output will be more thorough and more relevant.
 

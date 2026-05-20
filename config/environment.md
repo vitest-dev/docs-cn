@@ -83,7 +83,7 @@ export default <Environment>{
 `viteEnvironment` 字段对应于 [Vite 环境 API](https://cn.vite.dev/guide/api-environment#environment-api)。默认情况下，Vite 公开 `client`（用于浏览器）和 `ssr`（用于服务器）环境。
 :::
 
-为了直接扩展使用Vitest 还从 `vitest/environments` 包导出 `builtinEnvironments`。关于扩展测试环境的更多信息，请参阅 [测试环境](/guide/environment)。
+为了直接扩展使用 Vitest 还从 `vitest/environments` 包导出 `builtinEnvironments`。关于扩展测试环境的更多信息，请参阅 [测试环境](/guide/environment)。
 
 ::: tip
 jsdom 测试环境会暴露一个等同于当前 [JSDOM](https://github.com/jsdom/jsdom) 实例的全局变量 `jsdom`。如果你想让 TypeScript 识别它，在使用此环境时可将 `vitest/jsdom` 添加到你的 `tsconfig.json` 中：

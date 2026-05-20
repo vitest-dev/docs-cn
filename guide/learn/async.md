@@ -33,7 +33,7 @@ This is the pattern you'll use the vast majority of the time. It reads just like
 
 ## Resolves and Rejects
 
-Sometimes you'd rather assert on a promise directly instead of `await`-ing it into a variable first. The [`.resolves`](/api/expect#resolves) and [`.rejects`](/api/expect#rejects) helpers let you do this. They unwrap the promise and then apply the matcher to the resolved or rejected value:
+Sometimes you'd rather assert on a promise directly instead of `await` -ing it into a variable first. The [`.resolves`](/api/expect#resolves) and [`.rejects`](/api/expect#rejects) helpers let you do this. They unwrap the promise and then apply the matcher to the resolved or rejected value:
 
 ```js
 test('resolves to Alice', async () => {

@@ -744,7 +744,7 @@ await page.getByRole('img', { name: 'Rose' }).unhover()
 function fill(text: string, options?: UserEventFillOptions): Promise<void>
 ```
 
-为当前的 `input` 、`textarea` 或 `contenteditable` 元素赋值。
+为当前的 `input`、`textarea` 或 `contenteditable` 元素赋值。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -1054,7 +1054,7 @@ function all(): Locator[]
 
 在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/api/browser/context#page) 包装每个元素。
 
-- [更多内容请参阅  `locator.elements()`](#elements)
+- [更多内容请参阅 `locator.elements()`](#elements)
 
 ## Properties
 

@@ -31,7 +31,7 @@ Vitest 的 V8 覆盖率提供器现在使用了更精准的结果映射逻辑，
 
 在之前的版本中，Vitest 会默认把所有未覆盖的文件包含到报告中。这是因为 `coverage.all` 默认为 `true`，`coverage.include` 默认为 `**`。这样设计是因为测试工具无法准确判断用户源码所在位置。
 
-然而，这导致 Vitest 覆盖率工具会处理很多意料之外的文件（例如压缩 JS 文件），造成报告生成速度很慢甚至卡死。在 Vitest v4 中，我们彻底移除了 `coverage.all`，并将默认行为改为**只在报告中包含被测试覆盖的文件**。
+然而，这导致 Vitest 覆盖率工具会处理很多意料之外的文件（例如压缩 JS 文件），造成报告生成速度很慢甚至卡死。在 Vitest v4 中，我们彻底移除了 `coverage.all`，并将默认行为改为 **只在报告中包含被测试覆盖的文件**。
 
 升级至 v4 版本时，建议先在配置文件中定义 `coverage.include`，再根据需要逐步添加简单的 `coverage.exclude` 匹配规则。
 
@@ -111,7 +111,7 @@ export default defineConfig({
 })
 ```
 
-### `spyOn` 和 `fn` 支持构造函数  {#spyon-and-fn-support-constructors}
+### `spyOn` 和 `fn` 支持构造函数 {#spyon-and-fn-support-constructors}
 
 在之前的版本中，如果尝试使用 `vi.spyOn` 监视构造函数，可能会收到类似 `Constructor <name> requires 'new'` 的错误。自 Vitest 4 起，所有通过 `new` 关键字调用的模拟会构造实例，而不是调用 `mock.apply`。这意味着在这些情况下，模拟实现必须使用 `function` 或 `class` 关键字：
 
@@ -259,7 +259,7 @@ export default defineWorkspace([ // [!code --]
 
 ### 修改浏览器模式提供者 {#browser-provider-rework}
 
-在 Vitest 4.0 中，浏览器提供者现在接受对象而非字符 (`'playwright'`, `'webdriverio'`)。 `preview` 不再是默认设置。这使得使用自定义选项变得更简单，而且不再需要添加 `/// <reference` 注释。
+在 Vitest 4.0 中，浏览器提供者现在接受对象而非字符 (`'playwright'`, `'webdriverio'`)。`preview` 不再是默认设置。这使得使用自定义选项变得更简单，而且不再需要添加 `/// <reference` 注释。
 
 ```ts
 import { playwright } from '@vitest/browser-playwright' // [!code ++]
@@ -441,7 +441,7 @@ export default defineConfig({
 
 ### 使用自定义元素打印 Shadow Root 快照 {#snapshots-using-custom-elements-print-the-shadow-root}
 
-在 Vitest 4.0 中，包含自定义元素的快照将打印阴影根内容。要恢复以前的行为，请将 [`printShadowRoot` option](/config/snapshotformat) 设为`false`。
+在 Vitest 4.0 中，包含自定义元素的快照将打印阴影根内容。要恢复以前的行为，请将 [`printShadowRoot` option](/config/snapshotformat) 设为 `false`。
 
 ```js{15-22}
 // 自 Vitest 4.0 前

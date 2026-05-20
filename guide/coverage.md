@@ -144,7 +144,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 你可以在 [覆盖率配置参考](/config/coverage) 中查看所有可用的覆盖率选项。
 :::
 
-如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true` ：
+如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true`：
 
 ::: code-group
 ```json [package.json]

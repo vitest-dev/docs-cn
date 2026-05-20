@@ -28,7 +28,7 @@ ndb npm run test
 
 ## VS Code
 
-在 VSCode 中快速调试测试的方法是通过 `JavaScript Debug Terminal` 。打开一个新的 `JavaScript Debug Terminal` 并直接运行 `npm run test` 或 `vitest` 。*这适用于在 Node 中运行的任何代码，因此将适用于大多数 JS 测试框架*。
+在 VSCode 中快速调试测试的方法是通过 `JavaScript Debug Terminal`。打开一个新的 `JavaScript Debug Terminal` 并直接运行 `npm run test` 或 `vitest`。*这适用于在 Node 中运行的任何代码，因此将适用于大多数 JS 测试框架*。
 
 ![image](https://user-images.githubusercontent.com/5594348/212169143-72bf39ce-f763-48f5-822a-0c8b2e6a8484.png)
 
@@ -81,7 +81,7 @@ export default defineConfig({
 ```
 :::
 
-默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `--inspect-brk`中传递值来覆盖它：
+默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `--inspect-brk` 中传递值来覆盖它：
 
 ```bash
 vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
@@ -128,7 +128,7 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 
-## Node 解释器, 例如 Chrome开发者工具 {#node-inspector-e-g-chrome-devtools}
+## Node 解释器, 例如 Chrome 开发者工具 {#node-inspector-e-g-chrome-devtools}
 
 Vitest 还支持在没有 IDE 的情况下调试测试。然而，这要求测试不是并行运行的。可以使用以下命令之一启动 Vitest。
 

@@ -237,7 +237,7 @@ vitest run --shard=3/3
 
 - **类型:** `boolean | string`
 
-合并位于指定文件夹中的每个 blob 报告（默认情况下为`.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
+合并位于指定文件夹中的每个 blob 报告（默认情况下为 `.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
 
 ```sh
 vitest --merge-reports --reporter=junit

@@ -37,7 +37,7 @@ export default defineConfig({
 
 ## 报告器输出 {#reporter-output}
 
-默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](/config/outputfile)，将测试输出写入文件。
+默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json`、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](/config/outputfile)，将测试输出写入文件。
 
 :::code-group
 
@@ -421,7 +421,7 @@ JSON 报告示例:
 ```
 
 ::: info
-自Vitest 3 起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
+自 Vitest 3 起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
 :::
 <!-- TODO: translation -->
 The `meta` field in each assertion result can be filtered via the `filterMeta` reporter option. It receives the key and value of each field and should return a falsy value to exclude the field from the report:
@@ -465,7 +465,7 @@ export default defineConfig({
 
 ### TAP 报告器 {#tap-reporter}
 
-按照 [Test Anything Protocol](https://testanything.org/)(TAP)输出报告。
+按照 [Test Anything Protocol](https://testanything.org/) (TAP)输出报告。
 
 :::code-group
 
@@ -565,7 +565,7 @@ export default defineConfig({
 
 ### GitHub Actions 报告器 {#github-actions-reporter}
 
-当测试失败时输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message) 提供注解。当未配置 `reporters` 选项且 `process.env.GITHUB_ACTIONS === 'true'`（在GitHub Actions环境中）时，此报告器会自动启用。
+当测试失败时输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message) 提供注解。当未配置 `reporters` 选项且 `process.env.GITHUB_ACTIONS === 'true'`（在 GitHub Actions 环境中）时，此报告器会自动启用。
 
 <img alt="GitHub Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="GitHub Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">

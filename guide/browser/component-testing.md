@@ -7,7 +7,7 @@ outline: deep
 
 组件测试是一种专注于独立测试单个 UI 组件的测试策略。与测试整个用户流程的端到端测试不同，组件测试验证每个组件单独工作是否正确，使它们运行更快且更容易调试。
 
-Vitest 为多个框架提供全面的组件测试支持，包括 Vue、React、Svelte、Lit、Preact、Qwik、Solid、Marko等。本指南涵盖了使用 Vitest 有效测试组件的特定模式、工具和最佳实践。
+Vitest 为多个框架提供全面的组件测试支持，包括 Vue、React、Svelte、Lit、Preact、Qwik、Solid、Marko 等。本指南涵盖了使用 Vitest 有效测试组件的特定模式、工具和最佳实践。
 
 ## 为什么进行组件测试？ {#why-component-testing}
 
@@ -166,8 +166,8 @@ test('Solid component handles user interaction', async () => {
 
 与 Vitest 配合使用效果良好的流行 Testing Library 包：
 
-- [`@testing-library/solid`](https://github.com/solidjs/solid-testing-library) - 用于Solid.js
-- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) - 用于Marko
+- [`@testing-library/solid`](https://github.com/solidjs/solid-testing-library) - 用于 Solid.js
+- [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) - 用于 Marko
 - [`@testing-library/svelte`](https://testing-library.com/docs/svelte-testing-library/intro) - [`vitest-browser-svelte`](https://npmx.dev/package/vitest-browser-svelte) 的替代方案
 - [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) - [`vitest-browser-vue`](https://npmx.dev/package/vitest-browser-vue) 的替代方案
 
@@ -459,7 +459,7 @@ test('Modal component is accessible', async () => {
 - **在测试代码或组件代码中设置断点**
 - **检查 DOM** 查看实际渲染的输出
 - **检查控制台报错** 排查 JavaScript 错误或警告
-- **监控网络请求** 调试API 调用
+- **监控网络请求** 调试 API 调用
 
 如需调试可视化模式，可临时在浏览器配置中添加 `headless: false`。
 
@@ -576,5 +576,5 @@ import { render } from 'vitest-browser-react' // [!code ++]
 ## 了解更多 {#learn-more}
 
 - [浏览器模式文档](/guide/browser/)
-- [交互性API](/api/browser/interactivity)
+- [交互性 API](/api/browser/interactivity)
 - [示例仓库](https://github.com/vitest-tests/browser-examples)

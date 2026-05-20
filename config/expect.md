@@ -15,7 +15,7 @@ outline: deep
 与每次测试开始时调用 [`expect.hasAssertions()`](/api/expect#expect-hasassertions) 相同。这可确保不会意外通过任何测试。
 
 ::: tip
-这仅适用于 Vitest 的`expect`。如果我们使用`assert`或`.should`断言，它们将不计算在内，并且我们的测试将因缺少 expect 断言而失败。
+这仅适用于 Vitest 的 `expect`。如果我们使用 `assert` 或 `.should` 断言，它们将不计算在内，并且我们的测试将因缺少 expect 断言而失败。
 
 我们可以通过调用 `vi.setConfig({ expect: { requireAssertions: false } })` 来更改此值。该配置将应用于每个后续 `expect` 调用，直到手动调用 `vi.resetConfig`。
 :::

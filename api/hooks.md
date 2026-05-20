@@ -366,7 +366,7 @@ Vitest 提供了一些可在 _测试执行期间_ 调用的钩子，用于在测
 
 ### onTestFinished {#ontestfinished}
 
-该钩子在测试运行完毕后始终会被调用。它在 `afterEach` 钩子之后调用，因为 `afterEach` 可能影响测试结果。与  `beforeEach` 和 `afterEach` 一样，它接收一个 `TestContext` 对象。
+该钩子在测试运行完毕后始终会被调用。它在 `afterEach` 钩子之后调用，因为 `afterEach` 可能影响测试结果。与 `beforeEach` 和 `afterEach` 一样，它接收一个 `TestContext` 对象。
 
 ```ts {1,5}
 import { onTestFinished, test } from 'vitest'

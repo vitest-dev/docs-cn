@@ -109,7 +109,7 @@ function getMockImplementation(): T | undefined
 function getMockName(): string
 ```
 
-此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`； `vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
+此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`；`vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
 
 ## mockClear
 
@@ -556,7 +556,7 @@ const results: MockResult<ReturnType<T>>[]
 - `'throw'`：函数执行过程中抛出了异常。
 - `'incomplete'`：函数尚未结束，仍在运行。
 
-`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
+`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使 Promise rejected，`result` 也将始终为 `'return'`。
 
 ```js
 const fn = vi

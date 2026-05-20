@@ -30,7 +30,7 @@
 - [`--prof`](https://nodejs.org/api/cli.html#--prof)
 
 :::warning
-由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
+由于 `node:worker_threads` 的限制，`--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
 要将这些选项传递给 Vitest 的测试运行器，请在 Vitest 配置中定义 `execArgv`：
@@ -82,7 +82,7 @@ This profiling strategy is a good way to identify unnecessary transforms caused 
 If these logs contain files that should not be loaded when your test is run, you might have barrel files that are importing files unnecessarily.
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
-下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。
+下面的例子展示了不使用打包文件导入文件可以减少约 85% 的转换文件数量。
 
 ::: code-group
 ``` [File tree]

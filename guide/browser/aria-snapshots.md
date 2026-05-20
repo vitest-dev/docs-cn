@@ -34,7 +34,7 @@ For advanced cases, you can also generate and inspect the ARIA tree through `uti
 
 ## Snapshot Workflow
 
-ARIA snapshots use the same Vitest snapshot workflow as other snapshot assertions. File snapshots, inline snapshots, `--update` / `-u`, watch mode updates, and CI snapshot behavior all work the same way.
+ARIA snapshots use the same Vitest snapshot workflow as other snapshot assertions. File snapshots, inline snapshots, `--update`/`-u`, watch mode updates, and CI snapshot behavior all work the same way.
 
 See the main [Snapshot guide](/guide/snapshot) for the general snapshot workflow, update behavior, and review guidelines.
 

@@ -50,7 +50,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 ## coverage.exclude
 
 - **类型:** `string[]`
-- **默认值:** : `[]`
+- **默认值:**: `[]`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
@@ -84,7 +84,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 ::: warning
-如果启用了（默认值） `coverage.clean`，Vitest 会在运行测试前删除此目录。
+如果启用了（默认值）`coverage.clean`，Vitest 会在运行测试前删除此目录。
 :::
 
 用于写入代码覆盖率报告的目录。
@@ -446,7 +446,7 @@ export default defineConfig({
 
 要在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中提供的 HTML 代码覆盖率输出目录。
 
-使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和`lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
+使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和 `lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
 
 注意，设置此选项不会更改代码覆盖率 HTML 报告的生成位置。要更改目录，请配置 `coverage.reporter` 选项。
 

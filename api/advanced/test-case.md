@@ -157,7 +157,7 @@ test('the validation works correctly', { meta: { decorated: true } })
 function result(): TestResult
 ```
 
-测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending` ：
+测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending`：
 
 ```ts
 export interface TestResultPending {

@@ -341,9 +341,9 @@ export function teardown() {
 | Setup 文件 | Worker（与测试相同） | ✅ 是 | 运行每个测试文件之前执行一次 |
 | 文件级代码 | Worker | ✅ 是 | 运行每个测试文件执行一次 |
 | `aroundAll` | Worker | ✅ 是 | 运行每个套件执行一次（包裹所有测试） |
-| `beforeAll` / `afterAll` | Worker | ✅ 是 | 运行每个套件执行一次 |
+| `beforeAll`/`afterAll` | Worker | ✅ 是 | 运行每个套件执行一次 |
 | `aroundEach` | Worker | ✅ 是 | 运行每个测试执行一次（包裹每个测试） |
-| `beforeEach` / `afterEach` | Worker | ✅ 是 | 每个测试执行一次 |
+| `beforeEach`/`afterEach` | Worker | ✅ 是 | 每个测试执行一次 |
 | 测试函数 | Worker | ✅ 是 | 一次（重试/重复时更多）|
 | 全局清理 | 主进程 | ❌ 否 | 每次运行 Vitest 执行一次 |
 

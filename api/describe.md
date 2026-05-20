@@ -217,7 +217,7 @@ describe.only.concurrent(/* ... */) // 或 describe.concurrent.only(/* ... */)
 describe.todo.concurrent(/* ... */) // 或 describe.concurrent.todo(/* ... */)
 ```
 
-在运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的  `expect`，以确保能正确识别对应的测试用例。
+在运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的 `expect`，以确保能正确识别对应的测试用例。
 
 ```ts
 describe.concurrent('suite', () => {

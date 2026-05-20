@@ -8,7 +8,7 @@ outline: deep
 本章介绍 Vitest API 中浏览器模式功能，该功能允许你在浏览器中运行测试，从而可直接访问 window 和 document 等浏览器全局对象。
 
 ::: tip
-如果你需要 `expect` 、`vi` ，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
+如果你需要 `expect`、`vi`，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
 :::
 
 <img alt="Vitest UI" img-light src="/ui-browser-1-light.png">
@@ -330,7 +330,7 @@ For an alternative debugging model that captures DOM snapshots for every test in
 
 无头模式是浏览器模式下可用的另一个选项。在无头模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用无头模式。
 
-在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 标志。
+在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行 Vitest 时传递 `--ui` 标志。
 
 这是启用无头模式的示例配置：
 
@@ -531,7 +531,7 @@ Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工�
 我们还可以在 [`browser-examples`](https://github.com/vitest-tests/browser-examples) 中查看更多的案例。
 
 ::: warning
-`testing-library` 提供了一个软件包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `vitest/browser`导入的 [`userEvent`](/api/browser/interactivity)，它在引擎盖下使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+`testing-library` 提供了一个软件包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `vitest/browser` 导入的 [`userEvent`](/api/browser/interactivity)，它在引擎盖下使用 Chrome DevTools 协议或 Webdriver（取决于 provider）。
 :::
 
 ::: code-group
@@ -590,7 +590,7 @@ test('renders a message', async () => {
 
 ### 对模块的导出内容进行监听（Spy） {#spying-on-module-exports}
 
-在浏览器模式下，Vitest 依赖浏览器自身对 ESM 模块的原生支持来加载模块。此时，模块的命名空间对象是不可修改的，这与 Node.js 测试中 Vitest 能够对模块执行打补丁不同。因此，你不能对通过 import 导入的对象使用 `vi.spyOn` ：
+在浏览器模式下，Vitest 依赖浏览器自身对 ESM 模块的原生支持来加载模块。此时，模块的命名空间对象是不可修改的，这与 Node.js 测试中 Vitest 能够对模块执行打补丁不同。因此，你不能对通过 import 导入的对象使用 `vi.spyOn`：
 
 ```ts
 import { vi } from 'vitest'
@@ -612,7 +612,7 @@ vi.mocked(module.method).mockImplementation(() => {
 })
 ```
 
-不过，如果你想模拟导出的 _变量_ ，唯一可行的方式是让模块额外导出一个能修改该变量内部值的方法：
+不过，如果你想模拟导出的 _变量_，唯一可行的方式是让模块额外导出一个能修改该变量内部值的方法：
 
 ::: code-group
 ```js [module.js]

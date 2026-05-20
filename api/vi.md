@@ -39,7 +39,7 @@ function mock<T>(
 ::: warning
 `vi.mock` 仅对使用 `import` 关键字导入的模块有效。它对 `require` 无效。
 
-为了提升 `vi.mock` ，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi` （例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/globals) 配置选项。
+为了提升 `vi.mock`，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi`（例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/globals) 配置选项。
 
 Vitest 不会模拟 [setup file](/config/setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules)，在运行测试文件前清除所有模块缓存。
 :::
@@ -82,7 +82,7 @@ vi.mock(import('./path/to/module.js'), async (importOriginal) => {
 例如，使用 `import('./path/to/module.js')`，而不是 `import('@/module')`。
 
 ::: warning
-`vi.mock` 被提升（换句话说，_移动_）到**文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
+`vi.mock` 被提升（换句话说，_移动_）到 **文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
 
 这也意味着不能在 factory 内部使用任何在 factory 外部定义的变量。
 
@@ -127,7 +127,7 @@ vi.mock('./path/to/module.js', () => {
 ```
 
 :::
-如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/root)（默认为 `process.cwd()` ）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
+如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/root)（默认为 `process.cwd()`）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
 
 例如，我们有这样的文件结构：
 
@@ -142,7 +142,7 @@ vi.mock('./path/to/module.js', () => {
   - increment.test.js
 ```
 
-如果在没有提供工厂或选项的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
+如果在没有提供工厂或选项的测试文件中调用 `vi.mock`，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
 
 ```ts [increment.test.js]
 // axios 是 `__mocks__/axios.js` 默认导出项
@@ -161,7 +161,7 @@ axios.get(`/apples/${increment(1)}`)
 
 ::: warning
 
-请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/setupfiles) 中为每个所需的模块调用 `vi.mock` 。
+请注意，如果不调用 `vi.mock`，模块 **不会** 被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/setupfiles) 中为每个所需的模块调用 `vi.mock`。
 :::
 
 如果没有提供 `__mocks__` 文件夹或未提供工厂函数，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [算法](/guide/mocking/modules#automocking-algorithm)。
@@ -776,7 +776,7 @@ window.innerWidth = 100
 function unstubAllGlobals(): Vitest
 ```
 
-恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent`，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
+恢复 `globalThis`/`global`（和 `window`/`top`/`self`/`parent`，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
 
 ```ts
 import { vi } from 'vitest'
@@ -1035,7 +1035,7 @@ await vi.runOnlyPendingTimersAsync()
 function setSystemTime(date: string | number | Date): Vitest
 ```
 
-如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime` 、`performance.now` 或 `new Date()` ），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 调用。
+如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime`、`performance.now` 或 `new Date()`），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 调用。
 
 适用于需要测试依赖当前日期的场景，例如代码中的 [Luxon](https://github.com/moment/luxon/) 库调用。
 
@@ -1058,20 +1058,20 @@ vi.useRealTimers()
 function useFakeTimers(config?: FakeTimerInstallOpts): Vitest
 ```
 
-要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
+要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`setImmediate`、`clearImmediate` 和 `Date`）。
 
-在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick` 。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick` ，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
+在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick`，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ::: tip
-`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
-仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })` 。
+`vi.useFakeTimers()` 不再自动模拟 `process.nextTick`。
+仍然可以通过在 `toFake` 参数中指定选项来模拟：`vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })`。
 :::
 
 ### vi.setTimerTickMode <Version>4.1.0</Version> {#vi-settimertickmode}
 
-- **类型:**`(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
+- **类型:** `(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
 
 Controls how fake timers are advanced.
 
@@ -1115,7 +1115,7 @@ await new Promise(resolve => setTimeout(resolve, 150)) // logs 7, 8, 9
 function isFakeTimers(): boolean
 ```
 
-如果启用了模拟计时器，则返回 `true` 。
+如果启用了模拟计时器，则返回 `true`。
 
 ### vi.useRealTimers
 
@@ -1224,7 +1224,7 @@ test('Element render correctly', async () => {
 })
 ```
 
-如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
+如果使用了 `vi.useFakeTimers`, `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)`。
 
 ### vi.hoisted {#vi-hoisted}
 

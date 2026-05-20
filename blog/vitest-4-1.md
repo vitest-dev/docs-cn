@@ -138,7 +138,7 @@ With this flag, **no file transforms are applied** — your test files, source c
 
 If you are using Node.js 22.18+ or 23.6+, TypeScript is [stripped natively](https://nodejs.org/en/learn/typescript/run-natively) — no extra configuration needed.
 
-Mocking with `vi.mock` and `vi.hoisted` is supported via the Node.js [Module Loader API](https://nodejs.org/api/module.html#customization-hooks)(requires Node.js 22.15+). Note that `import.meta.env`, Vite plugins, aliases, and the `istanbul` coverage provider are not available in this mode.
+Mocking with `vi.mock` and `vi.hoisted` is supported via the Node.js [Module Loader API](https://nodejs.org/api/module.html#customization-hooks) (requires Node.js 22.15+). Note that `import.meta.env`, Vite plugins, aliases, and the `istanbul` coverage provider are not available in this mode.
 
 Consider this option if you run server-side or script-like tests that don't need Vite transforms. For `jsdom`/`happy-dom` tests, we still recommend the default module runner or [browser mode](/guide/browser/).
 

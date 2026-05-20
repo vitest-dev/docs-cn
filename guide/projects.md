@@ -45,7 +45,7 @@ export default defineConfig({
 Vitest will treat every folder in `packages` as a separate project even if it doesn't have a config file inside. If a project entry resolves to a file (either from a glob pattern or a direct file path), Vitest will validate that the name either:
 
 - starts with `vitest.config` or `vite.config` (for example, `vitest.config.unit.ts`)
-- or matches `vitest.<name>.config.*` / `vite.<name>.config.*`, where `<name>` can contain letters, numbers, `_`, and `-`
+- or matches `vitest.<name>.config.*`/`vite.<name>.config.*`, where `<name>` can contain letters, numbers, `_`, and `-`
 
 For example, these config files are valid:
 

@@ -211,7 +211,7 @@ await expect.element(
 
 ## 配置 {#configuration}
 
-像配置 [Vue Test Utils](https://test-utils.vuejs.org/api/#config) 一样， 通过将属性分配给导出的 `config` 选项 （在`vitest-browser-vue` 和 `vitest-borowser-vue/pure` 中都可用）：
+像配置 [Vue Test Utils](https://test-utils.vuejs.org/api/#config) 一样， 通过将属性分配给导出的 `config` 选项 （在 `vitest-browser-vue` 和 `vitest-borowser-vue/pure` 中都可用）：
 
 ```js
 import { config } from 'vitest-browser-vue/pure'

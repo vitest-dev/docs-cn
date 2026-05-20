@@ -59,7 +59,7 @@ expect(input).toHaveValue('a')
 ```
 
 ::: warning
-CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
+CDP session 仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
 :::
 
 ## 自定义命令 {#custom-commands}
@@ -126,11 +126,11 @@ declare module 'vitest/browser' {
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
 
-### 自定义 `playwright` 命令  {#custom-playwright-commands}
+### 自定义 `playwright` 命令 {#custom-playwright-commands}
 
-Vitest 在命令上下文中公开了几个`playwright`特定属性。
+Vitest 在命令上下文中公开了几个 `playwright` 特定属性。
 
-- `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
+- `page` 引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
 - `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
 - `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
 - `context` 是指唯一的 [BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。

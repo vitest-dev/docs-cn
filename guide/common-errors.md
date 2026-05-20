@@ -128,7 +128,7 @@ vitest --pool=forks
 
 This error happens when a Promise rejects but no `.catch()` handler or `await` is attached to it before the microtask queue flushes. This behavior comes from JavaScript itself and is not specific to Vitest. Learn more in the [Node.js documentation](https://nodejs.org/api/process.html#event-unhandledrejection).
 
-A common cause is calling an async function without `await`ing it:
+A common cause is calling an async function without `await` ing it:
 
 ```ts
 async function fetchUser(id) {
@@ -144,7 +144,7 @@ test('fetches user', async () => {
 })
 ```
 
-Because `fetchUser()` is not `await`ed, its rejection has no handler and Vitest reports:
+Because `fetchUser()` is not `await` ed, its rejection has no handler and Vitest reports:
 
 ```
 Unhandled Rejection: Error: User 123 not found

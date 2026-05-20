@@ -529,7 +529,7 @@ test('second test', ({ counter }) => {
 })
 ```
 
-Test-scoped fixtures have access to the [built-in test context](#built-in-test-context)(`task`, `expect`, `skip`, etc.):
+Test-scoped fixtures have access to the [built-in test context](#built-in-test-context) (`task`, `expect`, `skip`, etc.):
 
 ```ts
 const test = baseTest
@@ -604,7 +604,7 @@ const test = baseTest
 ```
 
 ::: tip
-Only test-scoped fixtures have access to the [built-in test context](#built-in-test-context)(`task`, `expect`, `skip`, etc.). Worker and file fixtures run outside of any specific test, so test-specific properties are not available to them.
+Only test-scoped fixtures have access to the [built-in test context](#built-in-test-context) (`task`, `expect`, `skip`, etc.). Worker and file fixtures run outside of any specific test, so test-specific properties are not available to them.
 
 If you need the file path in a file-scoped fixture, use `expect.getState().testPath` instead.
 :::
