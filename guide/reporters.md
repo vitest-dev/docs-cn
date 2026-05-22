@@ -536,7 +536,7 @@ export default defineConfig({
 ```
 
 :::
-
+<!-- TODO: translation -->
 Set `singleFile` to generate a self-contained HTML report:
 
 ```ts [vitest.config.ts]
