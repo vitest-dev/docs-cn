@@ -69,11 +69,8 @@ If you need a portable report that can be opened or shared as one file, see [`si
   run: echo "[View HTML report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
 ```
 
-<<<<<<< HEAD
 这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
-=======
-This adds a link to the job summary. Click it to open the report in [Vitest Viewer](https://viewer.vitest.dev/) directly in the browser. You can also download the artifact manually and extract it, then run `vite preview` locally as above.
-
+<!-- TODO: translation -->
 When you use `singleFile: true`, you can upload the report as a single file and it will become viewable directly GitHub artifacts with `archive: false` option:
 
 ```yaml
@@ -82,7 +79,6 @@ When you use `singleFile: true`, you can upload the report as a single file and 
     path: html/index.html
     archive: false
 ```
->>>>>>> bac7cfdc8b083fa09f8977525eb63dbde85896d4
 :::
 
 ## 模块图 {#module-graph}
