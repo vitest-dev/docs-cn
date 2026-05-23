@@ -53,11 +53,13 @@ npx vite preview --outDir ./html
 你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
 
+If you need a portable report that can be opened or shared as one file, see [`singleFile`](/guide/reporters#html-reporter) in the HTML reporter documentation.
+
 ::: tip
 要在持续集成环境，例如 GitHub Actions 中查看 HTML 报告，请将输出目录作为产物上传：
 
 ```yaml
-- uses: actions/upload-artifact@v4
+- uses: actions/upload-artifact@v7
   id: upload-report
   with:
     name: vitest-report
@@ -68,6 +70,15 @@ npx vite preview --outDir ./html
 ```
 
 这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
+<!-- TODO: translation -->
+When you use `singleFile: true`, you can upload the report as a single file and it will become viewable directly GitHub artifacts with `archive: false` option:
+
+```yaml
+- uses: actions/upload-artifact@v7
+  with:
+    path: html/index.html
+    archive: false
+```
 :::
 
 ## 模块图 {#module-graph}
