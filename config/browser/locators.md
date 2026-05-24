@@ -14,8 +14,9 @@ outline: deep
 
 用于通过 `getByTestId` 定位器查找元素的属性。
 
-## browser.locators.exact <Version type="experimental">4.1.3</Version> {#browser-locators-exact}
+## browser.locators.exact
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 
@@ -24,6 +25,16 @@ outline: deep
 ```ts
 // 当 exact: false（默认值）时，会匹配 "Hello, World!"、"Say Hello, World" 等文本
 // 当 exact: true 时，仅精确匹配字符串 "Hello, World"
+=======
+- **Type:** `boolean`
+- **Default:** `true`
+
+When set to `true`, [locators](/api/browser/locators) match text exactly by default, requiring a full, case-sensitive match. Individual locator calls can override this default via their own `exact` option.
+
+```ts
+// With exact: true (default), this only matches the string "Hello, World" exactly.
+// With exact: false, this matches "Hello, World!", "Say Hello, World", etc.
+>>>>>>> b8458066305a759bf414605c23780c31dccbd917
 const locator = page.getByText('Hello, World', { exact: true })
 await locator.click()
 ```
