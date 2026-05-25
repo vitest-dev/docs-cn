@@ -5,7 +5,7 @@ outline: deep
 
 # 迁移指南 {#migration-guide}
 
-[迁移至 Vitest 3.0](https://v3.vitest.dev/guide/migration) | [迁移至 Vitest 2.0](https://v2.vitest.dev/guide/migration)
+[迁移至 Vitest 4.0](https://v4.vitest.dev/guide/migration) | [迁移至 Vitest 3.0](https://v3.vitest.dev/guide/migration)
 
 ## 迁移至 Vitest 5.0 {#vitest-5}
 
@@ -54,6 +54,17 @@ export async function customClick(
 ) {
   await context.page.locator(selector).click()
 }
+```
+<!-- TODO: translation -->
+### Locators are Strict by Default
+
+Browser locators now match the text exactly by default, requiring a full, case-sensitive match. To keep the previous behaviour, you can set [`browser.locators.exact`](/config/browser/locators#browser-locators-exact) to `false`.
+
+```ts
+// With exact: true (default), this only matches the string "Hello, World" exactly.
+// With exact: false, this matches "Hello, World!", "Say Hello, World", etc.
+const locator = page.getByText('Hello, World', { exact: true })
+await locator.click()
 ```
 
 ### 移除了已弃用的入口 {#removed-deprecated-entrypoints}

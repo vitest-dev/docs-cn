@@ -426,7 +426,7 @@ import { render } from 'vitest-browser-vue'
 import Component from './Component.vue'
 
 test('properly handles v-model', async () => {
-  const screen = render(Component)
+  const screen = await render(Component)
 
   // 断言初始状态。
   await expect.element(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
@@ -448,7 +448,7 @@ import { render } from 'vitest-browser-svelte'
 import Greeter from './greeter.svelte'
 
 test('greeting appears on click', async () => {
-  const screen = render(Greeter, { name: 'World' })
+  const screen = await render(Greeter, { name: 'World' })
 
   const button = screen.getByRole('button')
   await button.click()

@@ -462,7 +462,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--browser.locators.exact`
 - **配置:** [browser.locators.exact](/config/browser/locators#locators-exact)
 
-定位器是否默认需完全匹配文本内容（默认值：`false`）
+定位器是否默认需完全匹配文本内容（默认值：`true`）
 
 ### pool
 
