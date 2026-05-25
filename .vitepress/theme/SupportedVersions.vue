@@ -3,7 +3,9 @@ import { computed, ref } from 'vue'
 
 declare const __VITEST_VERSION__: string
 
-// Constants
+const DIGITS_ONLY_RE = /^\d+$/
+const NEGATIVE_VERSION_RE = /-\d/
+
 const supportedVersionMessage = {
   color: 'var(--vp-c-brand-1)',
   text: 'supported',
@@ -56,7 +58,7 @@ const checkedResult = computed(() => {
 
 function parseVersion(version: string) {
   let [major, minor, patch] = version.split('.').map((v) => {
-    const num = /^\d+$/.exec(v)?.[0]
+    const num = DIGITS_ONLY_RE.exec(v)?.[0]
     return num ? Number.parseInt(num) : null
   })
   if (!major) {
@@ -80,7 +82,7 @@ function computeSupportInfo(
           return false
         }
         // Negative versions are invalid
-        if (/-\d/.test(version)) {
+        if (NEGATIVE_VERSION_RE.test(version)) {
           return false
         }
         return true
