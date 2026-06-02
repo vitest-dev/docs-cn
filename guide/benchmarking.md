@@ -434,12 +434,12 @@ This only affects Node.js mode. Browser mode uses native ESM imports and does no
 
   ```ts
   test('sorting', async ({ bench }) => {
-    const original = Array.from({ length: 10000 }, () => Math.random())
+    const original = Array.from({ length: 10000 }).fill(Math.random())
     let data: number[]
 
     // BAD: allocates a new array every iteration, GC adds noise
     await bench('sort', () => {
-      const data = Array.from({ length: 10000 }, () => Math.random())
+      const data = Array.from({ length: 10000 }).fill(Math.random())
       data.sort()
     }).run()
 
