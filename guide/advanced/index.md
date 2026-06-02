@@ -14,7 +14,6 @@ title: Advanced API
 
 ```ts
 function startVitest(
-  mode: VitestRunMode,
   cliFilters: string[] = [],
   options: CliOptions = {},
   viteOverrides?: ViteUserConfig,
@@ -27,7 +26,7 @@ function startVitest(
 ```js
 import { startVitest } from 'vitest/node'
 
-const vitest = await startVitest('test')
+const vitest = await startVitest()
 
 await vitest.close()
 ```
@@ -47,7 +46,7 @@ await vitest.close()
 ```ts
 import type { TestModule } from 'vitest/node'
 
-const vitest = await startVitest('test')
+const vitest = await startVitest()
 
 console.log(vitest.state.getTestModules()) // [TestModule]
 ```
@@ -60,7 +59,6 @@ console.log(vitest.state.getTestModules()) // [TestModule]
 
 ```ts
 function createVitest(
-  mode: VitestRunMode,
   options: CliOptions,
   viteOverrides: ViteUserConfig = {},
   vitestOptions: VitestOptions = {},

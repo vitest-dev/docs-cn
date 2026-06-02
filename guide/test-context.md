@@ -117,6 +117,29 @@ it('stop request when test times out', async ({ signal }) => {
 }, 2000)
 ```
 
+### `bench` <Version>5.0.0</Version> {#bench}
+
+The `bench` fixture lets you define and run benchmarks inside regular tests. You can measure throughput, compare implementations, and assert relative performance:
+
+```ts
+import { expect, test } from 'vitest'
+
+test('compare parsers', async ({ bench }) => {
+  const result = await bench.compare(
+    bench('JSON.parse', () => {
+      JSON.parse('{"key":"value"}')
+    }),
+    bench('custom parser', () => {
+      customParse('{"key":"value"}')
+    }),
+  )
+
+  expect(result.get('JSON.parse')).toBeFasterThan(result.get('custom parser'))
+})
+```
+
+See the [Benchmarks guide](/guide/benchmarking) for full documentation on comparisons, baselines, and assertion matchers.
+
 ### `onTestFailed`
 
 [`onTestFailed`](/api/hooks#ontestfailed) 与当前测试用例绑定。当你并发执行多个测试并希望只对某个具体测试进行特殊处理时，这个 API 会非常有用。

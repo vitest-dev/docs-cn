@@ -667,6 +667,7 @@ test.concurrent.for([
 
 ## bench <Experimental /> {#bench}
 
+<<<<<<< HEAD
 - **类型:** `(name: string | Function, fn: BenchFunction, options?: BenchOptions) => void`
 
 ::: danger
@@ -899,3 +900,10 @@ import { bench } from 'vitest'
 
 bench.todo('unimplemented test')
 ```
+=======
+::: warning Updated in Vitest 5
+The benchmarking API has been rewritten. `bench` is no longer a top-level import from `vitest`, and the `bench.skip` / `bench.only` / `bench.todo` helpers have been removed. `bench` is now a [test-context fixture](/guide/test-context#bench) accessed from inside a `test()`.
+
+See the [Benchmarking guide](/guide/benchmarking) for the new API.
+:::
+>>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102

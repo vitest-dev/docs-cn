@@ -903,7 +903,15 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/testing-types',
               },
               {
+<<<<<<< HEAD
                 text: '内联测试',
+=======
+                text: 'Benchmarking',
+                link: '/guide/benchmarking',
+              },
+              {
+                text: 'In-Source Testing',
+>>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
                 link: '/guide/in-source',
               },
             ],

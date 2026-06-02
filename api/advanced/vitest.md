@@ -5,6 +5,7 @@ title: Vitest API
 
 # Vitest
 
+<<<<<<< HEAD
 Vitest 实例需要当前的测试模式。它可以是以下之一：
 
 - `test`：运行运行时测试时
@@ -34,6 +35,11 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 ### benchmark <Experimental /> {#benchmark}
 
 基准测试模式调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项来查找基准测试文件。
+=======
+## mode <Deprecated /> {#mode}
+
+Since Vitest 5, this property is always `'test'`.
+>>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
 
 ## config
 
