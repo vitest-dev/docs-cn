@@ -15,12 +15,8 @@ outline: deep
 
 - **类型:** `boolean`
 - **默认值:** 未暴露公网时默认为 `true`，否则为 `false`
-
-<<<<<<< HEAD
-Vitest 通过接收来自浏览器的 WebSocket 连接来保存 [测试注解](/guide/test-annotations)、[测试产物](/api/advanced/artifacts) 和 [快照](/guide/snapshot)。这意味着任何能连接到该 API 的人都可在你机器的项目根目录（由 [`fs.allow`](https://cn.vite.dev/config/server-options#server-fs-allow) 配置）内执行任意代码。
-=======
-Vitest saves [annotation attachments](/guide/test-annotations), [artifacts](/api/advanced/artifacts) and [snapshots](/guide/snapshot) by receiving a WebSocket connection from the browser. This allows anyone who can connect to the API write any arbitrary code on your machine within the root of your project (configured by [`fs.allow`](https://vite.dev/config/server-options#server-fs-allow)). This option also gates privileged browser APIs that can write files indirectly, such as raw Chrome DevTools Protocol access through [`cdp()`](/api/browser/context#cdp).
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
+<!-- TODO: translation -->
+Vitest 通过接收来自浏览器的 WebSocket 连接来保存 [测试注解](/guide/test-annotations)、[测试产物](/api/advanced/artifacts) 和 [快照](/guide/snapshot)。这意味着任何能连接到该 API 的人都可在你机器的项目根目录（由 [`fs.allow`](https://cn.vite.dev/config/server-options#server-fs-allow) 配置）内执行任意代码。 This option also gates privileged browser APIs that can write files indirectly, such as raw Chrome DevTools Protocol access through [`cdp()`](/api/browser/context#cdp).
 
 当浏览器服务器未暴露至互联网（主机为 `localhost`）时，默认值设为 `true` 不会构成安全隐患。若你修改了主机配置，Vitest 将默认将 `allowWrite` 设为 `false` 以防止潜在的恶意写入风险。
 
@@ -29,8 +25,4 @@ Vitest saves [annotation attachments](/guide/test-annotations), [artifacts](/api
 - **类型:** `boolean`
 - **默认值:** 未暴露至公网时默认为 `true`，否则为 `false`
 
-<<<<<<< HEAD
-允许通过 [UI 模式](/guide/ui) 运行任意测试文件。此配置仅作用于界面交互元素（及其背后的服务端代码）的可执行权限。如果 UI 模式被禁用，则该配置不生效。更多信息请参阅 [`api.allowExec`](/config/api#api-allowexec)。
-=======
-Allows running any test file via the UI. This applies to the interactive elements (and the server code behind them) in the [UI](/guide/ui) that can run the code. This option also gates privileged browser APIs that can execute code indirectly, such as raw Chrome DevTools Protocol access through [`cdp()`](/api/browser/context#cdp). See [`api.allowExec`](/config/api#api-allowexec) for more information.
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
+允许通过 [UI 模式](/guide/ui) 运行任意测试文件。此配置仅作用于界面交互元素（及其背后的服务端代码）的可执行权限。如果 UI 模式被禁用，则该配置不生效。This option also gates privileged browser APIs that can execute code indirectly, such as raw Chrome DevTools Protocol access through [`cdp()`](/api/browser/context#cdp). 更多信息请参阅 [`api.allowExec`](/config/api#api-allowexec)。

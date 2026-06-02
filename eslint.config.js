@@ -76,6 +76,7 @@ export default antfu(
       'import/no-mutable-exports': 'off',
       'no-throw-literal': 'off',
       'markdown/no-missing-link-fragments': 'off',
+      'import/no-duplicates': 'off',
     },
   },
   createSimplePlugin({

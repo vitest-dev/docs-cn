@@ -30,19 +30,11 @@ test('error banner is rendered', async () => {
     name: /error/i,
   })
 
-<<<<<<< HEAD
   // Vitest 提供了带有内置重试能力的 `expect.element`。
   // 它会反复检查该元素是否存在于 DOM 中，并且
   // `element.textContent` 的内容等于 "Error!"
   // 直到所有条件都满足为止
-  await expect.element(banner).toHaveTextContent('Error!')
-=======
-  // Vitest provides `expect.element` with built-in retry-ability
-  // It will repeatedly check that the element exists in the DOM and that
-  // the content of `element.textContent` is equal to "Error!"
-  // until all the conditions are met
   await expect.element(banner).toMatchTextContent('Error!')
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
 })
 ```
 
@@ -64,19 +56,11 @@ interface ExpectPollOptions {
 ::: tip
 Like [`expect.poll`](/api/expect#poll), `expect.element` retries DOM assertions until they pass or the timeout is reached. When it receives a locator, Vitest resolves it with [`locator.findElement()`](/api/browser/locators#findelement) before running the DOM assertion. The `timeout` option applies to the whole retry operation. The `interval` option controls how often failed DOM assertions are retried, but locator resolution uses `findElement`'s own increasing retry intervals.
 
-<<<<<<< HEAD
-`toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
+`toMatchTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
 ```ts
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
-expect(banner).toHaveTextContent('Error!')
-=======
-`toMatchTextContent` and all other assertions are still available on a regular `expect` without a built-in retry-ability mechanism:
-
-```ts
-// will fail immediately if .textContent is not `'Error!'`
 expect(banner).toMatchTextContent('Error!')
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
 ```
 :::
 
@@ -716,21 +700,11 @@ function toHaveTextContent(
   options?: { normalizeWhitespace: boolean }
 ): Promise<void>
 ```
-
-<<<<<<< HEAD
-此功能允许你检查给定节点是否具有文本内容。它支持元素，同时也支持文本节点和片段。
-
-当传递一个 `string` 类型的参数时，它会对节点内容进行部分区分大小写的匹配。
-
-若要进行不区分大小写的匹配，可以使用带有 `/i` 修饰符的 `RegExp`。
-
-如果你想匹配整段内容，可以使用 `RegExp` 来实现。
-=======
+<!-- TODO: translation -->
 This matcher allows you to validate that an element's text matches provided string exactly. This
 supports elements, but also text nodes and fragments.
 
 If you wish to perform a partial check or do a case-sensitive match, use [`toMatchTextContent`](#tomatchtextcontent) instead.
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -739,14 +713,6 @@ If you wish to perform a partial check or do a case-sensitive match, use [`toMat
 ```ts
 const element = getByTestId('text-content')
 
-<<<<<<< HEAD
-await expect.element(element).toHaveTextContent('Content')
-// 匹配整段内容
-await expect.element(element).toHaveTextContent(/^Text Content$/)
-// 不区分大小写匹配
-await expect.element(element).toHaveTextContent(/content$/i)
-await expect.element(element).not.toHaveTextContent('content')
-=======
 await expect.element(element).toHaveTextContent('Text Content')
 await expect.element(element).not.toHaveTextContent('Content')
 ```
@@ -760,16 +726,13 @@ function toMatchTextContent(
 ): Promise<void>
 ```
 
-This matcher allows you to check whether the given node has a text content or not. This
-supports elements, but also text nodes and fragments.
+此功能允许你检查给定节点是否具有文本内容。它支持元素，同时也支持文本节点和片段。
 
-When a `string` argument is passed through, it will perform a partial
-case-sensitive match to the node content.
+当传递一个 `string` 类型的参数时，它会对节点内容进行部分区分大小写的匹配。
 
-To perform a case-insensitive match, you can use a `RegExp` with the `/i`
-modifier.
+若要进行不区分大小写的匹配，可以使用带有 `/i` 修饰符的 `RegExp`。
 
-If you want to match the whole content, you can use a `RegExp` to do it or [`toHaveTextContent`](#tohavetextcontent) matcher instead.
+如果你想匹配整段内容，可以使用 `RegExp` 或 [`toHaveTextContent`](#tohavetextcontent) 来实现。
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -779,12 +742,11 @@ If you want to match the whole content, you can use a `RegExp` to do it or [`toH
 const element = getByTestId('text-content')
 
 await expect.element(element).toMatchTextContent('Content')
-// to match the whole content
+// 匹配整段内容
 await expect.element(element).toMatchTextContent(/^Text Content$/)
-// to use case-insensitive match
+// 不区分大小写匹配
 await expect.element(element).toMatchTextContent(/content$/i)
 await expect.element(element).not.toMatchTextContent('content')
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
 ```
 
 ## toHaveValue

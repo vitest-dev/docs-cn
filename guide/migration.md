@@ -13,9 +13,6 @@ outline: deep
 Vitest 5.0 目前处于 beta 阶段。本章节跟踪已合并的重大变更，在稳定版发布前可能还会发生变化。
 :::
 
-<<<<<<< HEAD
-### 移除 `test.sequential`, `describe.sequential`, 和 `sequential` 选项 {##removed-test-sequential-describe-sequential-and-sequential-options}
-=======
 ### Benchmarking API Rewrite
 
 The benchmarking API has been rewritten. `bench` is no longer a top-level import from `vitest`; it is a [test-context fixture](/guide/test-context#bench) accessed from inside a regular `test()`. See the [Benchmarking guide](/guide/benchmarking) for the new API.
@@ -46,8 +43,7 @@ test('sort', async ({ bench }) => { // [!code ++]
 - **`benchmark.outputJson` config and the `--outputJson` CLI flag** are removed. Use `--reporter=json --outputFile=<path>` to capture benchmark results; the JSON reporter now includes a `benchmarks` field on each test case.
 - **`Vitest` instance `mode` property** is now always `'test'`. The previous `'benchmark'` value is no longer used; benchmarks run inside a dedicated project of the same `Vitest` instance.
 
-### Removed `test.sequential`, `describe.sequential`, and `sequential` Options
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
+### 移除 `test.sequential`, `describe.sequential`, 和 `sequential` 选项 {##removed-test-sequential-describe-sequential-and-sequential-options}
 
 Vitest 5.0 移除了已弃用的 `test.sequential`、`describe.sequential` 和 `sequential` 选项。当你需要让某个测试或测试套件不再沿用继承来的并发设置，或退出全局配置的并发时，请使用 `concurrent: false`。
 
@@ -113,10 +109,7 @@ await locator.click()
 - `vitest/suite`：改用 `vitest` 中 `TestRunner` 的静态方法（例如，`TestRunner.getCurrentTest()`）
 - `vitest/mocker` 已移除，请直接使用 `@vitest/mocker` 包（这个包曾意外发布过一次且从未被移除）
 - `vitest/internal/module-runner` 已移除
-
-<<<<<<< HEAD
-## 迁移至 Vitest 4.0 {#vitest-4}
-=======
+<!-- TODO: translation -->
 ### `toHaveTextContent` Now Performs Strict Equality
 
 The browser-mode [`toHaveTextContent`](/api/browser/assertions#tohavetextcontent) matcher now validates that an element's text content is exactly equal to the expected string instead of performing a partial, case-sensitive match. Regular expressions are no longer accepted. The previous behaviour, including `RegExp` support, has moved to the new [`toMatchTextContent`](/api/browser/assertions#tomatchtextcontent) matcher.
@@ -132,8 +125,7 @@ await expect.element(banner).toMatchTextContent(/error/i) // [!code ++]
 await expect.element(banner).toHaveTextContent('Error!')
 ```
 
-## Migrating to Vitest 4.0 {#vitest-4}
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
+## 迁移至 Vitest 4.0 {#vitest-4}
 
 ::: warning 前提条件
 Vitest 4.0 要求 **Vite >= 6.0.0** 和 **Node.js >= 20.0.0**。

@@ -311,11 +311,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--mode <name>`
 - **配置:** [mode](/config/mode)
 
-<<<<<<< HEAD
-覆盖 Vite 模式 (默认值: `test` 或 `benchmark`)
-=======
-Override Vite mode (default: `test`)
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
+覆盖 Vite 模式 (默认值: `test`)
 
 ### isolate
 

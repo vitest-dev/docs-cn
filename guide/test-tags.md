@@ -6,7 +6,7 @@ outline: deep
 # 测试标签 <Version>4.1.0</Version> {#test-tags}
 
 允许你在测试用例上添加 [`标签`](/config/tags)，在必要时可以使用标签进行过滤测试，或覆盖测试配置。
-
+<!-- TODO: translation -->
 ## Why tags
 
 Tags become useful once a suite has groups of tests that share runner options, like a longer timeout for database queries or retries for integration tests on CI. Repeating those options on every relevant test by hand is brittle, and the categories often don't line up with file paths anyway, so splitting them out by file isn't an option. Flaky tests in particular tend to accumulate wherever the bugs landed, not in a `flaky/` folder.

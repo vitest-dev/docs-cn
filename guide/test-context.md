@@ -116,7 +116,7 @@ it('stop request when test times out', async ({ signal }) => {
   await fetch('/resource', { signal })
 }, 2000)
 ```
-
+<!-- TODO: translation -->
 ### `bench` <Version>5.0.0</Version> {#bench}
 
 The `bench` fixture lets you define and run benchmarks inside regular tests. You can measure throughput, compare implementations, and assert relative performance:

@@ -249,12 +249,8 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 当实际覆盖率超过配置阈值时，自动将 `lines`、`functions`、`branches` 和 `statements` 的阈值更新到配置文件中。
 此选项适用于覆盖率提高时保持阈值不变。
-
-<<<<<<< HEAD
-你也可以通过传入函数自定义阈值更新值的格式：
-=======
-You can also pass a function for formatting the updated threshold values. The function receives the new threshold as the first argument and the previous threshold as the second:
->>>>>>> 95a42b873eceba8fb4b8c4636c7cb7e121d17102
+<!-- TODO: translation -->
+你也可以通过传入函数自定义阈值更新值的格式，The function receives the new threshold as the first argument and the previous threshold as the second:
 
 <!-- eslint-skip -->
 ```ts
