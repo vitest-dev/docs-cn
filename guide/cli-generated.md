@@ -311,7 +311,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--mode <name>`
 - **配置:** [mode](/config/mode)
 
-覆盖 Vite 模式 (默认值: `test` 或 `benchmark`)
+覆盖 Vite 模式 (默认值: `test`)
 
 ### isolate
 

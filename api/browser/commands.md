@@ -14,12 +14,11 @@ outline: deep
 在浏览器测试中，可借助 `readFile`、`writeFile` 与 `removeFile` 三个 API 完成文件操作。自 Vitest 3.2 起，所有路径均以 [project](/guide/projects) 根目录为基准解析（根目录默认为 `process.cwd()`，可手动重写）；旧版本则以当前测试文件所在目录为基准。
 
 默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
-
-::: tip
-此 API 遵循 [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) 出于安全原因的限制。
-
 <!-- TODO: translation -->
-If [`browser.api.allowWrite`](/config/browser/api) or [`api.allowWrite`](/config/api#api-allowwrite) are disabled, `writeFile` and `removeFile` functions won't do anything.
+::: tip
+The built-in file commands follow Vite's [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) restrictions for security reasons.
+
+`writeFile` and `removeFile` also require write access through [`browser.api.allowWrite`](/config/browser/api) and [`api.allowWrite`](/config/api#api-allowwrite).
 :::
 
 ```ts
@@ -59,7 +58,9 @@ expect(input).toHaveValue('a')
 ```
 
 ::: warning
-CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+CDP session 仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
+
+CDP is a privileged debugging API. It is available only when browser API write and exec operations are enabled through [`browser.api.allowWrite`](/config/browser/api#api-allowwrite), [`browser.api.allowExec`](/config/browser/api#api-allowexec), [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec).
 :::
 
 ## 自定义命令 {#custom-commands}
@@ -125,7 +126,55 @@ declare module 'vitest/browser' {
 ::: warning
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
-<!-- TODO: translation -->
+
+::: warning Security
+Custom commands run in the Vitest Node process and are callable from browser test code through Vitest's browser RPC connection. They can access local files, environment variables, network services, databases, shell commands, and other Node APIs.
+
+Vitest's built-in file commands validate paths against Vite's [`server.fs`](https://vite.dev/config/server-options#server-fs-allow) restrictions and separately check whether writes are allowed. Custom commands do not automatically inherit these protections. If a custom command accepts browser-provided input and uses it to read, write, delete, execute, or expose local resources, validate that input before using it.
+
+For file reads or fixture loading, use `isFileLoadingAllowed` from `vitest/node` or an explicit allowlist. For writes and deletes, also require an explicit mutation policy, such as [`browser.api.allowWrite`](/config/browser/api#api-allowwrite), [`api.allowWrite`](/config/api#api-allowwrite), and a command-specific allowed directory. For commands that execute code, shell commands, or project scripts, also check [`browser.api.allowExec`](/config/browser/api#api-allowexec) and [`api.allowExec`](/config/api#api-allowexec).
+
+For example, if you create your own file-writing command instead of using Vitest's built-in `writeFile`, apply the same checks:
+
+```ts
+import { mkdir, writeFile } from 'node:fs/promises'
+import { dirname, resolve } from 'node:path'
+import { normalizePath } from 'vite'
+import { isFileLoadingAllowed } from 'vitest/node'
+import type { BrowserCommand } from 'vitest/node'
+
+function assertFileAccess(path: string, project: any) {
+  if (
+    !isFileLoadingAllowed(project.vite.config, path)
+    && !isFileLoadingAllowed(project.vitest.vite.config, path)
+  ) {
+    throw new Error(`Access denied to "${path}".`)
+  }
+}
+
+function assertWrite(project: any) {
+  if (!project.config.browser.api.allowWrite || !project.vitest.config.api.allowWrite) {
+    throw new Error('Writing files is disabled.')
+  }
+}
+
+export const myWriteFileCommand: BrowserCommand<[path: string, content: string]> = async (
+  { project },
+  path,
+  content,
+) => {
+  assertWrite(project)
+
+  const file = resolve(project.config.root, path)
+  assertFileAccess(normalizePath(file), project)
+
+  await mkdir(dirname(file), { recursive: true })
+  await writeFile(file, content)
+}
+```
+
+:::
+
 ### Recording trace markers
 
 Custom commands can record [trace markers](/api/browser/context#mark) for the test that triggered them through `context.mark`. This is the server-side equivalent of `page.mark` and helps annotate the [trace view](/guide/browser/trace-view) with custom actions performed inside a command.

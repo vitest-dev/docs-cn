@@ -5,35 +5,9 @@ title: Vitest API
 
 # Vitest
 
-Vitest 实例需要当前的测试模式。它可以是以下之一：
+## mode <Deprecated /> {#mode}
 
-- `test`：运行运行时测试时
-- `benchmark`：运行基准测试时 <Experimental />
-
-::: details New in Vitest 4
-Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除了已弃用的 API：
-
-- `invalidates`
-- `changedTests`（使用 [`onFilterWatchedSpecification`](#onfilterwatchedspecification) 代替）
-- `server`（使用 [`vite`](#vite) 代替）
-- `getProjectsByTestFile`（使用 [`getModuleSpecifications`](#getmodulespecifications) 代替）
-- `getFileWorkspaceSpecs`（使用 [`getModuleSpecifications`](#getmodulespecifications) 代替）
-- `getModuleProjects`（自行通过 [`this.projects`](#projects) 过滤）
-- `updateLastChanged`（重命名为 [`invalidateFile`](#invalidatefile)）
-- `globTestSpecs`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
-- `globTestFiles`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
-- `listFile`（使用 [`getRelevantTestSpecifications`](#getrelevanttestspecifications) 代替）
-:::
-
-## mode
-
-### test
-
-测试模式只会调用 `test` 或 `it` 中的函数，并在遇到 `bench` 时抛出错误。此模式使用配置中的 `include` 和 `exclude` 选项来查找测试文件。
-
-### benchmark <Experimental /> {#benchmark}
-
-基准测试模式调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项来查找基准测试文件。
+Since Vitest 5, this property is always `'test'`.
 
 ## config
 

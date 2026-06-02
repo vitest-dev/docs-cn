@@ -34,7 +34,7 @@ test('error banner is rendered', async () => {
   // 它会反复检查该元素是否存在于 DOM 中，并且
   // `element.textContent` 的内容等于 "Error!"
   // 直到所有条件都满足为止
-  await expect.element(banner).toHaveTextContent('Error!')
+  await expect.element(banner).toMatchTextContent('Error!')
 })
 ```
 
@@ -56,11 +56,11 @@ interface ExpectPollOptions {
 ::: tip
 Like [`expect.poll`](/api/expect#poll), `expect.element` retries DOM assertions until they pass or the timeout is reached. When it receives a locator, Vitest resolves it with [`locator.findElement()`](/api/browser/locators#findelement) before running the DOM assertion. The `timeout` option applies to the whole retry operation. The `interval` option controls how often failed DOM assertions are retried, but locator resolution uses `findElement`'s own increasing retry intervals.
 
-`toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
+`toMatchTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
 ```ts
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
-expect(banner).toHaveTextContent('Error!')
+expect(banner).toMatchTextContent('Error!')
 ```
 :::
 
@@ -696,7 +696,32 @@ await expect.element(button).not.toHaveStyle({
 
 ```ts
 function toHaveTextContent(
-  text: string | RegExp,
+  text: string | number,
+  options?: { normalizeWhitespace: boolean }
+): Promise<void>
+```
+<!-- TODO: translation -->
+This matcher allows you to validate that an element's text matches provided string exactly. This
+supports elements, but also text nodes and fragments.
+
+If you wish to perform a partial check or do a case-sensitive match, use [`toMatchTextContent`](#tomatchtextcontent) instead.
+
+```html
+<span data-testid="text-content">Text Content</span>
+```
+
+```ts
+const element = getByTestId('text-content')
+
+await expect.element(element).toHaveTextContent('Text Content')
+await expect.element(element).not.toHaveTextContent('Content')
+```
+
+## toMatchTextContent
+
+```ts
+function toMatchTextContent(
+  text: string | number | RegExp,
   options?: { normalizeWhitespace: boolean }
 ): Promise<void>
 ```
@@ -707,7 +732,7 @@ function toHaveTextContent(
 
 若要进行不区分大小写的匹配，可以使用带有 `/i` 修饰符的 `RegExp`。
 
-如果你想匹配整段内容，可以使用 `RegExp` 来实现。
+如果你想匹配整段内容，可以使用 `RegExp` 或 [`toHaveTextContent`](#tohavetextcontent) 来实现。
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -716,12 +741,12 @@ function toHaveTextContent(
 ```ts
 const element = getByTestId('text-content')
 
-await expect.element(element).toHaveTextContent('Content')
+await expect.element(element).toMatchTextContent('Content')
 // 匹配整段内容
-await expect.element(element).toHaveTextContent(/^Text Content$/)
+await expect.element(element).toMatchTextContent(/^Text Content$/)
 // 不区分大小写匹配
-await expect.element(element).toHaveTextContent(/content$/i)
-await expect.element(element).not.toHaveTextContent('content')
+await expect.element(element).toMatchTextContent(/content$/i)
+await expect.element(element).not.toMatchTextContent('content')
 ```
 
 ## toHaveValue

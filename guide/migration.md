@@ -13,6 +13,36 @@ outline: deep
 Vitest 5.0 目前处于 beta 阶段。本章节跟踪已合并的重大变更，在稳定版发布前可能还会发生变化。
 :::
 
+### Benchmarking API Rewrite
+
+The benchmarking API has been rewritten. `bench` is no longer a top-level import from `vitest`; it is a [test-context fixture](/guide/test-context#bench) accessed from inside a regular `test()`. See the [Benchmarking guide](/guide/benchmarking) for the new API.
+
+Removed, with replacements where applicable:
+
+- **`bench(name, fn)` at module scope**: destructure `bench` from the test context instead.
+
+```ts
+// v4
+import { bench } from 'vitest' // [!code --]
+
+bench('sort', () => { // [!code --]
+  [3, 1, 2].sort() // [!code --]
+}) // [!code --]
+
+// v5
+import { test } from 'vitest' // [!code ++]
+
+test('sort', async ({ bench }) => { // [!code ++]
+  await bench('sort', () => { [3, 1, 2].sort() }).run() // [!code ++]
+}) // [!code ++]
+```
+
+- **`bench.skip`, `bench.only`, `bench.todo`** are removed. Use the regular `test.skip`, `test.only`, `test.todo` on the surrounding `test()` instead.
+- **`benchmark.reporters` / `benchmark.outputFile`** are removed. Benchmark output is now part of the default reporter and the `json` reporter; configure those at the top level via `test.reporters` instead.
+- **`benchmark.compare` config and the `--compare` CLI flag** are removed. Pass [`writeResult`](/guide/benchmarking#storing-and-replaying-results) as a per-bench option to persist a result, and read it back with [`bench.from()`](/guide/benchmarking#bench-from) inside `bench.compare()`.
+- **`benchmark.outputJson` config and the `--outputJson` CLI flag** are removed. Use `--reporter=json --outputFile=<path>` to capture benchmark results; the JSON reporter now includes a `benchmarks` field on each test case.
+- **`Vitest` instance `mode` property** is now always `'test'`. The previous `'benchmark'` value is no longer used; benchmarks run inside a dedicated project of the same `Vitest` instance.
+
 ### 移除 `test.sequential`, `describe.sequential`, 和 `sequential` 选项 {##removed-test-sequential-describe-sequential-and-sequential-options}
 
 Vitest 5.0 移除了已弃用的 `test.sequential`、`describe.sequential` 和 `sequential` 选项。当你需要让某个测试或测试套件不再沿用继承来的并发设置，或退出全局配置的并发时，请使用 `concurrent: false`。
@@ -79,6 +109,21 @@ await locator.click()
 - `vitest/suite`：改用 `vitest` 中 `TestRunner` 的静态方法（例如，`TestRunner.getCurrentTest()`）
 - `vitest/mocker` 已移除，请直接使用 `@vitest/mocker` 包（这个包曾意外发布过一次且从未被移除）
 - `vitest/internal/module-runner` 已移除
+<!-- TODO: translation -->
+### `toHaveTextContent` Now Performs Strict Equality
+
+The browser-mode [`toHaveTextContent`](/api/browser/assertions#tohavetextcontent) matcher now validates that an element's text content is exactly equal to the expected string instead of performing a partial, case-sensitive match. Regular expressions are no longer accepted. The previous behaviour, including `RegExp` support, has moved to the new [`toMatchTextContent`](/api/browser/assertions#tomatchtextcontent) matcher.
+
+```ts
+// Partial or regex matches:
+await expect.element(banner).toHaveTextContent('Error') // [!code --]
+await expect.element(banner).toHaveTextContent(/error/i) // [!code --]
+await expect.element(banner).toMatchTextContent('Error') // [!code ++]
+await expect.element(banner).toMatchTextContent(/error/i) // [!code ++]
+
+// Exact matches stay on `toHaveTextContent`:
+await expect.element(banner).toHaveTextContent('Error!')
+```
 
 ## 迁移至 Vitest 4.0 {#vitest-4}
 

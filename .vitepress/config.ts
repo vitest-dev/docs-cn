@@ -903,6 +903,10 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/testing-types',
               },
               {
+                text: 'Benchmarking',
+                link: '/guide/benchmarking',
+              },
+              {
                 text: '内联测试',
                 link: '/guide/in-source',
               },
