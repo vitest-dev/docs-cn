@@ -176,7 +176,11 @@ test.for([
 })
 ```
 
+<<<<<<< HEAD
 测试名称中的占位符 `%i`、`%s` 和 `%f` 会被每行中对应的值替换，因此输出会显示 `add(1, 1) -> 2`、`add(1, 2) -> 3` 等。
+=======
+In the example above, the %i placeholders are replaced with the integer values from each data row. Vitest also supports other placeholder types, such as %s for strings and %f for floating-point numbers. As a result, the test runner generates test names such as add(1, 1) -> 2, add(1, 2) -> 3, and add(2, 1) -> 3.
+>>>>>>> fa7b91791854e14250ed1f3538969313d26c7f08
 
 如果你的用例包含两个或三个以上的值，传递对象更具可读性。在名称中使用 `$property` 来插入字段：
 

@@ -24,8 +24,14 @@ outline: deep
 
 ### 早期开发 {#early-development}
 
+<<<<<<< HEAD
 Vitest 的浏览器模式功能仍处于早期开发阶段。因此，它可能尚未完全优化，可能存在一些尚未解决的错误或问题。建议用户使用独立的浏览器端测试运行程序（如 WebdriverIO、Cypress 或 Playwright）来增强 Vitest 浏览器体验。
 
 ### 更长的初始化时间 {#longer-initialization}
+=======
+### Not a Drop-In Replacement
+
+The browser mode feature of Vitest does not completely replace standalone end-to-end test runners. It is recommended that users augment their Vitest browser experience with a standalone browser-side test runner like WebdriverIO, Cypress or Playwright.
+>>>>>>> fa7b91791854e14250ed1f3538969313d26c7f08
 
 Vitest 浏览器在初始化过程中需要启动提供程序和浏览器，这可能需要一些时间。与其他测试模式相比，这可能导致更长的初始化时间。
