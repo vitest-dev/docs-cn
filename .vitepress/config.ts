@@ -83,6 +83,13 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     markdown: {
+      container: {
+        tipLabel: '提示',
+        warningLabel: '注意',
+        dangerLabel: '警告',
+        infoLabel: '说明',
+        detailsLabel: '详情',
+      },
       config(md) {
         md.use(tabsMarkdownPlugin)
         md.use(groupIconMdPlugin)
