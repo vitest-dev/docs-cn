@@ -41,7 +41,7 @@ bun add -D vitest
 
 :::
 
-:::tip 提示
+:::tip
 Vitest 需要 Vite >=v6.4.0 和 Node >=v22.12.0
 :::
 
