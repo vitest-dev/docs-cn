@@ -42,7 +42,7 @@ bun add -D vitest
 :::
 
 :::tip
-Vitest 需要 Vite >=v6.4.0 and 和 >=v22.12.0
+Vitest 需要 Vite >=v6.4.0 和 Node >=v22.12.0
 :::
 
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 会随着 npm 和 Node.js 一起被安装）。
