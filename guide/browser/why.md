@@ -24,7 +24,9 @@ outline: deep
 
 ### 早期开发 {#early-development}
 
-Vitest 的浏览器模式功能仍处于早期开发阶段。因此，它可能尚未完全优化，可能存在一些尚未解决的错误或问题。建议用户使用独立的浏览器端测试运行程序（如 WebdriverIO、Cypress 或 Playwright）来增强 Vitest 浏览器体验。
+### 非完全替代品 {#not-a-drop-in-replacement}
+
+Vitest 的浏览器模式功能并不能完全替代独立的端到端测试运行器。建议用户使用独立的浏览器端测试运行程序（如 WebdriverIO、Cypress 或 Playwright）来增强 Vitest 浏览器体验。
 
 ### 更长的初始化时间 {#longer-initialization}
 

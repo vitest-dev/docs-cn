@@ -98,7 +98,7 @@ export interface VitestRunner {
   /**
    * 公开可用的配置。
    */
-  config: VitestRunnerConfig
+  config: SerializedConfig
   /**
    * 当前池的名称。可能会影响服务器端如何推断堆栈跟踪。
    */
