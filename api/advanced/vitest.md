@@ -27,7 +27,11 @@ Since Vitest 5, this property is always `'test'`.
 公共 `state` 是一个实验性 API（除了 `vitest.state.getReportedEntity`）。破坏性更改可能不遵循 SemVer，请在使用时固定 Vitest 的版本。
 :::
 
+<<<<<<< HEAD
 全局状态存储有关当前测试的信息。默认情况下，它使用与 `@vitest/runner` 相同的 API，但我们建议通过调用 `@vitest/runner` API 上的 `state.getReportedEntity()` 来使用 [任务报告器 API](/api/advanced/reporters#reported-tasks)：
+=======
+Global state stores information about the current tests. It uses internal serializable Task API by default, but we recommend using the [Reported Tasks API](/api/advanced/reporters#reported-tasks) instead by calling `state.getReportedEntity()`:
+>>>>>>> e7f795332b12b19eadd410d67b6927bf6043762f
 
 ```ts
 const task = vitest.state.idMap.get(taskId) // 旧 API

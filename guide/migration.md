@@ -125,7 +125,24 @@ await expect.element(banner).toMatchTextContent(/error/i) // [!code ++]
 await expect.element(banner).toHaveTextContent('Error!')
 ```
 
+<<<<<<< HEAD
 ## 迁移至 Vitest 4.0 {#vitest-4}
+=======
+### Config Files Are Not Looked Up From Parent Directories
+
+Vitest no longer searches parent directories for config files. If you previously relied on running `vitest` from a subdirectory while using a config file from a parent directory, pass the config explicitly and scope test discovery with `--dir`. For example,
+
+```bash
+$ cd subdir && vitest # [!code --]
+$ cd subdir && vitest --config ../vitest.config.ts # [!code ++]
+```
+
+### DOM Environment Global Assignments Now Update the Underlying Window
+
+Assignments to properties on `globalThis` or `window` in `jsdom` and `happy-dom` environments are now propagated to the underlying DOM implementation. Mutable properties such as `innerWidth` can affect APIs implemented by the DOM environment, for example `happy-dom`'s `matchMedia`.
+
+## Migrating to Vitest 4.0 {#vitest-4}
+>>>>>>> e7f795332b12b19eadd410d67b6927bf6043762f
 
 ::: warning 前提条件
 Vitest 4.0 要求 **Vite >= 6.0.0** 和 **Node.js >= 20.0.0**。
