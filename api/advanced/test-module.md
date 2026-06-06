@@ -117,6 +117,24 @@ interface ModuleDiagnostic {
    * Vitest处理的每个非外部化依赖项的导入时间。
    */
   readonly importDurations: Record<string, ImportDuration>
+  /**
+   * The id of the worker that ran this file. This value cannot be higher than `maxWorkers`.
+   * If file did not run yet, this will be 0.
+   *
+   * **Warning**: Node.js tests and browser tests run in different pools and do not share `concurrencyId`.
+   * It is possible to have multiple modules with the same `concurrencyId` because of that.
+   * Use `project.isBrowserEnabled()` to distinguish the concurrency.
+   */
+  readonly concurrencyId: number
+  /**
+   * Incremental number of the worker that ran this file. This number increases with each worker.
+   * If file did not run yet, this will be 0.
+   *
+   * **Warning**: Node.js tests and browser tests run in different pools and do not share `workerId`.
+   * It is possible to have multiple modules with the same `workerId` because of that.
+   * Use `project.isBrowserEnabled()` to distinguish the concurrency.
+   */
+  readonly workerId: number
 }
 
 /** 导入和执行非外部化文件所花费的时间。 */
