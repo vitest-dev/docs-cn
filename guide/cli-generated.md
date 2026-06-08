@@ -637,6 +637,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 触发重试操作的错误信息匹配正则表达式。仅当错误信息符合该模式时才会执行重试（默认值：所有错误都会触发重试）
 
+### repeats
+
+- **CLI:** `--repeats <number>`
+- **Config:** [repeats](/config/repeats)
+
+Repeat every test a specific number of times regardless of the result (default: `0`)
+
 ### diff.aAnnotation
 
 - **命令行终端:** `--diff.aAnnotation <annotation>`
