@@ -154,16 +154,12 @@ module.exports = {
 ```
 
 完整的示例请参考 [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test)。
-
-<<<<<<< HEAD
-## 说明 {#notes}
-=======
+<!-- TODO: translation -->
 ::: warning
 There is a limitation when using [assertion functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions) such as `assert` in in-source tests. See [`assert`](/api/assert#in-source-testing) for details and workarounds.
 :::
 
-## Notes
->>>>>>> 8430ac3c5895ab2beaa27433b4386989c69fc6ee
+## 说明 {#notes}
 
 此功能可用于:
 

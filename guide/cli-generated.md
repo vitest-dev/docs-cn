@@ -636,7 +636,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **配置:** [retry.condition](/config/retry#retry-condition)
 
 触发重试操作的错误信息匹配正则表达式。仅当错误信息符合该模式时才会执行重试（默认值：所有错误都会触发重试）
-
+<!-- TODO: translation -->
 ### repeats
 
 - **CLI:** `--repeats <number>`

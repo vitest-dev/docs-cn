@@ -4,7 +4,7 @@ outline: deep
 ---
 
 # repeats
-
+<!-- TODO: translation -->
 - **Type:** `number`
 - **Default:** `0`
 - **CLI:** `--repeats=<number>`
