@@ -33,15 +33,20 @@ test('items starts with 3 fruits', () => {
   expect(items).toHaveLength(3)
 })
 
+test('can remove an item', () => {
+  items.pop()
+  expect(items).toHaveLength(2)
+})
+
 test('can add an item', () => {
   items.push('date')
   expect(items).toHaveLength(4)
-  // afterEach 会为下一个测试重置项目，
-  // 因此此处的修改不会影响到其他测试
+  // beforeEach reset the array to 3 items before this test ran,
+  // proving that mutations from the previous test do not leak.
 })
 ```
-
-如果没有这些钩子，第二个测试的 `push` 操作会影响其后的所有测试，这是导致测试不稳定的典型原因。这些钩子确保了每个测试都拥有干净的状态。
+<!-- TODO: translation -->
+Without these hooks, mutations like `pop` or `push` from earlier tests would affect subsequent ones, which is a classic source of flaky tests, while the hooks guarantee clean state for every test.
 
 ## 一次性初始化 {#one-time-setup}
 
