@@ -197,10 +197,10 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 
 ### coverage.thresholds.perFile
 
-- **命令行终端:** `--coverage.thresholds.perFile`
+- **命令行终端:** `--coverage.thresholds.perFile <boolean>`
 - **配置:** [coverage.thresholds.perFile](/config/coverage#coverage-thresholds-perfile)
-
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
+<!-- TODO: translation -->
+检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。Object form is available in config files only.
 
 ### coverage.thresholds.autoUpdate
 
