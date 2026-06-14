@@ -44,23 +44,13 @@ AI 编码助手能帮助你更快地编写测试，但输出质量很大程度�
 
 ### 编写优质提示词的技巧 {#tips-for-better-prompts}
 
-<<<<<<< HEAD
 - 明确要求边缘情况测试。“包含对空输入、边界值和错误处理的测试” 比让 AI 自行判断能产生更全面的覆盖。没有这个提示，大多数工具只会生成少量成功路径测试就停止。
-- 提及你希望使用的特定 Vitest 功能。“使用 `toMatchInlineSnapshot` 处理错误信息” 或 “使用 `test.each` 处理不同的货币格式”，引导 AI 使用正确的工具，而不是让它退回到重复的复制粘贴测试。
+- 提及你希望使用的特定 Vitest 功能。“使用 `toMatchInlineSnapshot` 处理错误信息” 或 “使用 `test.for` 处理不同的货币格式”，引导 AI 使用正确的工具，而不是让它退回到重复的复制粘贴测试。
 - 如果测试异步代码，请明确说明。“该函数返回 Promise” 或 “这会调用外部 API” 有助于 AI 使用 `async`/`await` 和合适的匹配器，如 `.resolves` 和 `.rejects`。
 - 告诉 AI _不要做_ 什么。“针对真实实现进行测试，不要模拟任何模块” 或 “不要使用快照测试”，可以避免你不想要的常见默认设置。AI 工具倾向于过度模拟，明确的约束可以防止这种情况。
 - 描述你想要的测试结构。“使用 `describe` 块按方法分组测试” 或 “对数据库连接使用 `test.extend` fixture 而不是 `beforeEach`”，可以省去你事后重构的麻烦。
 - 在要求添加测试时参考现有测试。“遵循 `auth.test.js` 中测试的相同风格” 比从头描述风格更有效。AI 会从示例中学习命名约定、断言形式和导入风格。
 - 如果第一次结果不理想，请迭代优化。“这些测试过于关注实现细节。重写它们，只对返回值和抛出的错误进行断言” 是一个有效的后续提示。通过对话逐步完善通常比试图一次性写出完美提示词能产生更好的结果。
-=======
-- Ask for edge cases explicitly. "Include tests for empty inputs, boundary values, and error handling" produces more comprehensive coverage than leaving it to the AI's judgment. Without this nudge, most tools will generate a handful of happy-path tests and stop there.
-- Mention specific Vitest features if you want them used. "Use `toMatchInlineSnapshot` for the error messages" or "use `test.for` for the different currency formats" guides the AI toward the right tools instead of letting it fall back to repetitive copy-paste tests.
-- If you're testing async code, say so. "The function returns a Promise" or "this calls an external API" helps the AI use `async`/`await` and appropriate matchers like `.resolves` and `.rejects`.
-- Tell the AI what *not* to do. "Test against the real implementation, don't mock any modules" or "don't use snapshot tests" prevents common defaults you don't want. AI tools tend to over-mock, and an explicit constraint prevents that.
-- Describe the test structure you want. "Group tests by method using `describe` blocks" or "use `test.extend` fixtures for the database connection instead of `beforeEach`" saves you from restructuring the output afterwards.
-- Reference existing tests when asking for additions. "Follow the same style as the tests in `auth.test.js`" is more effective than describing the style from scratch. The AI will pick up on naming conventions, assertion patterns, and import styles from the example.
-- If the first result isn't right, iterate. "These tests are too focused on implementation details. Rewrite them to only assert on the return values and thrown errors" is a valid follow-up. Refining through conversation often produces better results than trying to write the perfect prompt upfront.
->>>>>>> 941b14f8950f008b58b260dcb7ff324c468bce82
 
 ## 审查 AI 生成的测试 {#reviewing-ai-generated-tests}
 
