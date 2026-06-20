@@ -18,6 +18,10 @@ vitest --ui
 
 最后，你可以访问 Vitest UI 界面，通过 <a href="http://localhost:51204/__vitest__/">`http://localhost:51204/__vitest__/`</a>
 
+::: tip
+Vitest UI access is protected. If the direct URL shows an error, open the URL with a token printed by Vitest in the terminal, for example `http://localhost:51204/__vitest__/?token=...`.
+:::
+
 ::: warning
 UI 是交互式的，需要一个正在运行的 Vite 服务器，因此请确保在 `watch` 模式（默认模式）下运行 Vitest。或者，你可以通过在配置的 `reporters` 选项中指定 `html` 来生成一个与 Vitest UI 完全相同的静态 HTML 报告。
 :::
@@ -47,10 +51,10 @@ export default defineConfig({
 要预览你的 HTML 报告，可以使用 [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) 命令：
 
 ```sh
-npx vite preview --outDir ./html
+npx vite preview --outDir .vitest
 ```
-
-你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
+<!-- TODO: translation -->
+You can configure the output location with the HTML reporter's `outputDir` option. It points to the report artifact root, and the report entry is written to `<outputDir>/index.html`. The default value is `.vitest`, the shared Vitest artifact directory.
 :::
 
 If you need a portable report that can be opened or shared as one file, see [`singleFile`](/guide/reporters#html-reporter) in the HTML reporter documentation.
@@ -63,7 +67,7 @@ If you need a portable report that can be opened or shared as one file, see [`si
   id: upload-report
   with:
     name: vitest-report
-    path: html/
+    path: .vitest/
 
 - name: Viewer link in summary
   run: echo "[View HTML report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
@@ -76,7 +80,7 @@ When you use `singleFile: true`, you can upload the report as a single file and 
 ```yaml
 - uses: actions/upload-artifact@v7
   with:
-    path: html/index.html
+    path: .vitest/index.html
     archive: false
 ```
 :::
