@@ -43,7 +43,20 @@ test('sort', async ({ bench }) => { // [!code ++]
 - **`benchmark.outputJson` config and the `--outputJson` CLI flag** are removed. Use `--reporter=json --outputFile=<path>` to capture benchmark results; the JSON reporter now includes a `benchmarks` field on each test case.
 - **`Vitest` instance `mode` property** is now always `'test'`. The previous `'benchmark'` value is no longer used; benchmarks run inside a dedicated project of the same `Vitest` instance.
 
+<<<<<<< HEAD
 ### 移除 `test.sequential`, `describe.sequential`, 和 `sequential` 选项 {##removed-test-sequential-describe-sequential-and-sequential-options}
+=======
+### Vitest UI Requires an Authenticated URL
+
+Vitest UI now requires token authentication for the HTML page and API access. The `/__vitest__/` URL will show an error until the browser is authenticated. To authenticate, open the URL with a token printed by Vitest, as shown below. Once authenticated, the direct `/__vitest__/` URL will work correctly.
+
+```bash
+vitest --ui
+# UI started at http://localhost:51204/__vitest__/?token=...
+```
+
+### Removed `test.sequential`, `describe.sequential`, and `sequential` Options
+>>>>>>> 83c20df03e0fda4bbcdebc819938fcb1ecab8778
 
 Vitest 5.0 移除了已弃用的 `test.sequential`、`describe.sequential` 和 `sequential` 选项。当你需要让某个测试或测试套件不再沿用继承来的并发设置，或退出全局配置的并发时，请使用 `concurrent: false`。
 
@@ -165,7 +178,19 @@ Vitest no longer serves the browser orchestrator UI from a bare `/__vitest_test_
 
 If you manually opened the browser preview by copying the Vite server URL or visiting `/__vitest_test__/` directly, use the URL opened or printed by Vitest instead.
 
+<<<<<<< HEAD
 ## 迁移至 Vitest 4.0 {#vitest-4}
+=======
+### Generated Reports and Artifacts Use the `.vitest` Directory
+
+Vitest now uses a single `.vitest` directory at the project root as the shared artifact root, so one `.vitest` entry in `.gitignore` is enough. Defaults that moved this major:
+
+- **Attachments** ([`attachmentsDir`](/config/attachmentsdir)): `.vitest-attachements/` → `.vitest/attachments/`
+- **Blob reporter** and `--merge-reports`: `.vitest-reports/blob-*.json` → `.vitest/blob/blob-*.json`
+- **HTML reporter** ([`html`](/guide/reporters#html-reporter)): `html/index.html` → `.vitest/index.html`, and its option changed from `outputFile` (a file) to `outputDir` (a directory)
+
+## Migrating to Vitest 4.0 {#vitest-4}
+>>>>>>> 83c20df03e0fda4bbcdebc819938fcb1ecab8778
 
 ::: warning 前提条件
 Vitest 4.0 要求 **Vite >= 6.0.0** 和 **Node.js >= 20.0.0**。

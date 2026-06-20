@@ -8,7 +8,15 @@
 
 `vi.spyOn` 和 `vi.fn` 都共享相同的方法。
 
+<<<<<<< HEAD
 ## 示例 {#example}
+=======
+::: tip
+If you need a mock to return different values depending on the arguments it receives, [`vi.when()`](/api/vi#vi-when) lets you define argument-specific behaviors without writing your own `if/else` logic. See the [Conditional Mocking](/guide/recipes/conditional-mocking) recipe for details.
+:::
+
+## Example
+>>>>>>> 83c20df03e0fda4bbcdebc819938fcb1ecab8778
 
 ```js
 import { afterEach, describe, expect, it, vi } from 'vitest'
