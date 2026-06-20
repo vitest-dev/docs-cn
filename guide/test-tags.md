@@ -6,25 +6,25 @@ outline: deep
 # 测试标签 <Version>4.1.0</Version> {#test-tags}
 
 允许你在测试用例上添加 [`标签`](/config/tags)，在必要时可以使用标签进行过滤测试，或覆盖测试配置。
-<!-- TODO: translation -->
-## Why tags
 
-Tags become useful once a suite has groups of tests that share runner options, like a longer timeout for database queries or retries for integration tests on CI. Repeating those options on every relevant test by hand is brittle, and the categories often don't line up with file paths anyway, so splitting them out by file isn't an option. Flaky tests in particular tend to accumulate wherever the bugs landed, not in a `flaky/` folder.
+## 为什么使用测试标签 {#why-tags}
 
-A tag captures that kind of category: the definition holds the shared options, and any test marked with the tag inherits them. Those tag names can also be combined into expressions: `--tags-filter='db && !flaky'` runs database tests that aren't marked flaky. [`TestRunner.matchesTags`](#checking-tags-filter-at-runtime) exposes the same expression at runtime, useful when `globalSetup` does expensive work that should be skipped if no tagged tests are scheduled.
+测试标签适用于共享运行配置的测试套件中使用。例如为数据库查询设置更长的超时时间，或者在 CI 上为集成测试设置重试机制。手动在相关测试上重复设置配置既繁琐又容易出错，并且这些类测试和文件路径并不是一一对应的，因此按文件拆分也不是一个可行的方案。对于那些特别不稳定的测试，它们往往出现在真实有 bug 的地方，而不是集中在 `flaky` 文件里面。
 
-## When to reach for tags
+测试标签可以捕获这种类别：定义包含了共享的选项，和标记了该测试标签的测试都会继承这些选项。这些标签名称还可以组合成表达式：`--tags-filter='db && !flaky'` 会运行那些标记为数据库测试但未被标记为不稳定的测试。[`TestRunner.matchesTags`](#checking-tags-filter-at-runtime) 可在运行时使用同样的标签表达式，适用于 `globalSetup` 中包含开销较大的操作，且在没有任何带标签的测试需要执行时，需要跳过这些操作的场景。
 
-| If you want to… | Use |
+## 何时使用标签 {#when-to-reach-for-tags}
+
+| 应用场景 | 使用 |
 | --- | --- |
-| Apply timeout/retry to a *category* of tests | **Tags** |
-| Mark cross-cutting categories (`flaky`, `slow`, `frontend`) scattered across many files | **Tags** |
-| Conditionally run expensive setup based on what's filtered | **Tags** + [`matchesTags`](#checking-tags-filter-at-runtime) |
-| Run a subset by test name match | [`-t` / `testNamePattern`](/config/testnamepattern) |
-| Run a subset by file path | `--include` / `--exclude` |
-| Run different files with different *runner settings* (isolation, pool, environment) | [Test Projects](/guide/projects) |
+| 对 *一类* 测试设置超时/重试 | **标签** |
+| 标记分散在许多文件中的横向分类（`flaky`、`slow`、`frontend`） | **标签** |
+| 根据过滤条件有条件地运行开销大的设置 | **标签** + [`matchesTags`](#checking-tags-filter-at-runtime) |
+| 通过测试名称匹配来运行子集 | [`-t` / `testNamePattern`](/config/testnamepattern) |
+| 通过文件路径来运行子集 | `--include`/`--exclude` |
+| 使用不同的 *运行器设置*（测试隔离、运行池、测试环境）运行不同的文件 | [测试项目](/guide/projects) |
 
-You can combine projects and tags. A test that sits in a `Sequential` project can also carry a `flaky` tag, and Vitest applies both.
+可以将测试项目（project）与测试标签结合使用。例如在 `Sequential` 项目中筛选带有 `flaky` 标签的测试。
 
 ## 定义标签 {#defining-tags}
 
@@ -120,7 +120,7 @@ flaky: Flaky CI tests.
 }
 ```
 
-### Resolving option conflicts
+### 解决配置冲突 {#resolving-option-conflicts}
 
 如果多个标签具有相同配置项且应用于同一个测试时，将按从上至下的顺序解析，或按优先级排序解析（数值越低，优先级越高）。未定义优先级的标签会先合并，随后被优先级更高的标签覆盖。
 
@@ -337,10 +337,9 @@ beforeAll(async () => {
 ```
 
 该方法接收一个标签数组作为参数，如果当前 `--tags-filter` 会包含带有这些标签的测试，则返回 `true`。如果未启用标签过滤器，则始终返回 `true`。
-The method accepts an array of tags and returns `true` if the current `--tags-filter` would include a test with those tags. If no tags filter is active, it always returns `true`.
-<!-- TODO: translation -->
-## See also
 
-- [Per-File Isolation Settings](/guide/recipes/disable-isolation) and [Parallel and Sequential Test Files](/guide/recipes/parallel-sequential) use projects to partition tests by file. Reach for projects when categories need different runner settings rather than different timeouts or retries.
-- [Test Filtering](/guide/filtering) covers `-t`, `--include`, and the rest of the CLI filters.
-- [`tags`](/config/tags) and [`strictTags`](/config/stricttags) configuration reference.
+## 另请参阅 {#see-also}
+
+- [按文件隔离](/guide/recipes/disable-isolation) 和 [并行与顺序测试文件](/guide/recipes/parallel-sequential) 都是通过测试项目参数按文件划分测试。对于需要使用不同运行器配置，而不是仅调整不同超时时间或重试次数的测试分类，适合使用测试项目参数。
+- [测试过滤](/guide/filtering) 覆盖了 `-t`、`--include` 以及其他 CLI 过滤器。
+- 参考 [`tags`](/config/tags) 和 [`strictTags`](/config/stricttags) 配置。

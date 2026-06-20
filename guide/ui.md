@@ -70,8 +70,8 @@ If you need a portable report that can be opened or shared as one file, see [`si
 ```
 
 这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
-<!-- TODO: translation -->
-When you use `singleFile: true`, you can upload the report as a single file and it will become viewable directly GitHub artifacts with `archive: false` option:
+
+当你使用 `singleFile: true` 时，报告作为单个文件进行上传，配合 `archive: false` 选项，报告直接可以在 GitHub Artifacts 中查看：
 
 ```yaml
 - uses: actions/upload-artifact@v7

@@ -27,8 +27,8 @@ ndb npm run test
 :::
 
 ## VS Code
-<!-- TODO: translation -->
-The [official VS Code](https://vitest.dev/vscode) extension supports debugging tests via "Debug Tests" button. However Vitest also exposes tools to define a custom configuration.
+
+[官方 VS Code](https://vitest.dev/vscode) 扩展支持通过 "Debug Tests" 按钮来调试测试。不过，Vitest 也提供了自定义配置。
 
 在 VSCode 中快速调试测试的方法是通过 `JavaScript Debug Terminal` 。打开一个新的 `JavaScript Debug Terminal` 并直接运行 `npm run test` 或 `vitest` 。*这适用于在 Node 中运行的任何代码，因此将适用于大多数 JS 测试框架*。
 
@@ -59,10 +59,10 @@ The [official VS Code](https://vitest.dev/vscode) extension supports debugging t
 然后在调试选项卡中确保选择 'Debug Current Test File'，然后你可以打开要调试的测试文件并按 F5 开始调试。
 
 ### 浏览器模式 {#browser-mode}
-<!-- TODO: translation -->
-The simplest way to debug browser tests is to use the [official VS Code](https://vitest.dev/vscode) extension.
 
-However you can also pass `--inspect` or `--inspect-brk` in CLI or define it in your Vitest configuration:
+调试浏览器测试最简单的方法是使用 [官方 VS Code](https://vitest.dev/vscode) 扩展。
+
+不过，你也可以在 CLI 中传递 `--inspect` 或 `--inspect-brk`，或在你的 Vitest 配置文件中定义它们：
 
 ::: code-group
 ```bash [CLI]
