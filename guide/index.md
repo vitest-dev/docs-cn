@@ -39,6 +39,9 @@ pnpm add -D vitest
 bun add -D vitest
 ```
 
+```bash [deno]
+deno add -D vitest
+```
 :::
 
 :::tip

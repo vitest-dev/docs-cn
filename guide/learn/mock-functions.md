@@ -71,6 +71,10 @@ test('mock async return values', async () => {
   await expect(fetchUser()).rejects.toThrow('Not found')
 })
 ```
+<!-- TODO: translation -->
+::: tip
+`mockReturnValue` always returns the same value regardless of the arguments the mock receives. If you need argument-specific return values, [`vi.when`](/api/vi#vi-when) lets you attach different behaviors for different argument combinations without writing your own `if/else` logic. See the [Conditional Mocking](/guide/recipes/conditional-mocking) recipe for details.
+:::
 
 ## 模拟实现 {#mock-implementation}
 

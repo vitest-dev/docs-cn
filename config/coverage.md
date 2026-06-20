@@ -233,12 +233,67 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 ### coverage.thresholds.perFile
 
-- **类型:** `boolean`
+- **类型:** `boolean | { 100?: boolean, lines?: number, functions?: number, branches?: number, statements?: number }`
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
+<!-- TODO: translation -->
+When `true`, each file is checked against the top-level thresholds instead of the project-wide aggregate. When set to an object, both are checked: the aggregate against the top-level thresholds, and every file against these per-file minimums.
 
-按文件检查覆盖率阈值。
+<!-- eslint-skip -->
+```ts
+{
+  coverage: {
+    thresholds: {
+      lines: 80,
+      functions: 80,
+      branches: 80,
+      statements: 80,
+      perFile: {
+        lines: 50,
+        functions: 50,
+        branches: 50,
+        statements: 50,
+      },
+    }
+  }
+}
+```
+
+`{ 100: true }` is also accepted inside the object as a shortcut for setting all four metrics to `100`:
+
+<!-- eslint-skip -->
+```ts
+{
+  coverage: {
+    thresholds: {
+      lines: 80,
+      perFile: {
+        100: true,
+      },
+    }
+  }
+}
+```
+
+`perFile` can also be set on an individual [glob-pattern threshold](/config/coverage#coverage-thresholds-glob-pattern). Glob patterns do **not** inherit the top-level `perFile`; set it on each glob explicitly.
+
+<!-- eslint-skip -->
+```ts
+{
+  coverage: {
+    thresholds: {
+      perFile: true,
+      lines: 80,
+
+      'src/utils/**': {
+        lines: 90,
+        perFile: true,
+      },
+    }
+  }
+}
+```
 
 ### coverage.thresholds.autoUpdate
 
@@ -249,7 +304,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 当实际覆盖率超过配置阈值时，自动将 `lines`、`functions`、`branches` 和 `statements` 的阈值更新到配置文件中。
 此选项适用于覆盖率提高时保持阈值不变。
-<!-- TODO: translation -->
+
 你也可以通过传入函数自定义阈值更新值的格式，The function receives the new threshold as the first argument and the previous threshold as the second:
 
 <!-- eslint-skip -->
@@ -257,9 +312,6 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 {
   coverage: {
     thresholds: {
-      // 更新阈值为整数
-      autoUpdate: (newThreshold) => Math.floor(newThreshold),
-
       // Log the change and update without decimals
       autoUpdate: (newThreshold, previousThreshold) => {
         console.log(`Updated threshold from ${previousThreshold} to ${newThreshold}`)
@@ -285,11 +337,13 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 ### coverage.thresholds[glob-pattern]
 
-- **类型:** `{ statements?: number functions?: number branches?: number lines?: number }`
+- **类型:** `{ statements?: number, functions?: number, branches?: number, lines?: number, perFile?: boolean | object }`
 - **默认值:** `undefined`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 
 设置与 glob 模式匹配的文件的阈值。
+<!-- TODO: translation -->
+Each glob pattern can set its own `perFile` (`boolean | object`), checked exactly like the top-level `perFile` but scoped to the matched files. Glob patterns do not inherit the top-level `perFile` — set it per glob.
 
 ::: tip 注意
 Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆盖率阈值计算。
@@ -311,6 +365,8 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
         functions: 90,
         branches: 85,
         lines: 80,
+        // each matching file must individually hit the thresholds above
+        perFile: true,
       },
 
       // 匹配此模式的文件仅设置行覆盖率阈值

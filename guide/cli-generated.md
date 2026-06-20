@@ -197,10 +197,10 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 
 ### coverage.thresholds.perFile
 
-- **命令行终端:** `--coverage.thresholds.perFile`
+- **命令行终端:** `--coverage.thresholds.perFile <boolean>`
 - **配置:** [coverage.thresholds.perFile](/config/coverage#coverage-thresholds-perfile)
-
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
+<!-- TODO: translation -->
+检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。Object form is available in config files only.
 
 ### coverage.thresholds.autoUpdate
 
@@ -636,6 +636,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **配置:** [retry.condition](/config/retry#retry-condition)
 
 触发重试操作的错误信息匹配正则表达式。仅当错误信息符合该模式时才会执行重试（默认值：所有错误都会触发重试）
+<!-- TODO: translation -->
+### repeats
+
+- **CLI:** `--repeats <number>`
+- **Config:** [repeats](/config/repeats)
+
+Repeat every test a specific number of times regardless of the result (default: `0`)
 
 ### diff.aAnnotation
 

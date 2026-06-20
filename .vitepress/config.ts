@@ -83,6 +83,13 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     markdown: {
+      container: {
+        tipLabel: '提示',
+        warningLabel: '注意',
+        dangerLabel: '警告',
+        infoLabel: '说明',
+        detailsLabel: '详情',
+      },
       config(md) {
         md.use(tabsMarkdownPlugin)
         md.use(groupIconMdPlugin)
@@ -507,6 +514,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'retry',
                 link: '/config/retry',
+              },
+              {
+                text: 'repeats',
+                link: '/config/repeats',
               },
               {
                 text: 'onConsoleLog',
@@ -1043,6 +1054,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'Auto-Cleanup with `using`',
                 link: '/guide/recipes/explicit-resources',
+              },
+              {
+                text: 'Conditional Mocking with `vi.when`',
+                link: '/guide/recipes/conditional-mocking',
               },
               {
                 text: 'Per-File Isolation Settings',
