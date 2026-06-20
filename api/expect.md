@@ -1454,7 +1454,7 @@ test('spy function returns bananas on second call', async () => {
   expect(sell).toHaveNthResolvedWith(2, { product: 'bananas' })
 })
 ```
-
+<!-- TODO: translation -->
 ## toHaveBeenExhausted <Version>5.0.0</Version> {#tohavebeenexhausted}
 
 - **Type:** `() => void`

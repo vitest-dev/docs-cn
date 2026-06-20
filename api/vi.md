@@ -800,7 +800,7 @@ globalThis.IntersectionObserver === undefined
 // 抛出 ReferenceError，因为变量未定义
 IntersectionObserver === undefined
 ```
-
+<!-- TODO: translation -->
 ### vi.when <Version>5.0.0</Version> {#vi-when}
 
 ```ts

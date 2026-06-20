@@ -71,16 +71,12 @@ test('mock async return values', async () => {
   await expect(fetchUser()).rejects.toThrow('Not found')
 })
 ```
-
-<<<<<<< HEAD
-## 模拟实现 {#mock-implementation}
-=======
+<!-- TODO: translation -->
 ::: tip
 `mockReturnValue` always returns the same value regardless of the arguments the mock receives. If you need argument-specific return values, [`vi.when`](/api/vi#vi-when) lets you attach different behaviors for different argument combinations without writing your own `if/else` logic. See the [Conditional Mocking](/guide/recipes/conditional-mocking) recipe for details.
 :::
 
-## Mock Implementation
->>>>>>> 83c20df03e0fda4bbcdebc819938fcb1ecab8778
+## 模拟实现 {#mock-implementation}
 
 有时你需要的不只是一个固定的返回值。而是希望模拟函数能根据传入的参数真正执行一些逻辑。[`mockImplementation`](/api/mock#mockimplementation) 允许你提供一个完整的替代函数：
 

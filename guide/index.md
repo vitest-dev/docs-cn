@@ -38,13 +38,10 @@ pnpm add -D vitest
 ```bash [bun]
 bun add -D vitest
 ```
-<<<<<<< HEAD
 
-=======
 ```bash [deno]
 deno add -D vitest
 ```
->>>>>>> 83c20df03e0fda4bbcdebc819938fcb1ecab8778
 :::
 
 :::tip
