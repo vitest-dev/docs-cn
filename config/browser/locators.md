@@ -37,7 +37,7 @@ await locator.click()
 
 - `'html'` 使用 [`utils.prettyDOM`](/api/browser/context#prettydom) 将该 DOM 子树以 HTML 格式打印。
 - `'aria'` 将该 DOM 子树以 [ARIA 快照](/guide/browser/aria-snapshots) 格式打印，重点关注无障碍角色、名称和状态。
-- `'all'` 先打印 ARIA 快照，然后是 HTML 输出。
+- `'all'` 先打印 ARIA 快照，然后输出 HTML。
 
 ```ts
 import { defineConfig } from 'vitest/config'

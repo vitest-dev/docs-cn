@@ -668,7 +668,7 @@ test.concurrent.for([
 ## bench <Experimental /> {#bench}
 
 ::: warning 已在 Vitest 5 中更新
-基准测试 API 已重写。`bench` 不再是 `vitest` 的顶层导入，并且 `bench.skip`/`bench.only`/`bench.todo` 辅助函数已被移除。`bench` 现在是从 `test()` 内部访问的 [测试上下文](/guide/test-context#bench)。
+基准测试 API 已重构。`bench` 不再是 `vitest` 的顶层导入，并且 `bench.skip`/`bench.only`/`bench.todo` 工具函数已被移除。`bench` 现在是从 `test()` 内部访问的 [测试上下文](/guide/test-context#bench)。
 
-新的 API 请参阅 [基准测试指南](/guide/benchmarking)。
+新的 API 详情请参阅 [基准测试指南](/guide/benchmarking)。
 :::

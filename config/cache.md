@@ -10,7 +10,7 @@ outline: deep
 
 使用此选项可禁用缓存功能。当前 Vitest 会缓存测试结果，以便优先运行耗时较长和失败的测试。
 
-缓存目录由 Vite 的 [`cacheDir`](https://vitejs.dev/config/shared-options.html#cachedir) 选项控制：
+缓存目录由 Vite 的 [`cacheDir`](https://cn.vitejs.dev/config/shared-options.html#cachedir) 选项控制：
 
 ```ts
 import { defineConfig } from 'vitest/config'

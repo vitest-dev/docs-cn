@@ -158,7 +158,7 @@ vitest --experimental.importDurations.print
 
 ### 使用特定入口 {#use-specific-entry-points}
 
-许多库提供了多个入口点。导入主入口点（通常是 [桶文件](https://vitejs.dev/guide/performance.html#avoid-barrel-files)）可能会引入比你所需多得多的代码。
+许多库提供了多个入口点。导入主入口点（通常是 [桶文件](https://cn.vitejs.dev/guide/performance.html#avoid-barrel-files)）可能会引入比你所需多得多的代码。
 
 例如，`date-fns` 从其主入口点重新导出了数百个函数。与其从顶层模块导入，不如直接从特定入口导入：
 

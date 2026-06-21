@@ -889,7 +889,7 @@ test.afterAll(async ({ database }) => {
 })
 ```
 
-::: warning IMPORTANT
+::: warning 重要
 Suite-level hooks (`beforeAll`, `afterAll`, `aroundAll`) **must be called on the `test` object returned from `test.extend()`** to have access to the extended fixtures. Using the global `beforeAll`/`afterAll`/`aroundAll` functions will not have access to your custom fixtures:
 
 ```ts

@@ -79,7 +79,7 @@ export default defineConfig(configEnv => mergeConfig(
 ))
 ```
 
-由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
+由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://cn.vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
 ## 自动依赖安装 {#automatic-dependency-installation}
 

@@ -30,7 +30,7 @@ outline: deep
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask')[]`
 - **默认值:** `[]`
 
-一个包含要保留为原生方法的全局方法和 API 名称的数组。所有其他可用的计时器都将被模拟。例如，要保留 `setInterval()` 为原生方法并模拟所有其他计时器，请将此属性指定为 `['setInterval']`。
+一个包含要保留为原生方法的全局方法和 API 名称的数组。其他所有可用的定时器都会被模拟。例如，要保留 `setInterval()` 为原生实现，同时模拟其他所有定时器，请将此属性指定为 `['setInterval']`。
 
 当通过 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。使用 `--pool=forks` 运行时，Vitest 会自动将 `nextTick` 添加到 `toNotFake` 数组中。
 

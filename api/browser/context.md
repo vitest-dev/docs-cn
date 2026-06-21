@@ -67,12 +67,12 @@ export const commands: BrowserCommands
 ```ts
 export const page: {
   /**
-   * 更改 iframe 视口的大小。
+   * 更改 iframe 视口的大小
    */
   viewport: (width: number, height: number) => Promise<void>
   /**
-   * 对测试 iframe 或特定元素进行截图。
-   * @returns 截图文件的路径或路径和 base64 编码。
+   * 对测试 iframe 或特定元素进行截图
+   * @returns 截图文件的路径或路径和 base64 编码
    */
   screenshot: ((options: Omit<ScreenshotOptions, 'base64'> & { base64: true }) => Promise<{
     path: string
@@ -83,21 +83,21 @@ export const page: {
    */
   mark(name: string, options?: { stack?: string; kind?: BrowserTraceEntryKind }): Promise<void>
   /**
-   * 当启用浏览器追踪时，将多个操作分组在一个追踪标记下。
+   * 当启用浏览器追踪时，将多个操作分组在一个追踪标记下
    */
   mark<T>(name: string, body: () => T | Promise<T>, options?: { stack?: string; kind?: BrowserTraceEntryKind }): Promise<T>
   /**
-   * 使用自定义方法扩展默认的 `page` 对象。
+   * 使用自定义方法扩展默认的 `page` 对象
    */
   extend: (methods: Partial<BrowserPage>) => BrowserPage
   /**
-   * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素。
+   * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素
    */
   elementLocator(element: Element): Locator
   /**
    * iframe 定位器。这是一个进入 iframe body 的文档定位器
-   * 其工作原理与 `page` 对象类似。
-   * **Warning:** 目前，仅有 `playwright` 提供程序支持该功能。
+   * 其工作原理与 `page` 对象类似
+   * **Warning:** 目前，仅有 `playwright` 提供程序支持该功能
    */
   frameLocator(iframeElement: Locator): FrameLocator
 
@@ -134,7 +134,7 @@ function mark<T>(
 ): Promise<T>
 ```
 
-为当前测试向追踪时间线添加一个命名标记。
+在追踪时间线为当前测试向添加一个命名标记。
 
 传递 `options.stack` 以覆盖追踪元数据中的调用位置。适用于需要保留最终用户源代码位置的封装库。
 
@@ -156,9 +156,9 @@ await page.mark('submit flow', async () => {
 ```
 
 ::: tip
-此方法仅在启用 [`browser.trace`](/config/browser/trace) 时有用。
+此方法仅在启用 [`browser.trace`](/config/browser/trace) 时生效。
 
-在 [`BrowserCommandContext`](/api/browser/commands#recording-trace-markers) 上有一个服务器端的等效方法，因此 [自定义命令](/api/browser/commands#custom-commands) 可以记录归因于触发它们的测试的标记。
+在 [`BrowserCommandContext`](/api/browser/commands#recording-trace-markers) 上有一个服务器端的等效方法，因此 [自定义命令](/api/browser/commands#custom-commands) 可以记录触发它们的测试的标记。
 :::
 
 ### frameLocator
@@ -181,7 +181,7 @@ await frame.click() // ❌ 不可用
 ```
 
 ::: danger 重要
-默认情况下，`frameLocator` 不支持跨域 iframe 中使用 `expect.element()` 查询元素。交互式方法（例如 `.click()`）可以正常工作。这与 Playwright 的行为不同。
+这与 Playwright 的行为不同。默认情况下，`frameLocator` 不支持在跨域 iframe 中使用 `expect.element()` 查询元素。交互式方法（例如 `.click()`）可以正常工作。
 
 ```ts
 const frame = page.frameLocator(page.getByTestId('cross-origin-iframe'))
@@ -194,7 +194,7 @@ await expect.element(button).toBeVisible() // 查询元素失败 ❌
 如果你需要处理跨域 iframe，你需要在 [`launchOptions`](/config/browser/playwright.html#launchoptions) 中传递 `args: ["--disable-web-security"]`。或者创建一个自定义的 [浏览器命令](/api/browser/commands.html#custom-commands)，在服务器端访问可用的 iframe。
 :::
 
-::: danger IMPORTANT
+::: danger 重要
 目前，`frameLocator` 方法只有 `playwright` 支持。
 
 交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。

@@ -16,7 +16,7 @@ outline: deep
 默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
 
 ::: tip
-出于安全原因，内置的文件命令遵循 Vite 的 [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) 限制。
+出于安全原因，内置的文件命令遵循 Vite 的 [`server.fs`](https://cn.G/config/server-options.html#server-fs-allow) 限制。
 
 `writeFile` 和 `removeFile` 还需要通过 [`browser.api.allowWrite`](/config/browser/api) 和 [`api.allowWrite`](/config/api#api-allowwrite) 获得写入权限。
 :::

@@ -6,7 +6,7 @@ import ListItem from './ListItem.vue'
   <ul class="features-list" dir="auto">
     <ListItem>
       与
-      <a target="_blank" href="https://vitejs.dev" rel="noopener noreferrer">Vite</a>
+      <a target="_blank" href="https://cn.vitejs.dev" rel="noopener noreferrer">Vite</a>
       通用的配置、转换器、解析器和插件。
     </ListItem>
     <ListItem>使用与你的应用相同的设置来运行测试！</ListItem>

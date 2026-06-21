@@ -48,7 +48,7 @@ export default defineConfig({
 :::
 
 ::: tip
-要预览你的 HTML 报告，可以使用 [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) 命令：
+要预览你的 HTML 报告，可以使用 [vite preview](https://cn.vitejs.dev/guide/cli.html#vite-preview) 命令：
 
 ```sh
 npx vite preview --outDir .vitest
