@@ -898,7 +898,7 @@ export default ({ mode }: { mode: string }) => {
                 ],
               },
               {
-                text: '测试',
+                text: '测试标签',
                 link: '/guide/test-tags',
               },
               {

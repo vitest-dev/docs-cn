@@ -63,41 +63,41 @@ export const commands: BrowserCommands
 :::
 
 使用 [Commands API](/api/browser/commands) 如果你需要访问 Playwright 的 `page` 对象。
-<!-- TODO: translation -->
+
 ```ts
 export const page: {
   /**
-   * 更改 iframe 视口的大小。
+   * 更改 iframe 视口的大小
    */
   viewport: (width: number, height: number) => Promise<void>
   /**
-   * 对测试 iframe 或特定元素进行截图。
-   * @returns 截图文件的路径或路径和 base64 编码。
+   * 对测试 iframe 或特定元素进行截图
+   * @returns 截图文件的路径或路径和 base64 编码
    */
   screenshot: ((options: Omit<ScreenshotOptions, 'base64'> & { base64: true }) => Promise<{
     path: string
     base64: string
   }>) & ((options?: ScreenshotOptions) => Promise<string>)
   /**
-   * Add a trace marker when browser tracing is enabled.
+   * 当启用浏览器追踪时，添加一个追踪标记
    */
   mark(name: string, options?: { stack?: string; kind?: BrowserTraceEntryKind }): Promise<void>
   /**
-   * Group multiple operations under a trace marker when browser tracing is enabled.
+   * 当启用浏览器追踪时，将多个操作分组在一个追踪标记下
    */
   mark<T>(name: string, body: () => T | Promise<T>, options?: { stack?: string; kind?: BrowserTraceEntryKind }): Promise<T>
   /**
-   * Extend default `page` object with custom methods.
+   * 使用自定义方法扩展默认的 `page` 对象
    */
   extend: (methods: Partial<BrowserPage>) => BrowserPage
   /**
-   * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素。
+   * 将一个 HTML 元素包装在 `Locator` 中。在查询元素时，搜索将始终返回此元素
    */
   elementLocator(element: Element): Locator
   /**
    * iframe 定位器。这是一个进入 iframe body 的文档定位器
-   * 其工作原理与 `page` 对象类似。
-   * **Warning:** 目前，仅有 `playwright` 提供程序支持该功能。
+   * 其工作原理与 `page` 对象类似
+   * **Warning:** 目前，仅有 `playwright` 提供程序支持该功能
    */
   frameLocator(iframeElement: Locator): FrameLocator
 
@@ -122,7 +122,7 @@ export const page: {
 请注意，如果 `save` 设置为 `false`，`screenshot` 将始终返回 base64 字符串。
 在这种情况下，`path` 也会被忽略。
 :::
-<!-- TODO: translation -->
+
 ### mark
 
 ```ts
@@ -134,13 +134,13 @@ function mark<T>(
 ): Promise<T>
 ```
 
-Adds a named marker to the trace timeline for the current test.
+在追踪时间线为当前测试向添加一个命名标记。
 
-Pass `options.stack` to override the callsite location in trace metadata. This is useful for wrapper libraries that need to preserve the end-user source location.
+传递 `options.stack` 以覆盖追踪元数据中的调用位置。适用于需要保留最终用户源代码位置的封装库。
 
-Pass `options.kind` to categorize your marker as specific type, for example as `'action'`.
+传递 `options.kind` 以将你的标记分类为特定类型，例如 `'action'`。
 
-If you pass a callback, Vitest creates a trace group with this name, runs the callback, and closes the group automatically.
+如果你传递一个回调函数，Vitest 将使用此名称创建一个追踪组，运行回调，并自动关闭该组。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -156,9 +156,9 @@ await page.mark('submit flow', async () => {
 ```
 
 ::: tip
-This method is useful only when [`browser.trace`](/config/browser/trace) is enabled.
+此方法仅在启用 [`browser.trace`](/config/browser/trace) 时生效。
 
-A server-side equivalent is available on the [`BrowserCommandContext`](/api/browser/commands#recording-trace-markers) so [custom commands](/api/browser/commands#custom-commands) can record markers attributed to the test that triggered them.
+在 [`BrowserCommandContext`](/api/browser/commands#recording-trace-markers) 上有一个服务器端的等效方法，因此 [自定义命令](/api/browser/commands#custom-commands) 可以记录触发它们的测试的标记。
 :::
 
 ### frameLocator
@@ -179,23 +179,23 @@ const frame = page.frameLocator(
 await frame.getByText('Hello World').click() // ✅
 await frame.click() // ❌ 不可用
 ```
-<!-- TODO: translation -->
-::: danger IMPORTANT
-By default `frameLocator` does not support querying elements with `expect.element()` in cross-origin iframes. Interactive methods, such as `.click()` work fine. This is different behaviour than Playwright.
+
+::: danger 重要
+这与 Playwright 的行为不同。默认情况下，`frameLocator` 不支持在跨域 iframe 中使用 `expect.element()` 查询元素。交互式方法（例如 `.click()`）可以正常工作。
 
 ```ts
 const frame = page.frameLocator(page.getByTestId('cross-origin-iframe'))
 const button = frame.getByRole('button', { name: 'Submit' })
 
-await button.click() // Interactive methods work fine ✅
-await expect.element(button).toBeVisible() // Querying elements does not work ❌
+await button.click() // 交互式方法可以正常工作 ✅
+await expect.element(button).toBeVisible() // 查询元素失败 ❌
 ```
 
-If you need to work with cross-origin iframes, you'll need to pass `args: ["--disable-web-security"]` in [`launchOptions`](/config/browser/playwright.html#launchoptions). Or alternatively create a custom [browser command](/api/browser/commands.html#custom-commands) that accesses the iframe on server side where it's available.
+如果你需要处理跨域 iframe，你需要在 [`launchOptions`](/config/browser/playwright.html#launchoptions) 中传递 `args: ["--disable-web-security"]`。或者创建一个自定义的 [浏览器命令](/api/browser/commands.html#custom-commands)，在服务器端访问可用的 iframe。
 :::
 
-::: danger IMPORTANT
-At the moment, the `frameLocator` method is only supported by the `playwright` provider.
+::: danger 重要
+目前，`frameLocator` 方法只有 `playwright` 支持。
 
 交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
 :::
@@ -206,8 +206,8 @@ At the moment, the `frameLocator` method is only supported by the `playwright` p
 
 ::: warning
 CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
-<!-- TODO: translation -->
-CDP is a privileged debugging API. It is available only when browser API write and exec operations are enabled through [`browser.api.allowWrite`](/config/browser/api#api-allowwrite), [`browser.api.allowExec`](/config/browser/api#api-allowexec), [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec).
+
+CDP 是一个特权调试 API。仅当通过 [`browser.api.allowWrite`](/config/browser/api#api-allowwrite)、[`browser.api.allowExec`](/config/browser/api#api-allowexec)、[`api.allowWrite`](/config/api#api-allowwrite) 和 [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 写入和执行操作时，该 API 才可用。
 :::
 
 ```ts

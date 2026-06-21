@@ -518,8 +518,8 @@ export default defineConfig({
 ### HTML 报告器 {#html-reporter}
 
 生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
-<!-- TODO: translation -->
-The report artifact root can be specified using the reporter's `outputDir` option. The report entry is written to `<outputDir>/index.html` and the UI assets files live under `<outputDir>/ui/`. By default `outputDir` is `.vitest`, the shared Vitest artifact directory, so attachments (`.vitest/attachments`) and coverage (`.vitest/coverage`) are reused without being copied.
+
+报告产物的根目录可以通过报告器的 `outputDir` 选项指定。报告入口文件会被写入 `<outputDir>/index.html`，UI 资源文件则位于 `<outputDir>/ui/` 下。默认情况下，`outputDir` 是 `.vitest`，即 Vitest 共享的产物目录，因此附件（`.vitest/attachments`）和覆盖率（`.vitest/coverage`）会被直接复用，而是复制一份。
 
 :::code-group
 
@@ -536,8 +536,8 @@ export default defineConfig({
 ```
 
 :::
-<!-- TODO: translation -->
-Set `singleFile` to generate a self-contained HTML report:
+
+设置 `singleFile` 以生成自包含的 HTML 报告：
 
 ```ts [vitest.config.ts]
 export default defineConfig({
@@ -549,15 +549,15 @@ export default defineConfig({
 })
 ```
 
-When `singleFile` is enabled, Vitest inlines the UI assets, metadata, and test attachments into a single self-contained `index.html`. This makes the report easy to share, upload, or download as one artifact instead of preserving the whole `html` output directory.
+当启用 `singleFile` 时，Vitest 会将 UI 资源、元数据和测试附件内联到一个单一的自包含 `index.html` 文件中。这样一来，报告就更易于分享、上传或下载，而不必保留整个 `html` 输出目录。
 
 ::: warning
-`singleFile` has two caveats:
+`singleFile` 有两个注意事项：
 
-- The file can grow very large because everything is embedded inline — slow to open, memory-hungry, and possibly over the size limits of artifact viewers or static hosts.
-- Coverage HTML reports are not inlined yet and remain as separate files.
+- 由于所有内容都会以内联方式嵌入，文件体积可能会变得非常大，打开速度较慢、内存占用较高，也可能超出某些产物查看器或静态托管服务的大小限制。
+- 覆盖率 HTML 报告目前不会被内联，仍作为独立文件形式保留。
 
-Prefer the default multi-file report when the suite has many or large attachments, or when you need coverage included in the bundle.
+当测试套件包含许多或大型附件，或者你需要将覆盖率包含在包中时，建议优先使用默认的多文件报告。
 :::
 
 ::: tip

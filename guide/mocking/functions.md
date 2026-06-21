@@ -7,9 +7,9 @@
 如果你需要传递自定义函数实现作为参数或创建新的模拟实体，你可以使用 [`vi.fn()`](/api/vi#vi-fn) 来创建一个模拟函数。
 
 `vi.spyOn` 和 `vi.fn` 都共享相同的方法。
-<!-- TODO: translation -->
+
 ::: tip
-If you need a mock to return different values depending on the arguments it receives, [`vi.when()`](/api/vi#vi-when) lets you define argument-specific behaviors without writing your own `if/else` logic. See the [Conditional Mocking](/guide/recipes/conditional-mocking) recipe for details.
+如果你需要一个模拟函数根据接收到的参数返回不同的值，[`vi.when()`](/api/vi#vi-when) 允许你定义特定于参数的行为，而无需编写自己的 `if/else` 逻辑。详情请参阅 [条件模拟](/guide/recipes/conditional-mocking) 技巧指南。
 :::
 
 ## 示例 {#example}

@@ -108,10 +108,11 @@ interface ExpectPoll extends ExpectStatic {
   (actual: (options: { signal: AbortSignal }) => T, options?: { interval?: number; timeout?: number; message?: string }): Promise<Assertions<Awaited<T>>>
 }
 ```
-<!-- TODO: translation -->
-`expect.poll` reruns the _assertion_ until it is succeeded. You can configure how often Vitest retries and how long it waits by setting `interval` and `timeout` options. The `timeout` applies to the whole polling operation, including pending callback and async matcher execution.
 
-The callback receives an `AbortSignal` that is aborted when the poll timeout is reached.
+`expect.poll` 会重新运行 _断言_，直到成功为止。你可以通过设置 `interval` 和 `timeout` 选项来配置 Vitest 的重试频率和等待时长。`timeout` 适用于整个轮询操作，包括尚未完成的回调和异步匹配器的执行。
+
+回调函数会接收一个 `AbortSignal`，该信号会在轮询超时时被中止。
+当轮询超时时，传给回调的 `AbortSignal` 会被中止。
 
 如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
 
@@ -1013,12 +1014,12 @@ it('render basic', async () => {
 - **类型:** `(snapshot?: string, hint?: string) => void`
 
 与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 类似，但期望的值与 [`toThrow`](#toThrow) 相同。
-<!-- TODO: translation -->
+
 ## toMatchAriaSnapshot <Version type="experimental">4.1.4</Version> <Experimental /> {#tomatcharisnapshot}
 
-- **Type:** `() => void`
+- **类型:** `() => void`
 
-Captures the accessibility tree of a DOM element and generate a snapshot file or compares it against a stored snapshot. See the [ARIA Snapshots guide](/guide/browser/aria-snapshots) for more details.
+捕获 DOM 元素的无障碍树，生成快照文件或将其与存储的快照进行比较。详情请参阅 [ARIA 快照指南](/guide/browser/aria-snapshots)。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1036,9 +1037,10 @@ test('navigation accessibility', () => {
 
 ## toMatchAriaInlineSnapshot <Version type="experimental">4.1.4</Version> <Experimental /> {#tomatchariainlinesnapshot}
 
-- **Type:** `(snapshot?: string) => void`
+- **类型:** `(snapshot?: string) => void`
 
-Same as [`toMatchAriaSnapshot`](#tomatcharisnapshot), but stores the snapshot inline in the test file. See the [ARIA Snapshots guide](/guide/browser/aria-snapshots) for more details.
+与 [`toMatchAriaSnapshot`](#tomatcharisnapshot) 相同，但会将快照内联存储在测试文件中。详情请参阅 [ARIA 快照指南](/guide/browser/aria-snapshots)。
+
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1454,14 +1456,14 @@ test('spy function returns bananas on second call', async () => {
   expect(sell).toHaveNthResolvedWith(2, { product: 'bananas' })
 })
 ```
-<!-- TODO: translation -->
+
 ## toHaveBeenExhausted <Version>5.0.0</Version> {#tohavebeenexhausted}
 
-- **Type:** `() => void`
+- **类型:** `() => void`
 
-This assertion checks that every behavior registered on a [`vi.when`](/api/vi#vi-when) chain has been consumed. A behavior is considered exhausted when it has been called the number of times specified by its `times` option, or at least once for behaviors that apply indefinitely.
+此断言检查 [`vi.when`](/api/vi#vi-when) 链上注册的每个行为是否都已被消耗。当某个行为被调用次数达到其 `times` 选项指定的次数时，或者对于无限期生效的行为至少被调用一次时，该行为就被视为已消耗。
 
-Requires a `When` chain returned by `vi.when` to be passed to `expect`.
+需要将 `vi.when` 返回的 `When` 链传递给 `expect`。
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1476,15 +1478,15 @@ test('all behaviors were consumed', () => {
 
   expect(w).not.toHaveBeenExhausted()
 
-  spy(1) // consumes the `thenReturnOnce` behavior
-  spy(2) // satisfies the `thenReturn` behavior (called at least once)
+  spy(1) // 消耗 `thenReturnOnce` 行为
+  spy(2) // 满足 `thenReturn` 行为（至少被调用一次）
 
   expect(w).toHaveBeenExhausted()
 })
 ```
 
 ::: warning
-A `When` chain with no registered behaviors is never considered exhausted. `toHaveBeenExhausted` only passes when at least one `calledWith` with an associated action (`then*`) has been registered and every registered behavior has been fully consumed.
+一个没有注册任何行为的 `When` 链永远不会被视为已消耗。只有当至少注册了一个带有关联操作 (`then*`) 的 `calledWith`，并且每个已注册的行为都已被完全消耗时，`toHaveBeenExhausted` 才会通过。
 :::
 
 ## called <Version>4.1.0</Version> {#called}

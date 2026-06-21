@@ -1,12 +1,12 @@
 # assert
 
 Vitest 从 [`chai`](https://www.chaijs.com/api/assert/) 重新导出了 `assert` 方法，用于验证不变量。
-<!-- TODO: translation -->
-::: warning In-Source Testing {#in-source-testing}
-When using [assertion functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions) such as `assert` from `import.meta.vitest` in [in-source tests](/guide/in-source), TypeScript reports error `TS2775` because they must be called via an explicitly annotated name. Annotate the variable with `Chai.Assert` or call it directly:
+
+::: warning 源码内联测试 {#in-source-testing}
+在 [源码内联测试](/guide/in-source) 中使用来自 `import.meta.vitest` 的 [断言函数](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)（例如 `assert`）时，TypeScript 会报告 `TS2775` 错误，因为这类函数必须通过带有显式类型注解的名称来调用。请为该变量标注 Chai.Assert，或直接调用它：
 
 ::: code-group
-```ts [Annotated variable]
+```ts [类型注释变量]
 if (import.meta.vitest) {
   const { test, assert } = import.meta.vitest // [!code --]
   const { test } = import.meta.vitest // [!code ++]
@@ -17,7 +17,7 @@ if (import.meta.vitest) {
   })
 }
 ```
-```ts [Direct call]
+```ts [直接调用]
 if (import.meta.vitest) {
   const { test, assert } = import.meta.vitest // [!code --]
   const { test } = import.meta.vitest // [!code ++]

@@ -179,7 +179,7 @@ function createSpecification(
 ): TestSpecification
 ```
 
-创建一个 [测试规范](/api/advanced/test-specification)，可用于 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。规范将测试文件限定到特定的 `project` 和测试 `locations`（可选）。测试 [位置](/api/advanced/test-case#location) 是源代码中定义测试的代码行。如果提供了位置，Vitest 将仅运行在这些行上定义的测试。请注意，如果定义了 [`testNamePattern`](/config/testnamepattern)，则它也将被应用。
+创建一个 [TestSpecification](/api/advanced/test-specification)，可用于 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。规范将测试文件限定到特定的 `project` 和测试 `locations`（可选）。测试 [位置](/api/advanced/test-case#location) 是源代码中定义测试的代码行。如果提供了位置，Vitest 将仅运行在这些行上定义的测试。请注意，如果定义了 [`testNamePattern`](/config/testnamepattern)，则它也将被应用。
 
 ```ts
 import { resolve } from 'node:path/posix'

@@ -13,11 +13,11 @@ interface UserConfig {
 
 type ConfigReporter = string | Reporter | [string, object?]
 ```
-<!-- TODO: translation -->
-- **Default:** [`'default'`](/guide/reporters#default-reporter). See [Default Reporters](/guide/reporters#default-reporters) for environment-specific behavior.
-- **CLI:**
-  - `--reporter=tap` for a single reporter
-  - `--reporter=verbose --reporter=github-actions` for multiple reporters
+
+- **默认值:** [`'default'`](/guide/reporters#default-reporter)。环境特定行为请参阅 [默认报告器](/guide/reporters#default-reporters)。
+- **命令行终端:**
+  - 单报告器 `--reporter=tap`
+  - 多报告器 `--reporter=verbose --reporter=github-actions`
 
 此选项定义在 Vitest 测试运行期间可用的单个报告器或报告器列表。
 

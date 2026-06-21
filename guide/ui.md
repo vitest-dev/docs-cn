@@ -48,16 +48,16 @@ export default defineConfig({
 :::
 
 ::: tip
-要预览你的 HTML 报告，可以使用 [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) 命令：
+要预览你的 HTML 报告，可以使用 [vite preview](https://cn.vitejs.dev/guide/cli.html#vite-preview) 命令：
 
 ```sh
 npx vite preview --outDir .vitest
 ```
-<!-- TODO: translation -->
-You can configure the output location with the HTML reporter's `outputDir` option. It points to the report artifact root, and the report entry is written to `<outputDir>/index.html`. The default value is `.vitest`, the shared Vitest artifact directory.
+
+你可以通过 HTML 报告器的 `outputDir` 选项来配置输出位置。它指向报告产物的根目录，报告入口文件会被写入 `<outputDir>/index.html`。默认值是 `.vitest`，即 Vitest 共享的产物目录。
 :::
 
-If you need a portable report that can be opened or shared as one file, see [`singleFile`](/guide/reporters#html-reporter) in the HTML reporter documentation.
+如果你需要一个便于打开或分享的单文件报告，请参阅 HTML 报告器文档中的 [`singleFile`](/guide/reporters#html-reporter)。
 
 ::: tip
 要在持续集成环境，例如 GitHub Actions 中查看 HTML 报告，请将输出目录作为产物上传：
@@ -74,8 +74,8 @@ If you need a portable report that can be opened or shared as one file, see [`si
 ```
 
 这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
-<!-- TODO: translation -->
-When you use `singleFile: true`, you can upload the report as a single file and it will become viewable directly GitHub artifacts with `archive: false` option:
+
+当你使用 `singleFile: true` 时，报告作为单个文件进行上传，配合 `archive: false` 选项，报告直接可以在 GitHub Artifacts 中查看：
 
 ```yaml
 - uses: actions/upload-artifact@v7

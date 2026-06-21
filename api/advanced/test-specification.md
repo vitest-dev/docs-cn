@@ -45,7 +45,7 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 测试模块将运行的 [`pool`](/config/pool)。
 
 ::: danger
-在启用 [`typecheck.enabled`](/config/typecheck#typecheck-enabled) 配置的情况下，单个测试项目中可能存在多个运行池。这意味着可能出现多个测试规范共享相同 `moduleId` 但使用不同 `pool` 的情况。请注意，后续版本将仅支持单一运行池模式。
+在启用 [`typecheck.enabled`](/config/typecheck#typecheck-enabled) 配置的情况下，单个测试项目中可能存在多个运行池。这意味着可能出现多个 TestSpecification 共享相同 `moduleId` 但使用不同 `pool` 的情况。请注意，后续版本将仅支持单一运行池模式。
 :::
 
 ## testLines
@@ -81,7 +81,7 @@ describe('a group of tests', () => { // [!code error]
 
 ## testIds <Version>4.1.0</Version> {#testids}
 
-当前测试规范中需要运行的任务 ID 集合。
+当前 TestSpecification 中需要运行的任务 ID 集合。
 
 ## testTagsFilter <Version>4.1.0</Version> {#testtagsfilter}
 

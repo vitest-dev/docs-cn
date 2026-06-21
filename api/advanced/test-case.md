@@ -292,14 +292,14 @@ function artifacts(): ReadonlyArray<TestArtifact>
 ```
 
 通过 `recordArtifact` API，在测试执行过程中记录的 [测试产物](/api/advanced/artifacts)。
-<!-- TODO: translation -->
+
 ## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
 
 ```ts
 function toTestSpecification(): TestSpecification
 ```
 
-Returns a new [test specification](/api/advanced/test-specification) that can be used to filter or run this specific test case.
+返回一个新的 [TestSpecification](/api/advanced/test-specification)，可用于过滤或运行此特定测试用例。
 
 ## logs <Version>5.0.0</Version> {#logs}
 
@@ -307,4 +307,4 @@ Returns a new [test specification](/api/advanced/test-specification) that can be
 function logs(): ReadonlyArray<UserConsoleLog>
 ```
 
-Console logs recorded during the test execution.
+测试执行期间记录的 console 日志。
