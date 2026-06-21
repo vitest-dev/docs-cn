@@ -199,8 +199,8 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 
 - **命令行终端:** `--coverage.thresholds.perFile <boolean>`
 - **配置:** [coverage.thresholds.perFile](/config/coverage#coverage-thresholds-perfile)
-<!-- TODO: translation -->
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。Object form is available in config files only.
+
+检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。对象形式仅在配置文件中可用。
 
 ### coverage.thresholds.autoUpdate
 
@@ -636,13 +636,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **配置:** [retry.condition](/config/retry#retry-condition)
 
 触发重试操作的错误信息匹配正则表达式。仅当错误信息符合该模式时才会执行重试（默认值：所有错误都会触发重试）
-<!-- TODO: translation -->
+
 ### repeats
 
-- **CLI:** `--repeats <number>`
-- **Config:** [repeats](/config/repeats)
+- **命令行终端:** `--repeats <number>`
+- **配置:** [repeats](/config/repeats)
 
-Repeat every test a specific number of times regardless of the result (default: `0`)
+无论结果如何，都重复每个测试运行到指定的次数（默认值：`0`）
 
 ### diff.aAnnotation
 
@@ -1011,4 +1011,4 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **命令行终端:** `--experimental.preParse`
 - **配置:** [experimental.preParse](/config/experimental#experimental-preparse)
 
-在运行测试前解析测试规范。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。
+在运行测试前解析 TestSpecification。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。

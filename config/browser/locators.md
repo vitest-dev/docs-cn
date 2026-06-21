@@ -27,17 +27,17 @@ outline: deep
 const locator = page.getByText('Hello, World', { exact: true })
 await locator.click()
 ```
-<!-- TODO: translation -->
+
 ## browser.locators.errorFormat <Version>5.0.0</Version> {#browser-locators-errorformat}
 
-- **Type:** `'html' | 'aria' | 'all'`
-- **Default:** `'all'`
+- **类型:** `'html' | 'aria' | 'all'`
+- **默认值:** `'all'`
 
-Controls what Vitest prints when a locator cannot find an element. Vitest prints information for the DOM subtree where the locator search ran, or `document.body` for page-level locators.
+控制当定位器找不到元素时 Vitest 打印的内容。Vitest 会打印定位器搜索所运行的 DOM 子树的信息，对于页面级定位器则打印 `document.body` 的信息。
 
-- `'html'` prints that DOM subtree as HTML using [`utils.prettyDOM`](/api/browser/context#prettydom).
-- `'aria'` prints that DOM subtree as an [ARIA snapshot](/guide/browser/aria-snapshots), which focuses on accessible roles, names, and state.
-- `'all'` prints the ARIA snapshot first, followed by the HTML output.
+- `'html'` 使用 [`utils.prettyDOM`](/api/browser/context#prettydom) 将该 DOM 子树以 HTML 格式打印。
+- `'aria'` 将该 DOM 子树以 [ARIA 快照](/guide/browser/aria-snapshots) 格式打印，重点关注无障碍角色、名称和状态。
+- `'all'` 先打印 ARIA 快照，然后是 HTML 输出。
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -54,7 +54,7 @@ export default defineConfig({
 })
 ```
 
-For example, `all` displays a following error:
+例如，`all` 会显示如下错误：
 
 ```html
 VitestBrowserElementError: Cannot find element with locator: getByRole('button', { name: 'Save' })

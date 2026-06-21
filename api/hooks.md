@@ -34,8 +34,8 @@ beforeEach(async () => {
 ```
 
 此处，`beforeEach` 确保每个测试都会添加用户。
-<!-- TODO: translation -->
-`beforeEach` can also return an optional cleanup function. It's similar to [`afterEach`](#aftereach). The only difference is that it's executed after all other `afterEach` hooks:
+
+`beforeEach` 也可以返回一个可选的清理函数。这类似于 [`afterEach`](#aftereach)。唯一的区别是，它会在所有其他 `afterEach` 钩子之后执行：
 
 ```ts
 import { beforeEach } from 'vitest'

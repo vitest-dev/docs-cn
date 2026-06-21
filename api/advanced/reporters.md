@@ -79,7 +79,7 @@ function onTestRunStart(
 ): Awaitable<void>
 ```
 
-当新的测试运行开始时调用此方法。它接收计划运行的 [测试规范](/api/advanced/test-specification) 数组。此数组是只读的，仅用于信息目的。
+当新的测试运行开始时调用此方法。它接收计划运行的 [TestSpecification](/api/advanced/test-specification) 数组。此数组是只读的，仅用于信息目的。
 
 如果 Vitest 没有找到任何要运行的测试文件，此事件将以空数组调用，然后 [`onTestRunEnd`](#ontestrunend) 将立即被调用。
 

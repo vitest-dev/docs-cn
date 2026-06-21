@@ -216,8 +216,8 @@ describe(
 - **别名:** [`test.concurrent`](#test-concurrent)
 
 是否与测试套件中其他并发测试并行运行。
-<!-- TODO: translation -->
-Set `concurrent` to `false` to opt out of concurrency inherited from [`describe.concurrent`](/api/describe#describe-concurrent) or [`sequence.concurrent`](/config/sequence#sequence-concurrent):
+
+将 `concurrent` 设为 `false`，以禁用从 [`describe.concurrent`](/api/describe#describe-concurrent) 或 [`sequence.concurrent`](/config/sequence#sequence-concurrent) 继承的并发执行：
 
 ```ts
 test('runs sequentially', { concurrent: false }, async () => {
@@ -666,9 +666,9 @@ test.concurrent.for([
 挂载在 test.extend 实例上的 `aroundAll` 钩子，继承 [`test.extend`](#test-extend) 的类型。更多内容请参阅 [aroundAll](/api/hooks#aroundall)。
 
 ## bench <Experimental /> {#bench}
-<!-- TODO: translation -->
-::: warning Updated in Vitest 5
-The benchmarking API has been rewritten. `bench` is no longer a top-level import from `vitest`, and the `bench.skip` / `bench.only` / `bench.todo` helpers have been removed. `bench` is now a [test-context fixture](/guide/test-context#bench) accessed from inside a `test()`.
 
-See the [Benchmarking guide](/guide/benchmarking) for the new API.
+::: warning 已在 Vitest 5 中更新
+基准测试 API 已重写。`bench` 不再是 `vitest` 的顶层导入，并且 `bench.skip`/`bench.only`/`bench.todo` 辅助函数已被移除。`bench` 现在是从 `test()` 内部访问的 [测试上下文](/guide/test-context#bench)。
+
+新的 API 请参阅 [基准测试指南](/guide/benchmarking)。
 :::

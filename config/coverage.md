@@ -237,8 +237,8 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 - **默认值:** `false`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.thresholds.perFile`, `--coverage.thresholds.perFile=false`
-<!-- TODO: translation -->
-When `true`, each file is checked against the top-level thresholds instead of the project-wide aggregate. When set to an object, both are checked: the aggregate against the top-level thresholds, and every file against these per-file minimums.
+
+当设置为 `true` 时，每个文件都会根据顶层阈值进行检查，而不是根据项目范围的聚合值。当设置为对象时，两者都会检查：聚合值根据顶层阈值检查，每个文件根据这些按文件最小值检查。
 
 <!-- eslint-skip -->
 ```ts
@@ -260,7 +260,7 @@ When `true`, each file is checked against the top-level thresholds instead of th
 }
 ```
 
-`{ 100: true }` is also accepted inside the object as a shortcut for setting all four metrics to `100`:
+对象中也接受 `{ 100: true }` 作为将所有四个指标设置为 `100` 的快捷方式：
 
 <!-- eslint-skip -->
 ```ts
@@ -276,7 +276,7 @@ When `true`, each file is checked against the top-level thresholds instead of th
 }
 ```
 
-`perFile` can also be set on an individual [glob-pattern threshold](/config/coverage#coverage-thresholds-glob-pattern). Glob patterns do **not** inherit the top-level `perFile`; set it on each glob explicitly.
+perFile` 也可以设置在单独的 [全局模式阈值](/config/coverage#coverage-thresholds-glob-pattern) 上。全局模式 **不会** 继承顶层的 `perFile`；需要在每个全局模式上显式设置它。
 
 <!-- eslint-skip -->
 ```ts
@@ -305,7 +305,7 @@ When `true`, each file is checked against the top-level thresholds instead of th
 当实际覆盖率超过配置阈值时，自动将 `lines`、`functions`、`branches` 和 `statements` 的阈值更新到配置文件中。
 此选项适用于覆盖率提高时保持阈值不变。
 
-你也可以通过传入函数自定义阈值更新值的格式，The function receives the new threshold as the first argument and the previous threshold as the second:
+你也可以通过传入函数自定义阈值更新值的格式，数接收新的阈值作为第一个参数，先前的阈值作为第二个参数：
 
 <!-- eslint-skip -->
 ```ts
@@ -342,8 +342,8 @@ When `true`, each file is checked against the top-level thresholds instead of th
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 
 设置与 glob 模式匹配的文件的阈值。
-<!-- TODO: translation -->
-Each glob pattern can set its own `perFile` (`boolean | object`), checked exactly like the top-level `perFile` but scoped to the matched files. Glob patterns do not inherit the top-level `perFile` — set it per glob.
+
+每个全局模式可以设置自己的 `perFile`（`boolean | object`），其检查方式与顶层 `perFile` 完全相同，但作用域限定在匹配的文件上。全局模式不会继承顶层的 `perFile`，需要为每个全局模式单独设置。
 
 ::: tip 注意
 Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆盖率阈值计算。
@@ -365,7 +365,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
         functions: 90,
         branches: 85,
         lines: 80,
-        // each matching file must individually hit the thresholds above
+        // 每个匹配的文件都必须单独达到上述阈值
         perFile: true,
       },
 
@@ -520,14 +520,14 @@ export default defineConfig({
 - **命令行终端:** `--coverage.changed`, `--coverage.changed=<commit/branch>`
 
 仅收集自指定提交或分支以来更改的文件的代码覆盖率。设置为 `true` 时，使用已暂存和未暂存的更改。
-<!-- TODO: translation -->
+
 ## coverage.autoAttachSubprocess <Version>5.0.0</Version> {#coverage-autoattachsubprocess}
 
-- **Type:** `boolean`
-- **Default:** `false`
-- **Available for providers:** `'v8'`
-- **CLI:** `--coverage.autoAttachSubprocess`
+- **类型:** `boolean`
+- **默认值:** `false`
+- **可用的测试提供者:** `'v8'`
+- **命令行终端:** `--coverage.autoAttachSubprocess`
 
-Track coverage of the `node:child_process` and `node:worker_threads` spawned during test run.
+跟踪测试运行期间生成的 `node:child_process` 和 `node:worker_threads` 的覆盖率。
 
-Note that this option has some performance overhead as its using [`NODE_V8_COVERAGE`](https://nodejs.org/api/cli.html#node-v8-coveragedir) internally. This triggers Node to write lots of unnecessary files on file system.
+请注意，此选项有一定的性能开销，因为它在内部使用了 [`NODE_V8_COVERAGE`](https://nodejs.org/api/cli.html#node-v8-coveragedir)。这会触发 Node 在文件系统上写入大量不必要的文件。

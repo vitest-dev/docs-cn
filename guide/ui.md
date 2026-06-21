@@ -53,11 +53,11 @@ export default defineConfig({
 ```sh
 npx vite preview --outDir .vitest
 ```
-<!-- TODO: translation -->
-You can configure the output location with the HTML reporter's `outputDir` option. It points to the report artifact root, and the report entry is written to `<outputDir>/index.html`. The default value is `.vitest`, the shared Vitest artifact directory.
+
+你可以通过 HTML 报告器的 `outputDir` 选项来配置输出位置。它指向报告产物的根目录，报告入口文件会被写入 `<outputDir>/index.html`。默认值是 `.vitest`，即 Vitest 共享的产物目录。
 :::
 
-If you need a portable report that can be opened or shared as one file, see [`singleFile`](/guide/reporters#html-reporter) in the HTML reporter documentation.
+如果你需要一个便于打开或分享的单文件报告，请参阅 HTML 报告器文档中的 [`singleFile`](/guide/reporters#html-reporter)。
 
 ::: tip
 要在持续集成环境，例如 GitHub Actions 中查看 HTML 报告，请将输出目录作为产物上传：

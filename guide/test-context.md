@@ -116,10 +116,10 @@ it('stop request when test times out', async ({ signal }) => {
   await fetch('/resource', { signal })
 }, 2000)
 ```
-<!-- TODO: translation -->
+
 ### `bench` <Version>5.0.0</Version> {#bench}
 
-The `bench` fixture lets you define and run benchmarks inside regular tests. You can measure throughput, compare implementations, and assert relative performance:
+`bench` 夹具可让你在常规测试中定义并运行基准测试。你可以用它衡量吞吐量、比较不同实现，并对相对性能进行断言：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -138,7 +138,7 @@ test('compare parsers', async ({ bench }) => {
 })
 ```
 
-See the [Benchmarks guide](/guide/benchmarking) for full documentation on comparisons, baselines, and assertion matchers.
+有关对比、基线和断言匹配器的完整说明，请参阅 [基线测试指南](/guide/benchmarking)。
 
 ### `onTestFailed`
 

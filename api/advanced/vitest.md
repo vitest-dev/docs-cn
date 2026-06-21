@@ -140,12 +140,12 @@ function globTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-此方法通过收集所有项目中的每个测试来构造新的 [测试规范](/api/advanced/test-specification)，使用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
+此方法通过收集所有项目中的每个测试来构造新的 [TestSpecification](/api/advanced/test-specification)，使用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
-此方法自动缓存所有测试规范。当我们下次调用 [`getModuleSpecifications`](#getmodulespecifications) 时，它将返回相同的规范，除非在此之前调用了 [`clearSpecificationsCache`](#clearspecificationscache)。
+此方法自动缓存所有 TestSpecification。当我们下次调用 [`getModuleSpecifications`](#getmodulespecifications) 时，它将返回相同的规范，除非在此之前调用了 [`clearSpecificationsCache`](#clearspecificationscache)。
 
 ::: warning
-从 Vitest 3 开始，如果 `poolMatchGlob` 有多个池或启用了 `typecheck`，则可能有多个具有相同模块 ID（文件路径）的测试规范。这种可能性将在 Vitest 4 中移除。
+从 Vitest 3 开始，如果 `poolMatchGlob` 有多个池或启用了 `typecheck`，则可能有多个具有相同模块 ID（文件路径）的 TestSpecification。这种可能性将在 Vitest 4 中移除。
 :::
 
 ```ts
@@ -162,7 +162,7 @@ function getRelevantTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个测试规范。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
+此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个 TestSpecification。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
 
 ::: warning
 此方法可能很慢，因为它需要过滤 `--changed` 参数。如果我们只需要测试文件列表，请不要使用它。
@@ -191,7 +191,7 @@ function collect(filters?: string[]): Promise<TestRunResult>
 
 执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
-此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析测试规范。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
+此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析 TestSpecification。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
 
 ::: warning
 请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
@@ -237,7 +237,7 @@ function standalone(): Promise<void>
 function getModuleSpecifications(moduleId: string): TestSpecification[]
 ```
 
-返回与模块 ID 相关的测试规范列表。ID 应已解析为绝对文件路径。如果 ID 不匹配 `include` 或 `includeSource` 模式，则返回的数组将为空。
+返回与模块 ID 相关的 TestSpecification 列表。ID 应已解析为绝对文件路径。如果 ID 不匹配 `include` 或 `includeSource` 模式，则返回的数组将为空。
 
 此方法可以根据 `moduleId` 和 `pool` 返回已缓存的规范。但请注意，[`project.createSpecification`](/api/advanced/test-project#createspecification) 总是返回一个新实例，并且不会自动缓存。但是，当调用 [`runTestSpecifications`](#runtestspecifications) 时，规范会自动缓存。
 
@@ -251,7 +251,7 @@ function getModuleSpecifications(moduleId: string): TestSpecification[]
 function clearSpecificationsCache(moduleId?: string): void
 ```
 
-当调用 [`globTestSpecifications`](#globtestspecifications) 或 [`runTestSpecifications`](#runtestspecifications) 时，Vitest 会自动缓存每个文件的测试规范。此方法会根据第一个参数清除给定文件的缓存或整个缓存。
+当调用 [`globTestSpecifications`](#globtestspecifications) 或 [`runTestSpecifications`](#runtestspecifications) 时，Vitest 会自动缓存每个文件的 TestSpecification。此方法会根据第一个参数清除给定文件的缓存或整个缓存。
 
 ## runTestSpecifications
 
@@ -288,7 +288,7 @@ function runTestFiles(
 ): Promise<TestRunResult>
 ```
 
-该功能会根据文件路径过滤器自动创建待运行的测试规范。
+该功能会根据文件路径过滤器自动创建待运行的 TestSpecification。
 
 这与 [`start`](#start) 的不同之处在于：它不会创建覆盖率提供程序、不会触发 `onInit` 和 `onWatcherStart` 事件，且在无文件可运行时也不会抛出错误（此时函数将返回空数组且不会触发测试运行）。
 
@@ -312,7 +312,7 @@ function collectTests(
 
 执行测试文件而不运行测试回调。`collectTests` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。
 
-此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供测试规范。
+此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供 TestSpecification。
 
 ::: warning
 请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。

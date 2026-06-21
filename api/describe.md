@@ -207,8 +207,8 @@ describe.concurrent('suite', () => {
   test.concurrent('concurrent test 3', async () => { /* ... */ })
 })
 ```
-<!-- TODO: translation -->
-Set `concurrent` to `false` to opt out of concurrency inherited from a parent suite or [`sequence.concurrent`](/config/sequence#sequence-concurrent):
+
+将 `concurrent` 设为 `false`，从而禁用从父级测试套件或 [`sequence.concurrent`](/config/sequence#sequence-concurrent) 继承的并发执行：
 
 ```ts
 describe.concurrent('suite', () => {

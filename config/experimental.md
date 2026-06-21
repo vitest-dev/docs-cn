@@ -485,7 +485,7 @@ export default {
 - **类型:** `boolean`
 - **默认值:** `false`
 
-在运行测试前预解析测试规范。这会在所有文件中应用 [`.only`](/api/test#test-only) 修饰符、[`-t`](/config/testnamepattern) 测试名称模式、[`--tags-filter`](/guide/test-tags#syntax)、[测试行号](/api/advanced/test-specification#testlines) 和 [测试ID](/api/advanced/test-specification#testids) 而无需执行它们。例如，如果只有一个测试标记了 `.only`，Vitest 将跳过所有其他文件中的测试。
+在运行测试前预解析 TestSpecification。这会在所有文件中应用 [`.only`](/api/test#test-only) 修饰符、[`-t`](/config/testnamepattern) 测试名称模式、[`--tags-filter`](/guide/test-tags#syntax)、[测试行号](/api/advanced/test-specification#testlines) 和 [测试ID](/api/advanced/test-specification#testids) 而无需执行它们。例如，如果只有一个测试标记了 `.only`，Vitest 将跳过所有其他文件中的测试。
 
 ::: tip
 使用 [`.only`](/api/test#test-only)、[`-t`](/config/testnamepattern) 参数或 [`--tags-filter`](/guide/test-tags#syntax) 时推荐启用此选项。
