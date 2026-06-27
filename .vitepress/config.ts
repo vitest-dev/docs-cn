@@ -1040,7 +1040,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/custom-assertions',
               },
               {
-                text: 'Watching Non-Imported Files',
+                text: '监视非直接导入的文件',
                 link: '/guide/recipes/watch-templates',
               },
               {
