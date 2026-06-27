@@ -1024,7 +1024,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/db-transaction',
               },
               {
-                text: 'Cancelling Long-Running Operations Gracefully',
+                text: '优雅地取消长时间运行的操作',
                 link: '/guide/recipes/cancellable',
               },
               {
