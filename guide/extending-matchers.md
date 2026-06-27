@@ -1,12 +1,12 @@
 ---
-title: 扩展断言 | 指南
+title: 扩展匹配器 | 指南
 ---
 
-# 扩展断言 {#extending-matchers}
+# 扩展匹配器 {#extending-matchers}
 
 由于 Vitest 兼容 Chai 和 Jest，所以可以根据个人喜好使用 [`chai.use`](https://www.chaijs.com/guide/plugins/) API 或者 `expect.extend`。
 
-本文将以 `expect.extend` 为例探讨扩展断言。如果你对 Chai 的 API 更感兴趣，可以查看 [他们的指南](https://www.chaijs.com/guide/plugins/)。
+本文将以 `expect.extend` 为例探讨扩展匹配器。如果你对 Chai 的 API 更感兴趣，可以查看 [他们的指南](https://www.chaijs.com/guide/plugins/)。
 
 为了扩展默认的断言，可以使用对象包裹断言的形式调用 `expect.extend` 方法。
 

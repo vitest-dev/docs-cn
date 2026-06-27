@@ -906,7 +906,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/test-annotations',
               },
               {
-                text: '扩展断言',
+                text: '扩展匹配器',
                 link: '/guide/extending-matchers',
               },
               {
@@ -1020,7 +1020,7 @@ export default ({ mode }: { mode: string }) => {
             collapsed: false,
             items: [
               {
-                text: '每一个测试对应一个数据库事务',
+                text: '一个测试对应一个数据库事务',
                 link: '/guide/recipes/db-transaction',
               },
               {
@@ -1036,7 +1036,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/type-narrowing',
               },
               {
-                text: 'Custom Assertion Helpers',
+                text: '自定义断言工具函数',
                 link: '/guide/recipes/custom-assertions',
               },
               {

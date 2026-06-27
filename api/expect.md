@@ -2277,7 +2277,7 @@ declare module 'vitest' {
 :::
 
 :::tip
-如果想了解更多信息，请查看 [扩展断言](/guide/extending-matchers)。
+如果想了解更多信息，请查看 [扩展匹配器](/guide/extending-matchers)。
 :::
 
 ## expect.addEqualityTesters {#expect-addequalitytesters}
