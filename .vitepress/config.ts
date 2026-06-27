@@ -1032,7 +1032,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/wait-for',
               },
               {
-                text: 'Type Narrowing in Tests',
+                text: '在测试中收窄类型',
                 link: '/guide/recipes/type-narrowing',
               },
               {

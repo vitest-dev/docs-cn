@@ -1,12 +1,12 @@
 ---
-title: Type Narrowing in Tests | Recipes
+title: 在测试中收窄类型 | 技巧
 ---
 
-# Type Narrowing in Tests
+# 在测试中收窄类型 {#type-narrowing-in-tests}
 
-Tests deal with possibly-null values everywhere. `document.querySelector` returns `Element | null`, `Map.get(key)` returns `T | undefined`, and similar optional shapes show up throughout. The usual workarounds in test code are an unsafe cast with `as`, a non-null assertion with `!` on every access, or a runtime check like `expect(x).toBeTruthy()` that throws when the value is missing. All three add noise, and the runtime check is actively misleading because it doesn't narrow the type the way it looks like it should.
+测试中会频繁遇到可能为 null 的值。`document.querySelector` 返回 `Element | null`，`Map.get(key)` 返回 `T | undefined`，类似的可选接口规范随处可见。测试代码中常见的变通方式包括：用 `as` 进行不安全的类型转换、每次访问时使用 `!` 进行非空断言，或使用在值缺失时抛出异常的运行时检查，如 `expect(x).toBeTruthy()` ()`。这三种方式都会引入冗余代码，而运行时检查更会误导读者——因为它并未像看起来那样收窄类型。
 
-[`expect.assert`](/api/expect#assert) <Version>4.0.0</Version> throws at runtime and narrows the TypeScript type. The same call replaces all three.
+[`expect.assert`](/api/expect#assert) <Version>4.0.0</Version> 会在运行时收窄 TypeScript 类型并抛出异常。同一个调用可以替代上述三种方式。
 
 ## Pattern
 
@@ -17,48 +17,48 @@ test('reads stored user', () => {
   const cache = new Map<string, { id: string; name: string }>()
   cache.set('alice', { id: '1', name: 'Alice' })
 
-  const user = cache.get('alice') // typed as `{ id, name } | undefined`
-  expect.assert(user) // throws if undefined, narrows below
-  expect(user.name).toBe('Alice') // no `!`, no `as`, type is `{ id, name }`
+  const user = cache.get('alice') // 类型为 `{ id, name } | undefined`
+  expect.assert(user) // 若为 undefined 则抛出异常，并在下方收窄类型
+  expect(user.name).toBe('Alice') // 无需 `!` 或 `as`，类型为 `{ id, name}`
 })
 ```
 
-The same shape collapses any "look up a value, check it exists, then use it" sequence:
+同样的结构可以简化任何 “查找值、检查存在、然后使用” 的流程：
 
 ```ts
 const job = queue.find(j => j.id === 'build-42') // Job | undefined
 expect.assert(job)
-job.cancel() // narrowed to Job
+job.cancel() // 已收窄为 Job
 ```
 
-## Why `toBeTruthy` doesn't narrow
+## 为什么 toBeTruthy 无法收窄类型 {#why-tobetruthy-doesn-t-narrow}
 
-`expect(x).toBeTruthy()` and `expect(x).toBeDefined()` throw at runtime when the value is missing, so the test fails the way you want. They don't narrow the type, though, because their TypeScript signature returns `void` rather than the special `asserts` form.
+`expect(x).toBeTruthy()` 和 `expect(x).toBeDefined()` 值缺失时会在运行时抛出异常，因此测试会按预期失败。但它们不会收窄类型，因为 TypeScript 签名返回 void，而不是特殊的断言函数形式。
 
-`expect.assert` is typed as an assertion function, so the same call serves both jobs.
+`expect.assert` 拥有断言函数的类型，因此同一个调用能同时达到抛出异常和收窄类型的目的。
 
-## Narrowing beyond null
+## 收窄非 null 类型 {#narrowing-beyond-null}
 
-`expect.assert` accepts any boolean expression and applies the same narrowing TypeScript would do for an `if` branch. That covers `typeof` and `instanceof` checks:
+`expect.assert` 接受任意布尔表达式，并应用 TypeScript 在 `if` 分支中会使用的相同类型收窄逻辑。这包括 `typeof` 和 `instanceof` 检查：
 
 ```ts
 expect.assert(typeof input === 'string')
-input.toUpperCase() // input is `string`
+input.toUpperCase() // input 是 `string` 类型
 
 expect.assert(error instanceof MyError)
-expect(error.code).toBe('E_FOO') // error is `MyError`
+expect(error.code).toBe('E_FOO') // error 是 `MyError` 类型
 ```
 
-For common shapes there are pre-built helpers from chai's [`assert` API](/api/assert), reachable via the same `expect.assert` namespace:
+对于常见的接口规范，有 chai 的 [`assert` API](/api/assert)，提供的预制工具函数，可通过相同的 `expect.assert` 命名空间访问：
 
 ```ts
-expect.assert.isDefined(maybeUser) // narrows away `undefined`
-expect.assert.isString(input) // narrows to string
-expect.assert.instanceOf(error, MyError) // narrows to MyError
+expect.assert.isDefined(maybeUser) // 收窄掉 `undefined`
+expect.assert.isString(input) // 收窄为 string
+expect.assert.instanceOf(error, MyError) // 收窄为 MyError
 ```
 
-## See also
+## 相关链接 {#see-also}
 
 - [`expect.assert`](/api/expect#assert)
 - [Chai `assert` API](/api/assert)
-- [Waiting for Async Conditions](/guide/recipes/wait-for)
+- [等待异步条件](/guide/recipes/wait-for)
