@@ -1020,7 +1020,7 @@ export default ({ mode }: { mode: string }) => {
             collapsed: false,
             items: [
               {
-                text: 'Database Transaction per Test',
+                text: '每一个测试对应一个数据库事务',
                 link: '/guide/recipes/db-transaction',
               },
               {
