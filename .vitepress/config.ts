@@ -1028,7 +1028,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/cancellable',
               },
               {
-                text: 'Waiting for Async Conditions',
+                text: '等待异步条件',
                 link: '/guide/recipes/wait-for',
               },
               {

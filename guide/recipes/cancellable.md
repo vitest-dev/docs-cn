@@ -18,7 +18,6 @@ test('stop request when test times out', async ({ signal }) => {
 }, 2000)
 ```
 
-If the request hasn't completed within 2 seconds, `fetch` rejects with `AbortError` instead of the test hanging until the operation finishes.
 如果请求未在 2 秒内完成，`fetch` 会抛出 `AbortError`，而不会让测试挂起直到操作结束。
 
 ## 其他接受 `AbortSignal` 的 Web API {#other-web-apis-that-accept-an-abortsignal}
