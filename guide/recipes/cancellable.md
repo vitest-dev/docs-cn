@@ -6,7 +6,7 @@ title: 可取消的测试资源 | 技巧
 
 测试运行过程中可能占用一些资源，测试停止后这些资源不会随之释放。无论是 `fetch`、子进程、文件流还是轮询，它们都无法感知 Vitest 已取消测试，导致工作进程只能被动等待它们自行结束 Vitest 会在测试超时超过 `timeout` 限制、在 `--bail` 模式下另一个测试失败，或有人在终端按下 <kbd>Ctrl</kbd>+<kbd>C</kbd> 时取消测试。
 
-测试上下文提供了 [`signal`](/guide/test-context#signal) <Version>3.2.0</Version>，它会在上述所有情况下触发。将 signal 传递给任何接受 `AbortSignal` 的对象，当 Vitest 取消测试时对应的资源就会被释放。
+测试上下文提供了 [`signal`](/guide/test-context#signal) <Version>3.2.0</Version>，它会在上述所有情况下触发。将它传递给任何接受 `AbortSignal` 的对象，当 Vitest 取消测试时对应的资源就会被释放。
 
 ## 示例 {#pattern}
 

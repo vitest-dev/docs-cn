@@ -28,7 +28,7 @@ test('server starts', async () => {
 
 失败信息是标准的 `expect` 差异，无需手动维护 `throw new Error('Server not started')`。适用于大多数 “等待 X 变为 Y” 的场景。
 
-`expect.poll` 会让每个断言变为异步，因此调用必须使用 `await`。但某些匹配器与其不兼容：快照匹配器（轮询下总是成功）、`.resolves` 和 `.rejects`（条件已在等待中解析）以及 `toThrow`（匹配器看到值之前已被解析）。对于这些情况，改用 `vi.waitFor`。
+`expect.poll` 会让每个断言变为异步的，因此必须使用 `await` 调用。但某些匹配器与其不兼容：快照匹配器（轮询下总是成功）、`.resolves` 和 `.rejects`（条件已在等待中解析）以及 `toThrow`（匹配器看到值之前已被解析）。对于这些情况，改用 `vi.waitFor`。
 
 ## `vi.waitFor`：等待并捕获返回值 {#vi-waitfor-wait-and-capture-the-value}
 
@@ -79,11 +79,11 @@ test('worker completes the job', async () => {
 
 ## 选择合适的方法 {#picking-between-them}
 
-|                | `expect.poll`  | `vi.waitFor`         | `vi.waitUntil`             |
-| -------------- | -------------- | -------------------- | -------------------------- |
-| 适用于         | 等待条件是断言 | 操作在就绪前可能失败 | 取值可能为假值，这是正常的 |
-| 遇到错误时重试 | 是             | 是                   | 否，立即失败               |
-| 返回结果       | 断言结果       | 回调函数的返回值     | 回调函数的返回值           |
+|                | `expect.poll`      | `vi.waitFor`         | `vi.waitUntil`                 |
+| -------------- | ------------------ | -------------------- | ------------------------------ |
+| 适用于         | 等待条件一个是断言 | 操作在就绪前可能失败 | 返回值可能为 false，这是正常的 |
+| 遇到错误时重试 | 是                 | 是                   | 否，立即失败                   |
+| 返回结果       | 断言结果           | 回调函数的返回值     | 回调函数的返回值               |
 
 这些方法都接受 `{ timeout, interval }` 选项，默认超时时间为 1000 毫秒，间隔为 50 毫秒。`vi.waitFor` 和 `vi.waitUntil` 还可以直接传入数字方式的简写，直接表示超时时间。
 

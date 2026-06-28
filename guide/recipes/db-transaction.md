@@ -6,7 +6,7 @@ title: 一个测试对应一个数据库事务 | 技巧
 
 涉及到真实数据库的集成测试需要从一个干净的状态开始。在每个测试前清空表数据很慢，因此常用的做法是将每个测试包装在一个事务中，并在测试完成时进行回滚。这样永远不会提交事务、也不需要每次都编写清理代码。
 
-Vitest 通过 [`aroundEach`](/api/hooks#aroundeach) <Version>4.1.0</Version> 和 [scoped fixture](/guide/test-context#fixture-scopes) <Version>3.2.0</Version> 实现了这种形式。
+Vitest 通过 [`aroundEach`](/api/hooks#aroundeach) <Version>4.1.0</Version> 和 [scoped fixture](/guide/test-context#fixture-scopes) <Version>3.2.0</Version> 提供了这一能力。
 
 ## 示例 {#pattern}
 
