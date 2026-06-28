@@ -1,14 +1,14 @@
 ---
-title: Database Transaction per Test | Recipes
+title: 一个测试对应一个数据库事务 | 技巧
 ---
 
-# Database Transaction per Test
+# 一个测试对应一个数据库事务 {#database-transaction-per-test}
 
-Integration tests that touch a real database need to start from a clean state. Truncating tables between every test is slow, so the conventional workaround is to wrap each test in a transaction that's rolled back when it finishes. Nothing ever commits, and there's no per-test cleanup to write.
+涉及到真实数据库的集成测试需要从一个干净的状态开始。在每个测试前清空表数据很慢，因此常用的做法是将每个测试包装在一个事务中，并在测试完成时进行回滚。这样永远不会提交事务、也不需要每次都编写清理代码。
 
-Vitest exposes this through [`aroundEach`](/api/hooks#aroundeach) <Version>4.1.0</Version> and a [scoped fixture](/guide/test-context#fixture-scopes) <Version>3.2.0</Version>.
+Vitest 通过 [`aroundEach`](/api/hooks#aroundeach) <Version>4.1.0</Version> 和 [scoped fixture](/guide/test-context#fixture-scopes) <Version>3.2.0</Version> 提供了这一能力。
 
-## Pattern
+## 示例 {#pattern}
 
 ```ts
 import { test as baseTest } from 'vitest'
@@ -27,19 +27,20 @@ test.aroundEach(async (runTest, { db }) => {
 
 test('insert user', async ({ db }) => {
   await db.insert({ name: 'Alice' })
-  // rolled back automatically when the test ends
+  // 在测试结束时自动回滚
 })
 ```
 
-## How it works
+## 工作原理 {#how-it-works}
 
-The `db` fixture is created once per file via `scope: 'file'`, so connection setup happens once instead of on every test, and `onCleanup` closes the connection when the file is done. `aroundEach` wraps every test in `db.transaction(runTest)`, and anything the test writes gets rolled back when `runTest` resolves. The test receives the same `db` instance through its context, with no awareness that it's running inside a transaction.
+`db` fixture 通过 `scope: 'file'` 在每个文件级别创建一次，因此连接建立只发生一次，而不是在每个测试中重复进行，并且 `onCleanup` 会在文件测试执行完成时关闭连接。`aroundEach` 将每个测试包装在 `db.transaction(runTest)` 中，测试写入的所有内容在 `runTest`
+解析时都会回滚。测试通过上下文使用相同的 `db` 实例，无需感知它正运行在事务中。
 
-This works as long as your database driver supports nested transactions or savepoints, which covers most modern databases. The same `aroundEach` hook can also wrap an [`AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage) context if you want to propagate things like tenant or trace IDs through the test alongside the transaction.
+只要你的数据库驱动支持嵌套事务或保存点，这种形式就能正常工作，大多数现代数据库都满足这一条件。如果你想要在测试中传播租户或追踪 ID 等内容，也可以使用同一个 `aroundEach` 钩子来包装 [`AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage) 上下文，与事务一起使用。
 
-## One connection per worker
+## 一个工作进程一个连接 {#one-connection-per-worker}
 
-If the suite has many files, paying for a fresh database connection on every file adds up. Switching the fixture to `scope: 'worker'` and turning off isolation lets multiple files share a single connection per worker process:
+如果测试套件有很多文件，在每个文件上建立新的数据库连接仍会增加开销。将 fixture 切换到 `scope: 'worker'` 并关闭隔离可以让多个文件在每个工作进程内共享一个连接：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -67,14 +68,14 @@ test.aroundEach(async (runTest, { db }) => {
 })
 ```
 
-By default, every test file runs in its own worker, so `scope: 'file'` and `scope: 'worker'` behave identically. With `isolate: false`, Vitest reuses workers across files (capped by [`maxWorkers`](/config/maxworkers)), so a worker-scoped fixture is created once per worker instead of once per file. For a suite of 200 files running on 8 workers, that's 8 connections instead of 200.
+默认情况下，每个测试文件在自己的工作进程中运行，因此 `scope: 'file'` 和 `scope: 'worker'` 行为相同。使用 `isolate: false` 时，Vitest 会在文件之间复用工作进程（数量上限由 [`maxWorkers`](/config/maxworkers) 限制），因此工作进程范围的 fixture 在每个工作进程中只创建一次，而不是在每个文件中都创建一次。对于 200 个文件、8 个工作进程的测试套件，只需 8 个连接，而非 200 个。
 
-Reusing workers isn't a free optimization. With isolation off, files share module instances inside the worker, and tests that mutate top-level state (counters, caches, monkey-patched globals) can leak that state to whichever file runs next in the same worker. The per-test rollback handles data isolation in the database. It can't protect module state in the worker. Read the trade-offs in the [Per-File Isolation Settings](/guide/recipes/disable-isolation) recipe before turning isolation off suite-wide.
+复用工作进程并不是零成本的优化。在禁用隔离后，文件在工作进程内共享模块实例，在修改模块顶层变量（计数器、缓存、猴子补丁（monkey-patched）的全局变量）的测试，可能会将状态泄漏到同一工作进程内后续运行的文件中。每次测试的回滚负责处理数据库中的数据隔离，但无法保护工作进程中的模块状态。在全局范围内关闭隔离之前，请参阅 [每个文件的隔离设置](/guide/recipes/disable-isolation) 技巧中的权衡。
 
-[`vmThreads` and `vmForks`](/config/pool) always run isolated regardless of the `isolate` flag, so worker-scoped fixtures fall back to per-file behavior in those pools.
+[`vmThreads` 和 `vmForks`](/config/pool) 始终以隔离模式运行，无论 `isolate` 参数如何设置，在这些工作进程池中，工作进程范围的 fixture 会退化为每个文件创建一次的行为。
 
-## See also
+## 相关链接 {#see-also}
 
-- [`aroundEach` and `aroundAll`](/api/hooks#aroundeach)
-- [Fixture scopes](/guide/test-context#fixture-scopes)
-- [Builder pattern](/guide/test-context#builder-pattern)
+- [`aroundEach` 和 `aroundAll`](/api/hooks#aroundeach)
+- [Fixture 作用域](/guide/test-context#fixture-scopes)
+- [构建模式](/guide/test-context#builder-pattern)

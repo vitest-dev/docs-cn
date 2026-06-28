@@ -906,7 +906,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/test-annotations',
               },
               {
-                text: '扩展断言',
+                text: '扩展匹配器',
                 link: '/guide/extending-matchers',
               },
               {
@@ -1020,27 +1020,27 @@ export default ({ mode }: { mode: string }) => {
             collapsed: false,
             items: [
               {
-                text: 'Database Transaction per Test',
+                text: '一个测试对应一个数据库事务',
                 link: '/guide/recipes/db-transaction',
               },
               {
-                text: 'Cancelling Long-Running Operations Gracefully',
+                text: '优雅地取消长时间运行的操作',
                 link: '/guide/recipes/cancellable',
               },
               {
-                text: 'Waiting for Async Conditions',
+                text: '等待异步条件',
                 link: '/guide/recipes/wait-for',
               },
               {
-                text: 'Type Narrowing in Tests',
+                text: '在测试中收窄类型',
                 link: '/guide/recipes/type-narrowing',
               },
               {
-                text: 'Custom Assertion Helpers',
+                text: '自定义断言工具函数',
                 link: '/guide/recipes/custom-assertions',
               },
               {
-                text: 'Watching Non-Imported Files',
+                text: '监视非直接导入的文件',
                 link: '/guide/recipes/watch-templates',
               },
               {

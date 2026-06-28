@@ -1,14 +1,14 @@
 ---
-title: Cancellable Test Resources | Recipes
+title: 可取消的测试资源 | 技巧
 ---
 
-# Cancellable Test Resources
+# 可取消的测试资源 {#cancellable-test-resources}
 
-A test can hold onto resources that don't stop when the test stops. A `fetch`, a child process, a file stream, a polling loop: none of those notice when Vitest has cancelled the test, and the worker has to sit there waiting for them to finish on their own. Vitest cancels a test when it exceeds its `timeout`, when another test fails under `--bail`, or when someone presses <kbd>Ctrl</kbd>+<kbd>C</kbd> in the terminal.
+测试运行过程中可能占用一些资源，测试停止后这些资源不会随之释放。无论是 `fetch`、子进程、文件流还是轮询，它们都无法感知 Vitest 已取消测试，导致工作进程只能被动等待它们自行结束 Vitest 会在测试超时超过 `timeout` 限制、在 `--bail` 模式下另一个测试失败，或有人在终端按下 <kbd>Ctrl</kbd>+<kbd>C</kbd> 时取消测试。
 
-The test context provides a [`signal`](/guide/test-context#signal) <Version>3.2.0</Version> that fires in all of those cases. Pass it to anything that accepts an `AbortSignal` and the resource is released when Vitest cancels.
+测试上下文提供了 [`signal`](/guide/test-context#signal) <Version>3.2.0</Version>，它会在上述所有情况下触发。将它传递给任何接受 `AbortSignal` 的对象，当 Vitest 取消测试时对应的资源就会被释放。
 
-## Pattern
+## 示例 {#pattern}
 
 ```ts
 import { test } from 'vitest'
@@ -18,19 +18,19 @@ test('stop request when test times out', async ({ signal }) => {
 }, 2000)
 ```
 
-If the request hasn't completed within 2 seconds, `fetch` rejects with `AbortError` instead of the test hanging until the operation finishes.
+如果请求未在 2 秒内完成，`fetch` 会抛出 `AbortError`，而不会让测试挂起直到操作结束。
 
-## Other Web APIs that accept an `AbortSignal`
+## 其他接受 `AbortSignal` 的 Web API {#other-web-apis-that-accept-an-abortsignal}
 
 - [`fetch`](https://developer.mozilla.org/docs/Web/API/fetch)
-- [`addEventListener`](https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener), where passing `{ signal }` removes the listener on abort
+- [`addEventListener`](https://developer.mozilla.org/docs/Web/API/EventTarget/addEventListener)，传递 `{ signal }` 会在中止时移除监听器
 - [`ReadableStream.pipeTo`](https://developer.mozilla.org/docs/Web/API/ReadableStream/pipeTo)
-- Node.js APIs like [`fs.readFile`](https://nodejs.org/api/fs.html#fspromisesreadfilepath-options), [`child_process.spawn`](https://nodejs.org/api/child_process.html#child_processspawncommand-args-options), and [`setTimeout` or `setInterval`](https://nodejs.org/api/timers.html), all of which accept `{ signal }`
-- Any custom code that calls `signal.throwIfAborted()` or listens for `'abort'`
+- 像 Node.js API [`fs.readFile`](https://nodejs.org/api/fs.html#fspromisesreadfilepath-options), [`child_process.spawn`](https://nodejs.org/api/child_process.html#child_processspawncommand-args-options)，和 [`setTimeout` 或 `setInterval`](https://nodejs.org/api/timers.html)，它们都接受 `{ signal }`
+- 任何调用 `signal.throwIfAborted()` 或监听 `'abort'` 的代码
 
-## Forwarding the signal
+## 传递信号 {#forwarding-the-signal}
 
-Wire the test's signal into your own helpers so cancellation propagates all the way down:
+将测试的信号接入你自己的工具函数，使取消操作向下传递：
 
 ```ts
 async function pollUntilReady(url: string, signal: AbortSignal) {
@@ -49,8 +49,8 @@ test('worker becomes ready', async ({ signal }) => {
 }, 5000)
 ```
 
-## See also
+## 相关链接 {#see-also}
 
-- [`signal` in Test Context](/guide/test-context#signal)
+- [测试上下文中的 `signal`](/guide/test-context#signal)
 - [`bail`](/config/bail)
 - [`testTimeout`](/config/testtimeout)
