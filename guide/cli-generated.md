@@ -541,6 +541,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 忽略任何未处理的错误
 
+### changed
+
+- **CLI:** `--changed [since]`
+- **Config:** [changed](/config/changed)
+
+Run tests that are affected by the changed files (default: `false`)
+
 ### sequence.shuffle.files
 
 - **命令行终端:** `--sequence.shuffle.files`

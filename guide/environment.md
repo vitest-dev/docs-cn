@@ -96,9 +96,15 @@ interface PopulateOptions {
 interface PopulateResult {
   // 所有被复制的键的列表，即使原始对象上不存在该值
   keys: Set<string>
+<<<<<<< HEAD
   // 可能已被键覆盖的原始对象的映射
   // 你可以在 `teardown` 函数中返回这些值
   originals: Map<string | symbol, any>
+=======
+  // a map of property descriptors for keys that might have been overridden
+  // you can restore them with `Object.defineProperty` inside `teardown`
+  originals: Map<string | symbol, PropertyDescriptor>
+>>>>>>> 41871de90bd24e87ceda9a58bc7c4133ec04a6d6
 }
 
 export function populateGlobal(

@@ -99,13 +99,15 @@ export default defineConfig({
 
 Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先启动，从而加快测试运行速度。如果文件和测试以随机顺序运行，将失去这一性能提升，但这有助于发现意外依赖于之前测试运行的测试。
 
-### sequence.shuffle.files {#sequence-shuffle-files}
+### sequence.shuffle.files <CRoot /> {#sequence-shuffle-files}
 
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
 
 是否启用文件随机排序，请注意启用此选项后，耗时较长的测试将无法优先启动执行。
+
+Because file ordering is shared across [projects](/guide/projects), this option is resolved from the root config only. A project can still randomize its own tests with [`sequence.shuffle.tests`](#sequence-shuffle-tests).
 
 ### sequence.shuffle.tests {#sequence-shuffle-tests}
 

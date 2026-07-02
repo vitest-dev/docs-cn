@@ -62,7 +62,10 @@ export default ({ mode }: { mode: string }) => {
       ['link', { rel: 'me', href: 'https://m.webtoo.ls/@vitest' }],
       ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
       ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+<<<<<<< HEAD
       ['script', { 'src': 'https://cdn.usefathom.com/script.js', 'data-site': 'BEAFAKYG', 'data-spa': 'auto', 'defer': '' }],
+=======
+>>>>>>> 41871de90bd24e87ceda9a58bc7c4133ec04a6d6
     ],
     lastUpdated: true,
     vite: {
@@ -592,6 +595,10 @@ export default ({ mode }: { mode: string }) => {
                 link: '/config/disableconsoleintercept',
               },
               {
+                text: 'changed',
+                link: '/config/changed',
+              },
+              {
                 text: 'experimental',
                 link: '/config/experimental',
               },
@@ -1101,8 +1108,13 @@ export default ({ mode }: { mode: string }) => {
             collapsed: false,
             items: [
               {
+<<<<<<< HEAD
                 text: '迁移至 Vitest 4.0',
                 link: '/guide/migration#vitest-4',
+=======
+                text: 'Migrating to Vitest 5.0',
+                link: '/guide/migration#vitest-5',
+>>>>>>> 41871de90bd24e87ceda9a58bc7c4133ec04a6d6
               },
               {
                 text: '从 Jest 迁移',

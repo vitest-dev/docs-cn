@@ -5,8 +5,13 @@ outline: deep
 
 # clearMocks
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
+=======
+- **Type:** `boolean`
+- **Default:** `true`
+>>>>>>> 41871de90bd24e87ceda9a58bc7c4133ec04a6d6
 
 是否应在每个测试前自动调用 [`vi.clearAllMocks()`](/api/vi#vi-clearallmocks)。
 
@@ -17,7 +22,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    clearMocks: true,
+    clearMocks: false,
   },
 })
 ```
