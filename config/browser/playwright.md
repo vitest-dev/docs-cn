@@ -112,8 +112,8 @@ Vitest 会通过 `x-playwright-launch-options` 请求头将 `launchOptions` 转�
 ```yaml [docker-compose.yml]
 services:
   playwright:
-    image: mcr.microsoft.com/playwright:v1.58.1-noble
-    command: /bin/sh -c "npx -y playwright@1.58.1 run-server --port 6677 --host 0.0.0.0"
+    image: mcr.microsoft.com/playwright:v1.61.0-noble
+    command: /bin/sh -c "npx -y playwright@1.61.0 run-server --port 6677 --host 0.0.0.0"
     init: true
     ipc: host
     user: pwuser

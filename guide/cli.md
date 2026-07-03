@@ -192,6 +192,7 @@ vitest --api=false
 
 <!--@include: ./cli-generated.md-->
 
+<<<<<<< HEAD
 ### changed
 
 - **类型:** `boolean | string`
@@ -207,6 +208,8 @@ vitest --api=false
 
   如果与 [`forceRerunTriggers`](/config/forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
 
+=======
+>>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
 ### shard
 
 - **类型:** `string`

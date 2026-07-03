@@ -84,10 +84,14 @@ import Box from '../.vitepress/components/Box.vue'
 
 ## Istanbul 覆盖率提供方案 {#istanbul-provider}
 
+<<<<<<< HEAD
 [Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。
 这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。
 
 简单来说，插桩就是在你的源文件里加入一段额外的 JavaScript，用于记录代码的执行路径：
+=======
+[Istanbul code coverage tooling](https://istanbul.js.org/) has existed since 2012 and is very well battle-tested. This provider works on any JavaScript runtime as coverage tracking works by transforming your source code to add instrumentation logic. In practice, the code Vitest will end up running looks something like this:
+>>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
 
 ```js
 // 分支和函数覆盖率计数器的简化示例
@@ -116,6 +120,7 @@ globalThis.__VITEST_COVERAGE__ ||= {} // [!code ++]
 globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 ```
 
+<<<<<<< HEAD
 - ✅ 可以在任何 JavaScript 环境中使用
 - ✅ 已被业界广泛采用并在 13 年中得到充分验证
 - ✅ 某些情况下执行速度优于 V8，因为插桩可以只针对特定文件，而 V8 会对所有模块插桩
@@ -123,6 +128,14 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 - ❌ 由于插桩带来的额外开销，执行速度普遍比 V8 慢
 - ❌ 插桩会使文件体积变大
 - ❌ 内存消耗比 V8 更高
+=======
+- ✅ Works on any Javascript runtime
+- ✅ Widely used and battle-tested for over 13 years.
+- ✅ In some cases faster than V8. Coverage instrumentation can be limited to specific files, as opposed to V8 where all modules are instrumented.
+- ❌ Source code is transformed to add instrumentation before running
+- ❌ Execution speed is slower than V8 due to instrumentation overhead
+- ❌ Memory usage is higher than V8
+>>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
 
 <div style="display: flex; flex-direction: column; align-items: center; padding: 2rem 0; max-width: 20rem;">
   <Box>测试文件</Box>
