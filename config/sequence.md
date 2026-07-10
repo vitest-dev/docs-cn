@@ -106,7 +106,7 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 - **命令行终端:** `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
 
 是否启用文件随机排序，请注意启用此选项后，耗时较长的测试将无法优先启动执行。
-
+<!-- TODO: translation -->
 Because file ordering is shared across [projects](/guide/projects), this option is resolved from the root config only. A project can still randomize its own tests with [`sequence.shuffle.tests`](#sequence-shuffle-tests).
 
 ### sequence.shuffle.tests {#sequence-shuffle-tests}

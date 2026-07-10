@@ -62,10 +62,6 @@ export default ({ mode }: { mode: string }) => {
       ['link', { rel: 'me', href: 'https://m.webtoo.ls/@vitest' }],
       ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
       ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
-<<<<<<< HEAD
-      ['script', { 'src': 'https://cdn.usefathom.com/script.js', 'data-site': 'BEAFAKYG', 'data-spa': 'auto', 'defer': '' }],
-=======
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
     ],
     lastUpdated: true,
     vite: {
@@ -149,19 +145,11 @@ export default ({ mode }: { mode: string }) => {
         },
       },
 
-<<<<<<< HEAD
-      banner: {
-        id: 'viteplus-alpha',
-        text: 'Vite+ Alpha 发布：开源、统一、下一代工具链。',
-        url: 'https://voidzero.dev/posts/announcing-vite-plus-alpha?utm_source=vitest&utm_content=top_banner',
-      },
-=======
       // banner: {
       //   id: 'viteplus-alpha',
-      //   text: 'Announcing Vite+ Alpha: Open source. Unified. Next-gen.',
+      //   text: 'Vite+ Alpha 发布：开源、统一、下一代工具链。',
       //   url: 'https://voidzero.dev/posts/announcing-vite-plus-alpha?utm_source=vitest&utm_content=top_banner',
       // },
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
 
       carbonAds: {
         code: 'CW7DVKJE',
@@ -1116,13 +1104,8 @@ export default ({ mode }: { mode: string }) => {
             collapsed: false,
             items: [
               {
-<<<<<<< HEAD
-                text: '迁移至 Vitest 4.0',
-                link: '/guide/migration#vitest-4',
-=======
-                text: 'Migrating to Vitest 5.0',
+                text: '迁移至 Vitest 5.0',
                 link: '/guide/migration#vitest-5',
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
               },
               {
                 text: '从 Jest 迁移',

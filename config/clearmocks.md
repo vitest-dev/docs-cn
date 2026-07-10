@@ -5,13 +5,8 @@ outline: deep
 
 # clearMocks
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `false`
-=======
-- **Type:** `boolean`
-- **Default:** `true`
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
+- **默认值:** `true`
 
 是否应在每个测试前自动调用 [`vi.clearAllMocks()`](/api/vi#vi-clearallmocks)。
 

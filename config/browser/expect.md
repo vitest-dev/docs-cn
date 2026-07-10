@@ -39,7 +39,7 @@ export default defineConfig({
 ```
 
 [`toMatchScreenshot` 断言中所有可用选项](/api/browser/assertions#options) 均可在此配置。此外还提供两个路径解析函数：`resolveScreenshotPath` 和 `resolveDiffPath`。
-
+<!-- TODO: translation -->
 ## browser.expect.toMatchScreenshot.screenshotDirectory
 
 - **Type:** `string | undefined`
@@ -51,13 +51,8 @@ This value is passed as `screenshotDirectory` to [`browser.expect.toMatchScreens
 
 ## browser.expect.toMatchScreenshot.resolveScreenshotPath
 
-<<<<<<< HEAD
 - **类型:** `(data: PathResolveData) => string`
-- **默认输出:** `` `${root}/${testFileDirectory}/${screenshotDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
-=======
-- **Type:** `(data: PathResolveData) => string`
-- **Default output:** ``path.resolve(root, testFileDirectory, screenshotDirectory, testFileName, `${arg}-${browserName}-${platform}${ext}`)``
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
+- **默认输出:** ``path.resolve(root, testFileDirectory, screenshotDirectory, testFileName, `${arg}-${browserName}-${platform}${ext}`)``
 
 用于自定义参考截图存储路径的函数。该函数接收包含以下属性的对象：
 
@@ -96,11 +91,7 @@ This value is passed as `screenshotDirectory` to [`browser.expect.toMatchScreens
 
 - `screenshotDirectory: string`
 
-<<<<<<< HEAD
-  [`browser.screenshotDirectory`](/config/browser/screenshotdirectory) 配置项提供的值，如果未配置则使用其默认值。
-=======
-  The value provided to [`browser.expect.toMatchScreenshot.screenshotDirectory`](#browserexpecttomatchscreenshotscreenshotdirectory), if none is provided, its default value (`__screenshots__`).
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
+  [`browser.screenshotDirectory`](/config/browser/screenshotdirectory) 配置项提供的值，如果未配置则使用默认值（`__screenshots__`）。
 
 - `root: string`
 
@@ -135,13 +126,8 @@ resolveScreenshotPath: ({ arg, browserName, ext, root, testFileName }) =>
 
 ## browser.expect.toMatchScreenshot.resolveDiffPath
 
-<<<<<<< HEAD
 - **类型:** `(data: PathResolveData) => string`
-- **默认输出:** `` `${root}/${attachmentsDir}/${testFileDirectory}/${testFileName}/${arg}-${browserName}-${platform}${ext}` ``
-=======
-- **Type:** `(data: PathResolveData) => string`
-- **Default output:** ``path.resolve(root, attachmentsDir, testFileDirectory, testFileName, `${arg}-${browserName}-${platform}${ext}`)``
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
+- **默认输出:** ``path.resolve(root, attachmentsDir, testFileDirectory, testFileName, `${arg}-${browserName}-${platform}${ext}`)``
 
 用于自定义截图比对失败时差异图片存储位置的函数。接收与 [`resolveScreenshotPath`](#browser-expect-tomatchscreenshot-resolvescreenshotpath) 相同的数据对象。
 

@@ -2,7 +2,7 @@
 title: changed | Config
 outline: deep
 ---
-
+<!-- TODO: translation -->
 ### changed <CRoot />
 
 - **Type:** `boolean | string`

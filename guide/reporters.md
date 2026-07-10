@@ -56,10 +56,7 @@ export default defineConfig({
 ```
 
 ## 报告器输出 {#reporter-output}
-
-<<<<<<< HEAD
-默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](/config/outputfile)，将测试输出写入文件。
-=======
+<!-- TODO: translation -->
 By default, Vitest's reporters print their output to the terminal. The `json`, `junit` and `html` reporters instead write to a scoped location under `.vitest/`:
 
 - `json` writes `.vitest/json/output.json`
@@ -67,7 +64,6 @@ By default, Vitest's reporters print their output to the terminal. The `json`, `
 - `html` writes `.vitest/index.html`
 
 The `json` and `junit` locations can be overridden with the `outputFile` [configuration option](/config/outputfile) in your Vitest configuration file or via CLI. The `html` reporter uses its [`outputDir`](#html-reporter) option instead.
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
 
 :::code-group
 
@@ -86,9 +82,6 @@ export default defineConfig({
 
 :::
 
-<<<<<<< HEAD
-## 组合报告器 {#combining-reporters}
-=======
 The `json` and `junit` reporters also accept `outputFile` as a reporter option, which takes precedence over the top-level `outputFile`:
 
 ```ts [vitest.config.ts]
@@ -113,8 +106,7 @@ export default defineConfig({
 When `stdout` is enabled, the report can be interleaved with other output written directly to the terminal — for example `process.stdout.write` in a test file, or logs from the main process such as a global setup file — which can make the JSON or XML unparsable. Prefer the default file output when you need to consume the report programmatically.
 :::
 
-## Combining Reporters
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
+## 组合报告器 {#combining-reporters}
 
 你可以同时使用多个报告器，并以不同格式打印测试结果。
 
@@ -362,12 +354,8 @@ export default defineConfig({
 ```
 
 ### JUnit 报告器 {#junit-reporter}
-
-<<<<<<< HEAD
-以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](/config/outputfile) 配置选项写入 XML 文件。
-=======
-Outputs a report of the test results in JUnit XML format. By default it is written to `.vitest/junit/output.xml`. To write it elsewhere, use the [`outputFile`](/config/outputfile) configuration option or the reporter's own `outputFile` option. To print it to the terminal instead, set the reporter's [`stdout`](#reporter-output) option.
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
+<!-- TODO: translation -->
+以 JUnit XML 格式输出测试结果报告。 By default it is written to `.vitest/junit/output.xml`. To write it elsewhere, use the [`outputFile`](/config/outputfile) configuration option or the reporter's own `outputFile` option. To print it to the terminal instead, set the reporter's [`stdout`](#reporter-output) option.
 
 :::code-group
 
@@ -476,13 +464,10 @@ export default defineConfig({
 
 输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标记。你可以使用环境变量 `VITEST_JUNIT_SUITE_NAME` 和 `VITEST_JUNIT_CLASSNAME` 分别配置它们的名称和类名属性。
 
-<<<<<<< HEAD
+<!-- TODO: translation -->
 ### JSON 报告器 {#json-reporter}
 
-以与 Jest 的 `--json` 选项兼容的 JSON 格式生成测试结果报告。可以打印到终端，也可以使用 [`outputFile`](/config/outputfile) 配置选项写入文件。
-=======
 Generates a report of the test results in a JSON format compatible with Jest's `--json` option. By default it is written to `.vitest/json/output.json`. To write it elsewhere, use the [`outputFile`](/config/outputfile) configuration option or the reporter's own `outputFile` option. To print it to the terminal instead, set the reporter's [`stdout`](#reporter-output) option.
->>>>>>> dc33d649841aab990a2bf304a8d524bdec9d6d55
 
 :::code-group
 
