@@ -192,21 +192,6 @@ vitest --api=false
 
 <!--@include: ./cli-generated.md-->
 
-### changed
-
-- **类型:** `boolean | string`
-- **默认值:** false
-
-  设置为 true 时，仅对已更改的文件运行测试。默认情况下，将考虑所有未提交的更改（包括已暂存和未暂存的文件）。
-
-  要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
-
-  如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
-
-  与代码覆盖一起使用时，报告将只包含与更改相关的文件。
-
-  如果与 [`forceRerunTriggers`](/config/forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
-
 ### shard
 
 - **类型:** `string`

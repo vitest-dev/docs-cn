@@ -13,6 +13,83 @@ outline: deep
 Vitest 5.0 目前处于 beta 阶段。本章节跟踪已合并的重大变更，在稳定版发布前可能还会发生变化。
 :::
 
+::: warning Prerequisites
+Vitest 5.0 requires Vite >= 6.4.0 and Node.js >= 22.12.0. Before proceeding with any other migration steps, ensure your environment meets these requirements. Running Vitest 5.0 on older versions of Vite or Node.js is not supported and may result in unexpected errors.
+:::
+
+### `clearMocks` is Enabled by Default
+
+[`clearMocks`](/config/#clearmocks) now defaults to `true`. Vitest calls [`vi.clearAllMocks()`](/api/vi#vi-clearallmocks) before every test, resetting the `mock.calls`, `mock.instances`, `mock.contexts` and `mock.results` of every mock. Mock implementations are left intact, so this only affects the recorded history.
+
+In practice this means a mock no longer carries calls from one test into the next:
+
+```ts
+import { expect, test, vi } from 'vitest'
+
+const fn = vi.fn()
+
+test('first', () => {
+  fn()
+  expect(fn).toHaveBeenCalledTimes(1)
+})
+
+test('second', () => {
+  fn()
+  // v4: the call from "first" was kept, so this was 2 // [!code --]
+  expect(fn).toHaveBeenCalledTimes(2) // [!code --]
+  // v5: history is cleared before each test, so only this test's call counts // [!code ++]
+  expect(fn).toHaveBeenCalledTimes(1) // [!code ++]
+})
+```
+
+Tests that record calls outside of the test body (for example in a setup file, at the top level of a module, or in a `beforeAll` hook) are the most affected, because that history is cleared before the test that asserts on it runs.
+
+To keep the previous behavior, set `clearMocks` back to `false`:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    clearMocks: false, // [!code ++]
+  },
+})
+```
+
+### Hoisted Mocking Calls Must Be at the Top Level
+
+[`vi.mock`](/api/vi#vi-mock), [`vi.unmock`](/api/vi#vi-unmock), and [`vi.hoisted`](/api/vi#vi-hoisted) are hoisted to the top of the file and run before any surrounding code. Calling them inside a function, block, or `describe`/`test` callback previously only logged a warning. Vitest 5.0 now throws, because the call does not execute where it is written:
+
+```ts
+describe('calculator', () => {
+  vi.mock('./calculator') // [!code --]
+})
+
+vi.mock('./calculator') // [!code ++]
+
+describe('calculator', () => {
+  // ...
+})
+```
+
+The error reports every offending call and its location:
+
+```
+1 call in "calculator.test.ts" was defined outside of the module's top level scope:
+
+- vi.mock("./calculator") at calculator.test.ts:2:3
+
+Although it appears nested, it will be hoisted and executed before anything in this file. Move it to the top level to reflect its actual execution order.
+```
+
+The dynamic variants [`vi.doMock`](/api/vi#vi-domock) and [`vi.doUnmock`](/api/vi#vi-dounmock) are not hoisted and may still be called anywhere.
+
+### Automocked Modules Stay Automocked in the Browser
+
+In browser mode, mock metadata is serialized between Vitest and the test iframe. An automocked module (a [`vi.mock`](/api/vi#vi-mock) call with no factory) was incorrectly restored as a spy on the other side, so its exports kept calling the real implementation instead of the auto-generated stubs.
+
+Automocks are now restored as automocks. If a browser test relied on the original implementation running through an automocked module, its exports now return `undefined` by default. Pass [`{ spy: true }`](/api/vi#vi-mock) to keep calling the real implementation while still tracking calls, or provide a factory with the behavior you need.
+
 ### Benchmarking API Rewrite
 
 The benchmarking API has been rewritten. `bench` is no longer a top-level import from `vitest`; it is a [test-context fixture](/guide/test-context#bench) accessed from inside a regular `test()`. See the [Benchmarking guide](/guide/benchmarking) for the new API.
@@ -51,6 +128,68 @@ Vitest UI now requires token authentication for the HTML page and API access. Th
 vitest --ui
 # UI started at http://localhost:51204/__vitest__/?token=...
 ```
+
+### Fake Timers Now Mock `Temporal`
+
+Vitest now mocks the [`Temporal`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) API alongside `Date` when fake timers are enabled, following the [`@sinonjs/fake-timers` v15.4 update](https://github.com/sinonjs/fake-timers/blob/main/CHANGELOG.md#1540--2026-05-05). This only takes effect when `Temporal` is available on the global object — either natively (Node.js >= 26 by default, behind `--harmony-temporal` on older versions, and supporting browsers) or through a globally installed polyfill such as `import 'temporal-polyfill/global'`.
+
+Previously `Temporal.Now` kept returning the real wall-clock time even when [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) was active. Now it follows the mocked clock:
+
+```ts
+vi.useFakeTimers({ now: 0 })
+
+Temporal.Now.instant().epochMilliseconds // 0 (was the real time in v4)
+```
+
+`Temporal` is part of the default set of faked APIs, so it is controlled by [`fakeTimers.toFake`](/config/#faketimers-tofake) and [`fakeTimers.toNotFake`](/config/#faketimers-tonotfake). To keep `Temporal` native, add it to `toNotFake`:
+
+```ts
+vi.useFakeTimers({ toNotFake: ['Temporal'] })
+```
+
+### `toThrow("")` Matches Any Error Message
+
+[`toThrow`](/api/expect#tothrow) (and its alias `toThrowError`) treats a string argument as a substring of the error message. In Vitest 4 an empty string was special-cased to the `/^$/` pattern, so it matched only an error whose message was empty. It now behaves like any other substring, and an empty string is contained in every message:
+
+```ts
+expect(() => { throw new Error('boom') }).not.toThrow('') // [!code --]
+expect(() => { throw new Error('boom') }).toThrow('') // [!code ++]
+```
+
+To assert that a thrown error has an empty message, match the pattern explicitly:
+
+```ts
+expect(() => { throw new Error('boom') }).not.toThrow(/^$/)
+```
+
+### `expect.poll` Fails When It Times Out
+
+[`expect.poll`](/api/expect#poll) now rejects when its callback, or the polled assertion, does not settle within `timeout`. Previously a callback that resolved after the deadline, or an assertion that only passed on a late attempt, could still succeed. The callback now also receives an `AbortSignal` that aborts when the timeout elapses, so you can cancel in-flight work:
+
+```ts
+await expect.poll(async ({ signal }) => {
+  const response = await fetch('/api/status', { signal })
+  return response.status
+}, { timeout: 1000 }).toBe(200)
+```
+
+A poll that legitimately needs more time should raise its `timeout`. Otherwise it fails with `expect.poll() function didn't resolve in time.` (or `expect.poll() assertion didn't resolve in time.`).
+
+### Test Titles and Inspected Values Use `pretty-format`
+
+Vitest now formats values with [`pretty-format`](https://www.npmjs.com/package/pretty-format) instead of `loupe` when it inspects them, including the values interpolated into [`test.each`](/api/test#test-each) and [`test.for`](/api/test#test-for) titles. The rendering of some values changes, so snapshots or assertions that capture inspected output may need updating.
+
+Two changes are specific to generated test titles:
+
+- A string value interpolated through a `$` placeholder is no longer wrapped in quotes:
+
+```ts
+test.for([{ id: 'a1' }])('case $id', ({ id }) => { /* ... */ })
+// v4 title: case 'a1' // [!code --]
+// v5 title: case a1   // [!code ++]
+```
+
+- The length limit for interpolated values is now controlled by the new [`taskTitleValueFormatTruncate`](/config/tasktitlevalueformattruncate) option (default `40`).
 
 ### Removed `test.sequential`, `describe.sequential`, and `sequential` Options
 ### 移除 `test.sequential`, `describe.sequential`, 和 `sequential` 选项 {##removed-test-sequential-describe-sequential-and-sequential-options}
@@ -107,19 +246,6 @@ const locator = page.getByText('Hello, World', { exact: true })
 await locator.click()
 ```
 
-### 移除了已弃用的入口 {#removed-deprecated-entrypoints}
-
-多个入口在 Vitest 4.1 中被标记为已弃用。此版本完全移除了它们。
-
-- `vitest/coverage`：改用 `vitest/node`
-- `vitest/reporters`：改用 `vitest/node`
-- `vitest/environments`：改用 `vitest/runtime`
-- `vitest/snapshot`：改用 `vitest/runtime`
-- `vitest/runners`：改用 `vitest` 中的 `TestRunner`
-- `vitest/suite`：改用 `vitest` 中 `TestRunner` 的静态方法（例如，`TestRunner.getCurrentTest()`）
-- `vitest/mocker` 已移除，请直接使用 `@vitest/mocker` 包（这个包曾意外发布过一次且从未被移除）
-- `vitest/internal/module-runner` 已移除
-<!-- TODO: translation -->
 ### `toHaveTextContent` Now Performs Strict Equality
 
 The browser-mode [`toHaveTextContent`](/api/browser/assertions#tohavetextcontent) matcher now validates that an element's text content is exactly equal to the expected string instead of performing a partial, case-sensitive match. Regular expressions are no longer accepted. The previous behaviour, including `RegExp` support, has moved to the new [`toMatchTextContent`](/api/browser/assertions#tomatchtextcontent) matcher.
@@ -133,6 +259,22 @@ await expect.element(banner).toMatchTextContent(/error/i) // [!code ++]
 
 // Exact matches stay on `toHaveTextContent`:
 await expect.element(banner).toHaveTextContent('Error!')
+```
+
+### `render` Is Async in `vitest-browser-vue` and `vitest-browser-svelte`
+
+The companion component-testing packages [`vitest-browser-vue`](https://npmx.dev/package/vitest-browser-vue) and [`vitest-browser-svelte`](https://npmx.dev/package/vitest-browser-svelte) now return a promise from `render`, so the call must be awaited before you query the rendered output:
+
+```ts
+import { render } from 'vitest-browser-vue'
+import Component from './Component.vue'
+
+test('renders', async () => {
+  const screen = render(Component) // [!code --]
+  const screen = await render(Component) // [!code ++]
+
+  await expect.element(screen.getByRole('heading')).toBeVisible()
+})
 ```
 
 ### Glob Coverage Thresholds No Longer Inherit `perFile`
@@ -156,6 +298,24 @@ export default defineConfig({
 })
 ```
 
+### Coverage `include` and `exclude` Match More Precisely
+
+`coverage.include` and `coverage.exclude` were matched against absolute paths with picomatch's `contains` option, which matched many more files than intended. For example, a pattern could match a file because a parent directory in its absolute path happened to contain the same segment. Patterns are now matched against each file's path relative to the project root, without `contains`.
+
+A pattern with no glob wildcard is treated as a directory and expanded to match everything inside it:
+
+```ts [vitest.config.ts]
+export default defineConfig({
+  test: {
+    coverage: {
+      include: ['src'], // matches src/**, not every path that contains "src"
+    },
+  },
+})
+```
+
+Review your `include` and `exclude` patterns after upgrading and confirm the reported file set is what you expect. Files that were previously matched only by the looser behavior may no longer be included.
+
 ### Config Files Are Not Looked Up From Parent Directories
 
 Vitest no longer searches parent directories for config files. If you previously relied on running `vitest` from a subdirectory while using a config file from a parent directory, pass the config explicitly and scope test discovery with `--dir`. For example,
@@ -168,6 +328,17 @@ $ cd subdir && vitest --config ../vitest.config.ts # [!code ++]
 ### DOM Environment Global Assignments Now Update the Underlying Window
 
 Assignments to properties on `globalThis` or `window` in `jsdom` and `happy-dom` environments are now propagated to the underlying DOM implementation. Mutable properties such as `innerWidth` can affect APIs implemented by the DOM environment, for example `happy-dom`'s `matchMedia`.
+
+### `populateGlobal` Returns Descriptors in `originals`
+
+The `originals` map returned by [`populateGlobal`](/guide/environment#custom-environment) now holds [property descriptors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor) instead of plain values. This avoids invoking native lazy getters (such as Node's `localStorage`) while capturing the original, and restores them faithfully on teardown.
+
+If you restore them manually in a custom environment, use `Object.defineProperty` instead of an assignment:
+
+```ts
+originals.forEach((value, key) => (global[key] = value)) // [!code --]
+originals.forEach((descriptor, key) => Object.defineProperty(global, key, descriptor)) // [!code ++]
+```
 
 ### Browser Orchestrator URL Requires a Session
 
@@ -182,507 +353,76 @@ Vitest now uses a single `.vitest` directory at the project root as the shared a
 - **Attachments** ([`attachmentsDir`](/config/attachmentsdir)): `.vitest-attachements/` → `.vitest/attachments/`
 - **Blob reporter** and `--merge-reports`: `.vitest-reports/blob-*.json` → `.vitest/blob/blob-*.json`
 - **HTML reporter** ([`html`](/guide/reporters#html-reporter)): `html/index.html` → `.vitest/index.html`, and its option changed from `outputFile` (a file) to `outputDir` (a directory)
+- **JSON reporter** ([`json`](/guide/reporters#json-reporter)): stdout → `.vitest/json/output.json`
+- **JUnit reporter** ([`junit`](/guide/reporters#junit-reporter)): stdout → `.vitest/junit/output.xml`
 
-## 迁移至 Vitest 4.0 {#vitest-4}
+The `json` and `junit` reporters now write to a file by default instead of printing to stdout. If you previously relied on the report being printed to stdout (for example `vitest --reporter=json > out.json` or `vitest --reporter=json | jq`), either read the generated artifact file instead (for example `jq . .vitest/json/output.json`), or opt back into stdout with the reporter's `stdout` option (`reporters: [['json', { stdout: true }]]`). An explicit `outputFile` is still respected and unchanged.
 
-::: warning 前提条件
-Vitest 4.0 要求 **Vite >= 6.0.0** 和 **Node.js >= 20.0.0**。
-在执行其他迁移步骤前，请确保你的环境满足这些要求。
-在旧版 Vite 或 Node.js 上不支持运行 Vitest 4.0，
-这可能导致意外错误。
-:::
+### `toMatchScreenshot` Now Uses a Dedicated Screenshot Directory Config
 
-### V8 代码覆盖率重大变更 {#v8-code-coverage-major-changes}
+Previously, reference screenshots for `toMatchScreenshot` did not correctly respect `browser.screenshotDirectory`. As a result, screenshots were saved in an unintended location when a custom directory was configured.
 
-Vitest 的 V8 覆盖率提供器现在使用了更精准的结果映射逻辑，从 Vitest v3 升级后，你可能会看到覆盖率报告的内容有变化。
+This has now been fixed by introducing a dedicated option: `browser.expect.toMatchScreenshot.screenshotDirectory`. Its default value is `__screenshots__`.
 
-之前 Vitest 使用 [`v8-to-istanbul`](https://github.com/istanbuljs/v8-to-istanbul) 将 V8 覆盖率结果映射到源码文件，但这种方式不够准确，报告中常常会出现误报。现在我们开发了基于 AST 分析的新方法，使 V8 报告的准确度与 `@vitest/coverage-istanbul` 一致。
+- If you did not set `browser.screenshotDirectory`, no changes are required.
+- If you did set `browser.screenshotDirectory`, you must now explicitly configure the new option:
 
-- 覆盖率忽略提示已更新，详见 [覆盖率 | 忽略代码](/guide/coverage.html#ignoring-code)。
-- 已移除 `coverage.ignoreEmptyLines` 选项。没有可执行代码的行将不再出现在报告中。
-- 已移除 `coverage.experimentalAstAwareRemapping` 选项。此功能现已默认启用，并成为唯一的映射方式。
-- 现在 V8 提供器也支持 `coverage.ignoreClassMethods`。
-
-### 移除 `coverage.all` 和 `coverage.extensions` 选项 {#removed-options-coverage-all-and-coverage-extensions}
-
-在之前的版本中，Vitest 会默认把所有未覆盖的文件包含到报告中。这是因为 `coverage.all` 默认为 `true`，`coverage.include` 默认为 `**`。这样设计是因为测试工具无法准确判断用户源码所在位置。
-
-然而，这导致 Vitest 覆盖率工具会处理很多意料之外的文件（例如压缩 JS 文件），造成报告生成速度很慢甚至卡死。在 Vitest v4 中，我们彻底移除了 `coverage.all`，并将默认行为改为 **只在报告中包含被测试覆盖的文件**。
-
-升级至 v4 版本时，建议先在配置文件中定义 `coverage.include`，再根据需要逐步添加简单的 `coverage.exclude` 匹配规则。
-
-```ts [vitest.config.ts]
-export default defineConfig({
-  test: {
-    coverage: {
-      // 包含匹配此模式的被覆盖和未覆盖文件：
-      include: ['packages/**/src/**.{js,jsx,ts,tsx}'], // [!code ++]
-
-      // 对上述 include 匹配到的文件应用排除规则：
-      exclude: ['**/some-pattern/**'], // [!code ++]
-
-      // 以下选项已移除
-      all: true, // [!code --]
-      extensions: ['js', 'ts'], // [!code --]
-    }
-  }
-})
-```
-
-如果未定义 `coverage.include`，报告将只包含测试运行中被加载的文件：
-
-```ts [vitest.config.ts]
-export default defineConfig({
-  test: {
-    coverage: {
-      // 未设置 include，只包含运行时加载的文件
-      include: undefined, // [!code ++]
-
-      // 匹配此模式的已加载文件将被排除：
-      exclude: ['**/some-pattern/**'], // [!code ++]
-    }
-  }
-})
-```
-
-更多示例请参考：
-
-- [覆盖率报告中的文件包含与排除](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
-- [性能分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage) 了解调试覆盖率生成的方法
-
-### 简化的 `exclude` 配置 {#simplified-exclude}
-
-默认情况下，Vitest 现在仅排除 `node_modules` 和 `.git` 文件夹中的测试文件。这意味着 Vitest 不再排除以下内容：
-
-- `dist` 和 `cypress` 文件夹
-- `.idea`、`.cache`、`.output`、`.temp` 文件夹
-- 配置文件，如 `rollup.config.js`、`prettier.config.js`、`ava.config.js` 等
-
-如果需要限制测试文件所在的目录，建议使用 [`test.dir`](/config/dir) 选项，因为它的性能优于排除文件：
-
-```ts
-import { configDefaults, defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    dir: './frontend/tests', // [!code ++]
-  },
-})
-```
-
-要恢复之前的行为，请手动指定旧的 `excludes`：
-
-```ts
-import { configDefaults, defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    exclude: [
-      ...configDefaults.exclude,
-      '**/dist/**', // [!code ++]
-      '**/cypress/**', // [!code ++]
-      '**/.{idea,git,cache,output,temp}/**', // [!code ++]
-      '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build,eslint,prettier}.config.*' // [!code ++]
-    ],
-  },
-})
-```
-
-### `spyOn` 和 `fn` 支持构造函数 {#spyon-and-fn-support-constructors}
-
-在之前的版本中，如果尝试使用 `vi.spyOn` 监视构造函数，可能会收到类似 `Constructor <name> requires 'new'` 的错误。自 Vitest 4 起，所有通过 `new` 关键字调用的模拟会构造实例，而不是调用 `mock.apply`。这意味着在这些情况下，模拟实现必须使用 `function` 或 `class` 关键字：
-
-```ts {12-14,16-20}
-const cart = {
-  Apples: class Apples {
-    getApples() {
-      return 42
-    }
-  }
-}
-
-const Spy = vi.spyOn(cart, 'Apples')
-  .mockImplementation(() => ({ getApples: () => 0 })) // [!code --]
-  // 使用 function 关键字
-  .mockImplementation(function () {
-    this.getApples = () => 0
-  })
-  // 使用自定义 class
-  .mockImplementation(class MockApples {
-    getApples() {
-      return 0
-    }
-  })
-
-const mock = new Spy()
-```
-
-请注意，如果此时使用箭头函数，调用 mock 时会报 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
-
-### Mock 的变更 {#changes-to-mocking}
-
-除了新增对构造函数的支持等功能外，Vitest 4 还对模拟的创建方式进行了调整，以解决多年来我们收到的多个模块模拟问题。此版本试图减少模块监视的混淆，尤其是在处理类时。
-
-- `vi.fn().getMockName()` 现在默认返回 `vi.fn()` 而非 `spy`。这可能会影响包含模拟的快照 —— 名称将从 `[MockFunction spy]` 改为 `[MockFunction]`。通过 `vi.spyOn` 创建的监视器默认仍会使用原始名称，以提供更好的调试体验。
-- `vi.restoreAllMocks` 不再重置监视器的状态，仅恢复通过 `vi.spyOn` 手动创建的监视器，自动模拟不再受此函数影响（这也影响了配置选项 [`restoreMocks`](/config/restoremocks)）。需注意的是，`.mockRestore` 仍会重置模拟实现并清除状态。
-- 对模拟调用 `vi.spyOn` 现在会返回相同的模拟。
-- `mock.settledResults` 现在会在函数调用时立即填充一个 `'incomplete'` 结果。当 Promise 完成时，类型会根据结果更新。
-- 自动模拟的实例方法现在已正确隔离，但仍与原型共享状态。除非实例方法有自己的自定义模拟实现，否则覆盖原型实现将始终影响实例方法。对模拟调用 `.mockReset` 也不再破坏这种继承关系。
-
-```ts
-import { AutoMockedClass } from './example.js'
-const instance1 = new AutoMockedClass()
-const instance2 = new AutoMockedClass()
-
-instance1.method.mockReturnValue(42)
-
-expect(instance1.method()).toBe(42)
-expect(instance2.method()).toBe(undefined)
-
-expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(2)
-
-instance1.method.mockReset()
-AutoMockedClass.prototype.method.mockReturnValue(100)
-
-expect(instance1.method()).toBe(100)
-expect(instance2.method()).toBe(100)
-
-expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(4)
-```
-
-- 自动 mock 方法一经生成即不可还原，手动 `.mockRestore` 无效；`spy: true` 的自动 mock 模块行为保持不变。
-- 自动 mock 的 getter 不再执行原始逻辑，默认返回 `undefined`；如需继续监听并改写，请使用 `vi.spyOn(object, name, 'get')`。
-- 执行 `vi.fn(implementation).mockReset()` 后，`.getMockImplementation()` 现可正确返回原 mock 实现。
-- `vi.fn().mock.invocationCallOrder` 现以 `1` 起始，与 Jest 保持一致。
-
-### 带文件名过滤器的独立模式 {#standalone-mode-with-filename-filter}
-
-为了提升用户体验，当 [`--standalone`](/guide/cli#standalone) 与文件名过滤器一起使用时，Vitest 现在会直接开始运行匹配到的文件。
-
-```sh
-# 在 Vitest v3 及以下版本中，该命令将忽略 "math.test.ts" 文件名过滤器。
-# 在 Vitest v4 中，math.test.ts 将自动运行。
-$ vitest --standalone math.test.ts
-```
-
-这允许用户为独立模式创建可复用的 `package.json`。
-
-::: code-group
-
-```json [package.json]
-{
-  "scripts": {
-    "test:dev": "vitest --standalone"
-  }
-}
-```
-
-```bash [CLI]
-# 以独立模式启动 Vitest，启动时不运行任何文件
-$ pnpm run test:dev
-
-# 立即运行 math.test.ts
-$ pnpm run test:dev math.test.ts
-```
-
-:::
-
-### `vite-node` 替换为 [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) {#replacing-vite-node-with-module-runner}
-
-Module Runner 已取代 `vite-node`，直接内嵌于 Vite, Vitest 亦移除 SSR 封装，直接调用。主要变更如下：
-
-- `VITE_NODE_DEPS_MODULE_DIRECTORIES` 环境变量已替换为 `VITEST_MODULE_DIRECTORIES`
-- Vitest 不再向每个 [测试运行器](/api/advanced/runner) 注入 `__vitest_executor`，改为注入 `moduleRunner`，它是 [`ModuleRunner`](https://cn.vite.dev/guide/api-environment-runtimes.html#modulerunner) 的实例
-- `vitest/execute` 入口点已移除，它始终仅供内部使用
-- [自定义环境](/guide/environment) 不再需要提供 `transformMode` 属性，改为提供 `viteEnvironment`。若未提供，Vitest 将使用环境名称在服务端转换文件（更多内容请参阅 [`server.environments`](https://cn.vite.dev/guide/api-environment-instances.html)）
-- `vite-node` 不再是 Vitest 的依赖项
-- `deps.optimizer.web` 已重命名为 [`deps.optimizer.client`](/config/deps#deps-client)。在使用其他服务端环境时，你也可以使用任意自定义名称来应用优化器配置
-
-Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`server.deps`](/config/server#deps) 可继续用于包的内联/外部化。
-
-未使用上述高级功能者，升级无感知。
-
-### `workspace` 替换为 `projects` {#workspace-is-replaced-with-projects}
-
-在 Vitest 3.2 中，`workspace` 配置选项更名为 [`projects`](/guide/projects)。除了不能指定其他文件作为工作区的源文件（以前可以指定导出项目数组的文件）外，它们在功能上是相同的。迁移到 `projects` 非常简单，只需将代码从 `vitest.workspace.js` 移动到 `vitest.config.ts`：
-
-::: code-group
-
-```ts [vitest.config.js]
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    workspace: './vitest.workspace.js', // [!code --]
-    projects: [ // [!code ++]
-      './packages/*', // [!code ++]
-      { // [!code ++]
-        test: { // [!code ++]
-          name: 'unit', // [!code ++]
-        }, // [!code ++]
-      }, // [!code ++]
-    ] // [!code ++]
-  }
-})
-```
-
-```ts [vitest.workspace.js]
-import { defineWorkspace } from 'vitest/config' // [!code --]
-
-export default defineWorkspace([ // [!code --]
-  './packages/*', // [!code --]
-  { // [!code --]
-    test: { // [!code --]
-      name: 'unit', // [!code --]
-    }, // [!code --]
-  } // [!code --]
-]) // [!code --]
-```
-
-:::
-
-### 修改浏览器模式提供者 {#browser-provider-rework}
-
-在 Vitest 4.0 中，浏览器提供者现在接受对象而非字符 (`'playwright'`, `'webdriverio'`)。`preview` 不再是默认设置。这使得使用自定义选项变得更简单，而且不再需要添加 `/// <reference` 注释。
-
-```ts
-import { playwright } from '@vitest/browser-playwright' // [!code ++]
-
-export default defineConfig({
-  test: {
-    browser: {
-      provider: 'playwright', // [!code --]
-      provider: playwright({ // [!code ++]
-        launchOptions: { // [!code ++]
-          slowMo: 100, // [!code ++]
-        }, // [!code ++]
-      }), // [!code ++]
-      instances: [
-        {
-          browser: 'chromium',
-          launch: { // [!code --]
-            slowMo: 100, // [!code --]
-          }, // [!code --]
+    ```ts [vitest.config.ts]
+    export default defineConfig({
+      test: {
+        browser: {
+          screenshotDirectory: 'my-screenshots',
+          expect: { // [!code ++]
+            toMatchScreenshot: { // [!code ++]
+              screenshotDirectory: 'my-screenshots', // [!code ++]
+            }, // [!code ++]
+          }, // [!code ++]
         },
-      ],
-    },
-  },
-})
-```
+      },
+    })
+    ```
 
-现在，`playwright` 工厂中的属性命名也与 [Playwright 文档](https://playwright.dev/docs/api/class-testoptions#test-options-launch-options) 一致，从而更容易查找。
+    Then either move existing reference screenshots to the new location or regenerate them.
 
-有了这一变更，就不再需要 `@vitest/browser` 软件包了，你可以将其从依赖关系中移除。要支持上下文导入，应将 `@vitest/browser/context` 更新为 `vitest/browser`：
+### Worker and Concurrency Ids Are 1-based
 
-```ts
-import { page } from '@vitest/browser/context' // [!code --]
-import { page } from 'vitest/browser' // [!code ++]
+Worker and pool identifiers now start at `1` instead of `0`. This changes the values of the `VITEST_POOL_ID` and `VITEST_WORKER_ID` environment variables, which now range from `1` to the worker count. Update any logic that derives a value from these ids, such as a per-worker database name or an array index.
 
-test('example', async () => {
-  await page.getByRole('button').click()
-})
-```
-
-这些模块完全相同，因此只需进行简单的 “查找和替换” 即可。
-
-如果使用 `@vitest/browser/utils` 模块，现在也可以从 `vitest/browser` 导入这些实用程序：
+For custom reporters, the [`TestModule`](/api/advanced/test-module#diagnostic) diagnostics now expose both ids: the existing `workerId` (now 1-based) and a new `concurrencyId`.
 
 ```ts
-import { getElementError } from '@vitest/browser/utils' // [!code --]
-import { utils } from 'vitest/browser' // [!code ++]
-const { getElementError } = utils // [!code ++]
-```
+import type { Reporter, TestModule } from 'vitest/node'
 
-::: warning
-在过渡期间，`@vitest/browser/context` 和 `@vitest/browser/utils` 都能在运行时工作，但它们将在未来的版本中移除。
-:::
-
-### Pool 重构 {#pool-rework}
-
-Vitest 过去使用 [`tinypool`](https://github.com/tinylibs/tinypool) 来编排测试文件在 test runner worker 中的运行方式。Tinypool 负责在内部处理并行、隔离和 IPC 通信等复杂任务。然而我们发现 Tinypool 存在一些缺陷，拖慢了 Vitest 的开发进度。在 Vitest v4 中，我们彻底移除了 Tinypool，并在不引入新依赖的前提下重写了 pool 的工作机制。详细原因请参阅 [feat!: rewrite pools without tinypool #8705](https://github.com/vitest-dev/vitest/pull/8705)
-
-新的 pool 架构使 Vitest 得以简化许多此前复杂的配置项：
-
-- `maxThreads` 和 `maxForks` 现统一为 `maxWorkers`。
-- 环境变量 `VITEST_MAX_THREADS` 和 `VITEST_MAX_FORKS` 现统一为 `VITEST_MAX_WORKERS`。
-- `singleThread` 和 `singleFork` 现等价于 `maxWorkers: 1, isolate: false`。如果你的测试依赖测试间的模块重置，需添加 [setupFile](/config/setupfiles) 并在 [`beforeAll` 测试钩子](/api/hooks#beforeall) 中调用 [`vi.resetModules()`](/api/vi.html#vi-resetmodules)。
-- `poolOptions` 已移除。原有的所有 `poolOptions` 配置项现均为顶层选项。虚拟运行池的 `memoryLimit` 已重命名为 `vmMemoryLimit`。
-- `threads.useAtomics` 已移除。如果你有相关使用场景，欢迎提交新的功能请求。
-- 自定义运行池接口已重写，详见 [自定义运行池](/guide/advanced/pool#custom-pool)。
-
-```ts
-export default defineConfig({
-  test: {
-    poolOptions: { // [!code --]
-      forks: { // [!code --]
-        execArgv: ['--expose-gc'], // [!code --]
-        isolate: false, // [!code --]
-        singleFork: true, // [!code --]
-      }, // [!code --]
-      vmThreads: { // [!code --]
-        memoryLimit: '300Mb' // [!code --]
-      }, // [!code --]
-    }, // [!code --]
-    execArgv: ['--expose-gc'], // [!code ++]
-    isolate: false, // [!code ++]
-    maxWorkers: 1, // [!code ++]
-    vmMemoryLimit: '300Mb', // [!code ++]
+class MyReporter implements Reporter {
+  onTestModuleEnd(testModule: TestModule) {
+    const { workerId, concurrencyId } = testModule.diagnostic()
   }
-})
+}
 ```
 
-此前在使用 [测试项目](/guide/projects) 时，无法为单个项目单独指定某些 pool 相关配置项。新架构已解除了这一限制。
+Node.js and browser tests run in separate pools and do not share these ids, so the same value can appear in both.
 
-::: code-group
+### Package Migration
 
-```ts [按项目隔离]
-import { defineConfig } from 'vitest/config'
+The following packages are deprecated as of this release. They will no longer receive feature updates, but security fixes will continue to be backported:
 
-export default defineConfig({
-  test: {
-    projects: [
-      {
-        // 非隔离的单元测试
-        name: 'Unit tests',
-        isolate: false,
-        exclude: ['**.integration.test.ts'],
-      },
-      {
-        // 隔离的集成测试
-        name: 'Integration tests',
-        include: ['**.integration.test.ts'],
-      },
-    ],
-  },
-})
-```
+- [`@vitest/runner`](https://npmx.dev/package/@vitest/runner)
+- [`@vitest/ws-client`](https://npmx.dev/package/@vitest/ws-client)
 
-```ts [并行与串行项目]
-import { defineConfig } from 'vitest/config'
+The [`@vitest/browser-webdriverio`](https://npmx.dev/package/@vitest/browser-webdriverio) provider has been moved to the [vitest-community](https://github.com/vitest-community/vitest-webdriverio) organization. Going forward, WebdriverIO support is community-maintained and addressed on a per-issue basis. If you use it, update your dependency to the new package and report any issues in the new repository.
 
-export default defineConfig({
-  test: {
-    projects: [
-      {
-        name: 'Parallel',
-        exclude: ['**.sequential.test.ts'],
-      },
-      {
-        name: 'Sequential',
-        include: ['**.sequential.test.ts'],
-        fileParallelism: false,
-      },
-    ],
-  },
-})
-```
+### Removed Deprecated Entrypoints
 
-```ts [按项目分配 Node CLI 选项]
-import { defineConfig } from 'vitest/config'
+Several entry points were marked as deprecated in Vitest 4.1. This release removes them entirely.
 
-export default defineConfig({
-  test: {
-    projects: [
-      {
-        name: 'Production env',
-        execArgv: ['--env-file=.env.prod']
-      },
-      {
-        name: 'Staging env',
-        execArgv: ['--env-file=.env.staging']
-      },
-    ],
-  },
-})
-```
-
-:::
-<!-- TODO: translation -->
-See [Per-File Isolation Settings](/guide/recipes/disable-isolation) and [Parallel and Sequential Test Files](/guide/recipes/parallel-sequential) for more examples.
-
-### 报告器升级 {#reporter-updates}
-
-Reporter API 中的 `onCollected`、`onSpecsCollected`、`onPathsCollected`、`onTaskUpdate` 和 `onFinished` 已被移除。新的替代方案请参阅 [`Reporters API`](/api/advanced/reporters)。新 API 于 Vitest `v3.0.0` 中引入。
-
-移除了 `basic` 报告器，因为它等价于：
-
-```ts
-export default defineConfig({
-  test: {
-    reporters: [
-      ['default', { summary: false }]
-    ]
-  }
-})
-```
-
-现在，[`verbose`](/guide/reporters#verbose-reporter) 报告器会以平面列表的形式打印测试用例。要恢复以前的行为，请使用 `--reporter=tree`:
-
-```ts
-export default defineConfig({
-  test: {
-    reporters: ['verbose'], // [!code --]
-    reporters: ['tree'], // [!code ++]
-  }
-})
-```
-
-### 使用自定义元素打印 Shadow Root 快照 {#snapshots-using-custom-elements-print-the-shadow-root}
-
-在 Vitest 4.0 中，包含自定义元素的快照将打印阴影根内容。要恢复以前的行为，请将 [`printShadowRoot` option](/config/snapshotformat) 设为 `false`。
-
-```js{15-22}
-// 自 Vitest 4.0 前
-exports[`custom element with shadow root 1`] = `
-"<body>
-  <div>
-    <custom-element />
-  </div>
-</body>"
-`
-
-// 自 Vitest 4.0 后
-exports[`custom element with shadow root 1`] = `
-"<body>
-  <div>
-    <custom-element>
-      #shadow-root
-        <span
-          class="some-name"
-          data-test-id="33"
-          id="5"
-        >
-          hello
-        </span>
-    </custom-element>
-  </div>
-</body>"
-`
-```
-
-### 移除弃用的 API {#deprecated-apis-are-removed}
-
-Vitest 4.0 移除了以下废弃的配置项：
-
-- `poolMatchGlobs` 配置项。请使用 [`projects`](/guide/projects) 代替。
-- `environmentMatchGlobs` 配置项。请使用 [`projects`](/guide/projects) 代替。
-- `deps.external`、`deps.inline`、`deps.fallbackCJS` 配置项。请改用 `server.deps.external`、`server.deps.inline` 或 `server.deps.fallbackCJS`。
-- `browser.testerScripts` 配置项。请使用 [`browser.testerHtmlPath`](/config/browser/testerhtmlpath) 代替。
-- `minWorkers` 配置项。只有 `maxWorkers` 会对测试运行方式产生影响，因此我们正在移除这个公共选项。
-- Vitest 不再支持将测试选项作为第三个参数提供给 `test` 和 `describe`。请改用第二个参数。
-
-```ts
-test('example', () => { /* ... */ }, { retry: 2 }) // [!code --]
-test('example', { retry: 2 }, () => { /* ... */ }) // [!code ++]
-```
-
-注意，仍然支持将超时数字作为最后一个参数：
-
-```ts
-test('example', () => { /* ... */ }, 1000) // ✅
-```
-
-此版本还移除了所有已废弃的类型。最终解决了 Vitest 意外引入 `@types/node` 的问题 (参见 [#5481](https://github.com/vitest-dev/vitest/issues/5481) 和 [#6141](https://github.com/vitest-dev/vitest/issues/6141)).
+- `vitest/coverage`: use `vitest/node` instead
+- `vitest/reporters`: use `vitest/node` instead
+- `vitest/environments`: use `vitest/runtime` instead
+- `vitest/snapshot`: use `vitest/runtime` instead
+- `vitest/runners`: use `TestRunner` from `vitest` instead
+- `vitest/suite`: use static methods on `TestRunner` from vitest instead (for example, `TestRunner.getCurrentTest()`)
+- `vitest/mocker` is removed completely, use `@vitest/mocker` package directly (this was published by accident at one point and never removed)
+- `vitest/internal/module-runner` is removed
 
 ## 从 Jest 迁移 {#jest}
 

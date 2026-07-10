@@ -540,6 +540,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **配置:** [dangerouslyIgnoreUnhandledErrors](/config/dangerouslyignoreunhandlederrors)
 
 忽略任何未处理的错误
+<!-- TODO: translation -->
+### changed
+
+- **CLI:** `--changed [since]`
+- **Config:** [changed](/config/changed)
+
+Run tests that are affected by the changed files (default: `false`)
 
 ### sequence.shuffle.files
 

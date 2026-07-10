@@ -98,7 +98,7 @@ interface PopulateResult {
   keys: Set<string>
   // 可能已被键覆盖的原始对象的映射
   // 你可以在 `teardown` 函数中返回这些值
-  originals: Map<string | symbol, any>
+  originals: Map<string | symbol, PropertyDescriptor>
 }
 
 export function populateGlobal(

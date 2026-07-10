@@ -84,10 +84,7 @@ import Box from '../.vitepress/components/Box.vue'
 
 ## Istanbul 覆盖率提供方案 {#istanbul-provider}
 
-[Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。
-这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。
-
-简单来说，插桩就是在你的源文件里加入一段额外的 JavaScript，用于记录代码的执行路径：
+[Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。实际运行时，Vitest 最终执行的代码大致会像这样：
 
 ```js
 // 分支和函数覆盖率计数器的简化示例
@@ -119,7 +116,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 - ✅ 可以在任何 JavaScript 环境中使用
 - ✅ 已被业界广泛采用并在 13 年中得到充分验证
 - ✅ 某些情况下执行速度优于 V8，因为插桩可以只针对特定文件，而 V8 会对所有模块插桩
-- ❌ 需要在执行前进行插桩处理
+- ❌ 源代码会在运行前经过转换，并添加插桩代码。
 - ❌ 由于插桩带来的额外开销，执行速度普遍比 V8 慢
 - ❌ 插桩会使文件体积变大
 - ❌ 内存消耗比 V8 更高
