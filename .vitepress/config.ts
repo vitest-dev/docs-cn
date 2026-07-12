@@ -1047,7 +1047,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/watch-templates',
               },
               {
-                text: 'Extending Browser Locators',
+                text: '扩展浏览器定位器',
                 link: '/guide/recipes/browser-locators',
               },
               {

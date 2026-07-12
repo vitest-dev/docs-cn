@@ -1,20 +1,20 @@
 ---
-title: Extending Browser Locators | Recipes
+title: 扩展浏览器定位器 | 技巧
 ---
 
-# Domain Locators
+# 领域定位器 {#domain-locators}
 
-Built-in [locators](/api/browser/locators) like `getByRole` and `getByText` cover queries that map onto accessibility attributes. They run out when an app has shapes that don't fit ARIA, like a "comment with N replies" or a row in a custom table component.
+内置的 [定位器](/api/browser/locators) 如 `getByRole` 和 `getByText` 覆盖了映射到无障碍属性的查询。当应用具有不符合 ARIA 的结构时，例如 “带有 N 条回复的评论” 或自定义表格组件中的行，它们就无能为力了。
 
-The fallback is to use `querySelector`. That works, but the result is a plain query rather than a locator, so you lose auto-retry and strict-mode protection.
+备选方案是使用 `querySelector`。结果是普通查询而非定位器，虽然可以工作，因此你会失去自动重试和严格模式保护。
 
-[`locators.extend`](/api/browser/locators#custom-locators) <Version>3.2.0</Version> adds a domain-specific locator without giving up the locator API. The value the method returns is still a locator, so auto-retry, strict-mode protection, and chaining all carry through to your custom methods. The names you give those methods become part of the team's test vocabulary: `page.getByCard({ id: 'product-1' })` reads like the product instead of the DOM, and the same name shows up consistently across the suite.
+[`locators.extend`](/api/browser/locators#custom-locators) <Version>3.2.0</Version> 可以在继承定位器 API 特性的前提下，添加一个领域特定的定位器。该方法返回的值仍然是定位器，通过这样方式自定义方法继承了定位器的自动重试、严格模式保护和链式调用功能。你为这些方法命名的名称会成为团队测试词汇的一部分：`page.getByCard({ id: 'product-1' })` 读起来是领域语言而非 DOM，并且同一名称会在整个测试套件中保持一致。
 
-## Returning a Playwright string
+## 返回 Playwright 字符串 {#returning-a-playwright-string}
 
-The simplest form returns a [Playwright locator string](https://playwright.dev/docs/other-locators). Vitest treats the returned string as a child query of whatever locator the method was called on: when called on `page`, the string runs against the entire page; when called on a parent locator, it runs scoped to that parent's subtree.
+最简单的形式返回一个 [Playwright 定位器字符串](https://playwright.dev/docs/other-locators)。Vitest 将返回的字符串视为调用该定位器方法的子查询：当在 `page` 上调用时，将会在整个页面中查找；当在父定位器上调用时，查找范围限定在该父定位器的子树内。
 
-Reach for this form when the new query has no good expression in built-in locators, like a CSS-with-text selector for a widget that doesn't map onto a built-in role, or an XPath for a legacy component you don't control.
+当新的查询无法使用内置定位器恰当表达时，可以使用这种形式，例如对于没有对应内置角色的组件使用 CSS-with-text 选择器，或者对于你无法控制的遗留组件使用 XPath。
 
 ```ts
 import { locators } from 'vitest/browser'
@@ -39,11 +39,11 @@ test('article shows comment count', async () => {
 })
 ```
 
-## Composing existing locators
+## 组合现有定位器 {#composing-existing-locators}
 
-When you return a locator instead of a string, Vitest uses that locator directly. Inside the extension, `this` is bound to the locator the method was called on (or to `page` for top-level calls), so you can chain existing locators or apply `filter` to express relationships between elements that no single built-in option captures.
+当你返回的是定位器而不是字符串时，Vitest 会直接使用该定位器。在扩展方法内部，`this` 会绑定到调用该方法的定位器上（顶层调用时则绑定到 `page`），因此你可以链式组合现有定位器，或通过 `filter` 表达那些单个内置方法无法描述的元素关系。
 
-The example below uses `filter({ has })` to narrow a row locator to those that contain a button with a given name, encoding a common per-row-actions pattern as a single named lookup:
+下面示例使用 `filter({ has })` 将行定位器收窄到包含指定 name 按钮的那些行，把常见的匹配 “每行操作按钮” 封装成一个具名查询：
 
 ```ts
 import { locators } from 'vitest/browser'
@@ -62,13 +62,13 @@ locators.extend({
 await page.getRowWithAction('Delete').first().click()
 ```
 
-Prefer this over the raw-string form when both options can express the query. Built-in locators encode accessibility-aware lookups, and chaining or filtering them preserves those guarantees. Reach for the raw-string form only when no chain of built-ins covers the query, since the string runs whatever selector you wrote and bypasses the locator mechanism you're trying to keep.
+当这两种方式都能表达查询时，优先选择上述这种形式而不是原始字符串形式。内置定位器具备无障碍语义的查找、链式调用和过滤器机制。只有在无法通过内置定位器的组合覆盖查询时，再退回到原始字符串形式，如果选择了字符串形式则放弃内置定位器的优势。
 
-## Custom interactions
+## 自定义交互操作 {#custom-interactions}
 
-Methods that perform an interaction instead of returning a locator also work. This is the same mechanism used for shaping your own DSL of user actions, defined alongside your queries so the test vocabulary stays consistent.
+执行交互操作且不返回定位器的方法同样可行。这与构建用户操作 DSL 使用相同机制，与查询方法一起定义，使测试词汇保持一致。
 
-`locators.extend` types `this` as `BrowserPage | Locator`, since custom methods are reachable from both. For query helpers that's fine, since `getByRole` and other query methods exist on both. For interaction helpers it isn't: `page` has no `click` or `fill`, so calling `page.clickAndFill('x')` would fail at runtime. Guard against that by comparing `this` against the `page` singleton, which lets TypeScript narrow `this` to `Locator` after the throw:
+`locators.extend` 将 `this` 的类型标注为 `BrowserPage | Locator`，因为自定义方法可能调用任意一个。这对于查询工具函数来说没问题，因为 `getByRole` 和其他查询方法在两者上都存在。对于交互工具函数则不然：`page` 没有 `click` 或 `fill` 方法，因此调用 `page.clickAndFill('x')` 会在运行时报错。可以将 `this` 与 `page` 单例进行比较来防范这种情况，这样 TypeScript 能在抛出错误后将 `this` 类型收窄为 `Locator`：
 
 ```ts
 import { locators, page } from 'vitest/browser'
@@ -89,11 +89,11 @@ locators.extend({
 await page.getByRole('textbox').clickAndFill('Hello World')
 ```
 
-Interaction methods don't compose into selectors. `page.getByRole('textbox').clickAndFill('Hello')` works because `getByRole` returns a locator; `page.clickAndFill('Hello')` would hit the guard. Reach for this form for action helpers, not for query helpers.
+这种交互方法不会组合成定位器。`page.getByRole('textbox').clickAndFill('Hello')` 可以正常工作的原因是 `getByRole` 返回的是定位器；`page.clickAndFill('Hello')` 则会触发类型保护。上述追溯形式仅适用于扩展操作工具函数，并不适用扩展查询工具函数。
 
-## Augmenting locator types
+## 扩展定位器类型 {#augmenting-locator-types}
 
-`locators.extend` is a runtime registration. TypeScript doesn't know about the new methods until you augment the [`LocatorSelectors`](/api/browser/locators) interface, usually in a shared `.d.ts` file:
+`locators.extend` 属于运行时注册。TypeScript 在类型层面并不知道这些新增方法，除非你在一个共享的 `.d.ts` 声明文件显式扩展 [`LocatorSelectors`](/api/browser/locators) 接口。
 
 ```ts
 import 'vitest/browser'
@@ -107,10 +107,10 @@ declare module 'vitest/browser' {
 }
 ```
 
-`LocatorSelectors` is the interface that both `Locator` and `BrowserPage` extend, so any method declared on it shows up on both. That matches what `locators.extend` does at runtime, and it's why interaction helpers like `clickAndFill` need the guard above: TypeScript will let `page.clickAndFill('x')` type-check, but the guard catches the misuse before it hits a missing method.
+`LocatorSelectors` 是 `Locator` 和 `BrowserPage` 联合接口，所以你在这里声明的方法会同时出现在两者上。这也和 `locators.extend` 的运行时行为一致。正因如此，`clickAndFill` 这类交互工具方法才需要上面的保护：TypeScript 允许 `page.clickAndFill('x')` 通过类型检查，但运行时保护会在调用不存在的方法前先报错。
 
-## See also
+## 相关链接 {#see-also}
 
-- [Custom Locators API](/api/browser/locators#custom-locators)
-- [Built-in Locators](/api/browser/locators)
-- [Playwright "other locators"](https://playwright.dev/docs/other-locators)
+- [自定义定位器 API](/api/browser/locators#custom-locators)
+- [内置定位器](/api/browser/locators)
+- [Playwright “其他定位器”](https://playwright.dev/docs/other-locators)
