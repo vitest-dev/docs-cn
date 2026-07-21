@@ -37,6 +37,7 @@
     "@voidzero-dev/vitepress-theme": "^4.8.4",
     "eslint": "^10.4.0",
     "eslint-factory": "^0.1.2",
+    "eslint-plugin-format": "^2.0.1",
     "eslint-plugin-md-style": "^0.2.0",
     "https-localhost": "^4.7.1",
     "lint-staged": "^17.0.5",

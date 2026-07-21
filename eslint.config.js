@@ -9,6 +9,10 @@ export default antfu(
     vue: true,
     jsonc: false,
     yaml: false,
+    markdown: true,
+    formatters: {
+      markdown: 'prettier',
+    },
     ignores: [
       '*.d.ts',
       '!.vitepress',
