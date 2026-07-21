@@ -49,6 +49,7 @@ import { render } from 'vitest-browser-react'
 const screen = render(<Component />) // [!code --]
 const screen = await render(<Component />) // [!code ++]
 ```
+
 :::
 
 ### 选项 {#options}
@@ -155,7 +156,9 @@ function debug(
 ```ts
 function rerender(ui: React.ReactNode): Promise<void>
 ```
+
 <!-- TODO: translation -->
+
 Also records a `react.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
 
 It is better if you test the component that's doing the prop updating to ensure that the props are being updated correctly to avoid relying on implementation details in your tests. That said, if you'd prefer to update the props of a rendered component in your test, this function can be used to update props of the rendered component.
@@ -174,7 +177,9 @@ await rerender(<NumberDisplay number={2} />)
 ```ts
 function unmount(): Promise<void>
 ```
+
 <!-- TODO: translation -->
+
 Also records a `react.unmount` trace mark in the [Trace View](/guide/browser/trace-view).
 
 This will cause the rendered component to be unmounted. This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
@@ -258,6 +263,7 @@ await renderHook(() => {}, {
   wrapper: createWrapper(Wrapper, { value: 'foo' }),
 })
 ```
+
 :::
 
 `renderHook` 返回包含以下工具方法和属性的对象:

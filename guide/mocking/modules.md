@@ -136,6 +136,7 @@ vi.mock('./example.js', { spy: true })
 
 vi.mocked(exampleObject.answer).mockReturnValue(0)
 ```
+
 :::
 
 ::: warning
@@ -154,6 +155,7 @@ export function question() {
   return 'Unknown Question'
 }
 ```
+
 :::
 
 请注意，`vi.spyOn` 只能追踪在其监听启动之后发生的调用。
@@ -314,12 +316,14 @@ vi.mock(import('vscode'), () => {
 Vitest 会根据运行环境的不同，采用不同的模块模拟机制，但它们的共同点是都使用了插件转换器（ plugin transformer ）。
 
 当 Vitest 发现某个文件中包含 `vi.mock` 调用时，会执行两步处理：
+
 1. 将所有静态导入（ static import ）语句改写为动态导入（ dynamic import ）
 2. 将 `vi.mock` 调用移动到文件顶部。
 
 这样一来，Vitest 就能在模块被导入前完成 Mock 的注册，同时依然遵守 ESM 对“导入提升（ hoisted imports ）”的语法规则。
 
 ::: code-group
+
 ```ts [example.js]
 import { answer } from './answer.js'
 
@@ -327,6 +331,7 @@ vi.mock(import('./answer.js'))
 
 console.log(answer)
 ```
+
 ```ts [example.transformed.js]
 vi.mock('./answer.js')
 
@@ -336,6 +341,7 @@ const __vitest_module_0__ = await __handle_mock__(
 // 为了保持实时绑定，我们必须通过模块命名空间上的导出
 console.log(__vitest_module_0__.answer())
 ```
+
 :::
 
 `__handle_mock__` 这个包装器的唯一作用，是确保在模块导入开始之前就完成 Mock 的解析；
@@ -357,6 +363,7 @@ Vitest 依赖原生 ESM ，这意味着无法像在 Node 环境中那样直接�
 
 因此，当模块被 mock 时，
 Vitest 会通过拦截网络请求来替换模块代码：
+
 - 在 Playwright 环境下，使用 `page.route` 进行拦截；
 - 在 `preview` 或 `webdriverio` 场景下，使用 Vite 插件 API 进行拦截。
 
@@ -367,11 +374,13 @@ Vitest 会返回经过转换的代码。
 Vitest 会解析模块的静态导出，并生成一个占位模块（ placeholder module ）来替代原模块。
 
 ::: code-group
+
 ```ts [answer.js]
 export function answer() {
   return 42
 }
 ```
+
 ```ts [answer.transformed.js]
 function answer() {
   return 42
@@ -384,11 +393,13 @@ const __private_module__ = {
 
 export const answer = __private_module__.answer
 ```
+
 :::
 
 为了简洁，示例代码有所精简，但核心原理不变。
 
 我们可以在模块中注入一个 `__private_module__` 变量，用于存放被 mock 的值：
+
 - 如果用户在调用 `vi.mock` 时传入 `{ spy: true }`，则保留原始实现并传递它；
 - 否则，就用一个简单的 `vi.fn()` 来创建 mock 函数。
 

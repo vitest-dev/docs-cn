@@ -111,7 +111,7 @@ assertType<string>(answer)
 ```
 
 ::: tip
-使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会 *运行* 这些测试并因 `ReferenceError` 而失败。
+使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会 _运行_ 这些测试并因 `ReferenceError` 而失败。
 
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：
 

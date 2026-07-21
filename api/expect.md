@@ -443,6 +443,7 @@ test('toBeTypeOf cannot check for null or array', () => {
   expect([]).toBeTypeOf('object')
 })
 ```
+
 :::
 
 ## toBeInstanceOf
@@ -796,12 +797,14 @@ test('the number of elements must match exactly', () => {
 必须将代码包装在一个函数中，否则错误将无法被捕获，测试将失败。
 
 这不适用于异步调用，因为 [rejects](#rejects) 正确地解开了 promise:
+
 ```ts
 test('expect rejects toThrow', async ({ expect }) => {
   const promise = Promise.reject(new Error('Test'))
   await expect(promise).rejects.toThrow()
 })
 ```
+
 :::
 
 例如，如果我们想要测试 `getFruitStock('pineapples')` 是否会抛出错误，我们可以这样写：
@@ -860,6 +863,7 @@ test('throws non-Error values', () => {
   expect(() => { throw { message: 'error' } }).toThrow({ message: 'error' })
 })
 ```
+
 :::
 
 :::warning 使用假定时器时的未处理拒绝
@@ -906,6 +910,7 @@ test('rejects', async () => {
   await assertion
 })
 ```
+
 :::
 
 ## toMatchSnapshot
@@ -1012,6 +1017,7 @@ it('render basic', async () => {
 
 与 [`toMatchInlineSnapshot`](#tomatchinlinesnapshot) 类似，但期望的值与 [`toThrow`](#toThrow) 相同。
 <!-- TODO: translation -->
+
 ## toMatchAriaSnapshot <Version type="experimental">4.1.4</Version> <Experimental /> {#tomatcharisnapshot}
 
 - **Type:** `() => void`

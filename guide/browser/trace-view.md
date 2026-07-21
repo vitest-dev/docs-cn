@@ -1,5 +1,7 @@
 # Trace View <Badge type="warning" text="Experimental" /> <Version>5.0.0</Version>
+
 <!-- TODO: translation -->
+
 `browser.traceView` records browser interactions as DOM snapshots and lets you replay them step by step in Vitest's built-in trace viewer. It is useful when the live browser view is not enough: you can inspect earlier tests, failed retries, screenshots, assertions, and user actions after the browser has already moved on.
 
 Trace view is additive to the current browser testing workflow. Enabling it does not force a single debugging mode. You can use it with the normal local browser UI, with a headless browser and Vitest UI, or with the HTML reporter in CI.
@@ -71,23 +73,23 @@ TODO: The browser UI / Vitest UI / browser driver combinations are not specific 
 
 `browser.traceView` records traces. The browser mode, UI, and reporter options determine where you inspect them.
 
-| Goal | Configuration | Result |
-| --- | --- | --- |
-| Add trace replay to the normal local browser UI | `vitest --browser.traceView` | Uses the default local headed browser UI and adds trace replay for recorded tests. |
-| Debug locally with a headless browser | `vitest --browser.traceView --browser.headless --ui` | The browser runs headless, while Vitest UI shows recorded trace steps and snapshots. |
+| Goal                                                      | Configuration                                                                 | Result                                                                                                   |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Add trace replay to the normal local browser UI           | `vitest --browser.traceView`                                                  | Uses the default local headed browser UI and adds trace replay for recorded tests.                       |
+| Debug locally with a headless browser                     | `vitest --browser.traceView --browser.headless --ui`                          | The browser runs headless, while Vitest UI shows recorded trace steps and snapshots.                     |
 | Debug locally with a visible browser window and Vitest UI | `vitest --browser.traceView --browser.headless=false --browser.ui=false --ui` | Vitest UI shows recorded trace steps and snapshots, while tests run in a separate headed browser window. |
-| Generate a static report for CI or run mode | `vitest run --browser.traceView --reporter=html` | The HTML report includes the trace viewer for recorded tests. |
+| Generate a static report for CI or run mode               | `vitest run --browser.traceView --reporter=html`                              | The HTML report includes the trace viewer for recorded tests.                                            |
 
 ## Relation to Playwright Traces
 
 `browser.traceView` and [`browser.trace`](/config/browser/trace) are independent features:
 
-|                        | `browser.traceView`                                       | `browser.trace`                                |
-| ---------------------- | --------------------------------------------------------- | ---------------------------------------------- |
-| Provider support       | All providers (playwright, webdriverio, preview)          | Playwright only                                |
-| Viewer                 | Browser UI / Vitest UI / HTML reporter                    | Playwright Trace Viewer / trace.playwright.dev |
+|                        | `browser.traceView`                                      | `browser.trace`                                |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------------------- |
+| Provider support       | All providers (playwright, webdriverio, preview)         | Playwright only                                |
+| Viewer                 | Browser UI / Vitest UI / HTML reporter                   | Playwright Trace Viewer / trace.playwright.dev |
 | Format                 | [rrweb](https://github.com/rrweb-io/rrweb) DOM snapshots | Playwright `.trace.zip`                        |
-| Requires external tool | No                                                        | Yes (`npx playwright show-trace`)              |
+| Requires external tool | No                                                       | Yes (`npx playwright show-trace`)              |
 
 You can enable both at the same time. See [Playwright Traces](./playwright-traces) for the `browser.trace` workflow.
 

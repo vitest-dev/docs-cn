@@ -4,7 +4,9 @@ outline: deep
 ---
 
 # 测试运行生命周期 {#test-run-lifecycle}
+
 <!-- TODO: translation -->
+
 ::: tip
 Looking for a practical introduction to `beforeEach`, `afterEach`, and other hooks? See the [Setup and Teardown](/guide/learn/setup-teardown) tutorial.
 :::
@@ -32,6 +34,7 @@ Looking for a practical introduction to `beforeEach`, `afterEach`, and other hoo
 运行 `vitest` 时，框架首先加载配置并准备测试环境。
 
 **发生了什么:**
+
 - 解析 [命令行](/guide/cli) 参数
 - 加载 [配置文件](/config/)
 - 验证项目结构
@@ -45,12 +48,14 @@ Looking for a practical introduction to `beforeEach`, `afterEach`, and other hoo
 如果你配置了 [`globalSetup`](/config/globalsetup) 文件，它们会在任何测试 Worker 创建之前执行一次。
 
 **发生了什么:**
+
 - 全局 setup 文件中的 `setup()` 函数（或导出的 `default` 函数）按顺序依次执行
 - 多个全局 setup 文件按定义顺序执行
 
 **作用域:** 主进程（与测试 Worker 相互独立）
 
 **注意事项:**
+
 - 全局初始化与测试在 **不同的全局作用域** 中运行
 - 测试无法访问全局 setup 中定义的变量（请改用 [`provide`/`inject`](/config/provide)）
 - 只有至少有一个测试排队时，全局 setup 才会执行
@@ -75,6 +80,7 @@ export function teardown() {
 全局初始化完成后，Vitest 根据你的 [pool 配置](/config/pool) 创建测试 Worker。
 
 **发生了什么:**
+
 - 根据 `browser.enabled` 或 `pool` 配置（`threads`、`forks`、`vmThreads` 或 `vmForks`）创建 Worker
 - 每个 Worker 拥有独立的隔离环境（除非禁用了 [隔离](/config/isolate)）
 - 默认情况下，Worker 为了保证隔离性不会复用。只有在以下情况才会复用：
@@ -88,6 +94,7 @@ export function teardown() {
 每个测试文件运行之前，会先执行 [setup 文件](/config/setupfiles)。
 
 **发生了什么:**
+
 - setup 文件与测试运行在同一进程中
 - 默认情况下，setup 文件 **并行** 执行（可通过 [`sequence.setupFiles`](/config/sequence#sequence-setupfiles) 配置）
 - setup 文件在 **每个测试文件** 之前执行
@@ -96,6 +103,7 @@ export function teardown() {
 **作用域:** Worker 进程（与测试相同）
 
 **注意事项:**
+
 - 如果禁用了 [isolation](/config/isolate)，setup 文件仍会在每个测试文件之前重新执行以触发副作用，但导入的模块会被缓存
 - 在 watch 模式下，编辑 setup 文件会触发所有测试重新运行
 
@@ -132,14 +140,14 @@ afterEach(() => {
 2. **测试收集:** 处理 `describe` 块，导入测试文件时以副作用的形式注册测试
 3. **[`aroundAll`](/api/hooks#aroundall) 钩子:** 包裹套件中的所有测试（须调用 `runSuite()`）
 4. **[`beforeAll`](/api/hooks#beforeall) 钩子:** 在套件中任何测试运行之前执行一次
-5. **对于每个测试:**：
- - [`aroundEach`](/api/hooks#aroundeach) 钩子包裹该测试（须调用 `runTest()`）
- - `beforeEach` 钩子执行（按定义顺序，或基于 [`sequence.hooks`](/config/sequence#sequence-hooks)）
- - 测试函数执行
- - `afterEach` 钩子执行（默认以 `sequence.hooks: 'stack'` 倒序执行）
- - [`onTestFinished`](/api/hooks#ontestfinished) 回调执行（始终倒序）
- - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
- - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
+5. **对于每个测试：**
+   - [`aroundEach`](/api/hooks#aroundeach) 钩子包裹该测试（须调用 `runTest()`）
+   - `beforeEach` 钩子执行（按定义顺序，或基于 [`sequence.hooks`](/config/sequence#sequence-hooks)）
+   - 测试函数执行
+   - `afterEach` 钩子执行（默认以 `sequence.hooks: 'stack'` 倒序执行）
+   - [`onTestFinished`](/api/hooks#ontestfinished) 回调执行（始终倒序）
+   - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
+   - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
 6. **[`afterAll`](/api/hooks#afterall) 钩子:** 套件中所有测试完成后执行一次
 
 **执行流程示例:**
@@ -305,6 +313,7 @@ describe('outer', () => {
 在整个测试运行过程中，报告器持续接收生命周期事件并展示结果。
 
 **发生了什么:**
+
 - 报告器随测试进度接收事件
 - 收集并格式化测试结果
 - 生成测试摘要
@@ -317,6 +326,7 @@ describe('outer', () => {
 所有测试完成后，全局清理函数开始执行。
 
 **发生了什么:**
+
 - [`globalSetup`](/config/globalsetup) 文件中的 `teardown()` 函数执行
 - 多个清理函数以初始化 **相反的顺序** 执行
 - 在 watch 模式下，清理在进程退出前执行，而非在每次重新运行之间执行
@@ -334,18 +344,18 @@ export function teardown() {
 
 理解代码在何处执行对于避免常见问题至关重要：
 
-| 阶段 | 作用域 | 可访问测试上下文 | 执行次数 |
-|-------|-------|----------------------|------|
-| 配置文件 | 主进程 | ❌ 否 | 每次运行 Vitest 执行一次 |
-| 全局初始化 | 主进程 | ❌ 否 (使用 `provide`/`inject`) | 每次运行 Vitest 执行一次 |
-| Setup 文件 | Worker（与测试相同） | ✅ 是 | 运行每个测试文件之前执行一次 |
-| 文件级代码 | Worker | ✅ 是 | 运行每个测试文件执行一次 |
-| `aroundAll` | Worker | ✅ 是 | 运行每个套件执行一次（包裹所有测试） |
-| `beforeAll`/`afterAll` | Worker | ✅ 是 | 运行每个套件执行一次 |
-| `aroundEach` | Worker | ✅ 是 | 运行每个测试执行一次（包裹每个测试） |
-| `beforeEach`/`afterEach` | Worker | ✅ 是 | 每个测试执行一次 |
-| 测试函数 | Worker | ✅ 是 | 一次（重试/重复时更多）|
-| 全局清理 | 主进程 | ❌ 否 | 每次运行 Vitest 执行一次 |
+| 阶段                     | 作用域               | 可访问测试上下文                | 执行次数                             |
+| ------------------------ | -------------------- | ------------------------------- | ------------------------------------ |
+| 配置文件                 | 主进程               | ❌ 否                           | 每次运行 Vitest 执行一次             |
+| 全局初始化               | 主进程               | ❌ 否 (使用 `provide`/`inject`) | 每次运行 Vitest 执行一次             |
+| Setup 文件               | Worker（与测试相同） | ✅ 是                           | 运行每个测试文件之前执行一次         |
+| 文件级代码               | Worker               | ✅ 是                           | 运行每个测试文件执行一次             |
+| `aroundAll`              | Worker               | ✅ 是                           | 运行每个套件执行一次（包裹所有测试） |
+| `beforeAll`/`afterAll`   | Worker               | ✅ 是                           | 运行每个套件执行一次                 |
+| `aroundEach`             | Worker               | ✅ 是                           | 运行每个测试执行一次（包裹每个测试） |
+| `beforeEach`/`afterEach` | Worker               | ✅ 是                           | 每个测试执行一次                     |
+| 测试函数                 | Worker               | ✅ 是                           | 一次（重试/重复时更多）              |
+| 全局清理                 | 主进程               | ❌ 否                           | 每次运行 Vitest 执行一次             |
 
 ## Watch 模式下的生命周期 {#watch-mode-lifecycle}
 
@@ -356,7 +366,8 @@ export function teardown() {
    - 启动新的 [测试运行器](/api/advanced/reporters#ontestrunstart)
    - 只有受影响的测试文件会重新运行
    - 受影响测试文件的 [setup 文件](/config/setupfiles) 会重新执行
-  - [全局 setup](/config/globalsetup) 不会重新运行（如需在重新运行时执行特定逻辑，请使用 [`project.onTestsRerun`](/config/globalsetup#handling-test-reruns)）
+   - [全局 setup](/config/globalsetup) 不会重新运行（如需在重新运行时执行特定逻辑，请使用 [`project.onTestsRerun`](/config/globalsetup#handling-test-reruns)）
+
 3. **退出时:**
    - 执行全局清理
    - 进程终止

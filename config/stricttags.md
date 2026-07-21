@@ -17,11 +17,13 @@ outline: deep
 例如，以下测试将因标签 `fortnend` 存在拼写错误（正确应为 `frontend`）而抛出错误：
 
 ::: code-group
+
 ```js [form.test.js]
 test('renders a form', { tags: ['fortnend'] }, () => {
   // ...
 })
 ```
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -33,4 +35,5 @@ export default defineConfig({
   },
 })
 ```
+
 :::

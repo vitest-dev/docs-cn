@@ -318,6 +318,7 @@ export const test = baseTest.extend({
   baseUrl: 'http://localhost:3000'
 })
 ```
+
 #### 初始化固定装置 {#fixture-initialization}
 
 The key difference from the builder pattern is the `use()` callback pattern for cleanup:
@@ -364,6 +365,7 @@ const test = baseTest.extend<{
   baseUrl: 'http://localhost:3000'
 })
 ```
+
 :::
 
 #### Tuple Syntax for Options
@@ -434,6 +436,7 @@ test('context must be destructured', ({ database }) => { // [!code ++]
   expect(database).toBeDefined()
 })
 ```
+
 :::
 
 ### Extending Extended Tests
@@ -580,11 +583,11 @@ When running tests in `vmThreads` or `vmForks`, `scope: 'worker'` works the same
 
 Fixtures can only access other fixtures from the same or higher (longer-lived) scopes:
 
-| Fixture Scope | Can Access |
-|---------------|------------|
-| `worker` | Only other worker fixtures |
-| `file` | Worker + file fixtures |
-| `test` | Worker + file + test fixtures + [test context](#built-in-test-context) |
+| Fixture Scope | Can Access                                                             |
+| ------------- | ---------------------------------------------------------------------- |
+| `worker`      | Only other worker fixtures                                             |
+| `file`        | Worker + file fixtures                                                 |
+| `test`        | Worker + file + test fixtures + [test context](#built-in-test-context) |
 
 ```ts
 const test = baseTest
@@ -646,6 +649,7 @@ This provides the same compile-time safety as the builder pattern, catching scop
 Since Vitest 3, you can provide different values in different [projects](/guide/projects). To enable this, pass `{ injected: true }` in the options. If the key is not specified in the [project configuration](/config/provide), the default value will be used.
 
 :::code-group
+
 ```ts [fixtures.test.ts]
 import { test as baseTest } from 'vitest'
 
@@ -658,6 +662,7 @@ test('works correctly', ({ url }) => {
   // 在"project-empty"中，url是"/empty"
 })
 ```
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -689,6 +694,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ### Overriding Fixture Values <Version>4.1.0</Version> {#overriding-fixture-values}
@@ -907,4 +913,5 @@ test.beforeAll(({ testFixture }) => {})
 // ✅ Works: file-scoped fixtures are available
 test.beforeAll(({ fileFixture }) => {})
 ```
+
 :::

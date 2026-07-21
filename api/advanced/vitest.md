@@ -23,7 +23,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 - `globTestSpecs`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
 - `globTestFiles`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
 - `listFile`（使用 [`getRelevantTestSpecifications`](#getrelevanttestspecifications) 代替）
-:::
+  :::
 
 ## mode
 
@@ -194,7 +194,7 @@ function getRelevantTestSpecifications(
 
 - 如果我们需要获取已知测试文件的规范列表，请使用 [`getModuleSpecifications`](#getmodulespecifications) 代替。
 - 如果我们需要获取所有可能的测试文件列表，请使用 [`globTestSpecifications`](#globtestspecifications)。
-:::
+  :::
 
 ## mergeReports
 
@@ -434,6 +434,7 @@ const dynamicExample = await vitest.import('./example.js')
 
 dynamicExample !== staticExample // ✅
 ```
+
 :::
 
 ::: info
@@ -483,6 +484,7 @@ function onCancel(fn: (reason: CancelReason) => Awaitable<void>): () => void
 注册一个处理程序，当测试运行被 [`vitest.cancelCurrentRun`](#cancelcurrentrun) 取消时调用。
 
 <!-- TODO: translation -->
+
 Since 4.0.10, `onCancel` experimentally returns a teardown function that will remove the listener. Since 4.1.0 this behaviour is considered stable.
 
 ## onClose
@@ -508,6 +510,7 @@ function onFilterWatchedSpecification(
   fn: (specification: TestSpecification) => boolean
 ): void
 ```
+
 注册一个处理程序，当文件更改时调用。此回调应返回 `true` 或 `false`，指示是否需要重新运行测试文件。
 
 通过此方法，我们可以挂钩到默认的观察器逻辑，以延迟或丢弃用户当前不想跟踪的测试：
@@ -611,6 +614,7 @@ import { escapeTestName } from 'vitest/node'
 // 转换为 /hello, .+?/
 const escapedPattern = new RegExp(escapeTestName('hello, %s', true))
 ```
+
 :::
 
 ::: warning
@@ -650,6 +654,7 @@ export function experimental_getSourceModuleDiagnostic(
 ```
 
 ::: details 类型
+
 ```ts
 export interface ModuleDefinitionLocation {
   line: number
@@ -689,6 +694,7 @@ export interface SourceModuleDiagnostic {
   untrackedModules: UntrackedModuleDefinitionDiagnostic[]
 }
 ```
+
 :::
 
 返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，则 `selfTime` 和 `totalTime` 将聚合上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
@@ -697,6 +703,7 @@ export interface SourceModuleDiagnostic {
 [浏览器模式](/guide/browser/) 暂不支持。
 :::
 <!-- TODO: translation -->
+
 ## createReport <Version>5.0.0</Version> {#createreport}
 
 ```ts
@@ -801,6 +808,7 @@ const filenames: string[] = await report.readdir()
 ### Report.delete
 
 <!-- eslint-skip -->
+
 ```ts
 function delete(filename: string): Promise<void>
 ```

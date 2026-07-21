@@ -63,6 +63,7 @@ export default defineConfig({
   },
 })
 ```
+
 如果你是插件作者，当你的插件可以通过不同配置选项影响转换结果时，建议在插件中定义 [缓存键生成器](/api/advanced/plugin#definecachekeygenerator)。
 
 另一方面，如果你的插件不应该影响缓存键，你可以通过将 `api.vitest.experimental.ignoreFsModuleCache` 设置为 `true` 来退出缓存机制：
@@ -141,6 +142,7 @@ OpenTelemetry 可能会显著影响 Vitest 性能；建议仅在本地调试时�
 `sdkPath` 的路径解析相对于项目的 [`root`](/config/root) 解析，应指向一个默认导出已初始化 SDK 实例的模块。例如：
 
 ::: code-group
+
 ```js [otel.js]
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
@@ -155,6 +157,7 @@ const sdk = new NodeSDK({
 sdk.start()
 export default sdk
 ```
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -169,6 +172,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ::: warning
@@ -480,6 +484,7 @@ export default {
 
 如果你不使用这些特性，可禁用此功能以提升性能。
 <!-- TODO: translation -->
+
 ## experimental.preParse <Version type="experimental">4.1.3</Version> {#experimental-preparse}
 
 - **Type:** `boolean`
@@ -511,4 +516,5 @@ test(name, () => {})
 const tags = getTags()
 test('my test', { tags }, () => {})
 ```
+
 :::

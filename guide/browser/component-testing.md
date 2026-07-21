@@ -33,7 +33,7 @@ Vitest 中的组件测试使用 **浏览器模式** 在真实浏览器环境中�
 - 真实浏览器 API 行为
 - 精确的事件处理与传播机制
 - 正确的焦点管理和无障碍功能特性
-:::
+  :::
 
 ### 本指南的目的 {#purpose-of-this-guide}
 
@@ -487,11 +487,13 @@ test('debug form validation', async () => {
 当组件未按预期渲染时，请系统性地调试它们：
 
 **使用 Vitest 的浏览器 UI 模式：**
+
 - 启用浏览器模式运行测试
 - 打开终端中显示的浏览器 URL 以查看测试运行情况
 - 可视化检查有助于识别 CSS 问题、布局问题或缺失元素
 
 **测试元素查询：**
+
 ```tsx
 // 调试元素查找失败原因
 const button = page.getByRole('button', { name: /submit/i })
@@ -509,6 +511,7 @@ if (button.length === 0) {
 选择器问题是测试失败的常见原因。请系统性地调试它们：
 
 **检查可访问名称：**
+
 ```tsx
 // 当 getByRole 失败时，检查 roles/names 可用性
 const buttons = page.getByRole('button').all()
@@ -521,6 +524,7 @@ for (const button of buttons) {
 ```
 
 **测试不同的查询策略：**
+
 ```tsx
 // 使用.or 实现自动重试的多途径元素查找
 const submitButton = page.getByRole('button', { name: /submit/i }) // 通过 accessible name 进行查询
@@ -530,6 +534,7 @@ const submitButton = page.getByRole('button', { name: /submit/i }) // 通过 acc
 ```
 
 **常见的选择器调试模式：**
+
 ```tsx
 test('debug element queries', async () => {
   render(<LoginForm />)

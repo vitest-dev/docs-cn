@@ -102,6 +102,7 @@ watcher.on('add', async (file) => {
   }
 })
 ```
+
 :::
 
 如果你需要禁用监视器，可以从 Vite 5.3 开始传递 `server.watch: null`，或者在 Vite 配置中传递 `server.watch: { ignored: ['*/*'] }`：

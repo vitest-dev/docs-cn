@@ -126,8 +126,9 @@ interface ImportDuration {
 这是 Vite 的 [`DevEnvironment`](https://cn.vite.dev/guide/api-environment)，用于转换测试模块中的所有文件。
 
 ::: details 历史
+
 - `v4.0.15`: 作为实验性功能添加
-:::
+  :::
 
 ## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
 

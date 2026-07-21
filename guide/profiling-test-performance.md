@@ -85,7 +85,8 @@ If these logs contain files that should not be loaded when your test is run, you
 下面的例子展示了不使用打包文件导入文件可以减少约 85% 的转换文件数量。
 
 ::: code-group
-``` [File tree]
+
+```[File tree]
 ├── src
 │   └── utils
 │       ├── currency.ts
@@ -99,6 +100,7 @@ If these logs contain files that should not be loaded when your test is run, you
 │   └── formatters.test.ts
 └── vitest.config.ts
 ```
+
 ```ts [example.test.ts]
 import { expect, test } from 'vitest'
 import { formatter } from '../src/utils' // [!code --]
@@ -108,6 +110,7 @@ test('formatter works', () => {
   expect(formatter).not.toThrow()
 })
 ```
+
 :::
 <!-- TODO: translation -->
 <img src="/module-graph-barrel-file.png" alt="Vitest UI demonstrating barrel file issues" />

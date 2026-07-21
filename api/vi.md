@@ -240,6 +240,7 @@ it('uses the normal version of my-module again', () => {
   const myModule = await import('my-module') // not mocked
 })
 ```
+
 :::
 
 ### vi.mocked
@@ -1367,6 +1368,7 @@ test('example', () => {
 示例输出：
 
 <!-- eslint-skip -->
+
 ```js
 FAIL  example.test.ts > example
 AssertionError: expected 'left' to deeply equal 'right'

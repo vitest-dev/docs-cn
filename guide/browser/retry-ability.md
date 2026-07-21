@@ -34,4 +34,5 @@ test('error banner is rendered', async () => {
 // will fail immediately if .textContent is not `'Error!'`
 expect(banner).toHaveTextContent('Error!')
 ```
+
 :::

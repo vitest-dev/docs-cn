@@ -75,6 +75,7 @@ const test = baseTest.extend({
 使用 `projects` 时，你现在可以设置自定义 [颜色](/config/name)：
 
 ::: details 配置示例
+
 ```ts{6-9,14-17}
 export default defineConfig({
   test: {
@@ -104,6 +105,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 <img src="/v3-2-custom-colors.png" alt="an example of project names with custom backgrounds" />
@@ -320,8 +322,9 @@ export default defineConfig({
 
  1. flaky |> 在 slow 和 fast 之后单独运行
 ```
+
 :::
 
-----
+---
 
 完整的更改列表请查看 [Vitest 3.2 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.2.0)。

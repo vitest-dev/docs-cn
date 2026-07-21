@@ -23,6 +23,7 @@ export default defineConfig({
   },
 })
 ```
+
 如果你已经有一个 `vite` 配置文件，可以通过 `/// <reference types="vitest/config" />` 来引入 `test` 类型声明：
 
 ```js [vite.config.js]
@@ -79,6 +80,7 @@ export default defineConfig(configEnv => mergeConfig(
 
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名——这些选项应该在顶级定义，而不是在 `test` 属性内部。
 <!-- TODO: translation -->
+
 ## Automatic Dependency Installation
 
 Vitest will prompt you to install certain dependencies if they are not already installed. You can disable this behavior by setting the `VITEST_SKIP_INSTALL_CHECKS=1` environment variable.

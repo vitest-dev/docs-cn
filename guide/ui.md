@@ -53,6 +53,7 @@ npx vite preview --outDir ./html
 你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
 <!-- TODO: translation -->
+
 ::: tip
 To view the HTML report from CI, for example in GitHub Actions, upload the output directory as an artifact:
 

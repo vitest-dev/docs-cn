@@ -71,6 +71,7 @@ expect.extend({
 
 await expect().toBeAsyncAssertion()
 ```
+
 :::
 
 断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。其余参数将直接传递给匹配器。自 4.1 起，Vitest 提供了多个类型供自定义匹配器使用：
@@ -107,7 +108,9 @@ function customMatcher(this: MatcherState, received: unknown, arg1: unknown, arg
 
 expect.extend({ customMatcher })
 ```
+
 <!-- TODO: translation -->
+
 ::: tip
 To build custom **snapshot matchers** (wrappers around `toMatchSnapshot()`/`toMatchInlineSnapshot()`/`toMatchFileSnapshot()`), use `Snapshots` exported from `vitest`. See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers).
 :::

@@ -41,7 +41,9 @@ export function render<C extends Component>(
   renderOptions?: SetupOptions
 ): RenderResult<C> & PromiseLike<RenderResult<C>>
 ```
+
 <!-- TODO: translation -->
+
 The `render` function records a `svelte.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
 
 ::: warning
@@ -51,6 +53,7 @@ Synchronous usage of `render` is deprecated and will be removed in the next majo
 const screen = render(Component) // [!code --]
 const screen = await render(Component) // [!code ++]
 ```
+
 :::
 
 ### 选项 {#options}
@@ -152,7 +155,9 @@ function debug(
 ```ts
 function rerender(props: Partial<ComponentProps<T>>): Promise<void>
 ```
+
 <!-- TODO: translation -->
+
 Updates the component's props and waits for Svelte to apply the changes. Use this to test how your component responds to prop changes. Also records a `svelte.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
 
 ```ts
@@ -171,7 +176,9 @@ await rerender({ number: 2 })
 ```ts
 function unmount(): Promise<void>
 ```
+
 <!-- TODO: translation -->
+
 Unmount and destroy the Svelte component. Also records a `svelte.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
 
 ::: warning
@@ -219,6 +226,7 @@ await expect.element(
 对于简单的代码片段，您可以使用包装组件和 “占位” 子元素进行测试。通过设置 `data-testid` 属性帮助测试插槽内容。
 
 ::: code-group
+
 ```ts [basic.test.js]
 import { render } from 'vitest-browser-svelte'
 import { expect, test } from 'vitest'
@@ -234,6 +242,7 @@ test('basic snippet', async () => {
   await expect.element(child).toBeInTheDocument()
 })
 ```
+
 ```svelte [basic-snippet.svelte]
 <script>
   let { children } = $props()
@@ -243,6 +252,7 @@ test('basic snippet', async () => {
   {@render children?.()}
 </h1>
 ```
+
 ```svelte [basic-snippet.test.svelte]
 <script>
   import Subject from './basic-snippet.svelte'
@@ -252,11 +262,13 @@ test('basic snippet', async () => {
   <span data-testid="child"></span>
 </Subject>
 ```
+
 :::
 
 对于更复杂的代码片段（例如需要检查参数的情况），可以使用 Svelte 的 [`createRawSnippet`](https://svelte.dev/docs/svelte/svelte#createRawSnippet) API。
 
 ::: code-group
+
 ```js [complex-snippet.test.js]
 import { render } from 'vitest-browser-svelte'
 import { createRawSnippet } from 'svelte'
@@ -277,6 +289,7 @@ test('renders greeting in message snippet', async () => {
   await expect.element(message).toHaveTextContent('Hello, Alice!')
 })
 ```
+
 ```svelte [complex-snippet.svelte]
 <script>
   let { name, message } = $props()
@@ -288,6 +301,7 @@ test('renders greeting in message snippet', async () => {
   {@render message?.(greeting)}
 </p>
 ```
+
 :::
 
 ## 相关链接 {#see-also}

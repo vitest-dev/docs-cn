@@ -14,6 +14,7 @@ outline: deep
 Vitest 自 3.1 版起支持 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
 
 ::: code-group
+
 ```ts [only vitest]
 import type { Vite, VitestPluginContext } from 'vitest/node'
 
@@ -26,6 +27,7 @@ export function plugin(): Vite.Plugin {
   }
 }
 ```
+
 ```ts [vite and vitest]
 /// <reference types="vitest/config" />
 
@@ -43,6 +45,7 @@ export function plugin(): Plugin {
   }
 }
 ```
+
 :::
 
 ::: tip TypeScript
@@ -51,6 +54,7 @@ Vitest 通过 `Vite` namespace 重新导出所有仅 Vite 类型的导入，我�
 ```ts
 /// <reference types="vitest/config" />
 ```
+
 :::
 
 与 [`reporter.onInit`](/api/advanced/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/guide/projects) 操作全局配置。

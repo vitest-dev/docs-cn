@@ -12,6 +12,7 @@ Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing
 ```ts
 /// <reference types="vitest/browser" />
 ```
+
 :::
 
 浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll) 和 `expect.element` API 提供了可重试的断言：
@@ -62,6 +63,7 @@ interface ExpectPollOptions {
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
 expect(banner).toHaveTextContent('Error!')
 ```
+
 :::
 
 ## toBeDisabled
@@ -310,6 +312,7 @@ function toBeInViewport(options: { ratio?: number }): Promise<void>
 
 该方法通过 IntersectionObserver API 检测元素是否位于当前视口内。
 可通过 ratio 参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
+
 ```ts
 // 检测指定元素是否在视口中
 await expect.element(page.getByText('Welcome')).toBeInViewport()
@@ -940,6 +943,7 @@ await expect.element(getByTestId('link-invalid')).toHaveRole('generic')
 await expect.element(getByTestId('switch')).toHaveRole('switch') // ✅
 await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 ```
+
 :::
 
 ## toHaveSelection
@@ -1072,7 +1076,9 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   },
 })
 ```
+
 <!-- TODO: translation -->
+
 ### Options
 
 - `comparatorName: "pixelmatch" = "pixelmatch"`
@@ -1111,6 +1117,7 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
     },
   })
   ```
+
   :::
 
 - `screenshotOptions: object`
@@ -1127,7 +1134,9 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   等待获取稳定截图的时间。
 
   设为 `0` 可禁用超时，但如果无法确定稳定截图，进程将不会结束。
+
 <!-- TODO: translation -->
+
 #### `"pixelmatch"` comparator options
 
 The `"pixelmatch"` comparator uses [`@blazediff/core`](https://blazediff.dev/docs/core) under the hood. The following options are available when using it:

@@ -13,6 +13,7 @@ outline: [2, 3]
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
 :::
 <!-- TODO: translation -->
+
 ::: tip Difference from `testing-library`
 Vitest's `page.getBy*` methods return a locator object, not a DOM element. This makes locator queries composable and allows Vitest to retry interactions and assertions when needed.
 
@@ -34,6 +35,7 @@ const deleteButton = page
 await deleteButton.click()
 await expect.element(deleteButton).toBeEnabled()
 ```
+
 :::
 
 ## getByRole
@@ -510,6 +512,7 @@ page.getByRole('button')
   .or(page.getByRole('link'))
   .click() // ❌ 匹配到多个元素
 ```
+
 :::
 
 ## filter
@@ -563,6 +566,7 @@ page.getByRole('article')
   .filter({ has: page.getByRole('button', { name: 'delete row' }) })
   .filter({ has: page.getByText('Vitest') })
 ```
+
 :::
 
 ### hasNot
@@ -930,6 +934,7 @@ It is called automatically when locator is used with `expect.element` every time
 ```ts
 await expect.element(page.getByRole('button')).toBeDisabled()
 ```
+
 :::
 
 考虑以下 DOM 结构：
@@ -1086,6 +1091,7 @@ test('works correctly', async () => {
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```
+
 :::
 
 ### length

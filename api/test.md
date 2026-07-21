@@ -109,6 +109,7 @@ test('heavy test', { skip: true, timeout: 10_000 }, () => {
   // ...
 })
 ```
+
 :::
 
 ### retry
@@ -160,7 +161,7 @@ type Retry = number | {
 - **类型:** `string[]`
 - **默认值:** `[]`
 
- 用户自定义 [标签](/guide/test-tags)。如果标签未在 [配置文件](/config/tags) 中声明，测试将在启动前失败，除非手动禁用 [`strictTags`](/config/stricttags)。
+用户自定义 [标签](/guide/test-tags)。如果标签未在 [配置文件](/config/tags) 中声明，测试将在启动前失败，除非手动禁用 [`strictTags`](/config/stricttags)。
 
 ```ts
 import { it } from 'vitest'
@@ -459,6 +460,7 @@ test.concurrent('test 2', async ({ expect }) => {
 - **别名:** `it.sequential`
 
 `test.sequential` 将测试标记为顺序执行。适用于在 `describe.concurrent` 或 `--sequence.concurrent` 命令选项下按顺序运行测试的场景。
+
 ```ts
 import { describe, test } from 'vitest'
 
@@ -597,8 +599,8 @@ ${{ val: 3 }}   | ${'b'} | ${'3b'}
 // ✓ add(3, b) -> 3b
 ```
 
-* 第一行应为列名，以 `|` 分隔；
-* 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
+- 第一行应为列名，以 `|` 分隔；
+- 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -614,7 +616,9 @@ test.each`
   expect(a + b).toBe(expected)
 })
 ```
+
 <!-- TODO: translation -->
+
 ::: tip
 Vitest formats interpolated title values with its display formatter. If the value is too truncated, you can increase [taskTitleValueFormatTruncate](/config/tasktitlevalueformattruncate) in your config file.
 :::
@@ -661,7 +665,7 @@ test.concurrent.for([
 
 ## test.describe <Version>4.1.0</Version> {#test-describe}
 
- 挂载在 test.extend 实例上的 `describe`。更多内容请参阅 [describe](/api/describe)。
+挂载在 test.extend 实例上的 `describe`。更多内容请参阅 [describe](/api/describe)。
 
 ## test.suite <Version>4.1.0</Version> {#test-suite}
 
@@ -701,7 +705,7 @@ test.concurrent.for([
 
 `bench` 用于定义基准测试。在 Vitest 中，基准测试是一个定义了一系列操作的函数，Vitest 会多次运行该函数以展示不同的性能指标。
 
- Vitest 底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库，所有选项均可作为第三个参数传入。
+Vitest 底层使用 [`tinybench`](https://github.com/tinylibs/tinybench) 库，所有选项均可作为第三个参数传入。
 
 ```ts
 import { bench } from 'vitest'
@@ -766,12 +770,14 @@ export interface Options {
   teardown?: Hook
 }
 ```
+
 测试用例运行后，输出结构信息如下：
 
 ```
   name                      hz     min     max    mean     p75     p99    p995    p999     rme  samples
 · normal sorting  6,526,368.12  0.0001  0.3638  0.0002  0.0002  0.0002  0.0002  0.0004  ±1.41%   652638
 ```
+
 ```ts
 export interface TaskResult {
   /*

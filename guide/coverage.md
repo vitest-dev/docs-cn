@@ -147,6 +147,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true`：
 
 ::: code-group
+
 ```json [package.json]
 {
   "scripts": {
@@ -155,6 +156,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
   }
 }
 ```
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -166,6 +168,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
@@ -175,6 +178,7 @@ export default defineConfig({
 Vitest 默认只统计测试中实际导入的文件。如果希望报告里也包含那些未被测试覆盖到的文件，需要在 [`coverage.include`](/config/coverage#coverage-include) 中配置一个能匹配你源代码文件的模式：
 
 ::: code-group
+
 ```ts [vitest.config.ts] {6}
 import { defineConfig } from 'vitest/config'
 
@@ -186,6 +190,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```sh [Covered Files]
 ├── src
 │   ├── components
@@ -204,11 +209,13 @@ export default defineConfig({
 ├── tsup.config.ts        # [!code error]
 └── vitest.config.ts      # [!code error]
 ```
+
 :::
 
 如果你想从覆盖率中排除已经被 `coverage.include` 匹配到的部分文件，可以通过额外配置 [`coverage.exclude`](/config/coverage#coverage-exclude) 来实现：
 
 ::: code-group
+
 ```ts [vitest.config.ts] {7}
 import { defineConfig } from 'vitest/config'
 
@@ -221,6 +228,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```sh [Covered Files]
 ├── src
 │   ├── components
@@ -239,6 +247,7 @@ export default defineConfig({
 ├── tsup.config.ts        # [!code error]
 └── vitest.config.ts      # [!code error]
 ```
+
 :::
 
 ## 自定义代码覆盖率报告器 {#custom-coverage-reporter}
@@ -493,6 +502,7 @@ export function ignored() { // [!code error]
   return 'Whole file is ignored'// [!code error]
 }// [!code error]
 ```
+
 :::
 
 ## 覆盖率性能 {#coverage-performance}

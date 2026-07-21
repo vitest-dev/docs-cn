@@ -7,7 +7,7 @@ outline: deep
 
 # 并行性 {#parallelism}
 
-Vitest has two levels of parallelism: it can run multiple *test files* at the same time, and within each file it can run multiple *tests* at the same time. Understanding the difference between the two is important because they work differently and have different trade-offs.
+Vitest has two levels of parallelism: it can run multiple _test files_ at the same time, and within each file it can run multiple _tests_ at the same time. Understanding the difference between the two is important because they work differently and have different trade-offs.
 
 ## 文件级并行 {#file-parallelism}
 
@@ -47,7 +47,7 @@ test.concurrent('fetches user posts', async () => {
 When tests are marked as `concurrent`, Vitest groups them together and runs them with [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all). The number of tests running at once is bounded by the [`maxConcurrency`](/config/maxconcurrency) option.
 
 ::: tip When does `concurrent` actually help?
-Vitest doesn't create extra workers for concurrent tests — they all run in the same worker as the file they belong to. This means `concurrent` only speeds things up when your tests spend time *waiting* (on network requests, timers, file I/O, etc.). Purely synchronous tests won't benefit because they still block the single JavaScript thread:
+Vitest doesn't create extra workers for concurrent tests — they all run in the same worker as the file they belong to. This means `concurrent` only speeds things up when your tests spend time _waiting_ (on network requests, timers, file I/O, etc.). Purely synchronous tests won't benefit because they still block the single JavaScript thread:
 
 ```ts
 // These run one after another despite `concurrent`,
@@ -60,6 +60,7 @@ test.concurrent('the second test', () => {
   expect(2).toBe(2)
 })
 ```
+
 :::
 
 You can also apply `concurrent` to an entire suite:
@@ -80,7 +81,7 @@ describe.concurrent('user API', () => {
 })
 ```
 
-If you want *all* tests in your project to run concurrently by default, set [`sequence.concurrent`](/config/sequence#sequence-concurrent) to `true` in your config.
+If you want _all_ tests in your project to run concurrently by default, set [`sequence.concurrent`](/config/sequence#sequence-concurrent) to `true` in your config.
 
 ### Hooks with Concurrent Tests
 

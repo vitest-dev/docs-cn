@@ -57,6 +57,7 @@ beforeEach(async () => {
   await userEvent.unhover(document.body)
 })
 ```
+
 :::
 
 ## userEvent.click
@@ -101,6 +102,7 @@ await userEvent.keyboard('{/Shift}')
 ```
 
 使用 Playwright：
+
 ```ts
 await userEvent.click(element, { modifiers: ['Shift'] })
 ```
@@ -598,7 +600,7 @@ test('drag and drop works', async () => {
 ```
 
 ::: warning
- `preview` provider 不支持此 API。
+`preview` provider 不支持此 API。
 :::
 
 相关链接：

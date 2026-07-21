@@ -13,6 +13,7 @@ outline: deep
 `location` 属性包含对应原始文件中 `test` 或 `describe` 位置的 `column`（列）和 `line`（行）数值。
 
 以下情况将自动启用此选项（除非显式禁用）：
+
 - 运行 [UI 模式](/guide/ui)
 - 使用 [浏览器模式](/guide/browser/) 且未启用 [无头模式](/guide/browser/#headless)
 - 使用 [HTML 报告器](/guide/reporters#html-reporter)

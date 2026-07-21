@@ -4,7 +4,9 @@ outline: deep
 ---
 
 # 迁移指南 {#migration-guide}
+
 <!-- TODO: translation -->
+
 [Migrating to Vitest 3.0](https://v3.vitest.dev/guide/migration) | [Migrating to Vitest 2.0](https://v2.vitest.dev/guide/migration)
 
 ## 迁移到 Vitest 4.0 {#vitest-4}
@@ -70,6 +72,7 @@ export default defineConfig({
 ```
 
 更多示例请参考：
+
 - [覆盖率报告中的文件包含与排除](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
 - [性能分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage) 了解调试覆盖率生成的方法
 
@@ -172,6 +175,7 @@ expect(instance2.method()).toBe(100)
 
 expect(AutoMockedClass.prototype.method).toHaveBeenCalledTimes(4)
 ```
+
 - 自动 mock 方法一经生成即不可还原，手动 `.mockRestore` 无效；`spy: true` 的自动 mock 模块行为保持不变。
 - 自动 mock 的 getter 不再执行原始逻辑，默认返回 `undefined`；如需继续监听并改写，请使用 `vi.spyOn(object, name, 'get')`。
 - 执行 `vi.fn(implementation).mockReset()` 后，`.getMockImplementation()` 现可正确返回原 mock 实现。
@@ -190,6 +194,7 @@ $ vitest --standalone math.test.ts
 这允许用户为独立模式创建可复用的 `package.json`。
 
 ::: code-group
+
 ```json [package.json]
 {
   "scripts": {
@@ -197,6 +202,7 @@ $ vitest --standalone math.test.ts
   }
 }
 ```
+
 ```bash [CLI]
 # 以独立模式启动 Vitest，启动时不运行任何文件
 $ pnpm run test:dev
@@ -204,6 +210,7 @@ $ pnpm run test:dev
 # 立即运行 math.test.ts
 $ pnpm run test:dev math.test.ts
 ```
+
 :::
 
 ### `vite-node` 替换为 [Module Runner](https://vite.dev/guide/api-environment-runtimes.html#modulerunner) {#replacing-vite-node-with-module-runner}
@@ -226,6 +233,7 @@ Vite 已提供外部化机制，但为降低破坏性，仍保留旧方案；[`s
 在 Vitest 3.2 中，`workspace` 配置选项更名为 [`projects`](/guide/projects)。除了不能指定其他文件作为工作区的源文件（以前可以指定导出项目数组的文件）外，它们在功能上是相同的。迁移到 `projects` 非常简单，只需将代码从 `vitest.workspace.js` 移动到 `vitest.config.ts`：
 
 ::: code-group
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -243,6 +251,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts [vitest.workspace.js]
 import { defineWorkspace } from 'vitest/config' // [!code --]
 
@@ -255,6 +264,7 @@ export default defineWorkspace([ // [!code --]
   } // [!code --]
 ]) // [!code --]
 ```
+
 :::
 
 ### 修改浏览器模式提供者 {#browser-provider-rework}
@@ -350,6 +360,7 @@ export default defineConfig({
 此前在使用 [测试项目](/guide/projects) 时，无法为单个项目单独指定某些 pool 相关配置项。新架构已解除了这一限制。
 
 ::: code-group
+
 ```ts [按项目隔离]
 import { defineConfig } from 'vitest/config'
 
@@ -371,6 +382,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```ts [并行与串行项目]
 import { defineConfig } from 'vitest/config'
 
@@ -390,6 +402,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```ts [按项目分配 Node CLI 选项]
 import { defineConfig } from 'vitest/config'
 
@@ -408,6 +421,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 更多示例请参阅 [测试技巧](/guide/recipes)。
@@ -641,6 +655,7 @@ export default defineConfig({
 
 否则快照中会出现大量转义的 `"` 字符。
 <!-- TODO: translation -->
+
 ### Custom Snapshot Matchers <Badge type="warning">experimental</Badge> <Version>4.1.3</Version>
 
 Jest imports snapshot composables from `jest-snapshot`. In Vitest, use `Snapshots` from `vitest` instead:
@@ -756,16 +771,16 @@ expect(spy).to.have.been.calledWith('arg1', 'arg2')
 
 Vitest supports all common sinon-chai assertions:
 
-| Sinon-Chai | Vitest | 详情 |
-|------------|--------|-------------|
-| `spy.called` | `called` | Spy 至少被调用过一次 |
-| `spy.calledOnce` | `calledOnce` |  Spy 恰好被调用过一次 |
-| `spy.calledTwice` | `calledTwice` | Spy 恰好被调用过两次 |
-| `spy.calledThrice` | `calledThrice` | Spy 恰好被调用过三次 |
-| `spy.callCount(n)` | `callCount(n)` | Spy 被调用过 n 次 |
-| `spy.calledWith(...)` | `calledWith(...)` | Spy 以特定参数被调用 |
+| Sinon-Chai                | Vitest                | 详情                         |
+| ------------------------- | --------------------- | ---------------------------- |
+| `spy.called`              | `called`              | Spy 至少被调用过一次         |
+| `spy.calledOnce`          | `calledOnce`          | Spy 恰好被调用过一次         |
+| `spy.calledTwice`         | `calledTwice`         | Spy 恰好被调用过两次         |
+| `spy.calledThrice`        | `calledThrice`        | Spy 恰好被调用过三次         |
+| `spy.callCount(n)`        | `callCount(n)`        | Spy 被调用过 n 次            |
+| `spy.calledWith(...)`     | `calledWith(...)`     | Spy 以特定参数被调用         |
 | `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy 以特定参数恰好被调用一次 |
-| `spy.returned(value)` | `returned` | Spy 返回了特定值 |
+| `spy.returned(value)`     | `returned`            | Spy 返回了特定值             |
 
 更多内容请参阅 [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions) 文档中的完整列表。
 
@@ -847,6 +862,7 @@ vi.useRealTimers()
 3. **并发执行**：Vitest 默认并发运行测试，Mocha 则顺序执行。
 
 更多内容请参阅：
+
 - [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions)
 - [Mocking 指南](/guide/mocking)
 - [Vi API](/api/vi)

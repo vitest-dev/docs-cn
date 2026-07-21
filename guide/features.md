@@ -16,7 +16,9 @@ import FeaturesList from '../.vitepress/components/FeaturesList.vue'
 ## 一套配置可以运用在多种环境 {#shared-config-between-test-dev-and-build}
 
 <div h-2 />
+
 <!-- TODO: translation -->
+
 ::: tip
 This page is a high-level overview of Vitest's capabilities. If you're new to Vitest, we recommend reading the [Learn](/guide/learn/writing-tests) tutorial first for a hands-on introduction.
 :::
@@ -145,12 +147,15 @@ expect(fn.mock.results[1].value).toBe('world')
 Vitest 支持 [happy-dom](https://github.com/capricorn86/happy-dom) 或 [jsdom](https://github.com/jsdom/jsdom) 来模拟 DOM 和浏览器 API。Vitest 并不内置它们，所以你可能需要安装：
 
 ::: code-group
+
 ```bash [happy-dom]
 $ npm i -D happy-dom
 ```
+
 ```bash [jsdom]
 $ npm i -D jsdom
 ```
+
 :::
 
 然后，更改 `environment` 配置文件中的选项：
@@ -300,6 +305,7 @@ export default defineConfig(({ mode }) => ({
 您可以通过手动捕获这些错误来禁用此行为。Vitest 会认为回调已由您处理，不会再报告该错误。
 
 ::: code-group
+
 ```ts [setup.node.js]
 // 在 Node.js
 process.on('unhandledRejection', () => {
@@ -310,6 +316,7 @@ process.on('uncaughtException', () => {
   // 你自己的处理程序
 })
 ```
+
 ```ts [setup.browser.js]
 // 在浏览器
 window.addEventListener('error', () => {
@@ -320,6 +327,7 @@ window.addEventListener('unhandledrejection', () => {
   // 你自己的处理程序
 })
 ```
+
 :::
 
 或者，你也可以使用 [`dangerouslyIgnoreUnhandledErrors`](/config/dangerouslyignoreunhandlederrors) 选项来忽略报告的错误。Vitest 仍会报告它们，但它们不会影响测试结果（退出码不会改变）。
