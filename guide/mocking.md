@@ -4,13 +4,13 @@ title: 模拟对象 | 指南
 
 # 模拟对象 {#mocking}
 
-在编写测试时，迟早会需要创建一个内部或外部服务的 "fake" 版本。这通常被称为**mocking**。Vitest 通过其 `vi` 辅助工具提供了实用函数来帮助您。我们可以从 `vitest` 中导入它，或者如果启用了 [`global` 配置](/config/#globals)，也可以全局访问它。
+在编写测试时，迟早会需要创建一个内部或外部服务的 "fake" 版本。这通常被称为 **mocking**。Vitest 通过其 `vi` 辅助工具提供了实用函数来帮助您。我们可以从 `vitest` 中导入它，或者如果启用了 [`global` 配置](/config/#globals)，也可以全局访问它。
 
 ::: warning
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/mock.html#mockreset) 文档。
 :::
 
-如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看 [API部分](/api/vi)。
+如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看 [API 部分](/api/vi)。
 
 ## 日期 {#dates}
 
@@ -260,7 +260,7 @@ export function foobar(injectedFoo) {
 }
 ```
 
-这就是预期行为。当以这种方式包含 mock 时，这通常是不良代码的标志。考虑将代码重构为多个文件，或者使用[依赖项注入](https://en.wikipedia.org/wiki/dependency_injection)等技术来改进应用体系结构。
+这就是预期行为。当以这种方式包含 mock 时，这通常是不良代码的标志。考虑将代码重构为多个文件，或者使用 [依赖项注入](https://en.wikipedia.org/wiki/dependency_injection) 等技术来改进应用体系结构。
 
 ### 示例 {#example-2}
 
@@ -365,6 +365,7 @@ Vitest 并不提供任何文件系统模拟 API。您可以使用 `vi.mock` 手�
 要自动将每个 `fs` 调用重定向到 `memfs`，可以在项目根目录下创建 `__mocks__/fs.cjs` 和 `__mocks__/fs/promises.cjs` 文件：
 
 ::: code-group
+
 ```ts [__mocks__/fs.cjs]
 // 也可以使用 import，但这样
 // 每个导出都需要显式定义
@@ -380,6 +381,7 @@ module.exports = fs
 const { fs } = require('memfs')
 module.exports = fs.promises
 ```
+
 :::
 
 ```ts [read-hello-world.js]
@@ -433,7 +435,7 @@ it('can return a value multiple times', () => {
 
 因为 Vitest 运行在 Node 环境中，所以模拟网络请求是一件非常棘手的事情；由于没有办法使用 Web API，因此我们需要一些可以为我们模拟网络行为的包。推荐使用 [Mock Service Worker](https://mswjs.io/) 来进行这个操作。它可以模拟 `http`、`WebSocket` 和 `GraphQL` 网络请求，并且与框架无关。
 
-Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [介绍部分](https://mswjs.io/docs/) 。
+Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以在不更改任何应用代码的情况下使用它。在浏览器中，它使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解有关 MSW 的更多信息，请阅读他们的 [介绍部分](https://mswjs.io/docs/)。
 
 ### 配置 {#configuration}
 
@@ -537,6 +539,7 @@ afterAll(() => server.close())
 // 在每个测试后重置处理程序以实现测试隔离
 afterEach(() => server.resetHandlers())
 ```
+
 :::
 
 > 将 server 配置为 `onUnhandledRequest: 'error'` 可确保在遇到没有对应请求处理程序的请求时抛出错误。
@@ -660,6 +663,7 @@ const Newt = new IncorrectDogClass('Newt')
 Marti instanceof CorrectDogClass // ✅ true
 Newt instanceof IncorrectDogClass // ❌ false!
 ```
+
 :::
 
 ::: tip 何时使用?
@@ -683,6 +687,7 @@ function feed(dog: Dog) {
   // ...
 }
 ```
+
 ```ts [tests/dog.test.ts]
 import { expect, test, vi } from 'vitest'
 import { feed } from '../src/feed.js'
@@ -699,6 +704,7 @@ test('can feed dogs', () => {
   expect(dogMax.isHungry()).toBe(false)
 })
 ```
+
 :::
 
 现在，当我们创建一个新的 `Dog` 类实例时，它的 `speak` 方法（与 `feed` 并列）已经被模拟：
@@ -757,9 +763,11 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 我想……
 
 ### 模拟导出变量 {#mock-exported-variables}
+
 ```js [example.js]
 export const getter = 'variable'
 ```
+
 ```ts [example.test.ts]
 import * as exports from './example.js'
 
@@ -805,9 +813,11 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 ### 模拟导出类的实现 {#mock-an-exported-class-implementation}
 
 1. 一个使用假 class 的示例：
+
 ```ts [example.js]
 export class SomeClass {}
 ```
+
 ```ts
 import { SomeClass } from './example.js'
 
@@ -895,7 +905,7 @@ mocked() // 是一个 spy 函数
 
 ### 模拟当前日期 {#mock-the-current-date}
 
-要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
+要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将 **不会** 在不同的测试之间自动重置。
 
 请注意，使用 `vi.useFakeTimers` 也会更改 `Date` 的时间。
 
@@ -910,7 +920,7 @@ vi.useRealTimers()
 
 ### 模拟全局变量 {#mock-a-global-variable}
 
-你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会**在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/#unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals)。
+你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会** 在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/#unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals)。
 
 ```ts
 vi.stubGlobal('__VERSION__', '1.0.0')
@@ -919,10 +929,10 @@ expect(__VERSION__).toBe('1.0.0')
 
 ### 模拟 `import.meta.env` {#mock-import-meta-env}
 
-1. 要更改环境变量，你只需为其分配一个新值即可。 该值将**不会**在不同的测试之间自动重置。
+1. 要更改环境变量，你只需为其分配一个新值即可。 该值将 **不会** 在不同的测试之间自动重置。
 
 ::: warning
-环境变量值将在不同的测试之间**不会**自动重置。
+环境变量值将在不同的测试之间 **不会** 自动重置。
 :::
 
 ```ts

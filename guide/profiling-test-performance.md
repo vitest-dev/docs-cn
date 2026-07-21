@@ -15,12 +15,12 @@
 >   # Time metrics ^^
 > ```
 
-- Transform ：转换文件所用的时间。详见 [文件转换](#file-transform)。
-- Setup ：执行 [`setupFiles`](/config/#setupfiles) 配置文件所花的时间。
-- Collect ：收集测试文件中所有用例的时间，包括导入文件依赖的耗时。
-- Tests ：实际执行测试用例所用的时间。
-- Environment ： [配置测试](/config/#environment) 环境（比如 JSDOM ）所需的时间。
-- Prepare ： Vitest 用于准备测试运行环境的时间。在 Node 环境下，包括导入并执行内部工具；在浏览器中，还包含初始化 iframe 的时间。
+- Transform：转换文件所用的时间。详见 [文件转换](#file-transform)。
+- Setup：执行 [`setupFiles`](/config/#setupfiles) 配置文件所花的时间。
+- Collect：收集测试文件中所有用例的时间，包括导入文件依赖的耗时。
+- Tests：实际执行测试用例所用的时间。
+- Environment：[配置测试](/config/#environment) 环境（比如 JSDOM ）所需的时间。
+- Prepare：Vitest 用于准备测试运行环境的时间。在 Node 环境下，包括导入并执行内部工具；在浏览器中，还包含初始化 iframe 的时间。
 
 ## 测试运行器 {#test-runner}
 
@@ -31,12 +31,13 @@
 - [`--prof`](https://nodejs.org/api/cli.html#--prof)
 
 :::warning
-由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
+由于 `node:worker_threads` 的限制，`--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
 要将这些选项传递给 Vitest ，可以在 Vitest 的配置中定义 `poolOptions.<pool>.execArgv`：
 
 ::: code-group
+
 ```ts [Forks]
 import { defineConfig } from 'vitest/config'
 
@@ -59,6 +60,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```ts [Threads]
 import { defineConfig } from 'vitest/config'
 
@@ -81,11 +83,12 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看 [性能分析记录](#inspecting-profiling-records)。
 
-也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling) 。
+也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling)。
 
 ## 主线程 {#main-thread}
 
@@ -106,7 +109,7 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 #               NodeJS arguments                                           Vitest arguments
 ```
 
-测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看[检查分析记录](#inspecting-profiling-records)。
+测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看 [检查分析记录](#inspecting-profiling-records)。
 
 ## 文件转换 {#file-transform}
 
@@ -128,13 +131,14 @@ $ DEBUG=vite-node:* vitest --run
 ...
 ```
 
-这种分析策略是识别由[「 桶文件 / barrel files 」](https://cn.vitejs.dev/guide/performance#avoid-barrel-files)引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
+这种分析策略是识别由 [「 桶文件 / barrel files 」](https://cn.vitejs.dev/guide/performance#avoid-barrel-files) 引起的不必要转换的好方法。如果这些日志包含了在运行测试时不应该加载的文件，你可能有桶文件在不必要地导入文件。
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
-下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。
+下面的例子展示了不使用打包文件导入文件可以减少约 85% 的转换文件数量。
 
 ::: code-group
-``` [File tree]
+
+```[File tree]
 ├── src
 │   └── utils
 │       ├── currency.ts
@@ -148,6 +152,7 @@ $ DEBUG=vite-node:* vitest --run
 │   └── formatters.test.ts
 └── vitest.config.ts
 ```
+
 ```ts [example.test.ts]
 import { expect, test } from 'vitest'
 import { formatter } from '../src/utils' // [!code --]
@@ -157,6 +162,7 @@ test('formatter works', () => {
   expect(formatter).not.toThrow()
 })
 ```
+
 :::
 
 <img src="/module-graph-barrel-file.png" alt="Vitest UI demonstrating barrel file issues" />

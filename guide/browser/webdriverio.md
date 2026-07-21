@@ -1,4 +1,4 @@
-# 配置 WebdriverIO  {#configuring-webdriverio}
+# 配置 WebdriverIO {#configuring-webdriverio}
 
 ::: info 对比 Playwright 与 WebdriverIO
 如果我们的项目尚未使用 WebdriverIO，我们建议从 [Playwright](/guide/browser/playwright) 开始，因为它更易于配置且 API 更灵活。

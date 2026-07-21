@@ -57,7 +57,7 @@
 
 - **命令行终端:** `--api.port [port]`
 
-指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为`51204`
+指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为 `51204`
 
 ### api.host
 
@@ -187,7 +187,7 @@
 - **命令行终端:** `--coverage.skipFull`
 - **配置:** [coverage.skipFull](/config/#coverage-skipfull)
 
- 不显示语句、分支和函数覆盖率为 100% 的文件（默认值：`false`）
+不显示语句、分支和函数覆盖率为 100% 的文件（默认值：`false`）
 
 ### coverage.thresholds.100
 
@@ -201,7 +201,7 @@
 - **命令行终端:** `--coverage.thresholds.perFile`
 - **配置:** [coverage.thresholds.perFile](/config/#coverage-thresholds-perfile)
 
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
+检查每个文件的阈值。`--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
 
 ### coverage.thresholds.autoUpdate
 
@@ -239,7 +239,7 @@
 - **命令行终端:** `--coverage.ignoreClassMethods <name>`
 - **配置:** [coverage.ignoreClassMethods](/config/#coverage-ignoreclassmethods)
 
-覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods) 。该选项仅适用于 istanbul providers（默认值：`[]`）。
+覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods)。该选项仅适用于 istanbul providers（默认值：`[]`）。
 
 ### coverage.processingConcurrency
 
@@ -325,7 +325,7 @@ High and low watermarks for functions in the format of `<high>,<low>`
 - **命令行终端:** `--browser.name <name>`
 - **配置:** [browser.name](/guide/browser/config#browser-name)
 
-在特定浏览器中运行所有测试。某些浏览器仅适用于特定提供商（请参阅 `--browser.provider` ）。访问 [`browser.name`](https://vitest.dev/guide/browser/config/#browser-name) 了解更多信息
+在特定浏览器中运行所有测试。某些浏览器仅适用于特定提供商（请参阅 `--browser.provider`）。访问 [`browser.name`](https://vitest.dev/guide/browser/config/#browser-name) 了解更多信息
 
 ### browser.headless
 
@@ -455,7 +455,7 @@ High and low watermarks for functions in the format of `<high>,<low>`
 
 - **命令行终端:** `--poolOptions.vmThreads.maxThreads <workers>`
 - **配置:** [poolOptions.vmThreads.maxThreads](/config/#pooloptions-vmthreads-maxthreads)
-运行测试的最大线程数或百分比
+  运行测试的最大线程数或百分比
 
 ### poolOptions.vmThreads.minThreads
 
@@ -623,7 +623,7 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 - **命令行终端:** `--sequence.seed <seed>`
 - **配置:** [sequence.seed](/config/#sequence-seed)
 
-设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
+设置随机化种子。如果 --sequence.shuffle（随机序列）是 `false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
 
 ### sequence.hooks
 
@@ -637,7 +637,7 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 - **命令行终端:** `--sequence.setupFiles <order>`
 - **配置:** [sequence.setupFiles](/config/#sequence-setupfiles)
 
- 更改设置文件的执行顺序。可接受的值有 "list" 和 "parallel"。如果设置为"list"，将按照定义的顺序运行设置文件。如果设置为 "parallel"，将并行运行设置文件（默认值：`"parallel"`）。
+更改设置文件的执行顺序。可接受的值有 "list" 和 "parallel"。如果设置为"list"，将按照定义的顺序运行设置文件。如果设置为 "parallel"，将并行运行设置文件（默认值：`"parallel"`）。
 
 ### inspect
 
@@ -679,7 +679,7 @@ VM forks pool 的内存限制。如果你观察到内存泄漏问题，可以尝
 - **命令行终端:** `--retry <times>`
 - **配置:** [retry](/config/#retry)
 
-如果测试失败，重试特定次数（默认值： `0`）。
+如果测试失败，重试特定次数（默认值：`0`）。
 
 ### diff.aAnnotation
 
@@ -896,14 +896,14 @@ Minimum time in milliseconds it takes to spawn the typechecker
 - **命令行终端:** `--expect.poll.timeout <timeout>`
 - **配置:** [expect.poll.timeout](/config/#expect-poll-timeout)
 
-断言的轮询超时（以毫秒为单位） `expect.poll()` (默认值: `1000`)
+断言的轮询超时（以毫秒为单位）`expect.poll()` (默认值: `1000`)
 
 ### printConsoleTrace
 
 - **命令行终端:** `--printConsoleTrace`
 - **配置:** [printConsoleTrace](/config/#printconsoletrace)
 
- 始终打印控制台堆栈跟踪
+始终打印控制台堆栈跟踪
 
 ### includeTaskLocation
 
@@ -935,7 +935,7 @@ The directory where attachments from `context.annotate` are stored in (default: 
 
 - **命令行终端:** `--clearScreen`
 
- watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）。
+watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）。
 
 ### configLoader
 

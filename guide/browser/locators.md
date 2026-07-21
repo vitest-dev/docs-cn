@@ -65,7 +65,7 @@ await page.getByRole('button', { name: /submit/i }).click()
 根据 ARIA 指南，**强烈不建议** 通过 `role` 或 `aria-*` 属性为已经具有隐式角色的内置元素提供角色。
 :::
 
-##### Options
+### Options
 
 - `exact: boolean`
 
@@ -189,7 +189,7 @@ await page.getByRole('button', { name: /submit/i }).click()
   page.getByRole('button', { selected: false }) // ❌
   ```
 
-##### 更多内容请参阅 {#see-also}
+#### 更多内容请参阅 {#see-also}
 
 - [MDN 上的 ARIA 角色列表](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
 - [w3.org 上的 ARIA 角色列表](https://www.w3.org/TR/wai-aria-1.2/#role_definitions)
@@ -213,7 +213,7 @@ page.getByAltText(/incredibles.*? poster/i) // ✅
 page.getByAltText('non existing alt text') // ❌
 ```
 
-#### Options
+### Options
 
 - `exact: boolean`
 
@@ -260,7 +260,7 @@ function getByLabelText(
 <input aria-label="Username" />
 ```
 
-#### Options
+### Options
 
 - `exact: boolean`
 
@@ -292,7 +292,7 @@ page.getByPlaceholder('not found') // ❌
 通常情况下，使用 [`getByLabelText`](#getbylabeltext) 依赖标签比依赖占位符更好。
 :::
 
-#### Options
+### Options
 
 - `exact: boolean`
 
@@ -324,7 +324,7 @@ page.getByText('about', { exact: true }) // ❌
 此定位器适用于定位非交互式元素。如果你需要定位交互式元素，比如按钮或输入框，建议使用 [`getByRole`](#getbyrole)。
 :::
 
-#### Options
+### Options
 
 - `exact: boolean`
 
@@ -352,7 +352,7 @@ page.getByTitle('Delete') // ✅
 page.getByTitle('Create') // ❌
 ```
 
-#### Options
+### Options
 
 - `exact: boolean`
 
@@ -381,7 +381,7 @@ page.getByTestId('non-existing-element') // ❌
 建议仅在其他定位器不适用于你的使用场景时才使用此方法。使用 `data-testid` 属性并不符合用户实际使用软件的方式，因此如果可能应避免使用。
 :::
 
-#### Options
+### Options
 
 - `exact: boolean`
 
@@ -487,6 +487,7 @@ page.getByRole('button')
   .or(page.getByRole('link'))
   .click() // ❌ 匹配到多个元素
 ```
+
 :::
 
 ## filter
@@ -540,6 +541,7 @@ page.getByRole('article')
   .filter({ has: page.getByRole('button', { name: 'delete row' }) })
   .filter({ has: page.getByText('Vitest') })
 ```
+
 :::
 
 ### hasNot
@@ -704,7 +706,7 @@ await page.getByRole('img', { name: 'Rose' }).unhover()
 function fill(text: string, options?: UserEventFillOptions): Promise<void>
 ```
 
-为当前的 `input` 、`textarea` 或 `contenteditable` 元素赋值。
+为当前的 `input`、`textarea` 或 `contenteditable` 元素赋值。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -856,6 +858,7 @@ function element(): Element
 ```ts
 await expect.element(page.getByRole('button')).toBeDisabled()
 ```
+
 :::
 
 考虑以下 DOM 结构：
@@ -923,7 +926,7 @@ function all(): Locator[]
 
 在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/guide/browser/context#page) 包装每个元素。
 
-- [更多内容请参阅  `locator.elements()`](#elements)
+- [更多内容请参阅 `locator.elements()`](#elements)
 
 ## Properties
 
@@ -955,6 +958,7 @@ test('works correctly', async () => {
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```
+
 :::
 
 ### length

@@ -18,7 +18,7 @@ market.getApples()
 getApplesSpy.mock.calls.length === 1
 ```
 
-我们应该在 [`expect`](/api/expect) 上使用 mock 断言（例如 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) ）来断言 mock 结果。在这里我们介绍了用于操作 mock 行为的可用属性和方法。
+我们应该在 [`expect`](/api/expect) 上使用 mock 断言（例如 [`toHaveBeenCalled`](/api/expect#tohavebeencalled)）来断言 mock 结果。在这里我们介绍了用于操作 mock 行为的可用属性和方法。
 
 ::: tip
 下列类型中的自定义函数实现通过泛型 `<T>` 标记。
@@ -425,7 +425,7 @@ const results: MockResult<ReturnType<T>>[]
 - `'throw'`：函数执行过程中抛出了异常。
 - `'incomplete'`：函数尚未结束，仍在运行。
 
-`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
+`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使 Promise rejected，`result` 也将始终为 `'return'`。
 
 ```js
 const fn = vi

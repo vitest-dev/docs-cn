@@ -187,7 +187,7 @@ import {
 
 ### 默认数据池为 `forks` {#default-pool-is-forks}
 
-为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。您可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047)中阅读完整的动机。
+为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。您可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047) 中阅读完整的动机。
 
 如果使用了 `poolOptions` 而未指定一个 `pool`，则可能需要更新配置：
 
@@ -224,7 +224,7 @@ export default defineConfig({
 
 ### `suite.concurrent` 同时运行所有测试 {#suite-concurrent-runs-all-tests-concurrently}
 
-以前，在套件上指定 `concurrent` 时，并发测试仍会按套件分组并逐个运行。现在，它会遵循 jest 的行为，一次运行所有测试（仍受 [`maxConcurrency`](/config/#maxConcurrency)限制）。
+以前，在套件上指定 `concurrent` 时，并发测试仍会按套件分组并逐个运行。现在，它会遵循 jest 的行为，一次运行所有测试（仍受 [`maxConcurrency`](/config/#maxConcurrency) 限制）。
 
 ### 默认启用 V8 覆盖的 `coverage.ignoreEmptyLines` {#v8-coverage-s-coverage-ignoreemptylines-is-enabled-by-default}
 
@@ -246,19 +246,19 @@ export default defineConfig({
 
 ### 移除 `--segfault-retry` {#segfault-retry-removed}
 
-默认程序池更改后，不再需要此选项。如果遇到分离故障错误，请尝试切换到`'forks'`池。如果问题仍然存在，请重现问题并打开一个新问题。
+默认程序池更改后，不再需要此选项。如果遇到分离故障错误，请尝试切换到 `'forks'` 池。如果问题仍然存在，请重现问题并打开一个新问题。
 
 ### 删除套件任务中的空任务 {#empty-task-in-suite-tasks-removed}
 
-这是对高级[task API](/advanced/runner#your-task-function)的更改。以前，遍历 `.suite`最终会导致使用空的内部套件，而不是文件任务。
+这是对高级 [task API](/advanced/runner#your-task-function) 的更改。以前，遍历 `.suite` 最终会导致使用空的内部套件，而不是文件任务。
 
-这使得 `.suite`成为可选项；如果任务是在顶层定义的，则不会有 suite。您可以回退到 `.file`属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
+这使得 `.suite` 成为可选项；如果任务是在顶层定义的，则不会有 suite。您可以回退到 `.file` 属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
 
 这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
 
 ### `task.meta` 已添加到 JSON 报告器中 {#task-meta-is-added-to-the-json-reporter}
 
-JSON 报告器现在会为每个断言结果打印 `task.meta` 。
+JSON 报告器现在会为每个断言结果打印 `task.meta`。
 
 ### 简化的模拟函数通用类型 (e.g. `vi.fn<T>`, `Mock<T>`) {#simplified-generic-types-of-mock-functions-e-g-vi-fn-t-mock-t}
 
@@ -305,7 +305,7 @@ expect(fn).toHaveResolved('result') // [!code ++]
 
 ### 浏览器模式 {#browser-mode}
 
-Vitest 浏览器模式在测试周期内发生了很多变化。您可以在[GitHub discussion](https://github.com/vitest-dev/vitest/discussions/5828)上阅读我们关于浏览器模式的理念。
+Vitest 浏览器模式在测试周期内发生了很多变化。您可以在 [GitHub discussion](https://github.com/vitest-dev/vitest/discussions/5828) 上阅读我们关于浏览器模式的理念。
 
 大多数改动都是附加的，但也有一些小的突破性改动：
 
@@ -353,11 +353,11 @@ expect({ foo: 'bar' }).toMatchInlineSnapshot(`
 + expect('some string').toMatchInlineSnapshot(`"some string"`)
 ```
 
-对 `@vitest/snapshot` 也有[修改](https://github.com/vitest-dev/vitest/pull/4076)。如果不直接使用它，则无需做任何更改。
+对 `@vitest/snapshot` 也有 [修改](https://github.com/vitest-dev/vitest/pull/4076)。如果不直接使用它，则无需做任何更改。
 
 - 我们不再需要扩展 `SnapshotClient` 以覆盖 `equalityCheck` 方法：只需在启动实例时将其作为 `isEqual` 传递即可。
 - `client.setTest` 更名为 `client.startCurrentRun`
-- `client.resetCurrent` 更名为 `client.finishCurrentRun` 。
+- `client.resetCurrent` 更名为 `client.finishCurrentRun`。
 
 ### Pools 标准化 [#4172](https://github.com/vitest-dev/vitest/pull/4172) {#pools-are-standardized-4172}
 
@@ -456,15 +456,15 @@ export default defineConfig({
 ```
 
 ::: warning
-`SpyInstance` 已被弃用，取而代之的是 `MockInstance` ，并会在下一个主要版本中移除。
+`SpyInstance` 已被弃用，取而代之的是 `MockInstance`，并会在下一个主要版本中移除。
 :::
 
 ### 模拟计时器 [#3925](https://github.com/vitest-dev/vitest/pull/3925) {#timer-mocks-3925}
 
-`vi.useFakeTimers()` 不再自动模拟 [`process.nextTick`](https://nodejs.org/api/process.html#processnexttickcallback-args) 。
+`vi.useFakeTimers()` 不再自动模拟 [`process.nextTick`](https://nodejs.org/api/process.html#processnexttickcallback-args)。
 仍然可以通过使用 `vi.useFakeTimers({ toFake: ['nextTick'] })` 明确指定来模拟 `process.nextTick`。
 
-但是，在使用 `--pool=forks` 时，无法模拟 `process.nextTick` 。如果需要模拟 `process.nextTick` ，请使用不同的 `--pool` 选项。
+但是，在使用 `--pool=forks` 时，无法模拟 `process.nextTick`。如果需要模拟 `process.nextTick`，请使用不同的 `--pool` 选项。
 
 ## 从 Jest 迁移 {#jest}
 
@@ -472,7 +472,7 @@ Vitest 设计了与 Jest 兼容的 API ，方便你从 Jest 的迁移尽可能�
 
 ### 全局变量作为默认值 {#globals-as-a-default}
 
-Jest 默认启用 [全局 API](https://jestjs.io/zh-Hans/docs/api) 。然而 Vitest 没有。你既可以通过 [`globals` 配置选项](/config/#globals) 启用全局 API，也可以通过更新你的代码以便使用来自 `vitest` 模块的导入。
+Jest 默认启用 [全局 API](https://jestjs.io/zh-Hans/docs/api)。然而 Vitest 没有。你既可以通过 [`globals` 配置选项](/config/#globals) 启用全局 API，也可以通过更新你的代码以便使用来自 `vitest` 模块的导入。
 
 如果你决定禁用全局 API，请注意像 [`testing-library`](https://testing-library.com/) 这样的通用库不会自动运行 DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
@@ -511,7 +511,7 @@ const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 
 ### 将模拟扩展到外部库 {#extends-mocking-to-external-libraries}
 
-在 Jest 的默认情况下，当模拟一个模块并希望将此模拟扩展到使用相同模块的其他外部库时，您应该明确告知您希望模拟哪个第三方库，这样外部库就会成为您源代码的一部分，方法是使用  [server.deps.inline](https://vitest.dev/config/#server-deps-inline).
+在 Jest 的默认情况下，当模拟一个模块并希望将此模拟扩展到使用相同模块的其他外部库时，您应该明确告知您希望模拟哪个第三方库，这样外部库就会成为您源代码的一部分，方法是使用 [server.deps.inline](https://vitest.dev/config/#server-deps-inline).
 
 ```
 server.deps.inline: ["lib-name"]
@@ -528,20 +528,21 @@ Vitest 的 `test` 名称用 `>` 符号连接，以便于区分测试和套件，
 
 ### 环境变量 {#envs}
 
-与 Jest 类似，如果未提前设置，Vitest 会将 `NODE_ENV` 设置为 `"test"`。 Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID` (该值始终大于等于 `maxThreads`)，如果你依赖它请记得重命名。此外，Vitest 还会暴露 `VITEST_WORKER_ID` 作为运行中 worker的唯一标识 —— 此数值不受 `maxThreads`限制，并且随着 worker 创建递增。
+与 Jest 类似，如果未提前设置，Vitest 会将 `NODE_ENV` 设置为 `"test"`。 Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID` (该值始终大于等于 `maxThreads`)，如果你依赖它请记得重命名。此外，Vitest 还会暴露 `VITEST_WORKER_ID` 作为运行中 worker 的唯一标识 —— 此数值不受 `maxThreads` 限制，并且随着 worker 创建递增。
 
 ### 属性替换 {#replace-property}
 
 如果你想修改测试环境，你会在 Jest 中使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，你可以使用 [vi.stubEnv](/api/vi#vi-stubenv) 或者 [`vi.spyOn`](/api/vi#vi-spyon) 也可以在 Vitest 中执行此操作。
 
 ### Done 回调函数 {#done-callback}
+
 从 Vitest v0.10.0 开始，声明测试的回调样式被弃用。建议改用 `async`/`await` 函数，或者使用 Promise 回调风格。
 
 <!--@include: ./examples/promise-done.md-->
 
 ### 钩子 {#hooks}
 
-`beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown)中返回。因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
+`beforeAll`/`beforeEach` 钩子可能在 Vitest 的 [teardown 函数](/api/#setup-and-teardown) 中返回。因此，如果它们返回的不是 `undefined` 或 `null`，你可能需要重写你的钩子声明：
 
 ```ts
 beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
@@ -572,11 +573,12 @@ let fn: Mock<(name: string) => number> // [!code ++]
 ```
 
 ### Timers {#timers}
-Vitest 不支持 Jest的 传统计时器。
+
+Vitest 不支持 Jest 的 传统计时器。
 
 ### 定时器 {#timeout}
 
-如果你之前在测试中使用了 jest.setTimeout ，那么你需要迁移到 Vitest 中的`vi.setConfig` :
+如果你之前在测试中使用了 jest.setTimeout ，那么你需要迁移到 Vitest 中的 `vi.setConfig`:
 
 ```ts
 jest.setTimeout(5_000) // [!code --]
@@ -588,6 +590,7 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
 :::code-group
+
 ```js [vite.config.js]
 import { defineConfig } from 'vite'
 export default defineConfig({
@@ -596,10 +599,12 @@ export default defineConfig({
   },
 })
 ```
+
 ```js [tests/unit/setup.js]
 import vueSnapshotSerializer from 'jest-serializer-vue'
 expect.addSnapshotSerializer(vueSnapshotSerializer)
 ```
+
 :::
 
 否则你的快照将出现大量的 `"` 字符。

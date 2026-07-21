@@ -12,15 +12,18 @@ import { userEvent } from 'vitest/browser'
 await userEvent.click(document.querySelector('.button'))
 ```
 
-几乎所有的 `userEvent` 方法都继承了其提供者的选项。要在我们的 IDE 中查看所有可用选项，请根据我们的提供者，将 `webdriver` 或 `playwright` 类型添加到我们的 [setup 文件](/config/#setupfile) 或 [配置文件](/config/)中（取决于我们的 `tsconfig.json` 中 `included` 部分包含的内容）：
+几乎所有的 `userEvent` 方法都继承了其提供者的选项。要在我们的 IDE 中查看所有可用选项，请根据我们的提供者，将 `webdriver` 或 `playwright` 类型添加到我们的 [setup 文件](/config/#setupfile) 或 [配置文件](/config/) 中（取决于我们的 `tsconfig.json` 中 `included` 部分包含的内容）：
 
 ::: code-group
+
 ```ts [playwright]
 /// <reference types="@vitest/browser/providers/playwright" />
 ```
+
 ```ts [webdriverio]
 /// <reference types="@vitest/browser/providers/webdriverio" />
 ```
+
 :::
 
 ## userEvent.setup
@@ -177,7 +180,7 @@ test('update input', async () => {
 该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
 
 ::: tip
-该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
+该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但 **不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)（例如，`{Shift}{selectall}`）。
 
 在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::
@@ -222,7 +225,7 @@ test('trigger keystrokes', async () => {
 function tab(options?: UserEventTabOptions): Promise<void>
 ```
 
-发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
+发送一个 `Tab` 键事件。这是 `userEvent.keyboard('{tab}')` 的简写。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -264,7 +267,7 @@ function type(
 
 `type` 方法在 [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API 的基础上实现了 `@testing-library/user-event` 的 [`type`](https://testing-library.com/docs/user-event/utility/#type) 工具。
 
-你可以使用此函数向 `input` 、`textarea` 或 `contenteditable` 元素中模拟键盘输入。它兼容 [user-event 提供的 `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。
+你可以使用此函数向 `input`、`textarea` 或 `contenteditable` 元素中模拟键盘输入。它兼容 [user-event 提供的 `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。
 
 如果只需按下字符而无需输入，请使用 [`userEvent.keyboard`](#userevent-keyboard) API。
 
@@ -425,7 +428,7 @@ function unhover(
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
-默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider中）或中心位置（在 `webdriverio` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
+默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider 中）或中心位置（在 `webdriverio` provider 中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
 :::
 
 ```ts
@@ -513,7 +516,7 @@ test('drag and drop works', async () => {
 ```
 
 ::: warning
- `preview` provider不支持此 API。
+`preview` provider 不支持此 API。
 :::
 
 相关链接：

@@ -14,11 +14,11 @@ outline: deep
 
 "子进程"和"工作线程"都被称为"工作者"。你可以通过 [`maxWorkers`](/config/#maxworkers) 选项配置运行的工作者数量，或者通过 [`poolOptions`](/config/#pooloptions) 配置进行更精细的控制。
 
-如果项目包含大量测试文件，通常并行执行会大幅提升速度。但具体效果还要看项目本身、运行环境以及是否启用了 [隔离](/config/#isolate)。若需要关闭文件级并行化，可以将 [`fileParallelism`](/config/#fileparallelism) 设为 `false` 。更多性能优化技巧，请参考 [性能指南](/guide/improving-performance) 。
+如果项目包含大量测试文件，通常并行执行会大幅提升速度。但具体效果还要看项目本身、运行环境以及是否启用了 [隔离](/config/#isolate)。若需要关闭文件级并行化，可以将 [`fileParallelism`](/config/#fileparallelism) 设为 `false`。更多性能优化技巧，请参考 [性能指南](/guide/improving-performance)。
 
 ## 测试级并行 {#test-parallelism}
 
-与 _测试文件_ 不同， Vitest 在同一个文件中会顺序执行 _测试用例_ 。也就是说，同一个文件里的测试会按定义顺序一个接一个地执行。
+与 _测试文件_ 不同， Vitest 在同一个文件中会顺序执行 _测试用例_。也就是说，同一个文件里的测试会按定义顺序一个接一个地执行。
 
 如果希望让同一文件中的多个测试并行执行，可以使用 [`concurrent`](/api/#test-concurrent) 选项。启用后， Vitest 会将同一文件中的并发测试分组，并基于 maxConcurrency 控制并行度，然后通过 [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) 一起执行。
 
@@ -34,4 +34,4 @@ test.concurrent('the second test', () => {
 })
 ```
 
-如果希望所有测试用例都并发执行，可以将 [`sequence.concurrent`](/config/#sequence-concurrent) 配置项设为 `true` 。
+如果希望所有测试用例都并发执行，可以将 [`sequence.concurrent`](/config/#sequence-concurrent) 配置项设为 `true`。

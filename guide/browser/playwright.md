@@ -16,7 +16,7 @@
 }
 ```
 
-Vitest 打开一个页面以在同一文件中运行所有测试。我们可以在 `instances` 中配置 `launch` 、`connect` 和 `context` 属性：
+Vitest 打开一个页面以在同一文件中运行所有测试。我们可以在 `instances` 中配置 `launch`、`connect` 和 `context` 属性：
 
 ```ts{9-11} [vitest.config.ts]
 import { defineConfig } from 'vitest/config'

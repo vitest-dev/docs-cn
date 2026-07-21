@@ -5,7 +5,7 @@ outline: deep
 
 # 测试注释 {#test-annotations}
 
-Vitest 支持通过 [`context.annotate`](/guide/test-context#annotate) API 为测试添加自定义消息和文件注释，这些测试注释将附加到测试用例上，并通过  [`onTestAnnotate`](/advanced/api/reporters#ontestannotate) 钩子传递给报告器。
+Vitest 支持通过 [`context.annotate`](/guide/test-context#annotate) API 为测试添加自定义消息和文件注释，这些测试注释将附加到测试用例上，并通过 [`onTestAnnotate`](/advanced/api/reporters#ontestannotate) 钩子传递给报告器。
 
 ```ts
 test('hello world', async ({ annotate }) => {
@@ -27,6 +27,7 @@ test('hello world', async ({ annotate }) => {
 根据使用的报告器不同，这些测试注释的显示方式也会有所差异。
 
 ## 内置报告器 {#built-in-reporters}
+
 ### default
 
 `默认报告器` 仅在测试失败时打印注解：
@@ -67,7 +68,7 @@ Error: thrown error
 
 ### html
 
-HTML 报告器会以与 UI模式 相同的方式显示测试注释。您可以在调用那行看到测试注释。目前，如果测试文件中没有调用测试注释，您将无法在 UI模式 中看到它。我们计划支持一个单独的测试摘要视图，届时这些测试注释将会显示。
+HTML 报告器会以与 UI 模式 相同的方式显示测试注释。您可以在调用那行看到测试注释。目前，如果测试文件中没有调用测试注释，您将无法在 UI 模式 中看到它。我们计划支持一个单独的测试摘要视图，届时这些测试注释将会显示。
 
 <img alt="Vitest UI" img-light src="/annotations-html-light.png">
 <img alt="Vitest UI" img-dark src="/annotations-html-dark.png">

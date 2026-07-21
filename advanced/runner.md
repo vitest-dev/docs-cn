@@ -135,6 +135,7 @@ export default class Runner {
   }
 }
 ```
+
 :::
 
 ::: warning
@@ -226,7 +227,7 @@ interface Test<ExtraContext = object> extends TaskBase {
 }
 ```
 
-每个任务都可以有一个 `result` 字段。只有当在套件回调或 `beforeAll`/`afterAll` 回调中抛出错误，阻止了测试的收集时，套件才会有这个字段。测试在它们的回调被调用后总是有这个字段——`state` 和 `errors` 字段根据结果的存在与否而存在。如果在 `beforeEach` 或 `afterEach` 回调中抛出了错误，抛出的错误将出现在 `task.result.errors` 中。
+每个任务都可以有一个 `result` 字段。只有当在套件回调或 `beforeAll`/`afterAll` 回调中抛出错误，阻止了测试的收集时，套件才会有这个字段。测试在它们的回调被调用后总是有这个字段 —— `state` 和 `errors` 字段根据结果的存在与否而存在。如果在 `beforeEach` 或 `afterEach` 回调中抛出了错误，抛出的错误将出现在 `task.result.errors` 中。
 
 ```ts
 export interface TaskResult {

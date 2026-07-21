@@ -6,15 +6,16 @@ title: Assertion API | Browser Mode
 
 Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库，并增加了对定位器的支持以及内置的重试能力。
 
-::: tip TypeScript Support
+::: tip TypeScript 支持
 如果你正在使用 [TypeScript](/guide/browser/#typescript) 或希望在 `expect` 中获得正确的类型提示，请确保在某个地方引用了 `vitest/browser`。如果你从未从该模块导入过，可以在 `tsconfig.json` 覆盖范围内的任何文件中添加一个 `reference` 注释：
 
 ```ts
 /// <reference types="vitest/browser" />
 ```
+
 :::
 
-浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll)和 `expect.element` API 提供了可重试的断言：
+浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll) 和 `expect.element` API 提供了可重试的断言：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -54,7 +55,7 @@ interface ExpectPollOptions {
 ```
 
 ::: tip
-`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
+`expect.element` 是 `expect.poll(() => element)` 的简写，工作方式完全相同。
 
 `toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
@@ -62,6 +63,7 @@ interface ExpectPollOptions {
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
 expect(banner).toHaveTextContent('Error!')
 ```
+
 :::
 
 ## toBeDisabled
@@ -410,7 +412,7 @@ function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 
 这允许你断言一个元素具有预期的 [可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
 
-你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
+你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching) 来进行部分匹配。
 
 ```html
 <input
@@ -917,6 +919,7 @@ await expect.element(getByTestId('link-invalid')).toHaveRole('generic')
 await expect.element(getByTestId('switch')).toHaveRole('switch') // ✅
 await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 ```
+
 :::
 
 ## toHaveSelection
@@ -925,7 +928,7 @@ await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 function toHaveSelection(selection?: string): Promise<void>
 ```
 
-这允许断言某个元素具有一个[文本选择](https://developer.mozilla.org/en-US/docs/Web/API/Selection)。
+这允许断言某个元素具有一个 [文本选择](https://developer.mozilla.org/en-US/docs/Web/API/Selection)。
 
 这在检查元素内是否选择了文本或部分文本时非常有用。该元素可以是文本类型的输入框、`textarea`，或者是任何包含文本的其他元素，例如段落、`span`、`div` 等。
 

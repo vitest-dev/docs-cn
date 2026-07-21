@@ -5,7 +5,7 @@ outline: deep
 
 # 报告器 {#reporters}
 
-Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile`[配置选项](https://vitest.dev/config/#reporters) 中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
+Vitest 提供了几种内置报告器，以不同格式显示测试输出，以及使用自定义报告器的能力。你可以使用 `--reporter` 命令行选项，或者在你的 `outputFile` [配置选项](https://vitest.dev/config/#reporters) 中加入 `reporters` 属性来选择不同的报告器。如果没有指定报告器，Vitest 将使用下文所述的默认报告器。
 
 通过命令行使用报告器:
 
@@ -37,7 +37,7 @@ export default defineConfig({
 
 ## 报告器输出 {#reporter-output}
 
-默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json` 、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
+默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json`、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
 
 :::code-group
 
@@ -102,6 +102,7 @@ export default defineConfig({
 我们可以通过配置报告器来禁用摘要：
 
 :::code-group
+
 ```ts [vitest.config.ts]
 export default defineConfig({
   test: {
@@ -111,6 +112,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 项目中的测试输出示例:
@@ -304,6 +306,7 @@ AssertionError: expected 5 to be 4 // Object.is equality
 输出的 XML 包含嵌套的 `testsuites` 和 `testcase` 标签。这些也可以通过报告选项 `suiteName` 和 `classnameTemplate` 进行自定义。`classnameTemplate` 可以是一个模板字符串或者一个函数。
 
 `classnameTemplate` 选项支持的占位符有：
+
 - filename
 - filepath
 
@@ -409,7 +412,7 @@ export default defineConfig({
 :::
 
 ::: tip
-该报告器需要安装 [`@vitest/ui`](/guide/ui) 。
+该报告器需要安装 [`@vitest/ui`](/guide/ui)。
 :::
 
 ### TAP 报告器 {#tap-reporter}
@@ -515,7 +518,7 @@ export default defineConfig({
 ### GitHub Actions Reporter {#github-actions-reporter}
 
 输出 [工作流命令](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message)
-为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter)报告器。
+为测试失败提供注释。当 `process.env.GITHUB_ACTIONS === 'true'` 时，会自动启用 [`default`](#default-reporter) 报告器。
 
 <img alt="GitHub Actions" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/336cddc2-df6b-4b8a-8e72-4d00010e37f5">
 <img alt="GitHub Actions" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/ce8447c1-0eab-4fe1-abef-d0d322290dca">
@@ -587,10 +590,10 @@ export default defineConfig({
 
 :::
 
-此外，你还可以定义自己的[自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
+此外，你还可以定义自己的 [自定义报告器](/advanced/reporters)，并通过指定文件路径来使用它们:
 
 ```bash
 npx vitest --reporter=./path/to/reporter.ts
 ```
 
-自定义报告器应实现[报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)。
+自定义报告器应实现 [报告器接口](https://github.com/vitest-dev/vitest/blob/main/packages/vitest/src/node/types/reporter.ts)。

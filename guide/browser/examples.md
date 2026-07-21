@@ -6,7 +6,7 @@ title: Examples | Browser Mode
 
 浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，你应该可以使用框架的测试工具包。
 
-我们建议根据您的框架使用  `testing-library` packages：
+我们建议根据您的框架使用 `testing-library` packages：
 
 - [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) if you don't use a framework
 - [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) to render [vue](https://vuejs.org) components
@@ -17,10 +17,11 @@ title: Examples | Browser Mode
 - [`@marko/testing-library`](https://testing-library.com/docs/marko-testing-library/intro) to render [marko](https://markojs.com) components
 
 ::: warning
-`testing-library` 提供了一个包`@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context`导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于provider）。
+`testing-library` 提供了一个包 `@testing-library/user-event`。我们不建议直接使用它，因为它会模拟事件而非实际触发事件--相反，请使用从 `@vitest/browser/context` 导入的 [`userEvent`](#interactivity-api)，它使用 Chrome DevTools 协议或 Webdriver（取决于 provider）。
 :::
 
 ::: code-group
+
 ```ts [vue]
 // based on @testing-library/vue example
 // https://testing-library.com/docs/vue-testing-library/examples
@@ -45,6 +46,7 @@ test('properly handles v-model', async () => {
   expect(screen.getByText('Hi, my name is Alice')).toBeInTheDocument()
 })
 ```
+
 ```ts [svelte]
 // based on @testing-library/svelte
 // https://testing-library.com/docs/svelte-testing-library/example
@@ -66,6 +68,7 @@ test('greeting appears on click', async () => {
   expect(greeting).toBeInTheDocument()
 })
 ```
+
 ```tsx [react]
 // based on @testing-library/react example
 // https://testing-library.com/docs/react-testing-library/example-intro
@@ -87,6 +90,7 @@ test('loads and displays greeting', async () => {
   expect(screen.getByRole('button')).toBeDisabled()
 })
 ```
+
 ```tsx [preact]
 // based on @testing-library/preact example
 // https://testing-library.com/docs/preact-testing-library/example
@@ -115,6 +119,7 @@ test('shows the children when the checkbox is checked', async () => {
   expect(getByText(testMessage)).toBeInTheDocument()
 })
 ```
+
 ```tsx [solid]
 // baed on @testing-library/solid API
 // https://testing-library.com/docs/solid-testing-library/api
@@ -140,6 +145,7 @@ it('uses params', async () => {
   expect(await findByText('Id: 1234')).toBeInTheDocument()
 })
 ```
+
 ```ts [marko]
 // baed on @testing-library/marko API
 // https://testing-library.com/docs/marko-testing-library/api
@@ -155,4 +161,5 @@ test('renders a message', async () => {
   `)
 })
 ```
+
 :::

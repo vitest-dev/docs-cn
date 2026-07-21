@@ -74,6 +74,7 @@ export default defineConfig({
 ### 其他的打包器 {#other-bundlers}
 
 ::: details unbuild
+
 ```ts [build.config.ts]
 import { defineBuildConfig } from 'unbuild'
 
@@ -90,6 +91,7 @@ export default defineBuildConfig({
 :::
 
 ::: details Rollup
+
 ```ts [rollup.config.js]
 import replace from '@rollup/plugin-replace' // [!code ++]
 
@@ -132,4 +134,4 @@ export default {
 - 原型设计
 - 内联断言
 
-对于更复杂的测试，比如组件测试或 E2E 测试，建议**使用单独的测试文件取而代之**。
+对于更复杂的测试，比如组件测试或 E2E 测试，建议 **使用单独的测试文件取而代之**。

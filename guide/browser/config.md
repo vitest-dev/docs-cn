@@ -33,6 +33,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ## browser.enabled
@@ -60,9 +61,10 @@ export default defineConfig({
 /// <reference types="@vitest/browser/providers/playwright" />
 /// <reference types="@vitest/browser/providers/webdriverio" />
 ```
+
 :::
 
-你可以指定大部分 [配置选项](/config/) (未标记<NonProjectOption />图标的选项)和一些 `browser` 选项，如`browser.testerHtmlPath`。
+你可以指定大部分 [配置选项](/config/) (未标记<NonProjectOption />图标的选项)和一些 `browser` 选项，如 `browser.testerHtmlPath`。
 
 ::: warning
 每个浏览器配置都从根配置继承选项：
@@ -212,6 +214,7 @@ export default defineConfig({
 /// <reference types="@vitest/browser/providers/playwright" />
 /// <reference types="@vitest/browser/providers/webdriverio" />
 ```
+
 :::
 
 ## browser.ui
