@@ -126,7 +126,7 @@ function ok(): boolean
 function meta(): TaskMeta
 ```
 
-在测试执行期间附加到测试上的自定义[元数据](/advanced/metadata)。我们可以在测试运行期间通过给 `ctx.task.meta` 对象分配属性来附加元数据。
+在测试执行期间附加到测试上的自定义 [元数据](/advanced/metadata)。我们可以在测试运行期间通过给 `ctx.task.meta` 对象分配属性来附加元数据。
 
 ```ts {3,6}
 import { test } from 'vitest'
@@ -146,7 +146,7 @@ test('the validation works correctly', ({ task }) => {
 function result(): TestResult
 ```
 
-测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending` ：
+测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending`：
 
 ```ts
 export interface TestResultPending {

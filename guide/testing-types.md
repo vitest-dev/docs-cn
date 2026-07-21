@@ -61,7 +61,7 @@ test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the 
 999 expectTypeOf({a: 1}).toEqualTypeOf<{a: string}>()
 ```
 
-请注意，报告的类型约束是一个可读性强的消息，指定了"期望"和"实际"类型。不要字面上解读句子 `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"` ，而是看属性名（`'a'`）和消息内容：`Expected: string, Actual: number`。这将告诉你出了什么问题，在大多数情况下。当然，对于非常复杂的类型，调试可能需要更多的努力，并且可能需要一些试验。如果错误消息实际上是误导性的，请 [提出问题](https://github.com/mmkal/expect-type)。
+请注意，报告的类型约束是一个可读性强的消息，指定了"期望"和"实际"类型。不要字面上解读句子 `Types of property 'a' are incompatible // Type 'string' is not assignable to type "Expected: string, Actual: number"`，而是看属性名（`'a'`）和消息内容：`Expected: string, Actual: number`。这将告诉你出了什么问题，在大多数情况下。当然，对于非常复杂的类型，调试可能需要更多的努力，并且可能需要一些试验。如果错误消息实际上是误导性的，请 [提出问题](https://github.com/mmkal/expect-type)。
 
 对于像 `expectTypeOf(1).toBeString()` 这样的断言，`toBe...` 方法（如 `toBeString`、`toBeNumber`、`toBeVoid` 等）在被测试的 `Actual` 类型不匹配时会解析为一个不可调用的类型。例如，失败的断言可能会显示如下内容：
 
@@ -77,7 +77,7 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
 
-#### 具体的 "expected " 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
+### 具体的 "expected" 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
 
 像这样的断言的错误消息：
 
@@ -111,7 +111,7 @@ assertType<string>(answer)
 ```
 
 ::: tip
-使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/#include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会*运行*这些测试并因 `ReferenceError` 而失败。
+使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/#include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会 _运行_ 这些测试并因 `ReferenceError` 而失败。
 
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：
 

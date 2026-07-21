@@ -198,7 +198,8 @@ describe('collection failed', () => {
 ```ts
 function meta(): TaskMeta
 ```
-在执行或收集过程中附加到套件的自定义[元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
+
+在执行或收集过程中附加到套件的自定义 [元数据](/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
 
 ```ts {5,10}
 import { test } from 'vitest'

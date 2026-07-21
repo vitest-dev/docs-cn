@@ -280,7 +280,7 @@ describe('suite', () => {
 })
 ```
 
-`test.skip`、 `test.only` 和 `test.todo` 适用于并发测试。以下所有组合均有效：
+`test.skip`、`test.only` 和 `test.todo` 适用于并发测试。以下所有组合均有效：
 
 ```ts
 test.concurrent(/* ... */)
@@ -504,7 +504,7 @@ test.for([
 })
 ```
 
-第二个参数是 [`TestContext`](/guide/test-context) ，你可以用它来执行并发快照等操作，例如：
+第二个参数是 [`TestContext`](/guide/test-context)，你可以用它来执行并发快照等操作，例如：
 
 ```ts
 test.concurrent.for([
@@ -873,7 +873,7 @@ describe.skipIf(isDev)('prod only test suite', () => {
 ```
 
 ::: warning
-将 Vitest 用作[类型检查器](/guide/testing-types)时，你不能使用此语法。
+将 Vitest 用作 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### describe.runIf
@@ -894,7 +894,7 @@ describe.runIf(isDev)('dev only test suite', () => {
 ```
 
 ::: warning
-将 Vitest 用作[类型检查器](/guide/testing-types)时，你不能使用此语法。
+将 Vitest 用作 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
 :::
 
 ### describe.only
@@ -954,7 +954,7 @@ describe.concurrent('suite', () => {
 })
 ```
 
-`.skip`、`.only`和`.todo`适用于并发测试套件。以下所有组合都有效：
+`.skip`、`.only` 和 `.todo` 适用于并发测试套件。以下所有组合都有效：
 
 ```ts
 describe.concurrent(/* ... */)
@@ -963,7 +963,7 @@ describe.only.concurrent(/* ... */) // 或 describe.concurrent.only(/* ... */)
 describe.todo.concurrent(/* ... */) // 或 describe.concurrent.todo(/* ... */)
 ```
 
-运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context.md) 中的 `expect` ，以确保检测到正确的测试。
+运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context.md) 中的 `expect`，以确保检测到正确的测试。
 
 ```ts
 describe.concurrent('suite', () => {
@@ -1032,7 +1032,7 @@ describe.shuffle('suite', () => {
 // 顺序取决于配置中的 `sequence.seed` 选项（默认为 `Date.now()`）
 ```
 
-`.skip`、 `.only` 和 `.todo` 适用于随机测试套件。
+`.skip`、`.only` 和 `.todo` 适用于随机测试套件。
 
 ::: warning
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
@@ -1167,7 +1167,7 @@ beforeEach(async () => {
 })
 ```
 
-这里， `beforeEach` 确保每次测试都会添加用户。
+这里，`beforeEach` 确保每次测试都会添加用户。
 
 `beforeEach` 还接受一个可选的清理函数（相当于 `afterEach`）。
 
@@ -1285,7 +1285,7 @@ test('performs a query', () => {
 ```
 
 ::: warning
-如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
+如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished`，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts {3,5}
 import { test } from 'vitest'
@@ -1341,7 +1341,7 @@ test('performs a query', () => {
 ```
 
 ::: warning
-如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed` ，因为 Vitest 不会在全局 hook 中跟踪并发测试：
+如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed`，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts {3,5-7}
 import { test } from 'vitest'

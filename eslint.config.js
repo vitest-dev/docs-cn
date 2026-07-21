@@ -45,6 +45,7 @@ export default antfu(
       'no-self-compare': 'off',
       'import/no-mutable-exports': 'off',
       'markdown/no-multiple-h1': 'off',
+      'markdown/no-missing-link-fragments': 'off',
     },
   },
 )

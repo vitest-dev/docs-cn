@@ -40,13 +40,13 @@ export default {
 ::: danger BEWARE
 Vitest 使用不同的方法与 Node.js 进程进行通信。
 
-- 如果 Vitest 在工作线程内运行测试，它将通过[消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)发送数据
+- 如果 Vitest 在工作线程内运行测试，它将通过 [消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) 发送数据
 - 如果 Vitest 使用子进程，数据将通过 [`process.send`](https://nodejs.org/api/process.html#processsendmessage-sendhandle-options-callback) API 作为序列化缓冲区发送
 - 如果 Vitest 在浏览器中运行测试，数据将使用 [flatted](https://www.npmjs.com/package/flatted) 包进行字符串化
 
 该属性也会出现在每个测试的 `json` 报告中，因此请确保数据可以序列化为 JSON。
 
-另外，请确保在设置[错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types)之前序列化它们。
+另外，请确保在设置 [错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types) 之前序列化它们。
 :::
 
 当测试运行完成时，你还可以从 Vitest 状态获取此信息：
