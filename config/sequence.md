@@ -87,6 +87,7 @@ export default defineConfig({
 
  1. flaky |> 在 slow 和 fast 运行完后单独运行
 ```
+
 :::
 
 ## sequence.shuffle
@@ -145,7 +146,7 @@ Whether to randomize tests.
 
 - `stack`："after" 类钩子按定义顺序逆序执行，"before" 类钩子保持定义顺序执行
 - `list`：所有钩子严格按定义顺序执行
-- `parallel`：在单个组内并行运行钩子（父套件的钩子仍会在当前套件的钩子之前运行）。实际并发数受[`maxConcurrency`](/config/maxconcurrency) 限制
+- `parallel`：在单个组内并行运行钩子（父套件的钩子仍会在当前套件的钩子之前运行）。实际并发数受 [`maxConcurrency`](/config/maxconcurrency) 限制
 
 ::: tip
 此选项不影响 [`onTestFinished`](/api/hooks#ontestfinished) 钩子，该钩子始终采用逆序调用。

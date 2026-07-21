@@ -12,9 +12,10 @@ Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing
 ```ts
 /// <reference types="vitest/browser" />
 ```
+
 :::
 
-浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll)和 `expect.element` API 提供了可重试的断言：
+浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll) 和 `expect.element` API 提供了可重试的断言：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -54,7 +55,7 @@ interface ExpectPollOptions {
 ```
 
 ::: tip
-`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
+`expect.element` 是 `expect.poll(() => element)` 的简写，工作方式完全相同。
 
 `toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
@@ -62,6 +63,7 @@ interface ExpectPollOptions {
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
 expect(banner).toHaveTextContent('Error!')
 ```
+
 :::
 
 ## toBeDisabled
@@ -310,6 +312,7 @@ function toBeInViewport(options: { ratio?: number }): Promise<void>
 
 该方法通过 IntersectionObserver API 检测元素是否位于当前视口内。
 可通过 ratio 参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
+
 ```ts
 // 检测指定元素是否在视口中
 await expect.element(page.getByText('Welcome')).toBeInViewport()
@@ -433,7 +436,7 @@ function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 
 这允许你断言一个元素具有预期的 [可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
 
-你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
+你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching) 来进行部分匹配。
 
 ```html
 <input
@@ -480,7 +483,7 @@ await expect.element(
 function toHaveAccessibleName(name?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
+这允许你断言一个元素具有预期的 [可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
 
 你可以传递预期的可访问名称的确切字符串，或者通过传递正则表达式进行部分匹配，也可以使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)。
 
@@ -512,7 +515,7 @@ await expect.element(getByTestId('input-title')).toHaveAccessibleName()
 function toHaveAttribute(attribute: string, value?: unknown): Promise<void>
 ```
 
-这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)进行部分匹配。
+这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching) 进行部分匹配。
 
 ```html
 <button data-testid="ok-button" type="submit" disabled>ok</button>
@@ -940,6 +943,7 @@ await expect.element(getByTestId('link-invalid')).toHaveRole('generic')
 await expect.element(getByTestId('switch')).toHaveRole('switch') // ✅
 await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 ```
+
 :::
 
 ## toHaveSelection
@@ -948,7 +952,7 @@ await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 function toHaveSelection(selection?: string): Promise<void>
 ```
 
-这允许断言某个元素具有一个[文本选择](https://developer.mozilla.org/en-US/docs/Web/API/Selection)。
+这允许断言某个元素具有一个 [文本选择](https://developer.mozilla.org/en-US/docs/Web/API/Selection)。
 
 这在检查元素内是否选择了文本或部分文本时非常有用。该元素可以是文本类型的输入框、`textarea`，或者是任何包含文本的其他元素，例如段落、`span`、`div` 等。
 
@@ -1042,7 +1046,7 @@ function toMatchScreenshot(
 :::
 
 ::: tip
-若截图对比因**有意变更**而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 标志，以更新基准图。
+若截图对比因 **有意变更** 而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 标志，以更新基准图。
 :::
 
 ```html
@@ -1072,7 +1076,9 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   },
 })
 ```
+
 <!-- TODO: translation -->
+
 ### Options
 
 - `comparatorName: "pixelmatch" = "pixelmatch"`
@@ -1111,6 +1117,7 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
     },
   })
   ```
+
   :::
 
 - `screenshotOptions: object`
@@ -1127,7 +1134,9 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   等待获取稳定截图的时间。
 
   设为 `0` 可禁用超时，但如果无法确定稳定截图，进程将不会结束。
+
 <!-- TODO: translation -->
+
 #### `"pixelmatch"` comparator options
 
 The `"pixelmatch"` comparator uses [`@blazediff/core`](https://blazediff.dev/docs/core) under the hood. The following options are available when using it:

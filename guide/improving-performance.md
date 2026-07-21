@@ -87,6 +87,7 @@ export default defineConfig({
 
 你可以通过 [`test.dir`](/config/dir) 选项限制 Vitest 搜索文件的工作目录。如果根目录中存在不相关的文件夹和文件，这将加快搜索速度。
 <!-- TODO: translation -->
+
 ## Caching Between Reruns
 
 In watch mode, Vitest caches all transformed files in memory, which makes reruns fast. However, this cache is discarded once the test run finishes. By enabling [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache), Vitest persists this cache to the file system so it can be reused across reruns.
@@ -103,7 +104,7 @@ Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, enviro
 
 ## 运行池 {#pool}
 
-默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和[segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
+默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 

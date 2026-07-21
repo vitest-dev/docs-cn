@@ -14,6 +14,7 @@ outline: deep
 Vitest 自 3.1 版起支持 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
 
 ::: code-group
+
 ```ts [only vitest]
 import type { Vite, VitestPluginContext } from 'vitest/node'
 
@@ -26,6 +27,7 @@ export function plugin(): Vite.Plugin {
   }
 }
 ```
+
 ```ts [vite and vitest]
 /// <reference types="vitest/config" />
 
@@ -43,14 +45,16 @@ export function plugin(): Plugin {
   }
 }
 ```
+
 :::
 
 ::: tip TypeScript
-Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config` ，以便正确增强 `configureVitest` 即可：
+Vitest 通过 `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config`，以便正确增强 `configureVitest` 即可：
 
 ```ts
 /// <reference types="vitest/config" />
 ```
+
 :::
 
 与 [`reporter.onInit`](/api/advanced/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/guide/projects) 操作全局配置。
@@ -59,7 +63,7 @@ Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我
 
 ### project
 
-该插件所属的当前[测试项目](./test-project)。
+该插件所属的当前 [测试项目](./test-project)。
 
 ::: warning 浏览器模式
 请注意，如果我们依赖浏览器功能，则 `project.browser` 字段尚未设置。请改用 [`reporter.onBrowserInit`](./reporters#onbrowserinit) 事件。
@@ -75,7 +79,7 @@ vitest.config.reporters.push([['my-reporter', {}]])
 ```
 
 ::: warning 配置已解析完成
-请注意，Vitest 已经解析了配置，因此某些类型可能与通常的用户配置不同。这也意味着某些属性将不会再次解析，例如 `setupFile` 。如果我们要添加新文件，请确保先解析它。
+请注意，Vitest 已经解析了配置，因此某些类型可能与通常的用户配置不同。这也意味着某些属性将不会再次解析，例如 `setupFile`。如果我们要添加新文件，请确保先解析它。
 
 此时尚未创建记者，因此修改 `vitest.reporters` 将不起作用，因为它将被覆盖。如果我们需要注入自己的记者，请修改配置。
 :::

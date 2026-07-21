@@ -8,7 +8,7 @@ title: 与其他测试框架对比 | 指南
 
 [Jest](https://jestjs.io/) 在测试框架领域占据了主导地位，因为它为大多数 JavaScript 项目提供开箱即用的支持，具备舒适的 API（`it` 和 `expect`），且覆盖了大多数测试的需求（例如快照、模拟和覆盖率）。我们感谢 Jest 团队和社区创建了一个令人愉悦的测试 API，并引入了许多已成为 Web 生态系统标准的测试模式。
 
-在 Vite 项目中使用 Jest 是可能的。[@sodatea](https://bsky.app/profile/haoqun.dev) 开发了 [vite-jest](https://github.com/sodatea/vite-jest#readme) ，旨在为 [Jest](https://jestjs.io/) 提供一流的 Vite 集成。[Jest 中最后的阻碍](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest) 已经解决。因此，在 Vite 项目的单元测试中，Jest 仍是一个可用选项。
+在 Vite 项目中使用 Jest 是可能的。[@sodatea](https://bsky.app/profile/haoqun.dev) 开发了 [vite-jest](https://github.com/sodatea/vite-jest#readme)，旨在为 [Jest](https://jestjs.io/) 提供一流的 Vite 集成。[Jest 中最后的阻碍](https://github.com/sodatea/vite-jest/blob/main/packages/vite-jest/README.md#vite-jest) 已经解决。因此，在 Vite 项目的单元测试中，Jest 仍是一个可用选项。
 
 然而，在 [Vite](https://vitejs.dev) 已为最常见的 Web 工具（TypeScript、JSX、最流行的 UI 框架）提供了支持的情况下，引入 Jest 会增添不必要的复杂性。如果你的应用由 Vite 驱动，那么配置和维护两个不同的管道是不合理的。如果使用 Vitest，你可以在同一个管道中进行开发、构建和测试环境的配置，它们共享相同的插件和 `vite.config.js` 文件。
 
@@ -24,7 +24,7 @@ Cypress 作为端到端测试工具而广为人知，但他们 [最新的组件�
 
 Cypress 的测试更加专注于确定元素是否可见，是否可以访问和交互。Cypress 专门为 UI 开发和测试而构建，它的开发体验围绕于可见的组件。项目组件和测试报告一起出现，测试完成后，组件将保持交互状态，你可以使用浏览器开发工具调试发生的任何故障。
 
-相比之下，Vitest 专注于为非浏览器逻辑提供最佳的、快速的开发体验。像 Vitest 这样的基于 Node.js 的测试框架支持各种实现部分浏览器环境的第三方包，例如 `jsdom` 。一般而言，它们能提供一个可用度足够高的浏览器环境，从而我们可以快速地对引使用了浏览器 API 的代码进行单元测试。然而，这些浏览器环境在实现上仍有一些局限性。例如，[jsdom 缺少相当数量的特性](https://github.com/jsdom/jsdom/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc)，诸如 `window.navigation` 或者布局引擎（ `offsetTop` 等）。
+相比之下，Vitest 专注于为非浏览器逻辑提供最佳的、快速的开发体验。像 Vitest 这样的基于 Node.js 的测试框架支持各种实现部分浏览器环境的第三方包，例如 `jsdom`。一般而言，它们能提供一个可用度足够高的浏览器环境，从而我们可以快速地对引使用了浏览器 API 的代码进行单元测试。然而，这些浏览器环境在实现上仍有一些局限性。例如，[jsdom 缺少相当数量的特性](https://github.com/jsdom/jsdom/issues?q=is%3Aissue+is%3Aopen+sort%3Acomments-desc)，诸如 `window.navigation` 或者布局引擎（`offsetTop` 等）。
 
 最后，与 Web Test Runner 相比，Cypress 更像是一个 IDE 而不是测试框架，因为你不仅能在浏览器中看到测试结果和日志，还可以看到真实呈现的组件。
 

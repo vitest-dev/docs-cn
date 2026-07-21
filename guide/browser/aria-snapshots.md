@@ -2,7 +2,9 @@
 title: ARIA Snapshots | Guide
 outline: deep
 ---
+
 <!-- TODO: translation -->
+
 # ARIA Snapshots <Badge type="warning">experimental</Badge> <Version>4.1.4</Version>
 
 ARIA snapshots let you test the accessibility structure of your pages. Instead of asserting against raw HTML or visual output, you assert against the accessibility tree — the same structure that screen readers and other assistive technologies use.
@@ -34,7 +36,7 @@ For advanced cases, you can also generate and inspect the ARIA tree through `uti
 
 ## Snapshot Workflow
 
-ARIA snapshots use the same Vitest snapshot workflow as other snapshot assertions. File snapshots, inline snapshots, `--update` / `-u`, watch mode updates, and CI snapshot behavior all work the same way.
+ARIA snapshots use the same Vitest snapshot workflow as other snapshot assertions. File snapshots, inline snapshots, `--update`/`-u`, watch mode updates, and CI snapshot behavior all work the same way.
 
 See the main [Snapshot guide](/guide/snapshot) for the general snapshot workflow, update behavior, and review guidelines.
 
@@ -470,8 +472,8 @@ With `deep-equal`, every child of each `link` must also match exactly. If a link
 
 #### Comparison
 
-| Mode | Directive | Behavior |
-| --- | --- | --- |
-| Partial | _(default)_ or `/children: contain` | Template children are an ordered subsequence — extra actual children are ignored |
-| Exact | `/children: equal` | Immediate children must match exactly; descendants still use partial matching |
-| Deep exact | `/children: deep-equal` | All children at every depth must match exactly |
+| Mode       | Directive                           | Behavior                                                                         |
+| ---------- | ----------------------------------- | -------------------------------------------------------------------------------- |
+| Partial    | _(default)_ or `/children: contain` | Template children are an ordered subsequence — extra actual children are ignored |
+| Exact      | `/children: equal`                  | Immediate children must match exactly; descendants still use partial matching    |
+| Deep exact | `/children: deep-equal`             | All children at every depth must match exactly                                   |

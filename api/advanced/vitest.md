@@ -23,7 +23,7 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 - `globTestSpecs`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
 - `globTestFiles`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
 - `listFile`（使用 [`getRelevantTestSpecifications`](#getrelevanttestspecifications) 代替）
-:::
+  :::
 
 ## mode
 
@@ -78,7 +78,7 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 ## projects
 
-这是一个数组，里面包含了所有 [测试项目](/api/advanced/test-project) ，这些项目是用户自己定义的。如果用户没有显式指定任何项目，那么这个数组中只会包含一个 [根项目](#getrootproject) 。
+这是一个数组，里面包含了所有 [测试项目](/api/advanced/test-project)，这些项目是用户自己定义的。如果用户没有显式指定任何项目，那么这个数组中只会包含一个 [根项目](#getrootproject)。
 
 Vitest 会保证这个数组里至少有一个项目可用。如果用户在命令行里通过 --project 参数指定了不存在的项目名称，Vitest 会在创建这个数组前就报错。
 
@@ -149,7 +149,7 @@ function getProvidedContext(): ProvidedContext
 function getProjectByName(name: string): TestProject
 ```
 
-此方法通过名称返回项目。类似于调用 `vitest.projects.find` 。
+此方法通过名称返回项目。类似于调用 `vitest.projects.find`。
 
 ::: warning
 如果项目不存在，此方法将返回根项目 - 请确保再次检查返回的项目是否是我们要找的项目。
@@ -194,7 +194,7 @@ function getRelevantTestSpecifications(
 
 - 如果我们需要获取已知测试文件的规范列表，请使用 [`getModuleSpecifications`](#getmodulespecifications) 代替。
 - 如果我们需要获取所有可能的测试文件列表，请使用 [`globTestSpecifications`](#globtestspecifications)。
-:::
+  :::
 
 ## mergeReports
 
@@ -434,6 +434,7 @@ const dynamicExample = await vitest.import('./example.js')
 
 dynamicExample !== staticExample // ✅
 ```
+
 :::
 
 ::: info
@@ -483,6 +484,7 @@ function onCancel(fn: (reason: CancelReason) => Awaitable<void>): () => void
 注册一个处理程序，当测试运行被 [`vitest.cancelCurrentRun`](#cancelcurrentrun) 取消时调用。
 
 <!-- TODO: translation -->
+
 Since 4.0.10, `onCancel` experimentally returns a teardown function that will remove the listener. Since 4.1.0 this behaviour is considered stable.
 
 ## onClose
@@ -508,6 +510,7 @@ function onFilterWatchedSpecification(
   fn: (specification: TestSpecification) => boolean
 ): void
 ```
+
 注册一个处理程序，当文件更改时调用。此回调应返回 `true` 或 `false`，指示是否需要重新运行测试文件。
 
 通过此方法，我们可以挂钩到默认的观察器逻辑，以延迟或丢弃用户当前不想跟踪的测试：
@@ -532,7 +535,7 @@ Vitest 可以根据 `pool` 或 `locations` 选项为同一文件创建不同的�
 function matchesProjectFilter(name: string): boolean
 ```
 
-检查名称是否与当前 [项目过滤器](/guide/cli#project) 匹配。如果没有项目过滤器，则始终返回 `true` 。
+检查名称是否与当前 [项目过滤器](/guide/cli#project) 匹配。如果没有项目过滤器，则始终返回 `true`。
 
 无法通过编程方式更改 `--project` CLI 选项。
 
@@ -590,7 +593,7 @@ function experimental_parseSpecification(
 ): Promise<TestModule>
 ```
 
-该函数会收集文件内的所有测试，但不会执行它们。它借助 Vite 的 `ssrTransform` ，并在其之上使用 rollup 的 `parseAst` 进行静态分析，从而提取所有可识别的测试用例。
+该函数会收集文件内的所有测试，但不会执行它们。它借助 Vite 的 `ssrTransform`，并在其之上使用 rollup 的 `parseAst` 进行静态分析，从而提取所有可识别的测试用例。
 
 ::: warning
 如果 Vitest 无法解析测试的名称，它将在测试或套件中注入一个 `dynamic: true` 属性。`id` 也会带有 `-dynamic` 后缀，以避免破坏已正确收集的测试。
@@ -599,9 +602,9 @@ Vitest 总是在带有 `for` 或 `each` 修饰符的测试，或者名称是动�
 
 Vitest 无法做到让动态测试可以被过滤，但你可以使用 `escapeTestName` 函数将带有 `for` 或 `each` 修饰符的测试转换为名称模式：
 
-若 Vitest 无法解析测试名称，它会在测试或套件中注入一个隐藏的 `dynamic: true` 属性，并在 `id` 后追加 `-dynamic` ，以免破坏已正确收集的测试。
+若 Vitest 无法解析测试名称，它会在测试或套件中注入一个隐藏的 `dynamic: true` 属性，并在 `id` 后追加 `-dynamic`，以免破坏已正确收集的测试。
 
-含 `for` 或 `each` 修饰符的测试，以及名称动态生成的测试（如 `hello ${property}` 或 `'hello' + ${property}` ） ， Vitest 一律会注入此属性。 Vitest 仍会为其分配名称，但该名称无法用于过滤测试。
+含 `for` 或 `each` 修饰符的测试，以及名称动态生成的测试（如 `hello ${property}` 或 `'hello' + ${property}`） ， Vitest 一律会注入此属性。 Vitest 仍会为其分配名称，但该名称无法用于过滤测试。
 
 Vitest 无法让动态测试支持过滤，但你可以使用 `escapeTestName` 函数，将带 `for` 或 `each` 的测试转换成名称模式：
 
@@ -611,12 +614,13 @@ import { escapeTestName } from 'vitest/node'
 // 转换为 /hello, .+?/
 const escapedPattern = new RegExp(escapeTestName('hello, %s', true))
 ```
+
 :::
 
 ::: warning
 Vitest 只会收集当前文件内定义的测试，绝不会跟随导入去其他文件搜寻。
 
-无论是否从 `vitest` 入口点导入， Vitest 都会收集所有 `it` 、`test` 、`suite` 和 `describe` 的定义。
+无论是否从 `vitest` 入口点导入， Vitest 都会收集所有 `it`、`test`、`suite` 和 `describe` 的定义。
 :::
 
 ## experimental_parseSpecifications <Version type="experimental">4.0.0</Version> <Experimental /> {#parsespecifications}
@@ -650,6 +654,7 @@ export function experimental_getSourceModuleDiagnostic(
 ```
 
 ::: details 类型
+
 ```ts
 export interface ModuleDefinitionLocation {
   line: number
@@ -689,6 +694,7 @@ export interface SourceModuleDiagnostic {
   untrackedModules: UntrackedModuleDefinitionDiagnostic[]
 }
 ```
+
 :::
 
 返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，则 `selfTime` 和 `totalTime` 将聚合上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
@@ -697,6 +703,7 @@ export interface SourceModuleDiagnostic {
 [浏览器模式](/guide/browser/) 暂不支持。
 :::
 <!-- TODO: translation -->
+
 ## createReport <Version>5.0.0</Version> {#createreport}
 
 ```ts
@@ -801,6 +808,7 @@ const filenames: string[] = await report.readdir()
 ### Report.delete
 
 <!-- eslint-skip -->
+
 ```ts
 function delete(filename: string): Promise<void>
 ```

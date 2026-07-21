@@ -87,6 +87,7 @@ function feed(dog: Dog) {
   // ...
 }
 ```
+
 ```ts [tests/dog.test.ts]
 import { expect, test, vi } from 'vitest'
 import { feed } from '../src/feed.js'
@@ -104,6 +105,7 @@ test('can feed dogs', () => {
   expect(dogMax.isHungry()).toBe(false)
 })
 ```
+
 :::
 
 现在，当我们创建 `Dog` 类的新实例时，它的 `speak` 方法（以及 `feed` 和 `greet` 方法）已经被模拟了：

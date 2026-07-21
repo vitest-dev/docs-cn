@@ -71,7 +71,9 @@ class MyReporter implements Reporter {
   }
 }
 ```
+
 <!-- TODO: translation -->
+
 ## Storing artifacts on file system
 
 ::: tip

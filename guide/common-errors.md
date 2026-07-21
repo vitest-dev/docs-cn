@@ -87,6 +87,7 @@ export default defineConfig({
 
 ::: tip 为什么是 `ssr.resolve.conditions` 而不是 `resolve.conditions`?
 Vitest 遵循 Vite 的配置约定：
+
 - [`resolve.conditions`](https://cn.vite.dev/config/shared-options#resolve-conditions) 适用于 Vite 的 `client` 环境，对应 Vitest 的浏览器模式、jsdom、happy-dom，以及使用 `viteEnvironment: 'client'` 的自定义环境。
 - [`ssr.resolve.conditions`](https://cn.vite.dev/config/ssr-options#ssr-resolve-conditions) 适用于 Vite 的 `ssr` 环境，对应 Vitest 的 node 环境或使用 `viteEnvironment: 'ssr'` 的自定义环境。
 
@@ -124,11 +125,12 @@ vitest --pool=forks
 
 :::
 <!-- TODO: translation -->
+
 ## Unhandled Promise Rejection
 
 This error happens when a Promise rejects but no `.catch()` handler or `await` is attached to it before the microtask queue flushes. This behavior comes from JavaScript itself and is not specific to Vitest. Learn more in the [Node.js documentation](https://nodejs.org/api/process.html#event-unhandledrejection).
 
-A common cause is calling an async function without `await`ing it:
+A common cause is calling an async function without `await` ing it:
 
 ```ts
 async function fetchUser(id) {
@@ -144,7 +146,7 @@ test('fetches user', async () => {
 })
 ```
 
-Because `fetchUser()` is not `await`ed, its rejection has no handler and Vitest reports:
+Because `fetchUser()` is not `await` ed, its rejection has no handler and Vitest reports:
 
 ```
 Unhandled Rejection: Error: User 123 not found

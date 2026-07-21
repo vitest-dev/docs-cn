@@ -143,6 +143,7 @@ test('the validation works correctly', ({ task }) => {
   task.meta.decorated = false
 })
 ```
+
 如果测试尚未运行完毕，元数据将是一个空对象，除非它定义了静态元数据：
 
 ```ts
@@ -157,7 +158,7 @@ test('the validation works correctly', { meta: { decorated: true } })
 function result(): TestResult
 ```
 
-测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending` ：
+测试结果。如果测试尚未完成或刚刚开始收集，等于 `TestResultPending`：
 
 ```ts
 export interface TestResultPending {

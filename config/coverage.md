@@ -50,7 +50,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 ## coverage.exclude
 
 - **类型:** `string[]`
-- **默认值:** : `[]`
+- **默认值:**: `[]`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
@@ -84,7 +84,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 ::: warning
-如果启用了（默认值） `coverage.clean`，Vitest 会在运行测试前删除此目录。
+如果启用了（默认值）`coverage.clean`，Vitest 会在运行测试前删除此目录。
 :::
 
 用于写入代码覆盖率报告的目录。
@@ -117,6 +117,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 你也可以传递自定义代码覆盖率报告器。更多信息请参阅 [指南 | 自定义代码覆盖率报告器](/guide/coverage#custom-coverage-reporter)。
 
 <!-- eslint-skip -->
+
 ```ts
   {
     reporter: [
@@ -133,6 +134,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 你可以在 Vitest UI 模式中查看代码覆盖率报告。更多详情请参阅 [Vitest UI Coverage](/guide/coverage#vitest-ui)。
 <!-- TODO: translation -->
+
 ::: tip AI coding agents
 When Vitest detects it is running inside an AI coding agent, it automatically adds the `text-summary` reporter and sets `skipFull: true` on the `text` reporter to reduce output and minimize token usage.
 :::
@@ -185,6 +187,7 @@ When Vitest detects it is running inside an AI coding agent, it automatically ad
 如果阈值设置为负数，将被视为允许的最大未覆盖项目数。例如，将行阈值设置为 `-10` 意味着未覆盖的行数不得超过 10 行。
 
 <!-- eslint-skip -->
+
 ```ts
 {
   coverage: {
@@ -253,6 +256,7 @@ When Vitest detects it is running inside an AI coding agent, it automatically ad
 你也可以通过传入函数自定义阈值更新值的格式：
 
 <!-- eslint-skip -->
+
 ```ts
 {
   coverage: {
@@ -291,6 +295,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 :::
 
 <!-- eslint-skip -->
+
 ```ts
 {
   coverage: {
@@ -326,6 +331,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 为匹配 glob 模式的文件设置 100% 覆盖率阈值。
 
 <!-- eslint-skip -->
+
 ```ts
 {
   coverage: {
@@ -355,7 +361,9 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 ## coverage.watermarks
 
 - **类型:**
+
 <!-- eslint-skip -->
+
 ```ts
 {
   statements?: [number, number],
@@ -366,7 +374,9 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 ```
 
 - **默认值:**
+
 <!-- eslint-skip -->
+
 ```ts
 {
   statements: [50, 80],
@@ -390,6 +400,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 
 处理代码覆盖率结果时使用的并发限制。
 <!-- TODO: translation -->
+
 ## coverage.instrumenter <Version type="experimental">4.1.5</Version> {#coverage-instrumenter}
 
 - **Type:** `(options: InstrumenterOptions) => CoverageInstrumenter`
@@ -400,6 +411,7 @@ Factory for a custom instrumenter to use in place of the default `istanbul-lib-i
 The factory receives an `InstrumenterOptions` object with Vitest's runtime coverage settings, and must return an object implementing the `CoverageInstrumenter` interface. Both types are exported from `vitest/node`.
 
 <!-- eslint-skip -->
+
 ```ts
 interface InstrumenterOptions {
   coverageVariable: string
@@ -416,6 +428,7 @@ interface CoverageInstrumenter {
 ```
 
 <!-- eslint-skip -->
+
 ```ts
 import { defineConfig } from 'vitest/config'
 import { createInstrumenter } from '@vitest/some-custom-instrumenter'
@@ -446,7 +459,7 @@ export default defineConfig({
 
 要在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中提供的 HTML 代码覆盖率输出目录。
 
-使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和`lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
+使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和 `lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
 
 注意，设置此选项不会更改代码覆盖率 HTML 报告的生成位置。要更改目录，请配置 `coverage.reporter` 选项。
 

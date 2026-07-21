@@ -42,7 +42,9 @@ export function render(
   options?: ComponentRenderOptions,
 ): RenderResult & PromiseLike<RenderResult>
 ```
+
 <!-- TODO: translation -->
+
 The `render` function records a `vue.render` trace mark, visible in the [Trace View](/guide/browser/trace-view).
 
 ::: warning
@@ -52,6 +54,7 @@ Synchronous usage of `render` is deprecated and will be removed in the next majo
 const screen = render(Component) // [!code --]
 const screen = await render(Component) // [!code ++]
 ```
+
 :::
 
 ### 选项 {#options}
@@ -138,7 +141,9 @@ function debug(
 ```ts
 function rerender(props: Partial<Props>): void & PromiseLike<void>
 ```
+
 <!-- TODO: translation -->
+
 Also records a `vue.rerender` trace mark in the [Trace View](/guide/browser/trace-view).
 
 It is better if you test the component that's doing the prop updating to ensure that the props are being updated correctly to avoid relying on implementation details in your tests. That said, if you'd prefer to update the props of a rendered component in your test, this function can be used to update props of the rendered component.
@@ -161,7 +166,9 @@ rerender({ number: 2 })
 ```ts
 function unmount(): void & PromiseLike<void>
 ```
+
 <!-- TODO: translation -->
+
 This will cause the rendered component to be unmounted. Also records a `vue.unmount` trace mark in the [Trace View](/guide/browser/trace-view). This is useful for testing what happens when your component is removed from the page (like testing that you don't leave event handlers hanging around causing memory leaks).
 
 ::: warning
@@ -211,7 +218,7 @@ await expect.element(
 
 ## 配置 {#configuration}
 
-像配置 [Vue Test Utils](https://test-utils.vuejs.org/api/#config) 一样， 通过将属性分配给导出的 `config` 选项 （在`vitest-browser-vue` 和 `vitest-borowser-vue/pure` 中都可用）：
+像配置 [Vue Test Utils](https://test-utils.vuejs.org/api/#config) 一样， 通过将属性分配给导出的 `config` 选项 （在 `vitest-browser-vue` 和 `vitest-borowser-vue/pure` 中都可用）：
 
 ```js
 import { config } from 'vitest-browser-vue/pure'

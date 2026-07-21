@@ -51,6 +51,7 @@ if (import.meta.vitest) {
 在生产环境构建时，你需要将 `import.meta.vitest` 替换为 `undefined`，以便打包工具移除未使用的代码。
 
 ::: code-group
+
 ```js [vite.config.ts]
 import { defineConfig } from 'vite'
 
@@ -60,6 +61,7 @@ export default defineConfig({
   }, // [!code ++]
 })
 ```
+
 ```js [rolldown.config.js]
 import { defineConfig } from 'rolldown/config'
 
@@ -71,6 +73,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```js [rollup.config.js]
 import replace from '@rollup/plugin-replace' // [!code ++]
 
@@ -83,6 +86,7 @@ export default {
   // 其他配置项
 }
 ```
+
 ```js [build.config.js]
 import { defineBuildConfig } from 'unbuild'
 
@@ -93,6 +97,7 @@ export default defineBuildConfig({
   // 其他配置项
 })
 ```
+
 ```js [webpack.config.js]
 const webpack = require('webpack')
 
@@ -104,6 +109,7 @@ module.exports = {
   ],
 }
 ```
+
 :::
 
 ::: tip
@@ -116,4 +122,5 @@ module.exports = {
   }
 }
 ```
+
 :::

@@ -44,7 +44,7 @@ npm i -D @vitest/coverage-istanbul
 
 ::: info
 以下对 V8 覆盖率的说明仅适用于 Vitest，并不适用于其他测试工具。
-从 `v3.2.0` 版本开始，Vitest 在 V8 覆盖率中采用了 [基于 AST 的重映射技术](/blog/vitest-3-2#coverage-v8-ast-aware-remapping) ，从而生成与 Istanbul 一致的覆盖率报告。
+从 `v3.2.0` 版本开始，Vitest 在 V8 覆盖率中采用了 [基于 AST 的重映射技术](/blog/vitest-3-2#coverage-v8-ast-aware-remapping)，从而生成与 Istanbul 一致的覆盖率报告。
 
 这让用户在享受 V8 覆盖率高速执行的同时，也能获得 Istanbul 覆盖率的高准确度。
 :::
@@ -144,9 +144,10 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 你可以在 [覆盖率配置参考](/config/coverage) 中查看所有可用的覆盖率选项。
 :::
 
-如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true` ：
+如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true`：
 
 ::: code-group
+
 ```json [package.json]
 {
   "scripts": {
@@ -155,6 +156,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
   }
 }
 ```
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -166,6 +168,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
@@ -175,6 +178,7 @@ export default defineConfig({
 Vitest 默认只统计测试中实际导入的文件。如果希望报告里也包含那些未被测试覆盖到的文件，需要在 [`coverage.include`](/config/coverage#coverage-include) 中配置一个能匹配你源代码文件的模式：
 
 ::: code-group
+
 ```ts [vitest.config.ts] {6}
 import { defineConfig } from 'vitest/config'
 
@@ -186,6 +190,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```sh [Covered Files]
 ├── src
 │   ├── components
@@ -204,11 +209,13 @@ export default defineConfig({
 ├── tsup.config.ts        # [!code error]
 └── vitest.config.ts      # [!code error]
 ```
+
 :::
 
 如果你想从覆盖率中排除已经被 `coverage.include` 匹配到的部分文件，可以通过额外配置 [`coverage.exclude`](/config/coverage#coverage-exclude) 来实现：
 
 ::: code-group
+
 ```ts [vitest.config.ts] {7}
 import { defineConfig } from 'vitest/config'
 
@@ -221,6 +228,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```sh [Covered Files]
 ├── src
 │   ├── components
@@ -239,6 +247,7 @@ export default defineConfig({
 ├── tsup.config.ts        # [!code error]
 └── vitest.config.ts      # [!code error]
 ```
+
 :::
 
 ## 自定义代码覆盖率报告器 {#custom-coverage-reporter}
@@ -347,7 +356,7 @@ export default CustomCoverageProviderModule
 - [`istanbul`](https://github.com/istanbuljs/nyc#parsing-hints-ignoring-lines)
 
 使用 TypeScript 时，源代码使用 `esbuild` 进行转译，这会从源代码中删除所有注释([esbuild#516](https://github.com/evanw/esbuild/issues/516))。
-被视为[合法注释](https://esbuild.github.io/api/#legal-comments)的注释将被保留。
+被视为 [合法注释](https://esbuild.github.io/api/#legal-comments) 的注释将被保留。
 
 你可以在忽略提示里加入 `@preserve` 关键字。
 但要小心，这些忽略提示有可能会被打包进最终的生产环境构建中。
@@ -493,6 +502,7 @@ export function ignored() { // [!code error]
   return 'Whole file is ignored'// [!code error]
 }// [!code error]
 ```
+
 :::
 
 ## 覆盖率性能 {#coverage-performance}

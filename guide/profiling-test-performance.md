@@ -30,7 +30,7 @@
 - [`--prof`](https://nodejs.org/api/cli.html#--prof)
 
 :::warning
-由于 `node:worker_threads` 的限制， `--prof` 不能与 `pool: 'threads'` 一起使用。
+由于 `node:worker_threads` 的限制，`--prof` 不能与 `pool: 'threads'` 一起使用。
 :::
 
 要将这些选项传递给 Vitest 的测试运行器，请在 Vitest 配置中定义 `execArgv`：
@@ -53,7 +53,7 @@ export default defineConfig({
 
 测试运行后，应该会生成 `test-runner-profile/*.cpuprofile` 和 `test-runner-profile/*.heapprofile` 文件。想要知道如何分析这些文件，可以仔细查看 [性能分析记录](#inspecting-profiling-records)。
 
-也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling) 。
+也可以看看 [性能分析 | 示例](https://github.com/vitest-dev/vitest/tree/main/examples/profiling)。
 
 ## 主线程 {#main-thread}
 
@@ -74,7 +74,7 @@ $ node --cpu-prof --cpu-prof-dir=main-profile ./node_modules/vitest/vitest.mjs -
 #               NodeJS arguments                                           Vitest arguments
 ```
 
-测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看[检查分析记录](#inspecting-profiling-records)。
+测试运行后会生成一个 `main-profile/*.cpuprofile` 文件。有关如何分析这些文件的说明，可以查看 [检查分析记录](#inspecting-profiling-records)。
 
 ## 文件转换 {#file-transform}
 
@@ -82,10 +82,11 @@ This profiling strategy is a good way to identify unnecessary transforms caused 
 If these logs contain files that should not be loaded when your test is run, you might have barrel files that are importing files unnecessarily.
 
 也可以使用 [Vitest UI](/guide/ui) 来调试由打包文件引起的缓慢问题。
-下面的例子展示了不使用打包文件导入文件可以减少约85%的转换文件数量。
+下面的例子展示了不使用打包文件导入文件可以减少约 85% 的转换文件数量。
 
 ::: code-group
-``` [File tree]
+
+```[File tree]
 ├── src
 │   └── utils
 │       ├── currency.ts
@@ -99,6 +100,7 @@ If these logs contain files that should not be loaded when your test is run, you
 │   └── formatters.test.ts
 └── vitest.config.ts
 ```
+
 ```ts [example.test.ts]
 import { expect, test } from 'vitest'
 import { formatter } from '../src/utils' // [!code --]
@@ -108,6 +110,7 @@ test('formatter works', () => {
   expect(formatter).not.toThrow()
 })
 ```
+
 :::
 <!-- TODO: translation -->
 <img src="/module-graph-barrel-file.png" alt="Vitest UI demonstrating barrel file issues" />

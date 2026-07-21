@@ -24,6 +24,7 @@ getApplesSpy.mock.calls.length === 1
 Vitest 的 spy 函数在初始化时会继承被监听函数的 [`length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) 属性，但后续如果修改被监听函数，则不会覆盖该属性值。
 
 ::: code-group
+
 ```ts [vi.fn]
 const fn = vi.fn((arg1) => {})
 fn.length // == 1
@@ -31,6 +32,7 @@ fn.length // == 1
 fn.mockImplementation(() => {})
 fn.length // == 1
 ```
+
 ```ts [vi.spyOn]
 const example = {
   fn(arg1, arg2) {
@@ -44,6 +46,7 @@ fn.length // == 2
 fn.mockImplementation(() => {})
 fn.length // == 2
 ```
+
 :::
 
 ::: tip
@@ -51,7 +54,7 @@ fn.length // == 2
 :::
 
 ::: warning 类支持 {#class-support}
-像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有[反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
+像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有 [反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
 
 ```ts {2,7}
 const CorrectDogClass = vi.fn(class {
@@ -89,6 +92,7 @@ mock.mockImplementation(class {
   }
 })
 ```
+
 :::
 
 ## getMockImplementation
@@ -109,7 +113,7 @@ function getMockImplementation(): T | undefined
 function getMockName(): string
 ```
 
-此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`； `vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
+此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`；`vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
 
 ## mockClear
 
@@ -423,6 +427,7 @@ const myMockFn = vi
 // 'first call', 'second call', 'default', 'default'
 console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 ```
+
 ## mockThrow <Version>4.1.0</Version> {#mockthrow}
 
 ```ts
@@ -507,6 +512,7 @@ const fn = vi.fn((arg) => {
 
 expect(calledArguments[0]).toEqual({ value: 0 })
 ```
+
 :::
 
 ## mock.lastCall
@@ -556,7 +562,7 @@ const results: MockResult<ReturnType<T>>[]
 - `'throw'`：函数执行过程中抛出了异常。
 - `'incomplete'`：函数尚未结束，仍在运行。
 
-`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
+`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使 Promise rejected，`result` 也将始终为 `'return'`。
 
 ```js
 const fn = vi

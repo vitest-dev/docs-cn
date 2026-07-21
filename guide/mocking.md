@@ -4,7 +4,9 @@ outline: false
 ---
 
 # 模拟对象 {#mocking}
+
 <!-- TODO: translation -->
+
 ::: tip
 New to mocking? Start with the [Mock Functions](/guide/learn/mock-functions) tutorial for a hands-on introduction to `vi.fn`, `vi.spyOn`, and `vi.mock`.
 :::
@@ -15,7 +17,7 @@ New to mocking? Start with the [Mock Functions](/guide/learn/mock-functions) tut
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/mock.html#mockreset) 文档。
 :::
 
-如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看[API部分](/api/vi)。
+如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看 [API 部分](/api/vi)。
 
 Vitest 提供了有关模拟的全部指南：
 
@@ -33,9 +35,11 @@ Vitest 提供了有关模拟的全部指南：
 ## 速查表 {#cheat-sheet}
 
 ### 模拟导出变量 {#mock-exported-variables}
+
 ```js [example.js]
 export const getter = 'variable'
 ```
+
 ```ts [example.test.ts]
 import * as exports from './example.js'
 
@@ -81,9 +85,11 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 ### 模拟导出类的实现 {#mock-an-exported-class-implementation}
 
 1. 一个使用假 class 的示例：
+
 ```ts [example.js]
 export class SomeClass {}
 ```
+
 ```ts
 import { SomeClass } from './example.js'
 
@@ -171,7 +177,7 @@ mocked() // 是一个 spy 函数
 
 ### 模拟当前日期 {#mock-the-current-date}
 
-要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
+要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将 **不会** 在不同的测试之间自动重置。
 
 请注意，使用 `vi.useFakeTimers` 也会更改 `Date` 的时间。
 
@@ -186,7 +192,7 @@ vi.useRealTimers()
 
 ### 模拟全局变量 {#mock-a-global-variable}
 
-你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会**在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals)。
+你可以通过为 `globalThis` 赋值或使用 [`vi.stubGlobal`](/api/vi#vi-stubglobal) 助手来设置全局变量。 使用 `vi.stubGlobal` 时，**不会** 在不同的测试之间自动重置，除非你启用 [`unstubGlobals`](/config/unstubglobals) 配置选项或调用 [`vi.unstubAllGlobals`](/api/vi#vi-unstuballglobals)。
 
 ```ts
 vi.stubGlobal('__VERSION__', '1.0.0')
@@ -195,10 +201,10 @@ expect(__VERSION__).toBe('1.0.0')
 
 ### 模拟 `import.meta.env` {#mock-import-meta-env}
 
-1. 要更改环境变量，你只需为其分配一个新值即可。 该值将**不会**在不同的测试之间自动重置。
+1. 要更改环境变量，你只需为其分配一个新值即可。 该值将 **不会** 在不同的测试之间自动重置。
 
 ::: warning
-环境变量值将在不同的测试之间**不会**自动重置。
+环境变量值将在不同的测试之间 **不会** 自动重置。
 :::
 
 ```ts

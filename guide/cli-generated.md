@@ -56,7 +56,7 @@
 
 - **命令行终端:** `--api.port [port]`
 
-指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为`51204`
+指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为 `51204`
 
 ### api.host
 
@@ -200,7 +200,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **命令行终端:** `--coverage.thresholds.perFile`
 - **配置:** [coverage.thresholds.perFile](/config/coverage#coverage-thresholds-perfile)
 
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
+检查每个文件的阈值。`--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
 
 ### coverage.thresholds.autoUpdate
 
@@ -238,7 +238,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **命令行终端:** `--coverage.ignoreClassMethods <name>`
 - **配置:** [coverage.ignoreClassMethods](/config/coverage#coverage-ignoreclassmethods)
 
-覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods) 。该选项仅适用于 istanbul providers（默认值：`[]`）
+覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods)。该选项仅适用于 istanbul providers（默认值：`[]`）
 
 ### coverage.processingConcurrency
 
@@ -258,25 +258,25 @@ Specifies the module name or path for the custom coverage provider module. Visit
 
 - **命令行终端:** `--coverage.watermarks.statements <watermarks>`
 
-语句覆盖率高/低阈值，格式： `<high>,<low>`
+语句覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.lines
 
 - **命令行终端:** `--coverage.watermarks.lines <watermarks>`
 
-行覆盖率高/低阈值，格式： `<high>,<low>`
+行覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.branches
 
 - **命令行终端:** `--coverage.watermarks.branches <watermarks>`
 
-分支覆盖率高/低阈值，格式： `<high>,<low>`
+分支覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.functions
 
 - **命令行终端:** `--coverage.watermarks.functions <watermarks>`
 
-函数覆盖率高/低阈值，格式： `<high>,<low>`
+函数覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.changed
 
@@ -429,6 +429,7 @@ Directory of HTML coverage output to be served in UI mode and HTML reporter.
 
 启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
 <!-- TODO: translation -->
+
 ### browser.traceView.enabled
 
 - **CLI:** `--browser.traceView.enabled`
@@ -560,7 +561,7 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **命令行终端:** `--sequence.seed <seed>`
 - **配置:** [sequence.seed](/config/sequence#sequence-seed)
 
-设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
+设置随机化种子。如果 --sequence.shuffle（随机序列）是 `false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
 
 ### sequence.hooks
 
@@ -614,7 +615,7 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **命令行终端:** `--retry.count <times>`
 - **配置:** [retry.count](/config/retry#retry-count)
 
-如果测试失败，重试特定次数（默认值： `0`）
+如果测试失败，重试特定次数（默认值：`0`）
 
 ### retry.delay
 
@@ -844,7 +845,7 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **命令行终端:** `--expect.poll.timeout <timeout>`
 - **配置:** [expect.poll.timeout](/config/expect#expect-poll-timeout)
 
-断言的轮询超时（以毫秒为单位） `expect.poll()` (默认值: `1000`)
+断言的轮询超时（以毫秒为单位）`expect.poll()` (默认值: `1000`)
 
 ### printConsoleTrace
 
@@ -978,6 +979,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 控制 Vitest 是否使用 Node.js Loader API 处理内联代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
 <!-- TODO: translation -->
+
 ### experimental.vcsProvider
 
 - **CLI:** `--experimental.vcsProvider <path>`

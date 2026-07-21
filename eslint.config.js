@@ -1,5 +1,6 @@
 import antfu, { GLOB_SRC } from '@antfu/eslint-config'
 import { createSimplePlugin } from 'eslint-factory'
+import mdStyle from 'eslint-plugin-md-style'
 
 export default antfu(
   {
@@ -8,6 +9,10 @@ export default antfu(
     vue: true,
     jsonc: false,
     yaml: false,
+    markdown: true,
+    formatters: {
+      markdown: 'prettier',
+    },
     ignores: [
       '*.d.ts',
       '!.vitepress',
@@ -17,6 +22,8 @@ export default antfu(
       'advanced/api/import-example.md',
       'api/advanced/import-example.md',
       'guide/examples/*.md',
+      'README.md',
+      '.github/*.md',
     ],
   },
   {
@@ -59,6 +66,7 @@ export default antfu(
       'import/no-named-as-default': 'off',
     },
   },
+  mdStyle.configs.all,
   {
     files: [`**/*.md`, `**/*.md/${GLOB_SRC}`],
     rules: {
@@ -74,6 +82,8 @@ export default antfu(
       'no-self-compare': 'off',
       'import/no-mutable-exports': 'off',
       'no-throw-literal': 'off',
+      'markdown/no-multiple-h1': 'off',
+      'markdown/no-missing-link-fragments': 'off',
     },
   },
   createSimplePlugin({

@@ -16,7 +16,7 @@ npm i -D @vitest/ui
 vitest --ui
 ```
 
-最后，你可以访问 Vitest UI 界面，通过 <a href="http://localhost:51204/__vitest__/">`http://localhost:51204/__vitest__/`</a>
+最后，你可以访问 Vitest UI 界面，通过 <a href="http://localhost:51204/__vitest__/"> `http://localhost:51204/__vitest__/` </a>
 
 ::: warning
 UI 是交互式的，需要一个正在运行的 Vite 服务器，因此请确保在 `watch` 模式（默认模式）下运行 Vitest。或者，你可以通过在配置的 `reporters` 选项中指定 `html` 来生成一个与 Vitest UI 完全相同的静态 HTML 报告。
@@ -53,6 +53,7 @@ npx vite preview --outDir ./html
 你可以使用 [`outputFile`](/config/outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
 :::
 <!-- TODO: translation -->
+
 ::: tip
 To view the HTML report from CI, for example in GitHub Actions, upload the output directory as an artifact:
 

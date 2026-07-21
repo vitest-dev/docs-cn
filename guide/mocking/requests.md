@@ -2,7 +2,7 @@
 
 由于 Vitest 运行在 Node 环境中，模拟网络请求很棘手；Web API 不可用，所以我们需要一些能够模拟网络行为的工具。我们推荐使用 [Mock Service Worker](https://mswjs.io/) 来实现这一点。它允许你模拟 `http`、`WebSocket` 和 `GraphQL` 网络请求，并且与框架无关。
 
-Mock Service Worker (MSW) 通过拦截你的测试发出的请求来工作，允许你在不更改任何应用程序代码的情况下使用它。在浏览器中，这使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解更多关于 MSW 的信息，请阅读他们的[介绍](https://mswjs.io/docs/)。
+Mock Service Worker (MSW) 通过拦截你的测试发出的请求来工作，允许你在不更改任何应用程序代码的情况下使用它。在浏览器中，这使用 [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。在 Node.js 和 Vitest 中，它使用 [`@mswjs/interceptors`](https://github.com/mswjs/interceptors) 库。要了解更多关于 MSW 的信息，请阅读他们的 [介绍](https://mswjs.io/docs/)。
 
 ## 配置 {#configuration}
 
@@ -106,9 +106,11 @@ afterAll(() => server.close())
 // 在每次测试后重置处理器以实现测试隔离
 afterEach(() => server.resetHandlers())
 ```
+
 :::
 
 > 配置服务器时设置 `onUnhandledRequest: 'error'` 可以确保当存在没有对应请求处理器的请求时抛出错误。
 
 ## 更多信息 {#more}
-MSW 的功能远不止这些。你可以访问 cookie 和查询参数，定义模拟错误响应，以及更多其他功能！要了解 MSW 的所有功能，请阅读[它们的文档](https://mswjs.io/docs)。
+
+MSW 的功能远不止这些。你可以访问 cookie 和查询参数，定义模拟错误响应，以及更多其他功能！要了解 MSW 的所有功能，请阅读 [它们的文档](https://mswjs.io/docs)。

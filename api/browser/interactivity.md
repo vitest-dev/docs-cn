@@ -57,6 +57,7 @@ beforeEach(async () => {
   await userEvent.unhover(document.body)
 })
 ```
+
 :::
 
 ## userEvent.click
@@ -101,6 +102,7 @@ await userEvent.keyboard('{/Shift}')
 ```
 
 使用 Playwright：
+
 ```ts
 await userEvent.click(element, { modifiers: ['Shift'] })
 ```
@@ -242,7 +244,7 @@ function fill(
 ): Promise<void>
 ```
 
-为 `input` 、 `textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
+为 `input`、`textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -262,7 +264,7 @@ test('update input', async () => {
 该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
 
 ::: tip
-该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
+该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但 **不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)（例如，`{Shift}{selectall}`）。
 
 在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::
@@ -307,7 +309,7 @@ test('trigger keystrokes', async () => {
 function tab(options?: UserEventTabOptions): Promise<void>
 ```
 
-发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
+发送一个 `Tab` 键事件。这是 `userEvent.keyboard('{tab}')` 的简写。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -510,7 +512,7 @@ function unhover(
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
-默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider中）或中心位置（在 `webdriverio` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
+默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider 中）或中心位置（在 `webdriverio` provider 中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
 :::
 
 ```ts
@@ -580,7 +582,7 @@ function dragAndDrop(
 ): Promise<void>
 ```
 
-将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
+将源元素拖到目标元素的顶部。不要忘记，源元素的 `draggable` 属性必须设置为 `true`。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -598,7 +600,7 @@ test('drag and drop works', async () => {
 ```
 
 ::: warning
- `preview` provider不支持此 API。
+`preview` provider 不支持此 API。
 :::
 
 相关链接：

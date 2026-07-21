@@ -22,13 +22,13 @@ outline: deep
 - 有单位时
   - `50%` - 如上，占系统总内存的百分比
   - `100KB`, `65MB`, 等 - 用单位表示固定的内存限制
-    - `K` / `KB` - 千字节 (x1000)
+    - `K`/`KB` - 千字节 (x1000)
     - `KiB` - 千字节 (x1024)
-    - `M` / `MB`- 千字节
+    - `M`/`MB` - 千字节
     - `MiB` - 兆字节
-    - `G` / `GB` - 千兆字节
+    - `G`/`GB` - 千兆字节
     - `GiB` - 千兆字节
-:::
+      :::
 
 ::: warning
 基于百分比的内存限制 [在 Linux CircleCI 环境下无效](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)，因该系统会误报内存总量。

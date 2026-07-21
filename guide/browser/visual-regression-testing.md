@@ -33,7 +33,7 @@ Vitest 原生支持可视化回归测试。它会自动截取 UI 组件或页面
 
 因此，Vitest 会在截图文件名中添加浏览器和平台信息（如 `button-chromium-darwin.png`），避免不同环境的截图互相覆盖。
 
-要获得稳定结果，应使用相同的测试环境。**推荐**采用云端服务（如 [Azure App Testing](https://azure.microsoft.com/en-us/products/playwright-testing)）或基于 [Docker containers](https://playwright.dev/docs/docker) 的环境。
+要获得稳定结果，应使用相同的测试环境。**推荐** 采用云端服务（如 [Azure App Testing](https://azure.microsoft.com/en-us/products/playwright-testing)）或基于 [Docker containers](https://playwright.dev/docs/docker) 的环境。
 :::
 
 在 Vitest 中，可通过 [`toMatchScreenshot` assertion](/api/browser/assertions.html#tomatchscreenshot) 断言运行可视化回归测试：
@@ -66,8 +66,7 @@ Reference screenshot:
 确认截图正确后再次运行测试，Vitest 会将后续结果与该基准图比较。
 
 ::: tip
-基准截图存放在测试文件所在目录下的 `__screenshots__` 文件夹中，
-**请务必提交到版本库**。
+基准截图存放在测试文件所在目录下的 `__screenshots__` 文件夹中，**请务必提交到版本库**。
 :::
 
 ### 截图组织方式 {#screenshot-organization}
@@ -85,6 +84,7 @@ Vitest 默认将截图按以下结构保存：
 ```
 
 文件名由三部分组成：
+
 - **测试名**：来自 `toMatchScreenshot()` 的第一个参数，或自动根据测试用例名生成
 - **浏览器名**：`chrome`、`chromium`、`firefox`、`webkit`
 - **平台**：如 `aix`、`darwin`、`linux`、`win32` 等
@@ -109,8 +109,8 @@ Vitest 通过 “稳定截图检测” 机制自动处理这一问题：
 
 1. Vitest 首先拍摄初始截图（或使用现有参考截图）作为基准
 2. 再次拍摄截图并与基准比对
-    - 如果截图一致，判定页面已稳定并继续测试
-    - 如果存在差异，则将最新截图设为新基准并重复流程
+   - 如果截图一致，判定页面已稳定并继续测试
+   - 如果存在差异，则将最新截图设为新基准并重复流程
 3. 这会持续进行，直到达到稳定性或超时
 
 此机制确保临时性视觉变化（如加载动画）不会引发误报。但对于持续动画元素，系统会因超时而终止，建议测试期间 [禁用动画](#disable-animations)。
@@ -370,7 +370,7 @@ Diff image:
 }
 ```
 
-这样，开发者就能在本地运行 `npm run test:unit` ，而无需受到视觉回归测试的影响；
+这样，开发者就能在本地运行 `npm run test:unit`，而无需受到视觉回归测试的影响；
 视觉测试则放在环境一致的持续集成（ CI ）平台中运行，以确保结果稳定可靠。
 
 ::: tip 抉择
@@ -378,7 +378,7 @@ Diff image:
 
 - `vitest --project unit`
 - `vitest --project visual`
-:::
+  :::
 
 ### 持续集成（ CI ）环境配置 {#ci-setup}
 
@@ -398,8 +398,7 @@ Diff image:
 
 == WebdriverIO
 
-[WebdriverIO](https://npmx.dev/package/webdriverio) 要求用户自行准备浏览器环境。不过，
-[ @browser-actions ](https://github.com/browser-actions) 团队已经为此提供了方便的解决方案，
+[WebdriverIO](https://npmx.dev/package/webdriverio) 要求用户自行准备浏览器环境。不过，[ @browser-actions ](https://github.com/browser-actions) 团队已经为此提供了方便的解决方案，
 帮你轻松完成浏览器的安装与配置。
 
 ```yaml [.github/workflows/ci.yml]
@@ -423,10 +422,11 @@ Diff image:
 ### 更新工作流程 {#the-update-workflow}
 
 关键点来了——切勿在每一次 Pull Request 中都自动更新截图，
-<small>*(那只会带来混乱)*</small>。更稳妥的方式，是建立一个手动触发的工作流程，
+<small> _(那只会带来混乱)_ </small>。更稳妥的方式，是建立一个手动触发的工作流程，
 让开发者在有意更改 UI 时主动运行，从而更新基准截图。
 
 该工作流程具备以下特性：
+
 - 仅在功能分支上运行，确保主分支安全不受影响；
 - 自动将触发流程的开发者署名为共同作者；
 - 阻止同一分支上的并发执行，避免冲突与资源浪费；

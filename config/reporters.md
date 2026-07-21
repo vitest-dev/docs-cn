@@ -48,6 +48,7 @@ type ConfigReporter = string | Reporter | [string, object?]
 ## 示例 {#example}
 
 ::: code-group
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -67,7 +68,9 @@ export default defineConfig({
   }
 })
 ```
+
 ```bash [CLI]
 vitest --reporter=github-actions --reporter=junit
 ```
+
 :::

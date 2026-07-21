@@ -20,7 +20,7 @@ vitest --browser.enabled --browser.headless
 - [playwright](/config/browser/playwright)
 - [webdriverio](/config/browser/webdriverio)
 - [preview](/config/browser/preview)
-:::
+  :::
 
 ## 示例 {#example}
 

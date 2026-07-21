@@ -217,7 +217,7 @@ describe.only.concurrent(/* ... */) // 或 describe.concurrent.only(/* ... */)
 describe.todo.concurrent(/* ... */) // 或 describe.concurrent.todo(/* ... */)
 ```
 
-在运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的  `expect`，以确保能正确识别对应的测试用例。
+在运行并发测试时，快照和断言必须使用本地 [测试上下文](/guide/test-context) 中的 `expect`，以确保能正确识别对应的测试用例。
 
 ```ts
 describe.concurrent('suite', () => {
@@ -326,8 +326,8 @@ describe.each([
 })
 ```
 
-* 第一行应为列名，用 `|` 分隔；
-* 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
+- 第一行应为列名，用 `|` 分隔；
+- 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
 
 ```ts
 import { describe, expect, test } from 'vitest'

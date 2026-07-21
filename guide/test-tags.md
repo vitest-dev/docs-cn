@@ -9,7 +9,7 @@ outline: deep
 
 ## 定义标签 {#defining-tags}
 
- Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
+Vitest 并未提供任何的内置标签，标签必须在配置文件中提前进行定义。如果在测试中使用了未在配置文件中定义的标签，测试运行器将会抛出错误。这一行为可以防止因标签名称拼写错误而导致的意外行为。当然你可以修改 [`strictTags`](/config/stricttags) 选项进行禁用。
 
 在标签定义时至少必须包含 `name` 参数，与此同时你还可以定义其他配置参数如 `timeout` 或 `retry`，这些配置参数将应用于使用该标签的所有测试。完整的可用配置参数，参见 [`tags`](/config/tags)。
 
@@ -60,6 +60,7 @@ test('flaky database test', { tags: ['flaky', 'db'] })
 test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
 // { timeout: 120_000, retry: 3 }
 ```
+
 :::
 
 如果你正在使用 TypeScript，可以扩展 `TestTags` 类型添加一个包含字符串的联合类型来限定的标签可用范围，请确保该文件被包含在 `tsconfig` 中：
@@ -193,6 +194,7 @@ describe('forms', () => {
   })
 })
 ```
+
 :::
 
 ## 按标签筛选用例 {#filtering-tests-by-tag}
@@ -243,7 +245,7 @@ const specification = vitest.getRootProject().createSpecification(
 解析器将遵循标准 [运算符优先级](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence)：`not`/`!` 优先级最高，其次是 `and`/`&&`，最后是 `or`/`||`。使用括号将提升优先级。
 
 ::: warning 保留字
-标签名称不能为 `and`, `or`, 或 `not`（不区分大小写），这些都是保留字。标签名称也不能包含特殊字符（`(`， `)`， `&`， `|`， `!`， `*`，空格），这些字符已经被表达式解析器占用。
+标签名称不能为 `and`, `or`, 或 `not`（不区分大小写），这些都是保留字。标签名称也不能包含特殊字符（`(`，`)`，`&`，`|`，`!`，`*`，空格），这些字符已经被表达式解析器占用。
 :::
 
 ### 通配符 {#wildcards}
@@ -254,7 +256,7 @@ const specification = vitest.getRootProject().createSpecification(
 vitest --tags-filter="unit/*"
 ```
 
-将会匹配到类似 `unit/components`， `unit/utils` 等标签。
+将会匹配到类似 `unit/components`，`unit/utils` 等标签。
 
 ### 排除标签 {#excluding-tags}
 
@@ -300,7 +302,9 @@ vitest --tags-filter="db && (postgres || mysql) && !slow"
 # 运行（unit 或 e2e 测试）且非慢速的测试
 vitest --tags-filter="unit || e2e" --tags-filter="!slow"
 ```
+
 <!-- TODO: translation -->
+
 ### Checking Tags Filter at Runtime
 
 You can use `TestRunner.matchesTags` (since Vitest 4.1.1) to check whether the current tags filter matches a set of tags. This is useful for conditionally running expensive setup logic only when relevant tests are included:

@@ -4,7 +4,9 @@ outline: deep
 ---
 
 # taskTitleValueFormatTruncate <CRoot /> {#tasktitlevalueformattruncate}
+
 <!-- TODO: translation -->
+
 - **Type** `number`
 - **Default:** `40`
 
