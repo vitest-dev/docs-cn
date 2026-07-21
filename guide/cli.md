@@ -42,6 +42,7 @@ $ vitest ./basic/foo:10 # ❌
 $ vitest basic/foo.test.ts:10, basic/foo.test.ts:25 # ✅
 $ vitest basic/foo.test.ts:10-25 # ❌
 ```
+
 :::
 
 ### `vitest run`
@@ -159,7 +160,7 @@ vitest --api=false
 
   与代码覆盖一起使用时，报告将只包含与更改相关的文件。
 
-  如果与 [`forceRerunTriggers`](/config/#forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
+  如果与 [`forceRerunTriggers`](/config/#forcereruntriggers) 配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
 
 ### shard
 
@@ -191,10 +192,8 @@ vitest run --shard=3/3
 
 - **类型:** `boolean | string`
 
-合并位于指定文件夹中的每个 blob 报告（默认情况下为`.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
+合并位于指定文件夹中的每个 blob 报告（默认情况下为 `.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
 
 ```sh
 vitest --merge-reports --reporter=junit
 ```
-
-[cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options

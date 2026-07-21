@@ -24,6 +24,7 @@ export default antfu(
       // uses invalid js example
       'advanced/api/import-example.md',
       'guide/examples/*.md',
+      'reporters-life-cycle.md',
       'README.md',
       '.github/*.md',
     ],

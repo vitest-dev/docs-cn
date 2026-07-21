@@ -64,6 +64,7 @@ export const commands: BrowserCommands
 :::
 
 如需操作 Playwright 的 `page` 对象，请使用 [Commands API](/guide/browser/commands)。
+
 ```ts
 export const page: {
   /**
@@ -115,7 +116,7 @@ export const page: {
 `cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
 ::: warning
-CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
 :::
 
 ```ts

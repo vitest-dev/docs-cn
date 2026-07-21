@@ -130,53 +130,68 @@ export default defineProject({
 然后使用包管理器运行测试：
 
 ::: code-group
+
 ```bash [npm]
 npm run test
 ```
+
 ```bash [yarn]
 yarn test
 ```
+
 ```bash [pnpm]
 pnpm run test
 ```
+
 ```bash [bun]
 bun run test
 ```
+
 :::
 
 如果只想运行某个单独项目中的测试，可以使用 `--project` CLI 选项：
 
 ::: code-group
+
 ```bash [npm]
 npm run test --project e2e
 ```
+
 ```bash [yarn]
 yarn test --project e2e
 ```
+
 ```bash [pnpm]
 pnpm run test --project e2e
 ```
+
 ```bash [bun]
 bun run test --project e2e
 ```
+
 :::
 
 ::: tip
 CLI 选项 `--project` 可以多次使用，以筛选多个项目：
 
 ::: code-group
+
 ```bash [npm]
 npm run test --project e2e --project unit
 ```
+
 ```bash [yarn]
 yarn test --project e2e --project unit
 ```
+
 ```bash [pnpm]
 pnpm run test --project e2e --project unit
 ```
+
 ```bash [bun]
 bun run test --project e2e --project unit
 ```
+
 :::
 
 ## 配置说明 {#configuration}

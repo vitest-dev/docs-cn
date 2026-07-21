@@ -26,6 +26,7 @@ expect.extend({
 如果你使用 TypeScript，你可以使用以下代码在环境声明文件（例如：`vitest.d.ts`）中扩展默认的 `Assertion` 接口：
 
 ::: code-group
+
 ```ts [<Version>3.2.0</Version>]
 import 'vitest'
 
@@ -37,6 +38,7 @@ declare module 'vitest' {
   interface Matchers<T = any> extends CustomMatchers<T> {}
 }
 ```
+
 ```ts [<Version>3.0.0</Version>]
 import 'vitest'
 
@@ -49,10 +51,11 @@ declare module 'vitest' {
   interface AsymmetricMatchersContaining extends CustomMatchers {}
 }
 ```
+
 :::
 
 ::: tip
-从 Vitest 3.2 版本开始，你可以通过扩展 `Matchers` 接口，让 `expect.extend` 、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。而在此之前，你需要为这几种用法分别单独定义接口。
+从 Vitest 3.2 版本开始，你可以通过扩展 `Matchers` 接口，让 `expect.extend`、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。而在此之前，你需要为这几种用法分别单独定义接口。
 :::
 
 ::: warning
@@ -73,7 +76,7 @@ interface ExpectationResult {
 ```
 
 ::: warning
-如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await` （例如：`await expect('foo').toBeFoo()` ），否则可能不会按预期执行：
+如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await`（例如：`await expect('foo').toBeFoo()`），否则可能不会按预期执行：
 
 ```ts
 expect.extend({
@@ -84,34 +87,35 @@ expect.extend({
 
 await expect().toBeAsyncAssertion()
 ```
+
 :::
 
 断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。
 
 断言方法可以访问上下文 `this` 对象中的这些属性:
 
-### `isNot`
+## `isNot`
 
-如果断言是在 `not` 方法上调用的( `expect(received).not.toBeFoo()` )，则返回 true。
+如果断言是在 `not` 方法上调用的(`expect(received).not.toBeFoo()`)，则返回 true。
 
-### `promise`
+## `promise`
 
 如果断言是在 `resolved/rejected` 中调用的，它的值将包含此断言的名称。否则，它将是一个空字符串。
 
-### `equals`
+## `equals`
 
 这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。默认情况下，它支持非对称的断言。
 
-### `utils`
+## `utils`
 
 它包含了一系列工具函数，你可以使用它们来显示信息。
 
 `this` 上下文也包含了当前测试的信息，你可以通过调用 `expect.getState()` 来获取它，其中最有用的属性是：
 
-### `currentTestName`
+## `currentTestName`
 
 当前测试的全称(包括 describe 块)。
 
-### `testPath`
+## `testPath`
 
 当前正在执行的测试文件路径。

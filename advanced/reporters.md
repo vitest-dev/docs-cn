@@ -57,6 +57,7 @@ export default defineConfig({
   },
 })
 ```
+
 ## 报告的任务 {#reported-tasks}
 
 建议使用 Reported Tasks API，而不是使用报告器接收到的任务。

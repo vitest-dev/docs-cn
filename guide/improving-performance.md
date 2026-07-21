@@ -6,7 +6,7 @@ title: 性能优化 | 指南
 
 ## 测试隔离 {#test-isolation}
 
-默认情况下，Vitest 在基于[pool](/config/#pool) 的隔离环境中运行每个测试文件：
+默认情况下，Vitest 在基于 [pool](/config/#pool) 的隔离环境中运行每个测试文件：
 
 - `threads` 池在单独的 [`Worker`](https://nodejs.org/api/worker_threads.html#class-worker) 中运行每个测试文件
 - `forks` 池在单独的 [子进程](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) 中运行每个测试文件
@@ -42,7 +42,7 @@ export default defineConfig({
 如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
 :::
 
-对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的[`test.fileParallelism`](/config/#fileParallelism) 属性设置为 `false`。
+对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的 [`test.fileParallelism`](/config/#fileParallelism) 属性设置为 `false`。
 
 ::: code-group
 
@@ -64,7 +64,7 @@ export default defineConfig({
 
 ## 运行池 {#pool}
 
-默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（ [hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
+默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 
@@ -181,7 +181,7 @@ jobs:
 测试分片在多核心 CPU 机器上也很有用。
 
 Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用于运行测试文件。
-在多核心 CPU 机器中，主线程可能会成为瓶颈，因为它无法处理来自其余线程的所有请求。例如，在 32核 CPU 机器中，主线程负责处理来自 31 个测试线程的负载。
+在多核心 CPU 机器中，主线程可能会成为瓶颈，因为它无法处理来自其余线程的所有请求。例如，在 32 核 CPU 机器中，主线程负责处理来自 31 个测试线程的负载。
 
 为了减少主线程的 Vite 服务器的负载，可以使用测试分片。将负载平均到多个 Vite 服务器上。
 

@@ -25,7 +25,7 @@ head:
       content: summary_large_image
 ---
 
-# Vitest 3.2 发布了！
+# Vitest 3.2 发布了！ {#vitest-3-2-is-out}
 
 _2025 年 6 月 2 日_
 
@@ -47,7 +47,7 @@ Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包
 
 新的 [注释 API](/guide/test-annotations) 允许你为任何测试添加自定义消息和附件。这些注释在 UI、HTML、junit、tap 和 GitHub Actions 报告器中可见。如果测试失败，Vitest 还会在 CLI 中打印相关注释。
 
-<img src="/annotation-api-cute-puppy-example.png" />
+<img src="/annotation-api-cute-puppy-example.png" alt=""/>
 
 ## 作用域固定装置 {#scoped-fixtures}
 
@@ -75,6 +75,7 @@ const test = baseTest.extend({
 使用 `projects` 时，你现在可以设置自定义 [颜色](/config/#name)：
 
 ::: details 配置示例
+
 ```ts{6-9,14-17}
 export default defineConfig({
   test: {
@@ -104,9 +105,10 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
-<img src="/v3-2-custom-colors.png" />
+<img src="/v3-2-custom-colors.png" alt=""/>
 
 ## 自定义浏览器定位器 API {#custom-browser-locators-api}
 
@@ -122,7 +124,7 @@ locators.extend({
 })
 ```
 
-返回 Playwright [定位器字符串](https://playwright.dev/docs/other-locators)来构造新的定位器。请注意，从此方法返回的字符串将用作于父定位器范围内（如果有的话）。
+返回 Playwright [定位器字符串](https://playwright.dev/docs/other-locators) 来构造新的定位器。请注意，从此方法返回的字符串将用作于父定位器范围内（如果有的话）。
 
 现在你可以直接在 `page` 对象或任何其他定位器上调用 `getByCommentsCount`：
 
@@ -320,8 +322,9 @@ export default defineConfig({
 
  1. flaky |> 在 slow 和 fast 之后单独运行
 ```
+
 :::
 
-----
+---
 
 完整的更改列表请查看 [Vitest 3.2 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.2.0)。

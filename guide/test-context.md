@@ -22,7 +22,7 @@ it('should work', ({ task }) => {
 
 ## 内置测试上下文 {#built-in-test-context}
 
-#### `task`
+### `task`
 
 包含关于测试的元数据的只读对象。
 
@@ -94,7 +94,7 @@ function annotate(
 ): Promise<TestAnnotation>
 ```
 
-添加一个[测试注解](/guide/test-annotations)，它将由你的[报告器](/config/#reporters)显示。
+添加一个 [测试注解](/guide/test-annotations)，它将由你的 [报告器](/config/#reporters) 显示。
 
 ```ts
 test('annotations API', async ({ annotate }) => {
@@ -104,7 +104,7 @@ test('annotations API', async ({ annotate }) => {
 
 #### `signal` <Version>3.2.0</Version> {#signal}
 
-一个由 Vitest 控制的 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) ，在以下场景下会被触发中止：
+一个由 Vitest 控制的 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)，在以下场景下会被触发中止：
 
 - 测试用例超时
 - 用户使用 Ctrl+C 手动终止了测试
@@ -258,6 +258,7 @@ test('works correctly')
 从 Vitest 3 开始，你可以在不同的 [项目](/guide/projects) 中提供不同的值。要启用此功能，请在选项中传递 `{ injected: true }`。如果在 [项目配置](/config/#provide) 中未指定该键，则将使用默认值。
 
 :::code-group
+
 ```ts [fixtures.test.ts]
 import { test as base } from 'vitest'
 
@@ -276,6 +277,7 @@ test('works correctly', ({ url }) => {
   // 在"project-empty"中，url是"/empty"
 })
 ```
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -307,6 +309,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 #### 将值限定到套件范围 <Version>3.1.0</Version> {#scoping-values-to-suite}
