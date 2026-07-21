@@ -22,6 +22,7 @@ export default antfu(
       'advanced/api/import-example.md',
       'api/advanced/import-example.md',
       'guide/examples/*.md',
+      'reporters-life-cycle.md',
       'README.md',
       '.github/*.md',
     ],
