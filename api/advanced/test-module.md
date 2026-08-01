@@ -154,7 +154,11 @@ interface ImportDuration {
 function logs(): ReadonlyArray<UserConsoleLog>
 ```
 
+<<<<<<< HEAD
 测试收集期间在模块顶层记录的 console 日志。例如：
+=======
+Console logs recorded on top level of the module during test collection. For example:
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
 console.log('included') // [!code highlight]

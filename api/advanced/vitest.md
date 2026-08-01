@@ -610,7 +610,11 @@ function experimental_parseSpecifications(
 function experimental_clearCache(): Promise<void>
 ```
 
+<<<<<<< HEAD
 删除所有 Vitest 缓存，包括 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)。
+=======
+Deletes all Vitest caches, including [`fsModuleCache`](/config/fsmodulecache).
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ## experimental_getSourceModuleDiagnostic <Version type="experimental">4.0.15</Version> <Experimental /> {#getsourcemodulediagnostic}
 

@@ -12,7 +12,7 @@ title: 扩展匹配器 | 指南
 
 ```ts
 expect.extend({
-  toBeFoo(received, expected) {
+  toBeFoo(received) {
     const { isNot } = this
     return {
       // 请勿根据 isNot 参数更改你的 "pass" 值，Vitest 为你做了这件事情
@@ -29,8 +29,20 @@ expect.extend({
 import 'vitest'
 
 declare module 'vitest' {
-  interface Matchers<T = any> {
+  interface Matchers<R, T> {
     toBeFoo: () => R
+  }
+}
+```
+
+`R` is the assertion return type, and `T` is the type of the received value.
+
+Return `R` from matchers that run synchronously. This makes the return type `void` for a regular assertion and `Promise<void>` when the assertion is used with `.resolves`, `.rejects`, [`expect.poll`](/api/expect#poll), or [`expect.element`](/api/browser/assertions). You can use `T` when an expected argument should have the same type as the received value:
+
+```ts
+declare module 'vitest' {
+  interface Matchers<R, T> {
+    toEqualTyped: (expected: T) => R
   }
 }
 ```
@@ -45,30 +57,50 @@ declare module 'vitest' {
 不要忘记在 `tsconfig.json` 中包含声明文件。
 :::
 
+<<<<<<< HEAD
 断言的返回值应该兼容如下接口：
+=======
+The return value of a matcher should be compatible with the following types:
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
-interface MatcherResult {
+interface SyncMatcherResult {
   pass: boolean
   message: () => string
   // 如果你传了这些参数，它们将自动出现在 diff 信息中，
   // 所以即便断言不通过，你也不必自己输出 diff
   actual?: unknown
   expected?: unknown
+  meta?: object
 }
+
+type MatcherResult = SyncMatcherResult | Promise<SyncMatcherResult>
 ```
 
 ::: warning
+<<<<<<< HEAD
 如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await`（例如：`await expect('foo').toBeFoo()`），否则可能不会按预期执行：
+=======
+If a matcher implementation is asynchronous, declare its return type as `Promise<void>` instead of `R` and don't forget to `await` it in the test:
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
 expect.extend({
-  async toBeAsyncAssertion() {
-    // ...
+  async toBeAsyncAssertion(received) {
+    return {
+      pass: received === 'foo',
+      message: () => `expected ${received} to be foo`,
+    }
   }
 })
 
-await expect().toBeAsyncAssertion()
+declare module 'vitest' {
+  interface Matchers<R, T> {
+    toBeAsyncAssertion: () => Promise<void>
+  }
+}
+
+await expect('foo').toBeAsyncAssertion()
 ```
 
 :::
@@ -156,7 +188,7 @@ expect.extend({ customMatcher })
 
 断言是否以 [`soft`](/api/expect#soft) 方式调用。你无需手动处理该逻辑，Vitest 始终会捕获错误。
 
-## `assertion` <Advanced /> <Version type="experimental">4.1.4</Version> {#assertion}
+## `assertion` <Advanced /> <Version>5.0.0</Version> {#assertion}
 
 底层 [Chai 断言](https://www.chaijs.com/guide/plugins/) 对象。这是与 Chai 插件接收的同一个实例，使你能够访问 Chai 的参数系统和可链式方法。适用于需要与 Chai 内部交互的自定义匹配器。
 

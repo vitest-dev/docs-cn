@@ -5,6 +5,7 @@ outline: deep
 
 # experimental
 
+<<<<<<< HEAD
 ## experimental.fsModuleCache <Version type="experimental">4.0.11</Version> {#experimental-fsmodulecache}
 
 ::: tip 功能反馈
@@ -104,6 +105,8 @@ export default defineConfig({
 
 目前，Vitest 会完全忽略 [test.cache.dir](/config/cache) 或 [cacheDir](https://vite.dev/config/shared-options#cachedir) 配置选项，并创建一个单独的缓存文件夹。
 
+=======
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 ## experimental.openTelemetry <Version type="experimental">4.0.11</Version> {#experimental-opentelemetry}
 
 ::: tip 功能反馈

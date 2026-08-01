@@ -26,11 +26,15 @@ export const sponsors: SponsorTier[] = [
     tier: '铂金赞助商',
     size: 'big',
     items: [
-
       {
         name: 'Bolt',
         url: 'https://bolt.new',
         img: '/bolt.svg',
+      },
+      {
+        name: 'Latitude',
+        url: 'https://latitude.so/',
+        img: '/latitude.svg',
       },
     ],
   },

@@ -327,6 +327,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 全局注入
 
+### injectCjsGlobals
+
+- **CLI:** `--injectCjsGlobals`
+- **Config:** [injectCjsGlobals](/config/injectcjsglobals)
+
+Inject CommonJS variables (`module`, `exports`, `require`, `__filename`, `__dirname`) into every test module. To disable, use `--no-inject-cjs-globals` (default: `true`)
+
 ### dom
 
 - **命令行终端:** `--dom`
@@ -353,6 +360,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 在无头模式下运行浏览器（即不打开图形用户界面）。如果在 CI 中运行 Vitest，默认情况下将启用无头模式 (默认值: `process.env.CI`)
 
+<<<<<<< HEAD
 ### browser.api.port
 
 - **命令行终端:** `--browser.api.port [port]`
@@ -395,6 +403,8 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 隔离运行每个浏览器测试文件。要禁用隔离请使用 `--browser.isolate=false` (默认值: `true`)
 
+=======
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 ### browser.ui
 
 - **命令行终端:** `--browser.ui`
@@ -409,18 +419,28 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 浏览器模式下详情面板的默认位置。可选 `right`（水平分割）或 `bottom`（垂直分割）（默认值：`right`）
 
+<<<<<<< HEAD
 ### browser.fileParallelism
 
 - **命令行终端:** `--browser.fileParallelism`
 
 浏览器测试文件是否应并行运行。使用 `--browser.fileParallelism=false` 进行禁用（默认值: `true`）
 
+=======
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 ### browser.connectTimeout
 
 - **命令行终端:** `--browser.connectTimeout <timeout>`
 - **配置:** [browser.connectTimeout](/config/browser/connecttimeout)
 
 如果连接浏览器时间超时，测试套件将失败 (默认值: `60_000`)
+
+### browser.dependencySourcemaps
+
+- **CLI:** `--browser.dependencySourcemaps`
+- **Config:** [browser.dependencySourcemaps](/config/browser/dependencysourcemaps)
+
+Serve sourcemaps of dependencies to the browser in headless runs, used by devtools when debugging into `node_modules`. Reported test errors are source-mapped either way. Use `--browser.dependencySourcemaps=false` to speed up test runs if you don't step into dependency code (default: `true`)
 
 ### browser.trackUnhandledErrors
 
@@ -828,7 +848,11 @@ Use TypeScript build mode
 
 ### project
 
+<<<<<<< HEAD
 - **命令行终端:** `--project <name>`
+=======
+- **CLI:** `-p, --project <name>`
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目
 
@@ -852,6 +876,20 @@ Use TypeScript build mode
 - **配置:** [maxConcurrency](/config/maxconcurrency)
 
 测试文件执行期间并发运行的测试和测试套件的最大数量（默认值：`5`）
+
+### fsModuleCache
+
+- **CLI:** `--fsModuleCache`
+- **Config:** [fsModuleCache](/config/fsmodulecache)
+
+Cache transformed modules on the file system and reuse them between reruns (default: `false`)
+
+### fsModuleCachePath
+
+- **CLI:** `--fsModuleCachePath <path>`
+- **Config:** [fsModuleCachePath](/config/fsmodulecachepath)
+
+Directory where the `fsModuleCache` is stored (default: `node_modules/.vitest-cache`)
 
 ### expect.requireAssertions
 
@@ -935,7 +973,11 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--clearCache`
 
+<<<<<<< HEAD
 删除所有 Vitest 缓存，包括 `experimental.fsModuleCache`，且不运行任何测试。此操作会降低后续测试运行的性能。
+=======
+Delete all Vitest caches, including the `fsModuleCache`, without running any tests. This will reduce the performance in the subsequent test run.
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ### tagsFilter
 
@@ -950,6 +992,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
 
+<<<<<<< HEAD
 ### experimental.fsModuleCache
 
 - **命令行终端:** `--experimental.fsModuleCache`
@@ -957,6 +1000,8 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 在重新运行之前，启用文件系统上的缓存。
 
+=======
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 ### experimental.importDurations.print
 
 - **命令行终端:** `--experimental.importDurations.print <boolean|on-warn>`

@@ -126,8 +126,13 @@ export default defineConfig({
       // 匹配 packages 文件夹下的所有文件和文件夹
       'packages/*',
       {
+<<<<<<< HEAD
         // 添加 "extends: true" 继承根配置中的选项
         extends: true,
+=======
+        // inline projects inherit the options
+        // from this config file by default
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
         test: {
           include: ['tests/**/*.{browser}.test.{ts,js}'],
           // 建议内联配置时定义项目名称
@@ -136,6 +141,9 @@ export default defineConfig({
         }
       },
       {
+        // add "extends: false" to ignore
+        // the options defined in this config file
+        extends: false,
         test: {
           include: ['tests/**/*.{node}.test.{ts,js}'],
           // 名称标签颜色可自定义
@@ -234,7 +242,71 @@ bun run test --project e2e --project unit
 
 ## 配置说明 {#configuration}
 
+<<<<<<< HEAD
 项目配置不会继承根配置文件中的选项。你可以创建共享配置文件，并在项目配置中手动合并：
+=======
+Projects defined with an inline configuration inherit all options from the root-level configuration. This is controlled by the `extends` option, which is enabled by default since Vitest 5.0:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    pool: 'threads',
+    projects: [
+      {
+        // inherits options from this config like plugins and pool
+        // (`extends: true` is the default)
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+      {
+        // won't inherit any options from this config
+        extends: false,
+        test: {
+          name: 'integration',
+          include: ['**/*.integration.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+The `extends` option also accepts a path to another config file if you want to inherit options from a config file other than the root config:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    projects: [
+      {
+        extends: './vitest.shared.ts',
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+All options from the extended config are merged with the project's own options. Note that arrays like `setupFiles` are concatenated, not overridden. A few options are treated specially:
+
+- `name` and `projects` are never inherited.
+- `globalSetup` is not inherited from the root config: the root-level `globalSetup` already runs once per test run, so inheriting it would run the same files again for every project. It is still inherited when extending a non-root config file.
+- The project's own `tags` replace the inherited array instead of being merged with it.
+
+If you run Vitest through the [advanced API](/guide/advanced/), see [Project Configuration Resolution](/guide/advanced/#project-configuration-resolution) for how the programmatic configuration participates in inheritance.
+
+Projects referenced as config files or directories do not inherit any options from the root config. You can create a shared config file and merge it with the project config yourself:
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
@@ -250,6 +322,7 @@ export default mergeConfig(
 )
 ```
 
+<<<<<<< HEAD
 另外，你可以使用 `extends` 选项继承根配置，所有选项都会被合并。
 
 ```ts [vitest.config.ts]
@@ -290,6 +363,77 @@ export default defineConfig({
 - `resolveSnapshotPath`：只尊重根级别的快照路径解析器
 - `attachmentsDir`：附件存储在由所有项目共享的一个根级目录中
 - 其他不影响测试运行器的选项
+=======
+::: danger Unsupported Options
+Some of the configuration options are not allowed in a project config. Most notably:
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 所有不支持在项目配置中使用的配置选项，在 ["配置"](/config/) 指南中会用 <CRoot /> 标记。它们必须在根配置文件中定义一次。
 :::
+
+## Nested Projects
+
+A project referenced as a config file (or a directory containing one) can declare `projects` itself. Such a config behaves like the root config: it doesn't run any tests on its own, it only provides the projects that do. This makes it possible to reference a workspace that already defines its own projects:
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    projects: ['./packages/app/vitest.config.ts'],
+  },
+})
+```
+
+```ts [packages/app/vitest.config.ts]
+import { defineProject } from 'vitest/config'
+
+export default defineProject({
+  test: {
+    name: 'app',
+    projects: [
+      {
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+      {
+        test: {
+          name: 'e2e',
+          include: ['**/*.e2e.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+Nested projects work the same way as projects defined in the root config: inline configurations extend the config that declares them (the `app` config here, not the root one), `extends` paths are resolved relative to it, and its own `globalSetup` is inherited by the extending projects [like any other non-root config](#configuration).
+
+The names of nested projects are prefixed with the name of the config that declares them, so the example above creates the `app (unit)` and `app (e2e)` projects. The `--project` filter matches the prefix as well: `--project app` runs every project of the `app` config, while `--project "app (unit)"` runs only one of them.
+
+To also run the tests of the config that declares `projects`, reference its own config file:
+
+```ts [packages/app/vitest.config.ts]
+import { defineProject } from 'vitest/config'
+
+export default defineProject({
+  test: {
+    name: 'app',
+    include: ['**/*.test.ts'],
+    projects: [
+      // the "app" project runs its own "include" alongside "app (unit)"
+      './vitest.config.ts',
+      {
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+Note that only config files can define nested projects. The `projects` option inside an inline configuration is not supported.

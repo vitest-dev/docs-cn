@@ -9,8 +9,11 @@ type Awaitable<T> = T | PromiseLike<T>
 `expect` 用于创建断言。在此上下文中，`断言` 是可以被调用来验证一个语句的函数。Vitest 默认提供 `chai` 断言，同时也提供基于 chai 构建的兼容 `Jest` 的断言。自 Vitest 4.1 起，在进行 spy/mock 测试时，Vitest 还额外提供了 Chai 风格断言（如 [`expect(spy).to.have.been.called()`](#called)），与 Jest 风格断言（如 `expect(spy).toHaveBeenCalled()`）并存。与 `Jest` 不同，Vitest 支持将一条消息作为第二个参数传入，如果断言失败，错误信息将等于该消息。
 
 ```ts
-export interface ExpectStatic extends Chai.ExpectStatic, AsymmetricMatchersContaining {
-  <T>(actual: T, message?: string): Assertion<T>
+export interface ExpectStatic
+  extends Chai.ExpectStatic,
+  Matchers<any>,
+  AsymmetricMatchersContaining {
+  <T>(actual: T, message?: string): Assertion<void, T>
   extend: (expects: MatchersObject) => void
   anything: () => any
   any: (constructor: unknown) => any
@@ -2238,12 +2241,11 @@ import { expect, test } from 'vitest'
 
 test('custom matchers', () => {
   expect.extend({
-    toBeFoo: (received, expected) => {
-      if (received !== 'foo') {
-        return {
-          message: () => `expected ${received} to be foo`,
-          pass: false,
-        }
+    toBeFoo(received) {
+      const { isNot } = this
+      return {
+        message: () => `expected ${received} is${isNot ? ' not' : ''} foo`,
+        pass: received === 'foo',
       }
     },
   })
@@ -2259,18 +2261,23 @@ test('custom matchers', () => {
 
 这个函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
 
+<<<<<<< HEAD
 如果正在使用 TypeScript，自从 Vitest 0.31.0 版本以来，我们可以在环境声明文件（例如：`vitest.d.ts`）中使用下面的代码扩展默认的 `Assertion` 接口：
+=======
+If you are using TypeScript, you can extend the default `Matchers` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
+>>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
-interface CustomMatchers<R = unknown> {
-  toBeFoo: () => R
-}
+import 'vitest'
 
 declare module 'vitest' {
-  interface Assertion<T = any> extends CustomMatchers<T> {}
-  interface AsymmetricMatchersContaining extends CustomMatchers {}
+  interface Matchers<R, T> {
+    toBeFoo: () => R
+  }
 }
 ```
+
+`R` is the assertion return type, and `T` is the type of the received value.
 
 ::: warning
 不要忘记在 `tsconfig.json` 中包含环境声明文件。
