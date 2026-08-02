@@ -116,7 +116,7 @@ export default defineConfig({
 此模式只会包含带有 `e2e` 或 `unit` 字样的 `vitest.config` 文件的项目。
 
 你还可以使用内联配置定义项目。两种语法可以同时使用。
-
+<!-- TODO: translation -->
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -126,13 +126,8 @@ export default defineConfig({
       // 匹配 packages 文件夹下的所有文件和文件夹
       'packages/*',
       {
-<<<<<<< HEAD
-        // 添加 "extends: true" 继承根配置中的选项
-        extends: true,
-=======
         // inline projects inherit the options
         // from this config file by default
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
         test: {
           include: ['tests/**/*.{browser}.test.{ts,js}'],
           // 建议内联配置时定义项目名称
@@ -241,10 +236,7 @@ bun run test --project e2e --project unit
 :::
 
 ## 配置说明 {#configuration}
-
-<<<<<<< HEAD
-项目配置不会继承根配置文件中的选项。你可以创建共享配置文件，并在项目配置中手动合并：
-=======
+<!-- TODO: translation -->
 Projects defined with an inline configuration inherit all options from the root-level configuration. This is controlled by the `extends` option, which is enabled by default since Vitest 5.0:
 
 ```ts [vitest.config.ts]
@@ -306,7 +298,6 @@ All options from the extended config are merged with the project's own options. 
 If you run Vitest through the [advanced API](/guide/advanced/), see [Project Configuration Resolution](/guide/advanced/#project-configuration-resolution) for how the programmatic configuration participates in inheritance.
 
 Projects referenced as config files or directories do not inherit any options from the root config. You can create a shared config file and merge it with the project config yourself:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
@@ -322,51 +313,8 @@ export default mergeConfig(
 )
 ```
 
-<<<<<<< HEAD
-另外，你可以使用 `extends` 选项继承根配置，所有选项都会被合并。
-
-```ts [vitest.config.ts]
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    pool: 'threads',
-    projects: [
-      {
-        // 继承此配置的选项，如 plugins 和 pool
-        extends: true,
-        test: {
-          name: 'unit',
-          include: ['**/*.unit.test.ts'],
-        },
-      },
-      {
-        // 不继承任何此配置的选项
-        // 这是默认行为
-        extends: false,
-        test: {
-          name: 'integration',
-          include: ['**/*.integration.test.ts'],
-        },
-      },
-    ],
-  },
-})
-```
-
-::: danger 不支持的选项
-部分配置选项不允许在项目配置中使用，主要包括：
-- `coverage`：覆盖率统计针对整个进程
-- `reporters`：只支持根级别的 reporters
-- `resolveSnapshotPath`：只尊重根级别的快照路径解析器
-- `attachmentsDir`：附件存储在由所有项目共享的一个根级目录中
-- 其他不影响测试运行器的选项
-=======
 ::: danger Unsupported Options
 Some of the configuration options are not allowed in a project config. Most notably:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 所有不支持在项目配置中使用的配置选项，在 ["配置"](/config/) 指南中会用 <CRoot /> 标记。它们必须在根配置文件中定义一次。
 :::

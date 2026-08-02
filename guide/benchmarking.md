@@ -3,13 +3,9 @@ title: Benchmarking | Guide
 ---
 
 # Benchmarking
-<<<<<<< HEAD
 <!-- TODO: translation -->
-Vitest lets you write benchmarks alongside your tests using the `bench` fixture from the [test context](/guide/test-context). Benchmarks are powered by [Tinybench](https://github.com/tinylibs/tinybench) and are defined inside regular `test()` calls, giving you access to the full power of Vitest's test runner: retries, lifecycle hooks, filtering, and assertions.
-=======
 
 Vitest lets you write benchmarks alongside your tests using the `bench` fixture from the [test context](/guide/test-context). The built-in benchmark provider is powered by [Tinybench](https://github.com/tinylibs/tinybench), and benchmarks are defined inside regular `test()` calls, giving you access to the full power of Vitest's test runner: retries, lifecycle hooks, filtering, and assertions.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ## Defining a Benchmark
 

@@ -89,11 +89,7 @@ export default defineConfig({
 
 ## 重新运行间的缓存机制 {#caching-between-reruns}
 
-<<<<<<< HEAD
-在监听模式下，Vitest 会将所有转换后的文件缓存在内存中，从而实现快速重新运行。不过该缓存会在测试运行结束后被清除。通过启用 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) 配置，Vitest 会将此缓存持久化到文件系统，使其能在多次重运行间复用。
-=======
-In watch mode, Vitest caches all transformed files in memory, which makes reruns fast. However, this cache is discarded once the test run finishes. By enabling [`fsModuleCache`](/config/fsmodulecache), Vitest persists this cache to the file system so it can be reused across reruns.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+在监听模式下，Vitest 会将所有转换后的文件缓存在内存中，从而实现快速重新运行。不过该缓存会在测试运行结束后被清除。通过启用 [`fsModuleCache`](/config/fsmodulecache) 配置，Vitest 会将此缓存持久化到文件系统，使其能在多次重运行间复用。
 
 当重新运行少量依赖大型模块图的测试时，这种优化效果最为显著。对于完整测试套件，由于并行化机制会在早期测试仍在运行时通过其他测试填充内存缓存，其性能损耗已得到缓解。例如运行一个依赖庞大模块图（>900 个模块）的测试文件时：
 
@@ -104,10 +100,7 @@ Duration  8.75s (transform 4.02s, setup 629ms, import 5.52s, tests 2.52s, enviro
 # 第二次运行
 Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, environment 0ms, prepare 3ms)
 ```
-
-<<<<<<< HEAD
-## 运行池 {#pool}
-=======
+<!-- TODO: translation -->
 ## Node Compile Cache
 
 Vitest supports Node's [on-disk compile cache](https://nodejs.org/api/cli.html#node_compile_cachedir): when the `NODE_COMPILE_CACHE` environment variable points at a directory, the V8 bytecode of Vitest's own modules and of your externalized dependencies is written to disk and reused by later runs instead of being recompiled. Vitest propagates the variable to every worker, and workers persist the modules they compiled when they shut down.
@@ -120,8 +113,7 @@ The first run with an empty directory pays for serializing the compiled modules,
 
 Note that Vitest automatically disables the compile cache in workers when the `v8` coverage provider is enabled — V8 serializes cached scripts without the source positions that precise coverage relies on.
 
-## Pool
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+## 运行池 {#pool}
 
 默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 

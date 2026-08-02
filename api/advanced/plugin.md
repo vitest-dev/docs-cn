@@ -116,22 +116,14 @@ vitest.config.project.push('my-project-name')
 请注意，这只会影响使用 [`injectTestProjects`](#injecttestprojects) 方法注入的项目。
 :::
 
-<<<<<<< HEAD
 ::: tip 引用当前配置
-若想在使用我们自己的配置时仍保留用户的原有配置，可以通过设置 extends 属性实现。这样，除了 extends 指定的内容外，其他配置项都会与我们配置合并。
-=======
-::: tip Referencing the Current Config
-Inline configurations inherit the root config by default. If you want to inherit a specific configuration file instead, set the `extends` property to its path. All other properties will be merged with the user defined config.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+内联配置默认继承根配置。如果想改为继承特定的配置文件，请将 `extends` 属性设为该文件的路径。其他所有属性都会与用户定义的配置合并。
 
 项目的 `configFile` 可以在 Vite 的配置中访问：`project.vite.config.configFile`。
 
-<<<<<<< HEAD
-请注意，这也将继承 `name` - Vitest 不允许多个项目使用相同的名称，因此这将引发错误。请确保我们指定了不同的名称。我们可以通过 `project.name` 属性访问当前名称，并且所有使用的名称都可以在 `vitest.projects` 数组中找到。
-=======
-Note that the `name` is never inherited because Vitest doesn't allow multiple projects with the same name. Make sure every project has a unique name. You can access the current name via the `project.name` property and all used names are available in the `vitest.projects` array.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+请注意，`name` 永远不会被继承，因为 Vitest 不允许多个项目使用相同的名称。请确保每个项目都有唯一的名称。可以通过 `project.name` 属性访问当前名称，所有已使用的名称都可以在 `vitest.projects` 数组中找到。
 :::
+
 
 ### defineCacheKeyGenerator <Version>5.0.0</Version> {#definecachekeygenerator}
 
@@ -151,11 +143,7 @@ function defineCacheKeyGenerator(
 
 如果你的插件支持通过不同的参数选项注册，建议通过这种方式，确保 Vitest 生成正确的哈希值。
 
-<<<<<<< HEAD
-仅当定义了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) 时才会调用此方法。
-=======
-This is called only if [`fsModuleCache`](/config/fsmodulecache) is enabled.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+仅当定义了 [`fsModuleCache`](/config/fsmodulecache) 时才会调用此方法。
 
 ```ts
 interface PluginOptions {
@@ -172,17 +160,10 @@ export function plugin(options: PluginOptions) {
         options.replacePropertyValue
       )
     },
-<<<<<<< HEAD
-    configureVitest({ experimental_defineCacheKeyGenerator }) {
-      experimental_defineCacheKeyGenerator(() => {
-        // 由于这些选项会影响转换结果，
-        // 将它们组合成一个唯一字符串并返回
-=======
     configureVitest({ defineCacheKeyGenerator }) {
       defineCacheKeyGenerator(() => {
-        // since these options affect the transform result,
-        // return them together as a unique string
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+        // 由于这些选项会影响转换结果，
+        // 将它们组合成一个唯一字符串并返回
         return options.replacePropertyKey + options.replacePropertyValue
       })
     }

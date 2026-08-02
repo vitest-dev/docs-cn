@@ -2261,11 +2261,7 @@ test('custom matchers', () => {
 
 这个函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
 
-<<<<<<< HEAD
-如果正在使用 TypeScript，自从 Vitest 0.31.0 版本以来，我们可以在环境声明文件（例如：`vitest.d.ts`）中使用下面的代码扩展默认的 `Assertion` 接口：
-=======
-If you are using TypeScript, you can extend the default `Matchers` interface in an ambient declaration file (e.g: `vitest.d.ts`) with the code below:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+如果正在使用 TypeScript，我们可以在环境声明文件（例如：`vitest.d.ts`）中使用下面的代码扩展默认的 `Matchers` 接口：
 
 ```ts
 import 'vitest'

@@ -18,11 +18,7 @@ outline: deep
 ::: tip
 出于安全原因，内置的文件命令遵循 Vite 的 [`server.fs`](https://cn.G/config/server-options.html#server-fs-allow) 限制。
 
-<<<<<<< HEAD
-`writeFile` 和 `removeFile` 还需要通过 [`browser.api.allowWrite`](/config/browser/api) 和 [`api.allowWrite`](/config/api#api-allowwrite) 获得写入权限。
-=======
-`writeFile` and `removeFile` also require write access through [`api.allowWrite`](/config/api#api-allowwrite).
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+`writeFile` 和 `removeFile` 还需要通过 [`api.allowWrite`](/config/api#api-allowwrite) 获得写入权限。
 :::
 
 ```ts
@@ -64,11 +60,7 @@ expect(input).toHaveValue('a')
 ::: warning
 CDP session 仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
 
-<<<<<<< HEAD
-CDP 是一个特权调试 API。仅当通过 [`browser.api.allowWrite`](/config/browser/api#api-allowwrite)、[`browser.api.allowExec`](/config/browser/api#api-allowexec)、[`api.allowWrite`](/config/api#api-allowwrite) 和 [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 写入和执行操作时，该 API 才可用。
-=======
-CDP is a privileged debugging API. It is available only when browser API write and exec operations are enabled through [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec).
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+CDP 是一种特权调试 API。仅当通过 [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 的写入及执行操作时，才可使用 CDP。
 :::
 
 ## 自定义命令 {#custom-commands}

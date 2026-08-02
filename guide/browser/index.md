@@ -118,11 +118,7 @@ export default defineConfig({
 ```
 
 ::: info
-<<<<<<< HEAD
-Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`browser.api`](/config/browser/api) 选项来更改这个端口号。
-=======
-Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel. You can change that with the [`api`](/config/api) option.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`api`](/config/api) 选项来更改这个端口号。
 :::
 
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
@@ -586,11 +582,7 @@ test('renders a message', async () => {
 
 ### 线程阻塞对话框 {#thread-blocking-dialogs}
 
-<<<<<<< HEAD
 使用 Vitest 浏览器时，需要注意的是像 `alert` 或 `confirm` 这样的线程阻塞对话框不能在本地使用。这是因为它们阻塞了网页，这意味着 Vitest 无法继续与该页面通信，导致执行挂起。
-=======
-When using Vitest Browser, it's important to note that thread blocking dialogs like `alert`, `confirm` or `print` cannot be used natively. This is because they block the web page, which means Vitest cannot continue communicating with the page, causing the execution to hang.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 在这类情况下，Vitest 会为相关 API 提供带有默认返回值的内置 mock，从而避免用户不小心使用同步弹窗等 Web API 时导致程序卡死。不过，仍然强烈建议用户自行对这些 Web API 进行 mock，以获得更稳定、可控的测试体验。更多内容可参考 [模拟](/guide/mocking) 章节。
 

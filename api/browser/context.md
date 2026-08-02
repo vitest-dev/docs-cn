@@ -207,11 +207,7 @@ await expect.element(button).toBeVisible() // 查询元素失败 ❌
 ::: warning
 CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
 
-<<<<<<< HEAD
-CDP 是一个特权调试 API。仅当通过 [`browser.api.allowWrite`](/config/browser/api#api-allowwrite)、[`browser.api.allowExec`](/config/browser/api#api-allowexec)、[`api.allowWrite`](/config/api#api-allowwrite) 和 [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 写入和执行操作时，该 API 才可用。
-=======
-CDP is a privileged debugging API. It is available only when browser API write and exec operations are enabled through [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec).
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+CDP 是一种特权调试 API。仅当通过 [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 的写入及执行操作时，才可使用 CDP。
 :::
 
 ```ts

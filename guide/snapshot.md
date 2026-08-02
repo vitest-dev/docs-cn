@@ -292,11 +292,7 @@ expect.extend({
 :::
 
 ::: warning
-<<<<<<< HEAD
 当自定义内联快照匹配器为异步时，Vitest 无法自动推断内联快照重写的调用位置。你必须通过在 chai 断言对象上设置 `'error'` 参数来捕获调用点：
-=======
-When custom inline snapshot matcher is asynchronous, Vitest cannot automatically infer the call location for inline snapshot rewriting. You must capture the call site by setting the `'error'` flag on the chai assertion object:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
 import { chai, expect, Snapshots } from 'vitest'
@@ -315,11 +311,7 @@ expect.extend({
 
 :::
 
-<<<<<<< HEAD
-对于 TypeScript，需扩展 `Assertion` 接口：
-=======
-For TypeScript, augment the `Matchers<R, T>` interface:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+对于 TypeScript，需扩展 `Matchers<R, T>` 接口：
 
 ```ts
 import 'vitest'

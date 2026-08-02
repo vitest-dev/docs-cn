@@ -89,23 +89,14 @@ function resolveConfig(
 ): Promise<ResolvedViteConfig>
 ```
 
-<<<<<<< HEAD
-此方法使用自定义参数解析配置。如果没有提供参数，则 `root` 将为 `process.cwd()`。
-=======
-This method resolves the config with custom parameters, without creating a Vite server. If no parameters are given, the `root` will be `process.cwd()`.
-
+此方法使用自定义参数解析配置，而不会创建 Vite 服务器。如果未提供任何参数，root 将设为 process.cwd()。
+<!-- TODO: translation -->
 It returns the resolved Vite config. The fully resolved Vitest config, including every project, lives on its `test` property.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
 import { resolveConfig } from 'vitest/node'
 
-<<<<<<< HEAD
-// vitestConfig 只解析了 “测试” 属性
-const { vitestConfig, viteConfig } = await resolveConfig({
-=======
 const viteConfig = await resolveConfig({
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
   mode: 'custom',
   configFile: false,
   resolve: {
@@ -121,10 +112,7 @@ viteConfig.test.pool // 'threads'
 ```
 
 ::: info
-<<<<<<< HEAD
-由于 Vite 的 `createServer` 工作方式， Vitest 必须在插件的 `configResolve` 钩子中解析配置。因此，此方法实际上并未在内部使用，而是仅作为公共 API 暴露。
-
-如果你将配置传递给 `startVitest` 或 `createVitest` API ， Vitest 仍然会重新解析配置。
+由于 Vite 的 `createServer` 工作方式， Vitest 必须在插件的 `configResolve` 钩子中解析配置。因此，此方法实际上并未在内部使用，而是仅作为公共 API 暴露。如果你将配置传递给 `startVitest` 或 `createVitest` API ， Vitest 仍然会重新解析配置。
 :::
 
 ::: warning
@@ -132,12 +120,8 @@ viteConfig.test.pool // 'threads'
 
 另外请注意，`viteConfig.test` 不会被完全解析。如果你需要 Vitest 配置，请使用 `vitestConfig` 代替。
 :::
-=======
-This is the same method Vitest uses internally to resolve the config before creating the server. If you pass the options down to `startVitest` or `createVitest`, Vitest resolves them again.
 
-You can pass a shared [`PluginHarness`](#pluginharness) as the third argument to reuse a logger and package installer across calls.
-:::
-
+<!-- TODO: translation -->
 ## Project Configuration Resolution
 
 This section describes how the arguments of `startVitest`, `createVitest`, and `resolveConfig` interact with [test projects](/guide/projects). Without projects, all resolved options apply to the single root project and none of this matters.
@@ -165,7 +149,6 @@ Independently of `extends`, two groups of options reach every project:
 
 - A fixed subset of CLI options that configure how tests run (`--testTimeout`, `--retry`, `--pool`, and similar) is applied to every project at the highest priority, mirroring the root resolution.
 - Run-level options only make sense for the test run as a whole: every project receives the root's resolved `coverage`, `attachmentsDir`, and `mergeReportsLabel` values.
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ## parseCLI
 

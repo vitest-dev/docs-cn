@@ -252,12 +252,7 @@ declare module 'vitest' {
 
 expect.extend({
   toBeFoo(actual, arg) {
-<<<<<<< HEAD
-    //            ^?
     // 具体实现...
-=======
-    // ... implementation
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
     return {
       pass: true,
       message: () => '',

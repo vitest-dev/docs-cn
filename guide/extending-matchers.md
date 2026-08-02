@@ -34,7 +34,7 @@ declare module 'vitest' {
   }
 }
 ```
-
+<!-- TODO: translation -->
 `R` is the assertion return type, and `T` is the type of the received value.
 
 Return `R` from matchers that run synchronously. This makes the return type `void` for a regular assertion and `Promise<void>` when the assertion is used with `.resolves`, `.rejects`, [`expect.poll`](/api/expect#poll), or [`expect.element`](/api/browser/assertions). You can use `T` when an expected argument should have the same type as the received value:
@@ -57,11 +57,7 @@ declare module 'vitest' {
 不要忘记在 `tsconfig.json` 中包含声明文件。
 :::
 
-<<<<<<< HEAD
-断言的返回值应该兼容如下接口：
-=======
-The return value of a matcher should be compatible with the following types:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
+断言的返回值应该兼容如下类型：
 
 ```ts
 interface SyncMatcherResult {
@@ -78,11 +74,7 @@ type MatcherResult = SyncMatcherResult | Promise<SyncMatcherResult>
 ```
 
 ::: warning
-<<<<<<< HEAD
-如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await`（例如：`await expect('foo').toBeFoo()`），否则可能不会按预期执行：
-=======
 If a matcher implementation is asynchronous, declare its return type as `Promise<void>` instead of `R` and don't forget to `await` it in the test:
->>>>>>> af8ee5a7fdeaf4d1a1e9d76d7a60f00174c56ed0
 
 ```ts
 expect.extend({
