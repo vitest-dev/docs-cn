@@ -1051,7 +1051,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/browser-locators',
               },
               {
-                text: 'Schema-Driven Assertions',
+                text: 'Schema 驱动断言',
                 link: '/guide/recipes/schema-matching',
               },
               {

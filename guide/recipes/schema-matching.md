@@ -1,14 +1,14 @@
 ---
-title: Schema-Driven Assertions | Recipes
+title: Schema 驱动断言 | 技巧
 ---
 
-# Schema-Driven Assertions
+# Schema 驱动断言 {#schema-driven-assertions}
 
-If your project already validates data with [Zod](https://zod.dev), [Valibot](https://valibot.dev), or [ArkType](https://arktype.io), those schemas already describe what a valid value looks like. Reusing them in tests is more direct than duplicating shape checks across `toEqual` and `toMatchObject`.
+如果项目已使用 [Zod](https://zod.dev)、[Valibot](https://valibot.dev) 或 [ArkType](https://arktype.io) 验证数据，那么这些 schema 已经定义了有效的数据结构。在测试中复用这些类型，比在 `toEqual` 和 `toMatchObject` 中重复检查数据结构更简单直接。
 
-[`expect.schemaMatching`](/api/expect#expect-schemamatching) <Version>4.0.0</Version> is an asymmetric matcher that takes any [Standard Schema v1](https://standardschema.dev) object and passes if the value conforms to it.
+[`expect.schemaMatching`](/api/expect#expect-schemamatching) <Version>4.0.0</Version> 是一个非对称匹配器，接受任意 [Standard Schema v1](https://standardschema.dev) 对象，如果待检查的值通过验证则匹配成功。
 
-## Pattern
+## 示例 {#pattern}
 
 ```ts
 import { expect, test } from 'vitest'
@@ -23,9 +23,9 @@ test('email validation', () => {
 })
 ```
 
-`expect.schemaMatching` is an asymmetric matcher, so it composes inside any equality check the same way `expect.any` or `expect.stringMatching` do:
+`expect.schemaMatching` 是一个非对称匹配器，因此可以像 `expect.any` 或 `expect.stringMatching` 一样，在任意相等性检查中组合使用：
 
-- `toEqual` / `toStrictEqual`
+- `toEqual`/`toStrictEqual`
 - `toMatchObject`
 - `toContainEqual`
 - `toThrow`
@@ -33,7 +33,7 @@ test('email validation', () => {
 - `toHaveReturnedWith`
 - `toHaveBeenResolvedWith`
 
-## Works with any Standard Schema library
+## 支持所有兼容 Standard Schema 的库 {#works-with-any-standard-schema-library}
 
 ```ts
 import { expect, test } from 'vitest'
@@ -59,9 +59,9 @@ expect(user).toEqual({
 })
 ```
 
-## Verifying call arguments
+## 验证调用参数 {#verifying-call-arguments}
 
-A common use is asserting that a mock was called with data that conforms to a schema, without spelling out every field:
+常见的用法是，在不逐一列出所有字段的情况下，断言调用模拟对象时传入的数据能够通过 schema 验证：
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -81,9 +81,9 @@ test('persists a valid user', () => {
 })
 ```
 
-Reach for `schemaMatching` when you already have a schema for the value and would otherwise spell out every property by hand. It's especially useful for assertions over generated fields like UUIDs or timestamps, where you can validate the format without predicting the exact value.
+当已有用于验证某个值的 schema，而测试原本需要手动列出它的每个属性时，可以使用 `schemaMatching`。它适用于断言 UUID 或时间戳等生成字段，因为只需验证格式是否正确，不必关心具体的值。
 
-## See also
+## 相关链接 {#see-also}
 
 - [`expect.schemaMatching`](/api/expect#expect-schemamatching)
 - [Standard Schema](https://standardschema.dev)
