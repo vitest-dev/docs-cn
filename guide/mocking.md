@@ -171,7 +171,7 @@ mocked() // 是一个 spy 函数
 
 ### 模拟当前日期 {#mock-the-current-date}
 
-要模拟 `Date` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将**不会**在不同的测试之间自动重置。
+要模拟 `Date` 和 `Temporal` 的时间，你可以使用 `vi.setSystemTime` 辅助函数。 该值将 **不会** 在不同的测试之间自动重置。
 
 请注意，使用 `vi.useFakeTimers` 也会更改 `Date` 的时间。
 
@@ -180,6 +180,8 @@ const mockDate = new Date(2022, 0, 1)
 vi.setSystemTime(mockDate)
 const now = new Date()
 expect(now.valueOf()).toBe(mockDate.valueOf())
+const nowInstant = Temporal.Now.instant()
+expect(nowInstant.epochMilliseconds).toBe(mockDate.valueOf())
 // 重置模拟的时间
 vi.useRealTimers()
 ```

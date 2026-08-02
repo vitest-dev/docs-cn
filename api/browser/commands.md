@@ -18,7 +18,7 @@ outline: deep
 ::: tip
 出于安全原因，内置的文件命令遵循 Vite 的 [`server.fs`](https://cn.G/config/server-options.html#server-fs-allow) 限制。
 
-`writeFile` 和 `removeFile` 还需要通过 [`browser.api.allowWrite`](/config/browser/api) 和 [`api.allowWrite`](/config/api#api-allowwrite) 获得写入权限。
+`writeFile` 和 `removeFile` 还需要通过 [`api.allowWrite`](/config/api#api-allowwrite) 获得写入权限。
 :::
 
 ```ts
@@ -60,7 +60,7 @@ expect(input).toHaveValue('a')
 ::: warning
 CDP session 仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
 
-CDP 是一个特权调试 API。仅当通过 [`browser.api.allowWrite`](/config/browser/api#api-allowwrite)、[`browser.api.allowExec`](/config/browser/api#api-allowexec)、[`api.allowWrite`](/config/api#api-allowwrite) 和 [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 写入和执行操作时，该 API 才可用。
+CDP 是一种特权调试 API。仅当通过 [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 的写入及执行操作时，才可使用 CDP。
 :::
 
 ## 自定义命令 {#custom-commands}
@@ -132,7 +132,7 @@ Custom commands run in the Vitest Node process and are callable from browser tes
 
 Vitest's built-in file commands validate paths against Vite's [`server.fs`](https://vite.dev/config/server-options#server-fs-allow) restrictions and separately check whether writes are allowed. Custom commands do not automatically inherit these protections. If a custom command accepts browser-provided input and uses it to read, write, delete, execute, or expose local resources, validate that input before using it.
 
-For file reads or fixture loading, use `isFileLoadingAllowed` from `vitest/node` or an explicit allowlist. For writes and deletes, also require an explicit mutation policy, such as [`browser.api.allowWrite`](/config/browser/api#api-allowwrite), [`api.allowWrite`](/config/api#api-allowwrite), and a command-specific allowed directory. For commands that execute code, shell commands, or project scripts, also check [`browser.api.allowExec`](/config/browser/api#api-allowexec) and [`api.allowExec`](/config/api#api-allowexec).
+For file reads or fixture loading, use `isFileLoadingAllowed` from `vitest/node` or an explicit allowlist. For writes and deletes, also require an explicit mutation policy, such as [`api.allowWrite`](/config/api#api-allowwrite), and a command-specific allowed directory. For commands that execute code, shell commands, or project scripts, also check [`api.allowExec`](/config/api#api-allowexec).
 
 For example, if you create your own file-writing command instead of using Vitest's built-in `writeFile`, apply the same checks:
 

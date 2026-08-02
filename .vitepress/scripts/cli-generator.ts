@@ -39,7 +39,6 @@ const skipConfig = new Set([
   'project',
   'ui',
   'browser.name',
-  'browser.fileParallelism',
   'clearCache',
   'tagsFilter',
   'listTags',
@@ -86,7 +85,7 @@ const template = options.map((option) => {
   const cli = option.cli
   const [page, ...hash] = (title.startsWith('browser.') ? title.slice(8) : title).toLowerCase().split('.')
   const config = skipConfig.has(title) ? '' : `[${title}](${title.includes('browser.') ? '/config/browser/' : '/config/'}${page}${hash.length ? `#${[page, ...hash].join('-')}` : ''})`
-  // eslint-disable-next-line e18e/prefer-static-regex
+
   return `### ${title}\n\n- **CLI:** ${cli}\n${config ? `- **Config:** ${config}\n` : ''}\n${option.description.replace(/https:\/\/vitest\.dev\//g, '/')}\n`
 }).join('\n')
 

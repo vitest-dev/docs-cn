@@ -327,6 +327,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 全局注入
 
+### injectCjsGlobals
+
+- **CLI:** `--injectCjsGlobals`
+- **Config:** [injectCjsGlobals](/config/injectcjsglobals)
+
+Inject CommonJS variables (`module`, `exports`, `require`, `__filename`, `__dirname`) into every test module. To disable, use `--no-inject-cjs-globals` (default: `true`)
+
 ### dom
 
 - **命令行终端:** `--dom`
@@ -353,48 +360,6 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 在无头模式下运行浏览器（即不打开图形用户界面）。如果在 CI 中运行 Vitest，默认情况下将启用无头模式 (默认值: `process.env.CI`)
 
-### browser.api.port
-
-- **命令行终端:** `--browser.api.port [port]`
-- **配置:** [browser.api.port](/config/browser/api#api-port)
-
-指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为 `63315`
-
-### browser.api.host
-
-- **命令行终端:** `--browser.api.host [host]`
-- **配置:** [browser.api.host](/config/browser/api#api-host)
-
-指定服务器应该监听哪些 IP 地址。设为 `0.0.0.0` 或 `true` 则监听所有地址，包括局域网地址和公共地址
-
-### browser.api.strictPort
-
-- **命令行终端:** `--browser.api.strictPort`
-- **配置:** [browser.api.strictPort](/config/browser/api#api-strictport)
-
-设置为 true 时，如果端口已被使用，则退出，而不是自动尝试下一个可用端口
-
-### browser.api.allowExec
-
-- **命令行终端:** `--browser.api.allowExec`
-- **配置:** [browser.api.allowExec](/config/browser/api#api-allowexec)
-
-允许 API 执行代码。（在非受信环境中启用此选项时需谨慎）
-
-### browser.api.allowWrite
-
-- **命令行终端:** `--browser.api.allowWrite`
-- **配置:** [browser.api.allowWrite](/config/browser/api#api-allowwrite)
-
-允许 API 编辑文件。（在非受信环境中启用此选项时需谨慎）
-
-### browser.isolate
-
-- **命令行终端:** `--browser.isolate`
-- **配置:** [browser.isolate](/config/browser/isolate)
-
-隔离运行每个浏览器测试文件。要禁用隔离请使用 `--browser.isolate=false` (默认值: `true`)
-
 ### browser.ui
 
 - **命令行终端:** `--browser.ui`
@@ -409,18 +374,19 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 浏览器模式下详情面板的默认位置。可选 `right`（水平分割）或 `bottom`（垂直分割）（默认值：`right`）
 
-### browser.fileParallelism
-
-- **命令行终端:** `--browser.fileParallelism`
-
-浏览器测试文件是否应并行运行。使用 `--browser.fileParallelism=false` 进行禁用（默认值: `true`）
-
 ### browser.connectTimeout
 
 - **命令行终端:** `--browser.connectTimeout <timeout>`
 - **配置:** [browser.connectTimeout](/config/browser/connecttimeout)
 
 如果连接浏览器时间超时，测试套件将失败 (默认值: `60_000`)
+
+### browser.dependencySourcemaps
+
+- **CLI:** `--browser.dependencySourcemaps`
+- **Config:** [browser.dependencySourcemaps](/config/browser/dependencysourcemaps)
+
+Serve sourcemaps of dependencies to the browser in headless runs, used by devtools when debugging into `node_modules`. Reported test errors are source-mapped either way. Use `--browser.dependencySourcemaps=false` to speed up test runs if you don't step into dependency code (default: `true`)
 
 ### browser.trackUnhandledErrors
 
@@ -828,7 +794,7 @@ Use TypeScript build mode
 
 ### project
 
-- **命令行终端:** `--project <name>`
+- **命令行终端:** `-p, --project <name>`
 
 如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目
 
@@ -852,6 +818,20 @@ Use TypeScript build mode
 - **配置:** [maxConcurrency](/config/maxconcurrency)
 
 测试文件执行期间并发运行的测试和测试套件的最大数量（默认值：`5`）
+<!-- TODO: translation -->
+### fsModuleCache
+
+- **CLI:** `--fsModuleCache`
+- **Config:** [fsModuleCache](/config/fsmodulecache)
+
+Cache transformed modules on the file system and reuse them between reruns (default: `false`)
+
+### fsModuleCachePath
+
+- **CLI:** `--fsModuleCachePath <path>`
+- **Config:** [fsModuleCachePath](/config/fsmodulecachepath)
+
+Directory where the `fsModuleCache` is stored (default: `node_modules/.vitest-cache`)
 
 ### expect.requireAssertions
 
@@ -935,7 +915,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--clearCache`
 
-删除所有 Vitest 缓存，包括 `experimental.fsModuleCache`，且不运行任何测试。此操作会降低后续测试运行的性能。
+删除所有 Vitest 缓存，包括 `fsModuleCache`，且不运行任何测试。此操作会降低后续测试运行的性能。
 
 ### tagsFilter
 
@@ -949,13 +929,6 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [strictTags](/config/stricttags)
 
 如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
-
-### experimental.fsModuleCache
-
-- **命令行终端:** `--experimental.fsModuleCache`
-- **配置:** [experimental.fsModuleCache](/config/experimental#experimental-fsmodulecache)
-
-在重新运行之前，启用文件系统上的缓存。
 
 ### experimental.importDurations.print
 

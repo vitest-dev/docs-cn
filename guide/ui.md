@@ -118,7 +118,7 @@ npx vite preview --outDir .vitest
 <img alt="The module info view for an inlined module" img-light src="/ui/light-module-info.png">
 <img alt="The module info view for an inlined module" img-dark src="/ui/dark-module-info.png">
 
-此视图分为上下两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示 "cached" 或 "not cached" 的徽章。在右侧你可以看到时间诊断信息：
+此视图分为上下两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`fsModuleCache`](/config/fsmodulecache)，将会显示 "cached" 或 "not cached" 的徽章。在右侧你可以看到时间诊断信息：
 
 - 自身时间：导入模块所花费的时间，不包括静态导入。
 - 总耗时：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
