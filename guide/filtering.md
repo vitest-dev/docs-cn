@@ -45,7 +45,11 @@ basic/foo.test.ts
 
 ## 按测试名称过滤 {#filtering-by-test-name}
 
+<<<<<<< HEAD
 有时，你关心的那个测试会埋在一个包含许多其他测试的文件里。`-t`（或 `--testNamePattern`）选项会按测试名称而不是文件名进行过滤。它接受一个正则表达式，并会匹配完整的测试名称，其中也包括所有 `describe` 代码块的名称：
+=======
+Sometimes the test you care about is buried in a file with many other tests. The `-t` (or `--testNamePattern`) option filters by the test's name rather than the filename. It accepts a regex pattern and matches against the full test name, which is the enclosing `describe` block names and the test name joined with `' > '` (for example `math > adds`):
+>>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
 
 ```bash
 vitest -t "handles empty input"

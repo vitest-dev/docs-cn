@@ -56,6 +56,25 @@ export default defineConfig({
 })
 ```
 
+### `testNamePattern` Matches the `>`-Joined Full Name
+
+[`testNamePattern`](/config/testnamepattern) (the `-t` CLI flag) now matches against the test's full name with the suite chain and test name joined by `' > '`, the same string shown in the reporter output. Previously the segments were joined with a single space, mirroring Jest.
+
+This only affects patterns that span the boundary between a suite and a test (or between nested suites). Patterns that match within a single name segment, and patterns that use `.`/`.*` between segments, are unaffected.
+
+```ts
+describe('math', () => {
+  test('adds', () => {})
+})
+```
+
+```bash
+vitest -t 'math adds' # [!code --]
+vitest -t 'math > adds' # [!code ++]
+```
+
+To keep a pattern working regardless of the separator, match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
+
 ### Inline Projects Inherit the Root Config by Default
 
 The [`extends`](/guide/projects#configuration) option now defaults to `true`: every project defined as an inline configuration in [`test.projects`](/guide/projects) inherits all options from the root configuration, including Vite options like `plugins` or `resolve.alias`. The options are merged with the same rules that applied to an explicit `extends: true` in Vitest 4:
@@ -623,7 +642,18 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 + `${describeTitle} > ${testTitle}`
 ```
 
+<<<<<<< HEAD
 ### 环境变量 {#envs}
+=======
+The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag): Vitest matches against the `>`-joined full name, while Jest matches the space-joined name. Update patterns that span a suite and a test accordingly, or match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
+
+```diff
+- vitest -t 'math adds'
++ vitest -t 'math > adds'
+```
+
+### Envs
+>>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
 
 与 Jest 一样，如果 `NODE_ENV` 在此之前未被设置，Vitest 会将其设为 `test`。Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID`（始终小于或等于 `maxWorkers`），如果你依赖该变量，别忘了重命名。Vitest 还暴露了 `VITEST_WORKER_ID`，它是运行中 worker 的唯一 ID 且该编号不受 `maxWorkers` 影响，每创建一个新 worker 就会递增。
 

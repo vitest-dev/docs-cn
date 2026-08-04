@@ -5,12 +5,30 @@ outline: deep
 
 # vmMemoryLimit
 
+<<<<<<< HEAD
 - **类型:** `string | number`
 - **默认值:** `1 / CPU 核心`
+=======
+- **Type:** `string | number`
+- **Default:** `1 / maxWorkers`
+>>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
 
 此选项仅影响 `vmForks` 和 `vmThreads` 线程池。
 
+<<<<<<< HEAD
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
+=======
+Specifies the memory limit for workers before they are recycled.
+
+By default, the total system memory is split evenly between workers. By increasing [`maxWorkers`](/config/maxworkers), workers have less memory available, so they're recycled more often.
+
+This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default. 
+
+Recycling exists because VM contexts [leak memory](https://github.com/nodejs/node/issues/33439): a worker's memory usage grows with every test file it runs, so a worker cannot live forever. The limit is a trade-off:
+
+- A low limit recycles workers frequently. In the `vmThreads` pool this is expensive, because destroying a worker thread runs a full garbage collection over the worker's memory and competes with running tests for the process' shared background threads. The `vmForks` pool recycles workers by letting the child process exit, which makes frequent recycling much cheaper there.
+- A high limit lets workers accumulate memory. When the combined memory usage of all workers approaches what the machine can hold, every pool slows down.
+>>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
 
 ::: tip
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
