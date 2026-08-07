@@ -642,9 +642,8 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 + `${describeTitle} > ${testTitle}`
 ```
 
-<<<<<<< HEAD
-### 环境变量 {#envs}
-=======
+<!-- TODO: translation -->
+
 The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag): Vitest matches against the `>`-joined full name, while Jest matches the space-joined name. Update patterns that span a suite and a test accordingly, or match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
 
 ```diff
@@ -652,8 +651,7 @@ The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag)
 + vitest -t 'math > adds'
 ```
 
-### Envs
->>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
+### 环境变量 {#envs}
 
 与 Jest 一样，如果 `NODE_ENV` 在此之前未被设置，Vitest 会将其设为 `test`。Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID`（始终小于或等于 `maxWorkers`），如果你依赖该变量，别忘了重命名。Vitest 还暴露了 `VITEST_WORKER_ID`，它是运行中 worker 的唯一 ID 且该编号不受 `maxWorkers` 影响，每创建一个新 worker 就会递增。
 

@@ -22,10 +22,7 @@ outline: deep
 ## vmThreads
 
 使用 [VM 上下文](https://nodejs.org/api/vm.html)（在沙箱环境中）在 `threads` 线程池中运行测试。
-
-<<<<<<< HEAD
-这使得测试运行速度更快，但 VM 模块在运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时不稳定。你的测试可能会 [泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动设置 [`vmMemoryLimit`](/config/vmmemorylimit) 阈值。
-=======
+<!-- TODO: translation -->
 This makes tests run faster, but the VM module is unstable when running [ESM code](https://github.com/nodejs/node/issues/37648). Your tests will [leak memory](https://github.com/nodejs/node/issues/33439) - to battle that, workers are restarted when they exceed [`vmMemoryLimit`](/config/vmmemorylimit).
 
 ::: warning Worker recycling is expensive in `vmThreads`
@@ -33,7 +30,6 @@ Restarting a worker thread is not free: Node.js runs a full garbage collection o
 
 The `vmForks` pool recycles workers by letting the child process exit, and the operating system reclaims the memory. If your test suite is large enough to recycle workers, `vmForks` is usually noticeably faster than `vmThreads`, even though its communication with the main process is slower.
 :::
->>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
 
 ::: warning
 在沙箱中运行代码有一些优势（测试速度更快），但也存在一些劣势。
@@ -57,10 +53,6 @@ catch (err) {
 
 ## vmForks
 
-<<<<<<< HEAD
 类似于 `vmThreads` 线程池，但使用 `child_process` 代替 `worker_threads`。测试与主进程之间的通信不如 `vmThreads` 线程池快。在 `vmForks` 线程池中可以使用与进程相关的 API，如 `process.chdir()`。请注意，此线程池具有 `vmThreads` 中列出的相同缺陷。
-=======
-Similar as `vmThreads` pool but uses `child_process` instead of `worker_threads`. Communication between tests and the main process is not as fast as with `vmThreads` pool. Process related APIs such as `process.chdir()` are available in `vmForks` pool. Please be aware that this pool has the same pitfalls listed in `vmThreads`.
 
 Unlike `vmThreads`, recycling a worker that exceeded [`vmMemoryLimit`](/config/vmmemorylimit) only requires the child process to exit, so it is much cheaper. On large test suites that recycle workers regularly, prefer `vmForks` over `vmThreads`.
->>>>>>> 8bd62ec3a572c72608ac7f771f354094b979491d
