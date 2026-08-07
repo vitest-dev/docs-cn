@@ -45,7 +45,7 @@ basic/foo.test.ts
 
 ## 按测试名称过滤 {#filtering-by-test-name}
 
-有时，你关心的那个测试会埋在一个包含许多其他测试的文件里。`-t`（或 `--testNamePattern`）选项会按测试名称而不是文件名进行过滤。它接受一个正则表达式，并会匹配完整的测试名称，其中也包括所有 `describe` 代码块的名称：
+有时，你关心的那个测试会埋在一个包含许多其他测试的文件里。`-t`（或 `--testNamePattern`）选项会按测试名称而不是文件名进行过滤。它接受一个正则表达式，并会匹配完整的测试名称，其中也包括所有 `describe` 代码块名称和测试名称通过 `' > '` 连接而成（例如 `math > adds`）：
 
 ```bash
 vitest -t "handles empty input"
