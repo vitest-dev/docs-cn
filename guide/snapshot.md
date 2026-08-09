@@ -122,7 +122,7 @@ test('button looks correct', async () => {
 })
 ```
 
-它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing)中了解更多内容。
+它会捕获屏幕截图并与参考图像进行比较，以检测意外的视觉变化。在 [视觉回归测试指南](/guide/browser/visual-regression-testing) 中了解更多内容。
 
 ## ARIA 快照 <Experimental /> <Version>4.1.4</Version> {#aria-snapshots}
 
@@ -235,7 +235,7 @@ Pretty foo: Object {
 可通过 `vitest` 提供的 `Snapshots` 组合式函数构建自定义快照匹配器。这些函数允许你在生成快照前对值进行转换，同时完整保留快照生命周期支持（创建、更新、内联重写）。
 
 ```ts
-import { expect, test, Snapshots } from 'vitest'
+import { expect, Snapshots, test } from 'vitest'
 
 const { toMatchFileSnapshot, toMatchInlineSnapshot, toMatchSnapshot } = Snapshots
 
@@ -252,7 +252,7 @@ expect.extend({
 })
 
 test('file snapshot', () => {
-  // create __snapshots__/demo.test.ts with
+  // 创建 __snapshots__/demo.test.ts，内容如下：
   // > exports[`file snapshot 1`] = `"extra long"`
   expect('extra long string oh my gerd').toMatchTrimmedSnapshot(10)
 })
@@ -262,7 +262,7 @@ test('inline snapshot', () => {
 })
 
 test('raw file snapshot', async () => {
-  // create raw-file.txt with:
+  // 创建 raw-file.txt，内容如下：
   // > crazy long
   await expect('crazy long string oh my gerd').toMatchTrimmedFileSnapshot('./raw-file.txt')
 })
@@ -544,7 +544,7 @@ Vitest 提供了与 [Jest](https://jestjs.io/docs/snapshot-testing) 几乎兼容
 
 ### 2. `printBasicPrototype` 默认为 `false` {#_2-printbasicprototype-is-default-to-false}
 
-Jest 和 Vitest的快照功能均基于 `pretty-format` 实现，但 Vitest 在 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 基础上应用了自定义的快照默认配置。具体而言，Vitest将 `printBasicPrototype` 设为 `false` 以生成更简洁的快照输出，而 Jest 29.0.0 以下版本默认将该值设为 `true`。
+Jest 和 Vitest 的快照功能均基于 `pretty-format` 实现，但 Vitest 在 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 基础上应用了自定义的快照默认配置。具体而言，Vitest 将 `printBasicPrototype` 设为 `false` 以生成更简洁的快照输出，而 Jest 29.0.0 以下版本默认将该值设为 `true`。
 
 ```ts
 import { expect, test } from 'vitest'

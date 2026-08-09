@@ -100,18 +100,18 @@ Duration  8.75s (transform 4.02s, setup 629ms, import 5.52s, tests 2.52s, enviro
 # 第二次运行
 Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, environment 0ms, prepare 3ms)
 ```
-<!-- TODO: translation -->
-## Node Compile Cache
 
-Vitest supports Node's [on-disk compile cache](https://nodejs.org/api/cli.html#node_compile_cachedir): when the `NODE_COMPILE_CACHE` environment variable points at a directory, the V8 bytecode of Vitest's own modules and of your externalized dependencies is written to disk and reused by later runs instead of being recompiled. Vitest propagates the variable to every worker, and workers persist the modules they compiled when they shut down.
+## Node 编译缓存 {#node-compile-cache}
+
+Vitest 支持 Node 的[磁盘编译缓存](https://nodejs.org/api/cli.html#node_compile_cachedir)。将 `NODE_COMPILE_CACHE` 环境变量设置为一个目录后，Vitest 自身模块和外部化依赖项的 V8 字节码会写入磁盘，后续运行时可以直接复用，无须重新编译。Vitest 会将该环境变量传递给每个 worker；worker 关闭时，会把它所编译的模块持久化到磁盘。
 
 ```shell
 NODE_COMPILE_CACHE=node_modules/.cache/node-compile-cache vitest
 ```
 
-The first run with an empty directory pays for serializing the compiled modules, so this is only worth enabling when the directory survives between runs: local runs, or CI pipelines that cache the directory. `NODE_DISABLE_COMPILE_CACHE=1` disables the cache entirely, taking precedence over `NODE_COMPILE_CACHE`.
+首次使用空目录时，序列化已编译模块会产生额外开销。因此，只有缓存目录能在多次运行之间保留，启用编译缓存才有收益。这适用于本地运行，也适用于会缓存该目录的 CI 流水线。设置 `NODE_DISABLE_COMPILE_CACHE=1` 可完全禁用编译缓存，其优先级高于 `NODE_COMPILE_CACHE`。
 
-Note that Vitest automatically disables the compile cache in workers when the `v8` coverage provider is enabled — V8 serializes cached scripts without the source positions that precise coverage relies on.
+请注意，启用 `v8` 覆盖率 provider 后，Vitest 会自动禁用 worker 中的编译缓存。这是因为 V8 序列化缓存脚本时不会保留精确覆盖率所需的源码位置信息。
 
 ## 运行池 {#pool}
 
@@ -164,7 +164,7 @@ VITEST_BLOB_LABEL=linux vitest run --reporter=blob --shard=1/3
 ```
 
 ::: details GitHub Actions 示例
-This setup is also used at https://github.com/vitest-tests/test-sharding.
+此配置也用于 https://github.com/vitest-tests/test-sharding。
 
 ```yaml
 # 灵感来至于 https://playwright.dev/docs/test-sharding

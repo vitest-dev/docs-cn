@@ -35,7 +35,7 @@ Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包
 
 ## `workspace` 已弃用 {#workspace-is-deprecated}
 
-为了简化配置，团队决定弃用单独的 `vitest.workspace` 文件，推荐仅在根配置中使用 `projects` 选项。这也简化了全局选项的配置方式（因为当你没有根配置时，不需要再猜测如何添加报告器）。
+为了简化配置，团队决定弃用单独的 `vitest.workspace` 文件，推荐仅在顶级配置中使用 `projects` 选项。这也简化了全局选项的配置方式（因为当你没有顶级配置时，不需要再猜测如何添加报告器）。
 
 我们还决定弃用 `workspace` 这个名称，因为它与 PNPM 等工具通过该选项提供 monorepo 支持功能存在冲突。Vitest 不会为这些项目分配独立的 `工作目录（CWD）`，而是将其视为子 Vitest 实例。这也为我们提供了更多空间，以便在不破坏其他功能的情况下为 monorepo 提供更好的解决方案。
 

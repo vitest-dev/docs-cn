@@ -56,7 +56,7 @@
 
 - **命令行终端:** `--api.port [port]`
 
-指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为`51204`
+指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为 `51204`
 
 ### api.host
 
@@ -200,7 +200,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **命令行终端:** `--coverage.thresholds.perFile <boolean>`
 - **配置:** [coverage.thresholds.perFile](/config/coverage#coverage-thresholds-perfile)
 
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。对象形式仅在配置文件中可用。
+检查每个文件的阈值。`--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。对象形式仅在配置文件中可用。
 
 ### coverage.thresholds.autoUpdate
 
@@ -238,7 +238,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 - **命令行终端:** `--coverage.ignoreClassMethods <name>`
 - **配置:** [coverage.ignoreClassMethods](/config/coverage#coverage-ignoreclassmethods)
 
-覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods) 。该选项仅适用于 istanbul providers（默认值：`[]`）
+覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods)。该选项仅适用于 istanbul providers（默认值：`[]`）
 
 ### coverage.processingConcurrency
 
@@ -258,25 +258,25 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage
 
 - **命令行终端:** `--coverage.watermarks.statements <watermarks>`
 
-语句覆盖率高/低阈值，格式： `<high>,<low>`
+语句覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.lines
 
 - **命令行终端:** `--coverage.watermarks.lines <watermarks>`
 
-行覆盖率高/低阈值，格式： `<high>,<low>`
+行覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.branches
 
 - **命令行终端:** `--coverage.watermarks.branches <watermarks>`
 
-分支覆盖率高/低阈值，格式： `<high>,<low>`
+分支覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.functions
 
 - **命令行终端:** `--coverage.watermarks.functions <watermarks>`
 
-函数覆盖率高/低阈值，格式： `<high>,<low>`
+函数覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.changed
 
@@ -329,10 +329,10 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 ### injectCjsGlobals
 
-- **CLI:** `--injectCjsGlobals`
-- **Config:** [injectCjsGlobals](/config/injectcjsglobals)
+- **命令行终端:** `--injectCjsGlobals`
+- **配置:** [injectCjsGlobals](/config/injectcjsglobals)
 
-Inject CommonJS variables (`module`, `exports`, `require`, `__filename`, `__dirname`) into every test module. To disable, use `--no-inject-cjs-globals` (default: `true`)
+向每个测试模块中注入 CommonJS 变量（`module`、`exports`、`require`、`__filename`、`__dirname`）。如需禁用请使用 `--no-inject-cjs-globals`（默认值：`true`）。
 
 ### dom
 
@@ -383,10 +383,10 @@ Inject CommonJS variables (`module`, `exports`, `require`, `__filename`, `__dirn
 
 ### browser.dependencySourcemaps
 
-- **CLI:** `--browser.dependencySourcemaps`
-- **Config:** [browser.dependencySourcemaps](/config/browser/dependencysourcemaps)
+- **命令行终端:** `--browser.dependencySourcemaps`
+- **配置:** [browser.dependencySourcemaps](/config/browser/dependencysourcemaps)
 
-Serve sourcemaps of dependencies to the browser in headless runs, used by devtools when debugging into `node_modules`. Reported test errors are source-mapped either way. Use `--browser.dependencySourcemaps=false` to speed up test runs if you don't step into dependency code (default: `true`)
+在无头模式下运行测试时，向浏览器提供依赖项的 source map，供开发者工具调试 `node_modules` 中的代码。无论是否启用此选项，Vitest 都会使用 source map 映射测试错误。如果不需要单步调试依赖项代码，可使用 `--browser.dependencySourcemaps=false` 加快测试运行速度（默认值：`true`）
 
 ### browser.trackUnhandledErrors
 
@@ -506,13 +506,13 @@ Serve sourcemaps of dependencies to the browser in headless runs, used by devtoo
 - **配置:** [dangerouslyIgnoreUnhandledErrors](/config/dangerouslyignoreunhandlederrors)
 
 忽略任何未处理的错误
-<!-- TODO: translation -->
+
 ### changed
 
-- **CLI:** `--changed [since]`
-- **Config:** [changed](/config/changed)
+- **命令行终端:** `--changed [since]`
+- **配置:** [changed](/config/changed)
 
-Run tests that are affected by the changed files (default: `false`)
+运行受文件变更影响的测试（默认值：`false`）。
 
 ### sequence.shuffle.files
 
@@ -540,7 +540,7 @@ Run tests that are affected by the changed files (default: `false`)
 - **命令行终端:** `--sequence.seed <seed>`
 - **配置:** [sequence.seed](/config/sequence#sequence-seed)
 
-设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。更多信息请参阅 ["随机种子"](https://en.wikipedia.org/wiki/Random_seed)。
+设置随机化种子。如果 --sequence.shuffle（随机序列）是 `false`，则此选项无效。更多信息请参阅 ["随机种子"](https://en.wikipedia.org/wiki/Random_seed)。
 
 ### sequence.hooks
 
@@ -594,7 +594,7 @@ Run tests that are affected by the changed files (default: `false`)
 - **命令行终端:** `--retry.count <times>`
 - **配置:** [retry.count](/config/retry#retry-count)
 
-如果测试失败，重试特定次数（默认值： `0`）
+如果测试失败，重试特定次数（默认值：`0`）
 
 ### retry.delay
 
@@ -818,20 +818,20 @@ Use TypeScript build mode
 - **配置:** [maxConcurrency](/config/maxconcurrency)
 
 测试文件执行期间并发运行的测试和测试套件的最大数量（默认值：`5`）
-<!-- TODO: translation -->
+
 ### fsModuleCache
 
-- **CLI:** `--fsModuleCache`
-- **Config:** [fsModuleCache](/config/fsmodulecache)
+- **命令行终端:** `--fsModuleCache`
+- **配置:** [fsModuleCache](/config/fsmodulecache)
 
-Cache transformed modules on the file system and reuse them between reruns (default: `false`)
+将转换后的模块缓存到文件系统中，以便在重新运行测试时复用（默认值：`false`）
 
 ### fsModuleCachePath
 
-- **CLI:** `--fsModuleCachePath <path>`
-- **Config:** [fsModuleCachePath](/config/fsmodulecachepath)
+- **命令行终端:** `--fsModuleCachePath <path>`
+- **配置:** [fsModuleCachePath](/config/fsmodulecachepath)
 
-Directory where the `fsModuleCache` is stored (default: `node_modules/.vitest-cache`)
+`fsModuleCache` 的存储目录（默认值：`node_modules/.vitest-cache`）
 
 ### expect.requireAssertions
 
@@ -852,7 +852,7 @@ Directory where the `fsModuleCache` is stored (default: `node_modules/.vitest-ca
 - **命令行终端:** `--expect.poll.timeout <timeout>`
 - **配置:** [expect.poll.timeout](/config/expect#expect-poll-timeout)
 
-断言的轮询超时（以毫秒为单位） `expect.poll()` (默认值: `1000`)
+断言的轮询超时（以毫秒为单位）`expect.poll()` (默认值: `1000`)
 
 ### printConsoleTrace
 

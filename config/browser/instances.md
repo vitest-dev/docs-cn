@@ -13,7 +13,7 @@ outline: deep
 你可以指定大多数 [项目选项](/config/)（未标记<CRoot />图标的）以及部分 `browser` 选项，如 `browser.testerHtmlPath`。
 
 ::: warning
-每个浏览器配置都会继承根配置的选项：
+每个浏览器配置都会继承顶级配置的选项：
 
 ```ts{3,9} [vitest.config.ts]
 export default defineConfig({
@@ -26,7 +26,7 @@ export default defineConfig({
         {
           // 将同时包含 "root" 和 "browser" 两个全局初始化文件
           setupFile: ['./browser-setup-file.js'],
-          // 隐式继承根配置的"testerHtmlPath" // [!code warning]
+          // 隐式继承顶级配置的"testerHtmlPath" // [!code warning]
           // testerHtmlPath: './custom-path.html', // [!code warning]
         },
       ],

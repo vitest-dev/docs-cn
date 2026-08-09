@@ -137,12 +137,12 @@ afterEach(() => {
  - `beforeEach` 钩子执行（按定义顺序，或基于 [`sequence.hooks`](/config/sequence#sequence-hooks)）
  - 测试函数执行
  - `afterEach` 钩子执行（默认以 `sequence.hooks: 'stack'` 倒序执行）
- - Cleanup functions returned from `beforeEach` hooks execute (reverse order by default with `sequence.hooks: 'stack'`)
+ - 执行 `beforeEach` 钩子返回的清理函数（默认以 `sequence.hooks: 'stack'` 倒序执行）
  - [`onTestFinished`](/api/hooks#ontestfinished) 回调执行（始终倒序）
  - 如果测试失败：[`onTestFailed`](/api/hooks#ontestfailed) 回调执行
  - 注意：如果设置了 `repeats` 或 `retry`，上述所有步骤会再次执行
 6. **[`afterAll`](/api/hooks#afterall) 钩子:** 套件中所有测试完成后执行一次
-7. **Cleanup functions returned from `beforeAll` hooks:** Run once after all tests in the suite complete
+7. **`beforeAll` 钩子返回的清理函数:** 套件中的所有测试完成后执行一次
 
 **执行流程示例:**
 
@@ -166,7 +166,7 @@ describe('User API', () => {
     console.log('beforeAll')
 
     return function beforeAllCleanup() {
-      // Runs once afterAll hooks have run
+      // 在 afterAll 钩子执行后运行一次
       console.log('beforeAllCleanup')
     }
   })
@@ -183,7 +183,7 @@ describe('User API', () => {
     console.log('beforeEach')
 
     return function beforeEachCleanup() {
-      // Runs after afterEach hooks have run
+      // 在 afterEach 钩子执行后运行
       console.log('beforeEachCleanup')
     }
   })

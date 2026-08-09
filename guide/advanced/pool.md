@@ -1,5 +1,5 @@
 # Custom Pool <Badge type="danger">advanced</Badge> {#custom-pool}
-
+<!-- TODO: translation -->
 ::: warning
 This is an advanced, experimental and very low-level API. If you just want to [run tests](/guide/), you probably don't need this. It is primarily used by library authors.
 :::
