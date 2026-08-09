@@ -4,10 +4,10 @@ outline: deep
 ---
 
 # fsModuleCache <Version>5.0.0</Version>
-
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--fsModuleCache`, `--fsModuleCache=false`
+<!-- TODO: translation -->
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:** `--fsModuleCache`, `--fsModuleCache=false`
 
 In watch mode, Vitest caches all transformed files in memory, which makes reruns fast. However, this cache is discarded once the test run finishes. Enabling this option allows Vitest to persist the transformed modules on the file system, so they can be reused across reruns and separate Vitest processes.
 

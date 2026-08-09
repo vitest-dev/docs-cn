@@ -11,8 +11,8 @@ outline: deep
 <!-- TODO: translation -->
 ## benchmark.enabled
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Enables the benchmark project. When set, Vitest creates a dedicated benchmark project alongside your regular test project, runs files matching [`benchmark.include`](#benchmark-include) in it, and exposes the [`bench` fixture](/guide/test-context#bench) to those files. Running `vitest bench` enables this automatically.
 
@@ -41,15 +41,15 @@ Enables the benchmark project. When set, Vitest creates a dedicated benchmark pr
 
 ## benchmark.retainSamples
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Include the `samples` array of per-iteration timings on every benchmark result. Disabled by default to reduce memory usage; enable when a custom reporter or API consumer needs the raw samples.
 
 ## benchmark.provider
 
-- **Type:** `string`
-- **Default:** `undefined` (uses the built-in provider)
+- **类型:** `string`
+- **默认值:** `undefined` (uses the built-in provider)
 
 The benchmark provider that executes registered benchmarks and returns their results. Set this to a module path whose default export implements `BenchmarkProvider`. Relative paths are resolved from the project root.
 
@@ -57,7 +57,7 @@ See the [Custom Benchmark Provider](/guide/advanced/benchmark-provider) guide fo
 
 ## benchmark.suppressExportGetterWarnings
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `boolean`
+- **默认值:** `false`
 
 Suppress the warning printed when a benchmark accesses module export getters too many times. Vitest tracks getter access during benchmark runs because Vite's module runner wraps every export in a getter, and excessive access can dominate the measurement (see [Module Runner Overhead](/guide/benchmarking#module-runner-overhead)). Enable this when you've intentionally accepted the overhead, or when the warning is noisy for benchmarks where the getter cost is negligible.

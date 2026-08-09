@@ -5,9 +5,9 @@ outline: deep
 <!-- TODO: translation -->
 ### changed <CRoot />
 
-- **Type:** `boolean | string`
-- **Default:** `false`
-- **CLI:** `--changed`, `--changed=HEAD~1`
+- **类型:** `boolean | string`
+- **默认值:** `false`
+- **命令行终端:** `--changed`, `--changed=HEAD~1`
 
 Run tests only against changed files. If no value is provided, it will run tests against uncommitted changes (including staged and unstaged).
 

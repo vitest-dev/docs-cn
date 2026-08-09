@@ -4,9 +4,9 @@ title: injectCjsGlobals | Config
 
 # injectCjsGlobals
 
-- **Type:** `boolean`
-- **Default:** `true`
-- **CLI:** `--no-inject-cjs-globals`, `--injectCjsGlobals=false`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--no-inject-cjs-globals`, `--injectCjsGlobals=false`
 
 Inject CommonJS module variables (`module`, `exports`, `require`, `__filename`, `__dirname`) into every module processed by Vitest.
 
