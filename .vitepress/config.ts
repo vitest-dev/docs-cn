@@ -613,7 +613,7 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
-            text: 'Browser Mode',
+            text: '浏览器模式',
             collapsed: false,
             items: [
               {
