@@ -8,6 +8,6 @@ outline: deep
 - **类型:** `string`
 - **默认值:** `'.vitest/attachments'`
 
-Directory path for storing file attachments created by [`context.annotate`](/guide/test-context#annotate).
+指定通过 [`context.annotate`](/guide/test-context#annotate) 创建的文件附件的存储目录。
 
-This option is resolved relative to the root Vitest config. When using [`projects`](/guide/projects), all projects share the same `attachmentsDir`; it cannot be configured per project.
+Vitest 会相对于根配置解析此路径。使用 [`projects`](/guide/projects) 时，所有项目共用同一个 `attachmentsDir`，无法为每个项目单独配置。
