@@ -39,15 +39,15 @@ export default defineConfig({
 ```
 
 [`toMatchScreenshot` 断言中所有可用选项](/api/browser/assertions#options) 均可在此配置。此外还提供两个路径解析函数：`resolveScreenshotPath` 和 `resolveDiffPath`。
-<!-- TODO: translation -->
+
 ## browser.expect.toMatchScreenshot.screenshotDirectory
 
-- **Type:** `string | undefined`
-- **Default:** `__screenshots__`
+- **类型:** `string | undefined`
+- **默认值:** `__screenshots__`
 
-The directory name used for storing reference screenshots.
+用于存放参考截图的目录名称。
 
-This value is passed as `screenshotDirectory` to [`browser.expect.toMatchScreenshot.resolveScreenshotPath`](#browserexpecttomatchscreenshotresolvescreenshotpath) and [`browser.expect.toMatchScreenshot.resolveDiffPath`](#browserexpecttomatchscreenshotresolvediffpath), and used in the default path resolution of `resolveScreenshotPath`.
+该值会作为 `screenshotDirectory` 参数传递给 [`browser.expect.toMatchScreenshot.resolveScreenshotPath`](#browserexpecttomatchscreenshotresolvescreenshotpath) 和 [`browser.expect.toMatchScreenshot.resolveDiffPath`](#browserexpecttomatchscreenshotresolvediffpath)。`resolveScreenshotPath` 的默认路径解析逻辑也会使用该值。
 
 ## browser.expect.toMatchScreenshot.resolveScreenshotPath
 
@@ -115,7 +115,7 @@ This value is passed as `screenshotDirectory` to [`browser.expect.toMatchScreens
 
 - `project: TestProject` <Version type="experimental">4.1.6</Version> <Experimental />
 
-  The [`TestProject`](/api/advanced/test-project) the test belongs to.
+  测试所属的 [`TestProject`](/api/advanced/test-project)。
 
 例如，以下示例按浏览器分组存储截图：
 
