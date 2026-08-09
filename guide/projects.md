@@ -116,7 +116,7 @@ export default defineConfig({
 此模式只会包含带有 `e2e` 或 `unit` 字样的 `vitest.config` 文件的项目。
 
 你还可以使用内联配置定义项目。两种语法可以同时使用。
-<!-- TODO: translation -->
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -126,8 +126,8 @@ export default defineConfig({
       // 匹配 packages 文件夹下的所有文件和文件夹
       'packages/*',
       {
-        // inline projects inherit the options
-        // from this config file by default
+        // 默认情况下，内联项目会继承
+        // 此配置文件中的选项
         test: {
           include: ['tests/**/*.{browser}.test.{ts,js}'],
           // 建议内联配置时定义项目名称
@@ -136,8 +136,8 @@ export default defineConfig({
         }
       },
       {
-        // add "extends: false" to ignore
-        // the options defined in this config file
+        // 添加 "extends: false" 可忽略
+        // 此配置文件中定义的选项
         extends: false,
         test: {
           include: ['tests/**/*.{node}.test.{ts,js}'],
@@ -236,8 +236,8 @@ bun run test --project e2e --project unit
 :::
 
 ## 配置说明 {#configuration}
-<!-- TODO: translation -->
-Projects defined with an inline configuration inherit all options from the root-level configuration. This is controlled by the `extends` option, which is enabled by default since Vitest 5.0:
+
+使用内联配置定义的项目会继承根配置中的所有选项。是否继承由 `extends` 选项控制。从 Vitest 5.0 开始，该选项默认启用：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -249,15 +249,15 @@ export default defineConfig({
     pool: 'threads',
     projects: [
       {
-        // inherits options from this config like plugins and pool
-        // (`extends: true` is the default)
+        // 继承此配置中的 plugins、pool 等选项
+        // （默认值为 `extends: true`）
         test: {
           name: 'unit',
           include: ['**/*.unit.test.ts'],
         },
       },
       {
-        // won't inherit any options from this config
+        // 不继承此配置中的任何选项
         extends: false,
         test: {
           name: 'integration',
@@ -269,7 +269,7 @@ export default defineConfig({
 })
 ```
 
-The `extends` option also accepts a path to another config file if you want to inherit options from a config file other than the root config:
+如果要继承根配置以外的其他配置文件，还可以将该配置文件的路径传给 `extends`：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -289,15 +289,15 @@ export default defineConfig({
 })
 ```
 
-All options from the extended config are merged with the project's own options. Note that arrays like `setupFiles` are concatenated, not overridden. A few options are treated specially:
+继承的配置会与项目自身的配置合并。请注意，`setupFiles` 等数组选项会进行拼接，而不是被覆盖。以下选项会采用特殊的处理方式：
 
-- `name` and `projects` are never inherited.
-- `globalSetup` is not inherited from the root config: the root-level `globalSetup` already runs once per test run, so inheriting it would run the same files again for every project. It is still inherited when extending a non-root config file.
-- The project's own `tags` replace the inherited array instead of being merged with it.
+- `name` 和 `projects` 永远不会被继承。
+- 不会从根配置继承 `globalSetup`。根配置中的 `globalSetup` 已经会在每次测试运行时执行一次，如果继续继承，每个项目都会再次运行相同的文件。不过，继承非根配置文件时，`globalSetup` 仍会被继承。
+- 如果项目自身定义了 `tags`，该数组会直接替换继承的值，而不会与其合并。
 
-If you run Vitest through the [advanced API](/guide/advanced/), see [Project Configuration Resolution](/guide/advanced/#project-configuration-resolution) for how the programmatic configuration participates in inheritance.
+如果通过 [高级 API](/guide/advanced/) 运行 Vitest，请参阅 [项目配置解析](/guide/advanced/#project-configuration-resolution)，了解通过编程方式传入的配置如何参与继承。
 
-Projects referenced as config files or directories do not inherit any options from the root config. You can create a shared config file and merge it with the project config yourself:
+通过配置文件或目录引用的项目不会继承根配置中的任何选项。你可以创建一个共享配置文件，再自行将其与项目配置合并：
 
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
@@ -313,15 +313,15 @@ export default mergeConfig(
 )
 ```
 
-::: danger Unsupported Options
-Some of the configuration options are not allowed in a project config. Most notably:
+::: danger 不支持的选项
+某些配置选项不允许在项目配置中使用。最值得注意的是：
 
-所有不支持在项目配置中使用的配置选项，在 ["配置"](/config/) 指南中会用 <CRoot /> 标记。它们必须在根配置文件中定义一次。
+项目配置中不能使用部分配置选项。在 [“配置”](/config/) 指南中，所有不支持项目配置的选项都会用 <CRoot /> 标记。这些选项只能在根配置文件中定义一次。
 :::
 
-## Nested Projects
+## 嵌套项目 {#nested-projects}
 
-A project referenced as a config file (or a directory containing one) can declare `projects` itself. Such a config behaves like the root config: it doesn't run any tests on its own, it only provides the projects that do. This makes it possible to reference a workspace that already defines its own projects:
+通过配置文件（或包含配置文件的目录）引用的项目，也可以在自身配置中声明 `projects`。这类配置的行为与根配置相同：它本身不运行测试，只负责提供实际运行测试的项目。借助这种方式，可以直接引用已经定义了项目的工作区：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -357,11 +357,11 @@ export default defineProject({
 })
 ```
 
-Nested projects work the same way as projects defined in the root config: inline configurations extend the config that declares them (the `app` config here, not the root one), `extends` paths are resolved relative to it, and its own `globalSetup` is inherited by the extending projects [like any other non-root config](#configuration).
+嵌套项目的行为与根配置中定义的项目相同。内联配置会继承声明它们的配置（在本例中是 `app` 配置，而不是根配置），`extends` 中的路径也会相对于该配置进行解析。该配置自身的 `globalSetup` 也会被这些项目继承，这与其他 [非根配置](#configuration) 的行为一致。
 
-The names of nested projects are prefixed with the name of the config that declares them, so the example above creates the `app (unit)` and `app (e2e)` projects. The `--project` filter matches the prefix as well: `--project app` runs every project of the `app` config, while `--project "app (unit)"` runs only one of them.
+嵌套项目的名称会加上声明它们的配置名称作为前缀。因此，上面的示例会创建 `app (unit)` 和 `app (e2e)` 两个项目。`--project` 也可以匹配此前缀：`--project app` 会运行 `app` 配置中的所有项目，而 `--project "app (unit)"` 只运行其中一个项目。
 
-To also run the tests of the config that declares `projects`, reference its own config file:
+如果还要运行声明了 `projects` 的配置自身所包含的测试，需要在 `projects` 中引用该配置文件本身：
 
 ```ts [packages/app/vitest.config.ts]
 import { defineProject } from 'vitest/config'
@@ -371,7 +371,7 @@ export default defineProject({
     name: 'app',
     include: ['**/*.test.ts'],
     projects: [
-      // the "app" project runs its own "include" alongside "app (unit)"
+      // "app" 项目会根据自身的 "include" 运行测试，并与 "app (unit)" 项目一同执行
       './vitest.config.ts',
       {
         test: {
@@ -384,4 +384,4 @@ export default defineProject({
 })
 ```
 
-Note that only config files can define nested projects. The `projects` option inside an inline configuration is not supported.
+请注意，只有配置文件可以定义嵌套项目，内联配置中不支持 `projects` 选项。
