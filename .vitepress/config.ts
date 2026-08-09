@@ -1055,7 +1055,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/schema-matching',
               },
               {
-                text: 'Auto-Cleanup with `using`',
+                text: '使用 `using` 自动清理',
                 link: '/guide/recipes/explicit-resources',
               },
               {

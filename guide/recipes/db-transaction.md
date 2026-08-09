@@ -8,7 +8,7 @@ title: 一个测试对应一个数据库事务 | 技巧
 
 Vitest 通过 [`aroundEach`](/api/hooks#aroundeach) <Version>4.1.0</Version> 和 [scoped fixture](/guide/test-context#fixture-scopes) <Version>3.2.0</Version> 提供了这一能力。
 
-## 示例 {#pattern}
+## 用法 {#pattern}
 
 ```ts
 import { test as baseTest } from 'vitest'

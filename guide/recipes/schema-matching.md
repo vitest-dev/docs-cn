@@ -8,7 +8,7 @@ title: Schema 驱动断言 | 技巧
 
 [`expect.schemaMatching`](/api/expect#expect-schemamatching) <Version>4.0.0</Version> 是一个非对称匹配器，接受任意 [Standard Schema v1](https://standardschema.dev) 对象，如果待检查的值通过验证则匹配成功。
 
-## 示例 {#pattern}
+## 用法 {#pattern}
 
 ```ts
 import { expect, test } from 'vitest'

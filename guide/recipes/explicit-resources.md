@@ -1,16 +1,16 @@
 ---
-title: Auto-Cleanup with `using` | Recipes
+title: 使用 `using` 自动清理 | 技巧
 ---
 
-# Auto-Cleanup with `using`
+# 使用 `using` 自动清理 {#auto-cleanup-with-using}
 
-Spies and mocks need to be restored after the test that installed them, otherwise state leaks between tests. The usual approaches are an `afterEach(() => vi.restoreAllMocks())` at the suite level or a per-test [`onTestFinished(() => spy.mockRestore())`](/api/hooks#ontestfinished) inline.
+测试中创建的 spy 和 mock 需要在测试结束后恢复，否则状态会泄漏到其他测试。常见做法是在测试套件层级使用 `afterEach(() => vi.restoreAllMocks())`，或者在每个测试中内联调用 [`onTestFinished(() => spy.mockRestore())`](/api/hooks#ontestfinished)。
 
-If your runtime supports [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management) (Node.js 24+, or via TypeScript 5.2+ in modern bundlers), there's a tighter option: declare the spy with `using` instead of `const`, and restoration happens automatically when the block exits.
+如果运行时支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management)（Node.js 24 及以上版本，或在现代打包工具中使用 TypeScript 5.2 及以上版本），还可以采用更简洁的方式：使用 `using` 而不是 `const` 声明 spy。退出代码块时，spy 会自动恢复。
 
-This works for [`vi.spyOn`](/api/vi#vi-spyon), [`vi.fn`](/api/vi#vi-fn), and [`vi.doMock`](/api/vi#vi-domock). <Version>3.2.0</Version>
+此方式适用于 [`vi.spyOn`](/api/vi#vi-spyon)、[`vi.fn`](/api/vi#vi-fn) 和 [`vi.doMock`](/api/vi#vi-domock)。<Version>3.2.0</Version>
 
-## Pattern
+## 用法 {#pattern}
 
 ```ts
 import { expect, it, vi } from 'vitest'
@@ -25,10 +25,10 @@ it('calls console.log', () => {
   expect(spy).toHaveBeenCalled()
 })
 
-// console.log is restored here without an afterEach
+// console.log 会在这里恢复，无须使用 afterEach
 ```
 
-The same pattern works with `vi.doMock`, which returns a disposable that queues an unmock when the scope exits:
+同样的用法也适用于 `vi.doMock`。它会返回一个可释放对象，并在退出作用域时自动取消模块模拟：
 
 ```ts
 import { expect, it, vi } from 'vitest'
@@ -42,19 +42,19 @@ it('uses the mocked module, then the real one', async () => {
     expect(loadUser('alice').name).toBe('Alice')
   }
 
-  // ./users is unmocked from here on
+  // 从这里开始，./users 不再处于模拟状态
 })
 ```
 
-## Scoped to any block
+## 限定于任意代码块内 {#scoped-to-any-block}
 
-`using` is block-scoped, so you can install a spy for just part of a test. This is the case neither `afterEach` nor `onTestFinished` covers, since both run after the test ends:
+`using` 采用块级作用域，因此可以只在测试的某一部分启用 spy。`afterEach` 和 `onTestFinished` 都无法实现这一点，因为它们只能在测试结束后运行：
 
 ```ts
 import { expect, it, vi } from 'vitest'
 
 it('only mocks fetch for the auth call', async () => {
-  // real fetch here
+  // 此处使用真实的 fetch
   await preloadConfig()
 
   {
@@ -65,21 +65,21 @@ it('only mocks fetch for the auth call', async () => {
     expect(fetchSpy).toHaveBeenCalledOnce()
   }
 
-  // real fetch is back
+  // 恢复使用真实的 fetch
   await reportSuccess()
 })
 ```
 
-This is also a way to avoid turning on the global [`restoreMocks: true`](/config/restoremocks) config when only a handful of calls actually need restoration.
+如果只有少数调用需要恢复，也可以采用这种方式，避免在全局配置中启用 [`restoreMocks: true`](/config/restoremocks)。
 
-## Compatibility
+## 兼容性 {#compatibility}
 
-`using` requires support for the TC39 Explicit Resource Management proposal:
+使用 `using` 需要环境支持 TC39 显式资源管理提案：
 
-- TypeScript ≥ 5.2 (with `target: 'es2022'` or higher and the `disposable` lib included by default).
-- Node.js ≥ 24 (or Node 22+ with `--harmony`-style flags) for native runtime support.
+- TypeScript ≥ 5.2（`target` 需设为 `'es2022'` 或更高版本，并包含默认启用的 `disposable` 库）。
+- Node.js ≥ 24（也可以使用 Node.js 22+ 也可以通过启用 `--harmony` 这类选项）。
 
-If your environment doesn't support it yet, the closest equivalent for whole-test cleanup is [`onTestFinished`](/api/hooks#ontestfinished), which registers the cleanup inline and runs after the test completes regardless of pass or failure:
+如果当前环境尚不支持，可以使用 [`onTestFinished`](/api/hooks#ontestfinished) 实现效果最接近的整项测试清理。它允许在测试中直接注册清理逻辑，并且无论测试通过还是失败，都会在测试结束后执行：
 
 ```ts
 import { expect, it, onTestFinished, vi } from 'vitest'
@@ -93,13 +93,13 @@ it('calls console.log', () => {
 })
 ```
 
-`onTestFinished` can't tear down a spy mid-test the way `using` can, so the block-scoped pattern above remains specific to ERM.
+`onTestFinished` 无法像 `using` 一样在测试执行过程中清理 spy，因此只有显式资源管理能够实现上述块级作用域用法。
 
-## See also
+## 相关链接 {#see-also}
 
 - [`vi.spyOn`](/api/vi#vi-spyon)
 - [`vi.fn`](/api/vi#vi-fn)
 - [`vi.doMock`](/api/vi#vi-domock)
 - [`onTestFinished`](/api/hooks#ontestfinished)
 - [`restoreMocks`](/config/restoremocks)
-- [TC39 Explicit Resource Management proposal](https://github.com/tc39/proposal-explicit-resource-management)
+- [TC39 显式资源管理提案](https://github.com/tc39/proposal-explicit-resource-management)

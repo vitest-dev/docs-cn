@@ -9,7 +9,7 @@ title: 监视非直接导入的文件 | 技巧
 [`watchTriggerPatterns`](/config/watchtriggerpatterns) <Version>3.2.0</Version> 可以让这些依赖关系显式化。你需要声明一个匹配文件路径的正则表达式，以及一
 个回调函数，用于在匹配的文件变更时返回需要重新运行的测试。
 
-## 示例 {#pattern}
+## 用法 {#pattern}
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
