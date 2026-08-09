@@ -1,5 +1,5 @@
 ---
-title: Advanced API
+title: 高级 API
 ---
 
 # 快速起步 <Badge type="danger">advanced</Badge> {#getting-started}
@@ -90,8 +90,8 @@ function resolveConfig(
 ```
 
 此方法使用自定义参数解析配置，而不会创建 Vite 服务器。如果未提供任何参数，root 将设为 process.cwd()。
-<!-- TODO: translation -->
-It returns the resolved Vite config. The fully resolved Vitest config, including every project, lives on its `test` property.
+
+该方法返回解析后的 Vite 配置。其 `test` 属性包含完整解析后的 Vitest 配置，其中包括所有项目。
 
 ```ts
 import { resolveConfig } from 'vitest/node'
@@ -121,34 +121,33 @@ viteConfig.test.pool // 'threads'
 另外请注意，`viteConfig.test` 不会被完全解析。如果你需要 Vitest 配置，请使用 `vitestConfig` 代替。
 :::
 
-<!-- TODO: translation -->
-## Project Configuration Resolution
+## 解析项目配置 {#project-configuration-resolution}
 
-This section describes how the arguments of `startVitest`, `createVitest`, and `resolveConfig` interact with [test projects](/guide/projects). Without projects, all resolved options apply to the single root project and none of this matters.
+本节说明 `startVitest`、`createVitest` 和 `resolveConfig` 的参数如何影响 [测试项目](/guide/projects)。在没有项目配置的情况下，解析后的所有选项都会应用于唯一的顶级项目，因此无须考虑以下规则。
 
-The root configuration is resolved from three inputs, in ascending priority:
+顶级配置由以下三类输入解析而成，优先级从低到高依次为：
 
-1. the root config file
-2. `viteOverrides`, merged on top of the config file values
-3. CLI options (`options`), applied on top of everything else
+1. 顶级配置文件
+2. `viteOverrides`，其内容会覆盖配置文件中的对应值
+3. CLI 选项（`options`），其优先级高于其他所有配置
 
-Every project then resolves its own Vite config independently:
+每个项目随后独立解析其自身的 Vite 配置：
 
-- A project referenced as a config file or a directory resolves only its own file. It does not inherit any options from the root configuration.
-- An inline project inherits the root configuration by default (see [`extends`](/guide/projects#configuration)): the root config file is re-executed for the project, `viteOverrides` are merged on top of it, and the project's own options are merged last. Inheritance works even when there is no root config file, because `viteOverrides` are part of the effective root configuration.
-- With `extends: false`, an inline project resolves only its own options. With `extends: './path'`, the referenced file is re-executed instead of the root config file, and `viteOverrides` are not merged.
+- 通过配置文件或目录引用的项目只解析自身的配置文件，不会继承顶级配置中的任何选项。
+- 默认情况下，内联项目会继承顶级配置（参阅 [`extends`](/guide/projects#configuration)）。会为该项目重新执行顶级配置文件，然后合并 `viteOverrides`，最后再合并项目自身的选项。即使不存在顶级配置文件，继承仍然有效，因为 `viteOverrides` 也属于最终生效的顶级配置。
+- 设置 `extends: false` 后，内联项目只解析自身的选项。设置 `extends: './path'` 后，会重新执行所引用的文件，而不是顶级配置文件，并且不会合并 `viteOverrides`。
 
-A few options are excluded from inheritance:
+以下选项不会按常规规则继承：
 
-- `plugins` from `viteOverrides` are never inherited. A config file is re-executed for every project, which creates fresh plugin instances, but plugin instances passed in `viteOverrides` belong to the root Vite server and cannot be shared with project servers.
-- `test.browser` and `test.tagsFilter` from `viteOverrides` are never inherited: `browser` describes the instances of a single project, and `tagsFilter` applies to the whole run.
-- `name` and `projects` are never inherited; the root `globalSetup` is not inherited because it already runs once per test run.
-- The project's own `tags` always replace the `tags` array merged from an extended config instead of being concatenated with it, so the same tag names can be redefined.
+- 永远不会继承 `viteOverrides` 中的 `plugins`。配置文件会为每个项目重新执行，从而创建新的插件实例；但通过 `viteOverrides` 传入的插件实例属于顶级 Vite 服务器，无法与项目服务器共享。
+- 永远不会继承 `viteOverrides` 中的 `test.browser` 和 `test.tagsFilter`。`browser` 描述单个项目的浏览器实例，而 `tagsFilter` 作用于整次测试运行。
+- 永远不会继承 `name` 和 `projects`。顶级配置中的 `globalSetup` 也不会被继承，因为它已经会在每次测试运行时执行一次。
+- 项目自身的 `tags` 始终会替换从被继承配置中合并而来的 `tags` 数组，而不是与其拼接，因此可以重新定义同名标签。
 
-Independently of `extends`, two groups of options reach every project:
+独立与 `extends` 机制，以下两组选项都会应用于每个项目：
 
-- A fixed subset of CLI options that configure how tests run (`--testTimeout`, `--retry`, `--pool`, and similar) is applied to every project at the highest priority, mirroring the root resolution.
-- Run-level options only make sense for the test run as a whole: every project receives the root's resolved `coverage`, `attachmentsDir`, and `mergeReportsLabel` values.
+- 一组用于控制测试运行方式的固定 CLI 选项，例如 `--testTimeout`、`--retry` 和 `--pool`，会以最高优先级应用于每个项目，与顶级配置的解析方式一致。
+- 运行级选项只对整次测试运行有意义，因此每个项目都会使用顶级配置解析后的 `coverage`、`attachmentsDir` 和 `mergeReportsLabel` 值。
 
 ## parseCLI
 
@@ -182,7 +181,7 @@ result.filter
 function createCLI(options?: CliParseOptions): CAC
 ```
 
-Creates the Vitest command-line interface: a [`cac`](https://github.com/cacjs/cac) instance with all of Vitest's commands and options registered. [`parseCLI`](#parsecli) is built on top of it; use `createCLI` directly if you need the raw parser.
+创建 Vitest 命令行界面，返回一个注册了 Vitest 全部命令和选项的 [`cac`](https://github.com/cacjs/cac) 实例。[`parseCLI`](#parsecli) 基于该实例实现；如果需要直接使用原始解析器，请调用 `createCLI`。
 
 ```ts
 import { createCLI } from 'vitest/node'
@@ -202,9 +201,9 @@ class PluginHarness {
 }
 ```
 
-A container that Vitest passes to its internal plugins while the config is being resolved, before a [`Vitest`](/api/advanced/vitest) instance exists. It holds the [`Logger`](#logger), the package installer and the resolved version, and exposes the `Vitest` instance via `getVitest()` once it has been created (calling it earlier throws).
+这是一个容器，在配置解析期间、[`Vitest`](/api/advanced/vitest) 会将此容器传递给内部插件。它保存 [`Logger`](#logger)、包安装器和解析后的版本，并在 `Vitest` 实例创建后通过 `getVitest()` 提供该实例（如果提前调用此方法，则会抛出错误）。
 
-This is an advanced, plugin-facing API. You rarely construct one directly, but you can pass a shared instance to [`resolveConfig`](#resolveconfig) to reuse a logger and package installer.
+这是一个面向插件的高级 API。通常有很少机会直接实现它。但你可以向 [`resolveConfig`](#resolveconfig) 传递一个共享实例，以复用日志记录器和包安装器。
 
 ## Logger
 
@@ -217,7 +216,7 @@ class Logger {
 }
 ```
 
-Vitest's terminal logger, exposed as [`vitest.logger`](/api/advanced/vitest). It handles formatted output, the error summary, the run banner and screen clearing. Construct one with custom `stdout`/`stderr` streams to capture or redirect Vitest's output when running it programmatically.
+Vitest 的终端日志记录器，通过 [`vitest.logger`](/api/advanced/vitest) 暴露。它负责格式化输出、错误摘要、运行横幅和终端清屏。以编程方式运行 Vitest 时，可以使用自定义的 `stdout`/`stderr` 流创建 `Logger`，以捕获或重定向 Vitest 的输出。
 
 ```ts
 import { Logger } from 'vitest/node'

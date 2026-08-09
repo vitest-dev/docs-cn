@@ -1,5 +1,6 @@
 # Custom Benchmark Provider <Version type="experimental">5.0.0</Version> <Badge type="danger">advanced</Badge> {#custom-benchmark-provider}
 
+<!-- TODO: translation -->
 ::: warning
 This is an advanced, experimental API. If you only need to run benchmarks with Vitest's built-in provider, read the [Benchmarking](/guide/benchmarking) guide instead.
 :::

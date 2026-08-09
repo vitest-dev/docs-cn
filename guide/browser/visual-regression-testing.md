@@ -2,7 +2,7 @@
 title: 可视化回归测试
 outline: [2, 3]
 ---
-
+<!-- TODO: translation -->
 <script setup>
 import MoonPhase from '../../.vitepress/components/MoonPhase.vue'
 </script>
