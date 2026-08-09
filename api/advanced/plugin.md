@@ -117,7 +117,7 @@ vitest.config.project.push('my-project-name')
 :::
 
 ::: tip 引用当前配置
-内联配置默认继承根配置。如果想改为继承特定的配置文件，请将 `extends` 属性设为该文件的路径。其他所有属性都会与用户定义的配置合并。
+内联配置默认继承顶级配置。如果想改为继承特定的配置文件，请将 `extends` 属性设为该文件的路径。其他所有属性都会与用户定义的配置合并。
 
 项目的 `configFile` 可以在 Vite 的配置中访问：`project.vite.config.configFile`。
 

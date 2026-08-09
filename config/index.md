@@ -87,4 +87,4 @@ export default defineConfig(configEnv => mergeConfig(
 
 ## 配置选项 {#config-options}
 
-在 [项目](/guide/projects) 配置中不支持的配置选项旁边会显示 <CRoot /> 图标。这意味着它们只能在 Vitest 根配置文件中进行设置。
+在 [项目](/guide/projects) 配置中不支持的配置选项旁边会显示 <CRoot /> 图标。这意味着它们只能在 Vitest 顶级配置文件中进行设置。

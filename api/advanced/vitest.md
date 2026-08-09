@@ -11,7 +11,7 @@ Since Vitest 5, this property is always `'test'`.
 
 ## config
 
-这是根配置（也叫全局配置）。如果你在配置中定义了多个项目，这些项目都会将这个配置视作它们的 `globalConfig` 并进行继承或引用。
+这是顶级配置（也叫全局配置）。如果你在配置中定义了多个项目，这些项目都会将这个配置视作它们的 `globalConfig` 并进行继承或引用。
 
 ::: warning
 这是 Vitest 配置，它不扩展 _Vite_ 配置。它仅包含从 `test` 属性解析的值。
@@ -63,7 +63,7 @@ Vitest 会保证这个数组里至少有一个项目可用。如果用户在命�
 function getRootProject(): TestProject
 ```
 
-该方法会返回根测试项目。一般情况下，根项目并不会实际执行测试，也不会被加入到 `vitest.projects` 列表中，除非用户在配置中主动包含了根配置，或者没有定义任何独立的测试项目。
+该方法会返回根测试项目。一般情况下，根项目并不会实际执行测试，也不会被加入到 `vitest.projects` 列表中，除非用户在配置中主动包含了顶级配置，或者没有定义任何独立的测试项目。
 
 根项目的主要目标是设置全局配置。实际上，`rootProject.config` 直接引用 `rootProject.globalConfig` 和 `vitest.config`：
 

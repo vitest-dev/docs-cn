@@ -185,7 +185,7 @@ vitest --experimental.importDurations.failOnDanger
 
 控制 Vitest 是否使用 Vite 的 [模块运行器](https://cn.vite.dev/guide/api-environment-runtimes#modulerunner) 执行代码，或回退至原生 `import` 方式。
 
-如果在根配置中定义此选项，所有 [项目](/guide/projects) 将自动继承该设置。
+如果在顶级配置中定义此选项，所有 [项目](/guide/projects) 将自动继承该设置。
 
 当测试运行环境与代码执行环境相同时（例如服务端后端或简单脚本），可考虑禁用模块运行器。但对于 `jsdom`/`happy-dom` 测试，我们仍建议使用 Vite 模块运行器或在 [浏览器模式](/guide/browser/) 中运行，因为这样无需添加额外的配置。
 

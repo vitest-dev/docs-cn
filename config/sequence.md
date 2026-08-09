@@ -108,7 +108,7 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 
 是否随机排列测试文件。请注意，启用此选项后，耗时较长的测试将无法优先开始执行。
 
-由于所有 [项目](/guide/projects) 共享同一套文件排序，因此此选项只能由根配置决定。各个项目仍可通过 [`sequence.shuffle.tests`](#sequence-shuffle-tests) 随机排列自身的测试用例。
+由于所有 [项目](/guide/projects) 共享同一套文件排序，因此此选项只能由顶级配置决定。各个项目仍可通过 [`sequence.shuffle.tests`](#sequence-shuffle-tests) 随机排列自身的测试用例。
 
 ### sequence.shuffle.tests {#sequence-shuffle-tests}
 

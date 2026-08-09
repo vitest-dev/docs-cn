@@ -98,7 +98,7 @@ export default defineConfig({
 ```
 
 ::: warning
-Vitest 不会将根目录的 `vitest.config` 文件视为项目，除非在配置中显式指定。因此，根配置只会影响全局选项，如 `reporters` 和 `coverage`。但 Vitest 总会执行根配置文件中指定的某些插件钩子，如 `apply`、`config`、`configResolved` 或 `configureServer`。Vitest 也会使用相同的插件执行全局设置和自定义覆盖提供者。
+Vitest 不会将根目录的 `vitest.config` 文件视为项目，除非在配置中显式指定。因此，顶级配置只会影响全局选项，如 `reporters` 和 `coverage`。但 Vitest 总会执行顶级配置文件中指定的某些插件钩子，如 `apply`、`config`、`configResolved` 或 `configureServer`。Vitest 也会使用相同的插件执行全局设置和自定义覆盖提供者。
 :::
 
 你也可以用配置文件路径来引用项目：
@@ -237,7 +237,7 @@ bun run test --project e2e --project unit
 
 ## 配置说明 {#configuration}
 
-使用内联配置定义的项目会继承根配置中的所有选项。是否继承由 `extends` 选项控制。从 Vitest 5.0 开始，该选项默认启用：
+使用内联配置定义的项目会继承顶级配置中的所有选项。是否继承由 `extends` 选项控制。从 Vitest 5.0 开始，该选项默认启用：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -269,7 +269,7 @@ export default defineConfig({
 })
 ```
 
-如果要继承根配置以外的其他配置文件，还可以将该配置文件的路径传给 `extends`：
+如果要继承顶级配置以外的其他配置文件，还可以将该配置文件的路径传给 `extends`：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -292,12 +292,12 @@ export default defineConfig({
 继承的配置会与项目自身的配置合并。请注意，`setupFiles` 等数组选项会进行拼接，而不是被覆盖。以下选项会采用特殊的处理方式：
 
 - `name` 和 `projects` 永远不会被继承。
-- 不会从根配置继承 `globalSetup`。根配置中的 `globalSetup` 已经会在每次测试运行时执行一次，如果继续继承，每个项目都会再次运行相同的文件。不过，继承非根配置文件时，`globalSetup` 仍会被继承。
+- 不会从顶级配置继承 `globalSetup`。顶级配置中的 `globalSetup` 已经会在每次测试运行时执行一次，如果继续继承，每个项目都会再次运行相同的文件。不过，继承非顶级配置文件时，`globalSetup` 仍会被继承。
 - 如果项目自身定义了 `tags`，该数组会直接替换继承的值，而不会与其合并。
 
 如果通过 [高级 API](/guide/advanced/) 运行 Vitest，请参阅 [项目配置解析](/guide/advanced/#project-configuration-resolution)，了解通过编程方式传入的配置如何参与继承。
 
-通过配置文件或目录引用的项目不会继承根配置中的任何选项。你可以创建一个共享配置文件，再自行将其与项目配置合并：
+通过配置文件或目录引用的项目不会继承顶级配置中的任何选项。你可以创建一个共享配置文件，再自行将其与项目配置合并：
 
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
@@ -316,12 +316,12 @@ export default mergeConfig(
 ::: danger 不支持的选项
 某些配置选项不允许在项目配置中使用。最值得注意的是：
 
-项目配置中不能使用部分配置选项。在 [“配置”](/config/) 指南中，所有不支持项目配置的选项都会用 <CRoot /> 标记。这些选项只能在根配置文件中定义一次。
+项目配置中不能使用部分配置选项。在 [“配置”](/config/) 指南中，所有不支持项目配置的选项都会用 <CRoot /> 标记。这些选项只能在顶级配置文件中定义一次。
 :::
 
 ## 嵌套项目 {#nested-projects}
 
-通过配置文件（或包含配置文件的目录）引用的项目，也可以在自身配置中声明 `projects`。这类配置的行为与根配置相同：它本身不运行测试，只负责提供实际运行测试的项目。借助这种方式，可以直接引用已经定义了项目的工作区：
+通过配置文件（或包含配置文件的目录）引用的项目，也可以在自身配置中声明 `projects`。这类配置的行为与顶级配置相同：它本身不运行测试，只负责提供实际运行测试的项目。借助这种方式，可以直接引用已经定义了项目的工作区：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -357,7 +357,7 @@ export default defineProject({
 })
 ```
 
-嵌套项目的行为与根配置中定义的项目相同。内联配置会继承声明它们的配置（在本例中是 `app` 配置，而不是根配置），`extends` 中的路径也会相对于该配置进行解析。该配置自身的 `globalSetup` 也会被这些项目继承，这与其他 [非根配置](#configuration) 的行为一致。
+嵌套项目的行为与顶级配置中定义的项目相同。内联配置会继承声明它们的配置（在本例中是 `app` 配置，而不是顶级配置），`extends` 中的路径也会相对于该配置进行解析。该配置自身的 `globalSetup` 也会被这些项目继承，这与其他 [非顶级配置](#configuration) 的行为一致。
 
 嵌套项目的名称会加上声明它们的配置名称作为前缀。因此，上面的示例会创建 `app (unit)` 和 `app (e2e)` 两个项目。`--project` 也可以匹配此前缀：`--project app` 会运行 `app` 配置中的所有项目，而 `--project "app (unit)"` 只运行其中一个项目。
 
