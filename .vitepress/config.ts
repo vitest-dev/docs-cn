@@ -1059,7 +1059,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/explicit-resources',
               },
               {
-                text: 'Conditional Mocking with `vi.when`',
+                text: '使用 `vi.when` 进行条件模拟',
                 link: '/guide/recipes/conditional-mocking',
               },
               {

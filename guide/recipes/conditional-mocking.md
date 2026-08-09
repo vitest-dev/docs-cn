@@ -1,15 +1,12 @@
 ---
-title: Conditional Mocking with vi.when | Recipes
+title: 使用 vi.when 进行条件模拟 | 技巧
 ---
 
-<!-- TODO: translation -->
-# Conditional Mocking with `vi.when`
-
-::: tip Prerequisites
-This recipe assumes you already have some familiarity with [mocking](/guide/mocking) in Vitest.
+::: tip 前置要求
+本技巧假定你已经熟悉 Vitest 中的 [模拟](/guide/mocking)。
 :::
 
-When a mock needs to return different values depending on the arguments it receives, [`mockReturnValue`](/api/mock#mockreturnvalue) doesn't help because it always returns the same value. The standard approach would be to use [`mockImplementation`](/api/mock#mockimplementation) with a `switch` or a series of `if/else` statements:
+当模拟函数需要根据接收到的参数返回不同的值时，[`mockReturnValue`](/api/mock#mockreturnvalue) 无法满足需求，因为它始终返回同一个值。标准的做法是结合 `switch` 或一系列 `if/else` 语句使用 [`mockImplementation`](/api/mock#mockimplementation)：
 
 ```ts
 db.findById.mockImplementation((id) => {
@@ -25,17 +22,17 @@ db.findById.mockImplementation((id) => {
 })
 ```
 
-This works, but it becomes tedious because you have to write the argument-matching logic yourself. This is something that Vitest can handle for you when using the [`vi.when`](/api/vi#vi-when) <Version>5.0.0</Version> API.
+这种方法虽然可行，但需要自行编写参数匹配逻辑，过程比较繁琐。使用 [`vi.when`](/api/vi#vi-when) <Version>5.0.0</Version> API 后，Vitest 可以替你处理这部分逻辑。
 
-## Pattern
+## 基本用法 {#pattern}
 
-`vi.when` takes a spy and lets you define argument-specific behaviors.
+`vi.when` 接收一个 spy，让你可以为不同参数定义不同的行为。
 
-Call `.calledWith(...args)` to declare which arguments to match. This creates a _behavior_.
+调用 `.calledWith(...args)` 指定要匹配的参数，这会创建一个 _行为_。
 
-Then attach an _action_ by calling a `then*` method. The action determines what happens when the behavior matches.
+然后调用 `then*` 方法附加一个 _动作_，用于决定匹配该行为后要执行的操作。
 
-Multiple behaviors can be chained on the same spy:
+同一个 spy 可以串联多个行为：
 
 ```ts
 import { test, vi } from 'vitest'
@@ -55,20 +52,21 @@ test('returns user data', async () => {
 })
 ```
 
-The same approach works across all mock outcome types. Here is the full set of actions and their equivalents:
+所有类型的模拟结果都可以使用同样的方式处理。下面列出了完整的动作及其对应写法：
 
-| Action | Equivalent to | Equivalent code |
-|---|---|---|
+| 动作 | 等价于
+| 等效代码 |
+| -------------------- | -------------------------- | ------------------------------- |
 | `thenReturn(value)` | `mockReturnValue(value)` | `return value` |
 | `thenThrow(error)` | `mockThrow(error)` | `throw error` |
 | `thenResolve(value)` | `mockResolvedValue(value)` | `return Promise.resolve(value)` |
 | `thenReject(error)` | `mockRejectedValue(error)` | `return Promise.reject(error)` |
 
-## Stacking actions
+## 动作堆叠 {#stacking-actions}
 
-A single behavior can have multiple actions attached to it. When the behavior matches, actions are _consumed_ in **last-in-first-out** order: the most recently registered action runs first. Once that action has been consumed, Vitest falls back to the previous one. Use the `times` option to limit how many calls an action handles before falling through to the next action. An action with no `times` limit runs indefinitely.
+单个行为可以附加多个动作。当行为匹配时，动作会按照 **后进先出** 的顺序被 _消耗_：最近注册的动作最先执行。该动作消耗完后，Vitest 会回退到前一个动作。你可以使用 `times` 选项限制某个动作处理调用的次数，达到次数后再回退到下一个动作。不设置 `times` 限制的动作会一直生效。
 
-Because actions are evaluated in reverse registration order, indefinite actions should be registered first so that later finite actions can temporarily override them.
+由于动作会按注册顺序逆序处理，因此应先注册无限期动作，再注册有次数限制的动作，以便后者可以暂时覆盖前者。
 
 ```ts
 import { test, vi } from 'vitest'
@@ -80,9 +78,9 @@ test('retries after an initial failure', async () => {
   vi.when(fetchInstance)
     .calledWith('/data/config.json')
     .thenResolve(new Response('{ debug: true }'))
-    // ↳ indefinite fallback
+    // ↳ 无限回退
     .thenReject(new Error('network error'), { times: 1 })
-    // ↳ applied first and consumed after one call
+    // ↳ 优先调用，仅生效一次
 
   await expect(readConfig(fetchInstance)).resolves.toEqual({ debug: true })
 
@@ -90,11 +88,11 @@ test('retries after an initial failure', async () => {
 })
 ```
 
-For convenience, `then*Once` shorthands are available and equivalent to `{ times: 1 }`: `thenReturnOnce`, `thenResolveOnce`, `thenThrowOnce`, `thenRejectOnce`.
+为了简化调用，Vitest 提供了与 `{ times: 1 }` 等价的 `then*Once` 简写形式：`thenReturnOnce`、`thenResolveOnce`、`thenThrowOnce` 和 `thenRejectOnce`。
 
-## Asymmetric matchers
+## 非对称匹配器 {#asymmetric-matchers}
 
-`calledWith` supports [asymmetric matchers](/guide/learn/matchers#asymmetric-matchers). This is useful when you care about the shape or type of an argument rather than its exact value:
+`calledWith` 支持 [非对称匹配器](/guide/learn/matchers#asymmetric-matchers)。适用于仅关心参数的结构或类型，而不要求精确的值时：
 
 ```ts
 test('sends email to each recipient', () => {
@@ -104,7 +102,7 @@ test('sends email to each recipient', () => {
 })
 ```
 
-Behaviors, unlike actions, are matched in **first-in-first-out** order. The first behavior whose arguments match the call wins, just like a chain of `if/else` statements. Specific matchers must therefore be registered before broad ones.
+与动作不同，行为会按照 **先进先出** 的顺序进行匹配。规则类似于一组 `if/else` 语句，Vitest 会采用第一个参数与实际调用相匹配的行为。因此，应先注册匹配范围较小的行为，再注册匹配范围更大的行为。
 
 ```ts
 test('sends email to each recipient', () => {
@@ -116,10 +114,10 @@ test('sends email to each recipient', () => {
 })
 ```
 
-::: warning Behavior Merging
-When registering a new behavior, Vitest checks existing behaviors in registration order. If the new arguments already match an existing behavior, the new action is merged into that behavior instead of creating a new one.
+::: warning 行为合并
+注册新行为时，Vitest 会按注册顺序检查已有行为。如果新参数已经匹配某个已有行为，新的动作会合并到该行为中，而不会创建新行为。
 
-This is especially important with broad asymmetric matchers:
+使用范围较宽的非对称匹配器时尤其需要注意：
 
 ```ts
 vi.when(getRole)
@@ -129,7 +127,7 @@ vi.when(getRole)
   .thenReturnOnce('admin')
 ```
 
-Because the second registration is merged into the existing behavior, the `'admin'` action is not scoped to `'admin@example.com'`. Instead, it becomes the next action for the entire `expect.any(String)` behavior. The resulting behavior acts as if it had been written like this:
+由于第二次注册会合并到已有行为中，`'admin'` 动作并不会只适用于 `'admin@example.com'`，而会成为整个 `expect.any(String)` 行为的下一个动作。最终效果等同于以下写法：
 
 ```ts
 vi.when(getRole)
@@ -138,27 +136,28 @@ vi.when(getRole)
   .thenReturnOnce('admin')
 ```
 
-As a result, the first call with any string returns `'admin'`, while later calls return `'user'`:
+因此，第一次传入任意字符串时都会返回 `'admin'`，后续调用则返回 `'user'`：
 
 ```ts
 expect(getRole('user@example.com')).toBe('admin')
 expect(getRole('user@example.com')).toBe('user')
 ```
+
 :::
 
-## Handling unmatched calls
+## 处理未匹配的调用 {#handling-unmatched-calls}
 
-By default, when the spy is called with arguments that match no registered behavior, it falls back to the spy's original implementation. If the spy has no original implementation, it returns `undefined`.
+默认情况下，如果 spy 接收到的参数没有匹配任何已注册行为，就会回退到 spy 的原始实现。如果 spy 没有原始实现，则返回 `undefined`。
 
-There are three ways to handle this differently:
+你可以通过以下三种方式改变这种行为：
 
-1. [throwing an error](#onunmatched-throw);
-1. [running a custom function](#onunmatched-fn);
-1. [using asymmetric matchers as catch-all behaviors](#asymmetric-matcher-as-catch-all).
+1. [抛出一个错误](#onunmatched-throw);
+2. [运行一个自定义函数](#onunmatched-fn);
+3. [使用非对称匹配器作为兜底行为](#asymmetric-matcher-as-catch-all).
 
 ### `onUnmatched: 'throw'`
 
-Pass `{ onUnmatched: 'throw' }` to throw whenever the spy is called with unregistered arguments:
+传入 `{ onUnmatched: 'throw' }`，即可在 spy 接收到未注册参数时抛出错误：
 
 ```ts
 vi.when(db.findById, { onUnmatched: 'throw' })
@@ -171,11 +170,11 @@ await expect(db.findById(3)).rejects.toThrow(
 )
 ```
 
-The error message includes the unmatched arguments. The error type and message are fixed and cannot be customized.
+错误消息中会包含未匹配的参数。错误类型和消息均为固定值，无法自定义。
 
 ### `onUnmatched: fn`
 
-Pass a function to handle unmatched calls with custom logic, for example when a shared mock needs a different fallback per test.
+传入一个函数即可使用自定义逻辑处理未匹配的调用，例如为共享 mock 在不同测试中提供不同的回退行为。
 
 ```ts
 const db = { findById: vi.fn<FindById>() }
@@ -193,11 +192,11 @@ test('returns a placeholder for unknown ids', async () => {
 })
 ```
 
-The function is called with the same arguments as the spy and its return value is used directly as the spy's result. If it throws or returns a rejected promise, that error propagates to the caller just as it would from any action.
+该函数接收与 spy 相同的参数，其返回值会直接作为 spy 的结果。如果函数抛出错误或返回被 reject 的 Promise，错误会像其他动作产生的错误一样传递给调用方。
 
-### Asymmetric matcher as catch-all
+### 将非对称匹配器用作兜底 {#asymmetric-matcher-as-catch-all}
 
-Registering a broad `calledWith` last acts as a fallback for calls that do not match any earlier, more specific behavior. The fallback behavior can return a specific value, resolve or reject a promise, or throw a typed error.
+最后注册一个范围较宽的 `calledWith`，可以为不匹配前面具体行为的调用提供兜底。兜底行为可以返回指定值、resolve 或 reject Promise，也可以抛出带类型的错误。
 
 ```ts
 vi.when(db.findById)
@@ -209,9 +208,9 @@ vi.when(db.findById)
   .thenReject(new Error('user not found'))
 ```
 
-## Asserting that all behaviors were called
+## 断言所有行为均已调用 {#asserting-that-all-behaviors-were-called}
 
-To check that all registered behaviors were actually matched and their actions consumed, the object returned by `vi.when` supports the [`toHaveBeenExhausted`](/api/expect#tohavebeenexhausted) assertion:
+要检查所有已注册行为是否都已匹配且其动作均已消耗，可以对 `vi.when` 返回的对象使用 [`toHaveBeenExhausted`](/api/expect#tohavebeenexhausted) 断言：
 
 ```ts
 test('loads both users', async () => {
@@ -229,7 +228,7 @@ test('loads both users', async () => {
 })
 ```
 
-In this example, if `loadDashboard` only calls `findById(1)`, the test fails with a message listing the behaviors that were never matched:
+在这个示例中，如果 `loadDashboard` 只调用了 `findById(1)`，测试就会失败，并列出从未匹配的行为：
 
 ```
 AssertionError: expected all behaviors to have been exhausted, but some remain:
@@ -238,17 +237,17 @@ AssertionError: expected all behaviors to have been exhausted, but some remain:
     ✗ thenReturn({ id: 2, name: 'Gracie' })  never called
 ```
 
-::: warning Caveat
-A `vi.when` chain with no behaviors is never considered exhausted. The same applies to a bare `.calledWith()` with no `then*` action attached. Both will always cause `toHaveBeenExhausted` to fail.
+::: warning 注意事项
+不包含任何行为的 `vi.when` 链永远不会被视为已耗尽。同样，单独使用且未附加 `then*` 动作的 `.calledWith()` 也不会被视为已耗尽。这两种情况都会导致 `toHaveBeenExhausted` 断言失败。
 
-Indefinite actions (no `times` limit) satisfy exhaustion checks after being used at least once. The actions keep responding after that, but the assertion is satisfied.
+无限期动作（未设置 `times` 限制）至少使用一次后即可通过耗尽检查。此后动作仍会继续响应调用，但断言会视为通过。
 :::
 
-## Automatic cleanup with `using`
+## 使用 `using` 自动清理 {#automatic-cleanup-with-using}
 
-`vi.when` supports the [Explicit Resource Management](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Resource_management) protocol.
+`vi.when` 支持 [显式资源管理](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Resource_management) 协议。
 
-Declare the chain with `using` to scope behaviors to the current block and restore the spy automatically when execution leaves it.
+使用 `using` 声明行为链，可以将行为限制在当前代码块内，并在执行离开代码块时自动恢复 spy。
 
 ```ts
 const spy = vi.fn(() => 'original')
@@ -263,9 +262,9 @@ test('without mocked behavior', () => {
 })
 ```
 
-## See also
+## 相关链接 {#see-also}
 
 - [`vi.when`](/api/vi#vi-when)
 - [`toHaveBeenExhausted`](/api/expect#tohavebeenexhausted)
 - [`vi.isWhenChain`](/api/vi#vi-iswhenchain)
-- [Auto-Cleanup with `using`](/guide/recipes/explicit-resources)
+- [使用 `using` 自动清理](/guide/recipes/explicit-resources)
