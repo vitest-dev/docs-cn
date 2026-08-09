@@ -12,16 +12,14 @@ outline: deep
 
 指定工作线程被回收之前的内存限制。
 
-<!-- TODO: translation -->
+默认情况下，系统总内存会平均分配给各个工作线程。增大 [`maxWorkers`](/config/maxworkers) 后，每个工作线程可用的内存会相应减少，因此工作线程也会更频繁地被回收。
 
-By default, the total system memory is split evenly between workers. By increasing [`maxWorkers`](/config/maxworkers), workers have less memory available, so they're recycled more often.
+合适的内存限制很大程度上取决于运行环境，因此建议手动设置，不要完全依赖默认值。
 
-This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default.
+之所以需要回收工作线程，是因为 VM 上下文存在 [内存泄漏](https://github.com/nodejs/node/issues/33439)：工作线程每运行一个测试文件，内存占用都会增加，因此无法一直复用同一个工作线程。设置内存限制时，需要在以下两种情况之间进行权衡：
 
-Recycling exists because VM contexts [leak memory](https://github.com/nodejs/node/issues/33439): a worker's memory usage grows with every test file it runs, so a worker cannot live forever. The limit is a trade-off:
-
-- A low limit recycles workers frequently. In the `vmThreads` pool this is expensive, because destroying a worker thread runs a full garbage collection over the worker's memory and competes with running tests for the process' shared background threads. The `vmForks` pool recycles workers by letting the child process exit, which makes frequent recycling much cheaper there.
-- A high limit lets workers accumulate memory. When the combined memory usage of all workers approaches what the machine can hold, every pool slows down.
+- 较低的限制会导致工作线程被频繁回收。对于 `vmThreads` 线程池，这项操作的开销较高：销毁工作线程时，会对该线程占用的内存执行一次完整的垃圾回收，同时还会与正在运行的测试争用进程共享的后台线程。`vmForks` 线程池则通过结束子进程来回收工作线程，因此频繁回收的开销要低得多。
+- 较高的限制会让工作线程持续占用更多内存。当所有工作线程的内存占用总量接近机器的可用上限时，所有线程池的运行速度都会下降。
 
 ::: tip
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
