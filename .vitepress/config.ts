@@ -1067,7 +1067,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/disable-isolation',
               },
               {
-                text: 'Parallel and Sequential Test Files',
+                text: '并行和串行测试文件',
                 link: '/guide/recipes/parallel-sequential',
               },
             ],
