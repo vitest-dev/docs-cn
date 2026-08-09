@@ -10,5 +10,4 @@ outline: deep
 
 一个由多个 [项目](/guide/projects) 组成的数组。
 
-<!-- TODO: translation -->
-A config file that declares `projects` doesn't run tests itself, it only provides the projects that do. This also applies to project config files: a referenced config that declares `projects` becomes a container for [nested projects](/guide/projects#nested-projects). The option is not supported inside an inline project configuration.
+声明了 `projects` 的配置文件本身不会运行测试，只负责提供实际运行测试的项目。项目配置文件同样如此：如果被引用的配置文件声明了 `projects`，它将作为 [嵌套项目](/guide/projects#nested-projects) 的容器。内联项目配置不支持此选项。
