@@ -1,7 +1,7 @@
 # 配置 WebdriverIO {#configuring-webdriverio}
-<!-- TODO: translation -->
-::: info Community maintained
-The WebdriverIO provider ([`@vitest/browser-webdriverio`](https://github.com/vitest-community/vitest-webdriverio)) is maintained by the Vitest community in the [`vitest-community`](https://github.com/vitest-community) organization, separately from the core Vitest packages. Please report provider-specific issues to its repository.
+
+::: info 由社区维护
+WebdriverIO provider（[`@vitest/browser-webdriverio`](https://github.com/vitest-community/vitest-webdriverio)）由 [`vitest-community`](https://github.com/vitest-community) 组织中的 Vitest 社区负责维护，与 Vitest 核心包分开开发。如果遇到该 provider 特有的问题，请提交到对应的仓库。
 :::
 
 要使用 WebdriverIO 运行测试，你需要安装 [`@vitest/browser-webdriverio`](https://npmx.dev/package/@vitest/browser-webdriverio) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `webdriverio` 导出：

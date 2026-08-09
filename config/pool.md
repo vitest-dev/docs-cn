@@ -13,22 +13,22 @@ outline: deep
 
 ## threads
 
-启用多线程模式。使用线程时，你无法调用进程相关 API 例如 `process.chdir()`。某些原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
+启用多线程模式。使用线程时，无法调用 `process.chdir()` 等进程相关 API。某些使用原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
 
 ## forks
 
-类似于 `threads` 线程池，但使用 `child_process` 代替 `worker_threads`。测试与主进程之间的通信不如 `threads` 线程池快。在 `forks` 线程池中可以使用与进程相关的 API，如 `process.chdir()`。
+类似于 `threads` 线程池，但使用 `child_process` 代替 `worker_threads`。测试与主进程之间的通信速度不如 `threads`，但可以使用 `process.chdir()` 等进程相关 API。
 
 ## vmThreads
 
-使用 [VM 上下文](https://nodejs.org/api/vm.html)（在沙箱环境中）在 `threads` 线程池中运行测试。
-<!-- TODO: translation -->
-This makes tests run faster, but the VM module is unstable when running [ESM code](https://github.com/nodejs/node/issues/37648). Your tests will [leak memory](https://github.com/nodejs/node/issues/33439) - to battle that, workers are restarted when they exceed [`vmMemoryLimit`](/config/vmmemorylimit).
+在 `threads` 池中使用 [VM 上下文](https://nodejs.org/api/vm.html)，以沙箱方式运行测试。
 
-::: warning Worker recycling is expensive in `vmThreads`
-Restarting a worker thread is not free: Node.js runs a full garbage collection over everything the worker accumulated before the thread can exit, and that work runs on a small pool of background threads shared by every worker in the process. When a large test suite hits [`vmMemoryLimit`](/config/vmmemorylimit) repeatedly, these teardowns pile up and also slow down the workers that are still running tests.
+这种方式可以加快测试速度，但 VM 模块在运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时并不稳定。此外，测试还会出现 [内存泄漏](https://github.com/nodejs/node/issues/33439)。为限制内存占用，当工作线程使用的内存超过 [`vmMemoryLimit`](/config/vmmemorylimit) 时，Vitest 会将其重启。
 
-The `vmForks` pool recycles workers by letting the child process exit, and the operating system reclaims the memory. If your test suite is large enough to recycle workers, `vmForks` is usually noticeably faster than `vmThreads`, even though its communication with the main process is slower.
+::: warning 在 `vmThreads` 中回收工作线程的开销较高
+重启工作线程会产生明显的开销。在线程退出之前，Node.js 会对该线程积累的所有内存执行一次完整的垃圾回收。这项工作由进程内所有工作线程共用的一小组后台线程执行。当大型测试套件反复触及 [`vmMemoryLimit`](/config/vmmemorylimit) 时，工作线程的销毁操作会不断累积，并拖慢仍在运行测试的其他工作线程。
+
+`vmForks` 则通过结束子进程完成回收，内存由操作系统负责释放。如果测试套件规模较大，需要定期回收子进程，那么即使 `vmForks` 与主进程之间的通信速度较慢，其整体运行速度通常仍会明显快于 `vmThreads`。
 :::
 
 ::: warning
@@ -45,7 +45,7 @@ catch (err) {
 }
 ```
 
-- 导入 ES 模块会导致其被永久缓存，当存在大量上下文（测试文件）时，将引发内存泄漏问题。Node.js 目前未提供清除该缓存的API接口。
+- 导入 ES 模块会导致其被永久缓存，当存在大量上下文（测试文件）时，将引发内存泄漏问题。Node.js 目前未提供清除该缓存的 API 接口。
 - 在沙箱环境中访问全局变量 [耗时更长](https://github.com/nodejs/node/issues/31658)。
 
 使用此选项时，需要注意这些问题。Vitest 团队无法解决上诉问题。
@@ -55,4 +55,4 @@ catch (err) {
 
 类似于 `vmThreads` 线程池，但使用 `child_process` 代替 `worker_threads`。测试与主进程之间的通信不如 `vmThreads` 线程池快。在 `vmForks` 线程池中可以使用与进程相关的 API，如 `process.chdir()`。请注意，此线程池具有 `vmThreads` 中列出的相同缺陷。
 
-Unlike `vmThreads`, recycling a worker that exceeded [`vmMemoryLimit`](/config/vmmemorylimit) only requires the child process to exit, so it is much cheaper. On large test suites that recycle workers regularly, prefer `vmForks` over `vmThreads`.
+与 `vmThreads` 不同，当子进程的内存占用超过 [`vmMemoryLimit`](/config/vmmemorylimit) 时，`vmForks` 只需结束该进程即可完成回收，因此开销要低得多。对于需要定期回收子进程的大型测试套件，建议优先使用 `vmForks`。

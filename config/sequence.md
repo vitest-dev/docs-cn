@@ -87,6 +87,7 @@ export default defineConfig({
 
  1. flaky |> 在 slow 和 fast 运行完后单独运行
 ```
+
 :::
 
 ## sequence.shuffle
@@ -105,9 +106,9 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 - **默认值:** `false`
 - **命令行终端:** `--sequence.shuffle.files`, `--sequence.shuffle.files=false`
 
-是否启用文件随机排序，请注意启用此选项后，耗时较长的测试将无法优先启动执行。
-<!-- TODO: translation -->
-Because file ordering is shared across [projects](/guide/projects), this option is resolved from the root config only. A project can still randomize its own tests with [`sequence.shuffle.tests`](#sequence-shuffle-tests).
+是否随机排列测试文件。请注意，启用此选项后，耗时较长的测试将无法优先开始执行。
+
+由于所有 [项目](/guide/projects) 共享同一套文件排序，因此此选项只能由根配置决定。各个项目仍可通过 [`sequence.shuffle.tests`](#sequence-shuffle-tests) 随机排列自身的测试用例。
 
 ### sequence.shuffle.tests {#sequence-shuffle-tests}
 
@@ -115,7 +116,7 @@ Because file ordering is shared across [projects](/guide/projects), this option 
 - **默认值:** `false`
 - **命令行终端:** `--sequence.shuffle.tests`, `--sequence.shuffle.tests=false`
 
-Whether to randomize tests.
+是否随机排列测试用例。
 
 ## sequence.concurrent {#sequence-concurrent}
 
@@ -147,7 +148,7 @@ Whether to randomize tests.
 
 - `stack`："after" 类钩子按定义顺序逆序执行，"before" 类钩子保持定义顺序执行
 - `list`：所有钩子严格按定义顺序执行
-- `parallel`：在单个组内并行运行钩子（父套件的钩子仍会在当前套件的钩子之前运行）。实际并发数受[`maxConcurrency`](/config/maxconcurrency) 限制
+- `parallel`：在单个组内并行运行钩子（父套件的钩子仍会在当前套件的钩子之前运行）。实际并发数受 [`maxConcurrency`](/config/maxconcurrency) 限制
 
 ::: tip
 此选项不影响 [`onTestFinished`](/api/hooks#ontestfinished) 钩子，该钩子始终采用逆序调用。

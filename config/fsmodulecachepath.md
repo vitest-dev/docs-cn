@@ -1,19 +1,19 @@
 ---
-title: fsModuleCachePath | Config
+title: fsModuleCachePath | 配置
 outline: deep
 ---
 
 # fsModuleCachePath <Version>5.0.0</Version>
 
-- **Type:** `string`
-- **Default:** `'node_modules/.vitest-cache'` (resolved from the workspace root)
-- **CLI:** `--fsModuleCachePath=<path>`
+- **类型:** `string`
+- **默认值:** `'node_modules/.vitest-cache'`（从工作区根目录解析）
+- **命令行终端:** `--fsModuleCachePath=<path>`
 
-Directory where the [`fsModuleCache`](/config/fsmodulecache) is stored.
+存储 [`fsModuleCache`](/config/fsmodulecache) 的目录。
 
-This can be set per project; projects that don't override it fall back to the root's cache directory. The lockfile metadata used to invalidate the cache is always shared across the whole workspace.
+可为每个项目单独设置此选项；未覆盖此选项的项目会降级使用根项目的缓存目录。整个工作区始终共享同一份锁文件元数据，并用它判断缓存是否失效。
 
-By default Vitest stores the cache inside `node_modules` at the workspace root. The root is based on your package manager's lockfile (for example, `.package-lock.json`, `.yarn-state.yml`, `.pnpm/lock.yaml` and so on). Keeping it inside `node_modules` means the cache is naturally invalidated whenever dependencies are reinstalled.
+默认情况下，Vitest 将缓存存储在工作区根目录的 `node_modules` 中。根目录根据包管理器的锁文件确定（例如 `.package-lock.json`、`.yarn-state.yml`、`.pnpm/lock.yaml` 等）。由于缓存保存在 `node_modules` 中，重新安装依赖项时缓存也会随之失效。
 
 ```ts
 import { defineConfig } from 'vitest/config'
