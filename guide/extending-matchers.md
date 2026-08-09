@@ -34,10 +34,10 @@ declare module 'vitest' {
   }
 }
 ```
-<!-- TODO: translation -->
-`R` is the assertion return type, and `T` is the type of the received value.
 
-Return `R` from matchers that run synchronously. This makes the return type `void` for a regular assertion and `Promise<void>` when the assertion is used with `.resolves`, `.rejects`, [`expect.poll`](/api/expect#poll), or [`expect.element`](/api/browser/assertions). You can use `T` when an expected argument should have the same type as the received value:
+`R` 表示断言的返回类型，`T` 表示接收值的类型。
+
+同步执行的匹配器应返回 `R`。对于普通断言，返回类型为 `void`；与 `.resolves`、`.rejects`、[`expect.poll`](/api/expect#poll) 或 [`expect.element`](/api/browser/assertions) 一起使用时，返回类型则为 `Promise<void>`。如果预期值参数需要与接收值保持相同类型，可以使用 `T`：
 
 ```ts
 declare module 'vitest' {
@@ -74,7 +74,7 @@ type MatcherResult = SyncMatcherResult | Promise<SyncMatcherResult>
 ```
 
 ::: warning
-If a matcher implementation is asynchronous, declare its return type as `Promise<void>` instead of `R` and don't forget to `await` it in the test:
+如果匹配器采用异步实现，请将其返回类型声明为 `Promise<void>`，而不是 `R`，并且不要忘记在测试中使用 `await`：
 
 ```ts
 expect.extend({
@@ -97,7 +97,7 @@ await expect('foo').toBeAsyncAssertion()
 
 :::
 
-断言的第一个参数是接收值(即 `expect(received)` 中的 received )，其余参数将直接传给断言。其余参数将直接传递给匹配器。自 4.1 起，Vitest 提供了多个类型供自定义匹配器使用：
+匹配器的第一个参数是接收值，即 `expect(received)` 中的 received，其余参数会直接传递给匹配器。自 4.1 起，Vitest 提供了多个类型供自定义匹配器使用：
 
 ```ts
 import type {
