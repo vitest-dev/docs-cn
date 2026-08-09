@@ -1063,7 +1063,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/conditional-mocking',
               },
               {
-                text: 'Per-File Isolation Settings',
+                text: '按文件配置隔离',
                 link: '/guide/recipes/disable-isolation',
               },
               {
