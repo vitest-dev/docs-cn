@@ -2,6 +2,8 @@
 title: 使用 vi.when 进行条件模拟 | 技巧
 ---
 
+# 使用 vi.when 进行条件模拟 {#conditional-mocking-with-vi-when}
+
 ::: tip 前置要求
 本技巧假定你已经熟悉 Vitest 中的 [模拟](/guide/mocking)。
 :::
@@ -24,7 +26,7 @@ db.findById.mockImplementation((id) => {
 
 这种方法虽然可行，但需要自行编写参数匹配逻辑，过程比较繁琐。使用 [`vi.when`](/api/vi#vi-when) <Version>5.0.0</Version> API 后，Vitest 可以替你处理这部分逻辑。
 
-## 基本用法 {#pattern}
+## 用法 {#pattern}
 
 `vi.when` 接收一个 spy，让你可以为不同参数定义不同的行为。
 
@@ -255,7 +257,7 @@ const spy = vi.fn(() => 'original')
 test('with mocked behavior', () => {
   using w = vi.when(spy).calledWith('hello').thenReturn('mocked')
   expect(spy('hello')).toBe('mocked')
-}) // ← restored here
+}) // ← 在此处恢复
 
 test('without mocked behavior', () => {
   expect(spy('hello')).toBe('original')
