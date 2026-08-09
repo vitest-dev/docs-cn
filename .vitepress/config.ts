@@ -1055,27 +1055,27 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/recipes/watch-templates',
               },
               {
-                text: 'Extending Browser Locators',
+                text: '扩展浏览器定位器',
                 link: '/guide/recipes/browser-locators',
               },
               {
-                text: 'Schema-Driven Assertions',
+                text: 'Schema 驱动断言',
                 link: '/guide/recipes/schema-matching',
               },
               {
-                text: 'Auto-Cleanup with `using`',
+                text: '使用 `using` 自动清理',
                 link: '/guide/recipes/explicit-resources',
               },
               {
-                text: 'Conditional Mocking with `vi.when`',
+                text: '使用 `vi.when` 进行条件模拟',
                 link: '/guide/recipes/conditional-mocking',
               },
               {
-                text: 'Per-File Isolation Settings',
+                text: '按文件配置隔离',
                 link: '/guide/recipes/disable-isolation',
               },
               {
-                text: 'Parallel and Sequential Test Files',
+                text: '并行和串行测试文件',
                 link: '/guide/recipes/parallel-sequential',
               },
             ],

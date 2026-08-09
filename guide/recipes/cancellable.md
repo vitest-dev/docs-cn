@@ -8,7 +8,7 @@ title: 可取消的测试资源 | 技巧
 
 测试上下文提供了 [`signal`](/guide/test-context#signal) <Version>3.2.0</Version>，它会在上述所有情况下触发。将它传递给任何接受 `AbortSignal` 的对象，当 Vitest 取消测试时对应的资源就会被释放。
 
-## 示例 {#pattern}
+## 用法 {#pattern}
 
 ```ts
 import { test } from 'vitest'

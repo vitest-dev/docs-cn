@@ -8,7 +8,7 @@ title: 在测试中收窄类型 | 技巧
 
 [`expect.assert`](/api/expect#assert) <Version>4.0.0</Version> 会在运行时收窄 TypeScript 类型并抛出异常。同一个调用可以替代上述三种方式。
 
-## 示例 {#pattern}
+## 用法 {#pattern}
 
 ```ts
 import { expect, test } from 'vitest'

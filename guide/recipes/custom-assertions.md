@@ -8,7 +8,7 @@ title: 自定义断言工具函数 | 技巧
 
 [`vi.defineHelper`](/api/vi#vi-defineHelper) <Version>4.1.0</Version> 会包装一个函数，让 Vitest 在堆栈中移除工具函数的内部实现，并将错误指向调用点。
 
-## 示例 {#pattern}
+## 用法 {#pattern}
 
 ```ts
 import { expect, test, vi } from 'vitest'
