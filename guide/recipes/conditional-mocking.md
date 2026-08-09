@@ -56,13 +56,12 @@ test('returns user data', async () => {
 
 所有类型的模拟结果都可以使用同样的方式处理。下面列出了完整的动作及其对应写法：
 
-| 动作 | 等价于
-| 等效代码 |
+| 动作                 | 等价于                     | 等效代码                        |
 | -------------------- | -------------------------- | ------------------------------- |
-| `thenReturn(value)` | `mockReturnValue(value)` | `return value` |
-| `thenThrow(error)` | `mockThrow(error)` | `throw error` |
+| `thenReturn(value)`  | `mockReturnValue(value)`   | `return value`                  |
+| `thenThrow(error)`   | `mockThrow(error)`         | `throw error`                   |
 | `thenResolve(value)` | `mockResolvedValue(value)` | `return Promise.resolve(value)` |
-| `thenReject(error)` | `mockRejectedValue(error)` | `return Promise.reject(error)` |
+| `thenReject(error)`  | `mockRejectedValue(error)` | `return Promise.reject(error)`  |
 
 ## 动作堆叠 {#stacking-actions}
 
