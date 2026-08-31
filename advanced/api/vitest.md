@@ -10,7 +10,7 @@ Vitest 实例需要当前的测试模式。它可以是以下之一：
 - `test`：运行运行时测试时
 - `benchmark`：运行基准测试时 <Badge type="warning">实验性</Badge>
 
-::: details New in Vitest 4
+::: details Vitest 4 新特性
 
 Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除了已弃用的 API：
 

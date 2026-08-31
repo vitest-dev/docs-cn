@@ -486,7 +486,7 @@ test.afterEach(({ todos }) => {
 
 ### `beforeEach` and `afterEach`
 
-::: danger 弃用
+::: danger 已弃用
 
 这种扩展上下文的方法已不再推荐使用，并且在你使用 `test.extend` 扩展 `test` 时，它将无法生效。
 

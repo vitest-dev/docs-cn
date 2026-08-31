@@ -105,7 +105,7 @@ export default new MyReporter()
 
 :::
 
-::: tip 弃用通知
+::: tip 已弃用
 
 此方法在 Vitest 3 中添加，取代了 `onPathsCollected` 和 `onSpecsCollected`，这两个方法现在已被弃用。
 
@@ -176,7 +176,7 @@ export default new MyReporter()
 
 :::
 
-::: tip 弃用通知
+::: tip 已弃用
 
 此方法在 Vitest 3 中添加，取代了 `onFinished`，后者现在已被弃用。
 

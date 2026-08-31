@@ -617,7 +617,7 @@ jsdom 环境变量导出了等同于当前 [JSDOM](https://github.com/jsdom/jsdo
 - **类型:** `[string, EnvironmentName][]`
 - **默认值:** `[]`
 
-::: danger DEPRECATED
+::: danger 已弃用
 
 此 API 在 Vitest 3 中已弃用。请使用 [projects](/guide/projects) 来定义不同的配置。
 
@@ -666,7 +666,7 @@ export default defineConfig({
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
 - **默认值:** `[]`
 
-::: danger DEPRECATED
+::: danger 已弃用
 
 此 API 在 Vitest 3 中已被弃用。请使用 [projects](/guide/projects) 来定义不同的配置：
 
