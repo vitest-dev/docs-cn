@@ -21,7 +21,9 @@ test('hello world', async ({ annotate }) => {
 ```
 
 ::: warning
+
 `annotate` 函数返回一个 Promise，因此如果依赖它就需要使用 await。不过 Vitest 也会在测试完成前自动等待所有未 await 的测试注释。
+
 :::
 
 根据使用的报告器不同，这些测试注释的显示方式也会有所差异。

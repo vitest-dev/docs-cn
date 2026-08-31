@@ -11,7 +11,9 @@ title: 测试项目 | 指南
 :::
 
 ::: warning
+
 此功能也称为 `workspace`。`workspace` 自 3.2 版本起已被废弃，并由 `projects` 配置取代。它们的功能是相同的。
+
 :::
 
 Vitest 提供了一种在单个 Vitest 进程中定义多个项目配置的方法。此功能特别适用于 monorepo 结构，也可以用于使用不同配置运行测试，例如 `resolve.alias`、`plugins`、`test.browser` 等。
@@ -45,7 +47,9 @@ export default defineConfig({
 Vitest 会将 `packages` 中的每个文件夹视为独立项目，即使其中没有配置文件。如果该 glob 模式匹配到 _任意文件_，它将被视为 Vitest 配置，即使文件名中没有包含 `vitest` 或文件扩展名不常见。
 
 ::: warning
+
 Vitest 不会将根目录的 `vitest.config` 文件视为项目，除非在配置中显式指定。因此，根配置只会影响全局选项，如 `reporters` 和 `coverage`。但 Vitest 总会执行根配置文件中指定的某些插件钩子，如 `apply`、`config`、`configResolved` 或 `configureServer`。Vitest 也会使用相同的插件执行全局设置和自定义覆盖提供者。
+
 :::
 
 你也可以用配置文件路径来引用项目：
@@ -96,7 +100,9 @@ export default defineConfig({
 ```
 
 ::: warning
+
 所有项目名称必须唯一，否则 Vitest 会报错。如果内联配置未提供名称，Vitest 会自动分配数字。对于使用 glob 语法定义的项目，Vitest 会默认使用最近的 `package.json` 文件中的 "name" 属性，若无则使用文件夹名称。
+
 :::
 
 项目配置不支持所有配置属性。为获得更好的类型安全，建议在项目配置文件中使用 `defineProject` 方法而非 `defineConfig`：

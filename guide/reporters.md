@@ -39,7 +39,7 @@ export default defineConfig({
 
 默认情况下，Vitest 的报告器会将输出打印到终端。当使用 `json`、`html` 或 `junit` 报告器时，你可以在 Vite 配置文件中或通过 CLI 加入 `outputFile` [配置选项](https://vitest.dev/config/#outputfile)，将测试输出写入文件。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=json --outputFile=./test-output.json
@@ -101,7 +101,7 @@ export default defineConfig({
 
 我们可以通过配置报告器来禁用摘要：
 
-:::code-group
+::: code-group
 
 ```ts [vitest.config.ts]
 export default defineConfig({
@@ -148,7 +148,7 @@ export default defineConfig({
 
 `basic` 报告器等同于没有 `summary` 的 `default` 报告器。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=basic
@@ -180,7 +180,7 @@ export default defineConfig({
 
 详细报告器与 `default` 报告器相同，但它还会在测试套件完成后显示每个单独的测试。它还会显示当前正在运行且耗时超过 [`slowTestThreshold`](/config/#slowtestthreshold) 的测试。与 `default` 报告器类似，我们可以通过配置报告器来禁用摘要。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=verbose
@@ -238,7 +238,7 @@ export default defineConfig({
 
 为每个已完成的测试打印一个点，以提供最少的输出，并显示所有已运行的测试。只提供失败测试的详细信息，以及套件的基本报告摘要。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=dot
@@ -269,7 +269,7 @@ export default defineConfig({
 
 以 JUnit XML 格式输出测试结果报告。既可打印到终端，也可使用 [`outputFile`](##报告器输出) 配置选项写入 XML 文件。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=junit
@@ -326,7 +326,7 @@ export default defineConfig({
 
 以与 Jest 的 `--json` 选项兼容的 JSON 格式生成测试结果报告。可以打印到终端，也可以使用 [`outputFile`](/config/#outputfile) 配置选项写入文件。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=json
@@ -386,7 +386,9 @@ JSON 报告示例:
 ```
 
 ::: info
+
 自 Vitest 3 起，如果启用了代码覆盖率功能，JSON 报告器会在 `coverageMap` 中包含覆盖率信息。
+
 :::
 
 ### HTML 报告器 {#html-reporter}
@@ -395,7 +397,7 @@ JSON 报告示例:
 
 可使用 [`outputFile`](##报告器输出) 配置选项指定输出文件。如果没有提供 `outputFile` 选项，则会创建一个新的 HTML 文件。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=html
@@ -412,14 +414,16 @@ export default defineConfig({
 :::
 
 ::: tip
+
 该报告器需要安装 [`@vitest/ui`](/guide/ui)。
+
 :::
 
 ### TAP 报告器 {#tap-reporter}
 
 按照 [Test Anything Protocol](https://testanything.org/) (TAP) 输出报告。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=tap
@@ -462,7 +466,7 @@ not ok 1 - __tests__/test-file-1.test.ts # time=14.00ms {
 
 输出 TAP 扁平报告。与 `TAP` 报告器一样，测试结果的格式遵循 TAP 标准，但测试套件的格式是扁平列表，而不是嵌套层次结构。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=tap-flat
@@ -499,7 +503,7 @@ ok 2 - __tests__/test-file-1.test.ts > first test file > 4 - 2 should equal 2 # 
 
 展示任何妨碍 Vitest 安全退出的 hanging processes ，`hanging-process` 报告器本身不显示测试结果，但可与其他报告器结合使用，以便在测试运行时监控进程。使用这个报告器可能会消耗大量资源，因此通常应保留用于在 Vitest 无法正常退出进程的情况下进行调试的目的。
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=hanging-process
@@ -567,14 +571,16 @@ npx vitest --merge-reports=reports --reporter=json --reporter=default
 ```
 
 ::: tip
+
 Both `--reporter=blob` and `--merge-reports` do not work in watch mode.
+
 :::
 
 ## 自定义报告器 {#custom-reporters}
 
 你可以使用从 NPM 安装的第三方自定义报告器，方法是在 `reporter` 选项中指定它们的软件包名称:
 
-:::code-group
+::: code-group
 
 ```bash [CLI]
 npx vitest --reporter=some-published-vitest-reporter

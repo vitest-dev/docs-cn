@@ -14,15 +14,19 @@ Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中�
 - `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
 
 ::: info
+
 当使用 `jsdom` 或 `happy-dom` 环境时，Vitest 在导入 [CSS](https://vitejs.dev/guide/features.html#css) 和 [资源文件](https://vitejs.dev/guide/features.html#static-assets) 时遵循与 Vite 相同的规则。如果在导入外部依赖时出现 `unknown extension .css` 错误，则需要通过将所有相关包添加到 [`server.deps.inline`](/config/#server-deps-inline) 中，手动内联整个导入链。例如，在以下导入链中：`源代码 -> package-1 -> package-2 -> package-3`，如果错误发生在 `package-3`，你需要将这三个包都添加到 `server.deps.inline` 中。
 
 外部依赖中的 CSS 和资源文件的 `require` 调用会自动解析。
+
 :::
 
 ::: warning
+
 "环境" 仅在 Node.js 中运行测试时存在。
 
 Vitest 并不将 `browser` 视作一种测试环境。如果你想让部分测试在 [浏览器模式](/guide/browser/) 中执行，可以通过创建一个 [测试项目](/guide/browser/#projects-config) 来实现。
+
 :::
 
 ## 特定文件的环境 {#environments-for-specific-files}
@@ -74,7 +78,9 @@ export default <Environment>{
 ```
 
 ::: warning
+
 Vitest 需要指定环境对象上的 `transformMode` 选项。它应该等于 `ssr` 或 `web`。该值决定插件如何转换源代码。如果设置为 `ssr`，则插件挂钩在转换或解析文件时将收到 `ssr: true`。 否则，`ssr` 被设置为 `false`。
+
 :::
 
 你还可以通过 `vitest/environments` 访问默认的 Vitest 环境：

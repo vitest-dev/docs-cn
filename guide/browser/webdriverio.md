@@ -1,7 +1,9 @@
 # 配置 WebdriverIO {#configuring-webdriverio}
 
 ::: info 对比 Playwright 与 WebdriverIO
+
 如果我们的项目尚未使用 WebdriverIO，我们建议从 [Playwright](/guide/browser/playwright) 开始，因为它更易于配置且 API 更灵活。
+
 :::
 
 默认情况下，TypeScript 无法识别提供者选项和额外的 `expect` 属性。请确保引用 `@vitest/browser/providers/webdriverio`，以便 TypeScript 可以获取自定义选项的定义：
@@ -43,6 +45,7 @@ export default defineConfig({
 ```
 
 ::: warning
+
 在 Vitest 3 之前，这些选项位于 `test.browser.providerOptions` 属性中：
 
 ```ts [vitest.config.ts]
@@ -58,12 +61,15 @@ export default defineConfig({
 ```
 
 `providerOptions` 已被弃用，推荐使用 `instances`。
+
 :::
 
 我们可以在 [WebdriverIO 文档](https://webdriver.io/docs/configuration/) 中找到大多数可用选项。请注意，Vitest 将忽略所有测试运行器选项，因为我们仅使用 `webdriverio` 的浏览器功能。
 
 ::: tip
+
 最有用的选项位于 `capabilities` 对象上。WebdriverIO 允许嵌套功能，但 Vitest 将忽略这些选项，因为我们依赖于不同的机制来生成多个浏览器。
 
 请注意，Vitest 将忽略 `capabilities.browserName`。请改用 [`test.browser.instances.name`](/guide/browser/config#browser-capabilities-name)。
+
 :::

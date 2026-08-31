@@ -217,6 +217,7 @@ test('run', ({ todos }) => {})
 ```
 
 ::: warning
+
 在固定装置中使用 `test.extend()` 时，需要始终使用对象解构模式 `{ todos }` 来访问固定装置函数和测试函数中的上下文。
 
 ```ts
@@ -257,7 +258,7 @@ test('works correctly')
 
 从 Vitest 3 开始，你可以在不同的 [项目](/guide/projects) 中提供不同的值。要启用此功能，请在选项中传递 `{ injected: true }`。如果在 [项目配置](/config/#provide) 中未指定该键，则将使用默认值。
 
-:::code-group
+::: code-group
 
 ```ts [fixtures.test.ts]
 import { test as base } from 'vitest'
@@ -437,7 +438,8 @@ test('types are defined correctly', ({ todos, archive }) => {
 })
 ```
 
-::: info Type Inferring
+::: info 类型推断
+
 请注意，Vitest 不支持在调用 `use` 函数时推断类型。在调用 `test.extend` 时，最好将整个上下文类型作为泛型类型传递：
 
 ```ts
@@ -484,8 +486,10 @@ test.afterEach(({ todos }) => {
 
 ### `beforeEach` and `afterEach`
 
-::: danger 弃用
+::: danger 已弃用
+
 这种扩展上下文的方法已不再推荐使用，并且在你使用 `test.extend` 扩展 `test` 时，它将无法生效。
+
 :::
 
 每个测试用例都有独立的上下文，你可以在 `beforeEach` 和 `afterEach` 钩子里对其进行访问或扩展。

@@ -3,7 +3,9 @@
 - **类型:** `<T>(a: unknown) => ExpectTypeOf`
 
 ::: warning
+
 在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
+
 :::
 
 ## not
@@ -70,7 +72,9 @@ expectTypeOf(getResponsiveProp(cssProperties))
 ```
 
 ::: warning
+
 如果在联合类型中找不到类型，`.extract` 将返回 `never`。
+
 :::
 
 ## exclude
@@ -99,7 +103,9 @@ expectTypeOf(getResponsiveProp(cssProperties))
 ```
 
 ::: warning
+
 如果在联合类型中找不到类型，`.extract` 将返回 `never`。
+
 :::
 
 ## returns
@@ -116,7 +122,9 @@ expectTypeOf((a: number) => [a, a]).returns.toEqualTypeOf([1, 2])
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## parameters
@@ -136,11 +144,15 @@ expectTypeOf<HasParam>().parameters.toEqualTypeOf<[string]>()
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ::: tip
+
 你还可以使用 [`.toBeCallableWith`](#tobecallablewith) 匹配器作为更具表现力的断言。
+
 :::
 
 ## parameter
@@ -161,7 +173,9 @@ expectTypeOf(foo).parameter(1).toBeString()
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## constructorParameters
@@ -179,11 +193,15 @@ expectTypeOf(Date).constructorParameters.toEqualTypeOf<
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ::: tip
+
 你还可以使用 [`.toBeConstructibleWith`](#tobeconstructiblewith) 匹配器作为更具表现力的断言。
+
 :::
 
 ## instance
@@ -199,7 +217,9 @@ expectTypeOf(Date).instance.toHaveProperty('toISOString')
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## items
@@ -233,7 +253,9 @@ expectTypeOf(Promise.resolve('string')).resolves.toBeString()
 ```
 
 ::: warning
+
 如果用于非承诺类型，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## guards
@@ -253,7 +275,9 @@ expectTypeOf(isString).guards.toBeString()
 ```
 
 ::: warning
+
 如果该值不是保护函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## asserts
@@ -275,7 +299,9 @@ expectTypeOf(assertNumber).asserts.toBeNumber()
 ```
 
 ::: warning
+
 如果该值不是断言函数，则返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## toBeAny
@@ -473,7 +499,9 @@ expectTypeOf<HasParam>().toBeCallableWith('some string')
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## toBeConstructibleWith
@@ -490,7 +518,9 @@ expectTypeOf(Date).toBeConstructibleWith('01-01-2000')
 ```
 
 ::: warning
+
 如果用在非函数类型上，它将返回 `never`，因此你将无法将它与其他匹配器链接起来。
+
 :::
 
 ## toHaveProperty

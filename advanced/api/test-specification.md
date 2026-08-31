@@ -40,7 +40,9 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 测试模块将运行的 [`pool`](/config/#pool)。
 
 ::: danger
+
 通过 [`poolMatchGlob`](/config/#poolmatchglob) 和 [`typecheck.enabled`](/config/#typecheck-enabled)，单个测试项目中可以有多个池。这意味着可以有多个规范具有相同的 `moduleId` 但不同的 `pool`。在 Vitest 4 中，项目将仅支持单个池，此属性将被移除。
+
 :::
 
 ## testLines

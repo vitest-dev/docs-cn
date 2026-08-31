@@ -7,7 +7,9 @@ title: 模拟对象 | 指南
 在编写测试时，迟早会需要创建一个内部或外部服务的 "fake" 版本。这通常被称为 **mocking**。Vitest 通过其 `vi` 辅助工具提供了实用函数来帮助您。我们可以从 `vitest` 中导入它，或者如果启用了 [`global` 配置](/config/#globals)，也可以全局访问它。
 
 ::: warning
+
 不要忘记在每次测试运行前后清除或恢复模拟对象，以撤消运行测试时模拟对象状态的更改！有关更多信息，请参阅 [`mockReset`](/api/mock.html#mockreset) 文档。
+
 :::
 
 如果你不熟悉 `vi.fn`、`vi.mock` 或 `vi.spyOn` 方法，请先查看 [API 部分](/api/vi)。
@@ -646,6 +648,7 @@ Dog.prototype.feed = vi.fn()
 ```
 
 ::: warning
+
 如果构造函数返回一个非原始值，该值将成为 new 表达式的结果。在这种情况下，`[[Prototype]]` 可能无法正确绑定：
 
 ```ts
@@ -667,6 +670,7 @@ Newt instanceof IncorrectDogClass // ❌ false!
 :::
 
 ::: tip 何时使用?
+
 一般来说，如果类是从另一个模块重新导出的，你会在模块工厂内重新创建这样的类：
 
 ```ts
@@ -751,13 +755,17 @@ expect(nameSpy).toHaveBeenCalledTimes(1)
 ```
 
 ::: tip
+
 你也可以使用相同的方法来监视 getter 和 setter。
+
 :::
 
 ## 速查表 {#cheat-sheet}
 
 ::: info 提示
+
 下列示例中的 `vi` 是直接从 `vitest` 导入的。如果在你的 [配置文件](/config/) 中将 `globals` 设置为 `true`，则可以全局使用它。
+
 :::
 
 我想……
@@ -775,7 +783,9 @@ vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 ```
 
 ::: warning
+
 此方法在浏览器模式中无法使用。如需替代方案，请查看 [限制](/guide/browser/#spying-on-module-exports) 部分。
+
 :::
 
 ### 模拟导出函数 {#mock-an-exported-function}
@@ -783,7 +793,9 @@ vi.spyOn(exports, 'getter', 'get').mockReturnValue('mocked')
 1. `vi.mock` 的示例：
 
 ::: warning
+
 不要忘记将 `vi.mock` 调用提升到文件顶部。它将始终在所有导入之前执行。
+
 :::
 
 ```ts [example.js]
@@ -807,7 +819,9 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 ```
 
 ::: warning
+
 `vi.spyOn` 示例在浏览器模式中无法使用。如需替代方案，请查看 [限制](/guide/browser/#spying-on-module-exports) 部分。
+
 :::
 
 ### 模拟导出类的实现 {#mock-an-exported-class-implementation}
@@ -840,7 +854,9 @@ vi.spyOn(mod, 'SomeClass').mockImplementation(class FakeClass {
 ```
 
 ::: warning
+
 vi.spyOn 的示例无法在浏览器模式中正常使用。如需替代方案，请查看 [限制](/guide/browser/#spying-on-module-exports) 部分。
+
 :::
 
 ### 监听一个函数是否返回了一个对象 {#spy-on-an-object-returned-from-a-function}
@@ -900,7 +916,9 @@ mocked() // 是一个 spy 函数
 ```
 
 ::: warning
+
 别忘了，这只是 [mocks _external_ access](#mocking-pitfalls)。在本例中，如果 `original` 在内部调用 `mocked`，它将始终调用模块中定义的函数，而不是 mock 工厂中的函数。
+
 :::
 
 ### 模拟当前日期 {#mock-the-current-date}
@@ -932,7 +950,9 @@ expect(__VERSION__).toBe('1.0.0')
 1. 要更改环境变量，你只需为其分配一个新值即可。 该值将 **不会** 在不同的测试之间自动重置。
 
 ::: warning
+
 环境变量值将在不同的测试之间 **不会** 自动重置。
+
 :::
 
 ```ts

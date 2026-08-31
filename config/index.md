@@ -13,6 +13,7 @@ outline: deep
 要配置 Vitest 本身，请在我们的 Vite 配置中添加 `test` 属性。如果我们是从 `vite` 本身导入 `defineConfig`，我们还需要在配置文件顶部使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 添加对 Vitest 类型引用。
 
 ::: details 打开配置示例
+
 使用 `vite` 中的 `defineConfig` 时使用以下步骤：
 
 ```ts [vite.config.js]
@@ -95,6 +96,7 @@ export default defineConfig(configEnv => mergeConfig(
 :::
 
 ::: warning
+
 本页上列出的 _所有选项_ 都位于配置内的 `test` 属性内：
 
 ```ts [vitest.config.js]
@@ -108,6 +110,7 @@ export default defineConfig({
 由于 Vitest 使用 Vite 的配置，我们也可以使用 [Vite](https://vitejs.dev/config/) 中的任何配置选项。例如，使用 `define` 来定义全局变量，或者使用 `resolve.alias` 来定义别名，这些选项应该在顶级定义，而不是在 `test` 属性内部。
 
 在 [项目](/guide/projects) 配置里不被支持的选项，会在旁边标注 <NonProjectOption /> 。这表示这些选项只能在 Vitest 的根配置中进行设置。
+
 :::
 
 ## include
@@ -119,7 +122,9 @@ export default defineConfig({
 匹配包含测试文件的 glob 规则。
 
 ::: tip NOTE
+
 使用 coverage 时，Vitest 会自动将测试文件的 `include` 模式添加到 coverage 的默认 `exclude` 模式中。请参见 [`coverage.exclude`](#coverage-exclude)。
+
 :::
 
 ### exclude
@@ -131,9 +136,11 @@ export default defineConfig({
 匹配排除测试文件的 glob 规则。
 
 ::: warning
+
 该选项不会影响代码覆盖率。如需从覆盖率报告中排除特定文件，请使用 [`coverage.exclude`](#coverage-exclude)。
 
 如果使用命令行参数，这是唯一一个不会被覆盖配置的选项。通过 `--exclude` 标志添加的所有 glob 规则都将追加到 `exclude` 中。
+
 :::
 
 ### includeSource
@@ -252,7 +259,9 @@ Vite 将处理内联模块。这可能有助于处理以 ESM 格式传送 `.js` 
 此选项还继承了你的 `optimizeDeps` 配置（对于 web 环境， Vitest 将会继承 `optimizeDeps`，对于 ssr 则是 `ssr.optimizeDeps`）。如果你在 `deps.experimentalOptimizer` 中重新定义 `include`/`exclude`/`entries` 选项，它将在运行测试时覆盖你的 `optimizeDeps`。如果它们在 `exclude` 中配置，Vitest 会自动从 `include` 中删除相同的选项。
 
 ::: tip
+
 你将无法编辑用于调试的 `node_modules` 代码，因为该代码实际上位于你的 `cacheDir` 或 `test.cache.dir` 目录中。如果你想使用 `console.log` 语句进行调试，请直接编辑它或使用 `deps.experimentalOptimizer?.[mode].force` 选项强制重新绑定。
+
 :::
 
 #### deps.optimizer.{mode}.enabled
@@ -280,7 +289,9 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.png、.sv
 如果未指定查询，此模块将具有等同于静态资源路径的默认导出。
 
 ::: warning
+
 目前，此选项适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
+
 :::
 
 #### deps.web.transformCss
@@ -293,7 +304,9 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.css, .scs
 如果使用 [`css`](#css) 选项禁用 CSS 文件，则此选项只会消除 `ERR_UNKNOWN_FILE_EXTENSION` 错误。
 
 ::: warning
+
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
+
 :::
 
 #### deps.web.transformGlobPattern
@@ -306,7 +319,9 @@ Vitest 是否应该像 Vite 在浏览器中一样处理静态资源（.css, .scs
 默认情况下，`node_modules` 内的文件是外部化的，不会被转换，除非它是 CSS 或静态资源，并且相应的选项不会被禁用。
 
 ::: warning
+
 目前，此选项仅适用于 [`vmThreads`](#vmthreads) 和 [`vmForks`](#vmForks) 池。
+
 :::
 
 #### deps.interopDefault
@@ -435,6 +450,7 @@ vitest bench --compare main.json
 在测试内部运行时定义自定义别名。它们将与来自 `resolve.alias` 的别名合并。
 
 ::: warning
+
 Vitest 使用 Vite SSR 基元来运行测试，这有 [一定的缺陷](https://vitejs.dev/guide/ssr.html#ssr-externals)。
 
 1. 别名只影响由 [inlined](#server-deps-inline) 模块直接用 `import` 关键字导入的模块（默认情况下所有源代码都是内联的）。
@@ -508,7 +524,9 @@ Vitest 中的默认测试环境是一个 Node.js 环境。如果你正在构建 
 如果你正在构建边缘计算函数，你可以使用 [`edge-runtime`](https://edge-runtime.vercel.app/packages/vm) 环境
 
 ::: tip
+
 你还可以使用 [浏览器模式](/guide/browser/) 在浏览器中运行集成或单元测试，而无需模拟环境。
+
 :::
 
 你可以通过在文件顶部添加包含 `@vitest-environment` 的文档块或注释，为某个测试文件中的所有测试指定环境：
@@ -574,6 +592,7 @@ export default <Environment>{
 Vitest 还通过 `vitest/environments` 入口导出 `builtinEnvironments`，以防你只想扩展它。 你可以在 [测试环境指南](/guide/environment) 中阅读有关扩展测试环境的更多信息。
 
 ::: tip
+
 jsdom 环境变量导出了等同于当前 [JSDOM](https://github.com/jsdom/jsdom) 的 `jsdom` 全局变量实例。如果你想让 TypeScript 识别它，可以在使用此环境时将 `vitest/jsdom` 添加到 `tsconfig.json` 中：
 
 ```json [tsconfig.json]
@@ -598,7 +617,8 @@ jsdom 环境变量导出了等同于当前 [JSDOM](https://github.com/jsdom/jsdo
 - **类型:** `[string, EnvironmentName][]`
 - **默认值:** `[]`
 
-::: danger DEPRECATED
+::: danger 已弃用
+
 此 API 在 Vitest 3 中已弃用。请使用 [projects](/guide/projects) 来定义不同的配置。
 
 ```ts
@@ -646,7 +666,8 @@ export default defineConfig({
 - **类型:** `[string, 'threads' | 'forks' | 'vmThreads' | 'vmForks' | 'typescript'][]`
 - **默认值:** `[]`
 
-::: danger DEPRECATED
+::: danger 已弃用
+
 此 API 在 Vitest 3 中已被弃用。请使用 [projects](/guide/projects) 来定义不同的配置：
 
 ```ts
@@ -738,7 +759,9 @@ export default defineConfig({
 ```
 
 ::: warning
+
 返回的文件应该是绝对路径或相对于根目录的相对路径。注意这是一个全局选项，不能在 [project](/guide/projects) 配置中使用。
+
 :::
 
 ### root
@@ -794,6 +817,7 @@ export default defineConfig({
 这样可以加快测试速度，但是当运行 [ESM 代码](https://github.com/nodejs/node/issues/37648) 时，VM 模块可能不稳定。你的测试可能会 [泄漏内存](https://github.com/nodejs/node/issues/33439)，为了解决这个问题，考虑手动编辑 [`poolOptions.vmThreads.memoryLimit`](#pooloptions-vmthreads-memorylimit) 的值。
 
 ::: warning
+
 在沙箱中运行代码有一些优点（测试速度更快），但也有许多缺点。
 
 - 原生模块中的全局变量，例如（`fs`、`path` 等），与测试环境中存在的全局变量不同。因此，这些原生模块引发的任何错误都将引用与代码中使用的错误构造函数不同的错误构造函数：
@@ -811,6 +835,7 @@ catch (err) {
 - 在沙盒环境中访问全局变量 [需要更长的时间](https://github.com/nodejs/node/issues/31658)。
 
 使用此选项时请注意这些问题。Vitest 团队无法解决我们这边的任何问题。
+
 :::
 
 #### vmForks<NonProjectOption />
@@ -862,9 +887,11 @@ export default defineConfig({
 在单个工作线程内使用相同的环境运行所有测试。 这将禁用内置模块隔离（我们的源代码或 [inlined](#server-deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
 ::: warning
+
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用工作线程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
 如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+
 :::
 
 ##### poolOptions.threads.useAtomics<NonProjectOption />
@@ -891,7 +918,9 @@ export default defineConfig({
 在线程中向 `node` 传递附加参数。更多信息，具体可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html)。
 
 ::: warning
+
 使用时要小心，因为某些选项（如--prof、--title）可能会导致 worker 崩溃。具体信息可以浏览 https://github.com/nodejs/node/issues/41103。
+
 :::
 
 #### poolOptions.forks
@@ -941,9 +970,11 @@ export default defineConfig({
 在单个子进程中使用相同的环境运行所有测试。 这将禁用内置模块隔离（你的源代码或 [inlined](#server-deps-inline) 代码仍将针对每个测试重新评估），但可以提高测试性能。
 
 ::: warning
+
 尽管此选项将强制测试一个接一个地运行，但此选项与 Jest 的 `--runInBand` 不同。 Vitest 使用子进程不仅可以并行运行测试，还可以提供隔离。 通过禁用此选项，你的测试将按顺序运行，但在相同的全局上下文中，因此你必须自己提供隔离。
 
 如果你依赖全局状态（前端框架通常这样做）或者你的代码依赖于为每个测试单独定义的环境，这可能会导致各种问题。 但可以提高你的测试速度（最多快 3 倍），这不一定依赖于全局状态，也可以轻松绕过它。
+
 :::
 
 ##### poolOptions.forks.execArgv<NonProjectOption />
@@ -953,8 +984,10 @@ export default defineConfig({
 
 向子进程中的 `node` 进程传递附加参数。更多信息，详细信息可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html)。
 
-:::warning
+::: warning
+
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
+
 :::
 
 #### poolOptions.vmThreads
@@ -997,6 +1030,7 @@ export default defineConfig({
 指定工作线程被回收之前的内存限制。该值在很大程度上取决于你的运行环境，因此最好手动指定它，而不是依赖默认值。
 
 ::: tip
+
 该实现基于 Jest 的 [`workerIdleMemoryLimit`](https://jestjs.io/docs/configuration#workeridlememorylimit-numberstring)。
 
 可以通过多种不同的方式指定限制，无论结果是什么，`Math.floor` 都用于将其转换为整数值：
@@ -1016,7 +1050,9 @@ export default defineConfig({
 :::
 
 ::: warning
+
 由于系统内存报告不正确，基于百分比的内存限制 [在 Linux CircleCI 环境下无效](https://github.com/jestjs/jest/issues/11956#issuecomment-1212925677)。
+
 :::
 
 ##### poolOptions.vmThreads.useAtomics<NonProjectOption />
@@ -1035,8 +1071,10 @@ export default defineConfig({
 
 将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，详细信息可以浏览 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html)。
 
-:::warning
+::: warning
+
 使用时要小心，因为某些选项（如 --prof、--title ）可能会导致 worker 崩溃。详细信息可以浏览 https://github.com/nodejs/node/issues/41103。
+
 :::
 
 #### poolOptions.vmForks<NonProjectOption />
@@ -1085,8 +1123,10 @@ export default defineConfig({
 
 将附加参数传递给虚拟机上下文中的 `node` 进程。更多信息，查看 [Command-line API | Node.js](https://nodejs.org/docs/latest/api/cli.html) 了解更多详情。。
 
-:::warning
+::: warning
+
 使用时要小心，因为某些选项（如 `--prof`、`--title`）可能会导致 worker 崩溃。查看 https://github.com/nodejs/node/issues/41103 了解更多详情。
+
 :::
 
 ### fileParallelism<NonProjectOption />
@@ -1098,7 +1138,9 @@ export default defineConfig({
 所有测试文件应该并行运行。将其设置为 `false` 将覆盖 `maxWorkers` 和 `minWorkers` 选项为 `1`。
 
 ::: tip
+
 此选项不会影响在同一文件中运行的测试。如果你想并行运行这些程序，请在 [description](/api/#describe-concurrent) 或通过 [配置](#sequence-concurrent) 上使用 `concurrent` 选项。
+
 :::
 
 ### maxWorkers<NonProjectOption />
@@ -1154,13 +1196,17 @@ Vitest 关闭时等待关闭的默认超时时间，以毫秒为单位
 setup 文件的路径。它们将在每个测试文件之前运行。
 
 ::: info 提示
+
 编辑设置文件将自动触发所有测试的重新运行。
+
 :::
 
 你可以在全局设置文件中使用 `process.env.VITEST_POOL_ID`（类似整数的字符串）来区分不同的线程。
 
-:::tip
+::: tip
+
 请注意，如果运行 [`--isolate=false`](#isolate)，这个配置文件将在全局范围内多次运行。这意味着每次测试前都要访问同一个全局对象，因此请确保不要重复做同一件事。
+
 :::
 
 比如，你可能依赖于一个全局变量：
@@ -1188,7 +1234,7 @@ globalThis.resetBeforeEachTest = true
 
 使用 `inject` 方法定义可在测试中访问的值。
 
-:::code-group
+::: code-group
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -1215,10 +1261,13 @@ test('api key is defined', () => {
 可以参考 如何在覆盖率报告中包含或排除文件 里的示例。
 
 ::: warning
+
 属性必须是字符串，值必须是 [可序列化](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#supported_types)，因为该对象将在不同进程之间传输。
+
 :::
 
 ::: tip
+
 如果使用的是 TypeScript，则需要增强 `ProvidedContext` 类型，以实现类型安全访问：
 
 ```ts [vitest.shims.d.ts]
@@ -1243,7 +1292,9 @@ export {}
 全局的 setup 文件可以导出命名函数 `setup` 和 `teardown` 或返回拆卸函数的 `default` 函数（[示例](https://github.com/vitest-dev/vitest/blob/main/test/global-setup/vitest.config.ts))。
 
 ::: info 提示
+
 可以存在多个 globalSetup。setup 和 teardown 依次执行，而 teardown 则以相反的顺序执行。
+
 :::
 
 ::: warning
@@ -1251,7 +1302,7 @@ export {}
 
 请注意，全局设置在不同的全局范围内运行，因此你的测试无法访问此处定义的变量。悬停，从 1.0.0 开始，你可以通过 [`provide`](#provide) 方法将可序列化数据传递给测试：
 
-:::code-group
+::: code-group
 
 ```ts [example.test.js]
 import { inject } from 'vitest'
@@ -1316,7 +1367,7 @@ test('execute a script', async () => {
 })
 ```
 
-:::tip 提醒
+::: tip 提醒
 请确保我们的文件没有被 [`server.watch.ignored`](https://vitejs.dev/config/server-options.html#server-watch) 排除在外。
 :::
 
@@ -1985,7 +2036,7 @@ export default defineConfig({
 
 将返回匹配正则表达式并将由 Vite 管道处理的实际 CSS 文件。
 
-:::tip
+::: tip
 如果需要处理所有 CSS 文件，请使用 `/.+/`。
 :::
 
@@ -2424,7 +2475,7 @@ export default defineConfig({
 
 或者作为模块：
 
-:::code-group
+::: code-group
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'

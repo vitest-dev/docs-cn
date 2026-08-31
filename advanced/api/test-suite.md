@@ -62,6 +62,7 @@ ID 的格式如下：
 ```
 
 ::: tip
+
 你可以使用 `vitest/node` 中的 `generateFileHash` 函数生成文件哈希，该函数自 Vitest 3 起可用：
 
 ```ts
@@ -76,7 +77,9 @@ const hash = generateFileHash(
 :::
 
 ::: danger
+
 不要尝试解析 ID。它可能以减号开头，例如：`-1223128da3_0_0_0`。
+
 :::
 
 ## location
@@ -130,6 +133,7 @@ for (const task of suite.children) {
 ```
 
 ::: warning
+
 请注意，`suite.children` 只会遍历第一层嵌套，不会深入嵌套层次。如果我们需要遍历所有测试或套件，请使用 [`children.allTests()`](/advanced/api/test-collection#alltests) 或 [`children.allSuites()`](/advanced/api/test-collection#allsuites)。如果我们需要遍历所有内容，请使用递归函数。
 
 ```ts
@@ -170,7 +174,9 @@ function state(): TestSuiteState
 - **skipped**：此套件在收集过程中被跳过。
 
 ::: warning
+
 请注意，[测试模块](/advanced/api/test-module) 也有一个 `state` 方法，返回相同的值，但如果模块尚未执行，它还可以返回一个额外的 `queued` 状态。
+
 :::
 
 ## errors
@@ -190,7 +196,9 @@ describe('collection failed', () => {
 ```
 
 ::: warning
+
 请注意，错误会被序列化为简单对象：`instanceof Error` 将始终返回 `false`。
+
 :::
 
 ## meta <Version>3.1.0</Version> {#meta}
@@ -216,6 +224,8 @@ describe('the validation works correctly', (task) => {
 })
 ```
 
-:::tip
+::: tip
+
 如果元数据是在收集阶段（而非 `test` 函数内部）附加的，那么它将在 available 的 [`onTestModuleCollected`](./reporters#ontestmodulecollected) 中可用。
+
 :::

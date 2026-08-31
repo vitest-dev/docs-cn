@@ -4,7 +4,8 @@ title: 调试 | 指南
 
 # 调试 {#debugging}
 
-:::tip
+::: tip
+
 在调试测试时，你可能需要使用以下选项：
 
 - [`--test-timeout=0`](/guide/cli#testtimeout) 以防止测试在断点处停止时超时

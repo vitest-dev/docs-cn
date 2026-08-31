@@ -36,7 +36,9 @@ expect(input).toBe(2) // jest API
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
+
 如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为 [类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type)。
+
 :::
 
 ## soft
@@ -68,7 +70,9 @@ test('expect.soft test', () => {
 ```
 
 ::: warning
+
 `expect.soft` 只能在 [`test`](/api/#test) 函数的内部使用。
+
 :::
 
 ## poll
@@ -94,6 +98,7 @@ test('element exists', async () => {
 ```
 
 ::: warning
+
 `expect.poll` 使每个断言变为异步，因此我们需要等待它。自 Vitest 3 起，如果我们忘记添加 await，测试将以警告失败，测试将失败并显示警告提示。
 
 `expect.poll` 不适用于多个匹配器：
@@ -354,8 +359,10 @@ test('optional properties can be null or undefined', () => {
 })
 ```
 
-:::tip
+::: tip
+
 我们可以将 `expect.not` 与此 matcher 一起使用，以确保值与任何提供的选项不匹配。
+
 :::
 
 ## toBeTypeOf
@@ -479,7 +486,8 @@ test('stocks are not the same', () => {
 })
 ```
 
-:::warning
+::: warning
+
 对于 `Error` 对象，非可枚举属性如 `name`、`message`、`cause` 和 `AggregateError.errors` 也会进行比较。对于 `Error.cause`，比较是不对称的：
 
 ```ts
@@ -491,6 +499,7 @@ expect(new Error('hi')).toEqual(new Error('hi', { cause: 'x' }))
 ```
 
 要测试是否抛出了某个异常，请使用 [`toThrowError`](#tothrowerror) 断言。
+
 :::
 
 ## toStrictEqual
@@ -712,7 +721,8 @@ test('the number of elements must match exactly', () => {
 - `string`: 错误消息包含该子字符串
 - `Error`, `AsymmetricMatcher`: 与接收到的对象进行比较，类似于 `toEqual(received)`
 
-:::tip
+::: tip
+
 必须将代码包装在一个函数中，否则错误将无法被捕获，测试将失败。
 
 这不适用于异步调用，因为 [rejects](#rejects) 正确地解开了 promise:
@@ -758,7 +768,8 @@ test('throws on pineapples', () => {
 })
 ```
 
-:::tip
+::: tip
+
 要测试异步函数，请与 [rejects](#rejects) 结合使用。
 
 ```js
@@ -781,8 +792,10 @@ test('throws on pineapples', async () => {
 
 可以提供一个可选的 `hint` 字符串参数，它会附加到测试名称的末尾。尽管 Vitest 总是在快照名称的末尾附加一个数字，但简短的描述性提示可能比数字更有用，以区分单个 it 或 test 块中的多个快照。Vitest 会按名称在相应的 `.snap` 文件中对快照进行排序。
 
-:::tip
+::: tip
+
 当快照不匹配导致测试失败时，如果这种不匹配是预期的，我们可以按 `u` 键一次性更新快照。或者可以传递 `-u` 或 `--update` 命令行选项，使 Vitest 始终更新测试。
+
 :::
 
 ```ts
@@ -1323,10 +1336,12 @@ test('buyApples returns new stock id', async () => {
 })
 ```
 
-:::warning
+::: warning
+
 如果断言没有被异步等待，那么我们将得到一个误报测试，这个测试每次都能通过。为了确保断言确实被调用，我们可以尝试使用 [`expect.assertions(number)`](#expect-assertions)。
 
 自 Vitest 3 起，如果一个方法没有被等待（await），Vitest 会在测试结束时显示警告。到了 Vitest 4 ，如果断言没有被等待，测试将被标记为 "failed" 。
+
 :::
 
 ## rejects
@@ -1354,10 +1369,12 @@ test('buyApples throws an error when no id provided', async () => {
 })
 ```
 
-:::warning
+::: warning
+
 如果断言没有被等待执行，那么我们将得到一个误报测试，这个测试每次都能通过。为了确保断言实际上被调用了，我们可以尝试使用 [`expect.assertions(number)`](#expect-assertions)。
 
 自 Vitest 3 起，若方法未被异步等待（ await ），Vitest 将在测试结束时显示警告。而在 Vitest 4 中，若断言未被异步等待，则测试将被标记为 "failed" 。
+
 :::
 
 ## expect.assertions
@@ -1389,7 +1406,9 @@ test('all assertions are called', async () => {
 ```
 
 ::: warning
+
 在使用异步并发测试时，必须使用本地 [Test Context](/guide/test-context.md) 中的 `expect` 来确保正确的测试被检测到。
+
 :::
 
 ## expect.hasAssertions
@@ -1546,8 +1565,10 @@ test('basket includes fuji', () => {
 })
 ```
 
-:::tip
+::: tip
+
 可以将 `expect.not` 与此匹配器一起使用来否定期望值。
+
 :::
 
 ## expect.objectContaining
@@ -1574,8 +1595,10 @@ test('basket has empire apples', () => {
 })
 ```
 
-:::tip
+::: tip
+
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
+
 :::
 
 ## expect.stringContaining
@@ -1599,8 +1622,10 @@ test('variety has "Emp" in its name', () => {
 })
 ```
 
-:::tip
+::: tip
+
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
+
 :::
 
 ## expect.stringMatching
@@ -1624,8 +1649,10 @@ test('variety ends with "re"', () => {
 })
 ```
 
-:::tip
+::: tip
+
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
+
 :::
 
 ## expect.addSnapshotSerializer
@@ -1636,8 +1663,10 @@ test('variety ends with "re"', () => {
 
 如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/#setupfiles) 中调用此方法。这将影响每个快照。
 
-:::tip
+::: tip
+
 如果以前将 Vue CLI 与 Jest 一起使用，需要安装 [jest-serializer-vue](https://www.npmjs.com/package/jest-serializer-vue)。 否则，的快照将被包裹在一个字符串中，其中 `"` 是要转义的。
+
 :::
 
 ## expect.extend
@@ -1669,7 +1698,9 @@ test('custom matchers', () => {
 ```
 
 ::: tip
+
 如果希望匹配器出现在每个测试中，应该在 [`setupFiles`](/config/#setupFiles) 中调用此方法。
+
 :::
 
 这个函数与 Jest 的 `expect.extend` 兼容，因此任何使用它来创建自定义匹配器的库都可以与 Vitest 一起使用。
@@ -1688,11 +1719,15 @@ declare module 'vitest' {
 ```
 
 ::: warning
+
 不要忘记在 `tsconfig.json` 中包含环境声明文件。
+
 :::
 
-:::tip
+::: tip
+
 如果想了解更多信息，请查看 [扩展断言](/guide/extending-matchers)。
+
 :::
 
 ## expect.addEqualityTesters {#expect-addequalitytesters}

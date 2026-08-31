@@ -38,6 +38,7 @@ export default defineConfig({
 ```
 
 ::: warning
+
 在 Vitest 3 之前，这些选项位于 `test.browser.providerOptions` 属性中：
 
 ```ts [vitest.config.ts]
@@ -54,6 +55,7 @@ export default defineConfig({
 ```
 
 `providerOptions` 已被弃用，推荐使用 `instances`。
+
 :::
 
 ## launch
@@ -61,9 +63,11 @@ export default defineConfig({
 这些选项直接传递给 `playwright[browser].launch` 命令。我们可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-launch) 中阅读有关该命令和可用参数的更多信息。
 
 ::: warning
+
 Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](/guide/browser/config#browser-headless)。
 
 请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试标志推送到 `launch.args`。
+
 :::
 
 ## connect <Version>3.2.0</Version> {#connect}
@@ -71,7 +75,9 @@ Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](
 这些选项会直接传递给 `playwright[browser].connect` 命令。您可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-connect) 中，查阅该命令的详细说明及可用参数。
 
 ::: warning
+
 由于此命令会连接至现有的 Playwright 服务端，所有 `launch` 相关配置都将被忽略。
+
 :::
 
 ## context
@@ -79,13 +85,17 @@ Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](
 Vitest 通过调用 [`browser.newContext()`](https://playwright.dev/docs/api/class-browsercontext) 为每个测试文件创建一个新的上下文。我们可以通过指定 [自定义参数](https://playwright.dev/docs/api/class-apirequest#api-request-new-context) 来配置此行为。
 
 ::: tip
+
 请注意，上下文是为每个 _测试文件_ 创建的，而不是像 Playwright 测试运行器那样为每个 _测试_ 创建。
+
 :::
 
 ::: warning
+
 如果我们的服务器通过 HTTPS 提供服务，Vitest 始终将 `ignoreHTTPSErrors` 设置为 `true`，并将 `serviceWorkers` 设置为 `'allow'`，以支持通过 [MSW](https://mswjs.io) 进行模块模拟。
 
 建议使用 [`test.browser.viewport`](/guide/browser/config#browser-headless) 而不是在此处指定它，因为在无头模式下运行测试时会丢失该设置。
+
 :::
 
 ## `actionTimeout` <Version>3.0.0</Version>

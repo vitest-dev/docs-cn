@@ -1,7 +1,9 @@
 # assertType
 
 ::: warning
+
 在运行时，此函数不执行任何操作。要 [启用类型检查](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
+
 :::
 
 - **类型:** `<T>(value: T): void`

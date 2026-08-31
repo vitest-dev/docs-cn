@@ -456,7 +456,9 @@ export default defineConfig({
 ```
 
 ::: warning
+
 `SpyInstance` 已被弃用，取而代之的是 `MockInstance`，并会在下一个主要版本中移除。
+
 :::
 
 ### 模拟计时器 [#3925](https://github.com/vitest-dev/vitest/pull/3925) {#timer-mocks-3925}
@@ -589,7 +591,7 @@ vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 
 如果你以前在 vue-cli preset 中使用 Jest，那么这不是一个 Jest 独有的新特性。你可能需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，然后在 [setupFiles](/config/#setupfiles) 中配置：
 
-:::code-group
+::: code-group
 
 ```js [vite.config.js]
 import { defineConfig } from 'vite'

@@ -1,9 +1,11 @@
 # 运行测试 {#running-tests}
 
 ::: warning 注意
+
 本指南介绍如何使用高级 API 通过 Node.js 脚本运行测试。如果您只想 [运行测试](/guide/)，则可能不需要这个。它主要被库的作者使用。
 
 破坏性变更可能不会遵循 SemVer，请在使用实验性 API 时固定 Vitest 的版本。
+
 :::
 
 Vitest 公开了两种启动 Vitest 的方法：
@@ -30,7 +32,9 @@ for (const testModule of testModules) {
 ```
 
 ::: tip
+
 [`TestModule`](/advanced/api/test-module), [`TestSuite`](/advanced/api/test-suite) 和 [`TestCase`](/advanced/api/test-case) API 从 Vitest 2.1 开始不再是实验性的，并且遵循 SemVer。
+
 :::
 
 ## `createVitest`
@@ -88,6 +92,7 @@ watcher.on('change', async (file) => {
 ```
 
 ::: warning
+
 上述示例显示了禁用默认观察者行为时的潜在用例。默认情况下，如果文件发生变化，Vitest 会重新运行测试。
 
 另外请注意，`getModuleSpecifications` 不会解析测试文件，除非这些文件已经通过 `globTestSpecifications` 处理过。如果文件刚刚创建，应使用 `project.matchesGlobPattern`：

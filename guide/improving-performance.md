@@ -38,8 +38,10 @@ export default defineConfig({
 
 :::
 
-:::tip
+::: tip
+
 如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
+
 :::
 
 对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 标志，或将 config 中的 [`test.fileParallelism`](/config/#fileParallelism) 属性设置为 `false`。
@@ -107,6 +109,7 @@ vitest run --merge-reports
 ```
 
 ::: details GitHub Actions 示例
+
 同样方案也应用于 https://github.com/vitest-tests/test-sharding 仓库。
 
 ```yaml
@@ -177,7 +180,8 @@ jobs:
 
 :::
 
-:::tip
+::: tip
+
 测试分片在多核心 CPU 机器上也很有用。
 
 Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用于运行测试文件。

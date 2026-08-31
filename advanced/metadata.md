@@ -1,7 +1,9 @@
 # 任务元数据 {#task-metadata}
 
 ::: warning
+
 Vitest 导出了实验性私有 API。重大更改可能不遵循 semver，使用时请固定 Vitest 的版本。
+
 :::
 
 如果你正在开发自定义报告器或使用 Vitest Node.js API，你可能会发现将在各种上下文中执行的测试中的数据传递给报告器或自定义 Vitest 处理程序很有用。
@@ -37,7 +39,8 @@ export default {
 } satisfies Reporter
 ```
 
-::: danger BEWARE
+::: danger 当心
+
 Vitest 使用不同的方法与 Node.js 进程进行通信。
 
 - 如果 Vitest 在工作线程内运行测试，它将通过 [消息端口](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) 发送数据
@@ -47,6 +50,7 @@ Vitest 使用不同的方法与 Node.js 进程进行通信。
 该属性也会出现在每个测试的 `json` 报告中，因此请确保数据可以序列化为 JSON。
 
 另外，请确保在设置 [错误属性](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#error_types) 之前序列化它们。
+
 :::
 
 当测试运行完成时，你还可以从 Vitest 状态获取此信息：

@@ -35,6 +35,7 @@ interface TestOptions {
 当测试函数返回一个 promise 时，运行器会等待它解析结束收集异步的结果。如果 promise 被拒绝，测试就会失败。
 
 ::: tip
+
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用这种形式，测试将在调用 `done` 之前不会结束。也可以使用 `async` 函数来实现相同的效果，请参阅 [迁移指南中的回调完成部分](/guide/migration.html#done-callback)。
 
 :::
@@ -206,7 +207,9 @@ test.skipIf(isDev)('prod only test', () => {
 ```
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### test.runIf
@@ -227,7 +230,9 @@ test.runIf(isDev)('dev only test', () => {
 ```
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### test.only
@@ -301,7 +306,9 @@ test.concurrent('test 2', async ({ expect }) => {
 ```
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### test.sequential
@@ -361,7 +368,9 @@ test.fails('fail test', async () => {
 ```
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### test.each
@@ -370,7 +379,9 @@ test.fails('fail test', async () => {
 - **别名:** `it.each`
 
 ::: tip
+
 `test.each` 是为了与 Jest 兼容而提供的，Vitest 还提供了 [`test.for`](#test-for)，并集成了 [`TestContext`](/guide/test-context)。
+
 :::
 
 当需要使用不同变量运行同一测试时，请使用 `test.each`。
@@ -467,11 +478,15 @@ test.each`
 ```
 
 ::: tip
+
 Vitest 使用 chai `format` 方法处理 `$values`。如果数值太短，可以在配置文件中增加 [chaiConfig.truncateThreshold](/config/#chaiconfig-truncatethreshold)。
+
 :::
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### test.for
@@ -873,7 +888,9 @@ describe.skipIf(isDev)('prod only test suite', () => {
 ```
 
 ::: warning
+
 将 Vitest 用作 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
+
 :::
 
 ### describe.runIf
@@ -894,7 +911,9 @@ describe.runIf(isDev)('dev only test suite', () => {
 ```
 
 ::: warning
+
 将 Vitest 用作 [类型检查器](/guide/testing-types) 时，你不能使用此语法。
+
 :::
 
 ### describe.only
@@ -977,7 +996,9 @@ describe.concurrent('suite', () => {
 ```
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### describe.sequential
@@ -1035,7 +1056,9 @@ describe.shuffle('suite', () => {
 `.skip`、`.only` 和 `.todo` 适用于随机测试套件。
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### describe.todo
@@ -1056,8 +1079,10 @@ describe.todo('unimplemented suite')
 - **别名:** `suite.each`
 
 ::: tip
+
 虽然 `describe.each` 是为了兼容 Jest 提供的，
 但 Vitest 也有 [`describe.for`](#describe-for)，它简化了参数类型并与 [`test.for`](#test-for) 保持一致。
+
 :::
 
 如果我们有多个依赖于相同数据的测试，请使用 `describe.each`。
@@ -1107,7 +1132,9 @@ describe.each`
 ```
 
 ::: warning
+
 在将 Vitest 用作 [类型检查器](/guide/testing-types) 时，不能使用此语法。
+
 :::
 
 ### describe.for
@@ -1205,7 +1232,9 @@ afterEach(async () => {
 在这里，`afterEach` 可确保在每次测试运行后清除测试数据。
 
 ::: tip
+
 Vitest 在 1.3.0 新增 [`onTestFinished`](#ontestfinished)。你可以在测试执行过程中调用它，以便在测试运行结束后清理任何状态。
+
 :::
 
 ### beforeAll
@@ -1267,7 +1296,9 @@ afterAll(async () => {
 Vitest 提供了一些 hooks，你可以在 _测试执行期间_ 调用这些 hooks，以便在测试运行结束后清理状态。
 
 ::: warning
+
 如果在测试体之外调用这些 hooks ，则会出错。
+
 :::
 
 ### onTestFinished {#ontestfinished}
@@ -1285,6 +1316,7 @@ test('performs a query', () => {
 ```
 
 ::: warning
+
 如果要并发运行测试，应该始终使用测试上下文中的 `onTestFinished`，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts {3,5}
@@ -1321,7 +1353,9 @@ test('performs an organization query', async () => {
 ```
 
 ::: tip
+
 这个 hook 始终会以倒序执行，并且它的调用顺序不会被 [`sequence.hooks`](/config/#sequence-hooks) 配置所改变。
+
 :::
 
 ### onTestFailed
@@ -1341,6 +1375,7 @@ test('performs a query', () => {
 ```
 
 ::: warning
+
 如果要并发运行测试，应始终使用测试上下文中的 `onTestFailed`，因为 Vitest 不会在全局 hook 中跟踪并发测试：
 
 ```ts {3,5-7}

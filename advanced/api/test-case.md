@@ -61,6 +61,7 @@ ID 的格式如下：
 ```
 
 ::: tip
+
 你可以使用 `vitest/node` 中的 `generateFileHash` 函数来生成文件哈希，该函数自 Vitest 3 起可用：
 
 ```ts
@@ -75,7 +76,9 @@ const hash = generateFileHash(
 :::
 
 ::: danger
+
 不要尝试解析 ID。它可能以连字符开头，例如：`-1223128da3_0_0_0`。
+
 :::
 
 ## location
@@ -182,7 +185,9 @@ interface TestResultSkipped {
 ```
 
 ::: tip
+
 如果测试因为其他测试有 `only` 标志而被跳过，则 `options.mode` 将等于 `skip`。
+
 :::
 
 如果测试失败，返回值将是 `TestResultFailed`：
@@ -216,7 +221,9 @@ interface TestResultPassed {
 ```
 
 ::: warning
+
 请注意，状态为 `passed` 的测试仍可能附带有错误——如果 `retry` 至少触发了一次，这种情况就可能发生。
+
 :::
 
 ## diagnostic
@@ -263,5 +270,7 @@ interface TestDiagnostic {
 ```
 
 ::: info
+
 如果测试尚未被安排运行，`diagnostic()` 将返回 `undefined`。
+
 :::

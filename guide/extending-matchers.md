@@ -55,11 +55,15 @@ declare module 'vitest' {
 :::
 
 ::: tip
+
 从 Vitest 3.2 版本开始，你可以通过扩展 `Matchers` 接口，让 `expect.extend`、`expect().*` 和 `expect.*` 方法同时具备类型安全的断言支持。而在此之前，你需要为这几种用法分别单独定义接口。
+
 :::
 
 ::: warning
+
 不要忘记在 `tsconfig.json` 中包含声明文件。
+
 :::
 
 断言的返回值应该兼容如下接口：
@@ -76,6 +80,7 @@ interface ExpectationResult {
 ```
 
 ::: warning
+
 如果你实现了一个异步匹配器，记得在测试里对它的结果使用 `await`（例如：`await expect('foo').toBeFoo()`），否则可能不会按预期执行：
 
 ```ts

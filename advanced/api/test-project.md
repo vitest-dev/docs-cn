@@ -5,7 +5,9 @@ title: TestProject
 # TestProject <Version>3.0.0</Version> {#testproject}
 
 ::: warning
+
 本指南专门讲解进阶的 Node.js API 使用方法。如果你只是需要创建和管理测试项目，可以直接参考 [“测试项目”](/guide/projects) 指南。
+
 :::
 
 ## name
@@ -54,7 +56,9 @@ export default defineConfig({
 :::
 
 ::: info
+
 如果 [根项目](/advanced/api/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
+
 :::
 
 ## vitest
@@ -72,6 +76,7 @@ const config: SerializedConfig = vitest.projects[0].serializedConfig
 ```
 
 ::: warning
+
 `serializedConfig` 属性是一个 getter。每次访问时，Vitest 都会重新序列化配置，以防配置被更改。这也意味着它总是返回一个不同的引用：
 
 ```ts
@@ -109,7 +114,9 @@ vitest.config === vitest.projects[0].globalConfig
 只有在浏览器中运行测试时才会设置此值。如果启用了 `browser`，但测试尚未运行，则此值为 `undefined`。如果我们需要检查项目是否支持浏览器测试，请使用 `project.isBrowserEnabled()` 方法。
 
 ::: warning
+
 浏览器 API 更加实验性，并且不遵循 SemVer。浏览器 API 将与其余 API 分开标准化。
+
 :::
 
 ## provide
@@ -144,6 +151,7 @@ const value = inject('key')
 这些值可以动态提供。测试中提供的值将在下次运行时更新。
 
 ::: tip
+
 此方法也可用于 [全局设置文件](/config/#globalsetup)，以便在无法使用公共 API 的情况下使用：
 
 ```js
@@ -175,7 +183,9 @@ const context = project.getProvidedContext()
 ```
 
 ::: tip
+
 项目上下文值将始终覆盖根项目的上下文。
+
 :::
 
 ## createSpecification
@@ -203,9 +213,11 @@ await vitest.runTestSpecifications([specification])
 ```
 
 ::: warning
+
 `createSpecification` 期望传入已解析的 [模块 ID](/advanced/api/test-specification#moduleid)。它不会自动解析文件或检查文件系统中是否存在该文件。
 
 另请注意，`project.createSpecification` 总是返回一个新实例。
+
 :::
 
 ## isRootProject
@@ -241,6 +253,7 @@ project.globTestFiles(['basic/foo.js:10']) // ❌
 ```
 
 ::: tip
+
 Vitest 使用 [fast-glob](https://www.npmjs.com/package/fast-glob) 来查找测试文件。`test.dir`、`test.root`、`root` 或 `process.cwd()` 定义了 `cwd` 选项。
 
 此方法查看多个配置选项：
@@ -248,7 +261,8 @@ Vitest 使用 [fast-glob](https://www.npmjs.com/package/fast-glob) 来查找测�
 - `test.include`、`test.exclude` 用于查找常规测试文件
 - `test.includeSource`、`test.exclude` 用于查找源代码中的测试
 - `test.typecheck.include`、`test.typecheck.exclude` 用于查找类型检查测试
-  :::
+
+:::
 
 ## matchesTestGlob
 
@@ -286,6 +300,7 @@ if (import.meta.vitest) {
 使用 Vite 模块运行器导入文件。文件将通过提供的项目配置由 Vite 转换，并在单独的上下文中执行。请注意，`moduleId` 将相对于 `config.root`。
 
 ::: danger
+
 `project.import` 重用 Vite 的模块图，因此使用常规导入导入同一模块将返回不同的模块：
 
 ```ts
@@ -298,7 +313,9 @@ dynamicExample !== staticExample // ✅
 :::
 
 ::: info
+
 Vitest 在内部通过这个方法加载全局设置、自定义的覆盖率提供器和报告器。也就是说，只要它们都挂在同一个 Vite 服务器下，这些组件就会共用同一个模块依赖关系图。
+
 :::
 
 ## onTestsRerun

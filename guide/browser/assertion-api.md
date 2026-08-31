@@ -7,6 +7,7 @@ title: Assertion API | Browser Mode
 Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库，并增加了对定位器的支持以及内置的重试能力。
 
 ::: tip TypeScript 支持
+
 如果你正在使用 [TypeScript](/guide/browser/#typescript) 或希望在 `expect` 中获得正确的类型提示，请确保在某个地方引用了 `vitest/browser`。如果你从未从该模块导入过，可以在 `tsconfig.json` 覆盖范围内的任何文件中添加一个 `reference` 注释：
 
 ```ts
@@ -55,6 +56,7 @@ interface ExpectPollOptions {
 ```
 
 ::: tip
+
 `expect.element` 是 `expect.poll(() => element)` 的简写，工作方式完全相同。
 
 `toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
@@ -158,7 +160,9 @@ await expect.element(getByTestId('does-not-exist')).not.toBeInTheDocument()
 ```
 
 ::: warning
+
 这个匹配器不会查找已分离的元素。元素必须被添加到文档中才能被 `toBeInTheDocument` 找到。如果你希望在已分离的元素中进行搜索，请使用：[`toContainElement`](#tocontainelement)。
+
 :::
 
 ## toBeInvalid
@@ -347,11 +351,13 @@ await expect.element(getByTestId('parent')).toContainHTML('</span>')
 ```
 
 ::: warning
+
 你可能不需要使用这个匹配器。我们鼓励从用户在浏览器中感知应用程序的角度进行测试。这就是为什么不建议针对特定的 DOM 结构进行测试。
 
 在某些情况下，被测试的代码会渲染从外部来源获取的 HTML，而你希望验证该 HTML 代码是否按预期使用。
 
 不应使用它来检查你控制的 DOM 结构。请改用 [`toContainElement`](#tocontainelement)。
+
 :::
 
 ## toHaveAccessibleDescription
@@ -526,7 +532,9 @@ function toHaveClass(...classNames: (string | RegExp)[]): Promise<void>
 类名列表可以包括字符串和正则表达式。正则表达式会与目标元素中的每个单独类进行匹配，而不是与其完整的 `class` 属性值整体匹配。
 
 ::: warning
+
 请注意，当仅提供正则表达式时，不能使用 `exact: true` 选项。
+
 :::
 
 ```html
@@ -591,11 +599,13 @@ function toHaveFormValues(expectedValues: Record<string, unknown>): Promise<void
 这允许你检查表单或字段集中是否包含每个给定名称的表单控件，并且具有指定的值。
 
 ::: tip
+
 需要强调的是，此匹配器只能在 [表单](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement) 或 [字段集](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFieldSetElement) 元素上调用。
 
 这使得它可以利用 `form` 和 `fieldset` 中的 [`.elements`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) 属性，可靠地获取它们内部的所有表单控件。
 
 这也避免了用户提供包含多个 `form` 的容器的可能性，从而防止不相关的表单控件混杂在一起，甚至可能产生冲突。
+
 :::
 
 此匹配器抽象了根据表单控件类型获取其值的特殊性。例如，`<input>` 元素具有 `value` 属性，但 `<select>` 元素没有。以下是涵盖的所有情况列表：
@@ -909,6 +919,7 @@ await expect.element(getByTestId('link-invalid')).toHaveRole('generic')
 ```
 
 ::: warning
+
 角色通过字符串相等性进行精确匹配，不会继承自 ARIA 角色层次结构。因此，查询像 `checkbox` 这样的超类角色时，不会包含具有子类角色（如 `switch`）的元素。
 
 还需注意的是，与 `testing-library` 不同，Vitest 会忽略所有自定义角色，仅保留第一个有效的角色，这一行为遵循 Playwright 的规则。
@@ -933,7 +944,9 @@ function toHaveSelection(selection?: string): Promise<void>
 这在检查元素内是否选择了文本或部分文本时非常有用。该元素可以是文本类型的输入框、`textarea`，或者是任何包含文本的其他元素，例如段落、`span`、`div` 等。
 
 ::: warning
+
 `expected selection` 仅限字符串形式，无法校验选区起止索引。
+
 :::
 
 ```html

@@ -26,6 +26,7 @@ test('error banner is rendered', async () => {
 ```
 
 ::: tip
+
 `expect.element` 是 `expect.poll(() => element)` 的简写，工作方式完全相同。
 
 `toHaveTextContent` 和所有其他 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 断言在没有内置重试机制的常规 `expect` 中仍然可用：

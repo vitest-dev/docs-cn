@@ -17,9 +17,11 @@ Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编�
 请记住，Vitest 不会运行这些文件，编译器只会对它们进行静态分析。也就是说，如果您使用动态名称或 `test.each` 或 `test.for`，测试名称将不会被评估，它将原样显示。
 
 ::: warning
+
 在 Vitest 2.1 之前，您的 `typecheck.include` 覆盖了 `include` 模式，因此您的运行时测试并没有实际运行；它们只是被类型检查。
 
 自 Vitest 2.1 起，如果您的 `include` 和 `typecheck.include` 重叠，Vitest 将分别报告类型测试和运行时测试。
+
 :::
 
 使用 CLI 标志，如 `--allowOnly` 和 `-t` 也支持类型检查。
@@ -111,6 +113,7 @@ assertType<string>(answer)
 ```
 
 ::: tip
+
 使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/#include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会 _运行_ 这些测试并因 `ReferenceError` 而失败。
 
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：

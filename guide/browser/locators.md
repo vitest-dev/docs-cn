@@ -10,7 +10,9 @@ outline: [2, 3]
 定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/guide/browser/config.html#browser-provider)。
 
 ::: tip
+
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
+
 :::
 
 ## getByRole
@@ -25,7 +27,9 @@ function getByRole(
 通过元素的 [ARIA 角色](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)、[ARIA 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes) 和 [可访问名称](https://developer.mozilla.org/en-US/docs/Glossary/Accessible_name) 创建一种定位元素的方式。
 
 ::: tip
+
 如果你只查询单个元素（例如使用 `getByText('The name')`），通常更好的做法是使用 `getByRole(expectedRole, { name: 'The name' })`。可访问名称查询并不会替代其他查询，例如 `*ByAltText` 或 `*ByTitle`。虽然可访问名称可以等于这些属性的值，但它并不能替代这些属性的功能。
+
 :::
 
 考虑以下 DOM 结构。
@@ -58,11 +62,13 @@ await page.getByRole('button', { name: /submit/i }).click()
 ```
 
 ::: warning
+
 角色通过字符串相等性进行匹配，不会继承自 ARIA 角色层次结构。因此，查询像 `checkbox` 这样的超类角色时，不会包含具有子类角色（如 `switch`）的元素。
 
 默认情况下，许多语义化的 HTML 元素都有一个角色；例如，`<input type="radio">` 具有 "radio" 角色。非语义化的 HTML 元素没有角色；没有添加语义的 `<div>` 和 `<span>` 返回 `null`。`role` 属性可以提供语义。
 
 根据 ARIA 指南，**强烈不建议** 通过 `role` 或 `aria-*` 属性为已经具有隐式角色的内置元素提供角色。
+
 :::
 
 ### Options
@@ -289,7 +295,9 @@ page.getByPlaceholder('not found') // ❌
 ```
 
 ::: warning
+
 通常情况下，使用 [`getByLabelText`](#getbylabeltext) 依赖标签比依赖占位符更好。
+
 :::
 
 ### Options
@@ -321,7 +329,9 @@ page.getByText('about', { exact: true }) // ❌
 ```
 
 ::: tip
+
 此定位器适用于定位非交互式元素。如果你需要定位交互式元素，比如按钮或输入框，建议使用 [`getByRole`](#getbyrole)。
+
 :::
 
 ### Options
@@ -378,7 +388,9 @@ page.getByTestId('non-existing-element') // ❌
 ```
 
 ::: warning
+
 建议仅在其他定位器不适用于你的使用场景时才使用此方法。使用 `data-testid` 属性并不符合用户实际使用软件的方式，因此如果可能应避免使用。
+
 :::
 
 ### Options
@@ -410,8 +422,10 @@ page.getByRole('textbox').nth(4) // ❌
 ```
 
 ::: tip
+
 在使用 `nth` 之前，你可能会发现使用链式定位器来缩小搜索范围会更有帮助。
 有时没有比通过元素位置更好的区分方式；虽然这可能导致测试不稳定，但总比没有强。
+
 :::
 
 ```tsx
@@ -475,6 +489,7 @@ function or(locator: Locator): Locator
 此方法创建一个新定位器，只需匹配其中一个或同时匹配两个定位器。
 
 ::: warning
+
 注意：若定位器匹配到多个元素，调用预期单个元素的方法可能会报错：
 
 ```tsx
@@ -534,6 +549,7 @@ page.getByText('Vitest').filter({ has: page.getByRole('article') }) // ❌
 :::
 
 ::: tip
+
 此方法支持链式调用以进一步缩小元素定位范围：
 
 ```ts
@@ -569,7 +585,9 @@ page.getByRole('article')
 ```
 
 ::: warning
+
 注意：与 [`has`](#has) 选项相同，传入的定位器是针对父级元素而非文档根节点进行查询。
+
 :::
 
 ### hasText
@@ -803,7 +821,9 @@ const { path, base64 } = await button.screenshot({
 ```
 
 ::: warning WARNING <Version>3.2.0</Version>
+
 注意，当 `save` 设置为 `false` 时，`screenshot` 将始终返回 base64 字符串。在此情况下，路径参数也会被忽略。
+
 :::
 
 ### query
@@ -853,6 +873,7 @@ function element(): Element
 如果 _多个元素_ 匹配该选择器，则会抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
 ::: tip
+
 此方法在需要将其传递给外部库时非常有用。当定位器与 `expect.element` 一起使用时，每次断言 [重试](/guide/browser/assertion-api) 时都会自动调用此方法：
 
 ```ts
@@ -935,6 +956,7 @@ function all(): Locator[]
 `selector` 是一个字符串，将由浏览器提供程序用于定位元素。Playwright 将使用 `playwright` 定位器语法，而 `preview` 和 `webdriverio` 将使用 CSS。
 
 ::: danger
+
 你不应在测试代码中使用此字符串。`selector` 字符串仅应在使用 Commands API 时使用：
 
 ```ts [commands.ts]
@@ -992,6 +1014,7 @@ page.getByRole('alert').length // ✅ 0
 ::: tip
 
 选择器语法与 Playwright 定位器完全一致。建议阅读 [Playwright 指南](https://playwright.dev/docs/other-locators) 以更好地理解其工作原理。
+
 :::
 
 ```ts

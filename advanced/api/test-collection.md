@@ -3,6 +3,7 @@
 `TestCollection` 表示套件或模块中顶级 [suite](/advanced/api/test-suite) 和 [test](/advanced/api/test-case) 的集合。它还提供了有用的方法来迭代自身。
 
 ::: info
+
 大多数方法返回迭代器而不是数组，以在你不需使用集合中的每个项目时提高性能。如果你更喜欢使用数组，可以展开迭代器：`[...children.allSuites()]`。
 
 另外请注意，集合本身也是一个迭代器：
@@ -20,7 +21,9 @@ for (const child of module.children) {
 集合中的测试和套件数量。
 
 ::: warning
+
 此数量仅包括顶级的测试和套件，不包括嵌套的套件和测试。
+
 :::
 
 ## at

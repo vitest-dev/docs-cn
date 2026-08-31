@@ -5,7 +5,9 @@ title: Advanced API
 # 快速起步 {#getting-started}
 
 ::: warning
+
 本指南列出了通过 Node.js 脚本运行测试的高级 API。如果你只是想 [运行测试](/guide/)，你可能不需要这些内容。这些 API 主要用于库作者。
+
 :::
 
 你可以从 `vitest/node` 入口点导入任何方法。
@@ -53,7 +55,9 @@ console.log(vitest.state.getTestModules()) // [TestModule]
 ```
 
 ::: tip
+
 [“运行测试”](/advanced/guide/tests#startvitest) 指南中有使用示例。
+
 :::
 
 ## createVitest
@@ -78,7 +82,9 @@ const vitest = await createVitest('test', {
 ```
 
 ::: tip
+
 [“运行测试”](/advanced/guide/tests#createvitest) 指南中有使用示例。
+
 :::
 
 ## resolveConfig
@@ -113,15 +119,19 @@ const { vitestConfig, viteConfig } = await resolveConfig({
 ```
 
 ::: info
+
 由于 Vite 的 `createServer` 工作方式， Vitest 必须在插件的 `configResolve` 钩子中解析配置。因此，此方法实际上并未在内部使用，而是仅作为公共 API 暴露。
 
 如果你将配置传递给 `startVitest` 或 `createVitest` API ， Vitest 仍然会重新解析配置。
+
 :::
 
 ::: warning
+
 `resolveConfig` 不会解析 `workspace`。要解析工作区配置， Vitest 需要一个已建立的 Vite 服务器。
 
 另外请注意，`viteConfig.test` 不会被完全解析。如果你需要 Vitest 配置，请使用 `vitestConfig` 代替。
+
 :::
 
 ## parseCLI
