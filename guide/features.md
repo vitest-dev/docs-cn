@@ -93,7 +93,9 @@ describe.concurrent('suite', () => {
 了解更多信息 [API 索引](../api/#concurrent)
 
 ::: warning
+
 在异步并发测试中使用快照时，由于 JavaScript 的限制，你需要使用 [测试环境](/guide/test-context) 中的 `expect` 来确保检测到正确的测试。
+
 :::
 
 ## 快照 {#snapshot}

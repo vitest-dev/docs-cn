@@ -24,6 +24,7 @@ export default defineConfig({
 请参阅 ["配置文件"](/config/) 文章以获取不同的配置示例。
 
 ::: warning
+
 此页面上列出的 _所有选项_ 都位于配置中的 `test` 属性内：
 
 ```ts [vitest.config.js]
@@ -55,6 +56,7 @@ export default defineConfig({
 - [配置 WebdriverIO](/guide/browser/webdriverio)
 
 ::: tip
+
 为了在使用内置提供者时获得更好的类型安全性，我们应该在 [配置文件](/config/) 中引用以下类型之一（针对我们使用的提供者）：
 
 ```ts
@@ -67,6 +69,7 @@ export default defineConfig({
 你可以指定大部分 [配置选项](/config/) (未标记<NonProjectOption />图标的选项)和一些 `browser` 选项，如 `browser.testerHtmlPath`。
 
 ::: warning
+
 每个浏览器配置都从根配置继承选项：
 
 ```ts{3,9} [vitest.config.ts]
@@ -92,6 +95,7 @@ export default defineConfig({
 在开发过程中，Vitest 仅支持一个 [非无头](#browser-headless) 配置。我们可以通过在配置中指定 `headless: false`，或提供 `--browser.headless=false` 标志，或使用 `--project=chromium` 标志过滤项目来限制有头项目。
 
 有关更多示例，请参阅 ["多种设置" 指南](/guide/browser/multiple-setups)。
+
 :::
 
 可用的 `browser` 选项列表：
@@ -112,7 +116,9 @@ export default defineConfig({
 - **CLI:** `--browser=safari`
 
 ::: danger 已弃用
+
 此 API 已弃用，并将在 Vitest 4 中移除。请改用 [`browser.instances`](#browser-instances) 选项。
+
 :::
 
 在特定浏览器中运行所有测试。不同提供者中的可能选项：
@@ -178,7 +184,9 @@ export interface BrowserProvider {
 ```
 
 ::: danger 高级 API
+
 自定义提供者 API 高度实验性，并且可能在补丁版本之间发生变化。如果你只需要在浏览器中运行测试，请改用 [`browser.instances`](#browser-instances) 选项。
+
 :::
 
 ## browser.providerOptions <Badge type="danger">已弃用</Badge> {#browser-provideroptions}
@@ -186,7 +194,9 @@ export interface BrowserProvider {
 - **类型:** `BrowserProviderOptions`
 
 ::: danger 已弃用
+
 此 API 已弃用，并将在 Vitest 4 中移除。请改用 [`browser.instances`](#browser-instances) 选项。
+
 :::
 
 调用 `provider.initialize` 时传递给提供者的选项。
@@ -208,6 +218,7 @@ export default defineConfig({
 ```
 
 ::: tip
+
 为了在使用内置提供者时获得更好的类型安全性，我们应该在 [配置文件](/config/) 中引用以下类型之一（针对我们使用的提供者）：
 
 ```ts
@@ -303,7 +314,9 @@ export interface BrowserScript {
 - **默认值:** `[]`
 
 ::: danger 已弃用
+
 此 API 已弃用，并将在 Vitest 4 中移除。请改用 [`browser.testerHtmlPath`](#browser-testerhtmlpath) 字段。
+
 :::
 
 在测试环境初始化之前应注入到测试器 HTML 中的自定义脚本。这对于注入 Vitest 浏览器实现所需的 polyfill 非常有用。在几乎所有情况下，建议使用 [`setupFiles`](#setupfiles) 代替此选项。
@@ -325,5 +338,7 @@ export interface BrowserScript {
 超时时间（以毫秒为单位）。如果连接到浏览器的时间超过此时间，测试套件将失败。
 
 ::: info
+
 这是浏览器与 Vitest 服务器建立 WebSocket 连接所需的时间。在正常情况下，此超时不应被触发。
+
 :::

@@ -43,10 +43,12 @@ npm i -D @vitest/coverage-istanbul
 ## V8 Provider {#v8-provider}
 
 ::: info
+
 以下对 V8 覆盖率的说明仅适用于 Vitest，并不适用于其他测试工具。
 从 `v3.2.0` 版本开始，Vitest 在 V8 覆盖率中采用了 [基于 AST 的重映射技术](/blog/vitest-3-2#coverage-v8-ast-aware-remapping)，从而生成与 Istanbul 一致的覆盖率报告。
 
 这让用户在享受 V8 覆盖率高速执行的同时，也能获得 Istanbul 覆盖率的高准确度。
+
 :::
 
 Vitest 默认采用 `v8` 作为覆盖率提供器。
@@ -135,9 +137,11 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 
 ## 覆盖率配置指南 {#coverage-setup}
 
-:::tip
+::: tip
+
 建议始终在配置文件中定义 [`coverage.include`](/config/#coverage-include)。
 这有助于 Vitest 减少 [`coverage.all`](/config/#coverage-all) 选择的文件数量。
+
 :::
 
 要在启用的情况下进行测试，你可以在 CLI 中传递 `--coverage` 标志。

@@ -38,8 +38,10 @@ bun add -D vitest
 
 :::
 
-:::tip 提示
+::: tip 提示
+
 Vitest 需要 Vite >=v5.0.0 和 Node >=v18.0.0
+
 :::
 
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest`，可以使用 `npx vitest`（`npx` 是会随着 npm 和 Node.js 一起被安装）。
@@ -66,7 +68,9 @@ test('adds 1 + 2 to equal 3', () => {
 ```
 
 ::: tip 提示
+
 一般情况下，执行测试的文件名中必须包含 `.test.` 或 `.spec.`。
+
 :::
 
 接下来，为了执行测试，请将以下部分添加到你的 `package.json` 文件中：
@@ -92,7 +96,9 @@ Test Files  1 passed (1)
 ```
 
 ::: warning 警告
+
 如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
+
 :::
 
 了解更多关于 Vitest 的使用，请参考 [API 索引](https://cn.vitest.dev/api/) 部分。
@@ -120,7 +126,9 @@ export default defineConfig({
 ```
 
 ::: tip 提示
+
 即使你自己不使用 Vite，Vitest 的转换管道也严重依赖它。因此，你还可以配置 [Vite 文档](https://cn.vitejs.dev/config/) 中描述的任何属性。
+
 :::
 
 如果你已经在使用 Vite，请在 Vite 配置中添加 `test` 属性。你还需要使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 在你的配置文件的顶部引用。
@@ -141,7 +149,7 @@ export default defineConfig({
 ::: warning
 如果你决定为 Vite 和 Vitest 使用两个单独的配置文件，请确保在 Vitest 配置文件中定义相同的 Vite 选项，因为它将覆盖你的 Vite 文件，而不是扩展它。你还可以使用 `vite` 或 `vitest/config` 条目中的 `mergeConfig` 方法将 Vite 配置与 Vitest 配置合并：
 
-:::code-group
+::: code-group
 
 ```ts [vitest.config.mjs]
 import { defineConfig, mergeConfig } from 'vitest/config'

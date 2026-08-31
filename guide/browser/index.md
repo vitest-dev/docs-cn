@@ -8,7 +8,9 @@ outline: deep
 此页面提供有关 Vitest API 中实验性浏览器模式功能的信息，该功能允许你在浏览器中本地运行测试，提供对窗口和文档等浏览器全局变量的访问。此功能目前正在开发中，API 未来可能会更改。
 
 ::: tip
+
 如果你需要 `expect`、`vi`，或者像测试项目、类型测试等通用 API 的文档，请查看 [“快速起步” 指南](/guide/)。
+
 :::
 
 <img alt="Vitest UI" img-light src="/ui-browser-1-light.png">

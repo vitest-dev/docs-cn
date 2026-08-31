@@ -16,7 +16,9 @@ outline: deep
 默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
 
 ::: tip
+
 此 API 遵循 [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) 出于安全原因的限制。
+
 :::
 
 ```ts
@@ -56,7 +58,9 @@ expect(input).toHaveValue('a')
 ```
 
 ::: warning
+
 CDP session 仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
+
 :::
 
 ## 自定义命令 {#custom-commands}
@@ -120,7 +124,9 @@ declare module 'vitest/browser' {
 ```
 
 ::: warning
+
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
+
 :::
 
 ### 自定义 `playwright` 命令 {#custom-playwright-commands}

@@ -30,8 +30,10 @@
 - [`--heap-prof`](https://nodejs.org/api/cli.html#--heap-prof)
 - [`--prof`](https://nodejs.org/api/cli.html#--prof)
 
-:::warning
+::: warning
+
 由于 `node:worker_threads` 的限制，`--prof` 不能与 `pool: 'threads'` 一起使用。
+
 :::
 
 要将这些选项传递给 Vitest ，可以在 Vitest 的配置中定义 `poolOptions.<pool>.execArgv`：
@@ -95,10 +97,12 @@ export default defineConfig({
 对主线程进行性能分析有助于调试 Vitest 的 Vite 使用情况和 [`globalSetup`](/config/#globalsetup) 文件。
 这也是 Vite 插件运行的地方。
 
-:::tip
+::: tip
+
 可以查看 [性能 | Vite](https://cn.vitejs.dev/guide/performance) 以获取更多关于 Vite 特定性能分析的提示。
 
 我们推荐使用 [`vite-plugin-inspect`](https://github.com/antfu-collective/vite-plugin-inspect) 来分析你的 Vite 插件性能。
+
 :::
 
 要执行此操作，需要向运行 Vitest 的 Node 进程传递参数。

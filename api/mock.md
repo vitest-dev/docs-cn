@@ -21,7 +21,9 @@ getApplesSpy.mock.calls.length === 1
 我们应该在 [`expect`](/api/expect) 上使用 mock 断言（例如 [`toHaveBeenCalled`](/api/expect#tohavebeencalled)）来断言 mock 结果。在这里我们介绍了用于操作 mock 行为的可用属性和方法。
 
 ::: tip
+
 下列类型中的自定义函数实现通过泛型 `<T>` 标记。
+
 :::
 
 ## getMockImplementation
@@ -551,6 +553,7 @@ const instances: ReturnType<T>[]
 该数组按顺序保存了每次用 `new` 调用 mock 时生成的实例。请注意，这里存储的是函数运行时的实际 `this` 上下文，而非函数的返回值。
 
 ::: warning
+
 若用 `new MyClass()` 实例化该 mock ，则 `mock.instances` 将是一个仅包含单个元素的数组：
 
 ```js

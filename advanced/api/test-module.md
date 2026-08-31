@@ -11,7 +11,9 @@ if (task.type === 'module') {
 ```
 
 ::: warning 扩展 Suite 的方法
+
 `TestModule` 类继承了 [`TestSuite`](/advanced/api/test-suite) 的所有方法和属性。本指南将列出 `TestModule` 独有的方法和属性。
+
 :::
 
 ## moduleId
@@ -65,8 +67,10 @@ describe('the validation works correctly', (task) => {
 })
 ```
 
-:::tip
+::: tip
+
 如果元数据是在收集过程中附加的（在 `test` 函数之外），那么它将在自定义报告器中的['onTestModuleCollectd']（./reporters#onTestModuleCollected）挂钩中可用。
+
 :::
 
 ## diagnostic

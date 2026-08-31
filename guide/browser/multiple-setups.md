@@ -80,7 +80,9 @@ test('ratio works', () => {
 在这个例子中，Vitest 将在 `chromium` 浏览器中运行所有测试，但仅在第一个配置中执行 `'./ratio-setup.ts'` 文件，并根据 [`provide` 字段](/config/#provide) 注入不同的 `ratio` 值。
 
 ::: warning
+
 请注意，如果你使用相同的浏览器名称，则需要定义自定义的 `name` 值，因为否则 Vitest 会将 `browser` 作为项目名称。
+
 :::
 
 ## 过滤 {#filtering}
@@ -127,6 +129,7 @@ export default defineConfig({
 :::
 
 ::: warning
+
 Vitest 无法运行多个将 `headless` 模式设置为 `false`（默认行为）的实例。在开发过程中，你可以在终端中选择要运行的项目：
 
 ```shell
@@ -141,4 +144,5 @@ start tests with --browser=name or --project=name flag. › - Use arrow-keys. Re
 如果我们在 CI 中有多个非 headless 项目（即在配置中手动设置了 `headless: false` 并且未在 CI 环境中覆盖），Vitest 将运行失败并且不会启动任何测试。
 
 这一限制不影响在无头模式下运行测试的能力。只要实例没有设置 `headless: false`，你仍然可以并行运行所有实例。
+
 :::

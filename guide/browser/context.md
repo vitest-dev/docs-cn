@@ -9,7 +9,9 @@ Vitest 通过 `vitest/browser` 入口点公开上下文模块。从 2.0 开始�
 ## `userEvent`
 
 ::: tip
+
 `userEvent` API 的详细说明见 [Interactivity API](/guide/browser/interactivity-api)。
+
 :::
 
 ```ts
@@ -43,7 +45,9 @@ export const userEvent: {
 ## `commands`
 
 ::: tip
+
 Commands API 的详细说明见 [Commands API](/guide/browser/commands)。
+
 :::
 
 ```ts
@@ -59,6 +63,7 @@ export const commands: BrowserCommands
 页面导出提供了与当前页面交互的实用程序。
 
 ::: warning
+
 虽然该工具暴露了部分 Playwright 的 `page` 对象实用方法，但两者并非同一对象。由于浏览器上下文在浏览器环境中执行，而 Playwright 的 `page` 对象运行在服务端，因此测试代码无法直接访问该对象。
 
 :::
@@ -103,12 +108,16 @@ export const page: {
 ```
 
 ::: tip
+
 `getBy*` API 在 [Locators API](/guide/browser/locators) 中有详细说明。
+
 :::
 
 ::: warning WARNING <Version>3.2.0</Version>
+
 请注意，如果 `save` 设置为 `false`，`screenshot` 将始终返回 base64 字符串。
 在这种情况下，`path` 也会被忽略。
+
 :::
 
 ## `cdp`
@@ -116,7 +125,9 @@ export const page: {
 `cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
 ::: warning
+
 CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
+
 :::
 
 ```ts

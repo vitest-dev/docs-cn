@@ -26,6 +26,7 @@ $ vitest basic/foo.test.ts:10
 ```
 
 ::: warning
+
 请注意，Vitest 需要完整的文件名才能使此功能正常工作。它可以是相对于当前工作目录的路径，也可以是绝对文件路径。
 
 ```bash
@@ -68,6 +69,7 @@ vitest related /src/index.ts /src/hello-world.js
 ```
 
 ::: tip
+
 不要忘记 Vitest 默认情况下以启用的监视模式运行。如果你使用的是 `lint-staged` 之类的工具，你还应该传递 `--run` 选项，以便该命令可以正常退出。
 
 ```js [.lintstagedrc.js]
@@ -126,6 +128,7 @@ tests/test2.test.ts
 ## 选项 {#options}
 
 ::: tip
+
 Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
 
 Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=dot` 都是有效的。
@@ -180,12 +183,16 @@ vitest run --shard=2/3
 vitest run --shard=3/3
 ```
 
-:::warning 警告
+::: warning 警告
+
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
+
 :::
 
 ::: tip
+
 如果在没有输出文件的情况下使用 `--reporter=blob`，则默认路径将包括当前碎片配置，以避免与其他 Vitest 进程发生冲突。
+
 :::
 
 ### merge-reports

@@ -1,7 +1,9 @@
 # 报告器 {#reporters}
 
 ::: warning
+
 这是一个高级 API。如果我们只想配置内置的报告器，请阅读 ["报告器"](/guide/reporters) 指南。
+
 :::
 
 Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告器的方法来表示：
@@ -34,7 +36,9 @@ function onInit(vitest: Vitest): Awaitable<void>
 当 [Vitest](/advanced/api/vitest) 初始化或启动时，但在测试被过滤之前，会调用此方法。
 
 ::: info
+
 在内部，这个方法在 [`vitest.start`](/advanced/api/vitest#start)、[`vitest.init`](/advanced/api/vitest#init) 或 [`vitest.mergeReports`](/advanced/api/vitest#mergereports) 中调用。例如，如果我们使用 API，请确保根据我们的需要调用其中一个，然后再调用 [`vitest.runTestSpecifications`](/advanced/api/vitest#runtestspecifications)。内置的 CLI 将始终按正确的顺序运行方法。
+
 :::
 
 请注意，我们还可以通过 [`project`](/advanced/api/test-project) 属性从测试用例、套件和测试模块中访问 `vitest` 实例，但在此方法中存储对 `vitest` 的引用也可能有用。
@@ -102,7 +106,9 @@ export default new MyReporter()
 :::
 
 ::: tip 弃用通知
+
 此方法在 Vitest 3 中添加，取代了 `onPathsCollected` 和 `onSpecsCollected`，这两个方法现在已被弃用。
+
 :::
 
 ## onTestRunEnd
@@ -171,7 +177,9 @@ export default new MyReporter()
 :::
 
 ::: tip 弃用通知
+
 此方法在 Vitest 3 中添加，取代了 `onFinished`，后者现在已被弃用。
+
 :::
 
 ## onCoverage
@@ -240,7 +248,9 @@ function onHookStart(context: ReportedHookContext): Awaitable<void>
 如果 `beforeEach` 或 `afterEach` 开始，`entity` 将始终是 [`TestCase`](/advanced/api/test-case)。
 
 ::: warning
+
 如果钩子在测试运行期间没有运行，则不会调用 `onHookStart` 方法。
+
 :::
 
 ## onHookEnd
@@ -261,7 +271,9 @@ function onHookEnd(context: ReportedHookContext): Awaitable<void>
 如果 `beforeEach` 或 `afterEach` 完成，`entity` 将始终是 [`TestCase`](/advanced/api/test-case)。
 
 ::: warning
+
 如果钩子在测试运行期间没有运行，则不会调用 `onHookEnd` 方法。
+
 :::
 
 ## onTestSuiteReady
@@ -293,7 +305,9 @@ function onTestCaseReady(testCase: TestCase): Awaitable<void>
 在测试开始运行或被跳过之前调用此方法。请注意，`beforeEach` 和 `afterEach` 钩子被视为测试的一部分，因为它们可能会影响结果。
 
 ::: warning
+
 请注意，当调用 `onTestCaseReady` 时，[`testCase.result()`](/advanced/api/test-case#result) 可能已经具有 `passed` 或 `failed` 状态。如果测试运行得太快，并且 `onTestCaseReady` 和 `onTestCaseResult` 被安排在同一微任务中运行，则可能发生这种情况。
+
 :::
 
 ## onTestCaseResult

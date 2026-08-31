@@ -1,7 +1,9 @@
 # 运行器 API {#runner-api}
 
 ::: warning 注意
+
 这是高级 API。如果你只需要 [运行测试](/guide/)，你可能不需要这个。它主要被库的作者使用。
+
 :::
 
 你可以在你的配置文件中使用 `runner` 选项指定你的测试运行器的路径。这个文件应该有一个默认的导出，其中包含一个实现这些方法的类：
@@ -124,6 +126,7 @@ export default CustomRunner
 ```
 
 ::: warning
+
 Vitest 还会将 `ViteNodeRunner` 的实例作为 `__vitest_executor` 属性注入。你可以使用它来处理 `importFile` 方法中的文件（这是 `TestRunner` 和 `BenchmarkRunner` 的默认行为）。
 
 `ViteNodeRunner` 暴露了 `executeId` 方法，该方法用于在友好的 Vite 环境中导入测试文件。这意味着它会在运行时解析导入并转换文件内容，以便 Node 能够识别。
@@ -139,19 +142,25 @@ export default class Runner {
 :::
 
 ::: warning
+
 如果你没有自定义运行器或没有定义 `runTest` 方法，Vitest 将尝试自动检索任务。如果你没有使用 `setFn` 添加函数，这将会失败。
+
 :::
 
 ::: tip
+
 快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。如果你想扩展基准测试功能，它还提供了 `NodeBenchmarkRunner`。
+
 :::
 
 ## Tasks {#tasks}
 
 ::: warning
+
 “Runner Tasks API” 是实验性的，主要应在测试运行时使用。Vitest 还暴露了 [“Reported Tasks API”](/advanced/api/test-module)，在主线程中工作时（例如在报告器内部）应优先使用。
 
 团队目前正在讨论未来是否应将“Runner Tasks”替换为“Reported Tasks”。
+
 :::
 
 套件和测试在内部被称为 `tasks`。Vitest 运行器在收集任何测试之前会启动一个 `File` 任务——这是 `Suite` 的超集，并带有几个附加属性。它作为 `file` 属性在每个任务（包括 `File`）上都可用。

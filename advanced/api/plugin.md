@@ -6,9 +6,11 @@ outline: deep
 # 插件 API <Version>3.1.0</Version> {#plugin-api}
 
 ::: warning
+
 这是一个高级 API。如果我们只想 [运行测试](/guide/)，则可能不需要它。它主要由库作者使用。
 
 本指南假设我们知道如何使用 [Vite 插件](https://vite.dev/guide/api-plugin.html)。
+
 :::
 
 Vitest 自 3.1 版起支持实验性的 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。欢迎在 [GitHub](https://github.com/vitest-dev/vitest/discussions/7104) 中提供有关此 API 的任何反馈。
@@ -49,6 +51,7 @@ export function plugin(): Plugin {
 :::
 
 ::: tip TypeScript
+
 Vitest 通过 `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config`，以便正确增强 `configureVitest` 即可：
 
 ```ts
@@ -66,7 +69,9 @@ Vitest 通过 `Vite` namespace 重新导出所有仅 Vite 类型的导入，我�
 该插件所属的当前 [测试项目](./test-project)。
 
 ::: warning 浏览器模式
+
 请注意，如果我们依赖浏览器功能，则 `project.browser` 字段尚未设置。请改用 [`reporter.onBrowserInit`](./reporters#onbrowserinit) 事件。
+
 :::
 
 ### vitest
@@ -79,9 +84,11 @@ vitest.config.reporters.push([['my-reporter', {}]])
 ```
 
 ::: warning 配置已解析完成
+
 请注意，Vitest 已经解析了配置，因此某些类型可能与通常的用户配置不同。这也意味着某些属性将不会再次解析，例如 `setupFile`。如果我们要添加新文件，请确保先解析它。
 
 此时尚未创建记者，因此修改 `vitest.reporters` 将不起作用，因为它将被覆盖。如果我们需要注入自己的记者，请修改配置。
+
 :::
 
 ### injectTestProjects
@@ -111,6 +118,7 @@ const newProjects = await injectTestProjects({
 ```
 
 ::: warning 项目筛选机制
+
 在解析配置时， Vitest 会对项目进行过滤，因此如果用户配置了过滤条件，某些被注入的项目可能不会被加载，除非它们 符合过滤规则。我们可以使用 vitest.config.project 选项来修改过滤器，从而确保始终包含我们的测试项目：
 
 ```ts
@@ -118,12 +126,15 @@ vitest.config.project.push('my-project-name')
 ```
 
 请注意，这只会影响使用 [`injectTestProjects`](#injecttestprojects) 方法注入的项目。
+
 :::
 
 ::: tip 引用当前配置
+
 若想在使用我们自己的配置时仍保留用户的原有配置，可以通过设置 extends 属性实现。这样，除了 extends 指定的内容外，其他配置项都会与我们配置合并。
 
 项目的 `configFile` 可以在 Vite 的配置中访问：`project.vite.config.configFile`。
 
 请注意，这也将继承 `name` - Vitest 不允许多个项目使用相同的名称，因此这将引发错误。请确保我们指定了不同的名称。我们可以通过 `project.name` 属性访问当前名称，并且所有使用的名称都可以在 `vitest.projects` 数组中找到。
+
 :::

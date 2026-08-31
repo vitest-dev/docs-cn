@@ -22,11 +22,13 @@ import { vi } from 'vitest'
 用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted) 中定义它们，并在 `vi.mock` 中引用它们。
 
 ::: warning
+
 `vi.mock` 仅对使用 `import` 关键字导入的模块有效。它对 `require` 无效。
 
 为了提升 `vi.mock`，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi`（例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/#globals) 配置选项。
 
 Vitest 不会模拟 [setup file](/config/#setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules)，在运行测试文件前清除所有模块缓存。
+
 :::
 
 如果定义了 `factory` 函数，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
@@ -69,6 +71,7 @@ vi.mock(import('./path/to/module.js'), async (importOriginal) => {
 例如，使用 `import('./path/to/module.js')`，而不是 `import('@/module')`。
 
 ::: warning
+
 `vi.mock` 被提升（换句话说，_移动_）到 **文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
 
 这也意味着不能在 factory 内部使用任何在 factory 外部定义的变量。
@@ -101,6 +104,7 @@ expect(namedExport).toBe(mocks.namedExport)
 :::
 
 ::: warning
+
 如果我们模拟的模块有默认导出，则需要在返回的工厂函数对象中提供一个 `default` 键。这是 ES 模块特有的注意事项；因此，由于 `jest` 使用 CommonJS 模块，`jest` 文档可能会有所不同。例如：
 
 ```ts
@@ -114,6 +118,7 @@ vi.mock('./path/to/module.js', () => {
 ```
 
 :::
+
 如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/#root)（默认为 `process.cwd()`）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
 
 例如，我们有这样的文件结构：
@@ -149,6 +154,7 @@ axios.get(`/apples/${increment(1)}`)
 ::: warning
 
 请注意，如果不调用 `vi.mock`，模块 **不会** 被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/#setupfiles) 中为每个所需的模块调用 `vi.mock`。
+
 :::
 
 如果没有提供 `__mocks__` 文件夹或工厂，Vitest 将导入原始模块并自动模拟其所有输出。有关应用的规则，请参阅 [模块](/guide/mocking#automocking-algorithm)。
@@ -161,6 +167,7 @@ axios.get(`/apples/${increment(1)}`)
 与 [`vi.mock`](#vi-mock) 相同，但它不会被移动到文件顶部，因此我们可以引用全局文件作用域中的变量。模块的下一个 [动态导入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 将被模拟。
 
 ::: warning
+
 这将不会模拟在调用此调用之前导入的模块。不要忘记，ESM 中的所有静态导入都是 [hoaded](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#hoisting)，因此在静态导入前调用此调用不会强制在导入前调用：
 
 ```ts
@@ -334,7 +341,9 @@ test('module has old state', async () => {
 ```
 
 ::: warning
+
 不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock)。
+
 :::
 
 ### vi.dynamicImportSettled
@@ -359,9 +368,11 @@ test('operations are resolved', async () => {
 ```
 
 ::: tip
+
 如果在动态导入过程中又启动了另一个动态导入，则该方法将等待直到所有动态导入都解决为止。
 
 该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
+
 :::
 
 ## 模拟函数和对象 {#mocking-functions-and-objects}
@@ -460,6 +471,7 @@ expect(spy).toHaveReturnedWith(1)
 ```
 
 ::: tip
+
 若运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management)，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
 
 ```ts
@@ -474,6 +486,7 @@ it('calls console.log', () => {
 :::
 
 ::: tip
+
 你可以在 [`afterEach`](/api/#aftereach)（或启用 [`test.restoreMocks`](/config/#restoreMocks)）中调用 [`vi.restoreAllMocks`](#vi-restoreallmocks)，将所有方法还原为原始实现。这将还原原始的 [object descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)，因此无法更改方法的实现：
 
 ```ts
@@ -493,6 +506,7 @@ console.log(cart.getApples()) // still 42!
 :::
 
 ::: tip
+
 在 [浏览器模式](/guide/browser/) 下，无法监视导出的方法。相反，你可以通过调用 `vi.mock("./file-path.js", { spy: true })` 来监视每个导出方法。这将模拟每个导出方法，但保留其完整的实现，从而可以断言该方法是否被正确调用。
 
 ```ts
@@ -507,6 +521,7 @@ expect(calculator).toHaveReturned(3)
 ```
 
 虽然有可能在 `jsdom` 或其他 Node.js 环境中监视导出，但未来可能会发生变化。
+
 :::
 
 ### vi.stubEnv {#vi-stubenv}
@@ -535,7 +550,8 @@ import.meta.env.NODE_ENV === undefined
 import.meta.env.MODE === 'development'
 ```
 
-:::tip
+::: tip
+
 我们也可以通过简单赋值来更改值，但无法使用 `vi.unstubAllEnvs` 恢复以前的值：
 
 ```ts
@@ -592,7 +608,8 @@ globalThis.innerWidth === 100
 window.innerWidth === 100
 ```
 
-:::tip
+::: tip
+
 我们也可以通过简单地将其赋值给 `globalThis` 或 `window`（如果我们使用的是 `jsdom` 或 `happy-dom` 环境）来更改该值，但无法使用 `vi.unstubAllGlobals` 恢复原始值：
 
 ```ts
@@ -862,8 +879,10 @@ vi.useRealTimers()
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ::: tip
+
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick`。
 仍然可以通过在 `toFake` 参数中指定选项来模拟：`vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })`。
+
 :::
 
 ### vi.isFakeTimers {#vi-isfaketimers}
@@ -994,6 +1013,7 @@ import { value } from './some/module.js'
 ```
 
 ::: warning 导入不可用
+
 在导入之前运行代码意味着你无法访问导入的变量，因为它们尚未定义：
 
 ```ts
@@ -1017,6 +1037,7 @@ await vi.hoisted(async () => {
 ```
 
 然而，不建议在 `vi.hoisted` 中导入任何内容，因为导入已经被提升。如果你需要在测试运行之前执行某些操作，只需在导入的模块本身中执行即可。
+
 :::
 
 此方法返回工厂函数返回的值。如果你需要访问本地定义的变量，可以在你的 `vi.mock` 工厂中使用该值：

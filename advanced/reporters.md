@@ -1,7 +1,9 @@
 # 扩展默认报告器 {#extending-reporters}
 
 ::: warning
+
 这是一个高级 API。如果我们只是想配置内置报告器，请阅读 [报告器](/guide/reporters) 指南。
+
 :::
 
 我们可以从 `vitest/reporters` 导入报告器并扩展它们来创建自定义报告器。

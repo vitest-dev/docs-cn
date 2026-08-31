@@ -35,6 +35,7 @@ function setup(): UserEvent
 创建一个新的用户事件实例。如果需要保持键盘状态，以便正确按下和释放按钮，这将非常有用。
 
 ::: warning
+
 与 `@testing-library/user-event` 不同，来自 `vitest/browser` 的默认 `userEvent` 实例只创建一次，而不是每次调用其方法时都创建一次！你可以从本代码段中看到其工作方式的不同之处：
 
 ```ts
@@ -50,6 +51,7 @@ await originalUserEvent.keyboard('{/Shift}') // 没有放开 shift 键，因为�
 ```
 
 这种行为更有用，因为我们并没有模拟键盘，而是实际按下了 Shift 键，所以保留原来的行为会在字段中键入时造成意想不到的问题。
+
 :::
 
 ## userEvent.click
@@ -180,9 +182,11 @@ test('update input', async () => {
 该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
 
 ::: tip
+
 该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但 **不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)（例如，`{Shift}{selectall}`）。
 
 在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
+
 :::
 
 相关链接：
@@ -262,7 +266,9 @@ function type(
 ```
 
 ::: warning
+
 如果不依赖 [special characters](https://testing-library.com/docs/user-event/keyboard)（例如，`{shift}` 或 `{selectall}`），建议使用 [`userEvent.fill`](#userevent-fill)。
+
 :::
 
 `type` 方法在 [`keyboard`](https://testing-library.com/docs/user-event/keyboard) API 的基础上实现了 `@testing-library/user-event` 的 [`type`](https://testing-library.com/docs/user-event/utility/#type) 工具。
@@ -284,7 +290,9 @@ test('update input', async () => {
 ```
 
 ::: info
+
 Vitest 没有像 `input.type` 那样在定位器上公开 `.type` 方法，因为它的存在只是为了与 `userEvent` 库兼容。请考虑使用 `.fill`，因为它更快。
+
 :::
 
 相关链接：
@@ -343,9 +351,11 @@ function selectOptions(
 `userEvent.selectOptions` 方法支持在 `<select>` 元素中选择指定值。
 
 ::: warning
+
 如果 select 元素没有 [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple) 属性，Vitest 将只选择数组中的第一个元素。
 
 与 `@testing-library` 不同，Vitest 目前不支持 [listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role)，但我们计划在将来添加对它的支持。
+
 :::
 
 ```ts
@@ -372,7 +382,9 @@ test('clears input', async () => {
 ```
 
 ::: warning
+
 `webdriverio` provider 不支持选择多个元素，因为它不提供选择多个元素的 API。
+
 :::
 
 相关链接：
@@ -393,9 +405,11 @@ function hover(
 该方法将光标位置移动到所选元素上。有关此方法如何工作的详细说明，请参阅 provider 的文档。
 
 ::: warning
+
 如果使用的是 `webdriverio` provider，光标默认会移动到元素的中心。
 
 如果使用的是 `playwright` provider，光标会移动到元素的某个可见点。
+
 :::
 
 ```ts
@@ -428,7 +442,9 @@ function unhover(
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
+
 默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider 中）或中心位置（在 `webdriverio` provider 中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
+
 :::
 
 ```ts
@@ -479,7 +495,9 @@ test('can upload a file', async () => {
 ```
 
 ::: warning
+
 `webdriverio` provider 仅在 `chrome` 和 `edge` 浏览器中支持该命令。目前也只支持字符串类型。
+
 :::
 
 相关链接：
@@ -516,7 +534,9 @@ test('drag and drop works', async () => {
 ```
 
 ::: warning
+
 `preview` provider 不支持此 API。
+
 :::
 
 相关链接：
