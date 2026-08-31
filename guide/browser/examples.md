@@ -6,7 +6,7 @@ title: Examples | Browser Mode
 
 浏览器模式与框架无关，因此不提供任何渲染组件的方法。不过，你应该可以使用框架的测试工具包。
 
-我们建议根据您的框架使用 `testing-library` packages：
+我们建议根据你的框架使用 `testing-library` packages：
 
 - [`@testing-library/dom`](https://testing-library.com/docs/dom-testing-library/intro) if you don't use a framework
 - [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library/intro) to render [vue](https://vuejs.org) components

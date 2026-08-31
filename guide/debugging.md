@@ -71,7 +71,7 @@ export default defineConfig({
 
 :::
 
-默认情况下，Vitest 将使用端口 `9229` 作为调试端口。您可以通过在 `--inspect-brk` 中传递值来覆盖它：
+默认情况下，Vitest 将使用端口 `9229` 作为调试端口。你可以通过在 `--inspect-brk` 中传递值来覆盖它：
 
 ```bash
 vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism

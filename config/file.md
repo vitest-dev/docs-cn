@@ -20,12 +20,12 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // 在此配置选项...
   },
 })
 ```
 
-`<reference types="vitest" />` 将在 Vitest 3 中停止工作，但您可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
+`<reference types="vitest" />` 将在 Vitest 3 中停止工作，但你可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
 
 ```ts
 /// <reference types="vitest/config" />
@@ -33,7 +33,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // 在此配置选项...
   },
 })
 ```
@@ -45,7 +45,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    // 在此配置选项...
   },
 })
 ```

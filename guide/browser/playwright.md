@@ -72,7 +72,7 @@ Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](
 
 ## connect <Version>3.2.0</Version> {#connect}
 
-这些选项会直接传递给 `playwright[browser].connect` 命令。您可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-connect) 中，查阅该命令的详细说明及可用参数。
+这些选项会直接传递给 `playwright[browser].connect` 命令。你可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-connect) 中，查阅该命令的详细说明及可用参数。
 
 ::: warning
 

@@ -121,7 +121,7 @@ export default defineConfig({
 
 匹配包含测试文件的 glob 规则。
 
-::: tip NOTE
+::: tip 注意
 
 使用 coverage 时，Vitest 会自动将测试文件的 `include` 模式添加到 coverage 的默认 `exclude` 模式中。请参见 [`coverage.exclude`](#coverage-exclude)。
 
@@ -700,7 +700,6 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     poolMatchGlobs: [
-      // all tests in "worker-specific" directory will run inside a worker as if you enabled `--pool=threads` for them,
       // "worker-specific" 目录下的所有测试将在 worker 中运行，等效于对这些测试启用 `--pool=threads`
       ['**/tests/worker-specific/**', 'threads'],
       // "browser" 目录下的所有测试将在真实浏览器中运行
@@ -1464,7 +1463,7 @@ export default defineConfig({
 })
 ```
 
-::: tip NOTE
+::: tip 注意
 Vitest 会自动将测试文件的 `include` 模式添加到 `coverage.exclude` 中。
 无法显示测试文件的覆盖率。
 :::
@@ -1688,7 +1687,7 @@ statements 的全局阈值。
 
 设置与 glob 模式匹配的文件的阈值。
 
-::: tip NOTE
+::: tip 注意
 Vitest 会将所有文件，包括那些被 glob 模式覆盖的文件，计入全局覆盖率阈值。
 这与 Jest 的行为不同。
 :::
@@ -2606,7 +2605,7 @@ export default {
 
 相对于 [root](#root) 的 [workspace](/guide/projects) 配置文件的路径。
 
-自 Vitest 3 起，您也可以在根配置中直接定义 `workspace` 数组。若手动在配置中声明了 workspace 参数，Vitest 将忽略项目根目录下的 `vitest.workspace` 文件。
+自 Vitest 3 起，你也可以在根配置中直接定义 `workspace` 数组。若手动在配置中声明了 workspace 参数，Vitest 将忽略项目根目录下的 `vitest.workspace` 文件。
 
 ### projects<NonProjectOption />
 

@@ -214,7 +214,7 @@ test('snapshot', () => {
     },
   ]
 
-  // in Jest
+  // 在 Jest 中
   expect(bar).toMatchInlineSnapshot(`
     Array [
       Object {
@@ -223,7 +223,7 @@ test('snapshot', () => {
     ]
   `)
 
-  // in Vitest
+  // 在 Vitest 中
   expect(bar).toMatchInlineSnapshot(`
     [
       {
@@ -280,14 +280,15 @@ exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;
 import { expect, test } from 'vitest'
 
 test('snapshot', () => {
-  // in Jest and Vitest
+  // 在 Jest 和 Vitest 中
   expect(new Error('error')).toMatchInlineSnapshot(`[Error: error]`)
 
-  // Jest snapshots `Error.message` for `Error` instance
-  // Vitest prints the same value as toMatchInlineSnapshot
+  // Jest 会对 `Error` 实例的 `Error.message` 进行快照
+  // Vitest 打印的值与 toMatchInlineSnapshot 相同
   expect(() => {
     throw new Error('error')
   }).toThrowErrorMatchingInlineSnapshot(`"error"`) // [!code --]
   }).toThrowErrorMatchingInlineSnapshot(`[Error: error]`) // [!code ++]
 })
 ```
+
