@@ -40,7 +40,7 @@
     "@vitest/ui": "^3.2.4",
     "eslint": "^10.7.0",
     "eslint-plugin-format": "^2.0.1",
-    "eslint-plugin-md-style": "^0.2.0",
+    "eslint-plugin-md-style": "^0.3.0",
     "esno": "^4.8.0",
     "fs-extra": "^11.3.0",
     "https-localhost": "^4.7.1",
