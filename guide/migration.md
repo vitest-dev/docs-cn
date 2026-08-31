@@ -177,7 +177,7 @@ import {
 
 ### 已清理 `vitest/reporters` 类型定义 <Badge type="danger">API</Badge> {#cleaned-up-vitest-reporters-types}
 
-`vitest/reporters` 入口现在仅导出报告器实现和选项类型。如果您需要访问 `TestCase`、`TestSuite` 以及其他与任务相关的类型，请另外从 `vitest/node` 中导入它们。
+`vitest/reporters` 入口现在仅导出报告器实现和选项类型。如果你需要访问 `TestCase`、`TestSuite` 以及其他与任务相关的类型，请另外从 `vitest/node` 中导入它们。
 
 ### 即使覆盖了 `coverage.excludes` 配置，代码覆盖率仍会忽略测试文件。 {#coverage-ignores-test-files-even-when-coverage-excludes-is-overwritten}
 
@@ -187,7 +187,7 @@ import {
 
 ### 默认数据池为 `forks` {#default-pool-is-forks}
 
-为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。您可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047) 中阅读完整的动机。
+为了提高稳定性，Vitest 2.0 将 `pool` 的默认配置改为 `'fork'`。你可以在 [PR](https://github.com/vitest-dev/vitest/pull/5047) 中阅读完整的动机。
 
 如果使用了 `poolOptions` 而未指定一个 `pool`，则可能需要更新配置：
 
@@ -232,7 +232,7 @@ export default defineConfig({
 
 ### 移除 `watchExclude` 选项 {#removal-of-the-watchexclude-option}
 
-Vitest 使用 Vite 的监视器。您可以将排除项添加到 `server.watch.ignored`：
+Vitest 使用 Vite 的监视器。你可以将排除项添加到 `server.watch.ignored`：
 
 ```ts
 export default defineConfig({
@@ -252,7 +252,7 @@ export default defineConfig({
 
 这是对高级 [task API](/advanced/runner#your-task-function) 的更改。以前，遍历 `.suite` 最终会导致使用空的内部套件，而不是文件任务。
 
-这使得 `.suite` 成为可选项；如果任务是在顶层定义的，则不会有 suite。您可以回退到 `.file` 属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
+这使得 `.suite` 成为可选项；如果任务是在顶层定义的，则不会有 suite。你可以回退到 `.file` 属性，该属性现在存在于所有任务中（包括文件任务本身，因此要小心不要陷入无休止的递归）。
 
 这一更改还删除了 `expect.getState().currentTestName` 中的文件，并使 `expect.getState().testPath` 成为必填项。
 
@@ -293,7 +293,7 @@ const result = fn.mock.results[0] // 'Promise<result>' [!code ++]
 const settledResult = fn.mock.settledResults[0] // 'result'
 ```
 
-通过这一更改，我们还引入了新的 [`toHaveResolved*`](/api/expect#tohaveresolved) 匹配器，类似于 `toHaveReturned`，以便如果您之前使用过 `toHaveReturned`，迁移会更加容易：
+通过这一更改，我们还引入了新的 [`toHaveResolved*`](/api/expect#tohaveresolved) 匹配器，类似于 `toHaveReturned`，以便如果你之前使用过 `toHaveReturned`，迁移会更加容易：
 
 ```ts
 const fn = vi.fn().mockResolvedValueOnce('result')
@@ -305,7 +305,7 @@ expect(fn).toHaveResolved('result') // [!code ++]
 
 ### 浏览器模式 {#browser-mode}
 
-Vitest 浏览器模式在测试周期内发生了很多变化。您可以在 [GitHub discussion](https://github.com/vitest-dev/vitest/discussions/5828) 上阅读我们关于浏览器模式的理念。
+Vitest 浏览器模式在测试周期内发生了很多变化。你可以在 [GitHub discussion](https://github.com/vitest-dev/vitest/discussions/5828) 上阅读我们关于浏览器模式的理念。
 
 大多数改动都是附加的，但也有一些小的突破性改动：
 
@@ -513,7 +513,7 @@ const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 
 ### 将模拟扩展到外部库 {#extends-mocking-to-external-libraries}
 
-在 Jest 的默认情况下，当模拟一个模块并希望将此模拟扩展到使用相同模块的其他外部库时，您应该明确告知您希望模拟哪个第三方库，这样外部库就会成为您源代码的一部分，方法是使用 [server.deps.inline](https://vitest.dev/config/#server-deps-inline).
+在 Jest 的默认情况下，当模拟一个模块并希望将此模拟扩展到使用相同模块的其他外部库时，你应该明确告知你希望模拟哪个第三方库，这样外部库就会成为你源代码的一部分，方法是使用 [server.deps.inline](https://vitest.dev/config/#server-deps-inline).
 
 ```
 server.deps.inline: ["lib-name"]

@@ -1005,7 +1005,7 @@ page.getByRole('alert').length // ✅ 0
 
 ## 自定义定位器 <Version>3.2.0</Version> <Badge type="danger">advanced</Badge> {#custom-locators}
 
-您可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
+你可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
 
 当内置定位器无法满足需求时（例如使用自定义 UI 框架时），这些定位器会非常有用。
 

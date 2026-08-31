@@ -70,7 +70,7 @@ Error: thrown error
 
 ### html
 
-HTML 报告器会以与 UI 模式 相同的方式显示测试注释。您可以在调用那行看到测试注释。目前，如果测试文件中没有调用测试注释，您将无法在 UI 模式 中看到它。我们计划支持一个单独的测试摘要视图，届时这些测试注释将会显示。
+HTML 报告器会以与 UI 模式 相同的方式显示测试注释。你可以在调用那行看到测试注释。目前，如果测试文件中没有调用测试注释，你将无法在 UI 模式 中看到它。我们计划支持一个单独的测试摘要视图，届时这些测试注释将会显示。
 
 <img alt="Vitest UI" img-light src="/annotations-html-light.png">
 <img alt="Vitest UI" img-dark src="/annotations-html-dark.png">

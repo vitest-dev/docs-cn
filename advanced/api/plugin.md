@@ -104,7 +104,7 @@ function injectTestProjects(
 ```ts
 // 为单个项目注入自定义别名
 const newProjects = await injectTestProjects({
-  // 您可以通过引用 `extends` 来继承当前项目配置
+  // 你可以通过引用 `extends` 来继承当前项目配置
   // 注意，不能使用已经存在的项目名称，
   // 所以定义自定义名称是一个好实践。
   extends: project.vite.config.configFile,

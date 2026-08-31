@@ -233,7 +233,7 @@ export default defineConfig({
 
 ## 自动安装依赖项 {#automatic-dependency-installation}
 
-如果某些依赖项尚未安装，Vitest 会提示您安装。您可以通过设置 `VITEST_SKIP_INSTALL_CHECKS=1` 环境变量来禁用此行为。
+如果某些依赖项尚未安装，Vitest 会提示你安装。你可以通过设置 `VITEST_SKIP_INSTALL_CHECKS=1` 环境变量来禁用此行为。
 
 ## IDE 集成 {#ide-integrations}
 
