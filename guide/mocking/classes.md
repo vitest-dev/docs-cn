@@ -26,17 +26,13 @@ class Dog {
   feed() {}
 }
 ```
-
-<<<<<<< HEAD
-我们可以使用 `vi.fn`（或 `vi.spyOn().mockImplementation()`）来重新创建这个类：
-=======
+<!-- TODO: translation -->
 Notice that this class defines its members in two different ways, and the difference matters for mocking:
 
 - `greet` is a class field. The assignment runs during construction, so every instance gets its own copy of the function as its own property.
 - `speak`, `isHungry`, and `feed` are prototype methods. They are created once and stored on `Dog.prototype`, an object that all instances share. An instance doesn't have a `speak` property of its own: when you call `dog.speak()`, JavaScript doesn't find `speak` on the instance and continues looking on `Dog.prototype`. Every instance finds the same function there, so `dog.speak === Dog.prototype.speak` is `true`.
 
 We can re-create this class with `vi.fn` (or `vi.spyOn().mockImplementation()`). By defining every method as a class field, each instance gets its own separate mock, which allows checking calls on a single instance:
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ```ts
 const Dog = vi.fn(class {
@@ -133,10 +129,7 @@ const Max = new Dog('Max')
 expect(Max.speak).not.toHaveBeenCalled()
 expect(Max.greet).not.toHaveBeenCalled()
 ```
-
-<<<<<<< HEAD
-我们可以为特定实例重新分配返回值：
-=======
+<!-- TODO: translation -->
 You don't have to redefine every method as a class field. Instances keep the prototype chain of the class you pass to `vi.fn`, so prototype methods stay available on instances, both during and after construction, and instances pass `instanceof` checks against that class:
 
 ```ts
@@ -203,7 +196,6 @@ expect(cooper.speak).toHaveBeenCalledTimes(1)
 ```
 
 When methods are defined as class fields, like in the mocked `Dog` class at the top of this page, every instance already has its own mock, so you can reassign the return value for a specific instance directly:
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ```ts
 const dog = new Dog('Cooper')
@@ -217,11 +209,7 @@ vi.mocked(dog.speak).mockReturnValue('woof woof')
 dog.speak() // woof woof
 ```
 
-<<<<<<< HEAD
-要模拟属性，我们可以使用 `vi.spyOn(dog, 'name', 'get')` 方法。这样就可以在模拟属性上使用间谍断言：
-=======
-To mock a non-function property, like `name`, we can use the `vi.spyOn(dog, 'name', 'get')` method. This makes it possible to use spy assertions on the mocked property:
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+要模拟非函数属性，例如 `name`，我们可以使用 `vi.spyOn(dog, 'name', 'get')` 方法。这样就可以在模拟属性上使用对象监听断言：
 
 ```ts
 const dog = new Dog('Cooper')

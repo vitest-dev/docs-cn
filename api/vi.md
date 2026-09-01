@@ -467,25 +467,17 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 `vi.fn` 同样支持传入 class 作为参数：
 
 ```ts
-<<<<<<< HEAD
-const Cart = vi.fn(
-  class {
-    get = () => 0
-  }
-)
-=======
 const Cart = vi.fn(class {
   get() {
     return 0
   }
 })
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 const cart = new Cart()
 expect(Cart).toHaveBeenCalled()
 expect(cart.get()).toBe(0)
 ```
-
+<!-- TODO: translation -->
 Instances keep the prototype chain of the implementation class, so its prototype methods are available on instances, and `instanceof` checks against the implementation class pass. See [Mocking Classes](/guide/mocking/classes) for details.
 
 ### vi.mockObject <Version>3.2.0</Version>
@@ -627,7 +619,7 @@ const spy = vi
 ```
 
 如果传入箭头函数， mock 被调用时将抛出 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
-
+<!-- TODO: translation -->
 With a class implementation, instances keep the prototype chain of that class: prototype methods like `getApples` are available on instances, and `instanceof` checks against the implementation class pass. See [Mocking Classes](/guide/mocking/classes) for details.
 
 ::: tip

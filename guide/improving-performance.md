@@ -2,9 +2,8 @@
 title: 性能优化 | 指南
 ---
 
-<<<<<<< HEAD
 # 性能优化 {#improving-performance}
-=======
+<!-- TODO: translation -->
 ## Profile First
 
 The `Duration` line of the summary breaks the run down into phases, as percentages of all tracked time:
@@ -27,9 +26,6 @@ The phases map to configuration options:
 When the collected timings show that a configuration change would make the run significantly faster, Vitest also prints a hint after the summary, see [`experimental.diagnostics`](/config/experimental#experimental-diagnostics). Hints never suggest changing an option that was set explicitly.
 
 [`vitest doctor`](/guide/cli#vitest-doctor) measures the alternative configurations instead of estimating them: it runs the suite under each candidate and reports the comparison, including whether the tests pass with `isolate: false`.
-
-## Test Isolation
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## 测试隔离 {#test-isolation}
 
@@ -109,10 +105,7 @@ export default defineConfig({
 ```
 
 :::
-
-<<<<<<< HEAD
-## 限制搜索目录 {#limiting-directory-search}
-=======
+<!-- TODO: translation -->
 ## Test Environments
 
 DOM environments are expensive to create: `jsdom` costs roughly 200-500ms per import and `happy-dom` roughly 90-200ms, plus the time to construct the window. With an isolating pool (the default), that cost is paid for every test file, because every file gets a fresh worker. On DOM-heavy suites this is often the largest cost of the run; it appears as the `environment` share of the `Duration` breakdown.
@@ -138,8 +131,7 @@ export default defineConfig({
 
 Prefer `isolate: false` with `threads` if the tests tolerate shared state: it is the fastest option and keeps memory behavior simple. Use `vmThreads` when every file needs a fresh `window` and the per-file environment cost dominates the run. `happy-dom` is cheaper to create than `jsdom` in every setup.
 
-## Limiting Directory Search
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+## 限制搜索目录 {#limiting-directory-search}
 
 你可以通过 [`test.dir`](/config/dir) 选项限制 Vitest 搜索文件的工作目录。如果根目录中存在不相关的文件夹和文件，这将加快搜索速度。
 
@@ -150,19 +142,11 @@ Prefer `isolate: false` with `threads` if the tests tolerate shared state: it is
 当重新运行少量依赖大型模块图的测试时，这种优化效果最为显著。对于完整测试套件，由于并行化机制会在早期测试仍在运行时通过其他测试填充内存缓存，其性能损耗已得到缓解。例如运行一个依赖庞大模块图（>900 个模块）的测试文件时：
 
 ```shell
-<<<<<<< HEAD
 # 第一次运行
-Duration  8.75s (transform 4.02s, setup 629ms, import 5.52s, tests 2.52s, environment 0ms, prepare 3ms)
-
-# 第二次运行
-Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, environment 0ms, prepare 3ms)
-=======
-# the first run
 Duration  8.75s (import 43%, transform 32%, tests 20%, setup 5%)
 
-# the second run
+# 第二次运行
 Duration  5.90s (tests 44%, import 35%, transform 13%, setup 8%)
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 ```
 
 ## Node 编译缓存 {#node-compile-cache}

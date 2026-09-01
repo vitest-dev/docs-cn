@@ -42,10 +42,6 @@ ReferenceError: __dirname is not defined
 
 ::: warning
 此选项仅影响由 Vitest 处理的模块，不会影响外部化模块。外部化模块始终由原生运行时执行；如果外部化的是 CommonJS 模块，Node.js 会自动提供所需的 CommonJS 变量。
-
-<<<<<<< HEAD
-另外，即使启用了此选项，被内联的 CommonJS 模块也不会经过 Vite 插件处理。由于 `require` 调用会离开模块运行器，mock 等依赖模块运行器的功能无法作用于这类模块。
-=======
-Note that inlined CommonJS modules are not processed by Vite plugins even when this option is enabled: `require` calls always leave the module runner, so features like mocking do not apply to them. See [CommonJS source code is not fully supported](/guide/common-errors#commonjs-source-code-is-not-fully-supported) for configuration alternatives.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+<!-- TODO: translation -->
+另外，即使启用了此选项，被内联的 CommonJS 模块也不会经过 Vite 插件处理。由于 `require` 调用会离开模块运行器，mock 等依赖模块运行器的功能无法作用于这类模块。 See [CommonJS source code is not fully supported](/guide/common-errors#commonjs-source-code-is-not-fully-supported) for configuration alternatives.
 :::

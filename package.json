@@ -22,7 +22,6 @@
     "vue": "^3.5.40"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@antfu/eslint-config": "^9.2.0",
     "@antfu/ni": "^30.3.0",
     "@iconify-json/carbon": "^1.2.25",
@@ -35,22 +34,9 @@
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vite-pwa/vitepress": "^1.1.0",
     "@vitejs/plugin-vue": "^6.0.8",
-    "@voidzero-dev/vitepress-theme": "^5.0.4",
+    "@voidzero-dev/vitepress-theme": "^5.0.6",
     "eslint": "^10.8.0",
     "eslint-factory": "^0.1.2",
-=======
-    "@antfu/ni": "^30.5.0",
-    "@iconify-json/carbon": "catalog:",
-    "@iconify-json/logos": "catalog:",
-    "@iconify/vue": "catalog:",
-    "@shikijs/transformers": "^4.4.3",
-    "@shikijs/vitepress-twoslash": "^4.4.3",
-    "@unocss/reset": "catalog:",
-    "@vite-pwa/assets-generator": "^1.0.2",
-    "@vite-pwa/vitepress": "^1.1.0",
-    "@vitejs/plugin-vue": "catalog:",
-    "@voidzero-dev/vitepress-theme": "^5.0.6",
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
     "https-localhost": "^4.7.1",
     "lint-staged": "^17.3.0",
     "pathe": "^2.0.3",
@@ -62,10 +48,6 @@
     "vite-plugin-pwa": "^1.3.0",
     "vitepress": "2.0.0-alpha.19",
     "vitepress-plugin-group-icons": "^1.7.6",
-<<<<<<< HEAD
-=======
-    "vitepress-plugin-llms": "^1.13.5",
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
     "vitepress-plugin-tabs": "^0.9.1",
     "vitest": "^4.1.10",
     "workbox-window": "^7.4.1"

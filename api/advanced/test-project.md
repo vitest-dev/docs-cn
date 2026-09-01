@@ -97,10 +97,7 @@ vitest.config === vitest.projects[0].globalConfig
 它基于项目的 root 路径和名称。请注意，不同操作系统的根路径并不一致，因此哈希值也会不同。
 
 ## vite
-
-<<<<<<< HEAD
-这是项目的 [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver)。所有项目都有自己的 Vite 服务器。
-=======
+<!-- TODO: translation -->
 This is project's [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver). Note that the server is not necessarily exclusive to this project: other projects can reuse it when the [`sharedViteServer`](/config/sharedviteserver) option applies, and browser instances of the same cluster share a single browser server.
 
 ## sharedViteServer
@@ -110,7 +107,6 @@ const sharedViteServer: boolean
 ```
 
 `true` when the project reuses the Vite server of the config that declared it instead of resolving its own (see the [`sharedViteServer`](/config/sharedviteserver) option). The project that owns the server reports `false` even when other projects reuse it. To detect any two projects sharing a server (including browser instances), compare their [`vite`](#vite) references.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## browser
 

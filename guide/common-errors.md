@@ -124,10 +124,7 @@ vitest --pool=forks
 ```
 
 :::
-
-<<<<<<< HEAD
-## 未处理的 Promise 拒绝 {#unhandled-promise-rejection}
-=======
+<!-- TODO: translation -->
 ## Time Zone Does Not Change in Worker Threads
 
 Setting `process.env.TZ` in a setup file or in a test, or setting `TZ` via [`env`](/config/env), has no effect on `Date` in `pool: 'threads'` and `pool: 'vmThreads'`. Node.js applies `TZ` only when the main thread sets it. A worker thread sees the new value on `process.env`, but keeps the time zone of the main process.
@@ -159,8 +156,7 @@ export default function () {
 
 If tests need different time zones at runtime, use `pool: 'forks'` or `pool: 'vmForks'`, where each worker is a separate process, or pass the `timeZone` option to `Intl.DateTimeFormat` instead of changing `TZ`.
 
-## Unhandled Promise Rejection
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+## 未处理的 Promise 拒绝 {#unhandled-promise-rejection}
 
 当 Promise 被拒绝，但在微任务队列清空前未附加 `.catch()` 处理程序或 `await` 时，会发生此错误。该行为源自 JavaScript 本身，并非 Vitest 特有。更多信息请参阅 [Node.js 文档](https://nodejs.org/api/process.html#event-unhandledrejection)。
 
@@ -255,7 +251,7 @@ export default defineConfig({
   },
 })
 ```
-
+<!-- TODO: translation -->
 ## CommonJS source code is not fully supported
 
 Vitest is ESM-first. By default, source files run in Vite's [module runner](/config/experimental#experimental-vitemodulerunner), which provides CommonJS variables such as `require`, `module`, and `exports` for compatibility but does not reproduce Node.js CommonJS semantics completely.

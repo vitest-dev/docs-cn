@@ -9,13 +9,6 @@ outline: deep
 
 ## 迁移至 Vitest 5.0 {#vitest-5}
 
-<<<<<<< HEAD
-::: warning 进行中
-Vitest 5.0 目前处于 beta 阶段。本章节跟踪已合并的重大变更，在稳定版发布前可能还会发生变化。
-:::
-
-=======
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 ::: warning Prerequisites
 Vitest 5.0 requires Vite >= 6.4.0 and Node.js >= 22.12.0. Before proceeding with any other migration steps, ensure your environment meets these requirements. Running Vitest 5.0 on older versions of Vite or Node.js is not supported and may result in unexpected errors.
 :::

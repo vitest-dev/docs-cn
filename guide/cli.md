@@ -123,11 +123,8 @@ tests/test1.test.ts
 tests/test2.test.ts
 ```
 
-<<<<<<< HEAD
-自 Vitest 4.1 起，你可以传入 `--static-parse` 来 [解析测试文件](/api/advanced/vitest#parsespecifications)，而无需运行它们来收集测试。Vitest 以有限的并发数解析测试文件，默认为 `os.availableParallelism()`。你可以通过 `--static-parse-concurrency` 选项来修改此值。
-=======
-Since Vitest 5, `vitest list` [parses test files](/api/advanced/vitest#parsespecifications) statically instead of running them to collect tests. Pass `--no-static-parse` to run the files instead. Vitest parses test files with limited concurrency, defaulting to `os.availableParallelism()`. You can change it via the `--static-parse-concurrency` option.
-
+自 Vitest 5 起，你可以传入 `--static-parse` 来 [解析测试文件](/api/advanced/vitest#parsespecifications)，而无需运行它们来收集测试。Vitest 以有限的并发数解析测试文件，默认为 `os.availableParallelism()`。你可以通过 `--static-parse-concurrency` 选项来修改此值。
+<!-- TODO: translation -->
 ### `vitest doctor`
 
 `vitest doctor` measures how much faster the test suite would run under alternative configurations by running it under each of them. The candidates are picked based on the current config:
@@ -171,7 +168,6 @@ Failing candidates are reported with an excerpt of their errors. If the suite fa
 Short suites are measured multiple times and the best time is reported, so the comparison reflects a warm steady state. Doctor runs the full suite several times, so it takes a multiple of a normal run's time. See [Improving Performance](/guide/improving-performance) for the trade-offs behind every candidate.
 
 Doctor measures and reports the baseline even when there are no candidates to compare. Configurations on a `vm` pool are additionally compared against `pool: 'threads'` with `isolate: false`, which also reuses workers but shares module state between files; a configuration already on one vm pool is still measured under the other.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## Shell 自动补全 {#shell-autocompletions}
 

@@ -796,11 +796,7 @@ Use TypeScript build mode
 
 - **命令行终端:** `-p, --project <name>`
 
-<<<<<<< HEAD
-如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目
-=======
-The name of the project to run if you are using Vitest workspace feature. This can be repeated for multiple projects: `--project=1 --project=2`. You can also filter projects using wildcards like `--project=packages*`, and exclude projects with `--project=!pattern`. A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目。A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them.
 
 ### slowTestThreshold
 
@@ -933,7 +929,7 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [strictTags](/config/stricttags)
 
 如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
-
+<!-- TODO: translation -->
 ### sharedViteServer
 
 - **CLI:** `--sharedViteServer`
@@ -1002,11 +998,8 @@ Let inline projects that don't modify the Vite config reuse the Vite server of t
 - **命令行终端:** `--experimental.preParse`
 - **配置:** [experimental.preParse](/config/experimental#experimental-preparse)
 
-<<<<<<< HEAD
 在运行测试前解析 TestSpecification。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。
-=======
-Parse test specifications before running them. This will apply `.only` flag and test name pattern across all files without running them. (default: `false`)
-
+<!-- TODO: translation -->
 ### experimental.diagnostics.isolate
 
 - **CLI:** `--experimental.diagnostics.isolate`
@@ -1034,4 +1027,3 @@ Print a hint when test files repeatedly evaluate the same module graph (typical 
 - **Config:** [experimental.diagnostics.transform](/config/experimental#experimental-diagnostics-transform)
 
 Print a hint when transforming modules dominates the run and `fsModuleCache` would persist the results across runs. (default: `true`)
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094

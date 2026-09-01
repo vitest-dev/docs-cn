@@ -234,10 +234,7 @@ pnpm run test --project e2e --project unit
 bun run test --project e2e --project unit
 ```
 :::
-
-<<<<<<< HEAD
-## 配置说明 {#configuration}
-=======
+<!-- TODO: translation -->
 The filter supports `*` wildcards and `!` exclusions. A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them:
 
 ```bash
@@ -247,8 +244,7 @@ vitest --project '!e2e'
 vitest --project 'unit*' --project '!unit (browser)'
 ```
 
-## Configuration
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+## 配置说明 {#configuration}
 
 使用内联配置定义的项目会继承顶级配置中的所有选项。是否继承由 `extends` 选项控制。从 Vitest 5.0 开始，该选项默认启用：
 
@@ -397,10 +393,7 @@ export default defineProject({
 })
 ```
 
-<<<<<<< HEAD
 请注意，只有配置文件可以定义嵌套项目，内联配置中不支持 `projects` 选项。
-=======
-Note that only config files can define nested projects. The `projects` option inside an inline configuration is not supported.
 
 ## Debugging Project Resolution
 
@@ -420,4 +413,3 @@ vitest:projects project "e2e" is dropped by the --project filter: unit
 vitest:projects resolved projects: "unit", "pkg-a", "pkg-b"
 vitest:projects creating a Vite server for project "pkg-a"
 ```
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094

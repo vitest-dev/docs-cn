@@ -195,22 +195,15 @@ function collect(
 ): Promise<TestRunResult>
 ```
 
-<<<<<<< HEAD
-执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
-=======
-Based on `staticParse`, this will either statically analyse test files to collect them (the default) or run the code without executing test callbacks. `collect` returns unhandled errors and an array of [test modules](/api/advanced/test-module). It accepts string filters to match the test files - these are the same filters that [CLI supports](/guide/filtering#cli).
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+根据 `staticParse` 的设置，此方法要么通过静态分析收集测试文件（默认行为），要么运行代码但不执行测试回调。`collect` 返回未处理的错误以及一个 [测试模块](/api/advanced/test-module) 数组。它接受用于匹配测试文件的字符串过滤器——这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
 此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析 TestSpecification。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
 
+<!-- TODO: translation -->
 ::: warning
-<<<<<<< HEAD
-请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
 
-这使得此方法非常慢，除非我们在收集测试之前禁用隔离。
-=======
 Note that since Vitest 5, the tests are collected by static analysis by default. If disabled via the second option, Vitest will run every test file in isolation, just like it runs regular tests. This would make this method very slow, unless you disable isolation manually before collecting tests.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+
 :::
 
 ## start

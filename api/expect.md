@@ -1876,13 +1876,7 @@ test('buyApples returns new stock id', async () => {
 ```
 
 :::warning
-<<<<<<< HEAD
-如果断言没有被异步等待，那么我们将得到一个误报测试，这个测试每次都能通过。为了确保断言确实被调用，我们可以尝试使用 [`expect.assertions(number)`](#expect-assertions)。
-
-自 Vitest 3 起，如果一个方法没有被等待（await），Vitest 会在测试结束时显示警告。到了 Vitest 4 ，如果断言没有被等待，测试将被标记为 "failed" 。
-=======
-If the assertion is not awaited, the test will be marked as "failed" at the end of the test.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+如果断言没有被等待，测试将被标记为 "failed" 。
 :::
 
 ## rejects
@@ -1911,13 +1905,7 @@ test('buyApples throws an error when no id provided', async () => {
 ```
 
 :::warning
-<<<<<<< HEAD
-如果断言没有被等待执行，那么我们将得到一个误报测试，这个测试每次都能通过。为了确保断言实际上被调用了，我们可以尝试使用 [`expect.assertions(number)`](#expect-assertions)。
-
-自 Vitest 3 起，若方法未被异步等待（ await ），Vitest 将在测试结束时显示警告。而在 Vitest 4 中，若断言未被异步等待，则测试将被标记为 "failed" 。
-=======
-If the assertion is not awaited, the test will be marked as "failed" at the end of the test.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+如果断言没有被等待，测试将被标记为 "failed" 。
 :::
 
 ## expect.assertions
@@ -2032,7 +2020,7 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
   }
 })
 ```
-
+<!-- TODO: translation -->
 ## expect.fail
 
 - **Type:** `(message?: string) => never`

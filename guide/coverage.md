@@ -260,11 +260,7 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
-自定义报告器由 Istanbul 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
-=======
-Custom reporters are loaded by `@vitest/istanbul-lib-report` and must match its reporter interface. See [built-in reporters' implementation](https://github.com/vitest-dev/istanbuljs/tree/main/packages/istanbul-lib-report/src/reports) for reference.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+自定义报告器由 `@vitest/istanbul-lib-report` 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
 
 ::: code-group
 ```js [custom-reporter.mjs]

@@ -44,14 +44,10 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 以 glob 模式指定需要统计覆盖率的文件列表。默认情况下，仅包含被测试覆盖的文件。
 
 建议在匹配规则中传递文件扩展名。
-
-<<<<<<< HEAD
-更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)
-=======
+<!-- TODO: translation -->
 Patterns are matched against each file's path relative to the project root. A pattern with no glob wildcard is treated as a directory and matches everything inside it, so `include: ['src']` is equivalent to `include: ['src/**']`.
 
 See [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## coverage.exclude
 
@@ -60,11 +56,7 @@ See [Including and excluding files from coverage report](/guide/coverage.html#in
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
-<<<<<<< HEAD
-以 glob 模式指定从代码覆盖率中排除的文件列表。
-=======
-List of files excluded from coverage as glob patterns. Patterns are matched the same way as [`coverage.include`](#coverage-include).
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+以 glob 模式指定从代码覆盖率中排除的文件列表。Patterns are matched the same way as [`coverage.include`](#coverage-include).
 
 更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
 
@@ -106,11 +98,7 @@ List of files excluded from coverage as glob patterns. Patterns are matched the 
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.reporter=<reporter>`, `--coverage.reporter=<reporter1> --coverage.reporter=<reporter2>`
 
-<<<<<<< HEAD
-要使用的代码覆盖率报告器。所有报告器的详细列表请参阅 [istanbul 文档](https://istanbul.js.org/docs/advanced/alternative-reporters/)。关于报告器特定选项的详细信息请参阅 [`@types/istanbul-reports`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/276d95e4304b3670eaf6e8e5a7ea9e265a14e338/types/istanbul-reports/index.d.ts)。
-=======
-Coverage reporters to use. See [istanbul documentation](https://istanbul.js.org/docs/advanced/alternative-reporters/) for detailed list of all reporters. See [`@vitest/istanbul-lib-report`](https://github.com/vitest-dev/istanbuljs/tree/main/packages/istanbul-lib-report/src/reports) for details about reporter specific options.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+要使用的代码覆盖率报告器。所有报告器的详细列表请参阅 [istanbul 文档](https://istanbul.js.org/docs/advanced/alternative-reporters/)。关于报告器特定选项的详细信息请参阅 [`@vitest/istanbul-lib-report`](https://github.com/vitest-dev/istanbuljs/tree/main/packages/istanbul-lib-report/src/reports)。
 
 报告器有三种不同的类型：
 
@@ -471,11 +459,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 - **类型:** `(options: InstrumenterOptions) => CoverageInstrumenter`
 - **可用的测试提供者:** `'istanbul'`
 
-<<<<<<< HEAD
-用于替代默认 `istanbul-lib-instrument` 的自定义检测器工厂函数。Vitest 在初始化期间调用该工厂函数一次，并对每个文件复用返回的检测器。Istanbul 管道的其余部分（收集、合并、报告）保持不变。
-=======
-Factory for a custom instrumenter to use in place of the default `@vitest/istanbul-lib-instrument`. Vitest calls the factory once during initialization and reuses the returned instrumenter for every file. The rest of the Istanbul pipeline (collection, merging, reporting) is unchanged.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+用于替代默认 `@vitest/istanbul-lib-instrument` 的自定义检测器工厂函数。Vitest 在初始化期间调用该工厂函数一次，并对每个文件复用返回的检测器。Istanbul 管道的其余部分（收集、合并、报告）保持不变。
 
 该工厂函数接收包含 Vitest 运行时覆盖率设置的 `InstrumenterOptions` 对象，必须返回实现 `CoverageInstrumenter` 接口的对象。两种类型均从 `vitest/node` 导出。
 

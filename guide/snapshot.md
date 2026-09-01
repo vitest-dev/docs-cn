@@ -107,16 +107,12 @@ it('render basic', async () => {
 ```
 
 它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 参数写回。
-
-<<<<<<< HEAD
-## 图像快照 {#visual-snapshots}
-=======
+<!-- TODO: translation -->
 ::: warning
 Do not use a snapshot path managed by Vitest, such as `__snapshots__/basic.test.ts.snap`, with `toMatchFileSnapshot`. Choose a separate file path pattern for file snapshots.
 :::
 
-## Visual Snapshots
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+## 图像快照 {#visual-snapshots}
 
 对于 UI 组件和页面的视觉回归测试，Vitest 通过 [浏览器模式](/guide/browser/) 提供了内置支持，使用 [`toMatchScreenshot()`](/api/browser/assertions#tomatchscreenshot) 断言：
 

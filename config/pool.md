@@ -12,12 +12,8 @@ outline: deep
 用于运行测试的线程池。
 
 ## threads
-
-<<<<<<< HEAD
-启用多线程模式。使用线程时，无法调用 `process.chdir()` 等进程相关 API。某些使用原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
-=======
-Enable multi-threading. When using threads you are unable to use process related APIs such as `process.chdir()`. Changing `process.env.TZ` [does not affect the time zone](/guide/common-errors#time-zone-does-not-change-in-worker-threads) in a worker thread. Some libraries written in native languages, such as `Prisma`, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is advised to use `forks` pool instead.
->>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
+<!-- TODO: translation -->
+启用多线程模式。使用线程时，无法调用 `process.chdir()` 等进程相关 API。 Changing `process.env.TZ` [does not affect the time zone](/guide/common-errors#time-zone-does-not-change-in-worker-threads) in a worker thread.某些使用原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
 
 ## forks
 
