@@ -13,7 +13,11 @@ outline: deep
 
 ## threads
 
+<<<<<<< HEAD
 启用多线程模式。使用线程时，无法调用 `process.chdir()` 等进程相关 API。某些使用原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
+=======
+Enable multi-threading. When using threads you are unable to use process related APIs such as `process.chdir()`. Changing `process.env.TZ` [does not affect the time zone](/guide/common-errors#time-zone-does-not-change-in-worker-threads) in a worker thread. Some libraries written in native languages, such as `Prisma`, `bcrypt` and `canvas`, have problems when running in multiple threads and run into segfaults. In these cases it is advised to use `forks` pool instead.
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## forks
 
@@ -30,6 +34,8 @@ outline: deep
 
 `vmForks` 则通过结束子进程完成回收，内存由操作系统负责释放。如果测试套件规模较大，需要定期回收子进程，那么即使 `vmForks` 与主进程之间的通信速度较慢，其整体运行速度通常仍会明显快于 `vmThreads`。
 :::
+
+On Node.js 24.9 and later, `require()` of an ES module is supported inside vm pools, mirroring [Node's own `require(esm)`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require). Calling `require()` on an ES module whose graph contains top-level `await` throws `ERR_REQUIRE_ASYNC_MODULE` - use `await import()` for those files.
 
 ::: warning
 在沙箱中运行代码有一些优势（测试速度更快），但也存在一些劣势。

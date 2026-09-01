@@ -152,9 +152,15 @@ expect(getRole('user@example.com')).toBe('user')
 
 你可以通过以下三种方式改变这种行为：
 
+<<<<<<< HEAD
 1. [抛出一个错误](#onunmatched-throw);
 2. [运行一个自定义函数](#onunmatched-fn);
 3. [使用非对称匹配器作为兜底行为](#asymmetric-matcher-as-catch-all).
+=======
+1. [throwing an error](#onunmatched-throw);
+2. [running a custom function](#onunmatched-fn);
+3. [using asymmetric matchers as catch-all behaviors](#asymmetric-matcher-as-catch-all).
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ### `onUnmatched: 'throw'`
 

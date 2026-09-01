@@ -2,7 +2,34 @@
 title: 性能优化 | 指南
 ---
 
+<<<<<<< HEAD
 # 性能优化 {#improving-performance}
+=======
+## Profile First
+
+The `Duration` line of the summary breaks the run down into phases, as percentages of all tracked time:
+
+```
+Duration  3.76s (environment 79%, import 13%, transform 6%, tests 1%, setup 1%)
+```
+
+The percentages are relative to the sum of all tracked phases, not to the wall-clock time: phases run in parallel workers, so their sum is usually larger than the run itself. In a multi-project setup the percentages aggregate over all [projects](/guide/projects), so a phase that dominates one project can be diluted by the others; the performance hints below analyze each project separately.
+
+The phases map to configuration options:
+
+- `environment` - creating the test environment (for example `jsdom`, `happy-dom`) for test files. See [Test Environments](#test-environments).
+- `transform` - waiting for Vite to resolve and transform imported modules. See [Caching Between Reruns](#caching-between-reruns).
+- `import` - evaluating test files and their modules, excluding the transform wait tracked above. When files import mostly the same modules (typical for barrel-file imports), isolation re-evaluates that shared graph for every file. See [Test Isolation](#test-isolation).
+- `setup` - running [`setupFiles`](/config/setupfiles).
+- `worker` - preparing the test runner in each worker. Isolation pays this cost for every test file. See [Test Isolation](#test-isolation).
+- `tests` - running the tests themselves. A run dominated by this phase has little to gain from configuration changes.
+
+When the collected timings show that a configuration change would make the run significantly faster, Vitest also prints a hint after the summary, see [`experimental.diagnostics`](/config/experimental#experimental-diagnostics). Hints never suggest changing an option that was set explicitly.
+
+[`vitest doctor`](/guide/cli#vitest-doctor) measures the alternative configurations instead of estimating them: it runs the suite under each candidate and reports the comparison, including whether the tests pass with `isolate: false`.
+
+## Test Isolation
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## 测试隔离 {#test-isolation}
 
@@ -83,7 +110,36 @@ export default defineConfig({
 
 :::
 
+<<<<<<< HEAD
 ## 限制搜索目录 {#limiting-directory-search}
+=======
+## Test Environments
+
+DOM environments are expensive to create: `jsdom` costs roughly 200-500ms per import and `happy-dom` roughly 90-200ms, plus the time to construct the window. With an isolating pool (the default), that cost is paid for every test file, because every file gets a fresh worker. On DOM-heavy suites this is often the largest cost of the run; it appears as the `environment` share of the `Duration` breakdown.
+
+Three configurations reduce this cost:
+
+| configuration | environment created | isolation | trade-off |
+|---|---|---|---|
+| `pool: 'forks'`/`'threads'` + `isolate: true` (default) | once per file | fresh process/thread and environment per file | safest, slowest |
+| `pool: 'vmThreads'` | once per worker | fresh VM context and `window` per file | test code runs in a VM realm: cross-realm `instanceof` edge cases with externalized packages, and memory is not reclaimed as reliably (see [`vmMemoryLimit`](/config/vmmemorylimit)) |
+| `isolate: false` | once per worker | none - files in the same worker share the environment and module state | tests must not depend on a clean `window` or module state; run `vitest doctor` to check |
+
+```ts [vitest.config.js]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    environment: 'jsdom',
+    pool: 'vmThreads', // environment per worker, fresh window per file
+  },
+})
+```
+
+Prefer `isolate: false` with `threads` if the tests tolerate shared state: it is the fastest option and keeps memory behavior simple. Use `vmThreads` when every file needs a fresh `window` and the per-file environment cost dominates the run. `happy-dom` is cheaper to create than `jsdom` in every setup.
+
+## Limiting Directory Search
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 你可以通过 [`test.dir`](/config/dir) 选项限制 Vitest 搜索文件的工作目录。如果根目录中存在不相关的文件夹和文件，这将加快搜索速度。
 
@@ -94,11 +150,19 @@ export default defineConfig({
 当重新运行少量依赖大型模块图的测试时，这种优化效果最为显著。对于完整测试套件，由于并行化机制会在早期测试仍在运行时通过其他测试填充内存缓存，其性能损耗已得到缓解。例如运行一个依赖庞大模块图（>900 个模块）的测试文件时：
 
 ```shell
+<<<<<<< HEAD
 # 第一次运行
 Duration  8.75s (transform 4.02s, setup 629ms, import 5.52s, tests 2.52s, environment 0ms, prepare 3ms)
 
 # 第二次运行
 Duration  5.90s (transform 842ms, setup 543ms, import 2.35s, tests 2.94s, environment 0ms, prepare 3ms)
+=======
+# the first run
+Duration  8.75s (import 43%, transform 32%, tests 20%, setup 5%)
+
+# the second run
+Duration  5.90s (tests 44%, import 35%, transform 13%, setup 8%)
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 ```
 
 ## Node 编译缓存 {#node-compile-cache}

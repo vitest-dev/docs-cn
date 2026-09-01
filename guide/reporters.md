@@ -763,7 +763,29 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 摘要中的容易失败测试部分会包含永久 URL 链接，可将测试名称直接链接到 GitHub 上对应的源码行。这些链接会利用 GitHubActions 提供的环境变量（`$GITHUB_REPOSITORY`、`$GITHUB_SHA` 和 `$GITHUB_WORKSPACE`）自动生成，因此在大多数情况下无需额外配置。
+=======
+The job summary title defaults to `Vitest Test Report` or `(${test.name}) Vitest Test Report` when [`test.name` is set](/config/name).
+
+You can customize the title by setting `jobSummary.title` to distinguish multiple Vitest invocations that append to the same job summary. Please note that `test.name` will not be displayed when using a custom title.
+
+```ts
+export default defineConfig({
+  test: {
+    reporters: [
+      ['github-actions', {
+        jobSummary: {
+          title: 'My Test Report',
+        },
+      }],
+    ],
+  },
+})
+```
+
+The flaky tests section of the summary includes permalink URLs that link test names directly to the relevant source lines on GitHub. These links are generated automatically using environment variables that GitHub Actions provides (`$GITHUB_REPOSITORY`, `$GITHUB_SHA`, and `$GITHUB_WORKSPACE`), so no configuration is needed in most cases.
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 如果你需要覆盖这些值：例如，在容器或自定义环境中运行时——可以通过 `fileLinks` 选项进行自定义：
 

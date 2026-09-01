@@ -166,6 +166,8 @@ mockFn.mock.calls[0][0] === 0 // true
 mockFn.mock.calls[1][0] === 1 // true
 ```
 
+If the implementation is a class, the mock's `prototype` is re-pointed to the implementation's prototype, so constructed instances see its prototype methods and pass `instanceof` checks against it. See [Mocking Classes](/guide/mocking/classes) for details.
+
 ## mockImplementationOnce
 
 ```ts
@@ -286,11 +288,17 @@ function mockReset(): Mock<T>
 
 注意：
 
+<<<<<<< HEAD
 - 若 mock 由 `vi.fn()` 创建，重置后其函数体将变为空实现，默认返回 `undefined`。
 
 - 若由 `vi.fn(impl)` 创建，重置后实现会恢复为传入的 `impl`。
 
 当我们想将模拟 restore 为其原始状态时，这很有用。
+=======
+The mock's `prototype` chain follows along: it reverts to the original class for `vi.fn(impl)` and `vi.spyOn()`, and to a plain object for `vi.fn()`, so instances constructed after the reset no longer pass `instanceof` checks against a previously set class implementation.
+
+This is useful when you want to reset a mock to its original state.
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ```ts
 const person = {

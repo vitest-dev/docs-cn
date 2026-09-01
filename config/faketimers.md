@@ -23,7 +23,13 @@ outline: deep
 
 需要模拟的全局方法和 API 名称数组。例如仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
 
+<<<<<<< HEAD
 当使用 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 会在 `node:child_process` 内部使用 `process.nextTick`，模拟后会导致进程挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
+=======
+`Temporal` is only faked when it is available on the global object: natively (Node.js >= 26 by default, behind `--harmony-temporal` on older versions, and supporting browsers) or through a globally installed polyfill such as `import 'temporal-polyfill/global'`.
+
+Mocking `nextTick` is not supported when running Vitest inside `node:child_process` by using `--pool=forks`. NodeJS uses `process.nextTick` internally in `node:child_process` and hangs when it is mocked. Mocking `nextTick` is supported when running Vitest with `--pool=threads`.
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ## fakeTimers.toNotFake
 

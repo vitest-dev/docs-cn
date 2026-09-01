@@ -166,10 +166,14 @@ export default new MyReporter()
 function onCoverage(coverage: unknown): Awaitable<void>
 ```
 
+<<<<<<< HEAD
 当覆盖率结果处理完毕后调用此钩子。覆盖率提供者的报告器在此钩子之后调用。`coverage` 的类型取决于 `coverage.provider`。对于 Vitest 的默认内置提供者，我们可以从 `istanbul-lib-coverage` 包中导入类型：
+=======
+This hook is called after coverage results have been processed. Coverage provider's reporters are called after this hook. The typings of `coverage` depends on the `coverage.provider`. For Vitest's default built-in providers you can import the types from `@vitest/istanbul-lib-coverage` package:
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ```ts
-import type { CoverageMap } from 'istanbul-lib-coverage'
+import type { CoverageMap } from '@vitest/istanbul-lib-coverage'
 
 declare function onCoverage(coverage: CoverageMap): Awaitable<void>
 ```

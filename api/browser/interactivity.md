@@ -281,7 +281,18 @@ function keyboard(text: string): Promise<void>
 
 通过 `userEvent.keyboard` 可以触发键盘输入。如果任何输入有焦点，它就会在该输入中键入字符。否则，它将触发当前焦点元素（如果没有焦点元素，则为 `document.body`）上的键盘事件。
 
+<<<<<<< HEAD
 此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。
+=======
+This API supports [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard). Common special keys that can be referenced inside the braces include:
+
+- **Modifiers:** `{Shift}`, `{Control}`, `{Alt}`, `{Meta}`
+- **Navigation:** `{ArrowUp}`, `{ArrowDown}`, `{ArrowLeft}`, `{ArrowRight}`, `{Home}`, `{End}`, `{PageUp}`, `{PageDown}`
+- **Editing:** `{Backspace}`, `{Delete}`, `{Insert}`, `{Tab}`, `{Enter}`, `{Escape}`
+- **Function keys:** `{F1}` through `{F12}`
+
+Note: The exact set of supported keys may vary depending on the underlying browser provider (Playwright vs WebdriverIO). If a key press doesn't trigger the expected behavior, consult your provider's documentation or file an issue.
+>>>>>>> a41164cabca74cb90d641ff5b118fa10f2190094
 
 ```ts
 import { userEvent } from 'vitest/browser'
