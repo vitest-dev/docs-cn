@@ -796,7 +796,7 @@ Use TypeScript build mode
 
 - **命令行终端:** `-p, --project <name>`
 
-如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目
+如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目。A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them.
 
 ### slowTestThreshold
 
@@ -929,6 +929,13 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [strictTags](/config/stricttags)
 
 如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
+<!-- TODO: translation -->
+### sharedViteServer
+
+- **CLI:** `--sharedViteServer`
+- **Config:** [sharedViteServer](/config/sharedviteserver)
+
+Let inline projects that don't modify the Vite config reuse the Vite server of the config that declares them. (default: `true`)
 
 ### experimental.importDurations.print
 
@@ -992,3 +999,31 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [experimental.preParse](/config/experimental#experimental-preparse)
 
 在运行测试前解析 TestSpecification。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。
+<!-- TODO: translation -->
+### experimental.diagnostics.isolate
+
+- **CLI:** `--experimental.diagnostics.isolate`
+- **Config:** [experimental.diagnostics.isolate](/config/experimental#experimental-diagnostics-isolate)
+
+Print a hint estimating how much time `isolate: false` would save when `isolate: true` spends a significant amount of time spawning a worker per test file. (default: `true`)
+
+### experimental.diagnostics.environment
+
+- **CLI:** `--experimental.diagnostics.environment`
+- **Config:** [experimental.diagnostics.environment](/config/experimental#experimental-diagnostics-environment)
+
+Print a hint when re-creating a DOM environment for every test file dominates the run and a `vm` pool would set it up once per worker. (default: `true`)
+
+### experimental.diagnostics.import
+
+- **CLI:** `--experimental.diagnostics.import`
+- **Config:** [experimental.diagnostics.import](/config/experimental#experimental-diagnostics-import)
+
+Print a hint when test files repeatedly evaluate the same module graph (typical for barrel-file imports) and `isolate: false` would evaluate it once per worker. (default: `true`)
+
+### experimental.diagnostics.transform
+
+- **CLI:** `--experimental.diagnostics.transform`
+- **Config:** [experimental.diagnostics.transform](/config/experimental#experimental-diagnostics-transform)
+
+Print a hint when transforming modules dominates the run and `fsModuleCache` would persist the results across runs. (default: `true`)

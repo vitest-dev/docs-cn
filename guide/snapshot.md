@@ -107,6 +107,10 @@ it('render basic', async () => {
 ```
 
 它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 参数写回。
+<!-- TODO: translation -->
+::: warning
+Do not use a snapshot path managed by Vitest, such as `__snapshots__/basic.test.ts.snap`, with `toMatchFileSnapshot`. Choose a separate file path pattern for file snapshots.
+:::
 
 ## 图像快照 {#visual-snapshots}
 

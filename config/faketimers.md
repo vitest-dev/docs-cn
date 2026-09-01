@@ -22,6 +22,8 @@ outline: deep
 - **默认值:** 全局可用的所有方法，除了 `nextTick` 和 `queueMicrotask`
 
 需要模拟的全局方法和 API 名称数组。例如仅需模拟 `setTimeout()` 和 `nextTick()`，可将此属性指定为 `['setTimeout', 'nextTick']`。
+<!-- TODO: translation -->
+`Temporal` is only faked when it is available on the global object: natively (Node.js >= 26 by default, behind `--harmony-temporal` on older versions, and supporting browsers) or through a globally installed polyfill such as `import 'temporal-polyfill/global'`.
 
 当使用 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 会在 `node:child_process` 内部使用 `process.nextTick`，模拟后会导致进程挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 

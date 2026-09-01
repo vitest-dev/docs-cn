@@ -46,7 +46,7 @@ test('rejects with an error', async () => {
 ```
 
 ::: warning
-不要忘记在 `expect` 前面加上 `await`。Vitest 会检测未等待的断言，并在测试结束时打印警告，但最好始终显式地添加 `await`。Vitest 还会在启动下一个测试之前，等待 `Promise.all` 中所有仍在进行的 Promise 完成，不过依赖这种行为会让测试更难理解。
+不要忘记在 `expect` 前面加上 `await`。Vitest 会检测未等待的断言并在测试结束时提示失败。
 :::
 
 ## 断言计数 {#assertion-counting}

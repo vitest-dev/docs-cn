@@ -41,14 +41,17 @@ test('test', () => {
 
 ## 自定义环境 {#custom-environment}
 
-你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
-
+你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个类型为 `Environment` 的对象。
+<!-- TODO: translation -->
 ```ts
 import type { Environment } from 'vitest/runtime'
 
 export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
+  // optional - set to false when "setupVM" is fast, so vm pools
+  // do not transform the import graph while it runs
+  prewarmModules: true,
   // 可选 - 仅在支持 "vmForks" 或 "vmThreads" 线程池时需要设置
   async setupVM() {
     const vm = await import('node:vm')

@@ -186,17 +186,24 @@ function mergeReports(directory?: string): Promise<TestRunResult>
 ## collect
 
 ```ts
-function collect(filters?: string[]): Promise<TestRunResult>
+function collect(
+  filters?: string[],
+  options?: {
+    staticParse?: boolean
+    staticParseConcurrency?: number
+  }
+): Promise<TestRunResult>
 ```
 
-执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
+根据 `staticParse` 的设置，此方法要么通过静态分析收集测试文件（默认行为），要么运行代码但不执行测试回调。`collect` 返回未处理的错误以及一个 [测试模块](/api/advanced/test-module) 数组。它接受用于匹配测试文件的字符串过滤器——这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
 此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析 TestSpecification。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
 
+<!-- TODO: translation -->
 ::: warning
-请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
 
-这使得此方法非常慢，除非我们在收集测试之前禁用隔离。
+Note that since Vitest 5, the tests are collected by static analysis by default. If disabled via the second option, Vitest will run every test file in isolation, just like it runs regular tests. This would make this method very slow, unless you disable isolation manually before collecting tests.
+
 :::
 
 ## start
@@ -591,10 +598,10 @@ Vitest 只会收集当前文件内定义的测试，绝不会跟随导入去其�
 无论是否从 `vitest` 入口点导入， Vitest 都会收集所有 `it` 、`test` 、`suite` 和 `describe` 的定义。
 :::
 
-## experimental_parseSpecifications <Version type="experimental">4.0.0</Version> <Experimental /> {#parsespecifications}
+## parseSpecifications <Version>5.0.0</Version> {#parsespecifications}
 
 ```ts
-function experimental_parseSpecifications(
+function parseSpecifications(
   specifications: TestSpecification[],
   options?: {
     concurrency?: number
@@ -604,13 +611,15 @@ function experimental_parseSpecifications(
 
 此方法将从规范数组中 [收集测试用例](#parsespecification)。默认情况下，Vitest 每次仅会并行运行 `os.availableParallelism()` 数量的规范，以降低潜在的性能损耗。你可以通过第二个参数指定不同的并发数量。
 
-## experimental_clearCache <Version type="experimental">4.0.11</Version> <Experimental /> {#clearcache}
+## clearCache <Version>5.0.0</Version> {#clearcache}
 
 ```ts
-function experimental_clearCache(): Promise<void>
+function clearCache(): Promise<void>
 ```
 
 删除所有 Vitest 缓存，包括 [`fsModuleCache`](/config/fsmodulecache)。
+
+This was available since Vitest 4.0.11 as experimental `experimental_clearCache` method.
 
 ## experimental_getSourceModuleDiagnostic <Version type="experimental">4.0.15</Version> <Experimental /> {#getsourcemodulediagnostic}
 

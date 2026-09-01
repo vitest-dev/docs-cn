@@ -260,10 +260,36 @@ export default defineConfig({
 })
 ```
 
-自定义报告器由 Istanbul 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
+自定义报告器由 `@vitest/istanbul-lib-report` 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
 
+::: code-group
+```js [custom-reporter.mjs]
+import { ReportBase } from '@vitest/istanbul-lib-report'
+
+export default class CustomReporter extends ReportBase {
+  constructor(opts) {
+    super()
+
+    if (!opts.file) {
+      throw new Error('File is required as custom reporter parameter')
+    }
+
+    this.file = opts.file
+  }
+
+  onStart(root, context) {
+    this.contentWriter = context.writer.writeFile(this.file)
+    this.contentWriter.println('Start of custom coverage report ESM')
+  }
+
+  onEnd() {
+    this.contentWriter.println('End of custom coverage report ESM')
+    this.contentWriter.close()
+  }
+}
+```
 ```js [custom-reporter.cjs]
-const { ReportBase } = require('istanbul-lib-report')
+const { ReportBase } = require('@vitest/istanbul-lib-report')
 
 module.exports = class CustomReporter extends ReportBase {
   constructor(opts) {
@@ -284,6 +310,7 @@ module.exports = class CustomReporter extends ReportBase {
   }
 }
 ```
+:::
 
 ## 自定义覆盖率的提供者 {#custom-coverage-provider}
 

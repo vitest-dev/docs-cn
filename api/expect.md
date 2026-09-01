@@ -1876,9 +1876,7 @@ test('buyApples returns new stock id', async () => {
 ```
 
 :::warning
-如果断言没有被异步等待，那么我们将得到一个误报测试，这个测试每次都能通过。为了确保断言确实被调用，我们可以尝试使用 [`expect.assertions(number)`](#expect-assertions)。
-
-自 Vitest 3 起，如果一个方法没有被等待（await），Vitest 会在测试结束时显示警告。到了 Vitest 4 ，如果断言没有被等待，测试将被标记为 "failed" 。
+如果断言没有被等待，测试将被标记为 "failed" 。
 :::
 
 ## rejects
@@ -1907,9 +1905,7 @@ test('buyApples throws an error when no id provided', async () => {
 ```
 
 :::warning
-如果断言没有被等待执行，那么我们将得到一个误报测试，这个测试每次都能通过。为了确保断言实际上被调用了，我们可以尝试使用 [`expect.assertions(number)`](#expect-assertions)。
-
-自 Vitest 3 起，若方法未被异步等待（ await ），Vitest 将在测试结束时显示警告。而在 Vitest 4 中，若断言未被异步等待，则测试将被标记为 "failed" 。
+如果断言没有被等待，测试将被标记为 "failed" 。
 :::
 
 ## expect.assertions
@@ -2021,6 +2017,28 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
         expect.unreachable('All error test must be handled')
         break
     }
+  }
+})
+```
+<!-- TODO: translation -->
+## expect.fail
+
+- **Type:** `(message?: string) => never`
+
+Explicitly forces a test failure with an optional custom message.
+
+For example, you can use it inside a `try/catch` block to ensure an error was thrown:
+
+```ts
+import { expect, test } from 'vitest'
+
+test('fails when error is not thrown', async () => {
+  try {
+    await performAction()
+    expect.fail('Expected performAction to throw an error')
+  }
+  catch (error) {
+    expect(error).toBeInstanceOf(CustomError)
   }
 })
 ```

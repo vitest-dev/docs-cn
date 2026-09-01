@@ -234,6 +234,15 @@ pnpm run test --project e2e --project unit
 bun run test --project e2e --project unit
 ```
 :::
+<!-- TODO: translation -->
+The filter supports `*` wildcards and `!` exclusions. A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them:
+
+```bash
+# run every project except "e2e"
+vitest --project '!e2e'
+# run every project starting with "unit", except "unit (browser)"
+vitest --project 'unit*' --project '!unit (browser)'
+```
 
 ## 配置说明 {#configuration}
 
@@ -385,3 +394,22 @@ export default defineProject({
 ```
 
 请注意，只有配置文件可以定义嵌套项目，内联配置中不支持 `projects` 选项。
+
+## Debugging Project Resolution
+
+If projects are not resolved the way you expect, run Vitest with the `DEBUG=vitest:projects` environment variable:
+
+```bash
+DEBUG=vitest:projects vitest
+```
+
+Vitest will log how every project was resolved: which files a glob pattern matched, how browser instances and benchmark projects were expanded, why a project was dropped by the `--project` filter, and whether a project creates its own Vite server or [shares one](/config/sharedviteserver) with another project:
+
+```
+vitest:projects resolving 3 project definitions declared by <root>/vitest.config.ts
+vitest:projects projects glob "packages/*" matched 2 paths
+vitest:projects inline project "unit" shares the Vite server of <root>/vitest.config.ts
+vitest:projects project "e2e" is dropped by the --project filter: unit
+vitest:projects resolved projects: "unit", "pkg-a", "pkg-b"
+vitest:projects creating a Vite server for project "pkg-a"
+```

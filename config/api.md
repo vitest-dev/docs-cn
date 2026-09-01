@@ -30,5 +30,5 @@ Vitest 默认不会将 API 暴露到互联网，仅在 `localhost` 上监听。�
 
 - **类型:** `boolean`
 - **默认值:** `true` 表示未暴露在公共网络中，`false` 则表示已暴露
-
-允许通过 API 运行任何测试文件。适用于 [UI 模式](/guide/ui) 中能够运行代码的交互元素（以及其背后的服务端代码）。此选项还会限制可间接执行代码的特权浏览器 API，例如通过 [`cdp()`](/api/browser/context#cdp) 直接访问 Chrome DevTools Protocol。
+<!-- TODO: translation -->
+允许通过 API 运行任何测试文件。适用于 [UI 模式](/guide/ui) 中能够运行代码的交互元素（以及其背后的服务端代码）。In Browser Mode, this option also gates indirect code execution, including evaluating external `.snap` files on the server and accessing raw Chrome DevTools Protocol through [`cdp()`](/api/browser/context#cdp).

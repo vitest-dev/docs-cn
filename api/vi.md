@@ -467,15 +467,18 @@ expect(getApples).toHaveNthReturnedWith(2, 5)
 `vi.fn` 同样支持传入 class 作为参数：
 
 ```ts
-const Cart = vi.fn(
-  class {
-    get = () => 0
+const Cart = vi.fn(class {
+  get() {
+    return 0
   }
-)
+})
 
 const cart = new Cart()
 expect(Cart).toHaveBeenCalled()
+expect(cart.get()).toBe(0)
 ```
+<!-- TODO: translation -->
+Instances keep the prototype chain of the implementation class, so its prototype methods are available on instances, and `instanceof` checks against the implementation class pass. See [Mocking Classes](/guide/mocking/classes) for details.
 
 ### vi.mockObject <Version>3.2.0</Version>
 
@@ -616,6 +619,8 @@ const spy = vi
 ```
 
 如果传入箭头函数， mock 被调用时将抛出 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
+<!-- TODO: translation -->
+With a class implementation, instances keep the prototype chain of that class: prototype methods like `getApples` are available on instances, and `instanceof` checks against the implementation class pass. See [Mocking Classes](/guide/mocking/classes) for details.
 
 ::: tip
 若运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) ，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
