@@ -3,17 +3,28 @@ title: 迁移指南 | 指南
 outline: deep
 ---
 
+<<<<<<< HEAD:guide/migration.md
 # 迁移指南 {#migration-guide}
+=======
+# Migrating to Vitest 5.0 {#vitest-5}
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d:guide/migration/index.md
 
 [迁移至 Vitest 4.0](https://v4.vitest.dev/guide/migration) | [迁移至 Vitest 3.0](https://v3.vitest.dev/guide/migration)
 
+<<<<<<< HEAD:guide/migration.md
 ## 迁移至 Vitest 5.0 {#vitest-5}
+=======
+<div class="migration-actions">
+  <ChangelogButton href="https://github.com/vitest-dev/vitest/releases/tag/v5.0.0" />
+  <CopyPrompt prompt="Migrate to Vitest 5. Fetch the migration guide from https://vitest.dev/guide/migration.md and apply appropriate changes. Do not touch more files than necessary for the migration. If the current version is lower than Vitest 4, apply changes from earlier migration guides first." />
+</div>
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d:guide/migration/index.md
 
 ::: warning Prerequisites
 Vitest 5.0 requires Vite >= 6.4.0 and Node.js >= 22.12.0. Before proceeding with any other migration steps, ensure your environment meets these requirements. Running Vitest 5.0 on older versions of Vite or Node.js is not supported and may result in unexpected errors.
 :::
 
-### `clearMocks` is Enabled by Default
+## `clearMocks` is Enabled by Default
 
 [`clearMocks`](/config/clearmocks) now defaults to `true`: Vitest calls [`vi.clearAllMocks()`](/api/vi#vi-clearallmocks) before every test, clearing the recorded history of every mock while leaving implementations intact.
 
@@ -52,7 +63,7 @@ export default defineConfig({
 })
 ```
 
-### `testNamePattern` Matches the `>`-Joined Full Name
+## `testNamePattern` Matches the `>`-Joined Full Name
 
 [`testNamePattern`](/config/testnamepattern) (the `-t` CLI flag) now matches against the test's full name with the suite chain and test name joined by `' > '`, the same string shown in the reporter output. Previously the segments were joined with a single space, mirroring Jest.
 
@@ -71,7 +82,7 @@ vitest -t 'math > adds' # [!code ++]
 
 To keep a pattern working regardless of the separator, match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
 
-### Inline Projects Inherit the Root Config by Default
+## Inline Projects Inherit the Root Config by Default
 
 The [`extends`](/guide/projects#configuration) option now defaults to `true`: every project defined as an inline configuration in [`test.projects`](/guide/projects) inherits all options from the root configuration, including Vite options like `plugins` or `resolve.alias`. The options are merged with the same rules that applied to an explicit `extends: true` in Vitest 4:
 
@@ -119,7 +130,7 @@ export default defineConfig({
 })
 ```
 
-### Referenced Config Files Can Define Their Own Projects
+## Referenced Config Files Can Define Their Own Projects
 
 A config file referenced in [`test.projects`](/guide/projects) that declares `projects` itself now provides the [nested projects](/guide/projects#nested-projects) it declares (named `app (unit)`, `app (e2e)`, and so on) instead of running tests as a single project.
 
@@ -147,7 +158,7 @@ Since the inherited `projects` paths resolve relative to the referenced config, 
 
 Inline configurations continue to ignore the `projects` field at runtime, but it is now also excluded from their `ProjectConfig` type.
 
-### Inline Projects Share the Vite Server by Default
+## Inline Projects Share the Vite Server by Default
 
 Inline projects that don't modify the Vite config now reuse the Vite server of the config that declares them instead of resolving a new Vite config and creating a new server per project, so shared files are transformed once and tests run faster. This is controlled by the new [`sharedViteServer`](/config/sharedviteserver) option, which is enabled by default; its documentation lists the exact options that still give a project its own server.
 
@@ -169,7 +180,7 @@ export default defineConfig({
 })
 ```
 
-### Hoisted Mocking Calls Must Be at the Top Level
+## Hoisted Mocking Calls Must Be at the Top Level
 
 [`vi.mock`](/api/vi#vi-mock), [`vi.unmock`](/api/vi#vi-unmock), and [`vi.hoisted`](/api/vi#vi-hoisted) are hoisted to the top of the file and run before any surrounding code. Calling them inside a function, block, or `describe`/`test` callback previously only logged a warning. Vitest 5.0 now throws, because the call does not execute where it is written:
 
@@ -197,11 +208,11 @@ Although it appears nested, it will be hoisted and executed before anything in t
 
 The dynamic variants [`vi.doMock`](/api/vi#vi-domock) and [`vi.doUnmock`](/api/vi#vi-dounmock) are not hoisted and may still be called anywhere.
 
-### Automocked Modules Stay Automocked in the Browser
+## Automocked Modules Stay Automocked in the Browser
 
 In browser mode, the exports of an automocked module (a [`vi.mock`](/api/vi#vi-mock) call with no factory) incorrectly kept calling the real implementation instead of the auto-generated stubs. If a browser test relied on that, its exports now return `undefined` by default. Pass [`{ spy: true }`](/api/vi#vi-mock) to keep calling the real implementation while still tracking calls, or provide a factory with the behavior you need.
 
-### Class Mocks Keep Prototype Methods
+## Class Mocks Keep Prototype Methods
 
 Instances created from a class mock previously inherited from the mock's own empty `prototype`. Methods defined with the regular class syntax were `undefined` on instances, even inside the constructor, and `instanceof` checks against the implementation class failed. This affected [`vi.fn(Dog)`](/api/vi#vi-fn), `vi.spyOn(obj, 'Dog')` with or without a mock implementation, and [`.mockImplementation(class ...)`](/api/mock#mockimplementation).
 
@@ -227,7 +238,7 @@ Object.getPrototypeOf(MockedDog.prototype) // was Object.prototype, now Dog.prot
 
 Overriding methods on the mock's `prototype` still works and shadows the implementation, and [`mockReset`](/api/mock#mockreset) reverts the chain together with the implementation. See [Mocking Classes](/guide/mocking/classes) for details.
 
-### Benchmarking API Rewrite
+## Benchmarking API Rewrite
 
 The benchmarking API has been rewritten. `bench` is no longer a top-level import from `vitest`; it is a [test-context fixture](/guide/test-context#bench) accessed from inside a regular `test()`. See the [Benchmarking guide](/guide/benchmarking) for the new API.
 
@@ -257,7 +268,7 @@ test('sort', async ({ bench }) => { // [!code ++]
 - **`benchmark.outputJson` config and the `--outputJson` CLI flag** are removed. Use `--reporter=json --outputFile=<path>` to capture benchmark results; the JSON reporter now includes a `benchmarks` field on each test case.
 - **`Vitest` instance `mode` property** is now always `'test'`. The previous `'benchmark'` value is no longer used; benchmarks run inside a dedicated project of the same `Vitest` instance.
 
-### Vitest UI Requires an Authenticated URL
+## Vitest UI Requires an Authenticated URL
 
 Vitest UI now requires token authentication for the HTML page and API access. The `/__vitest__/` URL will show an error until the browser is authenticated. To authenticate, open the URL with a token printed by Vitest, as shown below. Once authenticated, the direct `/__vitest__/` URL will work correctly.
 
@@ -266,7 +277,7 @@ vitest --ui
 # UI started at http://localhost:51204/__vitest__/?token=...
 ```
 
-### Fake Timers and `setSystemTime` Now Mock `Temporal`
+## Fake Timers and `setSystemTime` Now Mock `Temporal`
 
 Vitest now mocks the [`Temporal`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) API alongside `Date`, following the [`@sinonjs/fake-timers` v15.4 update](https://github.com/sinonjs/fake-timers/blob/main/CHANGELOG.md#1540--2026-05-05). This only takes effect when `Temporal` is available on the global object, natively or through a globally installed polyfill such as `import 'temporal-polyfill/global'`.
 
@@ -291,7 +302,7 @@ Temporal.Now.instant().epochMilliseconds // 0 (was the real time in v4)
 vi.useFakeTimers({ toNotFake: ['Temporal'] })
 ```
 
-### `toThrow("")` Matches Any Error Message
+## `toThrow("")` Matches Any Error Message
 
 [`toThrow`](/api/expect#tothrow) (and its alias `toThrowError`) treats a string argument as a substring of the error message. In Vitest 4 an empty string was special-cased to the `/^$/` pattern, so it matched only an error whose message was empty. It now behaves like any other substring, and an empty string is contained in every message:
 
@@ -306,7 +317,7 @@ To assert that a thrown error has an empty message, match the pattern explicitly
 expect(() => { throw new Error('boom') }).not.toThrow(/^$/)
 ```
 
-### Assertion Types Expose Return and Received Types
+## Assertion Types Expose Return and Received Types
 
 Assertion interfaces now use two type parameters: `R` is the matcher return type and `T` is the received value type. Synchronous assertions use `void`, while assertions accessed through `.resolves`, `.rejects`, [`expect.poll`](/api/expect#poll), or [`expect.element`](/api/browser/assertions) use `Promise<void>`.
 
@@ -322,7 +333,7 @@ Assertion<Promise<void>, string> // asynchronous assertion
 
 Vitest no longer reads custom matcher declarations from the global `jest.Matchers` interface. Libraries that support both Jest and Vitest should augment `jest.Matchers` and `vitest.Matchers` separately. This only affects TypeScript declarations; registering matchers with `expect.extend` works as before.
 
-### `expect.poll` Fails When It Times Out
+## `expect.poll` Fails When It Times Out
 
 [`expect.poll`](/api/expect#poll) now rejects when its callback, or the polled assertion, does not settle within `timeout`. Previously a callback that resolved after the deadline, or an assertion that only passed on a late attempt, could still succeed. The callback now also receives an `AbortSignal` that aborts when the timeout elapses, so you can cancel in-flight work:
 
@@ -335,7 +346,7 @@ await expect.poll(async ({ signal }) => {
 
 A poll that legitimately needs more time should raise its `timeout`. Otherwise it fails with `expect.poll() function didn't resolve in time.` (or `expect.poll() assertion didn't resolve in time.`).
 
-### Unawaited Asynchronous Assertions Fail the Test
+## Unawaited Asynchronous Assertions Fail the Test
 
 Asynchronous assertions, like `resolves`, `rejects` and `toMatchFileSnapshot`, now fail the test if they are not awaited. Previously, Vitest auto-awaited them at the end of the test and printed a warning:
 
@@ -350,7 +361,7 @@ test('unawaited assertion', async () => {
 
 The reported error points to the assertion that was not awaited.
 
-### Test Titles and Inspected Values Use `pretty-format`
+## Test Titles and Inspected Values Use `pretty-format`
 
 Vitest now formats values with [`pretty-format`](https://www.npmjs.com/package/pretty-format) instead of `loupe` when it inspects them, including the values interpolated into [`test.each`](/api/test#test-each) and [`test.for`](/api/test#test-for) titles. The rendering of some values changes, so snapshots or assertions that capture inspected output may need updating.
 
@@ -366,8 +377,12 @@ test.for([{ id: 'a1' }])('case $id', ({ id }) => { /* ... */ })
 
 - The length limit for interpolated values is now controlled by the new [`taskTitleValueFormatTruncate`](/config/tasktitlevalueformattruncate) option (default `40`).
 
+<<<<<<< HEAD:guide/migration.md
 ### Removed `test.sequential`, `describe.sequential`, and `sequential` Options
 ### 移除 `test.sequential`, `describe.sequential`, 和 `sequential` 选项 {##removed-test-sequential-describe-sequential-and-sequential-options}
+=======
+## Removed `test.sequential`, `describe.sequential`, and `sequential` Options
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d:guide/migration/index.md
 
 Vitest 5.0 移除了已弃用的 `test.sequential`、`describe.sequential` 和 `sequential` 选项。当你需要让某个测试或测试套件不再沿用继承来的并发设置，或退出全局配置的并发时，请使用 `concurrent: false`。
 
@@ -388,7 +403,11 @@ test('example', { sequential: true }, async () => { /* ... */ }) // [!code --]
 test('example', { concurrent: false }, async () => { /* ... */ }) // [!code ++]
 ```
 
+<<<<<<< HEAD:guide/migration.md
 ### 命令中的定位器被序列化为对象 {#locators-in-commands-are-serialized-as-objects}
+=======
+## Locators in Commands are Serialized as Objects
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d:guide/migration/index.md
 
 转发到 [浏览器命令](/api/browser/commands) 的定位器现在被序列化为 `SerializedLocator` 对象，而不是裸的选择器字符串。该对象导出两个字段：
 
@@ -409,8 +428,13 @@ export async function customClick(
   await context.page.locator(selector).click()
 }
 ```
+<<<<<<< HEAD:guide/migration.md
 <!-- TODO: translation -->
 ### Locators are Strict by Default
+=======
+
+## Locators are Strict by Default
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d:guide/migration/index.md
 
 Browser locators now match the text exactly by default, requiring a full, case-sensitive match. To keep the previous behaviour, you can set [`browser.locators.exact`](/config/browser/locators#browser-locators-exact) to `false`.
 
@@ -421,7 +445,7 @@ const locator = page.getByText('Hello, World', { exact: true })
 await locator.click()
 ```
 
-### `toHaveTextContent` Now Performs Strict Equality
+## `toHaveTextContent` Now Performs Strict Equality
 
 The browser-mode [`toHaveTextContent`](/api/browser/assertions#tohavetextcontent) matcher now validates that an element's text content is exactly equal to the expected string instead of performing a partial, case-sensitive match. Regular expressions are no longer accepted. The previous behaviour, including `RegExp` support, has moved to the new [`toMatchTextContent`](/api/browser/assertions#tomatchtextcontent) matcher.
 
@@ -436,7 +460,7 @@ await expect.element(banner).toMatchTextContent(/error/i) // [!code ++]
 await expect.element(banner).toHaveTextContent('Error!')
 ```
 
-### `render` Is Async in `vitest-browser-vue` and `vitest-browser-svelte`
+## `render` Is Async in `vitest-browser-vue` and `vitest-browser-svelte`
 
 The companion component-testing packages [`vitest-browser-vue`](https://npmx.dev/package/vitest-browser-vue) and [`vitest-browser-svelte`](https://npmx.dev/package/vitest-browser-svelte) now return a promise from `render`, so the call must be awaited before you query the rendered output:
 
@@ -452,7 +476,7 @@ test('renders', async () => {
 })
 ```
 
-### Glob Coverage Thresholds No Longer Inherit `perFile`
+## Glob Coverage Thresholds No Longer Inherit `perFile`
 
 `coverage.thresholds.perFile` previously applied to every threshold set, including files matched by glob-pattern thresholds. Glob patterns now control their own per-file checking and no longer inherit the top-level `perFile` — set `perFile` on each glob that needs it.
 
@@ -473,7 +497,7 @@ export default defineConfig({
 })
 ```
 
-### Coverage `include` and `exclude` Match More Precisely
+## Coverage `include` and `exclude` Match More Precisely
 
 [`coverage.include`](/config/coverage#coverage-include) and `coverage.exclude` were matched against absolute paths with picomatch's `contains` option, which matched many more files than intended. Patterns are now matched against each file's path relative to the project root, without `contains`, and a pattern with no glob wildcard is treated as a directory that matches everything inside it:
 
@@ -489,7 +513,7 @@ export default defineConfig({
 
 Review your `include` and `exclude` patterns after upgrading and confirm the reported file set is what you expect. Files that were previously matched only by the looser behavior may no longer be included.
 
-### Config Files Are Not Looked Up From Parent Directories
+## Config Files Are Not Looked Up From Parent Directories
 
 Vitest no longer searches parent directories for config files. If you previously relied on running `vitest` from a subdirectory while using a config file from a parent directory, pass the config explicitly and scope test discovery with `--dir`. For example,
 
@@ -498,11 +522,11 @@ $ cd subdir && vitest # [!code --]
 $ cd subdir && vitest --config ../vitest.config.ts # [!code ++]
 ```
 
-### DOM Environment Global Assignments Now Update the Underlying Window
+## DOM Environment Global Assignments Now Update the Underlying Window
 
 Assignments to properties on `globalThis` or `window` in `jsdom` and `happy-dom` environments are now propagated to the underlying DOM implementation. Mutable properties such as `innerWidth` can affect APIs implemented by the DOM environment, for example `happy-dom`'s `matchMedia`.
 
-### `populateGlobal` Returns Descriptors in `originals`
+## `populateGlobal` Returns Descriptors in `originals`
 
 The `originals` map returned by [`populateGlobal`](/guide/environment#custom-environment) now holds [property descriptors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor) instead of plain values. This avoids invoking native lazy getters (such as Node's `localStorage`) while capturing the original, and restores them faithfully on teardown.
 
@@ -513,13 +537,13 @@ originals.forEach((value, key) => (global[key] = value)) // [!code --]
 originals.forEach((descriptor, key) => Object.defineProperty(global, key, descriptor)) // [!code ++]
 ```
 
-### Browser Orchestrator URL Requires a Session
+## Browser Orchestrator URL Requires a Session
 
 Vitest no longer serves the browser orchestrator UI from a bare `/__vitest_test__/` URL. Browser runner URLs are now session-bound and must include the `sessionId` generated by Vitest, for example `/__vitest_test__/?sessionId=...`.
 
 If you manually opened the browser preview by copying the Vite server URL or visiting `/__vitest_test__/` directly, use the URL opened or printed by Vitest instead.
 
-### `browser.api` Is Replaced by the Top-Level `api`
+## `browser.api` Is Replaced by the Top-Level `api`
 
 Browser mode now runs on a single Vite server configured by the top-level [`api`](/config/api) option; the default port in browser mode is still `63315`. The `browser.api` option is deprecated and no longer has any effect, so move its value to `api`:
 
@@ -539,7 +563,7 @@ export default defineConfig({
 
 The already deprecated `browser.isolate` option now also prints a warning at startup; its value is still applied to the top-level [`isolate`](/config/isolate) option that replaces it.
 
-### Generated Reports and Artifacts Use the `.vitest` Directory
+## Generated Reports and Artifacts Use the `.vitest` Directory
 
 Vitest now uses a single `.vitest` directory at the project root as the shared artifact root, so one `.vitest` entry in `.gitignore` is enough. Defaults that moved this major:
 
@@ -552,7 +576,7 @@ Vitest now uses a single `.vitest` directory at the project root as the shared a
 
 The `json` and `junit` reporters now write to a file by default instead of printing to stdout. If you piped the report (for example `vitest --reporter=json | jq`), read the artifact file instead, or opt back into stdout with the reporter's [`stdout` option](/guide/reporters#reporter-output) (`reporters: [['json', { stdout: true }]]`). An explicit `outputFile` is still respected and unchanged.
 
-### `toMatchScreenshot` Now Uses a Dedicated Screenshot Directory Config
+## `toMatchScreenshot` Now Uses a Dedicated Screenshot Directory Config
 
 Previously, reference screenshots for `toMatchScreenshot` did not correctly respect `browser.screenshotDirectory`. As a result, screenshots were saved in an unintended location when a custom directory was configured.
 
@@ -578,7 +602,7 @@ This has now been fixed by introducing a dedicated option: `browser.expect.toMat
 
     Then either move existing reference screenshots to the new location or regenerate them.
 
-### Worker and Concurrency Ids Are 1-based
+## Worker and Concurrency Ids Are 1-based
 
 Worker and pool identifiers now start at `1` instead of `0`. This changes the values of the `VITEST_POOL_ID` and `VITEST_WORKER_ID` environment variables, which now range from `1` to the worker count. Update any logic that derives a value from these ids, such as a per-worker database name or an array index.
 
@@ -596,7 +620,7 @@ class MyReporter implements Reporter {
 
 Node.js and browser tests run in separate pools and do not share these ids, so the same value can appear in both.
 
-### `resolveConfig` Returns the Resolved Vite Config
+## `resolveConfig` Returns the Resolved Vite Config
 
 The [`resolveConfig`](/guide/advanced/#resolveconfig) helper from `vitest/node` no longer returns a `{ vitestConfig, viteConfig }` pair. It resolves the config without creating a Vite server and returns the resolved Vite config; the fully resolved Vitest config is available on its `test` property:
 
@@ -610,7 +634,7 @@ const vitestConfig = viteConfig.test // [!code ++]
 
 The Vitest 4 limitations are gone: the returned config now includes fully resolved `projects`, and `viteConfig.test` no longer holds partially resolved options.
 
-### Package Migration
+## Package Migration
 
 The following packages are deprecated as of this release. They will no longer receive feature updates, but security fixes will continue to be backported:
 
@@ -621,7 +645,7 @@ The following packages are deprecated as of this release. They will no longer re
 
 The [`@vitest/browser-webdriverio`](https://npmx.dev/package/@vitest/browser-webdriverio) provider has been moved to the [vitest-community](https://github.com/vitest-community/vitest-webdriverio) organization. Going forward, WebdriverIO support is community-maintained and addressed on a per-issue basis. If you use it, update your dependency to the new package and report any issues in the new repository.
 
-### Removed Deprecated Entrypoints
+## Removed Deprecated Entrypoints
 
 Several entry points were marked as deprecated in Vitest 4.1. This release removes them entirely.
 
@@ -633,6 +657,7 @@ Several entry points were marked as deprecated in Vitest 4.1. This release remov
 - `vitest/suite`: use static methods on `TestRunner` from vitest instead (for example, `TestRunner.getCurrentTest()`)
 - `vitest/mocker` is removed completely, use `@vitest/mocker` package directly (this was published by accident at one point and never removed)
 - `vitest/internal/module-runner` is removed
+<<<<<<< HEAD:guide/migration.md
 
 ## 从 Jest 迁移 {#jest}
 
@@ -998,3 +1023,5 @@ vi.useRealTimers()
 - [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions)
 - [Mocking 指南](/guide/mocking)
 - [Vi API](/api/vi)
+=======
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d:guide/migration/index.md

@@ -1825,8 +1825,13 @@ test('spy called after another', () => {
 })
 ```
 
+<<<<<<< HEAD
 ::: tip 迁移指南
 完整的从 Mocha+Chai+Sinon 迁移到 Vitest 的指南，请参阅 [迁移指南](/guide/migration#mocha-chai-sinon)。
+=======
+::: tip Migration Guide
+For a complete guide on migrating from Mocha+Chai+Sinon to Vitest, see the [Migration Guide](/guide/migration/mocha).
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
 :::
 
 ## toSatisfy

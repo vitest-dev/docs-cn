@@ -37,5 +37,9 @@ describe('math', () => {
 ```
 
 ::: warning
+<<<<<<< HEAD
 在 Vitest 5 之前，为了与 Jest 保持一致，名称中的各部分使用单个空格连接（`math adds`）。详情请参阅 [迁移指南](/guide/migration#vitest-5)。
+=======
+Before Vitest 5, the segments were joined with a single space (`math adds`) to mirror Jest. See the [migration guide](/guide/migration/#vitest-5) for details.
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
 :::

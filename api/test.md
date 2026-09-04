@@ -40,7 +40,11 @@ test('should work as expected', () => {
 当测试函数返回 promise 时，运行器将等待其 resolved 后在收集异步断言。如果 Promise 被拒绝，那么测试将会失败。
 
 ::: tip
+<<<<<<< HEAD
 在 Jest 中，`TestFunction` 也可以是 `(done: DoneCallback) => void` 类型。如果使用该形式，测试须在 `done` 被调用后才会结束。你可以改用 `async` 函数来实现相同的效果，更多内容请参阅 [迁移指南中 Done 回调章节](/guide/migration#done-callback)。
+=======
+In Jest, `TestFunction` can also be of type `(done: DoneCallback) => void`. If this form is used, the test will not be concluded until `done` is called. You can achieve the same using an `async` function, see the [Migration guide Done Callback section](/guide/migration/jest#done-callback).
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
 :::
 
 ## Test Options

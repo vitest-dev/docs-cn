@@ -8,7 +8,14 @@ import CourseLink from '../components/CourseLink.vue'
 import CRoot from '../components/CRoot.vue'
 import Deprecated from '../components/Deprecated.vue'
 import Experimental from '../components/Experimental.vue'
+<<<<<<< HEAD
 import Version from '../components/Version.vue'
+=======
+import Advanced from '../components/Advanced.vue'
+import ChangelogButton from '../components/ChangelogButton.vue'
+import CopyPrompt from '../components/CopyPrompt.vue'
+import CourseLink from '../components/CourseLink.vue'
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
 import './styles.css'
 import '@shikijs/vitepress-twoslash/style.css'
 import 'virtual:group-icons.css'
@@ -57,6 +64,8 @@ export default {
     app.component('Experimental', Experimental)
     app.component('Deprecated', Deprecated)
     app.component('Advanced', Advanced)
+    app.component('ChangelogButton', ChangelogButton)
+    app.component('CopyPrompt', CopyPrompt)
     app.component('CourseLink', CourseLink)
     app.use(TwoslashFloatingVue)
     enhanceAppWithTabs(app)

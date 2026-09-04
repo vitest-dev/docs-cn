@@ -38,6 +38,7 @@
     "eslint": "^10.8.0",
     "eslint-factory": "^0.1.2",
     "https-localhost": "^4.7.1",
+<<<<<<< HEAD
     "lint-staged": "^17.3.0",
     "pathe": "^2.0.3",
     "simple-git-hooks": "^2.13.1",
@@ -45,6 +46,12 @@
     "tsx": "^4.23.4",
     "unocss": "^66.7.5",
     "vite": "^8.2.0",
+=======
+    "tinyglobby": "catalog:",
+    "tsx": "catalog:",
+    "unocss": "catalog:",
+    "vite": "^6.3.5",
+>>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
     "vite-plugin-pwa": "^1.3.0",
     "vitepress": "2.0.0-alpha.19",
     "vitepress-plugin-group-icons": "^1.7.6",
