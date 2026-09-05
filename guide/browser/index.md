@@ -295,10 +295,10 @@ Vitest 中的浏览器选项取决于 provider。如果在配置文件中传递 
 
 Vitest 使用 [Vite dev server](https://cn.vitejs.dev/guide/#browser-support) 来运行我们的测试，因此我们只支持 [`esbuild.target`](https://cn.vitejs.dev/config/shared-options#esbuild)选项（默认为 `esnext`）中指定的功能。
 
-默认情况下，Vite 的目标浏览器支持原生 [ES Modules](https://caniuse.com/es6-module)、原生 [ESM 动态导入](https://caniuse.com/es6-module-dynamic-import) 和 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel)在 iframe 之间进行通信：
+默认情况下，Vite 的目标浏览器需支持原生 [ES Modules](https://caniuse.com/es6-module)、原生 [ESM 动态导入](https://caniuse.com/es6-module-dynamic-import) 以及 [`import.meta`](https://caniuse.com/mdn-javascript_operators_import_meta)。此外，我们还利用 [`BroadcastChannel`](https://caniuse.com/?search=BroadcastChannel) 在 iframe 之间进行通信，并使用 `WeakRef` 配合 `FinalizationRegistry` 来追踪 mock，同时避免阻止垃圾回收机制。
 
 - Chrome >=87
-- Firefox >=78
+- Firefox >=79
 - Safari >=15.4
 - Edge >=88
 

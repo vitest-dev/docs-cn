@@ -1122,15 +1122,15 @@ export default ({ mode }: { mode: string }) => {
             items: [
               {
                 text: '迁移至 Vitest 5.0',
-                link: '/guide/migration#vitest-5',
+                link: '/guide/migration/',
               },
               {
                 text: '从 Jest 迁移',
-                link: '/guide/migration#jest',
+                link: '/guide/migration/jest',
               },
               {
                 text: '从 Mocha + Chai + Sinon 迁移',
-                link: '/guide/migration#mocha-chai-sinon',
+                link: '/guide/migration/mocha',
               },
             ],
           },
