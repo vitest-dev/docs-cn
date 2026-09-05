@@ -1,12 +1,12 @@
 ---
-title: Recipes | Guide
+title: 技巧 | 指南
 ---
 
-# Recipes
+# 技巧 {#recipes}
 
-## Disabling Isolation for Specific Test Files Only
+## 对特定测试文件禁用隔离 {#disabling-isolation-for-specific-test-files-only}
 
-You can speed up your test run by disabling isolation for specific set of files by specifying `isolate` per `projects` entries:
+为每个 `projects` 配置项设置 `isolate` 参数，禁用特定文件的隔离功能，从而加速测试运行速度。
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -15,24 +15,28 @@ export default defineConfig({
   test: {
     projects: [
       {
-        // Non-isolated unit tests
-        name: 'Unit tests',
-        isolate: false,
-        exclude: ['**.integration.test.ts'],
+        test: {
+          // Non-isolated unit tests
+          name: 'Unit tests',
+          isolate: false,
+          exclude: ['**.integration.test.ts'],
+        },
       },
       {
-        // Isolated integration tests
-        name: 'Integration tests',
-        include: ['**.integration.test.ts'],
+        test: {
+          // Isolated integration tests
+          name: 'Integration tests',
+          include: ['**.integration.test.ts'],
+        },
       },
     ],
   },
 })
 ```
 
-## Parallel and Sequential Test Files
+## 并行与串行测试文件 {#parallel-and-sequential-test-files}
 
-You can split test files into parallel and sequential groups by using `projects` option:
+可以通过 `projects` 配置项，将测试文件划分为并行和串行两组：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -41,13 +45,17 @@ export default defineConfig({
   test: {
     projects: [
       {
-        name: 'Parallel',
-        exclude: ['**.sequential.test.ts'],
+        test: {
+          name: 'Parallel',
+          exclude: ['**.sequential.test.ts'],
+        },
       },
       {
-        name: 'Sequential',
-        include: ['**.sequential.test.ts'],
-        fileParallelism: false,
+        test: {
+          name: 'Sequential',
+          include: ['**.sequential.test.ts'],
+          fileParallelism: false,
+        },
       },
     ],
   },

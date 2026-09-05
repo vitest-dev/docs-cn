@@ -13,10 +13,10 @@
 
 ### update
 
-- **命令行终端:** `-u, --update`
+- **命令行终端:** `-u, --update [type]`
 - **配置:** [update](/config/update)
 
-更新快照
+更新快照（接受 boolean, "new"、"all" 或 "none"）
 
 ### watch
 
@@ -56,7 +56,7 @@
 
 - **命令行终端:** `--api.port [port]`
 
-指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为`51204`
+指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为 `51204`
 
 ### api.host
 
@@ -69,6 +69,20 @@
 - **命令行终端:** `--api.strictPort`
 
 设置为 true 时，如果端口已被使用，则退出，而不是自动尝试下一个可用端口
+
+### api.allowExec
+
+- **命令行终端:** `--api.allowExec`
+- **配置:** [api.allowExec](/config/api#api-allowexec)
+
+允许 API 执行代码。（在非受信环境中启用此选项时需谨慎）
+
+### api.allowWrite
+
+- **命令行终端:** `--api.allowWrite`
+- **配置:** [api.allowWrite](/config/api#api-allowwrite)
+
+允许 API 编辑文件。（在非受信环境中启用此选项时需谨慎）
 
 ### silent
 
@@ -88,7 +102,7 @@
 - **命令行终端:** `--reporter <name>`
 - **配置:** [reporters](/config/reporters)
 
-指定报告器（default、blob、verbose、dot、json、tap、tap-flat、junit、tree、hanging-process、github-actions）
+指定报告器（default, agent, minimal, blob, verbose, dot, json, tap, tap-flat, junit, tree, hanging-process, github-actions）
 
 ### outputFile
 
@@ -151,7 +165,7 @@
 - **命令行终端:** `--coverage.reporter <name>`
 - **配置:** [coverage.reporter](/config/coverage#coverage-reporter)
 
-Coverage reporters to use. Visit [`coverage.reporter`](/config/#coverage-reporter) for more information (default: `["text", "html", "clover", "json"]`)
+Coverage reporters to use. Visit [`coverage.reporter`](/config/coverage#coverage-reporter) for more information (default: `["text", "html", "clover", "json"]`)
 
 ### coverage.reportOnFailure
 
@@ -183,10 +197,10 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/#coverage-reporte
 
 ### coverage.thresholds.perFile
 
-- **命令行终端:** `--coverage.thresholds.perFile`
+- **命令行终端:** `--coverage.thresholds.perFile <boolean>`
 - **配置:** [coverage.thresholds.perFile](/config/coverage#coverage-thresholds-perfile)
 
-检查每个文件的阈值。 `--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）
+检查每个文件的阈值。`--coverage.thresholds.lines`, `--coverage.thresholds.functions`, `--coverage.thresholds.branches`, `--coverage.thresholds.statements` 为实际阈值（默认值：`false`）。对象形式仅在配置文件中可用。
 
 ### coverage.thresholds.autoUpdate
 
@@ -224,7 +238,7 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/#coverage-reporte
 - **命令行终端:** `--coverage.ignoreClassMethods <name>`
 - **配置:** [coverage.ignoreClassMethods](/config/coverage#coverage-ignoreclassmethods)
 
-覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods) 。该选项仅适用于 istanbul providers（默认值：`[]`）
+覆盖时要忽略的类方法名称数组。更多信息请访问 [istanbuljs](https://github.com/istanbuljs/nyc#ignoring-methods)。该选项仅适用于 istanbul providers（默认值：`[]`）
 
 ### coverage.processingConcurrency
 
@@ -238,38 +252,66 @@ Coverage reporters to use. Visit [`coverage.reporter`](/config/#coverage-reporte
 - **命令行终端:** `--coverage.customProviderModule <path>`
 - **配置:** [coverage.customProviderModule](/config/coverage#coverage-customprovidermodule)
 
-Specifies the module name or path for the custom coverage provider module. Visit [Custom Coverage Provider](/guide/coverage#custom-coverage-provider) for more information. This option is only available for custom providers
+指定自定义覆盖率提供者模块的模块名称或路径。详情请参阅 [自定义覆盖率提供者](/guide/coverage#custom-coverage-provider) 了解更多信息。此选项仅适用于自定义提供者。
 
 ### coverage.watermarks.statements
 
 - **命令行终端:** `--coverage.watermarks.statements <watermarks>`
 
-语句覆盖率高/低阈值，格式： `<high>,<low>`
+语句覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.lines
 
 - **命令行终端:** `--coverage.watermarks.lines <watermarks>`
 
-行覆盖率高/低阈值，格式： `<high>,<low>`
+行覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.branches
 
 - **命令行终端:** `--coverage.watermarks.branches <watermarks>`
 
-分支覆盖率高/低阈值，格式： `<high>,<low>`
+分支覆盖率高/低阈值，格式：`<high>,<low>`
 
 ### coverage.watermarks.functions
 
 - **命令行终端:** `--coverage.watermarks.functions <watermarks>`
 
-函数覆盖率高/低阈值，格式： `<high>,<low>`
+函数覆盖率高/低阈值，格式：`<high>,<low>`
+
+### coverage.changed
+
+- **命令行终端:** `--coverage.changed <commit/branch>`
+- **配置:** [coverage.changed](/config/coverage#coverage-changed)
+
+仅收集指定提交或分支（例如 `origin/main` 或 `HEAD~1`）以来更改的文件的覆盖率。默认继承自 `--changed` 的值。
+
+### coverage.excludeAfterRemap
+
+- **命令行终端:** `--coverage.excludeAfterRemap`
+- **配置:** [coverage.excludeAfterRemap](/config/coverage#coverage-excludeafterremap)
+
+在覆盖率数据重新映射回源代码后再次应用排除规则。（默认值：false）
+
+### coverage.htmlDir
+
+- **命令行终端:** `--coverage.htmlDir <path>`
+- **配置:** [coverage.htmlDir](/config/coverage#coverage-htmldir)
+
+UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
+
+### coverage.autoAttachSubprocess
+
+- **命令行终端:** `--coverage.autoAttachSubprocess`
+- **配置:** [coverage.autoAttachSubprocess](/config/coverage#coverage-autoattachsubprocess)
+
+跟踪测试运行期间生成的 `node:child_process` 和 `node:worker_threads` 的覆盖率。仅 `v8` 提供程序支持。（默认值：false）
 
 ### mode
 
 - **命令行终端:** `--mode <name>`
 - **配置:** [mode](/config/mode)
 
-覆盖 Vite 模式 (默认值: `test` 或 `benchmark`)
+覆盖 Vite 模式 (默认值: `test`)
 
 ### isolate
 
@@ -285,6 +327,13 @@ Specifies the module name or path for the custom coverage provider module. Visit
 
 全局注入
 
+### injectCjsGlobals
+
+- **命令行终端:** `--injectCjsGlobals`
+- **配置:** [injectCjsGlobals](/config/injectcjsglobals)
+
+向每个测试模块中注入 CommonJS 变量（`module`、`exports`、`require`、`__filename`、`__dirname`）。如需禁用请使用 `--no-inject-cjs-globals`（默认值：`true`）。
+
 ### dom
 
 - **命令行终端:** `--dom`
@@ -297,12 +346,12 @@ Specifies the module name or path for the custom coverage provider module. Visit
 - **配置:** [browser.enabled](/config/browser/enabled)
 
 在浏览器中运行测试。 相当于 `--browser.enabled` (默认值: `false`)
-<!-- TODO: translation -->
+
 ### browser.name
 
 - **命令行终端:** `--browser.name <name>`
 
-Run all tests in a specific browser. Some browsers are only available for specific providers (see `--browser.provider`).
+在指定浏览器中运行所有测试。某些浏览器仅适用于特定的 provider（详情请参见 `--browser.provider`）
 
 ### browser.headless
 
@@ -311,34 +360,6 @@ Run all tests in a specific browser. Some browsers are only available for specif
 
 在无头模式下运行浏览器（即不打开图形用户界面）。如果在 CI 中运行 Vitest，默认情况下将启用无头模式 (默认值: `process.env.CI`)
 
-### browser.api.port
-
-- **命令行终端:** `--browser.api.port [port]`
-- **配置:** [browser.api.port](/config/browser/api#api-port)
-
-指定服务器端口。注意，如果端口已被使用，Vite 会自动尝试下一个可用端口，因此这可能不是服务器最终监听的实际端口。如果为 `true`，将设置为 `63315`
-
-### browser.api.host
-
-- **命令行终端:** `--browser.api.host [host]`
-- **配置:** [browser.api.host](/config/browser/api#api-host)
-
-指定服务器应该监听哪些 IP 地址。设为 `0.0.0.0` 或 `true` 则监听所有地址，包括局域网地址和公共地址
-
-### browser.api.strictPort
-
-- **命令行终端:** `--browser.api.strictPort`
-- **配置:** [browser.api.strictPort](/config/browser/api#api-strictport)
-
-设置为 true 时，如果端口已被使用，则退出，而不是自动尝试下一个可用端口
-
-### browser.isolate
-
-- **命令行终端:** `--browser.isolate`
-- **配置:** [browser.isolate](/config/browser/isolate)
-
-隔离运行每个浏览器测试文件。要禁用隔离请使用 `--browser.isolate=false` (默认值: `true`)
-
 ### browser.ui
 
 - **命令行终端:** `--browser.ui`
@@ -346,11 +367,12 @@ Run all tests in a specific browser. Some browsers are only available for specif
 
 运行测试时显示 Vitest UI (默认值: `!process.env.CI`)
 
-### browser.fileParallelism
+### browser.detailsPanelPosition
 
-- **命令行终端:** `--browser.fileParallelism`
+- **命令行终端:** `--browser.detailsPanelPosition <position>`
+- **配置:** [browser.detailsPanelPosition](/config/browser/detailspanelposition)
 
-浏览器测试文件是否应并行运行。使用 `--browser.fileParallelism=false` 进行禁用 (默认值: `true`)
+浏览器模式下详情面板的默认位置。可选 `right`（水平分割）或 `bottom`（垂直分割）（默认值：`right`）
 
 ### browser.connectTimeout
 
@@ -358,6 +380,13 @@ Run all tests in a specific browser. Some browsers are only available for specif
 - **配置:** [browser.connectTimeout](/config/browser/connecttimeout)
 
 如果连接浏览器时间超时，测试套件将失败 (默认值: `60_000`)
+
+### browser.dependencySourcemaps
+
+- **命令行终端:** `--browser.dependencySourcemaps`
+- **配置:** [browser.dependencySourcemaps](/config/browser/dependencysourcemaps)
+
+在无头模式下运行测试时，向浏览器提供依赖项的 source map，供开发者工具调试 `node_modules` 中的代码。无论是否启用此选项，Vitest 都会使用 source map 映射测试错误。如果不需要单步调试依赖项代码，可使用 `--browser.dependencySourcemaps=false` 加快测试运行速度（默认值：`true`）
 
 ### browser.trackUnhandledErrors
 
@@ -373,26 +402,54 @@ Run all tests in a specific browser. Some browsers are only available for specif
 
 启用追踪视图模式。 可选项: "on", "off", "on-first-retry", "on-all-retries", "retain-on-failure"
 
+### browser.traceView.enabled
+
+- **命令行终端:** `--browser.traceView.enabled`
+- **配置:** [browser.traceView.enabled](/config/browser/traceview#traceview-enabled)
+
+启用浏览器测试 Vitest 追踪视图收集功能（默认值：`false`）
+
+### browser.traceView.recordCanvas
+
+- **命令行终端:** `--browser.traceView.recordCanvas`
+- **配置:** [browser.traceView.recordCanvas](/config/browser/traceview#traceview-recordcanvas)
+
+在追踪视图快照中捕获 Canvas 像素（默认：`false`）
+
+### browser.traceView.inlineImages
+
+- **命令行终端:** `--browser.traceView.inlineImages`
+- **配置:** [browser.traceView.inlineImages](/config/browser/traceview#traceview-inlineimages)
+
+在追踪视图快照中内联加载的图像像素（默认值：`false`）
+
+### browser.locators.exact
+
+- **命令行终端:** `--browser.locators.exact`
+- **配置:** [browser.locators.exact](/config/browser/locators#locators-exact)
+
+定位器是否默认需完全匹配文本内容（默认值：`true`）
+
 ### pool
 
 - **命令行终端:** `--pool <pool>`
 - **配置:** [pool](/config/pool)
 
-如果未在浏览器中运行，则指定 pool (默认值: `threads`)
+如果未在浏览器中运行，则指定 pool (默认值: `threads`)。
 
 ### execArgv
 
 - **命令行终端:** `--execArgv <option>`
 - **配置:** [execArgv](/config/execargv)
 
-Pass additional arguments to `node` process when spawning `worker_threads` or `child_process`.
+为 `worker_threads` 或 `child_process` 启动的 `node` 进程传递额外参数。
 
 ### vmMemoryLimit
 
 - **命令行终端:** `--vmMemoryLimit <limit>`
 - **配置:** [vmMemoryLimit](/config/vmmemorylimit)
 
-Memory limit for VM pools. If you see memory leaks, try to tinker this value.
+虚拟机池的内存限制。如果出现内存泄漏问题，可尝试调整此参数值。
 
 ### fileParallelism
 
@@ -429,12 +486,19 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 
 在节点中运行时，显示每个测试的堆大小
 
+### detectAsyncLeaks
+
+- **命令行终端:** `--detectAsyncLeaks`
+- **配置:** [detectAsyncLeaks](/config/detectasyncleaks)
+
+检测测试文件中是否存在异步资源泄漏（默认值：`false`）
+
 ### allowOnly
 
 - **命令行终端:** `--allowOnly`
 - **配置:** [allowOnly](/config/allowonly)
 
-允许执行那些被标记为"only"的测试用例或测试套件 (默认值: `!process.env.CI`)
+允许执行那些被标记为 "only" 的测试用例或测试套件 (默认值: `!process.env.CI`)
 
 ### dangerouslyIgnoreUnhandledErrors
 
@@ -442,6 +506,13 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **配置:** [dangerouslyIgnoreUnhandledErrors](/config/dangerouslyignoreunhandlederrors)
 
 忽略任何未处理的错误
+
+### changed
+
+- **命令行终端:** `--changed [since]`
+- **配置:** [changed](/config/changed)
+
+运行受文件变更影响的测试（默认值：`false`）。
 
 ### sequence.shuffle.files
 
@@ -469,14 +540,14 @@ Memory limit for VM pools. If you see memory leaks, try to tinker this value.
 - **命令行终端:** `--sequence.seed <seed>`
 - **配置:** [sequence.seed](/config/sequence#sequence-seed)
 
-设置随机化种子。如果 --sequence.shuffle（随机序列）是`false`，则此选项无效。 t 通过 ["Random Seed" page](https://en.wikipedia.org/wiki/Random_seed) 查看更多信息
-<!-- TODO: translation -->
+设置随机化种子。如果 --sequence.shuffle（随机序列）是 `false`，则此选项无效。更多信息请参阅 ["随机种子"](https://en.wikipedia.org/wiki/Random_seed)。
+
 ### sequence.hooks
 
 - **命令行终端:** `--sequence.hooks <order>`
 - **配置:** [sequence.hooks](/config/sequence#sequence-hooks)
 
-Changes the order in which hooks are executed. Accepted values are: "stack", "list" and "parallel". Visit [`sequence.hooks`](/config/#sequence-hooks) for more information (default: `"parallel"`)
+更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。更多信息请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"parallel"`）
 
 ### sequence.setupFiles
 
@@ -518,12 +589,33 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 
 当指定数量的测试失败时停止测试执行（默认值：`0`）
 
-### retry
+### retry.count
 
-- **命令行终端:** `--retry <times>`
-- **配置:** [retry](/config/retry)
+- **命令行终端:** `--retry.count <times>`
+- **配置:** [retry.count](/config/retry#retry-count)
 
-如果测试失败，重试特定次数（默认值： `0`）
+如果测试失败，重试特定次数（默认值：`0`）
+
+### retry.delay
+
+- **命令行终端:** `--retry.delay <ms>`
+- **配置:** [retry.delay](/config/retry#retry-delay)
+
+重试之间的延迟时间（单位：毫秒）（默认值：`0`）
+
+### retry.condition
+
+- **命令行终端:** `--retry.condition <pattern>`
+- **配置:** [retry.condition](/config/retry#retry-condition)
+
+触发重试操作的错误信息匹配正则表达式。仅当错误信息符合该模式时才会执行重试（默认值：所有错误都会触发重试）
+
+### repeats
+
+- **命令行终端:** `--repeats <number>`
+- **配置:** [repeats](/config/repeats)
+
+无论结果如何，都重复每个测试运行到指定的次数（默认值：`0`）
 
 ### diff.aAnnotation
 
@@ -679,6 +771,13 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 
 忽略源文件中的类型错误
 
+### typecheck.build
+
+- **CLI:** `--typecheck.build`
+- **Config:** [typecheck.build](/config/typecheck#typecheck-build)
+
+Use TypeScript build mode
+
 ### typecheck.tsconfig
 
 - **命令行终端:** `--typecheck.tsconfig <path>`
@@ -695,9 +794,9 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 
 ### project
 
-- **命令行终端:** `--project <name>`
+- **命令行终端:** `-p, --project <name>`
 
-如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目
+如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目。A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them.
 
 ### slowTestThreshold
 
@@ -718,7 +817,21 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 - **命令行终端:** `--maxConcurrency <number>`
 - **配置:** [maxConcurrency](/config/maxconcurrency)
 
-套件中并发测试的最大次数（默认值：`5`）
+测试文件执行期间并发运行的测试和测试套件的最大数量（默认值：`5`）
+
+### fsModuleCache
+
+- **命令行终端:** `--fsModuleCache`
+- **配置:** [fsModuleCache](/config/fsmodulecache)
+
+将转换后的模块缓存到文件系统中，以便在重新运行测试时复用（默认值：`false`）
+
+### fsModuleCachePath
+
+- **命令行终端:** `--fsModuleCachePath <path>`
+- **配置:** [fsModuleCachePath](/config/fsmodulecachepath)
+
+`fsModuleCache` 的存储目录（默认值：`node_modules/.vitest-cache`）
 
 ### expect.requireAssertions
 
@@ -739,7 +852,7 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 - **命令行终端:** `--expect.poll.timeout <timeout>`
 - **配置:** [expect.poll.timeout](/config/expect#expect-poll-timeout)
 
-断言的轮询超时（以毫秒为单位） `expect.poll()` (默认值: `1000`)
+断言的轮询超时（以毫秒为单位）`expect.poll()` (默认值: `1000`)
 
 ### printConsoleTrace
 
@@ -760,7 +873,7 @@ Changes the order in which hooks are executed. Accepted values are: "stack", "li
 - **命令行终端:** `--attachmentsDir <dir>`
 - **配置:** [attachmentsDir](/config/attachmentsdir)
 
-`context.annotate` 方法所生成附件的存储目录 (默认值: `.vitest-attachments`)
+`context.annotate` 方法所生成附件的存储目录 (默认值: `.vitest/attachments`)
 
 ### run
 
@@ -790,24 +903,127 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 - **命令行终端:** `--standalone`
 
-Start Vitest without running tests. Tests will be running only on change. This option is ignored when CLI file filters are passed. (default: `false`)
+单独启动 Vitest，且不运行任何测试。仅在文件变更时才运行测试。若启用浏览器模式，UI 界面将自动打开。如果通过命令行参数过滤文件，此选项将被忽略。（默认值：`false`）
+
+### listTags
+
+- **命令行终端:** `--listTags [type]`
+
+列出所有可用标签，且不运行任何测试。使用 `--list-tags=json` 参数将会以 JSON 格式输出标签，如果没有标签则不会输出。
 
 ### clearCache
 
 - **命令行终端:** `--clearCache`
 
-Delete all Vitest caches, including `experimental.fsModuleCache`, without running any tests. This will reduce the performance in the subsequent test run.
+删除所有 Vitest 缓存，包括 `fsModuleCache`，且不运行任何测试。此操作会降低后续测试运行的性能。
 
-### experimental.fsModuleCache
+### tagsFilter
 
-- **命令行终端:** `--experimental.fsModuleCache`
-- **配置:** [experimental.fsModuleCache](/config/experimental#experimental-fsmodulecache)
+- **命令行终端:** `--tagsFilter <expression>`
 
-Enable caching of modules on the file system between reruns.
+仅运行带有指定标签的测试。可以使用逻辑运算符 `&&`（与）、`||`（或）和 `!`（非）创建复杂的表达式，详情请参见 [测试标签语法](/guide/test-tags#syntax)
 
-### experimental.printImportBreakdown
+### strictTags
 
-- **CLI:** `--experimental.printImportBreakdown`
-- **Config:** [experimental.printImportBreakdown](/config/experimental#experimental-printimportbreakdown)
+- **命令行终端:** `--strictTags`
+- **配置:** [strictTags](/config/stricttags)
 
-Print import breakdown after the summary. If the reporter doesn't support summary, this will have no effect. Note that UI's "Module Graph" tab always has an import breakdown.
+如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
+<!-- TODO: translation -->
+### sharedViteServer
+
+- **CLI:** `--sharedViteServer`
+- **Config:** [sharedViteServer](/config/sharedviteserver)
+
+Let inline projects that don't modify the Vite config reuse the Vite server of the config that declares them. (default: `true`)
+
+### experimental.importDurations.print
+
+- **命令行终端:** `--experimental.importDurations.print <boolean|on-warn>`
+- **配置:** [experimental.importDurations.print](/config/experimental#experimental-importdurations-print)
+
+控制何时将导入耗时分析输出到命令行终端。`true` 表示始终输出，`false` 表示永不输出，`on-warn` 表示仅在导入超过警告阈值时输出。（默认值：`false`）
+
+### experimental.importDurations.limit
+
+- **命令行终端:** `--experimental.importDurations.limit <number>`
+- **配置:** [experimental.importDurations.limit](/config/experimental#experimental-importdurations-limit)
+
+收集和显示的最大导入数量。（默认值：0，如果启用了 print 或 UI 模式，则为 10）
+
+### experimental.importDurations.failOnDanger
+
+- **命令行终端:** `--experimental.importDurations.failOnDanger`
+- **配置:** [experimental.importDurations.failOnDanger](/config/experimental#experimental-importdurations-failondanger)
+
+如果任何导入超过危险阈值，则测试运行失败。（默认值：`false`）
+
+### experimental.importDurations.thresholds.warn
+
+- **命令行终端:** `--experimental.importDurations.thresholds.warn <number>`
+- **配置:** [experimental.importDurations.thresholds.warn](/config/experimental#experimental-importdurations-thresholds-warn)
+
+警告阈值，超过此阈值的导入将以黄色 / 橙色显示。（默认值：100）
+
+### experimental.importDurations.thresholds.danger
+
+- **命令行终端:** `--experimental.importDurations.thresholds.danger <number>`
+- **配置:** [experimental.importDurations.thresholds.danger](/config/experimental#experimental-importdurations-thresholds-danger)
+
+危险阈值，超过此阈值的导入将以红色显示。（默认值：500）
+
+### experimental.viteModuleRunner
+
+- **命令行终端:** `--experimental.viteModuleRunner`
+- **配置:** [experimental.viteModuleRunner](/config/experimental#experimental-vitemodulerunner)
+
+控制 Vitest 是否使用 Vite 的模块运行器运行代码，或回退到原生 `import`。（默认值：`true`）
+
+### experimental.nodeLoader
+
+- **命令行终端:** `--experimental.nodeLoader`
+- **配置:** [experimental.nodeLoader](/config/experimental#experimental-nodeloader)
+
+控制 Vitest 是否使用 Node.js Loader API 处理内联代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
+
+### experimental.vcsProvider
+
+- **命令行终端:** `--experimental.vcsProvider <path>`
+- **配置:** [experimental.vcsProvider](/config/experimental#experimental-vcsprovider)
+
+用于检测文件变更的自定义 provider 程序（默认值：`git`）
+
+### experimental.preParse
+
+- **命令行终端:** `--experimental.preParse`
+- **配置:** [experimental.preParse](/config/experimental#experimental-preparse)
+
+在运行测试前解析 TestSpecification。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。
+<!-- TODO: translation -->
+### experimental.diagnostics.isolate
+
+- **CLI:** `--experimental.diagnostics.isolate`
+- **Config:** [experimental.diagnostics.isolate](/config/experimental#experimental-diagnostics-isolate)
+
+Print a hint estimating how much time `isolate: false` would save when `isolate: true` spends a significant amount of time spawning a worker per test file. (default: `true`)
+
+### experimental.diagnostics.environment
+
+- **CLI:** `--experimental.diagnostics.environment`
+- **Config:** [experimental.diagnostics.environment](/config/experimental#experimental-diagnostics-environment)
+
+Print a hint when re-creating a DOM environment for every test file dominates the run and a `vm` pool would set it up once per worker. (default: `true`)
+
+### experimental.diagnostics.import
+
+- **CLI:** `--experimental.diagnostics.import`
+- **Config:** [experimental.diagnostics.import](/config/experimental#experimental-diagnostics-import)
+
+Print a hint when test files repeatedly evaluate the same module graph (typical for barrel-file imports) and `isolate: false` would evaluate it once per worker. (default: `true`)
+
+### experimental.diagnostics.transform
+
+- **CLI:** `--experimental.diagnostics.transform`
+- **Config:** [experimental.diagnostics.transform](/config/experimental#experimental-diagnostics-transform)
+
+Print a hint when transforming modules dominates the run and `fsModuleCache` would persist the results across runs. (default: `true`)

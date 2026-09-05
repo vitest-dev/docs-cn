@@ -72,7 +72,7 @@ export default defineConfig({
 ```
 
 ### 其他的打包器 {#other-bundlers}
-<!-- TODO: translation -->
+
 ::: details Rolldown
 ```js [rolldown.config.js]
 import { defineConfig } from 'rolldown/config'
@@ -100,7 +100,7 @@ export default {
       'import.meta.vitest': 'undefined', // [!code ++]
     }), // [!code ++]
   ],
-  // 其他选项
+  // 其他配置项
 }
 ```
 
@@ -116,7 +116,7 @@ export default defineBuildConfig({
   replace: { // [!code ++]
     'import.meta.vitest': 'undefined', // [!code ++]
   }, // [!code ++]
-  // other options
+  // 其他配置项
 })
 ```
 
@@ -154,6 +154,10 @@ module.exports = {
 ```
 
 完整的示例请参考 [`examples/in-source-test`](https://github.com/vitest-dev/vitest/tree/main/examples/in-source-test)。
+
+::: warning
+在使用 [断言函数](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)（例如 `assert`）进行源码内联测试时存在一个限制。详情请参阅 [`assert`](/api/assert#in-source-testing)。
+:::
 
 ## 说明 {#notes}
 

@@ -42,11 +42,17 @@ export default defineConfig({
 })
 ```
 
-Vitest 会将 `packages` 中的每个文件夹视为独立项目，即使其中没有配置文件。如果 glob 模式匹配到文件，它将验证文件名是否以 `vitest.config`/`vite.config` 开头，或匹配 `(vite|vitest).*.config.*` 模式，以确保它是 Vitest 配置文件。例如，以下配置文件是有效的：
+即使其中没有配置文件，Vitest 也会将 `packages` 目录下的每个文件夹视为独立项目。当项目入口解析为文件时（无论是通过 glob 模式还是直接文件路径），Vitest 会验证文件名是否符合以下规则之一：
+
+- 以 `vitest.config` 或 `vite.config` 开头（例如 `vitest.config.unit.ts`）
+- 匹配 `vitest.<name>.config.*` 或 `vite.<name>.config.*` 格式，其中 `<name>` 可包含字母、数字、`_` 和 `-`
+
+例如，以下配置文件均有效：
 
 - `vitest.config.ts`
 - `vite.config.js`
 - `vitest.unit.config.ts`
+- `vitest.e2e-node.config.ts`
 - `vite.e2e.config.js`
 - `vitest.config.unit.js`
 - `vite.config.e2e.js`
@@ -92,7 +98,7 @@ export default defineConfig({
 ```
 
 ::: warning
-Vitest 不会将根目录的 `vitest.config` 文件视为项目，除非在配置中显式指定。因此，根配置只会影响全局选项，如 `reporters` 和 `coverage`。但 Vitest 总会执行根配置文件中指定的某些插件钩子，如 `apply`、`config`、`configResolved` 或 `configureServer`。Vitest 也会使用相同的插件执行全局设置和自定义覆盖提供者。
+Vitest 不会将根目录的 `vitest.config` 文件视为项目，除非在配置中显式指定。因此，顶级配置只会影响全局选项，如 `reporters` 和 `coverage`。但 Vitest 总会执行顶级配置文件中指定的某些插件钩子，如 `apply`、`config`、`configResolved` 或 `configureServer`。Vitest 也会使用相同的插件执行全局设置和自定义覆盖提供者。
 :::
 
 你也可以用配置文件路径来引用项目：
@@ -120,8 +126,8 @@ export default defineConfig({
       // 匹配 packages 文件夹下的所有文件和文件夹
       'packages/*',
       {
-        // 添加 "extends: true" 继承根配置中的选项
-        extends: true,
+        // 默认情况下，内联项目会继承
+        // 此配置文件中的选项
         test: {
           include: ['tests/**/*.{browser}.test.{ts,js}'],
           // 建议内联配置时定义项目名称
@@ -130,6 +136,9 @@ export default defineConfig({
         }
       },
       {
+        // 添加 "extends: false" 可忽略
+        // 此配置文件中定义的选项
+        extends: false,
         test: {
           include: ['tests/**/*.{node}.test.{ts,js}'],
           // 名称标签颜色可自定义
@@ -225,10 +234,79 @@ pnpm run test --project e2e --project unit
 bun run test --project e2e --project unit
 ```
 :::
+<!-- TODO: translation -->
+The filter supports `*` wildcards and `!` exclusions. A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them:
+
+```bash
+# run every project except "e2e"
+vitest --project '!e2e'
+# run every project starting with "unit", except "unit (browser)"
+vitest --project 'unit*' --project '!unit (browser)'
+```
 
 ## 配置说明 {#configuration}
 
-项目配置不会继承根配置文件中的选项。你可以创建共享配置文件，并在项目配置中手动合并：
+使用内联配置定义的项目会继承顶级配置中的所有选项。是否继承由 `extends` 选项控制。从 Vitest 5.0 开始，该选项默认启用：
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    pool: 'threads',
+    projects: [
+      {
+        // 继承此配置中的 plugins、pool 等选项
+        // （默认值为 `extends: true`）
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+      {
+        // 不继承此配置中的任何选项
+        extends: false,
+        test: {
+          name: 'integration',
+          include: ['**/*.integration.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+如果要继承顶级配置以外的其他配置文件，还可以将该配置文件的路径传给 `extends`：
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    projects: [
+      {
+        extends: './vitest.shared.ts',
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+继承的配置会与项目自身的配置合并。请注意，`setupFiles` 等数组选项会进行拼接，而不是被覆盖。以下选项会采用特殊的处理方式：
+
+- `name` 和 `projects` 永远不会被继承。
+- 不会从顶级配置继承 `globalSetup`。顶级配置中的 `globalSetup` 已经会在每次测试运行时执行一次，如果继续继承，每个项目都会再次运行相同的文件。不过，继承非顶级配置文件时，`globalSetup` 仍会被继承。
+- 如果项目自身定义了 `tags`，该数组会直接替换继承的值，而不会与其合并。
+
+如果通过 [高级 API](/guide/advanced/) 运行 Vitest，请参阅 [项目配置解析](/guide/advanced/#project-configuration-resolution)，了解通过编程方式传入的配置如何参与继承。
+
+通过配置文件或目录引用的项目不会继承顶级配置中的任何选项。你可以创建一个共享配置文件，再自行将其与项目配置合并：
 
 ```ts [packages/a/vitest.config.ts]
 import { defineProject, mergeConfig } from 'vitest/config'
@@ -244,32 +322,43 @@ export default mergeConfig(
 )
 ```
 
-另外，你可以使用 `extends` 选项继承根配置，所有选项都会被合并。
+::: danger 不支持的选项
+某些配置选项不允许在项目配置中使用。最值得注意的是：
+
+项目配置中不能使用部分配置选项。在 [“配置”](/config/) 指南中，所有不支持项目配置的选项都会用 <CRoot /> 标记。这些选项只能在顶级配置文件中定义一次。
+:::
+
+## 嵌套项目 {#nested-projects}
+
+通过配置文件（或包含配置文件的目录）引用的项目，也可以在自身配置中声明 `projects`。这类配置的行为与顶级配置相同：它本身不运行测试，只负责提供实际运行测试的项目。借助这种方式，可以直接引用已经定义了项目的工作区：
 
 ```ts [vitest.config.ts]
-import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [react()],
   test: {
-    pool: 'threads',
+    projects: ['./packages/app/vitest.config.ts'],
+  },
+})
+```
+
+```ts [packages/app/vitest.config.ts]
+import { defineProject } from 'vitest/config'
+
+export default defineProject({
+  test: {
+    name: 'app',
     projects: [
       {
-        // 继承此配置的选项，如 plugins 和 pool
-        extends: true,
         test: {
           name: 'unit',
           include: ['**/*.unit.test.ts'],
         },
       },
       {
-        // 不继承任何此配置的选项
-        // 这是默认行为
-        extends: false,
         test: {
-          name: 'integration',
-          include: ['**/*.integration.test.ts'],
+          name: 'e2e',
+          include: ['**/*.e2e.test.ts'],
         },
       },
     ],
@@ -277,13 +366,50 @@ export default defineConfig({
 })
 ```
 
-::: danger 不支持的选项
-部分配置选项不允许在项目配置中使用，主要包括：
+嵌套项目的行为与顶级配置中定义的项目相同。内联配置会继承声明它们的配置（在本例中是 `app` 配置，而不是顶级配置），`extends` 中的路径也会相对于该配置进行解析。该配置自身的 `globalSetup` 也会被这些项目继承，这与其他 [非顶级配置](#configuration) 的行为一致。
 
-- `coverage`：覆盖率统计针对整个进程
-- `reporters`：只支持根级别的 reporters
-- `resolveSnapshotPath`：只尊重根级别的快照路径解析器
-- 其他不影响测试运行器的选项
+嵌套项目的名称会加上声明它们的配置名称作为前缀。因此，上面的示例会创建 `app (unit)` 和 `app (e2e)` 两个项目。`--project` 也可以匹配此前缀：`--project app` 会运行 `app` 配置中的所有项目，而 `--project "app (unit)"` 只运行其中一个项目。
 
-所有不支持在项目配置中使用的配置选项，在 ["配置"](/config/) 指南中会用 <CRoot /> 标记。它们必须在根配置文件中定义一次。
-:::
+如果还要运行声明了 `projects` 的配置自身所包含的测试，需要在 `projects` 中引用该配置文件本身：
+
+```ts [packages/app/vitest.config.ts]
+import { defineProject } from 'vitest/config'
+
+export default defineProject({
+  test: {
+    name: 'app',
+    include: ['**/*.test.ts'],
+    projects: [
+      // "app" 项目会根据自身的 "include" 运行测试，并与 "app (unit)" 项目一同执行
+      './vitest.config.ts',
+      {
+        test: {
+          name: 'unit',
+          include: ['**/*.unit.test.ts'],
+        },
+      },
+    ],
+  },
+})
+```
+
+请注意，只有配置文件可以定义嵌套项目，内联配置中不支持 `projects` 选项。
+
+## Debugging Project Resolution
+
+If projects are not resolved the way you expect, run Vitest with the `DEBUG=vitest:projects` environment variable:
+
+```bash
+DEBUG=vitest:projects vitest
+```
+
+Vitest will log how every project was resolved: which files a glob pattern matched, how browser instances and benchmark projects were expanded, why a project was dropped by the `--project` filter, and whether a project creates its own Vite server or [shares one](/config/sharedviteserver) with another project:
+
+```
+vitest:projects resolving 3 project definitions declared by <root>/vitest.config.ts
+vitest:projects projects glob "packages/*" matched 2 paths
+vitest:projects inline project "unit" shares the Vite server of <root>/vitest.config.ts
+vitest:projects project "e2e" is dropped by the --project filter: unit
+vitest:projects resolved projects: "unit", "pkg-a", "pkg-b"
+vitest:projects creating a Vite server for project "pkg-a"
+```

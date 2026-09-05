@@ -11,7 +11,7 @@ outline: deep
 本指南假设我们知道如何使用 [Vite 插件](https://vite.dev/guide/api-plugin.html)。
 :::
 
-Vitest 自 3.1 版起支持实验性的 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
+Vitest 自 3.1 版起支持 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
 
 ::: code-group
 ```ts [only vitest]
@@ -93,7 +93,7 @@ function injectTestProjects(
 ```ts
 // 为单个项目注入自定义别名
 const newProjects = await injectTestProjects({
-  // 您可以通过引用 `extends` 来继承当前项目配置
+  // 你可以通过引用 `extends` 来继承当前项目配置
   // 注意，不能使用已经存在的项目名称，
   // 所以定义自定义名称是一个好实践。
   extends: project.vite.config.configFile,
@@ -117,15 +117,15 @@ vitest.config.project.push('my-project-name')
 :::
 
 ::: tip 引用当前配置
-若想在使用我们自己的配置时仍保留用户的原有配置，可以通过设置 extends 属性实现。这样，除了 extends 指定的内容外，其他配置项都会与我们配置合并。
+内联配置默认继承顶级配置。如果想改为继承特定的配置文件，请将 `extends` 属性设为该文件的路径。其他所有属性都会与用户定义的配置合并。
 
 项目的 `configFile` 可以在 Vite 的配置中访问：`project.vite.config.configFile`。
 
-请注意，这也将继承 `name` - Vitest 不允许多个项目使用相同的名称，因此这将引发错误。请确保我们指定了不同的名称。我们可以通过 `project.name` 属性访问当前名称，并且所有使用的名称都可以在 `vitest.projects` 数组中找到。
+请注意，`name` 永远不会被继承，因为 Vitest 不允许多个项目使用相同的名称。请确保每个项目都有唯一的名称。可以通过 `project.name` 属性访问当前名称，所有已使用的名称都可以在 `vitest.projects` 数组中找到。
 :::
 
-<!-- TODO: translation -->
-### experimental_defineCacheKeyGenerator <Version type="experimental">4.0.11</Version> <Experimental /> {#definecachekeygenerator}
+
+### defineCacheKeyGenerator <Version>5.0.0</Version> {#definecachekeygenerator}
 
 ```ts
 interface CacheKeyIdGeneratorContext {
@@ -134,16 +134,16 @@ interface CacheKeyIdGeneratorContext {
   sourceCode: string
 }
 
-function experimental_defineCacheKeyGenerator(
+function defineCacheKeyGenerator(
   callback: (context: CacheKeyIdGeneratorContext) => string | undefined | null | false
 ): void
 ```
 
-Define a generator that will be applied before hashing the cache key.
+定义一个缓存键生成器，它将在缓存键哈希之前运行。
 
-Use this to make sure Vitest generates correct hash. It is a good idea to define this function if your plugin can be registered with different options.
+如果你的插件支持通过不同的参数选项注册，建议通过这种方式，确保 Vitest 生成正确的哈希值。
 
-This is called only if [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache) is defined.
+仅当定义了 [`fsModuleCache`](/config/fsmodulecache) 时才会调用此方法。
 
 ```ts
 interface PluginOptions {
@@ -160,10 +160,10 @@ export function plugin(options: PluginOptions) {
         options.replacePropertyValue
       )
     },
-    configureVitest({ experimental_defineCacheKeyGenerator }) {
-      experimental_defineCacheKeyGenerator(() => {
-        // since these options affect the transform result,
-        // return them together as a unique string
+    configureVitest({ defineCacheKeyGenerator }) {
+      defineCacheKeyGenerator(() => {
+        // 由于这些选项会影响转换结果，
+        // 将它们组合成一个唯一字符串并返回
         return options.replacePropertyKey + options.replacePropertyValue
       })
     }
@@ -171,4 +171,4 @@ export function plugin(options: PluginOptions) {
 }
 ```
 
-If `false` is returned, the module will not be cached on the file system.
+如果返回 `false`，模块将不会缓存在文件系统上。

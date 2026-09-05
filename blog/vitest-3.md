@@ -40,8 +40,8 @@ _2025 年 1 月 17 日_
 快速链接:
 
 - [英文文档](https://v3.vitest.dev/)
-- [简体中文](/)
-- [迁移手册](/guide/migration)
+- [简体中文](https://v3.cn.vitest.dev/)
+- [迁移指南](https://v3.cn.vitest.dev/guide/migration)
 - [GitHub 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)
 
 如果你之前没有使用过 Vitest，我们建议你先阅读 [入门指南](/guide/) 和 [特性指南](/guide/features)。
@@ -67,7 +67,7 @@ _2025 年 1 月 17 日_
 你可以在 [#7069](https://github.com/vitest-dev/vitest/pull/7069) PR 中关注设计过程。为了逆向工程之前的 onTaskUpdate API 并实现这个新的优雅生命周期，我们经历了一番艰难的努力。
 
 <div class="flex align-center justify-center">
-  <img src="/on-task-update.gif" />
+  <img src="/on-task-update.gif" alt="a gif from it's always sunny with a drawing board" />
 </div>
 
 ## 内联工作区 {#inline-workspace}
@@ -137,7 +137,7 @@ $ vitest ./basic/foo.js:10
 
 ## 破坏性变更 {#breaking-changes}
 
-Vitest 3 有一些小的破坏性变更，这些变更应该不会影响大多数用户，但我们建议在升级之前查看详细的 [迁移指南](/guide/migration.html#vitest-3)。
+Vitest 3 有一些小的破坏性变更，这些变更应该不会影响大多数用户，但我们建议在升级之前查看详细的 [迁移指南](https://v3.cn.vitest.dev/guide/migration.html#vitest-3)。
 
 完整的变更列表请见 [Vitest 3 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)。
 

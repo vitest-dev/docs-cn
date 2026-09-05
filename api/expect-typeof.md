@@ -3,7 +3,7 @@
 - **类型:** `<T>(a: unknown) => ExpectTypeOf`
 
 ::: warning
-在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 标志。
+在运行时，此函数不执行任何操作。要 [enable typechecking](/guide/testing-types#run-typechecking)，不要忘记传递 `--typecheck` 参数。
 :::
 
 ## not
@@ -553,23 +553,22 @@ expectTypeOf(obj).toHaveProperty('b').toBeString()
 expectTypeOf(obj).toHaveProperty('a').not.toBeString()
 ```
 
-<!-- TODO: translation -->
 ## branded
 
-- **Type:** `ExpectTypeOf<BrandedType>`
+- **类型:** `ExpectTypeOf<BrandedType>`
 
-You can use `.branded` to allow type assertions to succeed for types that are semantically equivalent but differ in representation.
+你可以使用 `.branded` 来允许那些语义上等价，但表示形式不同的类型断言成功。
 
 ```ts
 import { expectTypeOf } from 'vitest'
 
-// Without .branded, this fails even though the types are effectively the same
+// 没有使用 .branded，即使实际上类型相同，但也会断言失败
 expectTypeOf<{ a: { b: 1 } & { c: 1 } }>().toEqualTypeOf<{ a: { b: 1; c: 1 } }>()
 
-// With .branded, the assertion succeeds
+// 使用 .branded，断言成功
 expectTypeOf<{ a: { b: 1 } & { c: 1 } }>().branded.toEqualTypeOf<{ a: { b: 1; c: 1 } }>()
 ```
 
 ::: warning
-This helper comes at a performance cost and can cause the TypeScript compiler to 'give up' if used with excessively deep types. Use it sparingly and only when necessary.
+此工具函数会带来性能开销，并且在处理过深类型时可能导致 TypeScript 编译器 “崩溃”。仅在必要时谨慎使用。
 :::

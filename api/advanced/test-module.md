@@ -34,6 +34,14 @@ if (task.type === 'module') {
 'project\\example.test.ts' // ❌
 ```
 
+## viteEnvironment <Version>4.1.0</Version> {#viteenvironment}
+
+这是一个 Vite 的 [`DevEnvironment`](https://cn.vite.dev/guide/api-environment)，它会转换测试模块内的所有文件。
+
+::: details 历史
+- `v4.0.15`：已作为实验性功能
+:::
+
 ## state
 
 ```ts
@@ -66,7 +74,7 @@ describe('the validation works correctly', (task) => {
 ```
 
 :::tip
-如果元数据是在收集过程中附加的（在 `test` 函数之外），那么它将在自定义报告器中的['onTestModuleCollectd']（./reporters#onTestModuleCollected）挂钩中可用。
+如果元数据是在收集过程中附加的（在 `test` 函数之外），那么它将在自定义报告器中的['onTestModuleCollectd'](./reporters#onTestModuleCollected) 挂钩中可用。
 :::
 
 ## diagnostic
@@ -80,20 +88,20 @@ function diagnostic(): ModuleDiagnostic
 ```ts
 interface ModuleDiagnostic {
   /**
-   * 导入和初始化环境所需的时间。
+   * 导入和初始化环境所需的时间
    */
   readonly environmentSetupDuration: number
   /**
-   * Vitest 设置测试运行环境（运行器、模拟等）所需的时间。
+   * Vitest 设置测试运行环境（运行器、模拟等）所需的时间
    */
   readonly prepareDuration: number
   /**
-   * 导入测试模块所需的时间。
-   * 这包括导入模块中的所有内容以及执行套件回调函数。
+   * 导入测试模块所需的时间
+   * 这包括导入模块中的所有内容以及执行套件回调函数
    */
   readonly collectDuration: number
   /**
-   * 导入设置模块所需的时间。
+   * 导入设置模块所需的时间
    */
   readonly setupDuration: number
   /**
@@ -101,14 +109,33 @@ interface ModuleDiagnostic {
    */
   readonly duration: number
   /**
-   * 模块使用的内存量（以字节为单位）。
-   * 此值仅在使用 `logHeapUsage` 标志执行测试时才可用。
+   * 模块使用的内存量（以字节为单位）
+   * 此值仅在使用 `logHeapUsage` 参数执行测试时才可用
    */
   readonly heap: number | undefined
   /**
-   * Vitest处理的每个非外部化依赖项的导入时间。
+   * Vitest处理的每个非外部化依赖项的导入时间
    */
   readonly importDurations: Record<string, ImportDuration>
+  /**
+   * 运行此文件的 worker 的 ID。此值不能高于 `maxWorkers`。
+   * 如果文件尚未运行，此值将为 0。
+   *
+   * **警告**：Node.js 测试和浏览器测试在不同的池中运行，不共享 `concurrencyId`
+   * 因此，可能存在多个具有相同 `concurrencyId` 的模块。
+   * 使用 `project.isBrowserEnabled()` 来区分并发性。
+   */
+  readonly concurrencyId: number
+  /**
+   * å
+   * 运行此文件的 worker 的递增编号。编号随每个 worker 进行递增
+   * 如果文件尚未运行，此值将为 0
+   *
+   * **警告**：Node.js 测试和浏览器测试在不同的池中运行，不共享 `workerId`
+   * 因此，可能存在多个具有相同 `workerId` 的模块
+   * 使用 `project.isBrowserEnabled()` 来区分并发性
+   */
+  readonly workerId: number
 }
 
 /** 导入和执行非外部化文件所花费的时间。 */
@@ -121,6 +148,32 @@ interface ImportDuration {
 }
 ```
 
-## viteEnvironment <Version type="experimental">4.0.15</Version> <Experimental /> {#viteenvironment}
+## logs <Version>5.0.0</Version> {#logs}
 
-This is a Vite's [`DevEnvironment`](https://vite.dev/guide/api-environment) that transforms all files inside of the test module.
+```ts
+function logs(): ReadonlyArray<UserConsoleLog>
+```
+
+测试收集期间在模块顶层记录的 console 日志。例如：
+
+```ts
+console.log('included') // [!code highlight]
+
+describe('suite', () => {
+  console.log('not included') // [!code error]
+
+  test('test', () => {
+    console.log('not included') // [!code error]
+  })
+})
+```
+
+## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
+
+```ts
+function toTestSpecification(testCases?: TestCase[]): TestSpecification
+```
+
+返回一个新的 [TestSpecification](/api/advanced/test-specification)，可用于过滤或运行此特定测试模块。
+
+它接受一个可选的测试用例数组，用于指定要过滤的测试用例。

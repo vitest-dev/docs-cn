@@ -1,5 +1,5 @@
 ---
-title: benchmark | Config
+title: benchmark | 配置
 outline: deep
 ---
 
@@ -7,64 +7,57 @@ outline: deep
 
 - **类型:** `{ include?, exclude?, ... }`
 
-运行 `vitest bench` 时使用的选项。
+运行 `vitest bench` 时生效的选项。
+
+## benchmark.enabled
+
+- **类型:** `boolean`
+- **默认值:** `false`
+
+启用独立的基准测试项目。启用后，Vitest 会在常规测试项目之外创建一个专门用于基准测试的项目。该项目会运行与 [`benchmark.include`](#benchmark-include) 匹配的文件，并向这些文件提供 [`bench` fixture](/guide/test-context#bench)。运行 `vitest bench` 时，此选项会自动启用。
 
 ## benchmark.include
 
 - **类型:** `string[]`
 - **默认值:** `['**/*.{bench,benchmark}.?(c|m)[jt]s?(x)']`
 
-匹配包含基准测试文件的 glob 规则。
+用于匹配基准测试文件的 glob 模式。
 
 ## benchmark.exclude
 
 - **类型:** `string[]`
 - **默认值:** `['node_modules', 'dist', '.idea', '.git', '.cache']`
 
-匹配排除基准测试文件的 glob 规则。
+用于排除基准测试文件的 glob 模式。
 
 ## benchmark.includeSource
 
 - **类型:** `string[]`
 - **默认值:** `[]`
 
-匹配包含内联基准测试文件的 glob 规则。此选项类似于 [`includeSource`](#includesource)。
+用于匹配包含内联基准测试的源文件的 glob 模式。此选项与 [`includeSource`](/config/include-source) 类似。
 
-定义后，Vitest 将运行所有匹配的文件，其中包含 `import.meta.vitest`。
+配置此选项后，Vitest 会运行所有符合模式且包含 `import.meta.vitest` 的文件。
 
-## benchmark.reporters
+## benchmark.retainSamples
 
-- **类型:** `Arrayable<BenchmarkBuiltinReporters | Reporter>`
-- **默认值:** `'default'`
+- **类型:** `boolean`
+- **默认值:** `false`
 
-用于定义输出的自定义报告器。它可以包含一个或多个内置报告名称、报告实例和(或)自定义报告的路径。
+启用后，每项基准测试的结果都会包含 `samples` 数组，用于记录每次迭代的耗时。此选项默认禁用，以减少内存占用。自定义报告器或 API 使用方需要原始采样数据时，可将其启用。
 
-## benchmark.outputFile
+## benchmark.provider
 
-已弃用，建议使用 `benchmark.outputJson`。
+- **类型:** `string`
+- **默认值:** `undefined`（使用内置 provider）
 
-## benchmark.outputJson {#benchmark-outputJson}
+指定负责执行已注册基准测试并返回结果的 provider。该选项应设置为模块路径，并且模块的默认导出必须实现 `BenchmarkProvider`。如果使用相对路径，Vitest 会从项目根目录开始解析。
 
-- **类型:** `string | undefined`
-- **默认值:** `undefined`
+有关配置方法和 provider API，请参阅 [自定义基准测试 provider](/guide/advanced/benchmark-provider) 指南。
 
-存储基准测试结果的文件路径，可用于稍后的 `--compare` 选项。
+## benchmark.suppressExportGetterWarnings
 
-例如：
+- **类型:** `boolean`
+- **默认值:** `false`
 
-```sh
-# 保存主分支的结果
-git checkout main
-vitest bench --outputJson main.json
-
-# 切换到另一个分支并与主分支进行比较
-git checkout feature
-vitest bench --compare main.json
-```
-
-## benchmark.compare {#benchmark-compare}
-
-- **类型:** `string | undefined`
-- **默认值:** `undefined`
-
-用于与当前运行结果进行比较的先前基准测试结果的文件路径。
+禁止显示因基准测试频繁访问模块导出 getter 而产生的警告。Vite 的模块运行器会将每个导出包装为 getter，因此 Vitest 会在基准测试运行期间记录 getter 的访问次数。访问过于频繁时，这部分开销可能成为影响测量结果的主要因素（参阅 [模块运行器开销](/guide/benchmarking#module-runner-overhead)）。如果你已接受这项开销，或者 getter 的开销可以忽略不计但警告过于频繁造成了干扰，可启用此选项。

@@ -1,5 +1,8 @@
 ---
 title: 快速起步 | 指南
+next:
+  text: 编写测试用例
+  link: /guide/learn/writing-tests
 ---
 
 # 快速起步 {#getting-started}
@@ -36,15 +39,25 @@ pnpm add -D vitest
 bun add -D vitest
 ```
 
+```bash [deno]
+deno add -D vitest
+```
 :::
 
-:::tip 提示
-Vitest 需要 Vite >=v5.0.0 和 Node >=v20.0.0
+:::tip
+Vitest 需要 Vite >=v6.4.0 和 Node >=v22.12.0
 :::
 
 如果在 `package.json` 中安装一份 `vitest` 的副本，可以使用上面列出的方法之一。然而，如果更倾向于直接运行 `vitest` ，可以使用 `npx vitest`（ `npx` 会随着 npm 和 Node.js 一起被安装）。
 
 `npx` 是一个命令行工具，用于执行指定的命令。默认情况下，`npx` 会首先检查本地项目的二进制文件中是否存在该命令。如果在那里没有找到，`npx` 会在系统的 `$PATH` 中查找并执行该命令（如果找到的话）。如果两个位置都没有找到该命令，`npx` 会在执行之前将其安装在临时位置。
+
+Vitest 及第三方集成可使用 `.vitest` 目录存储构建产物，建议将其添加到你的 `.gitignore` 文件中。
+
+``` sh [.gitignore]
+# Vitest 报告与构建产物
+.vitest/
+```
 
 ## 编写测试 {#writing-tests}
 
@@ -95,139 +108,13 @@ Test Files  1 passed (1)
 如果使用 Bun 作为软件包管理器，请确保使用 `bun run test` 命令而不是 `bun test` 命令，否则 Bun 将运行自己的测试运行程序。
 :::
 
-了解更多关于 Vitest 的使用，请参考 [API 索引](/api/) 部分。
+你的第一个测试已通过！继续阅读 [编写测试用例](/guide/learn/writing-tests) 了解如何组织测试、解读测试输出以及日常使用的核心测试模式。
+
+要运行一次测试而不监听文件变化，请使用 `vitest run` 命令。你也可以传递额外的参数，如 `--reporter` 或 `--coverage`。查看完整的 CLI 选项列表，运行 `npx vitest --help` 或参阅 [CLI 指南](/guide/cli)。
 
 ## 配置 Vitest {#configuring-vitest}
 
-Vitest 的主要优势之一是它与 Vite 的统一配置。如果存在，`vitest` 将读取你的根目录 `vite.config.ts` 以匹配插件并设置为你的 Vite 应用。例如，你的 Vite 有 [resolve.alias](https://cn.vitejs.dev/config/#resolve-alias) 和 [plugins](https://cn.vitejs.dev/guide/using-plugins.html) 的配置将会在 Vitest 中开箱即用。如果你想在测试期间想要不同的配置，你可以:
-
-- 创建 `vitest.config.ts`，优先级将会最高。
-- 将 `--config` 选项传递给 CLI，例如 `vitest --config ./path/to/vitest.config.ts`。
-- 在 `defineConfig` 上使用 `process.env.VITEST` 或 `mode` 属性（如果没有被覆盖，将设置为 `test`）有条件地在 `vite.config.ts` 中应用不同的配置。请注意，像任何其他环境变量一样，`VITEST` 也会在测试中的 `import.meta.env` 上暴露出来
-
-Vitest 支持与 Vite 相同的配置文件扩展名：`.js`、`.mjs`、`.cjs`、`.ts`、`.cts`、`.mts`。 Vitest 不支持 `.json` 扩展名。
-
-如果你不使用 Vite 作为构建工具，你可以使用配置文件中的 `test` 属性来配置 Vitest：
-
-```ts [vitest.config.ts]
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    // ...
-  },
-})
-```
-
-::: tip 提示
-即使你自己不使用 Vite，Vitest 的转换管道也严重依赖它。因此，你还可以配置 [Vite 文档](https://cn.vitejs.dev/config/) 中描述的任何属性。
-:::
-
-如果你已经在使用 Vite，请在 Vite 配置中添加 `test` 属性。你还需要使用 [三斜杠指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) 在你的配置文件的顶部引用。
-
-```ts [vite.config.ts]
-/// <reference types="vitest/config" />
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  test: {
-    // ...
-  },
-})
-```
-
-<reference types=“vitest” /> 将在下一次重大更新中弃用，但您可以在 Vitest 2.1 中开始迁移到 `vitest/config`：
-
-可以参阅 [配置索引](../config/) 中的配置选项列表
-
-::: warning
-如果你决定为 Vite 和 Vitest 使用两个单独的配置文件，请确保在 Vitest 配置文件中定义相同的 Vite 选项，因为它将覆盖你的 Vite 文件，而不是扩展它。你还可以使用 `vite` 或`vitest/config` 条目中的 `mergeConfig` 方法将 Vite 配置与 Vitest 配置合并：
-
-:::code-group
-
-```ts [vitest.config.mjs]
-import { defineConfig, mergeConfig } from 'vitest/config'
-import viteConfig from './vite.config.mjs'
-
-export default mergeConfig(viteConfig, defineConfig({
-  test: {
-    // ...
-  },
-}))
-```
-
-```ts [vite.config.mjs]
-import Vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  plugins: [Vue()],
-})
-```
-
-但我们建议 Vite 和 Vitest 使用相同的文件，而不是创建两个单独的文件。
-:::
-
-## 多项目支持 {#projects-support}
-
-通过 [测试项目](/guide/projects) 功能，你可以在同一个项目里运行多套不同的配置。只需在 `vitest.config` 文件中列出对应的文件和文件夹，即可定义各个项目。
-
-```ts [vitest.config.ts]
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-  test: {
-    projects: [
-      // 你可以使用全局模式的列表来定义你的项目
-      // Vitest 需要一个配置文件列表
-      // 或有配置文件的目录
-      'packages/*',
-      'tests/*/vitest.config.{e2e,unit}.ts',
-      // 你甚至可以运行相同的测试，
-      // 但在同一个 "vitest" 进程中有不同的配置
-      {
-        test: {
-          name: 'happy-dom',
-          root: './shared_tests',
-          environment: 'happy-dom',
-          setupFiles: ['./setup.happy-dom.ts'],
-        },
-      },
-      {
-        test: {
-          name: 'node',
-          root: './shared_tests',
-          environment: 'node',
-          setupFiles: ['./setup.node.ts'],
-        },
-      },
-    ],
-  },
-})
-```
-
-## 命令行 {#command-line-interface}
-
-在安装了 Vitest 的项目中，你可以在 npm 脚本中使用 `vitest` 脚本，或者直接使用 `npx vitest` 运行它。 以下是脚手架 Vitest 项目中的默认 npm 脚本：
-
-<!-- prettier-ignore -->
-```json [package.json]
-{
-  "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
-  }
-}
-```
-
-要在不监视文件更改的情况下运行一次测试，请使用 `vitest run`。
-你还可以指定其他 CLI 选项，例如 `--port` 或 `--https`。 有关 CLI 选项的完整列表，可以在你的项目中运行 `npx vitest --help`。
-
-了解更多有关 [命令行界面](/guide/cli) 的信息
-
-## 自动安装依赖项 {#automatic-dependency-installation}
-
-如果某些依赖项尚未安装，Vitest 会提示您安装。您可以通过设置 `VITEST_SKIP_INSTALL_CHECKS=1` 环境变量来禁用此行为。
+Vitest 默认会读取你的 `vite.config.*` 文件，因此现有 Vite 插件和配置可以开箱即用。你也可创建专用的 `vitest.config.*` 文件来配置测试特定设置。详情请参阅 [配置](/config/)。
 
 ## IDE 集成 {#ide-integrations}
 
@@ -248,59 +135,13 @@ export default defineConfig({
 | `vue` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/vue) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/vue?initialPath=__vitest__/) |
 | `marko` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/marko) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/marko?initialPath=__vitest__/) |
 | `preact` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/preact) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/preact?initialPath=__vitest__/) |
-| `qwik`| [Github](https://github.com/vitest-tests/browser-examples/tree/main/examples/qwik) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/qwik?initialPath=__vitest__/) |
+| `qwik` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/qwik) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/qwik?initialPath=__vitest__/) |
 | `react` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/react) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/react?initialPath=__vitest__/) |
 | `solid` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/solid) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/solid?initialPath=__vitest__/) |
 | `svelte` | [GitHub](https://github.com/vitest-tests/browser-examples/tree/main/examples/svelte) | [在线演示](https://stackblitz.com/fork/github/vitest-tests/browser-examples/tree/main/examples/svelte?initialPath=__vitest__/) |
 | `profiling` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/profiling) | 暂无 |
 | `typecheck` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/typecheck) | [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/typecheck?initialPath=__vitest__/) |
 | `projects` | [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/projects) | [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/projects?initialPath=__vitest__/) |
-
-## 使用 Vitest 的项目 {#projects-using-vitest}
-
-- [unocss](https://github.com/unocss/unocss)
-- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import)
-- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
-- [vue](https://github.com/vuejs/core)
-- [vite](https://github.com/vitejs/vite)
-- [vitesse](https://github.com/antfu/vitesse)
-- [vitesse-lite](https://github.com/antfu/vitesse-lite)
-- [fluent-vue](https://github.com/demivan/fluent-vue)
-- [vueuse](https://github.com/vueuse/vueuse)
-- [milkdown](https://github.com/Saul-Mirone/milkdown)
-- [gridjs-svelte](https://github.com/iamyuu/gridjs-svelte)
-- [spring-easing](https://github.com/okikio/spring-easing)
-- [bytemd](https://github.com/bytedance/bytemd)
-- [faker](https://github.com/faker-js/faker)
-- [million](https://github.com/aidenybai/million)
-- [Vitamin](https://github.com/wtchnm/Vitamin)
-- [neodrag](https://github.com/PuruVJ/neodrag)
-- [svelte-multiselect](https://github.com/janosh/svelte-multiselect)
-- [iconify](https://github.com/iconify/iconify)
-- [tdesign-vue-next](https://github.com/Tencent/tdesign-vue-next)
-- [cz-git](https://github.com/Zhengqbbb/cz-git)
-
-<!--
-亲爱的贡献者：
-当前，我们不再接受新的条目，感谢选择 Vitest！
--->
-
-## 使用未发布的功能 {#using-unreleased-commits}
-
-主分支上的每个提交和带有 `cr-tracked` 标签的 PR 都会发布到 [pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new)。你可以通过 `npm i https://pkg.pr.new/vitest@{commit}` 来安装它。
-
-如果想在本地测试自己的修改，可以自行构建和链接（需要使用 [pnpm](https://pnpm.io/zh)）：
-
-```bash
-git clone https://github.com/vitest-dev/vitest.git
-cd vitest
-pnpm install
-cd packages/vitest
-pnpm run build
-pnpm link --global # 你可以使用你喜爱的任何包管理工具来设置这个步骤
-```
-
-然后，回到你的 Vitest 项目并运行 `pnpm link --global vitest`（或者使用你的其他包管理工具来全局链接 `Vitest`）。
 
 ## 社区 {#community}
 

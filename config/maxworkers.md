@@ -1,23 +1,23 @@
 ---
-title: maxWorkers | Config
+title: maxWorkers | 配置
 outline: deep
 ---
 
 # maxWorkers
 
-- **Type:** `number | string`
-- **Default:**
-  - if [`watch`](/config/watch) is disabled, uses all available parallelism
-  - if [`watch`](/config/watch) is enabled, uses half of all available parallelism
+- **类型:** `number | string`
+- **默认值:**
+  - 如果禁用 [`watch`](/config/watch)，并发数量为系统全部可用并发数量
+  - 如果启用 [`watch`](/config/watch)，并发数量为系统全部可用并发数量的一半
 
-Defines the maximum concurrency for test workers. Accepts either a number or a percentage string.
+定义测试工作线程的最大并发数。可接受数值或百分比字符串作为参数：
 
-- Number: spawns up to the specified number of workers.
-- Percentage string (e.g., "50%"): computes the worker count as the given percentage of the machine’s available parallelism.
+- 数值：最多启动指定数量的工作线程
+- 百分比字符串（例如 "50%"）：基于机器剩余可用并发数量，折算指定百分比数量的工作线程
 
-## Example
+## 示例 {#example}
 
-### Number
+### 数值 {#number}
 
 ::: code-group
 ```js [vitest.config.js]
@@ -34,7 +34,7 @@ vitest --maxWorkers=4
 ```
 :::
 
-### Percent
+### 百分比 {#percent}
 
 ::: code-group
 ```js [vitest.config.js]
@@ -51,4 +51,4 @@ vitest --maxWorkers=50%
 ```
 :::
 
-Vitest uses [`os.availableParallelism`](https://nodejs.org/api/os.html#osavailableparallelism) to know the maximum amount of parallelism available.
+Vitest 通过 [`os.availableParallelism`](https://nodejs.org/api/os.html#osavailableparallelism) 接口获取系统可用的最大并发数量。

@@ -104,15 +104,15 @@ describe > some-test > test 1
 describe > some-test > test 2
 ```
 
-你可以传递 `--json` 标志以 JSON 格式打印测试，也可以将其保存在单独的文件中：
+你可以传递 `--json` 参数以 JSON 格式打印测试，也可以将其保存在单独的文件中：
 
 ```bash
 vitest list filename.spec.ts -t="some-test" --json=./file.json
 ```
 
-如果 `--json` 标志没有接收到值，它将把 JSON 输出到 stdout 中。
+如果 `--json` 参数没有接收到值，它将把 JSON 输出到 stdout 中。
 
-你还可以传递 `--filesOnly` 标志来仅打印测试文件：
+你还可以传递 `--filesOnly` 参数来仅打印测试文件：
 
 ```bash
 vitest list --filesOnly
@@ -123,10 +123,99 @@ tests/test1.test.ts
 tests/test2.test.ts
 ```
 
+自 Vitest 5 起，你可以传入 `--static-parse` 来 [解析测试文件](/api/advanced/vitest#parsespecifications)，而无需运行它们来收集测试。Vitest 以有限的并发数解析测试文件，默认为 `os.availableParallelism()`。你可以通过 `--static-parse-concurrency` 选项来修改此值。
+<!-- TODO: translation -->
+### `vitest doctor`
+
+`vitest doctor` measures how much faster the test suite would run under alternative configurations by running it under each of them. The candidates are picked based on the current config:
+
+```bash
+vitest doctor
+```
+
+```
+Results (min of 3 runs each)
+
+  baseline (pool: forks · isolate: true)  4.08s
+  pool: 'threads'                         3.64s (-11%)
+  pool: 'vmThreads'                       1.33s (-67%)
+  isolate: false                          1.28s (-69%)
+
+Recommendation: pool: 'vmThreads' (-67%)
+
+  // vitest.config.ts
+  import { defineConfig } from 'vitest/config'
+
+  export default defineConfig({
+    test: {
+      pool: 'vmThreads', // measured -67% on this suite
+    },
+  })
+```
+
+The `isolate: false` candidate is additionally validated by running the suite twice with a shuffled file order: if any test depends on isolation, the candidate is reported as failed instead of recommended. When several candidates are close to the fastest, doctor prefers the one that keeps per-file isolation.
+
+Doctor also probes lower [`maxWorkers`](/config/maxworkers) values on top of the winning configuration: every worker funnels its transform requests through the single main-thread Vite server, so past a certain count more workers make the run slower, not faster. Starting from half the current worker count, doctor keeps halving while the suite gets at least 5% faster, and includes the winning value in the recommendation.
+
+Suites running a DOM environment are measured under both vm pools, `vmThreads` and `vmForks`: they amortize the environment creation cost by keeping one environment per worker while every file still gets a fresh VM context. `vmForks` uses child processes instead of worker threads: each child gets its own heap and garbage collector, so either pool can come out faster depending on the suite, and `vmForks` is the vm option for suites that cannot run in worker threads.
+
+Projects running `jsdom` are also measured under `environment: 'happy-dom'` when the package is installed. The swap is applied per project; projects on other environments keep them. happy-dom implements the DOM differently than jsdom, so tests that depend on layout or navigation should be verified before adopting the swap. When the [fs module cache](/config/fsmodulecache) is off, doctor measures `fsModuleCache: true` after an untimed priming run that populates the cache, so the reported time is what repeated runs pay.
+
+Every measurement runs the full suite, including browser projects: `isolate: false` also affects browser mode. Candidates that cannot affect browser projects (`pool`, `environment`, the fs module cache) are picked based on the node-side projects only.
+
+Failing candidates are reported with an excerpt of their errors. If the suite fails under the current configuration, doctor aborts and shows the errors: it needs a passing baseline to compare against.
+
+Short suites are measured multiple times and the best time is reported, so the comparison reflects a warm steady state. Doctor runs the full suite several times, so it takes a multiple of a normal run's time. See [Improving Performance](/guide/improving-performance) for the trade-offs behind every candidate.
+
+Doctor measures and reports the baseline even when there are no candidates to compare. Configurations on a `vm` pool are additionally compared against `pool: 'threads'` with `isolate: false`, which also reuses workers but shares module state between files; a configuration already on one vm pool is still measured under the other.
+
+## Shell 自动补全 {#shell-autocompletions}
+
+Vitest 通过 [`@bomb.sh/tab`](https://github.com/bombshell-dev/tab) 提供命令、选项及选项值的 Shell 自动补全功能。
+
+### 初始化 {#setup}
+
+如需在 zsh 中永久启用自动补全，请将以下内容添加至 `~/.zshrc` 文件：
+
+```bash
+# 将此行加入 ~/.zshrc 实现永久自动补全（其他 shell 配置方式类似）
+source <(vitest complete zsh)
+```
+
+### 包管理器集成 {#package-manager-integration}
+
+`@bomb.sh/tab` 与 [包管理器](https://github.com/bombshell-dev/tab?tab=readme-ov-file#package-manager-completions) 集成。直接运行 vitest 时自动补全即可生效：
+
+::: code-group
+
+```bash [npm]
+npm vitest <Tab>
+```
+
+```bash [npm]
+npm exec vitest <Tab>
+```
+
+```bash [pnpm]
+pnpm vitest <Tab>
+```
+
+```bash [yarn]
+yarn vitest <Tab>
+```
+
+```bash [bun]
+bun vitest <Tab>
+```
+
+:::
+
+对于包管理器自动补全，需单独安装 [tab 的包管理器补全组件](https://github.com/bombshell-dev/tab?tab=readme-ov-file#package-manager-completions)。
+
 ## 选项 {#options}
 
 ::: tip
-Vitest 支持 CLI 参数的 both camel case 和 kebab case 。例如，`--passWithNoTests` 和 `--pass-with-no-tests` 都有效（`--no-color` 和 `--inspect-brk` 是例外）。
+Vitest 同时支持 [CLI 参数](https://github.com/cacjs/cac#dot-nested-options) 的驼峰式(`--passWithNoTests`)和短横线式(`--pass-with-no-tests`)写法（例外情况：`--no-color` 和 `--inspect-brk` 必须使用短横线式）。
 
 Vitest 还支持不同的指定值的方式：`--reporter dot` 和 `--reporter=dot` 都是有效的。
 
@@ -147,25 +236,10 @@ vitest --api=false
 
 <!--@include: ./cli-generated.md-->
 
-### changed
-
-- **类型**: `boolean | string`
-- **默认值**: false
-
-  设置为 true 时，仅对已更改的文件运行测试。默认情况下，将考虑所有未提交的更改（包括已暂存和未暂存的文件）。
-
-  要对最近一次提交中的更改运行测试，可以使用 `--changed HEAD~1`。还可以使用提交哈希（`commit hash`）或分支名称。
-
-  如果与 `forceRerunTriggers` 配置选项配合使用，并找到与更改的文件匹配的内容，将运行整个测试套件。
-
-  与代码覆盖一起使用时，报告将只包含与更改相关的文件。
-
-  如果与 [`forceRerunTriggers`](/config/#forcereruntriggers)配置选项搭配使用，则在 `forceRerunTriggers` 列表中列出的文件至少有一个发生变化时，将运行整个测试套件。默认情况下，Vitest 配置文件和 `package.json` 的更改将始终重新运行整个套件。
-
 ### shard
 
-- **类型**: `string`
-- **默认值**: disabled
+- **类型:** `string`
+- **默认值:** disabled
 
   测试套件分片，格式为 `<index>/<count>`，其中
 
@@ -183,19 +257,17 @@ vitest run --shard=3/3
 :::warning 警告
 无法在启用 `--watch`（默认情况下在开发中启用）时使用此选项。
 :::
-
+<!-- TODO: translation reference history -->
 ::: tip
-如果在没有输出文件的情况下使用 `--reporter=blob`，则默认路径将包括当前碎片配置，以避免与其他 Vitest 进程发生冲突。
+If `--reporter=blob` is used without an output file, the default path will include the current shard config and blob label from `VITEST_BLOB_LABEL` or the blob reporter `label` option to avoid collisions with other Vitest processes.
 :::
 
 ### merge-reports
 
 - **类型:** `boolean | string`
-
-合并位于指定文件夹中的每个 blob 报告（默认情况下为`.vitest-reports`）。你可以将任何报告程序与此命令一起使用（[`blob`](/guide/reporters#blob-reporter) 除外）：
+<!-- TODO: translation reference history -->
+Merges every blob report located in the specified folder (`.vitest/blob/` by default). You can use any reporters with this command (except [`blob`](/guide/reporters#blob-reporter)):
 
 ```sh
 vitest --merge-reports --reporter=junit
 ```
-
-[cac's dot notation]: https://github.com/cacjs/cac#dot-nested-options

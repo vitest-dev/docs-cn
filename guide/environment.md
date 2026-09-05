@@ -4,17 +4,17 @@ title: 测试环境 | 指南
 
 # 测试环境 {#test-environment}
 
-Vitest 提供 [`environment`](/config/#environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/#environmentoptions) 选项修改环境的行为方式。
+Vitest 提供 [`environment`](/config/environment) 选项以在特定环境中运行代码。你可以使用 [`environmentOptions`](/config/environmentoptions) 选项修改环境的行为方式。
 
 默认情况下，你可以使用这些环境：
 
 - `node` 为默认环境
 - `jsdom` 通过提供 Browser API 模拟浏览器环境，使用 [`jsdom`](https://github.com/jsdom/jsdom) 包
 - `happy-dom` 通过提供 Browser API 模拟浏览器环境，被认为比 jsdom 更快，但缺少一些 API，使用 [`happy-dom`](https://github.com/capricorn86/happy-dom) 包
-- `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://www.npmjs.com/package/@edge-runtime/vm) 包
+- `edge-runtime` 模拟 Vercel 的 [edge-runtime](https://edge-runtime.vercel.app/)，使用 [`@edge-runtime/vm`](https://npmx.dev/package/@edge-runtime/vm) 包
 
 ::: info
-当使用 `jsdom` 或 `happy-dom` 环境时，Vitest 在导入 [CSS](https://vitejs.dev/guide/features.html#css) 和 [资源文件](https://vitejs.dev/guide/features.html#static-assets) 时遵循与 Vite 相同的规则。如果在导入外部依赖时出现 `unknown extension .css` 错误，则需要通过将所有相关包添加到 [`server.deps.inline`](/config/#server-deps-inline) 中，手动内联整个导入链。例如，在以下导入链中：`源代码 -> package-1 -> package-2 -> package-3`，如果错误发生在 `package-3`，你需要将这三个包都添加到 `server.deps.inline` 中。
+当使用 `jsdom` 或 `happy-dom` 环境时，Vitest 在导入 [CSS](https://cn.vitejs.dev/guide/features.html#css) 和 [资源文件](https://cn.vitejs.dev/guide/features.html#static-assets) 时遵循与 Vite 相同的规则。如果在导入外部依赖时出现 `unknown extension .css` 错误，则需要通过将所有相关包添加到 [`server.deps.inline`](/config/server#inline) 中，手动内联整个导入链。例如，在以下导入链中：`源代码 -> package-1 -> package-2 -> package-3`，如果错误发生在 `package-3`，你需要将这三个包都添加到 `server.deps.inline` 中。
 
 外部依赖中的 CSS 和资源文件的 `require` 调用会自动解析。
 :::
@@ -41,15 +41,18 @@ test('test', () => {
 
 ## 自定义环境 {#custom-environment}
 
-你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个形状为 `Environment` 的对象。
-
+你可以创建自己的包来扩展 Vitest 环境。为此，请创建一个名为 `vitest-environment-${name}` 的包，或者指定一个有效的 JS/TS 文件路径。该包应该导出一个类型为 `Environment` 的对象。
+<!-- TODO: translation -->
 ```ts
 import type { Environment } from 'vitest/runtime'
 
 export default <Environment>{
   name: 'custom',
   viteEnvironment: 'ssr',
-  // 可选 - 仅在支持 "experimental-vm" 的情况下使用
+  // optional - set to false when "setupVM" is fast, so vm pools
+  // do not transform the import graph while it runs
+  prewarmModules: true,
+  // 可选 - 仅在支持 "vmForks" 或 "vmThreads" 线程池时需要设置
   async setupVM() {
     const vm = await import('node:vm')
     const context = vm.createContext()
@@ -98,7 +101,7 @@ interface PopulateResult {
   keys: Set<string>
   // 可能已被键覆盖的原始对象的映射
   // 你可以在 `teardown` 函数中返回这些值
-  originals: Map<string | symbol, any>
+  originals: Map<string | symbol, PropertyDescriptor>
 }
 
 export function populateGlobal(

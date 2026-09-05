@@ -63,13 +63,13 @@ ID 的格式如下：
 
 ::: tip
 你可以使用 `vitest/node` 中的 `generateFileHash` 函数生成文件哈希，该函数自 Vitest 3 起可用：
-<!-- TODO: translation -->
+
 ```ts
 import { generateFileHash } from 'vitest/node'
 
 const hash = generateFileHash(
-  '/file/path.js', // relative path
-  undefined // the project name or `undefined` is not set
+  '/file/path.js', // 相对路径
+  undefined // 项目名称，如果未设置则为 `undefined`
 )
 ```
 
@@ -81,7 +81,7 @@ const hash = generateFileHash(
 
 ## location
 
-套件在模块中定义的位置。仅当配置中启用了 [`includeTaskLocation`](/config/#includetasklocation) 时才会收集位置信息。请注意，如果使用了 `--reporter=html`、`--ui` 或 `--browser` 标志，此选项会自动启用。
+套件在模块中定义的位置。仅当配置中启用了 [`includeTaskLocation`](/config/includetasklocation) 时才会收集位置信息。请注意，如果使用了 `--reporter=html`、`--ui` 或 `--browser` 参数，此选项会自动启用。
 
 此套件的位置将等于 `{ line: 3, column: 1 }`：
 
@@ -107,6 +107,7 @@ interface TaskOptions {
   readonly shuffle: boolean | undefined
   readonly retry: number | undefined
   readonly repeats: number | undefined
+  readonly tags: string[] | undefined
   readonly mode: 'run' | 'only' | 'skip' | 'todo'
 }
 ```
@@ -198,24 +199,56 @@ describe('collection failed', () => {
 ```ts
 function meta(): TaskMeta
 ```
-在执行或收集过程中附加到套件的自定义[元数据](/api/advanced/metadata)。在测试运行期间，可以通过向 `task.meta` 对象分配属性来附加 meta：
-<!-- TODO: translation -->
-```ts {7,12}
+
+在测试套件执行或收集期间附加的自定义 [元数据](/api/advanced/metadata)。自 Vitest 4.1 版本起，可通过在测试收集阶段提供 `meta` 对象来附加元数据：
+
+```ts {7,10}
 import { describe, test, TestRunner } from 'vitest'
 
-describe('the validation works correctly', () => {
-  // assign "decorated" during collection
-  const { suite } = TestRunner.getCurrentSuite()
-  suite!.meta.decorated = true
-
+describe('the validation works correctly', { meta: { decorated: true } }, () => {
   test('some test', ({ task }) => {
-    // 在试运行期间指定 “decorated”，它将可用
-    // 仅在 onTestCaseReady hook
+    // 在测试运行期间分配 "decorated"，它将可用
+    // 仅在 onTestCaseReady hook 中
     task.suite.meta.decorated = false
+
+    // 测试继承测试套件的元数据
+    task.meta.decorated === true
   })
 })
 ```
 
+注意，自 Vitest 4.1 起，测试套件的元数据将被其包含的测试用例继承。
+
 :::tip
 如果元数据是在收集阶段（而非 `test` 函数内部）附加的，那么它将在 available 的 [`onTestModuleCollected`](./reporters#ontestmodulecollected) 中可用。
 :::
+
+## logs <Version>5.0.0</Version> {#logs}
+
+```ts
+function logs(): ReadonlyArray<UserConsoleLog>
+```
+
+此套件测试收集期间记录的 console 日志。例如：
+
+```ts
+describe('suite', () => {
+  console.log('included') // [!code highlight]
+
+  beforeAll(() => {
+    console.log('included') // [!code highlight]
+  })
+
+  test('test', () => {
+    console.log('not included') // [!code error]
+  })
+})
+```
+
+## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
+
+```ts
+function toTestSpecification(): TestSpecification
+```
+
+返回一个新的 [TestSpecification](/api/advanced/test-specification)，该规范可用于筛选或运行此特定测试套件。

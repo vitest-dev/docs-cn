@@ -1,14 +1,14 @@
 ---
-title: bail | Config
+title: bail | 配置
 outline: deep
 ---
 
 # bail
 
-- **Type:** `number`
-- **Default:** `0`
-- **CLI**: `--bail=<value>`
+- **类型:** `number`
+- **默认值:** `0`
+- **命令行终端:** `--bail=<value>`
 
-Stop test execution when given number of tests have failed.
+当指定数量的测试用例失败时立即终止测试执行。
 
-By default Vitest will run all of your test cases even if some of them fail. This may not be desired for CI builds where you are only interested in 100% successful builds and would like to stop test execution as early as possible when test failures occur. The `bail` option can be used to speed up CI runs by preventing it from running more tests when failures have occurred.
+默认情况下，即使部分测试失败，Vitest 仍会继续运行所有测试用例。对于仅关注 100% 成功构建的 CI 环境而言，这种行为可能不符合需求——你可能希望在测试出现失败时尽早终止执行。通过配置 `bail` 选项，可在发生失败时阻止后续测试运行，从而加速 CI 流程。

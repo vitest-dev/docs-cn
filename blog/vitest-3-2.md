@@ -35,7 +35,7 @@ Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包
 
 ## `workspace` 已弃用 {#workspace-is-deprecated}
 
-为了简化配置，团队决定弃用单独的 `vitest.workspace` 文件，推荐仅在根配置中使用 `projects` 选项。这也简化了全局选项的配置方式（因为当你没有根配置时，不需要再猜测如何添加报告器）。
+为了简化配置，团队决定弃用单独的 `vitest.workspace` 文件，推荐仅在顶级配置中使用 `projects` 选项。这也简化了全局选项的配置方式（因为当你没有顶级配置时，不需要再猜测如何添加报告器）。
 
 我们还决定弃用 `workspace` 这个名称，因为它与 PNPM 等工具通过该选项提供 monorepo 支持功能存在冲突。Vitest 不会为这些项目分配独立的 `工作目录（CWD）`，而是将其视为子 Vitest 实例。这也为我们提供了更多空间，以便在不破坏其他功能的情况下为 monorepo 提供更好的解决方案。
 
@@ -47,7 +47,7 @@ Vitest 3.2 专注于改进浏览器模式和 TypeScript 支持。此版本还包
 
 新的 [注释 API](/guide/test-annotations) 允许你为任何测试添加自定义消息和附件。这些注释在 UI、HTML、junit、tap 和 GitHub Actions 报告器中可见。如果测试失败，Vitest 还会在 CLI 中打印相关注释。
 
-<img src="/annotation-api-cute-puppy-example.png" />
+<img src="/annotation-api-cute-puppy-example.png" alt="an example of annotation with a cute puppy" />
 
 ## 作用域固定装置 {#scoped-fixtures}
 
@@ -68,11 +68,11 @@ const test = baseTest.extend({
 
 `file` 固定装置类似于在文件顶层使用 `beforeAll` 和 `afterAll`，但如果没有任何测试使用该固定装置，它就不会被调用。
 
-`worker` 固定装置在每个工作线程中仅初始化一次。但请注意，默认情况下 Vitest 为每个测试创建独立工作线程，因此需要禁用 [隔离模式](/config/#isolate) 才能生效。
+`worker` 固定装置在每个工作线程中仅初始化一次。但请注意，默认情况下 Vitest 为每个测试创建独立工作线程，因此需要禁用 [隔离模式](/config/isolate) 才能生效。
 
 ## 自定义项目名称颜色 {#custom-project-name-colors}
 
-使用 `projects` 时，你现在可以设置自定义 [颜色](/config/#name)：
+使用 `projects` 时，你现在可以设置自定义 [颜色](/config/name)：
 
 ::: details 配置示例
 ```ts{6-9,14-17}
@@ -106,7 +106,7 @@ export default defineConfig({
 ```
 :::
 
-<img src="/v3-2-custom-colors.png" />
+<img src="/v3-2-custom-colors.png" alt="an example of project names with custom backgrounds" />
 
 ## 自定义浏览器定位器 API {#custom-browser-locators-api}
 
@@ -192,7 +192,7 @@ it('calls console.log', () => {
 
 Vitest 现在向测试主体提供一个 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) 对象。你可以使用它来停止任何支持此 Web API 的资源。
 
-当测试超时、其他测试失败且 [`--bail` 标志](/config/#bail) 设置为非零值，或者用户在终端中按下 Ctrl+C 时，信号会被中止。
+当测试超时、其他测试失败且 [`--bail` 参数](/config/bail) 设置为非零值，或者用户在终端中按下 Ctrl+C 时，信号会被中止。
 
 例如，你可以在测试中断时停止 `fetch` 请求：
 
@@ -204,7 +204,7 @@ it('stop request when test times out', async ({ signal }) => {
 
 ## Coverage V8 AST 感知重映射 {#coverage-v8-ast-aware-remapping}
 
-Vitest 现在使用由 Vitest 维护者之一 [AriPerkkio](https://github.com/AriPerkkio) 开发的 `ast-v8-to-istanbul` 包。这使 v8 覆盖率报告与 istanbul 保持一致，但性能更好！通过将 [`coverage.experimentalAstAwareRemapping`](/config/#coverage-experimentalastawareremapping) 设置为 `true` 来启用此功能。
+Vitest 现在使用由 Vitest 维护者之一 [AriPerkkio](https://github.com/AriPerkkio) 开发的 `ast-v8-to-istanbul` 包。这使 v8 覆盖率报告与 istanbul 保持一致，但性能更好！通过将 [`coverage.experimentalAstAwareRemapping`](/config/coverage#coverage-experimentalastawareremapping) 设置为 `true` 来启用此功能。
 
 我们计划在下一个主版本中将此作为默认重映射模式。旧的 `v8-to-istanbul` 将被完全移除。欢迎在 https://github.com/vitest-dev/vitest/issues/7928 参与讨论。
 
@@ -219,7 +219,7 @@ export default defineConfig({
   test: {
     watchTriggerPatterns: [
       {
-        pattern: /^src\/templates\/(.*)\.(ts|html|txt)$/,
+        pattern: /src\/templates\/(.*)\.(ts|html|txt)$/,
         testsToRun: (file, match) => {
           return `api/tests/mailers/${match[2]}.test.ts`
         },
@@ -239,7 +239,7 @@ Vitest 现在有一个 `Matchers` 类型，你可以扩展它来在一个地方�
 
 例如，要拥有一个类型安全的 `toBeFoo` 匹配器，你可以这样写：
 
-```ts twoslash
+```ts
 import { expect } from 'vitest'
 
 interface CustomMatchers<R = unknown> {
@@ -252,7 +252,6 @@ declare module 'vitest' {
 
 expect.extend({
   toBeFoo(actual, arg) {
-    //            ^?
     // 具体实现...
     return {
       pass: true,
@@ -267,7 +266,7 @@ expect.toBeFoo('foo')
 
 ## `sequence.groupOrder`
 
-新的 [`sequence.groupOrder`](/config/#grouporder) 选项控制在使用多个 [projects](/guide/projects) 时项目测试执行的顺序。
+新的 [`sequence.groupOrder`](/config/sequence#sequence-grouporder) 选项控制在使用多个 [projects](/guide/projects) 时项目测试执行的顺序。
 
 - 具有相同分组序号的测试项目将并行运行，各组按序号从低到高依次执行。
 - 若未设置此选项，所有项目将默认并行执行。

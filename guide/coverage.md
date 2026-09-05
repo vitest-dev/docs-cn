@@ -63,32 +63,28 @@ Vitest 默认采用 `v8` 作为覆盖率提供器。
 - ⚠️ 存在 V8 引擎自身的一些小限制，详见 [`ast-v8-to-istanbul` 的限制说明](https://github.com/AriPerkkio/ast-v8-to-istanbul?tab=readme-ov-file#limitations)
 - ❌ 不支持非 V8 环境，比如 Firefox、Bun；也不适用于不通过 profiler 提供 V8 覆盖率的环境，例如 Cloudflare Workers
 
-<!-- TODO: translation -->
 <script setup>
 import ArrowDown from '../.vitepress/components/ArrowDown.vue'
 import Box from '../.vitepress/components/Box.vue'
 </script>
 
 <div style="display: flex; flex-direction: column; align-items: center; padding: 2rem 0; max-width: 20rem;">
-  <Box>Test file</Box>
+  <Box>测试文件</Box>
   <ArrowDown />
-  <Box>Enable V8 runtime coverage collection</Box>
+  <Box>启用 V8 运行时收集覆盖率</Box>
   <ArrowDown />
-  <Box>Run file</Box>
+  <Box>运行文件</Box>
   <ArrowDown />
-  <Box>Collect coverage results from V8</Box>
+  <Box>从 V8 收集覆盖率结果</Box>
   <ArrowDown />
-  <Box>Remap coverage results to source files</Box>
+  <Box>将覆盖率结果映射到源文件</Box>
   <ArrowDown />
-  <Box>Coverage report</Box>
+  <Box>生成覆盖率报告</Box>
 </div>
 
 ## Istanbul 覆盖率提供方案 {#istanbul-provider}
 
-[Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。
-这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。
-
-简单来说，插桩就是在你的源文件里加入一段额外的 JavaScript，用于记录代码的执行路径：
+[Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。实际运行时，Vitest 最终执行的代码大致会像这样：
 
 ```js
 // 分支和函数覆盖率计数器的简化示例
@@ -120,29 +116,29 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 - ✅ 可以在任何 JavaScript 环境中使用
 - ✅ 已被业界广泛采用并在 13 年中得到充分验证
 - ✅ 某些情况下执行速度优于 V8，因为插桩可以只针对特定文件，而 V8 会对所有模块插桩
-- ❌ 需要在执行前进行插桩处理
+- ❌ 源代码会在运行前经过转换，并添加插桩代码。
 - ❌ 由于插桩带来的额外开销，执行速度普遍比 V8 慢
 - ❌ 插桩会使文件体积变大
 - ❌ 内存消耗比 V8 更高
 
 <div style="display: flex; flex-direction: column; align-items: center; padding: 2rem 0; max-width: 20rem;">
-  <Box>Test file</Box>
+  <Box>测试文件</Box>
   <ArrowDown />
-  <Box>Pre‑instrumentation with Babel</Box>
+  <Box>使用 Babel 进行预插桩</Box>
   <ArrowDown />
-  <Box>Run file</Box>
+  <Box>运行文件</Box>
   <ArrowDown />
-  <Box>Collect coverage results from Javascript scope</Box>
+  <Box>从 Javascript 作用域收集覆盖率结果</Box>
   <ArrowDown />
-  <Box>Remap coverage results to source files</Box>
+  <Box>将覆盖率结果映射到源文件</Box>
   <ArrowDown />
-  <Box>Coverage report</Box>
+  <Box>生成覆盖率报告</Box>
 </div>
 
 ## 覆盖率配置指南 {#coverage-setup}
 
 ::: tip
-你可以在 [覆盖率配置参考](/config/#coverage) 中查看所有可用的覆盖率选项。
+你可以在 [覆盖率配置参考](/config/coverage) 中查看所有可用的覆盖率选项。
 :::
 
 如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true` ：
@@ -171,9 +167,9 @@ export default defineConfig({
 
 ## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
 
-你可以通过设置 [`coverage.include`](/config/#coverage-include) 和 [`coverage.exclude`](/config/#coverage-exclude) 来决定覆盖率报告中展示哪些文件。
+你可以通过设置 [`coverage.include`](/config/coverage#coverage-include) 和 [`coverage.exclude`](/config/coverage#coverage-exclude) 来决定覆盖率报告中展示哪些文件。
 
-Vitest 默认只统计测试中实际导入的文件。如果希望报告里也包含那些未被测试覆盖到的文件，需要在 [`coverage.include`](/config/#coverage-include) 中配置一个能匹配你源代码文件的模式：
+Vitest 默认只统计测试中实际导入的文件。如果希望报告里也包含那些未被测试覆盖到的文件，需要在 [`coverage.include`](/config/coverage#coverage-include) 中配置一个能匹配你源代码文件的模式：
 
 ::: code-group
 ```ts [vitest.config.ts] {6}
@@ -207,7 +203,7 @@ export default defineConfig({
 ```
 :::
 
-如果你想从覆盖率中排除已经被 `coverage.include` 匹配到的部分文件，可以通过额外配置 [`coverage.exclude`](/config/#coverage-exclude) 来实现：
+如果你想从覆盖率中排除已经被 `coverage.include` 匹配到的部分文件，可以通过额外配置 [`coverage.exclude`](/config/coverage#coverage-exclude) 来实现：
 
 ::: code-group
 ```ts [vitest.config.ts] {7}
@@ -242,7 +238,7 @@ export default defineConfig({
 ```
 :::
 
-## 自定义覆盖率的报告器 {#custom-coverage-reporter}
+## 自定义代码覆盖率报告器 {#custom-coverage-reporter}
 
 我们可以通过在 `test.coverage.reporter` 中传递软件包名称或绝对路径来使用自定义覆盖报告器：
 
@@ -264,10 +260,36 @@ export default defineConfig({
 })
 ```
 
-自定义报告器由 Istanbul 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
+自定义报告器由 `@vitest/istanbul-lib-report` 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
 
+::: code-group
+```js [custom-reporter.mjs]
+import { ReportBase } from '@vitest/istanbul-lib-report'
+
+export default class CustomReporter extends ReportBase {
+  constructor(opts) {
+    super()
+
+    if (!opts.file) {
+      throw new Error('File is required as custom reporter parameter')
+    }
+
+    this.file = opts.file
+  }
+
+  onStart(root, context) {
+    this.contentWriter = context.writer.writeFile(this.file)
+    this.contentWriter.println('Start of custom coverage report ESM')
+  }
+
+  onEnd() {
+    this.contentWriter.println('End of custom coverage report ESM')
+    this.contentWriter.close()
+  }
+}
+```
 ```js [custom-reporter.cjs]
-const { ReportBase } = require('istanbul-lib-report')
+const { ReportBase } = require('@vitest/istanbul-lib-report')
 
 module.exports = class CustomReporter extends ReportBase {
   constructor(opts) {
@@ -288,6 +310,7 @@ module.exports = class CustomReporter extends ReportBase {
   }
 }
 ```
+:::
 
 ## 自定义覆盖率的提供者 {#custom-coverage-provider}
 
@@ -353,6 +376,10 @@ export default CustomCoverageProviderModule
 你可以在忽略提示里加入 `@preserve` 关键字。
 但要小心，这些忽略提示有可能会被打包进最终的生产环境构建中。
 
+::: tip
+Follow https://github.com/vitest-dev/vitest/issues/2021 for updates about `@preserve` usage.
+:::
+
 ```diff
 -/* istanbul ignore if */
 +/* istanbul ignore if -- @preserve */
@@ -366,6 +393,30 @@ if (condition) {
 ### 示例 {#examples}
 
 ::: code-group
+
+```ts [lines: start/stop]
+/* istanbul ignore start -- @preserve */
+if (parameter) { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+else { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+/* istanbul ignore stop -- @preserve */
+
+console.log('Included')
+
+/* v8 ignore start -- @preserve */
+if (parameter) { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+else { // [!code error]
+  console.log('Ignored') // [!code error]
+} // [!code error]
+/* v8 ignore stop -- @preserve */
+
+console.log('Included')
+```
 
 ```ts [if else]
 /* v8 ignore if -- @preserve */
@@ -474,15 +525,21 @@ export function ignored() { // [!code error]
 
 ## UI 模式 {#vitest-ui}
 
-我们可以在 [UI 模式](/guide/ui) 中查看你的覆盖率报告。
+你可以在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中查看覆盖率报告。
 
-UI 模式 会在以下情况下启用覆盖率报告：
+此功能已与具有 HTML 输出的内置覆盖率报告器集成（`html`、`html-spa` 和 `lcov` 报告器）。`html` 报告器默认启用，开箱即用。若要与自定义报告器集成，可以配置 [`coverage.htmlDir`](/config/coverage#coverage-htmldir)。
 
-- 显式启用覆盖率报告：在配置文件中设置 `coverage.enabled=true` ，或运行 Vitest 时添加 `--coverage.enabled=true` 标志。
-- 添加 HTML 报告器：将 `html` 添加到 `coverage.reporter` 列表中，我们还可以启用 `subdir` 选项，将覆盖率报告放在子目录中。
+<img alt="UI 模式中的 HTML 覆盖率功能" img-light src="/vitest-ui-show-coverage-light.png">
+<img alt="UI 模式中的 HTML 覆盖率功能" img-dark src="/vitest-ui-show-coverage-dark.png">
 
-<img alt="html coverage activation in Vitest UI" img-light src="/vitest-ui-show-coverage-light.png">
-<img alt="html coverage activation in Vitest UI" img-dark src="/vitest-ui-show-coverage-dark.png">
+<img alt="UI 模式中 HTML 覆盖率报告" img-light src="/ui-coverage-1-light.png">
+<img alt="UI 模式中 HTML 覆盖率报告" img-dark src="/ui-coverage-1-dark.png">
 
-<img alt="html coverage in Vitest UI" img-light src="/ui-coverage-1-light.png">
-<img alt="html coverage in Vitest UI" img-dark src="/ui-coverage-1-dark.png">
+## 智能体编程环境中的覆盖率报告 {#coverage-in-agent-environments}
+
+当 Vitest 检测到运行在 AI 智能体编程环境时，会自动调整默认的 `text` 报告器行为以减少输出内容并减少词元 (token) 消耗：
+
+- 对 `text` 报告器设置 `skipFull: true`，终端输出将跳过覆盖率已达 100% 的文件。
+- 自动启用 [`text-summary`](/config/coverage#coverage-reporter) 报告器，确保即使因 `skipFull` 设置隐藏了所有文件详情，智能体仍能获取简洁的覆盖率汇总表格。
+
+这些调整仅在 `text` 报告器已存在于当前激活报告器列表时生效（该报告器默认包含在内）。显式配置的报告器永远不会被移除。

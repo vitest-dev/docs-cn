@@ -1,28 +1,28 @@
 ---
-title: server | Config
+title: server | 配置
 outline: deep
 ---
 
 # server <Deprecated />
 
-Before Vitest 4, this option was used to define the configuration for the `vite-node` server.
+在 Vitest 4 之前，此选项用于定义 `vite-node` 服务器的配置。
 
-At the moment, this option allows you to configure the inlining and externalization mechanisms, along with the module runner debugging configuration.
+当前该选项允许你配置模块内联和外置机制，以及模块运行器的调试配置。
 
 ::: warning
-These options should be used only as the last resort to improve performance by externalizing auto-inlined dependencies or to fix issues by inlining invalid external dependencies.
+这些选项应仅作为最后手段使用：通过外置自动内联的依赖项来提升性能，或通过内联无效的外部依赖项来修复问题。
 
-Normally, Vitest should do this automatically.
+通常，Vitest 应自动完成这些操作。
 :::
 
-## deps
+## server.deps
 
-### external
+### server.deps.external
 
-- **Type:** `(string | RegExp)[]`
-- **Default:** files inside [`moduleDirectories`](/config/deps#moduledirectories)
+- **类型:** `(string | RegExp)[]`
+- **默认值:** [`moduleDirectories`](/config/deps#moduledirectories) 目录内的文件
 
-Specifies modules that should not be transformed by Vite and should instead be processed directly by the engine. These modules are imported via native dynamic `import` and bypass both transformation and resolution phases.
+指定不应由 Vite 转换而应直接由引擎处理的模块。这些模块通过原生动态 `import` 导入，会跳过转换和解析阶段。
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -38,36 +38,36 @@ export default defineConfig({
 })
 ```
 
-External modules and their dependencies are not present in the module graph and will not trigger test restarts when they change.
+外置模块及其依赖不存在于模块依赖树中，变更时不会触发测试重启。
 
-Typically, packages under `node_modules` are externalized.
-
-::: tip
-If a string is provided, it is first normalized by prefixing the `/node_modules/` or other [`moduleDirectories`](/config/deps#moduledirectories) segments (for example, `'react'` becomes `/node_modules/react/`), and the resulting string is then matched against the full file path. For example, package `@company/some-name` located inside `packages/some-name` should be specified as `some-name`, and `packages` should be included in `deps.moduleDirectories`.
-
-If a `RegExp` is provided, it is matched against the full file path.
-:::
-
-### inline
-
-- **Type:** `(string | RegExp)[] | true`
-- **Default:** everything that is not externalized
-
-Specifies modules that should be transformed and resolved by Vite. These modules are run by Vite's [module runner](https://vite.dev/guide/api-environment-runtimes#modulerunner).
-
-Typically, your source files are inlined.
+通常，`node_modules` 下的包会被外置化。
 
 ::: tip
-If a string is provided, it is first normalized by prefixing the `/node_modules/` or other [`moduleDirectories`](/config/deps#moduledirectories) segments (for example, `'react'` becomes `/node_modules/react/`), and the resulting string is then matched against the full file path. For example, package `@company/some-name` located inside `packages/some-name` should be specified as `some-name`, and `packages` should be included in `deps.moduleDirectories`.
+如果提供字符串参数，系统会先通过添加 `/node_modules/` 或其他 [`moduleDirectories`](/config/deps#moduledirectories) 路径段进行标准化处理（例如 `'react'` 会被转换为 `/node_modules/react/`），随后将生成的字符串与完整文件路径进行匹配。例如，位于 `packages/some-name` 的 `@company/some-name` 包应指定为 `some-name`，且需将 `packages` 包含在 `deps.moduleDirectories` 配置中。
 
-If a `RegExp` is provided, it is matched against the full file path.
+如果提供 `RegExp` 正则表达式参数，则会直接与完整文件路径进行匹配。
 :::
 
-### fallbackCJS
+### server.deps.inline
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **类型:** `(string | RegExp)[] | true`
+- **默认值:** 所有未被外置的模块
 
-When a dependency is a valid ESM package, try to guess the cjs version based on the path. This might be helpful, if a dependency has the wrong ESM file.
+指定应由 Vite 进行转换和解析的模块。这些模块由 Vite 的 [模块运行器](https://cn.vite.dev/guide/api-environment-runtimes#modulerunner)执行。
 
-This might potentially cause some misalignment if a package has different logic in ESM and CJS mode.
+通常情况下，源代码文件会被自动内联处理。
+
+::: tip
+如果提供字符串参数，系统会先通过添加 `/node_modules/` 或其他 [`moduleDirectories`](/config/deps#moduledirectories) 路径段进行标准化处理（例如 `'react'` 会被转换为 `/node_modules/react/`），随后将生成的字符串与完整文件路径进行匹配。例如，位于 `packages/some-name` 的 `@company/some-name` 包应指定为 `some-name`，且需将 `packages` 包含在 `deps.moduleDirectories` 配置中。
+
+如果提供 `RegExp` 正则表达式参数，则会直接与完整文件路径进行匹配。
+:::
+
+### server.deps.fallbackCJS
+
+- **类型:** `boolean`
+- **默认值:** `false`
+
+启用该选项时，Vitest 会通过检查常见的 CJS/UMD 文件名和目录模式（如 `.mjs`、`.umd.js`、`.cjs.js`、`umd/`、`cjs/`、`lib/` 等），尝试为 ESM 入口推测出对应的 CommonJS 构建版本。
+
+Vitest 会尽力猜测 ESM 入口的 CommonJS 构建，但可能不适用于所有依赖。

@@ -1,5 +1,5 @@
 ---
-title: Advanced API
+title: 高级 API
 ---
 
 # 快速起步 <Badge type="danger">advanced</Badge> {#getting-started}
@@ -14,7 +14,6 @@ title: Advanced API
 
 ```ts
 function startVitest(
-  mode: VitestRunMode,
   cliFilters: string[] = [],
   options: CliOptions = {},
   viteOverrides?: ViteUserConfig,
@@ -27,7 +26,7 @@ function startVitest(
 ```js
 import { startVitest } from 'vitest/node'
 
-const vitest = await startVitest('test')
+const vitest = await startVitest()
 
 await vitest.close()
 ```
@@ -47,7 +46,7 @@ await vitest.close()
 ```ts
 import type { TestModule } from 'vitest/node'
 
-const vitest = await startVitest('test')
+const vitest = await startVitest()
 
 console.log(vitest.state.getTestModules()) // [TestModule]
 ```
@@ -60,7 +59,6 @@ console.log(vitest.state.getTestModules()) // [TestModule]
 
 ```ts
 function createVitest(
-  mode: VitestRunMode,
   options: CliOptions,
   viteOverrides: ViteUserConfig = {},
   vitestOptions: VitestOptions = {},
@@ -87,19 +85,18 @@ const vitest = await createVitest('test', {
 function resolveConfig(
   options: UserConfig = {},
   viteOverrides: ViteUserConfig = {},
-): Promise<{
-  vitestConfig: ResolvedConfig
-  viteConfig: ResolvedViteConfig
-}>
+  harness?: PluginHarness,
+): Promise<ResolvedViteConfig>
 ```
 
-此方法使用自定义参数解析配置。如果没有提供参数，则 `root` 将为 `process.cwd()`。
+此方法使用自定义参数解析配置，而不会创建 Vite 服务器。如果未提供任何参数，root 将设为 process.cwd()。
+
+该方法返回解析后的 Vite 配置。其 `test` 属性包含完整解析后的 Vitest 配置，其中包括所有项目。
 
 ```ts
 import { resolveConfig } from 'vitest/node'
 
-// vitestConfig 只解析了 “测试” 属性
-const { vitestConfig, viteConfig } = await resolveConfig({
+const viteConfig = await resolveConfig({
   mode: 'custom',
   configFile: false,
   resolve: {
@@ -110,12 +107,12 @@ const { vitestConfig, viteConfig } = await resolveConfig({
     pool: 'threads',
   },
 })
+
+viteConfig.test.pool // 'threads'
 ```
 
 ::: info
-由于 Vite 的 `createServer` 工作方式， Vitest 必须在插件的 `configResolve` 钩子中解析配置。因此，此方法实际上并未在内部使用，而是仅作为公共 API 暴露。
-
-如果你将配置传递给 `startVitest` 或 `createVitest` API ， Vitest 仍然会重新解析配置。
+由于 Vite 的 `createServer` 工作方式， Vitest 必须在插件的 `configResolve` 钩子中解析配置。因此，此方法实际上并未在内部使用，而是仅作为公共 API 暴露。如果你将配置传递给 `startVitest` 或 `createVitest` API ， Vitest 仍然会重新解析配置。
 :::
 
 ::: warning
@@ -123,6 +120,34 @@ const { vitestConfig, viteConfig } = await resolveConfig({
 
 另外请注意，`viteConfig.test` 不会被完全解析。如果你需要 Vitest 配置，请使用 `vitestConfig` 代替。
 :::
+
+## 解析项目配置 {#project-configuration-resolution}
+
+本节说明 `startVitest`、`createVitest` 和 `resolveConfig` 的参数如何影响 [测试项目](/guide/projects)。在没有项目配置的情况下，解析后的所有选项都会应用于唯一的顶级项目，因此无须考虑以下规则。
+
+顶级配置由以下三类输入解析而成，优先级从低到高依次为：
+
+1. 顶级配置文件
+2. `viteOverrides`，其内容会覆盖配置文件中的对应值
+3. CLI 选项（`options`），其优先级高于其他所有配置
+
+每个项目随后独立解析其自身的 Vite 配置：
+
+- 通过配置文件或目录引用的项目只解析自身的配置文件，不会继承顶级配置中的任何选项。
+- 默认情况下，内联项目会继承顶级配置（参阅 [`extends`](/guide/projects#configuration)）。会为该项目重新执行顶级配置文件，然后合并 `viteOverrides`，最后再合并项目自身的选项。即使不存在顶级配置文件，继承仍然有效，因为 `viteOverrides` 也属于最终生效的顶级配置。
+- 设置 `extends: false` 后，内联项目只解析自身的选项。设置 `extends: './path'` 后，会重新执行所引用的文件，而不是顶级配置文件，并且不会合并 `viteOverrides`。
+
+以下选项不会按常规规则继承：
+
+- 永远不会继承 `viteOverrides` 中的 `plugins`。配置文件会为每个项目重新执行，从而创建新的插件实例；但通过 `viteOverrides` 传入的插件实例属于顶级 Vite 服务器，无法与项目服务器共享。
+- 永远不会继承 `viteOverrides` 中的 `test.browser` 和 `test.tagsFilter`。`browser` 描述单个项目的浏览器实例，而 `tagsFilter` 作用于整次测试运行。
+- 永远不会继承 `name` 和 `projects`。顶级配置中的 `globalSetup` 也不会被继承，因为它已经会在每次测试运行时执行一次。
+- 项目自身的 `tags` 始终会替换从被继承配置中合并而来的 `tags` 数组，而不是与其拼接，因此可以重新定义同名标签。
+
+独立与 `extends` 机制，以下两组选项都会应用于每个项目：
+
+- 一组用于控制测试运行方式的固定 CLI 选项，例如 `--testTimeout`、`--retry` 和 `--pool`，会以最高优先级应用于每个项目，与顶级配置的解析方式一致。
+- 运行级选项只对整次测试运行有意义，因此每个项目都会使用顶级配置解析后的 `coverage`、`attachmentsDir` 和 `mergeReportsLabel` 值。
 
 ## parseCLI
 
@@ -148,4 +173,53 @@ result.options
 
 result.filter
 // ['./files.ts']
+```
+
+## createCLI
+
+```ts
+function createCLI(options?: CliParseOptions): CAC
+```
+
+创建 Vitest 命令行界面，返回一个注册了 Vitest 全部命令和选项的 [`cac`](https://github.com/cacjs/cac) 实例。[`parseCLI`](#parsecli) 基于该实例实现；如果需要直接使用原始解析器，请调用 `createCLI`。
+
+```ts
+import { createCLI } from 'vitest/node'
+
+const cli = createCLI()
+```
+
+## PluginHarness
+
+```ts
+class PluginHarness {
+  vitest?: Vitest
+  version: string
+  logger: Logger
+  packageInstaller: VitestPackageInstaller
+  getVitest(): Vitest
+}
+```
+
+这是一个容器，在配置解析期间、[`Vitest`](/api/advanced/vitest) 会将此容器传递给内部插件。它保存 [`Logger`](#logger)、包安装器和解析后的版本，并在 `Vitest` 实例创建后通过 `getVitest()` 提供该实例（如果提前调用此方法，则会抛出错误）。
+
+这是一个面向插件的高级 API。通常有很少机会直接实现它。但你可以向 [`resolveConfig`](#resolveconfig) 传递一个共享实例，以复用日志记录器和包安装器。
+
+## Logger
+
+```ts
+class Logger {
+  constructor(
+    outputStream?: Writable,
+    errorStream?: Writable,
+  )
+}
+```
+
+Vitest 的终端日志记录器，通过 [`vitest.logger`](/api/advanced/vitest) 暴露。它负责格式化输出、错误摘要、运行横幅和终端清屏。以编程方式运行 Vitest 时，可以使用自定义的 `stdout`/`stderr` 流创建 `Logger`，以捕获或重定向 Vitest 的输出。
+
+```ts
+import { Logger } from 'vitest/node'
+
+const logger = new Logger(process.stdout, process.stderr)
 ```

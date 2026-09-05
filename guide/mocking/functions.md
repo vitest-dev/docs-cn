@@ -8,6 +8,10 @@
 
 `vi.spyOn` 和 `vi.fn` 都共享相同的方法。
 
+::: tip
+如果你需要一个模拟函数根据接收到的参数返回不同的值，[`vi.when()`](/api/vi#vi-when) 允许你定义特定于参数的行为，而无需编写自己的 `if/else` 逻辑。详情请参阅 [条件模拟](/guide/recipes/conditional-mocking) 技巧指南。
+:::
+
 ## 示例 {#example}
 
 ```js
@@ -25,7 +29,7 @@ const messages = {
   onItem(callback) {
     messages.callbacks.push(callback)
   },
-  getLatest, // can also be a `getter or setter if supported`
+  getLatest, // 也可以是 `支持 getter 或 setter 的情况`
 }
 
 function getLatest(index = messages.items.length - 1) {
@@ -37,7 +41,7 @@ it('should get the latest message with a spy', () => {
   expect(spy.getMockName()).toEqual('getLatest')
 
   expect(messages.getLatest()).toEqual(
-    messages.items[messages.items.length - 1],
+    messages.items.at(-1),
   )
 
   expect(spy).toHaveBeenCalledTimes(1)

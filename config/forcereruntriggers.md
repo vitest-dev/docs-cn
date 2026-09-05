@@ -1,24 +1,24 @@
 ---
-title: forceRerunTriggers | Config
+title: forceRerunTriggers | 配置
 outline: deep
 ---
 
 # forceRerunTriggers <CRoot />
 
-- **Type**: `string[]`
-- **Default:** `['**/package.json/**', '**/vitest.config.*/**', '**/vite.config.*/**']`
+- **类型:** `string[]`
+- **默认值:** `['**/package.json', '**/vitest.config.*', '**/vite.config.*']`
 
-Glob pattern of file paths that will trigger the whole suite rerun. When paired with the `--changed` argument will run the whole test suite if the trigger is found in the git diff.
+将触发整个测试套件重新运行的文件路径（glob 模式）。当与 `--changed` 参数配合使用时，如果在 git diff 中发现触发文件，就会运行整个测试套件。
 
-Useful if you are testing calling CLI commands, because Vite cannot construct a module graph:
+因为 Vite 无法构建模块依赖图，所以适用于测试调用 CLI 命令的场景：
 
 ```ts
-test('execute a script', async () => {
-  // Vitest cannot rerun this test, if content of `dist/index.js` changes
+test('执行一个脚本', async () => {
+  // 如果 `dist/index.js` 的内容发生变化，Vitest 无法重新运行此测试
   await execa('node', ['dist/index.js'])
 })
 ```
 
 ::: tip
-Make sure that your files are not excluded by [`server.watch.ignored`](https://vitejs.dev/config/server-options.html#server-watch).
+请确保你的文件没有被 [`server.watch.ignored`](https://cn.vitejs.dev/config/server-options.html#server-watch) 配置排除。
 :::

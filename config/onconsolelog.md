@@ -1,5 +1,5 @@
 ---
-title: onConsoleLog | Config
+title: onConsoleLog | 配置
 outline: deep
 ---
 
@@ -13,9 +13,9 @@ function onConsoleLog(
 ): boolean | void
 ```
 
-Custom handler for `console` methods in tests. If you return `false`, Vitest will not print the log to the console. Note that Vitest ignores all other falsy values.
+用于自定义处理测试中调用的 `console` 方法。若返回 `false`，Vitest 将不会将该日志打印到控制台。Vitest 会忽略除 false 之外的其他假值。
 
-Can be useful for filtering out logs from third-party libraries.
+此功能适用于过滤第三方库产生的日志。
 
 ```ts
 import { defineConfig } from 'vitest/config'

@@ -2,6 +2,34 @@
 
 Vitest 从 [`chai`](https://www.chaijs.com/api/assert/) 重新导出了 `assert` 方法，用于验证不变量。
 
+::: warning 源码内联测试 {#in-source-testing}
+在 [源码内联测试](/guide/in-source) 中使用来自 `import.meta.vitest` 的 [断言函数](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)（例如 `assert`）时，TypeScript 会报告 `TS2775` 错误，因为这类函数必须通过带有显式类型注解的名称来调用。请为该变量标注 Chai.Assert，或直接调用它：
+
+::: code-group
+```ts [类型注释变量]
+if (import.meta.vitest) {
+  const { test, assert } = import.meta.vitest // [!code --]
+  const { test } = import.meta.vitest // [!code ++]
+  const assert: Chai.Assert = import.meta.vitest.assert // [!code ++]
+
+  test('assert', () => {
+    assert('foo' !== 'bar', 'foo should not be equal to bar')
+  })
+}
+```
+```ts [直接调用]
+if (import.meta.vitest) {
+  const { test, assert } = import.meta.vitest // [!code --]
+  const { test } = import.meta.vitest // [!code ++]
+
+  test('assert', () => {
+    assert('foo' !== 'bar', 'foo should not be equal to bar') // [!code --]
+    import.meta.vitest!.assert('foo' !== 'bar', 'foo should not be equal to bar') // [!code ++]
+  })
+}
+```
+:::
+
 ## assert
 
 - **类型:** `(expression: any, message?: string) => asserts expression`
@@ -36,7 +64,7 @@ test('assert.fail', () => {
 ## isOk
 
 - **类型:** `<T>(value: T, message?: string) => asserts value`
-- **Alias** `ok`
+- **别名:** `ok`
 
 断言给定的 `value` 是 true 。
 
@@ -52,7 +80,7 @@ test('assert.isOk', () => {
 ## isNotOk
 
 - **类型:** `<T>(value: T, message?: string) => void`
-- **Alias** `notOk`
+- **别名:** `notOk`
 
 断言给定的 `value` 是 false 。
 

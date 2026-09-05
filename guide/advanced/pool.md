@@ -1,5 +1,5 @@
 # Custom Pool <Badge type="danger">advanced</Badge> {#custom-pool}
-
+<!-- TODO: translation -->
 ::: warning
 This is an advanced, experimental and very low-level API. If you just want to [run tests](/guide/), you probably don't need this. It is primarily used by library authors.
 :::
@@ -13,7 +13,7 @@ Vitest runs tests in a pool. By default, there are several pool runners:
 - `typescript` to run typechecking on tests
 
 ::: tip
-See [`vitest-pool-example`](https://www.npmjs.com/package/vitest-pool-example) for example of a custom pool runner implementation.
+See [`vitest-pool-example`](https://npmx.dev/package/vitest-pool-example) for example of a custom pool runner implementation.
 :::
 
 ## Usage
@@ -43,13 +43,11 @@ export default defineConfig({
   test: {
     projects: [
       {
-        extends: true,
         test: {
           pool: 'threads',
         },
       },
       {
-        extends: true,
         test: {
           pool: customPool({
             customProperty: true,

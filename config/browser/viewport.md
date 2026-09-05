@@ -1,5 +1,5 @@
 ---
-title: browser.viewport | Config
+title: browser.viewport | 配置
 outline: deep
 ---
 

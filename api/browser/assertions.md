@@ -6,7 +6,7 @@ title: Assertion API | 浏览器模式
 
 Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing-library/jest-dom`](https://github.com/testing-library/jest-dom) 库，并增加了对定位器的支持以及内置的重试能力。
 
-::: tip TypeScript Support
+::: tip TypeScript 支持
 如果你正在使用 [TypeScript](/guide/browser/#typescript) 或希望在 `expect` 中获得正确的类型提示，请确保在某个地方引用了 `vitest/browser`。如果你从未从该模块导入过，可以在 `tsconfig.json` 覆盖范围内的任何文件中添加一个 `reference` 注释：
 
 ```ts
@@ -34,7 +34,7 @@ test('error banner is rendered', async () => {
   // 它会反复检查该元素是否存在于 DOM 中，并且
   // `element.textContent` 的内容等于 "Error!"
   // 直到所有条件都满足为止
-  await expect.element(banner).toHaveTextContent('Error!')
+  await expect.element(banner).toMatchTextContent('Error!')
 })
 ```
 
@@ -52,15 +52,15 @@ interface ExpectPollOptions {
   message?: string
 }
 ```
-
+<!-- TODO: translation -->
 ::: tip
-`expect.element` 是 `expect.poll(() => element)`的简写，工作方式完全相同。
+Like [`expect.poll`](/api/expect#poll), `expect.element` retries DOM assertions until they pass or the timeout is reached. When it receives a locator, Vitest resolves it with [`locator.findElement()`](/api/browser/locators#findelement) before running the DOM assertion. The `timeout` option applies to the whole retry operation. The `interval` option controls how often failed DOM assertions are retried, but locator resolution uses `findElement`'s own increasing retry intervals.
 
-`toHaveTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
+`toMatchTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
 ```ts
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
-expect(banner).toHaveTextContent('Error!')
+expect(banner).toMatchTextContent('Error!')
 ```
 :::
 
@@ -336,11 +336,11 @@ function toContainElement(element: HTMLElement | SVGElement | Locator | null): P
 ```ts
 const ancestor = getByTestId('ancestor')
 const descendant = getByTestId('descendant')
-const nonExistantElement = getByTestId('does-not-exist')
+const nonExistingElement = getByTestId('does-not-exist')
 
 await expect.element(ancestor).toContainElement(descendant)
 await expect.element(descendant).not.toContainElement(ancestor)
-await expect.element(ancestor).not.toContainElement(nonExistantElement)
+await expect.element(ancestor).not.toContainElement(nonExistingElement)
 ```
 
 ## toContainHTML
@@ -696,7 +696,32 @@ await expect.element(button).not.toHaveStyle({
 
 ```ts
 function toHaveTextContent(
-  text: string | RegExp,
+  text: string | number,
+  options?: { normalizeWhitespace: boolean }
+): Promise<void>
+```
+<!-- TODO: translation -->
+This matcher allows you to validate that an element's text matches provided string exactly. This
+supports elements, but also text nodes and fragments.
+
+If you wish to perform a partial check or do a case-sensitive match, use [`toMatchTextContent`](#tomatchtextcontent) instead.
+
+```html
+<span data-testid="text-content">Text Content</span>
+```
+
+```ts
+const element = getByTestId('text-content')
+
+await expect.element(element).toHaveTextContent('Text Content')
+await expect.element(element).not.toHaveTextContent('Content')
+```
+
+## toMatchTextContent
+
+```ts
+function toMatchTextContent(
+  text: string | number | RegExp,
   options?: { normalizeWhitespace: boolean }
 ): Promise<void>
 ```
@@ -707,7 +732,7 @@ function toHaveTextContent(
 
 若要进行不区分大小写的匹配，可以使用带有 `/i` 修饰符的 `RegExp`。
 
-如果你想匹配整段内容，可以使用 `RegExp` 来实现。
+如果你想匹配整段内容，可以使用 `RegExp` 或 [`toHaveTextContent`](#tohavetextcontent) 来实现。
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -716,12 +741,12 @@ function toHaveTextContent(
 ```ts
 const element = getByTestId('text-content')
 
-await expect.element(element).toHaveTextContent('Content')
+await expect.element(element).toMatchTextContent('Content')
 // 匹配整段内容
-await expect.element(element).toHaveTextContent(/^Text Content$/)
+await expect.element(element).toMatchTextContent(/^Text Content$/)
 // 不区分大小写匹配
-await expect.element(element).toHaveTextContent(/content$/i)
-await expect.element(element).not.toHaveTextContent('content')
+await expect.element(element).toMatchTextContent(/content$/i)
+await expect.element(element).not.toMatchTextContent('content')
 ```
 
 ## toHaveValue
@@ -1003,7 +1028,7 @@ await expect.element(queryByTestId('prev')).not.toHaveSelection()
 await expect.element(queryByTestId('next')).toHaveSelection('ne')
 ```
 
-## toMatchScreenshot <Badge type="warning">实验性</Badge> {#tomatchscreenshot}
+## toMatchScreenshot <Experimental /> {#tomatchscreenshot}
 
 ```ts
 function toMatchScreenshot(
@@ -1042,7 +1067,7 @@ function toMatchScreenshot(
 :::
 
 ::: tip
-若截图对比因**有意变更**而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 标志，以更新基准图。
+若截图对比因**有意变更**而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 参数，以更新基准图。
 :::
 
 ```html
@@ -1072,14 +1097,14 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   },
 })
 ```
-
+<!-- TODO: translation -->
 ### Options
 
 - `comparatorName: "pixelmatch" = "pixelmatch"`
 
-  用于比较图像的算法/库名称。
+  The algorithm/library used for comparing images.
 
-  目前，仅支持 [“pixelmatch”](https://github.com/mapbox/pixelmatch)。
+  `"pixelmatch"` is the only built-in comparator, but you can use custom ones by [registering them in the config file](/config/browser/expect#browser-expect-tomatchscreenshot-comparators).
 
 - `comparatorOptions: object`
 
@@ -1127,10 +1152,10 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   等待获取稳定截图的时间。
 
   设为 `0` 可禁用超时，但如果无法确定稳定截图，进程将不会结束。
-
+<!-- TODO: translation -->
 #### `"pixelmatch"` comparator options
 
-使用 `"pixelmatch"` 比较器时，以下选项可用：
+The `"pixelmatch"` comparator uses [`@blazediff/core`](https://blazediff.dev/docs/core) under the hood. The following options are available when using it:
 
 - `allowedMismatchedPixelRatio: number | undefined = undefined`
 

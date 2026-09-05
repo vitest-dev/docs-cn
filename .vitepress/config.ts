@@ -6,9 +6,7 @@ import { defineConfig } from 'vitepress'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
-  localIconLoader,
 } from 'vitepress-plugin-group-icons'
-import llmstxt from 'vitepress-plugin-llms'
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import { version } from '../package.json'
 import { teamMembers } from './contributors'
@@ -36,6 +34,7 @@ export default ({ mode }: { mode: string }) => {
     srcExclude: [
       '**/guide/examples/*',
       '**/guide/cli-generated.md',
+      'AGENTS.md',
     ],
     locales: {
       root: {
@@ -50,9 +49,10 @@ export default ({ mode }: { mode: string }) => {
     },
     head: [
       ['meta', { name: 'theme-color', content: '#22FF84' }],
+      ['link', { rel: 'icon', href: '/favicon.ico', sizes: '48x48' }],
       ['link', { rel: 'icon', href: '/logo-without-border.svg', type: 'image/svg+xml' }],
       ['meta', { name: 'author', content: `${teamMembers.map(c => c.name).join(', ')} and ${vitestName} contributors` }],
-      ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, marko, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, tinyspy, node' }],
+      ['meta', { name: 'keywords', content: 'vitest, vite, test, coverage, snapshot, react, vue, preact, svelte, solid, lit, marko, ruby, cypress, puppeteer, jsdom, happy-dom, test-runner, jest, typescript, esm, node' }],
       ['meta', { property: 'og:title', content: vitestName }],
       ['meta', { property: 'og:description', content: vitestDescription }],
       ['meta', { property: 'og:url', content: ogUrl }],
@@ -70,23 +70,26 @@ export default ({ mode }: { mode: string }) => {
         groupIconVitePlugin({
           customIcon: {
             'CLI': 'vscode-icons:file-type-shell',
-            'vitest.shims': localIconLoader(import.meta.url, '../public/logo-without-border.svg'),
-            'vitest.config': localIconLoader(import.meta.url, '../public/logo-without-border.svg'),
-            'vitest.workspace': localIconLoader(import.meta.url, '../public/logo-without-border.svg'),
             '.spec.ts': 'vscode-icons:file-type-testts',
             '.test.ts': 'vscode-icons:file-type-testts',
             '.spec.js': 'vscode-icons:file-type-testjs',
             '.test.js': 'vscode-icons:file-type-testjs',
-            'marko': 'vscode-icons:file-type-marko',
-            'qwik': 'logos:qwik-icon',
             'next': '',
-            'vite.config': localIconLoader(import.meta.url, '../public/logo-without-border-vite.svg'),
           },
         }) as any,
-        llmstxt(),
       ],
+      define: {
+        __VITEST_VERSION__: JSON.stringify(version),
+      },
     },
     markdown: {
+      container: {
+        tipLabel: '提示',
+        warningLabel: '注意',
+        dangerLabel: '警告',
+        infoLabel: '说明',
+        detailsLabel: '详情',
+      },
       config(md) {
         md.use(tabsMarkdownPlugin)
         md.use(groupIconMdPlugin)
@@ -125,16 +128,29 @@ export default ({ mode }: { mode: string }) => {
 
       search: {
         provider: 'local',
-        /* provider: 'algolia',
         options: {
-          appId: 'ZTF29HGJ69',
-          apiKey: '9c3ced6fed60d2670bb36ab7e8bed8bc',
-          indexName: 'vitest',
-          // searchParameters: {
-          //   facetFilters: ['tags:en'],
-          // },
-        }, */
+          translations: {
+            button: {
+              buttonText: '搜索',
+            },
+            modal: {
+              resetButtonTitle: '清除查询条件',
+              noResultsText: '无法找到相关结果',
+              footer: {
+                selectText: '选择',
+                navigateText: '切换',
+                closeText: '关闭',
+              },
+            },
+          },
+        },
       },
+
+      // banner: {
+      //   id: 'viteplus-alpha',
+      //   text: 'Vite+ Alpha 发布：开源、统一、下一代工具链。',
+      //   url: 'https://voidzero.dev/posts/announcing-vite-plus-alpha?utm_source=vitest&utm_content=top_banner',
+      // },
 
       carbonAds: {
         code: 'CW7DVKJE',
@@ -149,13 +165,13 @@ export default ({ mode }: { mode: string }) => {
       ],
 
       footer: {
-        copyright: `© ${new Date().getFullYear()} VoidZero Inc. and Vitest contributors.`,
+        copyright: `© ${new Date().getFullYear()} VoidZero Inc. 和 Vitest 贡献者。`,
         nav: [
           {
             title: 'Vitest',
             items: [
               { text: '指南', link: '/guide/' },
-              { text: 'API', link: '/api/' },
+              { text: 'API', link: '/api/test' },
               { text: '配置', link: '/config/' },
             ],
           },
@@ -196,7 +212,7 @@ export default ({ mode }: { mode: string }) => {
 
       nav: [
         { text: '指南', link: '/guide/', activeMatch: '^/guide/' },
-        { text: 'API', link: '/api/', activeMatch: '^/api/' },
+        { text: 'API', link: '/api/test', activeMatch: '^/api/' },
         { text: '配置', link: '/config/', activeMatch: '^/config/' },
         {
           text: '博客',
@@ -222,6 +238,10 @@ export default ({ mode }: { mode: string }) => {
                 {
                   text: '团队',
                   link: '/team',
+                },
+                {
+                  text: 'Releases',
+                  link: '/releases',
                 },
               ],
             },
@@ -256,11 +276,11 @@ export default ({ mode }: { mode: string }) => {
       sidebar: {
         '/config': [
           {
-            text: 'Config Reference',
+            text: '配置索引',
             collapsed: false,
             items: [
               {
-                text: '配置文件',
+                text: '配置 Vitest',
                 link: '/config/',
               },
               {
@@ -302,6 +322,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'globals',
                 link: '/config/globals',
+              },
+              {
+                text: 'injectCjsGlobals',
+                link: '/config/injectcjsglobals',
               },
               {
                 text: 'environment',
@@ -464,8 +488,24 @@ export default ({ mode }: { mode: string }) => {
                 link: '/config/cache',
               },
               {
+                text: 'fsModuleCache',
+                link: '/config/fsmodulecache',
+              },
+              {
+                text: 'fsModuleCachePath',
+                link: '/config/fsmodulecachepath',
+              },
+              {
                 text: 'sequence',
                 link: '/config/sequence',
+              },
+              {
+                text: 'tags',
+                link: '/config/tags',
+              },
+              {
+                text: 'strictTags',
+                link: '/config/stricttags',
               },
               {
                 text: 'typecheck',
@@ -486,6 +526,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'retry',
                 link: '/config/retry',
+              },
+              {
+                text: 'repeats',
+                link: '/config/repeats',
               },
               {
                 text: 'onConsoleLog',
@@ -514,6 +558,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'projects',
                 link: '/config/projects',
+              },
+              {
+                text: 'sharedViteServer',
+                link: '/config/sharedviteserver',
               },
               {
                 text: 'isolate',
@@ -560,13 +608,17 @@ export default ({ mode }: { mode: string }) => {
                 link: '/config/disableconsoleintercept',
               },
               {
+                text: 'changed',
+                link: '/config/changed',
+              },
+              {
                 text: 'experimental',
                 link: '/config/experimental',
               },
             ],
           },
           {
-            text: 'Browser Mode',
+            text: '浏览器模式',
             collapsed: false,
             items: [
               {
@@ -587,24 +639,6 @@ export default ({ mode }: { mode: string }) => {
                   },
                 ],
               },
-              // {
-              //   text: 'Render Function',
-              //   collapsed: true,
-              //   items: [
-              //     {
-              //       text: 'react',
-              //       link: '/config/browser/react',
-              //     },
-              //     {
-              //       text: 'vue',
-              //       link: '/config/browser/vue',
-              //     },
-              //     {
-              //       text: 'svelte',
-              //       link: '/config/browser/svelte',
-              //     },
-              //   ],
-              // },
               {
                 text: 'browser.enabled',
                 link: '/config/browser/enabled',
@@ -618,16 +652,8 @@ export default ({ mode }: { mode: string }) => {
                 link: '/config/browser/headless',
               },
               {
-                text: 'browser.isolate',
-                link: '/config/browser/isolate',
-              },
-              {
                 text: 'browser.testerHtmlPath',
                 link: '/config/browser/testerhtmlpath',
-              },
-              {
-                text: 'browser.api',
-                link: '/config/browser/api',
               },
               {
                 text: 'browser.provider',
@@ -636,6 +662,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'browser.ui',
                 link: '/config/browser/ui',
+              },
+              {
+                text: 'browser.detailsPanelPosition',
+                link: '/config/browser/detailspanelposition',
               },
               {
                 text: 'browser.viewport',
@@ -652,6 +682,10 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'browser.screenshotFailures',
                 link: '/config/browser/screenshotfailures',
+              },
+              {
+                text: 'browser.dependencySourcemaps',
+                link: '/config/browser/dependencysourcemaps',
               },
               {
                 text: 'browser.orchestratorScripts',
@@ -723,6 +757,57 @@ export default ({ mode }: { mode: string }) => {
             ],
           },
           {
+            text: '学习',
+            collapsed: false,
+            items: [
+              {
+                text: '编写测试用例',
+                link: '/guide/learn/writing-tests',
+                docFooterText: '编写测试用例 | 学习',
+              },
+              {
+                text: '使用匹配器',
+                link: '/guide/learn/matchers',
+                docFooterText: '使用匹配器 | 学习',
+              },
+              {
+                text: '测试异步代码',
+                link: '/guide/learn/async',
+                docFooterText: '测试异步代码 | 学习',
+              },
+              {
+                text: '初始化与清理',
+                link: '/guide/learn/setup-teardown',
+                docFooterText: 'Setup and Teardown | 学习',
+              },
+              {
+                text: '模拟函数',
+                link: '/guide/learn/mock-functions',
+                docFooterText: '模拟函数 | 学习',
+              },
+              {
+                text: '快照测试',
+                link: '/guide/learn/snapshots',
+                docFooterText: '快照测试 | 学习',
+              },
+              {
+                text: '测试实践',
+                link: '/guide/learn/testing-in-practice',
+                docFooterText: '测试实践 | 学习',
+              },
+              {
+                text: '调试测试',
+                link: '/guide/learn/debugging-tests',
+                docFooterText: '调试测试 | 学习',
+              },
+              {
+                text: '使用 AI 编写测试',
+                link: '/guide/learn/writing-tests-with-ai',
+                docFooterText: '使用 AI 编写测试 | 学习',
+              },
+            ],
+          },
+          {
             text: '浏览器模式',
             collapsed: false,
             items: [
@@ -756,30 +841,33 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/browser/trace-view',
                 docFooterText: '追踪查看器 | 浏览器模式',
               },
+              {
+                text: 'Playwright 追踪',
+                link: '/guide/browser/playwright-traces',
+                docFooterText: 'Playwright 追踪 | 浏览器模式',
+              },
+              {
+                text: 'ARIA 快照',
+                link: '/guide/browser/aria-snapshots',
+                docFooterText: 'ARIA 快照 | 浏览器模式',
+              },
             ],
           },
+          // Authoring — how to express a test in code: constructing it,
+          // asserting, mocking dependencies, attaching metadata. The page is
+          // about *test content*, not the runner. Discriminator: "How do I
+          // write X in a test?" If yes, it belongs here. Mocking sub-pages
+          // live nested because they're a multi-page subtopic.
           {
-            text: '指南',
+            text: '编写测试',
             collapsed: false,
             items: [
-              {
-                text: '命令行界面',
-                link: '/guide/cli',
-              },
-              {
-                text: '测试筛选',
-                link: '/guide/filtering',
-              },
               {
                 text: '测试上下文',
                 link: '/guide/test-context',
               },
               {
-                text: '测试环境',
-                link: '/guide/environment',
-              },
-              {
-                text: 'Test Run Lifecycle',
+                text: '运行生命周期',
                 link: '/guide/lifecycle',
               },
               {
@@ -792,78 +880,122 @@ export default ({ mode }: { mode: string }) => {
                 collapsed: true,
                 items: [
                   {
-                    text: '模拟日期',
+                    text: '日期',
                     link: '/guide/mocking/dates',
                   },
                   {
-                    text: '模拟函数',
+                    text: '函数',
                     link: '/guide/mocking/functions',
                   },
                   {
-                    text: '模拟全局对象',
+                    text: '全局对象',
                     link: '/guide/mocking/globals',
                   },
                   {
-                    text: '模拟模块',
+                    text: '模块',
                     link: '/guide/mocking/modules',
                   },
                   {
-                    text: '模拟文件系统',
+                    text: '文件系统',
                     link: '/guide/mocking/file-system',
                   },
                   {
-                    text: '模拟请求',
+                    text: '请求',
                     link: '/guide/mocking/requests',
                   },
                   {
-                    text: '模拟计时器',
+                    text: '计时器',
                     link: '/guide/mocking/timers',
                   },
                   {
-                    text: '模拟类',
+                    text: '类',
                     link: '/guide/mocking/classes',
                   },
                 ],
               },
               {
-                text: '并行测试',
-                link: '/guide/parallelism',
-              },
-              {
-                text: '测试项目',
-                link: '/guide/projects',
-              },
-              {
-                text: '报告器',
-                link: '/guide/reporters',
-              },
-              {
-                text: '覆盖率',
-                link: '/guide/coverage',
-              },
-              {
-                text: '类型测试',
-                link: '/guide/testing-types',
-              },
-              {
-                text: 'UI 模式',
-                link: '/guide/ui',
-              },
-              {
-                text: '内联测试',
-                link: '/guide/in-source',
+                text: '测试标签',
+                link: '/guide/test-tags',
               },
               {
                 text: '测试注释',
                 link: '/guide/test-annotations',
               },
               {
-                text: '扩展断言',
+                text: '扩展匹配器',
                 link: '/guide/extending-matchers',
+              },
+              {
+                text: '类型测试',
+                link: '/guide/testing-types',
+              },
+              {
+                text: 'Benchmarking',
+                link: '/guide/benchmarking',
+              },
+              {
+                text: '内联测试',
+                link: '/guide/in-source',
+              },
+            ],
+          },
+          // Workflow — how to invoke, select, and orchestrate test runs
+          // across files/projects/processes. The page is about the *runner
+          // and tooling around it*, not what's inside a test. Discriminator:
+          // "How do I run / filter / parallelize / integrate Vitest?" If a
+          // page is about the runtime environment of the tests themselves
+          // (jsdom, node), it still belongs here — that's a workflow choice.
+          {
+            text: '工作流',
+            collapsed: false,
+            items: [
+              {
+                text: '命令行界面',
+                link: '/guide/cli',
+              },
+              {
+                text: '测试筛选',
+                link: '/guide/filtering',
+              },
+              {
+                text: '测试项目',
+                link: '/guide/projects',
+              },
+              {
+                text: '测试环境',
+                link: '/guide/environment',
+              },
+              {
+                text: '并行测试',
+                link: '/guide/parallelism',
+              },
+              {
+                text: '报告器',
+                link: '/guide/reporters',
+              },
+              {
+                text: 'UI 模式',
+                link: '/guide/ui',
               },
               {
                 text: 'IDE 插件',
                 link: '/guide/ide',
+              },
+            ],
+          },
+          // Quality & Debugging — how to verify the test run is healthy and
+          // diagnose it when it isn't. Coverage, perf, leak detection, error
+          // triage, observability. Discriminator: "Is my suite good?" or
+          // "Why did this fail / leak / slow down?" If a page primarily
+          // measures or fixes the suite (rather than authoring or running
+          // it), put it here.
+          {
+            text: '质量与调试',
+            collapsed: false,
+            items: [
+              {
+                text: '覆盖率',
+                link: '/guide/coverage',
               },
               {
                 text: '调试',
@@ -872,25 +1004,6 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: '常见错误',
                 link: '/guide/common-errors',
-              },
-              {
-                text: '迁移指南',
-                link: '/guide/migration',
-                collapsed: false,
-                items: [
-                  {
-                    text: '迁移到 Vitest 4',
-                    link: '/guide/migration#vitest-4',
-                  },
-                  {
-                    text: '从 Jest 迁移',
-                    link: '/guide/migration#jest',
-                  },
-                  {
-                    text: 'Migrating from Mocha + Chai + Sinon',
-                    link: '/guide/migration#mocha-chai-sinon',
-                  },
-                ],
               },
               {
                 text: '性能',
@@ -909,6 +1022,66 @@ export default ({ mode }: { mode: string }) => {
               {
                 text: 'OpenTelemetry',
                 link: '/guide/open-telemetry',
+              },
+            ],
+          },
+          // Recipes — end-to-end patterns that solve a concrete problem by
+          // combining multiple features. Each entry is titled by the problem
+          // ("Database Transaction per Test"), not the feature. Add a recipe
+          // when a single feature page would over-explain, when the value
+          // comes from composition, or when users would search by intent
+          // rather than by API name.
+          {
+            text: '技巧',
+            collapsed: false,
+            items: [
+              {
+                text: '一个测试对应一个数据库事务',
+                link: '/guide/recipes/db-transaction',
+              },
+              {
+                text: '优雅地取消长时间运行的操作',
+                link: '/guide/recipes/cancellable',
+              },
+              {
+                text: '等待异步条件',
+                link: '/guide/recipes/wait-for',
+              },
+              {
+                text: '在测试中收窄类型',
+                link: '/guide/recipes/type-narrowing',
+              },
+              {
+                text: '自定义断言工具函数',
+                link: '/guide/recipes/custom-assertions',
+              },
+              {
+                text: '监视非直接导入的文件',
+                link: '/guide/recipes/watch-templates',
+              },
+              {
+                text: '扩展浏览器定位器',
+                link: '/guide/recipes/browser-locators',
+              },
+              {
+                text: 'Schema 驱动断言',
+                link: '/guide/recipes/schema-matching',
+              },
+              {
+                text: '使用 `using` 自动清理',
+                link: '/guide/recipes/explicit-resources',
+              },
+              {
+                text: '使用 `vi.when` 进行条件模拟',
+                link: '/guide/recipes/conditional-mocking',
+              },
+              {
+                text: '按文件配置隔离',
+                link: '/guide/recipes/disable-isolation',
+              },
+              {
+                text: '并行和串行测试文件',
+                link: '/guide/recipes/parallel-sequential',
               },
             ],
           },
@@ -932,14 +1105,37 @@ export default ({ mode }: { mode: string }) => {
                 text: '自定义运行池',
                 link: '/guide/advanced/pool',
               },
+              {
+                text: 'Benchmark Provider',
+                link: '/guide/advanced/benchmark-provider',
+              },
+            ],
+          },
+          // Migration — one-time transitional content: cross-version
+          // upgrades and porting from other test runners (Jest, Mocha).
+          // Sits near the bottom because it's not daily-use and would push
+          // active-use guides further from the user's first scroll.
+          {
+            text: '迁移',
+            link: '/guide/migration',
+            collapsed: false,
+            items: [
+              {
+                text: '迁移至 Vitest 5.0',
+                link: '/guide/migration/',
+              },
+              {
+                text: '从 Jest 迁移',
+                link: '/guide/migration/jest',
+              },
+              {
+                text: '从 Mocha + Chai + Sinon 迁移',
+                link: '/guide/migration/mocha',
+              },
             ],
           },
           {
             items: [
-              {
-                text: 'Recipes',
-                link: '/guide/recipes',
-              },
               {
                 text: '测试框架比较',
                 link: '/guide/comparisons',
@@ -950,7 +1146,20 @@ export default ({ mode }: { mode: string }) => {
         '/api': [
           {
             text: 'Test API',
-            link: '/api/',
+            items: [
+              {
+                text: 'Test',
+                link: '/api/test',
+              },
+              {
+                text: 'Describe',
+                link: '/api/describe',
+              },
+              {
+                text: 'Hooks',
+                link: '/api/hooks',
+              },
+            ],
           },
           {
             text: 'Mocks',
@@ -979,6 +1188,28 @@ export default ({ mode }: { mode: string }) => {
           {
             text: '浏览器模式',
             items: [
+              {
+                text: 'Render Function',
+                collapsed: false,
+                items: [
+                  {
+                    text: 'react',
+                    link: '/api/browser/react',
+                  },
+                  {
+                    text: 'vue',
+                    link: '/api/browser/vue',
+                  },
+                  {
+                    text: 'svelte',
+                    link: '/api/browser/svelte',
+                  },
+                  // {
+                  //   text: 'angular',
+                  //   link: '/api/browser/angular',
+                  // },
+                ],
+              },
               {
                 text: 'Context API',
                 link: '/api/browser/context',

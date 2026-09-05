@@ -16,7 +16,9 @@ outline: deep
 默认情况下，Vitest 使用 `utf-8` 编码，但你可以使用选项覆盖它。
 
 ::: tip
-此 API 遵循 [`server.fs`](https://vitejs.dev/config/server-options.html#server-fs-allow) 出于安全原因的限制。
+出于安全原因，内置的文件命令遵循 Vite 的 [`server.fs`](https://cn.G/config/server-options.html#server-fs-allow) 限制。
+
+`writeFile` 和 `removeFile` 还需要通过 [`api.allowWrite`](/config/api#api-allowwrite) 获得写入权限。
 :::
 
 ```ts
@@ -56,7 +58,9 @@ expect(input).toHaveValue('a')
 ```
 
 ::: warning
-CDP session仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+CDP session 仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
+
+CDP 是一种特权调试 API。仅当通过 [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 的写入及执行操作时，才可使用 CDP。
 :::
 
 ## 自定义命令 {#custom-commands}
@@ -122,13 +126,80 @@ declare module 'vitest/browser' {
 ::: warning
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
+<!-- TODO: translation -->
+::: warning Security
+Custom commands run in the Vitest Node process and are callable from browser test code through Vitest's browser RPC connection. They can access local files, environment variables, network services, databases, shell commands, and other Node APIs.
+
+Vitest's built-in file commands validate paths against Vite's [`server.fs`](https://vite.dev/config/server-options#server-fs-allow) restrictions and separately check whether writes are allowed. Custom commands do not automatically inherit these protections. If a custom command accepts browser-provided input and uses it to read, write, delete, execute, or expose local resources, validate that input before using it.
+
+For file reads or fixture loading, use `isFileLoadingAllowed` from `vitest/node` or an explicit allowlist. For writes and deletes, also require an explicit mutation policy, such as [`api.allowWrite`](/config/api#api-allowwrite), and a command-specific allowed directory. For commands that execute code, shell commands, or project scripts, also check [`api.allowExec`](/config/api#api-allowexec).
+
+For example, if you create your own file-writing command instead of using Vitest's built-in `writeFile`, apply the same checks:
+
+```ts
+import { mkdir, writeFile } from 'node:fs/promises'
+import { dirname, resolve } from 'node:path'
+import { normalizePath } from 'vite'
+import { isFileLoadingAllowed } from 'vitest/node'
+import type { BrowserCommand } from 'vitest/node'
+
+function assertFileAccess(path: string, project: any) {
+  if (
+    !isFileLoadingAllowed(project.vite.config, path)
+    && !isFileLoadingAllowed(project.vitest.vite.config, path)
+  ) {
+    throw new Error(`Access denied to "${path}".`)
+  }
+}
+
+function assertWrite(project: any) {
+  if (!project.config.browser.api.allowWrite || !project.vitest.config.api.allowWrite) {
+    throw new Error('Writing files is disabled.')
+  }
+}
+
+export const myWriteFileCommand: BrowserCommand<[path: string, content: string]> = async (
+  { project },
+  path,
+  content,
+) => {
+  assertWrite(project)
+
+  const file = resolve(project.config.root, path)
+  assertFileAccess(normalizePath(file), project)
+
+  await mkdir(dirname(file), { recursive: true })
+  await writeFile(file, content)
+}
+```
+
+:::
+
+### Recording trace markers
+
+Custom commands can record [trace markers](/api/browser/context#mark) for the test that triggered them through `context.mark`. This is the server-side equivalent of `page.mark` and helps annotate the [trace view](/guide/browser/trace-view) with custom actions performed inside a command.
+
+```ts
+import type { BrowserCommand } from 'vitest/node'
+
+export const uploadFixture: BrowserCommand<[name: string]> = async (
+  context,
+  name,
+) => {
+  await context.mark(`upload start: ${name}`, { kind: 'action' })
+  // ... do server-side work
+  await context.mark(`upload done: ${name}`, { kind: 'action' })
+}
+```
+
+`context.mark` is a no-op when browser tracing is not enabled or no test is currently running in the session. Unlike `page.mark`, it does not accept a callback form.
 
 ### 自定义 `playwright` 命令  {#custom-playwright-commands}
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
 - `page`引用包含测试 iframe 的完整页面。这是协调器 HTML，为避免出现问题，最好不要碰它。
-- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果您需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
+- `frame` 是一个异步方法，用于解析测试器 [`Frame`](https://playwright.dev/docs/api/class-frame)。它的 API 与 `page` 类似，但不支持某些方法。如果你需要查询元素，应优先使用 `context.iframe` 代替，因为它更稳定、更快速。
 - `iframe` 是一个 [`FrameLocator`](https://playwright.dev/docs/api/class-framelocator)，用于查询页面上的其他元素。
 - `context` 是指唯一的[BrowserContext](https://playwright.dev/docs/api/class-browsercontext)。
 

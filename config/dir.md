@@ -1,12 +1,12 @@
 ---
-title: dir | Config
+title: dir | 配置
 outline: deep
 ---
 
 # dir
 
-- **Type:** `string`
-- **CLI:** `--dir=<path>`
-- **Default:** same as `root`
+- **类型:** `string`
+- **命令行终端:** `--dir=<path>`
+- **默认值:** 与 `root` 相同
 
-Base directory to scan for the test files. You can specify this option to speed up test discovery if your root covers the whole project
+用于扫描测试文件的基础目录。如果你的根目录覆盖整个项目，可以指定此选项来加快测试发现速度。
