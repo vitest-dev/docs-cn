@@ -4,21 +4,15 @@ import VitestTheme from '@voidzero-dev/vitepress-theme/src/vitest'
 import { inBrowser } from 'vitepress'
 import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 import Advanced from '../components/Advanced.vue'
+import ChangelogButton from '../components/ChangelogButton.vue'
+import CopyPrompt from '../components/CopyPrompt.vue'
 import CourseLink from '../components/CourseLink.vue'
 import CRoot from '../components/CRoot.vue'
 import Deprecated from '../components/Deprecated.vue'
 import Experimental from '../components/Experimental.vue'
-<<<<<<< HEAD
 import Version from '../components/Version.vue'
-=======
-import Advanced from '../components/Advanced.vue'
-import ChangelogButton from '../components/ChangelogButton.vue'
-import CopyPrompt from '../components/CopyPrompt.vue'
-import CourseLink from '../components/CourseLink.vue'
->>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
 import './styles.css'
 import '@shikijs/vitepress-twoslash/style.css'
-import 'virtual:group-icons.css'
 
 if (inBrowser) {
   // redirect old hash links (e.g. /config/#reporters -> /config/reporters)

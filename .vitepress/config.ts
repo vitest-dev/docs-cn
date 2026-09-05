@@ -1116,39 +1116,21 @@ export default ({ mode }: { mode: string }) => {
           // Sits near the bottom because it's not daily-use and would push
           // active-use guides further from the user's first scroll.
           {
-<<<<<<< HEAD
             text: '迁移',
             link: '/guide/migration',
             collapsed: false,
             items: [
               {
                 text: '迁移至 Vitest 5.0',
-                link: '/guide/migration#vitest-5',
-              },
-              {
-                text: '从 Jest 迁移',
-                link: '/guide/migration#jest',
-              },
-              {
-                text: '从 Mocha + Chai + Sinon 迁移',
-                link: '/guide/migration#mocha-chai-sinon',
-=======
-            text: 'Migration',
-            link: '/guide/migration/',
-            collapsed: false,
-            items: [
-              {
-                text: 'Migrating to Vitest 5.0',
                 link: '/guide/migration/',
               },
               {
-                text: 'Migrating from Jest',
+                text: '从 Jest 迁移',
                 link: '/guide/migration/jest',
               },
               {
-                text: 'Migrating from Mocha + Chai + Sinon',
+                text: '从 Mocha + Chai + Sinon 迁移',
                 link: '/guide/migration/mocha',
->>>>>>> 752f075b1e09281f59aa7f472cf1ecc2aee8439d
               },
             ],
           },

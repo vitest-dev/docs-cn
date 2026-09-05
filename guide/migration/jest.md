@@ -1,41 +1,39 @@
 ---
-title: Migrating from Jest | Guide
+title: 从 Jest 迁移 | 指南
 outline: deep
 ---
 
-# Migrating from Jest {#jest}
+## 从 Jest 迁移 {#jest}
 
-Vitest has been designed with a Jest compatible API, in order to make the migration from Jest as simple as possible. Despite those efforts, you may still run into the following differences:
+Vitest 的 API 设计兼容 Jest，旨在使从 Jest 迁移尽可能简单。尽管如此，你仍可能遇到以下差异：
 
-## Globals as a Default
+### 默认是否启用全局变量 {#globals-as-a-default}
 
-Jest has their [globals API](https://jestjs.io/docs/api) enabled by default. Vitest does not. You can either enable globals via [the `globals` configuration setting](/config/globals) or update your code to use imports from the `vitest` module instead.
+Jest 默认启用其 [globals API](https://jestjs.io/docs/api)。Vitest 默认不启用。你可以通过配置项 [globals](/config/globals) 启用全局变量，或者修改代码直接从 `vitest` 模块导入所需 API。
 
-If you decide to keep globals disabled, be aware that common libraries like [`testing-library`](https://testing-library.com/) will not run auto DOM [cleanup](https://testing-library.com/docs/svelte-testing-library/api/#cleanup).
+如果选择不启用全局变量，注意常用库如 [`testing-library`](https://testing-library.com/) 将不会自动执行 DOM 的 [清理](https://testing-library.com/docs/svelte-testing-library/api/#cleanup)。
 
-## `mock.mockReset`
+### `mock.mockReset`
 
-Jest's [`mockReset`](https://jestjs.io/docs/mock-function-api#mockfnmockreset) replaces the mock implementation with an
-empty function that returns `undefined`.
+Jest 的 [`mockReset`](https://jestjs.io/docs/mock-function-api#mockfnmockreset) 会将 mock 实现替换为空函数，返回 `undefined`。
 
-Vitest's [`mockReset`](/api/mock#mockreset) resets the mock implementation to its original.
-That is, resetting a mock created by `vi.fn(impl)` will reset the mock implementation to `impl`.
+Vitest 的 [`mockReset`](/api/mock#mockreset) 会将 mock 实现重置为最初的实现。也就是说，使用 `vi.fn(impl)` 创建的 mock，`mockReset` 会将实现重置为 `impl`。
 
-## `mock.mock` is Persistent
+### `mock.mock` 是持久的 {#mock-mock-is-persistent}
 
-Jest will recreate the mock state when `.mockClear` is called, meaning you always need to access it as a getter. Vitest, on the other hand, holds a persistent reference to the state, meaning you can reuse it:
+Jest 调用 `.mockClear` 后会重建 mock 状态，只能以 getter 方式访问； Vitest 则保留持久引用，可直接复用。
 
 ```ts
 const mock = vi.fn()
 const state = mock.mock
 mock.mockClear()
 
-expect(state).toBe(mock.mock) // fails in Jest
+expect(state).toBe(mock.mock) // 在 Jest 中失败
 ```
 
-## Module Mocks
+### 模块 Mock {#module-mocks}
 
-When mocking a module in Jest, the factory argument's return value is the default export. In Vitest, the factory argument has to return an object with each export explicitly defined. For example, the following `jest.mock` would have to be updated as follows:
+在 Jest 中，mock 模块时工厂函数返回值即为默认导出。在 Vitest 中，工厂函数需返回包含所有导出的对象。例如，以下 Jest 代码需要改写为：
 
 ```ts
 jest.mock('./some-path', () => 'hello') // [!code --]
@@ -44,37 +42,39 @@ vi.mock('./some-path', () => ({ // [!code ++]
 })) // [!code ++]
 ```
 
-For more details please refer to the [`vi.mock` api section](/api/vi#vi-mock).
+更多细节请参考 [`vi.mock` API](/api/vi#vi-mock)。
 
-## Auto-Mocking Behaviour
+### 自动 Mock 行为 {#auto-mocking-behaviour}
 
-Unlike Jest, mocked modules in `<root>/__mocks__` are not loaded unless `vi.mock()` is called. If you need them to be mocked in every test, like in Jest, you can mock them inside [`setupFiles`](/config/setupfiles).
+与 Jest 不同，Vitest 仅在调用 `vi.mock()` 时加载 `<root>/__mocks__` 中的模块。如果你需要像 Jest 一样在每个测试中自动 mock，可以在 [`setupFiles`](/config/setupfiles) 中调用 mock。
 
-## Importing the Original of a Mocked Package
+### 导入被 Mock 包的原始模块 {#importing-the-original-of-a-mocked-package}
 
-If you are only partially mocking a package, you might have previously used Jest's function `requireActual`. In Vitest, you should replace these calls with `vi.importActual`.
+如果只部分 mock 一个包，之前可能用 Jest 的 `requireActual`，Vitest 中应使用 `vi.importActual`：
 
 ```ts
 const { cloneDeep } = jest.requireActual('lodash/cloneDeep') // [!code --]
 const { cloneDeep } = await vi.importActual('lodash/cloneDeep') // [!code ++]
 ```
 
-## Extends mocking to external libraries
+### 扩展 Mock 到外部库 {#extends-mocking-to-external-libraries}
 
-Where Jest does it by default, when mocking a module and wanting this mocking to be extended to other external libraries that use the same module, you should explicitly tell which 3rd-party library you want to be mocked, so the external library would be part of your source code, by using [server.deps.inline](/config/server#inline).
+Jest 默认会扩展 mock 到使用相同模块的外部库。Vitest 需要显式告知要 mock 的第三方库，使其成为源码的一部分，方法是使用 [server.deps.inline](/config/server#inline)：
 
 ```
 server.deps.inline: ["lib-name"]
 ```
 
-## expect.getState().currentTestName
+### `expect.getState().currentTestName`
 
-Vitest's `test` names are joined with a `>` symbol to make it easier to distinguish tests from suites, while Jest uses an empty space (` `).
+Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 Jest 使用空格 (` `)。
 
 ```diff
 - `${describeTitle} ${testTitle}`
 + `${describeTitle} > ${testTitle}`
 ```
+
+<!-- TODO: translation -->
 
 The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag): Vitest matches against the `>`-joined full name, while Jest matches the space-joined name. Update patterns that span a suite and a test accordingly, or match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
 
@@ -83,30 +83,30 @@ The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag)
 + vitest -t 'math > adds'
 ```
 
-## Envs
+### 环境变量 {#envs}
 
-Just like Jest, Vitest sets `NODE_ENV` to `test`, if it wasn't set before. Vitest also has a counterpart for `JEST_WORKER_ID` called `VITEST_POOL_ID` (always less than or equal to `maxWorkers`), so if you rely on it, don't forget to rename it. Vitest also exposes `VITEST_WORKER_ID` which is a unique ID of a running worker - this number is not affected by `maxWorkers`, and will increase with each created worker.
+与 Jest 一样，如果 `NODE_ENV` 在此之前未被设置，Vitest 会将其设为 `test`。Vitest 还提供了与 `JEST_WORKER_ID` 对应的 `VITEST_POOL_ID`（始终小于或等于 `maxWorkers`），如果你依赖该变量，别忘了重命名。Vitest 还暴露了 `VITEST_WORKER_ID`，它是运行中 worker 的唯一 ID 且该编号不受 `maxWorkers` 影响，每创建一个新 worker 就会递增。
 
-## Replace property
+### 替换属性 {#replace-property}
 
-If you want to modify the object, you will use [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value) in Jest, you can use [`vi.stubEnv`](/api/vi#vi-stubenv) or [`vi.spyOn`](/api/vi#vi-spyon) to do the same also in Vitest.
+如果想修改对象，Jest 使用 [replaceProperty API](https://jestjs.io/docs/jest-object#jestreplacepropertyobject-propertykey-value)，Vitest 可使用 [`vi.stubEnv`](/api/vi#vi-stubenv) 或 [`vi.spyOn`](/api/vi#vi-spyon) 达成相同效果。
 
-## Done Callback
+### Done 回调 {#done-callback}
 
-Vitest does not support the callback style of declaring tests. You can rewrite them to use `async`/`await` functions, or use Promise to mimic the callback style.
+Vitest 不支持回调式测试声明。你可以改写为使用 `async`/`await` 函数，或使用 Promise 来模拟回调风格。
 
 <!--@include: ../examples/promise-done.md-->
 
-## Hooks
+### Hooks {#hooks}
 
-`beforeAll`/`beforeEach` hooks may return [teardown function](/api/hooks#beforeach) in Vitest. Because of that you may need to rewrite your hooks declarations, if they return something other than `undefined` or `null`:
+Vitest 中 `beforeAll`/`beforeEach` 钩子可返回 [清理函数](/api/hooks#setup-and-teardown)。因此，如果钩子返回非 `undefined` 或 `null`，可能需改写：
 
 ```ts
 beforeEach(() => setActivePinia(createTestingPinia())) // [!code --]
 beforeEach(() => { setActivePinia(createTestingPinia()) }) // [!code ++]
 ```
 
-In Jest hooks are called sequentially (one after another). By default, Vitest runs hooks in a stack. To use Jest's behavior, update [`sequence.hooks`](/config/sequence#sequence-hooks) option:
+在 Jest 中钩子是顺序执行的（一个接一个）。默认情况下，Vitest 在栈中运行钩子。要使用 Jest 的行为，请更新 [`sequence.hooks`](/config/sequence#sequence-hooks) 选项：
 
 ```ts
 export default defineConfig({
@@ -118,9 +118,9 @@ export default defineConfig({
 })
 ```
 
-## Types
+### 类型 {#types}
 
-Vitest doesn't have an equivalent to `jest` namespace, so you will need to import types directly from `vitest`:
+Vitest 没有 Jest 的 `jest` 命名空间，需直接从 `vitest` 导入类型：
 
 ```ts
 let fn: jest.Mock<(name: string) => number> // [!code --]
@@ -128,22 +128,22 @@ import type { Mock } from 'vitest' // [!code ++]
 let fn: Mock<(name: string) => number> // [!code ++]
 ```
 
-## Timers
+### 定时器 {#timers}
 
-Vitest doesn't support Jest's legacy timers.
+Vitest 不支持 Jest 的遗留定时器。
 
-## Timeout
+### 超时 {#timeout}
 
-If you used `jest.setTimeout`, you would need to migrate to `vi.setConfig`:
+如果使用了 `jest.setTimeout`，需迁移为 `vi.setConfig`：
 
 ```ts
 jest.setTimeout(5_000) // [!code --]
 vi.setConfig({ testTimeout: 5_000 }) // [!code ++]
 ```
 
-## Vue Snapshots
+### Vue 快照 {#vue-snapshots}
 
-This is not a Jest-specific feature, but if you previously were using Jest with vue-cli preset, you will need to install [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) package, and specify it in [`snapshotSerializers`](/config/snapshotserializers):
+这不是 Jest 特有的功能，但如果你之前在 vue-cli 预设中使用 Jest，你需要安装 [`jest-serializer-vue`](https://github.com/eddyerburgh/jest-serializer-vue) 包，并在 [`snapshotSerializers`](/config/snapshotserializers) 中指定它：
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -155,11 +155,11 @@ export default defineConfig({
 })
 ```
 
-Otherwise your snapshots will have a lot of escaped `"` characters.
+否则快照中会出现大量转义的 `"` 字符。
 
-## Custom Snapshot Matchers <Experimental /> <Version>4.1.3</Version> {#custom-snapshot-matcher}
+### 自定义快照匹配器 <Experimental /> <Version>4.1.3</Version> {#custom-snapshot-matcher}
 
-Jest imports snapshot composables from `jest-snapshot`. In Vitest, use `Snapshots` from `vitest` instead:
+Jest 从 `jest-snapshot` 导入快照组合函数。在 Vitest 中，请改用 `vitest` 中的 `Snapshots`：
 
 ```ts
 const { toMatchSnapshot } = require('jest-snapshot') // [!code --]
@@ -173,7 +173,7 @@ expect.extend({
 })
 ```
 
-For inline snapshots, the same applies:
+对于内联快照，同样适用：
 
 ```ts
 const { toMatchInlineSnapshot } = require('jest-snapshot') // [!code --]
@@ -187,4 +187,4 @@ expect.extend({
 })
 ```
 
-See [Custom Snapshot Matchers](/guide/snapshot#custom-snapshot-matchers) for the full guide.
+完整指南请参阅 [自定义快照匹配器](/guide/snapshot#custom-snapshot-matchers)。
