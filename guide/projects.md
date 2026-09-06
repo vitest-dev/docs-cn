@@ -5,9 +5,7 @@ title: 测试项目 | 指南
 # 测试项目 {#test-projects}
 
 ::: tip 示例项目
-
 [GitHub](https://github.com/vitest-dev/vitest/tree/main/examples/projects) - [在线演示](https://stackblitz.com/fork/github/vitest-dev/vitest/tree/main/examples/projects?initialPath=__vitest__/)
-
 :::
 
 ::: warning
@@ -186,61 +184,75 @@ export default defineProject({
 然后使用包管理器运行测试：
 
 ::: code-group
+
 ```bash [npm]
 npm run test
 ```
+
 ```bash [yarn]
 yarn test
 ```
+
 ```bash [pnpm]
 pnpm run test
 ```
+
 ```bash [bun]
 bun run test
 ```
+
 :::
 
 如果只想运行某个单独项目中的测试，可以使用 `--project` CLI 选项：
 
 ::: code-group
+
 ```bash [npm]
 npm run test --project e2e
 ```
+
 ```bash [yarn]
 yarn test --project e2e
 ```
+
 ```bash [pnpm]
 pnpm run test --project e2e
 ```
+
 ```bash [bun]
 bun run test --project e2e
 ```
+
 :::
 
 ::: tip
 CLI 选项 `--project` 可以多次使用，以筛选多个项目：
 
 ::: code-group
+
 ```bash [npm]
 npm run test --project e2e --project unit
 ```
+
 ```bash [yarn]
 yarn test --project e2e --project unit
 ```
+
 ```bash [pnpm]
 pnpm run test --project e2e --project unit
 ```
+
 ```bash [bun]
 bun run test --project e2e --project unit
 ```
+
 :::
-<!-- TODO: translation -->
-The filter supports `*` wildcards and `!` exclusions. A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them:
+过滤器支持 `*` 通配符和 `!` 排除符。一个项目在不匹配任何否定模式的前提下，同时提供了正则模式，则还需至少匹配其中一个正则模式，才会运行：
 
 ```bash
-# run every project except "e2e"
+# 运行除 "e2e" 之外的所有项目
 vitest --project '!e2e'
-# run every project starting with "unit", except "unit (browser)"
+# 运行所有以 "unit" 开头的项目，但排除 "unit (browser)"
 vitest --project 'unit*' --project '!unit (browser)'
 ```
 
@@ -395,15 +407,17 @@ export default defineProject({
 
 请注意，只有配置文件可以定义嵌套项目，内联配置中不支持 `projects` 选项。
 
-## Debugging Project Resolution
+## 调试项目解析 {#debugging-project-resolution}
 
-If projects are not resolved the way you expect, run Vitest with the `DEBUG=vitest:projects` environment variable:
+如果项目的解析结果与预期不符，可以使用 `DEBUG=vitest:projects` 环境变量运行 Vitest：
 
 ```bash
 DEBUG=vitest:projects vitest
 ```
 
 Vitest will log how every project was resolved: which files a glob pattern matched, how browser instances and benchmark projects were expanded, why a project was dropped by the `--project` filter, and whether a project creates its own Vite server or [shares one](/config/sharedviteserver) with another project:
+
+Vitest 将记录每个项目是如何解析的：哪些文件匹配了 glob 模式、浏览器实例和基准测试项目是如何展开的、某个项目为何被 `--project` 过滤器排除，以及一个项目是创建自己的 Vite 服务器，还是与另一个项目 [共享服务器](/config/sharedviteserver)：
 
 ```
 vitest:projects resolving 3 project definitions declared by <root>/vitest.config.ts
