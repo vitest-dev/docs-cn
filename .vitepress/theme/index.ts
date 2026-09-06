@@ -3,14 +3,17 @@ import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import VitestTheme from '@voidzero-dev/vitepress-theme/src/vitest'
 import { inBrowser } from 'vitepress'
 import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
+import { Fragment, h } from 'vue'
 import Advanced from '../components/Advanced.vue'
 import CourseLink from '../components/CourseLink.vue'
 import CRoot from '../components/CRoot.vue'
 import Deprecated from '../components/Deprecated.vue'
 import Experimental from '../components/Experimental.vue'
+import OldDocument from '../components/OldDocument.vue'
 import Version from '../components/Version.vue'
 import './styles.css'
 import '@shikijs/vitepress-twoslash/style.css'
+
 import 'virtual:group-icons.css'
 
 if (inBrowser) {
@@ -51,6 +54,12 @@ function getRedirectPath(url: URL) {
 
 export default {
   extends: VitestTheme as unknown as any,
+  Layout() {
+    return h(Fragment, null, [
+      h(OldDocument),
+      h(VitestTheme.Layout),
+    ])
+  },
   enhanceApp({ app }) {
     app.component('Version', Version)
     app.component('CRoot', CRoot)
