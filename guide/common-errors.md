@@ -108,7 +108,6 @@ Vitest 遵循 Vite 的配置约定：
 在这些情况下，原生模块可能不是为多线程安全而构建的。在解决方案中，你可以切换到 `pool: 'forks'`，它在多个 `node:child_process` 而不是多个 `node:worker_threads` 中运行测试用例。
 
 ::: code-group
-
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -122,24 +121,27 @@ export default defineConfig({
 ```bash [CLI]
 vitest --pool=forks
 ```
-
 :::
-<!-- TODO: translation -->
-## Time Zone Does Not Change in Worker Threads
+
+## Worker 线程中的时区不会更改 {#time-zone-does-not-change-in-worker-threads}
 
 Setting `process.env.TZ` in a setup file or in a test, or setting `TZ` via [`env`](/config/env), has no effect on `Date` in `pool: 'threads'` and `pool: 'vmThreads'`. Node.js applies `TZ` only when the main thread sets it. A worker thread sees the new value on `process.env`, but keeps the time zone of the main process.
 
+在 setup 文件或测试中设置 `process.env.TZ`，或通过 [`env`](/config/env) 设置 `TZ`，都不会影响 `pool: 'threads'` 和 `pool: 'vmThreads'` 中的 `Date`。Node.js 仅在主线程设置 `TZ` 时应用该变量。工作线程可以在 `process.env` 中看到新值，但仍会使用主进程的时区。
+
 ```ts
 process.env.TZ = 'Asia/Tokyo'
-new Date('2026-01-01T00:00:00Z').getHours() // 9 in forks, unchanged in threads
+new Date('2026-01-01T00:00:00Z').getHours() // forks 中为 9，threads 中不变
 ```
 
 Set the time zone before workers start. Use the shell, the config file, or [`globalSetup`](/config/globalsetup); all of them run in the main process and work in every pool.
+请在工作线程启动前设置时区。可以使用 shell、配置文件或 [`globalSetup`](/config/globalsetup) 进行设置；这些方式均在主进程中执行，因此适用于所有 pool。
 
 ::: code-group
 ```bash [CLI]
 TZ=Asia/Tokyo vitest
 ```
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -147,6 +149,7 @@ process.env.TZ = 'Asia/Tokyo'
 
 export default defineConfig({})
 ```
+
 ```ts [globalSetup.js]
 export default function () {
   process.env.TZ = 'Asia/Tokyo'
@@ -154,7 +157,7 @@ export default function () {
 ```
 :::
 
-If tests need different time zones at runtime, use `pool: 'forks'` or `pool: 'vmForks'`, where each worker is a separate process, or pass the `timeZone` option to `Intl.DateTimeFormat` instead of changing `TZ`.
+如果测试需要在运行时使用不同的时区，请使用 `pool: 'forks'` 或 `pool: 'vmForks'`，这两种 pool 中的每个工作线程都是独立进程；或者向 `Intl.DateTimeFormat` 传递 `timeZone` 选项，而不是修改 `TZ`。
 
 ## 未处理的 Promise 拒绝 {#unhandled-promise-rejection}
 
@@ -251,18 +254,17 @@ export default defineConfig({
   },
 })
 ```
-<!-- TODO: translation -->
-## CommonJS source code is not fully supported
 
-Vitest is ESM-first. By default, source files run in Vite's [module runner](/config/experimental#experimental-vitemodulerunner), which provides CommonJS variables such as `require`, `module`, and `exports` for compatibility but does not reproduce Node.js CommonJS semantics completely.
+## 不完全受支持 CommonJS 源码 {#commonjs-source-code-is-not-fully-supported}
 
-Calls to `require()` always use Node.js directly and leave the module runner. As a result:
+Vitest 优先使用 ESM。默认情况下，源文件会在 Vite 的 [模块运行器](/config/experimental#experimental-vitemodulerunner) 中运行。该运行器为兼容性提供了 `require`、`module` 和 `exports` 等 CommonJS 变量，但无法完全复现 Node.js 的 CommonJS 语义。
 
-- Vite plugins, aliases, transforms, and module mocks do not apply to required files
-- requiring TypeScript or other files that Node.js cannot execute is not supported
-- importing and requiring the same file can evaluate it twice, which can break singleton state, object identity, or `instanceof` checks
+调用 `require()` 始终会直接使用 Node.js，并脱离模块运行器。因此：
 
-If your project uses CommonJS and doesn't need Vite transforms, set [`experimental.viteModuleRunner`](/config/experimental#experimental-vitemodulerunner) to `false` so the whole module graph is loaded by the native runtime:
+- 不支持通过 `require` 加载 TypeScript 或其他 Node.js 无法执行的文件
+- 导入并通过 `require` 加载同一个文件可能会导致其被执行两次，从而破坏单例状态、对象标识或 instanceof 检查
+
+如果项目使用 CommonJS 且不需要 Vite 转换，请将 [`experimental.viteModuleRunner`](/config/experimental#experimental-vitemodulerunner) 设置为 `false`，让整个模块图由原生运行时加载：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -276,7 +278,7 @@ export default defineConfig({
 })
 ```
 
-If the application uses ESM source but imports a CommonJS package from the same monorepo, you can instead use [`server.deps.external`](/config/server#server-deps-external) to externalize the complete CommonJS package. This keeps its entry points and internal `require()` calls in the same native module cache. For example:
+如果应用使用 ESM 源代码，但从同一 monorepo 导入 CommonJS 包，则可以改用 [`server.deps.external`](/config/server#server-deps-external) 将整个 CommonJS 包外部化。这样可以让其入口点和内部的 `require()` 调用使用同一个原生模块缓存。例如：
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'

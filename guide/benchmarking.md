@@ -36,7 +36,7 @@ test('parsing performance', async ({ bench }) => {
 
 未设置 [`benchmark.enabled`](/config/benchmark#benchmark-enabled) 时，`vitest` 命令只运行常规测试，完全忽略基准测试文件。这是默认行为，也适合日常开发，因为基准测试速度较慢且结果有噪声，不应在每次保存时运行。
 
-### 启用 `benchmark.enabled` 的 `vitest {#vitest-with-benchmark-enabled}
+### 启用 `benchmark.enabled` 的 `vitest` {#vitest-with-benchmark-enabled}
 
 在配置文件中设置 `benchmark.enabled: true`，可以让基准测试与常规测试一起运行：
 
