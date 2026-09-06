@@ -930,7 +930,7 @@ export default ({ mode }: { mode: string }) => {
                 link: '/guide/testing-types',
               },
               {
-                text: 'Benchmarking',
+                text: '基准测试',
                 link: '/guide/benchmarking',
               },
               {

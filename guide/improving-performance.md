@@ -3,29 +3,29 @@ title: 性能优化 | 指南
 ---
 
 # 性能优化 {#improving-performance}
-<!-- TODO: translation -->
-## Profile First
 
-The `Duration` line of the summary breaks the run down into phases, as percentages of all tracked time:
+## 性能剖析 {#profile-first}
+
+摘要中的 `Duration` 行会将本次运行分解为多个阶段，并显示各阶段占所有已跟踪时间的百分比：
 
 ```
 Duration  3.76s (environment 79%, import 13%, transform 6%, tests 1%, setup 1%)
 ```
 
-The percentages are relative to the sum of all tracked phases, not to the wall-clock time: phases run in parallel workers, so their sum is usually larger than the run itself. In a multi-project setup the percentages aggregate over all [projects](/guide/projects), so a phase that dominates one project can be diluted by the others; the performance hints below analyze each project separately.
+这些百分比是相对于所有已跟踪阶段的总和，而不是实际经过时间：各阶段会在并行 worker 中运行，因此它们的总和通常会大于整个运行时长。在多项目配置中，百分比会汇总所有 [项目](/guide/projects) 的数据，因此某个项目中占主导地位的阶段可能会被其他项目稀释；下面的性能提示会分别分析每个项目。
 
-The phases map to configuration options:
+这些阶段对应以下配置选项：
 
-- `environment` - creating the test environment (for example `jsdom`, `happy-dom`) for test files. See [Test Environments](#test-environments).
-- `transform` - waiting for Vite to resolve and transform imported modules. See [Caching Between Reruns](#caching-between-reruns).
-- `import` - evaluating test files and their modules, excluding the transform wait tracked above. When files import mostly the same modules (typical for barrel-file imports), isolation re-evaluates that shared graph for every file. See [Test Isolation](#test-isolation).
-- `setup` - running [`setupFiles`](/config/setupfiles).
-- `worker` - preparing the test runner in each worker. Isolation pays this cost for every test file. See [Test Isolation](#test-isolation).
-- `tests` - running the tests themselves. A run dominated by this phase has little to gain from configuration changes.
+- `environment` - 为测试文件创建测试环境（例如 `jsdom`、`happy-dom`）。参见 [测试环境](#test-environments)。
+- `transform` - 等待 Vite 解析并转换导入的模块。参见 [重新运行间的缓存机制](#caching-between-reruns)。
+- `import` - 评估测试文件及其模块，不包括上文统计的转换等待时间。当文件主要导入相同的模块时（barrel 文件导入的典型情况），隔离机制会为每个文件重新评估这张共享依赖图。参见 [测试隔离](#test-isolation)。
+- `setup` - 运行 [`setupFiles`](/config/setupfiles)。
+- `worker` - 在每个 worker 中准备测试运行器。启用隔离时，每个测试文件都会产生这项开销。参见 [测试隔离](#test-isolation)。
+- `tests` - 实际运行测试。如果运行时间主要消耗在此阶段，修改配置几乎不会带来收益。
 
-When the collected timings show that a configuration change would make the run significantly faster, Vitest also prints a hint after the summary, see [`experimental.diagnostics`](/config/experimental#experimental-diagnostics). Hints never suggest changing an option that was set explicitly.
+如果收集到的计时结果表明调整配置可以显著缩短运行时间，Vitest 会在摘要后打印一条提示（参见 [`experimental.diagnostics`](/config/experimental#experimental-diagnostics)）。提示不会建议修改已经明确设置的选项。
 
-[`vitest doctor`](/guide/cli#vitest-doctor) measures the alternative configurations instead of estimating them: it runs the suite under each candidate and reports the comparison, including whether the tests pass with `isolate: false`.
+[`vitest doctor`](/guide/cli#vitest-doctor) 不会估算候选配置的效果，而是逐一使用这些配置运行测试套件并报告对比结果，其中也包括测试能否在 `isolate: false` 下通过。
 
 ## 测试隔离 {#test-isolation}
 
@@ -38,7 +38,6 @@ When the collected timings show that a configuration change would make the run s
 对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 参数，或者在配置文件中将 [`test.isolate`](/config/isolate) 属性设置为 `false`。
 
 ::: code-group
-
 ```bash [CLI]
 vitest --no-isolate
 ```
@@ -52,7 +51,6 @@ export default defineConfig({
   },
 })
 ```
-
 :::
 
 你也可以仅通过 `projects` 为特定文件禁用隔离：
@@ -82,14 +80,13 @@ export default defineConfig({
 })
 ```
 
-:::tip
+::: tip
 如果使用的是 `vmThreads` 池，则不能禁用隔离。请改用 `threads` 池来提高测试性能。
 :::
 
 对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 参数，或将 config 中的 [`test.fileParallelism`](/config/fileparallelism) 属性设置为 `false`。
 
 ::: code-group
-
 ```bash [CLI]
 vitest --no-file-parallelism
 ```
@@ -103,20 +100,19 @@ export default defineConfig({
   },
 })
 ```
-
 :::
-<!-- TODO: translation -->
-## Test Environments
 
-DOM environments are expensive to create: `jsdom` costs roughly 200-500ms per import and `happy-dom` roughly 90-200ms, plus the time to construct the window. With an isolating pool (the default), that cost is paid for every test file, because every file gets a fresh worker. On DOM-heavy suites this is often the largest cost of the run; it appears as the `environment` share of the `Duration` breakdown.
+## 测试环境 {#test-environments}
 
-Three configurations reduce this cost:
+DOM 环境的创建成本很高：每次导入 `jsdom` 大约需要 200-500 毫秒，`happy-dom` 大约需要 90-200 毫秒，此外还要加上构造 window 的时间。使用隔离池（默认设置）时，每个测试文件都会产生这笔开销，因为每个文件都会获得一个全新的 worker。对于大量使用 DOM 的测试套件，这通常是运行耗时中占比最大的部分；它会显示在 `Duration` 分解中的 `environment` 部分。
 
-| configuration | environment created | isolation | trade-off |
-|---|---|---|---|
-| `pool: 'forks'`/`'threads'` + `isolate: true` (default) | once per file | fresh process/thread and environment per file | safest, slowest |
-| `pool: 'vmThreads'` | once per worker | fresh VM context and `window` per file | test code runs in a VM realm: cross-realm `instanceof` edge cases with externalized packages, and memory is not reclaimed as reliably (see [`vmMemoryLimit`](/config/vmmemorylimit)) |
-| `isolate: false` | once per worker | none - files in the same worker share the environment and module state | tests must not depend on a clean `window` or module state; run `vitest doctor` to check |
+以下三种配置可以降低这项成本：
+
+| 配置                                                  | 环境创建频率     | 隔离方式                                        | 权衡                                                                                                                                                 |
+| ----------------------------------------------------- | ---------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pool: 'forks'`/`'threads'` + `isolate: true`（默认） | 每个文件一次     | 每个文件使用全新的进程/线程和环境               | 最安全，但速度最慢                                                                                                                                   |
+| `pool: 'vmThreads'`                                   | 每个 worker 一次 | 每个文件使用全新的 VM 上下文和 `window`         | 测试代码在 VM realm 中运行：外部化包可能出现跨 realm 的 `instanceof` 边界问题，而且内存回收不够可靠（参见 [`vmMemoryLimit`](/config/vmmemorylimit)） |
+| `isolate: false`                                      | 每个 worker 一次 | 无隔离 - 同一 worker 中的文件共享环境和模块状态 | 测试不能依赖干净的 `window` 或模块状态；运行 `vitest doctor` 进行检查                                                                                |
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -124,12 +120,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     environment: 'jsdom',
-    pool: 'vmThreads', // environment per worker, fresh window per file
+    pool: 'vmThreads', // 每个 worker 一个环境，每个文件使用全新的 window
   },
 })
 ```
 
-Prefer `isolate: false` with `threads` if the tests tolerate shared state: it is the fastest option and keeps memory behavior simple. Use `vmThreads` when every file needs a fresh `window` and the per-file environment cost dominates the run. `happy-dom` is cheaper to create than `jsdom` in every setup.
+如果测试能够容忍共享状态，优先在 `threads` 中使用 `isolate: false`：这是最快的选项，而且内存行为更简单。当每个文件都需要全新的 `window`，并且每个文件的环境创建成本占据主要运行时间时，使用 `vmThreads`。在所有配置下，初始化 `happy-dom` 的成本都低于 `jsdom`。
 
 ## 限制搜索目录 {#limiting-directory-search}
 
@@ -151,7 +147,7 @@ Duration  5.90s (tests 44%, import 35%, transform 13%, setup 8%)
 
 ## Node 编译缓存 {#node-compile-cache}
 
-Vitest 支持 Node 的[磁盘编译缓存](https://nodejs.org/api/cli.html#node_compile_cachedir)。将 `NODE_COMPILE_CACHE` 环境变量设置为一个目录后，Vitest 自身模块和外部化依赖项的 V8 字节码会写入磁盘，后续运行时可以直接复用，无须重新编译。Vitest 会将该环境变量传递给每个 worker；worker 关闭时，会把它所编译的模块持久化到磁盘。
+Vitest 支持 Node 的 [磁盘编译缓存](https://nodejs.org/api/cli.html#node_compile_cachedir)。将 `NODE_COMPILE_CACHE` 环境变量设置为一个目录后，Vitest 自身模块和外部化依赖项的 V8 字节码会写入磁盘，后续运行时可以直接复用，无须重新编译。Vitest 会将该环境变量传递给每个 worker；worker 关闭时，会把它所编译的模块持久化到磁盘。
 
 ```shell
 NODE_COMPILE_CACHE=node_modules/.cache/node-compile-cache vitest
@@ -168,7 +164,6 @@ NODE_COMPILE_CACHE=node_modules/.cache/node-compile-cache vitest
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 
 ::: code-group
-
 ```bash [CLI]
 vitest --pool=threads
 ```
@@ -182,7 +177,6 @@ export default defineConfig({
   },
 })
 ```
-
 :::
 
 ## 分片 {#sharding}
@@ -285,7 +279,7 @@ jobs:
 如果你的测试会创建基于文件的附件（例如通过 `context.annotate` 或自定义测试产物），请在合并任务中按上文所示上传并还原 [`attachmentsDir`](/config/attachmentsdir)。
 :::
 
-:::tip
+::: tip
 测试分片在多核心 CPU 机器上也很有用。
 
 Vitest 将只在其主线程中运行一个 Vite 服务器。其余的线程用于运行测试文件。
@@ -305,5 +299,4 @@ wait # https://man7.org/linux/man-pages/man2/waitpid.2.html
 
 vitest run --merge-reports
 ```
-
 :::

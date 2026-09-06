@@ -796,7 +796,7 @@ Use TypeScript build mode
 
 - **命令行终端:** `-p, --project <name>`
 
-如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目。A project runs if it matches no negated pattern and, when regular patterns are also given, matches at least one of them.
+如果我们正在使用 Vitest 的工作区功能，这是要运行的项目名称。这个参数可以重复以指定多个项目：`--project=1 --project=2`。我们还可以使用通配符来过滤项目，例如 `--project=packages*`，以及使用 `--project=!pattern` 来排除项目。一个项目在不匹配任何否定模式的前提下，同时提供了正则模式，则还需至少匹配其中一个正则模式，才会运行。
 
 ### slowTestThreshold
 
@@ -929,13 +929,13 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 - **配置:** [strictTags](/config/stricttags)
 
 如果测试包含未在配置中定义的标签，Vitest 是否应抛出错误。（默认值：`true`）
-<!-- TODO: translation -->
+
 ### sharedViteServer
 
-- **CLI:** `--sharedViteServer`
-- **Config:** [sharedViteServer](/config/sharedviteserver)
+- **命令行终端:** `--sharedViteServer`
+- **配置:** [sharedViteServer](/config/sharedviteserver)
 
-Let inline projects that don't modify the Vite config reuse the Vite server of the config that declares them. (default: `true`)
+让不修改 Vite 配置的内联项目复用声明它们的配置所对应的 Vite 服务器。（默认值：`true`）
 
 ### experimental.importDurations.print
 
@@ -999,31 +999,31 @@ Let inline projects that don't modify the Vite config reuse the Vite server of t
 - **配置:** [experimental.preParse](/config/experimental#experimental-preparse)
 
 在运行测试前解析 TestSpecification。此选项将应用 `.only` 标记和测试名称模式至所有文件而不实际执行它们（默认值：`false`）。
-<!-- TODO: translation -->
+
 ### experimental.diagnostics.isolate
 
-- **CLI:** `--experimental.diagnostics.isolate`
-- **Config:** [experimental.diagnostics.isolate](/config/experimental#experimental-diagnostics-isolate)
+- **命令行终端:** `--experimental.diagnostics.isolate`
+- **配置:** [experimental.diagnostics.isolate](/config/experimental#experimental-diagnostics-isolate)
 
-Print a hint estimating how much time `isolate: false` would save when `isolate: true` spends a significant amount of time spawning a worker per test file. (default: `true`)
+当 `isolate: true` 在每个测试文件上创建工作线程花费大量时间时，打印一条提示，估算 `isolate: false` 可以节省多少时间。（默认值：`true`）
 
 ### experimental.diagnostics.environment
 
-- **CLI:** `--experimental.diagnostics.environment`
-- **Config:** [experimental.diagnostics.environment](/config/experimental#experimental-diagnostics-environment)
+- **命令行终端:** `--experimental.diagnostics.environment`
+- **配置:** [experimental.diagnostics.environment](/config/experimental#experimental-diagnostics-environment)
 
-Print a hint when re-creating a DOM environment for every test file dominates the run and a `vm` pool would set it up once per worker. (default: `true`)
+在每次测试文件重新创建 DOM 环境占据运行时间绝大部分时，提示使用 `vm` 池可以在每个工作线程中只创建一次。（默认值：`true`）
 
 ### experimental.diagnostics.import
 
-- **CLI:** `--experimental.diagnostics.import`
-- **Config:** [experimental.diagnostics.import](/config/experimental#experimental-diagnostics-import)
+- **命令行终端:** `--experimental.diagnostics.import`
+- **配置:** [experimental.diagnostics.import](/config/experimental#experimental-diagnostics-import)
 
-Print a hint when test files repeatedly evaluate the same module graph (typical for barrel-file imports) and `isolate: false` would evaluate it once per worker. (default: `true`)
+当测试文件重复评估同一个模块图（典型的如桶文件导入）时，打印一条提示，说明 `isolate: false` 可以在每个工作线程中只评估一次。（默认值：`true`）
 
 ### experimental.diagnostics.transform
 
-- **CLI:** `--experimental.diagnostics.transform`
-- **Config:** [experimental.diagnostics.transform](/config/experimental#experimental-diagnostics-transform)
+- **命令行终端:** `--experimental.diagnostics.transform`
+- **配置:** [experimental.diagnostics.transform](/config/experimental#experimental-diagnostics-transform)
 
-Print a hint when transforming modules dominates the run and `fsModuleCache` would persist the results across runs. (default: `true`)
+当模块转换占据运行时间主导地位时，打印一条提示，说明 `fsModuleCache` 可以在多次运行之间持久化缓存结果。（默认值：`true`）

@@ -730,12 +730,12 @@ export default defineConfig({
 })
 ```
 
-GitHub Actions 报告器会自动生成一个 [作业摘要](https://github.blog/news-insights/product-news/supercharging-github-actions-with-job-summaries/)，其中包含你的测试结果概览。该摘要包括测试文件和测试用例的统计数据，并突出显示需要重试的测试。
+GitHub Actions 报告器会自动生成一个 [任务摘要](https://github.blog/news-insights/product-news/supercharging-github-actions-with-job-summaries/)，其中包含你的测试结果概览。该摘要包括测试文件和测试用例的统计数据，并突出显示需要重试的测试。
 
-<img alt="GitHub Actions 作业摘要" img-dark src="/github-actions-job-summary-dark.png">
-<img alt="GitHub Actions 作业摘要" img-light src="/github-actions-job-summary-light.png">
+<img alt="GitHub Actions 任务摘要" img-dark src="/github-actions-job-summary-dark.png">
+<img alt="GitHub Actions 任务摘要" img-light src="/github-actions-job-summary-light.png">
 
-作业摘要默认启用，并写入 `$GITHUB_STEP_SUMMARY` 指定的路径。你可以使用 `jobSummary.outputPath` 选项来覆盖它：
+任务摘要默认启用，并写入 `$GITHUB_STEP_SUMMARY` 指定的路径。你可以使用 `jobSummary.outputPath` 选项来覆盖它：
 
 ```ts
 export default defineConfig({
@@ -751,7 +751,7 @@ export default defineConfig({
 })
 ```
 
-要禁用作业摘要：
+要禁用任务摘要：
 
 ```ts
 export default defineConfig({
@@ -762,10 +762,10 @@ export default defineConfig({
   },
 })
 ```
-<!-- TODO: translation -->
-The job summary title defaults to `Vitest Test Report` or `(${test.name}) Vitest Test Report` when [`test.name` is set](/config/name).
 
-You can customize the title by setting `jobSummary.title` to distinguish multiple Vitest invocations that append to the same job summary. Please note that `test.name` will not be displayed when using a custom title.
+当设置了 [`test.name`](/config/name) 时，任务摘要标题默认为 `Vitest Test Report` 或 `(${test.name}) Vitest Test Report`。
+
+你可以通过设置 `jobSummary.title` 来自定义标题，以区分追加到同一任务摘要的多个 Vitest 调用。请注意，使用自定义标题时，`test.name` 将不再显示。
 
 ```ts
 export default defineConfig({
