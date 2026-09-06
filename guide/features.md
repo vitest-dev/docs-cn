@@ -44,7 +44,7 @@ Vitest 还隔离了每个测试文件的运行环境，因此一个文件中的�
 
 Vitest 提供了许多缩小测试范围的方法，以便在开发过程中加快速度并集中精力。
 
-了解更多信息 [测试筛选](guide/filtering)
+了解更多信息 [测试筛选](/guide/filtering)。
 
 ## 同时运行多个测试 {#running-tests-concurrently}
 

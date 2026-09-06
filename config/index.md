@@ -60,14 +60,6 @@ export default defineConfig({
 
 当定义时，Vitest 将运行所有包含 `import.meta.vitest` 的匹配文件。
 
-### name
-
-- **类型：** `string | { label: string, color?: LabelColor }`
-
-你可以为测试项目或 Vitest 进程指定一个自定义名称，这个名称会在命令行界面（CLI）和用户界面（UI）中显示，同时也能通过 Node.js API 中的 [`project.name`](/advanced/api/test-project#name) 获取。
-
-此外，如果你提供一个包含 color 属性的对象，还可以自定义 CLI 和 UI 中显示名称的颜色。
-
 ### server {#server}
 
 - **类型:** `{ sourcemap?, deps?, ... }`
@@ -2399,7 +2391,7 @@ export default defineConfig({
 - **命令行终端:** `--workspace=./file.js`
 - **默认值:** 配置文件或根目录附近的 `vitest.{workspace,projects}.{js,ts,json}`
 
-相对于 [root](#root) 的 [workspace](/guide/projects) 配置文件的路径。
+相对于 [root](#root) 的 [workspace](/guide/workspace) 配置文件的路径。
 
 ### isolate
 
