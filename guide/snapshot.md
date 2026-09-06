@@ -93,9 +93,9 @@ vitest -u
 
 ## 文件快照 {#file-snapshots}
 
-调用 `toMatchSnapshot()` 时，我们将所有快照存储在格式化的快照文件中。这意味着我们需要转义快照字符串中的一些字符（即双引号 `"` 和反引号 `` ` ``）。同时，你可能会丢失快照内容的语法突出显示（如果它们是某种语言）。
+调用 `toMatchSnapshot()` 时，我们会将所有快照存储在一个经过格式化的 snap 文件中。这意味着需要对快照字符串中的某些字符（即双引号 `"` 和反引号 `` ` ``）进行转义。同时，如果快照内容使用某种语言编写，你可能会失去相应的语法高亮。
 
-为了改善这种情况，我们引入 [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot) 以在文件中显式快照。这允许你为快照文件分配任何文件扩展名，并使它们更具可读性。
+鉴于这种情况，我们引入了 [`toMatchFileSnapshot()`](/api/expect#tomatchfilesnapshot)，用于直接与文件进行匹配。这样，你可以为快照文件指定任意扩展名，也能让快照内容更易读。
 
 ```ts
 import { expect, it } from 'vitest'
@@ -107,9 +107,9 @@ it('render basic', async () => {
 ```
 
 它将与 `./test/basic.output.html` 的内容进行比较。并且可以用 `--update` 参数写回。
-<!-- TODO: translation -->
+
 ::: warning
-Do not use a snapshot path managed by Vitest, such as `__snapshots__/basic.test.ts.snap`, with `toMatchFileSnapshot`. Choose a separate file path pattern for file snapshots.
+不要在 `toMatchFileSnapshot` 中使用由 Vitest 管理的快照路径，例如 `__snapshots__/basic.test.ts.snap`。请为文件快照使用独立的文件路径规则，避免与 Vitest 的普通快照文件混用。
 :::
 
 ## 图像快照 {#visual-snapshots}
@@ -197,7 +197,7 @@ export default {
   test(val) {
     return val && Object.prototype.hasOwnProperty.call(val, 'foo')
   },
-} satisfies SnapshotSerializ:er
+} satisfies SnapshotSerializer
 ```
 
 ```ts [vitest.config.ts]
@@ -312,7 +312,6 @@ expect.extend({
   },
 })
 ```
-
 :::
 
 对于 TypeScript，需扩展 `Matchers<R, T>` 接口：
@@ -369,8 +368,7 @@ const myAdapter: DomainSnapshotAdapter<Captured, Expected> = {
 
 - **`expected`** — 将存储的模板重新渲染为字符串。用作差异对比的期望一侧。如果省略，则回退到快照文件或内联快照中的原始快照字符串。
 
-:::details 为什么 `Captured` 和 `Expected` 是单独的类型？
-
+::: details 为什么 `Captured` 和 `Expected` 是单独的类型？
 首次生成快照时，`render(captured)` 会生成一个纯字符串并存储起来。但一旦存储后，用户可以 **手动编辑** 它。用正则表达式模式替换字面值、放宽断言或添加特定领域的查询语法。编辑后，`parseExpected(input)` 将这个修改后的字符串解析成一种比 `capture` 生成的类型 _更丰富_ 的类型。
 
 例如，在下面的 [键值适配器](#example-key-value-adapter) 中，`Captured` 值始终是 `string`，但 `Expected` 值可以是 `string | RegExp`：
@@ -381,7 +379,6 @@ type KVExpected = Record<string, string | RegExp>
 ```
 
 这种不对称性正是 `--update` 能正确工作的原因：`match` 返回一个 `resolved` 字符串，它在更新变化的字面部分的同时 **保留** 了用户手动编辑的模式。如果双方是同一类型，就无法区分 “值的实际内容” 和 “用户选择断言的内容”，每次更新都会覆盖用户的匹配模式。
-
 :::
 
 ### 从适配器构建匹配器 {#build-a-matcher-from-the-adapte}
