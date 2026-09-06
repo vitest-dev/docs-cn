@@ -172,7 +172,7 @@ vi.stubGlobal('IntersectionObserver', IntersectionObserverMock)
 
 ### 虚拟模块 {#virtual-modules}
 
-Vitest 支持模拟 Vite [虚拟模块](/guide/api-plugin#virtual-modules-convention)。它的工作方式与 Jest 中处理虚拟模块的方式不同。我们不需要将 `virtual: true` 传递给 `vi.mock` 函数，而是需要告诉 Vite 模块存在，否则它将在解析过程中失败。有几种方法可以做到这一点：
+Vitest 支持模拟 Vite [虚拟模块](https://cn.vitejs.dev/guide/api-plugin.html#virtual-modules-convention)。它的工作方式与 Jest 中处理虚拟模块的方式不同。我们不需要将 `virtual: true` 传递给 `vi.mock` 函数，而是需要告诉 Vite 模块存在，否则它将在解析过程中失败。有几种方法可以做到这一点：
 
 1. 提供别名
 
@@ -441,7 +441,7 @@ Mock Service Worker (MSW) 的工作原理是拦截测试请求，让我们可以
 ```js
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
-import { HttpResponse, graphql, http } from 'msw'
+import { graphql, http, HttpResponse } from 'msw'
 
 const posts = [
   {

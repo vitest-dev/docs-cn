@@ -7,7 +7,7 @@ outline: [2, 3]
 
 定位器是表示一个或多个元素的方式。每个定位器都由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
-定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/guide/browser/config.html#browser-provider)。
+定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/guide/browser/#provider-configuration)。
 
 ## getByRole
 
@@ -364,7 +364,7 @@ page.getByTitle('Create') // ❌
 function getByTestId(text: string | RegExp): Locator
 ```
 
-创建一个能够找到与指定测试 ID 属性匹配的元素的定位器。你可以通过 [`browser.locators.testIdAttribute`](/guide/browser/config#browser-locators-testidattribute) 配置属性名称。
+创建一个能够找到与指定测试 ID 属性匹配的元素的定位器。你可以通过 [`browser.locators.testIdAttribute`](/config/#browser-locators-testidattribute) 配置属性名称。
 
 ```tsx
 <div data-testid="custom-element" />
@@ -570,7 +570,7 @@ function screenshot(options?: LocatorScreenshotOptions & { base64?: false }): Pr
 
 创建与定位器选择器匹配的元素的屏幕截图。
 
-你可以使用 `path` 选项指定屏幕截图的保存位置，该选项相对于当前测试文件。如果未设置 `path` 选项，Vitest 将默认使用 [`browser.screenshotDirectory`](/guide/browser/config#browser-screenshotdirectory)（默认为 `__screenshot__`），并结合文件名和测试名来确定屏幕截图的文件路径。
+你可以使用 `path` 选项指定屏幕截图的保存位置，该选项相对于当前测试文件。如果未设置 `path` 选项，Vitest 将默认使用 [`browser.screenshotDirectory`](/config/#browser-screenshotdirectory)（默认为 `__screenshot__`），并结合文件名和测试名来确定屏幕截图的文件路径。
 
 如果你还需要屏幕截图的内容，可以指定 `base64: true` 以返回屏幕截图的 base64 编码内容以及保存路径。
 
