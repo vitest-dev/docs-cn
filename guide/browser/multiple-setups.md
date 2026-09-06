@@ -74,7 +74,7 @@ test('ratio works', () => {
 ```
 :::
 
-在这个例子中，Vitest 将在 `chromium` 浏览器中运行所有测试，但仅在第一个配置中执行 `'./ratio-setup.ts'` 文件，并根据 [`provide` 字段](/config/#provide) 注入不同的 `ratio` 值。
+在这个例子中，Vitest 将在 `chromium` 浏览器中运行所有测试，但仅在第一个配置中执行 `'./ratio-setup.ts'` 文件，并根据 [`provide` 字段](/config/provide) 注入不同的 `ratio` 值。
 
 ::: warning
 请注意，如果你使用相同的浏览器名称，则需要定义自定义的 `name` 值，因为否则 Vitest 会将 `browser` 作为项目名称。
@@ -82,7 +82,7 @@ test('ratio works', () => {
 
 ## 过滤 {#filtering}
 
-你可以使用 [`--project` 标志](/guide/cli#project) 来过滤要运行的项目。如果未手动分配项目名称，Vitest 会自动将浏览器名称作为项目名称。如果根配置已经有一个名称，Vitest 会将它们合并：`custom` -> `custom (browser)`。
+你可以使用 [`--project` 参数](/guide/cli#project) 来过滤要运行的项目。如果未手动分配项目名称，Vitest 会自动将浏览器名称作为项目名称。如果顶级配置已经有一个名称，Vitest 会将它们合并：`custom` -> `custom (browser)`。
 
 ```shell
 $ vitest --project=chromium

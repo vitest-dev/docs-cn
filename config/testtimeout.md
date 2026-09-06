@@ -1,5 +1,5 @@
 ---
-title: testTimeout | Config
+title: testTimeout | 配置
 outline: deep
 ---
 

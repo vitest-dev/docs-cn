@@ -1,10 +1,10 @@
 ---
-title: reporters | Config
+title: reporters | 配置
 ---
 
 # reporters <CRoot />
 
-- **Type:**
+- **类型:**
 
 ```ts
 interface UserConfig {
@@ -14,22 +14,22 @@ interface UserConfig {
 type ConfigReporter = string | Reporter | [string, object?]
 ```
 
-- **Default:** [`'default'`](/guide/reporters#default-reporter)
-- **CLI:**
-  - `--reporter=tap` for a single reporter
-  - `--reporter=verbose --reporter=github-actions` for multiple reporters
+- **默认值:** [`'default'`](/guide/reporters#default-reporter)。环境特定行为请参阅 [默认报告器](/guide/reporters#default-reporters)。
+- **命令行终端:**
+  - 单报告器 `--reporter=tap`
+  - 多报告器 `--reporter=verbose --reporter=github-actions`
 
-This option defines a single reporter or a list of reporters available to Vitest during the test run.
+此选项定义在 Vitest 测试运行期间可用的单个报告器或报告器列表。
 
-Alongside built-in reporters, you can also pass down a custom implementation of a [`Reporter` interface](/api/advanced/reporters), or a path to a module that exports it as a default export (e.g. `'./path/to/reporter.ts'`, `'@scope/reporter'`).
+除了内置报告器，你也可以传入 [`Reporter` 接口](/api/advanced/reporters) 的自定义实现，或指向导出该接口默认导出的模块路径（例如：`'./path/to/reporter.ts'`, `'@scope/reporter'`）。
 
-You can configure a reporter by providing a tuple: `[string, object]`, where the string is a reporter name, and the object is the reporter's options.
+你可以通过提供一个元组来配置报告器：`[string, object]`，其中字符串是报告器名称，对象是报告器配置选项。
 
 ::: warning
-Note that the [coverage](/guide/coverage) feature uses a different [`coverage.reporter`](/config/coverage#reporter) option instead of this one.
+注意 [coverage](/guide/coverage) 功能使用了不同的 [`coverage.reporter`](/config/coverage#reporter) 选项。
 :::
 
-## Built-in Reporters
+## 内置报告器 {#built-in-reporters}
 
 - [`default`](/guide/reporters#default-reporter)
 - [`verbose`](/guide/reporters#verbose-reporter)
@@ -42,22 +42,23 @@ Note that the [coverage](/guide/coverage) feature uses a different [`coverage.re
 - [`tap-flat`](/guide/reporters#tap-flat-reporter)
 - [`hanging-process`](/guide/reporters#hanging-process-reporter)
 - [`github-actions`](/guide/reporters#github-actions-reporter)
+- [`minimal`](/guide/reporters#minimal-reporter) (aliased as `agent`)
 - [`blob`](/guide/reporters#blob-reporter)
 
-## Example
+## 示例 {#example}
 
 ::: code-group
 ```js [vitest.config.js]
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     reporters: [
-      'default',
-      // conditional reporter
-      process.env.CI ? 'github-actions' : {},
-      // custom reporter from npm package
-      // options are passed down as a tuple
+      ...configDefaults.reporters,
+      // 条件报告器
+      ...(process.env.CI ? ['html'] : []),
+      // 来自 npm 包的自定义报告器
+      // 选项将以元组形式向下传递
       [
         'vitest-sonar-reporter',
         { outputFile: 'sonar-report.xml' }

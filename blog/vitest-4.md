@@ -39,7 +39,7 @@ Quick links:
 
 - [Docs](/)
 - Translations: [简体中文](https://cn.vitest.dev/)
-- [Migration Guide](/guide/migration#vitest-4)
+- [Migration Guide](https://v4.vitest.dev/guide/migration)
 - [GitHub Changelog](https://github.com/vitest-dev/vitest/releases/tag/v4.0.0)
 
 If you've not used Vitest before, we suggest reading the [Getting Started](/guide/) and [Features](/guide/features) guides first.
@@ -56,7 +56,7 @@ To stay updated, keep an eye on the [VoidZero blog](https://voidzero.dev/blog) a
 
 With this release we are removing the `experimental` tag from [Browser Mode](/guide/browser/). To make it possible, we had to introduce some changes to the public API.
 
-To define a provider, you now need to install a separate package: [`@vitest/browser-playwright`](https://www.npmjs.com/package/@vitest/browser-playwright), [`@vitest/browser-webdriverio`](https://www.npmjs.com/package/@vitest/browser-webdriverio), or [`@vitest/browser-preview`](https://www.npmjs.com/package/@vitest/browser-preview). This makes it simpler to work with custom options and doesn't require adding `/// <reference` comments anymore.
+To define a provider, you now need to install a separate package: [`@vitest/browser-playwright`](https://npmx.dev/package/@vitest/browser-playwright), [`@vitest/browser-webdriverio`](https://npmx.dev/package/@vitest/browser-webdriverio), or [`@vitest/browser-preview`](https://npmx.dev/package/@vitest/browser-preview). This makes it simpler to work with custom options and doesn't require adding `/// <reference` comments anymore.
 
 ::: code-group
 ```ts [playwright]
@@ -260,7 +260,7 @@ expect(animal.bark()).toBeUndefined()
 
 Vitest 4 introduces a new asymmetric matcher called `expect.schemaMatching`. It accepts a [Standard Schema v1](https://standardschema.dev/) object and validates values against it, passing the assertion when the value conforms to the schema.
 
-As a reminder, asymmetric matchers can be used in all `expect` matchers that check equality, including `toEqual`, `toStrictEqual`, `toMatchObject`, `toContainEqual`, `toThrowError`, `toHaveBeenCalledWith`, `toHaveReturnedWith` and `toHaveBeenResolvedWith`.
+As a reminder, asymmetric matchers can be used in all `expect` matchers that check equality, including `toEqual`, `toStrictEqual`, `toMatchObject`, `toContainEqual`, `toThrow`, `toHaveBeenCalledWith`, `toHaveReturnedWith` and `toHaveBeenResolvedWith`.
 
 ```ts
 import { expect, test } from 'vitest'
@@ -329,7 +329,7 @@ Vitest 4 comes with new advanced public [API methods](/api/advanced/vitest):
 
 ## Breaking changes
 
-Vitest 4 has a few breaking changes that could affect you, so we advise reviewing the detailed [Migration Guide](/guide/migration#vitest-4) before upgrading.
+Vitest 4 has a few breaking changes that could affect you, so we advise reviewing the detailed [Migration Guide](https://v4.vitest.dev/guide/migration) before upgrading.
 
 The complete list of changes is at the [Vitest 4 Changelog](https://github.com/vitest-dev/vitest/releases/tag/v4.0.0).
 

@@ -1,4 +1,5 @@
 import antfu, { GLOB_SRC } from '@antfu/eslint-config'
+import { createSimplePlugin } from 'eslint-factory'
 
 export default antfu(
   {
@@ -8,12 +9,7 @@ export default antfu(
     jsonc: false,
     yaml: false,
     ignores: [
-      'dist',
-      'node_modules',
-      '*.svelte',
-      '*.snap',
       '*.d.ts',
-      'coverage',
       '!.vitepress',
       // contains technically invalid code to display pretty diff
       'guide/snapshot.md',
@@ -21,6 +17,7 @@ export default antfu(
       'advanced/api/import-example.md',
       'api/advanced/import-example.md',
       'guide/examples/*.md',
+      'api/advanced/reporters-life-cycle.md',
     ],
   },
   {
@@ -31,6 +28,7 @@ export default antfu(
       'no-empty-pattern': 'off',
       'antfu/indent-binary-ops': 'off',
       'unused-imports/no-unused-imports': 'error',
+      'pnpm/json-enforce-catalog': 'off',
       'style/member-delimiter-style': [
         'error',
         {
@@ -48,27 +46,53 @@ export default antfu(
       'ts/ban-types': 'off',
       'ts/no-unsafe-function-type': 'off',
 
+      'markdown/fenced-code-language': 'off',
+      // it uses parser which is not compatible with vitepress
+      'markdown/no-missing-link-fragments': 'off',
+
       'no-restricted-imports': [
         'error',
         {
           paths: ['path'],
         },
       ],
+
       'import/no-named-as-default': 'off',
-      'style/max-statements-per-line': 'off',
     },
   },
   {
     files: [`**/*.md`, `**/*.md/${GLOB_SRC}`],
     rules: {
+      'no-restricted-globals': 'off',
+      'prefer-arrow-callback': 'off',
+      'e18e/prefer-array-at': 'off',
       'perfectionist/sort-imports': 'off',
+      'style/max-statements-per-line': 'off',
       'import/newline-after-import': 'off',
       'import/first': 'off',
       'unused-imports/no-unused-imports': 'off',
       'ts/method-signature-style': 'off',
       'no-self-compare': 'off',
       'import/no-mutable-exports': 'off',
-      'no-restricted-globals': 'off',
+      'no-throw-literal': 'off',
+      'markdown/no-missing-link-fragments': 'off',
+      'import/no-duplicates': 'off',
     },
   },
+  createSimplePlugin({
+    name: 'no-vitepress-plugin-llms',
+    include: ['*.ts', '**/*.ts'],
+    create(context) {
+      return {
+        ImportDeclaration(node) {
+          if (node.type === 'ImportDeclaration' && node.source.value === 'vitepress-plugin-llms') {
+            context.report({
+              node,
+              message: 'Don\'t import vitepress-plugin-llms, only need to be installed in the upstream repository.',
+            })
+          }
+        },
+      }
+    },
+  }),
 )

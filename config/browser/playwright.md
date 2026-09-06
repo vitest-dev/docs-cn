@@ -1,6 +1,6 @@
 # 配置 Playwright {#configuring-playwright}
 
-要使用 playwright 运行测试，你需要安装 [`@vitest/browser-playwright`](https://www.npmjs.com/package/@vitest/browser-playwright) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `playwright` 导出：
+要使用 playwright 运行测试，你需要安装 [`@vitest/browser-playwright`](https://npmx.dev/package/@vitest/browser-playwright) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `playwright` 导出：
 
 ```ts [vitest.config.js]
 import { playwright } from '@vitest/browser-playwright'
@@ -64,15 +64,91 @@ export default defineConfig({
 ::: warning
 Vitest 将忽略 `launch.headless` 选项。请改用 [`test.browser.headless`](/config/browser/headless)。
 
-请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试标志推送到 `launch.args`。
+请注意，如果启用了 [`--inspect`](/guide/cli#inspect)，Vitest 会将调试参数推送到 `launch.args`。
+:::
+
+::: tip 启用新版 Chromium 无头模式
+Playwright 支持 Chromium 的 [新版无头模式](https://playwright.dev/docs/browsers#chromium-new-headless-mode)，该模式使用真实的 Chrome 浏览器而非专用的无头 shell。这能提供更真实可靠的测试执行，且无需安装单独的无头 Chromium 构建版本。
+
+启用方式：在 `launchOptions` 中设置 `channel` 为 `'chromium'`：
+
+```ts [vitest.config.ts]
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    browser: {
+      headless: true,
+      provider: playwright({
+        launchOptions: {
+          channel: 'chromium',
+        },
+      }),
+      instances: [{ browser: 'chromium' }],
+    },
+  },
+})
+```
 :::
 
 ## connectOptions
 
 这些选项直接传递给 `playwright[browser].connect` 命令。你可以在 [Playwright 文档](https://playwright.dev/docs/api/class-browsertype#browser-type-connect) 中了解更多关于该命令和可用参数的信息。
 
+通过 `connectOptions.wsEndpoint` 可连接现有 Playwright 服务器，而无需在本地启动浏览器。此功能适用于在 Docker、CI 或远程机器中运行浏览器场景。
+
 ::: warning
-由于此命令连接到现有的 Playwright 服务器，任何 `launch` 选项都将被忽略。
+
+Vitest 会通过 `x-playwright-launch-options` 请求头将 `launchOptions` 转发至 Playwright 服务器。仅当远程 Playwright 服务器支持该请求头时此功能才生效，例如使用 `playwright run-server` CLI 时。
+
+:::
+
+::: details 示例：在 Docker 中运行 Playwright 服务器
+要在 Docker 容器中运行浏览器（参见 [Playwright Docker 指南](https://playwright.dev/docs/docker#remote-connection)）：
+
+使用 Docker Compose 启动 Playwright 服务器：
+
+```yaml [docker-compose.yml]
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.61.0-noble
+    command: /bin/sh -c "npx -y playwright@1.61.0 run-server --port 6677 --host 0.0.0.0"
+    init: true
+    ipc: host
+    user: pwuser
+    ports:
+      - '6677:6677'
+```
+
+```sh
+docker compose up -d
+```
+
+然后配置 Vitest 连接到该服务器。[`exposeNetwork`](https://playwright.dev/docs/api/class-browsertype#browser-type-connect-option-expose-network) 选项允许容器化浏览器访问主机上的 Vitest 开发服务器：
+
+```ts [vitest.config.ts]
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    browser: {
+      provider: playwright({
+        connectOptions: {
+          wsEndpoint: 'ws://127.0.0.1:6677/',
+          exposeNetwork: '<loopback>',
+        },
+      }),
+      instances: [
+        { browser: 'chromium' },
+        { browser: 'firefox' },
+        { browser: 'webkit' },
+      ],
+    },
+  },
+})
+```
 :::
 
 ## contextOptions
@@ -102,5 +178,37 @@ import { page, userEvent } from 'vitest/browser'
 
 await userEvent.click(page.getByRole('button'), {
   timeout: 1_000,
+})
+```
+
+## `persistentContext` <Version>4.1.0</Version> {#persistentcontext}
+
+- **类型:** `boolean | string`
+- **默认值:** `false`
+
+启用后，Vitest 将使用 Playwright 的 [持久化上下文](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-persistent-context) 替代常规浏览器上下文。这使得浏览器状态（如 cookies、localStorage、DevTools 设置等）能在测试运行间保留。
+
+::: warning
+该选项在并行运行测试时会被忽略（例如启用 [`fileParallelism`](/config/fileparallelism) 的无头模式场景），因为持久化上下文无法跨并行会话共享。
+:::
+
+- 设为 `true` 时，用户数据存储在 `./node_modules/.cache/vitest-playwright-user-data`
+- 设为字符串时，该值将作为用户数据目录路径
+
+```ts [vitest.config.js]
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    browser: {
+      provider: playwright({
+        persistentContext: true,
+        // 或指定自定义目录：
+        // persistentContext: './my-browser-data',
+      }),
+      instances: [{ browser: 'chromium' }],
+    },
+  },
 })
 ```

@@ -1,21 +1,21 @@
 ---
-title: dangerouslyIgnoreUnhandledErrors | Config
+title: dangerouslyIgnoreUnhandledErrors | 配置
 outline: deep
 ---
 
 # dangerouslyIgnoreUnhandledErrors <CRoot />
 
-- **Type**: `boolean`
-- **Default**: `false`
-- **CLI:**
+- **类型:** `boolean`
+- **默认值:** `false`
+- **命令行终端:**
   - `--dangerouslyIgnoreUnhandledErrors`
   - `--dangerouslyIgnoreUnhandledErrors=false`
 
-If this option is set to `true`, Vitest will not fail the test run if there are unhandled errors. Note that built-in reporters will still report them.
+如果将此选项设为 `true`，即使存在未处理错误，Vitest 也不会导致测试运行失败。注意：内置报告器仍会显示这些错误。
 
-If you want to filter out certain errors conditionally, use [`onUnhandledError`](/config/onunhandlederror) callback instead.
+如需按条件过滤特定错误，请改用 [`onUnhandledError`](/config/onunhandlederror) 回调函数。
 
-## Example
+## 示例 {#example}
 
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'

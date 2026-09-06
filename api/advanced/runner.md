@@ -98,7 +98,7 @@ export interface VitestRunner {
   /**
    * 公开可用的配置。
    */
-  config: VitestRunnerConfig
+  config: SerializedConfig
   /**
    * 当前池的名称。可能会影响服务器端如何推断堆栈跟踪。
    */
@@ -145,7 +145,7 @@ export default class Runner {
 :::
 
 ::: tip
-快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest/runners` 导入 `VitestTestRunner` 并将你的测试运行器继承该类。如果你想扩展基准测试功能，它还提供了 `NodeBenchmarkRunner`。
+快照支持和其他功能是依赖于测试运行器的。如果你想保留这些功能，可以从 `vitest` 导入 `TestRunner` 并将你的测试运行器继承该类。如果你想扩展基准测试功能，它还提供了 `NodeBenchmarkRunner`。
 :::
 
 ## Tasks {#tasks}
@@ -275,23 +275,21 @@ export interface TaskResult {
 
 ## 你的任务函数 {#your-task-function}
 
-Vitest 提供了 `createTaskCollector` 工具来创建您自己的 `test` 方法。它的行为与测试相同，但在收集期间会调用自定义方法。
+Vitest 提供了 `createTaskCollector` 工具来创建你自己的 `test` 方法。它的行为与测试相同，但在收集期间会调用自定义方法。
 
 任务是套件的一部分对象。它会通过 `suite.task` 方法自动添加到当前套件中：
-
-<!-- TODO: translation -->
 
 ```js [custom.js]
 export { afterAll, beforeAll, describe, TestRunner } from 'vitest'
 
-// this function will be called during collection phase:
-// don't call function handler here, add it to suite tasks
-// with "getCurrentSuite().task()" method
-// note: createTaskCollector provides support for "todo"/"each"/...
+// 此函数将在收集阶段被调用：
+// 不要在此处调用函数处理器，而应通过
+// "getCurrentSuite().task()" 方法将其添加到套件任务中
+// 注意：createTaskCollector 提供了对 "todo"/"each"/... 的支持
 export const myCustomTask = TestRunner.createTaskCollector(
   function (name, fn, timeout) {
     TestRunner.getCurrentSuite().task(name, {
-      ...this, // so "todo"/"skip"/... is tracked correctly
+      ...this, // 以便正确追踪 "todo"/"skip"/...
       meta: {
         customPropertyToDifferentiateTask: true
       },

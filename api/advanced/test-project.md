@@ -51,7 +51,7 @@ export default defineConfig({
 :::
 
 ::: info
-如果 [根项目](/api/advanced/vitest#getroottestproject) 不是用户工作区的一部分，则不会解析其 `name`。
+如果 [根项目](/api/advanced/vitest#getrootproject) 不是用户工作区的一部分，则不会解析其 `name`。
 :::
 
 ## vitest
@@ -78,7 +78,7 @@ project.serializedConfig === project.serializedConfig // ❌
 
 ## globalConfig
 
-[`Vitest`](/api/advanced/vitest) 初始化时的测试配置。如果这是 [根项目](/api/advanced/vitest#getroottestproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
+[`Vitest`](/api/advanced/vitest) 初始化时的测试配置。如果这是 [根项目](/api/advanced/vitest#getrootproject)，`globalConfig` 和 `config` 将引用同一个对象。此配置对于无法在项目级别设置的值非常有用，例如 `coverage` 或 `reporters`。
 
 ```ts
 import type { ResolvedConfig } from 'vitest/node'
@@ -97,8 +97,16 @@ vitest.config === vitest.projects[0].globalConfig
 它基于项目的 root 路径和名称。请注意，不同操作系统的根路径并不一致，因此哈希值也会不同。
 
 ## vite
+<!-- TODO: translation -->
+This is project's [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver). Note that the server is not necessarily exclusive to this project: other projects can reuse it when the [`sharedViteServer`](/config/sharedviteserver) option applies, and browser instances of the same cluster share a single browser server.
 
-这是项目的 [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver)。所有项目都有自己的 Vite 服务器。
+## sharedViteServer
+
+```ts
+const sharedViteServer: boolean
+```
+
+`true` when the project reuses the Vite server of the config that declared it instead of resolving its own (see the [`sharedViteServer`](/config/sharedviteserver) option). The project that owns the server reports `false` even when other projects reuse it. To detect any two projects sharing a server (including browser instances), compare their [`vite`](#vite) references.
 
 ## browser
 
@@ -117,7 +125,7 @@ function provide<T extends keyof ProvidedContext & string>(
 ): void
 ```
 
-除了 [`config.provide`](/config/#provide) 字段外，还提供了一种向测试提供自定义值的方法。所有值在存储之前都通过 [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone) 进行验证，但 `providedContext` 上的值本身不会被克隆。
+除了 [`config.provide`](/config/provide) 字段外，还提供了一种向测试提供自定义值的方法。所有值在存储之前都通过 [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone) 进行验证，但 `providedContext` 上的值本身不会被克隆。
 
 ::: code-group
 ```ts [node.js]
@@ -137,7 +145,7 @@ const value = inject('key')
 这些值可以动态提供。测试中提供的值将在下次运行时更新。
 
 ::: tip
-此方法也可用于 [全局设置文件](/config/#globalsetup)，以便在无法使用公共 API 的情况下使用：
+此方法也可用于 [全局设置文件](/config/globalsetup)，以便在无法使用公共 API 的情况下使用：
 
 ```js
 export default function setup({ provide }) {
@@ -179,7 +187,7 @@ function createSpecification(
 ): TestSpecification
 ```
 
-创建一个 [测试规范](/api/advanced/test-specification)，可用于 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。规范将测试文件限定到特定的 `project` 和测试 `locations`（可选）。测试 [位置](/api/advanced/test-case#location) 是源代码中定义测试的代码行。如果提供了位置，Vitest 将仅运行在这些行上定义的测试。请注意，如果定义了 [`testNamePattern`](/config/#testnamepattern)，则它也将被应用。
+创建一个 [TestSpecification](/api/advanced/test-specification)，可用于 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。规范将测试文件限定到特定的 `project` 和测试 `locations`（可选）。测试 [位置](/api/advanced/test-case#location) 是源代码中定义测试的代码行。如果提供了位置，Vitest 将仅运行在这些行上定义的测试。请注意，如果定义了 [`testNamePattern`](/config/testnamepattern)，则它也将被应用。
 
 ```ts
 import { resolve } from 'node:path/posix'
@@ -206,7 +214,7 @@ await vitest.runTestSpecifications([specification])
 function isRootProject(): boolean
 ```
 
-检查当前项目是否为根项目。我们也可以通过调用 [`vitest.getRootProject()`](#getrootproject) 获取根项目。
+检查当前项目是否为根项目。我们也可以通过调用 [`vitest.getRootProject()`](/api/advanced/vitest#getrootproject) 获取根项目。
 
 ## globTestFiles
 
@@ -233,7 +241,7 @@ project.globTestFiles(['basic/foo.js:10']) // ❌
 ```
 
 ::: tip
-Vitest 使用 [fast-glob](https://www.npmjs.com/package/fast-glob) 来查找测试文件。`test.dir`、`test.root`、`root` 或 `process.cwd()` 定义了 `cwd` 选项。
+Vitest 使用 [fast-glob](https://npmx.dev/package/fast-glob) 来查找测试文件。`test.dir`、`test.root`、`root` 或 `process.cwd()` 定义了 `cwd` 选项。
 
 此方法查看多个配置选项：
 

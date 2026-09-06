@@ -1,10 +1,10 @@
 # 配置 WebdriverIO {#configuring-webdriverio}
 
-::: info Playwright 与 WebdriverIO
-如果我们的项目尚未使用 WebdriverIO，我们建议从 [Playwright](/config/browser/playwright) 开始，因为它更易于配置且 API 更灵活。
+::: info 由社区维护
+WebdriverIO provider（[`@vitest/browser-webdriverio`](https://github.com/vitest-community/vitest-webdriverio)）由 [`vitest-community`](https://github.com/vitest-community) 组织中的 Vitest 社区负责维护，与 Vitest 核心包分开开发。如果遇到该 provider 特有的问题，请提交到对应的仓库。
 :::
 
-要使用 WebdriverIO 运行测试，你需要安装 [`@vitest/browser-webdriverio`](https://www.npmjs.com/package/@vitest/browser-webdriverio) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `webdriverio` 导出：
+要使用 WebdriverIO 运行测试，你需要安装 [`@vitest/browser-webdriverio`](https://npmx.dev/package/@vitest/browser-webdriverio) npm 包，并在配置中的 `test.browser.provider` 属性中指定其 `webdriverio` 导出：
 
 ```ts [vitest.config.js]
 import { webdriverio } from '@vitest/browser-webdriverio'
@@ -62,3 +62,15 @@ export default defineConfig({
 
 请注意，Vitest 将忽略 `capabilities.browserName` — 请改用 [`test.browser.instances.browser`](/config/browser/instances#browser)。
 :::
+
+## CI 中的有头模式 Chrome {#headful-chrome-in-ci}
+
+Vitest 在 CI 中会自动启用 [`browser.headless`](/config/browser/headless)。如果你在 Linux CI 运行器上为 Chrome 显式设置了 `headless: false`，Chrome 仍然需要一个显示服务器。如果没有，WebDriverIO 或 ChromeDriver 可能会失败，并出现误导性错误，例如 `session not created: probably user data directory is already in use`。
+
+当你在 GitHub Actions 或其他 Linux CI 环境中需要使用有头模式的 Chrome 时，请通过 `xvfb-run` 运行测试命令：
+
+```bash
+xvfb-run npm test
+```
+
+或者，在 CI 中保持启用 `browser.headless`，仅在本地调试时使用有头模式。

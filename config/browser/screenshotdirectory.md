@@ -1,5 +1,5 @@
 ---
-title: browser.screenshotDirectory | Config
+title: browser.screenshotDirectory | 配置
 outline: deep
 ---
 

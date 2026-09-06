@@ -27,7 +27,7 @@ import Intro from './Intro.vue'
   <Spacer />
   <Footer
     heading="开始使用 Vitest 进行测试"
-    subheading="为现代 Web 应用提供超凡性能的测试加速方案"
+    subheading="凭借专为现代 Web 而生的强劲性能，让测试效率全面跃升。"
     button-text="快速起步"
     button-link="/guide/"
   />

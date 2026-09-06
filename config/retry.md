@@ -1,19 +1,19 @@
 ---
-title: retry | Config
+title: retry | 配置
 outline: deep
 ---
 
 # retry
 
-Retry the test specific number of times if it fails.
+如果测试失败，重试指定次数。
 
-- **Type:** `number | { count?: number, delay?: number, condition?: RegExp }`
-- **Default:** `0`
-- **CLI:** `--retry <times>`, `--retry.count <times>`, `--retry.delay <ms>`, `--retry.condition <pattern>`
+- **类型:** `number | { count?: number, delay?: number, condition?: RegExp }`
+- **默认值:** `0`
+- **命令行终端:** `--retry <times>`, `--retry.count <times>`, `--retry.delay <ms>`, `--retry.condition <pattern>`
 
-## Basic Usage
+## 基础用法 {#basic-usage}
 
-Specify a number to retry failed tests:
+设置失败测试用例的重试次数。
 
 ```ts
 export default defineConfig({
@@ -23,29 +23,29 @@ export default defineConfig({
 })
 ```
 
-## CLI Usage
+## 命令行用法 {#cli-usage}
 
-You can also configure retry options from the command line:
+你也可以通过命令行配置重试选项：
 
 ```bash
-# Simple retry count
+# 简单重试次数配置
 vitest --retry 3
 
-# Advanced options using dot notation
+# 使用点符号配置高级选项
 vitest --retry.count 3 --retry.delay 500 --retry.condition 'ECONNREFUSED|timeout'
 ```
 
-## Advanced Options <Version>4.1.0</Version> {#advanced-options}
+## 高级选项 <Version>4.1.0</Version> {#advanced-options}
 
-Use an object to configure retry behavior:
+使用对象来配置重试行为：
 
 ```ts
 export default defineConfig({
   test: {
     retry: {
-      count: 3, // Number of times to retry
-      delay: 1000, // Delay in milliseconds between retries
-      condition: /ECONNREFUSED|timeout/i, // RegExp to match errors that should trigger retry
+      count: 3, // 重试次数
+      delay: 1000, // 重试间隔时间（毫秒）
+      condition: /ECONNREFUSED|timeout/i, // 触发重试的正则表达式错误匹配规则
     },
   },
 })
@@ -53,7 +53,7 @@ export default defineConfig({
 
 ### count
 
-Number of times to retry a test if it fails. Default is `0`.
+如果测试失败，重试的次数。默认值为 `0`。
 
 ```ts
 export default defineConfig({
@@ -67,14 +67,14 @@ export default defineConfig({
 
 ### delay
 
-Delay in milliseconds between retry attempts. Useful for tests that interact with rate-limited APIs or need time to recover. Default is `0`.
+重试间隔时间（毫秒）。适用于需要与限频 API 交互或等待系统恢复的测试场景，默认值为 `0`。
 
 ```ts
 export default defineConfig({
   test: {
     retry: {
       count: 3,
-      delay: 500, // Wait 500ms between retries
+      delay: 500, // 每次重试间隔 500 毫秒
     },
   },
 })
@@ -82,43 +82,43 @@ export default defineConfig({
 
 ### condition
 
-A RegExp pattern or a function to determine if a test should be retried based on the error.
+一个正则表达式模式或函数，用于根据错误判断是否应重试测试。
 
-- When a **RegExp**, it's tested against the error message
-- When a **function**, it receives the error and returns a boolean
+- 当使用 **正则表达式** 时，将对错误信息进行匹配测试
+- 当使用 **函数** 时，该函数接收错误对象并返回布尔值
 
 ::: warning
-When defining `condition` as a function, it must be done in a test file directly, not in a configuration file (configurations are serialized for worker threads).
+如果将 `condition` 定义为函数，必须直接在测试文件中定义，而非配置文件中（配置项会被序列化供工作线程使用）。
 :::
 
-#### RegExp condition (in config file):
+#### 正则表达式条件（在配置文件中）: {#regexp-condition-in-config-file}
 
 ```ts
 export default defineConfig({
   test: {
     retry: {
       count: 2,
-      condition: /ECONNREFUSED|ETIMEDOUT/i, // Retry on connection/timeout errors
+      condition: /ECONNREFUSED|ETIMEDOUT/i, // 在连接/超时错误时重试
     },
   },
 })
 ```
 
-#### Function condition (in test file):
+#### 函数条件（在测试文件中）： {#function-condition-in-test-file}
 
 ```ts
 import { describe, test } from 'vitest'
 
 describe('tests with advanced retry condition', () => {
   test('with function condition', { retry: { count: 2, condition: error => error.message.includes('Network') } }, () => {
-    // test code
+    // 测试代码
   })
 })
 ```
 
-## Test File Override
+## 测试文件覆盖 {#test-file-override}
 
-You can also define retry options per test or suite in test files:
+你也可以在测试文件中为每个测试或测试套件定义重试选项：
 
 ```ts
 import { describe, test } from 'vitest'
@@ -130,7 +130,7 @@ describe('flaky tests', {
   },
 }, () => {
   test('network request', () => {
-    // test code
+    // 测试代码
   })
 })
 
@@ -140,6 +140,6 @@ test('another test', {
     condition: error => error.message.includes('timeout'),
   },
 }, () => {
-  // test code
+  // 测试代码
 })
 ```

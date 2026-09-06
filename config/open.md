@@ -1,5 +1,5 @@
 ---
-title: open | Config
+title: open | 配置
 outline: deep
 ---
 

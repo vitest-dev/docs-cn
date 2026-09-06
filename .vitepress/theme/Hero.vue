@@ -10,7 +10,7 @@
           下一代测试框架
         </h1>
         <p class="text-white/70 text-lg max-w-[25rem] text-pretty">
-          一个原生支持 Vite 的测试框架。非常快速！
+          一个原生支持 Vite 的测试框架。快得惊人！
         </p>
         <div class="flex items-center gap-5 mt-8">
           <a href="/guide/" class="button button--primary inline-block w-fit">

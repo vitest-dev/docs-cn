@@ -6,26 +6,9 @@
 
 Vitest 拥有自己的测试运行生命周期。这些生命周期通过报告器的方法来表示：
 
-- [报告器 {#reporters}](#报告器-reporters)
-  - [onInit](#oninit)
-  - [onBrowserInit {#onbrowserinit}](#onbrowserinit-onbrowserinit)
-  - [onTestRunStart](#ontestrunstart)
-  - [onTestRunEnd](#ontestrunend)
-  - [onCoverage](#oncoverage)
-  - [onTestModuleQueued](#ontestmodulequeued)
-  - [onTestModuleCollected](#ontestmodulecollected)
-  - [onTestModuleStart](#ontestmodulestart)
-  - [onTestModuleEnd](#ontestmoduleend)
-  - [onHookStart](#onhookstart)
-  - [onHookEnd](#onhookend)
-  - [onTestSuiteReady](#ontestsuiteready)
-  - [onTestSuiteResult](#ontestsuiteresult)
-  - [onTestCaseReady](#ontestcaseready)
-  - [onTestCaseResult](#ontestcaseresult)
-  - [onTestAnnotate 3.2.0 {#ontestannotate}](#ontestannotate-320-ontestannotate)
-  - [onTestCaseArtifactRecord 4.0.11 {#ontestcaseartifactrecord}](#ontestcaseartifactrecord-4011-ontestcaseartifactrecord)
+<!--@include: ./reporters-life-cycle.md-->
 
-除非被跳过，否则单个模块中的测试和 reporters 将按顺序报告。所有跳过的测试将在 reporters /模块的末尾报告。
+除非被跳过，否则单个模块中的测试和 reporters 将按顺序报告。所有跳过的测试将在 reporters 测试套件或模块的末尾报告。
 
 请注意，由于测试模块可以并行运行，Vitest 将并行报告它们。
 
@@ -51,7 +34,7 @@ function onInit(vitest: Vitest): Awaitable<void>
 当 [Vitest](/api/advanced/vitest) 初始化或启动时，但在测试被过滤之前，会调用此方法。
 
 ::: info
-在内部，这个方法在 [`vitest.start`](/api/advanced/vitest#start)、[`vitest.init`](/api/advanced/vitest#init) 或 [`vitest.mergeReports`](/api/advanced/vitest#mergereports) 中调用。例如，如果我们使用 API，请确保根据我们的需要调用其中一个，然后再调用 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。内置的 CLI 将始终按正确的顺序运行方法。
+在内部，这个方法在 [`vitest.start`](/api/advanced/vitest#start)、[`vitest.standalone`](/api/advanced/vitest#standalone) 或 [`vitest.mergeReports`](/api/advanced/vitest#mergereports) 中调用。例如，如果我们使用 API，请确保根据我们的需要调用其中一个，然后再调用 [`vitest.runTestSpecifications`](/api/advanced/vitest#runtestspecifications)。内置的 CLI 将始终按正确的顺序运行方法。
 :::
 
 请注意，我们还可以通过 [`project`](/api/advanced/test-project) 属性从测试用例、套件和测试模块中访问 `vitest` 实例，但在此方法中存储对 `vitest` 的引用也可能有用。
@@ -96,7 +79,7 @@ function onTestRunStart(
 ): Awaitable<void>
 ```
 
-当新的测试运行开始时调用此方法。它接收计划运行的 [测试规范](/api/advanced/test-specification) 数组。此数组是只读的，仅用于信息目的。
+当新的测试运行开始时调用此方法。它接收计划运行的 [TestSpecification](/api/advanced/test-specification) 数组。此数组是只读的，仅用于信息目的。
 
 如果 Vitest 没有找到任何要运行的测试文件，此事件将以空数组调用，然后 [`onTestRunEnd`](#ontestrunend) 将立即被调用。
 
@@ -112,10 +95,6 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
-:::
-
-::: tip 弃用通知
-此方法在 Vitest 3 中添加，取代了 `onPathsCollected` 和 `onSpecsCollected`，这两个方法现在已被弃用。
 :::
 
 ## onTestRunEnd
@@ -140,7 +119,7 @@ function onTestRunEnd(
 - `failed`: 测试运行至少有一个错误（由于收集期间的语法错误或测试执行期间的实际错误）
 - `interrupted`: 测试被 [`vitest.cancelCurrentRun`](/api/advanced/vitest#cancelcurrentrun) 调用或在终端中按下 `Ctrl+C` 中断（请注意，在这种情况下仍然有可能导致测试失败）
 
-如果 Vitest 没有找到任何要运行的测试文件，此事件将以空的模块和错误数组调用，状态将取决于 [`config.passWithNoTests`](/config/#passwithnotests) 的值。
+如果 Vitest 没有找到任何要运行的测试文件，此事件将以空的模块和错误数组调用，状态将取决于 [`config.passWithNoTests`](/config/passwithnotests) 的值。
 
 ::: details 示例
 ```ts
@@ -181,20 +160,16 @@ export default new MyReporter()
 ```
 :::
 
-::: tip 弃用通知
-此方法在 Vitest 3 中添加，取代了 `onFinished`，后者现在已被弃用。
-:::
-
 ## onCoverage
 
 ```ts
 function onCoverage(coverage: unknown): Awaitable<void>
 ```
 
-当覆盖率结果处理完毕后调用此钩子。覆盖率提供者的报告器在此钩子之后调用。`coverage` 的类型取决于 `coverage.provider`。对于 Vitest 的默认内置提供者，我们可以从 `istanbul-lib-coverage` 包中导入类型：
+当覆盖率结果处理完毕后调用此钩子。覆盖率提供者的报告器在此钩子之后调用。`coverage` 的类型取决于 `coverage.provider`。对于 Vitest 的默认内置提供者，我们可以从 `@vitest/istanbul-lib-coverage` 包中导入类型：
 
 ```ts
-import type { CoverageMap } from 'istanbul-lib-coverage'
+import type { CoverageMap } from '@vitest/istanbul-lib-coverage'
 
 declare function onCoverage(coverage: CoverageMap): Awaitable<void>
 ```
@@ -317,20 +292,19 @@ function onTestCaseResult(testCase: TestCase): Awaitable<void>
 
 此时，[`testCase.result()`](/api/advanced/test-case#result) 已不再是挂起状态。
 
-## onTestAnnotate <Version>3.2.0</Version> {#ontestannotate}
+## onTestCaseAnnotate <Version>3.2.0</Version> {#ontestcaseannotate}
 
 ```ts
-function onTestAnnotate(
+function onTestCaseAnnotate(
   testCase: TestCase,
   annotation: TestAnnotation,
 ): Awaitable<void>
 ```
 
-onTestAnnotate 是与 [`context.annotate`](/guide/test-context#annotate) 方法配套使用的钩子。当你在测试中调用 annotate 后， Vitest 会将注解内容序列化，并将其发送到主线程，从而让报告器可以处理这些附加信息。
+`onTestCaseAnnotate` 是与 [`context.annotate`](/guide/test-context#annotate) 方法配套使用的钩子。当你在测试中调用 annotate 后， Vitest 会将注解内容序列化，并将其发送到主线程，从而让报告器可以处理这些附加信息。
 
-如果在注解中指定了文件路径， Vitest 会将附件保存到一个独立的目录（该目录通过 [`attachmentsDir`](/config/#attachmentsdir) 配置），并自动更新 path 属性，使其指向存储后的文件位置。
+如果在注解中指定了文件路径， Vitest 会将附件保存到一个独立的目录（该目录通过 [`attachmentsDir`](/config/attachmentsdir) 配置），并自动更新 path 属性，使其指向存储后的文件位置。
 
-<!-- TODO: translation -->
 ## onTestCaseArtifactRecord <Version type="experimental">4.0.11</Version> {#ontestcaseartifactrecord}
 
 ```ts
@@ -340,8 +314,8 @@ function onTestCaseArtifactRecord(
 ): Awaitable<void>
 ```
 
-The `onTestCaseArtifactRecord` hook is associated with the [`recordArtifact`](/api/advanced/artifacts#recordartifact) utility. When `recordArtifact` is invoked, Vitest serialises it and sends the same attachment to the main thread where reporter can interact with it.
+`onTestCaseArtifactRecord` 钩子与 [`recordArtifact`](/api/advanced/artifacts#recordartifact) 工具相关联。当调用 `recordArtifact` 时，Vitest 会将其序列化并将相同的附件发送到主线程，报告器可以在那里与其交互。
 
-If the path is specified, Vitest stores it in a separate directory (configured by [`attachmentsDir`](/config/#attachmentsdir)) and modifies the `path` property to reference it.
+如果指定了路径，Vitest 会将其存储在单独的目录中（由 [`attachmentsDir`](/config/attachmentsdir) 配置），并修改 `path` 属性以引用它。
 
-Note: annotations, [even though they're built on top of this feature](/api/advanced/artifacts#relationship-with-annotations), won't hit this hook and won't appear in the `task.artifacts` array for backwards compatibility reasons until the next major version.
+注意：注解，[即使它们是基于此功能构建的](/api/advanced/artifacts#relationship-with-annotations)，出于向后兼容性原因，在下一个主要版本之前不会触发此钩子，也不会出现在 `task.artifacts` 数组中。

@@ -18,6 +18,10 @@ vitest --ui
 
 最后，你可以访问 Vitest UI 界面，通过 <a href="http://localhost:51204/__vitest__/">`http://localhost:51204/__vitest__/`</a>
 
+::: tip
+Vitest UI access is protected. If the direct URL shows an error, open the URL with a token printed by Vitest in the terminal, for example `http://localhost:51204/__vitest__/?token=...`.
+:::
+
 ::: warning
 UI 是交互式的，需要一个正在运行的 Vite 服务器，因此请确保在 `watch` 模式（默认模式）下运行 Vitest。或者，你可以通过在配置的 `reporters` 选项中指定 `html` 来生成一个与 Vitest UI 完全相同的静态 HTML 报告。
 :::
@@ -40,17 +44,45 @@ export default defineConfig({
 你可以在 Vitest UI 中查看覆盖率报告：查看 [覆盖率 | UI 模式](/guide/coverage#vitest-ui) 了解更多详情。
 
 ::: warning
-如果你仍想在终端中实时查看测试的运行情况，请不要忘记将 `default` 报告器添加到 `reporters` 选项：`['default', 'html']`。
+如果你仍然希望在终端中实时查看测试运行情况，请将 `configDefaults.reporters` 添加到 `reporters` 选项中：`['html', ...configDefaults.reporters]`。
 :::
 
 ::: tip
-要预览你的 HTML 报告，可以使用 [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) 命令：
+要预览你的 HTML 报告，可以使用 [vite preview](https://cn.vitejs.dev/guide/cli.html#vite-preview) 命令：
 
 ```sh
-npx vite preview --outDir ./html
+npx vite preview --outDir .vitest
 ```
 
-你可以使用 [`outputFile`](/config/#outputfile) 配置选项配置输出。你需要在那里指定 `.html` 路径。例如，`./html/index.html` 是默认值。
+你可以通过 HTML 报告器的 `outputDir` 选项来配置输出位置。它指向报告产物的根目录，报告入口文件会被写入 `<outputDir>/index.html`。默认值是 `.vitest`，即 Vitest 共享的产物目录。
+:::
+
+如果你需要一个便于打开或分享的单文件报告，请参阅 HTML 报告器文档中的 [`singleFile`](/guide/reporters#html-reporter)。
+
+::: tip
+要在持续集成环境，例如 GitHub Actions 中查看 HTML 报告，请将输出目录作为产物上传：
+
+```yaml
+- uses: actions/upload-artifact@v7
+  id: upload-report
+  with:
+    name: vitest-report
+    path: .vitest/
+
+- name: Viewer link in summary
+  run: echo "[View HTML report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
+```
+
+这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
+
+当你使用 `singleFile: true` 时，报告作为单个文件进行上传，配合 `archive: false` 选项，报告直接可以在 GitHub Artifacts 中查看：
+
+```yaml
+- uses: actions/upload-artifact@v7
+  with:
+    path: .vitest/index.html
+    archive: false
+```
 :::
 
 ## 模块图 {#module-graph}
@@ -86,7 +118,7 @@ npx vite preview --outDir ./html
 <img alt="The module info view for an inlined module" img-light src="/ui/light-module-info.png">
 <img alt="The module info view for an inlined module" img-dark src="/ui/dark-module-info.png">
 
-此视图分为上下两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache)，将会显示 "cached" 或 "not cached" 的徽章。在右侧你可以看到时间诊断信息：
+此视图分为上下两部分。顶部显示完整的模块 ID 和一些关于模块的诊断信息。如果启用了 [`fsModuleCache`](/config/fsmodulecache)，将会显示 "cached" 或 "not cached" 的徽章。在右侧你可以看到时间诊断信息：
 
 - 自身时间：导入模块所花费的时间，不包括静态导入。
 - 总耗时：导入模块所花费的时间，包括静态导入。请注意，这不包括当前模块的 `transform` 时间。
@@ -107,7 +139,7 @@ npx vite preview --outDir ./html
 
 "Source" 窗口中的所有静态导入显示当前模块评估它们的总耗时。如果导入已在模块图中被评估过，它将显示 `0ms`，因为此时已被缓存。
 
-如果模块加载时间超过 500 毫秒，时间将以红色显示。如果模块加载时间超过 100 毫秒，时间将以橙色显示。
+如果某个模块的加载时间超过 [`danger` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认：500ms），耗时将以红色显示。如果超过 [`warn` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认：100ms），耗时将以橙色显示。
 
 你可以点击导入源代码跳转到该模块并进一步遍历图表（注意下面的 `./support/assertions/index.ts`）。
 
@@ -133,7 +165,7 @@ npx vite preview --outDir ./html
 请将关于此功能反馈提交至 [GitHub Discussion](https://github.com/vitest-dev/vitest/discussions/9224)。
 :::
 
-模块图选项卡还会提供导入耗时分析功能，默认显示加载时间最长的10个模块（点击"显示更多"可追加10个），按总耗时排序。
+模块依赖图标签还提供了导入耗时分析功能，默认显示加载耗时最长的前 10 个模块列表（按总耗时排序）。
 
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-light src="/ui/light-import-breakdown.png">
 <img alt="Import breakdown with a list of top 10 modules that take the longest time to load" img-dark src="/ui/dark-import-breakdown.png">
@@ -142,6 +174,6 @@ npx vite preview --outDir ./html
 
 分析列表包含自用耗时、总耗时以及相对于加载整个测试文件所花费时间的百分比。
 
-如果至少有一个文件加载时间超过 500 毫秒，"Show Import Breakdown" 图标将显示红色；如果至少有一个文件加载时间超过 100 毫秒，它将显示橙色。
+当存在至少一个文件加载时间超过 [`danger` 阈值](/config/experimental#experimental-importdurations-thresholds)（默认值：500 毫秒）时，“显示导入耗时分析” 图标将呈现红色；如果存在至少一个文件加载时间超过 [`warn`阈值](/config/experimental#experimental-importdurations-thresholds)（默认值：100 毫秒），则图标显示为橙色。
 
-默认情况下，如果至少有一个模块加载时间超过 500 毫秒，Vitest 会自动显示分析结果。你可以通过设置 [`experimental.printImportBreakdown`](/config/experimental#experimental-printimportbreakdown) 选项来控制此行为。
+你可以使用 [`experimental.importDurations.limit`](/config/experimental#experimental-importdurationslimit) 配置项控制显示的导入项数量上限。

@@ -2,18 +2,18 @@ import type { SponsorTier } from '@voidzero-dev/vitepress-theme/src/types/sponso
 
 export const sponsors: SponsorTier[] = [
   {
-    tier: 'Special',
+    tier: '特别赞助商',
     size: 'big',
     items: [
       {
-        name: 'NuxtLabs',
-        url: 'https://nuxtlabs.com',
-        img: '/nuxtlabs.svg',
+        name: 'Vercel',
+        url: 'https://vercel.com',
+        img: '/vercel.svg',
       },
       {
-        name: 'Bolt',
-        url: 'https://bolt.new',
-        img: '/bolt.svg',
+        name: 'Chromatic',
+        url: 'https://www.chromatic.com/?utm_source=vitest&utm_medium=sponsorship&utm_campaign=vitestSponsorship',
+        img: '/chromatic.svg',
       },
       {
         name: 'Zammad',
@@ -23,29 +23,29 @@ export const sponsors: SponsorTier[] = [
     ],
   },
   {
-    tier: 'Platinum Sponsors',
+    tier: '铂金赞助商',
     size: 'big',
     items: [
       {
-        name: 'Chromatic',
-        url: 'https://www.chromatic.com/?utm_source=vitest&utm_medium=sponsorship&utm_campaign=vitestSponsorship',
-        img: '/chromatic.svg',
+        name: 'Bolt',
+        url: 'https://bolt.new',
+        img: '/bolt.svg',
+      },
+      {
+        name: 'Latitude',
+        url: 'https://latitude.so/',
+        img: '/latitude.svg',
       },
     ],
   },
   {
-    tier: 'Gold',
+    tier: '金牌赞助商',
     size: 'medium',
     items: [
       {
         name: 'vital',
         url: 'https://vital.io/',
         img: '/vital.svg',
-      },
-      {
-        name: 'OOMOL',
-        url: 'https://oomol.com/',
-        img: '/oomol.svg',
       },
       {
         name: 'Mailmeteor',
@@ -56,6 +56,21 @@ export const sponsors: SponsorTier[] = [
         name: 'Liminity',
         url: 'https://www.liminity.se/',
         img: '/liminity.svg',
+      },
+      {
+        name: 'Kraken Tech',
+        url: 'https://kraken.tech/',
+        img: '/kraken.svg',
+      },
+      {
+        name: 'Aerius Ventilation',
+        url: 'https://aerius.se/',
+        img: '/aerius.png',
+      },
+      {
+        name: 'TestMu AI',
+        url: 'https://www.testmuai.com/?utm_medium=sponsor&utm_source=vitest-dev',
+        img: '/testmuai.svg',
       },
     ],
   },

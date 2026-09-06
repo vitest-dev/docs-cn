@@ -5,39 +5,13 @@ title: Vitest API
 
 # Vitest
 
-Vitest 实例需要当前的测试模式。它可以是以下之一：
+## mode <Deprecated /> {#mode}
 
-- `test`：运行运行时测试时
-- `benchmark`：运行基准测试时 <Badge type="warning">实验性</Badge>
-
-::: details New in Vitest 4
-Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除了已弃用的 API：
-
-- `invalidates`
-- `changedTests`（使用 [`onFilterWatchedSpecification`](#onfilterwatchedspecification) 代替）
-- `server`（使用 [`vite`](#vite) 代替）
-- `getProjectsByTestFile`（使用 [`getModuleSpecifications`](#getmodulespecifications) 代替）
-- `getFileWorkspaceSpecs`（使用 [`getModuleSpecifications`](#getmodulespecifications) 代替）
-- `getModuleProjects`（自行通过 [`this.projects`](#projects) 过滤）
-- `updateLastChanged`（重命名为 [`invalidateFile`](#invalidatefile)）
-- `globTestSpecs`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
-- `globTestFiles`（使用 [`globTestSpecifications`](#globtestspecifications) 代替）
-- `listFile`（使用 [`getRelevantTestSpecifications`](#getrelevanttestspecifications) 代替）
-:::
-
-## mode
-
-### test
-
-测试模式只会调用 `test` 或 `it` 中的函数，并在遇到 `bench` 时抛出错误。此模式使用配置中的 `include` 和 `exclude` 选项来查找测试文件。
-
-### benchmark <Badge type="warning">实验性</Badge> {#benchmark-experimental}
-
-基准测试模式调用 `bench` 函数，并在遇到 `test` 或 `it` 时抛出错误。此模式使用配置中的 `benchmark.include` 和 `benchmark.exclude` 选项来查找基准测试文件。
+Since Vitest 5, this property is always `'test'`.
 
 ## config
 
-这是根配置（也叫全局配置）。如果你在配置中定义了多个项目，这些项目都会将这个配置视作它们的 `globalConfig` 并进行继承或引用。
+这是顶级配置（也叫全局配置）。如果你在配置中定义了多个项目，这些项目都会将这个配置视作它们的 `globalConfig` 并进行继承或引用。
 
 ::: warning
 这是 Vitest 配置，它不扩展 _Vite_ 配置。它仅包含从 `test` 属性解析的值。
@@ -47,13 +21,14 @@ Vitest 4 新增了多个 API（它们都标记有 "4.0.0+" 徽章），并移除
 
 这是全局的 [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver)。
 
-## state <Badge type="warning">实验性</Badge> {#state-experimental}
+## state <Experimental /> {#state}
 
 ::: warning
 公共 `state` 是一个实验性 API（除了 `vitest.state.getReportedEntity`）。破坏性更改可能不遵循 SemVer，请在使用时固定 Vitest 的版本。
 :::
 
-全局状态存储有关当前测试的信息。默认情况下，它使用与 `@vitest/runner` 相同的 API，但我们建议通过调用 `@vitest/runner` API 上的 `state.getReportedEntity()` 来使用 [任务报告器 API](/api/advanced/reporters#reported-tasks)：
+
+全局状态存储有关当前测试的信息。默认情况下，它使用内部可序列化的任务 API，但我们建议通过调用 `state.getReportedEntity()` 来使用 [任务报告器 API](/api/advanced/reporters#reported-tasks)：
 
 ```ts
 const task = vitest.state.idMap.get(taskId) // 旧 API
@@ -88,7 +63,7 @@ Vitest 会保证这个数组里至少有一个项目可用。如果用户在命�
 function getRootProject(): TestProject
 ```
 
-该方法会返回根测试项目。一般情况下，根项目并不会实际执行测试，也不会被加入到 `vitest.projects` 列表中，除非用户在配置中主动包含了根配置，或者没有定义任何独立的测试项目。
+该方法会返回根测试项目。一般情况下，根项目并不会实际执行测试，也不会被加入到 `vitest.projects` 列表中，除非用户在配置中主动包含了顶级配置，或者没有定义任何独立的测试项目。
 
 根项目的主要目标是设置全局配置。实际上，`rootProject.config` 直接引用 `rootProject.globalConfig` 和 `vitest.config`：
 
@@ -165,12 +140,12 @@ function globTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-此方法通过收集所有项目中的每个测试来构造新的 [测试规范](/api/advanced/test-specification)，使用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
+此方法通过收集所有项目中的每个测试来构造新的 [TestSpecification](/api/advanced/test-specification)，使用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
-此方法自动缓存所有测试规范。当我们下次调用 [`getModuleSpecifications`](#getmodulespecifications) 时，它将返回相同的规范，除非在此之前调用了 [`clearSpecificationsCache`](#clearspecificationscache)。
+此方法自动缓存所有 TestSpecification。当我们下次调用 [`getModuleSpecifications`](#getmodulespecifications) 时，它将返回相同的规范，除非在此之前调用了 [`clearSpecificationsCache`](#clearspecificationscache)。
 
 ::: warning
-从 Vitest 3 开始，如果 `poolMatchGlob` 有多个池或启用了 `typecheck`，则可能有多个具有相同模块 ID（文件路径）的测试规范。这种可能性将在 Vitest 4 中移除。
+从 Vitest 3 开始，如果 `poolMatchGlob` 有多个池或启用了 `typecheck`，则可能有多个具有相同模块 ID（文件路径）的 TestSpecification。这种可能性将在 Vitest 4 中移除。
 :::
 
 ```ts
@@ -187,10 +162,10 @@ function getRelevantTestSpecifications(
 ): Promise<TestSpecification[]>
 ```
 
-此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个测试规范。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
+此方法通过调用 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles) 解析每个 TestSpecification。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。`getRelevantTestSpecifications` 不会运行任何测试文件。
 
 ::: warning
-此方法可能很慢，因为它需要过滤 `--changed` 标志。如果我们只需要测试文件列表，请不要使用它。
+此方法可能很慢，因为它需要过滤 `--changed` 参数。如果我们只需要测试文件列表，请不要使用它。
 
 - 如果我们需要获取已知测试文件的规范列表，请使用 [`getModuleSpecifications`](#getmodulespecifications) 代替。
 - 如果我们需要获取所有可能的测试文件列表，请使用 [`globTestSpecifications`](#globtestspecifications)。
@@ -202,7 +177,7 @@ function getRelevantTestSpecifications(
 function mergeReports(directory?: string): Promise<TestRunResult>
 ```
 
-合并指定目录中的多个运行的报告（如果未指定，则使用 `--merge-reports` 的值）。此值也可以在 `config.mergeReports` 上设置（默认情况下，它将读取 `.vitest-reports` 文件夹）。
+合并指定目录中的多个运行的报告（如果未指定，则使用 `--merge-reports` 的值）。此值也可以在 `config.mergeReports` 上设置（默认情况下，它将读取 `.vitest/blob/` 文件夹）。
 
 请注意，`directory` 将始终相对于工作目录解析。
 
@@ -211,17 +186,24 @@ function mergeReports(directory?: string): Promise<TestRunResult>
 ## collect
 
 ```ts
-function collect(filters?: string[]): Promise<TestRunResult>
+function collect(
+  filters?: string[],
+  options?: {
+    staticParse?: boolean
+    staticParseConcurrency?: number
+  }
+): Promise<TestRunResult>
 ```
 
-执行测试文件而不运行测试回调。`collect` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。它接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
+根据 `staticParse` 的设置，此方法要么通过静态分析收集测试文件（默认行为），要么运行代码但不执行测试回调。`collect` 返回未处理的错误以及一个 [测试模块](/api/advanced/test-module) 数组。它接受用于匹配测试文件的字符串过滤器——这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
-此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析测试规范。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 标志，则列表将被过滤为仅包含已更改的文件。
+此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析 TestSpecification。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
 
+<!-- TODO: translation -->
 ::: warning
-请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
 
-这使得此方法非常慢，除非我们在收集测试之前禁用隔离。
+Note that since Vitest 5, the tests are collected by static analysis by default. If disabled via the second option, Vitest will run every test file in isolation, just like it runs regular tests. This would make this method very slow, unless you disable isolation manually before collecting tests.
+
 :::
 
 ## start
@@ -233,20 +215,22 @@ function start(filters?: string[]): Promise<TestRunResult>
 初始化报告器、覆盖率提供者并运行测试。此方法接受字符串过滤器以匹配测试文件 - 这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
 
 ::: warning
-如果还调用了 [`vitest.init()`](#init)，则不应调用此方法。如果我们需要在 Vitest 初始化后运行测试，请使用 [`runTestSpecifications`](#runtestspecifications) 或 [`rerunTestSpecifications`](#reruntestspecifications)。
+如果还调用了 [`vitest.standalone()`](#standalone)，则不应调用此方法。如果我们需要在 Vitest 初始化后运行测试，请使用 [`runTestSpecifications`](#runtestspecifications) 或 [`rerunTestSpecifications`](#reruntestspecifications)。
 :::
 
 如果未设置 `config.mergeReports` 和 `config.standalone`，则此方法由 [`startVitest`](/guide/advanced/tests) 自动调用。
 
-## init
+## standalone <Version type="experimental">4.1.1</Version> {#standalone}
 
 ```ts
-function init(): Promise<void>
+function standalone(): Promise<void>
 ```
 
-初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 标志，Vitest 仍将运行更改的测试，即使未调用此方法。
+- **别名:** `init` <Deprecated />
 
-在内部，仅当启用了 [`--standalone`](/guide/cli#standalone) 标志时才会调用此方法。
+初始化报告器和覆盖率提供者。此方法不运行任何测试。如果提供了 `--watch` 参数，Vitest 仍将运行更改的测试，即使未调用此方法。
+
+在内部，仅当启用了 [`--standalone`](/guide/cli#standalone) 参数时才会调用此方法。
 
 ::: warning
 如果还调用了 [`vitest.start()`](#start)，则不应调用此方法。
@@ -260,7 +244,7 @@ function init(): Promise<void>
 function getModuleSpecifications(moduleId: string): TestSpecification[]
 ```
 
-返回与模块 ID 相关的测试规范列表。ID 应已解析为绝对文件路径。如果 ID 不匹配 `include` 或 `includeSource` 模式，则返回的数组将为空。
+返回与模块 ID 相关的 TestSpecification 列表。ID 应已解析为绝对文件路径。如果 ID 不匹配 `include` 或 `includeSource` 模式，则返回的数组将为空。
 
 此方法可以根据 `moduleId` 和 `pool` 返回已缓存的规范。但请注意，[`project.createSpecification`](/api/advanced/test-project#createspecification) 总是返回一个新实例，并且不会自动缓存。但是，当调用 [`runTestSpecifications`](#runtestspecifications) 时，规范会自动缓存。
 
@@ -274,7 +258,7 @@ function getModuleSpecifications(moduleId: string): TestSpecification[]
 function clearSpecificationsCache(moduleId?: string): void
 ```
 
-当调用 [`globTestSpecifications`](#globtestspecifications) 或 [`runTestSpecifications`](#runtestspecifications) 时，Vitest 会自动缓存每个文件的测试规范。此方法会根据第一个参数清除给定文件的缓存或整个缓存。
+当调用 [`globTestSpecifications`](#globtestspecifications) 或 [`runTestSpecifications`](#runtestspecifications) 时，Vitest 会自动缓存每个文件的 TestSpecification。此方法会根据第一个参数清除给定文件的缓存或整个缓存。
 
 ## runTestSpecifications
 
@@ -302,6 +286,21 @@ function rerunTestSpecifications(
 
 此方法发出 `reporter.onWatcherRerun` 和 `onTestsRerun` 事件，然后使用 [`runTestSpecifications`](#runtestspecifications) 运行测试。如果主进程中没有错误，它将发出 `reporter.onWatcherStart` 事件。
 
+## runTestFiles <Version>4.1.0</Version> {#runtestfiles}
+
+```ts
+function runTestFiles(
+  filepaths: string[],
+  allTestsRun = false
+): Promise<TestRunResult>
+```
+
+该功能会根据文件路径过滤器自动创建待运行的 TestSpecification。
+
+这与 [`start`](#start) 的不同之处在于：它不会创建覆盖率提供程序、不会触发 `onInit` 和 `onWatcherStart` 事件，且在无文件可运行时也不会抛出错误（此时函数将返回空数组且不会触发测试运行）。
+
+此函数接受的过滤器参数与 [`start`](#start) 及命令行接口完全一致。
+
 ## updateSnapshot
 
 ```ts
@@ -320,7 +319,7 @@ function collectTests(
 
 执行测试文件而不运行测试回调。`collectTests` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。
 
-此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供测试规范。
+此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供 TestSpecification。
 
 ::: warning
 请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
@@ -342,7 +341,7 @@ function cancelCurrentRun(reason: CancelReason): Promise<void>
 function setGlobalTestNamePattern(pattern: string | RegExp): void
 ```
 
-此方法覆盖全局的 [测试名称模式](/config/#testnamepattern)。
+此方法覆盖全局的 [测试名称模式](/config/testnamepattern)。
 
 ::: warning
 此方法不会开始运行任何测试。要使用更新后的模式运行测试，请调用 [`runTestSpecifications`](#runtestspecifications)。
@@ -362,7 +361,7 @@ function getGlobalTestNamePattern(): RegExp | undefined
 function resetGlobalTestNamePattern(): void
 ```
 
-此方法重置 [测试名称模式](/config/#testnamepattern)。这意味着 Vitest 现在不会跳过任何测试。
+此方法重置 [测试名称模式](/config/testnamepattern)。这意味着 Vitest 现在不会跳过任何测试。
 
 ::: warning
 此方法不会开始运行任何测试。要运行没有模式的测试，请调用 [`runTestSpecifications`](#runtestspecifications)。
@@ -437,7 +436,7 @@ function exit(force = false): Promise<void>
 
 关闭所有项目并退出进程。如果 `force` 设置为 `true`，则进程将在关闭项目后立即退出。
 
-如果进程在 [`config.teardownTimeout`](/config/#teardowntimeout) 毫秒后仍然处于活动状态，此方法还将强制调用 `process.exit()`。
+如果进程在 [`config.teardownTimeout`](/config/teardowntimeout) 毫秒后仍然处于活动状态，此方法还将强制调用 `process.exit()`。
 
 ## shouldKeepServer
 
@@ -463,9 +462,7 @@ function onCancel(fn: (reason: CancelReason) => Awaitable<void>): () => void
 
 注册一个处理程序，当测试运行被 [`vitest.cancelCurrentRun`](#cancelcurrentrun) 取消时调用。
 
-::: warning EXPERIMENTAL
-Since 4.0.10, `onCancel` returns a teardown function that will remove the listener.
-:::
+自 4.0.10 起，`onCancel` 实验性地返回一个清理函数，该函数会移除监听器。自 4.1.0 起，此行为被视为稳定。
 
 ## onClose
 
@@ -532,10 +529,10 @@ function waitForTestRunEnd(): Promise<void>
 function createCoverageProvider(): Promise<CoverageProvider | null>
 ```
 
-当配置中启用了 `coverage` 时，创建覆盖率提供器。若使用 [`start`](#start) 或 [`init`](#init) 方法启动测试，这一步会自动完成。
+当配置中启用了 `coverage` 时，创建覆盖率提供器。若使用 [`start`](#start) 或 [`standalone`](#standalone) 方法启动测试，这一步会自动完成。
 
 ::: warning
-若未将 [`coverage.clean`](/config/#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。
+若未将 [`coverage.clean`](/config/coverage#coverage-clean) 显式设为 false ，此方法还会清空之前的所有报告。
 :::
 
 ## enableCoverage <Version>4.0.0</Version> {#enablecoverage}
@@ -601,26 +598,28 @@ Vitest 只会收集当前文件内定义的测试，绝不会跟随导入去其�
 无论是否从 `vitest` 入口点导入， Vitest 都会收集所有 `it` 、`test` 、`suite` 和 `describe` 的定义。
 :::
 
-## experimental_parseSpecifications <Version type="experimental">4.0.0</Version> <Experimental /> {#parsespecifications}
+## parseSpecifications <Version>5.0.0</Version> {#parsespecifications}
 
 ```ts
-function experimental_parseSpecifications(
+function parseSpecifications(
   specifications: TestSpecification[],
   options?: {
     concurrency?: number
   }
 ): Promise<TestModule[]>
 ```
-<!-- TODO: translation -->
-This method will [collect tests](#parsespecification) from an array of specifications. By default, Vitest will run only `os.availableParallelism()` number of specifications at a time to reduce the potential performance degradation. You can specify a different number in a second argument.
 
-## experimental_clearCache <Version type="experimental">4.0.11</Version> <Experimental /> {#clearcache}
+此方法将从规范数组中 [收集测试用例](#parsespecification)。默认情况下，Vitest 每次仅会并行运行 `os.availableParallelism()` 数量的规范，以降低潜在的性能损耗。你可以通过第二个参数指定不同的并发数量。
+
+## clearCache <Version>5.0.0</Version> {#clearcache}
 
 ```ts
-function experimental_clearCache(): Promise<void>
+function clearCache(): Promise<void>
 ```
 
-Deletes all Vitest caches, including [`experimental.fsModuleCache`](/config/experimental#experimental-fsmodulecache).
+删除所有 Vitest 缓存，包括 [`fsModuleCache`](/config/fsmodulecache)。
+
+This was available since Vitest 4.0.11 as experimental `experimental_clearCache` method.
 
 ## experimental_getSourceModuleDiagnostic <Version type="experimental">4.0.15</Version> <Experimental /> {#getsourcemodulediagnostic}
 
@@ -631,7 +630,7 @@ export function experimental_getSourceModuleDiagnostic(
 ): Promise<SourceModuleDiagnostic>
 ```
 
-::: details Types
+::: details 类型
 ```ts
 export interface ModuleDefinitionLocation {
   line: number
@@ -673,8 +672,125 @@ export interface SourceModuleDiagnostic {
 ```
 :::
 
-Returns module's diagnostic. If [`testModule`](/api/advanced/test-module) is not provided, `selfTime` and `totalTime` will be aggregated across all tests that were running the last time. If the module was not transformed or executed, the diagnostic will be empty.
+返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，则 `selfTime` 和 `totalTime` 将聚合上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
 
 ::: warning
-At the moment, the [browser](/guide/browser/) modules are not supported.
+[浏览器模式](/guide/browser/) 暂不支持。
 :::
+
+## createReport <Version>5.0.0</Version> {#createreport}
+
+```ts
+function createReport(scope: string): Report
+```
+
+创建一个仅限于给定作用域的报告。`Report` 遵循 Vitest 关于 [在文件系统中存储工件](/guide/advanced/reporters.html#storing-artifacts-on-file-system) 的规则。
+
+`Report` 提供了一系列用于在文件系统中写入测试结果、临时文件和其他产物的工具函数。它特别适用于第三方集成，例如自定义报告器。
+
+`Report` 的所有操作都限制在给定的 `scope` 内。单个报告不会干扰其他报告。Vitest 内部会创建一个 `.vitest` 目录，每个 `scope` 在其中创建自己的子目录。这种 `.vitest` 目录的约定减少了最终用户需要在 `.gitignore` 中指定的条目数量。
+
+```ts
+import type { Report } from 'vitest/node'
+
+const scope = 'example-yaml-reporter'
+
+// 自动创建 `<project-root>/.vitest/example-yaml-reporter/`
+// 如果目录不存在
+const report: Report = vitest.createReport(scope)
+```
+
+### Report.root
+
+```ts
+const root: string
+```
+
+The root directory for this scope.
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// 即 <project-root>/.vitest/my-json-reporter
+const root = report.root
+```
+
+### Report.clean
+
+```ts
+function clean(): Promise<void>
+```
+
+清理此作用域的报告目录。
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// 删除 <project-root>/.vitest/my-json-reporter/ 内的所有内容
+await report.clean()
+```
+
+### Report.writeFile
+
+```ts
+function writeFile(
+  filename: string,
+  content: string | Uint8Array,
+  encoding?: BufferEncoding
+): Promise<void>
+```
+
+向此作用域的报告目录写入文件。默认情况下，文件将以 UTF-8 编码写入。文件名是相对于作用域目录的。
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// 将文件写入 .vitest/my-json-reporter/test-report.json
+await report.writeFile('test-report.json', JSON.stringify(results))
+```
+
+### Report.readFile
+
+```ts
+function readFile(filename: string, encoding?: BufferEncoding): Promise<string>
+```
+
+从此作用域的报告目录读取文件。
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// 从 .vitest/my-json-reporter/test-report.json 读取文件
+const content: string = await report.readFile('test-report.json')
+```
+
+### Report.readdir
+
+```ts
+function readdir(): Promise<string[]>
+```
+
+读取此作用域报告目录的内容。
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// 从 from .vitest/my-json-reporter 读取内容
+const filenames: string[] = await report.readdir()
+```
+
+### Report.delete
+
+<!-- eslint-skip -->
+```ts
+function delete(filename: string): Promise<void>
+```
+
+从此作用域的报告目录删除文件。
+
+```ts
+const report = vitest.createReport('my-json-reporter')
+
+// 从 .vitest/my-json-reporter/test-report.json 删除文件
+await report.delete('test-report.json')
+```

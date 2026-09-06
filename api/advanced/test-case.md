@@ -1,8 +1,8 @@
 # TestCase
 
-`TestCase` 类表示单个测试。此类仅在主线程中可用。如果您正在处理运行时任务，请参阅 [“运行器 API”](/api/advanced/runner#tasks)。
+`TestCase` 类表示单个测试。此类仅在主线程中可用。如果你正在处理运行时任务，请参阅 [“运行器 API”](/api/advanced/runner#tasks)。
 
-`TestCase` 实例始终有一个值为 `test` 的 `type` 属性。您可以使用它来区分不同的任务类型：
+`TestCase` 实例始终有一个值为 `test` 的 `type` 属性。你可以使用它来区分不同的任务类型：
 
 ```ts
 if (task.type === 'test') {
@@ -80,7 +80,7 @@ const hash = generateFileHash(
 
 ## location
 
-测试在模块中定义的位置。只有在配置中启用了 [`includeTaskLocation`](/config/#includetasklocation) 时才会收集位置信息。请注意，如果使用了 `--reporter=html`、`--ui` 或 `--browser` 参数，此选项会自动启用。
+测试在模块中定义的位置。只有在配置中启用了 [`includeTaskLocation`](/config/includetasklocation) 时才会收集位置信息。请注意，如果使用了 `--reporter=html`、`--ui` 或 `--browser` 参数，此选项会自动启用。
 
 此测试的位置将等于 `{ line: 3, column: 1 }`：
 
@@ -106,11 +106,17 @@ interface TaskOptions {
   readonly shuffle: boolean | undefined
   readonly retry: number | undefined
   readonly repeats: number | undefined
+  readonly tags: string[] | undefined
+  readonly timeout: number | undefined
   readonly mode: 'run' | 'only' | 'skip' | 'todo'
 }
 ```
 
 收集测试时使用的选项。
+
+## tags <Version>4.1.0</Version> {#tags}
+
+隐式或显式分配给测试的 [标签](/guide/test-tags)。
 
 ## ok
 
@@ -137,8 +143,13 @@ test('the validation works correctly', ({ task }) => {
   task.meta.decorated = false
 })
 ```
+如果测试尚未运行完毕，元数据将是一个空对象，除非它定义了静态元数据：
 
-如果测试尚未完成运行，元数据将是一个空对象。
+```ts
+test('the validation works correctly', { meta: { decorated: true } })
+```
+
+自 Vitest 4.1 起，Vitest 会继承定义在 [套件](/api/advanced/test-suite) 上的 [`meta`](/api/advanced/test-suite#meta) 属性。
 
 ## result
 
@@ -166,7 +177,7 @@ export interface TestResultPending {
 ```ts
 interface TestResultSkipped {
   /**
-   * 使用 `skip` 或 `todo` 标志跳过测试。
+   * 使用 `skip` 或 `todo` 参数跳过测试。
    * 你可以在 `options.mode` 选项中查看使用的是哪种模式。
    */
   readonly state: 'skipped'
@@ -182,7 +193,7 @@ interface TestResultSkipped {
 ```
 
 ::: tip
-如果测试因为其他测试有 `only` 标志而被跳过，则 `options.mode` 将等于 `skip`。
+如果测试因为其他测试有 `only` 参数而被跳过，则 `options.mode` 将等于 `skip`。
 :::
 
 如果测试失败，返回值将是 `TestResultFailed`：
@@ -235,7 +246,7 @@ interface TestDiagnostic {
   readonly slow: boolean
   /**
    * 测试使用的内存量（字节）。
-   * 只有使用 `logHeapUsage` 标志执行测试时，该值才可用。
+   * 只有使用 `logHeapUsage` 参数执行测试时，该值才可用。
    */
   readonly heap: number | undefined
   /**
@@ -265,14 +276,14 @@ interface TestDiagnostic {
 ::: info
 如果测试尚未被安排运行，`diagnostic()` 将返回 `undefined`。
 :::
-<!-- TODO: translation -->
+
 ## annotations
 
 ```ts
 function annotations(): ReadonlyArray<TestAnnotation>
 ```
 
-[Test annotations](/guide/test-annotations) added via the [`task.annotate`](/guide/test-context#annotate) API during the test execution.
+通过 [`task.annotate`](/guide/test-context#annotate) API，在测试执行过程中添加的 [测试注释](/guide/test-annotations)。
 
 ## artifacts <Version type="experimental">4.0.11</Version> <Experimental /> {#artifacts}
 
@@ -280,4 +291,20 @@ function annotations(): ReadonlyArray<TestAnnotation>
 function artifacts(): ReadonlyArray<TestArtifact>
 ```
 
-[Test artifacts](/api/advanced/artifacts) recorded via the `recordArtifact` API during the test execution.
+通过 `recordArtifact` API，在测试执行过程中记录的 [测试产物](/api/advanced/artifacts)。
+
+## toTestSpecification <Version>4.1.0</Version> {#totestspecification}
+
+```ts
+function toTestSpecification(): TestSpecification
+```
+
+返回一个新的 [TestSpecification](/api/advanced/test-specification)，可用于过滤或运行此特定测试用例。
+
+## logs <Version>5.0.0</Version> {#logs}
+
+```ts
+function logs(): ReadonlyArray<UserConsoleLog>
+```
+
+测试执行期间记录的 console 日志。

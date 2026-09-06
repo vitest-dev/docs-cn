@@ -20,8 +20,8 @@ getApplesSpy.mock.calls.length === 1
 
 要验证 mock 的行为，请通过 [`expect`](/api/expect) 调用类似 [`toHaveBeenCalled`](/api/expect#tohavebeencalled) 的断言方法；以下 API 参考汇总了所有可用来操控 mock 的属性和方法。
 
-::: warning IMPORTANT
-Vitest spies inherit implementation's [`length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) property when initialized, but it doesn't override it if the implementation was changed later:
+::: warning 重要说明
+Vitest 的 spy 函数在初始化时会继承被监听函数的 [`length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length) 属性，但后续如果修改被监听函数，则不会覆盖该属性值。
 
 ::: code-group
 ```ts [vi.fn]
@@ -48,6 +48,47 @@ fn.length // == 2
 
 ::: tip
 以下类型中的自定义函数实现使用泛型 `<T>` 进行标记。
+:::
+
+::: warning 类支持 {#class-support}
+像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有[反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
+
+```ts {2,7}
+const CorrectDogClass = vi.fn(class {
+  constructor(public name: string) {}
+})
+
+const IncorrectDogClass = vi.fn(class {
+  constructor(public name: string) {
+    return { name }
+  }
+})
+
+const Marti = new CorrectDogClass('Marti')
+const Newt = new IncorrectDogClass('Newt')
+
+Marti instanceof CorrectDogClass // ✅ true
+Newt instanceof IncorrectDogClass // ❌ false!
+```
+
+尽管接口规范相同，但构造函数的 _返回值_ 被赋给了 `Newt`，这是一个普通对象，而非模拟类的实例。Vitest 会在简写方法中（但不会在 `mockImplementation` 中！）防止这种行为，转而抛出错误。
+
+如果需要模拟类的构造实例，考虑改用 `class` 语法配合 `mockImplementation`：
+
+```ts
+mock.mockReturnValue({ hello: () => 'world' }) // [!code --]
+mock.mockImplementation(class { hello = () => 'world' }) // [!code ++]
+```
+
+如果需要测试这种有效用例的行为，可以使用带有 `constructor` 的 `mockImplementation`：
+
+```ts
+mock.mockImplementation(class {
+  constructor(name: string) {
+    return { name }
+  }
+})
+```
 :::
 
 ## getMockImplementation
@@ -93,7 +134,7 @@ expect(person.greet('Bob')).toBe('mocked')
 expect(spy.mock.calls).toEqual([['Bob']])
 ```
 
-要在每个测试之前自动调用此方法，请在配置中启用 [`clearMocks`](/config/#clearmocks) 设置。
+要在每个测试之前自动调用此方法，请在配置中启用 [`clearMocks`](/config/clearmocks) 设置。
 
 ## mockName
 
@@ -124,6 +165,8 @@ BobsBucket === 2 // true
 mockFn.mock.calls[0][0] === 0 // true
 mockFn.mock.calls[1][0] === 1 // true
 ```
+<!-- TODO: translation -->
+If the implementation is a class, the mock's `prototype` is re-pointed to the implementation's prototype, so constructed instances see its prototype methods and pass `instanceof` checks against it. See [Mocking Classes](/guide/mocking/classes) for details.
 
 ## mockImplementationOnce
 
@@ -243,13 +286,12 @@ function mockReset(): Mock<T>
 
 该方法会先执行与 [`mockClear`](#mockClear) 相同的清理，再重置 mock 的实现，并一并清除所有一次性（once）设定。
 
-注意：
+注意：如果 mock 由 `vi.fn()` 创建，重置后其函数体将变为空实现，默认返回 `undefined`。如果由 `vi.fn(impl)` 创建，重置后实现会恢复为传入的 `impl`。
 
-- 若 mock 由 `vi.fn()` 创建，重置后其函数体将变为空实现，默认返回 `undefined`。
+<!-- TODO: translation -->
+The mock's `prototype` chain follows along: it reverts to the original class for `vi.fn(impl)` and `vi.spyOn()`, and to a plain object for `vi.fn()`, so instances constructed after the reset no longer pass `instanceof` checks against a previously set class implementation.
 
-- 若由 `vi.fn(impl)` 创建，重置后实现会恢复为传入的 `impl`。
-
-当我们想将模拟 restore 为其原始状态时，这很有用。
+适用于想将模拟重置为初始状态。
 
 ```ts
 const person = {
@@ -267,7 +309,7 @@ expect(person.greet('Bob')).toBe('Hello Bob')
 expect(spy.mock.calls).toEqual([['Bob']])
 ```
 
-要在每个测试之前自动调用此方法，可以在配置中启用 [`mockReset`](/config/#mockreset) 设置。
+要在每个测试之前自动调用此方法，可以在配置中启用 [`mockReset`](/config/mockreset) 设置。
 
 ## mockRestore
 
@@ -295,7 +337,7 @@ expect(person.greet('Bob')).toBe('Hello Bob')
 expect(spy.mock.calls).toEqual([])
 ```
 
-要在每个测试之前自动调用此方法，请在配置中启用 [`restoreMocks`](/config/#restoremocks) 设置。
+要在每个测试之前自动调用此方法，请在配置中启用 [`restoreMocks`](/config/restoremocks) 设置。
 
 ## mockResolvedValue
 
@@ -382,6 +424,39 @@ const myMockFn = vi
 // 'first call', 'second call', 'default', 'default'
 console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 ```
+## mockThrow <Version>4.1.0</Version> {#mockthrow}
+
+```ts
+function mockThrow(value: unknown): Mock<T>
+```
+
+接收一个值，该值会在每次调用模拟函数时被抛出。
+
+```ts
+const myMockFn = vi.fn()
+myMockFn.mockThrow(new Error('error message'))
+myMockFn() // 抛出 <'error message'> 错误
+```
+
+## mockThrowOnce <Version>4.1.0</Version> {#mockthrowonce}
+
+```ts
+function mockThrowOnce(value: unknown): Mock<T>
+```
+
+接收一个值，该值会在下一次函数调用时被抛出。如果链式调用，每次连续调用都会抛出指定的值。
+
+```ts
+const myMockFn = vi
+  .fn()
+  .mockReturnValue('default')
+  .mockThrowOnce(new Error('first call error'))
+  .mockThrowOnce('second call error')
+
+expect(() => myMockFn()).toThrow('first call error')
+expect(() => myMockFn()).toThrow('second call error')
+expect(myMockFn()).toEqual('default')
+```
 
 ## mock.calls
 
@@ -399,8 +474,8 @@ fn('arg3')
 
 fn.mock.calls
 === [
-  ['arg1', 'arg2'], // first call
-  ['arg3'], // second call
+  ['arg1', 'arg2'], // 首次调用
+  ['arg3'], // 第二次调用
 ]
 ```
 
@@ -628,7 +703,9 @@ MyClass.mock.instances[0] === a
 若构造函数显式返回值，该值不会存入 `instances`，而会出现在 `results` 中：
 
 ```js
-const Spy = vi.fn(() => ({ method: vi.fn() }))
+const Spy = vi.fn(function () {
+  return { method: vi.fn() }
+})
 const a = new Spy()
 
 Spy.mock.instances[0] !== a

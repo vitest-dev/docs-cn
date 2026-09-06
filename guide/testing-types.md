@@ -10,19 +10,19 @@ title: 类型测试 | 指南
 
 :::
 
-Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编写测试。默认情况下，`*.test-d.ts` 文件中的所有测试都被视为类型测试，但你可以使用 [`typecheck.include`](/config/#typecheck-include) 配置选项更改它。
+Vitest 允许你使用 `expectTypeOf` 或 `assertType` 语法为你的类型编写测试。默认情况下，`*.test-d.ts` 文件中的所有测试都被视为类型测试，但你可以使用 [`typecheck.include`](/config/typecheck#typecheck-include) 配置选项更改它。
 
-在这里，Vitest 调用 `tsc` 或 `vue-tsc`，具体取决于你的配置，并解析结果。如果发现任何类型错误，Vitest 还会在你的源代码中打印出类型错误。你可以使用 [`typecheck.ignoreSourceErrors`](/config/#typecheck-ignoresourceerrors) 配置选项禁用它。
+在这里，Vitest 调用 `tsc` 或 `vue-tsc`，具体取决于你的配置，并解析结果。如果发现任何类型错误，Vitest 还会在你的源代码中打印出类型错误。你可以使用 [`typecheck.ignoreSourceErrors`](/config/typecheck#typecheck-ignoresourceerrors) 配置选项禁用它。
 
-请记住，Vitest 不会运行这些文件，编译器只会对它们进行静态分析。也就是说，如果您使用动态名称或 `test.each` 或 `test.for`，测试名称将不会被评估，它将原样显示。
+请记住，Vitest 不会运行这些文件，编译器只会对它们进行静态分析。也就是说，如果你使用动态名称或 `test.each` 或 `test.for`，测试名称将不会被评估，它将原样显示。
 
 ::: warning
-在 Vitest 2.1 之前，您的 `typecheck.include` 覆盖了 `include` 模式，因此您的运行时测试并没有实际运行；它们只是被类型检查。
+在 Vitest 2.1 之前，你的 `typecheck.include` 覆盖了 `include` 模式，因此你的运行时测试并没有实际运行；它们只是被类型检查。
 
-自 Vitest 2.1 起，如果您的 `include` 和 `typecheck.include` 重叠，Vitest 将分别报告类型测试和运行时测试。
+自 Vitest 2.1 起，如果你的 `include` 和 `typecheck.include` 重叠，Vitest 将分别报告类型测试和运行时测试。
 :::
 
-使用 CLI 标志，如 `--allowOnly` 和 `-t` 也支持类型检查。
+使用 CLI 参数，如 `--allowOnly` 和 `-t` 也支持类型检查。
 
 ```ts [mount.test-d.ts]
 import { assertType, expectTypeOf } from 'vitest'
@@ -39,7 +39,7 @@ test('my types work properly', () => {
 
 在测试文件中触发的任何类型错误都将被视为测试错误，因此你可以使用任何类型技巧来测试项目中的类型。
 
-你可以在 [API 部分](/api/#expecttypeof) 中查看所有可用的匹配器列表。
+你可以在 [API 部分](/api/expect-typeof) 中查看所有可用的匹配器列表。
 
 ## 读取错误 {#reading-errors}
 
@@ -77,7 +77,7 @@ test/test.ts:999:999 - error TS2349: This expression is not callable.
 
 如果 TypeScript 添加了对 ["throw" 类型](https://github.com/microsoft/TypeScript/pull/40468) 的支持，这些错误消息将会显著改进。在那之前，它们需要一定程度的仔细观察。
 
-#### 具体的 "expected " 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
+### 具体的 "expected " 对象与类型参数 {#concrete-expected-objects-vs-typeargs}
 
 像这样的断言的错误消息：
 
@@ -111,7 +111,7 @@ assertType<string>(answer)
 ```
 
 ::: tip
-使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/#include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会*运行*这些测试并因 `ReferenceError` 而失败。
+使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会*运行*这些测试并因 `ReferenceError` 而失败。
 
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：
 
@@ -124,7 +124,7 @@ assertType<string>(answr)
 
 ## 运行类型检查 {#run-typechecking}
 
-要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/#typecheck) 标志：
+要启用类型检查，只需在 `package.json` 文件中的 Vitest 命令中添加 [`--typecheck`](/config/typecheck) 参数：
 
 ```json [package.json]
 {

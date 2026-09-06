@@ -1,5 +1,5 @@
 <template>
   <Badge type="danger">
-    deprecated
+    弃用
   </Badge>
 </template>

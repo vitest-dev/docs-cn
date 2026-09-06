@@ -4,7 +4,7 @@
 这是一个高级 API。如果我们只是想配置内置报告器，请阅读 [报告器](/guide/reporters) 指南。
 :::
 
-我们可以从 `vitest/reporters` 导入报告器并扩展它们来创建自定义报告器。
+我们可以从 `vitest/node` 导入报告器并扩展它们来创建自定义报告器。
 
 ## 扩展内置报告器 {#extending-built-in-reporters}
 
@@ -18,29 +18,24 @@ export default class MyDefaultReporter extends DefaultReporter {
 }
 ```
 
-当然，我们可以从头开始创建报告器。只需扩展 `BaseReporter` 类并实现我们需要的方法即可。
+::: warning
+请注意，导出的报告器接口尚未稳定，在次要版本更新中可能会调整其 API 结构。
+:::
+
+当然，你也可以从头开始创建自定义报告器，只需实现 [`Reporter`](/api/advanced/reporters) 接口即可：
 
 这是自定义报告器的示例：
-
-```ts [custom-reporter.js]
-import { BaseReporter } from 'vitest/node'
-
-export default class CustomReporter extends BaseReporter {
-  onTestModuleCollected() {
-    const files = this.ctx.state.getFiles(this.watchFilters)
-    this.reportTestSummary(files)
-  }
-}
-```
-
-或者实现 `Reporter` 接口：
 
 ```ts [custom-reporter.js]
 import type { Reporter } from 'vitest/node'
 
 export default class CustomReporter implements Reporter {
-  onTestModuleCollected() {
-    // print something
+  onTestModuleCollected(testModule) {
+    console.log(testModule.moduleId, 'is finished')
+
+    for (const test of testModule.children.allTests()) {
+      console.log(test.name, test.result().state)
+    }
   }
 }
 ```
@@ -58,11 +53,9 @@ export default defineConfig({
 })
 ```
 
-## 报告的任务 {#reported-tasks}
+## 报告任务 {#reported-tasks}
 
-建议使用 Reported Tasks API，而不是使用报告器接收到的任务。
-
-我们可以通过调用 `vitest.state.getReportedEntity(runnerTask)` 访问此 API：
+报告器接收的 [事件](/api/advanced/reporters) 包含 [测试用例](/api/advanced/test-case)、[测试套件](/api/advanced/test-suite) 和 [测试模块](/api/advanced/test-module) 任务：
 
 ```ts twoslash
 import type { Reporter, TestModule } from 'vitest/node'
@@ -77,6 +70,33 @@ class MyReporter implements Reporter {
     }
   }
 }
+```
+
+## 在文件系统上存储附件 {#storing-artifacts-on-file-system}
+
+::: tip
+Vitest 提供了 [`vitest.createReport`](/api/advanced/vitest.html#createreport)，它公开了一组工具函数，用于在文件系统上写入附件。
+:::
+
+如果你的自定义报告器需要在文件系统上存储任何附件，应该将它们放在 `.vitest` 目录中。这个目录是一个约定，Vitest 报告器和第三方集成可以使用它将结果放在同一个目录中。这样，你的自定义报告器的用户就不需要在他们的 `.gitignore` 中添加多个排除项。只需要排除 `.vitest` 即可。
+
+报告器和其他集成应遵守以下关于 `.vitest` 目录的规则：
+
+- `.vitest` 目录位于项目的 [根目录](/config/root)
+- 如果 `.vitest` 目录不存在，报告器将自行创建
+- 报告器绝不会删除 `.vitest` 目录
+- 报告器会在 `.vitest` 内创建自己的目录，例如 `.vitest/yaml-reporter/`
+- 报告器会删除其在 `.vitest` 内的特定目录，例如 `.vitest/yaml-reporter/`
+
+```ansi
+.vitest
+│
+├── yaml-reporter
+│   ├── results.yaml
+│   └── summary.yaml
+│
+└── junit-reporter
+    └── report.xml
 ```
 
 ## 导出报告器 {#exported-reporters}
@@ -94,10 +114,6 @@ class MyReporter implements Reporter {
 7. `TapFlatReporter`
 8. `HangingProcessReporter`
 9. `TreeReporter`
-
-### 基础抽象报告器: {#base-abstract-reporters}
-
-1. `BaseReporter`
 
 ### 接口报告器: {#interface-reporters}
 

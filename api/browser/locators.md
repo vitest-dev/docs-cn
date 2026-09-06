@@ -7,10 +7,33 @@ outline: [2, 3]
 
 定位器是表示一个或多个元素的方式。每个定位器都由一个称为选择器的字符串定义。Vitest 通过提供方便的方法在后台生成这些选择器，从而抽象了选择器。
 
-定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmjs.com/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/config/browser#browser-provider)。
+定位器 API 使用了 [Playwright 的定位器](https://playwright.dev/docs/api/class-locator) 的一个分支，称为 [Ivya](https://npmx.dev/ivya)。然而，Vitest 将此 API 提供给每个 [provider](/config/browser/provider)。
 
 ::: tip
 本页介绍了 API 的使用。为了更好地了解定位器及其用法，请阅读 [Playwright 的“定位器”文档](https://playwright.dev/docs/locators)。
+:::
+
+::: tip 与 `testing-library` 的区别
+Vitest 的 `page.getBy*` 方法返回的是一个定位器对象，而非 DOM 元素。这使得定位器查询可组合，并允许 Vitest 在需要时重试交互和断言。
+
+与 testing-library 查询的对比：
+
+- 使用定位器链式调用（如 `.getBy*`、`.filter`、`.nth`）代替 `within(...)`。
+- 保留定位器并在后续操作中使用（如 `await locator.click()`），而非提前解析元素。
+- 单元素应急方法（如 `.element()` 和 `.query()`）是严格的，如果匹配到多个元素会抛出错误。
+
+```ts
+import { expect } from 'vitest'
+import { page } from 'vitest/browser'
+
+const deleteButton = page
+  .getByRole('row')
+  .filter({ hasText: 'Vitest' })
+  .getByRole('button', { name: /delete/i })
+
+await deleteButton.click()
+await expect.element(deleteButton).toBeEnabled()
+```
 :::
 
 ## getByRole
@@ -65,7 +88,7 @@ await page.getByRole('button', { name: /submit/i }).click()
 根据 ARIA 指南，**强烈不建议** 通过 `role` 或 `aria-*` 属性为已经具有隐式角色的内置元素提供角色。
 :::
 
-##### Options
+**Options**
 
 - `exact: boolean`
 
@@ -189,7 +212,7 @@ await page.getByRole('button', { name: /submit/i }).click()
   page.getByRole('button', { selected: false }) // ❌
   ```
 
-##### 更多内容请参阅 {#see-also}
+### 更多内容请参阅 {#see-also}
 
 - [MDN 上的 ARIA 角色列表](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
 - [w3.org 上的 ARIA 角色列表](https://www.w3.org/TR/wai-aria-1.2/#role_definitions)
@@ -213,13 +236,13 @@ page.getByAltText(/incredibles.*? poster/i) // ✅
 page.getByAltText('non existing alt text') // ❌
 ```
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-1}
+## 更多内容请参阅 {#see-also-1}
 
 - [testing-library's `ByAltText`](https://testing-library.com/docs/queries/byalttext/)
 
@@ -237,36 +260,36 @@ function getByLabelText(
 下方示例中，`page.getByLabelText('Username')` 会一次性选中所有相关输入框。
 
 ```html
-// for/htmlFor relationship between label and form element id
+// for/htmlFor 标签与表单元素 ID 的关系
 <label for="username-input">Username</label>
 <input id="username-input" />
 
-// The aria-labelledby attribute with form elements
+// 使用 aria-labelledby 属性与表单元素
 <label id="username-label">Username</label>
 <input aria-labelledby="username-label" />
 
-// Wrapper labels
+// 包裹式标签
 <label>Username <input /></label>
 
-// Wrapper labels where the label text is in another child element
+// 标签文本位于其他子元素中的包裹式标签
 <label>
   <span>Username</span>
   <input />
 </label>
 
-// aria-label attributes
-// Take care because this is not a label that users can see on the page,
-// so the purpose of your input must be obvious to visual users.
+// aria-label 属性
+// 注意：这不是用户在页面上可见的标签
+// 因此输入的目的必须对视觉障碍用户显而易见。
 <input aria-label="Username" />
 ```
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-2}
+## 更多内容请参阅 {#see-also-2}
 
 - [testing-library's `ByLabelText`](https://testing-library.com/docs/queries/bylabeltext/)
 
@@ -292,13 +315,13 @@ page.getByPlaceholder('not found') // ❌
 通常情况下，使用 [`getByLabelText`](#getbylabeltext) 依赖标签比依赖占位符更好。
 :::
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-3}
+## 更多内容请参阅 {#see-also-3}
 
 - [testing-library's `ByPlaceholderText`](https://testing-library.com/docs/queries/byplaceholdertext/)
 
@@ -324,13 +347,13 @@ page.getByText('about', { exact: true }) // ❌
 此定位器适用于定位非交互式元素。如果你需要定位交互式元素，比如按钮或输入框，建议使用 [`getByRole`](#getbyrole)。
 :::
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-4}
+## 更多内容请参阅 {#see-also-4}
 
 - [testing-library's `ByText`](https://testing-library.com/docs/queries/bytext/)
 
@@ -352,13 +375,13 @@ page.getByTitle('Delete') // ✅
 page.getByTitle('Create') // ❌
 ```
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-#### 更多内容请参阅 {#see-also-5}
+## 更多内容请参阅 {#see-also-5}
 
 - [testing-library's `ByTitle`](https://testing-library.com/docs/queries/bytitle/)
 
@@ -381,13 +404,13 @@ page.getByTestId('non-existing-element') // ❌
 建议仅在其他定位器不适用于你的使用场景时才使用此方法。使用 `data-testid` 属性并不符合用户实际使用软件的方式，因此如果可能应避免使用。
 :::
 
-#### Options
+**Options**
 
 - `exact: boolean`
 
   `text` 是否精确匹配：区分大小写和整个字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空格。
 
-#### 更多内容请参阅 {#see-also-6}
+## 更多内容请参阅 {#see-also-6}
 
 - [testing-library's `ByTestId`](https://testing-library.com/docs/queries/bytestid/)
 
@@ -492,7 +515,7 @@ page.getByRole('button')
 ## filter
 
 ```ts
-function filter(options: LocatorOptions): Locator
+function filter(options: LocatorFilterOptions): Locator
 ```
 
 此方法会根据选项（例如按文本过滤）缩小定位器范围。可通过链式调用应用多个过滤器。
@@ -656,7 +679,7 @@ await page.getByRole('img', { name: 'Rose' }).tripleClick()
 function wheel(options: UserEventWheelOptions): Promise<void>
 ```
 
-Triggers a [`wheel` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event) on an element. You can use the options to choose a general scroll `direction` or a precise `delta` value.
+触发元素上的 [`wheel` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event)。你可以通过选项选择通用的滚动 `direction` 或精确的 `delta` 值。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -801,7 +824,7 @@ function screenshot(options?: LocatorScreenshotOptions & { base64?: false }): Pr
 你可以使用 `path` 选项指定屏幕截图的保存位置，该选项相对于当前测试文件。如果未设置 `path` 选项，Vitest 将默认使用 [`browser.screenshotDirectory`](/config/browser/screenshotdirectory)（默认为 `__screenshot__`），并结合文件名和测试名来确定屏幕截图的文件路径。
 
 如果你还需要屏幕截图的内容，可以指定 `base64: true` 以返回屏幕截图的 base64 编码内容以及保存路径。
-<!-- TODO: translation -->
+
 ```ts
 import { page } from 'vitest/browser'
 
@@ -811,14 +834,40 @@ const path = await button.screenshot()
 
 const { path, base64 } = await button.screenshot({
   path: './button-click-me.png',
-  base64: true, // also return base64 string
+  base64: true, // 同时返回 base64 字符串
 })
-// path - fullpath to the screenshot
-// bas64 - base64 encoded string of the screenshot
+// path - 屏幕截图的完整路径
+// base64 - 屏幕截图的 base64 编码字符串
 ```
 
 ::: warning WARNING <Version>3.2.0</Version>
 注意，当 `save` 设置为 `false` 时，`screenshot` 将始终返回 base64 字符串。在此情况下，路径参数也会被忽略。
+:::
+
+### mark
+
+```ts
+function mark(name: string, options?: { stack?: string; kind?: BrowserTraceEntryKind }): Promise<void>
+```
+
+在追踪时间线上添加一个具名标记，并使用当前定位器作为标记上下文。
+
+传入 `options.stack` 以覆盖追踪元数据中的调用位置。适用于二次封装库并且需要保留用户调用源码位置的场景。
+
+Pass `options.kind` to categorize your marker as specific type, for example as `'action'`.
+
+```ts
+import { page } from 'vitest/browser'
+
+const submitButton = page.getByRole('button', { name: 'Submit' })
+
+await submitButton.mark('before submit')
+await submitButton.click()
+await submitButton.mark('after submit')
+```
+
+::: tip
+此方法适用于启用 [`browser.trace`](/config/browser/trace) 配置时有效。
 :::
 
 ### query
@@ -830,6 +879,10 @@ function query(): Element | null
 此方法返回与定位器选择器匹配的单个元素，如果没有找到元素则返回 `null`。
 
 如果多个元素匹配该选择器，此方法将抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
+
+::: danger
+这是针对不支持定位器的外部 API 的变通方案。优先使用定位器方法。
+:::
 
 考虑以下 DOM 结构：
 
@@ -867,8 +920,11 @@ function element(): Element
 
 如果 _多个元素_ 匹配该选择器，则会抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
-::: tip
-此方法在需要将其传递给外部库时非常有用。当定位器与 `expect.element` 一起使用时，每次断言 [重试](/api/browser/assertions) 时都会自动调用此方法：
+::: danger
+
+这是一个用于不支持定位器的外部 API 的应急方案。建议优先使用定位器方法。
+
+当定位器与 `expect.element` 一起使用时，每次断言 [重试](/api/browser/assertions) 时，该方法会自动调用：
 
 ```ts
 await expect.element(page.getByRole('button')).toBeDisabled()
@@ -930,6 +986,63 @@ page.getByText('Hello').elements() // ✅ [HTMLElement, HTMLElement]
 page.getByText('Hello USA').elements() // ✅ []
 ```
 
+### findElement <Version>4.1.0</Version> {#findelement}
+
+```ts
+function findElement(
+  options?: SelectorOptions
+): Promise<HTMLElement | SVGElement>
+```
+
+::: danger WARNING
+这是一个应急方案，适用于需要直接操作原始 DOM 元素的场景，例如将其传递给不支持 Vitest 定位器的第三方库，如 FormKit。如果你需要与元素交互，请改用其他 [内置方法](#methods)。
+:::
+
+此方法返回一个与定位器匹配的元素。与 [`.element()`](#element) 不同，该方法会等待并重试，直到匹配的元素出现在 DOM 中，重试间隔逐步增加（0、20、50、100、100、500 毫秒）。
+
+如果在超时前 _未找到任何元素_，将抛出错误。默认情况下，超时时间与测试的超时时间一致。
+
+如果匹配到 _多个元素_ 选择器且 `strict` 为 `true`（默认值），则会立即抛出错误而不会重试。将 `strict` 设为 `false` 可返回第一个匹配的元素。
+
+支持的选项：
+
+- `timeout: number` - 等待至少一个元素出现的毫秒数。默认与测试的超时时间一致。
+- `strict: boolean` - 为 `true`（默认）时，如果多个元素匹配定位器，则抛出错误；为 `false` 时，返回第一个匹配的元素。
+
+考虑以下 DOM 结构：
+
+```html
+<div>Hello <span>World</span></div>
+<div>Hello Germany</div>
+<div>Hello</div>
+```
+
+以下定位器会成功解析：
+
+```ts
+await page.getByText('Hello World').findElement() // ✅ HTMLDivElement
+await page.getByText('World').findElement() // ✅ HTMLSpanElement
+await page.getByText('Hello Germany').findElement() // ✅ HTMLDivElement
+```
+
+以下定位器会抛出错误：
+
+```ts
+// 多个元素匹配，严格模式会拒绝
+await page.getByText('Hello').findElement() // ❌
+await page.getByText(/^Hello/).findElement() // ❌
+
+// 超时前未找到匹配元素
+await page.getByText('Hello USA').findElement() // ❌
+```
+
+使用 `strict: false` 以允许匹配多个：
+
+```ts
+// 返回第一个匹配元素而不是抛出错误
+await page.getByText('Hello').findElement({ strict: false }) // ✅ HTMLDivElement
+```
+
 ### all
 
 ```ts
@@ -941,6 +1054,56 @@ function all(): Locator[]
 在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/api/browser/context#page) 包装每个元素。
 
 - [更多内容请参阅  `locator.elements()`](#elements)
+<!-- TODO: translation -->
+### serialize
+
+```ts
+function serialize(): SerializedLocator
+```
+
+Returns a JSON-serializable representation of the locator. The returned object has two fields:
+
+- [`selector`](#selector): the provider-specific selector string used to query the element at runtime.
+- `locator`: a human-readable description of the locator (e.g. `getByRole('button')`), used for error messages and tracing. Equivalent to calling [`asLocator()`](#aslocator).
+
+This is primarily intended for forwarding a locator to a [browser command](/api/browser/commands), which runs in Node and cannot receive a live `Locator` instance:
+
+```ts
+import { commands, page } from 'vitest/browser'
+
+await commands.myCommand(page.getByRole('button').serialize())
+```
+
+::: tip
+Vitest automatically serializes any `Locator` argument passed to a command, so calling `serialize()` explicitly is rarely necessary. You can also use `JSON.stringify(locator)` (it calls [`toJSON`](#tojson) internally), which produces the same result.
+:::
+
+### toJSON
+
+```ts
+function toJSON(): SerializedLocator
+```
+
+Alias of [`serialize`](#serialize). Defined so that `JSON.stringify(locator)` and structured-clone-based transports return a `SerializedLocator` object.
+
+### asLocator
+
+```ts
+function asLocator(): string
+```
+
+Returns a human-readable description of the locator using the JavaScript locator syntax (e.g. `getByRole('button', { name: 'Submit' })`). This is the same string exposed as the `locator` field of [`serialize()`](#serialize) and is used in error messages and traces.
+
+```ts
+import { page } from 'vitest/browser'
+
+const button = page.getByRole('button', { name: 'Submit' })
+button.asLocator() // "getByRole('button', { name: 'Submit' })"
+```
+
+::: tip
+Use [`selector`](#selector) when you need the provider-specific string to forward to a [browser command](/api/browser/commands). Use `asLocator()` only for diagnostic output. The returned string is not meant to be re-used to query elements.
+:::
 
 ## Properties
 
@@ -953,8 +1116,9 @@ function all(): Locator[]
 
 ```ts [commands.ts]
 import type { BrowserCommand } from 'vitest/node'
+import type { SerializedLocator } from '@vitest/browser'
 
-const test: BrowserCommand<string> = function test(context, selector) {
+const test: BrowserCommand<SerializedLocator> = function test(context, { selector }) {
   // playwright
   await context.iframe.locator(selector).click()
   // webdriverio
@@ -968,7 +1132,7 @@ import { commands, page } from 'vitest/browser'
 
 test('works correctly', async () => {
   await commands.test(page.getByText('Hello').selector) // ✅
-  // vitest will automatically unwrap it to a string
+  // Vitest 会自动将其解包为 SerializedLocator 对象
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```
@@ -976,8 +1140,7 @@ test('works correctly', async () => {
 
 ### length
 
-This getter returns a number of elements that this locator is matching. It is equivalent to calling `locator.elements().length`.
-此属性返回当前定位器匹配的元素数量，等效于调用 g `locator.elements().length`。
+此属性返回当前定位器匹配的元素数量，等效于调用 `locator.elements().length`。
 
 参考以下 DOM 结构：
 
@@ -996,7 +1159,7 @@ page.getByRole('alert').length // ✅ 0
 
 ## 自定义定位器 <Version>3.2.0</Version> <Badge type="danger">advanced</Badge> {#custom-locators}
 
-您可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
+你可以通过定义定位器工厂对象来扩展内置定位器 API。这些方法将作为 `page` 对象和所有已创建定位器的方法存在。
 
 当内置定位器无法满足需求时（例如使用自定义 UI 框架时），这些定位器会非常有用。
 

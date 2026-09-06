@@ -2,7 +2,7 @@
 title: 交互性 API | 浏览器模式
 ---
 
-# 交互性 API
+# 交互性 API {#interactivity-api}
 
 Vitest 使用 [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) 或 [webdriver](https://www.w3.org/TR/webdriver/) 实现了 [`@testing-library/user-event`](https://testing-library.com/docs/user-event/intro) 库的子集 API，而不是伪造事件，这使得浏览器行为更加可靠和一致，符合用户与页面交互的方式。
 
@@ -40,6 +40,25 @@ await originalUserEvent.keyboard('{/Shift}') // 没有放开 shift 键，因为�
 这种行为更有用，因为我们并没有模拟键盘，而是实际按下了 Shift 键，所以保留原来的行为会在字段中键入时造成意想不到的问题。
 :::
 
+::: warning
+With `playwright` and `webdriverio` providers, interactions are performed by the underlying browser driver. That means some interaction state, like pressed keys or pointer position and the resulting hover state, can persist between tests in the same file.
+
+Vitest resets unreleased keyboard state automatically before starting each test case, but pointer position and the resulting hover state are not reset automatically since resetting pointer position can be expensive.
+
+This applies both to `userEvent.*` calls and locator shortcuts like `locator.click()` or `locator.hover()`, because they use the same underlying interaction state.
+
+If your tests depend on a neutral hover state, reset it explicitly, for example in `beforeEach`:
+
+```ts
+import { beforeEach } from 'vitest'
+import { userEvent } from 'vitest/browser'
+
+beforeEach(async () => {
+  await userEvent.unhover(document.body)
+})
+```
+:::
+
 ## userEvent.click
 
 ```ts
@@ -61,28 +80,27 @@ test('clicks on an element', async () => {
   // 或者你可以直接从定位器上访问
   await logo.click()
 
-  // With WebdriverIO, this uses either ElementClick (with no arguments) or
-  // actions (with arguments). Use an empty object to force the use of actions.
+  // 在 WebdriverIO 中，该方法根据参数情况使用 ElementClick（无参数时）或行为链（有参数时）
+  // 传入空对象可以强制使用行为链
   await logo.click({})
 })
 ```
-<!-- TODO: translation -->
-### Clicking with a modifier
 
-With either WebdriverIO or Playwright:
+### 使用修饰键点击 {#clicking-with-a-modifier}
+
+使用 WebdriverIO 或 Playwright：
 
 ```ts
 await userEvent.keyboard('{Shift>}')
-// By using an empty object as the option, this opts in to using a chain of actions
-// instead of an ElementClick in webdriver.
-// Firefox has a bug that makes this necessary.
-// Follow https://bugzilla.mozilla.org/show_bug.cgi?id=1456642 to know when this
-// will be fixed.
+// 通过传入空对象作为选项参数，该方法强制会选择使用行为链
+// 而非 webdriver 的原生 ElementClick
+// 由于 Firefox 存在一个 bug ，所以必须使用这种方式
+// 关注 https://bugzilla.mozilla.org/show_bug.cgi?id=1456642 以获取该问题的修复进展
 await userEvent.click(element, {})
 await userEvent.keyboard('{/Shift}')
 ```
 
-With Playwright:
+使用 Playwright：
 ```ts
 await userEvent.click(element, { modifiers: ['Shift'] })
 ```
@@ -241,7 +259,7 @@ test('update input', async () => {
 })
 ```
 
-该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。您可以使用空字符串来清除字段。
+该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。你可以使用空字符串来清除字段。
 
 ::: tip
 该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
@@ -262,8 +280,15 @@ function keyboard(text: string): Promise<void>
 ```
 
 通过 `userEvent.keyboard` 可以触发键盘输入。如果任何输入有焦点，它就会在该输入中键入字符。否则，它将触发当前焦点元素（如果没有焦点元素，则为 `document.body`）上的键盘事件。
+<!-- TODO: translation -->
+此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。 Common special keys that can be referenced inside the braces include:
 
-此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。
+- **Modifiers:** `{Shift}`, `{Control}`, `{Alt}`, `{Meta}`
+- **Navigation:** `{ArrowUp}`, `{ArrowDown}`, `{ArrowLeft}`, `{ArrowRight}`, `{Home}`, `{End}`, `{PageUp}`, `{PageDown}`
+- **Editing:** `{Backspace}`, `{Delete}`, `{Insert}`, `{Tab}`, `{Enter}`, `{Escape}`
+- **Function keys:** `{F1}` through `{F12}`
+
+Note: The exact set of supported keys may vary depending on the underlying browser provider (Playwright vs WebdriverIO). If a key press doesn't trigger the expected behavior, consult your provider's documentation or file an issue.
 
 ```ts
 import { userEvent } from 'vitest/browser'
