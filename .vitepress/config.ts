@@ -186,11 +186,11 @@ export default ({ mode }: { mode: string }) => {
           {
             title: '版本',
             items: [
-              { text: '未发布', link: 'https://main.vitest.dev/' },
+              { text: '未发布', link: 'https://dev.cn.vitest.dev/' },
+              { text: 'Vitest v4 文档', link: 'https://v3.cn.vitest.dev/' },
               { text: 'Vitest v3 文档', link: 'https://v3.cn.vitest.dev/' },
-              { text: 'Vitest v2 文档', link: 'https://v2.vitest.dev/' },
-              { text: 'Vitest v1 文档', link: 'https://v1.vitest.dev/' },
-              { text: 'Vitest v0 文档', link: 'https://v0.vitest.dev/' },
+              { text: 'Vitest v2 文档', link: 'https://v2.cn.vitest.dev/' },
+              { text: 'Vitest v1 文档', link: 'https://v1.cn.vitest.dev/' },
             ],
           },
           /* {
@@ -249,7 +249,11 @@ export default ({ mode }: { mode: string }) => {
               items: [
                 {
                   text: '未发布',
-                  link: 'https://main.vitest.dev/',
+                  link: 'https://dev.cn.vitest.dev/',
+                },
+                {
+                  text: 'v4.x',
+                  link: 'https://v3.cn.vitest.dev/',
                 },
                 {
                   text: 'v3.x',
@@ -257,15 +261,11 @@ export default ({ mode }: { mode: string }) => {
                 },
                 {
                   text: 'v2.x',
-                  link: 'https://v2.vitest.dev/',
+                  link: 'https://v2.cn.vitest.dev/',
                 },
                 {
                   text: 'v1.x',
-                  link: 'https://v1.vitest.dev/',
-                },
-                {
-                  text: 'v0.x',
-                  link: 'https://v0.vitest.dev/',
+                  link: 'https://v1.cn.vitest.dev/',
                 },
               ],
             },
