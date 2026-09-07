@@ -157,7 +157,7 @@ export default ({ mode }: { mode: string }) => {
         },
 
         editLink: {
-          pattern: 'https://github.com/vitest-dev/docs-cn/edit/dev/:path',
+          pattern: 'https://github.com/vitest-dev/docs-cn/edit/v3/:path',
           text: '在 GitHub 上编辑此页面',
         },
 
@@ -253,19 +253,23 @@ export default ({ mode }: { mode: string }) => {
                 items: [
                   {
                     text: '未发布',
-                    link: 'https://main.vitest.dev/',
+                    link: 'https://dev.cn.vitest.dev/',
                   },
                   {
-                    text: 'v0.x',
-                    link: 'https://v0.vitest.dev/',
+                    text: 'v5.x',
+                    link: 'https://v5.cn.vitest.dev/',
                   },
                   {
-                    text: 'v1.x',
-                    link: 'https://v1.vitest.dev/',
+                    text: 'v4.x',
+                    link: 'https://v4.cn.vitest.dev/',
                   },
                   {
                     text: 'v2.x',
-                    link: 'https://v2.vitest.dev/',
+                    link: 'https://v2.cn.vitest.dev/',
+                  },
+                  {
+                    text: 'v1.x',
+                    link: 'https://v1.cn.vitest.dev/',
                   },
                 ],
               },
