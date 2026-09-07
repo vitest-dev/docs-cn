@@ -1,11 +1,11 @@
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { withPwa } from '@vite-pwa/vitepress'
 import { defineConfig } from 'vitepress'
-import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import { version } from '../package.json'
 import { teamMembers } from './contributors'
 import {
@@ -104,7 +104,7 @@ export default ({ mode }: { mode: string }) => {
       logo: '/logo.svg',
 
       editLink: {
-        pattern: 'https://github.com/vitest-dev/docs-cn/tree/dev/:path',
+        pattern: 'https://github.com/vitest-dev/docs-cn/tree/v2/:path',
         text: '为此页提供修改建议',
       },
 
@@ -182,16 +182,24 @@ export default ({ mode }: { mode: string }) => {
             {
               items: [
                 {
-                  text: 'unreleased',
-                  link: 'https://main.vitest.dev/',
+                  text: '未发布',
+                  link: 'https://dev.cn.vitest.dev/',
                 },
                 {
-                  text: 'v0.x',
-                  link: 'https://v0.vitest.dev/',
+                  text: 'v5.x',
+                  link: 'https://v5.cn.vitest.dev/',
+                },
+                {
+                  text: 'v4.x',
+                  link: 'https://v4.cn.vitest.dev/',
+                },
+                {
+                  text: 'v3.x',
+                  link: 'https://v3.cn.vitest.dev/',
                 },
                 {
                   text: 'v1.x',
-                  link: 'https://v1.vitest.dev/',
+                  link: 'https://v1.cn.vitest.dev/',
                 },
               ],
             },
