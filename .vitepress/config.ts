@@ -40,7 +40,7 @@ export default ({ mode }: { mode: string }) => {
         label: '简体中文',
         lang: 'zh',
       },
-      zh: {
+      en: {
         label: 'English',
         lang: 'en-US',
         link: 'https://v4.vitest.dev/',
@@ -229,7 +229,11 @@ export default ({ mode }: { mode: string }) => {
               items: [
                 {
                   text: '未发布',
-                  link: 'https://main.vitest.dev/',
+                  link: 'https://dev.cn.vitest.dev/',
+                },
+                {
+                  text: 'v5.x',
+                  link: 'https://v5.cn.vitest.dev/',
                 },
                 {
                   text: 'v3.x',
@@ -237,15 +241,11 @@ export default ({ mode }: { mode: string }) => {
                 },
                 {
                   text: 'v2.x',
-                  link: 'https://v2.vitest.dev/',
+                  link: 'https://v2.cn.vitest.dev/',
                 },
                 {
                   text: 'v1.x',
-                  link: 'https://v1.vitest.dev/',
-                },
-                {
-                  text: 'v0.x',
-                  link: 'https://v0.vitest.dev/',
+                  link: 'https://v1.cn.vitest.dev/',
                 },
               ],
             },
