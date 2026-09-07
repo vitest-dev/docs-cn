@@ -132,6 +132,10 @@ export default () => {
                   link: 'https://dev.cn.vitest.dev/',
                 },
                 {
+                  text: 'v5.x',
+                  link: 'https://v5.cn.vitest.dev/',
+                },
+                {
                   text: 'v4.x',
                   link: 'https://v4.cn.vitest.dev/',
                 },
@@ -142,10 +146,6 @@ export default () => {
                 {
                   text: 'v2.x',
                   link: 'https://v2.cn.vitest.dev/',
-                },
-                {
-                  text: 'v1.x',
-                  link: 'https://v1.cn.vitest.dev/',
                 },
               ],
             },
