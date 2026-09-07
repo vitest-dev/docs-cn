@@ -43,7 +43,7 @@ export default ({ mode }: { mode: string }) => {
       zh: {
         label: 'English',
         lang: 'en-US',
-        link: 'https://vitest.dev/',
+        link: 'https://v4.vitest.dev/',
       },
     },
     head: [
@@ -112,7 +112,7 @@ export default ({ mode }: { mode: string }) => {
         next: '下一页',
       },
       editLink: {
-        pattern: 'https://github.com/vitest-dev/docs-cn/edit/dev/:path',
+        pattern: 'https://github.com/vitest-dev/docs-cn/edit/v4/:path',
         text: '在 GitHub 上编辑此页面',
       },
 
@@ -170,11 +170,11 @@ export default ({ mode }: { mode: string }) => {
           {
             title: '版本',
             items: [
-              { text: '未发布', link: 'https://main.vitest.dev/' },
+              { text: '未发布', link: 'https://dev.cn.vitest.dev/' },
+              { text: 'Vitest v5 文档', link: 'https://v5.cn.vitest.dev/' },
               { text: 'Vitest v3 文档', link: 'https://v3.cn.vitest.dev/' },
-              { text: 'Vitest v2 文档', link: 'https://v2.vitest.dev/' },
-              { text: 'Vitest v1 文档', link: 'https://v1.vitest.dev/' },
-              { text: 'Vitest v0 文档', link: 'https://v0.vitest.dev/' },
+              { text: 'Vitest v2 文档', link: 'https://v2.cn.vitest.dev/' },
+              { text: 'Vitest v1 文档', link: 'https://v1.cn.vitest.dev/' },
             ],
           },
           /* {
