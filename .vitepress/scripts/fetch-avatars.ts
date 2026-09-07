@@ -1,6 +1,6 @@
+import { Buffer } from 'node:buffer'
 import { existsSync, promises as fsp } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { Buffer } from 'node:buffer'
 import { dirname, join, resolve } from 'pathe'
 import { teamEmeritiMembers, teamMembers } from '../contributors'
 
