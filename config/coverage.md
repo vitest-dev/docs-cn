@@ -52,11 +52,11 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 ## coverage.exclude
 
 - **类型:** `string[]`
-- **默认值:**: `[]`
+- **默认值:** `[]`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
-以 glob 模式指定从代码覆盖率中排除的文件列表。匹配方式与 [`coverage.include`](#coverage-include) 相似.
+以 glob 模式指定从代码覆盖率中排除的文件列表。匹配方式与 [`coverage.include`](#coverage-include) 相似。
 
 更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
 
