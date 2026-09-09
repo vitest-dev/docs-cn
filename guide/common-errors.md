@@ -255,7 +255,7 @@ export default defineConfig({
 })
 ```
 
-## 不完全受支持 CommonJS 源码 {#commonjs-source-code-is-not-fully-supported}
+## 不完全支持 CommonJS 源码 {#commonjs-source-code-is-not-fully-supported}
 
 Vitest 优先使用 ESM。默认情况下，源文件会在 Vite 的 [模块运行器](/config/experimental#experimental-vitemodulerunner) 中运行。该运行器为兼容性提供了 `require`、`module` 和 `exports` 等 CommonJS 变量，但无法完全复现 Node.js 的 CommonJS 语义。
 
