@@ -125,8 +125,6 @@ vitest --pool=forks
 
 ## Worker 线程中的时区不会更改 {#time-zone-does-not-change-in-worker-threads}
 
-Setting `process.env.TZ` in a setup file or in a test, or setting `TZ` via [`env`](/config/env), has no effect on `Date` in `pool: 'threads'` and `pool: 'vmThreads'`. Node.js applies `TZ` only when the main thread sets it. A worker thread sees the new value on `process.env`, but keeps the time zone of the main process.
-
 在 setup 文件或测试中设置 `process.env.TZ`，或通过 [`env`](/config/env) 设置 `TZ`，都不会影响 `pool: 'threads'` 和 `pool: 'vmThreads'` 中的 `Date`。Node.js 仅在主线程设置 `TZ` 时应用该变量。工作线程可以在 `process.env` 中看到新值，但仍会使用主进程的时区。
 
 ```ts
@@ -134,7 +132,6 @@ process.env.TZ = 'Asia/Tokyo'
 new Date('2026-01-01T00:00:00Z').getHours() // forks 中为 9，threads 中不变
 ```
 
-Set the time zone before workers start. Use the shell, the config file, or [`globalSetup`](/config/globalsetup); all of them run in the main process and work in every pool.
 请在工作线程启动前设置时区。可以使用 shell、配置文件或 [`globalSetup`](/config/globalsetup) 进行设置；这些方式均在主进程中执行，因此适用于所有 pool。
 
 ::: code-group
@@ -255,7 +252,7 @@ export default defineConfig({
 })
 ```
 
-## 不完全受支持 CommonJS 源码 {#commonjs-source-code-is-not-fully-supported}
+## 不完全支持 CommonJS 源码 {#commonjs-source-code-is-not-fully-supported}
 
 Vitest 优先使用 ESM。默认情况下，源文件会在 Vite 的 [模块运行器](/config/experimental#experimental-vitemodulerunner) 中运行。该运行器为兼容性提供了 `require`、`module` 和 `exports` 等 CommonJS 变量，但无法完全复现 Node.js 的 CommonJS 语义。
 
