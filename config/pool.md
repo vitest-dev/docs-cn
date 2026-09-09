@@ -13,7 +13,8 @@ outline: deep
 
 ## threads
 
-启用多线程模式。使用线程时，无法调用 `process.chdir()` 等进程相关 API。 Changing `process.env.TZ` [does not affect the time zone](/guide/common-errors#time-zone-does-not-change-in-worker-threads) in a worker thread.某些使用原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
+启用多线程模式。使用线程时，无法调用 `process.chdir()` 等进程相关 API。
+更改 `process.env.TZ` [不会影响工作线程中的时区](/guide/common-errors#time-zone-does-not-change-in-worker-threads) 某些使用原生语言编写的库（如 `Prisma`、`bcrypt` 和 `canvas`）在多线程运行时会出现问题并导致存储器区段错误。此类情况下建议改用 `forks` 执行池。
 
 ## forks
 
