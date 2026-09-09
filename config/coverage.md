@@ -44,19 +44,19 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 以 glob 模式指定需要统计覆盖率的文件列表。默认情况下，仅包含被测试覆盖的文件。
 
 建议在匹配规则中传递文件扩展名。
-<!-- TODO: translation -->
-Patterns are matched against each file's path relative to the project root. A pattern with no glob wildcard is treated as a directory and matches everything inside it, so `include: ['src']` is equivalent to `include: ['src/**']`.
 
-See [Including and excluding files from coverage report](/guide/coverage.html#including-and-excluding-files-from-coverage-report) for examples.
+规则会与项目中每个文件相对于项目根目录路径进行匹配。不含 glob 通配符的匹配规则会被当作目录处理，并匹配该目录下的所有内容，因此 `include: ['src']` 等同于 `include: ['src/**']`。
+
+更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
 
 ## coverage.exclude
 
 - **类型:** `string[]`
-- **默认值:** : `[]`
+- **默认值:**: `[]`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.exclude=<path>`, `--coverage.exclude=<path1> --coverage.exclude=<path2>`
 
-以 glob 模式指定从代码覆盖率中排除的文件列表。Patterns are matched the same way as [`coverage.include`](#coverage-include).
+以 glob 模式指定从代码覆盖率中排除的文件列表。匹配方式与 [`coverage.include`](#coverage-include) 相似.
 
 更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
 
@@ -86,7 +86,7 @@ See [Including and excluding files from coverage report](/guide/coverage.html#in
 - **命令行终端:** `--coverage.reportsDirectory=<path>`
 
 ::: warning
-如果启用了（默认值） `coverage.clean`，Vitest 会在运行测试前删除此目录。
+如果启用了（默认值）`coverage.clean`，Vitest 会在运行测试前删除此目录。
 :::
 
 用于写入代码覆盖率报告的目录。
@@ -278,7 +278,7 @@ See [Including and excluding files from coverage report](/guide/coverage.html#in
 }
 ```
 
-perFile` 也可以设置在单独的 [全局模式阈值](/config/coverage#coverage-thresholds-glob-pattern) 上。全局模式 **不会** 继承顶层的 `perFile`；需要在每个全局模式上显式设置它。
+`perFile` 也可以设置在单独的 [全局模式阈值](/config/coverage#coverage-thresholds-glob-pattern) 上。全局模式 **不会** 继承顶层的 `perFile`；需要在每个全局模式上显式设置它。
 
 <!-- eslint-skip -->
 ```ts
@@ -314,7 +314,7 @@ perFile` 也可以设置在单独的 [全局模式阈值](/config/coverage#cover
 {
   coverage: {
     thresholds: {
-      // Log the change and update without decimals
+      // 记录变更并更新，不含小数位。
       autoUpdate: (newThreshold, previousThreshold) => {
         console.log(`Updated threshold from ${previousThreshold} to ${newThreshold}`)
         return Math.floor(newThreshold)
@@ -510,7 +510,7 @@ export default defineConfig({
 
 要在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中提供的 HTML 代码覆盖率输出目录。
 
-使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和`lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
+使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和 `lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
 
 注意，设置此选项不会更改代码覆盖率 HTML 报告的生成位置。要更改目录，请配置 `coverage.reporter` 选项。
 
