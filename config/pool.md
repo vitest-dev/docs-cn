@@ -31,8 +31,7 @@ outline: deep
 `vmForks` 则通过结束子进程完成回收，内存由操作系统负责释放。如果测试套件规模较大，需要定期回收子进程，那么即使 `vmForks` 与主进程之间的通信速度较慢，其整体运行速度通常仍会明显快于 `vmThreads`。
 :::
 
-在 Node.js 24.9 及更高版本中，vm 池内支持通过 `require()` 加载 ES 模块，其行为与 [Node.js 自身的`require(esm)`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require) 一致。对模块依赖图中包含顶层 `await` 的 ES 模块调用 `require()` 会抛出
-`ERR_REQUIRE_ASYNC_MODULE`；对于这类文件，请使用 `await import()`。
+在 Node.js 24.9 及更高版本中，vm 池内支持通过 `require()` 加载 ES 模块，其行为与 [Node.js 自身的`require(esm)`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require) 一致。对模块依赖图中包含顶层 `await` 的 ES 模块调用 `require()` 会抛出 `ERR_REQUIRE_ASYNC_MODULE`；对于这类文件，请使用 `await import()`。
 
 ::: warning
 在沙箱中运行代码有一些优势（测试速度更快），但也存在一些劣势。
