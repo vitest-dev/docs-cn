@@ -282,7 +282,7 @@ function keyboard(text: string): Promise<void>
 
 通过 `userEvent.keyboard` 可以触发键盘输入。如果任何输入有焦点，它就会在该输入中键入字符。否则，它将触发当前焦点元素（如果没有焦点元素，则为 `document.body`）上的键盘事件。
 
-此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。可以在大括号内引用的常见特殊键包括::
+此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。可以在大括号内引用的常见特殊键包括：
 
 - **修饰符:** `{Shift}`, `{Control}`, `{Alt}`, `{Meta}`
 - **导航键:** `{ArrowUp}`, `{ArrowDown}`, `{ArrowLeft}`, `{ArrowRight}`, `{Home}`, `{End}`, `{PageUp}`, `{PageDown}`

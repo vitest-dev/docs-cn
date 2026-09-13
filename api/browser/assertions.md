@@ -1115,29 +1115,29 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
 
   - [`"pixelmatch"` options](#pixelmatch-comparator-options)
 
-::: warning
-**始终显式设置 `comparatorName`，以确保 `comparatorOptions` 的类型推断正确**。
+  ::: warning
+  **始终显式设置 `comparatorName`，以确保 `comparatorOptions` 的类型推断正确**。
 
-否则，TypeScript 无法识别哪些选项是有效的。
+  否则，TypeScript 无法识别哪些选项是有效的。
 
-```ts
-// ❌ TypeScript 无法推断正确的参数
-await expect.element(button).toMatchScreenshot({
-  comparatorOptions: {
-    // 添加新比较器时可能出错
-    allowedMismatchedPixelRatio: 0.01,
-  },
-})
+  ```ts
+  // ❌ TypeScript 无法推断正确的参数
+  await expect.element(button).toMatchScreenshot({
+    comparatorOptions: {
+      // 添加新比较器时可能出错
+      allowedMismatchedPixelRatio: 0.01,
+    },
+  })
 
-// ✅ TypeScript 知道这些是 pixelmatch 提供的的参数
-await expect.element(button).toMatchScreenshot({
-  comparatorName: 'pixelmatch',
-  comparatorOptions: {
-    allowedMismatchedPixelRatio: 0.01,
-  },
-})
-```
-:::
+  // ✅ TypeScript 知道这些是 pixelmatch 提供的的参数
+  await expect.element(button).toMatchScreenshot({
+    comparatorName: 'pixelmatch',
+    comparatorOptions: {
+      allowedMismatchedPixelRatio: 0.01,
+    },
+  })
+  ```
+  :::
 
 - `screenshotOptions: object`
 
