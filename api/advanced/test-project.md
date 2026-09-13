@@ -24,6 +24,7 @@ vitest.projects.map(p => p.name) === [
   'custom'
 ]
 ```
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -97,8 +98,8 @@ vitest.config === vitest.projects[0].globalConfig
 它基于项目的 root 路径和名称。请注意，不同操作系统的根路径并不一致，因此哈希值也会不同。
 
 ## vite
-<!-- TODO: translation -->
-This is project's [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitedevserver). Note that the server is not necessarily exclusive to this project: other projects can reuse it when the [`sharedViteServer`](/config/sharedviteserver) option applies, and browser instances of the same cluster share a single browser server.
+
+这是项目的 [`ViteDevServer`](https://cn.vite.dev/guide/api-javascript#vitedevserver)。注意，该服务器并不一定属于当前项目：启用 [`sharedViteServer`](/config/sharedviteserver) 时选项时，其他项目可以复用它，并且同一集群中的浏览器实例共享同一个浏览器服务器。
 
 ## sharedViteServer
 
@@ -106,7 +107,7 @@ This is project's [`ViteDevServer`](https://vite.dev/guide/api-javascript#vitede
 const sharedViteServer: boolean
 ```
 
-`true` when the project reuses the Vite server of the config that declared it instead of resolving its own (see the [`sharedViteServer`](/config/sharedviteserver) option). The project that owns the server reports `false` even when other projects reuse it. To detect any two projects sharing a server (including browser instances), compare their [`vite`](#vite) references.
+当项目复用声明它的配置所对应的 Vite 服务器，而不是解析自己的服务器时，该值为 `true`（详情参见 [`sharedViteServer`](/config/sharedviteserver) 选项）。拥有该服务器的项目即使被其他项目复用，也会报告 `false`。要检测任意两个项目是否共享服务器（包括浏览器实例），请比较它们的 [`vite`](#vite) 引用。
 
 ## browser
 
@@ -136,6 +137,7 @@ const project = vitest.projects.find(p => p.name === 'custom')
 project.provide('key', 'value')
 await vitest.start()
 ```
+
 ```ts [test.spec.js]
 import { inject } from 'vitest'
 const value = inject('key')
