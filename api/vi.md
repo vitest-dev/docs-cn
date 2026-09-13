@@ -32,16 +32,16 @@ function mock<T>(
 ): void
 ```
 
-用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted)中定义它们，并在 `vi.mock` 中引用它们。
+用另一个模块替换提供的 `path` 中的所有导入模块。我们可以在路径内使用配置的 Vite 别名。对 `vi.mock` 的调用是悬挂式的，因此在何处调用并不重要。它总是在所有导入之前执行。如果需要在其作用域之外引用某些变量，可以在 [`vi.hoisted`](/api/vi#vi-hoisted) 中定义它们，并在 `vi.mock` 中引用它们。
 
 建议仅在测试文件中使用 `vi.mock` 或 `vi.hoisted`。若禁用 Vite 的 [module runner](/config/experimental#experimental-vitemodulerunner)，这些模拟声明将不会被提升。此设计作为性能优化手段，可避免预加载不必要的文件。
 
 ::: warning
 `vi.mock` 仅对使用 `import` 关键字导入的模块有效。它对 `require` 无效。
 
-为了提升 `vi.mock` ，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi` （例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/globals) 配置选项。
+为了提升 `vi.mock`，Vitest 会静态分析文件。它会指出不能使用未直接从 `vitest` 软件包导入的 `vi`（例如，从某个实用程序文件导入）。使用 `vi.mock` 与从 `vitest` 导入的 `vi` 一起使用，或者启用 [`globals`](/config/globals) 配置选项。
 
-Vitest 不会模拟 [setup file](/config/setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules) ，在运行测试文件前清除所有模块缓存。
+Vitest 不会模拟 [setup file](/config/setupfiles) 中导入的模块，因为这些模块在运行测试文件时已被缓存。我们可以在 [`vi.hoisted`](#vi-hoisted) 中调用 [`vi.resetModules()`](#vi-resetmodules)，在运行测试文件前清除所有模块缓存。
 :::
 
 如果定义了 `factory` 函数，所有导入都将返回其结果。Vitest 只调用一次 factory，并缓存所有后续导入的结果，直到 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 被调用。
@@ -82,11 +82,11 @@ vi.mock(import('./path/to/module.js'), async (importOriginal) => {
 例如，使用 `import('./path/to/module.js')`，而不是 `import('@/module')`。
 
 ::: warning
-`vi.mock` 被提升（换句话说，_移动_）到**文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
+`vi.mock` 被提升（换句话说，_移动_）到 **文件的顶部**。这意味着无论何时写入它（无论是在 `beforeEach` 还是 `test`），它都会在此之前被调用。
 
 这也意味着不能在 factory 内部使用任何在 factory 外部定义的变量。
 
-如果需要在 factory 内部使用变量，请尝试 [`vi.doMock`](#vi-domock) 。它以同样的方式工作，但不会被吊起。请注意，它只能模拟后续的导入。
+如果需要在 factory 内部使用变量，请尝试 [`vi.doMock`](#vi-domock)。它以同样的方式工作，但不会被吊起。请注意，它只能模拟后续的导入。
 
 如果在 `vi.mock` 之前声明了 `vi.hoisted` 方法，也可以引用该方法定义的变量：
 
@@ -110,7 +110,6 @@ vi.mocked(namedExport).mockReturnValue(100)
 expect(namedExport()).toBe(100)
 expect(namedExport).toBe(mocks.namedExport)
 ```
-
 :::
 
 ::: warning
@@ -125,9 +124,9 @@ vi.mock('./path/to/module.js', () => {
   }
 })
 ```
-
 :::
-如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/root)（默认为 `process.cwd()` ）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
+
+如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/root)（默认为 `process.cwd()`）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
 
 例如，我们有这样的文件结构：
 
@@ -142,7 +141,7 @@ vi.mock('./path/to/module.js', () => {
   - increment.test.js
 ```
 
-如果在没有提供工厂或选项的测试文件中调用 `vi.mock` ，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
+如果在没有提供工厂或选项的测试文件中调用 `vi.mock`，它会在 `__mocks__` 文件夹中找到一个文件作为模块使用：
 
 ```ts [increment.test.js]
 // axios 是 `__mocks__/axios.js` 默认导出项
@@ -160,11 +159,10 @@ axios.get(`/apples/${increment(1)}`)
 ```
 
 ::: warning
-
-请注意，如果不调用 `vi.mock` ，模块**不会**被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/setupfiles) 中为每个所需的模块调用 `vi.mock` 。
+请注意，如果不调用 `vi.mock`，模块 **不会** 被自动模拟。要复制 Jest 的自动锁定行为，可以在 [`setupFiles`](/config/setupfiles) 中为每个所需的模块调用 `vi.mock`。
 :::
 
-如果没有提供 `__mocks__` 文件夹或未提供工厂函数，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅[算法](/guide/mocking/modules#automocking-algorithm)。
+如果没有提供 `__mocks__` 文件夹或未提供工厂函数，Vitest 将导入原始模块并自动模拟其所有导出。有关应用的规则，请参阅 [算法](/guide/mocking/modules#automocking-algorithm)。
 
 ### vi.doMock
 
@@ -190,7 +188,6 @@ function doMock<T>(
 import { increment } from './increment.js'
 vi.doMock('./increment.js')
 ```
-
 :::
 
 ```ts [increment.js]
@@ -321,7 +318,7 @@ vi.mock('./example.js', async () => {
 function importMock<T>(path: string): Promise<MaybeMockedDeep<T>>
 ```
 
-导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅[算法](/guide/mocking/modules#automocking-algorithm)。
+导入模块并模拟其所有属性（包括嵌套属性）。遵循与 [`vi.mock`](#vi-mock) 相同的规则。有关应用的规则，请参阅 [算法](/guide/mocking/modules#automocking-algorithm)。
 
 ### vi.unmock
 
@@ -402,7 +399,7 @@ test('module has old state', async () => {
 ```
 
 ::: warning
-不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock) 。
+不会重置 mock 注册表。要清除 mock 注册表，请使用 [`vi.unmock`](#vi-unmock) 或 [`vi.doUnmock`](#vi-dounmock)。
 :::
 
 ### vi.dynamicImportSettled
@@ -436,9 +433,9 @@ test('operations are resolved', async () => {
 该方法还将在导入解析后等待下一个 `setTimeout` 跟他挂钩，因此所有同步操作都应在解析时完成。
 :::
 
-## 模拟函数和对象
+## 模拟函数和对象 {#mocking-functions-and-objects}
 
-本节介绍如何使用 [method mock](/api/mock) 替换环境变量和全局变量。
+本节介绍如何使用 [mock 方法](/api/mock) 替换环境变量和全局变量。
 
 ### vi.fn
 
@@ -446,7 +443,7 @@ test('operations are resolved', async () => {
 function fn(fn?: Procedure | Constructable): Mock
 ```
 
-创建函数的监视程序，但也可以不创建监视程序。每次调用函数时，它都会存储调用参数、返回值和实例。此外，我们还可以使用 [methods](/api/mock) 操纵它的行为。
+创建函数的监视程序，但也可以不创建监视程序。每次调用函数时，它都会存储调用参数、返回值和实例。此外，我们还可以使用 [模拟方法](/api/mock) 操纵它的行为。
 如果没有给出函数，调用 mock 时将返回 `undefined`。
 
 ```ts
@@ -477,8 +474,8 @@ const cart = new Cart()
 expect(Cart).toHaveBeenCalled()
 expect(cart.get()).toBe(0)
 ```
-<!-- TODO: translation -->
-Instances keep the prototype chain of the implementation class, so its prototype methods are available on instances, and `instanceof` checks against the implementation class pass. See [Mocking Classes](/guide/mocking/classes) for details.
+
+实例会保留实现类的原型链，因此可以访问该类的原型方法，并且通过针对实现类的 `instanceof` 检查。详情参阅 [模拟类](/guide/mocking/classes)。
 
 ### vi.mockObject <Version>3.2.0</Version>
 
@@ -573,7 +570,7 @@ function spyOn<T, K extends keyof T>(
 ): Mock<T[K]>
 ```
 
-创建与 [`vi.fn()`](#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock) 。
+创建与 [`vi.fn()`](#vi-fn) 类似的对象的方法或 getter/setter 的监听(spy) 。它会返回一个 [mock 函数](/api/mock)。
 
 ```ts
 let apples = 0
@@ -619,11 +616,11 @@ const spy = vi
 ```
 
 如果传入箭头函数， mock 被调用时将抛出 [`<anonymous> is not a constructor` 错误](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_a_constructor)。
-<!-- TODO: translation -->
-With a class implementation, instances keep the prototype chain of that class: prototype methods like `getApples` are available on instances, and `instanceof` checks against the implementation class pass. See [Mocking Classes](/guide/mocking/classes) for details.
+
+使用类实现时，实例会保留该类的原型链：实例可以访问 `getApples` 这样的原型方法，并能通过针对该实现类的 `instanceof` 检查。详见 [模拟类](/guide/mocking/classes)。
 
 ::: tip
-若运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management) ，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
+如果运行环境支持 [显式资源管理](https://github.com/tc39/proposal-explicit-resource-management)，可将 `const` 替换为 `using`。离开当前块级作用域时，系统会自动对被 mock 的函数调用 `mockRestore`，特别适用于已打 spy 的方法。
 
 ```ts
 it('calls console.log', () => {
@@ -633,7 +630,6 @@ it('calls console.log', () => {
 })
 // console.log 在此处还原
 ```
-
 :::
 
 ::: tip
@@ -652,7 +648,6 @@ console.log(cart.getApples()) // 42
 spy.mockReturnValue(10)
 console.log(cart.getApples()) // 仍然为 42!
 ```
-
 :::
 
 ::: tip
@@ -703,13 +698,12 @@ import.meta.env.NODE_ENV === undefined
 import.meta.env.MODE === 'development'
 ```
 
-:::tip
+::: tip
 我们也可以通过简单赋值来更改值，但无法使用 `vi.unstubAllEnvs` 恢复以前的值：
 
 ```ts
 import.meta.env.MODE = 'test'
 ```
-
 :::
 
 ### vi.unstubAllEnvs {#vi-unstuballenvs}
@@ -764,7 +758,7 @@ globalThis.innerWidth === 100
 window.innerWidth === 100
 ```
 
-:::tip
+::: tip
 我们也可以通过简单地将其赋值给 `globalThis` 或 `window`（如果你正在使用 `jsdom` 或 `happy-dom` 环境）来更改该值，但无法使用 `vi.unstubAllGlobals` 恢复原始值：
 
 ```ts
@@ -772,7 +766,6 @@ globalThis.innerWidth = 100
 // 如果你正在使用 jsdom 或 happy-dom
 window.innerWidth = 100
 ```
-
 :::
 
 ### vi.unstubAllGlobals {#vi-unstuballglobals}
@@ -781,7 +774,7 @@ window.innerWidth = 100
 function unstubAllGlobals(): Vitest
 ```
 
-恢复 `globalThis` / `global`（和 `window` / `top` / `self` / `parent`，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
+恢复 `globalThis`/`global`（和 `window`/`top`/`self`/`parent`，如果我们使用的是 `jsdom` 或 `happy-dom` 环境）上所有被 `vi.stubGlobal` 更改过的全局值。第一次调用时，Vitest 会记住并保存原始值，直到再次调用 `unstubAllGlobals`。
 
 ```ts
 import { vi } from 'vitest'
@@ -805,7 +798,7 @@ globalThis.IntersectionObserver === undefined
 // 抛出 ReferenceError，因为变量未定义
 IntersectionObserver === undefined
 ```
-<!-- TODO: translation -->
+
 ### vi.when <Version>5.0.0</Version> {#vi-when}
 
 ```ts
@@ -820,9 +813,9 @@ interface BehaviorOptions {
 function when(spy: Mock, options?: WhenOptions): When
 ```
 
-Defines per-argument behaviors on a spy, replacing its implementation for the duration of the `when` chain.
+在 spy 上定义基于特定参数的行为，在 `when` 链的作用域内替换其实现。
 
-Call `.calledWith(...args)` on the returned object to specify which call arguments to match, then chain one or more `then*` methods to declare what the spy should return, throw, or resolve when invoked with those arguments. Arguments are matched with deep equality and support asymmetric matchers such as `expect.any()`.
+在返回的对象上调用 `.calledWith(...args)` 指定要匹配的调用参数，然后链式调用一个或多个 `then*` 方法，声明使用这些参数调用 spy 时的返回值、抛出的错误或 Promise 的 resolve 值。参数采用深度相等的方式进行比较，并支持 `expect.any()` 等非对称匹配器。
 
 ```ts
 const spy = vi.fn()
@@ -837,39 +830,39 @@ expect(spy(1)).toBe('one')
 expect(spy(2)).toBe('two')
 ```
 
-Available `then*` methods:
+可用的 `then*` 方法：
 
-| Method | Description |
-|--------|-------------|
-| `thenReturn(value, options?)` | Returns `value`. |
-| `thenReturnOnce(value)` | Returns `value` once, then falls back. |
-| `thenThrow(error, options?)` | Throws `error`. |
-| `thenThrowOnce(error)` | Throws `error` once, then falls back. |
-| `thenResolve(value, options?)` | Returns a resolved `Promise` with `value`. |
-| `thenResolveOnce(value)` | Resolves once, then falls back. |
-| `thenReject(error, options?)` | Returns a rejected `Promise` with `error`. |
-| `thenRejectOnce(error)` | Rejects once, then falls back. |
+| 方法                           | 详情                                   |
+| ------------------------------ | -------------------------------------- |
+| `thenReturn(value, options?)`  | 返回 `value`。                         |
+| `thenReturnOnce(value)`        | 返回一次 `value`，之后回退到其他行为。 |
+| `thenThrow(error, options?)`   | 抛出 `error`。                         |
+| `thenThrowOnce(error)`         | 抛出一次 `error`，之后回退到其他行为。 |
+| `thenResolve(value, options?)` | 返回一个以 `value` 兑现的 `Promise`。  |
+| `thenResolveOnce(value)`       | 兑现一次，之后回退到其他行为。         |
+| `thenReject(error, options?)`  | 返回一个以 `error` 拒绝的 `Promise`。  |
+| `thenRejectOnce(error)`        | 拒绝一次，之后回退到其他行为。         |
 
-The optional `times` option limits how many times a behavior applies before being exhausted. Behaviors registered for the same arguments are consumed last-in-first-out: the most recently registered behavior is tried first, and once exhausted, earlier ones act as fallbacks.
+可选的 `times` 参数用于限制某个行为在生效的次数，次数用完后该行为即失效。为相同参数注册的行为按照后进先出的顺序消耗：优先尝试最近注册的行为；用尽后，更早注册的行为作为兜底行为。
 
 ```ts
 const spy = vi.fn<(key: string) => string>()
 
 vi.when(spy)
   .calledWith('theme')
-  .thenReturn('light') // fallback, applies indefinitely
-  .thenReturn('dark', { times: 2 }) // applied first for the next 2 calls
+  .thenReturn('light') // 兜底行为，无限次生效
+  .thenReturn('dark', { times: 2 }) // 优先生效，仅生效 2 次
 
 expect(spy('theme')).toBe('dark')
 expect(spy('theme')).toBe('dark')
-expect(spy('theme')).toBe('light') // falls back
+expect(spy('theme')).toBe('light') // 回退到兜底行为
 ```
 
-When called with arguments that match no registered behavior, the spy falls through to its original implementation by default. Use the `onUnmatched` option to change this:
+使用未匹配任何已注册行为的参数调用时，spy 默认会回退到其原始实现。使用 `onUnmatched` 选项可以更改这一行为：
 
-- `'passthrough'` (**default**): delegates to the spy's original implementation
-- `'throw'`: throws an error listing the unmatched arguments
-- a function: called with the unmatched arguments; its return value is used
+- `'passthrough'`（**默认值**）：交由 spy 的原始实现处理
+- `'throw'`：抛出一个列出未匹配参数的错误
+- 一个函数：使用未匹配的参数调用该函数，并采用其返回值
 
 ```ts
 const spy = vi.fn<(id: number) => string>()
@@ -879,10 +872,10 @@ vi.when(spy, { onUnmatched: 'throw' })
   .thenReturn('Alice')
 
 expect(spy(1)).toBe('Alice')
-expect(() => spy(99)).toThrow() // no behavior defined for 99
+expect(() => spy(99)).toThrow() // 未为 99 定义行为
 ```
 
-The `When` object returned by `vi.when` supports the [`toHaveBeenExhausted` assertion](/api/expect#tohavebeenexhausted), which passes once every registered behavior has been consumed.
+`vi.when` 返回的 `When` 对象支持 [`toHaveBeenExhausted` 断言](/api/expect#tohavebeenexhausted)。所有已注册的行为都被使用后，该断言将通过。
 
 ```ts
 const spy = vi.fn()
@@ -894,14 +887,14 @@ const w = vi.when(spy)
 
 expect(w).not.toHaveBeenExhausted()
 
-spy(1) // consumes the `thenReturnOnce` behavior
-spy(2) // satisfies `thenReturn` (called at least once)
+spy(1) // 消耗 `thenReturnOnce` 行为
+spy(2) // 满足 `thenReturn`（至少调用一次）
 
 expect(w).toHaveBeenExhausted()
 ```
 
 ::: tip
-In environments that support [Explicit Resource Management](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Resource_management), you can use `using` instead of `const` to automatically restore the spy's original implementation when the containing block exits:
+在支持 [显式资源管理](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Resource_management) 的环境中，可以使用 `using` 代替 `const`，在退出所在代码块时自动恢复 spy 的原始实现：
 
 ```ts
 const spy = vi.fn(() => 'original')
@@ -912,7 +905,7 @@ const spy = vi.fn(() => 'original')
     .thenReturn('mocked')
 
   expect(spy('hello')).toBe('mocked')
-} // ← spy's original implementation is restored here
+} // ← 在此处恢复 spy 的原始实现
 
 expect(spy('hello')).toBe('original')
 ```
@@ -924,7 +917,7 @@ expect(spy('hello')).toBe('original')
 function isWhenChain(input: object): input is When
 ```
 
-Returns `true` if the given value is a `When` chain created by [`vi.when`](#vi-when). If you are using TypeScript, it will also narrow down its type.
+如果给定值是由 [`vi.when`](#vi-when) 创建的 `When` 链，则返回 `true`。如果使用 TypeScript，该方法还会缩小该值的类型范围。
 
 ```ts
 const spy = vi.fn()
@@ -936,7 +929,7 @@ expect(vi.isWhenChain(spy)).toBe(false)
 
 ## Fake Timers
 
-本节介绍如何使用 [fake timers](/guide/mocking/timers) 。
+本节介绍如何使用 [fake timers](/guide/mocking/timers)。
 
 ### vi.advanceTimersByTime
 
@@ -1104,7 +1097,7 @@ function runAllTimersAsync(): Promise<Vitest>
 ```
 
 该方法将异步调用每个已启动的定时器，直到定时器队列为空。这意味着在 `runAllTimersAsync` 期间调用的每个定时器都会被触发，即使是异步定时器。如果我们有一个无限的时间间隔、
-会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/faketimers#faketimers-looplimit) ）。
+会在尝试 10000 次后抛出（可使用 [`fakeTimers.loopLimit`](/config/faketimers#faketimers-looplimit)）。
 
 ```ts
 setTimeout(async () => {
@@ -1168,7 +1161,7 @@ await vi.runOnlyPendingTimersAsync()
 function setSystemTime(date: string | number | Date): Vitest
 ```
 
-如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime` 、`performance.now` 或 `new Date()` ），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 和 `Temporal.Now.*` 调用。
+如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime`、`performance.now` 或 `new Date()`），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 和 `Temporal.Now.*` 调用。
 
 适用于需要测试依赖当前日期的场景，例如代码中的 [Luxon](https://github.com/moment/luxon/) 库调用。
 
@@ -1191,18 +1184,18 @@ vi.useRealTimers()
 function useFakeTimers(config?: FakeTimersConfig): Vitest
 ```
 
-要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout` 、`setInterval` 、`clearTimeout` 、`clearInterval` 、`setImmediate` 、`clearImmediate` 和 `Date`）。
+要启用模拟定时器，需要调用此方法。在调用 [`vi.useRealTimers()`](#vi-userealtimers) 之前，它将封装所有对定时器的进一步调用（如 `setTimeout`、`setInterval`、`clearTimeout`、`clearInterval`、`setImmediate`、`clearImmediate` 和 `Date`）。
 
-在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick` 。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick` ，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
+在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick`，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
-内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers) 。
+内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
 
 ::: tip
-`vi.useFakeTimers()` 不再自动模拟 `process.nextTick` 。
-仍然可以通过在 `toFake` 参数中指定选项来模拟： `vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })` 。
+`vi.useFakeTimers()` 不再自动模拟 `process.nextTick`。
+仍然可以通过在 `toFake` 参数中指定选项来模拟：`vi.useFakeTimers({ toFake: ['nextTick', 'queueMicrotask'] })`。
 :::
-<!-- TODO: translation -->
-You can use `toFake` to specify which timers to mock, or `toNotFake` to specify which timers to keep native. Note that `toFake` and `toNotFake` cannot be specified together.
+
+你可以使用 `toFake` 来指定要模拟哪些定时器，或者使用 `toNotFake` 来指定哪些定时器保持原生。注意，`toFake` 和 `toNotFake` 不能同时指定。
 
 ```ts
 // only mock setTimeout and clearTimeout
@@ -1214,7 +1207,7 @@ vi.useFakeTimers({ toNotFake: ['setInterval'] })
 
 ### vi.setTimerTickMode <Version>4.1.0</Version> {#vi-settimertickmode}
 
-- **类型:**`(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
+- **类型:** `(mode: 'manual' | 'nextTimerAsync') => Vitest | (mode: 'interval', interval?: number) => Vitest`
 
 控制模拟计时器的推进方式：
 
@@ -1258,7 +1251,7 @@ await new Promise(resolve => setTimeout(resolve, 150)) // 输出 7, 8, 9
 function isFakeTimers(): boolean
 ```
 
-如果启用了模拟计时器，则返回 `true` 。
+如果启用了模拟计时器，则返回 `true`。
 
 ### vi.useRealTimers
 
@@ -1268,7 +1261,7 @@ function useRealTimers(): Vitest
 
 当定时器用完后，我们可以调用此方法将模拟的计时器返回到其原始实现。之前调度的计时器都将被丢弃。
 
-## 工具函数{#miscellaneous}
+## 工具函数 {#miscellaneous}
 
 Vitest 提供的一组有用的工具函数。
 
@@ -1367,7 +1360,7 @@ test('Element render correctly', async () => {
 })
 ```
 
-如果使用了 `vi.useFakeTimers` , `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)` 。
+如果使用了 `vi.useFakeTimers`, `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)`。
 
 ### vi.hoisted {#vi-hoisted}
 
@@ -1483,7 +1476,7 @@ vi.setConfig({
 function resetConfig(): void
 ```
 
-如果之前调用过 [`vi.setConfig`](#vi-setconfig) ，则会将配置重置为原始状态。
+如果之前调用过 [`vi.setConfig`](#vi-setconfig)，则会将配置重置为原始状态。
 
 ### vi.defineHelper <Version>4.1.0</Version> {#vi-definehelper}
 

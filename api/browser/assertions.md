@@ -14,7 +14,7 @@ Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing
 ```
 :::
 
-浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll)和 `expect.element` API 提供了可重试的断言：
+浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll) 和 `expect.element` API 提供了可重试的断言：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -52,9 +52,9 @@ interface ExpectPollOptions {
   message?: string
 }
 ```
-<!-- TODO: translation -->
+
 ::: tip
-Like [`expect.poll`](/api/expect#poll), `expect.element` retries DOM assertions until they pass or the timeout is reached. When it receives a locator, Vitest resolves it with [`locator.findElement()`](/api/browser/locators#findelement) before running the DOM assertion. The `timeout` option applies to the whole retry operation. The `interval` option controls how often failed DOM assertions are retried, but locator resolution uses `findElement`'s own increasing retry intervals.
+与 [expect.poll](/api/expect#poll) 类似，`expect.element` 会反复重试 DOM 断言，直到断言通过或达到超时时间。当接收到定位器时，Vitest 会先通过 [locator.findElement()](/api/browser/locators#findelement) 解析该定位器，再执行 DOM 断言。`timeout` 参数适用于整个重试过程。`interval` 参数控制失败 DOM 断言的重试频率，但定位器解析使用 `findElement` 自身递增的重试间隔。
 
 `toMatchTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
@@ -310,6 +310,7 @@ function toBeInViewport(options: { ratio?: number }): Promise<void>
 
 该方法通过 IntersectionObserver API 检测元素是否位于当前视口内。
 可通过 ratio 参数指定元素在视口中的最小可见比例（取值范围为 0~1）：
+
 ```ts
 // 检测指定元素是否在视口中
 await expect.element(page.getByText('Welcome')).toBeInViewport()
@@ -433,7 +434,7 @@ function toHaveAccessibleErrorMessage(message?: string | RegExp): Promise<void>
 
 这允许你断言一个元素具有预期的 [可访问错误消息](https://w3c.github.io/aria/#aria-errormessage)。
 
-你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)来进行部分匹配。
+你可以传递预期的可访问错误消息的确切字符串。或者，你可以通过传递正则表达式或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching) 来进行部分匹配。
 
 ```html
 <input
@@ -480,7 +481,7 @@ await expect.element(
 function toHaveAccessibleName(name?: string | RegExp): Promise<void>
 ```
 
-这允许你断言一个元素具有预期的[可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
+这允许你断言一个元素具有预期的 [可访问名称](https://w3c.github.io/accname/)。例如，它有助于断言表单元素和按钮是否被正确标记。
 
 你可以传递预期的可访问名称的确切字符串，或者通过传递正则表达式进行部分匹配，也可以使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)。
 
@@ -512,7 +513,7 @@ await expect.element(getByTestId('input-title')).toHaveAccessibleName()
 function toHaveAttribute(attribute: string, value?: unknown): Promise<void>
 ```
 
-这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching)进行部分匹配。
+这允许你检查给定的元素是否具有某个属性。你还可以选择性地验证该属性是否具有特定的预期值或使用 [`expect.stringContaining`](/api/expect#expect-stringcontaining) 或 [`expect.stringMatching`](/api/expect#expect-stringmatching) 进行部分匹配。
 
 ```html
 <button data-testid="ok-button" type="submit" disabled>ok</button>
@@ -700,11 +701,10 @@ function toHaveTextContent(
   options?: { normalizeWhitespace: boolean }
 ): Promise<void>
 ```
-<!-- TODO: translation -->
-This matcher allows you to validate that an element's text matches provided string exactly. This
-supports elements, but also text nodes and fragments.
 
-If you wish to perform a partial check or do a case-sensitive match, use [`toMatchTextContent`](#tomatchtextcontent) instead.
+该匹配器用于验证元素的文本是否与提供的字符串完全匹配。它不仅支持元素，也支持文本节点和片段。
+
+如果你希望执行部分匹配或进行大小写敏感的匹配，请改用 [`toMatchTextContent`](#tomatchtextcontent)。
 
 ```html
 <span data-testid="text-content">Text Content</span>
@@ -973,7 +973,7 @@ await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 function toHaveSelection(selection?: string): Promise<void>
 ```
 
-这允许断言某个元素具有一个[文本选择](https://developer.mozilla.org/en-US/docs/Web/API/Selection)。
+这允许断言某个元素具有一个 [文本选择](https://developer.mozilla.org/en-US/docs/Web/API/Selection)。
 
 这在检查元素内是否选择了文本或部分文本时非常有用。该元素可以是文本类型的输入框、`textarea`，或者是任何包含文本的其他元素，例如段落、`span`、`div` 等。
 
@@ -1067,7 +1067,7 @@ function toMatchScreenshot(
 :::
 
 ::: tip
-若截图对比因**有意变更**而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 参数，以更新基准图。
+若截图对比因 **有意变更** 而失败，可在监听模式下按 `u` 键，或运行测试时加上 `-u`/`--update` 参数，以更新基准图。
 :::
 
 ```html
@@ -1097,14 +1097,15 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   },
 })
 ```
-<!-- TODO: translation -->
+
 ### Options
 
 - `comparatorName: "pixelmatch" = "pixelmatch"`
 
-  The algorithm/library used for comparing images.
+  用于比较图像的算法/库。
+  用于比较图像的算法/库。
 
-  `"pixelmatch"` is the only built-in comparator, but you can use custom ones by [registering them in the config file](/config/browser/expect#browser-expect-tomatchscreenshot-comparators).
+  `"pixelmatch"` 是唯一内置的比较器，但你也可以通过 [在配置文件中注册它们](/config/browser/expect#browser-expect-tomatchscreenshot-comparators) 来使用自定义比较器。
 
 - `comparatorOptions: object`
 
@@ -1120,15 +1121,15 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   否则，TypeScript 无法识别哪些选项是有效的。
 
   ```ts
-  // ❌ TypeScript can't infer the correct options
+  // ❌ TypeScript 无法推断正确的参数
   await expect.element(button).toMatchScreenshot({
     comparatorOptions: {
-      // might error when new comparators are added
+      // 添加新比较器时可能出错
       allowedMismatchedPixelRatio: 0.01,
     },
   })
 
-  // ✅ TypeScript knows these are pixelmatch options
+  // ✅ TypeScript 知道这些是 pixelmatch 提供的的参数
   await expect.element(button).toMatchScreenshot({
     comparatorName: 'pixelmatch',
     comparatorOptions: {
@@ -1152,10 +1153,10 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
   等待获取稳定截图的时间。
 
   设为 `0` 可禁用超时，但如果无法确定稳定截图，进程将不会结束。
-<!-- TODO: translation -->
-#### `"pixelmatch"` comparator options
 
-The `"pixelmatch"` comparator uses [`@blazediff/core`](https://blazediff.dev/docs/core) under the hood. The following options are available when using it:
+#### `"pixelmatch"` 比较器选项 {#pixelmatch-comparator-options}
+
+`"pixelmatch"` 比较器在底层使用了 [`@blazediff/core`](https://blazediff.dev/docs/core)。使用该比较器时，可以使用以下选项：
 
 - `allowedMismatchedPixelRatio: number | undefined = undefined`
 
