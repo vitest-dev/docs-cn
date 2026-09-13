@@ -101,6 +101,7 @@ await userEvent.keyboard('{/Shift}')
 ```
 
 使用 Playwright：
+
 ```ts
 await userEvent.click(element, { modifiers: ['Shift'] })
 ```
@@ -242,7 +243,7 @@ function fill(
 ): Promise<void>
 ```
 
-为 `input` 、 `textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
+为 `input`、`textarea` 或 `contenteditable` 元素设置新的内容，并且在赋值前会先清空其中已有的文本。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -262,7 +263,7 @@ test('update input', async () => {
 该方法聚焦元素、填充元素并在填充后触发一个 `input` 事件。你可以使用空字符串来清除字段。
 
 ::: tip
-该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但**不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard) （例如，`{Shift}{selectall}`）。
+该 API 比使用 [`userEvent.type`](#userevent-type) 或 [`userEvent.keyboard`](#userevent-keyboard) 更快，但 **不支持** [user-event `keyboard` syntax](https://testing-library.com/docs/user-event/keyboard)（例如，`{Shift}{selectall}`）。
 
 在不需要输入特殊字符或对按键事件进行细粒度控制的情况下，我们建议使用此 API 而不是 [`userEvent.type`](#userevent-type)。
 :::
@@ -280,15 +281,15 @@ function keyboard(text: string): Promise<void>
 ```
 
 通过 `userEvent.keyboard` 可以触发键盘输入。如果任何输入有焦点，它就会在该输入中键入字符。否则，它将触发当前焦点元素（如果没有焦点元素，则为 `document.body`）上的键盘事件。
-<!-- TODO: translation -->
-此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。 Common special keys that can be referenced inside the braces include:
 
-- **Modifiers:** `{Shift}`, `{Control}`, `{Alt}`, `{Meta}`
-- **Navigation:** `{ArrowUp}`, `{ArrowDown}`, `{ArrowLeft}`, `{ArrowRight}`, `{Home}`, `{End}`, `{PageUp}`, `{PageDown}`
-- **Editing:** `{Backspace}`, `{Delete}`, `{Insert}`, `{Tab}`, `{Enter}`, `{Escape}`
-- **Function keys:** `{F1}` through `{F12}`
+此 API 支持 [user-event `keyboard` 语法](https://testing-library.com/docs/user-event/keyboard)。可以在大括号内引用的常见特殊键包括::
 
-Note: The exact set of supported keys may vary depending on the underlying browser provider (Playwright vs WebdriverIO). If a key press doesn't trigger the expected behavior, consult your provider's documentation or file an issue.
+- **修饰符:** `{Shift}`, `{Control}`, `{Alt}`, `{Meta}`
+- **导航键:** `{ArrowUp}`, `{ArrowDown}`, `{ArrowLeft}`, `{ArrowRight}`, `{Home}`, `{End}`, `{PageUp}`, `{PageDown}`
+- **编辑键:** `{Backspace}`, `{Delete}`, `{Insert}`, `{Tab}`, `{Enter}`, `{Escape}`
+- **功能键:** `{F1}` through `{F12}`
+
+注意：具体支持的按键集合可能因底层浏览器 provider（Playwright 与 WebdriverIO）而异。如果某个按键未触发预期行为，请查阅对应 provider 的文档或提交 issue。
 
 ```ts
 import { userEvent } from 'vitest/browser'
@@ -314,7 +315,7 @@ test('trigger keystrokes', async () => {
 function tab(options?: UserEventTabOptions): Promise<void>
 ```
 
-发送一个 `Tab` 键事件。这是`userEvent.keyboard('{tab}')`的简写。
+发送一个 `Tab` 键事件。这是 `userEvent.keyboard('{tab}')` 的简写。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -517,7 +518,7 @@ function unhover(
 其作用与 [`userEvent.hover`](#userevent-hover) 相同，但会将光标移至 `document.body` 元素。
 
 ::: warning
-默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider中）或中心位置（在 `webdriverio` provider中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
+默认情况下，光标位置位于 body 元素的 "某个" 可见位置（在 `playwright` provider 中）或中心位置（在 `webdriverio` provider 中），因此如果当前悬停的元素已经位于相同位置，本方法将不起作用。
 :::
 
 ```ts
@@ -587,7 +588,7 @@ function dragAndDrop(
 ): Promise<void>
 ```
 
-将源元素拖到目标元素的顶部。不要忘记，源元素的`draggable`属性必须设置为 `true`。
+将源元素拖到目标元素的顶部。不要忘记，源元素的 `draggable` 属性必须设置为 `true`。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -605,7 +606,7 @@ test('drag and drop works', async () => {
 ```
 
 ::: warning
- `preview` provider不支持此 API。
+`preview` provider 不支持此 API。
 :::
 
 相关链接：
