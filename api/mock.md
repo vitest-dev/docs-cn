@@ -31,6 +31,7 @@ fn.length // == 1
 fn.mockImplementation(() => {})
 fn.length // == 1
 ```
+
 ```ts [vi.spyOn]
 const example = {
   fn(arg1, arg2) {
@@ -44,6 +45,7 @@ fn.length // == 2
 fn.mockImplementation(() => {})
 fn.length // == 2
 ```
+
 :::
 
 ::: tip
@@ -51,7 +53,7 @@ fn.length // == 2
 :::
 
 ::: warning 类支持 {#class-support}
-像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有[反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
+像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有 [反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
 
 ```ts {2,7}
 const CorrectDogClass = vi.fn(class {
@@ -109,7 +111,7 @@ function getMockImplementation(): T | undefined
 function getMockName(): string
 ```
 
-此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`； `vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
+此方法返回由 `.mockName(name)` 为 mock 指定的名称。`vi.fn()` 创建的替身默认返回 `'vi.fn()'`；`vi.spyOn` 生成的 spy 则沿用被监视方法的原始名称。
 
 ## mockClear
 
@@ -165,8 +167,8 @@ BobsBucket === 2 // true
 mockFn.mock.calls[0][0] === 0 // true
 mockFn.mock.calls[1][0] === 1 // true
 ```
-<!-- TODO: translation -->
-If the implementation is a class, the mock's `prototype` is re-pointed to the implementation's prototype, so constructed instances see its prototype methods and pass `instanceof` checks against it. See [Mocking Classes](/guide/mocking/classes) for details.
+
+如果实现是一个类，模拟对象的 `prototype` 会重新指向实现的原型，这样构造的实例就能访问其原型方法，并通过 `instanceof` 检查。详情参阅 [模拟类](/guide/mocking/classes)。
 
 ## mockImplementationOnce
 
@@ -288,8 +290,7 @@ function mockReset(): Mock<T>
 
 注意：如果 mock 由 `vi.fn()` 创建，重置后其函数体将变为空实现，默认返回 `undefined`。如果由 `vi.fn(impl)` 创建，重置后实现会恢复为传入的 `impl`。
 
-<!-- TODO: translation -->
-The mock's `prototype` chain follows along: it reverts to the original class for `vi.fn(impl)` and `vi.spyOn()`, and to a plain object for `vi.fn()`, so instances constructed after the reset no longer pass `instanceof` checks against a previously set class implementation.
+模拟对象的 `prototype` 链（原型链）也会随之重置：对于 `vi.fn(impl)` 和 `vi.spyOn()` 会恢复为原始类；对于 `vi.fn()` 则恢复为普通对象。因此，重置后构造的实例将无法再通过针对先前设置的类实现的 `instanceof` 检查。
 
 适用于想将模拟重置为初始状态。
 
@@ -424,6 +425,7 @@ const myMockFn = vi
 // 'first call', 'second call', 'default', 'default'
 console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn())
 ```
+
 ## mockThrow <Version>4.1.0</Version> {#mockthrow}
 
 ```ts
@@ -479,7 +481,7 @@ fn.mock.calls
 ]
 ```
 
-:::warning 对象按引用存储。
+::: warning 对象按引用存储。
 请注意，Vitest 在 `mock` 状态的所有属性中始终按引用保存对象。一旦你的代码修改了这些属性，诸如 [`.toHaveBeenCalledWith`](/api/expect#tohavebeencalledwith) 之类的断言便可能无法通过：
 
 ```ts
@@ -557,7 +559,7 @@ const results: MockResult<ReturnType<T>>[]
 - `'throw'`：函数执行过程中抛出了异常。
 - `'incomplete'`：函数尚未结束，仍在运行。
 
-`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使Promise rejected，`result` 也将始终为 `'return'`。
+`value` 属性包含返回值或抛出的错误。如果函数返回一个 `Promise`，那么即使 Promise rejected，`result` 也将始终为 `'return'`。
 
 ```js
 const fn = vi
@@ -711,5 +713,4 @@ const a = new Spy()
 Spy.mock.instances[0] !== a
 Spy.mock.results[0] === a
 ```
-
 :::
