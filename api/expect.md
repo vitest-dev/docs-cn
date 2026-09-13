@@ -39,14 +39,14 @@ expect(input).toBe(2) // jest API
 此外，`expect` 可以静态地使用来访问匹配器函数，稍后将会介绍。
 
 ::: warning
-如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为[类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type) 。
+如果表达式没有类型错误，则 `expect` 对测试类型没有影响。 如果你想使用 Vitest 作为 [类型检查器](/guide/testing-types)，请使用 [`expectTypeOf`](/api/expect-typeof) 或 [`assertType`](/api/assert-type)。
 :::
 
 ## assert
 
 - **类型:** `Chai.AssertStatic`
 
-Vitest 将 Chai 的 [`assert` API](https://www.chaijs.com/api/assert/) 以 `expect.assert` 的形式重新导出。你可以在  [Assert API page](/api/assert) 页面查看支持的方法。
+Vitest 将 Chai 的 [`assert` API](https://www.chaijs.com/api/assert/) 以 `expect.assert` 的形式重新导出。你可以在 [Assert API](/api/assert) 页面查看支持的方法。
 
 如果你需要缩小类型范围时，这将特别有用，因为 `expect.to*` 方法不支持此功能：
 
@@ -69,7 +69,7 @@ expect(animal.bark()).toBeUndefined()
 ```
 
 ::: tip
-注意，`expect.assert` 还支持其他缩小类型的方法（如：`assert.isDefined`，`assert.exists`等）。
+注意，`expect.assert` 还支持其他缩小类型的方法（如：`assert.isDefined`，`assert.exists` 等）。
 :::
 
 ## soft
@@ -145,7 +145,6 @@ expect(flakyValue).toMatchSnapshot()
 
 - `.resolves` 和 `.rejects` 不支持。 如果它是异步的，`expect.poll` 已经在等待。
 - `toThrow` 及其别名不受支持，因为 `expect.poll` 条件总是在匹配器获取值之前解析。
-
 :::
 
 ## not
@@ -165,7 +164,7 @@ expect(input).not.toBe(2) // jest API
 
 - **类型:** `(value: any) => Awaitable<void>`
 
-`toBe` 可用于断言基元是否相等或对象共享相同的引用。 它相当于调用 `expect(Object.is(3, 3)).toBe(true)` 。 如果对象不相同，但你想检查它们的结构是否相同，可以使用 [`toEqual`](#toequal)。
+`toBe` 可用于断言基元是否相等或对象共享相同的引用。 它相当于调用 `expect(Object.is(3, 3)).toBe(true)`。 如果对象不相同，但你想检查它们的结构是否相同，可以使用 [`toEqual`](#toequal)。
 
 例如，下面的代码检查交易者是否有 13 个苹果。
 
@@ -189,7 +188,7 @@ test('stocks are the same', () => {
 })
 ```
 
-尽量不要将 `toBe` 与浮点数一起使用。 由于 JavaScript 对它们进行四舍五入，因此 `0.1 + 0.2` 并不严格是 `0.3` 。 要可靠地断言浮点数，请使用 [`toBeCloseTo`](#tobecloseto) 断言。
+尽量不要将 `toBe` 与浮点数一起使用。 由于 JavaScript 对它们进行四舍五入，因此 `0.1 + 0.2` 并不严格是 `0.3`。 要可靠地断言浮点数，请使用 [`toBeCloseTo`](#tobecloseto) 断言。
 
 ## toBeCloseTo
 
@@ -254,7 +253,7 @@ test('mary doesn\'t have a stock', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeTruthy`断言值在转换为布尔值时为 true。如果你不关心值，只想知道它可以转换为`true`，这将非常有用。
+`toBeTruthy` 断言值在转换为布尔值时为 true。如果你不关心值，只想知道它可以转换为 `true`，这将非常有用。
 
 例如，假设有以下代码，我们不关心 `stocks.getInfo` 的返回值 - 它可能是一个复杂对象、一个字符串或其他任何值。代码仍然可以正常工作。
 
@@ -288,7 +287,7 @@ test('if we know Bill stock, sell apples to him', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeFalsy` 断言值在转换为布尔值时为 false。如果你不关心值，只想知道它可以转换为`false`，这将非常有用。
+`toBeFalsy` 断言值在转换为布尔值时为 false。如果你不关心值，只想知道它可以转换为 `false`，这将非常有用。
 
 例如，假设有以下代码，我们不关心 `stocks.stockFailed` 的返回值 - 它可能返回任何假值，但代码仍然可以正常工作。
 
@@ -302,7 +301,7 @@ if (!stocks.stockFailed('Bill')) {
 }
 ```
 
-因此，如果要测试`stocks.stockFailed`是否是虚假的，可以这样写：
+因此，如果要测试 `stocks.stockFailed` 是否是虚假的，可以这样写：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -322,7 +321,7 @@ test('if Bill stock hasn\'t failed, sell apples to him', () => {
 
 - **类型:** `() => Awaitable<void>`
 
-`toBeNull` 只是断言某些内容是否为 `null`。 `.toBe(null)` 的别名。
+`toBeNull` 只是断言某些内容是否为 `null`。`.toBe(null)` 的别名。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -420,7 +419,7 @@ test('optional properties can be null or undefined', () => {
 })
 ```
 
-:::tip
+::: tip
 我们可以将 `expect.not` 与此 matcher 一起使用，以确保值与任何提供的选项不匹配。
 :::
 
@@ -440,7 +439,7 @@ test('stock is type of string', () => {
 })
 ```
 
-:::warning
+::: warning
 `toBeTypeOf` 底层使用原生 `typeof` 运算符（包含其固有特性），最显著的表现是 `null` 值会被判定为 `object` 类型。
 
 ```ts
@@ -556,7 +555,7 @@ test('stocks are not the same', () => {
 })
 ```
 
-:::warning
+::: warning
 对于 `Error` 对象，非可枚举属性如 `name`、`message`、`cause` 和 `AggregateError.errors` 也会进行比较。对于 `Error.cause`，比较是不对称的：
 
 ```ts
@@ -578,8 +577,8 @@ expect(new Error('hi')).toEqual(new Error('hi', { cause: 'x' }))
 
 与 [`.toEqual`](#toequal) 的区别：
 
-- 检查具有 `undefined` 属性的键。 例如 使用 `.toStrictEqual` 时， `{a: undefined, b: 2}` 与 `{b: 2}` 不匹配。
-- 检查数组稀疏性。 例如 使用 `.toStrictEqual` 时， `[, 1]` 与 `[undefined, 1]` 不匹配。
+- 检查具有 `undefined` 属性的键。 例如 使用 `.toStrictEqual` 时，`{a: undefined, b: 2}` 与 `{b: 2}` 不匹配。
+- 检查数组稀疏性。 例如 使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不匹配。
 - 检查对象类型是否相等。 例如 具有字段 `a` 和 ` b` 的类实例不等于具有字段 `a` 和 ` b` 的文字对象。
 
 ```ts
@@ -798,10 +797,11 @@ test('the number of elements must match exactly', () => {
 - `string`: 错误消息包含该子字符串
 - 任何其他值：使用深度相等与抛出的值进行比较（等价于 `toEqual`）
 
-:::tip
+::: tip
 必须将代码包装在一个函数中，否则错误将无法被捕获，测试将失败。
 
 这不适用于异步调用，因为 [rejects](#rejects) 正确地解开了 promise:
+
 ```ts
 test('expect rejects toThrow', async ({ expect }) => {
   const promise = Promise.reject(new Error('Test'))
@@ -842,7 +842,7 @@ test('throws on pineapples', () => {
 })
 ```
 
-:::tip
+::: tip
 要测试异步函数，请与 [rejects](#rejects) 结合使用。
 
 ```js
@@ -857,7 +857,7 @@ test('throws on pineapples', async () => {
 
 :::
 
-:::tip
+::: tip
 你也可以测试抛出的非 Error 值：
 
 ```ts
@@ -868,7 +868,7 @@ test('throws non-Error values', () => {
 ```
 :::
 
-:::warning 使用假定时器时的未处理拒绝
+::: warning 使用假定时器时的未处理拒绝
 当使用假定时器时，在 `vi.advanceTimersByTimeAsync` 调用期间被拒绝的异步函数会触发 [未处理的拒绝](https://nodejs.org/api/process.html#event-unhandledrejection)，即使你稍后使用 `.rejects.toThrow()` 进行断言。这是因为错误在 `expect` 链有机会捕获之前就被抛出了。
 
 ```ts
@@ -922,7 +922,7 @@ test('rejects', async () => {
 
 可以提供一个可选的 `hint` 字符串参数，它会附加到测试名称的末尾。尽管 Vitest 总是在快照名称的末尾附加一个数字，但简短的描述性提示可能比数字更有用，以区分单个 it 或 test 块中的多个快照。Vitest 会按名称在相应的 `.snap` 文件中对快照进行排序。
 
-:::tip
+::: tip
 当快照不匹配导致测试失败时，如果这种不匹配是预期的，我们可以按 `u` 键一次性更新快照。或者可以传递 `-u` 或 `--update` 命令行选项，使 Vitest 始终更新测试。
 :::
 
@@ -1043,7 +1043,6 @@ test('navigation accessibility', () => {
 - **类型:** `(snapshot?: string) => void`
 
 与 [`toMatchAriaSnapshot`](#tomatcharisnapshot) 相同，但会将快照内联存储在测试文件中。详情请参阅 [ARIA 快照指南](/guide/browser/aria-snapshots)。
-
 
 ```ts
 import { expect, test } from 'vitest'
@@ -1379,7 +1378,7 @@ test('spy function resolved a value', async () => {
 
 - **类型:** `(amount: number) => Awaitable<void>`
 
-此断言检查函数是否已成功解析值精确次数（即未 reject）。需要将 spy 函数传递给`expect`。
+此断言检查函数是否已成功解析值精确次数（即未 reject）。需要将 spy 函数传递给 `expect`。
 
 这只会计算已 resolved 的 promises。如果函数返回了一个 promise，但尚未 resolved，则不会计算在内。
 
@@ -1400,7 +1399,7 @@ test('spy function resolved a value two times', async () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
-你可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给`expect`。
+你可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给 `expect`。
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
@@ -1420,7 +1419,7 @@ test('spy function resolved a product', async () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
-你可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给`expect`。
+你可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给 `expect`。
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
@@ -1683,7 +1682,7 @@ test('spy nth called with', () => {
 
 ## returned <Version>4.1.0</Version> {#returned}
 
-- **类型:**`(value: any) => void`
+- **类型:** `(value: any) => void`
 
 Chai 风格断言，用于检查 spy 函数是否至少返回过一次指定的值。等价于 `toHaveReturnedWith(value)`。
 
@@ -1875,7 +1874,7 @@ test('buyApples returns new stock id', async () => {
 })
 ```
 
-:::warning
+::: warning
 如果断言没有被等待，测试将被标记为 "failed" 。
 :::
 
@@ -1904,7 +1903,7 @@ test('buyApples throws an error when no id provided', async () => {
 })
 ```
 
-:::warning
+::: warning
 如果断言没有被等待，测试将被标记为 "failed" 。
 :::
 
@@ -2020,14 +2019,14 @@ test.each(errorDirs)('build fails with "%s"', async (dir) => {
   }
 })
 ```
-<!-- TODO: translation -->
+
 ## expect.fail
 
-- **Type:** `(message?: string) => never`
+- **类型:** `(message?: string) => never`
 
-Explicitly forces a test failure with an optional custom message.
+显式地强制测试失败，并可附带可选的自定义消息。
 
-For example, you can use it inside a `try/catch` block to ensure an error was thrown:
+例如，你可以在 `try/catch` 代码块中使用，确保它抛出了错误：
 
 ```ts
 import { expect, test } from 'vitest'
@@ -2061,7 +2060,7 @@ test('object has "apples" key', () => {
 
 - **类型:** `(constructor: unknown) => any`
 
-这个不对称的匹配器在与相等性检查一起使用时，只有当该值是指定构造函数的实例时才会返回`true`。
+这个不对称的匹配器在与相等性检查一起使用时，只有当该值是指定构造函数的实例时才会返回 `true`。
 如果我们有一个每次生成的值，并且只想知道它是否存在，这将非常有用。
 
 ```ts
@@ -2077,9 +2076,9 @@ test('"id" is a number', () => {
 
 - **类型:** `(expected: any, precision?: number) => any`
 
-在比较对象属性或数组项中的浮点数时，`expect.closeTo` 非常有用。 如果需要比较数字，请改用 `.toBeCloseTo` 。
+在比较对象属性或数组项中的浮点数时，`expect.closeTo` 非常有用。 如果需要比较数字，请改用 `.toBeCloseTo`。
 
-可选的 `precision` 参数限制要检查小数点**后**的位数。 对于默认值 `2` ，测试标准为 `Math.abs(expected - received) < 0.005 (that is, 10 ** -2 / 2)` 。
+可选的 `precision` 参数限制要检查小数点 **后** 的位数。 对于默认值 `2`，测试标准为 `Math.abs(expected - received) < 0.005 (that is, 10 ** -2 / 2)`。
 
 例如，此测试以 5 位精度通过：
 
@@ -2116,7 +2115,7 @@ test('basket includes fuji', () => {
 })
 ```
 
-:::tip
+::: tip
 可以将 `expect.not` 与此匹配器一起使用来否定期望值。
 :::
 
@@ -2144,7 +2143,7 @@ test('basket has empire apples', () => {
 })
 ```
 
-:::tip
+::: tip
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
 :::
 
@@ -2152,7 +2151,7 @@ test('basket has empire apples', () => {
 
 - **类型:** `(expected: any) => any`
 
-当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串时返回`true`。
+当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串时返回 `true`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -2169,7 +2168,7 @@ test('variety has "Emp" in its name', () => {
 })
 ```
 
-:::tip
+::: tip
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
 :::
 
@@ -2177,7 +2176,7 @@ test('variety has "Emp" in its name', () => {
 
 - **类型:** `(expected: any) => any`
 
-当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串，或者字符串与正则表达式匹配时返回 `true` 。
+当与相等性检查一起使用时，这个不对称的匹配器将在值为字符串且包含指定子字符串，或者字符串与正则表达式匹配时返回 `true`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -2194,7 +2193,7 @@ test('variety ends with "re"', () => {
 })
 ```
 
-:::tip
+::: tip
 可以将 `expect.not` 与此匹配器一起使用，以否定预期值。
 :::
 
@@ -2230,7 +2229,7 @@ test('email validation', () => {
 })
 ```
 
-:::tip
+::: tip
 可以通过 `expect.not` 结合此匹配器来对期望值进行取反断言。
 :::
 
@@ -2242,7 +2241,7 @@ test('email validation', () => {
 
 如果需要添加自定义序列化程序，应该在 [`setupFiles`](/config/setupfiles) 中调用此方法。这将影响每个快照。
 
-:::tip
+::: tip
 如果以前将 Vue CLI 与 Jest 一起使用，需要安装 [jest-serializer-vue](https://npmx.dev/package/jest-serializer-vue)。否则，快照将被包裹在一个字符串中，其中 `"` 是要转义的。
 :::
 
@@ -2297,7 +2296,7 @@ declare module 'vitest' {
 不要忘记在 `tsconfig.json` 中包含环境声明文件。
 :::
 
-:::tip
+::: tip
 如果想了解更多信息，请查看 [扩展匹配器](/guide/extending-matchers)。
 :::
 
