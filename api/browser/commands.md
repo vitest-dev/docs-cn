@@ -126,15 +126,15 @@ declare module 'vitest/browser' {
 ::: warning
 如果自定义命令具有相同的名称，则它们将覆盖内置命令。
 :::
-<!-- TODO: translation -->
-::: warning Security
-Custom commands run in the Vitest Node process and are callable from browser test code through Vitest's browser RPC connection. They can access local files, environment variables, network services, databases, shell commands, and other Node APIs.
 
-Vitest's built-in file commands validate paths against Vite's [`server.fs`](https://vite.dev/config/server-options#server-fs-allow) restrictions and separately check whether writes are allowed. Custom commands do not automatically inherit these protections. If a custom command accepts browser-provided input and uses it to read, write, delete, execute, or expose local resources, validate that input before using it.
+::: warning 安全
+自定义命令在 Vitest 的 Node 进程中运行，浏览器测试代码可以通过 Vitest 的浏览器 RPC 连接调用这些命令。它们可以访问本地文件、环境变量、网络服务、数据库、shell 命令以及其他 Node API。
 
-For file reads or fixture loading, use `isFileLoadingAllowed` from `vitest/node` or an explicit allowlist. For writes and deletes, also require an explicit mutation policy, such as [`api.allowWrite`](/config/api#api-allowwrite), and a command-specific allowed directory. For commands that execute code, shell commands, or project scripts, also check [`api.allowExec`](/config/api#api-allowexec).
+Vitest 的内置文件命令会根据 Vite 的 [`server.fs`](https://cn.vite.dev/config/server-options#server-fs-allow) 限制校验路径，并单独检查是否允许写入。自定义命令不会自动继承这些保护措施。如果自定义命令接收浏览器提供的输入，并用它来读取、写入、删除、执行或暴露本地资源，请在使用前校验输入。
 
-For example, if you create your own file-writing command instead of using Vitest's built-in `writeFile`, apply the same checks:
+读取文件或加载 fixture 时，请使用 `vitest/node` 中的 `isFileLoadingAllowed`，或显式指定白名单。写入和删除操作还须有明确的修改策略，例如 [`api.allowWrite`](/config/api#api-allowwrite) 为命令指定允许操作的目录。如果命令会执行代码、shell 命令或项目脚本，还须检查 [`api.allowExec`](/config/api#api-allowexec)。
+
+例如，如果你自行创建文件写入命令，而不是使用 Vitest 内置的 `writeFile`，请执行相同的检查：
 
 ```ts
 import { mkdir, writeFile } from 'node:fs/promises'
@@ -172,12 +172,11 @@ export const myWriteFileCommand: BrowserCommand<[path: string, content: string]>
   await writeFile(file, content)
 }
 ```
-
 :::
 
-### Recording trace markers
+### 记录追踪标记 {#recording-trace-markers}
 
-Custom commands can record [trace markers](/api/browser/context#mark) for the test that triggered them through `context.mark`. This is the server-side equivalent of `page.mark` and helps annotate the [trace view](/guide/browser/trace-view) with custom actions performed inside a command.
+自定义命令可以通过 `context.mark` 为调用它的测试记录 [追踪标记](/api/browser/context#mark)。它的作用与 `page.mark` 相同，但在服务端使用，用于在 [追踪视图](/guide/browser/trace-view) 中标注命令内部执行的自定义操作。
 
 ```ts
 import type { BrowserCommand } from 'vitest/node'
@@ -187,12 +186,13 @@ export const uploadFixture: BrowserCommand<[name: string]> = async (
   name,
 ) => {
   await context.mark(`upload start: ${name}`, { kind: 'action' })
-  // ... do server-side work
+  // 执行服务端操作...
   await context.mark(`upload done: ${name}`, { kind: 'action' })
 }
 ```
 
-`context.mark` is a no-op when browser tracing is not enabled or no test is currently running in the session. Unlike `page.mark`, it does not accept a callback form.
+如果未启用浏览器追踪，或当前会话中没有正在运行的测试，`context.mark` 不会执行任何操作。与 `page.mark` 不同，它不支持传入回调函数。
+
 
 ### 自定义 `playwright` 命令  {#custom-playwright-commands}
 
