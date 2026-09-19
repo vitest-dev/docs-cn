@@ -7,7 +7,7 @@ title: Vitest API
 
 ## mode <Deprecated /> {#mode}
 
-Since Vitest 5, this property is always `'test'`.
+自 Vitest 5 起，该属性始终为 `'test'`。
 
 ## config
 
