@@ -212,7 +212,7 @@ await page.getByRole('button', { name: /submit/i }).click()
   page.getByRole('button', { selected: false }) // ❌
   ```
 
-### 更多内容请参阅 {#see-also}
+**更多内容请参阅**
 
 - [MDN 上的 ARIA 角色列表](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
 - [w3.org 上的 ARIA 角色列表](https://www.w3.org/TR/wai-aria-1.2/#role_definitions)
@@ -242,7 +242,7 @@ page.getByAltText('non existing alt text') // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-## 更多内容请参阅 {#see-also-1}
+**更多内容请参阅**
 
 - [testing-library's `ByAltText`](https://testing-library.com/docs/queries/byalttext/)
 
@@ -289,7 +289,7 @@ function getByLabelText(
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-## 更多内容请参阅 {#see-also-2}
+**更多内容请参阅**
 
 - [testing-library's `ByLabelText`](https://testing-library.com/docs/queries/bylabeltext/)
 
@@ -321,7 +321,7 @@ page.getByPlaceholder('not found') // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-## 更多内容请参阅 {#see-also-3}
+**更多内容请参阅**
 
 - [testing-library's `ByPlaceholderText`](https://testing-library.com/docs/queries/byplaceholdertext/)
 
@@ -353,7 +353,7 @@ page.getByText('about', { exact: true }) // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-## 更多内容请参阅 {#see-also-4}
+**更多内容请参阅**
 
 - [testing-library's `ByText`](https://testing-library.com/docs/queries/bytext/)
 
@@ -381,7 +381,7 @@ page.getByTitle('Create') // ❌
 
   `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
 
-## 更多内容请参阅 {#see-also-5}
+**更多内容请参阅**
 
 - [testing-library's `ByTitle`](https://testing-library.com/docs/queries/bytitle/)
 
@@ -410,7 +410,7 @@ page.getByTestId('non-existing-element') // ❌
 
   `text` 是否精确匹配：区分大小写和整个字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空格。
 
-## 更多内容请参阅 {#see-also-6}
+**更多内容请参阅**
 
 - [testing-library's `ByTestId`](https://testing-library.com/docs/queries/bytestid/)
 
@@ -438,9 +438,9 @@ page.getByRole('textbox').nth(4) // ❌
 :::
 
 ```tsx
-page.getByLabel('two').getByRole('input') // ✅ better alternative to page.getByRole('textbox').nth(3)
-page.getByLabel('one').getByRole('input') // ❌ too ambiguous
-page.getByLabel('one').getByRole('input').nth(1) // ✅ pragmatic compromise
+page.getByLabel('two').getByRole('input') // ✅ page.getByRole('textbox').nth(3) 的更好替代方案
+page.getByLabel('one').getByRole('input') // ❌ 过于模糊
+page.getByLabel('one').getByRole('input').nth(1) // ✅ 折中方案
 ```
 
 ## first
@@ -852,7 +852,7 @@ function mark(name: string, options?: { stack?: string; kind?: BrowserTraceEntry
 
 传入 `options.stack` 以覆盖追踪元数据中的调用位置。适用于二次封装库并且需要保留用户调用源码位置的场景。
 
-Pass `options.kind` to categorize your marker as specific type, for example as `'action'`.
+传递 `options.kind` 参数，将标记归类为特定类型，例如 `'action'`。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -1102,7 +1102,7 @@ button.asLocator() // "getByRole('button', { name: 'Submit' })"
 需要将相应浏览器实现所使用的选择器字符串传递给 [浏览器命令](/api/browser/commands) 时，请使用 [`selector`](#selector)。`asLocator()` 仅用于诊断输出，其返回的字符串不应再次用于查询元素。
 :::
 
-## 属性 {#properties}
+## Properties
 
 ### selector
 
