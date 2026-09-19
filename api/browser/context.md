@@ -197,7 +197,7 @@ await expect.element(button).toBeVisible() // 查询元素失败 ❌
 ::: danger 重要
 目前，`frameLocator` 方法只有 `playwright` 支持。
 
-交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
+交互方法（如 `click` 或 `fill`）在 iframe 内的元素上始终可用，但使用 `expect.element` 进行断言时要求 iframe 具有 [同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)。
 :::
 
 ## `cdp`
@@ -205,7 +205,7 @@ await expect.element(button).toBeVisible() // 查询元素失败 ❌
 `cdp` 导出返回当前的 Chrome DevTools 协议会话。它主要用于库作者在其基础上构建工具。
 
 ::: warning
-CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession)文档。
+CDP 会话仅适用于 `playwright` provider，并且仅在使用 `chromium` 浏览器时有效。有关详细信息，请参阅 playwright 的 [`CDPSession`](https://playwright.dev/docs/api/class-cdpsession) 文档。
 
 CDP 是一种特权调试 API。仅当通过 [`api.allowWrite`](/config/api#api-allowwrite), and [`api.allowExec`](/config/api#api-allowexec) 启用浏览器 API 的写入及执行操作时，才可使用 CDP。
 :::
@@ -249,21 +249,18 @@ export const server: {
 }
 ```
 
-<!-- TODO: translation -->
-
 ## `utils`
 
-Utility functions useful for custom render libraries.
+适用于自定义渲染库的工具函数。
 
 ```ts
 export const utils: {
   /**
-   * This is similar to calling `page.elementLocator`, but it returns only
-   * locator selectors.
+   * 类似于调用 `page.elementLocator`，但仅返回定位器选择器
    */
   getElementLocatorSelectors(element: Element): LocatorSelectors
   /**
-   * Prints prettified HTML of an element.
+   * 打印元素格式化后的 HTML
    */
   debug(
     el?: Element | Locator | null | (Element | Locator)[],
@@ -271,7 +268,7 @@ export const utils: {
     options?: PrettyDOMOptions,
   ): void
   /**
-   * Returns prettified HTML of an element.
+   * 返回元素格式化后的 HTML
    */
   prettyDOM(
     dom?: Element | Locator | undefined | null,
@@ -279,16 +276,16 @@ export const utils: {
     prettyFormatOptions?: PrettyDOMOptions,
   ): string
   /**
-   * Configures default options of `prettyDOM` and `debug` functions.
-   * This will also affect `vitest-browser-{framework}` package.
+   * 配置 `prettyDOM` 和 `debug` 函数的默认选项
+   * 这也会影响 `vitest-browser-{framework}` 包
    */
   configurePrettyDOM(options: StringifyOptions): void
   /**
-   * Creates "Cannot find element" error. Useful for custom locators.
+   * 创建 “找不到元素” 错误。适用于自定义定位器
    */
   getElementError(selector: string, container?: Element): Error
   /**
-   * Utilities for generating and working with ARIA trees and templates.
+   * 用于生成和处理 ARIA 树及模板的工具函数
    * @experimental
    */
   aria: {
@@ -303,7 +300,7 @@ export const utils: {
 
 ### configurePrettyDOM <Version>4.0.0</Version> {#configureprettydom}
 
-The `configurePrettyDOM` function allows you to configure default options for the `prettyDOM` and `debug` functions. This is useful for customizing how HTML is formatted in test failure messages.
+`configurePrettyDOM` 函数允许你配置 `prettyDOM` 和 `debug` 函数的默认选项，适用于自定义测试失败信息中 HTML 的显示格式。
 
 ```ts
 import { utils } from 'vitest/browser'
@@ -316,49 +313,53 @@ utils.configurePrettyDOM({
 
 #### Options
 
-- **`maxDepth`** - Maximum depth to print nested elements (default: `Infinity`)
-- **`maxLength`** - Maximum length of the output string (default: `7000`)
-- **`filterNode`** - A CSS selector string or function to filter out nodes from the output. When a string is provided, elements matching the selector will be excluded. When a function is provided, it should return `false` to exclude a node.
-- **`highlight`** - Enable syntax highlighting (default: `true`)
-- And other options from [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format)
+- **`maxDepth`**：打印嵌套元素的最大深度（默认值：`Infinity`）
+- **`maxLength`**：输出字符串的最大长度（默认值：`7000`）
+- **`filterNode`**：用于从输出中过滤节点的 CSS 选择器字符串或函数。如果提供字符串，则排除匹配该选择器的元素；如果提供函数，则返回 `false` 表示排除该节点。
+- **`highlight`**：启用语法高亮（默认值：`true`）
+- 以及 [`@vitest/pretty-format`](https://npmx.dev/package/@vitest/pretty-format) 中的其他选项
 
-#### Filtering with CSS Selectors <Version>4.1.0</Version> {#filtering-with-css-selectors}
+#### 使用 CSS 选择器过滤 <Version>4.1.0</Version> {#filtering-with-css-selectors}
 
-The `filterNode` option allows you to hide irrelevant markup (like scripts, styles, or hidden elements) from test failure messages, making it easier to identify the actual cause of failures.
+`filterNode` 选项允许你在测试失败信息中隐藏无关的 HTML 内容（如脚本、样式或隐藏元素），以便更容易找到失败的实际原因。
 
 ```ts
 import { utils } from 'vitest/browser'
 
-// Filter out common noise elements
+// 过滤掉常见的干扰元素
 utils.configurePrettyDOM({
   filterNode: 'script, style, [data-test-hide]'
 })
 
-// Or use directly with prettyDOM
+// 也可以在调用 prettyDOM 时直接传入过滤选项
 const html = utils.prettyDOM(element, undefined, {
   filterNode: 'script, style'
 })
 ```
 
-**Common Patterns:**
+**常见用法：**
 
-Filter out scripts and styles:
+过滤掉脚本和样式：
+
 ```ts
 utils.configurePrettyDOM({ filterNode: 'script, style' })
 ```
 
-Hide specific elements with data attributes:
+隐藏带有特定 data 属性的元素：
+
 ```ts
 utils.configurePrettyDOM({ filterNode: '[data-test-hide]' })
 ```
 
-Hide nested content within an element:
+隐藏元素内的嵌套内容：
+
 ```ts
-// Hides all children of elements with data-test-hide-content
+// 隐藏带有 data-test-hide-content 属性的元素的所有子元素
 utils.configurePrettyDOM({ filterNode: '[data-test-hide-content] *' })
 ```
 
-Combine multiple selectors:
+组合多个选择器：
+
 ```ts
 utils.configurePrettyDOM({
   filterNode: 'script, style, [data-test-hide], svg'
@@ -366,12 +367,12 @@ utils.configurePrettyDOM({
 ```
 
 ::: tip
-This feature is inspired by Testing Library's [`defaultIgnore`](https://testing-library.com/docs/dom-testing-library/api-configuration/#defaultignore) configuration.
+此功能的灵感来自 Testing Library 的 [`defaultIgnore`](https://testing-library.com/docs/dom-testing-library/api-configuration/#defaultignore) 配置。
 :::
 
 ### aria <Version type="experimental">5.0.0</Version> {#aria}
 
-The `aria` namespace exposes low-level utilities used by Vitest's ARIA snapshot matchers.
+`aria` 命名空间提供了 Vitest 的 ARIA 快照匹配器所使用的底层工具函数。
 
 ```ts
 import { utils } from 'vitest/browser'
