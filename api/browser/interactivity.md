@@ -41,13 +41,13 @@ await originalUserEvent.keyboard('{/Shift}') // 没有放开 shift 键，因为�
 :::
 
 ::: warning
-With `playwright` and `webdriverio` providers, interactions are performed by the underlying browser driver. That means some interaction state, like pressed keys or pointer position and the resulting hover state, can persist between tests in the same file.
+使用 `playwright` 和 `webdriverio` provider 时，交互由底层浏览器 provider 执行。这意味着同一文件中的测试之间可能会保留某些交互状态，例如按下的按键、指针位置以及由此产生的悬停状态。
 
-Vitest resets unreleased keyboard state automatically before starting each test case, but pointer position and the resulting hover state are not reset automatically since resetting pointer position can be expensive.
+Vitest 会在每个测试用例开始前自动重置尚未释放的键盘状态，但不会自动重置指针位置及由此产生的悬停状态，这是因为重置指针位置的开销可能很大。
 
-This applies both to `userEvent.*` calls and locator shortcuts like `locator.click()` or `locator.hover()`, because they use the same underlying interaction state.
+这一点既适用于 `userEvent.*` 调用，也适用于 `locator.click()` 或 `locator.hover()` 等定位器方法，因为它们使用相同的底层交互状态。
 
-If your tests depend on a neutral hover state, reset it explicitly, for example in `beforeEach`:
+如果测试依赖于无元素被悬停的状态，请显式重置该状态，例如在 `beforeEach` 中进行重置：
 
 ```ts
 import { beforeEach } from 'vitest'
@@ -57,6 +57,7 @@ beforeEach(async () => {
   await userEvent.unhover(document.body)
 })
 ```
+
 :::
 
 ## userEvent.click
@@ -106,7 +107,7 @@ await userEvent.keyboard('{/Shift}')
 await userEvent.click(element, { modifiers: ['Shift'] })
 ```
 
-References:
+相关链接：
 
 - [Playwright `locator.click` API](https://playwright.dev/docs/api/class-locator#locator-click)
 - [WebdriverIO `element.click` API](https://webdriver.io/docs/api/element/click/)
@@ -191,9 +192,9 @@ function wheel(
 ): Promise<void>
 ```
 
-Triggers a [`wheel` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event) on an element.
+在元素上触发 [`wheel` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event)。
 
-You can specify the scroll amount using either `delta` for precise pixel-based control, or `direction` for simpler directional scrolling (`up`, `down`, `left`, `right`). When you need to trigger multiple wheel events, use the `times` option rather than calling the method multiple times for better performance.
+你可以使用 `delta` 指定滚动量，以像素为单位进行精确控制；也可以使用 `direction` 进行更简单的定向滚动（`up`、`down`、`left`、`right`）。需要触发多次滚轮事件时，请使用 `times` 选项获得更好的性能，而不是多次调用此方法。
 
 ```ts
 import { page, userEvent } from 'vitest/browser'
@@ -201,28 +202,28 @@ import { page, userEvent } from 'vitest/browser'
 test('scroll using delta values', async () => {
   const tablist = page.getByRole('tablist')
 
-  // Scroll right by 100 pixels
+  // 向右滚动 100 像素
   await userEvent.wheel(tablist, { delta: { x: 100 } })
 
-  // Scroll down by 50 pixels
+  // 向下滚动 50 像素
   await userEvent.wheel(tablist, { delta: { y: 50 } })
 
-  // Scroll diagonally 2 times
+  // 沿对角线滚动 2 次
   await userEvent.wheel(tablist, { delta: { x: 50, y: 100 }, times: 2 })
 })
 
 test('scroll using direction', async () => {
   const tablist = page.getByRole('tablist')
 
-  // Scroll right 5 times
+  // 向右滚动 5 次
   await userEvent.wheel(tablist, { direction: 'right', times: 5 })
 
-  // Scroll left once
+  // 向左滚动 1 次
   await userEvent.wheel(tablist, { direction: 'left' })
 })
 ```
 
-Wheel events can also be triggered directly from [locators](/api/browser/locators#wheel):
+也可以直接通过 [定位器](/api/browser/locators#wheel) 触发滚轮事件：
 
 ```ts
 import { page } from 'vitest/browser'
@@ -231,7 +232,7 @@ await page.getByRole('tablist').wheel({ direction: 'right' })
 ```
 
 ::: warning
-This method is intended for testing UI that explicitly listens to `wheel` events (e.g., custom zoom controls, horizontal tab scrolling, canvas interactions). If you need to scroll the page to bring an element into view, rely on the built-in automatic scrolling functionality provided by other `userEvent` methods or [locator actions](/api/browser/locators#methods) instead.
+此方法用于测试显式监听 `wheel` 事件的 UI（例如自定义缩放控制、水平滚动标签页或 canvas 交互）。如果需要滚动页面以使元素进入视口，请改用其他 `userEvent` 方法或 [定位器操作](/api/browser/locators#methods) 提供的内置自动滚动功能。
 :::
 
 ## userEvent.fill
