@@ -542,7 +542,6 @@ page.getByRole('article').filter({ has: page.getByText('Vitest') }) // ✅
 ```
 
 ::: warning
-
 传入的定位器（示例中的 `page.getByText('Vitest')`）必须相对于父级定位器（示例中的 `page.getByRole('article')`）。查询会从父级定位器开始，而非文档根节点。
 
 这意味着不能传入在父级定位器范围之外查询元素的定位器：
@@ -552,7 +551,6 @@ page.getByText('Vitest').filter({ has: page.getByRole('article') }) // ❌
 ```
 
 此示例会失败，因为 `article` 元素位于包含 `Vitest` 文本的元素之外。
-
 :::
 
 ::: tip
@@ -744,7 +742,7 @@ await page.getByRole('img', { name: 'Rose' }).unhover()
 function fill(text: string, options?: UserEventFillOptions): Promise<void>
 ```
 
-为当前的 `input` 、`textarea` 或 `contenteditable` 元素赋值。
+为当前的 `input`、`textarea` 或 `contenteditable` 元素赋值。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -921,7 +919,6 @@ function element(): Element
 如果 _多个元素_ 匹配该选择器，则会抛出错误。如果你需要所有匹配的 DOM 元素，可以使用 [`.elements()`](#elements)；如果你需要匹配选择器的定位器数组，可以使用 [`.all()`](#all)。
 
 ::: danger
-
 这是一个用于不支持定位器的外部 API 的应急方案。建议优先使用定位器方法。
 
 当定位器与 `expect.element` 一起使用时，每次断言 [重试](/api/browser/assertions) 时，该方法会自动调用：
@@ -1053,20 +1050,20 @@ function all(): Locator[]
 
 在内部，此方法调用 `.elements` 并使用 [`page.elementLocator`](/api/browser/context#page) 包装每个元素。
 
-- [更多内容请参阅  `locator.elements()`](#elements)
-<!-- TODO: translation -->
+- [更多内容请参阅 `locator.elements()`](#elements)
+
 ### serialize
 
 ```ts
 function serialize(): SerializedLocator
 ```
 
-Returns a JSON-serializable representation of the locator. The returned object has two fields:
+返回定位器的 JSON 可序列化表示形式。返回的对象包含两个字段：
 
-- [`selector`](#selector): the provider-specific selector string used to query the element at runtime.
-- `locator`: a human-readable description of the locator (e.g. `getByRole('button')`), used for error messages and tracing. Equivalent to calling [`asLocator()`](#aslocator).
+- [`selector`](#selector)：相应浏览器实现所使用的选择器字符串，用于在运行时查询元素。
+- `locator`：便于人类阅读的定位器描述（例如 `getByRole('button')`），用于错误消息和追踪。等同于调用 [`asLocator()`](#aslocator)。
 
-This is primarily intended for forwarding a locator to a [browser command](/api/browser/commands), which runs in Node and cannot receive a live `Locator` instance:
+这主要用于将定位器传递给 [浏览器命令](/api/browser/commands)。浏览器命令在 Node 中运行，无法接收实时的 `Locator` 实例：
 
 ```ts
 import { commands, page } from 'vitest/browser'
@@ -1075,7 +1072,7 @@ await commands.myCommand(page.getByRole('button').serialize())
 ```
 
 ::: tip
-Vitest automatically serializes any `Locator` argument passed to a command, so calling `serialize()` explicitly is rarely necessary. You can also use `JSON.stringify(locator)` (it calls [`toJSON`](#tojson) internally), which produces the same result.
+Vitest 会自动序列化传递给命令的所有 `Locator` 参数，因此很少需要显式调用 `serialize()`。你也可以使用 `JSON.stringify(locator)`（它会在内部调用 [`toJSON`](#tojson)），结果相同。
 :::
 
 ### toJSON
@@ -1084,7 +1081,7 @@ Vitest automatically serializes any `Locator` argument passed to a command, so c
 function toJSON(): SerializedLocator
 ```
 
-Alias of [`serialize`](#serialize). Defined so that `JSON.stringify(locator)` and structured-clone-based transports return a `SerializedLocator` object.
+[`serialize`](#serialize) 的别名。定义此方法是为了让 `JSON.stringify(locator)` 和基于结构化克隆的传输返回 `SerializedLocator` 对象。
 
 ### asLocator
 
@@ -1092,7 +1089,7 @@ Alias of [`serialize`](#serialize). Defined so that `JSON.stringify(locator)` an
 function asLocator(): string
 ```
 
-Returns a human-readable description of the locator using the JavaScript locator syntax (e.g. `getByRole('button', { name: 'Submit' })`). This is the same string exposed as the `locator` field of [`serialize()`](#serialize) and is used in error messages and traces.
+使用 JavaScript 定位器语法返回便于人类阅读的定位器描述（例如 `getByRole('button', { name: 'Submit' })`）。该字符串与 [`serialize()`](#serialize) 的 `locator` 字段所提供的字符串相同，用于错误消息和追踪。
 
 ```ts
 import { page } from 'vitest/browser'
@@ -1102,10 +1099,10 @@ button.asLocator() // "getByRole('button', { name: 'Submit' })"
 ```
 
 ::: tip
-Use [`selector`](#selector) when you need the provider-specific string to forward to a [browser command](/api/browser/commands). Use `asLocator()` only for diagnostic output. The returned string is not meant to be re-used to query elements.
+需要将相应浏览器实现所使用的选择器字符串传递给 [浏览器命令](/api/browser/commands) 时，请使用 [`selector`](#selector)。`asLocator()` 仅用于诊断输出，其返回的字符串不应再次用于查询元素。
 :::
 
-## Properties
+## 属性 {#properties}
 
 ### selector
 
@@ -1166,7 +1163,6 @@ page.getByRole('alert').length // ✅ 0
 定位器工厂需要返回一个选择器字符串或定位器本身
 
 ::: tip
-
 选择器语法与 Playwright 定位器完全一致。建议阅读 [Playwright 指南](https://playwright.dev/docs/other-locators) 以更好地理解其工作原理。
 :::
 
