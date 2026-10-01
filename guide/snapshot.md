@@ -597,6 +597,11 @@ export default defineConfig({
 
 对于以下示例测试代码：
 
+<<<<<<< HEAD
+=======
+For the following example test code:
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```js
 test('toThrowErrorMatchingSnapshot', () => {
   expect(() => {
@@ -605,13 +610,21 @@ test('toThrowErrorMatchingSnapshot', () => {
 })
 ```
 
+<<<<<<< HEAD
 在 Jest 中，快照将是：
+=======
+In Jest, the snapshot will be:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```console
 exports[`toThrowErrorMatchingSnapshot: hint 1`] = `"error"`;
 ```
 
+<<<<<<< HEAD
 在 Vitest 中，等效的快照将是：
+=======
+In Vitest, the equivalent snapshot will be:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```console
 exports[`toThrowErrorMatchingSnapshot > hint 1`] = `[Error: error]`;

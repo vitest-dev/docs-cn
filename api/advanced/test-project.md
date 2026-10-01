@@ -13,6 +13,7 @@ title: TestProject
 名称是由用户分配或由 Vitest 解析的唯一字符串。如果用户没有提供名称，Vitest 会尝试加载项目根目录中的 `package.json` 并从中获取 `name` 属性。如果没有 `package.json`，Vitest 默认使用文件夹的名称。内联项目使用数字作为名称（转换为字符串）。
 
 ::: code-group
+
 ```ts [node.js]
 import { createVitest } from 'vitest/node'
 
@@ -49,6 +50,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ::: info
@@ -75,6 +77,7 @@ const config: SerializedConfig = vitest.projects[0].serializedConfig
 ```ts
 project.serializedConfig === project.serializedConfig // ❌
 ```
+
 :::
 
 ## globalConfig
@@ -129,6 +132,7 @@ function provide<T extends keyof ProvidedContext & string>(
 除了 [`config.provide`](/config/provide) 字段外，还提供了一种向测试提供自定义值的方法。所有值在存储之前都通过 [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone) 进行验证，但 `providedContext` 上的值本身不会被克隆。
 
 ::: code-group
+
 ```ts [node.js]
 import { createVitest } from 'vitest/node'
 
@@ -142,6 +146,7 @@ await vitest.start()
 import { inject } from 'vitest'
 const value = inject('key')
 ```
+
 :::
 
 这些值可以动态提供。测试中提供的值将在下次运行时更新。
@@ -154,6 +159,7 @@ export default function setup({ provide }) {
   provide('wsPort', 3000)
 }
 ```
+
 :::
 
 ## getProvidedContext
@@ -247,9 +253,16 @@ Vitest 使用 [fast-glob](https://npmx.dev/package/fast-glob) 来查找测试文
 
 此方法查看多个配置选项：
 
+<<<<<<< HEAD
 - `test.include`、`test.exclude` 用于查找常规测试文件
 - `test.includeSource`、`test.exclude` 用于查找源代码中的测试
 - `test.typecheck.include`、`test.typecheck.exclude` 用于查找类型检查测试
+=======
+- `test.include`, `test.exclude` to find regular test files
+- `test.includeSource`, `test.exclude` to find in-source tests
+- `test.typecheck.include`, `test.typecheck.exclude` to find typecheck tests
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 :::
 
 ## matchesTestGlob
@@ -296,6 +309,7 @@ const dynamicExample = await project.import('./example.js')
 
 dynamicExample !== staticExample // ✅
 ```
+
 :::
 
 ::: info

@@ -30,7 +30,11 @@ ndb npm run test
 
 [官方 VS Code](https://vitest.dev/vscode) 扩展支持通过 "Debug Tests" 按钮来调试测试。不过，Vitest 也提供了自定义配置。
 
+<<<<<<< HEAD
 在 VSCode 中快速调试测试的方法是通过 `JavaScript Debug Terminal` 。打开一个新的 `JavaScript Debug Terminal` 并直接运行 `npm run test` 或 `vitest` 。*这适用于在 Node 中运行的任何代码，因此将适用于大多数 JS 测试框架*。
+=======
+Quick way to debug tests in VS Code is via `JavaScript Debug Terminal`. Open a new `JavaScript Debug Terminal` and run `npm run test` or `vitest` directly. _this works with any code run in Node, so will work with most JS testing frameworks_
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ![image](https://user-images.githubusercontent.com/5594348/212169143-72bf39ce-f763-48f5-822a-0c8b2e6a8484.png)
 
@@ -65,9 +69,11 @@ ndb npm run test
 不过，你也可以在 CLI 中传递 `--inspect` 或 `--inspect-brk`，或在你的 Vitest 配置文件中定义它们：
 
 ::: code-group
+
 ```bash [CLI]
 vitest --inspect-brk --browser --no-file-parallelism
 ```
+
 ```ts [vitest.config.js]
 import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
@@ -83,6 +89,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 默认情况下，Vitest 将使用端口 `9229` 作为调试端口。你可以通过在 `--inspect-brk`中传递值来覆盖它：
@@ -126,9 +133,15 @@ vitest --inspect-brk=127.0.0.1:3000 --browser --no-file-parallelism
 
 创建一个 [vitest](https://www.jetbrains.com/help/idea/vitest.html#createRunConfigVitest) 运行配置。使用以下配置在调试模式下运行所有测试：
 
+<<<<<<< HEAD
 | 配置参数                 | 设置值                              |
 | ---------------------- | ---------------------------------- |
 | Working directory      | `/path/to/your-project-root`       |
+=======
+| Setting           | Value                        |
+| ----------------- | ---------------------------- |
+| Working directory | `/path/to/your-project-root` |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 然后在调试模式下运行此配置。IDE 将在编辑器中设置的 JS/TS 断点处停止。
 

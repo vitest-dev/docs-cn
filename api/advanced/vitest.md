@@ -166,8 +166,14 @@ function getRelevantTestSpecifications(
 ::: warning
 此方法可能很慢，因为它需要过滤 `--changed` 参数。如果我们只需要测试文件列表，请不要使用它。
 
+<<<<<<< HEAD
 - 如果我们需要获取已知测试文件的规范列表，请使用 [`getModuleSpecifications`](#getmodulespecifications) 代替。
 - 如果我们需要获取所有可能的测试文件列表，请使用 [`globTestSpecifications`](#globtestspecifications)。
+=======
+- If you need to get the list of specifications for known test files, use [`getModuleSpecifications`](#getmodulespecifications) instead.
+- If you need to get the list of all possible test files, use [`globTestSpecifications`](#globtestspecifications).
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 :::
 
 ## mergeReports
@@ -410,6 +416,7 @@ const dynamicExample = await vitest.import('./example.js')
 
 dynamicExample !== staticExample // ✅
 ```
+
 :::
 
 ::: info
@@ -483,6 +490,11 @@ function onFilterWatchedSpecification(
   fn: (specification: TestSpecification) => boolean
 ): void
 ```
+<<<<<<< HEAD
+=======
+
+Register a handler that will be called when a file is changed. This callback should return `true` or `false`, indicating whether the test file needs to be rerun.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 注册一个处理程序，当文件更改时调用。此回调应返回 `true` 或 `false`，指示是否需要重新运行测试文件。
 
@@ -587,6 +599,7 @@ import { escapeTestName } from 'vitest/node'
 // 转换为 /hello, .+?/
 const escapedPattern = new RegExp(escapeTestName('hello, %s', true))
 ```
+
 :::
 
 ::: warning
@@ -627,7 +640,12 @@ export function experimental_getSourceModuleDiagnostic(
 ): Promise<SourceModuleDiagnostic>
 ```
 
+<<<<<<< HEAD
 ::: details 类型
+=======
+::: details Types
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```ts
 export interface ModuleDefinitionLocation {
   line: number
@@ -667,6 +685,7 @@ export interface SourceModuleDiagnostic {
   untrackedModules: UntrackedModuleDefinitionDiagnostic[]
 }
 ```
+
 :::
 
 返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，则 `selfTime` 和 `totalTime` 将聚合上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
@@ -681,7 +700,11 @@ export interface SourceModuleDiagnostic {
 function createReport(scope: string): Report
 ```
 
+<<<<<<< HEAD
 创建一个仅限于给定作用域的报告。`Report` 遵循 Vitest 关于 [在文件系统中存储工件](/guide/advanced/reporters.html#storing-artifacts-on-file-system) 的规则。
+=======
+Creates a report that is limited to the given scope. `Report` follows Vitest's rules around [Storing artifacts on file system](/guide/advanced/reporters#storing-artifacts-on-file-system).
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 `Report` 提供了一系列用于在文件系统中写入测试结果、临时文件和其他产物的工具函数。它特别适用于第三方集成，例如自定义报告器。
 
@@ -778,7 +801,6 @@ const filenames: string[] = await report.readdir()
 
 ### Report.delete
 
-<!-- eslint-skip -->
 ```ts
 function delete(filename: string): Promise<void>
 ```

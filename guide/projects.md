@@ -169,7 +169,13 @@ export default defineProject({
 })
 ```
 
+<<<<<<< HEAD
 ## 运行测试 {#running-tests}
+=======
+By default, `process.cwd()` in every project's tests returns the directory where Vitest was started, even if the project has a different root. See [Project Working Directory Does Not Change](/guide/common-errors#project-working-directory-does-not-change) for details and a workaround.
+
+## Running Tests
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 在根目录的 `package.json` 中定义脚本：
 
@@ -184,6 +190,7 @@ export default defineProject({
 然后使用包管理器运行测试：
 
 ::: code-group
+
 ```bash [npm]
 npm run test
 ```
@@ -199,11 +206,13 @@ pnpm run test
 ```bash [bun]
 bun run test
 ```
+
 :::
 
 如果只想运行某个单独项目中的测试，可以使用 `--project` CLI 选项：
 
 ::: code-group
+
 ```bash [npm]
 npm run test --project e2e
 ```
@@ -219,12 +228,19 @@ pnpm run test --project e2e
 ```bash [bun]
 bun run test --project e2e
 ```
+
 :::
 
+<<<<<<< HEAD
 ::: tip
 CLI 选项 `--project` 可以多次使用，以筛选多个项目：
+=======
+:::: tip
+CLI option `--project` can be used multiple times to filter out several projects:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ::: code-group
+
 ```bash [npm]
 npm run test --project e2e --project unit
 ```
@@ -240,8 +256,13 @@ pnpm run test --project e2e --project unit
 ```bash [bun]
 bun run test --project e2e --project unit
 ```
+
 :::
+<<<<<<< HEAD
 :::
+=======
+::::
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 过滤器支持 `*` 通配符和 `!` 排除符。一个项目在不匹配任何否定模式的前提下，同时提供了正则模式，则还需至少匹配其中一个正则模式，才会运行：
 

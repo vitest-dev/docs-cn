@@ -6,16 +6,27 @@
   "packageManager": "pnpm@9.7.1",
   "scripts": {
     "dev": "vitepress --port 3333 --open",
+<<<<<<< HEAD
     "build": "nr prefetch && vitepress build",
+=======
+    "build": "nr cli-table && nr prefetch && vitepress build",
+    "cli-table": "node .vitepress/scripts/cli-generator.ts",
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
     "build-no-prefetch": "vitepress build",
     "serve": "vitepress serve",
+    "deploy": "wrangler deploy",
     "preview-https": "pnpm run build && serve .vitepress/dist",
     "preview-https-no-prefetch": "pnpm run build-no-prefetch && serve .vitepress/dist",
+<<<<<<< HEAD
     "prefetch": "tsx .vitepress/scripts/fetch-avatars.ts",
     "generate-pwa-icons": "pwa-assets-generator",
     "lint": "eslint --cache .",
     "lint:fix": "eslint . --fix",
     "prepare": "simple-git-hooks"
+=======
+    "prefetch": "node .vitepress/scripts/fetch-avatars.ts",
+    "generate-pwa-icons": "pwa-assets-generator"
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
   },
   "dependencies": {
     "@vueuse/core": "^14.4.0",
@@ -38,6 +49,7 @@
     "eslint": "^10.8.0",
     "eslint-factory": "^0.1.2",
     "https-localhost": "^4.7.1",
+<<<<<<< HEAD
     "lint-staged": "^17.3.0",
     "pathe": "^2.0.3",
     "simple-git-hooks": "^2.13.1",
@@ -45,10 +57,17 @@
     "tsx": "^4.23.4",
     "unocss": "^66.7.5",
     "vite": "^8.2.0",
+=======
+    "pathe": "catalog:",
+    "tinyglobby": "catalog:",
+    "unocss": "catalog:",
+    "vite": "^6.3.5",
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
     "vite-plugin-pwa": "^1.3.0",
     "vitepress": "2.0.0-alpha.19",
     "vitepress-plugin-group-icons": "^1.7.6",
     "vitepress-plugin-tabs": "^0.9.1",
+<<<<<<< HEAD
     "vitest": "^4.1.10",
     "workbox-window": "^7.4.1"
   },
@@ -57,5 +76,10 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+=======
+    "vitest": "workspace:*",
+    "workbox-window": "^7.4.1",
+    "wrangler": "catalog:"
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
   }
 }

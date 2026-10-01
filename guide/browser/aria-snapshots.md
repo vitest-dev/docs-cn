@@ -470,8 +470,16 @@ await expect.element(page.getByRole('navigation')).toMatchAriaInlineSnapshot(`
 
 #### 对比 {#comparison}
 
+<<<<<<< HEAD
 | 模式         | 指令                             | 行为                                        |
 | ------------ | -------------------------------- | ------------------------------------------- |
 | 部分匹配     | _(默认)_ 或 `/children: contain` | 模板子元素是有序子序列,忽略实际额外的子元素 |
 | 精确匹配     | `/children: equal`               | 直接子元素必须完全匹配；后代仍使用部分匹配  |
 | 深度精确匹配 | `/children: deep-equal`          | 所有深度的子元素都必须完全匹配              |
+=======
+| Mode       | Directive                           | Behavior                                                                         |
+| ---------- | ----------------------------------- | -------------------------------------------------------------------------------- |
+| Partial    | _(default)_ or `/children: contain` | Template children are an ordered subsequence — extra actual children are ignored |
+| Exact      | `/children: equal`                  | Immediate children must match exactly; descendants still use partial matching    |
+| Deep exact | `/children: deep-equal`             | All children at every depth must match exactly                                   |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063

@@ -32,6 +32,7 @@ interface UserConfig {
 ## 示例 {#example}
 
 ::: code-group
+
 ```js [string]
 import { defineConfig } from 'vitest/config'
 
@@ -41,6 +42,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```js [object]
 import { defineConfig } from 'vitest/config'
 
@@ -53,6 +55,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 当你有多个项目时，这个属性适用于在终端中区分它们：
@@ -79,9 +82,16 @@ export default defineConfig({
 ::: tip
 Vitest 在未提供名称时会自动分配一个名称。分配顺序如下：
 
+<<<<<<< HEAD
 - 如果项目对应一个配置文件或目录，Vitest 会使用该项目 package.json 的 `name` 字段。
 - 如果没有 `package.json`，Vitest 会降级到项目文件夹的名称。
 - 如果项目在 `projects` 数组中直接定义为一个对象，Vitest 会为其分配一个数字名称，该数字对应该项目在数组中的位置（从 0 开始）。
+=======
+- If the project is specified by a config file or directory, Vitest uses the package.json's `name` field.
+- If there is no `package.json`, Vitest falls back to the project folder's basename.
+- If the project is defined inline in the `projects` array (an object), Vitest assigns a numeric name equal to that project's array index (0-based).
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 :::
 
 ::: warning

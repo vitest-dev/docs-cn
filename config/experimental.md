@@ -42,6 +42,7 @@ OpenTelemetry 可能会显著影响 Vitest 性能；建议仅在本地调试时�
 `sdkPath` 的路径解析相对于项目的 [`root`](/config/root) 解析，应指向一个默认导出已初始化 SDK 实例的模块。例如：
 
 ::: code-group
+
 ```js [otel.js]
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
@@ -56,6 +57,7 @@ const sdk = new NodeSDK({
 sdk.start()
 export default sdk
 ```
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -70,6 +72,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ::: warning
@@ -412,6 +415,7 @@ test(name, () => {})
 const tags = getTags()
 test('my test', { tags }, () => {})
 ```
+
 :::
 
 ## experimental.diagnostics <Version type="experimental">5.0.0</Version> {#experimental-diagnostics}

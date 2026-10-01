@@ -32,9 +32,13 @@ outline: deep
 - **类型:** `('setTimeout' | 'clearTimeout' | 'setImmediate' | 'clearImmediate' | 'setInterval' | 'clearInterval' | 'Date' | 'nextTick' | 'hrtime' | 'requestAnimationFrame' | 'cancelAnimationFrame' | 'requestIdleCallback' | 'cancelIdleCallback' | 'performance' | 'queueMicrotask' | 'Intl' | 'Temporal')[]`
 - **默认值:** `[]`
 
+<<<<<<< HEAD
 一个包含要保留为原生方法的全局方法和 API 名称的数组。其他所有可用的定时器都会被模拟。例如，要保留 `setInterval()` 为原生实现，同时模拟其他所有定时器，请将此属性指定为 `['setInterval']`。
 
 当通过 `--pool=forks` 在 `node:child_process` 中运行 Vitest 时，不支持模拟 `nextTick`。使用 `--pool=forks` 运行时，Vitest 会自动将 `nextTick` 添加到 `toNotFake` 数组中。
+=======
+An array of global methods and APIs to exclude from fake timers. Vitest always excludes `nextTick` and `queueMicrotask` when this option is used. To fake either API, use `toFake` instead.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ::: warning
 不支持同时使用 `toFake` 和 `toNotFake`。

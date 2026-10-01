@@ -109,6 +109,7 @@ test('heavy test', { skip: true, timeout: 10_000 }, () => {
   // ...
 })
 ```
+
 :::
 
 ### retry
@@ -286,7 +287,11 @@ test('server uses correct port', ({ config, server }) => {
 
 ## test.override <Version>4.1.0</Version> {#test-override}
 
+<<<<<<< HEAD
 使用 `test.override` 覆盖当前测试套件及其嵌套测试套件中所有测试的 fixture 值。须在 `describe` 块的顶层调用。更多内容请参阅 [覆盖 Fixture 值](/guide/test-context.html#overriding-fixture-values)。
+=======
+Use `test.override` to override fixture values for all tests within the current suite and its nested suites. This must be called at the top level of a `describe` block. See [Overriding Fixture Values](/guide/test-context#overriding-fixture-values) for more information.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```ts
 import { test as baseTest, describe, expect } from 'vitest'
@@ -571,8 +576,13 @@ ${{ val: 3 }}   | ${'b'} | ${'3b'}
 // ✓ add(3, b) -> 3b
 ```
 
+<<<<<<< HEAD
 * 第一行应为列名，以 `|` 分隔；
 * 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
+=======
+- First row should be column names, separated by `|`;
+- One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```ts
 import { expect, test } from 'vitest'
