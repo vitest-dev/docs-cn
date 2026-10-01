@@ -110,6 +110,7 @@ vi.mocked(namedExport).mockReturnValue(100)
 expect(namedExport()).toBe(100)
 expect(namedExport).toBe(mocks.namedExport)
 ```
+
 :::
 
 ::: warning
@@ -124,6 +125,7 @@ vi.mock('./path/to/module.js', () => {
   }
 })
 ```
+
 :::
 
 如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/root)（默认为 `process.cwd()`）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
@@ -188,6 +190,7 @@ function doMock<T>(
 import { increment } from './increment.js'
 vi.doMock('./increment.js')
 ```
+
 :::
 
 ```ts [increment.js]
@@ -237,6 +240,7 @@ it('uses the normal version of my-module again', () => {
   const myModule = await import('my-module') // not mocked
 })
 ```
+
 :::
 
 ### vi.mocked
@@ -483,7 +487,11 @@ expect(cart.get()).toBe(0)
 function mockObject<T>(value: T, options?: MockOptions): MaybeMockedDeep<T>
 ```
 
+<<<<<<< HEAD
 它与 `vi.mock()` 模拟模块相同，深层模拟给定对象的属性和方法。详见 [自动模拟](/guide/mocking.html#automocking-algorithm)。
+=======
+Deeply mocks properties and methods of a given object in the same way as `vi.mock()` mocks module exports. See [automocking](/guide/mocking#automocking-algorithm) for the detail.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```ts
 const original = {
@@ -630,6 +638,7 @@ it('calls console.log', () => {
 })
 // console.log 在此处还原
 ```
+
 :::
 
 ::: tip
@@ -648,6 +657,7 @@ console.log(cart.getApples()) // 42
 spy.mockReturnValue(10)
 console.log(cart.getApples()) // 仍然为 42!
 ```
+
 :::
 
 ::: tip
@@ -704,6 +714,7 @@ import.meta.env.MODE === 'development'
 ```ts
 import.meta.env.MODE = 'test'
 ```
+
 :::
 
 ### vi.unstubAllEnvs {#vi-unstuballenvs}
@@ -766,6 +777,7 @@ globalThis.innerWidth = 100
 // 如果你正在使用 jsdom 或 happy-dom
 window.innerWidth = 100
 ```
+
 :::
 
 ### vi.unstubAllGlobals {#vi-unstuballglobals}
@@ -832,6 +844,7 @@ expect(spy(2)).toBe('two')
 
 可用的 `then*` 方法：
 
+<<<<<<< HEAD
 | 方法                           | 详情                                   |
 | ------------------------------ | -------------------------------------- |
 | `thenReturn(value, options?)`  | 返回 `value`。                         |
@@ -842,6 +855,18 @@ expect(spy(2)).toBe('two')
 | `thenResolveOnce(value)`       | 兑现一次，之后回退到其他行为。         |
 | `thenReject(error, options?)`  | 返回一个以 `error` 拒绝的 `Promise`。  |
 | `thenRejectOnce(error)`        | 拒绝一次，之后回退到其他行为。         |
+=======
+| Method                         | Description                                |
+| ------------------------------ | ------------------------------------------ |
+| `thenReturn(value, options?)`  | Returns `value`.                           |
+| `thenReturnOnce(value)`        | Returns `value` once, then falls back.     |
+| `thenThrow(error, options?)`   | Throws `error`.                            |
+| `thenThrowOnce(error)`         | Throws `error` once, then falls back.      |
+| `thenResolve(value, options?)` | Returns a resolved `Promise` with `value`. |
+| `thenResolveOnce(value)`       | Resolves once, then falls back.            |
+| `thenReject(error, options?)`  | Returns a rejected `Promise` with `error`. |
+| `thenRejectOnce(error)`        | Rejects once, then falls back.             |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 可选的 `times` 参数用于限制某个行为在生效的次数，次数用完后该行为即失效。为相同参数注册的行为按照后进先出的顺序消耗：优先尝试最近注册的行为；用尽后，更早注册的行为作为兜底行为。
 
@@ -909,6 +934,7 @@ const spy = vi.fn(() => 'original')
 
 expect(spy('hello')).toBe('original')
 ```
+
 :::
 
 ### vi.isWhenChain <Version>5.0.0</Version> {#vi-iswhenchain}
@@ -1502,7 +1528,6 @@ test('example', () => {
 
 示例输出：
 
-<!-- eslint-skip -->
 ```js
 FAIL  example.test.ts > example
 AssertionError: expected 'left' to deeply equal 'right'

@@ -178,7 +178,11 @@ expect(calls[0]).toEqual({ count: 1 }) // ✅ 通过
 
 ## 监听方法 {#spying-on-methods}
 
+<<<<<<< HEAD
 [`vi.spyOn`](/api/vi#vi-spyon) 与 `vi.fn()` 有一个重要区别。它不是创建一个全新的函数，而是包装对象上 _现有方法_。默认情况下原始实现仍然会正常执行，但你可以观察每次调用，并且在需要时选择覆盖它的行为：
+=======
+[`vi.spyOn`](/api/vi#vi-spyon) is different from `vi.fn()` in an important way. Instead of creating a brand new function, it wraps an _existing_ method on an object. The original implementation still works by default, but you can observe every call and optionally override the behavior:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```js
 import { expect, test, vi } from 'vitest'

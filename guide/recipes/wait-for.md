@@ -79,11 +79,19 @@ test('worker completes the job', async () => {
 
 ## 选择合适的方法 {#picking-between-them}
 
+<<<<<<< HEAD
 |                | `expect.poll`      | `vi.waitFor`         | `vi.waitUntil`                 |
 | -------------- | ------------------ | -------------------- | ------------------------------ |
 | 适用于         | 等待条件一个是断言 | 操作在就绪前可能失败 | 返回值可能为 false，这是正常的 |
 | 遇到错误时重试 | 是                 | 是                   | 否，立即失败                   |
 | 返回结果       | 断言结果           | 回调函数的返回值     | 回调函数的返回值               |
+=======
+|                         | `expect.poll`            | `vi.waitFor`                         | `vi.waitUntil`                          |
+| ----------------------- | ------------------------ | ------------------------------------ | --------------------------------------- |
+| Reach for it when       | the wait is an assertion | the work might fail until it's ready | a lookup might be falsy and that's fine |
+| Retries on thrown error | yes                      | yes                                  | no, fails fast                          |
+| Resolves with           | the assertion            | callback's return value              | callback's return value                 |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 这些方法都接受 `{ timeout, interval }` 选项，默认超时时间为 1000 毫秒，间隔为 50 毫秒。`vi.waitFor` 和 `vi.waitUntil` 还可以直接传入数字方式的简写，直接表示超时时间。
 

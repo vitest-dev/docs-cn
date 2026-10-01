@@ -12,6 +12,7 @@ Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing
 ```ts
 /// <reference types="vitest/browser" />
 ```
+
 :::
 
 浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll) 和 `expect.element` API 提供了可重试的断言：
@@ -62,6 +63,7 @@ interface ExpectPollOptions {
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
 expect(banner).toMatchTextContent('Error!')
 ```
+
 :::
 
 ## toBeDisabled
@@ -965,6 +967,7 @@ await expect.element(getByTestId('link-invalid')).toHaveRole('generic')
 await expect.element(getByTestId('switch')).toHaveRole('switch') // ✅
 await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 ```
+
 :::
 
 ## toHaveSelection
@@ -1137,11 +1140,17 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
     },
   })
   ```
+
   :::
 
 - `screenshotOptions: object`
 
+<<<<<<< HEAD
   与 [`locator.screenshot()`](/api/browser/locators.html#screenshot) 支持的选项一致，但以下情况除外：
+=======
+  The same options allowed by
+  [`locator.screenshot()`](/api/browser/locators#screenshot), except for:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
   - `'base64'`
   - `'path'`

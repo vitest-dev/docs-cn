@@ -6,7 +6,12 @@ Vitest 从 [`chai`](https://www.chaijs.com/api/assert/) 重新导出了 `assert`
 在 [源码内联测试](/guide/in-source) 中使用来自 `import.meta.vitest` 的 [断言函数](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)（例如 `assert`）时，TypeScript 会报告 `TS2775` 错误，因为这类函数必须通过带有显式类型注解的名称来调用。请为该变量标注 Chai.Assert，或直接调用它：
 
 ::: code-group
+<<<<<<< HEAD
 ```ts [类型注释变量]
+=======
+
+```ts [Annotated variable]
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 if (import.meta.vitest) {
   const { test, assert } = import.meta.vitest // [!code --]
   const { test } = import.meta.vitest // [!code ++]
@@ -17,7 +22,12 @@ if (import.meta.vitest) {
   })
 }
 ```
+<<<<<<< HEAD
 ```ts [直接调用]
+=======
+
+```ts [Direct call]
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 if (import.meta.vitest) {
   const { test, assert } = import.meta.vitest // [!code --]
   const { test } = import.meta.vitest // [!code ++]
@@ -28,6 +38,7 @@ if (import.meta.vitest) {
   })
 }
 ```
+
 :::
 
 ## assert
@@ -417,9 +428,15 @@ test('assert.isDefined', () => {
 
 ## isFunction
 
+<<<<<<< HEAD
 - **类型:** `<T>(value: T, message?: string) => void`
 - **别名:** `isCallable`
   断言 `value` 是一个函数。
+=======
+- **Type:** `<T>(value: T, message?: string) => void`
+- **Alias:** `isCallable`
+  Asserts that `value` is a function.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```ts
 import { assert, test } from 'vitest'

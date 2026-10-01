@@ -31,10 +31,18 @@ outline: deep
 
 运行 `vitest` 时，框架首先加载配置并准备测试环境。
 
+<<<<<<< HEAD
 **发生了什么:**
 - 解析 [命令行](/guide/cli) 参数
 - 加载 [配置文件](/config/)
 - 验证项目结构
+=======
+**What happens:**
+
+- [Command-line](/guide/cli) arguments are parsed
+- [Configuration file](/config/) is loaded
+- Project structure is validated
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 如果配置文件或其导入的文件发生变更，此阶段可能会重新执行。
 
@@ -44,16 +52,31 @@ outline: deep
 
 如果你配置了 [`globalSetup`](/config/globalsetup) 文件，它们会在任何测试 Worker 创建之前执行一次。
 
+<<<<<<< HEAD
 **发生了什么:**
 - 全局 setup 文件中的 `setup()` 函数（或导出的 `default` 函数）按顺序依次执行
 - 多个全局 setup 文件按定义顺序执行
+=======
+**What happens:**
+
+- `setup()` functions (or exported `default` function) from global setup files execute sequentially
+- Multiple global setup files run in the order they are defined
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 **作用域:** 主进程（与测试 Worker 相互独立）
 
+<<<<<<< HEAD
 **注意事项:**
 - 全局初始化与测试在 **不同的全局作用域** 中运行
 - 测试无法访问全局 setup 中定义的变量（请改用 [`provide`/`inject`](/config/provide)）
 - 只有至少有一个测试排队时，全局 setup 才会执行
+=======
+**Important notes:**
+
+- Global setup runs in a **different global scope** from your tests
+- Tests cannot access variables defined in global setup (use [`provide`/`inject`](/config/provide) instead)
+- Global setup only runs if there is at least one test queued
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```ts [globalSetup.ts]
 export function setup(project) {
@@ -74,12 +97,22 @@ export function teardown() {
 
 全局初始化完成后，Vitest 根据你的 [pool 配置](/config/pool) 创建测试 Worker。
 
+<<<<<<< HEAD
 **发生了什么:**
 - 根据 `browser.enabled` 或 `pool` 配置（`threads`、`forks`、`vmThreads` 或 `vmForks`）创建 Worker
 - 每个 Worker 拥有独立的隔离环境（除非禁用了 [隔离](/config/isolate)）
 - 默认情况下，Worker 为了保证隔离性不会复用。只有在以下情况才会复用：
   - 禁用了 [隔离](/config/isolate)
   - 或 pool 为 `vmThreads`、`vmForks`，因为 [VM](https://nodejs.org/api/vm.html) 已提供足够的隔离环境
+=======
+**What happens:**
+
+- Workers are spawned according to the `browser.enabled` or `pool` setting (`threads`, `forks`, `vmThreads`, or `vmForks`)
+- Each worker gets its own isolated environment (unless [isolation](/config/isolate) is disabled)
+- By default, workers are not reused to provide isolation. Workers are reused only if:
+  - [isolation](/config/isolate) is disabled
+  - OR pool is `vmThreads` or `vmForks` because [VM](https://nodejs.org/api/vm.html) provides enough isolation
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 **作用域:** Worker 进程/线程
 
@@ -87,17 +120,33 @@ export function teardown() {
 
 每个测试文件运行之前，会先执行 [setup 文件](/config/setupfiles)。
 
+<<<<<<< HEAD
 **发生了什么:**
 - setup 文件与测试运行在同一进程中
 - 默认情况下，setup 文件 **并行** 执行（可通过 [`sequence.setupFiles`](/config/sequence#sequence-setupfiles) 配置）
 - setup 文件在 **每个测试文件** 之前执行
 - 可在此处初始化任何全局 _状态_ 或配置
+=======
+**What happens:**
+
+- Setup files run in the same process as your tests
+- By default, setup files run in **parallel** (configurable via [`sequence.setupFiles`](/config/sequence#sequence-setupfiles))
+- Setup files execute before **each test file**
+- Any global _state_ or configuration can be initialized here
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 **作用域:** Worker 进程（与测试相同）
 
+<<<<<<< HEAD
 **注意事项:**
 - 如果禁用了 [isolation](/config/isolate)，setup 文件仍会在每个测试文件之前重新执行以触发副作用，但导入的模块会被缓存
 - 在 watch 模式下，编辑 setup 文件会触发所有测试重新运行
+=======
+**Important notes:**
+
+- If [isolation](/config/isolate) is disabled, setup files still rerun before each test file to trigger side effects, but imported modules are cached
+- Editing a setup file triggers a rerun of all tests in watch mode
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```ts [setupFile.ts]
 import { afterEach } from 'vitest'
@@ -319,11 +368,20 @@ describe('outer', () => {
 
 在整个测试运行过程中，报告器持续接收生命周期事件并展示结果。
 
+<<<<<<< HEAD
 **发生了什么:**
 - 报告器随测试进度接收事件
 - 收集并格式化测试结果
 - 生成测试摘要
 - 如已启用，生成覆盖率报告
+=======
+**What happens:**
+
+- Reporters receive events as tests progress
+- Results are collected and formatted
+- Test summaries are generated
+- Coverage reports are generated (if enabled)
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 报告器生命周期的详细信息，请参阅 [报告器](/api/advanced/reporters) 指南。
 
@@ -331,10 +389,18 @@ describe('outer', () => {
 
 所有测试完成后，全局清理函数开始执行。
 
+<<<<<<< HEAD
 **发生了什么:**
 - [`globalSetup`](/config/globalsetup) 文件中的 `teardown()` 函数执行
 - 多个清理函数以初始化 **相反的顺序** 执行
 - 在 watch 模式下，清理在进程退出前执行，而非在每次重新运行之间执行
+=======
+**What happens:**
+
+- `teardown()` functions from [`globalSetup`](/config/globalsetup) files run
+- Multiple teardown functions run in **reverse order** of their setup
+- In watch mode, teardown runs before process exit, not between test reruns
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 **作用域:** 主进程
 
@@ -349,6 +415,7 @@ export function teardown() {
 
 理解代码在何处执行对于避免常见问题至关重要：
 
+<<<<<<< HEAD
 | 阶段 | 作用域 | 可访问测试上下文 | 执行次数 |
 |-------|-------|----------------------|------|
 | 配置文件 | 主进程 | ❌ 否 | 每次运行 Vitest 执行一次 |
@@ -361,6 +428,20 @@ export function teardown() {
 | `beforeEach` / `afterEach` | Worker | ✅ 是 | 每个测试执行一次 |
 | 测试函数 | Worker | ✅ 是 | 一次（重试/重复时更多）|
 | 全局清理 | 主进程 | ❌ 否 | 每次运行 Vitest 执行一次 |
+=======
+| Phase                      | Scope                  | Access to Test Context         | Runs                                |
+| -------------------------- | ---------------------- | ------------------------------ | ----------------------------------- |
+| Config File                | Main process           | ❌ No                          | Once per Vitest run                 |
+| Global Setup               | Main process           | ❌ No (use `provide`/`inject`) | Once per Vitest run                 |
+| Setup Files                | Worker (same as tests) | ✅ Yes                         | Before each test file               |
+| File-level code            | Worker                 | ✅ Yes                         | Once per test file                  |
+| `aroundAll`                | Worker                 | ✅ Yes                         | Once per suite (wraps all tests)    |
+| `beforeAll` / `afterAll`   | Worker                 | ✅ Yes                         | Once per suite                      |
+| `aroundEach`               | Worker                 | ✅ Yes                         | Per test (wraps each test)          |
+| `beforeEach` / `afterEach` | Worker                 | ✅ Yes                         | Per test                            |
+| Test function              | Worker                 | ✅ Yes                         | Once (or more with retries/repeats) |
+| Global Teardown            | Main process           | ❌ No                          | Once per Vitest run                 |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ## Watch 模式下的生命周期 {#watch-mode-lifecycle}
 

@@ -15,6 +15,7 @@ outline: deep
 
 ## 何时使用标签 {#when-to-reach-for-tags}
 
+<<<<<<< HEAD
 | 应用场景 | 使用 |
 | --- | --- |
 | 对 *一类* 测试设置超时/重试 | **标签** |
@@ -23,6 +24,16 @@ outline: deep
 | 通过测试名称匹配来运行子集 | [`-t` / `testNamePattern`](/config/testnamepattern) |
 | 通过文件路径来运行子集 | `--include`/`--exclude` |
 | 使用不同的 *运行器设置*（测试隔离、运行池、测试环境）运行不同的文件 | [测试项目](/guide/projects) |
+=======
+| If you want to…                                                                         | Use                                                          |
+| --------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Apply timeout/retry to a _category_ of tests                                            | **Tags**                                                     |
+| Mark cross-cutting categories (`flaky`, `slow`, `frontend`) scattered across many files | **Tags**                                                     |
+| Conditionally run expensive setup based on what's filtered                              | **Tags** + [`matchesTags`](#checking-tags-filter-at-runtime) |
+| Run a subset by test name match                                                         | [`-t` / `testNamePattern`](/config/testnamepattern)          |
+| Run a subset by file path                                                               | `--include` / `--exclude`                                    |
+| Run different files with different _runner settings_ (isolation, pool, environment)     | [Test Projects](/guide/projects)                             |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 可以将测试项目（project）与测试标签结合使用。例如在 `Sequential` 项目中筛选带有 `flaky` 标签的测试。
 

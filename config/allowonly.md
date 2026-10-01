@@ -18,6 +18,7 @@ Vitest 使用 [`std-env`](https://npmx.dev/package/std-env) 包来检测环境�
 你可以通过显式设置 `allowOnly` 选项为 `true` 或 `false` 来自定义此行为。
 
 ::: code-group
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -27,9 +28,11 @@ export default defineConfig({
   },
 })
 ```
+
 ```bash [CLI]
 vitest --allowOnly
 ```
+
 :::
 
 启用时，即使检测到带有 [`only`](/api/test#test-only) 标记的测试，Vitest 也不会导致测试套件失败，包括在 CI 环境中。

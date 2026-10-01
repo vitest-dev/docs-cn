@@ -144,6 +144,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 如果想要在测试中开启覆盖率统计，可以在命令行里加上 `--coverage` 参数，或者在 `vitest.config.ts` 文件里将 `coverage.enabled` 设置为 `true` ：
 
 ::: code-group
+
 ```json [package.json]
 {
   "scripts": {
@@ -152,6 +153,7 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
   }
 }
 ```
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 
@@ -163,6 +165,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ## 在覆盖率报告中设置需要统计或忽略的文件 {#including-and-excluding-files-from-coverage-report}
@@ -172,6 +175,7 @@ export default defineConfig({
 Vitest 默认只统计测试中实际导入的文件。如果希望报告里也包含那些未被测试覆盖到的文件，需要在 [`coverage.include`](/config/coverage#coverage-include) 中配置一个能匹配你源代码文件的模式：
 
 ::: code-group
+
 ```ts [vitest.config.ts] {6}
 import { defineConfig } from 'vitest/config'
 
@@ -183,6 +187,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```sh [Covered Files]
 ├── src
 │   ├── components
@@ -201,11 +206,13 @@ export default defineConfig({
 ├── tsup.config.ts        # [!code error]
 └── vitest.config.ts      # [!code error]
 ```
+
 :::
 
 如果你想从覆盖率中排除已经被 `coverage.include` 匹配到的部分文件，可以通过额外配置 [`coverage.exclude`](/config/coverage#coverage-exclude) 来实现：
 
 ::: code-group
+
 ```ts [vitest.config.ts] {7}
 import { defineConfig } from 'vitest/config'
 
@@ -218,6 +225,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```sh [Covered Files]
 ├── src
 │   ├── components
@@ -236,6 +244,7 @@ export default defineConfig({
 ├── tsup.config.ts        # [!code error]
 └── vitest.config.ts      # [!code error]
 ```
+
 :::
 
 ## 自定义代码覆盖率报告器 {#custom-coverage-reporter}
@@ -263,6 +272,7 @@ export default defineConfig({
 自定义报告器由 `@vitest/istanbul-lib-report` 加载，必须与其报告器接口相匹配。查看 [built-in reporters' implementation](https://github.com/istanbuljs/istanbuljs/tree/master/packages/istanbul-reports/lib) 了解更多详情。
 
 ::: code-group
+
 ```js [custom-reporter.mjs]
 import { ReportBase } from '@vitest/istanbul-lib-report'
 
@@ -288,6 +298,7 @@ export default class CustomReporter extends ReportBase {
   }
 }
 ```
+
 ```js [custom-reporter.cjs]
 const { ReportBase } = require('@vitest/istanbul-lib-report')
 
@@ -310,6 +321,7 @@ module.exports = class CustomReporter extends ReportBase {
   }
 }
 ```
+
 :::
 
 ## 自定义覆盖率的提供者 {#custom-coverage-provider}
@@ -517,15 +529,24 @@ export function ignored() { // [!code error]
   return 'Whole file is ignored'// [!code error]
 }// [!code error]
 ```
+
 :::
 
 ## 覆盖率性能 {#coverage-performance}
 
+<<<<<<< HEAD
 如果你的项目中代码覆盖率生成较慢，请参阅 [性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
+=======
+If code coverage generation is slow on your project, see [Profiling Test Performance | Code coverage](/guide/profiling-test-performance#code-coverage).
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ## UI 模式 {#vitest-ui}
 
+<<<<<<< HEAD
 你可以在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中查看覆盖率报告。
+=======
+You can check your coverage report in [Vitest UI](/guide/ui) and [HTML reporter](/guide/reporters#html-reporter).
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 此功能已与具有 HTML 输出的内置覆盖率报告器集成（`html`、`html-spa` 和 `lcov` 报告器）。`html` 报告器默认启用，开箱即用。若要与自定义报告器集成，可以配置 [`coverage.htmlDir`](/config/coverage#coverage-htmldir)。
 

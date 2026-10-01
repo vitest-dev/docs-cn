@@ -27,7 +27,16 @@ Vitest 中的组件测试使用 **浏览器模式** 在真实浏览器环境中�
 浏览器模式是组件测试的推荐方案，本质上它提供了最准确的测试环境。与 DOM 模拟库不同，浏览器模式能够捕捉到可能影响用户的实际问题。
 
 ::: tip
+<<<<<<< HEAD
 浏览器模式能够捕获 DOM 模拟库可能遗漏的问题，包括：
+=======
+Browser Mode catches issues that DOM simulation libraries might miss, including:
+
+- CSS layout and styling problems
+- Real browser API behavior
+- Accurate event handling and propagation
+- Proper focus management and accessibility features
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 - CSS 布局和样式问题
 - 真实浏览器 API 行为
@@ -177,6 +186,7 @@ test('Solid component handles user interaction', async () => {
 
 ## 最佳实践 {#best-practices}
 
+<<<<<<< HEAD
 ### 1. 在 CI / CD 中使用浏览器模式 {#_1-use-browser-mode-for-ci-cd}
 
 确保测试在真实浏览器环境中运行以获得最准确的测试结果。浏览器模式提供准确的 CSS 渲染、真实的浏览器 API 以及正确的事件处理机制。
@@ -184,6 +194,15 @@ test('Solid component handles user interaction', async () => {
 ### 2. 测试用户交互 {#_2-test-user-interactions}
 
 使用 Vitest 的 [交互性 API](/api/browser/interactivity) 模拟真实用户行为。正如使用我们的 [高级测试模式](#advanced-testing-patterns) 所示，使用 `page.getByRole()` 和 `userEvent` 方法：
+=======
+### 1. Use Browser Mode for CI/CD
+
+Ensure tests run in real browser environments for the most accurate testing. Browser Mode provides accurate CSS rendering, real browser APIs, and proper event handling.
+
+### 2. Test User Interactions
+
+Simulate real user behavior using Vitest's [Interactivity API](/api/browser/interactivity). Use `page.getByRole()` and `userEvent` methods as shown in our [Advanced Testing Patterns](#advanced-testing-patterns):
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```tsx
 // 推荐：测试真实的用户交互行为
@@ -194,9 +213,15 @@ await page.getByLabelText(/email/i).fill('user@example.com')
 // component.setState({ email: 'user@example.com' })
 ```
 
+<<<<<<< HEAD
 ### 3. 测试可访问性 {#_3-test-accessibility}
 
 通过测试键盘导航、焦点管理和 ARIA 属性，确保组件对所有用户可用。详情请参阅 [测试可访问性](#testing-accessibility) 示例：
+=======
+### 3. Test Accessibility
+
+Ensure components work for all users by testing keyboard navigation, focus management, and ARIA attributes. See our [Testing Accessibility](#testing-accessibility) example for practical patterns:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```tsx
 // 测试键盘导航功能
@@ -207,9 +232,15 @@ await expect.element(document.activeElement).toHaveFocus()
 await expect.element(modal).toHaveAttribute('aria-modal', 'true')
 ```
 
+<<<<<<< HEAD
 ### 4. 模拟外部依赖 {#_4-mock-external-dependencies}
 
 通过模拟 API 和外部服务，聚焦测试组件核心逻辑。这种方式能提升测试速度和可靠性。具体实现策略详情请参阅 [隔离策略](#isolation-strategy) 示例：
+=======
+### 4. Mock External Dependencies
+
+Focus tests on component logic by mocking APIs and external services. This makes tests faster and more reliable. See our [Isolation Strategy](#isolation-strategy) for examples:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```tsx
 // 对于 API 测试而言，我们推荐使用 MSW (Mock Service Worker)
@@ -222,9 +253,15 @@ vi.mock(import('../components/UserCard'), () => ({
 }))
 ```
 
+<<<<<<< HEAD
 ### 5. 使用有意义的测试描述 {#_5-use-meaningful-test-descriptions}
 
 编写测试描述时应说明预期行为，而非实现细节：
+=======
+### 5. Use Meaningful Test Descriptions
+
+Write test descriptions that explain the expected behavior, not implementation details:
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 ```tsx
 // 推荐：描述用户可见行为
@@ -486,12 +523,23 @@ test('debug form validation', async () => {
 
 当组件未按预期渲染时，请系统性地调试它们：
 
+<<<<<<< HEAD
 **使用 Vitest 的浏览器 UI 模式：**
 - 启用浏览器模式运行测试
 - 打开终端中显示的浏览器 URL 以查看测试运行情况
 - 可视化检查有助于识别 CSS 问题、布局问题或缺失元素
 
 **测试元素查询：**
+=======
+**Use Vitest's browser UI:**
+
+- Run tests with browser mode enabled
+- Open the browser URL shown in the terminal to see tests running
+- Visual inspection helps identify CSS issues, layout problems, or missing elements
+
+**Test element queries:**
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```tsx
 // 调试元素查找失败原因
 const button = page.getByRole('button', { name: /submit/i })
@@ -508,7 +556,12 @@ if (button.length === 0) {
 
 选择器问题是测试失败的常见原因。请系统性地调试它们：
 
+<<<<<<< HEAD
 **检查可访问名称：**
+=======
+**Check accessible names:**
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```tsx
 // 当 getByRole 失败时，检查 roles/names 可用性
 const buttons = page.getByRole('button').all()
@@ -520,7 +573,12 @@ for (const button of buttons) {
 }
 ```
 
+<<<<<<< HEAD
 **测试不同的查询策略：**
+=======
+**Test different query strategies:**
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```tsx
 // 使用.or 实现自动重试的多途径元素查找
 const submitButton = page.getByRole('button', { name: /submit/i }) // 通过 accessible name 进行查询
@@ -529,7 +587,12 @@ const submitButton = page.getByRole('button', { name: /submit/i }) // 通过 acc
 // 注意：Vitest 没有 page.locator()，需使用特定 getBy* 方法
 ```
 
+<<<<<<< HEAD
 **常见的选择器调试模式：**
+=======
+**Common selector debugging patterns:**
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```tsx
 test('debug element queries', async () => {
   render(<LoginForm />)

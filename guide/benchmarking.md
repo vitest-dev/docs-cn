@@ -11,10 +11,10 @@ Vitest 支持使用 [测试上下文](/guide/test-context) 中的 `bench` fixtur
 使用 `bench` fixture 定义基准测试，调用 `.run()` 执行：
 
 ```ts
-import { expect, test } from 'vitest'
+import { test } from 'vitest'
 
 test('parsing performance', async ({ bench }) => {
-  const result = await bench('parse', () => {
+  await bench('parse', () => {
     JSON.parse('{"key":"value"}')
   }).run()
 })
@@ -79,12 +79,12 @@ vitest bench -t JSON
 使用 `bench.compare()` 比较多个基准测试：
 
 ```ts
-import { expect, test } from 'vitest'
+import { test } from 'vitest'
 
 test('compare JSON libraries', async ({ bench }) => {
   const input = '{"key":"value","nested":{"a":1}}'
 
-  const result = await bench.compare(
+  await bench.compare(
     bench('JSON.parse', () => {
       JSON.parse(input)
     }),
@@ -105,7 +105,7 @@ test('compare JSON libraries', async ({ bench }) => {
 
 ```ts
 test('compare with options', async ({ bench }) => {
-  const result = await bench.compare(
+  await bench.compare(
     bench('lib1', () => { lib1() }),
     bench('lib2', () => { lib2() }),
     {
@@ -120,7 +120,7 @@ test('compare with options', async ({ bench }) => {
 
 ```ts
 test('benchmarks with setup', async ({ bench }) => {
-  const result = await bench.compare(
+  await bench.compare(
     bench('with-cache', () => {
       readFromCache()
     }),
@@ -319,7 +319,6 @@ test('compare parser versions', async ({ bench }) => {
 test('cross-project baseline', async ({ bench }) => {
   await bench(
     'parse',
-    // eslint-disable-next-line no-template-curly-in-string
     { perProject: true, writeResult: './benchmarks/parse.${projectName}.json' },
     () => parse(largeInput),
   ).run()
@@ -480,4 +479,8 @@ import { parse } from 'my-library'
   })
   ```
 
+<<<<<<< HEAD
 - **浏览器差异**：V8（Chrome）、SpiderMonkey（Firefox）和 JSC（Safari）对不同模式的优化方式不同。在 Chrome 中表现更好的库，在 Firefox 中可能恰好相反。
+=======
+- **Cross-browser differences**: V8 (Chrome), SpiderMonkey (Firefox), and JSC (Safari) optimize different patterns differently. A benchmark that shows one library winning in Chrome may show the opposite in Firefox.
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063

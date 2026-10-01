@@ -136,6 +136,7 @@ vi.mock('./example.js', { spy: true })
 
 vi.mocked(exampleObject.answer).mockReturnValue(0)
 ```
+
 :::
 
 ::: warning
@@ -154,6 +155,7 @@ export function question() {
   return 'Unknown Question'
 }
 ```
+
 :::
 
 请注意，`vi.spyOn` 只能追踪在其监听启动之后发生的调用。
@@ -320,6 +322,7 @@ Vitest 会根据运行环境的不同，采用不同的模块模拟机制，但�
 这样一来，Vitest 就能在模块被导入前完成 Mock 的注册，同时依然遵守 ESM 对“导入提升（ hoisted imports ）”的语法规则。
 
 ::: code-group
+
 ```ts [example.js]
 import { answer } from './answer.js'
 
@@ -327,6 +330,7 @@ vi.mock(import('./answer.js'))
 
 console.log(answer)
 ```
+
 ```ts [example.transformed.js]
 vi.mock('./answer.js')
 
@@ -336,6 +340,7 @@ const __vitest_module_0__ = await __handle_mock__(
 // 为了保持实时绑定，我们必须通过模块命名空间上的导出
 console.log(__vitest_module_0__.answer())
 ```
+
 :::
 
 `__handle_mock__` 这个包装器的唯一作用，是确保在模块导入开始之前就完成 Mock 的解析；
@@ -367,11 +372,13 @@ Vitest 会返回经过转换的代码。
 Vitest 会解析模块的静态导出，并生成一个占位模块（ placeholder module ）来替代原模块。
 
 ::: code-group
+
 ```ts [answer.js]
 export function answer() {
   return 42
 }
 ```
+
 ```ts [answer.transformed.js]
 function answer() {
   return 42
@@ -384,6 +391,7 @@ const __private_module__ = {
 
 export const answer = __private_module__.answer
 ```
+
 :::
 
 为了简洁，示例代码有所精简，但核心原理不变。

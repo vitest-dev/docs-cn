@@ -39,7 +39,12 @@ function onInit(vitest: Vitest): Awaitable<void>
 
 请注意，我们还可以通过 [`project`](/api/advanced/test-project) 属性从测试用例、套件和测试模块中访问 `vitest` 实例，但在此方法中存储对 `vitest` 的引用也可能有用。
 
+<<<<<<< HEAD
 ::: details 示例
+=======
+::: details Example
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```ts
 import type { Reporter, TestSpecification, Vitest } from 'vitest/node'
 
@@ -61,6 +66,7 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
+
 :::
 
 ## onBrowserInit {#onbrowserinit}
@@ -83,7 +89,12 @@ function onTestRunStart(
 
 如果 Vitest 没有找到任何要运行的测试文件，此事件将以空数组调用，然后 [`onTestRunEnd`](#ontestrunend) 将立即被调用。
 
+<<<<<<< HEAD
 ::: details 示例
+=======
+::: details Example
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```ts
 import type { Reporter, TestSpecification } from 'vitest/node'
 
@@ -95,6 +106,7 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
+
 :::
 
 ## onTestRunEnd
@@ -121,7 +133,12 @@ function onTestRunEnd(
 
 如果 Vitest 没有找到任何要运行的测试文件，此事件将以空的模块和错误数组调用，状态将取决于 [`config.passWithNoTests`](/config/passwithnotests) 的值。
 
+<<<<<<< HEAD
 ::: details 示例
+=======
+::: details Example
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ```ts
 import type {
   Reporter,
@@ -158,6 +175,7 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
+
 :::
 
 ## onCoverage

@@ -86,6 +86,7 @@ expect(spy).to.have.been.calledWith('arg1', 'arg2')
 
 Vitest supports all common sinon-chai assertions:
 
+<<<<<<< HEAD
 | Sinon-Chai                | Vitest                | 详情                         |
 | ------------------------- | --------------------- | ---------------------------- |
 | `spy.called`              | `called`              | Spy 至少被调用过一次         |
@@ -96,6 +97,18 @@ Vitest supports all common sinon-chai assertions:
 | `spy.calledWith(...)`     | `calledWith(...)`     | Spy 以特定参数被调用         |
 | `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy 以特定参数恰好被调用一次 |
 | `spy.returned(value)`     | `returned`            | Spy 返回了特定值             |
+=======
+| Sinon-Chai                | Vitest                | Description                            |
+| ------------------------- | --------------------- | -------------------------------------- |
+| `spy.called`              | `called`              | Spy was called at least once           |
+| `spy.calledOnce`          | `calledOnce`          | Spy was called exactly once            |
+| `spy.calledTwice`         | `calledTwice`         | Spy was called exactly twice           |
+| `spy.calledThrice`        | `calledThrice`        | Spy was called exactly three times     |
+| `spy.callCount(n)`        | `callCount(n)`        | Spy was called n times                 |
+| `spy.calledWith(...)`     | `calledWith(...)`     | Spy was called with specific args      |
+| `spy.calledOnceWith(...)` | `calledOnceWith(...)` | Spy was called once with specific args |
+| `spy.returned(value)`     | `returned`            | Spy returned specific value            |
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 
 更多内容请参阅 [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions) 文档中的完整列表。
 
@@ -176,8 +189,15 @@ vi.useRealTimers()
 2. **断言风格**：可同时使用 Chai 风格（`expect(spy).to.have.been.called`）和 Jest 风格（`expect(spy).toHaveBeenCalled()`）。
 3. **并发执行**：Vitest 默认并发运行测试，Mocha 则顺序执行。
 
+<<<<<<< HEAD
 更多内容请参阅：
 
 - [Chai 风格 Spy 断言](/api/expect#chai-style-spy-assertions)
 - [Mocking 指南](/guide/mocking)
+=======
+For more information, see:
+
+- [Chai-Style Spy Assertions](/api/expect#chai-style-spy-assertions)
+- [Mocking Guide](/guide/mocking)
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 - [Vi API](/api/vi)

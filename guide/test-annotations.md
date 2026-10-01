@@ -32,7 +32,12 @@ test('hello world', async ({ annotate }) => {
 
 根据你使用的报告器不同，注释的显示方式也会有所差异。
 
+<<<<<<< HEAD
 ## 内置报告器 {#built-in-reporters}
+=======
+## Built-in Reporters
+
+>>>>>>> 7eb243f5393cf180bc6b4c66e988f437d1717063
 ### default
 
 `default` 报告器仅在测试失败时打印注释：
