@@ -7,7 +7,11 @@ outline: deep
 
 - **类型:** `string | string[]`
 
+<<<<<<< HEAD
 相对于 [项目根目录](/config/root) 的初始化文件路径。它们会在每个 _测试文件_ 之前的同一进程中运行。默认情况下，所有测试文件并行运行，但你可以通过 [`sequence.setupFiles`](/config/sequence#sequence-setupfiles) 选项进行配置。
+=======
+Paths to setup files resolved relative to the [`root`](/config/root). They will run before each _test file_ in the same process. By default, setup files run one after another in the order they are defined, but you can configure it with [`sequence.setupFiles`](/config/sequence#sequence-setupfiles) option.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 Vitest 会忽略这些文件的任何导出。
 
@@ -42,4 +46,5 @@ afterEach(() => {
 
 globalThis.resetBeforeEachTest = true
 ```
+
 :::

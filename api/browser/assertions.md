@@ -12,6 +12,7 @@ Vitest 默认提供了一组丰富的 DOM 断言，这些断言源自 [`@testing
 ```ts
 /// <reference types="vitest/browser" />
 ```
+
 :::
 
 浏览器中的测试由于其异步特性，可能会不一致地失败。因此，即使条件延迟（如超时、网络请求或动画），也必须有办法保证断言成功。为此，Vitest 通过 [`expect.poll`](/api/expect#poll) 和 `expect.element` API 提供了可重试的断言：
@@ -62,6 +63,7 @@ interface ExpectPollOptions {
 // 如果 .textContent 不是 `'Error!'`，则会立即失败。
 expect(banner).toMatchTextContent('Error!')
 ```
+
 :::
 
 ## toBeDisabled
@@ -697,12 +699,17 @@ await expect.element(button).not.toHaveStyle({
 
 ```ts
 function toHaveTextContent(
-  text: string | number,
+  text?: string | number,
   options?: { normalizeWhitespace: boolean }
 ): Promise<void>
 ```
 
+<<<<<<< HEAD
 该匹配器用于验证元素的文本是否与提供的字符串完全匹配。它不仅支持元素，也支持文本节点和片段。
+=======
+This matcher allows you to validate that an element's text matches provided string exactly. This
+supports elements, but also text nodes and fragments. Called without arguments, it asserts that the element has some text content, so `.not.toHaveTextContent()` checks that it is empty.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 如果你希望执行部分匹配或进行大小写敏感的匹配，请改用 [`toMatchTextContent`](#tomatchtextcontent)。
 
@@ -715,6 +722,10 @@ const element = getByTestId('text-content')
 
 await expect.element(element).toHaveTextContent('Text Content')
 await expect.element(element).not.toHaveTextContent('Content')
+// element has some text content
+await expect.element(element).toHaveTextContent()
+// element has no text content
+await expect.element(page.getByTestId('empty')).not.toHaveTextContent()
 ```
 
 ## toMatchTextContent
@@ -965,6 +976,7 @@ await expect.element(getByTestId('link-invalid')).toHaveRole('generic')
 await expect.element(getByTestId('switch')).toHaveRole('switch') // ✅
 await expect.element(getByTestId('switch')).toHaveRole('alert') // ❌
 ```
+
 :::
 
 ## toHaveSelection
@@ -1137,11 +1149,17 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
     },
   })
   ```
+
   :::
 
 - `screenshotOptions: object`
 
+<<<<<<< HEAD
   与 [`locator.screenshot()`](/api/browser/locators.html#screenshot) 支持的选项一致，但以下情况除外：
+=======
+  The same options allowed by
+  [`locator.screenshot()`](/api/browser/locators#screenshot), except for:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
   - `'base64'`
   - `'path'`

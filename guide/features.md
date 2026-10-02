@@ -220,29 +220,38 @@ if (import.meta.vitest) {
 
 了解更多信息 [源码内联测试](/guide/in-source)
 
+<<<<<<< HEAD
 ## 基准测试 <Experimental /> {#benchmarking}
 
 你可以使用 [`bench`](/api/test#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
+=======
+## Benchmarking {#benchmarking}
+
+You can run benchmark tests with the [`bench`](/api/test#bench) fixture from the [test context](/guide/test-context#bench) via [Tinybench](https://github.com/tinylibs/tinybench) to compare performance results.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```ts [sort.bench.ts]
-import { bench, describe } from 'vitest'
+import { test } from 'vitest'
 
-describe('sort', () => {
-  bench('normal', () => {
-    const x = [1, 5, 4, 2, 3]
-    x.sort((a, b) => {
-      return a - b
-    })
-  })
-
-  bench('reverse', () => {
-    const x = [1, 5, 4, 2, 3]
-    x.reverse().sort((a, b) => {
-      return a - b
-    })
-  })
+test('sort', async ({ bench }) => {
+  await bench.compare(
+    bench('normal', () => {
+      const x = [1, 5, 4, 2, 3]
+      x.sort((a, b) => {
+        return a - b
+      })
+    }),
+    bench('reverse', () => {
+      const x = [1, 5, 4, 2, 3]
+      x.reverse().sort((a, b) => {
+        return a - b
+      })
+    }),
+  )
 })
 ```
+
+Learn more at [Benchmarking](/guide/benchmarking).
 
 <img alt="Benchmark report" img-dark src="https://github.com/vitest-dev/vitest/assets/4232207/6f0383ea-38ba-4f14-8a05-ab243afea01d">
 <img alt="Benchmark report" img-light src="https://github.com/vitest-dev/vitest/assets/4232207/efbcb427-ecf1-4882-88de-210cd73415f6">

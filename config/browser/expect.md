@@ -9,7 +9,13 @@ outline: deep
 
 ## browser.expect.toMatchScreenshot
 
+<<<<<<< HEAD
 [`toMatchScreenshot` 断言](/api/browser/assertions.html#tomatchscreenshot) 的默认选项。这些配置将应用于所有截图断言。
+=======
+Default options for the
+[`toMatchScreenshot` assertion](/api/browser/assertions#tomatchscreenshot).
+These options will be applied to all screenshot assertions.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ::: tip 提示
 为截图断言设置全局默认值有助于在测试套件中保持一致性，并减少单个测试中的重复。在需要特定测试用例时，仍可在断言级别覆盖这些默认值。
@@ -47,7 +53,11 @@ export default defineConfig({
 
 用于存放参考截图的目录名称。
 
+<<<<<<< HEAD
 该值会作为 `screenshotDirectory` 参数传递给 [`browser.expect.toMatchScreenshot.resolveScreenshotPath`](#browserexpecttomatchscreenshotresolvescreenshotpath) 和 [`browser.expect.toMatchScreenshot.resolveDiffPath`](#browserexpecttomatchscreenshotresolvediffpath)。`resolveScreenshotPath` 的默认路径解析逻辑也会使用该值。
+=======
+This value is passed as `screenshotDirectory` to [`browser.expect.toMatchScreenshot.resolveScreenshotPath`](#browser-expect-tomatchscreenshot-resolvescreenshotpath) and [`browser.expect.toMatchScreenshot.resolveDiffPath`](#browser-expect-tomatchscreenshot-resolvediffpath), and used in the default path resolution of `resolveScreenshotPath`.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ## browser.expect.toMatchScreenshot.resolveScreenshotPath
 
@@ -91,7 +101,11 @@ export default defineConfig({
 
 - `screenshotDirectory: string`
 
+<<<<<<< HEAD
   [`browser.screenshotDirectory`](/config/browser/screenshotdirectory) 配置项提供的值，如果未配置则使用默认值（`__screenshots__`）。
+=======
+  The value provided to [`browser.expect.toMatchScreenshot.screenshotDirectory`](#browser-expect-tomatchscreenshot-screenshotdirectory), if none is provided, its default value (`__screenshots__`).
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 - `root: string`
 
@@ -248,4 +262,5 @@ myCustomComparator: (
   // 对比逻辑...
 }
 ```
+
 :::

@@ -51,7 +51,11 @@ test('my types work properly', () => {
 expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: string }>()
 ```
 
+<<<<<<< HEAD
 是一个将失败的断言，因为 `{a: 1}` 的类型是 `{a: number}` 而不是 `{a: string}`。 这种情况下的错误信息如下
+=======
+Is an assertion that will fail, since `{a: 1}` has type `{a: number}` and not `{a: string}`. The error message in this case will read something like this:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```
 test/test.ts:999:999 - error TS2344: Type '{ a: string; }' does not satisfy the constraint '{ a: \\"Expected: string, Actual: number\\"; }'.
@@ -111,7 +115,11 @@ assertType<string>(answer)
 ```
 
 ::: tip
+<<<<<<< HEAD
 使用 `@ts-expect-error` 语法时，你可能想确保没有输入错误。你可以通过在 [`test.include`](/config/include) 配置选项中包含你的类型文件来做到这一点，因此 Vitest 实际上也会*运行*这些测试并因 `ReferenceError` 而失败。
+=======
+When using `@ts-expect-error` syntax, you might want to make sure that you didn't make a typo. You can do that by including your type files in [`test.include`](/config/include) config option, so Vitest will also actually _run_ these tests and fail with `ReferenceError`.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 这将通过，因为它预计会出现错误，但 “answer” 这个词有错别字，所以这是一个误报错误：
 

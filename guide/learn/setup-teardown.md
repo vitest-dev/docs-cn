@@ -249,5 +249,9 @@ expect.extend(customMatchers)
 与每个文件运行一次的 `beforeAll` 不同，初始化文件在测试文件甚至开始收集之前，在一个独立的阶段运行。这使得它们非常适合扩展 `expect` API 或配置全局 polyfills 等操作。
 
 ::: tip
+<<<<<<< HEAD
 对于需要在包装上下文（例如数据库事务或跟踪范围）_内部_ 运行测试的高级场景，请参阅 [`aroundEach`](/api/hooks#aroundeach) 和 [`aroundAll`](/api/hooks#aroundall) 钩子。有关完整的生命周期图，请参阅 [测试运行生命周期](/guide/lifecycle)。
+=======
+For advanced cases where your test needs to run _inside_ a wrapping context (like a database transaction or a tracing span), see the [`aroundEach`](/api/hooks#aroundeach) and [`aroundAll`](/api/hooks#aroundall) hooks. For the complete lifecycle picture, see [Test Run Lifecycle](/guide/lifecycle).
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 :::

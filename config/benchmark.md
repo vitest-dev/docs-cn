@@ -25,8 +25,13 @@ outline: deep
 
 ## benchmark.exclude
 
+<<<<<<< HEAD
 - **类型:** `string[]`
 - **默认值:** `['node_modules', 'dist', '.idea', '.git', '.cache']`
+=======
+- **Type:** `string[]`
+- **Default:** `['**/node_modules/**', '**/.git/**']`
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 用于排除基准测试文件的 glob 模式。
 

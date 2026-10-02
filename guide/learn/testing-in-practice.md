@@ -54,7 +54,11 @@ test('rounds to two decimal places', () => {
 })
 ```
 
+<<<<<<< HEAD
 请注意这些测试 _不做什么_。它们不检查传递了哪些内部的 `Intl.NumberFormat` 选项，或者是否设置了中间变量。它们只检查输出。
+=======
+Notice what these tests _don't_ do. They don't check which internal `Intl.NumberFormat` options were passed, or whether an intermediate variable was set. They only check the output.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ::: tip
 一个好的做法：如果有人重构了内部实现但输出保持不变，测试应该失败吗？如果会失败，那么你很可能是在测试实现细节而非行为。
@@ -156,7 +160,11 @@ test('throws for empty string', () => {
 
 ### 基于属性的测试 {#property-based-testing}
 
+<<<<<<< HEAD
 对于那些有效输入范围很广的函数，手动挑选边界情况终究是有限的。**基于属性的测试** 是一种技术，你描述任何输入都应该成立的 _属性_，测试框架会生成数百个随机输入，尝试找到破坏这些属性的情况。
+=======
+For functions with a wide range of valid inputs, manually choosing edge cases can only go so far. **Property-based testing** is a technique where you describe the _properties_ that should hold for any input, and the testing framework generates hundreds of random inputs to try to find one that breaks.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 例如，你可以描述 “对于任何有效的年龄字符串，`parseAge` 都应返回一个非负整数”，然后让工具寻找反例。[fast-check](https://fast-check.dev/) 是一款流行的基于属性测试库，并且能很好地与 Vitest 集成。这是一种更进阶的技术，但随着你的测试需求增长，它非常值得了解。
 
@@ -176,7 +184,11 @@ test('throws for empty string', () => {
 
 ### 不应模拟的内容 {#what-not-to-mock}
 
+<<<<<<< HEAD
 不要模拟你正在测试的对象。如果你正在测试 `UserService`，不要模拟 `UserService`。模拟它的 _依赖项_（数据库、邮件发送器）并让服务本身真实运行。
+=======
+Don't mock the thing you're testing. If you're testing a `UserService`, don't mock the `UserService`. Mock its _dependencies_ (the database, the email sender) and let the service itself run for real.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 此外，当真实实现快速且可靠时，应优先使用真实实现。如果依赖项是简单的内存数据结构或纯函数，则没有理由模拟它。你的测试越接近真实使用场景，它们给你的底气就越足。
 
@@ -431,8 +443,13 @@ describe('getCompleted', () => {
 注意我们在每个测试中都创建一个新的 `createTodoList()`。这保持了测试的独立性，意味着它们可以按任意顺序运行而不会相互影响。如果你发现自己在每个测试中重复相同的设置，那可能是使用 [`beforeEach`](/api/hooks#beforeeach) 或 [`test.extend`](/guide/test-context#extend-test-context) fixture 的好时机。
 :::
 
+<<<<<<< HEAD
 ::: details `nextId` 怎么办？
 模块顶部的 `nextId` 计数器在所有对 `createTodoList()` 的调用中共享，包括跨测试。这意味着 ID 不可预测：一个测试可能获得 ID 1 和 2，而另一个测试获得 3 和 4，具体取决于执行顺序。这在这里没问题，因为测试只检查 _相对_ 唯一性（`first.id !== second.id`），而不是特定的 ID 值。如果测试断言了 `expect(todo.id).toBe(1)`，那么根据之前运行了哪些测试，它可能会失败。当你有像这样的共享模块级状态时，请确保你的测试不依赖于其具体值。
+=======
+::: details What about `nextId`?
+The `nextId` counter at the top of the module is shared across all calls to `createTodoList()`, including across tests. This means IDs aren't predictable: one test might get IDs 1 and 2, while another gets 3 and 4 depending on execution order. This works fine here because the tests only check _relative_ uniqueness (`first.id !== second.id`), not specific ID values. If a test asserted `expect(todo.id).toBe(1)`, it would break depending on which tests ran before it. When you have shared module-level state like this, make sure your tests don't depend on its specific value.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 :::
 
 ---

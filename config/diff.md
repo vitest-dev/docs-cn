@@ -32,6 +32,7 @@ export default defineConfig({
 或者作为模块：
 
 :::code-group
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -52,13 +53,20 @@ export default {
   omitAnnotationLines: true,
 } satisfies DiffOptions
 ```
+
 :::
 
 ## diff.expand
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `true`
 - **命令行终端:** `--diff.expand=false`
+=======
+- **Type:** `boolean`
+- **Default:** `false`
+- **CLI:** `--diff.expand=false`
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 展开所有公共行。
 

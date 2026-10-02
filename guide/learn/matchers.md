@@ -24,7 +24,11 @@ test('two plus two is four', () => {
 })
 ```
 
+<<<<<<< HEAD
 这种方式适用于检查数字、字符串和布尔值等原始值。但在比较对象时，`toBe` 检查的是 **恒等性**（它们是否是内存中的同一个对象），而不是它们是否具有相同的结构。这时就需要用到 [`toEqual`](/api/expect#toequal)。它会递归地比较对象或数组的每个字段或元素，忽略对象恒等性：
+=======
+This works great for primitive values like numbers, strings, and booleans. But when you're comparing objects, `toBe` checks _identity_ (whether they're the exact same object in memory), not whether they have the same shape. That's where [`toEqual`](/api/expect#toequal) comes in. It recursively compares every field of an object or element of an array, ignoring object identity:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```js
 test('object assignment', () => {
@@ -75,7 +79,11 @@ test('toEqual vs toStrictEqual', () => {
 一个好的经验法则是：对原始值类型（数字、字符串、布尔值）使用 `toBe`，比较结构时使用 `toEqual`，当你还关心类型和显式的 `undefined` 值时使用 `toStrictEqual`。
 :::
 
+<<<<<<< HEAD
 你可以在任何匹配器前插入 `.not` 来否定它。适用于验证某些 _不成立_ 情况：
+=======
+You can also negate any matcher by inserting `.not` before it. This is useful when you want to verify that something is _not_ the case:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```js
 test('adding positive numbers is not zero', () => {
@@ -216,7 +224,11 @@ test('object has property', () => {
 
 ## 非对称匹配器 {#asymmetric-matchers}
 
+<<<<<<< HEAD
 有时你不知道确切的值，但知道它的类型或结构。非对称匹配器让你可以描述值应该 _看起来应该是什么样_，而无需确定确切内容。它们可以在任何进行深度比较的匹配器内部工作，例如 `toEqual` 或 `toMatchObject`：
+=======
+Sometimes you don't know the exact value, but you know its type or shape. Asymmetric matchers let you describe what a value should _look like_ without pinning down the exact content. They work inside any matcher that does deep comparison, like `toEqual` or `toMatchObject`:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```js
 test('user has the right shape', () => {
@@ -264,7 +276,11 @@ test('compiling an empty string throws', () => {
 ```
 
 ::: tip
+<<<<<<< HEAD
 包装函数 `() => compileCode('')` 很重要。如果你写成 `expect(compileCode('')).toThrow()`，错误会在 `expect` 有机会捕获它 _之前_ 就被抛出，测试将因未处理的错误而失败。
+=======
+The wrapping function `() => compileCode('')` is important. If you wrote `expect(compileCode('')).toThrow()`, the error would be thrown _before_ `expect` gets a chance to catch it, and the test would fail with an unhandled error instead.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 :::
 
 ## 软断言 {#soft-assertions}
