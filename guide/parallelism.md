@@ -5,7 +5,11 @@ outline: deep
 
 # 并行性 {#parallelism}
 
+<<<<<<< HEAD
 Vitest 有两个层级的并行机制：它可以同时运行多个 _测试文件_，也可以在单个文件内同时运行多个 _测试_。理解这两者之间的区别至关重要，因为它们的工作方式不同，权衡内容也不同。
+=======
+Vitest has two levels of parallelism: it can run multiple _test files_ at the same time, and within each file it can run multiple _tests_ at the same time. Understanding the difference between the two is important because they work differently and have different trade-offs.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ## 文件级并行 {#file-parallelism}
 
@@ -44,8 +48,13 @@ test.concurrent('fetches user posts', async () => {
 
 当测试被标记为 `concurrent` 时，Vitest 会将它们分组，并使用 [`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) 运行它们。同时运行的测试数量受 [`maxConcurrency`](/config/maxconcurrency) 参数限制。
 
+<<<<<<< HEAD
 ::: tip `concurrent` 何时真正有效？
 Vitest 不会为并发测试创建额外的 worker，它们都会在所属文件的同一个 worker 中运行。这意味着，只有当测试会花时间 “等待”（例如等待网络请求、定时器、文件 I/O 等）时，`concurrent` 才能带来提速。纯同步测试不会因此受益，因为它们仍然会阻塞单个 JavaScript 线程：
+=======
+::: tip When does `concurrent` actually help?
+Vitest doesn't create extra workers for concurrent tests — they all run in the same worker as the file they belong to. This means `concurrent` only speeds things up when your tests spend time _waiting_ (on network requests, timers, file I/O, etc.). Purely synchronous tests won't benefit because they still block the single JavaScript thread:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```ts
 // 尽管使用了 `concurrent`，这些测试仍会依次运行，
@@ -79,7 +88,11 @@ describe.concurrent('user API', () => {
 })
 ```
 
+<<<<<<< HEAD
 如果你希望项目中的 _所有_ 测试默认并发运行，可以在配置中将 [`sequence.concurrent`](/config/sequence#sequence-concurrent) 设置为 `true`。
+=======
+If you want _all_ tests in your project to run concurrently by default, set [`sequence.concurrent`](/config/sequence#sequence-concurrent) to `true` in your config.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 你可以通过 `concurrent: false` 让单个测试或测试套件退出继承的并发设置：
 

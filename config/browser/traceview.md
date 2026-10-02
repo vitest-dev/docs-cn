@@ -37,11 +37,19 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 | 选项 | 默认值 | 详情 |
 | --- | --- | --- |
 | `enabled` | `false` | 启用 Vitest trace-view 收集产物。 |
 | `inlineImages` | `false` | 将加载的 `<img>` 像素内联到快照中，实现更便捷的回放功能，适用于 HTML 报告器。 |
 | `recordCanvas` | `false` | 在快照中捕获 canvas 像素。 |
+=======
+| Option         | Default | Description                                                                                         |
+| -------------- | ------- | --------------------------------------------------------------------------------------------------- |
+| `enabled`      | `false` | Enables Vitest trace-view artifact collection.                                                      |
+| `inlineImages` | `false` | Inlines loaded `<img>` pixels into snapshots for more portable replay, useful in the HTML reporter. |
+| `recordCanvas` | `false` | Captures canvas pixels in snapshots.                                                                |
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ## browser.traceView.enabled {#traceview-enabled}
 

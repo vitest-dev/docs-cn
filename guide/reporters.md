@@ -373,7 +373,11 @@ export default defineConfig({
 
 :::
 
+<<<<<<< HEAD
 JUnit XML 报告示例:
+=======
+Example of a JUnit XML report:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -393,6 +397,7 @@ AssertionError: expected 5 to be 4 // Object.is equality
 
 输出的 XML 包含嵌套的 `testsuites` → `testsuite` → `testcase` 标签。你可以通过以下选项自定义报告器的行为：
 
+<<<<<<< HEAD
 | 选项                   | 描述                                                                      | 默认值                     |
 | ---------------------- | ------------------------------------------------------------------------- | -------------------------- |
 | `suiteName`            | `<testsuites>` 的 `name` 属性                                             | `"vitest tests"`           |
@@ -421,6 +426,36 @@ AssertionError: expected 5 to be 4 // Object.is equality
 - `{filepath}` – 绝对文件路径
 - `{basename}` – 不带目录的文件名
 - `{displayName}` – Vitest 项目名称
+=======
+| Option                 | Description                                                                                                               | Default                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `suiteName`            | `name` attribute of `<testsuites>`                                                                                        | `"vitest tests"`                        |
+| `suiteNameTemplate`    | Template for the `name` attribute of `<testsuite>`. Accepts a string with placeholders or a function.                     | Relative file path                      |
+| `classnameTemplate`    | Template for the `classname` attribute of `<testcase>`. Accepts a string with placeholders or a function.                 | Relative file path                      |
+| `titleTemplate`        | Template for the `name` attribute of `<testcase>`. Accepts a string with placeholders or a function.                      | Full test title with ancestor hierarchy |
+| `ancestorSeparator`    | Separator used when joining ancestor describe block names in the `{classname}` placeholder and in the default test title. | `" > "`                                 |
+| `addFileAttribute`     | Add a `file` attribute to each `<testcase>`.                                                                              | `false`                                 |
+| `includeConsoleOutput` | Include `<system-out>` / `<system-err>` console output.                                                                   | `true`                                  |
+| `stackTrace`           | Include stack traces in `<failure>` elements.                                                                             | `true`                                  |
+
+The following placeholders are available for `suiteNameTemplate`:
+
+- `{title}` – name of the first top-level `describe` block; falls back to the file basename when there is no top-level `describe`
+- `{filename}` – relative file path from the root (e.g. `src/foo.test.ts`)
+- `{filepath}` – absolute file path
+- `{basename}` – file name without directory (e.g. `foo.test.ts`)
+- `{displayName}` – Vitest project name
+
+The following placeholders are available for `classnameTemplate` and `titleTemplate`:
+
+- `{classname}` – ancestor `describe` block names joined by `ancestorSeparator` (e.g. `outer > inner`)
+- `{title}` – leaf test title (the string passed to `it`/`test`)
+- `{suitename}` – top-level `describe` block name, empty string when the test has no enclosing `describe`
+- `{filename}` – relative file path from the root
+- `{filepath}` – absolute file path
+- `{basename}` – file name without directory
+- `{displayName}` – Vitest project name
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ::: tip
 `{filename}` 遵循 Vitest 的约定，解析为从项目根目录开始的 **相对路径**（例如 `src/foo.test.ts`）。这与 jest-junit 不同，在 jest-junit 中 `{filename}` 是纯文件名。使用 `{basename}` 来获取仅文件名。
@@ -547,9 +582,17 @@ export default defineConfig({
 
 ### HTML 报告器 {#html-reporter}
 
+<<<<<<< HEAD
 生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
 
 报告产物的根目录可以通过报告器的 `outputDir` 选项指定。报告入口文件会被写入 `<outputDir>/index.html`，UI 资源文件则位于 `<outputDir>/ui/` 下。默认情况下，`outputDir` 是 `.vitest`，即 Vitest 共享的产物目录，因此附件（`.vitest/attachments`）和覆盖率（`.vitest/coverage`）会被直接复用，而是复制一份。
+=======
+Generates a static version of [Vitest UI](/guide/ui) for reviewing completed test runs. See the [HTML Reporter guide](/guide/ui#html-reporter) for local preview, CI artifacts, and sharing workflows.
+
+The report artifact root can be specified using the reporter's `outputDir` option and the report entry is written to `<outputDir>/index.html`. By default `outputDir` is the shared Vitest artifact directory `.vitest`.
+
+Use `singleFile` to produce one portable HTML file. See [Share as a Single File](/guide/ui#share-as-a-single-file) for configuration and limitations.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 :::code-group
 
@@ -564,6 +607,7 @@ export default defineConfig({
   },
 })
 ```
+<<<<<<< HEAD
 
 :::
 
@@ -592,6 +636,9 @@ export default defineConfig({
 
 ::: tip
 该报告器需要安装 [`@vitest/ui`](/guide/ui)。
+=======
+
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 :::
 
 ### TAP 报告器 {#tap-reporter}
@@ -614,7 +661,11 @@ export default defineConfig({
 
 :::
 
+<<<<<<< HEAD
 TAP 报告示例:
+=======
+Example of a TAP report:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```bash
 TAP version 13
@@ -657,7 +708,11 @@ export default defineConfig({
 
 :::
 
+<<<<<<< HEAD
 TAP 扁平报告示例:
+=======
+Example of a TAP flat report:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```bash
 TAP version 13
@@ -869,8 +924,13 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 Blob 报告器输出不包含基于文件的 [附件](/api/advanced/artifacts.html#testattachment)。
 在使用此功能时，请确保在 CI 中合并 blob 报告的同时，一并处理 [`attachmentsDir`](/config/attachmentsdir)。
+=======
+Blob reporter output doesn't include file-based [attachments](/api/advanced/artifacts#testattachment).
+Make sure to merge [`attachmentsDir`](/config/attachmentsdir) separately alongside blob reports on CI when using this feature.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ::: tip
 `--reporter=blob` 和 `--merge-reports` 这两个选项在监听模式下均不可用。

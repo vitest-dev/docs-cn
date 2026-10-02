@@ -75,7 +75,11 @@ class MyReporter implements Reporter {
 ## 在文件系统上存储附件 {#storing-artifacts-on-file-system}
 
 ::: tip
+<<<<<<< HEAD
 Vitest 提供了 [`vitest.createReport`](/api/advanced/vitest.html#createreport)，它公开了一组工具函数，用于在文件系统上写入附件。
+=======
+Vitest provides [`vitest.createReport`](/api/advanced/vitest#createreport) that exposes collection of utilities for writing artifacts on file system conveniently.
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 :::
 
 如果你的自定义报告器需要在文件系统上存储任何附件，应该将它们放在 `.vitest` 目录中。这个目录是一个约定，Vitest 报告器和第三方集成可以使用它将结果放在同一个目录中。这样，你的自定义报告器的用户就不需要在他们的 `.gitignore` 中添加多个排除项。只需要排除 `.vitest` 即可。

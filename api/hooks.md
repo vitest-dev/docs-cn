@@ -178,6 +178,7 @@ test('insert user', async () => {
 })
 ```
 
+<<<<<<< HEAD
 ::: tip 何时使用 `aroundEach`
 当测试需要在某个 **上下文内部** 运行时，使用 `aroundEach`，例如：
 - 将测试包裹在 [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) 上下文中
@@ -185,6 +186,17 @@ test('insert user', async () => {
 - 数据库事务
 
 如果只需要在测试前后执行代码，建议使用带清理返回函数的 [`beforeEach`](#beforeeach)。
+=======
+::: tip When to use `aroundEach`
+Use `aroundEach` when your test needs to run **inside a context** that wraps around it, such as:
+
+- Wrapping tests in [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) context
+- Wrapping tests with tracing spans
+- Database transactions
+
+If you just need to run code before and after tests, prefer using [`beforeEach`](#beforeeach) with a cleanup return function:
+
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 ```ts
 beforeEach(async () => {
   await database.connect()
@@ -193,6 +205,7 @@ beforeEach(async () => {
   }
 })
 ```
+
 :::
 
 ### 多个钩子 {#multiple-hooks}
@@ -291,6 +304,7 @@ test('test 2', () => {
 })
 ```
 
+<<<<<<< HEAD
 ::: tip 何时使用 `aroundAll`
 当整个测试套件需要在某个 **上下文内部** 运行时，使用 `aroundAll`，例如：
 - 将整个测试套件包裹在 [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) 上下文中
@@ -298,6 +312,17 @@ test('test 2', () => {
 - 数据库事务
 
 如果只需要在所有测试前后各执行一次代码，建议使用带清理返回函数的 [`beforeAll`](#beforeall)：
+=======
+::: tip When to use `aroundAll`
+Use `aroundAll` when your suite needs to run **inside a context** that wraps around all tests, such as:
+
+- Wrapping an entire suite in [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) context
+- Wrapping a suite with tracing spans
+- Database transactions
+
+If you just need to run code once before and after all tests, prefer using [`beforeAll`](#beforeall) with a cleanup return function:
+
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 ```ts
 beforeAll(async () => {
   await server.start()
@@ -306,6 +331,7 @@ beforeAll(async () => {
   }
 })
 ```
+
 :::
 
 ### 多个钩子 {#multiple-hooks-1}
@@ -390,6 +416,7 @@ test.concurrent('performs a query', ({ onTestFinished }) => {
   db.query('SELECT * FROM users')
 })
 ```
+
 :::
 
 适用于该钩子封装可复用逻辑时：
@@ -465,4 +492,5 @@ test.concurrent('performs a query', ({ onTestFailed }) => {
   db.query('SELECT * FROM users')
 })
 ```
+
 :::

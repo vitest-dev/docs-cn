@@ -547,14 +547,22 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--sequence.hooks <order>`
 - **配置:** [sequence.hooks](/config/sequence#sequence-hooks)
 
+<<<<<<< HEAD
 更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。更多信息请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"parallel"`）
+=======
+Changes the order in which hooks are executed. Accepted values are: "stack", "list" and "parallel". Visit [`sequence.hooks`](/config/sequence#sequence-hooks) for more information (default: `"stack"`)
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ### sequence.setupFiles
 
 - **命令行终端:** `--sequence.setupFiles <order>`
 - **配置:** [sequence.setupFiles](/config/sequence#sequence-setupfiles)
 
+<<<<<<< HEAD
 更改设置文件的执行顺序。可接受的值有 "list" 和 "parallel"。如果设置为"list"，将按照定义的顺序运行设置文件。如果设置为 "parallel"，将并行运行设置文件（默认值：`"parallel"`）
+=======
+Changes the order in which setup files are executed. Accepted values are: "list" and "parallel". If set to "list", will run setup files in the order they are defined. If set to "parallel", will run setup files in parallel (default: `"list"`)
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ### inspect
 
@@ -671,7 +679,11 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--diff.expand`
 - **配置:** [diff.expand](/config/diff#diff-expand)
 
+<<<<<<< HEAD
 展开所有公共行 （默认值: `true`）
+=======
+Expand all common lines (default: `false`)
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ### diff.includeChangeCounts
 
@@ -692,7 +704,11 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--diff.printBasicPrototype`
 - **配置:** [diff.printBasicPrototype](/config/diff#diff-printbasicprototype)
 
+<<<<<<< HEAD
 打印基础的原型 `Object` 和 `Array` (默认值: `true`)
+=======
+Print basic prototype Object and Array (default: `false`)
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ### diff.maxDepth
 
@@ -824,7 +840,11 @@ Use TypeScript build mode
 - **命令行终端:** `--fsModuleCache`
 - **配置:** [fsModuleCache](/config/fsmodulecache)
 
+<<<<<<< HEAD
 将转换后的模块缓存到文件系统中，以便在重新运行测试时复用（默认值：`false`）
+=======
+Cache transformed modules on the file system and reuse them between reruns (default: `true`)
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ### fsModuleCachePath
 

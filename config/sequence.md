@@ -127,7 +127,11 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 如果希望测试并行运行，可通过此选项或 CLI 参数 [`--sequence.concurrent`](/guide/cli) 启用。
 
 ::: warning
+<<<<<<< HEAD
 当同时启用 `sequence.concurrent` 并行测试和 `expect.requireAssertions` 断言检测时，应使用 [本地 expect 对象](/guide/test-context.html#expect) 而非全局对象，否则可能导致 [特定场景下的假阴性问题(#8469)](https://github.com/vitest-dev/vitest/issues/8469)。
+=======
+When you run tests with `sequence.concurrent` and `expect.requireAssertions` set to `true`, you should use [local expect](/guide/test-context#expect) instead of the global one. Otherwise, this may cause false negatives in [some situations (#8469)](https://github.com/vitest-dev/vitest/issues/8469).
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 :::
 
 ## sequence.seed <CRoot />
@@ -156,9 +160,15 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 
 ## sequence.setupFiles {#sequence-setupfiles}
 
+<<<<<<< HEAD
 - **类型:** `'list' | 'parallel'`
 - **默认值:** `'parallel'`
 - **命令行终端:** `--sequence.setupFiles=<value>`
+=======
+- **Type:** `'list' | 'parallel'`
+- **Default:** `'list'`
+- **CLI:** `--sequence.setupFiles=<value>`
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 调整配置文件的执行顺序：
 

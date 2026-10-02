@@ -101,7 +101,11 @@ await userEvent.click(element, {})
 await userEvent.keyboard('{/Shift}')
 ```
 
+<<<<<<< HEAD
 使用 Playwright：
+=======
+With Playwright:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```ts
 await userEvent.click(element, { modifiers: ['Shift'] })

@@ -32,10 +32,18 @@ Vitest 提供了有关模拟的全部指南：
 
 ## 速查表 {#cheat-sheet}
 
+<<<<<<< HEAD
 ### 模拟导出变量 {#mock-exported-variables}
+=======
+I want to…
+
+### Mock exported variables
+
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 ```js [example.js]
 export const getter = 'variable'
 ```
+
 ```ts [example.test.ts]
 import * as exports from './example.js'
 
@@ -66,7 +74,11 @@ vi.mock('./example.js', () => ({
 }))
 ```
 
+<<<<<<< HEAD
 2. `vi.spyOn` 的示例：
+=======
+2. Example with `vi.spyOn`:
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 
 ```ts
 import * as exports from './example.js'
@@ -80,10 +92,16 @@ vi.spyOn(exports, 'method').mockImplementation(() => {})
 
 ### 模拟导出类的实现 {#mock-an-exported-class-implementation}
 
+<<<<<<< HEAD
 1. 一个使用假 class 的示例：
+=======
+1. Example with a fake `class`:
+
+>>>>>>> ad588a44b6652c0ccfc9b9dd8ed2162652d1985e
 ```ts [example.js]
 export class SomeClass {}
 ```
+
 ```ts
 import { SomeClass } from './example.js'
 
