@@ -95,7 +95,7 @@ const plainTeamMembers: CoreTeam[] = [
     bluesky: 'https://bsky.app/profile/userquin.bsky.social',
     mastodon: 'https://elk.zone/m.webtoo.ls/@userquin',
     title: 'A fullstack and android developer',
-    desc: 'Vite\'s fanatical follower',
+    desc: "Vite's fanatical follower",
   },
   {
     avatar: getAvatarUrl('patak-cat'),
@@ -147,7 +147,7 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
     avatar: getAvatarUrl('poyoho'),
     name: 'Yoho Po',
     github: 'poyoho',
-    title: 'It\'s no problem in my locall',
+    title: "It's no problem in my locall",
     desc: 'Core team member of Vite & Team member of Vitest',
   },
   {
@@ -161,6 +161,7 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
   },
 ]
 
+<<<<<<< HEAD
 const plainTranslationTeamMembers: CoreTeam[] = [
   {
     avatar: 'https://github.com/elonehoo.png',
@@ -203,5 +204,9 @@ const plainTranslationTeamMembers: CoreTeam[] = [
 const teamMembers = plainTeamMembers.map(tm => createLinks(tm))
 const teamEmeritiMembers = plainTeamEmeritiMembers.map(tm => createLinks(tm))
 const translationTeamMembers = plainTranslationTeamMembers.map(tm => createLinks(tm))
+=======
+const teamMembers = plainTeamMembers.map((tm) => createLinks(tm))
+const teamEmeritiMembers = plainTeamEmeritiMembers.map((tm) => createLinks(tm))
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 export { teamEmeritiMembers, teamMembers, translationTeamMembers }

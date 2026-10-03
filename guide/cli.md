@@ -42,6 +42,7 @@ $ vitest ./basic/foo:10 # ❌
 $ vitest basic/foo.test.ts:10, basic/foo.test.ts:25 # ✅
 $ vitest basic/foo.test.ts:10-25 # ❌
 ```
+
 :::
 
 ### `vitest run`
@@ -67,18 +68,27 @@ vitest related /src/index.ts /src/hello-world.js
 ```
 
 ::: tip
+<<<<<<< HEAD
 不要忘记 Vitest 默认情况下以启用的监视模式运行。如果你使用的是 `lint-staged` 之类的工具，你还应该传递 `--run` 选项，以便该命令可以正常退出。
+=======
+Don't forget that Vitest runs with enabled watch mode by default. If you are using tools like `lint-staged`, you should also pass `--run` option, so that command can exit normally.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```js [.lintstagedrc.js]
 export default {
   '*.{js,ts}': 'vitest related --run',
 }
 ```
+
 :::
 
 ### `vitest bench`
 
+<<<<<<< HEAD
 仅运行 [基准](/guide/features.html#benchmarking) 测试，用于比较性能结果。
+=======
+Run only [benchmark](/guide/features#benchmarking) tests, which compare performance results.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ### `vitest init`
 
@@ -155,7 +165,11 @@ Recommendation: pool: 'vmThreads' (-67%)
 
 doctor 还会在胜出配置的基础上探测更低的 [`maxWorkers`](/config/maxworkers) 值：每个工作线程都会通过唯一的主线程 Vite 服务器处理转换请求，因此工作线程超过一定数量后，增加线程反而会让运行变慢。从当前工作线程数的一半开始，只要测试套件的速度至少提升 5%，doctor 就会继续将数量减半，并在推荐中包含最终胜出的值。
 
+<<<<<<< HEAD
 运行 DOM 环境的测试套件会在两个虚拟机池 `vmThreads` 和 `vmForks` 下分别测量：它们通过在保持每个工作线程一个环境的同时，让每个文件仍然获得全新的 VM 上下文，来摊销环境创建成本。`vmForks` 使用子进程而不是工作线程：每个子进程都有自己的堆和垃圾回收器，因此哪个池更快取决于具体的测试套件。对于无法在工作线程中运行的测试套件，应使用 `vmForks` 这个选项。
+=======
+Suites running a DOM or a custom environment are measured under both vm pools, `vmThreads` and `vmForks`: they amortize the environment creation cost by keeping one environment per worker while every file still gets a fresh VM context. `vmForks` uses child processes instead of worker threads: each child gets its own heap and garbage collector, so either pool can come out faster depending on the suite, and `vmForks` is the vm option for suites that cannot run in worker threads.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 安装了 `happy-dom` 软件包后，使用 `jsdom` 环境的项目也会在 `environment: 'happy-dom'` 配置下进行测量。替换按项目单独应用；使用其他环境的项目不会受到影响。由于 happy-dom 与 jsdom 的 DOM 实现不同，采用这一替换前，应先验证依赖布局或导航行为的测试。关闭 [fs 模块缓存](/config/fsmodulecache) 时，doctor 会先执行一次不计时的预热运行以填充缓存，再测量 `fsModuleCache: true`,因此报告的耗时反映了后续重复运行的实际开销。
 
@@ -227,6 +241,7 @@ vitest --reporter=dot --reporter=default
 vitest --no-api
 vitest --api=false
 ```
+
 :::
 
 <!--@include: ./cli-generated.md-->

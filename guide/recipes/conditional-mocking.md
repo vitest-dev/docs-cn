@@ -56,7 +56,11 @@ test('returns user data', async () => {
 
 所有类型的模拟结果都可以使用同样的方式处理。下面列出了完整的动作及其对应写法：
 
+<<<<<<< HEAD
 | 动作                 | 等价于                     | 等效代码                        |
+=======
+| Action               | Equivalent to              | Equivalent code                 |
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 | -------------------- | -------------------------- | ------------------------------- |
 | `thenReturn(value)`  | `mockReturnValue(value)`   | `return value`                  |
 | `thenThrow(error)`   | `mockThrow(error)`         | `throw error`                   |

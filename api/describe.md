@@ -319,8 +319,13 @@ describe.each([
 })
 ```
 
+<<<<<<< HEAD
 * 第一行应为列名，用 `|` 分隔；
 * 使用 `${value}` 语法，以模板字面表达式的形式提供后面一行或多行数据。
+=======
+- First row should be column names, separated by `|`;
+- One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 import { describe, expect, test } from 'vitest'

@@ -10,6 +10,7 @@ outline: deep
 定义可以使用 `inject` 方法在测试内部访问的值。
 
 :::code-group
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -21,6 +22,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```ts [api.test.js]
 import { expect, inject, test } from 'vitest'
 
@@ -28,6 +30,7 @@ test('api key is defined', () => {
   expect(inject('API_KEY')).toBe('123')
 })
 ```
+
 :::
 
 ::: warning
@@ -47,4 +50,5 @@ declare module 'vitest' {
 // 将此文件标记为模块以确保类型正常生效
 export {}
 ```
+
 :::

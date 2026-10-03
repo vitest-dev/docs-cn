@@ -2,7 +2,7 @@ import { Buffer } from 'node:buffer'
 import { existsSync, promises as fsp } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'pathe'
-import { teamEmeritiMembers, teamMembers } from '../contributors'
+import { teamEmeritiMembers, teamMembers } from '../contributors.ts'
 
 const docsDir = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
 
@@ -17,8 +17,12 @@ async function download(url: string, fileName: string) {
   try {
     const image = await (await fetch(url)).arrayBuffer()
     await fsp.writeFile(fileName, Buffer.from(image))
+<<<<<<< HEAD
   }
   catch { }
+=======
+  } catch {}
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 }
 
 async function fetchAvatars() {
@@ -26,7 +30,13 @@ async function fetchAvatars() {
     await fsp.mkdir(dirAvatars, { recursive: true })
   }
 
-  await Promise.all([...teamEmeritiMembers, ...teamMembers].map(c => c.github).map(name => download(`https://github.com/${name}.png?size=100`, join(dirAvatars, `${name}.png`))))
+  await Promise.all(
+    [...teamEmeritiMembers, ...teamMembers]
+      .map((c) => c.github)
+      .map((name) =>
+        download(`https://github.com/${name}.png?size=100`, join(dirAvatars, `${name}.png`)),
+      ),
+  )
 }
 
 fetchAvatars()

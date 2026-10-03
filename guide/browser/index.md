@@ -19,18 +19,23 @@ outline: deep
 为方便设置，可使用 `vitest init browser` 命令安装所需的依赖项并创建浏览器配置。
 
 ::: code-group
+
 ```bash [npm]
 npx vitest init browser
 ```
+
 ```bash [yarn]
 yarn exec vitest init browser
 ```
+
 ```bash [pnpm]
 pnpx vitest init browser
 ```
+
 ```bash [bun]
 bunx vitest init browser
 ```
+
 :::
 
 ### 手动安装 {#manual-installation}
@@ -40,18 +45,23 @@ bunx vitest init browser
 如果你仅需预览测试运行效果，可以使用 `preview` 提供程序：
 
 ::: code-group
+
 ```bash [npm]
 npm install -D vitest @vitest/browser-preview
 ```
+
 ```bash [yarn]
-yarn add -D vitest @vitest/browser-preview
+yarn add -D vitest vite @vitest/browser-preview
 ```
+
 ```bash [pnpm]
 pnpm add -D vitest @vitest/browser-preview
 ```
+
 ```bash [bun]
 bun add -D vitest @vitest/browser-preview
 ```
+
 :::
 
 ::: warning
@@ -64,35 +74,45 @@ bun add -D vitest @vitest/browser-preview
 [Playwright](https://npmx.dev/package/playwright) 是一个用于网络测试和自动化的框架。
 
 ::: code-group
+
 ```bash [npm]
 npm install -D vitest @vitest/browser-playwright
 ```
+
 ```bash [yarn]
-yarn add -D vitest @vitest/browser-playwright
+yarn add -D vitest vite @vitest/browser-playwright
 ```
+
 ```bash [pnpm]
 pnpm add -D vitest @vitest/browser-playwright
 ```
+
 ```bash [bun]
 bun add -D vitest @vitest/browser-playwright
 ```
+
 == WebdriverIO
 
 [WebdriverIO](https://npmx.dev/package/webdriverio) 允许我们使用 WebDriver 协议在本地运行测试。
 
 ::: code-group
+
 ```bash [npm]
 npm install -D vitest @vitest/browser-webdriverio
 ```
+
 ```bash [yarn]
-yarn add -D vitest @vitest/browser-webdriverio
+yarn add -D vitest vite @vitest/browser-webdriverio
 ```
+
 ```bash [pnpm]
 pnpm add -D vitest @vitest/browser-webdriverio
 ```
+
 ```bash [bun]
 bun add -D vitest @vitest/browser-webdriverio
 ```
+
 :::
 
 ## 配置 {#configuration}
@@ -118,12 +138,17 @@ export default defineConfig({
 ```
 
 ::: info
+<<<<<<< HEAD
 Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`api`](/config/api) 选项来更改这个端口号。
+=======
+Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel. You can change that with the [`api`](/config/api) option. The port is bound when the first browser is launched, or on startup if `api` or `ui` is enabled.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
 
 ::: code-group
+
 ```ts [react]
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
@@ -141,6 +166,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts [vue]
 import { defineConfig } from 'vitest/config'
 import { playwright } from '@vitest/browser-playwright'
@@ -159,6 +185,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts [svelte]
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { playwright } from '@vitest/browser-playwright'
@@ -176,6 +203,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts [solid]
 import solidPlugin from 'vite-plugin-solid'
 import { playwright } from '@vitest/browser-playwright'
@@ -193,6 +221,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts [marko]
 import marko from '@marko/vite'
 import { playwright } from '@vitest/browser-playwright'
@@ -210,6 +239,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts [qwik]
 import { qwikVite } from '@builder.io/qwik/optimizer'
 import { playwright } from '@vitest/browser-playwright'
@@ -230,6 +260,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 如果你想让部分测试通过基于 Node 的运行器执行，可以在配置中使用 [`projects`](/guide/projects) 选项，并为不同的测试策略提供独立的配置：
@@ -419,6 +450,7 @@ await page.getByLabelText(/username/i).fill('Alice')
 ```
 
 ::: code-group
+
 ```ts [vue]
 import { render } from 'vitest-browser-vue'
 import Component from './Component.vue'
@@ -439,6 +471,7 @@ test('properly handles v-model', async () => {
   await expect.element(screen.getByText('Hi, my name is Bob')).toBeInTheDocument()
 })
 ```
+
 ```ts [svelte]
 import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-svelte'
@@ -455,6 +488,7 @@ test('greeting appears on click', async () => {
   await expect.element(greeting).toBeInTheDocument()
 })
 ```
+
 ```tsx [react]
 import { render } from 'vitest-browser-react'
 import Fetch from './fetch'
@@ -472,6 +506,7 @@ test('loads and displays greeting', async () => {
   await expect.element(screen.getByRole('button')).toBeDisabled()
 })
 ```
+
 ```ts [lit]
 import { html } from 'lit'
 import { render } from 'vitest-browser-lit'
@@ -487,6 +522,7 @@ test('greeting appears on click', async () => {
   await expect.element(greeting).toBeInTheDocument()
 })
 ```
+
 ```tsx [preact]
 import Greeting from '.Greeting'
 import { createElement } from 'preact'
@@ -502,6 +538,7 @@ test('greeting appears on click', async () => {
   await expect.element(greeting).toBeInTheDocument()
 })
 ```
+
 ```tsx [qwik]
 import { render } from 'vitest-browser-qwik'
 import Greeting from './greeting'
@@ -517,6 +554,7 @@ test('greeting appears on click', async () => {
   await expect.element(greeting).toBeInTheDocument()
 })
 ```
+
 :::
 
 Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工具来运行这些框架的测试。我们还鼓励社区创建他们自己的 `vitest-browser` 封装程序，如果我们有这样的封装程序，请随时将其添加到上述示例中。
@@ -533,6 +571,7 @@ Vitest 并不支持所有开箱即用的框架，但我们可以使用外部工�
 :::
 
 ::: code-group
+
 ```tsx [solid]
 // 基于 @testing-library/solid API
 // https://testing-library.com/docs/solid-testing-library/api
@@ -560,6 +599,7 @@ it('uses params', async () => {
   await expect.screen(screen.getByText('Id: 1234')).toBeInTheDocument()
 })
 ```
+
 ```ts [marko]
 // 基于 @testing-library/marko API
 // https://testing-library.com/docs/marko-testing-library/api
@@ -576,6 +616,7 @@ test('renders a message', async () => {
   `)
 })
 ```
+
 :::
 
 ## 限制 {#limitations}
@@ -613,12 +654,14 @@ vi.mocked(module.method).mockImplementation(() => {
 不过，如果你想模拟导出的 _变量_ ，唯一可行的方式是让模块额外导出一个能修改该变量内部值的方法：
 
 ::: code-group
+
 ```js [module.js]
 export let MODE = 'test'
 export function changeMode(newMode) {
   MODE = newMode
 }
 ```
+
 ```js [module.test.ts]
 import { expect } from 'vitest'
 import { changeMode, MODE } from './module.js'
@@ -626,4 +669,5 @@ import { changeMode, MODE } from './module.js'
 changeMode('production')
 expect(MODE).toBe('production')
 ```
+
 :::
