@@ -4,13 +4,30 @@ title: Vitest UI | 指南
 
 # UI 模式 {#vitest-ui}
 
+<<<<<<< HEAD
 Vitest 由 Vite 提供能力，在运行测试时有一个开发服务器。这允许 Vitest 提供一个漂亮的 UI 界面来查看并与测试交互。Vitest 的 UI 界面是可选的，你可以通过以下安装：
+=======
+Vitest UI is a visual interface for exploring your test results. You can use it interactively while tests run or as a static HTML report for reviewing completed runs.
+
+Vitest UI is optional, so you'll need to install it with:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```bash
 npm i -D @vitest/ui
 ```
 
+<<<<<<< HEAD
 接下来，你可以通过传入 `--ui` 参数来启动测试的 UI 界面：
+=======
+<img alt="Vitest UI" img-light src="/ui-1-light.png">
+<img alt="Vitest UI" img-dark src="/ui-1-dark.png">
+
+## Live UI
+
+The Live UI runs alongside Vitest's development server and requires [watch mode](/config/watch), which is enabled by default. It stays connected to the running Vitest process, so results update as tests rerun. You can also rerun selected tests, update failed snapshots, and edit test files directly from the UI.
+
+Start it by passing the `--ui` flag:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```bash
 vitest --ui
@@ -22,14 +39,23 @@ vitest --ui
 Vitest UI access is protected. If the direct URL shows an error, open the URL with a token printed by Vitest in the terminal, for example `http://localhost:51204/__vitest__/?token=...`.
 :::
 
+<<<<<<< HEAD
 ::: warning
 UI 是交互式的，需要一个正在运行的 Vite 服务器，因此请确保在 `watch` 模式（默认模式）下运行 Vitest。或者，你可以通过在配置的 `reporters` 选项中指定 `html` 来生成一个与 Vitest UI 完全相同的静态 HTML 报告。
 :::
+=======
+## HTML Reporter
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
-<img alt="Vitest UI" img-light src="/ui-1-light.png">
-<img alt="Vitest UI" img-dark src="/ui-1-dark.png">
+The HTML reporter writes test results to a static version of Vitest UI. The result views remain navigable, but the report is read-only and cannot rerun tests, update snapshots, or edit test files. It is useful for run mode, CI, and automated workflows where results are reviewed later.
 
+<<<<<<< HEAD
 UI 也可以用作测试报告器。 在 Vitest 配置中使用 `'html'` 报告器生成 HTML 输出并预览测试结果：
+=======
+Use the `html` reporter from the command line or in your Vitest configuration:
+
+::: code-group
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -41,6 +67,7 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 你可以在 Vitest UI 中查看覆盖率报告：查看 [覆盖率 | UI 模式](/guide/coverage#vitest-ui) 了解更多详情。
 
 ::: warning
@@ -49,11 +76,40 @@ export default defineConfig({
 
 ::: tip
 要预览你的 HTML 报告，可以使用 [vite preview](https://cn.vitejs.dev/guide/cli.html#vite-preview) 命令：
+=======
+```bash [CLI]
+vitest run --reporter=html
+```
+
+:::
+
+::: tip Keep terminal output
+Configuring the HTML reporter replaces the default terminal reporter. To keep terminal output, [include Vitest's default reporters](/guide/reporters#default-configuration).
+
+```ts [vitest.config.ts]
+import { configDefaults, defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    reporters: ['html', ...configDefaults.reporters],
+  },
+})
+```
+
+:::
+
+### Preview Locally
+
+By default, the report entry is written to `.vitest/index.html`. You can configure the artifact directory with the HTML reporter's `outputDir` option.
+
+To preview the default output, use the [vite preview](https://vitejs.dev/guide/cli.html#vite-preview) command:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```sh
 npx vite preview --outDir .vitest
 ```
 
+<<<<<<< HEAD
 你可以通过 HTML 报告器的 `outputDir` 选项来配置输出位置。它指向报告产物的根目录，报告入口文件会被写入 `<outputDir>/index.html`。默认值是 `.vitest`，即 Vitest 共享的产物目录。
 :::
 
@@ -61,6 +117,40 @@ npx vite preview --outDir .vitest
 
 ::: tip
 要在持续集成环境，例如 GitHub Actions 中查看 HTML 报告，请将输出目录作为产物上传：
+=======
+Open the URL printed by Vite in your browser. Alternatively, [VS Code's Integrated Browser](https://code.visualstudio.com/docs/debugtest/integrated-browser) can open `.vitest/index.html` directly without a preview server.
+
+### Share as a Single File
+
+Set `singleFile` to generate a self-contained HTML report:
+
+```ts [vitest.config.ts]
+export default defineConfig({
+  test: {
+    reporters: [
+      ['html', { singleFile: true }],
+    ],
+  },
+})
+```
+
+When `singleFile` is enabled, Vitest inlines the UI assets, metadata, and test attachments into a single self-contained `index.html`. This makes the report easy to share, upload, or download as one artifact instead of preserving the whole output directory.
+
+Because everything is inlined, you can open `<outputDir>/index.html` directly in a browser with a `file://` URL. No preview server is required.
+
+::: warning
+`singleFile` has two caveats:
+
+- The file can grow very large because everything is embedded inline. It can be slow to open, memory-hungry, or exceed the size limits of artifact viewers and static hosts.
+- Coverage HTML reports are not inlined yet and remain as separate files.
+
+Prefer the default multi-file report when the suite has many or large attachments, or when you need coverage included in the bundle.
+:::
+
+### View Reports from CI
+
+To view the HTML report from CI, for example in GitHub Actions, upload the output directory as an artifact:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```yaml
 - uses: actions/upload-artifact@v7
@@ -69,21 +159,42 @@ npx vite preview --outDir .vitest
     name: vitest-report
     path: .vitest/
 
-- name: Viewer link in summary
-  run: echo "[View HTML report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
+- name: Link HTML report
+  run: echo "::notice title=Vitest HTML report::$REPORT_URL"
+  env:
+    REPORT_URL: https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }}
 ```
 
+<<<<<<< HEAD
 这会在任务摘要中添加一个链接。点击该链接即可在浏览器中直接通过 [Vitest Viewer](https://viewer.vitest.dev/) 查看报告。你也可以手动下载产物并解压，然后按照前文所述在本地运行 `vite preview` 命令。
 
 当你使用 `singleFile: true` 时，报告作为单个文件进行上传，配合 `archive: false` 选项，报告直接可以在 GitHub Artifacts 中查看：
+=======
+This adds the report link as a notice annotation on the workflow run. Click it to open the report in [Vitest Viewer](https://viewer.vitest.dev/) directly in the browser. You can also download the artifact manually and extract it, then run `vite preview` locally as above.
+
+When you use `singleFile: true`, you can upload the report as a single file and view it directly from GitHub artifacts with the [`archive: false` option](https://github.com/actions/upload-artifact#upload-an-individual-file-unzipped):
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```yaml
 - uses: actions/upload-artifact@v7
+  id: upload-report
   with:
     path: .vitest/index.html
     archive: false
+
+- name: Link HTML report
+  run: echo "::notice title=Vitest HTML report::$REPORT_URL"
+  env:
+    REPORT_URL: ${{ steps.upload-report.outputs.artifact-url }}
 ```
-:::
+
+## Coverage
+
+Vitest UI displays coverage results in both the Live UI and HTML reports. See [Vitest UI Coverage](/guide/coverage#vitest-ui) for setup and usage.
+
+## Trace View
+
+Vitest UI replays recorded browser interactions when [`browser.traceView`](/guide/browser/trace-view) is enabled. The Live UI streams trace entries as tests run, while HTML reports preserve recorded traces for later review.
 
 ## 模块图 {#module-graph}
 

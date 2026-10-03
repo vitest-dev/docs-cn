@@ -35,7 +35,11 @@ function getRedirectPath(url: URL) {
   // /config/#reporters           -> /config/reporters
   // /config/#coverage-provider   -> /config/coverage#coverage-provider
   // /config/#browser.enabled     -> /config/browser/enabled
-  if (url.pathname === '/config' || url.pathname === '/config/' || url.pathname === '/config.html') {
+  if (
+    url.pathname === '/config' ||
+    url.pathname === '/config/' ||
+    url.pathname === '/config.html'
+  ) {
     if (url.hash.startsWith('#browser.')) {
       const [page, ...hash] = url.hash.slice('#browser.'.length).toLowerCase().split('-')
       return `/config/browser/${page}${hash.length ? `#${[page, ...hash].join('-')}` : ''}`
@@ -44,7 +48,11 @@ function getRedirectPath(url: URL) {
     return `/config/${page}${hash.length ? `#${[page, ...hash].join('-')}` : ''}`
   }
   // /guide/browser/config#browser.locators-testidattribute -> /config/browser/locators#browser-locators-testidattribute
-  if (url.pathname === '/guide/browser/config' || url.pathname === '/guide/browser/config/' || url.pathname === '/guide/browser/config.html') {
+  if (
+    url.pathname === '/guide/browser/config' ||
+    url.pathname === '/guide/browser/config/' ||
+    url.pathname === '/guide/browser/config.html'
+  ) {
     const [page, ...hash] = url.hash.slice('#browser.'.length).toLowerCase().split('-')
     return `/config/browser/${page}${hash.length ? `#${[page, ...hash].join('-')}` : ''}`
   }

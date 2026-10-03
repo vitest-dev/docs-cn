@@ -28,7 +28,11 @@ outline: deep
 此选项还会继承你的 `optimizeDeps` 配置（对于 Web 环境，Vitest 会扩展 `optimizeDeps`；对于 SSR 环境则会扩展 `ssr.optimizeDeps`）。如果在 `deps.optimizer` 中重定义 `include`/`exclude` 选项，运行测试时将会扩展你的 `optimizeDeps` 配置。若某选项同时出现在 `include` 和 `exclude` 列表中，Vitest 会自动将其从 `include` 中移除。
 
 ::: tip
+<<<<<<< HEAD
 你将无法通过编辑 `node_modules` 中的代码进行调试，因为这些代码实际位于 `cacheDir` 或 `test.cache.dir` 目录中。如需使用 `console.log` 语句进行调试，请直接修改对应文件，或通过 `deps.optimizer?.[mode].force` 选项强制重新打包。
+=======
+You will not be able to edit your `node_modules` code for debugging, since the code is actually located in your `cacheDir` directory. If you want to debug with `console.log` statements, edit it directly or force rebundling with `deps.optimizer?.[mode].force` option.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ### deps.optimizer.{mode}.enabled
@@ -38,7 +42,11 @@ outline: deep
 
 启用依赖项优化。
 
+<<<<<<< HEAD
 ## deps.client
+=======
+## deps.client {#deps-client}
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 - **类型:** `{ transformAssets?, ... }`
 

@@ -21,7 +21,11 @@ outline: deep
 :::
 
 ::: warning
+<<<<<<< HEAD
 当使用 `sequence.concurrent` 和将 `expect.requireAssertions` 设为 `true` 运行测试时，应当使用 [本地 expect](/guide/test-context.html#expect) 而非全局 expect。否则在 [某些情况下](https://github.com/vitest-dev/vitest/issues/8469) 出现误判为失败的情况。
+=======
+When you run tests with `sequence.concurrent` and `expect.requireAssertions` set to `true`, you should use [local expect](/guide/test-context#expect) instead of the global one. Otherwise, this may cause false negatives in [some situations (#8469)](https://github.com/vitest-dev/vitest/issues/8469).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ## expect.poll

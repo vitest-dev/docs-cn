@@ -66,16 +66,27 @@ export default defineConfig({
 })
 ```
 
+<<<<<<< HEAD
 并行批次完成后，串行批次才会开始。总耗时大致等于并行批次的耗时加上串行测试的累计耗时。
+=======
+The parallel batch finishes, _then_ the sequential batch starts. Total wall clock stays close to the parallel time plus sum of the sequential test run time.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ## 文件级与测试级作用域 {#file-scope-vs-test-scope}
 
 Vitest 中有两个用于控制“并行”的控制方式，请不要混淆：
 
+<<<<<<< HEAD
 | 范围     | 控制方式                                     | 控制内容                                 |
 | -------- | -------------------------------------------- | ---------------------------------------- |
 | 跨文件   | [`fileParallelism`](/config/fileparallelism) | 两个测试 _文件_ 是否在并行 worker 中运行 |
 | 文件内部 | `describe.concurrent`/`test.concurrent`      | 同一文件中的测试是否并行运行             |
+=======
+| Scope         | Knob                                         | Controls                                         |
+| ------------- | -------------------------------------------- | ------------------------------------------------ |
+| Across files  | [`fileParallelism`](/config/fileparallelism) | Whether two test _files_ run in parallel workers |
+| Within a file | `describe.concurrent` / `test.concurrent`    | Whether tests _inside one file_ run concurrently |
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 `fileParallelism: false` 不会让文件内的测试并行执行；默认情况下，文件内的测试会按顺序运行。同样，在 `describe` 或 `test` 上使用 `concurrent` 也不会影响测试文件的调度方式。
 

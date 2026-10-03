@@ -14,7 +14,11 @@ outline: deep
 
 默认情况下，系统总内存会平均分配给各个工作线程。增大 [`maxWorkers`](/config/maxworkers) 后，每个工作线程可用的内存会相应减少，因此工作线程也会更频繁地被回收。
 
+<<<<<<< HEAD
 合适的内存限制很大程度上取决于运行环境，因此建议手动设置，不要完全依赖默认值。
+=======
+This value heavily depends on your environment, so it's better to specify it manually instead of relying on the default.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 之所以需要回收工作线程，是因为 VM 上下文存在 [内存泄漏](https://github.com/nodejs/node/issues/33439)：工作线程每运行一个测试文件，内存占用都会增加，因此无法一直复用同一个工作线程。设置内存限制时，需要在以下两种情况之间进行权衡：
 
@@ -26,6 +30,7 @@ outline: deep
 
 可以通过多种不同的方式指定限制，无论结果是什么，`Math.floor` 都用于将其转换为整数值：
 
+<<<<<<< HEAD
 - `<= 1` - 该值假定为系统内存的百分比。所以 0.5 将 worker 的内存限制设置为系统总内存的一半。
 - `\> 1` - 假设是固定字节值。由于之前的规则，如果你想要 1 字节的值（我不知道为什么），你可以使用 1.1。
 - 有单位时
@@ -37,6 +42,20 @@ outline: deep
     - `MiB` - 兆字节
     - `G` / `GB` - 千兆字节
     - `GiB` - 千兆字节
+=======
+- `<= 1` - The value is assumed to be a percentage of system memory. So 0.5 sets the memory limit of the worker to half of the total system memory
+- `\> 1` - Assumed to be a fixed byte value. Because of the previous rule if you wanted a value of 1 byte (I don't know why) you could use 1.1.
+- With units
+  - `50%` - As above, a percentage of total system memory
+  - `100KB`, `65MB`, etc - With units to denote a fixed memory limit.
+    - `K` / `KB` - Kilobytes (x1000)
+    - `KiB` - Kibibytes (x1024)
+    - `M` / `MB` - Megabytes
+    - `MiB` - Mebibytes
+    - `G` / `GB` - Gigabytes
+    - `GiB` - Gibibytes
+
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ::: warning

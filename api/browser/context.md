@@ -191,7 +191,11 @@ await button.click() // 交互式方法可以正常工作 ✅
 await expect.element(button).toBeVisible() // 查询元素失败 ❌
 ```
 
+<<<<<<< HEAD
 如果你需要处理跨域 iframe，你需要在 [`launchOptions`](/config/browser/playwright.html#launchoptions) 中传递 `args: ["--disable-web-security"]`。或者创建一个自定义的 [浏览器命令](/api/browser/commands.html#custom-commands)，在服务器端访问可用的 iframe。
+=======
+If you need to work with cross-origin iframes, you'll need to pass `args: ["--disable-web-security"]` in [`launchOptions`](/config/browser/playwright#launchoptions). Or alternatively create a custom [browser command](/api/browser/commands#custom-commands) that accesses the iframe on server side where it's available.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ::: danger 重要
@@ -341,24 +345,41 @@ const html = utils.prettyDOM(element, undefined, {
 
 过滤掉脚本和样式：
 
+<<<<<<< HEAD
+=======
+Filter out scripts and styles:
+
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts
 utils.configurePrettyDOM({ filterNode: 'script, style' })
 ```
 
+<<<<<<< HEAD
 隐藏带有特定 data 属性的元素：
+=======
+Hide specific elements with data attributes:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 utils.configurePrettyDOM({ filterNode: '[data-test-hide]' })
 ```
 
+<<<<<<< HEAD
 隐藏元素内的嵌套内容：
+=======
+Hide nested content within an element:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 // 隐藏带有 data-test-hide-content 属性的元素的所有子元素
 utils.configurePrettyDOM({ filterNode: '[data-test-hide-content] *' })
 ```
 
+<<<<<<< HEAD
 组合多个选择器：
+=======
+Combine multiple selectors:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 utils.configurePrettyDOM({

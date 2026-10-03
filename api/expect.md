@@ -143,8 +143,14 @@ const flakyValue = await vi.waitFor(() => getFlakyValue())
 expect(flakyValue).toMatchSnapshot()
 ```
 
+<<<<<<< HEAD
 - `.resolves` 和 `.rejects` 不支持。 如果它是异步的，`expect.poll` 已经在等待。
 - `toThrow` 及其别名不受支持，因为 `expect.poll` 条件总是在匹配器获取值之前解析。
+=======
+- `.resolves` and `.rejects` are not supported. `expect.poll` already awaits the condition if it's asynchronous.
+- `toThrow` and its aliases are not supported because the `expect.poll` condition is always resolved before the matcher gets the value
+
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ## not
@@ -387,7 +393,11 @@ test('getApplesCount has some unusual side effects...', () => {
 
 - **类型:** `(sample: Array<any> | Set<any>) => any`
 
+<<<<<<< HEAD
 `toBeOneOf` 断言一个值是否与提供的数组或集合中的任意一个值相匹配。
+=======
+`toBeOneOf` asserts if a value matches any of the values in the provided array or set. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ::: warning 实验性功能
 提供 `Set` 是一个实验性功能，可能会在未来版本中发生变化。
@@ -448,6 +458,7 @@ test('toBeTypeOf cannot check for null or array', () => {
   expect([]).toBeTypeOf('object')
 })
 ```
+
 :::
 
 ## toBeInstanceOf
@@ -577,9 +588,15 @@ expect(new Error('hi')).toEqual(new Error('hi', { cause: 'x' }))
 
 与 [`.toEqual`](#toequal) 的区别：
 
+<<<<<<< HEAD
 - 检查具有 `undefined` 属性的键。 例如 使用 `.toStrictEqual` 时，`{a: undefined, b: 2}` 与 `{b: 2}` 不匹配。
 - 检查数组稀疏性。 例如 使用 `.toStrictEqual` 时，`[, 1]` 与 `[undefined, 1]` 不匹配。
 - 检查对象类型是否相等。 例如 具有字段 `a` 和 ` b` 的类实例不等于具有字段 `a` 和 ` b` 的文字对象。
+=======
+- Keys with `undefined` properties are checked. e.g. `{a: undefined, b: 2}` does not match `{b: 2}` when using `.toStrictEqual`.
+- Array sparseness is checked. e.g. `[, 1]` does not match `[undefined, 1]` when using `.toStrictEqual`.
+- Object types are checked to be equal. e.g. A class instance with fields `a` and `b` will not equal a literal object with fields `a` and `b`.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 import { expect, test } from 'vitest'
@@ -802,12 +819,18 @@ test('the number of elements must match exactly', () => {
 
 这不适用于异步调用，因为 [rejects](#rejects) 正确地解开了 promise:
 
+<<<<<<< HEAD
+=======
+This does not apply for async calls as [rejects](#rejects) correctly unwraps the promise:
+
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts
 test('expect rejects toThrow', async ({ expect }) => {
   const promise = Promise.reject(new Error('Test'))
   await expect(promise).rejects.toThrow()
 })
 ```
+
 :::
 
 例如，如果我们想要测试 `getFruitStock('pineapples')` 是否会抛出错误，我们可以这样写：
@@ -866,6 +889,7 @@ test('throws non-Error values', () => {
   expect(() => { throw { message: 'error' } }).toThrow({ message: 'error' })
 })
 ```
+
 :::
 
 ::: warning 使用假定时器时的未处理拒绝
@@ -912,6 +936,7 @@ test('rejects', async () => {
   await assertion
 })
 ```
+
 :::
 
 ## toMatchSnapshot
@@ -922,8 +947,13 @@ test('rejects', async () => {
 
 可以提供一个可选的 `hint` 字符串参数，它会附加到测试名称的末尾。尽管 Vitest 总是在快照名称的末尾附加一个数字，但简短的描述性提示可能比数字更有用，以区分单个 it 或 test 块中的多个快照。Vitest 会按名称在相应的 `.snap` 文件中对快照进行排序。
 
+<<<<<<< HEAD
 ::: tip
 当快照不匹配导致测试失败时，如果这种不匹配是预期的，我们可以按 `u` 键一次性更新快照。或者可以传递 `-u` 或 `--update` 命令行选项，使 Vitest 始终更新测试。
+=======
+:::tip
+When a snapshot mismatches and causes the test to fail, if the mismatch is expected, you can press `u` key to update the snapshot once. Or you can pass `-u` or `--update` CLI options to make Vitest always update the tests.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ```ts
@@ -1294,7 +1324,11 @@ test('spy function returns a value two times', () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 我们可以调用这个断言来检查函数是否至少一次成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully returned a certain value at least once. Requires a spy function to be passed to `expect`. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1312,7 +1346,11 @@ test('spy function returns a product', () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 我们可以使用这个断言来检查函数在最后一次被调用时是否成功返回了特定的值。需要将一个 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully returned a certain value when it was last invoked. Requires a spy function to be passed to `expect`. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 import { expect, test, vi } from 'vitest'
@@ -1331,7 +1369,11 @@ test('spy function returns bananas on a last call', () => {
 
 - **类型:** `(time: number, returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 我们可以调用这个断言来检查函数是否在特定的调用中成功返回了带有特定参数的值。需要将一个 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully returned a certain value on a certain call. Requires a spy function to be passed to `expect`. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 计数从 1 开始。因此，要检查第二个条目，你需要写 `.toHaveNthReturnedWith(2, ...)`。
 
@@ -1399,7 +1441,11 @@ test('spy function resolved a value two times', async () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 你可以调用此断言来检查函数是否至少成功解析过一次某个值。需要将 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully resolved a certain value at least once. Requires a spy function to be passed to `expect`. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
@@ -1419,7 +1465,11 @@ test('spy function resolved a product', async () => {
 
 - **类型:** `(returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 你可以调用此断言来检查函数在上次调用时是否已成功解析某个值。需要将 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully resolved a certain value when it was last invoked. Requires a spy function to be passed to `expect`. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 
@@ -1440,7 +1490,11 @@ test('spy function resolves bananas on a last call', async () => {
 
 - **类型:** `(time: number, returnValue: any) => Awaitable<void>`
 
+<<<<<<< HEAD
 你可以调用此断言来检查函数在特定调用中是否成功解析了某个值。需要将一个 spy 函数传递给 `expect`。
+=======
+You can call this assertion to check if a function has successfully resolved a certain value on a specific invocation. Requires a spy function to be passed to `expect`. Values are compared with the same deep equality as [`toEqual`](#toequal).
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 如果函数返回了一个 promise，但尚未 resolved，则将会失败。
 

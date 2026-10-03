@@ -39,10 +39,17 @@ _2025 年 1 月 17 日_
 
 快速链接:
 
+<<<<<<< HEAD
 - [英文文档](https://v3.vitest.dev/)
 - [简体中文](https://v3.cn.vitest.dev/)
 - [迁移指南](https://v3.cn.vitest.dev/guide/migration)
 - [GitHub 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)
+=======
+- [Docs](/)
+- Translations: [简体中文](https://v3.cn.vitest.dev/)
+- [Migration Guide](https://v3.vitest.dev/guide/migration)
+- [GitHub Changelog](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 如果你之前没有使用过 Vitest，我们建议你先阅读 [入门指南](/guide/) 和 [特性指南](/guide/features)。
 

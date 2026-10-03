@@ -8,8 +8,13 @@ title: 测试筛选 | 指南
 
 Vitest 提供了多种过滤测试的方式：可以通过命令行、在测试文件内部，或使用标签来过滤。不同的方法适用于不同的场景。
 
+<<<<<<< HEAD
 ::: tip 性能说明
 像 `-t`、`--tags-filter`、`.only` 和 `.skip` 这样的过滤方式，都是按 _文件级_ 应用的。也就是说，Vitest 仍然需要运行每个测试文件，才能找出哪些测试符合条件。在大型项目中，即使最终真正执行的测试只有少数几个，这部分开销也会逐渐累积变大。
+=======
+::: tip Performance Note
+Filters like `-t`, `--tags-filter`, `.only`, and `.skip` are applied _per test file_ — Vitest still has to run each test file to discover which tests match. In a large project, this overhead adds up even if only a few tests actually execute.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 为了避免这种情况，建议在使用过滤条件时同时传入文件路径，这样 Vitest 就只会加载你关注的哪些文件：
 
@@ -61,7 +66,11 @@ vitest utils -t "handles empty input"
 
 ## 按行号过滤 {#filtering-by-line-number}
 
+<<<<<<< HEAD
 当你在编辑器里查看某个具体测试时，通常只想运行那 _一个测试_。你可以直接指定对应的行号：
+=======
+When you're looking at a specific test in your editor, you often just want to run _that one test_. You can point directly to a line number:
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```bash
 vitest basic/foo.test.ts:10

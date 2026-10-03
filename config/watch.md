@@ -5,9 +5,15 @@ outline: deep
 
 # watch <CRoot /> {#watch}
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `!process.env.CI && process.stdin.isTTY`
 - **命令行终端:** `-w`, `--watch`, `--watch=false`
+=======
+- **Type:** `boolean`
+- **Default:** `!process.env.CI && process.stdin.isTTY`, and `false` when Vitest detects an AI coding agent
+- **CLI:** `-w`, `--watch`, `--watch=false`
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 启动监听模式
 

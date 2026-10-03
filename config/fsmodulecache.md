@@ -5,11 +5,19 @@ outline: deep
 
 # fsModuleCache <Version>5.0.0</Version>
 
+<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--fsModuleCache`, `--fsModuleCache=false`
 
 在 watch 模式下，Vitest 会将所有转换后的文件缓存在内存中，从而加快重新运行测试的速度。但测试运行结束后，这些缓存便会被丢弃。启用此选项后，Vitest 会将转换后的模块持久化到文件系统中，以便在后续重新运行测试时复用，甚至可以在不同的 Vitest 进程之间共享。
+=======
+- **Type:** `boolean`
+- **Default:** `true`
+- **CLI:** `--fsModuleCache`, `--fsModuleCache=false`
+
+In watch mode, Vitest caches all transformed files in memory, which makes reruns fast. However, this cache is discarded once the test run finishes. This option allows Vitest to persist the transformed modules on the file system, so they can be reused across reruns and separate Vitest processes.
+>>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 工作区中的所有项目共用一个缓存目录。默认情况下，该目录位于工作区根目录的 `node_modules` 中，因此重新安装依赖项时，缓存也会随之失效。你可以通过 [`fsModuleCachePath`](/config/fsmodulecachepath) 更改缓存目录，也可以运行 [`vitest --clearCache`](/guide/cli#clearcache) 删除缓存。
 
