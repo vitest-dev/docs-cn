@@ -253,16 +253,9 @@ Vitest 使用 [fast-glob](https://npmx.dev/package/fast-glob) 来查找测试文
 
 此方法查看多个配置选项：
 
-<<<<<<< HEAD
 - `test.include`、`test.exclude` 用于查找常规测试文件
 - `test.includeSource`、`test.exclude` 用于查找源代码中的测试
 - `test.typecheck.include`、`test.typecheck.exclude` 用于查找类型检查测试
-=======
-- `test.include`, `test.exclude` to find regular test files
-- `test.includeSource`, `test.exclude` to find in-source tests
-- `test.typecheck.include`, `test.typecheck.exclude` to find typecheck tests
-
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 ## matchesTestGlob

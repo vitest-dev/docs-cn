@@ -479,8 +479,4 @@ import { parse } from 'my-library'
   })
   ```
 
-<<<<<<< HEAD
 - **浏览器差异**：V8（Chrome）、SpiderMonkey（Firefox）和 JSC（Safari）对不同模式的优化方式不同。在 Chrome 中表现更好的库，在 Firefox 中可能恰好相反。
-=======
-- **Cross-browser differences**: V8 (Chrome), SpiderMonkey (Firefox), and JSC (Safari) optimize different patterns differently. A benchmark that shows one library winning in Chrome may show the opposite in Firefox.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933

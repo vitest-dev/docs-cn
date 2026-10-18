@@ -17,12 +17,7 @@ async function download(url: string, fileName: string) {
   try {
     const image = await (await fetch(url)).arrayBuffer()
     await fsp.writeFile(fileName, Buffer.from(image))
-<<<<<<< HEAD
-  }
-  catch { }
-=======
   } catch {}
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 }
 
 async function fetchAvatars() {

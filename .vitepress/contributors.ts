@@ -161,7 +161,6 @@ const plainTeamEmeritiMembers: CoreTeam[] = [
   },
 ]
 
-<<<<<<< HEAD
 const plainTranslationTeamMembers: CoreTeam[] = [
   {
     avatar: 'https://github.com/elonehoo.png',
@@ -201,12 +200,8 @@ const plainTranslationTeamMembers: CoreTeam[] = [
   },
 ]
 
-const teamMembers = plainTeamMembers.map(tm => createLinks(tm))
-const teamEmeritiMembers = plainTeamEmeritiMembers.map(tm => createLinks(tm))
-const translationTeamMembers = plainTranslationTeamMembers.map(tm => createLinks(tm))
-=======
 const teamMembers = plainTeamMembers.map((tm) => createLinks(tm))
 const teamEmeritiMembers = plainTeamEmeritiMembers.map((tm) => createLinks(tm))
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+const translationTeamMembers = plainTranslationTeamMembers.map((tm) => createLinks(tm))
 
 export { teamEmeritiMembers, teamMembers, translationTeamMembers }

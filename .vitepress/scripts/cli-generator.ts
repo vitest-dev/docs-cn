@@ -79,16 +79,6 @@ function resolveCommand(name: string, config: CLIOption<any> | null): any {
 
 const options = resolveOptions(cliOptionsConfig)
 
-<<<<<<< HEAD
-const template = options.map((option) => {
-  const title = option.title
-  const cli = option.cli
-  const [page, ...hash] = (title.startsWith('browser.') ? title.slice(8) : title).toLowerCase().split('.')
-  const config = skipConfig.has(title) ? '' : `[${title}](${title.includes('browser.') ? '/config/browser/' : '/config/'}${page}${hash.length ? `#${[page, ...hash].join('-')}` : ''})`
-
-  return `### ${title}\n\n- **CLI:** ${cli}\n${config ? `- **Config:** ${config}\n` : ''}\n${option.description.replace(/https:\/\/vitest\.dev\//g, '/')}\n`
-}).join('\n')
-=======
 const template = options
   .map((option) => {
     const title = option.title
@@ -102,6 +92,5 @@ const template = options
     return `### ${title}\n\n- **CLI:** ${cli}\n${config ? `- **Config:** ${config}\n` : ''}\n${option.description.replace(/https:\/\/vitest\.dev\//g, '/')}\n`
   })
   .join('\n')
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 writeFileSync(cliTablePath, template, 'utf-8')

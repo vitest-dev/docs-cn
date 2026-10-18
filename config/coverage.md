@@ -5,11 +5,7 @@ outline: deep
 
 # coverage <CRoot /> {#coverage}
 
-<<<<<<< HEAD
-你可以选择 [`v8`](/guide/coverage.html#v8-provider)、[`istanbul`](/guide/coverage.html#istanbul-provider) 或 [自定义代码覆盖率工具](/guide/coverage#custom-coverage-provider) 来进行代码覆盖率统计。
-=======
-You can use [`v8`](/guide/coverage#v8-provider), [`istanbul`](/guide/coverage#istanbul-provider) or [a custom coverage solution](/guide/coverage#custom-coverage-provider) for coverage collection.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+你可以选择 [`v8`](/guide/coverage#v8-provider)、[`istanbul`](/guide/coverage#istanbul-provider) 或 [自定义代码覆盖率工具](/guide/coverage#custom-coverage-provider) 来进行代码覆盖率统计。
 
 你可以通过点符号向 CLI 提供覆盖率选项：
 
@@ -51,11 +47,7 @@ npx vitest --coverage.enabled --coverage.provider=istanbul
 
 规则会与项目中每个文件相对于项目根目录路径进行匹配。不含 glob 通配符的匹配规则会被当作目录处理，并匹配该目录下的所有内容，因此 `include: ['src']` 等同于 `include: ['src/**']`。
 
-<<<<<<< HEAD
-更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
-=======
-See [Including and excluding files from coverage report](/guide/coverage#including-and-excluding-files-from-coverage-report) for examples.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage#including-and-excluding-files-from-coverage-report)。
 
 ## coverage.exclude
 
@@ -66,11 +58,7 @@ See [Including and excluding files from coverage report](/guide/coverage#includi
 
 以 glob 模式指定从代码覆盖率中排除的文件列表。匹配方式与 [`coverage.include`](#coverage-include) 相似。
 
-<<<<<<< HEAD
-更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage.html#including-and-excluding-files-from-coverage-report)。
-=======
-See [Including and excluding files from coverage report](/guide/coverage#including-and-excluding-files-from-coverage-report) for examples.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+更多示例请参阅 [在覆盖率报告中包含和排除文件](/guide/coverage#including-and-excluding-files-from-coverage-report)。
 
 ## coverage.clean
 
@@ -114,16 +102,10 @@ See [Including and excluding files from coverage report](/guide/coverage#includi
 
 报告器有三种不同的类型：
 
-<<<<<<< HEAD
 - 单个报告器：`{ reporter: 'html' }`
 - 不带选项的多个报告器：`{ reporter: ['html', 'json'] }`
 - 带有报告器选项的单个或多个报告器：
   <!-- eslint-skip -->
-=======
-- A single reporter: `{ reporter: 'html' }`
-- Multiple reporters without options: `{ reporter: ['html', 'json'] }`
-- A single or multiple reporters with reporter options:
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
   ```ts
   {
     reporter: [
@@ -428,13 +410,8 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 
 ## coverage.watermarks
 
-<<<<<<< HEAD
 - **类型:**
-<!-- eslint-skip -->
-=======
-- **Type:**
 
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts
 {
   statements?: [number, number],
@@ -444,13 +421,8 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 }
 ```
 
-<<<<<<< HEAD
 - **默认值:**
-<!-- eslint-skip -->
-=======
-- **Default:**
 
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts
 {
   statements: [50, 80],
@@ -526,11 +498,7 @@ export default defineConfig({
 - **默认值:** 从 `html`、`html-spa` 或 `lcov` 代码覆盖率报告器自动推断
 - **命令行终端:** `--coverage.htmlDir=<path>`
 
-<<<<<<< HEAD
 要在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中提供的 HTML 代码覆盖率输出目录。
-=======
-Directory of HTML coverage output to be served in [Vitest UI](/guide/ui) and [HTML reporter](/guide/reporters#html-reporter).
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 使用内置代码覆盖率报告器生成 HTML 输出（`html`、`html-spa` 和 `lcov`）时会自动配置此项。使用自定义代码覆盖率报告器时，使用此选项可覆盖为自定义代码覆盖率报告位置。
 
@@ -554,4 +522,4 @@ Directory of HTML coverage output to be served in [Vitest UI](/guide/ui) and [HT
 
 跟踪测试运行期间生成的 `node:child_process` 和 `node:worker_threads` 的覆盖率。
 
-请注意，此选项有一定的性能开销，因为它在内部使用了 [`NODE_V8_COVERAGE`](https://nodejs.org/api/cli.html#node-v8-coveragedir)。这会触发 Node 在文件系统上写入大量不必要的文件。
+请注意，此选项有一定的性能开销，因为它在内部使用了 [`NODE_V8_COVERAGE`](https://nodejs.org/api/cli#node-v8-coveragedir)。这会触发 Node 在文件系统上写入大量不必要的文件。

@@ -17,18 +17,11 @@ Vitest 公开了两种启动 Vitest 的方法：
 import { startVitest } from 'vitest/node'
 
 const vitest = await startVitest(
-<<<<<<< HEAD
   'test',
   [], // CLI 筛选
   {}, // 覆盖 test 配置
   {}, // 覆盖 Vite 配置
   {}, // 自定义 Vitest 选项
-=======
-  [], // CLI filters
-  {}, // override test config
-  {}, // override Vite config
-  {}, // custom Vitest options
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 )
 const testModules = vitest.state.getTestModules()
 for (const testModule of testModules) {
@@ -46,16 +39,10 @@ for (const testModule of testModules) {
 import { createVitest } from 'vitest/node'
 
 const vitest = await createVitest(
-<<<<<<< HEAD
   'test',
   {}, // 覆盖 test 配置
   {}, // 覆盖 Vite 配置
   {}, // 自定义 Vitest 选项
-=======
-  {}, // override test config
-  {}, // override Vite config
-  {}, // custom Vitest options
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 )
 
 // 当调用 `vitest.cancelCurrentRun()` 时调用

@@ -219,16 +219,11 @@ if (import.meta.vitest) {
 ```
 
 了解更多信息 [源码内联测试](/guide/in-source)
+<!-- TODO: translation -->
 
-<<<<<<< HEAD
-## 基准测试 <Experimental /> {#benchmarking}
-
-你可以使用 [`bench`](/api/test#bench) 运行基准测试通过 [Tinybench](https://github.com/tinylibs/tinybench) 函数来比较基准测试结果。
-=======
-## Benchmarking {#benchmarking}
+## 基准测试 {#benchmarking}
 
 You can run benchmark tests with the [`bench`](/api/test#bench) fixture from the [test context](/guide/test-context#bench) via [Tinybench](https://github.com/tinylibs/tinybench) to compare performance results.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts [sort.bench.ts]
 import { test } from 'vitest'

@@ -704,12 +704,7 @@ function toHaveTextContent(
 ): Promise<void>
 ```
 
-<<<<<<< HEAD
 该匹配器用于验证元素的文本是否与提供的字符串完全匹配。它不仅支持元素，也支持文本节点和片段。
-=======
-This matcher allows you to validate that an element's text matches provided string exactly. This
-supports elements, but also text nodes and fragments. Called without arguments, it asserts that the element has some text content, so `.not.toHaveTextContent()` checks that it is empty.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 如果你希望执行部分匹配或进行大小写敏感的匹配，请改用 [`toMatchTextContent`](#tomatchtextcontent)。
 
@@ -1154,12 +1149,7 @@ await expect.element(getByTestId('button')).toMatchScreenshot('fancy-button', {
 
 - `screenshotOptions: object`
 
-<<<<<<< HEAD
   与 [`locator.screenshot()`](/api/browser/locators.html#screenshot) 支持的选项一致，但以下情况除外：
-=======
-  The same options allowed by
-  [`locator.screenshot()`](/api/browser/locators#screenshot), except for:
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
   - `'base64'`
   - `'path'`

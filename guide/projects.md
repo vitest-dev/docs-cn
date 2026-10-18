@@ -169,13 +169,11 @@ export default defineProject({
 })
 ```
 
-<<<<<<< HEAD
-## 运行测试 {#running-tests}
-=======
+<!-- TODO: translation -->
+
 By default, `process.cwd()` in every project's tests returns the directory where Vitest was started, even if the project has a different root. See [Project Working Directory Does Not Change](/guide/common-errors#project-working-directory-does-not-change) for details and a workaround.
 
-## Running Tests
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+## 运行测试 {#running-tests}
 
 在根目录的 `package.json` 中定义脚本：
 
@@ -231,13 +229,8 @@ bun run test --project e2e
 
 :::
 
-<<<<<<< HEAD
-::: tip
-CLI 选项 `--project` 可以多次使用，以筛选多个项目：
-=======
 :::: tip
-CLI option `--project` can be used multiple times to filter out several projects:
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+CLI 选项 `--project` 可以多次使用，以筛选多个项目：
 
 ::: code-group
 
@@ -258,11 +251,7 @@ bun run test --project e2e --project unit
 ```
 
 :::
-<<<<<<< HEAD
-:::
-=======
 ::::
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 过滤器支持 `*` 通配符和 `!` 排除符。一个项目在不匹配任何否定模式的前提下，同时提供了正则模式，则还需至少匹配其中一个正则模式，才会运行：
 

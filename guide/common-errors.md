@@ -47,10 +47,8 @@ export default defineConfig({
 当 NodeJS 的 `fetch` 与 [`pool: 'threads'`](/config/pool#threads) 一起使用时，可能会出现此错误。详情请参阅 [#3077](https://github.com/vitest-dev/vitest/issues/3077)。
 
 默认的 [`pool: 'forks'`](/config/pool#forks) 不存在此问题。如果你已显式设置 `pool: 'threads'`，切换回 `'forks'` 或使用 [`'vmForks'`](/config/pool#vmforks) 即可解决。
+<!-- TODO: translation -->
 
-<<<<<<< HEAD
-## 自定义包条件无法解析 {#custom-package-conditions-are-not-resolved}
-=======
 ## Project Working Directory Does Not Change
 
 In a [multi-project run](/guide/projects), `process.cwd()` in project config files and tests returns the directory where Vitest was started by default. A project's [`root`](/config/root) controls where Vitest looks for its files, but it does not change the process working directory. Vite plugins can read the project root from the resolved Vite config's `root` property.
@@ -76,8 +74,7 @@ process.chdir(fileURLToPath(new URL('.', import.meta.url)))
 
 This changes the working directory in the test worker, after config loading. The [`threads` pool](/config/pool#threads) cannot use `process.chdir()`.
 
-## Custom package conditions are not resolved
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+## 自定义包条件无法解析 {#custom-package-conditions-are-not-resolved}
 
 如果你在 `package.json` 的 [exports](https://nodejs.org/api/packages.html#package-entry-points) 或 [subpath imports](https://nodejs.org/api/packages.html#subpath-imports) 中使用了自定义条件，你可能会发现 Vitest 默认不遵循这些条件。
 
@@ -114,16 +111,8 @@ export default defineConfig({
 })
 ```
 
-<<<<<<< HEAD
 ::: tip 为什么是 `ssr.resolve.conditions` 而不是 `resolve.conditions`?
 Vitest 遵循 Vite 的配置约定：
-=======
-::: tip Why `ssr.resolve.conditions` and not `resolve.conditions`?
-Vitest follows Vite's configuration convention:
-
-- [`resolve.conditions`](https://vite.dev/config/shared-options#resolve-conditions) applies to Vite's `client` environment, which corresponds to Vitest's browser mode, jsdom, happy-dom, or custom environments with `viteEnvironment: 'client'`.
-- [`ssr.resolve.conditions`](https://vite.dev/config/ssr-options#ssr-resolve-conditions) applies to Vite's `ssr` environment, which corresponds to Vitest's node environment or custom environments with `viteEnvironment: 'ssr'`.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 - [`resolve.conditions`](https://cn.vite.dev/config/shared-options#resolve-conditions) 适用于 Vite 的 `client` 环境，对应 Vitest 的浏览器模式、jsdom、happy-dom，以及使用 `viteEnvironment: 'client'` 的自定义环境。
 - [`ssr.resolve.conditions`](https://cn.vite.dev/config/ssr-options#ssr-resolve-conditions) 适用于 Vite 的 `ssr` 环境，对应 Vitest 的 node 环境或使用 `viteEnvironment: 'ssr'` 的自定义环境。

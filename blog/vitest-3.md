@@ -39,17 +39,10 @@ _2025 年 1 月 17 日_
 
 快速链接:
 
-<<<<<<< HEAD
 - [英文文档](https://v3.vitest.dev/)
 - [简体中文](https://v3.cn.vitest.dev/)
 - [迁移指南](https://v3.cn.vitest.dev/guide/migration)
 - [GitHub 更新日志](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)
-=======
-- [Docs](/)
-- Translations: [简体中文](https://v3.cn.vitest.dev/)
-- [Migration Guide](https://v3.vitest.dev/guide/migration)
-- [GitHub Changelog](https://github.com/vitest-dev/vitest/releases/tag/v3.0.0)
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 如果你之前没有使用过 Vitest，我们建议你先阅读 [入门指南](/guide/) 和 [特性指南](/guide/features)。
 
@@ -57,7 +50,7 @@ _2025 年 1 月 17 日_
 
 如果你要开始参与，我们建议你帮助 [分类问题](https://github.com/vitest-dev/vitest/issues)、[审查 PR](https://github.com/vitest-dev/vitest/pulls)、基于开放的问题发送包含失败测试的 PR，并在 [Discussions](https://github.com/vitest-dev/vitest/discussions) 和 Vitest Land 的帮助论坛中 [帮助其他人](https://discord.com/channels/917386801235247114/1057959614160851024)。如果你想与我们交流，请加入我们的 [Discord 社区](http://chat.vitest.dev/)，并在 [#contributing 频道](https://discord.com/channels/917386801235247114/1057959614160851024) 上打个招呼。
 
-要获取关于 Vitest 生态系统和 Vitest Core 的最新消息，请在 [Bluesky](https://bsky.app/profile/vitest.dev) 或  [Mastodon](https://webtoo.ls/@vitest) 上关注我们。
+要获取关于 Vitest 生态系统和 Vitest Core 的最新消息，请在 [Bluesky](https://bsky.app/profile/vitest.dev) 或 [Mastodon](https://webtoo.ls/@vitest) 上关注我们。
 
 ## 报告器更新 {#reporter-updates}
 

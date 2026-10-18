@@ -101,7 +101,7 @@ beforeAll(async () => {
 })
 ```
 
- 此处，`beforeAll` 确保在测试运行前完成模拟数据的初始化。
+此处，`beforeAll` 确保在测试运行前完成模拟数据的初始化。
 
 `beforeAll` 还可以返回一个可选的清理函数（等价于 [`afterAll`](#afterall)）。唯一区别在于该钩子会在所有其他 `afterAll` 钩子执行完毕后运行：
 
@@ -178,25 +178,15 @@ test('insert user', async () => {
 })
 ```
 
-<<<<<<< HEAD
 ::: tip 何时使用 `aroundEach`
 当测试需要在某个 **上下文内部** 运行时，使用 `aroundEach`，例如：
+
 - 将测试包裹在 [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) 上下文中
 - 将测试包裹在追踪 span 中
 - 数据库事务
 
 如果只需要在测试前后执行代码，建议使用带清理返回函数的 [`beforeEach`](#beforeeach)。
-=======
-::: tip When to use `aroundEach`
-Use `aroundEach` when your test needs to run **inside a context** that wraps around it, such as:
 
-- Wrapping tests in [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) context
-- Wrapping tests with tracing spans
-- Database transactions
-
-If you just need to run code before and after tests, prefer using [`beforeEach`](#beforeeach) with a cleanup return function:
-
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts
 beforeEach(async () => {
   await database.connect()
@@ -304,25 +294,15 @@ test('test 2', () => {
 })
 ```
 
-<<<<<<< HEAD
 ::: tip 何时使用 `aroundAll`
 当整个测试套件需要在某个 **上下文内部** 运行时，使用 `aroundAll`，例如：
+
 - 将整个测试套件包裹在 [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) 上下文中
 - 将测试套件包裹在追踪 span 中
 - 数据库事务
 
 如果只需要在所有测试前后各执行一次代码，建议使用带清理返回函数的 [`beforeAll`](#beforeall)：
-=======
-::: tip When to use `aroundAll`
-Use `aroundAll` when your suite needs to run **inside a context** that wraps around all tests, such as:
 
-- Wrapping an entire suite in [AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage) context
-- Wrapping a suite with tracing spans
-- Database transactions
-
-If you just need to run code once before and after all tests, prefer using [`beforeAll`](#beforeall) with a cleanup return function:
-
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts
 beforeAll(async () => {
   await server.start()
@@ -392,7 +372,7 @@ Vitest 提供了一些可在 _测试执行期间_ 调用的钩子，用于在测
 
 ### onTestFinished {#ontestfinished}
 
-该钩子在测试运行完毕后始终会被调用。它在 `afterEach` 钩子之后调用，因为 `afterEach` 可能影响测试结果。与  `beforeEach` 和 `afterEach` 一样，它接收一个 `TestContext` 对象。
+该钩子在测试运行完毕后始终会被调用。它在 `afterEach` 钩子之后调用，因为 `afterEach` 可能影响测试结果。与 `beforeEach` 和 `afterEach` 一样，它接收一个 `TestContext` 对象。
 
 ```ts {1,5}
 import { onTestFinished, test } from 'vitest'

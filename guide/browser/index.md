@@ -138,11 +138,7 @@ export default defineConfig({
 ```
 
 ::: info
-<<<<<<< HEAD
 Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`api`](/config/api) 选项来更改这个端口号。
-=======
-Vitest assigns port `63315` to avoid conflicts with the development server, allowing you to run both in parallel. You can change that with the [`api`](/config/api) option. The port is bound when the first browser is launched, or on startup if `api` or `ui` is enabled.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 :::
 
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
@@ -312,6 +308,7 @@ export default defineConfig({
 ## 浏览器选项类型 {#browser-option-types}
 
 Vitest 中的浏览器选项取决于 provider。如果在配置文件中传递 `--browser` 且未指定其名称，则 Vitest 将失败。可用选项：
+
 - `webdriverio` 支持这些浏览器:
   - `firefox`
   - `chrome`

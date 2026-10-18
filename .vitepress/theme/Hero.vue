@@ -8,13 +8,7 @@
           <span class="text-grey text-xs font-mono uppercase tracking-wide">By</span>
           <img src="@assets/logos/voidzero-light.svg" alt="VoidZero" class="h-2.5" />
         </a>
-<<<<<<< HEAD
-        <h1 class="text-white text-pretty">
-          下一代测试框架
-        </h1>
-=======
-        <h1 class="text-white text-pretty">Next Generation Testing Framework</h1>
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+        <h1 class="text-white text-pretty">下一代测试框架</h1>
         <p class="text-white/70 text-lg max-w-[25rem] text-pretty">
           一个原生支持 Vite 的测试框架。快得惊人！
         </p>
@@ -22,18 +16,13 @@
           <a href="/guide/" class="button button--primary inline-block w-fit">
             <span>快速开始</span>
           </a>
-<<<<<<< HEAD
-          <a href="https://github.com/vitest-dev/vitest" target="_blank" rel="noopener noreferrer" class="button inline-block w-fit">
-            查看源码
-=======
           <a
             href="https://github.com/vitest-dev/vitest"
             target="_blank"
             rel="noopener noreferrer"
             class="button inline-block w-fit"
           >
-            View on GitHub
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+            查看源码
           </a>
         </div>
       </div>

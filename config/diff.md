@@ -58,15 +58,9 @@ export default {
 
 ## diff.expand
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `true`
+- **默认值:** `false`
 - **命令行终端:** `--diff.expand=false`
-=======
-- **Type:** `boolean`
-- **Default:** `false`
-- **CLI:** `--diff.expand=false`
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 展开所有公共行。
 

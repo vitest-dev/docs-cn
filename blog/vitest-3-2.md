@@ -74,12 +74,7 @@ const test = baseTest.extend({
 
 使用 `projects` 时，你现在可以设置自定义 [颜色](/config/name)：
 
-<<<<<<< HEAD
 ::: details 配置示例
-=======
-::: details Config Example
-
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 ```ts{6-9,14-17}
 export default defineConfig({
   test: {

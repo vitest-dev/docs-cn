@@ -112,19 +112,11 @@ DOM 环境的创建成本很高：每次导入 `jsdom` 大约需要 200-500 毫�
 
 以下三种配置可以降低这项成本：
 
-<<<<<<< HEAD
 | 配置                                                  | 环境创建频率     | 隔离方式                                        | 权衡                                                                                                                                                 |
 | ----------------------------------------------------- | ---------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pool: 'forks'`/`'threads'` + `isolate: true`（默认） | 每个文件一次     | 每个文件使用全新的进程/线程和环境               | 最安全，但速度最慢                                                                                                                                   |
 | `pool: 'vmThreads'`                                   | 每个 worker 一次 | 每个文件使用全新的 VM 上下文和 `window`         | 测试代码在 VM realm 中运行：外部化包可能出现跨 realm 的 `instanceof` 边界问题，而且内存回收不够可靠（参见 [`vmMemoryLimit`](/config/vmmemorylimit)） |
 | `isolate: false`                                      | 每个 worker 一次 | 无隔离 - 同一 worker 中的文件共享环境和模块状态 | 测试不能依赖干净的 `window` 或模块状态；运行 `vitest doctor` 进行检查                                                                                |
-=======
-| configuration                                           | environment created | isolation                                                              | trade-off                                                                                                                                                                            |
-| ------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `pool: 'forks'`/`'threads'` + `isolate: true` (default) | once per file       | fresh process/thread and environment per file                          | safest, slowest                                                                                                                                                                      |
-| `pool: 'vmThreads'`                                     | once per worker     | fresh VM context and `window` per file                                 | test code runs in a VM realm: cross-realm `instanceof` edge cases with externalized packages, and memory is not reclaimed as reliably (see [`vmMemoryLimit`](/config/vmmemorylimit)) |
-| `isolate: false`                                        | once per worker     | none - files in the same worker share the environment and module state | tests must not depend on a clean `window` or module state; run `vitest doctor` to check                                                                                              |
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
@@ -145,11 +137,7 @@ export default defineConfig({
 
 ## 重新运行间的缓存机制 {#caching-between-reruns}
 
-<<<<<<< HEAD
 在监听模式下，Vitest 会将所有转换后的文件缓存在内存中，从而实现快速重新运行。不过该缓存会在测试运行结束后被清除。通过启用 [`fsModuleCache`](/config/fsmodulecache) 配置，Vitest 会将此缓存持久化到文件系统，使其能在多次重运行间复用。
-=======
-In watch mode, Vitest caches all transformed files in memory, which makes reruns fast. However, this cache is discarded once the test run finishes. With [`fsModuleCache`](/config/fsmodulecache) (enabled by default), Vitest persists this cache to the file system so it can be reused across reruns.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 当重新运行少量依赖大型模块图的测试时，这种优化效果最为显著。对于完整测试套件，由于并行化机制会在早期测试仍在运行时通过其他测试填充内存缓存，其性能损耗已得到缓解。例如运行一个依赖庞大模块图（>900 个模块）的测试文件时：
 
@@ -175,11 +163,7 @@ NODE_COMPILE_CACHE=node_modules/.cache/node-compile-cache vitest
 
 ## 运行池 {#pool}
 
-<<<<<<< HEAD
-默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
-=======
-By default Vitest runs tests in `pool: 'forks'`. While `'forks'` pool is better for compatibility issues ([hanging process](/guide/common-errors#failed-to-terminate-worker) and [segfaults](/guide/common-errors#segfaults-and-native-code-errors)), it may be slightly slower than `pool: 'threads'` in larger projects.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 

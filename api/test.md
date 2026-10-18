@@ -161,7 +161,7 @@ type Retry = number | {
 - **类型:** `string[]`
 - **默认值:** `[]`
 
- 用户自定义 [标签](/guide/test-tags)。如果标签未在 [配置文件](/config/tags) 中声明，测试将在启动前失败，除非手动禁用 [`strictTags`](/config/stricttags)。
+用户自定义 [标签](/guide/test-tags)。如果标签未在 [配置文件](/config/tags) 中声明，测试将在启动前失败，除非手动禁用 [`strictTags`](/config/stricttags)。
 
 ```ts
 import { it } from 'vitest'
@@ -287,11 +287,7 @@ test('server uses correct port', ({ config, server }) => {
 
 ## test.override <Version>4.1.0</Version> {#test-override}
 
-<<<<<<< HEAD
 使用 `test.override` 覆盖当前测试套件及其嵌套测试套件中所有测试的 fixture 值。须在 `describe` 块的顶层调用。更多内容请参阅 [覆盖 Fixture 值](/guide/test-context.html#overriding-fixture-values)。
-=======
-Use `test.override` to override fixture values for all tests within the current suite and its nested suites. This must be called at the top level of a `describe` block. See [Overriding Fixture Values](/guide/test-context#overriding-fixture-values) for more information.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
 
 ```ts
 import { test as baseTest, describe, expect } from 'vitest'
@@ -496,7 +492,7 @@ test.fails('repro #1234', () => {
 - **别名:** `it.each`
 
 ::: tip
-`test.each` 是为兼容 Jest 而提供的，Vitest 还提供了 [`test.for`](#test-for)，额外支持集成  [`TestContext`](/guide/test-context)。
+`test.each` 是为兼容 Jest 而提供的，Vitest 还提供了 [`test.for`](#test-for)，额外支持集成 [`TestContext`](/guide/test-context)。
 :::
 
 当需要以不同变量运行相同测试时，使用 `test.each`。你可以在测试名称中按测试函数参数顺序，使用 [printf 格式化](https://nodejs.org/api/util.html#util_util_format_format_args) 注入参数。
@@ -576,13 +572,8 @@ ${{ val: 3 }}   | ${'b'} | ${'3b'}
 // ✓ add(3, b) -> 3b
 ```
 
-<<<<<<< HEAD
-* 第一行应为列名，以 `|` 分隔；
-* 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
-=======
-- First row should be column names, separated by `|`;
-- One or more subsequent rows of data supplied as template literal expressions using `${value}` syntax.
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+- 第一行应为列名，以 `|` 分隔；
+- 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -645,7 +636,7 @@ test.concurrent.for([
 
 ## test.describe <Version>4.1.0</Version> {#test-describe}
 
- 挂载在 test.extend 实例上的 `describe`。更多内容请参阅 [describe](/api/describe)。
+挂载在 test.extend 实例上的 `describe`。更多内容请参阅 [describe](/api/describe)。
 
 ## test.suite <Version>4.1.0</Version> {#test-suite}
 

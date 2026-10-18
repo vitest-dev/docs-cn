@@ -534,19 +534,11 @@ export function ignored() { // [!code error]
 
 ## 覆盖率性能 {#coverage-performance}
 
-<<<<<<< HEAD
-如果你的项目中代码覆盖率生成较慢，请参阅 [性能测试分析 | 代码覆盖率](/guide/profiling-test-performance.html#code-coverage)。
-=======
-If code coverage generation is slow on your project, see [Profiling Test Performance | Code coverage](/guide/profiling-test-performance#code-coverage).
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+如果你的项目中代码覆盖率生成较慢，请参阅 [性能测试分析 | 代码覆盖率](/guide/profiling-test-performance#code-coverage)。
 
 ## UI 模式 {#vitest-ui}
 
-<<<<<<< HEAD
-你可以在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters.html#html-reporter) 中查看覆盖率报告。
-=======
-You can check your coverage report in [Vitest UI](/guide/ui) and [HTML reporter](/guide/reporters#html-reporter).
->>>>>>> 9090f1432b6c7b03dcae1dfd84f09caaf62fb933
+你可以在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters#html-reporter) 中查看覆盖率报告。
 
 此功能已与具有 HTML 输出的内置覆盖率报告器集成（`html`、`html-spa` 和 `lcov` 报告器）。`html` 报告器默认启用，开箱即用。若要与自定义报告器集成，可以配置 [`coverage.htmlDir`](/config/coverage#coverage-htmldir)。
 
