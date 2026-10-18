@@ -25,6 +25,6 @@ jobs:
         run: nci
 
       - name: Lint
-        run: nr lint --fix
+        run: nr lint:fix
 
       - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27

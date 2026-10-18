@@ -34,6 +34,7 @@ const deleteButton = page
 await deleteButton.click()
 await expect.element(deleteButton).toBeEnabled()
 ```
+
 :::
 
 ## getByRole
@@ -88,11 +89,13 @@ await page.getByRole('button', { name: /submit/i }).click()
 根据 ARIA 指南，**强烈不建议** 通过 `role` 或 `aria-*` 属性为已经具有隐式角色的内置元素提供角色。
 :::
 
+<!-- TODO: translation -->
+
 **Options**
 
 - `exact: boolean`
 
-  `name` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `name` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+  Whether the `name` is matched exactly: case-sensitive and whole-string. Defaults to [`browser.locators.exact`](/config/browser/locators#browser-locators-exact), which is `true` by default. This option is ignored if `name` is a regular expression. Note that exact match still trims whitespace.
 
   ```tsx
   <button>Hello World</button>
@@ -236,11 +239,13 @@ page.getByAltText(/incredibles.*? poster/i) // ✅
 page.getByAltText('non existing alt text') // ❌
 ```
 
+<!-- TODO: translation -->
+
 **Options**
 
 - `exact: boolean`
 
-  `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+  Whether the `text` is matched exactly: case-sensitive and whole-string. Defaults to [`browser.locators.exact`](/config/browser/locators#browser-locators-exact), which is `true` by default. This option is ignored if `text` is a regular expression. Note that exact match still trims whitespace.
 
 **更多内容请参阅**
 
@@ -283,11 +288,13 @@ function getByLabelText(
 <input aria-label="Username" />
 ```
 
+<!-- TODO: translation -->
+
 **Options**
 
 - `exact: boolean`
 
-  `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+  Whether the `text` is matched exactly: case-sensitive and whole-string. Defaults to [`browser.locators.exact`](/config/browser/locators#browser-locators-exact), which is `true` by default. This option is ignored if `text` is a regular expression. Note that exact match still trims whitespace.
 
 **更多内容请参阅**
 
@@ -315,11 +322,13 @@ page.getByPlaceholder('not found') // ❌
 通常情况下，使用 [`getByLabelText`](#getbylabeltext) 依赖标签比依赖占位符更好。
 :::
 
+<!-- TODO: translation -->
+
 **Options**
 
 - `exact: boolean`
 
-  `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+  Whether the `text` is matched exactly: case-sensitive and whole-string. Defaults to [`browser.locators.exact`](/config/browser/locators#browser-locators-exact), which is `true` by default. This option is ignored if `text` is a regular expression. Note that exact match still trims whitespace.
 
 **更多内容请参阅**
 
@@ -347,11 +356,13 @@ page.getByText('about', { exact: true }) // ❌
 此定位器适用于定位非交互式元素。如果你需要定位交互式元素，比如按钮或输入框，建议使用 [`getByRole`](#getbyrole)。
 :::
 
+<!-- TODO: translation -->
+
 **Options**
 
 - `exact: boolean`
 
-  `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+  Whether the `text` is matched exactly: case-sensitive and whole-string. Defaults to [`browser.locators.exact`](/config/browser/locators#browser-locators-exact), which is `true` by default. This option is ignored if `text` is a regular expression. Note that exact match still trims whitespace.
 
 **更多内容请参阅**
 
@@ -375,11 +386,13 @@ page.getByTitle('Delete') // ✅
 page.getByTitle('Create') // ❌
 ```
 
+<!-- TODO: translation -->
+
 **Options**
 
 - `exact: boolean`
 
-  `text` 是否精确匹配：区分大小写且完全匹配字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空白字符。
+  Whether the `text` is matched exactly: case-sensitive and whole-string. Defaults to [`browser.locators.exact`](/config/browser/locators#browser-locators-exact), which is `true` by default. This option is ignored if `text` is a regular expression. Note that exact match still trims whitespace.
 
 **更多内容请参阅**
 
@@ -403,12 +416,6 @@ page.getByTestId('non-existing-element') // ❌
 ::: warning
 建议仅在其他定位器不适用于你的使用场景时才使用此方法。使用 `data-testid` 属性并不符合用户实际使用软件的方式，因此如果可能应避免使用。
 :::
-
-**Options**
-
-- `exact: boolean`
-
-  `text` 是否精确匹配：区分大小写和整个字符串。默认情况下禁用此选项。如果 `text` 是正则表达式，则忽略此选项。请注意，精确匹配仍然会修剪空格。
 
 **更多内容请参阅**
 
@@ -510,6 +517,7 @@ page.getByRole('button')
   .or(page.getByRole('link'))
   .click() // ❌ 匹配到多个元素
 ```
+
 :::
 
 ## filter
@@ -561,6 +569,7 @@ page.getByRole('article')
   .filter({ has: page.getByRole('button', { name: 'delete row' }) })
   .filter({ has: page.getByText('Vitest') })
 ```
+
 :::
 
 ### hasNot
@@ -926,6 +935,7 @@ function element(): Element
 ```ts
 await expect.element(page.getByRole('button')).toBeDisabled()
 ```
+
 :::
 
 考虑以下 DOM 结构：
@@ -1133,6 +1143,7 @@ test('works correctly', async () => {
   await commands.test(page.getByText('Hello')) // ✅
 })
 ```
+
 :::
 
 ### length

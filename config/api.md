@@ -11,6 +11,8 @@ outline: deep
 
 监听端口并提供 API 服务，用于 [UI 模式](/guide/ui) 或 [浏览器服务](/guide/browser/)。设为 `true` 时，默认端口为 `51204`，如果在浏览器模式下运行，则为 `63315`。
 
+In Browser Mode the server binds its port on the first browser launch, unless `api` or `ui` is enabled.
+
 ## api.allowWrite <Version>4.1.0</Version> {#api-allowwrite}
 
 - **类型:** `boolean`

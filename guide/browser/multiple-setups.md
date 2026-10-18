@@ -33,6 +33,7 @@ export default defineConfig({
 你还可以独立于浏览器指定不同的配置选项（尽管，实例也可以有 `browser` 字段）：
 
 ::: code-group
+
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
 import { playwright } from '@vitest/browser-playwright'
@@ -64,6 +65,7 @@ export default defineConfig({
   },
 })
 ```
+
 ```ts [example.test.ts]
 import { expect, inject, test } from 'vitest'
 import { globalSetupModifier } from './example.js'
@@ -72,6 +74,7 @@ test('ratio works', () => {
   expect(inject('ratio') * globalSetupModifier).toBe(14)
 })
 ```
+
 :::
 
 在这个例子中，Vitest 将在 `chromium` 浏览器中运行所有测试，但仅在第一个配置中执行 `'./ratio-setup.ts'` 文件，并根据 [`provide` 字段](/config/provide) 注入不同的 `ratio` 值。
@@ -89,6 +92,7 @@ $ vitest --project=chromium
 ```
 
 ::: code-group
+
 ```ts{6,8} [default]
 export default defineConfig({
   test: {
@@ -103,6 +107,7 @@ export default defineConfig({
   }
 })
 ```
+
 ```ts{3,7,9} [custom]
 export default defineConfig({
   test: {
@@ -118,4 +123,5 @@ export default defineConfig({
   }
 })
 ```
+
 :::

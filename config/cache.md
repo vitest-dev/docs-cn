@@ -5,12 +5,17 @@ outline: deep
 
 # cache <CRoot />
 
-- **类型:** `false`
-- **命令行终端:** `--no-cache`, `--cache=false`
+- **类型:** `boolean`
+- **默认值:** `true`
+- **命令行终端:** `--cache`, `--no-cache`
 
-使用此选项可禁用缓存功能。当前 Vitest 会缓存测试结果，以便优先运行耗时较长和失败的测试。
+Store the results of test runs on the file system. Vitest uses them to run failed and longer test files first.
 
-缓存目录由 Vite 的 [`cacheDir`](https://cn.vitejs.dev/config/shared-options.html#cachedir) 选项控制：
+For every test file, Vitest stores whether the file failed, how long it ran and when it ran last. A run that did not execute the whole file (for example, a run filtered with [`--testNamePattern`](/config/testnamepattern) or cancelled by [`bail`](/config/bail)) can mark the file as failed, but it cannot mark it as passed.
+
+You can delete the cache by running [`vitest --clearCache`](/guide/cli#clearcache).
+
+缓存目录由 Vite 的 [`cacheDir`](https://cn.vitejs.dev/config/shared-options#cachedir) 选项控制：
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -29,3 +34,7 @@ export default defineConfig({
   cacheDir: process.env.VITEST ? 'custom-folder/.vitest' : undefined
 })
 ```
+
+::: warning
+The deprecated `cache.dir` option has no effect anymore. Use `cacheDir` to change the cache directory.
+:::

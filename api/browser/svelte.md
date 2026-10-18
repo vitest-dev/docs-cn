@@ -206,6 +206,7 @@ await expect.element(
 对于简单的代码片段，你可以使用包装组件和 “占位” 子元素进行测试。通过设置 `data-testid` 属性帮助测试插槽内容。
 
 ::: code-group
+
 ```ts [basic.test.js]
 import { render } from 'vitest-browser-svelte'
 import { expect, test } from 'vitest'
@@ -221,6 +222,7 @@ test('basic snippet', async () => {
   await expect.element(child).toBeInTheDocument()
 })
 ```
+
 ```svelte [basic-snippet.svelte]
 <script>
   let { children } = $props()
@@ -230,6 +232,7 @@ test('basic snippet', async () => {
   {@render children?.()}
 </h1>
 ```
+
 ```svelte [basic-snippet.test.svelte]
 <script>
   import Subject from './basic-snippet.svelte'
@@ -239,11 +242,13 @@ test('basic snippet', async () => {
   <span data-testid="child"></span>
 </Subject>
 ```
+
 :::
 
 对于更复杂的代码片段（例如需要检查参数的情况），可以使用 Svelte 的 [`createRawSnippet`](https://svelte.dev/docs/svelte/svelte#createRawSnippet) API。
 
 ::: code-group
+
 ```js [complex-snippet.test.js]
 import { render } from 'vitest-browser-svelte'
 import { createRawSnippet } from 'svelte'
@@ -264,6 +269,7 @@ test('renders greeting in message snippet', async () => {
   await expect.element(message).toHaveTextContent('Hello, Alice!')
 })
 ```
+
 ```svelte [complex-snippet.svelte]
 <script>
   let { name, message } = $props()
@@ -275,6 +281,7 @@ test('renders greeting in message snippet', async () => {
   {@render message?.(greeting)}
 </p>
 ```
+
 :::
 
 ## 相关链接 {#see-also}

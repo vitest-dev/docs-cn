@@ -157,7 +157,7 @@ Vitest 通常使用缓存对测试进行排序，使耗时较长的测试优先�
 ## sequence.setupFiles {#sequence-setupfiles}
 
 - **类型:** `'list' | 'parallel'`
-- **默认值:** `'parallel'`
+- **默认值:** `'list'`
 - **命令行终端:** `--sequence.setupFiles=<value>`
 
 调整配置文件的执行顺序：

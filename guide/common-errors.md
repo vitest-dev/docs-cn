@@ -47,6 +47,32 @@ export default defineConfig({
 当 NodeJS 的 `fetch` 与 [`pool: 'threads'`](/config/pool#threads) 一起使用时，可能会出现此错误。详情请参阅 [#3077](https://github.com/vitest-dev/vitest/issues/3077)。
 
 默认的 [`pool: 'forks'`](/config/pool#forks) 不存在此问题。如果你已显式设置 `pool: 'threads'`，切换回 `'forks'` 或使用 [`'vmForks'`](/config/pool#vmforks) 即可解决。
+<!-- TODO: translation -->
+
+## Project Working Directory Does Not Change
+
+In a [multi-project run](/guide/projects), `process.cwd()` in project config files and tests returns the directory where Vitest was started by default. A project's [`root`](/config/root) controls where Vitest looks for its files, but it does not change the process working directory. Vite plugins can read the project root from the resolved Vite config's `root` property.
+
+If your tests need `process.cwd()` to point to the project directory, use the [`forks` pool](/config/pool#forks) and a project-specific [`setupFiles`](/config/setupfiles) file:
+
+```ts [packages/lib1/vitest.config.ts]
+import { defineProject } from 'vitest/config'
+
+export default defineProject({
+  test: {
+    pool: 'forks',
+    setupFiles: ['./setup.chdir.ts'],
+  },
+})
+```
+
+```ts [packages/lib1/setup.chdir.ts]
+import { fileURLToPath } from 'node:url'
+
+process.chdir(fileURLToPath(new URL('.', import.meta.url)))
+```
+
+This changes the working directory in the test worker, after config loading. The [`threads` pool](/config/pool#threads) cannot use `process.chdir()`.
 
 ## 自定义包条件无法解析 {#custom-package-conditions-are-not-resolved}
 
@@ -108,6 +134,7 @@ Vitest 遵循 Vite 的配置约定：
 在这些情况下，原生模块可能不是为多线程安全而构建的。在解决方案中，你可以切换到 `pool: 'forks'`，它在多个 `node:child_process` 而不是多个 `node:worker_threads` 中运行测试用例。
 
 ::: code-group
+
 ```ts [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -121,6 +148,7 @@ export default defineConfig({
 ```bash [CLI]
 vitest --pool=forks
 ```
+
 :::
 
 ## Worker 线程中的时区不会更改 {#time-zone-does-not-change-in-worker-threads}
@@ -135,6 +163,7 @@ new Date('2026-01-01T00:00:00Z').getHours() // forks 中为 9，threads 中不�
 请在工作线程启动前设置时区。可以使用 shell、配置文件或 [`globalSetup`](/config/globalsetup) 进行设置；这些方式均在主进程中执行，因此适用于所有 pool。
 
 ::: code-group
+
 ```bash [CLI]
 TZ=Asia/Tokyo vitest
 ```
@@ -152,6 +181,7 @@ export default function () {
   process.env.TZ = 'Asia/Tokyo'
 }
 ```
+
 :::
 
 如果测试需要在运行时使用不同的时区，请使用 `pool: 'forks'` 或 `pool: 'vmForks'`，这两种 pool 中的每个工作线程都是独立进程；或者向 `Intl.DateTimeFormat` 传递 `timeZone` 选项，而不是修改 `TZ`。

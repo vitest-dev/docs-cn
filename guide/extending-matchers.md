@@ -150,6 +150,24 @@ expect.extend({ customMatcher })
 
 这是一个工具函数，他可以帮助你比较两个值。如果是相同的则返回 true，反之返回 false。这个方法几乎在每个断言内部都有使用。默认情况下，它支持非对称的断言。
 
+## `customTesters`
+
+Equality testers to pass to `equals`, including ones registered with [`expect.addEqualityTesters`](/api/expect#expect-addequalitytesters).
+
+`equals` alone does not compare the contents of `Map` and `Set`. To get the same equality as `toEqual`, add `this.utils.iterableEquality`:
+
+```ts
+expect.extend({
+  toMyEqual(received: unknown, expected: unknown) {
+    const pass = this.equals(received, expected, [...this.customTesters, this.utils.iterableEquality])
+    return {
+      pass,
+      message: () => `expected ${this.utils.printReceived(received)} to equal ${this.utils.printExpected(expected)}`,
+    }
+  },
+})
+```
+
 ## `utils`
 
 它包含了一系列工具函数，你可以使用它们来显示信息。

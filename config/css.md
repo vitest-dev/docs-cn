@@ -21,7 +21,7 @@ outline: deep
 使用 RegExp 模式进行匹配，指定哪些 CSS 文件应返回实际内容并通过 Vite 处理。
 
 :::tip
-要处理所有 CSS 文件，请使用  `/.+/`。
+要处理所有 CSS 文件，请使用 `/.+/`。
 :::
 
 ## css.exclude

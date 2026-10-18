@@ -15,14 +15,14 @@ outline: deep
 
 ## 何时使用标签 {#when-to-reach-for-tags}
 
-| 应用场景 | 使用 |
-| --- | --- |
-| 对 *一类* 测试设置超时/重试 | **标签** |
-| 标记分散在许多文件中的横向分类（`flaky`、`slow`、`frontend`） | **标签** |
-| 根据过滤条件有条件地运行开销大的设置 | **标签** + [`matchesTags`](#checking-tags-filter-at-runtime) |
-| 通过测试名称匹配来运行子集 | [`-t` / `testNamePattern`](/config/testnamepattern) |
-| 通过文件路径来运行子集 | `--include`/`--exclude` |
-| 使用不同的 *运行器设置*（测试隔离、运行池、测试环境）运行不同的文件 | [测试项目](/guide/projects) |
+| 应用场景                                                            | 使用                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------ |
+| 对 _一类_ 测试设置超时/重试                                         | **标签**                                                     |
+| 标记分散在许多文件中的横向分类（`flaky`、`slow`、`frontend`）       | **标签**                                                     |
+| 根据过滤条件有条件地运行开销大的设置                                | **标签** + [`matchesTags`](#checking-tags-filter-at-runtime) |
+| 通过测试名称匹配来运行子集                                          | [`-t` / `testNamePattern`](/config/testnamepattern)          |
+| 通过文件路径来运行子集                                              | `--include`/`--exclude`                                      |
+| 使用不同的 _运行器设置_（测试隔离、运行池、测试环境）运行不同的文件 | [测试项目](/guide/projects)                                  |
 
 可以将测试项目（project）与测试标签结合使用。例如在 `Sequential` 项目中筛选带有 `flaky` 标签的测试。
 

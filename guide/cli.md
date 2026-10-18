@@ -42,6 +42,7 @@ $ vitest ./basic/foo:10 # ❌
 $ vitest basic/foo.test.ts:10, basic/foo.test.ts:25 # ✅
 $ vitest basic/foo.test.ts:10-25 # ❌
 ```
+
 :::
 
 ### `vitest run`
@@ -74,11 +75,12 @@ export default {
   '*.{js,ts}': 'vitest related --run',
 }
 ```
+
 :::
 
 ### `vitest bench`
 
-仅运行 [基准](/guide/features.html#benchmarking) 测试，用于比较性能结果。
+仅运行 [基准测试](/guide/features.html#benchmarking)，用于比较性能结果。
 
 ### `vitest init`
 
@@ -227,6 +229,7 @@ vitest --reporter=dot --reporter=default
 vitest --no-api
 vitest --api=false
 ```
+
 :::
 
 <!--@include: ./cli-generated.md-->

@@ -38,6 +38,7 @@ Duration  3.76s (environment 79%, import 13%, transform 6%, tests 1%, setup 1%)
 对于那些不依赖副作用并且能够正确清理其状态的项目来说，这可能不是所期望的（对于拥有 `node` 环境的项目来说，这通常是正确的），这会大大增加测试时间。在这种情况下，禁用隔离将提高测试速度。要做到这一点，我们可以在 CLI 中提供 `--no-isolate` 参数，或者在配置文件中将 [`test.isolate`](/config/isolate) 属性设置为 `false`。
 
 ::: code-group
+
 ```bash [CLI]
 vitest --no-isolate
 ```
@@ -51,6 +52,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 你也可以仅通过 `projects` 为特定文件禁用隔离：
@@ -87,6 +89,7 @@ export default defineConfig({
 对于某些项目，可能还需要禁用并行性以缩短启动时间。为此，请向 CLI 提供 `--no-file-parallelism` 参数，或将 config 中的 [`test.fileParallelism`](/config/fileparallelism) 属性设置为 `false`。
 
 ::: code-group
+
 ```bash [CLI]
 vitest --no-file-parallelism
 ```
@@ -100,6 +103,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ## 测试环境 {#test-environments}
@@ -159,11 +163,12 @@ NODE_COMPILE_CACHE=node_modules/.cache/node-compile-cache vitest
 
 ## 运行池 {#pool}
 
-默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors.html#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors.html#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
+默认情况下，Vitest 在 `pool: 'forks'` 中运行测试。虽然 `'forks'` 池更适合解决兼容性问题（[hanging process](/guide/common-errors#failed-to-terminate-worker) 和 [segfaults](/guide/common-errors#segfaults-and-native-code-errors)），但在较大的项目中，它可能比 `pool: 'threads'` 稍慢。
 
 你可以尝试通过切换配置中的 `pool` 选项来改善测试运行时间：
 
 ::: code-group
+
 ```bash [CLI]
 vitest --pool=threads
 ```
@@ -177,6 +182,7 @@ export default defineConfig({
   },
 })
 ```
+
 :::
 
 ## 分片 {#sharding}

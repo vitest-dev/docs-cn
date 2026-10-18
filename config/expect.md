@@ -21,7 +21,7 @@ outline: deep
 :::
 
 ::: warning
-当使用 `sequence.concurrent` 和将 `expect.requireAssertions` 设为 `true` 运行测试时，应当使用 [本地 expect](/guide/test-context.html#expect) 而非全局 expect。否则在 [某些情况下](https://github.com/vitest-dev/vitest/issues/8469) 出现误判为失败的情况。
+当使用 `sequence.concurrent` 和将 `expect.requireAssertions` 设为 `true` 运行测试时，应当使用 [本地 expect](/guide/test-context#expect) 而非全局 expect。否则在 [某些情况下](https://github.com/vitest-dev/vitest/issues/8469) 出现误判为失败的情况。
 :::
 
 ## expect.poll

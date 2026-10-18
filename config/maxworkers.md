@@ -20,6 +20,7 @@ outline: deep
 ### 数值 {#number}
 
 ::: code-group
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -29,14 +30,17 @@ export default defineConfig({
   },
 })
 ```
+
 ```bash [CLI]
 vitest --maxWorkers=4
 ```
+
 :::
 
 ### 百分比 {#percent}
 
 ::: code-group
+
 ```js [vitest.config.js]
 import { defineConfig } from 'vitest/config'
 
@@ -46,9 +50,11 @@ export default defineConfig({
   },
 })
 ```
+
 ```bash [CLI]
 vitest --maxWorkers=50%
 ```
+
 :::
 
 Vitest 通过 [`os.availableParallelism`](https://nodejs.org/api/os.html#osavailableparallelism) 接口获取系统可用的最大并发数量。

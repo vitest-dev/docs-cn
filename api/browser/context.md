@@ -191,7 +191,7 @@ await button.click() // 交互式方法可以正常工作 ✅
 await expect.element(button).toBeVisible() // 查询元素失败 ❌
 ```
 
-如果你需要处理跨域 iframe，你需要在 [`launchOptions`](/config/browser/playwright.html#launchoptions) 中传递 `args: ["--disable-web-security"]`。或者创建一个自定义的 [浏览器命令](/api/browser/commands.html#custom-commands)，在服务器端访问可用的 iframe。
+如果你需要处理跨域 iframe，你需要在 [`launchOptions`](/config/browser/playwright#launchoptions) 中传递 `args: ["--disable-web-security"]`。或者创建一个自定义的 [浏览器命令](/api/browser/commands#custom-commands)，在服务器端访问可用的 iframe。
 :::
 
 ::: danger 重要

@@ -1,10 +1,14 @@
 <template>
   <div class="wrapper wrapper--ticks border-t py-14 lg:py-30 px-5 sm:px-10 lg:px-20">
-    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5 lg:gap-8 text-left">
+    <div
+      class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5 lg:gap-8 text-left"
+    >
       <div class="flex flex-col gap-3 max-w-md">
         <div class="flex gap-3 items-center">
-          <img src="@assets/icons/vitest-light.svg" alt="Vitest icon" class="size-5">
-          <span class="text-grey text-xs font-medium font-mono uppercase tracking-wide">为什么是 Vitest？</span>
+          <img src="@assets/icons/vitest-light.svg" alt="Vitest icon" class="size-5" />
+          <span class="text-grey text-xs font-medium font-mono uppercase tracking-wide"
+            >为什么是 Vitest？</span
+          >
         </div>
         <h3 class="text-white max-w-xl text-balance">
           <span>Vite 原生</span>

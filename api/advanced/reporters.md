@@ -61,6 +61,7 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
+
 :::
 
 ## onBrowserInit {#onbrowserinit}
@@ -95,6 +96,7 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
+
 :::
 
 ## onTestRunEnd
@@ -158,6 +160,7 @@ class MyReporter implements Reporter {
 
 export default new MyReporter()
 ```
+
 :::
 
 ## onCoverage

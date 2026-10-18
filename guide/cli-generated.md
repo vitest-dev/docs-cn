@@ -547,14 +547,14 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--sequence.hooks <order>`
 - **配置:** [sequence.hooks](/config/sequence#sequence-hooks)
 
-更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。更多信息请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"parallel"`）
+更改钩子函数的执行顺序。可接受的值有："stack"、"list" 和 "parallel"。更多信息请参阅 [`sequence.hooks`](/config/sequence#sequence-hooks)（默认值：`"stack"`）
 
 ### sequence.setupFiles
 
 - **命令行终端:** `--sequence.setupFiles <order>`
 - **配置:** [sequence.setupFiles](/config/sequence#sequence-setupfiles)
 
-更改设置文件的执行顺序。可接受的值有 "list" 和 "parallel"。如果设置为"list"，将按照定义的顺序运行设置文件。如果设置为 "parallel"，将并行运行设置文件（默认值：`"parallel"`）
+更改设置文件的执行顺序。可接受的值有 "list" 和 "parallel"。如果设置为"list"，将按照定义的顺序运行设置文件。如果设置为 "parallel"，将并行运行设置文件（默认值：`"list"`）
 
 ### inspect
 
@@ -671,7 +671,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--diff.expand`
 - **配置:** [diff.expand](/config/diff#diff-expand)
 
-展开所有公共行 （默认值: `true`）
+展开所有公共行 （默认值: `false`）
 
 ### diff.includeChangeCounts
 
@@ -692,7 +692,7 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--diff.printBasicPrototype`
 - **配置:** [diff.printBasicPrototype](/config/diff#diff-printbasicprototype)
 
-打印基础的原型 `Object` 和 `Array` (默认值: `true`)
+打印基础的原型 `Object` 和 `Array` (默认值: `false`)
 
 ### diff.maxDepth
 
@@ -812,6 +812,13 @@ Use TypeScript build mode
 
 拆卸函数的默认超时（以毫秒为单位）（默认值：`10000`）
 
+### cache
+
+- **CLI:** `--cache`
+- **Config:** [cache](/config/cache)
+
+Store the results of test runs to run failed and longer test files first (default: `true`)
+
 ### maxConcurrency
 
 - **命令行终端:** `--maxConcurrency <number>`
@@ -824,7 +831,7 @@ Use TypeScript build mode
 - **命令行终端:** `--fsModuleCache`
 - **配置:** [fsModuleCache](/config/fsmodulecache)
 
-将转换后的模块缓存到文件系统中，以便在重新运行测试时复用（默认值：`false`）
+将转换后的模块缓存到文件系统中，以便在重新运行测试时复用（默认值：`true`）
 
 ### fsModuleCachePath
 

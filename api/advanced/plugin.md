@@ -14,6 +14,7 @@ outline: deep
 Vitest 自 3.1 版起支持 `configureVitest` [插件](https://cn.vite.dev/guide/api-plugin) hook。
 
 ::: code-group
+
 ```ts [only vitest]
 import type { Vite, VitestPluginContext } from 'vitest/node'
 
@@ -26,6 +27,7 @@ export function plugin(): Vite.Plugin {
   }
 }
 ```
+
 ```ts [vite and vitest]
 /// <reference types="vitest/config" />
 
@@ -43,14 +45,16 @@ export function plugin(): Plugin {
   }
 }
 ```
+
 :::
 
 ::: tip TypeScript
-Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config` ，以便正确增强 `configureVitest` 即可：
+Vitest 通过 `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config` ，以便正确增强 `configureVitest` 即可：
 
 ```ts
 /// <reference types="vitest/config" />
 ```
+
 :::
 
 与 [`reporter.onInit`](/api/advanced/reporters#oninit) 不同，此 hooks 在 Vitest 生命周期的早期运行，允许我们更改 `coverage` 和 `reporters` 等配置。更值得注意的变化是，如果我们的插件是在项目中定义而不是在全局配置中定义的，我们可以从 [工作区项目](/guide/projects) 操作全局配置。
@@ -123,7 +127,6 @@ vitest.config.project.push('my-project-name')
 
 请注意，`name` 永远不会被继承，因为 Vitest 不允许多个项目使用相同的名称。请确保每个项目都有唯一的名称。可以通过 `project.name` 属性访问当前名称，所有已使用的名称都可以在 `vitest.projects` 数组中找到。
 :::
-
 
 ### defineCacheKeyGenerator <Version>5.0.0</Version> {#definecachekeygenerator}
 

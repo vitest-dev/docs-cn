@@ -6,7 +6,7 @@ outline: deep
 # watch <CRoot /> {#watch}
 
 - **类型:** `boolean`
-- **默认值:** `!process.env.CI && process.stdin.isTTY`
+- **默认值:** `!process.env.CI && process.stdin.isTTY`，当 vitest 检测到是智能体调用时，则为 `false`。
 - **命令行终端:** `-w`, `--watch`, `--watch=false`
 
 启动监听模式

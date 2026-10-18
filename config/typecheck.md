@@ -47,7 +47,7 @@ outline: deep
 ## typecheck.exclude
 
 - **类型:** `string[]`
-- **默认值:** `['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**']`
+- **默认值:** `['**/node_modules/**', '**/.git/**']`
 
 匹配排除测试文件的 glob 规则。
 

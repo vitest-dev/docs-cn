@@ -109,6 +109,7 @@ test('heavy test', { skip: true, timeout: 10_000 }, () => {
   // ...
 })
 ```
+
 :::
 
 ### retry
@@ -160,7 +161,7 @@ type Retry = number | {
 - **类型:** `string[]`
 - **默认值:** `[]`
 
- 用户自定义 [标签](/guide/test-tags)。如果标签未在 [配置文件](/config/tags) 中声明，测试将在启动前失败，除非手动禁用 [`strictTags`](/config/stricttags)。
+用户自定义 [标签](/guide/test-tags)。如果标签未在 [配置文件](/config/tags) 中声明，测试将在启动前失败，除非手动禁用 [`strictTags`](/config/stricttags)。
 
 ```ts
 import { it } from 'vitest'
@@ -491,7 +492,7 @@ test.fails('repro #1234', () => {
 - **别名:** `it.each`
 
 ::: tip
-`test.each` 是为兼容 Jest 而提供的，Vitest 还提供了 [`test.for`](#test-for)，额外支持集成  [`TestContext`](/guide/test-context)。
+`test.each` 是为兼容 Jest 而提供的，Vitest 还提供了 [`test.for`](#test-for)，额外支持集成 [`TestContext`](/guide/test-context)。
 :::
 
 当需要以不同变量运行相同测试时，使用 `test.each`。你可以在测试名称中按测试函数参数顺序，使用 [printf 格式化](https://nodejs.org/api/util.html#util_util_format_format_args) 注入参数。
@@ -571,8 +572,8 @@ ${{ val: 3 }}   | ${'b'} | ${'3b'}
 // ✓ add(3, b) -> 3b
 ```
 
-* 第一行应为列名，以 `|` 分隔；
-* 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
+- 第一行应为列名，以 `|` 分隔；
+- 之后的一行或多行数据以模板字面量表达式的形式提供，语法为 `${value}`。
 
 ```ts
 import { expect, test } from 'vitest'
@@ -635,7 +636,7 @@ test.concurrent.for([
 
 ## test.describe <Version>4.1.0</Version> {#test-describe}
 
- 挂载在 test.extend 实例上的 `describe`。更多内容请参阅 [describe](/api/describe)。
+挂载在 test.extend 实例上的 `describe`。更多内容请参阅 [describe](/api/describe)。
 
 ## test.suite <Version>4.1.0</Version> {#test-suite}
 

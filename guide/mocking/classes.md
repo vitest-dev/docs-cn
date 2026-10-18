@@ -26,7 +26,9 @@ class Dog {
   feed() {}
 }
 ```
+
 <!-- TODO: translation -->
+
 Notice that this class defines its members in two different ways, and the difference matters for mocking:
 
 - `greet` is a class field. The assignment runs during construction, so every instance gets its own copy of the function as its own property.
@@ -92,6 +94,7 @@ function feed(dog: Dog) {
   // ...
 }
 ```
+
 ```ts [tests/dog.test.ts]
 import { expect, test, vi } from 'vitest'
 import { feed } from '../src/feed.js'
@@ -110,6 +113,7 @@ test('can feed dogs', () => {
   expect(dogMax.isHungry()).toBe(false)
 })
 ```
+
 :::
 
 现在，当我们创建 `Dog` 类的新实例时，它的 `speak` 方法（以及 `feed` 和 `greet` 方法）已经被模拟了：
@@ -129,7 +133,9 @@ const Max = new Dog('Max')
 expect(Max.speak).not.toHaveBeenCalled()
 expect(Max.greet).not.toHaveBeenCalled()
 ```
+
 <!-- TODO: translation -->
+
 You don't have to redefine every method as a class field. Instances keep the prototype chain of the class you pass to `vi.fn`, so prototype methods stay available on instances, both during and after construction, and instances pass `instanceof` checks against that class:
 
 ```ts

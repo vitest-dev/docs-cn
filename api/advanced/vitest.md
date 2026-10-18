@@ -44,7 +44,42 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 ## cache
 
-缓存管理器，存储有关最新测试结果和测试文件状态的信息。在 Vitest 中，这仅由默认的排序器用于排序测试。
+<!-- TODO: translation -->
+
+Cache manager that stores the results of the previous test runs. In Vitest itself this is only used by the default sequencer to sort tests.
+
+### cache.getTestSpecificationResult <Version type="experimental">5.0.4</Version> {#cache-gettestspecificationresult}
+
+Returns the result of the test file from the previous test runs, or `undefined` if Vitest has no result for it.
+
+```ts
+function getTestSpecificationResult(
+  specification: TestSpecification
+): CachedTestFileResult | undefined
+
+interface CachedTestFileResult {
+  /**
+   * The file has a known failure.
+   * Only a complete run of the file clears it.
+   */
+  failed: boolean
+  /**
+   * Duration of the last complete run in milliseconds.
+   */
+  duration: number
+  /**
+   * Unix timestamp in milliseconds of the start of the last complete run.
+   * It is not set if the file never ran completely.
+   */
+  lastRun?: number
+}
+```
+
+A run is not complete if it was cancelled or if it executed only a part of the file, for example, because of a test name pattern, a line filter or `.only`.
+
+::: warning
+`vitest.cache.getFileTestResults` and `vitest.cache.getFileStats` are deprecated and will be removed in the next major version. Use `getTestSpecificationResult` instead of `getFileTestResults`. Vitest does not cache file sizes anymore; read the size from the file system if your sequencer needs it.
+:::
 
 ## watcher <Version>4.0.0</Version> {#watcher}
 
@@ -410,6 +445,7 @@ const dynamicExample = await vitest.import('./example.js')
 
 dynamicExample !== staticExample // ✅
 ```
+
 :::
 
 ::: info
@@ -587,6 +623,7 @@ import { escapeTestName } from 'vitest/node'
 // 转换为 /hello, .+?/
 const escapedPattern = new RegExp(escapeTestName('hello, %s', true))
 ```
+
 :::
 
 ::: warning
@@ -667,6 +704,7 @@ export interface SourceModuleDiagnostic {
   untrackedModules: UntrackedModuleDefinitionDiagnostic[]
 }
 ```
+
 :::
 
 返回模块的诊断信息。如果未提供 [`testModule`](/api/advanced/test-module)，则 `selfTime` 和 `totalTime` 将聚合上次运行的所有测试。如果模块未被转换或执行，诊断信息将为空。
@@ -778,7 +816,6 @@ const filenames: string[] = await report.readdir()
 
 ### Report.delete
 
-<!-- eslint-skip -->
 ```ts
 function delete(filename: string): Promise<void>
 ```

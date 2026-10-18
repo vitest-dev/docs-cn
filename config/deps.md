@@ -38,7 +38,7 @@ outline: deep
 
 启用依赖项优化。
 
-## deps.client
+## deps.client {#deps-client}
 
 - **类型:** `{ transformAssets?, ... }`
 

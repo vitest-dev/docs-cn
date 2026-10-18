@@ -34,6 +34,7 @@ expectTypeOf({ a: 1, b: 1 }).not.toEqualTypeOf<{ a: number }>()
 ::: warning 弃用
 自 expect-type v1.2.0 版本起，此匹配器已被弃用。请改用 [`toExtend`](#toextend)。
 :::
+
 此匹配器检查期望类型是否扩展了提供的类型。它不同于 `toEqual`，更类似于 [expect's](/api/expect) `toMatchObject()`。使用此匹配器，你可以检查对象是否“匹配”类型。
 
 ```ts

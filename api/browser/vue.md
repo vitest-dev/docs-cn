@@ -129,6 +129,7 @@ function debug(
 ```ts
 function rerender(props: Partial<Props>): Promise<void>
 ```
+
 同时还会在 [Trace View](/guide/browser/trace-view) 中记录一个 `vue.rerender` 追踪标记。
 
 为了更好地确保组件正确地更新属性，建议测试负责属性更新的组件本身，以避免在测试中依赖实现细节。尽管如此，如果你更倾向于在测试中更新已渲染组件的属性，可以使用此函数来实现。

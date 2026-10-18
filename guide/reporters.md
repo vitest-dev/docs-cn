@@ -547,9 +547,11 @@ export default defineConfig({
 
 ### HTML 报告器 {#html-reporter}
 
-生成 HTML 文件，通过交互式 [GUI](/guide/ui) 查看测试结果。文件生成后，Vitest 将保持本地开发服务器运行，并提供一个链接，以便在浏览器中查看报告。
+Generates a static version of [Vitest UI](/guide/ui) for reviewing completed test runs. See the [HTML Reporter guide](/guide/ui#html-reporter) for local preview, CI artifacts, and sharing workflows.
 
-报告产物的根目录可以通过报告器的 `outputDir` 选项指定。报告入口文件会被写入 `<outputDir>/index.html`，UI 资源文件则位于 `<outputDir>/ui/` 下。默认情况下，`outputDir` 是 `.vitest`，即 Vitest 共享的产物目录，因此附件（`.vitest/attachments`）和覆盖率（`.vitest/coverage`）会被直接复用，而是复制一份。
+The report artifact root can be specified using the reporter's `outputDir` option and the report entry is written to `<outputDir>/index.html`. By default `outputDir` is the shared Vitest artifact directory `.vitest`.
+
+Use `singleFile` to produce one portable HTML file. See [Share as a Single File](/guide/ui#share-as-a-single-file) for configuration and limitations.
 
 :::code-group
 
@@ -564,34 +566,6 @@ export default defineConfig({
   },
 })
 ```
-
-:::
-
-设置 `singleFile` 以生成自包含的 HTML 报告：
-
-```ts [vitest.config.ts]
-export default defineConfig({
-  test: {
-    reporters: [
-      ['html', { singleFile: true }],
-    ],
-  },
-})
-```
-
-当启用 `singleFile` 时，Vitest 会将 UI 资源、元数据和测试附件内联到一个单一的自包含 `index.html` 文件中。这样一来，报告就更易于分享、上传或下载，而不必保留整个 `html` 输出目录。
-
-::: warning
-`singleFile` 有两个注意事项：
-
-- 由于所有内容都会以内联方式嵌入，文件体积可能会变得非常大，打开速度较慢、内存占用较高，也可能超出某些产物查看器或静态托管服务的大小限制。
-- 覆盖率 HTML 报告目前不会被内联，仍作为独立文件形式保留。
-
-当测试套件包含许多或大型附件，或者你需要将覆盖率包含在包中时，建议优先使用默认的多文件报告。
-:::
-
-::: tip
-该报告器需要安装 [`@vitest/ui`](/guide/ui)。
 :::
 
 ### TAP 报告器 {#tap-reporter}
@@ -869,7 +843,7 @@ export default defineConfig({
 })
 ```
 
-Blob 报告器输出不包含基于文件的 [附件](/api/advanced/artifacts.html#testattachment)。
+Blob 报告器输出不包含基于文件的 [附件](/api/advanced/artifacts#testattachment)。
 在使用此功能时，请确保在 CI 中合并 blob 报告的同时，一并处理 [`attachmentsDir`](/config/attachmentsdir)。
 
 ::: tip

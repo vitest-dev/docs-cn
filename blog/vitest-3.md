@@ -50,7 +50,7 @@ _2025 年 1 月 17 日_
 
 如果你要开始参与，我们建议你帮助 [分类问题](https://github.com/vitest-dev/vitest/issues)、[审查 PR](https://github.com/vitest-dev/vitest/pulls)、基于开放的问题发送包含失败测试的 PR，并在 [Discussions](https://github.com/vitest-dev/vitest/discussions) 和 Vitest Land 的帮助论坛中 [帮助其他人](https://discord.com/channels/917386801235247114/1057959614160851024)。如果你想与我们交流，请加入我们的 [Discord 社区](http://chat.vitest.dev/)，并在 [#contributing 频道](https://discord.com/channels/917386801235247114/1057959614160851024) 上打个招呼。
 
-要获取关于 Vitest 生态系统和 Vitest Core 的最新消息，请在 [Bluesky](https://bsky.app/profile/vitest.dev) 或  [Mastodon](https://webtoo.ls/@vitest) 上关注我们。
+要获取关于 Vitest 生态系统和 Vitest Core 的最新消息，请在 [Bluesky](https://bsky.app/profile/vitest.dev) 或 [Mastodon](https://webtoo.ls/@vitest) 上关注我们。
 
 ## 报告器更新 {#reporter-updates}
 

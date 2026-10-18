@@ -6,6 +6,7 @@ outline: deep
 # 什么是浏览器模式? {#why-browser-mode}
 
 ## 动机 {#motivation}
+
 我们开发了 Vitest 浏览器模式功能，以帮助改进测试工作流程并实现更准确、可靠的测试结果。这个实验性的测试 API 增加了在本地浏览器环境中运行测试的功能。本节将深入探讨该功能的开发初衷以及其为测试工作带来的优势。
 
 ### 不同的测试方式 {#different-ways-of-testing}

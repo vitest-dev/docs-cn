@@ -16,16 +16,23 @@ import ListItem from './ListItem.vue'
     <ListItem>ESM 优先，支持模块顶级 await</ListItem>
     <ListItem>
       通过
-      <a target="_blank" href="https://github.com/tinylibs/tinypool" rel="noopener noreferrer">Tinypool</a>
+      <a target="_blank" href="https://github.com/tinylibs/tinypool" rel="noopener noreferrer"
+        >Tinypool</a
+      >
       使用 Worker 线程并行执行测试
     </ListItem>
     <ListItem>
       使用
-      <a target="_blank" href="https://github.com/tinylibs/tinybench" rel="noopener noreferrer">Tinybench</a>
+      <a target="_blank" href="https://github.com/tinylibs/tinybench" rel="noopener noreferrer"
+        >Tinybench</a
+      >
       支持基准测试
     </ListItem>
     <ListItem>支持套件和测试的过滤、超时、并发配置</ListItem>
-    <ListItem>支持 <a href="/guide/projects">Projects</a> / <a href="/guide/workspace">Workspace</a></ListItem>
+    <ListItem
+      >支持 <a href="/guide/projects">Projects</a> /
+      <a href="/guide/workspace">Workspace</a></ListItem
+    >
     <ListItem>
       <a href="/guide/snapshot">Jest 快照功能</a>
     </ListItem>
@@ -33,23 +40,36 @@ import ListItem from './ListItem.vue'
       内置
       <a target="_blank" href="https://www.chaijs.com/" rel="noopener noreferrer">Chai</a>
       进行断言，并兼容
-      <a target="_blank" href="https://jestjs.io/zh-Hans/docs/expect" rel="noopener noreferrer">Jest expect</a> API
+      <a target="_blank" href="https://jestjs.io/zh-Hans/docs/expect" rel="noopener noreferrer"
+        >Jest expect</a
+      >
+      API
     </ListItem>
-    <ListItem>
-      兼容 Jest 对象模拟
-    </ListItem>
+    <ListItem> 兼容 Jest 对象模拟 </ListItem>
     <ListItem>
       使用
-      <a target="_blank" href="https://github.com/jsdom/jsdom" rel="noopener noreferrer">jsdom</a> 或
-      <a target="_blank" href="https://github.com/capricorn86/happy-dom" rel="noopener noreferrer">happy-dom</a>
+      <a target="_blank" href="https://github.com/jsdom/jsdom" rel="noopener noreferrer">jsdom</a>
+      或
+      <a target="_blank" href="https://github.com/capricorn86/happy-dom" rel="noopener noreferrer"
+        >happy-dom</a
+      >
       模拟 DOM
     </ListItem>
-    <ListItem><a href="/guide/browser/" rel="noopener noreferrer">浏览器模式</a>：在浏览器中运行组件测试</ListItem>
+    <ListItem
+      ><a href="/guide/browser/" rel="noopener noreferrer">浏览器模式</a
+      >：在浏览器中运行组件测试</ListItem
+    >
     <ListItem>
       通过
-      <a target="_blank" href="https://v8.dev/blog/javascript-code-coverage" rel="noopener noreferrer">v8</a>
+      <a
+        target="_blank"
+        href="https://v8.dev/blog/javascript-code-coverage"
+        rel="noopener noreferrer"
+        >v8</a
+      >
       或
-      <a target="_blank" href="https://istanbul.js.org/" rel="noopener noreferrer">istanbul</a> 输出代码覆盖率
+      <a target="_blank" href="https://istanbul.js.org/" rel="noopener noreferrer">istanbul</a>
+      输出代码覆盖率
     </ListItem>
     <ListItem>
       类似 Rust 的
@@ -57,7 +77,9 @@ import ListItem from './ListItem.vue'
     </ListItem>
     <ListItem>
       使用
-      <a target="_blank" href="https://github.com/mmkal/expect-type" rel="noopener noreferrer">expect-type</a>
+      <a target="_blank" href="https://github.com/mmkal/expect-type" rel="noopener noreferrer"
+        >expect-type</a
+      >
       进行类型测试
     </ListItem>
     <ListItem>支持分片执行</ListItem>
