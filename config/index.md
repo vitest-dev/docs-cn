@@ -25,6 +25,7 @@ export default defineConfig({
   },
 })
 ```
+
 如果你已经有一个 `vite` 配置文件，可以通过 `/// <reference types="vitest/config" />` 来引入 `test` 类型声明：
 
 ```js [vite.config.js]

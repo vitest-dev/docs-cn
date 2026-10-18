@@ -17,7 +17,7 @@ outline: deep
 ## browser.locators.exact
 
 - **类型:** `boolean`
-- **默认值:**  `true`
+- **默认值:** `true`
 
 当设置为 `true` 时，[定位器](/api/browser/locators) 默认会执行精确文本匹配，要求完全且区分大小写的匹配。单个定位器调用可通过自身的 `exact` 选项覆盖此默认行为。
 

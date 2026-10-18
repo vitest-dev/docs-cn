@@ -341,6 +341,7 @@ export const test = baseTest.extend({
   baseUrl: 'http://localhost:3000'
 })
 ```
+
 #### 初始化固定装置 {#fixture-initialization}
 
 The key difference from the builder pattern is the `use()` callback pattern for cleanup:

@@ -316,6 +316,7 @@ vi.mock(import('vscode'), () => {
 Vitest 会根据运行环境的不同，采用不同的模块模拟机制，但它们的共同点是都使用了插件转换器（ plugin transformer ）。
 
 当 Vitest 发现某个文件中包含 `vi.mock` 调用时，会执行两步处理：
+
 1. 将所有静态导入（ static import ）语句改写为动态导入（ dynamic import ）
 2. 将 `vi.mock` 调用移动到文件顶部。
 
@@ -362,6 +363,7 @@ Vitest 依赖原生 ESM ，这意味着无法像在 Node 环境中那样直接�
 
 因此，当模块被 mock 时，
 Vitest 会通过拦截网络请求来替换模块代码：
+
 - 在 Playwright 环境下，使用 `page.route` 进行拦截；
 - 在 `preview` 或 `webdriverio` 场景下，使用 Vite 插件 API 进行拦截。
 
@@ -397,6 +399,7 @@ export const answer = __private_module__.answer
 为了简洁，示例代码有所精简，但核心原理不变。
 
 我们可以在模块中注入一个 `__private_module__` 变量，用于存放被 mock 的值：
+
 - 如果用户在调用 `vi.mock` 时传入 `{ spy: true }`，则保留原始实现并传递它；
 - 否则，就用一个简单的 `vi.fn()` 来创建 mock 函数。
 

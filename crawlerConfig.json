@@ -15,11 +15,6 @@
     "lvl5": ".content h5",
     "content": ".content p, .content li"
   },
-  "selectors_exclude": [
-    "aside",
-    ".page-footer",
-    ".next-and-prev-link",
-    ".table-of-contents"
-  ],
+  "selectors_exclude": ["aside", ".page-footer", ".next-and-prev-link", ".table-of-contents"],
   "js_render": true
 }

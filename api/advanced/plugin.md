@@ -49,7 +49,7 @@ export function plugin(): Plugin {
 :::
 
 ::: tip TypeScript
-Vitest 通过  `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config` ，以便正确增强 `configureVitest` 即可：
+Vitest 通过 `Vite` namespace 重新导出所有仅 Vite 类型的导入，我们可以使用它来保持版本同步。但是，如果我们正在为 Vite 和 Vitest 编写插件，则可以继续使用 `vite` 入口点的 `Plugin` 类型。只需确保我们在某处引用了 `vitest/config` ，以便正确增强 `configureVitest` 即可：
 
 ```ts
 /// <reference types="vitest/config" />
@@ -127,7 +127,6 @@ vitest.config.project.push('my-project-name')
 
 请注意，`name` 永远不会被继承，因为 Vitest 不允许多个项目使用相同的名称。请确保每个项目都有唯一的名称。可以通过 `project.name` 属性访问当前名称，所有已使用的名称都可以在 `vitest.projects` 数组中找到。
 :::
-
 
 ### defineCacheKeyGenerator <Version>5.0.0</Version> {#definecachekeygenerator}
 

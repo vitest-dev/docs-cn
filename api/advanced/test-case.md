@@ -143,6 +143,7 @@ test('the validation works correctly', ({ task }) => {
   task.meta.decorated = false
 })
 ```
+
 如果测试尚未运行完毕，元数据将是一个空对象，除非它定义了静态元数据：
 
 ```ts

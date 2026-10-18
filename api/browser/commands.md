@@ -193,8 +193,7 @@ export const uploadFixture: BrowserCommand<[name: string]> = async (
 
 如果未启用浏览器追踪，或当前会话中没有正在运行的测试，`context.mark` 不会执行任何操作。与 `page.mark` 不同，它不支持传入回调函数。
 
-
-### 自定义 `playwright` 命令  {#custom-playwright-commands}
+### 自定义 `playwright` 命令 {#custom-playwright-commands}
 
 Vitest 在命令上下文中公开了几个`playwright`特定属性。
 
