@@ -84,9 +84,7 @@ expect(spy).to.have.been.calledWith('arg1', 'arg2')
 
 ### 完整的 Chai 风格断言支持 {#complete-chai-style-assertion-support}
 
-<!-- TODO: translation -->
-
-Vitest supports all common sinon-chai assertions:
+Vitest 支持所有常见的 sinon-chai 断言：
 
 | Sinon-Chai                | Vitest                | 详情                         |
 | ------------------------- | --------------------- | ---------------------------- |
