@@ -75,6 +75,8 @@ test('skipped concurrent test', { skip: true, concurrent: true }, () => {
 
 两种方式完全等价，使用哪种纯粹是风格偏好。
 
+Options set to `undefined` are ignored. They don't override values from the chain, the parent suite, or [tags](/guide/test-tags).
+
 ### timeout
 
 - **类型:** `number`
@@ -372,11 +374,17 @@ test.skipIf(isDev)('prod only test', () => {
 })
 ```
 
+Unlike `test.skip`, `test.skipIf` always sets the [`skip`](#skip) option: `true` if the condition is truthy, `false` otherwise. A falsy condition overrides `skip` inherited from [tags](/guide/test-tags), the same as `test(name, { skip: false })`.
+
 ## test.runIf
 
 - **别名:** `it.runIf`
 
+<<<<<<< HEAD
 于 [test.skipIf](#test-skipif) 相反。
+=======
+Opposite of [test.skipIf](#test-skipif). It always sets the [`skip`](#skip) option: `false` if the condition is truthy, `true` otherwise.
+>>>>>>> cc54eaf52775a7aaede1f9affab7dec045c6c71b
 
 ```ts
 import { assert, test } from 'vitest'
