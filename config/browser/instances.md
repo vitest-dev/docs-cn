@@ -38,7 +38,13 @@ export default defineConfig({
 更多示例请参阅 [“多环境配置” 指南](/guide/browser/multiple-setups)。
 :::
 
+<<<<<<< HEAD
 可用的 `browser` 选项列表：
+=======
+The [`globalSetup`](/config/globalsetup) files of the config that defines `instances` run once for all of them, not once per instance, and receive the project of that config. Values they provide with `project.provide` are available in every instance. Global setup files defined in an instance run only for that instance.
+
+List of available `browser` options:
+>>>>>>> 16d0d75a17a5accae385ee1cbc4151a5680caf21
 
 - `browser` (浏览器名称)
 - [`headless`](/config/browser/headless)
