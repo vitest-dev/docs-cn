@@ -84,7 +84,11 @@ import Box from '../.vitepress/components/Box.vue'
 
 ## Istanbul 覆盖率提供方案 {#istanbul-provider}
 
+<<<<<<< HEAD
 [Istanbul 代码覆盖率工具](https://istanbul.js.org/) 自 2012 年发布以来，已在各种场景中得到了充分验证。这种覆盖率提供器能在任何 JavaScript 运行环境中使用，因为它是通过在用户源码中插入额外的代码来跟踪执行情况。实际运行时，Vitest 最终执行的代码大致会像这样：
+=======
+[Istanbul code coverage tooling](https://istanbul.js.org/) has existed since 2012 and is very well battle-tested. Vitest uses its own [`@vitest/istanbuljs`](https://github.com/vitest-dev/istanbuljs) that is a fork of the original [`istanbuljs/istanbuljs`](https://github.com/istanbuljs/istanbuljs) project. This provider works on any JavaScript runtime as coverage tracking works by transforming your source code to add instrumentation logic. In practice, the code Vitest will end up running looks something like this:
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
 
 ```js
 // 分支和函数覆盖率计数器的简化示例
@@ -124,7 +128,11 @@ globalThis.__VITEST_COVERAGE__[filename] = coverage // [!code ++]
 <div style="display: flex; flex-direction: column; align-items: center; padding: 2rem 0; max-width: 20rem;">
   <Box>测试文件</Box>
   <ArrowDown />
+<<<<<<< HEAD
   <Box>使用 Babel 进行预插桩</Box>
+=======
+  <Box>Pre‑instrumentation on Javascript side</Box>
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
   <ArrowDown />
   <Box>运行文件</Box>
   <ArrowDown />
@@ -536,7 +544,34 @@ export function ignored() { // [!code error]
 
 如果你的项目中代码覆盖率生成较慢，请参阅 [性能测试分析 | 代码覆盖率](/guide/profiling-test-performance#code-coverage)。
 
+<<<<<<< HEAD
 ## UI 模式 {#vitest-ui}
+=======
+## HTML Report Theme
+
+By default Vitest's HTML coverage report uses Vitest-styled themes. The color theme, dark or light, is set by following order:
+
+- [Reporter options](/config/coverage#coverage-reporter): `coverage.reporter: [['html', { theme: 'light' | 'dark' | 'legacy' }]]`
+- Your previous selection from the theme picker
+- OS color preference
+
+When coverage report is viewed through Vitest UI, it will inherit the UI's color theme. Setting explicit reporter option can override this.
+
+If you do not want to use Vitest-styled reports, you can always set `coverage.reporter: [['html', { theme: 'legacy' }]]` to force the original Istanbul themed styles.
+
+::: tabs key:coverage-report-theme
+== Light
+<img alt="HTML coverage report in light theme" src="/coverage-report-theme-light.png">
+
+== Dark
+<img alt="HTML coverage report in dark theme" src="/coverage-report-theme-dark.png">
+
+== Legacy
+<img alt="HTML coverage report in legacy istanbuljs theme" src="/coverage-report-theme-legacy.png">
+:::
+
+## Vitest UI
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
 
 你可以在 [UI 模式](/guide/ui) 和 [HTML 报告器](/guide/reporters#html-reporter) 中查看覆盖率报告。
 

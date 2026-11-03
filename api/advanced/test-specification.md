@@ -86,6 +86,10 @@ describe('a group of tests', () => { // [!code error]
 
 当前 TestSpecification 中需要运行的任务 ID 集合。
 
+## testNames <Version>5.1.0</Version> {#testnames}
+
+The full names of the tests inside of this specification to run, including the parent suites separated with `>`.
+
 ## testTagsFilter <Version>4.1.0</Version> {#testtagsfilter}
 
 测试必须通过的 [标签过滤器](/guide/test-tags#syntax) 才能被纳入运行范围。多个过滤器将按 `AND` 逻辑处理。

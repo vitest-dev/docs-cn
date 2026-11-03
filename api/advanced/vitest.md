@@ -44,9 +44,13 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 ## cache
 
+<<<<<<< HEAD
 <!-- TODO: translation -->
 
 Cache manager that stores the results of the previous test runs. In Vitest itself this is only used by the default sequencer to sort tests.
+=======
+Cache manager that stores the results of the previous test runs. Vitest uses it to sort tests in the default sequencer and to select tests with [`--last-failed`](/guide/cli#last-failed).
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
 
 ### cache.getTestSpecificationResult <Version type="experimental">5.0.4</Version> {#cache-gettestspecificationresult}
 
@@ -60,7 +64,7 @@ function getTestSpecificationResult(
 interface CachedTestFileResult {
   /**
    * The file has a known failure.
-   * Only a complete run of the file clears it.
+   * A complete run of the file clears it, or a run in which every known failed test passes.
    */
   failed: boolean
   /**
@@ -72,6 +76,12 @@ interface CachedTestFileResult {
    * It is not set if the file never ran completely.
    */
   lastRun?: number
+  /**
+   * Full names of the tests that failed in the last run of the file.
+   * `--last-failed` runs only these tests.
+   * It is not set if the failure happened outside of tests, for example in a hook or during collection.
+   */
+  failedTests?: string[]
 }
 ```
 
