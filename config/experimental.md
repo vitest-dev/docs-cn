@@ -316,7 +316,11 @@ export default defineConfig({
 
 ## experimental.vcsProvider <Version type="experimental">4.1.1</Version> {#experimental-vcsprovider}
 
+<<<<<<< HEAD
 - **类型:** `VCSProvider | string`
+=======
+- **Type:** `'git' | 'mtime' | VCSProvider | string`
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
 
 ```ts
 interface VCSProvider {
@@ -326,14 +330,61 @@ interface VCSProvider {
 interface VCSProviderOptions {
   root: string
   changedSince?: string | boolean
+  /** Resolves the dependencies of the test files of the run. */
+  resolver: ModulesResolver
+}
+
+interface ModulesResolver {
+  /**
+   * Every file whose change can affect the test files of the run.
+   */
+  getDependencies(): Promise<ModuleDependency[]>
+}
+
+interface ModuleDependency {
+  /** Absolute path of the file. */
+  file: string
+  /**
+   * Start time of the oldest run that recorded the file, in milliseconds.
+   * Not set when the dependency comes from the static module graph.
+   */
+  recordedAt?: number
 }
 ```
 
 - **默认值:** `'git'`
 
+<<<<<<< HEAD
 用于检测更改文件的自定义驱动。与 [`--changed`](/guide/cli#changed) 参数配合使用，用于确定哪些文件已被修改。
 
 默认情况下，Vitest 使用 Git 检测更改的文件。你可以提供 `VCSProvider` 接口的自定义实现以使用不同的版本控制系统：
+=======
+Provider for detecting changed files. Used with the [`--changed`](/guide/cli#changed) flag to determine which files have been modified.
+
+Vitest has two built-in providers:
+
+- `'git'` returns the files that differ from the `--changed` reference, plus staged and untracked files.
+- `'mtime'` <Version type="experimental">5.1.0</Version> returns the recorded dependencies whose modification time is newer than the run that recorded them, and deleted dependencies. It needs [`experimental.recordDependencies`](#experimental-recorddependencies): a dependency without a record is always reported as changed, so every test runs until the records exist. It does not need Git and ignores the `--changed` reference. A `--changed` run updates the records of the tests it ran, so the next `--changed` run selects only the tests whose dependencies changed since, and the test files that failed in their last run.
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    experimental: {
+      recordDependencies: true,
+      vcsProvider: 'mtime',
+    },
+  },
+})
+```
+
+::: warning
+The `mtime` provider compares file times with the clock of the machine that ran the tests. A checkout or a copy that sets file times in the past is not detected.
+:::
+
+You can provide a custom implementation of the `VCSProvider` interface to use a different version control system. `options.resolver.getDependencies()` returns every file the test files of the run depend on, so a provider can limit its work to these files:
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -342,8 +393,14 @@ export default defineConfig({
   test: {
     experimental: {
       vcsProvider: {
+<<<<<<< HEAD
         async findChangedFiles({ root, changedSince }) {
           // 返回已变更的文件路径
+=======
+        async findChangedFiles({ root, changedSince, resolver }) {
+          const dependencies = await resolver.getDependencies()
+          // return the paths of the changed files
+>>>>>>> 6053cdc9ada6698316bf4421db6241570d913610
           return []
         },
       },
@@ -374,6 +431,82 @@ export default {
   },
 }
 ```
+
+## experimental.recordDependencies <Version type="experimental">5.1.0</Version> {#experimental-recorddependencies}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Records every file that a test file loads while it runs and uses these records to select tests for [`--changed`](/guide/cli#changed) and [`vitest related`](/guide/cli#vitest-related). Without this option, Vitest transforms the module graph of every test file before the run to find the affected tests. With it, Vitest reads the records from the previous run instead, so the selection does not transform anything.
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    experimental: {
+      recordDependencies: true,
+    },
+  },
+})
+```
+
+The records are stored in `dependencies.json` next to the [results cache](/config/cache) in Vite's `cacheDir`, so this option has no effect if `cache` is disabled. Every `vitest run` with the option enabled updates the records of the test files it ran. A run that skips some tests of a file, for example with [`-t`](/config/testnamepattern) or `.only`, can miss their dynamic imports, so it only adds files to an existing record and never creates one. A test file without a record, for example a new test file or a file that ran in a browser or [typecheck](/guide/testing-types) pool, always runs.
+
+A record contains:
+
+- the test file and every module it imported, including dynamic imports that ran
+- [setup files](/config/setupfiles), the [custom environment](/config/environment), the [custom runner](/config/runner), [snapshot serializers](/config/snapshotserializers) and their imports
+- mock files from the `__mocks__` folder and modules imported by a mock factory
+- files that plugins watch with `this.addWatchFile`
+- the snapshot file and every file used by [`toMatchFileSnapshot`](/api/expect#tomatchfilesnapshot)
+
+A change in a [global setup](/config/globalsetup) file or its imports, in the config file and its imports, or in an `.env` file runs every test of the project.
+
+Because the records come from a real run, they are exact where the static module graph is not. A module replaced with `vi.mock` and a factory does not load its imports, so they are not recorded. A dynamic import inside a function that the test never calls is not recorded either.
+
+::: warning
+The records describe the files that a test loaded during its last run. If a change that adds an import is committed before the test runs again, a later change in the newly imported file does not select the test, because the commit is no longer part of the `--changed` diff. Run the tests once after you change imports to update the records.
+
+Vitest records only the files it loads itself. Files read with `fs` (for example, fixtures) and the imports of [externalized](/config/server#server-deps-external) modules are not recorded.
+
+If [`isolate`](/config/isolate) is disabled, test files that run in the same worker share the module graph. A record can then contain modules that a previous test file loaded dynamically, so `--changed` can select more tests than necessary, but never fewer.
+
+If [`experimental.viteModuleRunner`](#experimental-vitemodulerunner) is disabled, Vitest records the imports with a resolve hook of [`module.registerHooks`](https://nodejs.org/api/module.html#moduleregisterhooksoptions). Node.js versions without it do not write records, so every test runs.
+:::
+
+## experimental.traceTimeline <Version type="experimental">5.1.0</Version> {#experimental-tracetimeline}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Records the [`expect.poll`](/api/expect#poll), [`vi.waitFor`](/api/vi#vi-waitfor), and [`vi.waitUntil`](/api/vi#vi-waituntil) steps of each test, and prints them as a timeline under the error when the test fails. This shows what the test waited on before it failed and how long each wait took, which helps with flaky tests that wait on servers, queues, or file watchers.
+
+```ts [vitest.config.ts]
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    experimental: {
+      traceTimeline: true,
+    },
+  },
+})
+```
+
+<<< ./snippets/trace-timeline-failure.ansi [Error report]
+
+Steps are reported only for failed attempts, so the option adds almost no overhead to passing tests.
+
+Step locations are resolved like error stacks, so a step in a helper file points at that file, and a step in a [`vi.defineHelper`](/api/vi#vi-definehelper) helper points at the line that called the helper.
+
+The `message` option of `expect.poll`, `vi.waitFor`, and `vi.waitUntil` names the step, as with `user saved (vi.waitUntil)` in the report above.
+
+This option has no effect in browser mode, which prints the same timeline with [`browser.traceView`](/config/browser/traceview).
+
+::: warning
+`vi.waitFor`, `vi.waitUntil`, and polls from the global `expect` are attributed to the test that is currently running. When several tests run at the same time with [`test.concurrent`](/api/test#test-concurrent), `vi.waitFor` and `vi.waitUntil` are not recorded, and polls from the global `expect` can appear in another test's timeline. Use `expect` from the [test context](/guide/test-context) in concurrent tests to record polls for the right test.
+:::
 
 ## experimental.nodeLoader <Version type="experimental">4.1.0</Version> {#experimental-nodeloader}
 

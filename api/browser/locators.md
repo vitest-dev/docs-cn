@@ -632,6 +632,10 @@ page.getByRole('article').filter({ hasText: 'Vite' }) // ✅
 
 所有方法都是异步的，必须使用 `await`。自 Vitest 3 起，如果方法没有被 `await`，测试将会失败。
 
+::: tip
+If [fake timers](/api/vi#vi-usefaketimers) are enabled, these methods advance them while they run. See [Automatic Advancing](/guide/mocking/timers#automatic-advancing) for details.
+:::
+
 ### click
 
 ```ts
