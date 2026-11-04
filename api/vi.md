@@ -128,15 +128,26 @@ vi.mock('./path/to/module.js', () => {
 
 :::
 
+<<<<<<< HEAD
 如果要模拟的文件旁边有一个 `__mocks__` 文件夹，且没有提供工厂，Vitest 将尝试在 `__mocks__` 子文件夹中找到一个同名文件，并将其作为实际模块使用。如果模拟的是依赖关系，Vitest 会尝试在项目的 [root](/config/root)（默认为 `process.cwd()`）中找到 `__mocks__` 文件夹。我们可以通过 [`deps.moduleDirectories`](/config/#deps-moduledirectories) 配置选项告诉 Vitest 依赖项的位置。
+=======
+If the factory is not provided, Vitest looks for a file with the same name in a `__mocks__` folder and uses it instead of the original module:
+
+- If the path is a package name, like `axios` or `@company/utils/format`, Vitest looks in the `__mocks__` folder in the [root](/config/root) of the project (default is `process.cwd()`) for a file with this path and any extension, for example, `__mocks__/@company/utils/format.ts`. This also applies to a package that is linked from outside of `node_modules`, like a workspace package in a monorepo.
+- If the module resolves to a file outside of `node_modules`, Vitest looks in the `__mocks__` folder next to that file for a file with the same name and extension, for example, `src/__mocks__/increment.js` for `src/increment.js`. For a package name, Vitest does this only if the root `__mocks__` folder doesn't have the file.
+
+Vitest treats files in other [`deps.moduleDirectories`](/config/deps#deps-moduledirectories) the same as files in `node_modules`.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 例如，我们有这样的文件结构：
 
 ```
 - __mocks__
+  - @company
+    - utils.js
   - axios.js
 - src
-  __mocks__
+  - __mocks__
     - increment.js
   - increment.js
 - tests
@@ -149,15 +160,25 @@ vi.mock('./path/to/module.js', () => {
 // axios 是 `__mocks__/axios.js` 默认导出项
 import axios from 'axios'
 
+<<<<<<< HEAD
 import { vi } from 'vitest'
 
 // increment 是 `src/__mocks__/increment.js` 具名导出
 import { increment } from '../increment.js'
+=======
+// format is a named export from `__mocks__/@company/utils.js`,
+// even if `@company/utils` is a workspace package
+import { format } from '@company/utils'
+
+// increment is a named export from `src/__mocks__/increment.js`
+import { increment } from '../src/increment.js'
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 vi.mock('axios')
-vi.mock('../increment.js')
+vi.mock('@company/utils')
+vi.mock('../src/increment.js')
 
-axios.get(`/apples/${increment(1)}`)
+axios.get(`/apples/${format(increment(1))}`)
 ```
 
 ::: warning
@@ -521,6 +542,10 @@ expect(spied.simple.mock.results[0]).toEqual({
   value: 'value',
 })
 ```
+
+::: warning
+With `spy: true`, `vi.mockObject` doesn't copy objects. It returns the same `original` object and replaces its methods, including the methods of nested objects and class prototypes, with spies in place.
+:::
 
 ### vi.isMockFunction
 
@@ -1167,14 +1192,18 @@ await vi.runOnlyPendingTimersAsync()
 ### vi.setSystemTime
 
 ```ts
-function setSystemTime(date: string | number | Date): Vitest
+function setSystemTime(date: string | number | Date | Temporal.Instant | Temporal.ZonedDateTime): Vitest
 ```
 
 如果启用了伪计时器，此方法将模拟用户更改系统时钟（将影响与日期相关的 API，如 `hrtime`、`performance.now` 或 `new Date()`），但不会触发任何计时器。如果未启用假定时器，该方法将仅模拟 `Date.*` 和 `Temporal.Now.*` 调用。
 
 适用于需要测试依赖当前日期的场景，例如代码中的 [Luxon](https://github.com/moment/luxon/) 库调用。
 
+<<<<<<< HEAD
 接受与 `Date` 相同的字符串和数字参数。
+=======
+Accepts the same string and number arguments as the `Date`, or a `Temporal.Instant` or `Temporal.ZonedDateTime`. Vitest uses the moment represented by a `ZonedDateTime` as the mocked time and leaves the environment's time zone unchanged.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 ```ts
 const date = new Date(1998, 11, 19)
@@ -1197,7 +1226,13 @@ function useFakeTimers(config?: FakeTimersConfig): Vitest
 
 在 `node:child_process` 中使用 `--pool=forks` 运行 Vitest 时，不支持模拟 `nextTick`。NodeJS 在 `node:child_process` 中内部使用了 `process.nextTick`，当模拟它时会挂起。使用 `--pool=threads` 运行 Vitest 时支持模拟 `nextTick`。
 
+<<<<<<< HEAD
 内部实现基于 [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers)。
+=======
+The `now` option accepts a `Date`, number, `Temporal.Instant`, or `Temporal.ZonedDateTime`. Vitest uses the moment represented by a `ZonedDateTime` as the mocked time and leaves the environment's time zone unchanged.
+
+The implementation is based internally on [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 ::: tip
 `vi.useFakeTimers()` 不再自动模拟 `process.nextTick`。
@@ -1224,7 +1259,11 @@ vi.useFakeTimers({ toNotFake: ['setInterval'] })
 - `nextTimerAsync`：每个宏任务执行后自动推进到下一个可用计时器
 - `interval`：按指定间隔自动推进计时器
 
+<<<<<<< HEAD
 当 `mode` 为 `'interval'` 时，可额外传入毫秒级 `interval` 参数。
+=======
+When `mode` is `'interval'`, you can also provide an `interval` in milliseconds. See [Tick Modes](/guide/mocking/timers#tick-modes) for when to use each mode.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 **示例:**
 
@@ -1342,7 +1381,18 @@ test('Element exists in a DOM', async () => {
 })
 ```
 
+<<<<<<< HEAD
 一旦通过 `vi.useFakeTimers` 启用假计时器，`vi.waitFor` 将在每次轮询时自动调用 `vi.advanceTimersByTime(interval)` 推进时间。
+=======
+The `message` option describes what the callback waits for. If the wait fails, Vitest adds the message to the start of the error. The message also names the step in the [trace timeline](/config/experimental#experimental-tracetimeline).
+
+```ts
+await vi.waitFor(() => server.ping(), { message: 'server started' })
+// Error: server started: connect ECONNREFUSED
+```
+
+If `vi.useFakeTimers` is used, `vi.waitFor` automatically calls `vi.advanceTimersByTime(interval)` in every check callback. See [Automatic Advancing](/guide/mocking/timers#automatic-advancing) for details.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 ### vi.waitUntil {#vi-waituntil}
 
@@ -1369,7 +1419,18 @@ test('Element render correctly', async () => {
 })
 ```
 
+<<<<<<< HEAD
 如果使用了 `vi.useFakeTimers`, `vi.waitFor` 会在每次检查回调中自动调用 `vi.advanceTimersByTime(interval)`。
+=======
+Like `vi.waitFor`, `vi.waitUntil` accepts a `message` option that prefixes the error and names the step in the [trace timeline](/config/experimental#experimental-tracetimeline).
+
+```ts
+await vi.waitUntil(() => db.users.findByName('alice'), { message: 'user saved' })
+// Error: user saved: Timed out in waitUntil!
+```
+
+If `vi.useFakeTimers` is used, `vi.waitUntil` automatically calls `vi.advanceTimersByTime(interval)` in every check callback. See [Automatic Advancing](/guide/mocking/timers#automatic-advancing) for details.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 ### vi.hoisted {#vi-hoisted}
 
