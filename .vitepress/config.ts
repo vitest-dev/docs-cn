@@ -152,6 +152,7 @@ export default ({ mode }: { mode: string }) => {
 
           search: {
             provider: 'local',
+<<<<<<< HEAD
             options: {
               translations: {
                 button: {
@@ -168,6 +169,8 @@ export default ({ mode }: { mode: string }) => {
                 },
               },
             },
+=======
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
           },
 
           // banner: {
@@ -732,6 +735,10 @@ export default ({ mode }: { mode: string }) => {
                     link: '/config/browser/trackunhandlederrors',
                   },
                   {
+                    text: 'browser.importMapMocks',
+                    link: '/config/browser/importmapmocks',
+                  },
+                  {
                     text: 'browser.expect',
                     link: '/config/browser/expect',
                   },
@@ -1106,6 +1113,10 @@ export default ({ mode }: { mode: string }) => {
                   {
                     text: '并行和串行测试文件',
                     link: '/guide/recipes/parallel-sequential',
+                  },
+                  {
+                    text: 'Running Only Affected Tests',
+                    link: '/guide/recipes/affected-tests',
                   },
                 ],
               },

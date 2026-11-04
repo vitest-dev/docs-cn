@@ -15,6 +15,14 @@ outline: deep
 
 在常规测试的同时启用类型检查。
 
+::: tip
+When typechecking is enabled, Vitest prints a warning that this is an experimental feature. Set the `VITEST_DISABLE_EXPERIMENTAL_LOG` environment variable to hide it:
+
+```bash
+VITEST_DISABLE_EXPERIMENTAL_LOG=true vitest --typecheck
+```
+:::
+
 ## typecheck.only {#typecheck-only}
 
 - **类型:** `boolean`

@@ -119,6 +119,15 @@ interface ExpectPoll extends ExpectStatic {
 
 如果在 `expect.poll` 回调中抛出错误，Vitest 将重试直到超时为止。
 
+The `message` option describes what the poll waits for. If the poll fails, Vitest adds the message to the start of the error. The message also names the step in the [trace timeline](/config/experimental#experimental-tracetimeline).
+
+```ts
+await expect.poll(() => queue.count(), { message: 'queue drained' }).toBe(0)
+// AssertionError: queue drained: expected 3 to be 0 // Object.is equality
+```
+
+If `vi.useFakeTimers` is used, `expect.poll` automatically calls `vi.advanceTimersByTime(interval)` after every failed attempt. See [Automatic Advancing](/guide/mocking/timers#automatic-advancing) for details.
+
 ```ts
 import { expect, test } from 'vitest'
 

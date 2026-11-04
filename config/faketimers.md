@@ -7,7 +7,11 @@ outline: deep
 
 - **类型:** `FakeTimerConfig`
 
+<<<<<<< HEAD
 当使用 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 时，Vitest 会将此选项传递给 [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers)。
+=======
+Options that configure fake timers when using [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers). Vitest's fake timer implementation is based on [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers), with additional options and behavior tailored to Vitest.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
 
 ## fakeTimers.now
 
@@ -66,4 +70,15 @@ An array of global methods and APIs to exclude from fake timers. Vitest always e
 - **类型:** `boolean`
 - **默认值:** `true`
 
+<<<<<<< HEAD
 指示假计时器通过委托给它们各自的处理函数来清除 “原生”（即非假）计时器。如果禁用此功能，当伪计时器会话启动前已存在计时器时，可能导致意外行为。
+=======
+Tells fake timers to clear "native" (i.e. not fake) timers by delegating to their respective handlers. When disabled, it can lead to potentially unexpected behavior if timers existed prior to starting fake timers session.
+
+## fakeTimers.fakeNodeBuiltins <Version>5.1.0</Version> {#faketimers-fakenodebuiltins}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Mock timer APIs imported from `node:timers` and `node:timers/promises`.
+>>>>>>> 88678699d9e33ecbfb4173873cba54a44cba4255
