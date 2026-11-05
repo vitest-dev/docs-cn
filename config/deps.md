@@ -113,11 +113,21 @@ TypeError: default is not a function
 - **类型:** `string[]`
 - **默认值:** `['node_modules']`
 
+<<<<<<< HEAD
 配置一个视为模块目录的目录列表。此配置选项会影响 [`vi.mock`](/api/vi#vi-mock) 的行为：当未提供工厂并且你正在模拟的路径与 `moduleDirectories` 值之一匹配时，Vitest 将尝试 通过在项目的 [root](/config/root) 中查找 `__mocks__` 文件夹来解析 mock。
 
 此选项还将影响在外部化依赖项时是否应将文件视为模块。默认情况下，Vitest 绕过 Vite 转换步骤导入带有原生 Node.js 的外部模块。
 
 设置此选项将 _覆盖_ 默认值，如果你仍希望搜索 `node_modules` 包包括它连同任何其他选项：
+=======
+A list of directories that contain dependencies. Vitest adds a slash before and after each value and checks if the path of a file includes it: `'vendor'` matches every file inside a `vendor` folder, and an absolute path matches only the files inside that folder. Vitest always includes `node_modules`.
+
+Vitest treats a file inside one of these directories as a dependency:
+
+- [`vi.mock`](/api/vi#vi-mock) without a factory looks for the mock only in the `__mocks__` folder in the [root](/config/root) of the project.
+- Vitest [externalizes](/config/server#server-deps-external) JavaScript files that Node.js can import directly, for example, a `.js` file in a package with `"type": "module"`. Vitest imports these files with native Node.js, Vite plugins don't transform them, and `vi.mock` doesn't apply to the modules that they import.
+- Vitest prefixes string values of [`server.deps.inline`](/config/server#server-deps-inline) and [`server.deps.external`](/config/server#server-deps-external) with these directories.
+>>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 ```ts
 import { defineConfig } from 'vitest/config'
@@ -125,8 +135,16 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     deps: {
-      moduleDirectories: ['node_modules', path.resolve('../../packages')],
-    }
+      moduleDirectories: ['vendor'],
+    },
   },
 })
 ```
+
+::: tip
+You don't need this option to mock a workspace package in a monorepo. If you call `vi.mock` with a package name, Vitest looks in the root `__mocks__` folder even if the package resolves outside of `node_modules`.
+:::
+
+::: warning
+Don't add a directory that contains the source files of your project. For example, if the project is in `packages/app`, the value `packages` makes Vitest treat the files in `packages/app` as dependencies too.
+:::
