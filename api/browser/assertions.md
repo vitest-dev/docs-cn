@@ -55,7 +55,11 @@ interface ExpectPollOptions {
 ```
 
 ::: tip
+<<<<<<< HEAD
 与 [expect.poll](/api/expect#poll) 类似，`expect.element` 会反复重试 DOM 断言，直到断言通过或达到超时时间。当接收到定位器时，Vitest 会先通过 [locator.findElement()](/api/browser/locators#findelement) 解析该定位器，再执行 DOM 断言。`timeout` 参数适用于整个重试过程。`interval` 参数控制失败 DOM 断言的重试频率，但定位器解析使用 `findElement` 自身递增的重试间隔。
+=======
+Like [`expect.poll`](/api/expect#poll), `expect.element` retries DOM assertions until they pass or the timeout is reached. When it receives a locator, Vitest resolves it with [`locator.findElement()`](/api/browser/locators#findelement) before running the DOM assertion. The `timeout` option applies to the whole retry operation. The `interval` option controls how often failed DOM assertions are retried, but locator resolution uses `findElement`'s own increasing retry intervals. If [fake timers](/api/vi#vi-usefaketimers) are enabled, `expect.element` advances them while it retries. See [Automatic Advancing](/guide/mocking/timers#automatic-advancing) for details.
+>>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 `toMatchTextContent` 以及其他所有断言在常规的 `expect` 中仍然可用，但没有内置的重试机制：
 
