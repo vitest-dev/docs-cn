@@ -74,9 +74,7 @@ Vitest 的测试名使用 `>` 符号连接，方便区分测试与套件，而 J
 + `${describeTitle} > ${testTitle}`
 ```
 
-<!-- TODO: translation -->
-
-The same applies to [`testNamePattern`](/config/testnamepattern) (the `-t` flag): Vitest matches against the `>`-joined full name, while Jest matches the space-joined name. Update patterns that span a suite and a test accordingly, or match a single segment (`-t adds`) or use a wildcard between segments (`-t 'math.*adds'`).
+这同样适用于 [`testNamePattern`](/config/testnamepattern)（`-t` 参数）：Vitest 匹配的是以 `>` 连接的完整测试名，而 Jest 匹配的是以空格连接的测试名。因此，须相应更新跨测试套件和测试用例的匹配规则，或仅匹配单个片段 (`-t adds`)，或在片段之间使用通配符（`-t 'math.*adds'`）
 
 ```diff
 - vitest -t 'math adds'
