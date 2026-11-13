@@ -414,9 +414,8 @@ Serve module mocks through an import map instead of request interception. By def
 - **命令行终端:** `--browser.traceView.enabled`
 - **配置:** [browser.traceView.enabled](/config/browser/traceview#traceview-enabled)
 
-<<<<<<< HEAD
-启用浏览器测试 Vitest 追踪视图收集功能（默认值：`false`）
-=======
+<!-- TODO: translation -->
+
 Deprecated, use `--browser.traceView.mode` instead. `true` is the same as `--browser.traceView.mode=on`
 
 ### browser.traceView.mode
@@ -425,7 +424,6 @@ Deprecated, use `--browser.traceView.mode` instead. `true` is the same as `--bro
 - **Config:** [browser.traceView.mode](/config/browser/traceview#traceview-mode)
 
 How trace view records tests. Supported: "on" (every test), "failure-only" (only failed tests), "off" (default: `"failure-only"`)
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 ### browser.traceView.recordCanvas
 
@@ -1036,9 +1034,8 @@ Record `expect.poll`, `vi.waitFor`, and `vi.waitUntil` steps of each test and pr
 - **命令行终端:** `--experimental.vcsProvider <path>`
 - **配置:** [experimental.vcsProvider](/config/experimental#experimental-vcsprovider)
 
-<<<<<<< HEAD
-用于检测文件变更的自定义 provider 程序（默认值：`git`）
-=======
+<!-- TODO: translation -->
+
 Provider for detecting changed files: `git`, `mtime` (requires `experimental.recordDependencies`) or a path to a custom provider. (default: `git`)
 
 ### experimental.recordDependencies
@@ -1047,7 +1044,6 @@ Provider for detecting changed files: `git`, `mtime` (requires `experimental.rec
 - **Config:** [experimental.recordDependencies](/config/experimental#experimental-recorddependencies)
 
 Record the modules loaded by every test file in the cache and use the records with `--changed` and `--related` instead of the static module graph. A test file without a record always runs. (default: `false`)
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 ### experimental.preParse
 

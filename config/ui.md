@@ -5,19 +5,11 @@ outline: deep
 
 # ui <CRoot />
 
-<<<<<<< HEAD
 - **类型:** `boolean`
 - **默认值:** `false`
 - **命令行终端:** `--ui`, `--ui=false`
 
-启用 [UI 模式](/guide/ui).
-=======
-- **Type:** `boolean | object`
-- **Default:** `false`
-- **CLI:** `--ui`, `--ui=false`
-
-Enable [Vitest UI](/guide/ui). Setting `ui: true` is the same as `ui: { enabled: true }`.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+启用 [UI 模式](/guide/ui)。设置 `ui: true` 等同于 `ui: { enabled: true }`。
 
 ::: warning
 此功能需要安装 [`@vitest/ui`](https://npmx.dev/package/@vitest/ui) 包。若尚未安装，Vitest 会在首次运行测试命令时自动安装。

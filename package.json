@@ -24,21 +24,12 @@
   },
   "devDependencies": {
     "@antfu/ni": "^30.6.0",
-<<<<<<< HEAD
-    "@iconify-json/carbon": "^1.2.28",
+    "@iconify-json/carbon": "^1.2.29",
     "@iconify-json/logos": "^1.2.15",
     "@iconify/vue": "^5.0.3",
     "@shikijs/transformers": "^4.4.3",
-    "@shikijs/vitepress-twoslash": "^4.4.3",
-    "@unocss/reset": "^66.10.5",
-=======
-    "@iconify-json/carbon": "catalog:",
-    "@iconify-json/logos": "catalog:",
-    "@iconify/vue": "catalog:",
-    "@shikijs/transformers": "^4.5.0",
-    "@shikijs/vitepress-twoslash": "^4.5.0",
-    "@unocss/reset": "catalog:",
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+    "@shikijs/vitepress-twoslash": "^4.6.0",
+    "@unocss/reset": "^66.12.0",
     "@vite-pwa/assets-generator": "^2.0.0",
     "@vite-pwa/vitepress": "^1.1.0",
     "@vitejs/plugin-vue": "^6.0.10",

@@ -48,10 +48,8 @@ catch (err) {
 }
 ```
 
-<<<<<<< HEAD
-- 导入 ES 模块会导致其被永久缓存，当存在大量上下文（测试文件）时，将引发内存泄漏问题。Node.js 目前未提供清除该缓存的 API 接口。
-- 在沙箱环境中访问全局变量 [耗时更长](https://github.com/nodejs/node/issues/31658)。
-=======
+<!-- TODO: translation -->
+
 - Objects and arrays created by Node.js APIs and by the test environment come from outside of the sandbox too. This includes the result of `await response.json()` on a `Response` or a `Request`, `structuredClone()`, `path.parse()` and DOM methods like `element.getAttributeNames()`. Their prototype is not the `Object.prototype` or `Array.prototype` of your tests, so [`toStrictEqual`](/api/expect#tostrictequal) does not consider them equal to the same literal, and libraries that detect plain objects by their prototype treat them as class instances. If your tests depend on these values, run them in the `forks` or `threads` pool, or parse fetch responses inside the sandbox in a [setup file](/config/setupfiles):
 
 ```ts [vitest.setup.ts]
@@ -63,9 +61,8 @@ Request.prototype.json = async function () {
 }
 ```
 
-- Importing ES modules caches them indefinitely which introduces memory leaks if you have a lot of contexts (test files). There is no API in Node.js that clears that cache.
-- Accessing globals [takes longer](https://github.com/nodejs/node/issues/31658) in a sandbox environment.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+- 导入 ES 模块会导致其被永久缓存，当存在大量上下文（测试文件）时，将引发内存泄漏问题。Node.js 目前未提供清除该缓存的 API 接口。
+- 在沙箱环境中访问全局变量 [耗时更长](https://github.com/nodejs/node/issues/31658)。
 
 使用此选项时，需要注意这些问题。Vitest 团队无法解决上诉问题。
 :::

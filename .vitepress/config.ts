@@ -152,7 +152,6 @@ export default ({ mode }: { mode: string }) => {
 
           search: {
             provider: 'local',
-<<<<<<< HEAD
             options: {
               translations: {
                 button: {
@@ -169,8 +168,6 @@ export default ({ mode }: { mode: string }) => {
                 },
               },
             },
-=======
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
           },
 
           // banner: {

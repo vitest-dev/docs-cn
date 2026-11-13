@@ -468,17 +468,10 @@ export default defineConfig({
 
 ## coverage.processingConcurrency
 
-<<<<<<< HEAD
 - **类型:** `boolean`
-- **默认值:** `Math.min(20, os.availableParallelism?.() ?? os.cpus().length)`
+- **默认值:** `Math.min(20, os.availableParallelism())`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
-=======
-- **Type:** `boolean`
-- **Default:** `Math.min(20, os.availableParallelism())`
-- **Available for providers:** `'v8' | 'istanbul'`
-- **CLI:** `--coverage.processingConcurrency=<number>`
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 处理代码覆盖率结果时使用的并发限制。
 

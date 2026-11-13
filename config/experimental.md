@@ -316,11 +316,7 @@ export default defineConfig({
 
 ## experimental.vcsProvider <Version type="experimental">4.1.1</Version> {#experimental-vcsprovider}
 
-<<<<<<< HEAD
-- **类型:** `VCSProvider | string`
-=======
-- **Type:** `'git' | 'mtime' | VCSProvider | string`
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+- **类型:** `'git' | 'mtime' | VCSProvider | string`
 
 ```ts
 interface VCSProvider {
@@ -354,14 +350,10 @@ interface ModuleDependency {
 
 - **默认值:** `'git'`
 
-<<<<<<< HEAD
-用于检测更改文件的自定义驱动。与 [`--changed`](/guide/cli#changed) 参数配合使用，用于确定哪些文件已被修改。
+用于检测更改文件的自定义 provider。与 [`--changed`](/guide/cli#changed) 参数配合使用，用于确定哪些文件已被修改。
 
 默认情况下，Vitest 使用 Git 检测更改的文件。你可以提供 `VCSProvider` 接口的自定义实现以使用不同的版本控制系统：
-=======
-Provider for detecting changed files. Used with the [`--changed`](/guide/cli#changed) flag to determine which files have been modified.
-
-Vitest has two built-in providers:
+<!-- TODO: translation -->
 
 - `'git'` returns the files that differ from the `--changed` reference, plus staged and untracked files.
 - `'mtime'` <Version type="experimental">5.1.0</Version> returns the recorded dependencies whose modification time is newer than the run that recorded them, and deleted dependencies. It needs [`experimental.recordDependencies`](#experimental-recorddependencies): a dependency without a record is always reported as changed, so every test runs until the records exist. It does not need Git and ignores the `--changed` reference. A `--changed` run updates the records of the tests it ran, so the next `--changed` run selects only the tests whose dependencies changed since, and the test files that failed in their last run.
@@ -384,7 +376,6 @@ The `mtime` provider compares file times with the clock of the machine that ran 
 :::
 
 You can provide a custom implementation of the `VCSProvider` interface to use a different version control system. `options.resolver.getDependencies()` returns every file the test files of the run depend on, so a provider can limit its work to these files:
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 ```ts [vitest.config.ts]
 import { defineConfig } from 'vitest/config'
@@ -393,14 +384,9 @@ export default defineConfig({
   test: {
     experimental: {
       vcsProvider: {
-<<<<<<< HEAD
-        async findChangedFiles({ root, changedSince }) {
-          // 返回已变更的文件路径
-=======
         async findChangedFiles({ root, changedSince, resolver }) {
           const dependencies = await resolver.getDependencies()
-          // return the paths of the changed files
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+          // 返回已变更的文件路径
           return []
         },
       },

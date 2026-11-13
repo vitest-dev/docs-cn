@@ -380,11 +380,9 @@ Unlike `test.skip`, `test.skipIf` always sets the [`skip`](#skip) option: `true`
 
 - **别名:** `it.runIf`
 
-<<<<<<< HEAD
-于 [test.skipIf](#test-skipif) 相反。
-=======
+<!-- TODO: translation -->
+
 Opposite of [test.skipIf](#test-skipif). It always sets the [`skip`](#skip) option: `false` if the condition is truthy, `true` otherwise.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 ```ts
 import { assert, test } from 'vitest'

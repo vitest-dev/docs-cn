@@ -137,12 +137,10 @@ export default defineConfig({
 })
 ```
 
+<!-- TODO: translation -->
+
 ::: info
-<<<<<<< HEAD
-Vitest 默认分配端口号 `63315` 以避免与开发服务器冲突，允许我们同时并行运行两者。我们可以通过 [`api`](/config/api) 选项来更改这个端口号。
-=======
 Vitest assigns port `23315` to avoid conflicts with the development server, allowing you to run both in parallel. You can change that with the [`api`](/config/api) option. The port is bound when the first browser is launched, or on startup if `api` or `ui` is enabled.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 :::
 
 如果之前未使用过 Vite，请确保已安装框架插件并在配置中指定。有些框架可能需要额外配置才能运行，请查看其 Vite 相关文档以确定。
@@ -360,11 +358,7 @@ Vitest 默认会在开发模式下自动打开浏览器界面，测试会在页�
 
 无头模式是浏览器模式下可用的另一个选项。在无头模式下，浏览器在没有用户界面的情况下在后台运行，这对于运行自动化测试非常有用。Vitest 中的 headless 选项可以设置为布尔值以启用或禁用无头模式。
 
-<<<<<<< HEAD
-在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 参数。
-=======
-When using headless mode, Vitest won't open the browser UI automatically. If you want to continue using a UI but have tests run headlessly, you can install the [`@vitest/ui`](/guide/ui) package and pass the `--ui` flag when running Vitest. See [Headless Mode and UI](#headless-mode-and-ui) for what each option controls and how their defaults interact.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+在使用无头模式时，Vitest 不会自动打开用户界面。如果我们希望继续使用用户界面，同时让测试以 无头模式运行，我们可以安装 [`@vitest/ui`](/guide/ui) 包，并在运行Vitest时传递 `--ui` 参数。 See [Headless Mode and UI](#headless-mode-and-ui) for what each option controls and how their defaults interact.
 
 这是启用无头模式的示例配置：
 
@@ -395,9 +389,8 @@ npx vitest --browser.headless
 默认情况下无头模式不可用。我们需要使用 [`playwright`](https://npmx.dev/package/playwright) 或 [`webdriverio`](https://npmx.dev/package/webdriverio) 提供程序来启用此功能。
 :::
 
-<<<<<<< HEAD
-## 示例 {#examples}
-=======
+<!-- TODO: translation -->
+
 ### Headless Mode and UI {#headless-mode-and-ui}
 
 Three options decide what you see during a browser mode run:
@@ -418,8 +411,7 @@ Three options decide what you see during a browser mode run:
 
 Passing `--ui` alone keeps the browser UI in the headed browser window, so set `--browser.ui=false` to use only Vitest UI.
 
-## Examples
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+## 示例 {#examples}
 
 一般情况下，我们不需要任何依赖来使用浏览器模式：
 

@@ -38,13 +38,11 @@ Vite 模块图中的模块 ID。通常，它是一个使用 POSIX 分隔符的�
 
 ## testModule
 
-<<<<<<< HEAD
-与规范相关联的 [`TestModule`](/api/advanced/test-module) 实例。如果测试还未加入队列，则将是 `undefined`。
-=======
+<!-- TODO: translation -->
+
 Instance of [`TestModule`](/api/advanced/test-module) associated with the specification. This is `undefined` until Vitest queues the module or parses it, for example, with [`experimental.preParse`](/config/experimental#experimental-preparse) or [`parseSpecifications`](/api/advanced/vitest#parsespecifications).
 
 Vitest keeps the module after the test run finishes. If the specification runs again, this returns the module of the previous run until the module is queued again.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
 
 ## pool
 

@@ -227,12 +227,10 @@ interface TestResultPassed {
 }
 ```
 
+<!-- TODO: translation -->
+
 ::: warning
-<<<<<<< HEAD
-请注意，状态为 `passed` 的测试仍可能附带有错误——如果 `retry` 至少触发了一次，这种情况就可能发生。
-=======
-Note that the test with `passed` state can still have errors attached - this can happen if `retry` was triggered at least once. Use [`attempts()`](#attempts) to see which run produced each error.
->>>>>>> eb948575f5ffa8346112d64ab6f6522ee538b4e9
+请注意，状态为 `passed` 的测试仍可能附带有错误——如果 `retry` 至少触发了一次，这种情况就可能发生。Use [`attempts()`](#attempts) to see which run produced each error.
 :::
 
 ## diagnostic
@@ -281,6 +279,8 @@ interface TestDiagnostic {
 ::: info
 如果测试尚未被安排运行，`diagnostic()` 将返回 `undefined`。
 :::
+
+<!-- TODO: translation -->
 
 ## attempts <Version>5.1.0</Version> {#attempts}
 
