@@ -138,6 +138,15 @@ test('flaky database test', { tags: ['flaky', 'db'], timeout: 120_000 })
 // { timeout: 120_000, retry: 3 }
 ```
 
+<!-- TODO: translation -->
+
+Options set to `undefined` are ignored, so they don't override the values from tags:
+
+```ts
+test('flaky database test', { tags: ['flaky', 'db'], timeout: undefined })
+// { timeout: 30_000, retry: 3 }
+```
+
 ## 在测试中使用标签 {#using-tags-in-tests}
 
 可以通过 `tags` 参数 为单个测试用例或整个测试套件添加标签

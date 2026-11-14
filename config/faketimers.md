@@ -7,7 +7,7 @@ outline: deep
 
 - **类型:** `FakeTimerConfig`
 
-当使用 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 时，Vitest 会将此选项传递给 [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers)。
+用于配置 [`vi.useFakeTimers()`](/api/vi#vi-usefaketimers) 所启用的虚拟计时器。Vitest 的虚拟计时器实现基于 [`@sinon/fake-timers`](https://npmx.dev/package/@sinonjs/fake-timers)，并提供了适配 Vitest 的额外选项和行为。
 
 ## fakeTimers.now
 
@@ -67,3 +67,10 @@ An array of global methods and APIs to exclude from fake timers. Vitest always e
 - **默认值:** `true`
 
 指示假计时器通过委托给它们各自的处理函数来清除 “原生”（即非假）计时器。如果禁用此功能，当伪计时器会话启动前已存在计时器时，可能导致意外行为。
+
+## fakeTimers.fakeNodeBuiltins <Version>5.1.0</Version> {#faketimers-fakenodebuiltins}
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Mock timer APIs imported from `node:timers` and `node:timers/promises`.

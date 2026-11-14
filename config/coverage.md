@@ -408,6 +408,35 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 设置为要忽略覆盖率的类方法名称数组。
 更多信息请参阅 [istanbul 文档](https://github.com/istanbuljs/nyc#ignoring-methods)。
 
+## coverage.ignoreNode <Version>5.1.0</Version> {#coverage-ignorenode}
+
+- **Type:** `(node: Node, type: 'function' | 'statement' | 'branch') => boolean | 'ignore-this-and-nested-nodes' | void`
+- **Available for providers:** `'v8'`
+
+Filter to ignore code from coverage based on its AST node. Vitest calls it for each node of the transformed code, together with the kind of coverage the node counts for. Return `true` to ignore the node, or `'ignore-this-and-nested-nodes'` to also ignore all nodes inside it.
+
+This is useful for code that doesn't exist in the source file and can't carry an [ignore hint](/guide/coverage#ignoring-code), like code that compilers or other plugins generate. Since the nodes come from the code after Vite's transforms, the filter sees exactly what the plugins generated.
+
+Vitest's built-in filters run first, so nodes that Vitest already ignores, like its own transform artifacts, are never passed to this function.
+
+```ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      provider: 'v8',
+      ignoreNode: (node, type) =>
+        type === 'statement'
+        && node.type === 'ExpressionStatement'
+        && node.expression.type === 'CallExpression'
+        && node.expression.callee.type === 'Identifier'
+        && node.expression.callee.name === '__generatedHelper',
+    },
+  },
+})
+```
+
 ## coverage.watermarks
 
 - **类型:**
@@ -440,7 +469,7 @@ Vitest 会将所有文件（包括匹配 glob 模式的文件）计入全局覆�
 ## coverage.processingConcurrency
 
 - **类型:** `boolean`
-- **默认值:** `Math.min(20, os.availableParallelism?.() ?? os.cpus().length)`
+- **默认值:** `Math.min(20, os.availableParallelism())`
 - **可用的测试提供者:** `'v8' | 'istanbul'`
 - **命令行终端:** `--coverage.processingConcurrency=<number>`
 

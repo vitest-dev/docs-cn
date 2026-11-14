@@ -27,6 +27,34 @@ DEBUG=vitest:cache:fs vitest --fsModuleCache
 整个工作区的缓存统一存放在同一个目录中。如果要更改该目录，请参阅 [`fsModuleCachePath`](/config/fsmodulecachepath)。
 :::
 
+<!-- TODO: translation -->
+
+## Manifest {#manifest}
+
+After every test run, each project writes a `_manifest-<project>-<hash>.json` file into the cache directory, next to the cached modules. `<project>` is the [project name](/config/name), or the name of the project's root folder if the project has no name. The manifest is grouped by Vite environment. `modules` maps the URL of every cached module to the name of its cache file in that directory. `externalized` maps the URL of every [externalized](/config/server#server-deps-external) dependency to the file that Node imports without a transform:
+
+```json [node_modules/.vitest-cache/_manifest-app-1a2b3c4d.json]
+{
+  "name": "",
+  "root": "/projects/app",
+  "modules": {
+    "ssr": {
+      "/src/math.test.ts": "3b1af86df9d029d4281e7ae6ef10059153a80e14",
+      "/src/math.ts": "e8e20f586e230bde9b163dfc191f4440b241272a"
+    }
+  },
+  "externalized": {
+    "ssr": {
+      "/node_modules/lodash-es/lodash.js": "/projects/app/node_modules/lodash-es/lodash.js"
+    }
+  }
+}
+```
+
+The manifest keeps the entries from previous runs, so a run that imports only some files does not remove the others.
+
+A cache file contains the code that Vitest runs, so you can edit it to debug a transform. Vitest runs the edited code until the module is transformed again: when the source file or the configuration changes, or when the cache is cleared with [`--clearCache`](/guide/cli#clearcache). Keep the `//# vitestCache=` comment at the end of the file, otherwise Vitest transforms the module again.
+
 ## 已知问题 {#known-issues}
 
 Vitest 会根据文件内容、文件 ID、Vite 环境配置和覆盖率状态生成持久化的文件哈希。Vitest 会尽可能将已知的配置信息纳入计算，但这些信息仍不完整。目前，由于缺少统一的接口，Vitest 无法跟踪插件选项。

@@ -395,6 +395,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 
 控制 Vitest 是否捕获未捕获的异常以便报告（默认：`true`）
 
+### browser.importMapMocks
+
+- **CLI:** `--browser.importMapMocks`
+- **Config:** [browser.importMapMocks](/config/browser/importmapmocks)
+
+Serve module mocks through an import map instead of request interception. By default, enabled when the browser supports it
+
 ### browser.trace
 
 - **命令行终端:** `--browser.trace <mode>`
@@ -407,7 +414,16 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **命令行终端:** `--browser.traceView.enabled`
 - **配置:** [browser.traceView.enabled](/config/browser/traceview#traceview-enabled)
 
-启用浏览器测试 Vitest 追踪视图收集功能（默认值：`false`）
+<!-- TODO: translation -->
+
+Deprecated, use `--browser.traceView.mode` instead. `true` is the same as `--browser.traceView.mode=on`
+
+### browser.traceView.mode
+
+- **CLI:** `--browser.traceView.mode <mode>`
+- **Config:** [browser.traceView.mode](/config/browser/traceview#traceview-mode)
+
+How trace view records tests. Supported: "on" (every test), "failure-only" (only failed tests), "off" (default: `"failure-only"`)
 
 ### browser.traceView.recordCanvas
 
@@ -422,6 +438,13 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **配置:** [browser.traceView.inlineImages](/config/browser/traceview#traceview-inlineimages)
 
 在追踪视图快照中内联加载的图像像素（默认值：`false`）
+
+### browser.traceView.ariaSnapshot
+
+- **CLI:** `--browser.traceView.ariaSnapshot`
+- **Config:** [browser.traceView.ariaSnapshot](/config/browser/traceview#traceview-ariasnapshot)
+
+Capture the accessibility tree in trace-view snapshots (default: `true`)
 
 ### browser.locators.exact
 
@@ -513,6 +536,12 @@ UI 模式和 HTML 报告器中提供的 HTML 覆盖率输出目录。
 - **配置:** [changed](/config/changed)
 
 运行受文件变更影响的测试（默认值：`false`）。
+
+### lastFailed
+
+- **CLI:** `--lastFailed`
+
+Run only the tests that failed in the last run (default: `false`)
 
 ### sequence.shuffle.files
 
@@ -993,12 +1022,28 @@ watch 模式下重新运行测试时清除终端屏幕（默认值：`true`）
 
 控制 Vitest 是否使用 Node.js Loader API 处理内联代码或模拟文件。如果启用了 `viteModuleRunner`，则此选项将无效。禁用此选项可能提升性能。（默认值：`true`）
 
+### experimental.traceTimeline
+
+- **CLI:** `--experimental.traceTimeline`
+- **Config:** [experimental.traceTimeline](/config/experimental#experimental-tracetimeline)
+
+Record `expect.poll`, `vi.waitFor`, and `vi.waitUntil` steps of each test and print them as a timeline when the test fails. This has no effect in browser mode. (default: `false`)
+
 ### experimental.vcsProvider
 
 - **命令行终端:** `--experimental.vcsProvider <path>`
 - **配置:** [experimental.vcsProvider](/config/experimental#experimental-vcsprovider)
 
-用于检测文件变更的自定义 provider 程序（默认值：`git`）
+<!-- TODO: translation -->
+
+Provider for detecting changed files: `git`, `mtime` (requires `experimental.recordDependencies`) or a path to a custom provider. (default: `git`)
+
+### experimental.recordDependencies
+
+- **CLI:** `--experimental.recordDependencies`
+- **Config:** [experimental.recordDependencies](/config/experimental#experimental-recorddependencies)
+
+Record the modules loaded by every test file in the cache and use the records with `--changed` and `--related` instead of the static module graph. A test file without a record always runs. (default: `false`)
 
 ### experimental.preParse
 

@@ -48,7 +48,7 @@ if (task.type === 'module') {
 function state(): TestModuleState
 ```
 
-与 [`testSuite.state()`](/api/advanced/test-suite#state) 的工作方式相同，但如果模块尚未执行，还可以返回 `queued`。
+与 [`testSuite.state()`](/api/advanced/test-suite#state) 的工作方式相同，如果模块已进入队列，而 Vitest 尚未收集其中的测试，还可以返回 `queued`。
 
 ## meta <Version>3.1.0</Version> {#meta}
 

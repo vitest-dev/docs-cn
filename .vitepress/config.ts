@@ -732,6 +732,10 @@ export default ({ mode }: { mode: string }) => {
                     link: '/config/browser/trackunhandlederrors',
                   },
                   {
+                    text: 'browser.importMapMocks',
+                    link: '/config/browser/importmapmocks',
+                  },
+                  {
                     text: 'browser.expect',
                     link: '/config/browser/expect',
                   },
@@ -1106,6 +1110,10 @@ export default ({ mode }: { mode: string }) => {
                   {
                     text: '并行和串行测试文件',
                     link: '/guide/recipes/parallel-sequential',
+                  },
+                  {
+                    text: 'Running Only Affected Tests',
+                    link: '/guide/recipes/affected-tests',
                   },
                 ],
               },

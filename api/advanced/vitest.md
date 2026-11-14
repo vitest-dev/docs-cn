@@ -46,7 +46,7 @@ const testCase = vitest.state.getReportedEntity(task) // 新 API
 
 <!-- TODO: translation -->
 
-Cache manager that stores the results of the previous test runs. In Vitest itself this is only used by the default sequencer to sort tests.
+Cache manager that stores the results of the previous test runs. Vitest uses it to sort tests in the default sequencer and to select tests with [`--last-failed`](/guide/cli#last-failed).
 
 ### cache.getTestSpecificationResult <Version type="experimental">5.0.4</Version> {#cache-gettestspecificationresult}
 
@@ -60,7 +60,7 @@ function getTestSpecificationResult(
 interface CachedTestFileResult {
   /**
    * The file has a known failure.
-   * Only a complete run of the file clears it.
+   * A complete run of the file clears it, or a run in which every known failed test passes.
    */
   failed: boolean
   /**
@@ -72,6 +72,12 @@ interface CachedTestFileResult {
    * It is not set if the file never ran completely.
    */
   lastRun?: number
+  /**
+   * Full names of the tests that failed in the last run of the file.
+   * `--last-failed` runs only these tests.
+   * It is not set if the failure happened outside of tests, for example in a hook or during collection.
+   */
+  failedTests?: string[]
 }
 ```
 
@@ -230,8 +236,9 @@ function collect(
 ```
 
 根据 `staticParse` 的设置，此方法要么通过静态分析收集测试文件（默认行为），要么运行代码但不执行测试回调。`collect` 返回未处理的错误以及一个 [测试模块](/api/advanced/test-module) 数组。它接受用于匹配测试文件的字符串过滤器——这些过滤器与 [CLI 支持的过滤器](/guide/filtering#cli) 相同。
+<!-- TODO: translation -->
 
-此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析 TestSpecification。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。
+此方法根据配置的 `include`、`exclude` 和 `includeSource` 值解析 TestSpecification。有关更多信息，请参阅 [`project.globTestFiles`](/api/advanced/test-project#globtestfiles)。如果指定了 `--changed` 参数，则列表将被过滤为仅包含已更改的文件。If [`--shard`](/guide/cli#shard) was specified, only the files of the current shard are collected.
 
 ::: warning
 注意，自 Vitest 5 起，默认通过静态分析收集测试。如果通过第二个参数禁用了此功能，Vitest 将像运行常规测试一样，以隔离方式运行每个测试文件。除非在收集测试前手动禁用隔离，否则这会使该方法变得非常慢。
@@ -300,7 +307,9 @@ function runTestSpecifications(
 ): Promise<TestRunResult>
 ```
 
-该方法会遍历并执行所有根据 [测试规格](/api/advanced/test-specification) 定义的测试用例。第二个参数 `allTestsRun` 则供覆盖率工具判断是否应在覆盖率报告中加入那些没有被任何测试覆盖到的文件。
+<!-- TODO: translation -->
+
+This method runs every test based on the received [specifications](/api/advanced/test-specification). It does not apply the [`--shard`](/guide/cli#shard) option. The second argument, `allTestsRun`, is used by the coverage provider to determine if it needs to include uncovered files in report.
 
 ::: warning
 此方法不会触发 `onWatcherRerun`、`onWatcherStart` 和 `onTestsRerun` 回调。如果我们基于文件更改重新运行测试，请考虑使用 [`rerunTestSpecifications`](#reruntestspecifications) 代替。
@@ -349,8 +358,9 @@ function collectTests(
 ```
 
 执行测试文件而不运行测试回调。`collectTests` 返回未处理的错误和 [测试模块](/api/advanced/test-module) 数组。
+<!-- TODO: translation -->
 
-此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供 TestSpecification。
+此方法与 [`collect`](#collect) 完全相同，但我们需要自己提供 TestSpecification。It does not apply the [`--shard`](/guide/cli#shard) option.
 
 ::: warning
 请注意，Vitest 不使用静态分析来收集测试。Vitest 将像运行常规测试一样在隔离环境中运行每个测试文件。
@@ -602,7 +612,9 @@ function experimental_parseSpecification(
 ): Promise<TestModule>
 ```
 
-该函数会收集文件内的所有测试，但不会执行它们。它借助 Vite 的 `ssrTransform`，并在其之上使用 rollup 的 `parseAst` 进行静态分析，从而提取所有可识别的测试用例。
+<!-- TODO: translation -->
+
+This function will collect all tests inside the file without running it. It uses rollup's `parseAst` function on top of Vite's `ssrTransform` to statically analyse the file and collect all tests that it can. A call is collected only if its first argument is a string, a template string, a number, a variable, a property like `MyClass.name`, or a condition (`a ? b : c`, `a ?? b`, `a || b`) of those, so `test(getName(), fn)` is not collected. A name that is not a literal, such as `test(isWindows ? 'a' : 'b', fn)`, is collected with its source code as the name. The test keeps its location, but a test name pattern cannot match it.
 
 ::: warning
 如果 Vitest 无法解析测试的名称，它将在测试或套件中注入一个 `dynamic: true` 属性。`id` 也会带有 `-dynamic` 后缀，以避免破坏已正确收集的测试。

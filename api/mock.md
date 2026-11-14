@@ -53,8 +53,8 @@ fn.length // == 2
 以下类型中的自定义函数实现使用泛型 `<T>` 进行标记。
 :::
 
-::: warning 类支持 {#class-support}
-像 `mockReturnValue`、`mockReturnValueOnce`、`mockResolvedValue` 这样的简写方法不能用于模拟类。类构造函数在返回值方面具有 [反直觉的行为](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)：
+::: warning Class Support {#class-support}
+The `mockReturnValue`, `mockReturnValueOnce`, `mockResolvedValue`, `mockResolvedValueOnce`, `mockRejectedValue` and `mockRejectedValueOnce` methods cannot be used when the mock is called with the `new` keyword. Class constructors have [unintuitive behaviour](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) regarding the return value:
 
 ```ts {2,7}
 const CorrectDogClass = vi.fn(class {
@@ -101,7 +101,7 @@ mock.mockImplementation(class {
 function getMockImplementation(): T | undefined
 ```
 
-若存在 mock 实现，则返回其当前版本；否则返回空值。
+若存在 mock 实现，则返回其当前版本；否则返回空值。If an implementation was queued with [`mockImplementationOnce`](#mockimplementationonce), it returns the first queued implementation instead.
 
 如果 mock 对象是使用 [`vi.fn`](/api/vi#vi-fn) 创建的，它将使用提供的方法作为模拟实现。
 
@@ -233,7 +233,7 @@ myMockFn() // 'original'
 可与异步回调一起使用。该方法必须等待，之后才能使用原始实现。
 
 ```ts
-test('async callback', () => {
+test('async callback', async () => {
   const myMockFn = vi.fn(() => 'original')
 
   // 由于回调是异步的，我们要等待这个调用
@@ -288,7 +288,7 @@ await asyncMock() // 抛出 Error<'Async error'>
 function mockReset(): Mock<T>
 ```
 
-该方法会先执行与 [`mockClear`](#mockClear) 相同的清理，再重置 mock 的实现，并一并清除所有一次性（once）设定。
+该方法会先执行与 [`mockClear`](#mockclear) 相同的清理，再重置 mock 的实现，并一并清除所有一次性（once）设定。
 
 注意：如果 mock 由 `vi.fn()` 创建，重置后其函数体将变为空实现，默认返回 `undefined`。如果由 `vi.fn(impl)` 创建，重置后实现会恢复为传入的 `impl`。
 
@@ -317,7 +317,7 @@ expect(spy.mock.calls).toEqual([['Bob']])
 ## mockRestore
 
 ```ts
-function mockRestore(): Mock<T>
+function mockRestore(): void
 ```
 
 该方法先完成 [`mockReset`](#mockreset) 的全部工作；若 mock 通过 [`vi.spyOn`](/api/vi#vi-spyon) 创建，还会进一步恢复被监视对象的原始属性描述符。
@@ -413,7 +413,7 @@ mock() // 43
 function mockReturnValueOnce(value: ReturnType<T>): Mock<T>
 ```
 
-接受一个值，该值将在每次 mock 函数被调用时返回。TypeScript 仅接受与原始函数返回类型相匹配的值。
+接受一个值，该值将在下一次调用 Mock 函数时返回。TypeScript 仅接受与原始函数返回类型相匹配的值。如果链式调用此方法，后续每次调用模拟函数时将依次返回指定的值。
 
 当 mock 函数用尽所有实现后，如果之前调用过 `vi.fn(() => defaultValue)` 或 `.mockImplementation(() => defaultValue)`，它将调用设置的默认实现：
 
@@ -530,7 +530,7 @@ interface MockResultReturn<T> {
   type: 'return'
   /**
    * 函数返回的值。
-   * 如果函数返回的是一个 Promise，那么这将是一个已解析的值。
+   * 如果函数返回的是一个 Promise，那么此处的值就是该 Promise，而不是其 resolved 后的值。
    */
   value: T
 }
@@ -671,10 +671,14 @@ fn2.mock.invocationCallOrder === [2]
 ## mock.contexts
 
 ```ts
-const contexts: ThisParameterType<T>[]
+type MockProcedureContext<T> = T extends new (...args: any[]) => any
+  ? InstanceType<T>
+  : ThisParameterType<T>
+
+const contexts: MockProcedureContext<T>[]
 ```
 
-这个属性是一个数组，包含了在每次调用模拟函数时使用的 `this` 值。
+这个属性是一个数组，包含了在每次调用模拟函数时使用的 `this` 值。If the mock was called with the `new` keyword, the value is the same as in [`mock.instances`](#mock-instances).
 
 ```js
 const fn = vi.fn()
@@ -690,22 +694,25 @@ fn.mock.contexts[1] === context
 ## mock.instances
 
 ```ts
-const instances: ReturnType<T>[]
+const instances: MockProcedureContext<T>[]
 ```
 
-该数组按顺序保存了每次用 `new` 调用 mock 时生成的实例。请注意，这里存储的是函数运行时的实际 `this` 上下文，而非函数的返回值。
+<!-- TODO: translation -->
 
-::: warning
-若用 `new MyClass()` 实例化该 mock ，则 `mock.instances` 将是一个仅包含单个元素的数组：
+This property is an array with one value for each call to the mock function. If the mock was called with the `new` keyword, the value is the object that `new` returned, or `undefined` if the constructor threw an error. Otherwise, the value is the context (`this`) of the call, the same as in [`mock.contexts`](#mock-contexts).
 
 ```js
 const MyClass = vi.fn()
+const context = {}
+
 const a = new MyClass()
+MyClass.call(context)
 
 MyClass.mock.instances[0] === a
+MyClass.mock.instances[1] === context
 ```
 
-若构造函数显式返回值，该值不会存入 `instances`，而会出现在 `results` 中：
+若模拟实现从构造函数中返回一个对象，`mock.instances` 会存储该对象：
 
 ```js
 const Spy = vi.fn(function () {
@@ -713,8 +720,6 @@ const Spy = vi.fn(function () {
 })
 const a = new Spy()
 
-Spy.mock.instances[0] !== a
-Spy.mock.results[0] === a
+Spy.mock.instances[0] === a
+Spy.mock.results[0].value === a
 ```
-
-:::
